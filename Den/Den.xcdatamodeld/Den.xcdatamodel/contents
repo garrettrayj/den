@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="class">
+        <attribute name="favicon" optional="YES" attributeType="URI"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="itemLimit" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
+        <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="showLargePreviews" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="showThumbnails" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feed" inverseEntity="Item"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="feeds" inverseEntity="Page"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="URI"/>
+        <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="read" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="items" inverseEntity="Feed"/>
+    </entity>
+    <entity name="Page" representedClassName="Page" codeGenerationType="class">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String" defaultValueString="New Desk"/>
+        <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" ordered="YES" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
+        <relationship name="workspace" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workspace" inverseName="pages" inverseEntity="Workspace"/>
+        <userInfo/>
+    </entity>
+    <entity name="Workspace" representedClassName="Workspace" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="loading" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="pages" optional="YES" toMany="YES" minCount="1" maxCount="100" deletionRule="Cascade" ordered="YES" destinationEntity="Page" inverseName="workspace" inverseEntity="Page"/>
+    </entity>
+    <elements>
+        <element name="Feed" positionX="270" positionY="216" width="128" height="208"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="163"/>
+        <element name="Page" positionX="261" positionY="189" width="128" height="103"/>
+        <element name="Workspace" positionX="270" positionY="315" width="128" height="88"/>
+    </elements>
+</model>
