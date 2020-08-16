@@ -12,7 +12,7 @@ import AEXML
 
 struct ExportView: View {
     @ObservedObject var workspace: Workspace
-    @State private var selectedPages = Set<Page>()
+    @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
     @State private var picker: ExportDocumentPicker?
     
@@ -20,7 +20,7 @@ struct ExportView: View {
         VStack {
             Form {
                 Section(header: selectionSectionHeader) {
-                    List(workspace.pageArray) { page in
+                    List(workspace.pagesArray) { page in
                         // .editMode doesn't work inside forms, so creating selection buttons manually
                         Button(action: { self.togglePage(page) }) {
                             HStack {
@@ -34,28 +34,27 @@ struct ExportView: View {
                                 Spacer()
                                 Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
                             }
-                        }.onAppear(perform: { self.selectedPages.insert(page) })
+                        }.onAppear(perform: { self.selectedPages.append(page) })
                     }
                 }
                 Section() {
                     Button(action: {
                         self.export()
-                        self.isFilePickerShown.toggle()
-                         #if targetEnvironment(macCatalyst)
                         UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
-                        #endif
                     }) {
                         HStack {
-                            Text("Save OPML File")
+                            Image(systemName: "square.and.arrow.up.on.square")
+                            Text("Export")
                         }
                     }
-                }.sheet(isPresented: $isFilePickerShown, onDismiss: {self.isFilePickerShown = false}) { self.picker }
-            }.modifier(FormWrapperModifier())
-        }.navigationBarTitle("Export")
+                }
+            }
+        }
+        .navigationBarTitle("Export OPML", displayMode: .inline)
     }
     
     private var allSelected: Bool {
-        selectedPages.count == workspace.pageArray.count
+        selectedPages.count == workspace.pagesArray.count
     }
     
     private var noneSelected: Bool {
@@ -64,7 +63,7 @@ struct ExportView: View {
     
     private var selectionSectionHeader: some View {
         HStack {
-            Text("SELECT PAGES")
+            Text("SELECT")
             Spacer()
             Button(action: selectAll) {
                 Text("ALL")
@@ -78,16 +77,16 @@ struct ExportView: View {
     
     private func togglePage(_ page: Page) {
         if selectedPages.contains(page) {
-            selectedPages.remove(page)
+            selectedPages.removeAll { $0 == page }
         } else {
-            selectedPages.insert(page)
+            selectedPages.append(page)
         }
     }
     
     private func selectAll() {
-        workspace.pageArray.forEach { page in
+        workspace.pagesArray.forEach { page in
             if !selectedPages.contains(page) {
-                selectedPages.insert(page)
+                selectedPages.append(page)
             }
         }
     }
@@ -97,7 +96,15 @@ struct ExportView: View {
     }
     
     func export() {
-        let opmlWriter = OPMLWriter(pages: selectedPages)
+        let exportPages: [Page] = workspace.pagesArray.compactMap { page in
+            if selectedPages.contains(page) {
+                return page
+            }
+            
+            return nil
+        }
+        
+        let opmlWriter = OPMLWriter(pages: exportPages)
         let temporaryFileURL = opmlWriter.writeToFile()
         self.picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
     }

@@ -16,12 +16,13 @@ private let dateFormatter: DateFormatter = {
 }()
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(entity: Workspace.entity(), sortDescriptors: [])
     var workspaces: FetchedResults<Workspace>
     
     var body: some View {
         NavigationView {
-            WorkspaceView(workspace: workspaces.first!)
+            WorkspaceView(workspace: workspaces.first!, viewContext: viewContext)
             WelcomeView(workspace: workspaces.first!)
         }
     }

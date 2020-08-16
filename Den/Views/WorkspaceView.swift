@@ -6,7 +6,9 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
+import Foundation
 import SwiftUI
+import CoreData
 
 private let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
@@ -16,50 +18,64 @@ private let dateFormatter: DateFormatter = {
 }()
 
 /**
- Master navigation list with links to Pages. Activating editMode enables Page CRUD and ordering.
+ Master navigation list with links to Pages. Activating editMode enables CRUD for pages
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var workspace: Workspace
+    @ObservedObject var updateManager: UpdateManager
     @State var editMode: EditMode = .inactive
-
-    var workspaceIsEmpty: Bool {
-        workspace.pageArray.count == 0
+    
+    init(workspace: Workspace, viewContext: NSManagedObjectContext) {
+        self.workspace = workspace
+        self._updateManager = ObservedObject(initialValue: UpdateManager(refreshable: workspace, viewContext: viewContext))
     }
     
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                VStack(alignment: .center) {
+                
+                if workspace.isEmpty && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
+                    Spacer()
+                }
+                
+                
+                VStack(alignment: .center, spacing: 4) {
                     Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
                     Text("Den").font(.title).fontWeight(.semibold)
-                }.padding(.top, -82).padding(.horizontal, 8).padding(.bottom).frame(maxWidth: .infinity)
+                }.padding(.top, -82).padding(.horizontal).padding(.bottom, 8).frame(maxWidth: .infinity)
                 
-                if workspaceIsEmpty {
+                if workspace.isEmpty {
                     VStack(alignment: .center, spacing: 16) {
-                        Text("Let's get started").font(.headline).foregroundColor(.secondary)
+                        Text("Let's get started...").font(.headline).foregroundColor(.secondary)
                         Button(action: {}) {
-                            Text("Create an empty page").padding()
-                        }.overlay(
-                            RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 1)
-                        )
+                            Text("Create an empty page").fontWeight(.medium)
+                        }
                         Button(action: {}) {
-                            Text("Load example feeds").padding()
-                        }.overlay(
-                            RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 1)
-                        )
-                        Text("or").foregroundColor(.secondary).fontWeight(.medium)
-                        Text("Import feeds in settings below").foregroundColor(.secondary)
+                            Text("Load example feeds").fontWeight(.medium)
+                        }
+                        Text("or").font(.headline).foregroundColor(.secondary)
+                        Text("Import feeds from OPML\nin settings below")
+                            .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                    }.padding(.top).frame(maxWidth: .infinity)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .buttonStyle(BorderedButtonStyle())
+                    
                     Spacer()
                 } else {
-                    PageListView(editMode: self.$editMode, workspace: self.workspace)
+                    if updateManager.updating {
+                        HeaderProgressBarView(updateManager: updateManager).frame(height: 2)
+                    }
+                    PageListView(editMode: $editMode, workspace: workspace, updateManager: updateManager)
                 }
             }
             HStack {
-                NavigationLink(destination: SettingsView(workspace: workspace)) {
+                NavigationLink(destination: SettingsView(
+                    workspace: workspace,
+                    cacheManager: CacheManager(workspace: workspace, viewContext: viewContext),
+                    updateManager: updateManager
+                )) {
                     Image(systemName: "gear")
                 }
                 Spacer()
@@ -68,54 +84,32 @@ struct WorkspaceView: View {
         .navigationBarTitle("")
         .navigationBarItems(
             leading: HStack {
-                if !workspaceIsEmpty {
+                if !workspace.isEmpty {
                     if self.editMode == .active {
                         Button(action: doneEditing) {
-                            Text("Done")
+                            Text("Done").background(Color.clear)
                         }
                     } else {
                         Button(action: { self.editMode = .active }) {
-                            Text("Edit")
+                            Text("Edit").background(Color.clear)
                         }
                     }
                 }
             },
             trailing: HStack {
-                if !workspaceIsEmpty {
+                if !workspace.isEmpty {
                     if self.editMode == .active {
                         Button(action: { withAnimation { let _ = Page.create(in: self.viewContext, workspace: self.workspace) }}) {
-                            Image(systemName: "plus")
+                            Image(systemName: "plus").background(Color.clear)
                         }
                     } else {
-                        Button(action: refreshFeeds) {
-                            Image(systemName: "arrow.clockwise")
+                        Button(action: updateManager.update) {
+                            Image(systemName: "arrow.clockwise").background(Color.clear)
                         }
                     }
                 }
             }
         )
-    }
-    
-    func refreshFeeds() {
-        var feedsForUpdate: Array<Feed> = []
-        workspace.pageArray.forEach { page in
-            feedsForUpdate.append(contentsOf: page.feedArray)
-        }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            //let feedUpdater = FeedUpdater(feeds: feedsForUpdate)
-            //feedUpdater.start()
-            
-            do {
-                try self.viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-            
-            DispatchQueue.main.async {
-            }
-        }        
     }
     
     func doneEditing() {
@@ -132,11 +126,5 @@ struct WorkspaceView: View {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-}
-
-struct WorkspaceView_Previews: PreviewProvider {
-    static var previews: some View {
-        WorkspaceView(workspace: Workspace())
     }
 }

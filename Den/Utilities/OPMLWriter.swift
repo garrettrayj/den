@@ -10,9 +10,9 @@ import SwiftUI
 import AEXML
 
 class OPMLWriter {
-    var pages: Set<Page>
+    var pages: [Page]
     
-    init(pages: Set<Page>) {
+    init(pages: [Page]) {
         self.pages = pages
     }
     
@@ -26,7 +26,7 @@ class OPMLWriter {
         let body = root.addChild(name: "body")
         pages.forEach { page in
             let outline = body.addChild(name: "outline", attributes: ["text": page.wrappedName, "title": page.wrappedName])
-            page.feedArray.forEach { feed in
+            page.feedsArray.forEach { feed in
                 let attributes = [
                     "text": feed.wrappedTitle,
                     "title": feed.wrappedTitle,

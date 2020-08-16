@@ -14,84 +14,93 @@ import SwiftUI
  */
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var workspace: Workspace
+    @ObservedObject var cacheManager: CacheManager
+    @ObservedObject var updateManager: UpdateManager
+    @ObservedObject var importViewModel: ImportView.ViewModel = ImportView.ViewModel()
     
     @State private var showingClearWorkspaceAlert = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            Form {
-                Section(header: Text("APPEARANCE").padding(.top)) {
-                    HStack {
-                        Image(systemName: "circle.righthalf.fill")
-                        Text("Light/Dark Mode")
-                        Spacer()
-                        Picker(selection: DenUserDefaults.shared.uiStyle, label: Text("Interface Style")) {
-                            Text("Default").tag(UIUserInterfaceStyle.unspecified)
-                            Text("Light").tag(UIUserInterfaceStyle.light)
-                            Text("Dark").tag(UIUserInterfaceStyle.dark)
-                        }.pickerStyle(SegmentedPickerStyle()).frame(width: 240)
+        Form {
+            Section(header: Text("APPEARANCE")) {
+                HStack {
+                    Image(systemName: "circle.righthalf.fill")
+                    Text("Theme")
+                    Spacer()
+                    Picker(selection: DenUserDefaults.shared.uiStyle, label: Text("Interface Style")) {
+                        Text("Default").tag(UIUserInterfaceStyle.unspecified)
+                        Text("Light").tag(UIUserInterfaceStyle.light)
+                        Text("Dark").tag(UIUserInterfaceStyle.dark)
+                    }.pickerStyle(SegmentedPickerStyle()).frame(width: 240)
+                }
+            }
+            
+            Section(header: Text("SYNC")) {
+                HStack {
+                    Toggle(isOn: .constant(true)) {
+                        Image(systemName: "icloud")
+                        Text("Use iCloud Sync")
                     }
                 }
-                
-                Section(header: Text("SYNC")) {
-                    HStack {
-                        Toggle(isOn: .constant(true)) {
-                            Image(systemName: "icloud")
-                            Text("Use iCloud Sync")
-                        }
-                    }
+            }
+            
+            Section(header: Text("IMPORT AND EXPORT")) {
+                NavigationLink(destination: ImportView(
+                    workspace: workspace,
+                    viewModel: importViewModel,
+                    updateManager: updateManager
+                )) {
+                    Image(systemName: "arrow.down.doc")
+                    Text("Import OPML")
                 }
-                
-                Section(header: Text("IMPORT AND EXPORT")) {
-                    NavigationLink(destination: ImportView(workspace: workspace)) {
-                        Image(systemName: "arrow.down.doc")
-                        Text("Import OPML")
-                    }
-                    NavigationLink(destination: ExportView(workspace: workspace)) {
-                        Image(systemName: "arrow.up.doc")
-                        Text("Export OPML")
-                    }
+                NavigationLink(destination: ExportView(workspace: workspace)) {
+                    Image(systemName: "arrow.up.doc")
+                    Text("Export OPML")
                 }
+            }
 
-                Section(header: Text("RESET")) {
-                    Button(action: {}) {
-                        HStack {
-                            Image(systemName: "bin.xmark")
-                            Text("Empty Cache")
-                        }
+            Section(header: Text("CLEAR DATA")) {
+                Button(action: clearCache) {
+                    HStack {
+                        Image(systemName: "bin.xmark")
+                        Text("Empty Cache")
                     }
-                    
-                    Button(action: restoreDefaultSettings) {
-                        HStack {
-                            Image(systemName: "arrow.counterclockwise")
-                            Text("Restore Defaults")
-                        }
-                    }
-                    
-                    Button(action: showClearWorkspaceAlert) {
-                        HStack {
-                            Image(systemName: "clear")
-                            Text("Reset All")
-                        }.foregroundColor(Color.red)
-                    }.alert(isPresented: $showingClearWorkspaceAlert) {
-                        Alert(
-                            title: Text("Are you sure?"),
-                            message: Text("All pages and feeds will be removed. All devices will be affected if iCloud Sync is enabled."),
-                            primaryButton: .destructive(Text("Reset All")) {
-                                self.clearWorkspace()
-                            },
-                            secondaryButton: .cancel()
-                        )
+                }.disabled(cacheManager.clearing)
+                
+                Button(action: restoreDefaultSettings) {
+                    HStack {
+                        Image(systemName: "arrow.counterclockwise")
+                        Text("Restore Defaults")
                     }
                 }
                 
-            }.modifier(FormWrapperModifier())
+                Button(action: showResetAlert) {
+                    HStack {
+                        Image(systemName: "clear")
+                        Text("Reset")
+                    }.foregroundColor(Color.red)
+                }.alert(isPresented: $showingClearWorkspaceAlert) {
+                    Alert(
+                        title: Text("Are you sure you want to reset?"),
+                        message: Text("All pages and feeds will be deleted. If iCloud Sync is enabled then other synced devices will also be reset."),
+                        primaryButton: .destructive(Text("Reset")) {
+                            self.reset()
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+            }
         }
+        .modifier(FormWrapperModifier())
         .navigationBarTitle("Settings")
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
+    func clearCache() {
+        cacheManager.clear()
+    }
     
     func restoreDefaultSettings() {
         // Clear our UserDefaults domain
@@ -106,23 +115,19 @@ struct SettingsView: View {
         DenUserDefaults.shared.applyUIStyle()
     }
     
-    func showClearWorkspaceAlert() {
+    func showResetAlert() {
         self.showingClearWorkspaceAlert = true
     }
     
-    func clearWorkspace() {
+    func reset() {
+        cacheManager.clear()
+        
         do {
             let _ = Workspace.create(in: viewContext)
             viewContext.delete(workspace)
             try viewContext.save()
         } catch let error as NSError {
-            print("delete fail--",error)
+            print("Failure to clear workspace: ", error)
         }
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(workspace: Workspace())
     }
 }

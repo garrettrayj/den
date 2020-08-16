@@ -12,7 +12,7 @@ import AEXML
 
 struct OPMLFolder: Hashable {
     var name: String
-    var feeds: Array<OPMLFeed> = []
+    var feeds: [OPMLFeed] = []
 }
 
 struct OPMLFeed: Hashable {
@@ -23,7 +23,7 @@ struct OPMLFeed: Hashable {
 class OPMLReader {
     var xmlURL: URL
     var data: Data?
-    var outlineFolders: Array<OPMLFolder> = []
+    var outlineFolders: [OPMLFolder] = []
     
     init(xmlURL: URL) {
         self.xmlURL = xmlURL

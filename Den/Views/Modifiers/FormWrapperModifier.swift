@@ -10,8 +10,6 @@ import SwiftUI
 
 struct FormWrapperModifier: ViewModifier {
     func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: 980)
+        content.frame(maxWidth: 980)
     }
 }
-

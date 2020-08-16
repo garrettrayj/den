@@ -12,20 +12,15 @@ struct WelcomeView: View {
     @ObservedObject var workspace: Workspace
     
     var body: some View {
-        Group {
-            if workspace.pageArray.first != nil {
-                PageView(page: workspace.pageArray.first!)
-            } else {
-                VStack {
-                    Text("Welcome").font(.largeTitle)
-                }
+        VStack(spacing: 16) {
+            Image("TitleIcon").resizable().scaledToFit().frame(width: 128, height: 128)
+            
+            
+            Text("Welcome").font(.largeTitle)
+            
+            if workspace.pagesArray.count > 0 {
+
             }
         }
-    }
-}
-
-struct WelcomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        WelcomeView(workspace: Workspace())
     }
 }

@@ -112,7 +112,7 @@ struct FeedOptionsView: View {
         guard
             let currentPage = feed.page,
             let workspace = currentPage.workspace,
-            let currentPageIndex = workspace.pageArray.firstIndex(of: currentPage)
+            let currentPageIndex = workspace.pagesArray.firstIndex(of: currentPage)
         else {
             // Feed was deleted; set dummy data
             self.workspacePageArray = []
@@ -120,7 +120,7 @@ struct FeedOptionsView: View {
             return
         }
         
-        self.workspacePageArray = workspace.pageArray
+        self.workspacePageArray = workspace.pagesArray
         _pickedPage = State(initialValue: currentPageIndex)
     }
     

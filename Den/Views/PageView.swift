@@ -27,20 +27,11 @@ struct PageView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var page: Page
+    @ObservedObject var updateManager: UpdateManager
     @State var showingSheet: Bool = false
     @State var activeSheet: PageSheet = .organizer
     @State var editingFeed: Feed?
     @State var showingMenu: Bool = false
-    
-    private func calcGridTracks(_ availableWidth: CGFloat) -> Tracks {
-        let widgetSize = CGFloat(480)
-        for i in 1...10 {
-            if availableWidth < widgetSize * CGFloat(i) {
-                return Tracks.count(i)
-            }
-        }
-        return Tracks.fixed(widgetSize)
-    }
     
     var body: some View {
         Group {
@@ -50,18 +41,26 @@ struct PageView: View {
                 }.navigationBarTitle("").navigationBarItems(trailing: EmptyView())
             } else {
                 VStack(spacing: 0) {
-                    Divider()
                     GeometryReader { geometry in
-                        if self.page.feedArray.count > 0 {
-                            ScrollView(.vertical) {
-                                Grid(self.page.feedArray) { feed in
-                                    FeedView(feed: feed, parent: self)
+                        if self.page.feedsArray.count > 0 {
+                            VStack(spacing: 0) {
+                                if self.updateManager.updating {
+                                    HeaderProgressBarView(updateManager: self.updateManager).frame(height: 2)
                                 }
-                                .gridStyle(StaggeredGridStyle(.vertical, tracks: self.calcGridTracks(geometry.size.width), spacing: 16))
-                                .padding()
-                                .padding(.bottom, 128)
+                                Divider()
+                                
+                                RefreshableScrollView(updateManager: self.updateManager) {
+                                    Grid(self.page.feedsArray) { feed in
+                                        FeedView(feed: feed, parent: self)
+                                    }
+                                    .gridStyle(StaggeredGridStyle(.vertical, tracks: self.calcGridTracks(geometry.size.width), spacing: 16))
+                                    .padding()
+                                    .padding(.bottom, 64)
+                                }.background(Color(UIColor.secondarySystemBackground))
                             }
+                            
                         } else {
+                            Divider()
                             VStack(alignment: .center) {
                                 Text("Empty Page").font(.title).foregroundColor(.secondary)
                             }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color(UIColor.secondarySystemBackground))
@@ -81,7 +80,7 @@ struct PageView: View {
                 .padding(.top, 1) // ScrollView will flow over the navigation bar background without padding. Maybe a SwiftUI bug?
                 .navigationBarTitle(Text(page.name ?? "Unknown Page"), displayMode: .inline)
                 .navigationBarItems(
-                    trailing: HStack(spacing: 16) {
+                    trailing: HStack(alignment: .center, spacing: 16) {
                         if UIDevice.current.userInterfaceIdiom == .phone {
                             // Action menu for phone users
                             Button(action: showMenu) {
@@ -91,7 +90,7 @@ struct PageView: View {
                                     title: Text("Page Actions"),
                                     message: nil,
                                     buttons: [
-                                        .default(Text("Refresh")) { self.refresh() },
+                                        .default(Text("Refresh")) { self.updateManager.update() },
                                         .default(Text("Organize")) { self.showOrganizer() },
                                         .default(Text("Add Feed")) { self.showSubscribe() },
                                         .cancel()
@@ -100,16 +99,16 @@ struct PageView: View {
                             }
                         } else {
                             // Just show three buttons on larger screens
-                            Button(action: refresh) {
-                                Image(systemName: "arrow.clockwise")
+                            Button(action: updateManager.update) {
+                                Image(systemName: "arrow.clockwise").modifier(TitleBarButtonAreaModifier())
                             }
                             
                             Button(action: showOrganizer) {
-                                Image(systemName: "arrow.up.arrow.down")
+                                Image(systemName: "arrow.up.arrow.down").modifier(TitleBarButtonAreaModifier())
                             }
                             
                             Button(action: showSubscribe) {
-                                Image(systemName: "plus")
+                                Image(systemName: "plus").modifier(TitleBarButtonAreaModifier())
                             }
                         }
                     }
@@ -122,10 +121,6 @@ struct PageView: View {
         self.showingMenu = true
     }
     
-    func refresh() {
-        self.page.refresh()
-    }
-    
     func showOrganizer() {
         self.activeSheet = .organizer
         self.showingSheet = true
@@ -135,10 +130,14 @@ struct PageView: View {
         self.activeSheet = .subscribe
         self.showingSheet = true
     }
-}
-
-struct PageView_Previews: PreviewProvider {
-    static var previews: some View {
-        PageView(page: Page())
+    
+    private func calcGridTracks(_ availableWidth: CGFloat) -> Tracks {
+        let widgetSize = CGFloat(480)
+        for i in 1...10 {
+            if availableWidth < widgetSize * CGFloat(i) {
+                return Tracks.count(i)
+            }
+        }
+        return Tracks.fixed(widgetSize)
     }
 }

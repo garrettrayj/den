@@ -15,45 +15,63 @@ struct PageListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Binding var editMode: EditMode
     @ObservedObject var workspace: Workspace
-    @EnvironmentObject var updateCoordinator: UpdateCoordinator
+    @ObservedObject var updateManager: UpdateManager
     
     var body: some View {
         GeometryReader { geometry in
-            RefreshableScrollView(refreshable: self.workspace, updateCoordinator: self.updateCoordinator) {
+            
+            if self.editMode == EditMode.active {
                 List {
-                    Section {
-                        ForEach(self.workspace.pageArray) { page in
-                            PageListRowView(page: page, workspace: self.workspace).environment(\.editMode, self.$editMode)
-                        }
-                        .onDelete(perform: self.delete)
-                        .onMove(perform: self.move)
+                    ForEach(self.workspace.pagesArray) { page in
+                        PageListRowView(page: page, workspace: self.workspace).environment(\.editMode, self.$editMode).allowsHitTesting(false)
                     }
+                    .onMove(perform: self.move)
+                    .onDelete(perform: self.delete)
+                    // Defined to workaround fatal error because of missing insert action while moving. Probably a SwiftUI bug.
+                    .onInsert(of: [String()], perform: self.insert(at:itemProvider:))
                 }
                 .frame(height: geometry.size.height)
                 .environment(\.editMode, self.$editMode)
-            }.background(Color(UIColor.secondarySystemBackground))
+            } else {
+                RefreshableScrollView(updateManager: self.updateManager) {
+                    List {
+                        ForEach(self.workspace.pagesArray) { page in
+                            PageListRowView(page: page, workspace: self.workspace).environment(\.editMode, self.$editMode).allowsHitTesting(false)
+                        }
+                    }
+                    .frame(height: geometry.size.height)
+                }.background(Color(UIColor.secondarySystemBackground))
+            }
+            
+            
         }
     }
     
-    func move(from source: IndexSet, to destination: Int) {
-        workspace.mutableOrderedSetValue(forKeyPath: "pages").moveObjects(at: source, to: destination)
+    func move(from sources: IndexSet, to destination: Int) {
+        let source = sources.first!
+        if destination > source {
+            workspace.mutableOrderedSetValue(forKey: "pages").moveObjects(at: sources, to: destination - 1)
+        } else if destination < source {
+            workspace.mutableOrderedSetValue(forKey: "pages").moveObjects(at: sources, to: destination)
+        }
         
         if viewContext.hasChanges {
             do {
-                try self.viewContext.save()
+                try viewContext.save()
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+        
+        
     }
     
     func delete(indices: IndexSet) {
-        workspace.pageArray.delete(at: indices, from: viewContext)
+        workspace.pagesArray.delete(at: indices, from: viewContext)
     }
-}
-struct PageListView_Previews: PreviewProvider {
-    static var previews: some View {
-        PageListView(editMode: .constant(.inactive), workspace: Workspace())
+    
+    func insert(at offset: Int, itemProvider: [NSItemProvider]) {
+        print("Page list insert action not available")
     }
 }
