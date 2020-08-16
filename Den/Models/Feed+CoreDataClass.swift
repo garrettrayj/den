@@ -44,6 +44,123 @@ public class Feed: Refreshable {
         }).count
     }
     
+    
+    /**
+     Atom feed handler responsible for populating application data model from FeedKit AtomFeed result.
+     */
+    public func ingest(content: AtomFeed, moc managedObjectContext: NSManagedObjectContext) {
+        if self.title == nil {
+            if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                self.title = feedTitle
+            }
+        }
+        
+        if self.link == nil {
+            if
+                let atomLink = content.links?.first(where: { atomLink in
+                    atomLink.attributes?.rel == "alternate" || atomLink.attributes?.rel == nil
+                }),
+                let homepageURL = atomLink.attributes?.href
+            {
+                self.link = URL(string: homepageURL)
+            }
+        }
+        
+        guard let atomEntries = content.entries else {
+            // TODO: HANDLE MISSING ATOM ENTRIES
+            return
+        }
+        
+        atomEntries.prefix(10).forEach { atomEntry in
+            // Continue if link is missing
+            guard let itemLink = atomEntry.linkURL else {
+                print("MISSING LINK")
+                return
+            }
+            
+            // Continue if item already exists
+            if (self.itemsArray.contains(where: { item in item.link == itemLink })) {
+                return
+            }
+            
+            let newItem = Item.create(atomEntry: atomEntry, moc: managedObjectContext)
+            self.addToItems(newItem)
+        }
+        
+        // Cleanup items not present in feed
+        self.itemsArray.forEach({ item in
+            if (
+                atomEntries.contains(where: { feedItem in
+                    guard let atomEntryAlternateLink = feedItem.linkURL else {
+                        return false
+                    }
+                    
+                    return item.link == atomEntryAlternateLink
+                }) == false
+            ) {
+                print("Cleaning up item \(item.title ?? "Untitled")...")
+                self.removeFromItems(item)
+            }
+        })
+    }
+    
+    /**
+     RSS feed handler responsible for populating application data model from FeedKit RSSFeed result.
+     */
+    public func ingest(content: RSSFeed, moc managedObjectContext: NSManagedObjectContext) {
+        if self.title == nil {
+            if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                self.title = feedTitle
+            }
+        }
+        
+        if self.link == nil {
+            if let homepage = content.link?.trimmingCharacters(in: .whitespacesAndNewlines), let homepageURL = URL(string: homepage) {
+                self.link = homepageURL
+            }
+        }
+        
+        guard let rssItems = content.items else {
+            // TODO: HANDLE MISSING ITEMS
+            return
+        }
+        
+        // Add new items
+        rssItems.prefix(10).forEach { (rssItem: RSSFeedItem) in
+            guard let itemLink = rssItem.linkURL else {
+                print("RSS ITEM MISSING LINK")
+                return
+            }
+            
+            // Continue if item already exists
+            if (self.itemsArray.contains(where: { item in item.link == itemLink})) {
+                return
+            }
+            
+            let newItem = Item.create(rssItem: rssItem, moc: managedObjectContext)
+            self.addToItems(newItem)
+        }
+        
+        // Cleanup items not present in feed
+        self.itemsArray.forEach({ item in
+            if (
+                rssItems.contains(where: { (feedItem) -> Bool in
+                    guard let feedItemLink = feedItem.linkURL else { return false }
+                    return item.link == feedItemLink
+                }) == false
+            ) {
+                self.removeFromItems(item)
+            }
+        })
+    }
+    
+    /**
+     TODO: JSON Feed importer
+     */
+    func ingest(content: JSONFeed, moc managedObjectContext: NSManagedObjectContext) {
+        self.title = content.title
+    }
+    
     // MARK: Refreshable abstract properties and methods implementations
     
     override public var feedsArray: [Feed] {

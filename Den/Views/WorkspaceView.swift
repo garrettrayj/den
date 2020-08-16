@@ -22,23 +22,16 @@ private let dateFormatter: DateFormatter = {
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var workspace: Workspace
-    @ObservedObject var updateManager: UpdateManager
     @State var editMode: EditMode = .inactive
-    
-    init(workspace: Workspace, viewContext: NSManagedObjectContext) {
-        self.workspace = workspace
-        self._updateManager = ObservedObject(initialValue: UpdateManager(refreshable: workspace, viewContext: viewContext))
-    }
     
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                
                 if workspace.isEmpty && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
                     Spacer()
                 }
-                
                 
                 VStack(alignment: .center, spacing: 4) {
                     Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
@@ -64,18 +57,14 @@ struct WorkspaceView: View {
                     
                     Spacer()
                 } else {
-                    if updateManager.updating {
-                        HeaderProgressBarView(updateManager: updateManager).frame(height: 2)
+                    if refreshManager.isRefreshing(workspace) {
+                        HeaderProgressBarView(refreshable: workspace).frame(height: 2)
                     }
-                    PageListView(editMode: $editMode, workspace: workspace, updateManager: updateManager)
+                    PageListView(editMode: $editMode, workspace: workspace)
                 }
             }
             HStack {
-                NavigationLink(destination: SettingsView(
-                    workspace: workspace,
-                    cacheManager: CacheManager(workspace: workspace, viewContext: viewContext),
-                    updateManager: updateManager
-                )) {
+                NavigationLink(destination: SettingsView(workspace: workspace)) {
                     Image(systemName: "gear")
                 }
                 Spacer()
@@ -103,7 +92,7 @@ struct WorkspaceView: View {
                             Image(systemName: "plus").background(Color.clear)
                         }
                     } else {
-                        Button(action: updateManager.update) {
+                        Button(action: { self.refreshManager.refresh(self.workspace)}) {
                             Image(systemName: "arrow.clockwise").background(Color.clear)
                         }
                     }

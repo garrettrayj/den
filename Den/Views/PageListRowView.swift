@@ -22,7 +22,7 @@ struct PageListRowView: View {
             if self.editMode?.wrappedValue == .active {
                 TextField("Name", text: $page.wrappedName)
             } else {
-                NavigationLink(destination: PageView(page: page, updateManager: UpdateManager(refreshable: page, viewContext: viewContext))) {
+                NavigationLink(destination: PageView(page: page)) {
                     #if targetEnvironment(macCatalyst)
                     Image(systemName: "rectangle.grid.2x2")
                     #else

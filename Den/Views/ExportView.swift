@@ -63,7 +63,7 @@ struct ExportView: View {
     
     private var selectionSectionHeader: some View {
         HStack {
-            Text("SELECT")
+            Text("SELECT PAGES")
             Spacer()
             Button(action: selectAll) {
                 Text("ALL")

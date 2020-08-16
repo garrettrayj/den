@@ -15,14 +15,13 @@ struct SubscribeView: View {
     
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
-    
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var page: Page
     @State private var activeStage: SubscribeStage = .urlEntry
     @State private var urlText: String = ""
     @State private var urlIsValid: Bool?
     @State private var validationMessage: String?
     @State private var newFeed: Feed?
-    @State private var updateManager: UpdateManager?
     
     var body: some View {
         VStack {
@@ -77,7 +76,7 @@ struct SubscribeView: View {
     
     var configurationStage: some View {
         Group {
-            if self.updateManager!.updating {
+            if self.newFeed != nil && refreshManager.isRefreshing(self.newFeed!) {
                 VStack {
                     Text("Downloading...").font(.title)
                     ActivityRep()
@@ -137,10 +136,9 @@ struct SubscribeView: View {
     func createFeed() {
         self.newFeed = Feed.create(in: self.viewContext, page: self.page)
         self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
-        self.updateManager = UpdateManager(refreshable: newFeed!, viewContext: self.viewContext)
         
         self.activeStage = .configuration
-        self.updateManager!.update()
+        self.refreshManager.refresh(newFeed!)
     }
     
     func save() {        

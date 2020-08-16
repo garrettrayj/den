@@ -10,22 +10,18 @@ import CoreData
 import SwiftUI
 
 struct ImportView: View {
-    enum ImportStage {
-        case pickFile, folderSelection, error, importing
-    }
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var refreshManager: RefreshManager
+    
     @ObservedObject var workspace: Workspace
-    @ObservedObject var viewModel: ViewModel
-    @ObservedObject var updateManager: UpdateManager
+    @ObservedObject var viewModel: ImportViewModel = ImportViewModel()
     
     var importDocumentPicker: ImportDocumentPicker
     
-    init(workspace: Workspace, viewModel: ViewModel, updateManager: UpdateManager) {
+    init(workspace: Workspace) {
         self.workspace = workspace
-        self.viewModel = viewModel
-        self.updateManager = updateManager
-        self.importDocumentPicker = ImportDocumentPicker(importViewModel: _viewModel.wrappedValue)
+        self.importDocumentPicker = ImportDocumentPicker(viewModel: _viewModel.wrappedValue)
     }
     
     var body: some View {
@@ -35,7 +31,7 @@ struct ImportView: View {
             } else if self.viewModel.stage == .folderSelection {
                 folderSelectionStage
             } else if self.viewModel.stage == .importing {
-                if updateManager.updating {
+                if refreshManager.isRefreshing(workspace) {
                     inProgressStage
                 } else {
                     completeStage
@@ -96,7 +92,7 @@ struct ImportView: View {
         VStack (spacing: 16) {
             ActivityRep()
             Text("Fetching feeds...").font(.title)
-            StandaloneProgressBarView(updateManager: updateManager).frame(maxWidth: 256, maxHeight: 8)
+            StandaloneProgressBarView(refreshable: workspace).frame(maxWidth: 256, maxHeight: 8)
         }
     }
     
@@ -161,55 +157,7 @@ struct ImportView: View {
         }
         
         
-        self.updateManager.update()
+        self.refreshManager.refresh(workspace)
         self.viewModel.stage = .importing
-    }
-}
-
-extension ImportView {
-    class ViewModel: ObservableObject {
-        @Published var stage: ImportStage = .pickFile
-        @Published var importProgress: Double = 0
-        @Published var opmlFolders: [OPMLFolder] = []
-        @Published var selectedFolders: [OPMLFolder] = []
-        @Published var pickedURL: URL?
-        
-        var allSelected: Bool {
-            selectedFolders.count == opmlFolders.count
-        }
-        
-        var noneSelected: Bool {
-            selectedFolders.count == 0
-        }
-        
-        func reset() {
-            self.stage = .pickFile
-            self.importProgress = 0
-            self.opmlFolders = []
-            self.selectedFolders = []
-            self.pickedURL = nil
-        }
-        
-        func toggleFolder(_ folder: OPMLFolder) {
-            if selectedFolders.contains(folder) {
-                selectedFolders.removeAll { $0 == folder }
-            } else {
-                selectedFolders.append(folder)
-            }
-        }
-        
-        func selectAll() {
-            opmlFolders.forEach { folder in
-                if !selectedFolders.contains(folder) {
-                    selectedFolders.append(folder)
-                }
-            }
-        }
-        
-        func selectNone() {
-            selectedFolders.removeAll()
-        }
-        
-        
     }
 }
