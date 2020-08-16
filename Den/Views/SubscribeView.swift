@@ -10,21 +10,31 @@ import SwiftUI
 
 struct SubscribeView: View {
     enum SubscribeStage {
-        case urlEntry, status, configuration
+        case urlEntry,configuration
     }
     
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var page: Page
-    
     @State private var activeStage: SubscribeStage = .urlEntry
     @State private var urlText: String = ""
     @State private var urlIsValid: Bool?
     @State private var validationMessage: String?
-    @State private var newFeed: Feed = Feed()
+    @State private var newFeed: Feed?
+    @State private var updateManager: UpdateManager?
     
-    var feedForm: some View {
+    var body: some View {
+        VStack {
+            if activeStage == .urlEntry {
+                urlEntryStage
+            } else if activeStage == .configuration {
+                configurationStage
+            }
+        }
+    }
+    
+    var urlEntryStage: some View {
         NavigationView {
             Form {
                 Section(footer: Text("RSS or Atom accepted")) {
@@ -65,31 +75,21 @@ struct SubscribeView: View {
         }.navigationViewStyle(StackNavigationViewStyle())
     }
     
-    var statusStage: some View {
-        VStack(spacing: 24) {
-            Image(systemName: "tray.and.arrow.down").resizable().scaledToFit().frame(width: 128).font(Font.title.weight(.ultraLight))
-            Text("Downloading feed...")
-        }
-    }
-    
-    var configForm: some View {
-        NavigationView {
-            FeedOptionsView(feed: newFeed, onDelete: cancel, onMove: {})
-                .navigationBarItems(
-                    leading: Button(action: cancel) { Text("Cancel") },
-                    trailing: Button(action: save) { Text("Save") }
-                )
-        }.navigationViewStyle(StackNavigationViewStyle())
-    }
-    
-    var body: some View {
-        VStack {
-            if activeStage == .urlEntry {
-                feedForm
-            } else if activeStage == .status {
-                statusStage
-            } else if activeStage == .configuration {
-                configForm
+    var configurationStage: some View {
+        Group {
+            if self.updateManager!.updating {
+                VStack {
+                    Text("Downloading...").font(.title)
+                    ActivityRep()
+                }
+            } else {
+                NavigationView {
+                    FeedOptionsView(feed: self.newFeed!, onDelete: cancel, onMove: {})
+                        .navigationBarItems(
+                            leading: Button(action: cancel) { Text("Cancel") },
+                            trailing: Button(action: save) { Text("Save") }
+                        )
+                }.navigationViewStyle(StackNavigationViewStyle())
             }
         }
     }
@@ -134,19 +134,13 @@ struct SubscribeView: View {
         }
     }
     
-    func createFeed() {        
-        self.activeStage = .status
+    func createFeed() {
+        self.newFeed = Feed.create(in: self.viewContext, page: self.page)
+        self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
+        self.updateManager = UpdateManager(refreshable: newFeed!, viewContext: self.viewContext)
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.newFeed = Feed.create(in: self.viewContext, page: self.page)
-            self.newFeed.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
-            //let feedUpdater = FeedUpdater(feeds: [self.newFeed])
-            //feedUpdater.start()
-            
-            DispatchQueue.main.async {
-                self.activeStage = .configuration
-            }
-        }
+        self.activeStage = .configuration
+        self.updateManager!.update()
     }
     
     func save() {        
@@ -160,10 +154,4 @@ struct SubscribeView: View {
     }
     
     
-}
-
-struct SubscribeView_Previews: PreviewProvider {
-    static var previews: some View {
-        SubscribeView(page: Page())
-    }
 }

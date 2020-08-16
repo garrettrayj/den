@@ -10,24 +10,24 @@ import Foundation
 import SwiftSoup
 import SwiftUI
 
-enum WebpageMetaError: Error {
-    case
-        invalidUrl,
-        dataTaskFailed,
-        serverError,
-        contentReadFailed,
-        parsingFailed,
-        invalidFaviconType,
-        missingMetaElement,
-        invalidPreviewImageType
-}
-
-struct WebpageMetaWrangler {
-    var webpageURL: URL
+struct WebpageWrangler {
+    enum WebpageWranglerError: Error {
+        case
+            invalidUrl,
+            dataTaskFailed,
+            serverError,
+            contentReadFailed,
+            parsingFailed,
+            invalidFaviconType,
+            missingMetaElement,
+            invalidPreviewImageType
+    }
+    
+    var webpage: URL
     
     let acceptableFaviconTypes = ["image/x-icon", "image/vnd.microsoft.icon", "image/png"]
     let acceptablePreviewImageTypes = ["image/jpeg", "image/png", "image/gif"]
-
+    
     /**
      Fetches the webpage's favicon, checking document source for icon links first, then falling back to default favicon location.
      Results are validated with an HTTP request that verifies the icon file exists and is of an acceptable type.
@@ -66,8 +66,8 @@ struct WebpageMetaWrangler {
             if var ogImage = try? document!.select("meta[property=og:image]").attr("content") {
                 ogImage = ogImage.trimmingCharacters(in: .whitespacesAndNewlines)
                 
-                guard let ogImageURL = URL(string: ogImage, relativeTo: self.webpageURL) else {
-                    return callback(nil, WebpageMetaError.invalidUrl)
+                guard let ogImageURL = URL(string: ogImage, relativeTo: self.webpage) else {
+                    return callback(nil, WebpageWranglerError.invalidUrl)
                 }
                 
                 self.testURL(url: ogImageURL) { (mimeType, error) in
@@ -76,13 +76,13 @@ struct WebpageMetaWrangler {
                     }
                     
                     if !self.acceptablePreviewImageTypes.contains(mimeType ?? "") {
-                        return callback(nil, WebpageMetaError.invalidPreviewImageType)
+                        return callback(nil, WebpageWranglerError.invalidPreviewImageType)
                     }
                     
                     return callback(ogImageURL, nil)
                 }
             } else {
-                return callback(nil, WebpageMetaError.missingMetaElement)
+                return callback(nil, WebpageWranglerError.missingMetaElement)
             }
         }
     }
@@ -96,8 +96,8 @@ struct WebpageMetaWrangler {
         if var iconHref = try? document.select(faviconLinkSelector).attr("href") {
             iconHref = iconHref.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            guard let faviconURL = URL(string: iconHref, relativeTo: self.webpageURL) else {
-                return callback(nil, WebpageMetaError.invalidUrl)
+            guard let faviconURL = URL(string: iconHref, relativeTo: self.webpage) else {
+                return callback(nil, WebpageWranglerError.invalidUrl)
             }
             
             self.testURL(url: faviconURL) { (mimeType, error) in
@@ -106,13 +106,13 @@ struct WebpageMetaWrangler {
                 }
                 
                 if !self.acceptableFaviconTypes.contains(mimeType ?? "") {
-                    return callback(nil, WebpageMetaError.invalidFaviconType)
+                    return callback(nil, WebpageWranglerError.invalidFaviconType)
                 }
                 
                 return callback(faviconURL.absoluteURL, nil)
             }
         } else {
-            return callback(nil, WebpageMetaError.missingMetaElement)
+            return callback(nil, WebpageWranglerError.missingMetaElement)
         }
     }
     
@@ -121,11 +121,11 @@ struct WebpageMetaWrangler {
      */
     private func getDefaultFavicon(callback: @escaping (URL?, Error?) -> Void) {
         // Try default favicon location relative to homepage
-        var components = URLComponents(url: self.webpageURL, resolvingAgainstBaseURL: false)!
+        var components = URLComponents(url: self.webpage, resolvingAgainstBaseURL: false)!
         components.path = "/favicon.ico"
         
         guard let url = components.url else {
-            return callback(nil, WebpageMetaError.invalidUrl)
+            return callback(nil, WebpageWranglerError.invalidUrl)
         }
         
         return callback(url, nil)
@@ -135,16 +135,16 @@ struct WebpageMetaWrangler {
      Create an HTTP task that fetches a URL and fires callback with SwiftSoup document.
     */
     private func fetchDocument(callback: @escaping (Document?, Error?) -> Void) {
-        let task = URLSession.shared.dataTask(with: self.webpageURL) { data, response, error in
+        let task = URLSession.shared.dataTask(with: self.webpage) { data, response, error in
             if error != nil {
-                return callback(nil, WebpageMetaError.dataTaskFailed)
+                return callback(nil, WebpageWranglerError.dataTaskFailed)
             }
             
             guard
                 let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode)
             else {
-                return callback(nil, WebpageMetaError.serverError)
+                return callback(nil, WebpageWranglerError.serverError)
             }
             
             guard
@@ -153,11 +153,11 @@ struct WebpageMetaWrangler {
                 let data = data,
                 let string = String(data: data, encoding: .utf8)
             else {
-                return callback(nil, WebpageMetaError.contentReadFailed)
+                return callback(nil, WebpageWranglerError.contentReadFailed)
             }
             
             guard let document: Document = try? SwiftSoup.parse(string) else {
-                return callback(nil, WebpageMetaError.parsingFailed)
+                return callback(nil, WebpageWranglerError.parsingFailed)
             }
             
             callback(document, nil)
@@ -174,18 +174,18 @@ struct WebpageMetaWrangler {
         
         let checkTask = URLSession.shared.dataTask(with: request) { data, response, error in
             if error != nil {
-                return callback(nil, WebpageMetaError.dataTaskFailed)
+                return callback(nil, WebpageWranglerError.dataTaskFailed)
             }
             
             guard
                 let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode)
             else {
-                return callback(nil, WebpageMetaError.serverError)
+                return callback(nil, WebpageWranglerError.serverError)
             }
             
             guard let mimeType = httpResponse.mimeType else {
-                return callback(nil, WebpageMetaError.contentReadFailed)
+                return callback(nil, WebpageWranglerError.contentReadFailed)
             }
             
             callback(mimeType, nil)

@@ -16,36 +16,17 @@ struct PageOrganizerView: View {
     @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var page: Page
 
-    func close() {
-        if viewContext.hasChanges {
-            do {
-                try  viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-        presentationMode.wrappedValue.dismiss()
-    }
-    
-    func move(from source: IndexSet, to destination: Int) {
-        page.mutableOrderedSetValue(forKeyPath: "feeds").moveObjects(at: source, to: destination)
-    }
-    
-    func delete(indices: IndexSet) {
-        page.feedArray.delete(at: indices, from: viewContext)
-    }
-        
     var body: some View {
         VStack(spacing: 0) {
             NavigationView {
                 Form {
                     List {
-                        ForEach(page.feedArray) { feed in
+                        ForEach(page.feedsArray) { feed in
                             Text(feed.wrappedTitle)
                         }
                         .onMove(perform: move)
                         .onDelete(perform: delete)
+                        .onInsert(of: [String()], perform: self.insert(at:itemProvider:))
                     }
                 }
                 .navigationBarTitle("Organize Feeds", displayMode: .inline)
@@ -55,10 +36,36 @@ struct PageOrganizerView: View {
             }.navigationViewStyle(StackNavigationViewStyle())
         }
     }
-}
-
-struct PageOrganizerView_Previews: PreviewProvider {
-    static var previews: some View {
-        PageOrganizerView(page: Page())
+    
+    func close() {
+        presentationMode.wrappedValue.dismiss()
+    }
+    
+    func delete(indices: IndexSet) {
+        page.feedsArray.delete(at: indices, from: viewContext)
+    }
+    
+    func move(from sources: IndexSet, to destination: Int) {
+        let source = sources.first!
+        if destination > source {
+            page.mutableOrderedSetValue(forKey: "feeds").moveObjects(at: sources, to: destination - 1)
+        } else if destination < source {
+            page.mutableOrderedSetValue(forKey: "feeds").moveObjects(at: sources, to: destination)
+        }
+        
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+        
+        
+    }
+    
+    func insert(at offset: Int, itemProvider: [NSItemProvider]) {
+        print("Page list insert action not available")
     }
 }

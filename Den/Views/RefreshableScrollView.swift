@@ -18,15 +18,12 @@ struct RefreshableScrollView<Content: View>: View {
     @State private var scrollOffset: CGFloat = 0
     @State private var frozen: Bool = false
     @State private var rotation: Angle = .degrees(0)
-    @ObservedObject private var updateCoordinator: UpdateCoordinator
-    
+    @ObservedObject var updateManager: UpdateManager
     var threshold: CGFloat = 80
-    var refreshable: Refreshable
     let content: Content
 
-    init(refreshable: Refreshable, updateCoordinator: UpdateCoordinator, @ViewBuilder content: () -> Content) {
-        self.refreshable = refreshable
-        self.updateCoordinator = updateCoordinator
+    init(updateManager: UpdateManager, @ViewBuilder content: () -> Content) {
+        self.updateManager = updateManager
         self.content = content()
     }
     
@@ -35,8 +32,8 @@ struct RefreshableScrollView<Content: View>: View {
             ScrollView {
                 ZStack(alignment: .top) {
                     MovingView()
-                    VStack { self.content }.alignmentGuide(.top, computeValue: { d in (self.updateCoordinator.refreshing && self.frozen) ? -self.threshold : 0.0 })
-                    SymbolView(height: self.threshold, loading: self.updateCoordinator.refreshing, frozen: self.frozen, rotation: self.rotation)
+                    VStack { self.content }.alignmentGuide(.top, computeValue: { d in (self.updateManager.updating) ? -self.threshold : 0.0 })
+                    UpdateStatusView(updateManager: self.updateManager, height: self.threshold, symbolRotation: rotation)
                 }
             }
             .background(FixedView())
@@ -57,15 +54,14 @@ struct RefreshableScrollView<Content: View>: View {
             self.rotation = self.symbolRotation(self.scrollOffset)
             
             // Crossing the threshold on the way down, we start the refresh process
-            if !self.updateCoordinator.refreshing && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
-                self.updateCoordinator.refresh(refreshable: self.refreshable)
+            if !self.updateManager.updating && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
+                self.updateManager.update()
             }
             
-            if self.updateCoordinator.refreshing {
+            if self.updateManager.updating {
                 // Crossing the threshold on the way up, we add a space at the top of the scrollview
                 if self.previousScrollOffset > self.threshold && self.scrollOffset <= self.threshold {
                     self.frozen = true
-
                 }
             } else {
                 // remove the sapce at the top of the scroll view
@@ -78,9 +74,7 @@ struct RefreshableScrollView<Content: View>: View {
     }
     
     func symbolRotation(_ scrollOffset: CGFloat) -> Angle {
-        
-        // We will begin rotation, only after we have passed
-        // 60% of the way of reaching the threshold.
+        // We will begin rotation, only after we have passed 60% of the way of reaching the threshold.
         if scrollOffset < self.threshold * 0.60 {
             return .degrees(0)
         } else {
@@ -89,34 +83,6 @@ struct RefreshableScrollView<Content: View>: View {
             let d = Double(scrollOffset)
             let v = max(min(d - (h * 0.6), h * 0.4), 0)
             return .degrees(180 * v / (h * 0.4))
-        }
-    }
-    
-    struct SymbolView: View {
-        var height: CGFloat
-        var loading: Bool
-        var frozen: Bool
-        var rotation: Angle
-        
-        var body: some View {
-            Group {
-                if self.loading { // If loading, show the activity control
-                    VStack {
-                        Spacer()
-                        ActivityRep()
-                        Spacer()
-                    }.frame(height: height).fixedSize()
-                        .offset(y: -height + (self.loading && self.frozen ? height : 0.0))
-                } else {
-                    Image(systemName: "arrow.down") // If not loading, show the arrow
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: height * 0.25, height: height * 0.25).fixedSize()
-                        .padding(height * 0.375)
-                        .rotationEffect(rotation)
-                        .offset(y: -height + (loading && frozen ? +height : 0.0))
-                }
-            }
         }
     }
     

@@ -15,7 +15,7 @@ import MobileCoreServices
  Note: Using a UIReprepresentable picker (like ExportDocumentPicker) doesn't work with .import mode on Mac Catalyst.
  Adapted from https://stackoverflow.com/a/62225520/400468
  */
-final class ImportDocumentPicker: NSObject, ObservableObject {
+final class ImportDocumentPicker: NSObject {
     @ObservedObject var importViewModel: ImportView.ViewModel
     
     init(importViewModel: ImportView.ViewModel) {

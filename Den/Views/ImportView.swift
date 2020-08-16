@@ -11,44 +11,47 @@ import SwiftUI
 
 struct ImportView: View {
     enum ImportStage {
-        case pickFile, folderSelection, inProgress, error, complete
+        case pickFile, folderSelection, error, importing
     }
-    
-    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var workspace: Workspace
     @ObservedObject var viewModel: ViewModel
+    @ObservedObject var updateManager: UpdateManager
     
     var importDocumentPicker: ImportDocumentPicker
     
-    init(workspace: Workspace) {
+    init(workspace: Workspace, viewModel: ViewModel, updateManager: UpdateManager) {
         self.workspace = workspace
-        
-        _viewModel = ObservedObject(initialValue: ViewModel())
+        self.viewModel = viewModel
+        self.updateManager = updateManager
         self.importDocumentPicker = ImportDocumentPicker(importViewModel: _viewModel.wrappedValue)
     }
     
     var body: some View {
-        VStack {
+        Group {
             if self.viewModel.stage == .pickFile {
                 pickFileStage
-            } else if viewModel.stage == .folderSelection {
+            } else if self.viewModel.stage == .folderSelection {
                 folderSelectionStage
-            } else if viewModel.stage == .inProgress {
-                inProgressStage
-            } else if viewModel.stage == .complete {
-                completeState
+            } else if self.viewModel.stage == .importing {
+                if updateManager.updating {
+                    inProgressStage
+                } else {
+                    completeStage
+                }
             }
         }
+        .onDisappear { self.viewModel.reset() }
         .modifier(FormWrapperModifier())
-        .navigationBarTitle("Import")
+        .navigationBarTitle("Import OPML", displayMode: .inline)
     }
     
     var pickFileStage: some View {
         Form {
-            Section {
+            Section(header: Text("FILE SELECTION")) {
                 Button(action: pickFile) {
-                    Text("Choose OPML file...")
+                    Text("Choose file to import...")
                 }
             }
         }
@@ -70,39 +73,50 @@ struct ImportView: View {
                             Text("\(folder.feeds.count) feeds").font(.callout).foregroundColor(.secondary)
                         }
                     }
-                    .onAppear(perform: { self.viewModel.selectedFolders.insert(folder) })
+                    .onAppear {
+                        self.viewModel.selectedFolders.append(folder)
+                    }
                 }
             }
             
             Section {
                 Button(action: {
-                    self.viewModel.importSelected(managedObjectContext: self.viewContext, workspace: self.workspace)
+                    self.importSelected()
                 }) {
-                    Text("Import Feeds")
-                }
-                
-                Button(action: self.viewModel.reset) {
-                    Text("Cancel")
+                    HStack {
+                        Image(systemName: "square.and.arrow.down.on.square")
+                        Text("Import")
+                    }
                 }
             }
         }
     }
     
     var inProgressStage: some View {
-        Text("Import in progress")
+        VStack (spacing: 16) {
+            ActivityRep()
+            Text("Fetching feeds...").font(.title)
+            StandaloneProgressBarView(updateManager: updateManager).frame(maxWidth: 256, maxHeight: 8)
+        }
     }
     
     var errorStage: some View {
-        Text("Import error")
+        Text("Import Error").font(.title)
     }
     
-    var completeState: some View {
-        Text("Import complete")
+    var completeStage: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "checkmark.circle").resizable().scaledToFit().foregroundColor(.green).frame(width: 48, height: 48)
+            Text("Finished").font(.title)
+            Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
+                Text("Back to Settings").fontWeight(.medium)
+            }.buttonStyle(BorderedButtonStyle())
+        }
     }
     
     var selectionSectionHeader: some View {
         HStack {
-            Text("SELECT FOLDERS")
+            Text("SELECT PAGES")
             Spacer()
             Button(action: viewModel.selectAll) {
                 Text("ALL")
@@ -124,8 +138,31 @@ struct ImportView: View {
         viewController.present(controller, animated: true)
     }
     
-    func dismiss() {
-        presentationMode.wrappedValue.dismiss()
+    func importSelected() {
+        self.viewModel.opmlFolders.forEach { opmlFolder in
+            if self.viewModel.selectedFolders.contains(opmlFolder) == false {
+                return
+            }
+            
+            let page = Page.create(in: self.viewContext, workspace: self.workspace)
+            page.name = opmlFolder.name
+            
+            opmlFolder.feeds.forEach { opmlFeed in
+                let feed = Feed.create(in: self.viewContext, page: page)
+                feed.title = opmlFeed.title
+                feed.url = opmlFeed.url
+            }
+        }
+        
+        do {
+            try self.viewContext.save()
+        } catch {
+            fatalError("Failure saving context after import: \(error)")
+        }
+        
+        
+        self.updateManager.update()
+        self.viewModel.stage = .importing
     }
 }
 
@@ -133,8 +170,8 @@ extension ImportView {
     class ViewModel: ObservableObject {
         @Published var stage: ImportStage = .pickFile
         @Published var importProgress: Double = 0
-        @Published var opmlFolders: Array<OPMLFolder> = []
-        @Published var selectedFolders = Set<OPMLFolder>()
+        @Published var opmlFolders: [OPMLFolder] = []
+        @Published var selectedFolders: [OPMLFolder] = []
         @Published var pickedURL: URL?
         
         var allSelected: Bool {
@@ -149,22 +186,22 @@ extension ImportView {
             self.stage = .pickFile
             self.importProgress = 0
             self.opmlFolders = []
-            self.selectedFolders = Set<OPMLFolder>()
+            self.selectedFolders = []
             self.pickedURL = nil
         }
         
         func toggleFolder(_ folder: OPMLFolder) {
             if selectedFolders.contains(folder) {
-                selectedFolders.remove(folder)
+                selectedFolders.removeAll { $0 == folder }
             } else {
-                selectedFolders.insert(folder)
+                selectedFolders.append(folder)
             }
         }
         
         func selectAll() {
             opmlFolders.forEach { folder in
                 if !selectedFolders.contains(folder) {
-                    selectedFolders.insert(folder)
+                    selectedFolders.append(folder)
                 }
             }
         }
@@ -173,39 +210,6 @@ extension ImportView {
             selectedFolders.removeAll()
         }
         
-        func importSelected(managedObjectContext: NSManagedObjectContext, workspace: Workspace) {
-            
-            
-            
-            
-            
-            DispatchQueue.global(qos: .userInteractive).async {
-                var feedsForUpdate: Array<Feed> = []
-                self.selectedFolders.forEach { opmlFolder in
-                    let page = Page.create(in: managedObjectContext, workspace: workspace)
-                    page.name = opmlFolder.name
-
-                    opmlFolder.feeds.forEach { opmlFeed in
-                        let feed = Feed.create(in: managedObjectContext, page: page)
-                        feed.title = opmlFeed.title
-                        feed.url = opmlFeed.url
-                        feedsForUpdate.append(feed)
-                    }
-                }
-                
-                //let feedUpdater = FeedUpdater(feeds: feedsForUpdate)
-                //feedUpdater.start()
-                
-                DispatchQueue.main.async {                    
-                    self.stage = .complete
-                }
-            }
-        }
-    }
-}
-
-struct ImportView_Previews: PreviewProvider {
-    static var previews: some View {
-        ImportView(workspace: Workspace())
+        
     }
 }

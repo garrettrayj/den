@@ -40,9 +40,12 @@ struct FeedView: View {
                             Image("RSSIcon").faviconView()
                         },
                         content: {
-                            $0.image.faviconView()
+                            $0.image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .clipped()
                         }
-                    )
+                    ).frame(width: 16, height: 16)
                 }
                 Text(feed.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()
@@ -60,17 +63,16 @@ struct FeedView: View {
                         }
                     }
                 } else {
-                    Text("Empty Feed").foregroundColor(.secondary).padding().frame(maxWidth: .infinity).multilineTextAlignment(.center)
+                    if feed.refreshed == nil {
+                        Text("Refresh to fetch items").modifier(FeedMessageModifier())
+                    } else {
+                        Text("Feed has no items").modifier(FeedMessageModifier())
+                    }
+                    
                 }
             }
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Color(.systemBackground))
         .cornerRadius(8)
-    }
-}
-
-struct FeedView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedView(feed: Feed(), parent: PageView(page: Page()))
     }
 }

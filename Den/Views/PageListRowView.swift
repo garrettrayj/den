@@ -18,11 +18,11 @@ struct PageListRowView: View {
     @ObservedObject var workspace: Workspace
     
     var body: some View {
-        ZStack {
+        Group {
             if self.editMode?.wrappedValue == .active {
                 TextField("Name", text: $page.wrappedName)
             } else {
-                NavigationLink(destination: PageView(page: page)) {
+                NavigationLink(destination: PageView(page: page, updateManager: UpdateManager(refreshable: page, viewContext: viewContext))) {
                     #if targetEnvironment(macCatalyst)
                     Image(systemName: "rectangle.grid.2x2")
                     #else
@@ -33,10 +33,15 @@ struct PageListRowView: View {
                     }
                     #endif
                     
-                    Text(page.wrappedName)
-                    Spacer()
-                    Text(page.unreadCount).font(.caption).padding(.vertical, 4).padding(.horizontal, 8).background(
-                        Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground))
+                    Text(page.wrappedName).lineLimit(1).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading)
+                    Text(String(page.unreadCount))
+                        .font(.caption)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .foregroundColor(page.unreadCount > 0 ? Color.accentColor : Color.secondary)
+                        .background(
+                            Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
+                        )
                     )
                 }
             }
