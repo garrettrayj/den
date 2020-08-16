@@ -26,8 +26,8 @@ enum PageSheet {
 struct PageView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var page: Page
-    @ObservedObject var updateManager: UpdateManager
     @State var showingSheet: Bool = false
     @State var activeSheet: PageSheet = .organizer
     @State var editingFeed: Feed?
@@ -44,12 +44,12 @@ struct PageView: View {
                     GeometryReader { geometry in
                         if self.page.feedsArray.count > 0 {
                             VStack(spacing: 0) {
-                                if self.updateManager.updating {
-                                    HeaderProgressBarView(updateManager: self.updateManager).frame(height: 2)
+                                if self.refreshManager.isRefreshing(self.page) {
+                                    HeaderProgressBarView(refreshable: self.page).frame(height: 2)
                                 }
                                 Divider()
                                 
-                                RefreshableScrollView(updateManager: self.updateManager) {
+                                RefreshableScrollView(refreshable: self.page) {
                                     Grid(self.page.feedsArray) { feed in
                                         FeedView(feed: feed, parent: self)
                                     }
@@ -90,7 +90,7 @@ struct PageView: View {
                                     title: Text("Page Actions"),
                                     message: nil,
                                     buttons: [
-                                        .default(Text("Refresh")) { self.updateManager.update() },
+                                        .default(Text("Refresh")) { self.refreshManager.refresh(self.page) },
                                         .default(Text("Organize")) { self.showOrganizer() },
                                         .default(Text("Add Feed")) { self.showSubscribe() },
                                         .cancel()
@@ -99,7 +99,7 @@ struct PageView: View {
                             }
                         } else {
                             // Just show three buttons on larger screens
-                            Button(action: updateManager.update) {
+                            Button(action: { self.refreshManager.refresh(self.page) }) {
                                 Image(systemName: "arrow.clockwise").modifier(TitleBarButtonAreaModifier())
                             }
                             

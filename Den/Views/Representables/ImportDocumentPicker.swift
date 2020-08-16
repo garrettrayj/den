@@ -16,10 +16,10 @@ import MobileCoreServices
  Adapted from https://stackoverflow.com/a/62225520/400468
  */
 final class ImportDocumentPicker: NSObject {
-    @ObservedObject var importViewModel: ImportView.ViewModel
+    @ObservedObject var viewModel: ImportViewModel
     
-    init(importViewModel: ImportView.ViewModel) {
-        self.importViewModel = importViewModel
+    init(viewModel: ImportViewModel) {
+        self.viewModel = viewModel
         super.init()
     }
     
@@ -34,9 +34,9 @@ final class ImportDocumentPicker: NSObject {
 
 extension ImportDocumentPicker: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        importViewModel.pickedURL = urls.first!
-        importViewModel.opmlFolders = OPMLReader(xmlURL: importViewModel.pickedURL!).outlineFolders
-        importViewModel.stage = .folderSelection
+        viewModel.pickedURL = urls.first!
+        viewModel.opmlFolders = OPMLReader(xmlURL: viewModel.pickedURL!).outlineFolders
+        viewModel.stage = .folderSelection
     }
 
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {

@@ -14,11 +14,8 @@ import SwiftUI
  */
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var cacheManager: CacheManager
     @ObservedObject var workspace: Workspace
-    @ObservedObject var cacheManager: CacheManager
-    @ObservedObject var updateManager: UpdateManager
-    @ObservedObject var importViewModel: ImportView.ViewModel = ImportView.ViewModel()
     
     @State private var showingClearWorkspaceAlert = false
     
@@ -37,21 +34,8 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text("SYNC")) {
-                HStack {
-                    Toggle(isOn: .constant(true)) {
-                        Image(systemName: "icloud")
-                        Text("Use iCloud Sync")
-                    }
-                }
-            }
-            
             Section(header: Text("IMPORT AND EXPORT")) {
-                NavigationLink(destination: ImportView(
-                    workspace: workspace,
-                    viewModel: importViewModel,
-                    updateManager: updateManager
-                )) {
+                NavigationLink(destination: ImportView(workspace: workspace)) {
                     Image(systemName: "arrow.down.doc")
                     Text("Import OPML")
                 }
@@ -67,7 +51,7 @@ struct SettingsView: View {
                         Image(systemName: "bin.xmark")
                         Text("Empty Cache")
                     }
-                }.disabled(cacheManager.clearing)
+                }
                 
                 Button(action: restoreDefaultSettings) {
                     HStack {
@@ -99,7 +83,7 @@ struct SettingsView: View {
     }
     
     func clearCache() {
-        cacheManager.clear()
+        cacheManager.clear(workspace: workspace)
     }
     
     func restoreDefaultSettings() {
@@ -120,7 +104,7 @@ struct SettingsView: View {
     }
     
     func reset() {
-        cacheManager.clear()
+        cacheManager.clear(workspace: workspace)
         
         do {
             let _ = Workspace.create(in: viewContext)

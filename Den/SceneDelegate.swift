@@ -26,8 +26,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             fatalError("Unable to read managed object context.")
         }
         
+        // Create manager services
+        let refreshManager = RefreshManager(parentContext: context)
+        let cacheManager = CacheManager(parentContext: context)
+        
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath
-        let contentView = ContentView().environment(\.managedObjectContext, context)
+        let contentView = ContentView()
+            .environment(\.managedObjectContext, context)
+            .environmentObject(refreshManager)
+            .environmentObject(cacheManager)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

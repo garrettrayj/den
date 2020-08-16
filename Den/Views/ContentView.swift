@@ -22,7 +22,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            WorkspaceView(workspace: workspaces.first!, viewContext: viewContext)
+            WorkspaceView(workspace: workspaces.first!)
             WelcomeView(workspace: workspaces.first!)
         }
     }

@@ -14,16 +14,18 @@ import SwiftUI
  Adapted from https://swiftui-lab.com/scrollview-pull-to-refresh/
  */
 struct RefreshableScrollView<Content: View>: View {
+    @ObservedObject var refreshable: Refreshable
+    @EnvironmentObject var refreshManager: RefreshManager
     @State private var previousScrollOffset: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
     @State private var frozen: Bool = false
     @State private var rotation: Angle = .degrees(0)
-    @ObservedObject var updateManager: UpdateManager
+    
     var threshold: CGFloat = 80
     let content: Content
 
-    init(updateManager: UpdateManager, @ViewBuilder content: () -> Content) {
-        self.updateManager = updateManager
+    init(refreshable: Refreshable, @ViewBuilder content: () -> Content) {
+        self.refreshable = refreshable
         self.content = content()
     }
     
@@ -32,8 +34,8 @@ struct RefreshableScrollView<Content: View>: View {
             ScrollView {
                 ZStack(alignment: .top) {
                     MovingView()
-                    VStack { self.content }.alignmentGuide(.top, computeValue: { d in (self.updateManager.updating) ? -self.threshold : 0.0 })
-                    UpdateStatusView(updateManager: self.updateManager, height: self.threshold, symbolRotation: rotation)
+                    VStack { self.content }.alignmentGuide(.top, computeValue: { d in (self.refreshManager.isRefreshing(self.refreshable)) ? -self.threshold : 0.0 })
+                    UpdateStatusView(refreshable: refreshable, height: self.threshold, symbolRotation: rotation)
                 }
             }
             .background(FixedView())
@@ -54,11 +56,11 @@ struct RefreshableScrollView<Content: View>: View {
             self.rotation = self.symbolRotation(self.scrollOffset)
             
             // Crossing the threshold on the way down, we start the refresh process
-            if !self.updateManager.updating && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
-                self.updateManager.update()
+            if !self.refreshManager.refreshing && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
+                self.refreshManager.refresh(self.refreshable)
             }
             
-            if self.updateManager.updating {
+            if self.refreshManager.isRefreshing(self.refreshable) {
                 // Crossing the threshold on the way up, we add a space at the top of the scrollview
                 if self.previousScrollOffset > self.threshold && self.scrollOffset <= self.threshold {
                     self.frozen = true

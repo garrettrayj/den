@@ -15,7 +15,6 @@ struct PageListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Binding var editMode: EditMode
     @ObservedObject var workspace: Workspace
-    @ObservedObject var updateManager: UpdateManager
     
     var body: some View {
         GeometryReader { geometry in
@@ -33,7 +32,7 @@ struct PageListView: View {
                 .frame(height: geometry.size.height)
                 .environment(\.editMode, self.$editMode)
             } else {
-                RefreshableScrollView(updateManager: self.updateManager) {
+                RefreshableScrollView(refreshable: self.workspace) {
                     List {
                         ForEach(self.workspace.pagesArray) { page in
                             PageListRowView(page: page, workspace: self.workspace).environment(\.editMode, self.$editMode).allowsHitTesting(false)

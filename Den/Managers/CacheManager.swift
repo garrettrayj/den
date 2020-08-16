@@ -13,20 +13,18 @@ import URLImage
 class CacheManager: ObservableObject {
     @Published var clearing: Bool = false
     
-    private var workspace: Workspace
-    private var viewContext: NSManagedObjectContext
-    private var managedObjectContext: NSManagedObjectContext
+    private var parentContext: NSManagedObjectContext
+    private var privateContext: NSManagedObjectContext
     
-    init(workspace: Workspace, viewContext: NSManagedObjectContext) {
-        self.workspace = workspace
-        self.viewContext = viewContext
+    init(parentContext: NSManagedObjectContext) {
+        self.parentContext = parentContext
         
-        managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        managedObjectContext.parent = viewContext
-        managedObjectContext.undoManager = nil
+        privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateContext.parent = parentContext
+        privateContext.undoManager = nil
     }
     
-    func clear() {
+    func clear(workspace: Workspace) {
         if clearing {
             print("Already clearing cache")
             return
@@ -34,18 +32,17 @@ class CacheManager: ObservableObject {
             clearing = true
         }
         
-        
         /// 1. [Reset image cache](https://github.com/dmytro-anokhin/url-image#maintaining-local-cache)
         URLImageService.shared.resetFileCache()
         
         /// 2. Delete feed items
-        managedObjectContext.perform {
+        privateContext.perform {
             autoreleasepool {
-                let feedObjectIDs: [NSManagedObjectID] = self.workspace.feedsArray.map { feed in feed.objectID }
+                let feedObjectIDs: [NSManagedObjectID] = workspace.feedsArray.map { feed in feed.objectID }
                 for feedObjectID in feedObjectIDs {
-                    let feed = self.managedObjectContext.object(with: feedObjectID) as! Feed
+                    let feed = self.privateContext.object(with: feedObjectID) as! Feed
                     for item in feed.itemsArray {
-                        self.managedObjectContext.delete(item)
+                        self.privateContext.delete(item)
                     }
                     feed.favicon = nil
                     feed.refreshed = nil
@@ -53,12 +50,12 @@ class CacheManager: ObservableObject {
             }
             
             do {
-                try self.managedObjectContext.save()
-                self.viewContext.performAndWait {
+                try self.privateContext.save()
+                self.parentContext.performAndWait {
                     do {
-                        try self.viewContext.save()
+                        try self.parentContext.save()
                         
-                        for page in self.workspace.pagesArray {
+                        for page in workspace.pagesArray {
                             page.objectWillChange.send()
                         }
                     } catch {
