@@ -18,11 +18,10 @@ struct PageListView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
             if self.editMode == EditMode.active {
                 List {
                     ForEach(self.workspace.pagesArray) { page in
-                        PageListRowView(page: page, workspace: self.workspace).environment(\.editMode, self.$editMode).allowsHitTesting(false)
+                        PageListEditRowView(page: page)
                     }
                     .onMove(perform: self.move)
                     .onDelete(perform: self.delete)
@@ -36,14 +35,12 @@ struct PageListView: View {
                 RefreshableScrollView(refreshable: self.workspace) {
                     List {
                         ForEach(self.workspace.pagesArray) { page in
-                            PageListRowView(page: page, workspace: self.workspace).environment(\.editMode, self.$editMode).allowsHitTesting(false)
+                            PageListRowView(page: page)
                         }
                     }
                     .frame(height: geometry.size.height)
                 }.background(Color(UIColor.secondarySystemBackground))
             }
-            
-            
         }
     }
     
@@ -63,8 +60,6 @@ struct PageListView: View {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-        
-        
     }
     
     func delete(indices: IndexSet) {

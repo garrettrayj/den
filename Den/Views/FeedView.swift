@@ -45,7 +45,7 @@ struct FeedView: View {
                                 .aspectRatio(contentMode: .fill)
                                 .clipped()
                         }
-                    ).frame(width: 16, height: 16)
+                    ).frame(width: 16, height: 16).clipped()
                 }
                 Text(feed.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()

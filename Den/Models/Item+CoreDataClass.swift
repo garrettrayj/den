@@ -147,6 +147,44 @@ public class Item: NSManagedObject {
         
         return item
     }
+    
+    /**
+     Creates item entity from a JSON feed item
+     */
+    static func create(jsonItem: JSONFeedItem, moc managedObjectContext: NSManagedObjectContext) -> Item {
+        let item = Item.init(context: managedObjectContext)
+        item.id = UUID()
+        
+        // Prefer RSS pubDate element for published date
+        if let published = jsonItem.datePublished {
+            item.published = published
+        }
+        
+        if let title = jsonItem.title {
+            item.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
+        } else {
+            item.title = "Untitled"
+        }
+
+        if let urlString = jsonItem.url, let link = URL(string: urlString) {
+            item.link = link
+        } else if let urlString = jsonItem.id, let link = URL(string: urlString) {
+            item.link = link
+        }
+        
+        if let imageAttachment = jsonItem.attachments?.first(where: { attachment in
+            if let mimeTypeString = attachment.mimeType, let _ = MIMETypes.ImageMIMETypes(rawValue: mimeTypeString) {
+                return true
+            }
+            return false
+        }) {
+            if let imageString = imageAttachment.url, let image = URL(string: imageString) {
+                item.image = image
+            }
+        }
+        
+        return item
+    }
 }
 
 extension Item: Identifiable {

@@ -54,8 +54,8 @@ public class Page: Refreshable {
     }
     
     override func onRefreshComplete() {
-        objectWillChange.send()
         refreshed = Date()
+        objectWillChange.send()
     }
 }
 

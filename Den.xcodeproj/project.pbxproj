@@ -26,6 +26,11 @@
 		680E57FB24D6B92D00196F6D /* TitleBarButtonAreaModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57FA24D6B92D00196F6D /* TitleBarButtonAreaModifier.swift */; };
 		6845BCEE24E902970008B296 /* ImportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCED24E902970008B296 /* ImportViewModel.swift */; };
 		6845BCF024E90D0D0008B296 /* RefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCEF24E90D0D0008B296 /* RefreshManager.swift */; };
+		6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */; };
+		6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */; };
+		6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */; };
+		6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF724EBE4AD0008B296 /* RSSFeed+Extensions.swift */; };
+		6845BCFB24EBF4500008B296 /* PageListEditRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCFA24EBF4500008B296 /* PageListEditRowView.swift */; };
 		684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */; };
 		684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */; };
 		684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */; };
@@ -125,6 +130,11 @@
 		680E57FA24D6B92D00196F6D /* TitleBarButtonAreaModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBarButtonAreaModifier.swift; sourceTree = "<group>"; };
 		6845BCED24E902970008B296 /* ImportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportViewModel.swift; sourceTree = "<group>"; };
 		6845BCEF24E90D0D0008B296 /* RefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshManager.swift; sourceTree = "<group>"; };
+		6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeedItem+Extensions.swift"; sourceTree = "<group>"; };
+		6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeed+Extensions.swift"; sourceTree = "<group>"; };
+		6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeed+Extensions.swift"; sourceTree = "<group>"; };
+		6845BCF724EBE4AD0008B296 /* RSSFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSFeed+Extensions.swift"; sourceTree = "<group>"; };
+		6845BCFA24EBF4500008B296 /* PageListEditRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageListEditRowView.swift; sourceTree = "<group>"; };
 		684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDocumentPicker.swift; sourceTree = "<group>"; };
 		684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeedEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -236,6 +246,20 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		6845BCF924EBE4B60008B296 /* FeedKit */ = {
+			isa = PBXGroup;
+			children = (
+				6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */,
+				684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */,
+				6845BCF724EBE4AD0008B296 /* RSSFeed+Extensions.swift */,
+				684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */,
+				6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */,
+				6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */,
+				6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */,
+			);
+			path = FeedKit;
+			sourceTree = "<group>";
+		};
 		687D9CC724B0C43800EB7F46 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,11 +309,9 @@
 		68B34A5F2487C4E10066B215 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6845BCF924EBE4B60008B296 /* FeedKit */,
 				68B34A602487C50A0066B215 /* DateFormatter+Extensions.swift */,
 				687D9CE024B4103100EB7F46 /* Image+Extensions.swift */,
-				684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */,
-				684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */,
-				6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */,
 				6809EFD624DE9031007B5CF1 /* Array+Extensions.swift */,
 				6809EFD824DE9521007B5CF1 /* Dictionary+Extensions.swift */,
 			);
@@ -378,6 +400,7 @@
 				68C413432472761D00D1DC7B /* WorkspaceView.swift */,
 				687D9CB324A9C13200EB7F46 /* PageListView.swift */,
 				687D9CB524A9C14700EB7F46 /* PageListRowView.swift */,
+				6845BCFA24EBF4500008B296 /* PageListEditRowView.swift */,
 				68C413452472773100D1DC7B /* PageView.swift */,
 				688FD917247750350006A2DE /* PageOrganizerView.swift */,
 				68C4134A24727F2B00D1DC7B /* FeedView.swift */,
@@ -575,6 +598,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68C413442472761D00D1DC7B /* WorkspaceView.swift in Sources */,
+				6845BCFB24EBF4500008B296 /* PageListEditRowView.swift in Sources */,
 				68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */,
 				684DFA0524BC39EB0023D6DB /* RefreshableScrollView.swift in Sources */,
 				6809EFD524DDEEF7007B5CF1 /* FaviconResultOperation.swift in Sources */,
@@ -583,6 +607,7 @@
 				68B34A652487E01B0066B215 /* FormWrapperModifier.swift in Sources */,
 				687D9CAC24A703B500EB7F46 /* DenUserDefaults.swift in Sources */,
 				6809EFD724DE9031007B5CF1 /* Array+Extensions.swift in Sources */,
+				6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */,
 				687D9CDD24B3E31400EB7F46 /* MetadataOperation.swift in Sources */,
 				68B34A672487ED870066B215 /* ExportView.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
@@ -590,11 +615,13 @@
 				684DFA0324BAC7680023D6DB /* MIMETypes.swift in Sources */,
 				68C413462472773100D1DC7B /* PageView.swift in Sources */,
 				68C4FA24247466C900D2C0D6 /* Item+Collection.swift in Sources */,
+				6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */,
 				680E57BD24D132D700196F6D /* HeaderProgressBarView.swift in Sources */,
 				6809EFDD24DF44DC007B5CF1 /* StandaloneProgressBarView.swift in Sources */,
 				68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */,
 				687D9CA624A4FF7000EB7F46 /* ListButtonStyle.swift in Sources */,
 				68C41314247263C700D1DC7B /* Page+Collection.swift in Sources */,
+				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */,
 				6885FD0E24819446007A3D5B /* ItemLinkButtonStyle.swift in Sources */,
 				687D9CB824A9CA2A00EB7F46 /* FeedItemView.swift in Sources */,
@@ -619,6 +646,7 @@
 				680E57FB24D6B92D00196F6D /* TitleBarButtonAreaModifier.swift in Sources */,
 				68C4134B24727F2B00D1DC7B /* FeedView.swift in Sources */,
 				684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */,
+				6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */,
 				680E57F424D2A70400196F6D /* Refreshable+CoreDataClass.swift in Sources */,
 				687D9CD924B38FF100EB7F46 /* AsynchronousOperation.swift in Sources */,
 				688FD918247750350006A2DE /* PageOrganizerView.swift in Sources */,

@@ -52,10 +52,12 @@ public class Workspace: Refreshable {
     
     override func onRefreshComplete() {
         pagesArray.forEach { page in
+            page.refreshed = Date()
             page.objectWillChange.send()
         }
         
         refreshed = Date()
+        objectWillChange.send()
     }
 }
 
