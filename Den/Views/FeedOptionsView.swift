@@ -86,10 +86,11 @@ struct FeedOptionsView: View {
             Section {
                 HStack(alignment: .center) {
                     Text("URL")
+                    Spacer()
+                    Text(feed.urlString).foregroundColor(.secondary)
                     Button(action: copyFeed) {
-                        Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 14, height: 14)
+                        Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                     }
-                    AdvancedTextField(text: $feed.urlString, isEditable: false, textAlignment: .right).opacity(0.5)
                 }
             }
             Section {

@@ -15,6 +15,7 @@ struct PageOrganizerView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var page: Page
+    @State var movingItem: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -26,7 +27,8 @@ struct PageOrganizerView: View {
                         }
                         .onMove(perform: move)
                         .onDelete(perform: delete)
-                        .onInsert(of: [String()], perform: self.insert(at:itemProvider:))
+                        .onInsert(of: [String()], perform: self.insert(at:itemProviders:))
+                        .allowsHitTesting(false)
                     }
                 }
                 .navigationBarTitle("Organize Feeds", displayMode: .inline)
@@ -46,6 +48,13 @@ struct PageOrganizerView: View {
     }
     
     func move(from sources: IndexSet, to destination: Int) {
+        
+        if self.movingItem {
+            return
+        } else {
+            self.movingItem = true
+        }
+        
         let source = sources.first!
         if destination > source {
             page.mutableOrderedSetValue(forKey: "feeds").moveObjects(at: sources, to: destination - 1)
@@ -62,10 +71,10 @@ struct PageOrganizerView: View {
             }
         }
         
-        
+        self.movingItem = false
     }
     
-    func insert(at offset: Int, itemProvider: [NSItemProvider]) {
+    func insert(at offset: Int, itemProviders: [NSItemProvider]) {
         print("Page list insert action not available")
     }
 }

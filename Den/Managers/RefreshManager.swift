@@ -89,25 +89,28 @@ class RefreshManager: ObservableObject {
                         }
                     }
                     
-                    do {
-                        try self.privateContext.save()
-                        print("Successfully saved private context")
-                    } catch {
-                        fatalError("Failure to save private context: \(error)")
-                    }
                     
-                    // Jump back into main thread to save changes merged into parent managed object context (viewContext) and update UI
-                    self.parentContext.performAndWait {
-                        refreshable.onRefreshComplete()
+                    if self.privateContext.hasChanges {
                         do {
-                            try self.parentContext.save()
-                            print("Successfully saved view context")
+                            try self.privateContext.save()
+                            print("Successfully saved private context")
+                            
+                            // Jump back into main thread to save changes merged into parent managed object context (viewContext) and update UI
+                            self.parentContext.performAndWait {
+                                refreshable.onRefreshComplete()
+                                do {
+                                    try self.parentContext.save()
+                                    print("Successfully saved view context")
+                                } catch {
+                                    fatalError("Failure to save view context: \(error)")
+                                }
+                                
+                                self.progress.completedUnitCount += 1
+                                self.reset()
+                            }
                         } catch {
-                            fatalError("Failure to save view context: \(error)")
+                            fatalError("Failure to save private context: \(error)")
                         }
-                        
-                        self.progress.completedUnitCount += 1
-                        self.reset()
                     }
                 }
             }
