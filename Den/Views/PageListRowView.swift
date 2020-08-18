@@ -12,45 +12,30 @@ import SwiftUI
  Page list item view. Transforms name text labels into text fields when .editMode is active.
  */
 struct PageListRowView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
-    @ObservedObject var workspace: Workspace
     
     var body: some View {
-        Group {
-            if self.editMode?.wrappedValue == .active {
-                TextField("Name", text: $page.wrappedName)
+        NavigationLink(destination: PageView(page: page)) {
+            #if targetEnvironment(macCatalyst)
+            Image(systemName: "rectangle.grid.2x2")
+            #else
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                Image(systemName: "rectangle.grid.2x2")
             } else {
-                NavigationLink(destination: PageView(page: page)) {
-                    #if targetEnvironment(macCatalyst)
-                    Image(systemName: "rectangle.grid.2x2")
-                    #else
-                    if UIDevice.current.userInterfaceIdiom == .pad {
-                        Image(systemName: "rectangle.grid.2x2")
-                    } else {
-                        Image(systemName: "rectangle.grid.1x2")
-                    }
-                    #endif
-                    
-                    Text(page.wrappedName).lineLimit(1).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading)
-                    Text(String(page.unreadCount))
-                        .font(.caption)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                        .foregroundColor(page.unreadCount > 0 ? Color.accentColor : Color.secondary)
-                        .background(
-                            Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
-                        )
-                    )
-                }
+                Image(systemName: "rectangle.grid.1x2")
             }
+            #endif
+            
+            Text(page.wrappedName).lineLimit(1).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading)
+            Text(String(page.unreadCount))
+                .font(.caption)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 8)
+                .foregroundColor(page.unreadCount > 0 ? Color.accentColor : Color.secondary)
+                .background(
+                    Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
+                )
+            )
         }
-    }
-}
-
-struct PageListRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        PageListRowView(page: Page(), workspace: Workspace())
     }
 }

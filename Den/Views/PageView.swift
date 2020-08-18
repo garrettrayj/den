@@ -73,7 +73,9 @@ struct PageView: View {
                         } else if self.activeSheet == .feedEdit {
                             FeedEditView(feed: self.editingFeed!).environment(\.managedObjectContext, self.viewContext)
                         } else if self.activeSheet == .subscribe {
-                            SubscribeView(page: self.page).environment(\.managedObjectContext, self.viewContext)
+                            SubscribeView(page: self.page)
+                                .environment(\.managedObjectContext, self.viewContext)
+                                .environmentObject(self.refreshManager)
                         }
                     }
                 }

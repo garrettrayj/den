@@ -75,6 +75,6 @@ struct PageOrganizerView: View {
     }
     
     func insert(at offset: Int, itemProviders: [NSItemProvider]) {
-        print("Page list insert action not available")
+        print("Organizer insert action not available")
     }
 }

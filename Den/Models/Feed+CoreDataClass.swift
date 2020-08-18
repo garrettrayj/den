@@ -12,6 +12,8 @@ import FeedKit
 
 @objc(Feed)
 public class Feed: Refreshable {
+    let MAX_ITEMS = 10
+
     public var itemsArray: [Item] {
         guard let items = items else {
             return []
@@ -158,7 +160,47 @@ public class Feed: Refreshable {
      TODO: JSON Feed importer
      */
     func ingest(content: JSONFeed, moc managedObjectContext: NSManagedObjectContext) {
-        self.title = content.title
+        if self.title == nil {
+            if let title = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                self.title = title
+            }
+        }
+        
+        if let link = content.webpage {
+            self.link = link
+        }
+        
+        guard let jsonItems = content.items else {
+            // TODO: HANDLE MISSING ITEMS
+            return
+        }
+        
+        // Add new items
+        jsonItems.prefix(MAX_ITEMS).forEach { jsonItem in
+            guard let itemLink = jsonItem.linkURL else {
+                return
+            }
+            
+            // Continue if item already exists
+            if (self.itemsArray.contains(where: { item in item.link == itemLink})) {
+                return
+            }
+            
+            let newItem = Item.create(jsonItem: jsonItem, moc: managedObjectContext)
+            self.addToItems(newItem)
+        }
+        
+        // Cleanup items not present in feed
+        self.itemsArray.forEach({ item in
+            if (
+                jsonItems.contains(where: { (feedItem) -> Bool in
+                    guard let feedItemLink = feedItem.linkURL else { return false }
+                    return item.link == feedItemLink
+                }) == false
+            ) {
+                self.removeFromItems(item)
+            }
+        })
     }
     
     // MARK: Refreshable abstract properties and methods implementations

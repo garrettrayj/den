@@ -9,7 +9,7 @@
 import Foundation
 
 extension DateFormatter {
-    static func create(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .medium) -> DateFormatter {
+    static func create(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .short) -> DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = dateStyle
         dateFormatter.timeStyle = timeStyle
