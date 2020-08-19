@@ -24,8 +24,11 @@ class FetchOperation : AsynchronousOperation {
         self.feedObjectID = feedObjectID
         self.url = url
         super.init()
+    
+        var request = URLRequest(url: url)
+        request.httpShouldHandleCookies = false
         
-        task = URLSession.shared.dataTask(with: url) { data, response, error in
+        task = URLSession.shared.dataTask(with: request) { data, response, error in
             self.data = data
             self.error = error
             self.finish()
