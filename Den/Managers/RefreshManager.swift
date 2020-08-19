@@ -62,53 +62,50 @@ class RefreshManager: ObservableObject {
             self.operations = self.createOperations(refreshable)
             self.queue.addOperations(self.operations, waitUntilFinished: true)
             
-            // Bounce back to the main thread to setup private managed object context
-            DispatchQueue.main.async {
-                // Perform managed object update in background
-                self.privateContext.perform {
-                    for (feedObjectID, feedResult) in self.feedResults {
-                        autoreleasepool {
-                            let feed = self.privateContext.object(with: feedObjectID) as! Feed
-                            
-                            if feedResult.fetchMeta == true {
-                                feed.favicon = feedResult.favicon
-                            }
-                            feed.refreshed = Date()
-                            
-                            switch feedResult.parsedFeed  {
-                                case let .atom(content):
-                                    feed.ingest(content: content, moc: self.privateContext)
-                                case let .rss(content):
-                                    feed.ingest(content: content, moc: self.privateContext)
-                                case let .json(content):
-                                    feed.ingest(content: content, moc: self.privateContext)
-                                case .none:
-                                    print("Fetch failed for \(feed.urlString)")
-                            }
+            // Perform managed object update in background
+            self.privateContext.perform {
+                for (feedObjectID, feedResult) in self.feedResults {
+                    autoreleasepool {
+                        let feed = self.privateContext.object(with: feedObjectID) as! Feed
+                        
+                        if feedResult.fetchMeta == true {
+                            feed.favicon = feedResult.favicon
+                        }
+                        feed.refreshed = Date()
+                        
+                        switch feedResult.parsedFeed  {
+                            case let .atom(content):
+                                feed.ingest(content: content, moc: self.privateContext)
+                            case let .rss(content):
+                                feed.ingest(content: content, moc: self.privateContext)
+                            case let .json(content):
+                                feed.ingest(content: content, moc: self.privateContext)
+                            case .none:
+                                print("Fetch failed for \(feed.urlString)")
                         }
                     }
-                    
-                    if self.privateContext.hasChanges {
-                        do {
-                            try self.privateContext.save()
-                            print("Successfully saved private context")
-                            
-                            // Jump back into main thread to save changes merged into parent managed object context (viewContext) and update UI
-                            self.parentContext.performAndWait {
-                                refreshable.onRefreshComplete()
-                                do {
-                                    try self.parentContext.save()
-                                    print("Successfully saved view context")
-                                } catch {
-                                    fatalError("Failure to save view context: \(error)")
-                                }
-                                
-                                self.progress.completedUnitCount += 1
-                                self.reset()
+                }
+                
+                if self.privateContext.hasChanges {
+                    do {
+                        try self.privateContext.save()
+                        print("Successfully saved private context")
+                        
+                        // Jump back into main thread to save changes merged into parent managed object context (viewContext) and update UI
+                        self.parentContext.performAndWait {
+                            refreshable.onRefreshComplete()
+                            do {
+                                try self.parentContext.save()
+                                print("Successfully saved view context")
+                            } catch {
+                                fatalError("Failure to save view context: \(error)")
                             }
-                        } catch {
-                            fatalError("Failure to save private context: \(error)")
+                            
+                            self.progress.completedUnitCount += 1
+                            self.reset()
                         }
+                    } catch {
+                        fatalError("Failure to save private context: \(error)")
                     }
                 }
             }
