@@ -15,7 +15,6 @@ struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
     @ObservedObject var workspace: Workspace
-    
     @State private var showingClearWorkspaceAlert = false
     
     var body: some View {

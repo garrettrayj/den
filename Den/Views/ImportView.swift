@@ -13,24 +13,21 @@ struct ImportView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var importManager: ImportManager
     
-    @ObservedObject var workspace: Workspace
-    @ObservedObject var viewModel: ImportViewModel = ImportViewModel()
-    
-    var importDocumentPicker: ImportDocumentPicker
+    var workspace: Workspace
     
     init(workspace: Workspace) {
         self.workspace = workspace
-        self.importDocumentPicker = ImportDocumentPicker(viewModel: _viewModel.wrappedValue)
     }
     
     var body: some View {
         Group {
-            if self.viewModel.stage == .pickFile {
+            if self.importManager.stage == .pickFile {
                 pickFileStage
-            } else if self.viewModel.stage == .folderSelection {
+            } else if self.importManager.stage == .folderSelection {
                 folderSelectionStage
-            } else if self.viewModel.stage == .importing {
+            } else if self.importManager.stage == .importing {
                 if refreshManager.isRefreshing(workspace) {
                     inProgressStage
                 } else {
@@ -38,7 +35,7 @@ struct ImportView: View {
                 }
             }
         }
-        .onDisappear { self.viewModel.reset() }
+        .onDisappear { self.importManager.reset() }
         .modifier(FormWrapperModifier())
         .navigationBarTitle("Import OPML", displayMode: .inline)
     }
@@ -56,10 +53,10 @@ struct ImportView: View {
     var folderSelectionStage: some View {
         Form {
             Section(header: selectionSectionHeader) {
-                ForEach(viewModel.opmlFolders, id: \.name) { folder in
-                    Button(action: { self.viewModel.toggleFolder(folder) }) {
+                ForEach(importManager.opmlFolders, id: \.name) { folder in
+                    Button(action: { self.importManager.toggleFolder(folder) }) {
                         HStack {
-                            if self.viewModel.selectedFolders.contains(folder) {
+                            if self.importManager.selectedFolders.contains(folder) {
                                 Image(systemName: "checkmark.circle.fill")
                             } else {
                                 Image(systemName: "circle")
@@ -70,14 +67,15 @@ struct ImportView: View {
                         }
                     }
                     .onAppear {
-                        self.viewModel.selectedFolders.append(folder)
+                        self.importManager.selectedFolders.append(folder)
                     }
                 }
             }
             
             Section {
                 Button(action: {
-                    self.importSelected()
+                    self.importManager.importSelected(workspace: self.workspace)
+                    self.refreshManager.refresh(self.workspace)
                 }) {
                     HStack {
                         Image(systemName: "square.and.arrow.down.on.square")
@@ -114,13 +112,13 @@ struct ImportView: View {
         HStack {
             Text("SELECT PAGES")
             Spacer()
-            Button(action: viewModel.selectAll) {
+            Button(action: importManager.selectAll) {
                 Text("ALL")
-            }.disabled(viewModel.allSelected)
+            }.disabled(importManager.allSelected)
             Text("/")
-            Button(action: viewModel.selectNone) {
+            Button(action: importManager.selectNone) {
                 Text("NONE")
-            }.disabled(viewModel.noneSelected)
+            }.disabled(importManager.noneSelected)
         }
     }
     
@@ -130,34 +128,7 @@ struct ImportView: View {
      */
     func pickFile() {
         let viewController = UIApplication.shared.windows[0].rootViewController!
-        let controller = self.importDocumentPicker.viewController
+        let controller = self.importManager.documentPicker.viewController
         viewController.present(controller, animated: true)
-    }
-    
-    func importSelected() {
-        self.viewModel.opmlFolders.forEach { opmlFolder in
-            if self.viewModel.selectedFolders.contains(opmlFolder) == false {
-                return
-            }
-            
-            let page = Page.create(in: self.viewContext, workspace: self.workspace)
-            page.name = opmlFolder.name
-            
-            opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page)
-                feed.title = opmlFeed.title
-                feed.url = opmlFeed.url
-            }
-        }
-        
-        do {
-            try self.viewContext.save()
-        } catch {
-            fatalError("Failure saving context after import: \(error)")
-        }
-        
-        
-        self.refreshManager.refresh(workspace)
-        self.viewModel.stage = .importing
     }
 }
