@@ -24,7 +24,7 @@ struct FeedItemView: View {
                     .foregroundColor(Color(UIColor.secondaryLabel))
             }
             
-            HStack(alignment: .top, spacing: 16) {
+            HStack(alignment: .top) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
                 }

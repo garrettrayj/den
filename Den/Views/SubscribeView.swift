@@ -10,13 +10,15 @@ import SwiftUI
 
 struct SubscribeView: View {
     enum SubscribeStage {
-        case urlEntry,configuration
+        case urlEntry, configuration
     }
     
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @ObservedObject var page: Page
+    
     @State private var activeStage: SubscribeStage = .urlEntry
     @State private var urlText: String = ""
     @State private var urlIsValid: Bool?
@@ -36,9 +38,9 @@ struct SubscribeView: View {
     var urlEntryStage: some View {
         NavigationView {
             Form {
-                Section(footer: Text("RSS or Atom accepted")) {
+                Section(footer: Text("RSS, Atom or JSON feed web address")) {
                     HStack {
-                        Text("Feed URL:")
+                        Text("URL")
                         Spacer()
                         TextField("https://example.com/feed.xml", text: $urlText, onEditingChanged: validateUrl)
                             .lineLimit(1)
@@ -71,7 +73,14 @@ struct SubscribeView: View {
                 }
             )
             .modifier(ModalNavigationBarModifier())
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            self.urlText = self.subscriptionManager.feedURLString
+        }
+        .onDisappear {
+            self.subscriptionManager.reset()
+        }
     }
     
     var configurationStage: some View {

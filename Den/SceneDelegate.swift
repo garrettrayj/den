@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private(set) static var shared: SceneDelegate?
     
     var window: UIWindow?
+    var subscriptionManager: SubscriptionManager?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Self.shared = self
@@ -29,12 +30,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create manager services
         let refreshManager = RefreshManager(parentContext: context)
         let cacheManager = CacheManager(parentContext: context)
+        subscriptionManager = SubscriptionManager()
         
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath
         let contentView = ContentView()
             .environment(\.managedObjectContext, context)
             .environmentObject(refreshManager)
             .environmentObject(cacheManager)
+            .environmentObject(subscriptionManager!)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -56,6 +59,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+    }
+    
+    func scene(_ scene: UIScene, openURLContexts urlContexts: Set<UIOpenURLContext>) {
+        print("OPEN URL")
+        print(urlContexts.first?.url)
+        subscriptionManager?.subscribe(to: urlContexts.first?.url)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
