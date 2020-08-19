@@ -33,6 +33,7 @@
 		6845BCFB24EBF4500008B296 /* PageListEditRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCFA24EBF4500008B296 /* PageListEditRowView.swift */; };
 		6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6845BCFD24EC00DA0008B296 /* FeedIcon.png */; };
 		6845BD0024EC84B00008B296 /* SubscribtionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCFF24EC84B00008B296 /* SubscribtionManager.swift */; };
+		6845BD0424ECF44E0008B296 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD0324ECF44E0008B296 /* URLSession+Extensions.swift */; };
 		684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */; };
 		684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */; };
 		684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */; };
@@ -139,6 +140,7 @@
 		6845BCFA24EBF4500008B296 /* PageListEditRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageListEditRowView.swift; sourceTree = "<group>"; };
 		6845BCFD24EC00DA0008B296 /* FeedIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FeedIcon.png; sourceTree = "<group>"; };
 		6845BCFF24EC84B00008B296 /* SubscribtionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribtionManager.swift; sourceTree = "<group>"; };
+		6845BD0324ECF44E0008B296 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDocumentPicker.swift; sourceTree = "<group>"; };
 		684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeedEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				687D9CE024B4103100EB7F46 /* Image+Extensions.swift */,
 				6809EFD624DE9031007B5CF1 /* Array+Extensions.swift */,
 				6809EFD824DE9521007B5CF1 /* Dictionary+Extensions.swift */,
+				6845BD0324ECF44E0008B296 /* URLSession+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				687D9CC624AE38BD00EB7F46 /* FetchOperation.swift in Sources */,
 				6845BD0024EC84B00008B296 /* SubscribtionManager.swift in Sources */,
 				68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */,
+				6845BD0424ECF44E0008B296 /* URLSession+Extensions.swift in Sources */,
 				6845BCEE24E902970008B296 /* ImportViewModel.swift in Sources */,
 				68D58E6324923070007ED1AC /* WebpageWrangler.swift in Sources */,
 				687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */,

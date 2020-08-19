@@ -12,15 +12,12 @@ import CoreData
 import FeedKit
 
 class RefreshManager: ObservableObject {
-    enum RefreshManagerError: Error {
-        case invalidURL, fetchError
-    }
-    
     struct FeedResult {
         var feedObjectID: NSManagedObjectID
-        var fetchError: Error?
-        var parsedFeed: FeedKit.Feed?
+        var transportError: Error?
+        var httpResponse: HTTPURLResponse?
         var parserError: FeedKit.ParserError?
+        var parsedFeed: FeedKit.Feed?
         var fetchMeta: Bool = false
         var favicon: URL?
     }
@@ -64,25 +61,70 @@ class RefreshManager: ObservableObject {
             
             // Perform managed object update in background
             self.privateContext.perform {
-                for (feedObjectID, feedResult) in self.feedResults {
+                self.feedResults.forEach { (feedObjectID, feedResult) in
                     autoreleasepool {
                         let feed = self.privateContext.object(with: feedObjectID) as! Feed
+                        
+                        if let transportError = feedResult.transportError {
+                            feed.error = transportError.localizedDescription
+                            print("Transport error while fetching \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                            return
+                        }
+                        
+                        guard let httpResponse = feedResult.httpResponse else {
+                            feed.error = "Server did not respond"
+                            print("Server did not respond to request for \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                            return
+                        }
+                        
+                        feed.httpStatus = Int16(httpResponse.statusCode)
+                        
+                        if !(200...299).contains(httpResponse.statusCode) {
+                            feed.error = HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode).capitalized(with: .autoupdatingCurrent)
+                            print("Invalid HTTP response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                            return
+                        }
+                        
+                        if let parserError = feedResult.parserError {
+                            feed.error = parserError.localizedDescription
+                            print("Failed to parse response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                            return
+                        }
+                        
+                        switch feedResult.parsedFeed  {
+                            case let .atom(content):
+                                if content.entries == nil || content.entries?.count == 0 {
+                                    feed.error = "Empty Atom feed"
+                                    print("Feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                                    return
+                                }
+                                feed.ingest(content: content, moc: self.privateContext)
+                            case let .rss(content):
+                                if content.items == nil || content.items?.count == 0 {
+                                    feed.error = "Empty RSS feed"
+                                    print("Feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                                    return
+                                }
+                                feed.ingest(content: content, moc: self.privateContext)
+                            case let .json(content):
+                                if content.items == nil || content.items?.count == 0 {
+                                    feed.error = "Empty JSON feed"
+                                    print("Feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                                    return
+                                }
+                                feed.ingest(content: content, moc: self.privateContext)
+                            case .none:
+                                feed.error = "Unknown format"
+                                print("Unknown feed format for \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                                return
+                        }
                         
                         if feedResult.fetchMeta == true {
                             feed.favicon = feedResult.favicon
                         }
-                        feed.refreshed = Date()
                         
-                        switch feedResult.parsedFeed  {
-                            case let .atom(content):
-                                feed.ingest(content: content, moc: self.privateContext)
-                            case let .rss(content):
-                                feed.ingest(content: content, moc: self.privateContext)
-                            case let .json(content):
-                                feed.ingest(content: content, moc: self.privateContext)
-                            case .none:
-                                print("Fetch failed for \(feed.urlString)")
-                        }
+                        feed.refreshed = Date()
+                        feed.error = nil
                     }
                 }
                 
@@ -127,7 +169,8 @@ class RefreshManager: ObservableObject {
         
         let completionOperation = BlockOperation {
             fetchOperations.forEach { fetchOperation in
-                self.feedResults[fetchOperation.feedObjectID]!.fetchError = fetchOperation.error
+                self.feedResults[fetchOperation.feedObjectID]!.transportError = fetchOperation.error
+                self.feedResults[fetchOperation.feedObjectID]!.httpResponse = fetchOperation.response
             }
             
             parseOperations.forEach { parseOperation in

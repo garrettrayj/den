@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 /**
  Application settings form. Contain fields for options stored in Workspace entity (shared on all devices) and local user preferences.
  */

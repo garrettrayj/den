@@ -16,35 +16,33 @@ struct UpdateStatusView: View {
     var symbolRotation: Angle
     
     var body: some View {
-        Group {
+        VStack {
+            Spacer()
             if refreshManager.isRefreshing(refreshable) { // If loading, show the activity control
-                VStack(alignment: .center) {
-                    Spacer()
-                    ActivityRep()
-                    Text("Updating feeds...").font(.callout).foregroundColor(Color.secondary)
-                    Spacer()
-                }
-                .frame(height: height)
-                .offset(y: -height + (refreshManager.isRefreshing(refreshable) ? height : 0.0))
+                ActivityRep()
+                Text("Updating feeds...").font(.callout).foregroundColor(Color.secondary)
+            } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshable) {
+                Image(systemName: "slash.circle")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16, height: 16)
+                    .foregroundColor(Color.secondary)
+                Text("Other refresh operation in progress").foregroundColor(Color.secondary)
             } else {
-                // If not loading, show the arrow
-                VStack {
-                    Spacer()
-                    Image(systemName: "arrow.down")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(Color.secondary)
-                        .frame(width: 16, height: 16)
-                        .fixedSize()
-                        .rotationEffect(symbolRotation)
-                    Text(refreshable.lastRefreshedLabel)
-                        .font(.callout)
-                        .foregroundColor(Color.secondary)
-                    Spacer()
-                }
-                .frame(height: height)
-                .offset(y: -height + (refreshManager.isRefreshing(refreshable) ? +height : 0.0))
+                Image(systemName: "arrow.down")
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(Color.secondary)
+                    .frame(width: 16, height: 16)
+                    .fixedSize()
+                    .rotationEffect(symbolRotation)
+                Text(refreshable.lastRefreshedLabel)
+                    .font(.callout)
+                    .foregroundColor(Color.secondary)
             }
+            Spacer()
         }
+        .frame(height: height)
+        .offset(y: -height + (refreshManager.isRefreshing(refreshable) ? +height : 0.0))
     }
 }
