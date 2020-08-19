@@ -96,7 +96,7 @@ struct PageView: View {
                             // Just show three buttons on larger screens
                             Button(action: { self.refreshManager.refresh(self.page) }) {
                                 Image(systemName: "arrow.clockwise").modifier(TitleBarButtonAreaModifier())
-                            }
+                            }.disabled(refreshManager.refreshing)
                             
                             Button(action: showOrganizer) {
                                 Image(systemName: "arrow.up.arrow.down").modifier(TitleBarButtonAreaModifier())

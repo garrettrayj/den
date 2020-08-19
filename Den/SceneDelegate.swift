@@ -62,8 +62,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func scene(_ scene: UIScene, openURLContexts urlContexts: Set<UIOpenURLContext>) {
-        print("OPEN URL")
-        print(urlContexts.first?.url)
         subscriptionManager?.subscribe(to: urlContexts.first?.url)
     }
 

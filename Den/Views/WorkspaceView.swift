@@ -30,7 +30,7 @@ struct WorkspaceView: View {
                 VStack(alignment: .center, spacing: 4) {
                     Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
                     Text("Den").font(.title).fontWeight(.semibold)
-                }.padding(.top, -82).padding(.horizontal).padding(.bottom, 8).frame(maxWidth: .infinity)
+                }.padding(.top, -90).padding(.horizontal).padding(.bottom, 8).frame(maxWidth: .infinity)
                 
                 if workspace.isEmpty {
                     VStack(alignment: .center, spacing: 16) {
@@ -89,6 +89,7 @@ struct WorkspaceView: View {
                         Button(action: { self.refreshManager.refresh(self.workspace)}) {
                             Image(systemName: "arrow.clockwise").background(Color.clear)
                         }
+                        .disabled(refreshManager.refreshing)
                     }
                 }
             }

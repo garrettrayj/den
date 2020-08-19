@@ -55,6 +55,25 @@ struct FeedView: View {
             }.padding(.horizontal, 12).padding(.vertical, 8)
             Divider()
             VStack(spacing: 0) {
+                if feed.error != nil {
+                    VStack {
+                        VStack(spacing: 8) {
+                            Text("An error occured during refresh")
+                                .foregroundColor(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Text(feed.error!)
+                                .foregroundColor(.red)
+                                .fontWeight(.medium)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                    }
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 2).foregroundColor(.red))
+                    .padding([.horizontal, .top])
+                    .frame(maxWidth: .infinity)
+                }
+                
                 if feed.itemsArray.count > 0 {
                     ForEach(feed.itemsArray.prefix(Int(feed.itemLimit))) { item in
                         Group {

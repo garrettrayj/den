@@ -13,11 +13,7 @@ import FeedKit
 /**
  Operation for fetching feed XML (or JSON) data.
  */
-class ParseOperation : AsynchronousOperation {
-    enum FetchError: Error {
-        case fetchError, feedParserError
-    }
-    
+class ParseOperation : AsynchronousOperation {    
     var feedObjectID: NSManagedObjectID
     var data: Data?
     var parsedFeed: FeedKit.Feed?

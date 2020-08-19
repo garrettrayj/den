@@ -33,6 +33,9 @@ struct SubscribeView: View {
                 configurationStage
             }
         }
+        .onDisappear {
+            self.subscriptionManager.reset()
+        }
     }
     
     var urlEntryStage: some View {
@@ -78,9 +81,6 @@ struct SubscribeView: View {
         .onAppear {
             self.urlText = self.subscriptionManager.feedURLString
         }
-        .onDisappear {
-            self.subscriptionManager.reset()
-        }
     }
     
     var configurationStage: some View {
@@ -91,21 +91,45 @@ struct SubscribeView: View {
                     ActivityRep()
                 }
             } else {
-                NavigationView {
-                    FeedOptionsView(feed: self.newFeed!, onDelete: cancel, onMove: {})
-                        .navigationBarItems(
-                            leading: Button(action: cancel) { Text("Cancel") },
-                            trailing: Button(action: save) { Text("Save") }
-                        )
-                }.navigationViewStyle(StackNavigationViewStyle())
+                if self.newFeed != nil && self.newFeed?.error == nil {
+                    NavigationView {
+                        FeedOptionsView(feed: self.newFeed!, onDelete: cancel, onMove: {})
+                            .navigationBarItems(
+                                leading: Button(action: cancel) { Text("Cancel") },
+                                trailing: Button(action: save) { Text("Save") }
+                            )
+                    }.navigationViewStyle(StackNavigationViewStyle())
+                } else {
+                    VStack(alignment: .center, spacing: 16) {
+                        Image(systemName: "slash.circle").resizable().scaledToFit().frame(width: 48, height: 48).foregroundColor(.red)
+                        Text("Download Error").font(.title)
+                        Text(newFeed?.error ?? "Unknown Error").foregroundColor(.red).padding()
+                        Button(action: back) { Text("Back").fontWeight(.medium) }
+                        Button(action: cancel) { Text("Cancel").fontWeight(.medium) }
+                    }
+                    .buttonStyle(BorderedButtonStyle())
+                    .padding()
+                }
             }
         }
     }
     
+    func back() {
+        self.urlIsValid = nil
+        self.activeStage = .urlEntry
+    }
+    
     func cancel() {
-        if viewContext.hasChanges {
-            viewContext.rollback()
+        if let newFeed = self.newFeed {
+            viewContext.delete(newFeed)
         }
+        do {
+            try self.viewContext.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -159,6 +183,4 @@ struct SubscribeView: View {
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
-    
-    
 }

@@ -18,6 +18,8 @@ class FetchOperation : AsynchronousOperation {
     var url: URL
     var data: Data?
     var error: Error?
+    var response: HTTPURLResponse?
+    
     private var task: URLSessionTask!
 
     init(feedObjectID: NSManagedObjectID, url: URL) {
@@ -31,6 +33,7 @@ class FetchOperation : AsynchronousOperation {
         task = URLSession.shared.dataTask(with: request) { data, response, error in
             self.data = data
             self.error = error
+            self.response = response as? HTTPURLResponse
             self.finish()
         }
     }
