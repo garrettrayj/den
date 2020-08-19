@@ -69,8 +69,9 @@ struct FeedView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                     }
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 2).foregroundColor(.red))
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1).foregroundColor(.red))
                     .padding([.horizontal, .top])
+                    .padding(.bottom, 2)
                     .frame(maxWidth: .infinity)
                 }
                 
