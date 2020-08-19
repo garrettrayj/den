@@ -21,8 +21,10 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>CFBundleURLIconFile</key>
+			<string>FeedIcon</string>
 			<key>CFBundleURLName</key>
-			<string>Feed</string>
+			<string>net.devsci.den.feed</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>feed</string>
@@ -94,7 +96,9 @@
 			<key>UTTypeDescription</key>
 			<string>OPML Document</string>
 			<key>UTTypeIconFiles</key>
-			<array/>
+			<array>
+				<string>OPMLIcon</string>
+			</array>
 			<key>UTTypeIdentifier</key>
 			<string>public.opml</string>
 			<key>UTTypeTagSpecification</key>

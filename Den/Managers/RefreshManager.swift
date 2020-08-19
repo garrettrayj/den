@@ -66,9 +66,8 @@ class RefreshManager: ObservableObject {
             DispatchQueue.main.async {
                 // Perform managed object update in background
                 self.privateContext.perform {
-                    
-                    autoreleasepool {
-                        for (feedObjectID, feedResult) in self.feedResults {
+                    for (feedObjectID, feedResult) in self.feedResults {
+                        autoreleasepool {
                             let feed = self.privateContext.object(with: feedObjectID) as! Feed
                             
                             if feedResult.fetchMeta == true {
@@ -88,7 +87,6 @@ class RefreshManager: ObservableObject {
                             }
                         }
                     }
-                    
                     
                     if self.privateContext.hasChanges {
                         do {
@@ -251,5 +249,9 @@ class RefreshManager: ObservableObject {
         self.privateContext.reset()
         self.currentRefreshable = nil
         self.refreshing = false
+        
+        URLSession.shared.flush {
+            // Flushed URL session
+        }
     }
 }

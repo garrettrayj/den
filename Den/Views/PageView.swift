@@ -9,29 +9,23 @@
 import SwiftUI
 import Grid
 
-private let dateFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .medium
-    dateFormatter.timeStyle = .medium
-    return dateFormatter
-}()
-
-enum PageSheet {
-    case organizer, feedEdit, subscribe
-}
-
 /**
  Grid layout of Feed views. Hosts sheets for editing and organizing feeds, subscribing to new feeds.
  */
 struct PageView: View {
+    enum PageSheet {
+        case organizer, feedEdit, subscribe
+    }
+    
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @ObservedObject var page: Page
     @State var showingSheet: Bool = false
     @State var activeSheet: PageSheet = .organizer
     @State var editingFeed: Feed?
-    @State var showingMenu: Bool = false
+    @State var showingActionSheet: Bool = false
     
     var body: some View {
         Group {
@@ -72,12 +66,11 @@ struct PageView: View {
                             PageOrganizerView(page: self.page).environment(\.managedObjectContext, self.viewContext)
                         } else if self.activeSheet == .feedEdit {
                             FeedEditView(feed: self.editingFeed!).environment(\.managedObjectContext, self.viewContext)
-                        } else if self.activeSheet == .subscribe {
-                            SubscribeView(page: self.page)
-                                .environment(\.managedObjectContext, self.viewContext)
-                                .environmentObject(self.refreshManager)
                         }
                     }
+                }
+                .onAppear {
+                    self.subscriptionManager.currentPage = self.page
                 }
                 .padding(.top, 1) // ScrollView will flow over the navigation bar background without padding. Maybe a SwiftUI bug?
                 .navigationBarTitle(Text(page.name ?? "Unknown Page"), displayMode: .inline)
@@ -87,7 +80,7 @@ struct PageView: View {
                             // Action menu for phone users
                             Button(action: showMenu) {
                                 Image(systemName: "ellipsis")
-                            }.actionSheet(isPresented: $showingMenu) {
+                            }.actionSheet(isPresented: $showingActionSheet) {
                                 ActionSheet(
                                     title: Text("Page Actions"),
                                     message: nil,
@@ -120,7 +113,7 @@ struct PageView: View {
     }
     
     func showMenu() {
-        self.showingMenu = true
+        self.showingActionSheet = true
     }
     
     func showOrganizer() {
@@ -129,8 +122,7 @@ struct PageView: View {
     }
     
     func showSubscribe() {
-        self.activeSheet = .subscribe
-        self.showingSheet = true
+        self.subscriptionManager.subscribe()
     }
     
     private func calcGridTracks(_ availableWidth: CGFloat) -> Tracks {

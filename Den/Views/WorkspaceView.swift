@@ -10,19 +10,13 @@ import Foundation
 import SwiftUI
 import CoreData
 
-private let dateFormatter: DateFormatter = {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .medium
-    dateFormatter.timeStyle = .medium
-    return dateFormatter
-}()
-
 /**
  Master navigation list with links to Pages. Activating editMode enables CRUD for pages
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @ObservedObject var workspace: Workspace
     @State var editMode: EditMode = .inactive
     
@@ -98,7 +92,19 @@ struct WorkspaceView: View {
                     }
                 }
             }
-        )
+        ).sheet(isPresented: $subscriptionManager.showSubscribeView) {
+            if !self.workspace.isEmpty {
+                SubscribeView(page: self.subscriptionManager.currentPage != nil ? self.subscriptionManager.currentPage! : self.workspace.pagesArray.first!)
+                    .environment(\.managedObjectContext, self.viewContext)
+                    .environmentObject(self.refreshManager)
+                    .environmentObject(self.subscriptionManager)
+            } else {
+                VStack {
+                    Text("New Page Required").font(.title)
+                    Text("Please create a page before subscribing to feeds.")
+                }
+            }
+        }
     }
     
     func doneEditing() {
