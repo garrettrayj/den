@@ -17,6 +17,7 @@ struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @ObservedObject var workspace: Workspace
     @State var editMode: EditMode = .inactive
     
@@ -58,7 +59,7 @@ struct WorkspaceView: View {
                 }
             }
             HStack {
-                NavigationLink(destination: SettingsView(workspace: workspace)) {
+                NavigationLink(destination: SettingsView(workspace: workspace).environmentObject(userDefaultsManager)) {
                     Image(systemName: "gear")
                 }
                 Spacer()

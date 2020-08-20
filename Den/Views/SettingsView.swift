@@ -14,6 +14,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
+    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @ObservedObject var workspace: Workspace
     @State private var showingClearWorkspaceAlert = false
     
@@ -24,7 +25,7 @@ struct SettingsView: View {
                     Image(systemName: "circle.righthalf.fill")
                     Text("Theme")
                     Spacer()
-                    Picker(selection: DenUserDefaults.shared.uiStyle, label: Text("Interface Style")) {
+                    Picker(selection: userDefaultsManager.uiStyle, label: Text("Interface Style")) {
                         Text("Default").tag(UIUserInterfaceStyle.unspecified)
                         Text("Light").tag(UIUserInterfaceStyle.light)
                         Text("Dark").tag(UIUserInterfaceStyle.dark)
@@ -94,7 +95,7 @@ struct SettingsView: View {
         self.workspace.objectWillChange.send()
         
         // Refresh UI style to apply changes to window
-        DenUserDefaults.shared.applyUIStyle()
+        userDefaultsManager.applyUIStyle()
     }
     
     func showResetAlert() {

@@ -1,8 +1,8 @@
 //
-//  DenUserDefaults.swift
+//  UserDefaultManager.swift
 //  Den
 //
-//  Created by Garrett Johnson on 6/26/20.
+//  Created by Garrett Johnson on 8/19/20.
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
@@ -12,9 +12,7 @@ import SwiftUI
 /**
  SwiftUI bindings for user settings
  */
-class DenUserDefaults {
-    static let shared = DenUserDefaults()
-
+class UserDefaultsManager: ObservableObject {
     var uiStyle: Binding<UIUserInterfaceStyle> {
         Binding (
             get: {

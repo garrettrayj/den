@@ -32,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let refreshManager = RefreshManager(parentContext: context)
         let cacheManager = CacheManager(parentContext: context)
         let importManager = ImportManager(parentContext: context)
+        let userDefaultsManager = UserDefaultsManager()
         
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath
         let contentView = ContentView()
@@ -39,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(refreshManager)
             .environmentObject(cacheManager)
             .environmentObject(importManager)
+            .environmentObject(userDefaultsManager)
             .environmentObject(subscriptionManager)
 
         // Use a UIHostingController as window root view controller.
@@ -46,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             
             // Restore from defaults initial or previously stored style          
-            window.overrideUserInterfaceStyle = DenUserDefaults.shared.uiStyle.wrappedValue
+            window.overrideUserInterfaceStyle = userDefaultsManager.uiStyle.wrappedValue
             
             // Add SwiftUI content to window
             window.rootViewController = DenHostingController(rootView: contentView)
