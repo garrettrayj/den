@@ -36,10 +36,10 @@ struct WorkspaceView: View {
                 if workspace.isEmpty {
                     VStack(alignment: .center, spacing: 16) {
                         Text("Let's get started...").font(.headline).foregroundColor(.secondary)
-                        Button(action: {}) {
+                        Button(action: newPage) {
                             Text("Create an empty page").fontWeight(.medium)
                         }
-                        Button(action: {}) {
+                        Button(action: loadDemo) {
                             Text("Load example feeds").fontWeight(.medium)
                         }
                         Text("or").font(.headline).foregroundColor(.secondary)
@@ -111,7 +111,14 @@ struct WorkspaceView: View {
     
     func doneEditing() {
         self.editMode = .inactive
-        self.saveContext()
+    }
+    
+    func newPage() {
+        let _ = Page.create(in: viewContext, workspace: workspace)
+    }
+    
+    func loadDemo() {
+        
     }
     
     func saveContext() {

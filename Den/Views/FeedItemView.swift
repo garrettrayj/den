@@ -38,6 +38,9 @@ struct FeedItemView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .clipped()
+                                .overlay(
+                                    Rectangle().stroke(lineWidth: 1).foregroundColor(Color(UIColor.separator))
+                                )
                     })
                     .frame(width: 96, height: 64)
                     .clipped()
@@ -52,15 +55,18 @@ struct FeedItemView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity)
+                            .overlay(
+                                Rectangle().stroke(lineWidth: 1).foregroundColor(Color(UIColor.separator))
+                            )
                     }
-                ).padding(.top, 4)
+                )
+                .padding(.top, 4)
             }
             
         }
         .buttonStyle(ItemLinkButtonStyle(read: $item.read))
         .frame(maxWidth: .infinity)
         .padding(12)
-        .frame(maxWidth: .infinity)
     }
     
     func openLink() {

@@ -12,11 +12,13 @@ import CoreData
 @objc(Workspace)
 public class Workspace: Refreshable {
     public var pagesArray: [Page] {
-        guard let pages = pages else {
-            return []
+        get{
+            guard let pages = pages else { return [] }
+            return pages.array as! [Page]
         }
-        
-        return pages.array as! [Page]
+        set {
+            pages = NSOrderedSet(array: newValue)
+        }
     }
     
     var isEmpty: Bool {

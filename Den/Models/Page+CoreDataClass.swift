@@ -38,10 +38,16 @@ public class Page: Refreshable {
     // MARK: Refreshable abstract properties and methods implementations
     
     override public var feedsArray: [Feed] {
-        guard let feeds = self.feeds else {
-            return []
+        
+        get {
+            guard let feeds = self.feeds else {
+                return []
+            }
+            return feeds.array as! [Feed]
         }
-        return feeds.array as! [Feed]
+        set {
+            feeds = NSOrderedSet(array: newValue)
+        }
     }
     
     override public var lastRefreshedLabel: String {

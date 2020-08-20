@@ -21,14 +21,12 @@ struct PageOrganizerView: View {
         VStack(spacing: 0) {
             NavigationView {
                 Form {
-                    List {
+                    List() {
                         ForEach(page.feedsArray) { feed in
                             Text(feed.wrappedTitle)
                         }
-                        .onMove(perform: move)
                         .onDelete(perform: delete)
-                        .onInsert(of: [String()], perform: self.insert(at:itemProviders:))
-                        .allowsHitTesting(false)
+                        .onMove(perform: move)
                     }
                 }
                 .navigationBarTitle("Organize Feeds", displayMode: .inline)
@@ -36,6 +34,15 @@ struct PageOrganizerView: View {
                 .modifier(ModalNavigationBarModifier())
                 .environment(\.editMode, .constant(.active))
             }.navigationViewStyle(StackNavigationViewStyle())
+        }.onDisappear {
+            if self.viewContext.hasChanges {
+                do {
+                    try self.viewContext.save()
+                } catch {
+                    let nserror = error as NSError
+                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                }
+            }
         }
     }
     
@@ -48,33 +55,7 @@ struct PageOrganizerView: View {
     }
     
     func move(from sources: IndexSet, to destination: Int) {
-        
-        if self.movingItem {
-            return
-        } else {
-            self.movingItem = true
-        }
-        
-        let source = sources.first!
-        if destination > source {
-            page.mutableOrderedSetValue(forKey: "feeds").moveObjects(at: sources, to: destination - 1)
-        } else if destination < source {
-            page.mutableOrderedSetValue(forKey: "feeds").moveObjects(at: sources, to: destination)
-        }
-        
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-        
-        self.movingItem = false
-    }
-    
-    func insert(at offset: Int, itemProviders: [NSItemProvider]) {
-        print("Organizer insert action not available")
+        page.feedsArray.move(fromOffsets: sources, toOffset: destination)
+        page.objectWillChange.send()
     }
 }
