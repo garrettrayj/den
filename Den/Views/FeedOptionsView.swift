@@ -13,20 +13,9 @@ struct FeedOptionsView: View {
     @ObservedObject var feed: Feed
     @State private var pickedPage: Int
 
-    
     var onDelete: () -> Void
     var onMove: () -> Void
     var workspacePageArray: Array<Page>
-    
-    var imageSectionHeader: some View {
-        HStack {
-            Text("IMAGES")
-            Spacer()
-            Text("\(feed.itemsWithImageCount) ITEMS WITH IMAGES")
-        }
-        
-        
-    }
     
     var body: some View {
         let pagePickerSelection = Binding<Int>(get: {
@@ -48,12 +37,11 @@ struct FeedOptionsView: View {
         )
         
         return Form {
-            Section {
-                HStack {
-                    Text("Title")
-                    TextField(self.feed.title ?? "Unknown Title", text: $feed.wrappedTitle).multilineTextAlignment(.trailing)
-                }
-                
+            Section(header: Text("TITLE")) {
+                TextField("Title", text: $feed.wrappedTitle)
+            }
+            
+            Section(header: Text("SETTINGS")) {
                 Picker(selection: pagePickerSelection, label: Text("Page")) {
                     ForEach(0 ..< workspacePageArray.count) {
                         Text(self.workspacePageArray[$0].wrappedName).tag($0)
@@ -66,10 +54,6 @@ struct FeedOptionsView: View {
                     Stepper("\(feed.itemLimit)", value: $feed.itemLimit, in: 1...10).frame(maxWidth: 120)
                 }
                 
-                
-            }
-            
-            Section(header: imageSectionHeader) {
                 HStack {
                     Toggle(isOn: showThumbnailsToggleIsOn) {
                         Text("Show Thumbnails")
@@ -78,12 +62,12 @@ struct FeedOptionsView: View {
                 
                 HStack {
                     Toggle(isOn: showLargePreviewsToggleIsOn) {
-                        Text("Show Large Previews")
+                        Text("Show Large Images")
                     }
                 }
             }
             
-            Section {
+            Section(header: Text("INFORMATION")) {
                 HStack(alignment: .center) {
                     Text("URL")
                     Spacer()
@@ -92,6 +76,17 @@ struct FeedOptionsView: View {
                         Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                     }
                 }
+                
+                HStack(alignment: .center) {
+                    Text("Last Refresh")
+                    Spacer()
+                    if feed.refreshed != nil {
+                        Text("\(feed.refreshed!, formatter: DateFormatter.create())")
+                    } else {
+                        Text("Never")
+                    }
+                }
+                
             }
             Section {
                 Button(action: delete) {
@@ -102,7 +97,18 @@ struct FeedOptionsView: View {
                 }
             }
         }
+        .padding(.top)
         .navigationBarTitle("Feed Options", displayMode: .inline)
+        .onDisappear {
+            if self.viewContext.hasChanges {
+                do {
+                    try self.viewContext.save()
+                } catch {
+                    let nserror = error as NSError
+                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                }
+            }
+        }
     }
     
     init(feed: Feed, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
@@ -127,12 +133,6 @@ struct FeedOptionsView: View {
     
     func delete() {
         self.viewContext.delete(self.feed)
-        do {
-            try self.viewContext.save()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
         self.onDelete()
     }
     
@@ -140,8 +140,6 @@ struct FeedOptionsView: View {
         let pasteboard = UIPasteboard.general
         pasteboard.string = feed.url!.absoluteString
     }
-    
-    
 }
 
 struct FeedOptionsView_Previews: PreviewProvider {
