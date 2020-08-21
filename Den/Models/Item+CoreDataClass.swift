@@ -90,6 +90,10 @@ public class Item: NSManagedObject, Identifiable {
             item.image = mediaURL
         }
         
+        if let description = atomEntry.summary?.value {
+            item.summary = HTMLCleaner.stripTags(description)?.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        
         return item
     }
     
@@ -145,6 +149,10 @@ public class Item: NSManagedObject, Identifiable {
             item.image = mediaURL
         }
         
+        if let description = rssItem.description {
+            item.summary = HTMLCleaner.stripTags(description)?.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        
         return item
     }
     
@@ -181,6 +189,10 @@ public class Item: NSManagedObject, Identifiable {
             if let imageString = imageAttachment.url, let image = URL(string: imageString) {
                 item.image = image
             }
+        }
+        
+        if let summary = jsonItem.summary {
+            item.summary = HTMLCleaner.stripTags(summary)?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         
         return item
