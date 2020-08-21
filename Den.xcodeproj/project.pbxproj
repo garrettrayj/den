@@ -135,6 +135,7 @@
 		6845BD0524EDCB9C0008B296 /* ImportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportManager.swift; sourceTree = "<group>"; };
 		6845BD0724EDEE2A0008B296 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		6845BD0D24EFB2AC0008B296 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		6845BD0F24EFB38C0008B296 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDocumentPicker.swift; sourceTree = "<group>"; };
 		684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeedEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -307,6 +308,7 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
+				6845BD0F24EFB38C0008B296 /* README.md */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				68C4137F2473305600D1DC7B /* Documents */,
 				68C4130B247263C700D1DC7B /* Den */,
