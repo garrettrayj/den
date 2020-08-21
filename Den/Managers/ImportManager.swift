@@ -21,11 +21,10 @@ class ImportManager: ObservableObject {
     @Published var pickedURL: URL?
     
     var documentPicker: ImportDocumentPicker!
-    
-    private var parentContext: NSManagedObjectContext
-    
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
     var noneSelected: Bool { selectedFolders.count == 0 }
+    
+    private var parentContext: NSManagedObjectContext
     
     init(parentContext: NSManagedObjectContext) {
         self.parentContext = parentContext

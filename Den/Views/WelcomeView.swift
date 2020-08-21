@@ -14,13 +14,7 @@ struct WelcomeView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image("TitleIcon").resizable().scaledToFit().frame(width: 128, height: 128)
-            
-            
             Text("Welcome").font(.largeTitle)
-            
-            if workspace.pagesArray.count > 0 {
-
-            }
         }
     }
 }

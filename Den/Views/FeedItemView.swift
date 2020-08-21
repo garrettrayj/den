@@ -75,9 +75,3 @@ struct FeedItemView: View {
         item.markRead()
     }
 }
-
-struct FeedItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedItemView(item: Item())
-    }
-}

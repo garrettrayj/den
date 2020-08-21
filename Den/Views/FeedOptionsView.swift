@@ -78,12 +78,12 @@ struct FeedOptionsView: View {
                 }
                 
                 HStack(alignment: .center) {
-                    Text("Last Refresh")
+                    Text("Last Refreshed")
                     Spacer()
                     if feed.refreshed != nil {
-                        Text("\(feed.refreshed!, formatter: DateFormatter.create())")
+                        Text("\(feed.refreshed!, formatter: DateFormatter.create())").foregroundColor(.secondary)
                     } else {
-                        Text("Never")
+                        Text("Never").foregroundColor(.secondary)
                     }
                 }
                 

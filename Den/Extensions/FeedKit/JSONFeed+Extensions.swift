@@ -9,7 +9,6 @@
 import Foundation
 import FeedKit
 
-
 extension FeedKit.JSONFeed {
     var webpage: URL? {
         if

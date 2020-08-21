@@ -9,7 +9,6 @@
 import Foundation
 import FeedKit
 
-
 extension FeedKit.Feed {
     public var webpage: URL? {
         switch self {

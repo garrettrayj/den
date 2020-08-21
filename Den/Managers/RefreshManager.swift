@@ -86,8 +86,8 @@ class RefreshManager: ObservableObject {
                         }
                         
                         if let parserError = feedResult.parserError {
-                            feed.error = parserError.localizedDescription
-                            print("Failed to parse response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                            feed.error = "Failed to parse response"
+                            print("Failed to parse response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(parserError.localizedDescription)")
                             return
                         }
                         
