@@ -13,6 +13,7 @@ class WebpageOperation : AsynchronousOperation {
     var webpage: URL?
     var data: Data?
     var error: Error?
+    
     private var task: URLSessionTask?
 
     override func cancel() {

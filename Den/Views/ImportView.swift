@@ -14,12 +14,7 @@ struct ImportView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
-    
-    var workspace: Workspace
-    
-    init(workspace: Workspace) {
-        self.workspace = workspace
-    }
+    @ObservedObject var workspace: Workspace
     
     var body: some View {
         Group {
@@ -36,7 +31,7 @@ struct ImportView: View {
             }
         }
         .onDisappear { self.importManager.reset() }
-        .modifier(FormWrapperModifier())
+        .frame(maxWidth: 980)
         .navigationBarTitle("Import OPML", displayMode: .inline)
     }
     

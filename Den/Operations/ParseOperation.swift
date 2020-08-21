@@ -18,6 +18,7 @@ class ParseOperation : AsynchronousOperation {
     var data: Data?
     var parsedFeed: FeedKit.Feed?
     var error: FeedKit.ParserError?
+    
     private var parser: FeedParser!
 
     init(feedObjectID: NSManagedObjectID) {

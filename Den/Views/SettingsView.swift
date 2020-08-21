@@ -76,7 +76,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .modifier(FormWrapperModifier())
+        .frame(maxWidth: 980)
         .navigationBarTitle("Settings")
         .navigationViewStyle(StackNavigationViewStyle())
     }

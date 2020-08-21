@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Workspace)
-public class Workspace: Refreshable {
+public class Workspace: Refreshable, Identifiable {
     public var pagesArray: [Page] {
         get{
             guard let pages = pages else { return [] }
@@ -61,8 +61,4 @@ public class Workspace: Refreshable {
         refreshed = Date()
         objectWillChange.send()
     }
-}
-
-extension Workspace: Identifiable {
-
 }

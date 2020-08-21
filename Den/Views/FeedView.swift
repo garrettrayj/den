@@ -15,6 +15,7 @@ import URLImage
 struct FeedView: View {
     @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var feed: Feed
+    
     var parent: PageView
     
     func showOptions() {
@@ -84,11 +85,18 @@ struct FeedView: View {
                     }
                 } else {
                     if feed.refreshed == nil {
-                        Text("Refresh to fetch items").modifier(FeedMessageModifier())
+                        Text("Refresh to fetch items")
+                            .foregroundColor(.secondary)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .multilineTextAlignment(.center)
                     } else {
-                        Text("Feed has no items").modifier(FeedMessageModifier())
+                        Text("Feed has no items")
+                            .foregroundColor(.secondary)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .multilineTextAlignment(.center)
                     }
-                    
                 }
             }
         }

@@ -15,11 +15,11 @@ import FeedKit
  */
 class FetchOperation : AsynchronousOperation {
     var feedObjectID: NSManagedObjectID
-    var url: URL
     var data: Data?
     var error: Error?
     var response: HTTPURLResponse?
     
+    private var url: URL
     private var task: URLSessionTask!
 
     init(feedObjectID: NSManagedObjectID, url: URL) {

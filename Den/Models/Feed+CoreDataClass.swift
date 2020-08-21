@@ -11,7 +11,7 @@ import CoreData
 import FeedKit
 
 @objc(Feed)
-public class Feed: Refreshable {
+public class Feed: Refreshable, Identifiable {
     let MAX_ITEMS = 10
 
     public var itemsArray: [Item] {
@@ -233,8 +233,4 @@ public class Feed: Refreshable {
         
         return newFeed
     }
-}
-
-extension Feed: Identifiable {
-    
 }

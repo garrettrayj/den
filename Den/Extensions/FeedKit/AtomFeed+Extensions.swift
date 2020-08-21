@@ -9,7 +9,6 @@
 import Foundation
 import FeedKit
 
-
 extension FeedKit.AtomFeed {
     public var webpage: URL? {
         guard

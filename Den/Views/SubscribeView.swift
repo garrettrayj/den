@@ -75,7 +75,6 @@ struct SubscribeView: View {
                     }
                 }
             )
-            .modifier(ModalNavigationBarModifier())
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {

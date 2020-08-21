@@ -95,15 +95,15 @@ struct PageView: View {
                         } else {
                             // Just show three buttons on larger screens
                             Button(action: { self.refreshManager.refresh(self.page) }) {
-                                Image(systemName: "arrow.clockwise").modifier(TitleBarButtonAreaModifier())
+                                Image(systemName: "arrow.clockwise")
                             }.disabled(refreshManager.refreshing)
                             
                             Button(action: showOrganizer) {
-                                Image(systemName: "arrow.up.arrow.down").modifier(TitleBarButtonAreaModifier())
+                                Image(systemName: "arrow.up.arrow.down")
                             }
                             
                             Button(action: showSubscribe) {
-                                Image(systemName: "plus").modifier(TitleBarButtonAreaModifier())
+                                Image(systemName: "plus")
                             }
                         }
                     }

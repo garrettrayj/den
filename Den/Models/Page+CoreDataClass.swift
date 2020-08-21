@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(Page)
-public class Page: Refreshable {
+public class Page: Refreshable, Identifiable {
     public var wrappedName: String {
         get {name ?? "No Name"}
         set {name = newValue}
@@ -63,9 +63,4 @@ public class Page: Refreshable {
         refreshed = Date()
         objectWillChange.send()
     }
-}
-
-
-extension Page: Identifiable {
-    
 }

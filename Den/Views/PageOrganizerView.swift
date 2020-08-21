@@ -18,23 +18,23 @@ struct PageOrganizerView: View {
     @State var movingItem: Bool = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            NavigationView {
-                Form {
-                    List() {
-                        ForEach(page.feedsArray) { feed in
-                            Text(feed.wrappedTitle)
-                        }
-                        .onDelete(perform: delete)
-                        .onMove(perform: move)
+        NavigationView {
+            Form {
+                List() {
+                    ForEach(page.feedsArray) { feed in
+                        Text(feed.wrappedTitle)
                     }
+                    .onDelete(perform: delete)
+                    .onMove(perform: move)
+                    .onInsert(of: [String()], perform: self.insert(at:itemProvider:))
                 }
-                .navigationBarTitle("Organize Feeds", displayMode: .inline)
-                .navigationBarItems(leading: Button(action: close) { Text("Close") })
-                .modifier(ModalNavigationBarModifier())
-                .environment(\.editMode, .constant(.active))
-            }.navigationViewStyle(StackNavigationViewStyle())
-        }.onDisappear {
+            }
+            .navigationBarTitle("Organize Feeds", displayMode: .inline)
+            .navigationBarItems(leading: Button(action: close) { Text("Close") })
+            .environment(\.editMode, .constant(.active))
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onDisappear {
             if self.viewContext.hasChanges {
                 do {
                     try self.viewContext.save()
@@ -57,5 +57,9 @@ struct PageOrganizerView: View {
     func move(from sources: IndexSet, to destination: Int) {
         page.feedsArray.move(fromOffsets: sources, toOffset: destination)
         page.objectWillChange.send()
+    }
+    
+    func insert(at offset: Int, itemProvider: [NSItemProvider]) {
+        print("Page list insert action not available")
     }
 }

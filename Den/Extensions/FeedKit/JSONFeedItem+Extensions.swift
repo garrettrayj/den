@@ -26,7 +26,6 @@ extension FeedKit.JSONFeedItem {
         {
             return linkURL
         }
-
         
         return nil
     }

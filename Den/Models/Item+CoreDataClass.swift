@@ -12,7 +12,7 @@ import FeedKit
 import HTMLEntities
 
 @objc(Item)
-public class Item: NSManagedObject {
+public class Item: NSManagedObject, Identifiable {
     public var wrappedTitle: String {
         get{title ?? "Untitled"}
         set{title = newValue}
@@ -185,12 +185,4 @@ public class Item: NSManagedObject {
         
         return item
     }
-}
-
-extension Item: Identifiable {
-    
-}
-
-extension Item {
-    
 }

@@ -28,7 +28,6 @@ struct StandaloneProgressBarView: View {
                         self.observedProgress = CGFloat(fractionCompleted)
                     }
             }
-            
         }
     }
 }

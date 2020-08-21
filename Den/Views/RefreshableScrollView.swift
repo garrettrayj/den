@@ -34,7 +34,9 @@ struct RefreshableScrollView<Content: View>: View {
             ScrollView {
                 ZStack(alignment: .top) {
                     MovingView()
-                    VStack { self.content }.alignmentGuide(.top, computeValue: { d in (self.refreshManager.isRefreshing(self.refreshable)) ? -self.threshold : 0.0 })
+                    VStack { self.content }.alignmentGuide(.top, computeValue: {
+                        d in (self.refreshManager.isRefreshing(self.refreshable)) ? -self.threshold : 0.0
+                    })
                     UpdateStatusView(refreshable: refreshable, height: self.threshold, symbolRotation: rotation)
                 }
             }

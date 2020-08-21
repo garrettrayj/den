@@ -13,9 +13,6 @@ class SubscriptionManager: ObservableObject {
     @Published public var currentPage: Page? // Current page updated by PageView onAppear()
     @Published public var feedURLString: String = ""
     
-    init() {
-    }
-    
     public func subscribe(to url: URL? = nil) {
         if let url = url {
             feedURLString = url.absoluteString.replacingOccurrences(of: "feed:", with: "")
