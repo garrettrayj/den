@@ -28,7 +28,7 @@ struct PageView: View {
     @State var showingActionSheet: Bool = false
     
     var body: some View {
-        Group {
+        VStack {
             if page.name == nil {
                 VStack() {
                     Text("Page Deleted").font(.title).foregroundColor(.secondary)
@@ -50,7 +50,7 @@ struct PageView: View {
                                     .gridStyle(StaggeredGridStyle(.vertical, tracks: self.calcGridTracks(geometry.size.width), spacing: 16))
                                     .padding()
                                     .padding(.bottom, 64)
-                                }.background(Color(UIColor.secondarySystemBackground))
+                                }
                             }
                             
                         } else {
@@ -79,8 +79,9 @@ struct PageView: View {
                         if UIDevice.current.userInterfaceIdiom == .phone {
                             // Action menu for phone users
                             Button(action: showMenu) {
-                                Image(systemName: "ellipsis")
-                            }.actionSheet(isPresented: $showingActionSheet) {
+                                Image(systemName: "wrench")
+                            }
+                            .actionSheet(isPresented: $showingActionSheet) {
                                 ActionSheet(
                                     title: Text("Page Actions"),
                                     message: nil,
@@ -110,6 +111,8 @@ struct PageView: View {
                 )
             }
         }
+        .background(Color(UIColor.secondarySystemBackground))
+        .edgesIgnoringSafeArea(.horizontal)
     }
     
     func showMenu() {

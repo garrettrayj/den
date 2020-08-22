@@ -44,13 +44,13 @@ struct ExportView: View {
                     }) {
                         HStack {
                             Image(systemName: "square.and.arrow.up.on.square")
-                            Text("Export")
+                            Text("Save OPML File")
                         }
                     }
                 }
             }
         }
-        .navigationBarTitle("Export OPML", displayMode: .inline)
+        .navigationBarTitle("Export", displayMode: .inline)
     }
     
     private var allSelected: Bool {

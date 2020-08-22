@@ -52,6 +52,11 @@ class RefreshManager: ObservableObject {
         
         // Reset total progress units to number of fetch operations + one unit for completion operation + one unit for CoreData save
         let feedCount = Int64(refreshable.feedsArray.count)
+        if feedCount == 0 {
+            self.reset()
+            return
+        }
+        
         progress.totalUnitCount = feedCount + 1 + 1
         progress.completedUnitCount = 0
         

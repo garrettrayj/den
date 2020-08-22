@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import URLImage
+import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         URLImageService.shared.cleanFileCache()
         
         self.checkWorkspace()
+        
+        for family in UIFont.familyNames.sorted() {
+            let names = UIFont.fontNames(forFamilyName: family)
+            print("Family: \(family) Font names: \(names)")
+        }
         
         return true
     }
