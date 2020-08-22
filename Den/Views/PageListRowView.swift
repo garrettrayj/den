@@ -31,7 +31,6 @@ struct PageListRowView: View {
                 .font(.caption)
                 .padding(.vertical, 4)
                 .padding(.horizontal, 8)
-                .foregroundColor(page.unreadCount > 0 ? Color.accentColor : Color.secondary)
                 .background(
                     Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
                 )

@@ -15,6 +15,7 @@ import CoreData
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
@@ -35,17 +36,15 @@ struct WorkspaceView: View {
                 
                 if workspace.isEmpty {
                     VStack(alignment: .center, spacing: 16) {
-                        Text("Let's get started...").font(.headline).foregroundColor(.secondary)
+                        Text("Get Started").font(.headline)
                         Button(action: newPage) {
-                            Text("Create an empty page").fontWeight(.medium)
+                            Text("Create a New Page").fontWeight(.medium)
                         }
                         Button(action: loadDemo) {
-                            Text("Load example feeds").fontWeight(.medium)
+                            Text("Load Demo Feeds").fontWeight(.medium)
                         }
-                        Text("or").font(.headline).foregroundColor(.secondary)
-                        Text("Import feeds from OPML\nin settings below")
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
+                        Text("or")
+                        Text("Import feeds in Settings").multilineTextAlignment(.center)
                     }
                     .frame(maxWidth: .infinity)
                     .buttonStyle(BorderedButtonStyle())
@@ -101,9 +100,12 @@ struct WorkspaceView: View {
                     .environmentObject(self.refreshManager)
                     .environmentObject(self.subscriptionManager)
             } else {
-                VStack {
-                    Text("New Page Required").font(.title)
-                    Text("Please create a page before subscribing to feeds.")
+                VStack(spacing: 16) {
+                    Text("Page Required").font(.title)
+                    Text("Create a new page before subscribing to feeds.")
+                    Button(action: { self.subscriptionManager.reset() }) {
+                        Text("Close").fontWeight(.medium)
+                    }.buttonStyle(BorderedButtonStyle())
                 }
             }
         }
@@ -118,17 +120,22 @@ struct WorkspaceView: View {
     }
     
     func loadDemo() {
+        guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
+            fatalError("Missing demo feeds source file")
+        }
+        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
         
-    }
-    
-    func saveContext() {
-        if self.viewContext.hasChanges {
-            do {
-                try self.viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        opmlReader.outlineFolders.forEach { opmlFolder in
+            let page = Page.create(in: viewContext, workspace: workspace)
+            page.name = opmlFolder.name
+            
+            opmlFolder.feeds.forEach { opmlFeed in
+                let feed = Feed.create(in: viewContext, page: page)
+                feed.title = opmlFeed.title
+                feed.url = opmlFeed.url
             }
         }
+        
+        refreshManager.refresh(workspace)
     }
 }

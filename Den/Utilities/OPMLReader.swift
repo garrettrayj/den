@@ -40,7 +40,7 @@ class OPMLReader {
         }
     }
     
-    func parseDocument(xmlDoc: AEXMLDocument) {
+    private func parseDocument(xmlDoc: AEXMLDocument) {
         let folders = xmlDoc.root["body"].allDescendants { element in
             element.attributes["title"] != nil && element.attributes["xmlUrl"] == nil
         }

@@ -85,7 +85,7 @@ struct FeedView: View {
                     }
                 } else {
                     if feed.refreshed == nil {
-                        Text("Refresh to fetch items")
+                        Text("Feed never fetched")
                             .foregroundColor(.secondary)
                             .padding()
                             .frame(maxWidth: .infinity)
