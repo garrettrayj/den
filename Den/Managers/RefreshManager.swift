@@ -131,7 +131,6 @@ class RefreshManager: ObservableObject {
                 if self.privateContext.hasChanges {
                     do {
                         try self.privateContext.save()
-                        print("Successfully saved private context")
                         
                         // Jump back into main thread to save changes merged into parent managed object context (viewContext) and update UI
                         self.parentContext.performAndWait {
