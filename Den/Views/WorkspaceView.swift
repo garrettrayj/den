@@ -29,12 +29,11 @@ struct WorkspaceView: View {
                     Spacer()
                 }
                 
-                VStack(alignment: .center, spacing: 4) {
-                    Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
-                    Text("Den").font(.title).fontWeight(.semibold)
-                }.padding(.top, -90).padding(.horizontal).padding(.bottom, 8).frame(maxWidth: .infinity)
                 
                 if workspace.isEmpty {
+                    
+                    appHeader
+                    
                     VStack(alignment: .center, spacing: 16) {
                         Text("Get Started").font(.headline)
                         Button(action: newPage) {
@@ -51,10 +50,16 @@ struct WorkspaceView: View {
                     
                     Spacer()
                 } else {
-                    if refreshManager.isRefreshing(workspace) {
-                        HeaderProgressBarView(refreshable: workspace).frame(height: 2)
+                    ZStack(alignment: .top) {
+                        VStack(spacing: 0) {
+                            if refreshManager.isRefreshing(workspace) {
+                                HeaderProgressBarView(refreshable: workspace).frame(height: 2)
+                            }
+                            PageListView(editMode: $editMode, workspace: workspace)
+                        }.padding(.top, 146)
+                        
+                        appHeader
                     }
-                    PageListView(editMode: $editMode, workspace: workspace)
                 }
             }
             HStack {
@@ -64,9 +69,11 @@ struct WorkspaceView: View {
                 Spacer()
             }.padding()
         }
+        .edgesIgnoringSafeArea(.top)
         .navigationBarTitle("")
         .navigationBarItems(
             leading: HStack {
+                
                 if !workspace.isEmpty {
                     if self.editMode == .active {
                         Button(action: doneEditing) {
@@ -109,6 +116,21 @@ struct WorkspaceView: View {
                 }
             }
         }
+    }
+    
+    var appHeader: some View {
+        HStack(alignment: .center, spacing: 10) {
+            Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
+            Text("Den")
+                .font(Font.custom("OleoScriptSwashCaps-Regular", size: 44))
+                .padding(.top, 6)
+            Spacer()
+        }
+        .padding(.top, 70)
+        .padding(.bottom, 8)
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity)
+        .background(Color(UIColor.systemBackground))
     }
     
     func doneEditing() {

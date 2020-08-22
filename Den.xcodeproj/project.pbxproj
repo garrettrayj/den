@@ -35,6 +35,13 @@
 		6845BD0824EDEE2A0008B296 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD0724EDEE2A0008B296 /* UserDefaultsManager.swift */; };
 		6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD0D24EFB2AC0008B296 /* .gitignore */; };
 		6845BD1124EFB8AD0008B296 /* DemoWorkspace.opml in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */; };
+		6845BD1624F1B6B10008B296 /* LilyScriptOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1424F1B6B10008B296 /* LilyScriptOne-Regular.ttf */; };
+		6845BD1E24F1B9CD0008B296 /* OleoScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1B24F1B9CD0008B296 /* OleoScript-Bold.ttf */; };
+		6845BD1F24F1B9CD0008B296 /* OleoScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1C24F1B9CD0008B296 /* OleoScript-Regular.ttf */; };
+		6845BD2524F1BA600008B296 /* OleoScriptSwashCaps-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD2224F1BA600008B296 /* OleoScriptSwashCaps-Bold.ttf */; };
+		6845BD2624F1BA600008B296 /* OleoScriptSwashCaps-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD2324F1BA600008B296 /* OleoScriptSwashCaps-Regular.ttf */; };
+		6845BD2724F1BA600008B296 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD2424F1BA600008B296 /* OFL.txt */; };
+		6845BD2924F1BB750008B296 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD2824F1BB750008B296 /* Color+Extensions.swift */; };
 		684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */; };
 		684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */; };
 		684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */; };
@@ -138,6 +145,13 @@
 		6845BD0D24EFB2AC0008B296 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6845BD0F24EFB38C0008B296 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */ = {isa = PBXFileReference; lastKnownFileType = text; path = DemoWorkspace.opml; sourceTree = "<group>"; };
+		6845BD1424F1B6B10008B296 /* LilyScriptOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LilyScriptOne-Regular.ttf"; sourceTree = "<group>"; };
+		6845BD1B24F1B9CD0008B296 /* OleoScript-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OleoScript-Bold.ttf"; sourceTree = "<group>"; };
+		6845BD1C24F1B9CD0008B296 /* OleoScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OleoScript-Regular.ttf"; sourceTree = "<group>"; };
+		6845BD2224F1BA600008B296 /* OleoScriptSwashCaps-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OleoScriptSwashCaps-Bold.ttf"; sourceTree = "<group>"; };
+		6845BD2324F1BA600008B296 /* OleoScriptSwashCaps-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OleoScriptSwashCaps-Regular.ttf"; sourceTree = "<group>"; };
+		6845BD2424F1BA600008B296 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		6845BD2824F1BB750008B296 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDocumentPicker.swift; sourceTree = "<group>"; };
 		684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeedEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -252,14 +266,44 @@
 			path = FeedKit;
 			sourceTree = "<group>";
 		};
-		6845BCFC24EC004B0008B296 /* Assets */ = {
+		6845BCFC24EC004B0008B296 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				6845BD2124F1BA600008B296 /* OleoScriptSwashCaps */,
+				6845BD1A24F1B9CD0008B296 /* OleoScript */,
+				6845BD1324F1B6B10008B296 /* LilyScriptOne */,
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
 				68D58E6A2498481A007ED1AC /* OPMLIcon.png */,
 				6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */,
 			);
-			path = Assets;
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		6845BD1324F1B6B10008B296 /* LilyScriptOne */ = {
+			isa = PBXGroup;
+			children = (
+				6845BD1424F1B6B10008B296 /* LilyScriptOne-Regular.ttf */,
+			);
+			path = LilyScriptOne;
+			sourceTree = "<group>";
+		};
+		6845BD1A24F1B9CD0008B296 /* OleoScript */ = {
+			isa = PBXGroup;
+			children = (
+				6845BD1B24F1B9CD0008B296 /* OleoScript-Bold.ttf */,
+				6845BD1C24F1B9CD0008B296 /* OleoScript-Regular.ttf */,
+			);
+			path = OleoScript;
+			sourceTree = "<group>";
+		};
+		6845BD2124F1BA600008B296 /* OleoScriptSwashCaps */ = {
+			isa = PBXGroup;
+			children = (
+				6845BD2224F1BA600008B296 /* OleoScriptSwashCaps-Bold.ttf */,
+				6845BD2324F1BA600008B296 /* OleoScriptSwashCaps-Regular.ttf */,
+				6845BD2424F1BA600008B296 /* OFL.txt */,
+			);
+			path = OleoScriptSwashCaps;
 			sourceTree = "<group>";
 		};
 		687D9CC724B0C43800EB7F46 /* Operations */ = {
@@ -304,6 +348,7 @@
 				6809EFD624DE9031007B5CF1 /* Array+Extensions.swift */,
 				6809EFD824DE9521007B5CF1 /* Dictionary+Extensions.swift */,
 				6845BD0324ECF44E0008B296 /* URLSession+Extensions.swift */,
+				6845BD2824F1BB750008B296 /* Color+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -342,7 +387,7 @@
 				68C4131C247263C700D1DC7B /* LaunchScreen.storyboard */,
 				68C4131F247263C700D1DC7B /* Info.plist */,
 				68C4130E247263C700D1DC7B /* Den.xcdatamodeld */,
-				6845BCFC24EC004B0008B296 /* Assets */,
+				6845BCFC24EC004B0008B296 /* Misc */,
 				68C4134724727BED00D1DC7B /* Models */,
 				680E57C124D1927600196F6D /* Managers */,
 				687D9CC724B0C43800EB7F46 /* Operations */,
@@ -556,14 +601,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6845BD2724F1BA600008B296 /* OFL.txt in Resources */,
+				6845BD2524F1BA600008B296 /* OleoScriptSwashCaps-Bold.ttf in Resources */,
 				68C413802473305600D1DC7B /* Documents in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
+				6845BD1F24F1B9CD0008B296 /* OleoScript-Regular.ttf in Resources */,
 				6845BD1124EFB8AD0008B296 /* DemoWorkspace.opml in Resources */,
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
+				6845BD2624F1BA600008B296 /* OleoScriptSwashCaps-Regular.ttf in Resources */,
+				6845BD1624F1B6B10008B296 /* LilyScriptOne-Regular.ttf in Resources */,
 				6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
+				6845BD1E24F1B9CD0008B296 /* OleoScript-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +700,7 @@
 				6885FD10248287C3007A3D5B /* FeedOptionsView.swift in Sources */,
 				680E57E824D29F2200196F6D /* Feed+CoreDataClass.swift in Sources */,
 				68C41312247263C700D1DC7B /* SceneDelegate.swift in Sources */,
+				6845BD2924F1BB750008B296 /* Color+Extensions.swift in Sources */,
 				68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */,
 				680E57EC24D29F2200196F6D /* Workspace+CoreDataClass.swift in Sources */,
 				6809EFDB24DF27E8007B5CF1 /* CacheManager.swift in Sources */,

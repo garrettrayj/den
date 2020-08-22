@@ -32,7 +32,7 @@ struct ImportView: View {
         }
         .onDisappear { self.importManager.reset() }
         .frame(maxWidth: 980)
-        .navigationBarTitle("Import OPML", displayMode: .inline)
+        .navigationBarTitle("Import", displayMode: .inline)
     }
     
     var pickFileStage: some View {
@@ -98,7 +98,7 @@ struct ImportView: View {
             Image(systemName: "checkmark.circle").resizable().scaledToFit().foregroundColor(.green).frame(width: 48, height: 48)
             Text("Import Finished").font(.title)
             Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                Text("Back to Settings").fontWeight(.medium)
+                Text("Done").fontWeight(.medium)
             }.buttonStyle(BorderedButtonStyle())
         }
     }

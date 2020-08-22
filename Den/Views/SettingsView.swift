@@ -103,6 +103,7 @@ struct SettingsView: View {
     }
     
     func reset() {
+        restoreDefaultSettings()
         cacheManager.clear(workspace: workspace)
         
         do {

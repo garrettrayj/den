@@ -15,9 +15,9 @@ struct ContentView: View {
     var workspaces: FetchedResults<Workspace>
     
     var body: some View {
-        return NavigationView {
+        NavigationView {
             WorkspaceView(workspace: workspaces.first!)
             WelcomeView(workspace: workspaces.first!)
-        }
+        }        
     }
 }
