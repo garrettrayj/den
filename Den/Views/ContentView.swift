@@ -18,6 +18,6 @@ struct ContentView: View {
         NavigationView {
             WorkspaceView(workspace: workspaces.first!)
             WelcomeView(workspace: workspaces.first!)
-        }        
+        }
     }
 }

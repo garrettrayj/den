@@ -29,9 +29,7 @@ struct WorkspaceView: View {
                     Spacer()
                 }
                 
-                
                 if workspace.isEmpty {
-                    
                     appHeader
                     
                     VStack(alignment: .center, spacing: 16) {
@@ -45,6 +43,7 @@ struct WorkspaceView: View {
                         Text("or")
                         Text("Import feeds in Settings").multilineTextAlignment(.center)
                     }
+                    .padding()
                     .frame(maxWidth: .infinity)
                     .buttonStyle(BorderedButtonStyle())
                     
@@ -56,7 +55,7 @@ struct WorkspaceView: View {
                                 HeaderProgressBarView(refreshable: workspace).frame(height: 2)
                             }
                             PageListView(editMode: $editMode, workspace: workspace)
-                        }.padding(.top, 146)
+                        }.padding(.top, 111).edgesIgnoringSafeArea(.horizontal)
                         
                         appHeader
                     }
@@ -69,24 +68,10 @@ struct WorkspaceView: View {
                 Spacer()
             }.padding()
         }
-        .edgesIgnoringSafeArea(.top)
+        .edgesIgnoringSafeArea([.top, .horizontal])
         .navigationBarTitle("")
         .navigationBarItems(
             leading: HStack {
-                
-                if !workspace.isEmpty {
-                    if self.editMode == .active {
-                        Button(action: doneEditing) {
-                            Text("Done").background(Color.clear)
-                        }
-                    } else {
-                        Button(action: { self.editMode = .active }) {
-                            Text("Edit").background(Color.clear)
-                        }
-                    }
-                }
-            },
-            trailing: HStack {
                 if !workspace.isEmpty {
                     if self.editMode == .active {
                         Button(action: { withAnimation { let _ = Page.create(in: self.viewContext, workspace: self.workspace) }}) {
@@ -97,6 +82,19 @@ struct WorkspaceView: View {
                             Image(systemName: "arrow.clockwise").background(Color.clear)
                         }
                         .disabled(refreshManager.refreshing)
+                    }
+                }
+            },
+            trailing: HStack {
+                if !workspace.isEmpty {
+                    if self.editMode == .active {
+                        Button(action: doneEditing) {
+                            Text("Done").background(Color.clear)
+                        }
+                    } else {
+                        Button(action: { self.editMode = .active }) {
+                            Text("Edit").background(Color.clear)
+                        }
                     }
                 }
             }
@@ -120,14 +118,13 @@ struct WorkspaceView: View {
     
     var appHeader: some View {
         HStack(alignment: .center, spacing: 10) {
-            Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
+            Image("TitleIcon").resizable().scaledToFit().frame(width: 38, height: 38)
             Text("Den")
-                .font(Font.custom("OleoScriptSwashCaps-Regular", size: 44))
+                .font(Font.custom("PlayfairDisplay-Bold", size: 30))
                 .padding(.top, 6)
-            Spacer()
         }
-        .padding(.top, 70)
-        .padding(.bottom, 8)
+        .padding(.top, 54)
+        .padding(.bottom, 10)
         .padding(.horizontal)
         .frame(maxWidth: .infinity)
         .background(Color(UIColor.systemBackground))

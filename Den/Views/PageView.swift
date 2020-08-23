@@ -41,7 +41,6 @@ struct PageView: View {
                                 if self.refreshManager.isRefreshing(self.page) {
                                     HeaderProgressBarView(refreshable: self.page).frame(height: 2)
                                 }
-                                Divider()
                                 
                                 RefreshableScrollView(refreshable: self.page) {
                                     Grid(self.page.feedsArray) { feed in
@@ -54,7 +53,6 @@ struct PageView: View {
                             }
                             
                         } else {
-                            Divider()
                             VStack(alignment: .center) {
                                 Text("Empty Page").font(.title).foregroundColor(.secondary)
                             }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color(UIColor.secondarySystemBackground))
