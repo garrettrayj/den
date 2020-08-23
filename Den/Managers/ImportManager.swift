@@ -59,8 +59,11 @@ class ImportManager: ObservableObject {
         selectedFolders.removeAll()
     }
     
-    func importSelected(workspace: Workspace) {
+    func importSelected(workspaceObjectID: NSManagedObjectID) {
         stage = .importing
+        
+        let workspace = self.parentContext.object(with: workspaceObjectID) as! Workspace
+        
         opmlFolders.forEach { opmlFolder in
             if self.selectedFolders.contains(opmlFolder) == false {
                 return

@@ -4,11 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>OleoScriptSwashCaps-Regular.ttf</string>
-		<string>OleoScriptSwashCaps-Bold.ttf</string>
-		<string>OleoScript-Regular.ttf</string>
-		<string>OleoScript-Bold.ttf</string>
-		<string>LilyScriptOne-Regular.ttf</string>
+		<string>PlayfairDisplay-VariableFont_wght.ttf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

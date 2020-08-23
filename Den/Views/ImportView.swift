@@ -69,7 +69,7 @@ struct ImportView: View {
             
             Section {
                 Button(action: {
-                    self.importManager.importSelected(workspace: self.workspace)
+                    self.importManager.importSelected(workspaceObjectID: self.workspace.objectID)
                     self.refreshManager.refresh(self.workspace)
                 }) {
                     HStack {
@@ -84,7 +84,7 @@ struct ImportView: View {
     var inProgressStage: some View {
         VStack (spacing: 16) {
             ActivityRep()
-            Text("Fetching Feeds...").font(.title)
+            Text("Downloading...").font(.title)
             StandaloneProgressBarView(refreshable: workspace).frame(maxWidth: 256, maxHeight: 8)
         }
     }
