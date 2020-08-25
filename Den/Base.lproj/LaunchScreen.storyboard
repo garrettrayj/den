@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="0Qo-85-Dq7">
-                                <rect key="frame" x="171" y="311.5" width="72" height="273"/>
+                                <rect key="frame" x="171" y="366" width="72" height="164"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TitleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="T45-Qj-tZU">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
@@ -30,23 +30,13 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="xPv-V8-wa6"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="34"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="0HI-rO-Pt5">
-                                        <rect key="frame" x="0.0" y="144" width="72" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="qs9-i3-J1u"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="144" width="72" height="20"/>
                                     </activityIndicatorView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgA-0B-edL">
-                                        <rect key="frame" x="0.0" y="187" width="72" height="86"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="86" id="xYn-of-PtC"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
