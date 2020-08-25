@@ -122,11 +122,14 @@ struct SubscribeView: View {
         if let newFeed = self.newFeed {
             viewContext.delete(newFeed)
         }
-        do {
-            try self.viewContext.save()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        
+        if self.viewContext.hasChanges {
+            do {
+                try self.viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
         }
         
         self.presentationMode.wrappedValue.dismiss()
@@ -173,13 +176,16 @@ struct SubscribeView: View {
         self.refreshManager.refresh(newFeed!)
     }
     
-    func save() {        
-        do {
-            try viewContext.save()
-            self.presentationMode.wrappedValue.dismiss()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+    func save() {
+        if self.viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
         }
+        
+        self.presentationMode.wrappedValue.dismiss()
     }
 }

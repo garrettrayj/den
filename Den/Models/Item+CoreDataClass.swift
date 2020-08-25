@@ -25,11 +25,13 @@ public class Item: NSManagedObject, Identifiable {
         // Update unread count capsules
         self.feed?.page?.objectWillChange.send()
         
-        do {
-            try self.managedObjectContext?.save()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        if self.managedObjectContext?.hasChanges == true {
+            do {
+                try self.managedObjectContext?.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
         }
     }
     

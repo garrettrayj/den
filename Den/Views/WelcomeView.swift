@@ -14,8 +14,11 @@ struct WelcomeView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image("TitleIcon").resizable().scaledToFit().frame(width: 128, height: 128)
-            Text("Welcome").font(Font.custom("PlayfairDisplay-Bold", size: 32))
-            Text("Select a page to view feeds")
+            Text("Welcome").font(.largeTitle)
+            
+            if !workspace.isEmpty {
+                Text("Select a page to view feeds")
+            }
         }
     }
 }

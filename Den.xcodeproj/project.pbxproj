@@ -36,8 +36,6 @@
 		6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD0D24EFB2AC0008B296 /* .gitignore */; };
 		6845BD1124EFB8AD0008B296 /* DemoWorkspace.opml in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */; };
 		6845BD2924F1BB750008B296 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD2824F1BB750008B296 /* Color+Extensions.swift */; };
-		6845BD3D24F239430008B296 /* PlayfairDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD2D24F239430008B296 /* PlayfairDisplay-Bold.ttf */; };
-		6845BD4924F239430008B296 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD3924F239430008B296 /* OFL.txt */; };
 		684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */; };
 		684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */; };
 		684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */; };
@@ -142,8 +140,6 @@
 		6845BD0F24EFB38C0008B296 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */ = {isa = PBXFileReference; lastKnownFileType = text; path = DemoWorkspace.opml; sourceTree = "<group>"; };
 		6845BD2824F1BB750008B296 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
-		6845BD2D24F239430008B296 /* PlayfairDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlayfairDisplay-Bold.ttf"; sourceTree = "<group>"; };
-		6845BD3924F239430008B296 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDocumentPicker.swift; sourceTree = "<group>"; };
 		684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeedEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -261,21 +257,11 @@
 		6845BCFC24EC004B0008B296 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				6845BD2A24F239430008B296 /* Playfair_Display */,
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
 				68D58E6A2498481A007ED1AC /* OPMLIcon.png */,
 				6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */,
 			);
 			path = Misc;
-			sourceTree = "<group>";
-		};
-		6845BD2A24F239430008B296 /* Playfair_Display */ = {
-			isa = PBXGroup;
-			children = (
-				6845BD2D24F239430008B296 /* PlayfairDisplay-Bold.ttf */,
-				6845BD3924F239430008B296 /* OFL.txt */,
-			);
-			path = Playfair_Display;
 			sourceTree = "<group>";
 		};
 		687D9CC724B0C43800EB7F46 /* Operations */ = {
@@ -573,11 +559,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6845BD3D24F239430008B296 /* PlayfairDisplay-Bold.ttf in Resources */,
 				68C413802473305600D1DC7B /* Documents in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */,
-				6845BD4924F239430008B296 /* OFL.txt in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
 				6845BD1124EFB8AD0008B296 /* DemoWorkspace.opml in Resources */,
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,

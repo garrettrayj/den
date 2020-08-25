@@ -110,7 +110,7 @@ struct PageView: View {
             }
         }
         .background(Color(UIColor.secondarySystemBackground))
-        .edgesIgnoringSafeArea(.horizontal)
+        .edgesIgnoringSafeArea([.horizontal, .bottom])
     }
     
     func showMenu() {

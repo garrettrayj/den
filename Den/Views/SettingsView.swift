@@ -106,9 +106,10 @@ struct SettingsView: View {
         restoreDefaultSettings()
         cacheManager.clear(workspace: workspace)
         
+        let _ = Workspace.create(in: viewContext)
+        viewContext.delete(workspace)
+        
         do {
-            let _ = Workspace.create(in: viewContext)
-            viewContext.delete(workspace)
             try viewContext.save()
         } catch let error as NSError {
             print("Failure to clear workspace: ", error)

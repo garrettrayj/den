@@ -49,21 +49,23 @@ class CacheManager: ObservableObject {
                 }
             }
             
-            do {
-                try self.privateContext.save()
-                self.parentContext.performAndWait {
-                    do {
-                        try self.parentContext.save()
-                        
-                        for page in workspace.pagesArray {
-                            page.objectWillChange.send()
+            if self.privateContext.hasChanges {
+                do {
+                    try self.privateContext.save()
+                    self.parentContext.performAndWait {
+                        do {
+                            try self.parentContext.save()
+                            
+                            for page in workspace.pagesArray {
+                                page.objectWillChange.send()
+                            }
+                        } catch {
+                            fatalError("Failure to save view context: \(error)")
                         }
-                    } catch {
-                        fatalError("Failure to save view context: \(error)")
                     }
+                } catch {
+                    fatalError("Failure to save private context: \(error)")
                 }
-            } catch {
-                fatalError("Failure to save private context: \(error)")
             }
         }
         
