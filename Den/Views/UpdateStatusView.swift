@@ -20,14 +20,14 @@ struct UpdateStatusView: View {
             Spacer()
             if refreshManager.isRefreshing(refreshable) { // If loading, show the activity control
                 ActivityRep()
-                Text("Updating feeds...").font(.callout).foregroundColor(Color.secondary)
+                Text("Updating Feeds...").font(.callout).foregroundColor(Color.secondary)
             } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshable) {
                 Image(systemName: "slash.circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 16, height: 16)
                     .foregroundColor(Color.secondary)
-                Text("Other refresh operation in progress").foregroundColor(Color.secondary)
+                Text("Other Operation in Progress").foregroundColor(Color.secondary)
             } else {
                 Image(systemName: "arrow.down")
                     .resizable()

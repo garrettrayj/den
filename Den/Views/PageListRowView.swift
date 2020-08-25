@@ -16,15 +16,7 @@ struct PageListRowView: View {
     
     var body: some View {
         NavigationLink(destination: PageView(page: page)) {
-            #if targetEnvironment(macCatalyst)
             Image(systemName: "rectangle.grid.2x2")
-            #else
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                Image(systemName: "rectangle.grid.2x2")
-            } else {
-                Image(systemName: "rectangle.grid.1x2")
-            }
-            #endif
             
             Text(page.wrappedName).lineLimit(1).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading)
             Text(String(page.unreadCount))

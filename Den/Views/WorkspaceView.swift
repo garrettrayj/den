@@ -33,15 +33,26 @@ struct WorkspaceView: View {
                     appHeader
                     
                     VStack(alignment: .center, spacing: 16) {
-                        Text("Get Started").font(.headline)
+                        Text("Start Here").font(.title)
                         Button(action: newPage) {
-                            Text("Create a New Page").fontWeight(.medium)
+                            HStack {
+                                Image(systemName: "plus")
+                                Text("Create a New Page").fontWeight(.medium)
+                            }
                         }
                         Button(action: loadDemo) {
-                            Text("Load Demo Feeds").fontWeight(.medium)
+                            HStack {
+                                Image(systemName: "wand.and.stars")
+                                Text("Load Demo Feeds").fontWeight(.medium)
+                            }
                         }
-                        Text("or")
-                        Text("Import feeds in Settings").multilineTextAlignment(.center)
+                        NavigationLink(destination: ImportView(workspace: workspace)) {
+                            HStack {
+                                Image(systemName: "arrow.down.doc")
+                                Text("Import OPML")
+                            }
+                            
+                        }
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -54,22 +65,27 @@ struct WorkspaceView: View {
                             if refreshManager.isRefreshing(workspace) {
                                 HeaderProgressBarView(refreshable: workspace).frame(height: 2)
                             }
+                            Divider()
                             PageListView(editMode: $editMode, workspace: workspace)
-                        }.padding(.top, 111).edgesIgnoringSafeArea(.horizontal)
+                        }.padding(.top, 140)
                         
                         appHeader
                     }
                 }
             }
-            HStack {
-                NavigationLink(destination: SettingsView(workspace: workspace).environmentObject(userDefaultsManager)) {
-                    Image(systemName: "gear")
-                }
-                Spacer()
-            }.padding()
+            
+            if !workspace.isEmpty {
+                Divider()
+                HStack {
+                    NavigationLink(destination: SettingsView(workspace: workspace).environmentObject(userDefaultsManager)) {
+                        Image(systemName: "gear")
+                    }
+                    Spacer()
+                }.padding()
+            }
         }
-        .edgesIgnoringSafeArea([.top, .horizontal])
-        .navigationBarTitle("")
+        .edgesIgnoringSafeArea(.top)
+        .navigationBarTitle("", displayMode: .large)
         .navigationBarItems(
             leading: HStack {
                 if !workspace.isEmpty {
@@ -78,7 +94,7 @@ struct WorkspaceView: View {
                             Image(systemName: "plus").background(Color.clear)
                         }
                     } else {
-                        Button(action: { self.refreshManager.refresh(self.workspace)}) {
+                        Button(action: { self.refreshManager.refresh(self.workspace) }) {
                             Image(systemName: "arrow.clockwise").background(Color.clear)
                         }
                         .disabled(refreshManager.refreshing)
@@ -117,17 +133,19 @@ struct WorkspaceView: View {
     }
     
     var appHeader: some View {
-        HStack(alignment: .center, spacing: 10) {
-            Image("TitleIcon").resizable().scaledToFit().frame(width: 38, height: 38)
-            Text("Den")
-                .font(Font.custom("PlayfairDisplay-Bold", size: 30))
-                .padding(.top, 6)
+        VStack {
+            Spacer()
+            HStack(alignment: .center, spacing: 10) {
+                Image("TitleIcon").resizable().scaledToFit().frame(width: 38, height: 38)
+                Text("Den")
+                    .font(.title)
+                    .fontWeight(.bold)
+            }.padding(.bottom, 24)
         }
-        .padding(.top, 54)
-        .padding(.bottom, 10)
         .padding(.horizontal)
         .frame(maxWidth: .infinity)
-        .background(Color(UIColor.systemBackground))
+        .frame(height: 140)
+        .background(Color(UIColor.systemBackground)) //
     }
     
     func doneEditing() {
