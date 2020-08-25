@@ -209,15 +209,6 @@ public class Feed: Refreshable, Identifiable {
         return [self]
     }
     
-    override public var lastRefreshedLabel: String {
-        if let refreshed = refreshed {
-            let formatter = DateFormatter.create()
-            return formatter.string(from: refreshed)
-        }
-        
-        return "Feed never updated"
-    }
-    
     override func onRefreshComplete() {
         page?.objectWillChange.send()
         refreshed = Date()

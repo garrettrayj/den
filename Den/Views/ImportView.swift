@@ -84,7 +84,7 @@ struct ImportView: View {
     var inProgressStage: some View {
         VStack (spacing: 16) {
             ActivityRep()
-            Text("Downloading...").font(.title)
+            Text("Downloading").font(.title)
             StandaloneProgressBarView(refreshable: workspace).frame(maxWidth: 256, maxHeight: 8)
         }
     }
@@ -97,9 +97,6 @@ struct ImportView: View {
         VStack(spacing: 16) {
             Image(systemName: "checkmark.circle").resizable().scaledToFit().foregroundColor(.green).frame(width: 48, height: 48)
             Text("Import Finished").font(.title)
-            Button(action: { self.presentationMode.wrappedValue.dismiss() }) {
-                Text("Done").fontWeight(.medium)
-            }.buttonStyle(BorderedButtonStyle())
         }
     }
     

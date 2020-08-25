@@ -22,6 +22,8 @@ struct WorkspaceView: View {
     @ObservedObject var workspace: Workspace
     @State var editMode: EditMode = .inactive
     
+    let workspaceHeaderHeight: CGFloat = 140
+    
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
@@ -30,10 +32,9 @@ struct WorkspaceView: View {
                 }
                 
                 if workspace.isEmpty {
-                    appHeader
-                    
                     VStack(alignment: .center, spacing: 16) {
-                        Text("Start Here").font(.title)
+                        Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
+                        Text("Get Started").font(.title).fontWeight(.semibold)
                         Button(action: newPage) {
                             HStack {
                                 Image(systemName: "plus")
@@ -49,14 +50,13 @@ struct WorkspaceView: View {
                         NavigationLink(destination: ImportView(workspace: workspace)) {
                             HStack {
                                 Image(systemName: "arrow.down.doc")
-                                Text("Import OPML")
+                                Text("Import OPML File").fontWeight(.medium)
                             }
-                            
                         }
                     }
-                    .padding()
                     .frame(maxWidth: .infinity)
                     .buttonStyle(BorderedButtonStyle())
+                    .padding(.top, 40)
                     
                     Spacer()
                 } else {
@@ -67,9 +67,21 @@ struct WorkspaceView: View {
                             }
                             Divider()
                             PageListView(editMode: $editMode, workspace: workspace)
-                        }.padding(.top, 140)
+                        }.padding(.top, workspaceHeaderHeight)
                         
-                        appHeader
+                        VStack {
+                            Spacer()
+                            HStack(alignment: .center, spacing: 10) {
+                                Image("TitleIcon").resizable().scaledToFit().frame(width: 38, height: 38)
+                                Text("Den")
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                            }.padding(.bottom, 24)
+                        }
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: workspaceHeaderHeight)
+                        .background(Color(UIColor.systemBackground))
                     }
                 }
             }
@@ -130,22 +142,6 @@ struct WorkspaceView: View {
                 }
             }
         }
-    }
-    
-    var appHeader: some View {
-        VStack {
-            Spacer()
-            HStack(alignment: .center, spacing: 10) {
-                Image("TitleIcon").resizable().scaledToFit().frame(width: 38, height: 38)
-                Text("Den")
-                    .font(.title)
-                    .fontWeight(.bold)
-            }.padding(.bottom, 24)
-        }
-        .padding(.horizontal)
-        .frame(maxWidth: .infinity)
-        .frame(height: 140)
-        .background(Color(UIColor.systemBackground)) //
     }
     
     func doneEditing() {

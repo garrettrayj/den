@@ -20,28 +20,31 @@ struct UpdateStatusView: View {
             Spacer()
             if refreshManager.isRefreshing(refreshable) { // If loading, show the activity control
                 ActivityRep()
-                Text("Updating Feeds...").font(.callout).foregroundColor(Color.secondary)
+                Text("Updating Feeds").font(.callout)
             } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshable) {
                 Image(systemName: "slash.circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 16, height: 16)
-                    .foregroundColor(Color.secondary)
-                Text("Other Operation in Progress").foregroundColor(Color.secondary)
+                Text("Other Operation in Progress")
             } else {
                 Image(systemName: "arrow.down")
                     .resizable()
                     .scaledToFit()
-                    .foregroundColor(Color.secondary)
                     .frame(width: 16, height: 16)
                     .fixedSize()
                     .rotationEffect(symbolRotation)
-                Text(refreshable.lastRefreshedLabel)
-                    .font(.callout)
-                    .foregroundColor(Color.secondary)
+                
+                if refreshable.refreshed != nil {
+                    Text("Last Refreshed \(refreshable.refreshed!, formatter: DateFormatter.create())")
+                } else {
+                    Text("Never Refreshed")
+                }
             }
             Spacer()
         }
+        .font(.callout)
+        .foregroundColor(Color.secondary)
         .frame(height: height)
         .offset(y: -height + (refreshManager.isRefreshing(refreshable) ? +height : 0.0))
     }

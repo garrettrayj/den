@@ -71,14 +71,14 @@ struct FeedOptionsView: View {
                 HStack(alignment: .center) {
                     Text("URL")
                     Spacer()
-                    Text(feed.urlString).foregroundColor(.secondary)
+                    Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                     Button(action: copyFeed) {
                         Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                     }
                 }
                 
                 HStack(alignment: .center) {
-                    Text("Last Refreshed")
+                    Text("Last Refresh")
                     Spacer()
                     if feed.refreshed != nil {
                         Text("\(feed.refreshed!, formatter: DateFormatter.create())").foregroundColor(.secondary)
