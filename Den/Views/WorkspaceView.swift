@@ -75,7 +75,7 @@ struct WorkspaceView: View {
                                 Image("TitleIcon").resizable().scaledToFit().frame(width: 38, height: 38)
                                 Text("Den")
                                     .font(.title)
-                                    .fontWeight(.semibold)
+                                    .fontWeight(.bold)
                             }.padding(.bottom, 24)
                         }
                         .padding(.horizontal)
