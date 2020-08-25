@@ -18,7 +18,7 @@ struct HeaderProgressBarView: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .foregroundColor(Color(UIColor.systemBackground))
+                    .foregroundColor(Color(UIColor.clear))
                     .frame(width: geometry.size.width, height: 2)
                 
                 if self.refreshManager.isRefreshing(self.refreshable) {

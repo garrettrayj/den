@@ -50,15 +50,6 @@ public class Page: Refreshable, Identifiable {
         }
     }
     
-    override public var lastRefreshedLabel: String {
-        if let refreshed = refreshed {
-            let formatter = DateFormatter.create()
-            return formatter.string(from: refreshed)
-        }
-        
-        return "Page never updated"
-    }
-    
     override func onRefreshComplete() {
         refreshed = Date()
         objectWillChange.send()

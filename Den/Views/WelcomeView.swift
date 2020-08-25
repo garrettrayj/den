@@ -12,13 +12,15 @@ struct WelcomeView: View {
     @ObservedObject var workspace: Workspace
     
     var body: some View {
-        VStack(spacing: 16) {
-            Image("TitleIcon").resizable().scaledToFit().frame(width: 128, height: 128)
-            Text("Welcome").font(.largeTitle)
-            
-            if !workspace.isEmpty {
-                Text("Select a page to view feeds")
-            }
+        VStack {
+            VStack(spacing: 16) {
+                Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
+                Text("Welcome").font(.title).fontWeight(.semibold)
+                if !workspace.isEmpty {
+                    Text("Select a page to view feeds")
+                }
+                Spacer()
+            }.frame(height: 296)
         }
     }
 }

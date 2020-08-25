@@ -11,12 +11,7 @@ import CoreData
 
 @objc(Refreshable)
 public class Refreshable: NSManagedObject {
-
     public var feedsArray: [Feed] {
-        preconditionFailure("This property must be overridden")
-    }
-    
-    public var lastRefreshedLabel: String {
         preconditionFailure("This property must be overridden")
     }
     

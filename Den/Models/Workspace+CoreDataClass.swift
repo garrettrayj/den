@@ -43,15 +43,6 @@ public class Workspace: Refreshable, Identifiable {
         return feedAggregation
     }
     
-    override public var lastRefreshedLabel: String {
-        if let refreshed = refreshed {
-            let formatter = DateFormatter.create()
-            return formatter.string(from: refreshed)
-        }
-        
-        return "Workspace never updated"
-    }
-    
     override func onRefreshComplete() {
         pagesArray.forEach { page in
             page.refreshed = Date()
