@@ -13,18 +13,12 @@ import FeedKit
 /**
  Operation for fetching feed XML (or JSON) data.
  */
-class ParseOperation : AsynchronousOperation {    
-    var feedObjectID: NSManagedObjectID
+class ParseOperation : AsynchronousOperation {
     var data: Data?
     var parsedFeed: FeedKit.Feed?
     var error: FeedKit.ParserError?
     
     private var parser: FeedParser!
-
-    init(feedObjectID: NSManagedObjectID) {
-        self.feedObjectID = feedObjectID
-        super.init()
-    }
 
     override func cancel() {
         parser.abortParsing()

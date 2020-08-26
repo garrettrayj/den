@@ -30,6 +30,7 @@ public class Page: Refreshable, Identifiable {
         let newPage = self.init(context: managedObjectContext)
         newPage.id = UUID()
         newPage.workspace = workspace
+        newPage.userOrder = Int16(workspace.pages?.count ?? 0 + 1)
         newPage.name = "New Page"
         
         return newPage
@@ -38,15 +39,12 @@ public class Page: Refreshable, Identifiable {
     // MARK: Refreshable abstract properties and methods implementations
     
     override public var feedsArray: [Feed] {
-        
         get {
-            guard let feeds = self.feeds else {
-                return []
-            }
-            return feeds.array as! [Feed]
+            guard let feeds = self.feeds else { return [] }
+            return feeds.sortedArray(using: [NSSortDescriptor(key: "userOrder", ascending: true)]) as! [Feed]
         }
         set {
-            feeds = NSOrderedSet(array: newValue)
+            feeds = NSSet(array: newValue)
         }
     }
     

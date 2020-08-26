@@ -82,7 +82,7 @@ struct SettingsView: View {
     }
     
     func clearCache() {
-        cacheManager.clear(workspace: workspace)
+        cacheManager.clearAll(workspace: workspace)
     }
     
     func restoreDefaultSettings() {
@@ -103,10 +103,6 @@ struct SettingsView: View {
     }
     
     func reset() {
-        restoreDefaultSettings()
-        cacheManager.clear(workspace: workspace)
-        
-        let _ = Workspace.create(in: viewContext)
         viewContext.delete(workspace)
         
         do {
@@ -114,5 +110,16 @@ struct SettingsView: View {
         } catch let error as NSError {
             print("Failure to clear workspace: ", error)
         }
+        
+        let _ = Workspace.create(in: viewContext)
+        
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            print("Failure to create new workspace: ", error)
+        }
+        
+        restoreDefaultSettings()
+        cacheManager.clearWebCaches()
     }
 }

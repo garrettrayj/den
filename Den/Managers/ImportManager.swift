@@ -24,10 +24,10 @@ class ImportManager: ObservableObject {
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
     var noneSelected: Bool { selectedFolders.count == 0 }
     
-    private var parentContext: NSManagedObjectContext
+    private var viewContext: NSManagedObjectContext
     
-    init(parentContext: NSManagedObjectContext) {
-        self.parentContext = parentContext
+    init(viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
         self.documentPicker = ImportDocumentPicker(importManager: self)
     }
     
@@ -59,24 +59,32 @@ class ImportManager: ObservableObject {
         selectedFolders.removeAll()
     }
     
-    func importSelected(workspaceObjectID: NSManagedObjectID) {
+    func importSelected(workspace: Workspace) {
         stage = .importing
         
-        let workspace = self.parentContext.object(with: workspaceObjectID) as! Workspace
+        let foldersToImport = opmlFolders.filter { opmlFolder in
+            self.selectedFolders.contains(opmlFolder)
+        }
         
+        self.importFolders(opmlFolders: foldersToImport, workspace: workspace, viewContext: self.viewContext)
+    }
+    
+    func importFolders(opmlFolders: [OPMLFolder], workspace: Workspace, viewContext: NSManagedObjectContext) {
         opmlFolders.forEach { opmlFolder in
-            if self.selectedFolders.contains(opmlFolder) == false {
-                return
-            }
-            
-            let page = Page.create(in: self.parentContext, workspace: workspace)
+            let page = Page.create(in: viewContext, workspace: workspace)
             page.name = opmlFolder.name
             
             opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.parentContext, page: page)
+                let feed = Feed.create(in: viewContext, page: page)
                 feed.title = opmlFeed.title
                 feed.url = opmlFeed.url
             }
+        }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            fatalError("Unable to save import context: \(error)")
         }
     }
 }

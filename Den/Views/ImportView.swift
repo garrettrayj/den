@@ -69,8 +69,7 @@ struct ImportView: View {
             
             Section {
                 Button(action: {
-                    self.importManager.importSelected(workspaceObjectID: self.workspace.objectID)
-                    self.refreshManager.refresh(self.workspace)
+                    self.importManager.importSelected(workspace: self.workspace)
                 }) {
                     HStack {
                         Image(systemName: "square.and.arrow.down.on.square")

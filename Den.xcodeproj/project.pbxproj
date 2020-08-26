@@ -36,6 +36,8 @@
 		6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD0D24EFB2AC0008B296 /* .gitignore */; };
 		6845BD1124EFB8AD0008B296 /* DemoWorkspace.opml in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */; };
 		6845BD2924F1BB750008B296 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD2824F1BB750008B296 /* Color+Extensions.swift */; };
+		6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6845BD4D24F6824C0008B296 /* CloudKit.framework */; };
+		6845BD5024F6A4080008B296 /* IngestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD4F24F6A4080008B296 /* IngestOperation.swift */; };
 		684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */; };
 		684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */; };
 		684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */; };
@@ -140,6 +142,8 @@
 		6845BD0F24EFB38C0008B296 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */ = {isa = PBXFileReference; lastKnownFileType = text; path = DemoWorkspace.opml; sourceTree = "<group>"; };
 		6845BD2824F1BB750008B296 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		6845BD4D24F6824C0008B296 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		6845BD4F24F6A4080008B296 /* IngestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngestOperation.swift; sourceTree = "<group>"; };
 		684D5A43249BC0CB00EACCC9 /* ImportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportDocumentPicker.swift; sourceTree = "<group>"; };
 		684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RSSFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeedEntry+Extensions.swift"; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
 				68C4FA2A247499A600D2C0D6 /* URLImage in Frameworks */,
 				68C413892473483500D1DC7B /* FeedKit in Frameworks */,
 				687D9CBE24AA7E5300EB7F46 /* HTMLEntities in Frameworks */,
@@ -264,6 +269,14 @@
 			path = Misc;
 			sourceTree = "<group>";
 		};
+		6845BD4C24F6824C0008B296 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6845BD4D24F6824C0008B296 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		687D9CC724B0C43800EB7F46 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +287,7 @@
 				687D9CDC24B3E31400EB7F46 /* MetadataOperation.swift */,
 				6809EFD224DDE5B9007B5CF1 /* CheckFaviconOperation.swift */,
 				6809EFD424DDEEF7007B5CF1 /* FaviconResultOperation.swift */,
+				6845BD4F24F6A4080008B296 /* IngestOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -321,6 +335,7 @@
 				68C41327247263C700D1DC7B /* DenTests */,
 				68C41332247263C700D1DC7B /* DenUITests */,
 				68C4130A247263C700D1DC7B /* Products */,
+				6845BD4C24F6824C0008B296 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -594,6 +609,7 @@
 				68C413442472761D00D1DC7B /* WorkspaceView.swift in Sources */,
 				6845BCFB24EBF4500008B296 /* PageListEditRowView.swift in Sources */,
 				68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */,
+				6845BD5024F6A4080008B296 /* IngestOperation.swift in Sources */,
 				684DFA0524BC39EB0023D6DB /* RefreshableScrollView.swift in Sources */,
 				6809EFD524DDEEF7007B5CF1 /* FaviconResultOperation.swift in Sources */,
 				687D9CB424A9C13200EB7F46 /* PageListView.swift in Sources */,

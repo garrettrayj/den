@@ -16,6 +16,7 @@ import CoreData
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var importManager: ImportManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
@@ -23,7 +24,7 @@ struct WorkspaceView: View {
     @State var editMode: EditMode = .inactive
     
     let workspaceHeaderHeight: CGFloat = 140
-    
+
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
@@ -157,17 +158,8 @@ struct WorkspaceView: View {
             fatalError("Missing demo feeds source file")
         }
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
-        
-        opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: viewContext, workspace: workspace)
-            page.name = opmlFolder.name
-            
-            opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: viewContext, page: page)
-                feed.title = opmlFeed.title
-                feed.url = opmlFeed.url
-            }
-        }
+
+        importManager.importFolders(opmlFolders: opmlReader.outlineFolders, workspace: workspace, viewContext: viewContext)
         
         refreshManager.refresh(workspace)
     }
