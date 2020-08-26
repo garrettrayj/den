@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" parentEntity="Refreshable" syncable="YES" codeGenerationType="category">
         <attribute name="error" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="itemLimit" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="showLargePreviews" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="showThumbnails" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
+        <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feed" inverseEntity="Item"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="feeds" inverseEntity="Page"/>
     </entity>
@@ -25,9 +26,10 @@
         <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="items" inverseEntity="Feed"/>
     </entity>
     <entity name="Page" representedClassName="Page" parentEntity="Refreshable" codeGenerationType="category">
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="New Desk"/>
-        <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" ordered="YES" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
+        <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
         <relationship name="workspace" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workspace" inverseName="pages" inverseEntity="Workspace"/>
         <userInfo/>
     </entity>
@@ -36,12 +38,12 @@
     </entity>
     <entity name="Workspace" representedClassName="Workspace" parentEntity="Refreshable" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="pages" optional="YES" toMany="YES" minCount="1" maxCount="100" deletionRule="Cascade" ordered="YES" destinationEntity="Page" inverseName="workspace" inverseEntity="Page"/>
+        <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Page" inverseName="workspace" inverseEntity="Page"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="270" positionY="216" width="128" height="223"/>
+        <element name="Feed" positionX="270" positionY="216" width="128" height="238"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="163"/>
-        <element name="Page" positionX="261" positionY="189" width="128" height="103"/>
+        <element name="Page" positionX="261" positionY="189" width="128" height="118"/>
         <element name="Refreshable" positionX="261" positionY="315" width="128" height="58"/>
         <element name="Workspace" positionX="270" positionY="315" width="128" height="73"/>
     </elements>

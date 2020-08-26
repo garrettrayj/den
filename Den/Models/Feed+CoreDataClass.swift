@@ -85,7 +85,7 @@ public class Feed: Refreshable, Identifiable {
                 return
             }
             
-            let newItem = Item.create(atomEntry: atomEntry, moc: managedObjectContext)
+            let newItem = Item.create(atomEntry: atomEntry, moc: managedObjectContext, feed: self)
             self.addToItems(newItem)
         }
         
@@ -102,6 +102,7 @@ public class Feed: Refreshable, Identifiable {
             ) {
                 print("Cleaning up item \(item.title ?? "Untitled")...")
                 self.removeFromItems(item)
+                managedObjectContext.delete(item)
             }
         })
     }
@@ -139,7 +140,7 @@ public class Feed: Refreshable, Identifiable {
                 return
             }
             
-            let newItem = Item.create(rssItem: rssItem, moc: managedObjectContext)
+            let newItem = Item.create(rssItem: rssItem, moc: managedObjectContext, feed: self)
             self.addToItems(newItem)
         }
         
@@ -152,6 +153,7 @@ public class Feed: Refreshable, Identifiable {
                 }) == false
             ) {
                 self.removeFromItems(item)
+                managedObjectContext.delete(item)
             }
         })
     }
@@ -186,7 +188,7 @@ public class Feed: Refreshable, Identifiable {
                 return
             }
             
-            let newItem = Item.create(jsonItem: jsonItem, moc: managedObjectContext)
+            let newItem = Item.create(jsonItem: jsonItem, moc: managedObjectContext, feed: self)
             self.addToItems(newItem)
         }
         
@@ -198,6 +200,7 @@ public class Feed: Refreshable, Identifiable {
                     return item.link == feedItemLink
                 }) == false
             ) {
+                managedObjectContext.delete(item)
                 self.removeFromItems(item)
             }
         })
@@ -214,9 +217,10 @@ public class Feed: Refreshable, Identifiable {
         refreshed = Date()
     }
     
-    static func create(in managedObjectContext: NSManagedObjectContext, page: Page?) -> Feed {
+    static func create(in managedObjectContext: NSManagedObjectContext, page: Page) -> Feed {
         let newFeed = self.init(context: managedObjectContext)
         newFeed.id = UUID()
+        newFeed.userOrder = Int16(page.feeds?.count ?? 0 + 1)
         newFeed.itemLimit = 5
         newFeed.showLargePreviews = false
         newFeed.showThumbnails = true

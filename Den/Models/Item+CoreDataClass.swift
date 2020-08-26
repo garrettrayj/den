@@ -38,7 +38,7 @@ public class Item: NSManagedObject, Identifiable {
     /**
      Creates item entity from an Atom feed entry
      */
-    static func create(atomEntry: AtomFeedEntry, moc managedObjectContext: NSManagedObjectContext) -> Item {
+    static func create(atomEntry: AtomFeedEntry, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
 
@@ -102,7 +102,7 @@ public class Item: NSManagedObject, Identifiable {
     /**
      Creates item entity from a RSS feed item
      */
-    static func create(rssItem: RSSFeedItem, moc managedObjectContext: NSManagedObjectContext) -> Item {
+    static func create(rssItem: RSSFeedItem, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
         
@@ -161,7 +161,7 @@ public class Item: NSManagedObject, Identifiable {
     /**
      Creates item entity from a JSON feed item
      */
-    static func create(jsonItem: JSONFeedItem, moc managedObjectContext: NSManagedObjectContext) -> Item {
+    static func create(jsonItem: JSONFeedItem, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
         

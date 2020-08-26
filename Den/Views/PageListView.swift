@@ -44,12 +44,18 @@ struct PageListView: View {
         }
     }
     
-    func move(from sources: IndexSet, to destination: Int) {
-        let source = sources.first!
-        if destination > source {
-            workspace.mutableOrderedSetValue(forKey: "pages").moveObjects(at: sources, to: destination - 1)
-        } else if destination < source {
-            workspace.mutableOrderedSetValue(forKey: "pages").moveObjects(at: sources, to: destination)
+    private func move( from source: IndexSet, to destination: Int) {
+        // Make an array of items from fetched results
+        var revisedItems: [Page] = workspace.pagesArray.map { $0 }
+
+        // change the order of the items in the array
+        revisedItems.move(fromOffsets: source, toOffset: destination)
+
+        // update the userOrder attribute in revisedItems to
+        // persist the new order. This is done in reverse order
+        // to minimize changes to the indices.
+        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
+            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
         
         if viewContext.hasChanges {

@@ -12,12 +12,12 @@ import CoreData
 @objc(Workspace)
 public class Workspace: Refreshable, Identifiable {
     public var pagesArray: [Page] {
-        get{
+        get {
             guard let pages = pages else { return [] }
-            return pages.array as! [Page]
+            return pages.sortedArray(using: [NSSortDescriptor(key: "userOrder", ascending: true)]) as! [Page]
         }
         set {
-            pages = NSOrderedSet(array: newValue)
+            pages = NSSet(array: newValue)
         }
     }
     

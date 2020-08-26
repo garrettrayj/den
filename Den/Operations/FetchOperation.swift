@@ -14,7 +14,6 @@ import FeedKit
  Operation for fetching feed XML (or JSON) data.
  */
 class FetchOperation : AsynchronousOperation {
-    var feedObjectID: NSManagedObjectID
     var data: Data?
     var error: Error?
     var response: HTTPURLResponse?
@@ -22,8 +21,7 @@ class FetchOperation : AsynchronousOperation {
     private var url: URL
     private var task: URLSessionTask!
 
-    init(feedObjectID: NSManagedObjectID, url: URL) {
-        self.feedObjectID = feedObjectID
+    init(url: URL) {
         self.url = url
         super.init()
     

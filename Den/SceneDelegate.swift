@@ -23,20 +23,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Get the managed object context from the shared persistent container
-        guard let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext else {
-            fatalError("Unable to read managed object context.")
+        guard let persistentContainer = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer else {
+            fatalError("Unable to read shared persistent container")
         }
-        context.undoManager = nil
+
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         
         // Create manager services
-        let refreshManager = RefreshManager(parentContext: context)
-        let cacheManager = CacheManager(parentContext: context)
-        let importManager = ImportManager(parentContext: context)
+        let refreshManager = RefreshManager(persistentContainer: persistentContainer)
+        let cacheManager = CacheManager(persistentContainer: persistentContainer)
+        let importManager = ImportManager(viewContext: persistentContainer.viewContext)
         let userDefaultsManager = UserDefaultsManager()
         
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath
         let contentView = ContentView()
-            .environment(\.managedObjectContext, context)
+            .environment(\.managedObjectContext, persistentContainer.viewContext)
             .environmentObject(refreshManager)
             .environmentObject(cacheManager)
             .environmentObject(importManager)
