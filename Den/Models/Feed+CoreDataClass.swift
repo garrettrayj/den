@@ -12,8 +12,6 @@ import FeedKit
 
 @objc(Feed)
 public class Feed: Refreshable, Identifiable {
-    let MAX_ITEMS = 10
-
     public var itemsArray: [Item] {
         guard let items = items else {
             return []
@@ -46,6 +44,17 @@ public class Feed: Refreshable, Identifiable {
         }).count
     }
     
+    static func create(in managedObjectContext: NSManagedObjectContext, page: Page) -> Feed {
+        let newFeed = self.init(context: managedObjectContext)
+        newFeed.id = UUID()
+        newFeed.userOrder = Int16(page.feeds?.count ?? 0 + 1)
+        newFeed.itemLimit = 5
+        newFeed.showLargePreviews = false
+        newFeed.showThumbnails = true
+        newFeed.page = page
+        
+        return newFeed
+    }
     
     /**
      Atom feed handler responsible for populating application data model from FeedKit AtomFeed result.
@@ -73,7 +82,7 @@ public class Feed: Refreshable, Identifiable {
             return
         }
         
-        atomEntries.prefix(10).forEach { atomEntry in
+        atomEntries.prefix(Int(self.itemLimit)).forEach { atomEntry in
             // Continue if link is missing
             guard let itemLink = atomEntry.linkURL else {
                 print("MISSING LINK")
@@ -100,7 +109,6 @@ public class Feed: Refreshable, Identifiable {
                     return item.link == atomEntryAlternateLink
                 }) == false
             ) {
-                print("Cleaning up item \(item.title ?? "Untitled")...")
                 self.removeFromItems(item)
                 managedObjectContext.delete(item)
             }
@@ -129,7 +137,7 @@ public class Feed: Refreshable, Identifiable {
         }
         
         // Add new items
-        rssItems.prefix(10).forEach { (rssItem: RSSFeedItem) in
+        rssItems.prefix(Int(self.itemLimit)).forEach { (rssItem: RSSFeedItem) in
             guard let itemLink = rssItem.linkURL else {
                 print("RSS ITEM MISSING LINK")
                 return
@@ -178,7 +186,7 @@ public class Feed: Refreshable, Identifiable {
         }
         
         // Add new items
-        jsonItems.prefix(MAX_ITEMS).forEach { jsonItem in
+        jsonItems.prefix(Int(self.itemLimit)).forEach { jsonItem in
             guard let itemLink = jsonItem.linkURL else {
                 return
             }
@@ -215,17 +223,5 @@ public class Feed: Refreshable, Identifiable {
     override func onRefreshComplete() {
         page?.objectWillChange.send()
         refreshed = Date()
-    }
-    
-    static func create(in managedObjectContext: NSManagedObjectContext, page: Page) -> Feed {
-        let newFeed = self.init(context: managedObjectContext)
-        newFeed.id = UUID()
-        newFeed.userOrder = Int16(page.feeds?.count ?? 0 + 1)
-        newFeed.itemLimit = 5
-        newFeed.showLargePreviews = false
-        newFeed.showThumbnails = true
-        newFeed.page = page
-        
-        return newFeed
     }
 }

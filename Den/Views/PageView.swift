@@ -63,7 +63,9 @@ struct PageView: View {
                         if self.activeSheet == .organizer {
                             PageOrganizerView(page: self.page).environment(\.managedObjectContext, self.viewContext)
                         } else if self.activeSheet == .feedEdit {
-                            FeedEditView(feed: self.editingFeed!).environment(\.managedObjectContext, self.viewContext)
+                            FeedEditView(feed: self.editingFeed!)
+                                .environment(\.managedObjectContext, self.viewContext)
+                                .environmentObject(self.refreshManager)
                         }
                     }
                 }

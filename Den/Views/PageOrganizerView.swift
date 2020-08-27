@@ -54,9 +54,28 @@ struct PageOrganizerView: View {
         page.feedsArray.delete(at: indices, from: viewContext)
     }
     
-    func move(from sources: IndexSet, to destination: Int) {
-        page.feedsArray.move(fromOffsets: sources, toOffset: destination)
-        page.objectWillChange.send()
+    private func move( from source: IndexSet, to destination: Int) {
+        // Make an array of items from fetched results
+        var revisedItems: [Feed] = page.feedsArray.map { $0 }
+
+        // change the order of the items in the array
+        revisedItems.move(fromOffsets: source, toOffset: destination)
+
+        // update the userOrder attribute in revisedItems to
+        // persist the new order. This is done in reverse order
+        // to minimize changes to the indices.
+        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
+            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
+        }
+        
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
     
     func insert(at offset: Int, itemProvider: [NSItemProvider]) {

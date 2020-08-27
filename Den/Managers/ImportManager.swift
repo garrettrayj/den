@@ -66,16 +66,16 @@ class ImportManager: ObservableObject {
             self.selectedFolders.contains(opmlFolder)
         }
         
-        self.importFolders(opmlFolders: foldersToImport, workspace: workspace, viewContext: self.viewContext)
+        self.importFolders(opmlFolders: foldersToImport, workspace: workspace)
     }
     
-    func importFolders(opmlFolders: [OPMLFolder], workspace: Workspace, viewContext: NSManagedObjectContext) {
+    func importFolders(opmlFolders: [OPMLFolder], workspace: Workspace) {
         opmlFolders.forEach { opmlFolder in
-            let page = Page.create(in: viewContext, workspace: workspace)
+            let page = Page.create(in: self.viewContext, workspace: workspace)
             page.name = opmlFolder.name
             
             opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: viewContext, page: page)
+                let feed = Feed.create(in: self.viewContext, page: page)
                 feed.title = opmlFeed.title
                 feed.url = opmlFeed.url
             }

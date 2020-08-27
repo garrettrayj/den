@@ -18,7 +18,6 @@ struct RefreshableScrollView<Content: View>: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @State private var previousScrollOffset: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
-    @State private var frozen: Bool = false
     @State private var rotation: Angle = .degrees(0)
     
     var threshold: CGFloat = 80
@@ -60,16 +59,6 @@ struct RefreshableScrollView<Content: View>: View {
             // Crossing the threshold on the way down, we start the refresh process
             if !self.refreshManager.refreshing && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
                 self.refreshManager.refresh(self.refreshable)
-            }
-            
-            if self.refreshManager.isRefreshing(self.refreshable) {
-                // Crossing the threshold on the way up, we add a space at the top of the scrollview
-                if self.previousScrollOffset > self.threshold && self.scrollOffset <= self.threshold {
-                    self.frozen = true
-                }
-            } else {
-                // remove the sapce at the top of the scroll view
-                self.frozen = false
             }
             
             // Update last scroll offset
