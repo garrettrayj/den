@@ -13,18 +13,11 @@ import URLImage
  Block view with channel title and items (articles)
  */
 struct FeedView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var feed: Feed
     
     var parent: PageView
     
     func showOptions() {
-        self.parent.editingFeed = self.feed
-        self.parent.activeSheet = .feedEdit
-        self.parent.showingSheet = true
-    }
-    
-    func closeOptions() {
         self.parent.editingFeed = self.feed
         self.parent.activeSheet = .feedEdit
         self.parent.showingSheet = true

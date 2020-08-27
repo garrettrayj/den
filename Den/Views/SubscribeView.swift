@@ -172,6 +172,15 @@ struct SubscribeView: View {
         self.newFeed = Feed.create(in: self.viewContext, page: self.page)
         self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
         
+        if self.viewContext.hasChanges {
+            do {
+                try self.viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unable to create feed \(nserror), \(nserror.userInfo)")
+            }
+        }
+        
         self.activeStage = .configuration
         self.refreshManager.refresh([newFeed!])
     }

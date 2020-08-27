@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct ImportView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
     

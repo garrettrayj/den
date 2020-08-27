@@ -41,6 +41,7 @@ public class Item: NSManagedObject, Identifiable {
     static func create(atomEntry: AtomFeedEntry, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
+        item.feed = feed
 
         if let published = atomEntry.published {
             item.published = published
@@ -105,6 +106,7 @@ public class Item: NSManagedObject, Identifiable {
     static func create(rssItem: RSSFeedItem, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
+        item.feed = feed
         
         // Prefer RSS pubDate element for published date
         if let published = rssItem.pubDate {
@@ -164,6 +166,7 @@ public class Item: NSManagedObject, Identifiable {
     static func create(jsonItem: JSONFeedItem, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
+        item.feed = feed
         
         // Prefer RSS pubDate element for published date
         if let published = jsonItem.datePublished {

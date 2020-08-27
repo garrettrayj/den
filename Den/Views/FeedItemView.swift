@@ -13,7 +13,6 @@ import URLImage
  Item (article) row for feeds
  */
 struct FeedItemView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var item: Item
     
     var body: some View {

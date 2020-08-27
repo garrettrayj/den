@@ -15,7 +15,6 @@ import CoreData
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var importManager: ImportManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager

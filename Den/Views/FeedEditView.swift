@@ -13,7 +13,6 @@ import SwiftUI
  FeedOptionsView wrapper for displaying options in a modal sheet.
  */
 struct FeedEditView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var feed: Feed    
     
@@ -21,8 +20,8 @@ struct FeedEditView: View {
         NavigationView {
             FeedOptionsView(
                 feed: feed,
-                onDelete: { self.presentationMode.wrappedValue.dismiss() },
-                onMove: { self.presentationMode.wrappedValue.dismiss() }
+                onDelete: close,
+                onMove: close
             )
             .navigationBarItems(leading: Button(action: close) { Text("Close") })
         }.navigationViewStyle(StackNavigationViewStyle())

@@ -30,7 +30,7 @@ struct PageOrganizerView: View {
                 }
             }
             .navigationBarTitle("Organize Feeds", displayMode: .inline)
-            .navigationBarItems(leading: Button(action: close) { Text("Close") })
+            .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Close") })
             .environment(\.editMode, .constant(.active))
         }
         .navigationViewStyle(StackNavigationViewStyle())
@@ -44,10 +44,6 @@ struct PageOrganizerView: View {
                 }
             }
         }
-    }
-    
-    func close() {
-        presentationMode.wrappedValue.dismiss()
     }
     
     func delete(indices: IndexSet) {

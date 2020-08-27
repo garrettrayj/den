@@ -90,13 +90,16 @@ class RefreshManager: ObservableObject {
         return operations
     }
     
-    
     private func createFeedOperations(feed: Feed) -> [Operation] {
+        guard let feedURL = feed.url else {
+            return []
+        }
+        
         var operations: [Operation] = []
         let fetchMeta = feed.refreshed == nil
                 
         // Create standard feed operations
-        let fetchOperation = FetchOperation(url: feed.url!)
+        let fetchOperation = FetchOperation(url: feedURL)
         let parseOperation = ParseOperation()
         let ingestOperation = IngestOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
         ingestOperation.completionBlock = {
