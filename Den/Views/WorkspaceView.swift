@@ -20,19 +20,21 @@ struct WorkspaceView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
-    @ObservedObject var workspace: Workspace
     @State var editMode: EditMode = .inactive
+    
+    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
+    var pages: FetchedResults<Page>
     
     let workspaceHeaderHeight: CGFloat = 140
 
     var body: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                if workspace.isEmpty && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
+                if pages.count == 0 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
                     Spacer()
                 }
                 
-                if workspace.isEmpty {
+                if pages.count == 0 {
                     VStack(alignment: .center, spacing: 16) {
                         Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
                         Text("Get Started").font(.title).fontWeight(.semibold)
@@ -48,7 +50,7 @@ struct WorkspaceView: View {
                                 Text("Load Demo Feeds").fontWeight(.medium)
                             }
                         }
-                        NavigationLink(destination: ImportView(workspace: workspace)) {
+                        NavigationLink(destination: ImportView()) {
                             HStack {
                                 Image(systemName: "arrow.down.doc")
                                 Text("Import OPML File").fontWeight(.medium)
@@ -63,11 +65,11 @@ struct WorkspaceView: View {
                 } else {
                     ZStack(alignment: .top) {
                         VStack(spacing: 0) {
-                            if refreshManager.isRefreshing(workspace) {
-                                HeaderProgressBarView(refreshable: workspace).frame(height: 2)
+                            if refreshManager.isRefreshing(pages.map { $0 }) {
+                                HeaderProgressBarView(refreshables: pages.map { $0 }).frame(height: 2)
                             }
                             Divider()
-                            PageListView(editMode: $editMode, workspace: workspace)
+                            PageListView(editMode: $editMode)
                         }.padding(.top, workspaceHeaderHeight)
                         
                         VStack {
@@ -87,10 +89,10 @@ struct WorkspaceView: View {
                 }
             }
             
-            if !workspace.isEmpty {
+            if pages.count > 0 {
                 Divider()
                 HStack {
-                    NavigationLink(destination: SettingsView(workspace: workspace).environmentObject(userDefaultsManager)) {
+                    NavigationLink(destination: SettingsView().environmentObject(userDefaultsManager)) {
                         Image(systemName: "gear")
                     }
                     Spacer()
@@ -101,13 +103,13 @@ struct WorkspaceView: View {
         .navigationBarTitle("", displayMode: .large)
         .navigationBarItems(
             leading: HStack {
-                if !workspace.isEmpty {
+                if pages.count > 0 {
                     if self.editMode == .active {
-                        Button(action: { withAnimation { let _ = Page.create(in: self.viewContext, workspace: self.workspace) }}) {
+                        Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
                             Image(systemName: "plus").background(Color.clear)
                         }
                     } else {
-                        Button(action: { self.refreshManager.refresh(self.workspace) }) {
+                        Button(action: { self.refreshManager.refresh() }) {
                             Image(systemName: "arrow.clockwise").background(Color.clear)
                         }
                         .disabled(refreshManager.refreshing)
@@ -115,7 +117,7 @@ struct WorkspaceView: View {
                 }
             },
             trailing: HStack {
-                if !workspace.isEmpty {
+                if pages.count > 0 {
                     if self.editMode == .active {
                         Button(action: doneEditing) {
                             Text("Done").background(Color.clear)
@@ -128,8 +130,8 @@ struct WorkspaceView: View {
                 }
             }
         ).sheet(isPresented: $subscriptionManager.showSubscribeView) {
-            if !self.workspace.isEmpty {
-                SubscribeView(page: self.subscriptionManager.currentPage != nil ? self.subscriptionManager.currentPage! : self.workspace.pagesArray.first!)
+            if self.pages.count > 0 {
+                SubscribeView(page: self.subscriptionManager.currentPage != nil ? self.subscriptionManager.currentPage! : self.pages.first!)
                     .environment(\.managedObjectContext, self.viewContext)
                     .environmentObject(self.refreshManager)
                     .environmentObject(self.subscriptionManager)
@@ -150,7 +152,7 @@ struct WorkspaceView: View {
     }
     
     func newPage() {
-        let _ = Page.create(in: viewContext, workspace: workspace)
+        let _ = Page.create(in: viewContext)
     }
     
     func loadDemo() {
@@ -159,7 +161,7 @@ struct WorkspaceView: View {
         }
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
 
-        importManager.importFolders(opmlFolders: opmlReader.outlineFolders, workspace: workspace)
-        refreshManager.refresh(workspace)
+        importManager.importFolders(opmlFolders: opmlReader.outlineFolders)
+        refreshManager.refresh(pages.map { $0 })
     }
 }

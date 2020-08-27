@@ -59,19 +59,19 @@ class ImportManager: ObservableObject {
         selectedFolders.removeAll()
     }
     
-    func importSelected(workspace: Workspace) {
+    func importSelected() {
         stage = .importing
         
         let foldersToImport = opmlFolders.filter { opmlFolder in
             self.selectedFolders.contains(opmlFolder)
         }
         
-        self.importFolders(opmlFolders: foldersToImport, workspace: workspace)
+        self.importFolders(opmlFolders: foldersToImport)
     }
     
-    func importFolders(opmlFolders: [OPMLFolder], workspace: Workspace) {
+    func importFolders(opmlFolders: [OPMLFolder]) {
         opmlFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, workspace: workspace)
+            let page = Page.create(in: self.viewContext)
             page.name = opmlFolder.name
             
             opmlFolder.feeds.forEach { opmlFeed in

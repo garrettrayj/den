@@ -12,19 +12,20 @@ struct FeedOptionsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
-    @State private var pickedPage: Int
+    @State private var pickedPage: Int = 0
 
     var onDelete: () -> Void
     var onMove: () -> Void
-    var workspacePageArray: Array<Page>
+    
+    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
+    var pages: FetchedResults<Page>
     
     var body: some View {
         let pagePickerSelection = Binding<Int>(get: {
             return self.pickedPage
         }, set: {
             self.pickedPage = $0
-            self.feed.page = self.workspacePageArray[$0]
-            self.onMove()
+            self.feed.page = self.pages[$0]
         })
         
         let showThumbnailsToggleIsOn = Binding<Bool>(
@@ -44,10 +45,16 @@ struct FeedOptionsView: View {
             
             Section(header: Text("SETTINGS")) {
                 Picker(selection: pagePickerSelection, label: Text("Page")) {
-                    ForEach(0 ..< workspacePageArray.count) {
-                        Text(self.workspacePageArray[$0].wrappedName).tag($0)
+                    ForEach(0 ..< pages.count) {
+                        Text(self.pages[$0].wrappedName).tag($0)
                     }.navigationBarTitle("Select Page")
-                }.navigationBarTitle("Feed Options", displayMode: .inline)
+                }
+                .navigationBarTitle("Feed Options", displayMode: .inline)
+                .onAppear {
+                    if let page = self.feed.page, let pageIndex = self.pages.firstIndex(of: page) {
+                        self.pickedPage = pageIndex
+                    }
+                }
                 
                 HStack {
                     Text("Item Limit")
@@ -109,7 +116,7 @@ struct FeedOptionsView: View {
                     fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
                 }
                 
-                self.refreshManager.refresh(self.feed)
+                self.refreshManager.refresh([self.feed])
             }
         }
     }
@@ -118,20 +125,6 @@ struct FeedOptionsView: View {
         self.feed = feed
         self.onDelete = onDelete
         self.onMove = onMove
-    
-        guard
-            let currentPage = feed.page,
-            let workspace = currentPage.workspace,
-            let currentPageIndex = workspace.pagesArray.firstIndex(of: currentPage)
-        else {
-            // Feed was deleted; set dummy data
-            self.workspacePageArray = []
-            _pickedPage = State(initialValue: 0)
-            return
-        }
-        
-        self.workspacePageArray = workspace.pagesArray
-        _pickedPage = State(initialValue: currentPageIndex)
     }
     
     func delete() {

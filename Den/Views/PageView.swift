@@ -38,11 +38,9 @@ struct PageView: View {
                     GeometryReader { geometry in
                         if self.page.feedsArray.count > 0 {
                             VStack(spacing: 0) {
-                                if self.refreshManager.isRefreshing(self.page) {
-                                    HeaderProgressBarView(refreshable: self.page).frame(height: 2)
-                                }
+                                HeaderProgressBarView(refreshables: [self.page]).frame(height: 2)
                                 
-                                RefreshableScrollView(refreshable: self.page) {
+                                RefreshableScrollView(refreshables: [self.page]) {
                                     Grid(self.page.feedsArray) { feed in
                                         FeedView(feed: feed, parent: self)
                                     }
@@ -86,7 +84,7 @@ struct PageView: View {
                                     title: Text("Page Actions"),
                                     message: nil,
                                     buttons: [
-                                        .default(Text("Refresh")) { self.refreshManager.refresh(self.page) },
+                                        .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
                                         .default(Text("Organize")) { self.showOrganizer() },
                                         .default(Text("Add Feed")) { self.showSubscribe() },
                                         .cancel()
@@ -95,7 +93,7 @@ struct PageView: View {
                             }
                         } else {
                             // Just show three buttons on larger screens
-                            Button(action: { self.refreshManager.refresh(self.page) }) {
+                            Button(action: { self.refreshManager.refresh([self.page]) }) {
                                 Image(systemName: "arrow.clockwise")
                             }.disabled(refreshManager.refreshing)
                             

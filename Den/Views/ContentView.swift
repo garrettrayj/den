@@ -8,16 +8,11 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var refreshManager: RefreshManager
-    @FetchRequest(entity: Workspace.entity(), sortDescriptors: [])
-    var workspaces: FetchedResults<Workspace>
-    
+struct ContentView: View {    
     var body: some View {
         NavigationView {
-            WorkspaceView(workspace: workspaces.first!)
-            WelcomeView(workspace: workspaces.first!)
+            WorkspaceView()
+            WelcomeView()
         }
     }
 }

@@ -10,18 +10,18 @@ import SwiftUI
 
 struct UpdateStatusView: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    @ObservedObject var refreshable: Refreshable
     
+    var refreshables: [Refreshable]
     var height: CGFloat
     var symbolRotation: Angle
     
     var body: some View {
         VStack {
             Spacer()
-            if refreshManager.isRefreshing(refreshable) { // If loading, show the activity control
+            if refreshManager.isRefreshing(refreshables) { // If loading, show the activity control
                 ActivityRep()
                 Text("Updating Feeds").font(.callout)
-            } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshable) {
+            } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshables) {
                 Image(systemName: "slash.circle")
                     .resizable()
                     .scaledToFit()
@@ -35,17 +35,13 @@ struct UpdateStatusView: View {
                     .fixedSize()
                     .rotationEffect(symbolRotation)
                 
-                if refreshable.lastRefreshed != nil {
-                    Text("Last Refreshed \(refreshable.lastRefreshed!, formatter: DateFormatter.create())").lineLimit(1)
-                } else {
-                    Text("Never Refreshed")
-                }
+                Text("Pull to Refresh")
             }
             Spacer()
         }
         .font(.callout)
         .foregroundColor(Color.secondary)
         .frame(height: height)
-        .offset(y: -height + (refreshManager.isRefreshing(refreshable) ? +height : 0.0))
+        .offset(y: -height + (refreshManager.isRefreshing(refreshables) ? +height : 0.0))
     }
 }

@@ -24,14 +24,19 @@ public class Page: Refreshable, Identifiable {
         }
     }
     
-    static func create(in managedObjectContext: NSManagedObjectContext, workspace: Workspace) -> Page {
-        let newPage = self.init(context: managedObjectContext)
-        newPage.id = UUID()
-        newPage.workspace = workspace
-        newPage.userOrder = Int16(workspace.pages?.count ?? 0 + 1)
-        newPage.name = "New Page"
-        
-        return newPage
+    static func create(in managedObjectContext: NSManagedObjectContext) -> Page {
+        do {
+            let pages = try managedObjectContext.fetch(Page.fetchRequest())
+            
+            let newPage = self.init(context: managedObjectContext)
+            newPage.id = UUID()
+            newPage.userOrder = Int16(pages.count + 1)
+            newPage.name = "New Page"
+            
+            return newPage
+        } catch {
+            fatalError("Unable to create new page: \(error)")
+        }
     }
     
     // MARK: Refreshable abstract properties and methods implementations

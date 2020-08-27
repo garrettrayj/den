@@ -15,8 +15,10 @@ struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
-    @ObservedObject var workspace: Workspace
     @State private var showingClearWorkspaceAlert = false
+    
+    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
+    var pages: FetchedResults<Page>
     
     var body: some View {
         Form {
@@ -34,11 +36,11 @@ struct SettingsView: View {
             }
             
             Section(header: Text("IMPORT AND EXPORT")) {
-                NavigationLink(destination: ImportView(workspace: workspace)) {
+                NavigationLink(destination: ImportView()) {
                     Image(systemName: "arrow.down.doc")
                     Text("Import OPML")
                 }
-                NavigationLink(destination: ExportView(workspace: workspace)) {
+                NavigationLink(destination: ExportView()) {
                     Image(systemName: "arrow.up.doc")
                     Text("Export OPML")
                 }
@@ -82,7 +84,7 @@ struct SettingsView: View {
     }
     
     func clearCache() {
-        cacheManager.clearAll(workspace: workspace)
+        cacheManager.clearAll()
     }
     
     func restoreDefaultSettings() {
@@ -90,9 +92,6 @@ struct SettingsView: View {
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
-        
-        // Trigger re-render of settings controls
-        self.workspace.objectWillChange.send()
         
         // Refresh UI style to apply changes to window
         userDefaultsManager.applyUIStyle()
@@ -103,15 +102,9 @@ struct SettingsView: View {
     }
     
     func reset() {
-        viewContext.delete(workspace)
-        
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            print("Failure to clear workspace: ", error)
+        pages.forEach { page in
+            self.viewContext.delete(page)
         }
-        
-        let _ = Workspace.create(in: viewContext)
         
         do {
             try viewContext.save()
