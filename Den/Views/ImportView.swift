@@ -14,7 +14,6 @@ struct ImportView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
-    @ObservedObject var workspace: Workspace
     
     var body: some View {
         Group {
@@ -23,7 +22,7 @@ struct ImportView: View {
             } else if self.importManager.stage == .folderSelection {
                 folderSelectionStage
             } else if self.importManager.stage == .importing {
-                if refreshManager.isRefreshing(workspace) {
+                if refreshManager.refreshing {
                     inProgressStage
                 } else {
                     completeStage
@@ -69,7 +68,7 @@ struct ImportView: View {
             
             Section {
                 Button(action: {
-                    self.importManager.importSelected(workspace: self.workspace)
+                    self.importManager.importSelected()
                 }) {
                     HStack {
                         Image(systemName: "square.and.arrow.down.on.square")
@@ -84,7 +83,7 @@ struct ImportView: View {
         VStack (spacing: 16) {
             ActivityRep()
             Text("Downloading").font(.title)
-            StandaloneProgressBarView(refreshable: workspace).frame(maxWidth: 256, maxHeight: 8)
+            StandaloneProgressBarView().frame(maxWidth: 256, maxHeight: 8)
         }
     }
     

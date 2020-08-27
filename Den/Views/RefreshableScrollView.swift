@@ -14,17 +14,17 @@ import SwiftUI
  Adapted from https://swiftui-lab.com/scrollview-pull-to-refresh/
  */
 struct RefreshableScrollView<Content: View>: View {
-    @ObservedObject var refreshable: Refreshable
     @EnvironmentObject var refreshManager: RefreshManager
     @State private var previousScrollOffset: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
     @State private var rotation: Angle = .degrees(0)
     
+    var refreshables: [Refreshable]
     var threshold: CGFloat = 80
     let content: Content
 
-    init(refreshable: Refreshable, @ViewBuilder content: () -> Content) {
-        self.refreshable = refreshable
+    init(refreshables: [Refreshable], @ViewBuilder content: () -> Content) {
+        self.refreshables = refreshables
         self.content = content()
     }
     
@@ -34,9 +34,9 @@ struct RefreshableScrollView<Content: View>: View {
                 ZStack(alignment: .top) {
                     MovingView()
                     VStack { self.content }.alignmentGuide(.top, computeValue: {
-                        d in (self.refreshManager.isRefreshing(self.refreshable)) ? -self.threshold : 0.0
+                        d in (self.refreshManager.isRefreshing(self.refreshables)) ? -self.threshold : 0.0
                     })
-                    UpdateStatusView(refreshable: refreshable, height: self.threshold, symbolRotation: rotation)
+                    UpdateStatusView(refreshables: refreshables, height: self.threshold, symbolRotation: rotation)
                 }
             }
             .background(FixedView())
@@ -58,7 +58,7 @@ struct RefreshableScrollView<Content: View>: View {
             
             // Crossing the threshold on the way down, we start the refresh process
             if !self.refreshManager.refreshing && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
-                self.refreshManager.refresh(self.refreshable)
+                self.refreshManager.refresh(self.refreshables)
             }
             
             // Update last scroll offset

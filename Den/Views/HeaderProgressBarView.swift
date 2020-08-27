@@ -11,8 +11,9 @@ import Combine
 
 struct HeaderProgressBarView: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    @ObservedObject var refreshable: Refreshable
     @State var observedProgress: CGFloat = 0
+    
+    var refreshables: [Refreshable]
     
     var body: some View {
         GeometryReader { geometry in
@@ -21,7 +22,7 @@ struct HeaderProgressBarView: View {
                     .foregroundColor(Color(UIColor.clear))
                     .frame(width: geometry.size.width, height: 2)
                 
-                if self.refreshManager.isRefreshing(self.refreshable) {
+                if self.refreshManager.isRefreshing(self.refreshables) {
                     Rectangle()
                         .foregroundColor(Color.accentColor)
                         .frame(width: geometry.size.width * self.observedProgress, height: 2)

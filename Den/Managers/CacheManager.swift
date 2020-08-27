@@ -18,8 +18,8 @@ class CacheManager: ObservableObject {
         self.persistentContainer = persistentContainer
     }
     
-    func clearAll(workspace: Workspace) {
-        clearWorkspaceItems(workspace: workspace)
+    func clearAll() {
+        clearItems()
         clearWebCaches()
     }
     
@@ -28,22 +28,7 @@ class CacheManager: ObservableObject {
         URLImageService.shared.resetFileCache()
     }
     
-    func clearWorkspaceItems(workspace: Workspace) {
-        let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
-        context.performAndWait {
-            workspace.feedsArray.forEach { feed in
-                feed.itemsArray.forEach { item in
-                    context.delete(context.object(with: item.objectID))
-                }
-            }
-            
-            if context.hasChanges {
-                do {
-                    try context.save()
-                } catch {
-                    fatalError("Unable to save backbround context: \(error)")
-                }
-            }
-        }
+    func clearItems() {
+        // TODO: Clear items
     }
 }

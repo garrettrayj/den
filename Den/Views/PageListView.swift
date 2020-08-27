@@ -14,13 +14,15 @@ import SwiftUI
 struct PageListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Binding var editMode: EditMode
-    @ObservedObject var workspace: Workspace
+    
+    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
+    var pages: FetchedResults<Page>
     
     var body: some View {
         GeometryReader { geometry in
             if self.editMode == EditMode.active {
                 List {
-                    ForEach(self.workspace.pagesArray) { page in
+                    ForEach(self.pages) { page in
                         PageListEditRowView(page: page)
                     }
                     .onMove(perform: self.move)
@@ -32,9 +34,9 @@ struct PageListView: View {
                 .frame(height: geometry.size.height)
                 .environment(\.editMode, self.$editMode)
             } else {
-                RefreshableScrollView(refreshable: self.workspace) {
+                RefreshableScrollView(refreshables: self.pages.map { $0 }) {
                     List {
-                        ForEach(self.workspace.pagesArray) { page in
+                        ForEach(self.pages) { page in
                             PageListRowView(page: page)
                         }
                     }
@@ -46,7 +48,7 @@ struct PageListView: View {
     
     private func move( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Page] = workspace.pagesArray.map { $0 }
+        var revisedItems: [Page] = pages.map { $0 }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -69,7 +71,7 @@ struct PageListView: View {
     }
     
     func delete(indices: IndexSet) {
-        workspace.pagesArray.delete(at: indices, from: viewContext)
+        pages.delete(at: indices, from: viewContext)
     }
     
     func insert(at offset: Int, itemProvider: [NSItemProvider]) {

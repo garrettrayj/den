@@ -10,7 +10,6 @@ import SwiftUI
 
 struct StandaloneProgressBarView: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    @ObservedObject var refreshable: Refreshable
     @State var observedProgress: CGFloat = 0
     
     var body: some View {

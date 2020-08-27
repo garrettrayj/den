@@ -11,16 +11,18 @@ import SwiftUI
 import AEXML
 
 struct ExportView: View {
-    @ObservedObject var workspace: Workspace
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
     @State private var picker: ExportDocumentPicker?
+    
+    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
+    var pages: FetchedResults<Page>
     
     var body: some View {
         VStack {
             Form {
                 Section(header: selectionSectionHeader) {
-                    List(workspace.pagesArray) { page in
+                    List(pages) { page in
                         // .editMode doesn't work inside forms, so creating selection buttons manually
                         Button(action: { self.togglePage(page) }) {
                             HStack {
@@ -54,7 +56,7 @@ struct ExportView: View {
     }
     
     private var allSelected: Bool {
-        selectedPages.count == workspace.pagesArray.count
+        selectedPages.count == pages.count
     }
     
     private var noneSelected: Bool {
@@ -84,7 +86,7 @@ struct ExportView: View {
     }
     
     private func selectAll() {
-        workspace.pagesArray.forEach { page in
+        pages.forEach { page in
             if !selectedPages.contains(page) {
                 selectedPages.append(page)
             }
@@ -96,7 +98,7 @@ struct ExportView: View {
     }
     
     func export() {
-        let exportPages: [Page] = workspace.pagesArray.compactMap { page in
+        let exportPages: [Page] = pages.compactMap { page in
             if selectedPages.contains(page) {
                 return page
             }
@@ -107,11 +109,5 @@ struct ExportView: View {
         let opmlWriter = OPMLWriter(pages: exportPages)
         let temporaryFileURL = opmlWriter.writeToFile()
         self.picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
-    }
-}
-
-struct ExportView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExportView(workspace: Workspace())
     }
 }
