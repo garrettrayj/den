@@ -17,12 +17,10 @@ public class Page: Refreshable, Identifiable {
     }
     
     public var unreadCount: Int {
-        get {
-            var count = 0
-            feedsArray.forEach { feed in
-                count += feed.unreadItemCount
+        get {            
+            feedsArray.reduce(0) { (result, feed) -> Int in
+                result + feed.unreadItemCount
             }
-            return count
         }
     }
     
@@ -37,6 +35,10 @@ public class Page: Refreshable, Identifiable {
     }
     
     // MARK: Refreshable abstract properties and methods implementations
+    
+    override public var lastRefreshed: Date? {
+        return refreshed
+    }
     
     override public var feedsArray: [Feed] {
         get {

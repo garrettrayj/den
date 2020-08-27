@@ -33,9 +33,7 @@ public class Feed: Refreshable, Identifiable {
     }
     
     public var unreadItemCount: Int {
-        itemsArray.prefix(Int(itemLimit)).filter({ item in
-            item.read == false
-        }).count
+        itemsArray.prefix(Int(itemLimit)).filter { item in item.read == false }.count
     }
     
     public var itemsWithImageCount: Int {
@@ -215,6 +213,9 @@ public class Feed: Refreshable, Identifiable {
     }
     
     // MARK: Refreshable abstract properties and methods implementations
+    override public var lastRefreshed: Date? {
+        return refreshed
+    }
     
     override public var feedsArray: [Feed] {
         return [self]

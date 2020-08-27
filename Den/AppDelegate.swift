@@ -19,9 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         /// - [Clean image cache](https://github.com/dmytro-anokhin/url-image#maintaining-local-cache)
         URLImageService.shared.cleanFileCache()
-        
-        self.checkWorkspace()
-        
+
         return true
     }
 
@@ -72,10 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-            
-            
-            
         })
+        
         return container
     }()
 
@@ -92,24 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
-        }
-    }
-    
-    // MARK: - Initialize application data
-    
-    func checkWorkspace() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Workspace")
-        do {
-            let results = try self.persistentContainer.viewContext.fetch(fetchRequest) as! [Workspace]            
-            if results.count > 0 {
-                return
-            }
-            
-            // No workspace found, create a new one
-            let _ = Workspace.create(in: self.persistentContainer.viewContext)
-            self.saveContext()
-        } catch {
-            fatalError("Failed to fetch workspace: \(error)")
         }
     }
 }

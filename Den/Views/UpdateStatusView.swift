@@ -35,8 +35,8 @@ struct UpdateStatusView: View {
                     .fixedSize()
                     .rotationEffect(symbolRotation)
                 
-                if refreshable.refreshed != nil {
-                    Text("Last Refreshed \(refreshable.refreshed!, formatter: DateFormatter.create())").lineLimit(1)
+                if refreshable.lastRefreshed != nil {
+                    Text("Last Refreshed \(refreshable.lastRefreshed!, formatter: DateFormatter.create())").lineLimit(1)
                 } else {
                     Text("Never Refreshed")
                 }

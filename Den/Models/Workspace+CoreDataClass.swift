@@ -33,7 +33,10 @@ public class Workspace: Refreshable, Identifiable {
     }
     
     // MARK: Refreshable abstract properties and methods implementations
-    
+    override public var lastRefreshed: Date? {
+        return refreshed
+    }
+
     override public var feedsArray: [Feed] {
         var feedAggregation: [Feed] = []
         pagesArray.forEach { page in

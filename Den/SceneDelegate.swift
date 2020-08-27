@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private(set) static var shared: SceneDelegate?
@@ -28,6 +29,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        persistentContainer.viewContext.undoManager = nil
+        
+        // Setup initial workspace if needed
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Workspace")
+        do {
+            let results = try persistentContainer.viewContext.fetch(fetchRequest) as! [Workspace]
+            
+            print("WORKSPACE RESULTS: \(results.count)")
+            print(results)
+            
+            if results.count == 0 {
+                let _ = Workspace.create(in: persistentContainer.viewContext)
+                do {
+                    try persistentContainer.viewContext.save()
+                } catch {
+                    fatalError("Unable to create workspace: \(error)")
+                }
+            }
+        } catch {
+            fatalError("Failed to fetch workspace: \(error)")
+        }
         
         // Create manager services
         let refreshManager = RefreshManager(persistentContainer: persistentContainer)
