@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedOptionsView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
     @State private var pickedPage: Int
 
@@ -107,6 +108,8 @@ struct FeedOptionsView: View {
                     let nserror = error as NSError
                     fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
                 }
+                
+                self.refreshManager.refresh(self.feed)
             }
         }
     }

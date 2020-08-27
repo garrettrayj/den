@@ -159,8 +159,7 @@ struct WorkspaceView: View {
         }
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
 
-        importManager.importFolders(opmlFolders: opmlReader.outlineFolders, workspace: workspace, viewContext: viewContext)
-        
+        importManager.importFolders(opmlFolders: opmlReader.outlineFolders, workspace: workspace)
         refreshManager.refresh(workspace)
     }
 }
