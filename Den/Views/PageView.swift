@@ -18,7 +18,6 @@ struct PageView: View {
     }
     
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @ObservedObject var page: Page
