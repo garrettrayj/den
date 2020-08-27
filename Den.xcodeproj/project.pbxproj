@@ -419,8 +419,8 @@
 				68B34A662487ED870066B215 /* ExportView.swift */,
 				68C4138124733D7D00D1DC7B /* SubscribeView.swift */,
 				68ADABC224A21F2500BE41E2 /* WelcomeView.swift */,
-				687D9CC324ACB86900EB7F46 /* UpdateStatusView.swift */,
 				684DFA0424BC39EB0023D6DB /* RefreshableScrollView.swift */,
+				687D9CC324ACB86900EB7F46 /* UpdateStatusView.swift */,
 				680E57BC24D132D700196F6D /* HeaderProgressBarView.swift */,
 				6809EFDC24DF44DC007B5CF1 /* StandaloneProgressBarView.swift */,
 			);

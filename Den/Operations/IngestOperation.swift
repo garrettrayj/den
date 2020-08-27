@@ -29,6 +29,8 @@ class IngestOperation: Operation {
 
     override func main() {
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
+        context.undoManager = nil
+        
         context.performAndWait {
             ingestFeed(context: context)
             
