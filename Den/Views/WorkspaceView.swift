@@ -64,9 +64,8 @@ struct WorkspaceView: View {
                 } else {
                     ZStack(alignment: .top) {
                         VStack(spacing: 0) {
-                            if refreshManager.isRefreshing(pages.map { $0 }) {
-                                HeaderProgressBarView(refreshables: pages.map { $0 }).frame(height: 2)
-                            }
+                            HeaderProgressBarView(refreshables: pages.map { $0 })
+                                .frame(height: refreshManager.isRefreshing(pages.map { $0 }) ? 2 : 0)
                             Divider()
                             PageListView(editMode: $editMode)
                         }.padding(.top, workspaceHeaderHeight)
@@ -108,7 +107,7 @@ struct WorkspaceView: View {
                             Image(systemName: "plus").background(Color.clear)
                         }
                     } else {
-                        Button(action: { self.refreshManager.refresh() }) {
+                        Button(action: { self.refreshManager.refresh(self.pages.map { $0 }) }) {
                             Image(systemName: "arrow.clockwise").background(Color.clear)
                         }
                         .disabled(refreshManager.refreshing)

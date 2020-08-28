@@ -37,7 +37,7 @@ struct PageView: View {
                     GeometryReader { geometry in
                         if self.page.feedsArray.count > 0 {
                             VStack(spacing: 0) {
-                                HeaderProgressBarView(refreshables: [self.page]).frame(height: 2)
+                                HeaderProgressBarView(refreshables: [self.page]).frame(height: self.refreshManager.isRefreshing([self.page]) ? 2 : 0)
                                 
                                 RefreshableScrollView(refreshables: [self.page]) {
                                     Grid(self.page.feedsArray) { feed in
