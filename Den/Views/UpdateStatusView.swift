@@ -35,7 +35,7 @@ struct UpdateStatusView: View {
                     .fixedSize()
                     .rotationEffect(symbolRotation)
                 
-                Text("Pull to Refresh")
+                lastRefreshedLabel()
             }
             Spacer()
         }
@@ -43,5 +43,25 @@ struct UpdateStatusView: View {
         .foregroundColor(Color.secondary)
         .frame(height: height)
         .offset(y: -height + (refreshManager.isRefreshing(refreshables) ? +height : 0.0))
+    }
+    
+    func lastRefreshedLabel() -> Text {
+        var latestDate: Date? = nil
+        
+        refreshables.forEach { refreshable in
+            guard let refreshed = refreshable.lastRefreshed else { return }
+            
+            if latestDate == nil {
+                latestDate = refreshed
+            } else if refreshed > latestDate! {
+                latestDate = refreshed
+            }
+        }
+        
+        guard let lastRefreshed = latestDate else {
+            return Text("Never Updated")
+        }
+        
+        return Text("Last Updated \(lastRefreshed, formatter: DateFormatter.create())")
     }
 }

@@ -28,9 +28,8 @@ class RefreshManager: ObservableObject {
         var processRefreshables: [Refreshable] = []
         
         if refreshables == nil {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Page")
             do {
-                processRefreshables = try self.persistentContainer.viewContext.fetch(fetchRequest) as! [Page]
+                processRefreshables = try self.persistentContainer.viewContext.fetch(Page.fetchRequest()) as! [Page]
             } catch {
                 fatalError("Unable to fetch pages for refresh")
             }
@@ -53,10 +52,9 @@ class RefreshManager: ObservableObject {
         if feedCount == 0 {
             self.reset()
             return
+        } else {
+            progress.totalUnitCount = Int64(feedCount)
         }
-        
-        progress.totalUnitCount = Int64(feedCount)
-        progress.completedUnitCount = 0
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(self.createOperations(processRefreshables), waitUntilFinished: true)
@@ -64,7 +62,7 @@ class RefreshManager: ObservableObject {
             DispatchQueue.main.async {
                 processRefreshables.forEach { refreshable in
                     refreshable.onRefreshComplete()
-                }                
+                }
                 self.reset()
             }
         }
@@ -83,10 +81,7 @@ class RefreshManager: ObservableObject {
                 operations.append(contentsOf: createFeedOperations(feed: feed))
             }
         }
-        
-        // Initialize empty feed result objects
-        
-        
+
         return operations
     }
     
@@ -206,9 +201,9 @@ class RefreshManager: ObservableObject {
         return operations
     }
     
-    
     private func reset() {
-        self.currentRefreshables = nil
-        self.refreshing = false
+        progress.completedUnitCount = 0
+        currentRefreshables = nil
+        refreshing = false
     }
 }

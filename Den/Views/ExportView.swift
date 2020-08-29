@@ -50,7 +50,7 @@ struct ExportView: View {
                         }
                     }
                 }
-            }
+            }.frame(maxWidth: 980)
         }
         .navigationBarTitle("Export", displayMode: .inline)
     }

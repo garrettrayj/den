@@ -67,6 +67,7 @@ struct ImportView: View {
             Section {
                 Button(action: {
                     self.importManager.importSelected()
+                    self.refreshManager.refresh()
                 }) {
                     HStack {
                         Image(systemName: "square.and.arrow.down.on.square")
@@ -80,19 +81,19 @@ struct ImportView: View {
     var inProgressStage: some View {
         VStack (spacing: 16) {
             ActivityRep()
-            Text("Downloading").font(.title)
+            Text("Fetching Feeds").font(.title)
             StandaloneProgressBarView().frame(maxWidth: 256, maxHeight: 8)
         }
     }
     
     var errorStage: some View {
-        Text("Import Error").font(.title)
+        Text("Error").font(.title)
     }
     
     var completeStage: some View {
         VStack(spacing: 16) {
-            Image(systemName: "checkmark.circle").resizable().scaledToFit().foregroundColor(.green).frame(width: 48, height: 48)
-            Text("Import Finished").font(.title)
+            Image(systemName: "checkmark.circle").resizable().scaledToFit().foregroundColor(.green).frame(width: 32, height: 32)
+            Text("Finished").font(.title)
         }
     }
     

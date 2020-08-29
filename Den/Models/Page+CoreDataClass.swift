@@ -42,7 +42,19 @@ public class Page: Refreshable, Identifiable {
     // MARK: Refreshable abstract properties and methods implementations
     
     override public var lastRefreshed: Date? {
-        return refreshed
+        var latestFeedRefreshedDate: Date? = nil
+        
+        feedsArray.forEach { feed in
+            if let refreshed = feed.refreshed {
+                if latestFeedRefreshedDate == nil {
+                    latestFeedRefreshedDate = refreshed
+                } else if refreshed > latestFeedRefreshedDate! {
+                    latestFeedRefreshedDate = refreshed
+                }
+            }
+        }
+        
+        return latestFeedRefreshedDate
     }
     
     override public var feedsArray: [Feed] {
@@ -56,7 +68,6 @@ public class Page: Refreshable, Identifiable {
     }
     
     override func onRefreshComplete() {
-        refreshed = Date()
         objectWillChange.send()
     }
 }

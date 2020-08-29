@@ -16,17 +16,20 @@ struct PageListRowView: View {
     
     var body: some View {
         NavigationLink(destination: PageView(page: page)) {
-            Image(systemName: "rectangle.grid.2x2")
-            
-            Text(page.wrappedName).lineLimit(1).multilineTextAlignment(.leading).frame(maxWidth: .infinity, alignment: .leading)
-            Text(String(page.unreadCount))
-                .font(.caption)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 8)
-                .background(
-                    Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
+            HStack {
+                Image(systemName: "rectangle.grid.2x2")
+                Text(page.wrappedName).fontWeight(.medium).lineLimit(1).multilineTextAlignment(.leading)
+                Spacer()
+                Text(String(page.unreadCount))
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .background(
+                        Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
+                    )
                 )
-            )
+            }
         }
     }
 }
