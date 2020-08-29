@@ -29,7 +29,6 @@
     <entity name="Page" representedClassName="Page" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="New Desk"/>
-        <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
         <userInfo/>
@@ -37,6 +36,6 @@
     <elements>
         <element name="Feed" positionX="270" positionY="216" width="128" height="253"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="163"/>
-        <element name="Page" positionX="261" positionY="189" width="128" height="118"/>
+        <element name="Page" positionX="261" positionY="189" width="128" height="103"/>
     </elements>
 </model>

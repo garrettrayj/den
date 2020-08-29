@@ -223,6 +223,5 @@ public class Feed: Refreshable, Identifiable {
     
     override func onRefreshComplete() {
         page?.objectWillChange.send()
-        refreshed = Date()
     }
 }

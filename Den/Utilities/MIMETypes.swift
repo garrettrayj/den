@@ -13,13 +13,15 @@ struct MIMETypes {
         case icon = "image/x-icon"
         case msicon = "image/vnd.microsoft.icon"
         case png = "image/png"
-        case jpg = "image/jpeg"
+        case jpeg = "image/jpeg"
         case gif = "image/gif"
     }
     
     enum ImageMIMETypes: String, CaseIterable {
         case png = "image/png"
-        case jpg = "image/jpeg"
+        case jpeg = "image/jpeg"
         case gif = "image/gif"
+        // Cover incorrect JPEG MIME type usage, e.g. images in Raw Story feeds (https://www.rawstory.com/category/world/feed/)
+        case jpg = "image/jpg"
     }
 }

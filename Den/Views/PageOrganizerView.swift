@@ -20,13 +20,13 @@ struct PageOrganizerView: View {
     var body: some View {
         NavigationView {
             Form {
-                List() {
+                List {
                     ForEach(page.feedsArray) { feed in
                         Text(feed.wrappedTitle)
                     }
                     .onDelete(perform: delete)
                     .onMove(perform: move)
-                    .onInsert(of: [String()], perform: self.insert(at:itemProvider:))
+                    .onInsert(of: [], perform: insert)
                 }
             }
             .navigationBarTitle("Organize Feeds", displayMode: .inline)
@@ -74,7 +74,7 @@ struct PageOrganizerView: View {
         }
     }
     
-    func insert(at offset: Int, itemProvider: [NSItemProvider]) {
+    func insert(at offset: Int, itemProviders: [NSItemProvider]) {
         print("Page list insert action not available")
     }
 }

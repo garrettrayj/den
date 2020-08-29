@@ -32,17 +32,37 @@ struct FeedItemView: View {
                     URLImage(
                         item.image!,
                         processors: [ Resize(size: CGSize(width: 96, height: 64), scale: UIScreen.main.scale) ],
-                        content:  {
-                            $0.image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .clipped()
-                                .overlay(
-                                    Rectangle().stroke(lineWidth: 1).foregroundColor(Color(UIColor.separator))
-                                )
-                    })
+                        placeholder: { _ in
+                            VStack {
+                                Image(systemName: "photo").foregroundColor(.secondary)
+                            }
+                            .frame(width: 96, height: 64)
+                            .background(Color(UIColor.secondarySystemBackground))
+                            .padding(1)
+                            .border(Color(UIColor.separator), width: 1)
+                        },
+                        failure: { _ in
+                            VStack {
+                                Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
+                            }
+                            .frame(width: 96, height: 64)
+                            .background(Color(UIColor.secondarySystemBackground))
+                            .padding(1)
+                            .border(Color(UIColor.separator), width: 1)
+                        },
+                        content: { content in
+                            ZStack {
+                                content.image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 96, height: 64)
+                                    .clipped()
+                                    .padding(1)
+                                    .border(Color(UIColor.separator), width: 1)
+                            }
+                        }
+                    )
                     .frame(width: 96, height: 64)
-                    .clipped()
                 }
             }
             
@@ -54,14 +74,13 @@ struct FeedItemView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity)
-                            .overlay(
-                                Rectangle().stroke(lineWidth: 1).foregroundColor(Color(UIColor.separator))
-                            )
+                            .clipped()
+                            .padding(1)
+                            .border(Color(UIColor.separator), width: 1)
                     }
                 )
                 .padding(.top, 4)
             }
-            
         }
         .buttonStyle(ItemLinkButtonStyle(read: $item.read))
         .frame(maxWidth: .infinity)

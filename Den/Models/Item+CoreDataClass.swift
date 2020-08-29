@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import FeedKit
 import HTMLEntities
+import SwiftSoup
 
 @objc(Item)
 public class Item: NSManagedObject, Identifiable {
@@ -62,39 +63,70 @@ public class Item: NSManagedObject, Identifiable {
         // Look for preview image in <links> and <media:content>
         if
             let imageLink = atomEntry.links?.first(where: { link in
-                guard
-                    link.attributes?.rel == "enclosure",
-                    let linkMimeType = link.attributes?.type,
-                    let _ = MIMETypes.ImageMIMETypes(rawValue: linkMimeType)
-                else {
-                    return false
-                }
-                return true
+                link.attributes?.rel == "enclosure"
             }),
             let imageURLString = imageLink.attributes?.href,
             let imageURL = URL(string: imageURLString)
         {
-            item.image = imageURL
+            if
+                let linkMimeType = imageLink.attributes?.type,
+                MIMETypes.ImageMIMETypes(rawValue: linkMimeType) == nil
+            {
+                // Incompatible MIME type
+            } else {
+                item.image = imageURL
+            }
         } else if
             let media = atomEntry.media,
-            let imageMediaContent = media.mediaContents?.first(where: { mediaContent in
+            let imageMediaContent = media.mediaContents?.first,
+            let mediaURLString = imageMediaContent.attributes?.url,
+            let mediaURL = URL(string: mediaURLString)
+        {
+            if
+                let mediaMimeType = imageMediaContent.attributes?.type,
+                MIMETypes.ImageMIMETypes(rawValue: mediaMimeType) == nil
+            {
+                // Incompatible MIME type
+            } else {
+                item.image = mediaURL
+            }
+        } else if
+            let mediaThumbnails = atomEntry.media?.mediaThumbnails?.sorted(by: { a, b in
                 guard
-                    let mediaMimeType = mediaContent.attributes?.type,
-                    let _ = MIMETypes.ImageMIMETypes(rawValue: mediaMimeType)
+                    let aWidthString = a.attributes?.width,
+                    let aWidth = Int(aWidthString),
+                    let bWidthString = b.attributes?.width,
+                    let bWidth = Int(bWidthString)
                 else {
                     return false
                 }
                 
-                return true
+                return bWidth > aWidth
             }),
-            let mediaURLString = imageMediaContent.attributes?.url,
-            let mediaURL = URL(string: mediaURLString)
+            let thumbnail = mediaThumbnails.first,
+            let thumbnailURLString = thumbnail.attributes?.url,
+            let thumbnailURL = URL(string: thumbnailURLString)
         {
-            item.image = mediaURL
+            item.image = thumbnailURL
         }
         
-        if let description = atomEntry.summary?.value {
-            item.summary = HTMLCleaner.stripTags(description)?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if let summary = atomEntry.summary?.value?.htmlUnescape() {
+            let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: summary)
+            item.summary = plainSummary
+            if item.image == nil && image != nil {
+                item.image = image
+            }
+        }
+        
+        if let body = atomEntry.content?.value?.htmlUnescape() {
+            let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: body)
+            if item.summary == nil {
+                item.summary = plainSummary
+            }
+            if item.image == nil {
+                item.image = image
+            }
         }
         
         return item
@@ -137,24 +169,67 @@ public class Item: NSManagedObject, Identifiable {
             item.image = enclosureURL
         } else if
             let media = rssItem.media,
-            let imageMediaContent = media.mediaContents?.first(where: { mediaContent in
-                guard
-                    let mediaMimeType = mediaContent.attributes?.type,
-                    let _ = MIMETypes.ImageMIMETypes(rawValue: mediaMimeType)
-                else {
-                    return false
-                }
-                
-                return true
-            }),
+            let imageMediaContent = media.mediaContents?.first,
             let mediaURLString = imageMediaContent.attributes?.url,
             let mediaURL = URL(string: mediaURLString)
         {
-            item.image = mediaURL
+            if
+                let mediaMimeType = imageMediaContent.attributes?.type,
+                MIMETypes.ImageMIMETypes(rawValue: mediaMimeType) == nil
+            {
+                // Incompatible MIME type
+            } else {
+                item.image = mediaURL
+            }
+        } else if
+            let media = rssItem.media?.mediaGroup,
+            let imageMediaContent = media.mediaContents?.first,
+            let mediaURLString = imageMediaContent.attributes?.url,
+            let mediaURL = URL(string: mediaURLString)
+        {
+            if
+                let mediaMimeType = imageMediaContent.attributes?.type,
+                MIMETypes.ImageMIMETypes(rawValue: mediaMimeType) == nil
+            {
+                // Incompatible MIME type
+            } else {
+                item.image = mediaURL
+            }
+        } else if
+            let mediaThumbnails = rssItem.media?.mediaThumbnails?.sorted(by: { a, b in
+                guard
+                    let aWidthString = a.attributes?.width,
+                    let aWidth = Int(aWidthString),
+                    let bWidthString = b.attributes?.width,
+                    let bWidth = Int(bWidthString)
+                else {
+                    return false
+                }
+                return bWidth > aWidth
+            }),
+            let thumbnail = mediaThumbnails.first,
+            let thumbnailURLString = thumbnail.attributes?.url,
+            let thumbnailURL = URL(string: thumbnailURLString)
+        {
+            item.image = thumbnailURL
         }
         
-        if let description = rssItem.description {
-            item.summary = HTMLCleaner.stripTags(description)?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let description = rssItem.description?.htmlUnescape() {
+            let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: description)
+            item.summary = plainSummary
+            if item.image == nil {
+                item.image = image
+            }
+        }
+        
+        if let body = rssItem.content?.contentEncoded {
+            let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: body)
+            if item.summary == nil {
+                item.summary = plainSummary
+            }
+            if item.image == nil {
+                item.image = image
+            }
         }
         
         return item

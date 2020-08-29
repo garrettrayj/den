@@ -29,6 +29,30 @@ class CacheManager: ObservableObject {
     }
     
     func clearItems() {
-        // TODO: Clear items
+        do {
+            let items = try self.persistentContainer.viewContext.fetch(Item.fetchRequest()) as! [Item]
+            items.forEach { item in
+                self.persistentContainer.viewContext.delete(item)
+            }
+            
+            do {
+                try self.persistentContainer.viewContext.save()
+            } catch {
+                fatalError("Unable to save context after item cleanup: \(error)")
+            }
+        } catch {
+            fatalError("Unable to fetch items: \(error)")
+        }
+        
+        // Send object events on pages to update counts
+        do {
+            let pages = try self.persistentContainer.viewContext.fetch(Page.fetchRequest()) as! [Page]
+            pages.forEach { page in
+                page.objectWillChange.send()
+            }
+        } catch {
+            fatalError("Unable to fetch pages: \(error)")
+        }
+        
     }
 }
