@@ -21,15 +21,17 @@ struct PageOrganizerView: View {
         NavigationView {
             Form {
                 List {
-                    ForEach(page.feedsArray) { feed in
-                        Text(feed.wrappedTitle)
+                    Section(header: HStack { Text("\(page.feedsArray.count) FEEDS"); Spacer(); Text("DRAG TO REORDER") }) {
+                        ForEach(page.feedsArray) { feed in
+                            Text(feed.wrappedTitle)
+                        }
+                        .onDelete(perform: delete)
+                        .onMove(perform: move)
+                        .onInsert(of: [], perform: insert)
                     }
-                    .onDelete(perform: delete)
-                    .onMove(perform: move)
-                    .onInsert(of: [], perform: insert)
                 }
             }
-            .navigationBarTitle("Organize Feeds", displayMode: .inline)
+            .navigationBarTitle("Organize Page", displayMode: .inline)
             .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Close") })
             .environment(\.editMode, .constant(.active))
         }

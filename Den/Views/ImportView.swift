@@ -34,9 +34,9 @@ struct ImportView: View {
     
     var pickFileStage: some View {
         Form {
-            Section(header: Text("FILE SELECTION")) {
+            Section(header: Text("SELECT FILE")) {
                 Button(action: pickFile) {
-                    Text("Choose OPML file...")
+                    Text("Choose OPML File...")
                 }
             }
         }
@@ -70,8 +70,8 @@ struct ImportView: View {
                     self.refreshManager.refresh()
                 }) {
                     HStack {
-                        Image(systemName: "square.and.arrow.down.on.square")
-                        Text("Import")
+                        Image(systemName: "arrow.down.doc")
+                        Text("Import Feeds")
                     }
                 }
             }
@@ -99,7 +99,7 @@ struct ImportView: View {
     
     var selectionSectionHeader: some View {
         HStack {
-            Text("SELECT PAGES")
+            Text("SELECT FOLDERS")
             Spacer()
             Button(action: importManager.selectAll) {
                 Text("ALL")

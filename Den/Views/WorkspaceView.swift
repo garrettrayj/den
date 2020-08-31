@@ -15,7 +15,6 @@ import CoreData
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var importManager: ImportManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
@@ -134,11 +133,27 @@ struct WorkspaceView: View {
     
     func loadDemo() {
         guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
-            fatalError("Missing demo feeds source file")
+            preconditionFailure("Missing demo feeds source file")
         }
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
-
-        importManager.importFolders(opmlFolders: opmlReader.outlineFolders)
+        
+        opmlReader.outlineFolders.forEach { opmlFolder in
+            let page = Page.create(in: self.viewContext)
+            page.name = opmlFolder.name
+            
+            opmlFolder.feeds.forEach { opmlFeed in
+                let feed = Feed.create(in: self.viewContext, page: page)
+                feed.title = opmlFeed.title
+                feed.url = opmlFeed.url
+            }
+        }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            fatalError("Unable to save import context: \(error)")
+        }
+        
         refreshManager.refresh(pages.map { $0 })
     }
 }

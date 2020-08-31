@@ -41,13 +41,10 @@ struct SubscribeView: View {
     var urlEntryStage: some View {
         NavigationView {
             Form {
-                Section(footer: Text("RSS, Atom or JSON feed web address")) {
+                Section(header: Text("FEED URL"), footer: Text("RSS, Atom or JSON Feed")) {
                     HStack {
-                        Text("URL")
-                        Spacer()
                         TextField("https://example.com/feed.xml", text: $urlText, onEditingChanged: validateUrl)
                             .lineLimit(1)
-                            .multilineTextAlignment(.trailing)
                             .disableAutocorrection(true)
                         
                         if urlIsValid == true {

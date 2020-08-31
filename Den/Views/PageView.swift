@@ -71,7 +71,7 @@ struct PageView: View {
                         if UIDevice.current.userInterfaceIdiom == .phone {
                             // Action menu for phone users
                             Button(action: showMenu) {
-                                Image(systemName: "hammer").resizable().scaledToFit().frame(width: 20, height: 20)
+                                Image(systemName: "hammer").titleBarIconView()
                             }.disabled(refreshManager.refreshing)
                             .actionSheet(isPresented: $showingActionSheet) {
                                 ActionSheet(title: Text("Page Actions"), message: nil, buttons: [
