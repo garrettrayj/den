@@ -23,7 +23,7 @@ struct FeedItemView: View {
                     .foregroundColor(Color(UIColor.secondaryLabel))
             }
             
-            HStack(alignment: .top) {
+            HStack(alignment: .top, spacing: 10) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
                 }
@@ -51,15 +51,13 @@ struct FeedItemView: View {
                             .border(Color(UIColor.separator), width: 1)
                         },
                         content: { content in
-                            ZStack {
-                                content.image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 96, height: 64)
-                                    .clipped()
-                                    .padding(1)
-                                    .border(Color(UIColor.separator), width: 1)
-                            }
+                            content.image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 96, height: 64)
+                            .clipped()
+                            .padding(1)
+                            .border(Color(UIColor.separator), width: 1)
                         }
                     )
                     .frame(width: 96, height: 64)
@@ -69,16 +67,34 @@ struct FeedItemView: View {
             if item.image != nil && item.feed != nil && item.feed!.showLargePreviews == true {
                 URLImage(
                     self.item.image!,
+                    placeholder: { _ in
+                        VStack {
+                            Image(systemName: "photo").foregroundColor(.secondary)
+                        }
+                        .frame(width: 96, height: 64)
+                        .background(Color(UIColor.secondarySystemBackground))
+                        .padding(1)
+                        .border(Color(UIColor.separator), width: 1)
+                    },
+                    failure: { _ in
+                        VStack {
+                            Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
+                        }
+                        .frame(width: 96, height: 64)
+                        .background(Color(UIColor.secondarySystemBackground))
+                        .padding(1)
+                        .border(Color(UIColor.separator), width: 1)
+                    },
                     content:  {
                         $0.image
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity)
                             .clipped()
-                            .padding(1)
-                            .border(Color(UIColor.separator), width: 1)
                     }
                 )
+                .padding(1)
+                .border(Color(UIColor.separator), width: 1)
                 .padding(.top, 4)
             }
         }

@@ -27,86 +27,79 @@ struct PageView: View {
     @State var showingActionSheet: Bool = false
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if page.name == nil {
-                VStack() {
-                    Text("Page Deleted").font(.title).foregroundColor(.secondary)
-                }.navigationBarTitle("").navigationBarItems(trailing: EmptyView())
+                Text("Page Deleted")
+                    .font(.title)
+                    .foregroundColor(.secondary)
+                    .navigationBarTitle("")
+                    .navigationBarItems(trailing: EmptyView())
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 VStack(spacing: 0) {
-                    GeometryReader { geometry in
-                        if self.page.feedsArray.count > 0 {
-                            VStack(spacing: 0) {
-                                HeaderProgressBarView(refreshables: [self.page]).frame(height: self.refreshManager.isRefreshing([self.page]) ? 2 : 0)
-                                
-                                RefreshableScrollView(refreshables: [self.page]) {
-                                    Grid(self.page.feedsArray) { feed in
-                                        FeedView(feed: feed, parent: self)
-                                    }
-                                    .gridStyle(StaggeredGridStyle(.vertical, tracks: self.calcGridTracks(geometry.size.width), spacing: 16))
-                                    .padding()
-                                    .padding(.bottom, 64)
+                    if self.page.feedsArray.count > 0 {
+                        if self.refreshManager.isRefreshing([self.page]) {
+                            HeaderProgressBarView(refreshables: [self.page])
+                        }
+                        
+                        GeometryReader { geometry in
+                            RefreshableScrollView(refreshables: [self.page]) {
+                                Grid(self.page.feedsArray) { feed in
+                                    FeedView(feed: feed, parent: self)
                                 }
+                                .gridStyle(StaggeredGridStyle(.vertical, tracks: self.calcGridTracks(geometry.size.width), spacing: 16))
+                                .padding()
+                                .padding(.bottom, 64)
                             }
-                            
-                        } else {
-                            VStack(alignment: .center) {
-                                Text("Empty Page").font(.title).foregroundColor(.secondary)
-                            }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color(UIColor.secondarySystemBackground))
                         }
-                    }
-                    .background(Color(UIColor.secondarySystemBackground))
-                    .sheet(isPresented: self.$showingSheet) {
-                        if self.activeSheet == .organizer {
-                            PageOrganizerView(page: self.page).environment(\.managedObjectContext, self.viewContext)
-                        } else if self.activeSheet == .feedEdit {
-                            FeedEditView(feed: self.editingFeed!)
-                                .environment(\.managedObjectContext, self.viewContext)
-                                .environmentObject(self.refreshManager)
-                        }
+                    } else {
+                        Text("Empty Page").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-                .onAppear {
-                    self.subscriptionManager.currentPage = self.page
+                .sheet(isPresented: self.$showingSheet) {
+                    if self.activeSheet == .organizer {
+                        PageOrganizerView(page: self.page).environment(\.managedObjectContext, self.viewContext)
+                    } else if self.activeSheet == .feedEdit {
+                        FeedEditView(feed: self.editingFeed!)
+                            .environment(\.managedObjectContext, self.viewContext)
+                            .environmentObject(self.refreshManager)
+                    }
                 }
-                .padding(.top, 1) // ScrollView will flow over the navigation bar background without padding. Maybe a SwiftUI bug?
-                .navigationBarTitle(Text(page.name ?? "Unknown Page"), displayMode: .inline)
+                .navigationBarTitle(Text(page.name ?? "Page Deleted"), displayMode: .inline)
                 .navigationBarItems(
                     trailing: HStack(alignment: .center, spacing: 16) {
                         if UIDevice.current.userInterfaceIdiom == .phone {
                             // Action menu for phone users
                             Button(action: showMenu) {
-                                Image(systemName: "wrench")
-                            }
+                                Image(systemName: "hammer").resizable().scaledToFit().frame(width: 20, height: 20)
+                            }.disabled(refreshManager.refreshing)
                             .actionSheet(isPresented: $showingActionSheet) {
-                                ActionSheet(
-                                    title: Text("Page Actions"),
-                                    message: nil,
-                                    buttons: [
-                                        .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
-                                        .default(Text("Organize")) { self.showOrganizer() },
-                                        .default(Text("Add Feed")) { self.showSubscribe() },
-                                        .cancel()
-                                    ]
-                                )
+                                ActionSheet(title: Text("Page Actions"), message: nil, buttons: [
+                                    .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
+                                    .default(Text("Organize")) { self.showOrganizer() },
+                                    .default(Text("Add Feed")) { self.showSubscribe() },
+                                    .cancel()
+                                ])
                             }
                         } else {
                             // Just show three buttons on larger screens
-                            Button(action: { self.refreshManager.refresh([self.page]) }) {
-                                Image(systemName: "arrow.clockwise")
-                            }.disabled(refreshManager.refreshing)
-                            
-                            Button(action: showOrganizer) {
-                                Image(systemName: "arrow.up.arrow.down")
-                            }
-                            
                             Button(action: showSubscribe) {
-                                Image(systemName: "plus")
+                                Image(systemName: "plus").titleBarIconView()
                             }
+                            Button(action: showOrganizer) {
+                                Image(systemName: "arrow.up.arrow.down").titleBarIconView()
+                            }
+                            Button(action: { self.refreshManager.refresh([self.page]) }) {
+                                Image(systemName: "arrow.clockwise").titleBarIconView()
+                            }.disabled(refreshManager.refreshing)
                         }
                     }
                 )
             }
+        }
+        .padding(.top, 1)
+        .onAppear {
+            self.subscriptionManager.currentPage = self.page
         }
         .background(Color(UIColor.secondarySystemBackground))
         .edgesIgnoringSafeArea([.horizontal, .bottom])
@@ -126,12 +119,11 @@ struct PageView: View {
     }
     
     private func calcGridTracks(_ availableWidth: CGFloat) -> Tracks {
-        let widgetSize = CGFloat(480)
-        for i in 1...10 {
-            if availableWidth < widgetSize * CGFloat(i) {
-                return Tracks.count(i)
-            }
+        
+        if availableWidth > 1600 {
+            return Tracks.min(400)
         }
-        return Tracks.fixed(widgetSize)
+        
+        return Tracks.min(320)
     }
 }

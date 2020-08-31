@@ -23,11 +23,6 @@ struct RefreshableScrollView<Content: View>: View {
     var threshold: CGFloat = 80
     let content: Content
 
-    init(refreshables: [Refreshable], @ViewBuilder content: () -> Content) {
-        self.refreshables = refreshables
-        self.content = content()
-    }
-    
     var body: some View {
         return VStack {
             ScrollView {
@@ -44,6 +39,11 @@ struct RefreshableScrollView<Content: View>: View {
                 self.refreshLogic(values: values)
             }
         }
+    }
+    
+    init(refreshables: [Refreshable], @ViewBuilder content: () -> Content) {
+        self.refreshables = refreshables
+        self.content = content()
     }
     
     func refreshLogic(values: [RefreshableKeyTypes.PrefData]) {

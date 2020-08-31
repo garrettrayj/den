@@ -29,31 +29,39 @@ struct FeedView: View {
                 if feed.favicon != nil {
                     URLImage(
                         feed.favicon!,
-                        processors: [ Resize(size: CGSize(width: 16, height: 16), scale: UIScreen.main.scale) ],
+                        //processors: [ Resize(size: CGSize(width: 16, height: 16), scale: UIScreen.main.scale) ],
                         placeholder: { _ in
+                            Image("RSSIcon").faviconView()
+                        },
+                        failure: { _ in
                             Image("RSSIcon").faviconView()
                         },
                         content: {
                             $0.image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
+                                .frame(width: 16, height: 16)
                                 .clipped()
+                            
                         }
                     ).frame(width: 16, height: 16).clipped()
                 }
                 Text(feed.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()
                 Button(action: showOptions) {
-                    Image(systemName: "ellipsis").resizable().scaledToFit().frame(width: 16, height: 16)
+                    Image(systemName: "ellipsis").faviconView()
                 }
             }.padding(.horizontal, 12).padding(.vertical, 8)
-            Divider()
+
             VStack(spacing: 0) {
                 if feed.error != nil {
+                    Divider()
                     VStack {
-                        VStack(spacing: 8) {
-                            Text("An error occured during refresh")
+                        VStack(spacing: 4) {
+                            Text("Unable to update feed:")
                                 .foregroundColor(.secondary)
+                                .font(.callout)
+                                .fontWeight(.medium)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Text(feed.error!)
                                 .foregroundColor(.red)
@@ -63,28 +71,31 @@ struct FeedView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                     }
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1).foregroundColor(.red))
+                    .background(RoundedRectangle(cornerRadius: 4).stroke(lineWidth: 1).foregroundColor(.red))
                     .padding([.horizontal, .top])
                     .padding(.bottom, 2)
                     .frame(maxWidth: .infinity)
                 }
                 
                 if feed.itemsArray.count > 0 {
-                    ForEach(feed.itemsArray.prefix(Int(feed.itemLimit))) { item in
-                        Group {
-                            FeedItemView(item: item)
-                            Divider()
+                    VStack(spacing: 0) {
+                        ForEach(feed.itemsArray.prefix(Int(feed.itemLimit))) { item in
+                            Group {
+                                Divider()
+                                FeedItemView(item: item)
+                            }
                         }
                     }
+                    .drawingGroup()
                 } else {
                     if feed.refreshed == nil {
-                        Text("Feed never fetched")
+                        Text("Feed Never Fetched")
                             .foregroundColor(.secondary)
                             .padding()
                             .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.center)
                     } else {
-                        Text("Feed has no items")
+                        Text("Feed Empty")
                             .foregroundColor(.secondary)
                             .padding()
                             .frame(maxWidth: .infinity)

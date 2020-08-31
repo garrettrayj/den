@@ -13,4 +13,8 @@ extension Image {
     func faviconView() -> some View {
         return self.resizable().scaledToFit().frame(width: 16, height: 16)
     }
+    
+    func titleBarIconView() -> some View {
+        return self.resizable().scaledToFit().frame(width: 18, height: 18)
+    }
 }

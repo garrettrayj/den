@@ -28,89 +28,68 @@ struct WorkspaceView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-                if pages.count == 0 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
-                    Spacer()
+            if pages.count == 0 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
+                Spacer()
+            }
+            
+            if pages.count == 0 {
+                VStack(alignment: .center, spacing: 16) {
+                    Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
+                    Text("Get Started").font(.title).fontWeight(.semibold)
+                    Button(action: newPage) {
+                        HStack {
+                            Image(systemName: "plus")
+                            Text("Create a New Page").fontWeight(.medium)
+                        }
+                    }
+                    Button(action: loadDemo) {
+                        HStack {
+                            Image(systemName: "wand.and.stars")
+                            Text("Load Demo Feeds").fontWeight(.medium)
+                        }
+                    }
+                    NavigationLink(destination: ImportView()) {
+                        HStack {
+                            Image(systemName: "arrow.down.doc")
+                            Text("Import OPML File").fontWeight(.medium)
+                        }
+                    }
                 }
+                .frame(maxWidth: .infinity)
+                .buttonStyle(BorderedButtonStyle())
                 
-                if pages.count == 0 {
-                    VStack(alignment: .center, spacing: 16) {
-                        Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
-                        Text("Get Started").font(.title).fontWeight(.semibold)
-                        Button(action: newPage) {
-                            HStack {
-                                Image(systemName: "plus")
-                                Text("Create a New Page").fontWeight(.medium)
-                            }
-                        }
-                        Button(action: loadDemo) {
-                            HStack {
-                                Image(systemName: "wand.and.stars")
-                                Text("Load Demo Feeds").fontWeight(.medium)
-                            }
-                        }
-                        NavigationLink(destination: ImportView()) {
-                            HStack {
-                                Image(systemName: "arrow.down.doc")
-                                Text("Import OPML File").fontWeight(.medium)
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .buttonStyle(BorderedButtonStyle())
-                    .padding(.top, 40)
-                    
-                    Spacer()
-                } else {
-                    ZStack(alignment: .top) {
-                        VStack(spacing: 0) {
-                            HeaderProgressBarView(refreshables: pages.map { $0 })
-                                .frame(height: refreshManager.isRefreshing(pages.map { $0 }) ? 2 : 0)
-                            Divider()
-                            PageListView(editMode: $editMode)
-                        }.padding(.top, workspaceHeaderHeight)
-                        
-                        VStack {
-                            Spacer()
-                            HStack(alignment: .center, spacing: 10) {
-                                Image("TitleIcon").resizable().scaledToFit().frame(width: 38, height: 38)
-                                Text("Den")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                            }.padding(.bottom, 24)
-                        }
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: workspaceHeaderHeight)
-                        .background(Color(UIColor.systemBackground))
-                    }
-                }
+                Spacer()
+                Spacer()
+                Spacer()
+            } else {
+                HeaderProgressBarView(refreshables: pages.map { $0 })
+                    .frame(height: refreshManager.isRefreshing(pages.map { $0 }) ? 2 : 0)
+                
+                PageListView(editMode: $editMode)
+                    .navigationBarTitle("Den", displayMode: .large)
             }
             
             if pages.count > 0 {
-                Divider()
                 HStack {
                     NavigationLink(destination: SettingsView().environmentObject(userDefaultsManager)) {
-                        Image(systemName: "gear")
+                        Image(systemName: "gear").titleBarIconView()
                     }
                     Spacer()
                 }.padding()
             }
         }
-        .edgesIgnoringSafeArea(.top)
-        .navigationBarTitle("", displayMode: .large)
+        .padding(.top, 1)
         .navigationBarItems(
             leading: HStack {
                 if pages.count > 0 {
                     if self.editMode == .active {
                         Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
-                            Image(systemName: "plus").background(Color.clear)
+                            Image(systemName: "plus").titleBarIconView()
                         }
                     } else {
                         Button(action: { self.refreshManager.refresh(self.pages.map { $0 }) }) {
-                            Image(systemName: "arrow.clockwise").background(Color.clear)
-                        }
-                        .disabled(refreshManager.refreshing)
+                            Image(systemName: "arrow.clockwise").titleBarIconView()
+                        }.disabled(refreshManager.refreshing)
                     }
                 }
             },
@@ -122,7 +101,7 @@ struct WorkspaceView: View {
                         }
                     } else {
                         Button(action: { self.editMode = .active }) {
-                            Text("Edit").background(Color.clear)
+                            Image(systemName: "list.bullet").titleBarIconView()
                         }
                     }
                 }

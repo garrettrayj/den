@@ -17,7 +17,7 @@ struct PageListRowView: View {
     var body: some View {
         NavigationLink(destination: PageView(page: page)) {
             HStack {
-                Image(systemName: "rectangle.grid.2x2")
+                Image(systemName: "square.grid.2x2").resizable().scaledToFit().frame(width: 18, height: 18).padding(.trailing, 2)
                 Text(page.wrappedName).fontWeight(.medium).lineLimit(1).multilineTextAlignment(.leading)
                 Spacer()
                 Text(String(page.unreadCount))

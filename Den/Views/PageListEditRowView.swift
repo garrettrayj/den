@@ -16,6 +16,6 @@ struct PageListEditRowView: View {
     @ObservedObject var page: Page
     
     var body: some View {
-        TextField("Name", text: $page.wrappedName)
+        TextField("Name", text: $page.wrappedName).padding(.top, 2)
     }
 }
