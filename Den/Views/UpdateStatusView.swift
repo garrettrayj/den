@@ -20,7 +20,7 @@ struct UpdateStatusView: View {
             Spacer()
             if refreshManager.isRefreshing(refreshables) { // If loading, show the activity control
                 ActivityRep()
-                Text("Updating Feeds").font(.callout)
+                Text("Updating Feeds")
             } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshables) {
                 Image(systemName: "slash.circle")
                     .resizable()

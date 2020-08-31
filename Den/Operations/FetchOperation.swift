@@ -27,6 +27,7 @@ class FetchOperation : AsynchronousOperation {
     
         var request = URLRequest(url: url)
         request.httpShouldHandleCookies = false
+        request.timeoutInterval = 30
         
         task = URLSession.shared.dataTask(with: request) { data, response, error in
             self.data = data

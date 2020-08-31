@@ -45,7 +45,7 @@ struct ExportView: View {
                         UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
                     }) {
                         HStack {
-                            Image(systemName: "square.and.arrow.up.on.square")
+                            Image(systemName: "arrow.up.doc")
                             Text("Save OPML File")
                         }
                     }

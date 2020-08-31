@@ -31,18 +31,18 @@ struct SettingsView: View {
                         Text("Default").tag(UIUserInterfaceStyle.unspecified)
                         Text("Light").tag(UIUserInterfaceStyle.light)
                         Text("Dark").tag(UIUserInterfaceStyle.dark)
-                    }.pickerStyle(SegmentedPickerStyle()).frame(width: 240)
+                    }.pickerStyle(SegmentedPickerStyle()).frame(width: 220)
                 }
             }
             
             Section(header: Text("IMPORT AND EXPORT")) {
                 NavigationLink(destination: ImportView()) {
                     Image(systemName: "arrow.down.doc")
-                    Text("Import OPML")
+                    Text("Import Subscriptions")
                 }
                 NavigationLink(destination: ExportView()) {
                     Image(systemName: "arrow.up.doc")
-                    Text("Export OPML")
+                    Text("Export Subsciptions")
                 }
             }
 
@@ -64,7 +64,7 @@ struct SettingsView: View {
                 Button(action: showResetAlert) {
                     HStack {
                         Image(systemName: "clear")
-                        Text("Reset")
+                        Text("Reset All")
                     }.foregroundColor(Color.red)
                 }.alert(isPresented: $showingClearWorkspaceAlert) {
                     Alert(
