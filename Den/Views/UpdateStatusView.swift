@@ -25,8 +25,8 @@ struct UpdateStatusView: View {
                 Image(systemName: "slash.circle")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 16, height: 16)
-                Text("Other Operation in Progress")
+                    .frame(width: 20, height: 20)
+                Text("Other Refresh In Progress")
             } else {
                 Image(systemName: "arrow.down")
                     .resizable()
@@ -62,6 +62,6 @@ struct UpdateStatusView: View {
             return Text("Never Updated")
         }
         
-        return Text("Last Updated \(lastRefreshed, formatter: DateFormatter.create())")
+        return Text("Updated \(lastRefreshed, formatter: DateFormatter.create())")
     }
 }

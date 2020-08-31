@@ -36,7 +36,7 @@ struct ImportView: View {
         Form {
             Section(header: Text("FILE SELECTION")) {
                 Button(action: pickFile) {
-                    Text("Choose file to import...")
+                    Text("Choose OPML file...")
                 }
             }
         }

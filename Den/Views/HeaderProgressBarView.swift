@@ -16,12 +16,8 @@ struct HeaderProgressBarView: View {
     var refreshables: [Refreshable]
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .foregroundColor(Color(UIColor.clear))
-                    .frame(width: geometry.size.width, height: 2)
-                
+        VStack {
+            GeometryReader { geometry in
                 if self.refreshManager.isRefreshing(self.refreshables) {
                     Rectangle()
                         .foregroundColor(Color.accentColor)
@@ -32,6 +28,6 @@ struct HeaderProgressBarView: View {
                         }
                 }
             }
-        }
+        }.frame(height: 2)
     }
 }

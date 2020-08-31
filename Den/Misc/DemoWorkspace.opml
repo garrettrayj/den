@@ -52,46 +52,45 @@
             <outline text="The Texas Tribune: Main Feed" title="The Texas Tribune: Main Feed" type="rss" xmlUrl="https://feeds.texastribune.org/feeds/main/" />
         </outline>
         <outline text="Technology" title="Technology">
+            <outline text="Digital Trends" title="Digital Trends" type="rss" xmlUrl="https://www.digitaltrends.com/cool-tech/feed/" />
+            <outline text="The Next Web" title="The Next Web" type="rss" xmlUrl="https://feeds2.feedburner.com/thenextweb" />
+            <outline text="Macworld" title="Macworld" type="rss" xmlUrl="https://www.macworld.com/index.rss" />
+            <outline text="Tom&apos;s Hardware" title="Tom&apos;s Hardware" type="rss" xmlUrl="https://www.tomshardware.com/feeds/all" />
             <outline text="Ars Technica" title="Ars Technica" type="rss" xmlUrl="http://feeds.arstechnica.com/arstechnica/index" />
             <outline text="The Verge -  All Posts" title="The Verge -  All Posts" type="rss" xmlUrl="https://www.theverge.com/rss/index.xml" />
             <outline text="TechCrunch" title="TechCrunch" type="rss" xmlUrl="https://feeds.feedburner.com/TechCrunch/" />
             <outline text="Gizmodo" title="Gizmodo" type="rss" xmlUrl="https://gizmodo.com/rss" />
             <outline text="The Register" title="The Register" type="rss" xmlUrl="https://www.theregister.co.uk/headlines.atom" />
-            <outline text="Tom&apos;s Hardware" title="Tom&apos;s Hardware" type="rss" xmlUrl="https://www.tomshardware.com/feeds/all" />
             <outline text="Techdirt." title="Techdirt." type="rss" xmlUrl="https://feeds.feedburner.com/techdirt/feed" />
             <outline text="BGR" title="BGR" type="rss" xmlUrl="https://bgr.com/tech/feed/" />
             <outline text="ReadWrite" title="ReadWrite" type="rss" xmlUrl="https://readwrite.com/feed/?x=1" />
             <outline text="VentureBeat" title="VentureBeat" type="rss" xmlUrl="http://feeds.feedburner.com/venturebeat/SZYF" />
             <outline text="MIT Technology Review" title="MIT Technology Review" type="rss" xmlUrl="https://www.technologyreview.com/topnews.rss" />
             <outline text="TESLARATI" title="TESLARATI" type="rss" xmlUrl="https://www.teslarati.com/feed/" />
-            <outline text="Digital Trends" title="Digital Trends" type="rss" xmlUrl="https://www.digitaltrends.com/cool-tech/feed/" />
-            <outline text="The Next Web" title="The Next Web" type="rss" xmlUrl="https://feeds2.feedburner.com/thenextweb" />
             <outline text="Computerworld" title="Computerworld" type="rss" xmlUrl="https://www.computerworld.com/index.rss" />
             <outline text="Technologist" title="Technologist" type="rss" xmlUrl="https://feeds.findlaw.com/FLTechnologist" />
             <outline text="Hackaday" title="Hackaday" type="rss" xmlUrl="https://hackaday.com/blog/feed/" />
             <outline text="InfoWorld" title="InfoWorld" type="rss" xmlUrl="https://www.infoworld.com/index.rss" />
-            <outline text="Macworld" title="Macworld" type="rss" xmlUrl="https://www.macworld.com/index.rss" />
             <outline text="AppleInsider News" title="AppleInsider News" type="rss" xmlUrl="https://appleinsider.com/rss/news/" />
             <outline text="Apple Newsroom" title="Apple Newsroom" type="rss" xmlUrl="https://www.apple.com/newsroom/rss-feed.rss" />
             <outline text="iTunes Store: Top Free Apps" title="iTunes Store: Top Free Apps" type="rss" xmlUrl="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml" />
             <outline text="iTunes Store: Top Paid Apps" title="iTunes Store: Top Paid Apps" type="rss" xmlUrl="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/xml" />
         </outline>
         <outline text="Business" title="Business">
-            <outline text="CNBC" title="CNBC" type="rss" xmlUrl="http://www.cnbc.com/id/19746125/device/rss/rss.xml" />
+            <outline text="Wall Street Journal - US Business" title="Wall Street Journal - US Business" type="rss" xmlUrl="https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml" />
+            <outline text="CNNMoney.com" title="CNNMoney.com" type="rss" xmlUrl="http://rss.cnn.com/rss/money_topstories.rss" />
+            <outline text="New York Times - Business" title="New York Times - Business" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
             <outline text="Yahoo Finance" title="Yahoo Finance" type="rss" xmlUrl="http://finance.yahoo.com/rss/topstories" />
-            <outline text="Wall Street Journal - Markets" title="Wall Street Journal - Markets" type="rss" xmlUrl="https://feeds.a.dj.com/rss/RSSMarketsMain.xml" />
+            <outline text="CNBC" title="CNBC" type="rss" xmlUrl="http://www.cnbc.com/id/19746125/device/rss/rss.xml" />
             <outline text="MarketWatch.com - Top Stories" title="MarketWatch.com - Top Stories" type="rss" xmlUrl="http://www.marketwatch.com/rss/topstories" />
             <outline text="Economic Times - Markets" title="Economic Times - Markets" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
-            <outline text="Wall Street Journal - US Business" title="Wall Street Journal - US Business" type="rss" xmlUrl="https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml" />
-            <outline text="New York Times - Business" title="New York Times - Business" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
+            <outline text="Wall Street Journal - Markets" title="Wall Street Journal - Markets" type="rss" xmlUrl="https://feeds.a.dj.com/rss/RSSMarketsMain.xml" />
             <outline text="Seeking Alpha" title="Seeking Alpha" type="rss" xmlUrl="https://seekingalpha.com/market_currents.xml" />
             <outline text="Financial Post" title="Financial Post" type="rss" xmlUrl="https://business.financialpost.com/feed/" />
             <outline text="The Motley Fool" title="The Motley Fool" type="rss" xmlUrl="https://www.fool.com/a/feeds/foolwatch?format=rss2&amp;id=foolwatch&amp;apikey=foolwatch-feed" />
             <outline text="Deutsche Welle - Business" title="Deutsche Welle - Business" type="rss" xmlUrl="http://rss.dw.com/rdf/rss-en-bus" />
             <outline text="TheStreet" title="TheStreet" type="rss" xmlUrl="https://www.thestreet.com/.rss/full/" />
             <outline text="MarketWatch.com" title="MarketWatch.com" type="rss" xmlUrl="http://www.marketwatch.com/rss/financial" />
-            <outline text="CNNMoney.com" title="CNNMoney.com" type="rss" xmlUrl="http://rss.cnn.com/rss/money_topstories.rss" />
-            <outline text="Futures" title="Futures" type="rss" xmlUrl="https://www.futuresmag.com/rss.xml" />
             <outline text="Euromoney" title="Euromoney" type="rss" xmlUrl="https://www.euromoney.com/rss.xml" />
         </outline>
         <outline text="Geopolitics" title="Geopolitics">
@@ -161,16 +160,19 @@
             <outline text="Recent Questions - Stack Overflow" title="Recent Questions - Stack Overflow" type="rss" xmlUrl="https://stackoverflow.com/feeds" />
         </outline>
         <outline text="Science" title="Science">
+            <outline text="Scientific American Content: Global" title="Scientific American Content: Global" type="rss" xmlUrl="http://rss.sciam.com/ScientificAmerican-Global" />
+            <outline text="Livescience.com" title="Livescience.com" type="rss" xmlUrl="http://www.livescience.com/feeds/all" />
+            <outline text="Science News" title="Science News" type="rss" xmlUrl="https://www.sciencenews.org/feed" />
+            <outline text="The Scientist RSS" title="The Scientist RSS" type="rss" xmlUrl="http://www.the-scientist.com/?rss.feed/" />
+            <outline text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed" />
+            <outline text="State of the Planet" title="State of the Planet" type="rss" xmlUrl="https://blogs.ei.columbia.edu/feed/" />
+            <outline text="MIT News - School of Science" title="MIT News - School of Science" type="rss" xmlUrl="http://news.mit.edu/rss/school/science" />
             <outline text="ScienceAlert - Latest" title="ScienceAlert - Latest" type="rss" xmlUrl="http://feeds.feedburner.com/sciencealert-latestnews" />
             <outline text="New Scientist - Home" title="New Scientist - Home" type="rss" xmlUrl="https://www.newscientist.com/feed/home/?cmpid=RSS%7CNSNS-Home" />
-            <outline text="Scientific American Content: Global" title="Scientific American Content: Global" type="rss" xmlUrl="http://rss.sciam.com/ScientificAmerican-Global" />
-            <outline text="Science News" title="Science News" type="rss" xmlUrl="https://www.sciencenews.org/feed" />
-            <outline text="Livescience.com" title="Livescience.com" type="rss" xmlUrl="http://www.livescience.com/feeds/all" />
             <outline text="ScienceDaily" title="ScienceDaily" type="rss" xmlUrl="https://www.sciencedaily.com/rss/" />
             <outline text="BBC Science Focus Magazine" title="BBC Science Focus Magazine" type="rss" xmlUrl="https://www.sciencefocus.com/news/feed/" />
             <outline text="Smithsonian Magazine - Science" title="Smithsonian Magazine - Science" type="rss" xmlUrl="https://www.smithsonianmag.com/rss/science-nature/" />
             <outline text="EurekAlert! - Breaking News" title="EurekAlert! - Breaking News" type="rss" xmlUrl="https://www.eurekalert.org/rss.xml" />
-            <outline text="The Scientist RSS" title="The Scientist RSS" type="rss" xmlUrl="http://www.the-scientist.com/?rss.feed/" />
             <outline text="Sci-News.com" title="Sci-News.com" type="rss" xmlUrl="http://feeds.feedburner.com/BreakingScienceNews?format=xml" />
             <outline text="Universe Today" title="Universe Today" type="rss" xmlUrl="http://www.universetoday.com/universetoday.xml" />
             <outline text="symmetry magazine" title="symmetry magazine" type="rss" xmlUrl="http://www.symmetrymagazine.org/feed" />
@@ -179,29 +181,25 @@
             <outline text="Botany One" title="Botany One" type="rss" xmlUrl="https://www.botany.one/feed/" />
             <outline text="NeuroLogica Blog" title="NeuroLogica Blog" type="rss" xmlUrl="https://theness.com/neurologicablog/index.php/feed/" />
             <outline text="Watts Up With That?" title="Watts Up With That?" type="rss" xmlUrl="https://wattsupwiththat.com/feed/" />
-            <outline text="State of the Planet" title="State of the Planet" type="rss" xmlUrl="https://blogs.ei.columbia.edu/feed/" />
             <outline text="Science Advances " title="Science Advances " type="rss" xmlUrl="https://advances.sciencemag.org/rss/current.xml" />
-            <outline text="MIT News - School of Science" title="MIT News - School of Science" type="rss" xmlUrl="http://news.mit.edu/rss/school/science" />
             <outline text="Advanced Science News" title="Advanced Science News" type="rss" xmlUrl="https://www.advancedsciencenews.com/feed/" />
             <outline text="PLOS ONE: All Subject Areas" title="PLOS ONE: All Subject Areas" type="rss" xmlUrl="https://journals.plos.org/plosone/search/feed/atom?sortOrder=DATE_NEWEST_FIRST&amp;filterJournals=PLoSONE&amp;unformattedQuery=" />
-            <outline text="ParticleBites" title="ParticleBites" type="rss" xmlUrl="https://www.particlebites.com/?feed=rss2" />
-            <outline text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed" />
             <outline text="Retraction Watch" title="Retraction Watch" type="rss" xmlUrl="https://retractionwatch.com/feed/" />
             <outline text="LabRoots" title="LabRoots" type="rss" xmlUrl="http://www.labroots.com/rss/trending" />
         </outline>
         <outline text="Space" title="Space">
-            <outline text="ESA - Rocket Science" title="ESA - Rocket Science" type="rss" xmlUrl="http://blogs.esa.int/rocketscience/feed/" />
-            <outline text="Spaceflight Now" title="Spaceflight Now" type="rss" xmlUrl="https://spaceflightnow.com/feed/" />
-            <outline text="Space.com" title="Space.com" type="rss" xmlUrl="http://www.space.com/feeds/all" />
-            <outline text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="http://www.esa.int/rssfeed/TopNews" />
-            <outline text="Sky &amp; Telescope" title="Sky &amp; Telescope" type="rss" xmlUrl="https://www.skyandtelescope.com/feed/" />
-            <outline text="Planetary Society Blog" title="Planetary Society Blog" type="rss" xmlUrl="https://www.planetary.org/system/rss/channel.jsp?feedID=328434498" />
-            <outline text="Space – EarthSky" title="Space – EarthSky" type="rss" xmlUrl="https://earthsky.org/space/feed" />
-            <outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
-            <outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed" />
-            <outline text="NASA Breaking News" title="NASA Breaking News" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/breaking_news.rss" />
             <outline text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
             <outline text="Solar System and Beyond" title="Solar System and Beyond" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/solar_system.rss" />
+            <outline text="Space.com" title="Space.com" type="rss" xmlUrl="http://www.space.com/feeds/all" />
+            <outline text="NASA Breaking News" title="NASA Breaking News" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/breaking_news.rss" />
+            <outline text="ESA - Rocket Science" title="ESA - Rocket Science" type="rss" xmlUrl="http://blogs.esa.int/rocketscience/feed/" />
+            <outline text="Spaceflight Now" title="Spaceflight Now" type="rss" xmlUrl="https://spaceflightnow.com/feed/" />
+            <outline text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="http://www.esa.int/rssfeed/TopNews" />
+            <outline text="Sky &amp; Telescope" title="Sky &amp; Telescope" type="rss" xmlUrl="https://www.skyandtelescope.com/feed/" />
+            <outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
+            <outline text="Planetary Society Blog" title="Planetary Society Blog" type="rss" xmlUrl="https://www.planetary.org/system/rss/channel.jsp?feedID=328434498" />
+            <outline text="Space – EarthSky" title="Space – EarthSky" type="rss" xmlUrl="https://earthsky.org/space/feed" />
+            <outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed" />
         </outline>
         <outline text="Gaming" title="Gaming">
             <outline text="Polygon" title="Polygon" type="rss" xmlUrl="http://www.polygon.com/rss/index.xml" />
@@ -235,22 +233,22 @@
             <outline text="Movieweb News" title="Movieweb News" type="rss" xmlUrl="http://feeds.feedburner.com/movieweb_news" />
             <outline text="What&apos;s on Netflix" title="What&apos;s on Netflix" type="rss" xmlUrl="https://www.whats-on-netflix.com/feed/" />
             <outline text="Collider" title="Collider" type="rss" xmlUrl="https://collider.com/feed/" />
+            <outline text="Fandango.com Top 10 Box Office Movies" title="Fandango.com Top 10 Box Office Movies" type="rss" xmlUrl="https://www.fandango.com/rss/top10boxoffice.rss" />
             <outline text="CinemaBlend" title="CinemaBlend" type="rss" xmlUrl="https://feeds.feedburner.com/cinemablendallthing" />
             <outline text="Little White Lies" title="Little White Lies" type="rss" xmlUrl="https://lwlies.com/feed/" />
             <outline text="ScreenRant" title="ScreenRant" type="rss" xmlUrl="https://screenrant.com/feed/" />
             <outline text="Variety - TV" title="Variety - TV" type="rss" xmlUrl="https://variety.com/v/tv/feed/" />
-            <outline text="We Got This Covered" title="We Got This Covered" type="rss" xmlUrl="http://feedpress.me/wgtcsite" />
-            <outline text="ComingSoon.net" title="ComingSoon.net" type="rss" xmlUrl="http://www.comingsoon.net/news/rss-main-30.php" />
-            <outline text="ScreenCrush" title="ScreenCrush" type="rss" xmlUrl="https://screencrush.com/feed/" />
             <outline text="AV Club - Film" title="AV Club - Film" type="rss" xmlUrl="https://film.avclub.com/rss" />
+            <outline text="ComingSoon.net" title="ComingSoon.net" type="rss" xmlUrl="http://www.comingsoon.net/news/rss-main-30.php" />
+            <outline text="We Got This Covered" title="We Got This Covered" type="rss" xmlUrl="http://feedpress.me/wgtcsite" />
             <outline text="JoBlo&apos;s Movie Emporium News" title="JoBlo&apos;s Movie Emporium News" type="rss" xmlUrl="https://www.joblo.com/newsfeeds/rss.xml" />
+            <outline text="ScreenCrush" title="ScreenCrush" type="rss" xmlUrl="https://screencrush.com/feed/" />
             <outline text="Film Threat" title="Film Threat" type="rss" xmlUrl="https://filmthreat.com/feed/" />
             <outline text="The Movie Blog" title="The Movie Blog" type="rss" xmlUrl="http://www.themovieblog.com/feed/" />
             <outline text="Den of Geek" title="Den of Geek" type="rss" xmlUrl="https://www.denofgeek.com/feed/" />
             <outline text="Latest Movie Trailers" title="Latest Movie Trailers" type="rss" xmlUrl="https://trailers.apple.com/trailers/home/rss/newtrailers.rss" />
             <outline text="Latest Movie Metascores" title="Latest Movie Metascores" type="rss" xmlUrl="https://www.metacritic.com/rss/movies" />
             <outline text="Latest TV Show Metascores" title="Latest TV Show Metascores" type="rss" xmlUrl="https://www.metacritic.com/rss/tv" />
-            <outline text="Fandango.com Top 10 Box Office Movies" title="Fandango.com Top 10 Box Office Movies" type="rss" xmlUrl="https://www.fandango.com/rss/top10boxoffice.rss" />
         </outline>
         <outline text="Music" title="Music">
             <outline text="NPR - Music" title="NPR - Music" type="rss" xmlUrl="http://www.npr.org/rss/rss.php?id=1039" />
@@ -265,7 +263,6 @@
             <outline text=" The Source - Hip Hop Music" title=" The Source - Hip Hop Music" type="rss" xmlUrl="https://thesource.com/category/music/feed/" />
             <outline text="The Country Daily" title="The Country Daily" type="rss" xmlUrl="http://www.nashcountrydaily.com/feed" />
             <outline text="Latest Music Metascores on Metacritic" title="Latest Music Metascores on Metacritic" type="rss" xmlUrl="https://www.metacritic.com/rss/music" />
-            <outline text="iTunes Store: Top Songs" title="iTunes Store: Top Songs" type="rss" xmlUrl="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml" />
             <outline text="iTunes Store: Top Albums" title="iTunes Store: Top Albums" type="rss" xmlUrl="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topalbums/limit=10/xml" />
         </outline>
     </body>
