@@ -29,78 +29,86 @@ struct FeedItemView: View {
                 }
                 
                 if item.image != nil && item.feed != nil && item.feed!.showThumbnails == true {
-                    URLImage(
-                        item.image!,
-                        processors: [ Resize(size: CGSize(width: 96, height: 64), scale: UIScreen.main.scale) ],
-                        placeholder: { _ in
-                            VStack {
-                                Image(systemName: "photo").foregroundColor(.secondary)
-                            }
-                            .frame(width: 96, height: 64)
-                            .background(Color(UIColor.secondarySystemBackground))
-                            .padding(1)
-                            .border(Color(UIColor.separator), width: 1)
-                        },
-                        failure: { _ in
-                            VStack {
-                                Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
-                            }
-                            .frame(width: 96, height: 64)
-                            .background(Color(UIColor.secondarySystemBackground))
-                            .padding(1)
-                            .border(Color(UIColor.separator), width: 1)
-                        },
-                        content: { content in
-                            content.image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 96, height: 64)
-                            .clipped()
-                            .padding(1)
-                            .border(Color(UIColor.separator), width: 1)
-                        }
-                    )
-                    .frame(width: 96, height: 64)
+                    thumbnailImage
                 }
             }
             
             if item.image != nil && item.feed != nil && item.feed!.showLargePreviews == true {
-                URLImage(
-                    self.item.image!,
-                    placeholder: { _ in
-                        VStack {
-                            Image(systemName: "photo").foregroundColor(.secondary)
-                        }
-                        .frame(width: 96, height: 64)
-                        .background(Color(UIColor.secondarySystemBackground))
-                        .padding(1)
-                        .border(Color(UIColor.separator), width: 1)
-                    },
-                    failure: { _ in
-                        VStack {
-                            Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
-                        }
-                        .frame(width: 96, height: 64)
-                        .background(Color(UIColor.secondarySystemBackground))
-                        .padding(1)
-                        .border(Color(UIColor.separator), width: 1)
-                    },
-                    content:  {
-                        $0.image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity)
-                            .clipped()
-                    }
-                )
-                .padding(1)
-                .border(Color(UIColor.separator), width: 1)
-                .padding(.top, 4)
+                largeImage
             }
         }
         .buttonStyle(ItemLinkButtonStyle(read: $item.read))
         .frame(maxWidth: .infinity)
         .padding(12)
+    }
+    
+    var thumbnailImage: some View {
+        URLImage(
+            item.image!,
+            processors: [ Resize(size: CGSize(width: 96, height: 64), scale: UIScreen.main.scale) ],
+            placeholder: { _ in
+                VStack {
+                    Image(systemName: "photo").foregroundColor(.secondary)
+                }
+                .frame(width: 96, height: 64)
+                .background(Color(UIColor.secondarySystemBackground))
+                .padding(1)
+                .border(Color(UIColor.separator), width: 1)
+            },
+            failure: { _ in
+                VStack {
+                    Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
+                }
+                .frame(width: 96, height: 64)
+                .background(Color(UIColor.secondarySystemBackground))
+                .padding(1)
+                .border(Color(UIColor.separator), width: 1)
+            },
+            content: { content in
+                content.image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 96, height: 64)
+                .clipped()
+                .padding(1)
+                .border(Color(UIColor.separator), width: 1)
+            }
+        )
+        .frame(width: 96, height: 64)
+    }
+    
+    var largeImage: some View {
+        URLImage(
+            self.item.image!,
+            placeholder: { _ in
+                VStack {
+                    Image(systemName: "photo").foregroundColor(.secondary)
+                }
+                .frame(width: 96, height: 64)
+                .background(Color(UIColor.secondarySystemBackground))
+                .padding(1)
+                .border(Color(UIColor.separator), width: 1)
+            },
+            failure: { _ in
+                VStack {
+                    Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
+                }
+                .frame(width: 96, height: 64)
+                .background(Color(UIColor.secondarySystemBackground))
+                .padding(1)
+                .border(Color(UIColor.separator), width: 1)
+            },
+            content:  {
+                $0.image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity)
+                    .clipped()
+            }
+        )
+        .padding(1)
+        .border(Color(UIColor.separator), width: 1)
+        .padding(.top, 4)
     }
     
     func openLink() {

@@ -36,6 +36,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    // MARK: - MacOS menu bar customization
+    
+    override func buildMenu(with builder: UIMenuBuilder) {
+        super.buildMenu(with: builder)
+
+        builder.remove(menu: .services)
+        builder.remove(menu: .format)
+        builder.remove(menu: .toolbar)
+    }
 
     // MARK: - Core Data stack
 

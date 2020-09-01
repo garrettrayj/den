@@ -35,14 +35,14 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text("IMPORT AND EXPORT")) {
+            Section(header: Text("SUBSCRIPTIONS")) {
                 NavigationLink(destination: ImportView()) {
                     Image(systemName: "arrow.down.doc")
-                    Text("Import Subscriptions")
+                    Text("Import OPML")
                 }
                 NavigationLink(destination: ExportView()) {
                     Image(systemName: "arrow.up.doc")
-                    Text("Export Subsciptions")
+                    Text("Export OPML")
                 }
             }
 
