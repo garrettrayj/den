@@ -20,7 +20,7 @@ struct RefreshableScrollView<Content: View>: View {
     @State private var rotation: Angle = .degrees(0)
     
     var refreshables: [Refreshable]
-    var threshold: CGFloat = 80
+    var threshold: CGFloat = 102
     let content: Content
 
     var body: some View {
@@ -85,7 +85,15 @@ struct RefreshableScrollView<Content: View>: View {
     struct MovingView: View {
         var body: some View {
             GeometryReader { proxy in
-                Color.clear.preference(key: RefreshableKeyTypes.PrefKey.self, value: [RefreshableKeyTypes.PrefData(vType: .movingView, bounds: proxy.frame(in: .global))])
+                Color.clear.preference(
+                    key: RefreshableKeyTypes.PrefKey.self,
+                    value: [
+                        RefreshableKeyTypes.PrefData(
+                            vType: .movingView,
+                            bounds: proxy.frame(in: .global)
+                        )
+                    ]
+                )
             }.frame(height: 0)
         }
     }
@@ -93,7 +101,15 @@ struct RefreshableScrollView<Content: View>: View {
     struct FixedView: View {
         var body: some View {
             GeometryReader { proxy in
-                Color.clear.preference(key: RefreshableKeyTypes.PrefKey.self, value: [RefreshableKeyTypes.PrefData(vType: .fixedView, bounds: proxy.frame(in: .global))])
+                Color.clear.preference(
+                    key: RefreshableKeyTypes.PrefKey.self,
+                    value: [
+                        RefreshableKeyTypes.PrefData(
+                            vType: .fixedView,
+                            bounds: proxy.frame(in: .global)
+                        )
+                    ]
+                )
             }
         }
     }
