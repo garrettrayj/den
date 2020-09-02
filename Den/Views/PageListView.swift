@@ -38,8 +38,9 @@ struct PageListView: View {
                     List {
                         ForEach(self.pages) { page in
                             PageListRowView(page: page)
-                        }
+                        }.listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
                     }
+                    
                     .frame(height: geometry.size.height)
                 }.background(Color(UIColor.secondarySystemBackground))
             }

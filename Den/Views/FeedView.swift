@@ -44,7 +44,10 @@ struct FeedView: View {
                                 .clipped()
                             
                         }
-                    ).frame(width: 16, height: 16).clipped()
+                    )
+                    .frame(width: 16, height: 16)
+                    .clipped()
+                    .accessibility(label: Text("Favicon"))
                 }
                 Text(feed.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()

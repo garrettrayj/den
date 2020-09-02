@@ -21,15 +21,14 @@ struct PageListRowView: View {
                 Text(page.wrappedName).fontWeight(.medium).lineLimit(1).multilineTextAlignment(.leading)
                 Spacer()
                 Text(String(page.unreadCount))
-                    .foregroundColor(.secondary)
                     .font(.caption)
                     .padding(.vertical, 4)
                     .padding(.horizontal, 8)
                     .background(
                         Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
                     )
-                )
+                ).accessibility(value: Text("\(page.wrappedName): \(page.unreadCount) unread"))
             }
-        }
+        }.frame(height: 44)
     }
 }
