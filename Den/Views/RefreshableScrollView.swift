@@ -24,7 +24,7 @@ struct RefreshableScrollView<Content: View>: View {
     let content: Content
 
     var body: some View {
-        return VStack {
+        VStack {
             ScrollView {
                 ZStack(alignment: .top) {
                     MovingView()
@@ -57,7 +57,10 @@ struct RefreshableScrollView<Content: View>: View {
             self.rotation = self.symbolRotation(self.scrollOffset)
             
             // Crossing the threshold on the way down, we start the refresh process
-            if !self.refreshManager.refreshing && (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold) {
+            if
+                !self.refreshManager.refreshing &&
+                (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold)
+            {
                 self.refreshManager.refresh(self.refreshables)
             }
             

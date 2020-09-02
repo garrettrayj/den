@@ -27,6 +27,34 @@ struct WorkspaceView: View {
 
     var body: some View {
         VStack(spacing: 0) {
+            HStack {
+                if pages.count > 0 {
+                    if self.editMode == .active {
+                        Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
+                            Image(systemName: "plus").titleBarIconView()
+                        }
+                    } else {
+                        Button(action: { self.refreshManager.refresh(self.pages.map { $0 }) }) {
+                            Image(systemName: "arrow.clockwise").titleBarIconView()
+                        }.disabled(refreshManager.refreshing)
+                    }
+                }
+                Spacer()
+                Text("Den").font(.headline)
+                Spacer()
+                if pages.count > 0 {
+                    if self.editMode == .active {
+                        Button(action: doneEditing) {
+                            Text("Done").background(Color.clear)
+                        }
+                    } else {
+                        Button(action: { self.editMode = .active }) {
+                            Image(systemName: "list.bullet").titleBarIconView()
+                        }
+                    }
+                }
+            }.padding().frame(height: 50)
+            
             if pages.count == 0 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
                 Spacer()
             }
@@ -65,7 +93,8 @@ struct WorkspaceView: View {
                     .frame(height: refreshManager.isRefreshing(pages.map { $0 }) ? 2 : 0)
                 
                 PageListView(editMode: $editMode)
-                    .navigationBarTitle("Den", displayMode: .large)
+                    .navigationBarTitle("")
+                .navigationBarHidden(true)
             }
             
             if pages.count > 0 {
@@ -77,7 +106,6 @@ struct WorkspaceView: View {
                 }.padding()
             }
         }
-        .padding(.top, 1)
         .navigationBarItems(
             leading: HStack {
                 if pages.count > 0 {
