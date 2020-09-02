@@ -81,7 +81,7 @@ struct ImportView: View {
     var inProgressStage: some View {
         VStack (spacing: 16) {
             ActivityRep()
-            Text("Fetching Feeds").font(.title)
+            Text("Fetching feeds").font(.title)
             StandaloneProgressBarView().frame(maxWidth: 256, maxHeight: 8)
         }
     }
