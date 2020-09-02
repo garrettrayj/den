@@ -19,7 +19,7 @@ extension String {
         case tail
     }
 
-    func truncated(limit: Int, position: TruncationPosition = .tail, leader: String = "...") -> String {
+    func truncated(limit: Int, position: TruncationPosition = .tail, leader: String = "…") -> String {
         guard self.count > limit else { return self }
 
         switch position {

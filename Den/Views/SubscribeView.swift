@@ -83,7 +83,7 @@ struct SubscribeView: View {
         Group {
             if self.newFeed != nil && refreshManager.isRefreshing([self.newFeed!]) {
                 VStack {
-                    Text("Downloading feed").font(.title)
+                    Text("Downloading feed…").font(.title)
                     ActivityRep()
                 }
             } else {
@@ -98,7 +98,7 @@ struct SubscribeView: View {
                 } else {
                     VStack(alignment: .center, spacing: 16) {
                         Image(systemName: "slash.circle").resizable().scaledToFit().frame(width: 48, height: 48).foregroundColor(.red)
-                        Text("Download error").font(.title)
+                        Text("Download Error").font(.title)
                         Text(newFeed?.error ?? "Unknown error").foregroundColor(.red).padding()
                         Button(action: back) { Text("Back").fontWeight(.medium) }
                         Button(action: cancel) { Text("Cancel").fontWeight(.medium) }
