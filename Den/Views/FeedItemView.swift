@@ -75,6 +75,7 @@ struct FeedItemView: View {
             }
         )
         .frame(width: 96, height: 64)
+        .accessibility(label: Text("Thumbnail image"))
     }
     
     var largeImage: some View {
@@ -104,11 +105,12 @@ struct FeedItemView: View {
                     .scaledToFit()
                     .frame(maxWidth: .infinity)
                     .clipped()
+                    .padding(1)
+                    .border(Color(UIColor.separator), width: 1)
             }
         )
-        .padding(1)
-        .border(Color(UIColor.separator), width: 1)
         .padding(.top, 4)
+        .accessibility(label: Text("Preview image"))
     }
     
     func openLink() {

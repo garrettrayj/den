@@ -76,7 +76,7 @@ struct WorkspaceView: View {
                         Image(systemName: "gear").titleBarIconView()
                     }
                     Spacer()
-                }.padding()
+                }.padding(4)
             }
         }
         .padding(.top, 1)
@@ -86,11 +86,13 @@ struct WorkspaceView: View {
                     if self.editMode == .active {
                         Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
                             Image(systemName: "plus").titleBarIconView()
-                        }
+                        }.offset(x: -12)
                     } else {
                         Button(action: { self.refreshManager.refresh(self.pages.map { $0 }) }) {
                             Image(systemName: "arrow.clockwise").titleBarIconView()
-                        }.disabled(refreshManager.refreshing)
+                        }
+                        .disabled(refreshManager.refreshing)
+                        .offset(x: -12)
                     }
                 }
             },
@@ -98,12 +100,12 @@ struct WorkspaceView: View {
                 if pages.count > 0 {
                     if self.editMode == .active {
                         Button(action: doneEditing) {
-                            Text("Done").background(Color.clear)
-                        }
+                            Text("Done").background(Color.clear).padding(12)
+                        }.offset(x: 12)
                     } else {
                         Button(action: { self.editMode = .active }) {
                             Image(systemName: "list.bullet").titleBarIconView()
-                        }
+                        }.offset(x: 12)
                     }
                 }
             }

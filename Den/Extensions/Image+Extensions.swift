@@ -15,6 +15,6 @@ extension Image {
     }
     
     func titleBarIconView() -> some View {
-        return self.resizable().scaledToFit().frame(width: 20, height: 20)
+        return self.resizable().scaledToFit().frame(width: 20, height: 20).padding(12)
     }
 }

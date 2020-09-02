@@ -67,12 +67,13 @@ struct PageView: View {
                 }
                 .navigationBarTitle(Text(page.name ?? "Page Deleted"), displayMode: .inline)
                 .navigationBarItems(
-                    trailing: HStack(alignment: .center, spacing: 16) {
+                    trailing: HStack(alignment: .center, spacing: 0) {
                         if UIDevice.current.userInterfaceIdiom == .phone {
                             // Action menu for phone users
                             Button(action: showMenu) {
                                 Image(systemName: "hammer").titleBarIconView()
-                            }.disabled(refreshManager.refreshing)
+                            }
+                            .disabled(refreshManager.refreshing)
                             .actionSheet(isPresented: $showingActionSheet) {
                                 ActionSheet(title: Text("Page Actions"), message: nil, buttons: [
                                     .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
@@ -93,7 +94,7 @@ struct PageView: View {
                                 Image(systemName: "arrow.clockwise").titleBarIconView()
                             }.disabled(refreshManager.refreshing)
                         }
-                    }
+                    }.offset(x: 12)
                 )
             }
         }
