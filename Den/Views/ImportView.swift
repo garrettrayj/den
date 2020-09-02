@@ -36,7 +36,7 @@ struct ImportView: View {
         Form {
             Section(header: Text("SELECT FILE")) {
                 Button(action: pickFile) {
-                    Text("Choose OPML file...")
+                    Text("Choose OPML file…")
                 }
             }
         }
@@ -81,7 +81,7 @@ struct ImportView: View {
     var inProgressStage: some View {
         VStack (spacing: 16) {
             ActivityRep()
-            Text("Fetching feeds").font(.title)
+            Text("Fetching feeds…").font(.title)
             StandaloneProgressBarView().frame(maxWidth: 256, maxHeight: 8)
         }
     }
