@@ -20,13 +20,13 @@ struct UpdateStatusView: View {
             Spacer()
             if refreshManager.isRefreshing(refreshables) { // If loading, show the activity control
                 ActivityRep()
-                Text("Updating Feeds")
+                Text("Updating feeds")
             } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshables) {
                 Image(systemName: "slash.circle")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                Text("Other Refresh In Progress")
+                Text("Other refresh in progress")
             } else {
                 Image(systemName: "arrow.down")
                     .resizable()
@@ -46,20 +46,17 @@ struct UpdateStatusView: View {
     }
     
     func lastRefreshedLabel() -> Text {
-        var latestDate: Date? = nil
+        var earliestRefreshDate: Date? = nil
         
         refreshables.forEach { refreshable in
             guard let refreshed = refreshable.lastRefreshed else { return }
-            
-            if latestDate == nil {
-                latestDate = refreshed
-            } else if refreshed > latestDate! {
-                latestDate = refreshed
+            if earliestRefreshDate == nil  || refreshed < earliestRefreshDate! {
+                earliestRefreshDate = refreshed
             }
         }
         
-        guard let lastRefreshed = latestDate else {
-            return Text("Never Updated")
+        guard let lastRefreshed = earliestRefreshDate else {
+            return Text("Never updated")
         }
         
         return Text("Updated \(lastRefreshed, formatter: DateFormatter.create())")
