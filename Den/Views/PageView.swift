@@ -119,7 +119,6 @@ struct PageView: View {
     }
     
     private func calcGridTracks(_ availableWidth: CGFloat) -> Tracks {
-        print(availableWidth)
         if availableWidth > 2000 {
             return Tracks.min(400)
         }
