@@ -115,7 +115,6 @@
             <outline text="Foreign Policy" title="Foreign Policy" type="rss" xmlUrl="https://foreignpolicy.com/feed/" />
             <outline text="Geopolitics Alert" title="Geopolitics Alert" type="rss" xmlUrl="http://geopoliticsalert.com/feed" />
             <outline text="Geopolitical Futures" title="Geopolitical Futures" type="rss" xmlUrl="https://geopoliticalfutures.com/feed/" />
-            <outline text="Geopolitical Monitor" title="Geopolitical Monitor" type="rss" xmlUrl="https://www.geopoliticalmonitor.com/feed" />
             <outline text="Brookings - International Affairs" title="Brookings - International Affairs" type="rss" xmlUrl="https://www.brookings.edu/topic/international-affairs/feed/" />
             <outline text="E-International Relations" title="E-International Relations" type="rss" xmlUrl="https://www.e-ir.info/feed/" />
             <outline text="UN News" title="UN News" type="rss" xmlUrl="http://www.un.org/apps/news/rss/rss_top.asp" />
@@ -131,7 +130,6 @@
             <outline text="Janes News" title="Janes News" type="rss" xmlUrl="https://www.janes.com/feeds/news" />
         </outline>
         <outline text="Business" title="Business">
-            <outline text="CNNMoney.com" title="CNNMoney.com" type="rss" xmlUrl="http://rss.cnn.com/rss/money_topstories.rss" />
             <outline text="Wall Street Journal - US Business" title="Wall Street Journal - US Business" type="rss" xmlUrl="https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml" />
             <outline text="New York Times - Business" title="New York Times - Business" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
             <outline text="Yahoo Finance" title="Yahoo Finance" type="rss" xmlUrl="http://finance.yahoo.com/rss/topstories" />
@@ -204,9 +202,9 @@
             <outline text="Rolling Stone - Music" title="Rolling Stone - Music" type="rss" xmlUrl="https://www.rollingstone.com/music/feed/" />
             <outline text="Billboard" title="Billboard" type="rss" xmlUrl="https://www.billboard.com/rss" />
             <outline text="SPIN" title="SPIN" type="rss" xmlUrl="https://www.spin.com/new-music/feed/" />
+            <outline text="Music Connection Magazine" title="Music Connection Magazine" type="rss" xmlUrl="http://www.musicconnection.com/feed/" />
             <outline text="American Songwriter" title="American Songwriter" type="rss" xmlUrl="https://americansongwriter.com/feed/" />
             <outline text="American Blues Scene" title="American Blues Scene" type="rss" xmlUrl="https://www.americanbluesscene.com/feed/" />
-            <outline text="Music Connection Magazine" title="Music Connection Magazine" type="rss" xmlUrl="http://www.musicconnection.com/feed/" />
             <outline text="Hip-Hop News, Rap Music - XXL" title="Hip-Hop News, Rap Music - XXL" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />
             <outline text="Rap-Up" title="Rap-Up" type="rss" xmlUrl="http://www.rap-up.com/feed/rss" />
             <outline text=" The Source - Hip Hop Music" title=" The Source - Hip Hop Music" type="rss" xmlUrl="https://thesource.com/category/music/feed/" />
