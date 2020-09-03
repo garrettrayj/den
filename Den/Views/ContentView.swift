@@ -13,6 +13,6 @@ struct ContentView: View {
         NavigationView {
             WorkspaceView()
             WelcomeView()
-        }.background(Color(UIColor.systemBackground))
+        }
     }
 }
