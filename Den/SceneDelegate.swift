@@ -63,6 +63,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             #endif
             
+            /* Fix window size for screenshots
+            let windowSize = CGSize(width: 1724, height: 1023)
+            window.windowScene?.sizeRestrictions?.maximumSize = windowSize
+            window.windowScene?.sizeRestrictions?.minimumSize = windowSize
+            */
+            
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -102,7 +108,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
-

@@ -58,7 +58,6 @@ struct SubscribeView: View {
                         Text(validationMessage ?? "Unknown validation error")
                     }
                 }
-                
             }
             .navigationBarTitle("Add Feed", displayMode: .inline)
             .navigationBarItems(
@@ -166,6 +165,15 @@ struct SubscribeView: View {
     }
     
     func createFeed() {
+        if let exisitingNewFeed = self.newFeed {
+            self.viewContext.delete(exisitingNewFeed)
+            do {
+                try viewContext.save()
+            } catch {
+                fatalError("Error saving view context after deleting existing newFeed: \(error)")
+            }
+        }
+        
         self.newFeed = Feed.create(in: self.viewContext, page: self.page)
         self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
         

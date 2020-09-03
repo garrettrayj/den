@@ -14,9 +14,20 @@ class SubscriptionManager: ObservableObject {
     @Published public var feedURLString: String = ""
     
     public func subscribe(to url: URL? = nil) {
-        if let url = url {
-            feedURLString = url.absoluteString.replacingOccurrences(of: "feed:", with: "")
+        if
+            let url = url,
+            var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
+        {
+            if urlComponents.scheme == nil {
+                urlComponents.scheme = "http"
+            }
+            
+            if let urlString = urlComponents.string {
+                feedURLString = urlString
+                return
+            }
         }
+        
         showSubscribeView = true
     }
     
