@@ -9,12 +9,13 @@ Features:
 - Available for iPhone, iPad, and Mac
 - Sleek interface for leafing through feeds without distractions
 - Customizable gadgets display the latest headlines
-- Synchronizes feeds and read items across devices with iCloud.
+- Synchronizes feeds and read items across devices with iCloud
 - Compatible with RSS, Atom, and JSON-Feed formats
 - OPML import and export for loading and sharing subscriptions
 - Light and dark theme options
-- No additional subscription or account required.
+- No additional subscription or account required
 
-Den is actively maintained and while it will evolve with new features, what will always remain the same is the commitment to simplicity, privacy, and performance.
+Den is actively maintained and while it will evolve with new features, what will always remain the same is a commitment to simplicity, privacy, and performance.
 
 Please send questions and suggestions to garrett@devsci.net
+
