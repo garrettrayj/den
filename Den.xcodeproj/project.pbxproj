@@ -81,7 +81,6 @@
 		68C413442472761D00D1DC7B /* WorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C413432472761D00D1DC7B /* WorkspaceView.swift */; };
 		68C413462472773100D1DC7B /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C413452472773100D1DC7B /* PageView.swift */; };
 		68C4134B24727F2B00D1DC7B /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* FeedView.swift */; };
-		68C413802473305600D1DC7B /* Documents in Resources */ = {isa = PBXBuildFile; fileRef = 68C4137F2473305600D1DC7B /* Documents */; };
 		68C4138224733D7D00D1DC7B /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* SubscribeView.swift */; };
 		68C413892473483500D1DC7B /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 68C413882473483500D1DC7B /* FeedKit */; };
 		68C4FA24247466C900D2C0D6 /* Item+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4FA23247466C900D2C0D6 /* Item+Collection.swift */; };
@@ -571,7 +570,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68C413802473305600D1DC7B /* Documents in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
@@ -837,7 +835,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -861,7 +859,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
