@@ -11,16 +11,25 @@ import CoreData
 
 @objc(Page)
 public class Page: Refreshable, Identifiable {
-    public var wrappedName: String {
+    var wrappedName: String {
         get {name ?? "No Name"}
         set {name = newValue}
     }
     
-    public var unreadCount: Int {
+    var unreadCount: Int {
         get {            
             feedsArray.reduce(0) { (result, feed) -> Int in
                 result + feed.unreadItemCount
             }
+        }
+    }
+    
+    var feedUserOrderMin: Int16 {
+        feedsArray.reduce(0) { (result, feed) -> Int16 in
+            if feed.userOrder < result {
+                return feed.userOrder
+            }
+            return result
         }
     }
     

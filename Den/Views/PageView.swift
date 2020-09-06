@@ -20,7 +20,6 @@ struct PageView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var screenManager: ScreenManager
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @ObservedObject var page: Page
     @State var showingSheet: Bool = false
     @State var activeSheet: PageSheet = .organizer
@@ -101,7 +100,7 @@ struct PageView: View {
         }
         .padding(.top, 1)
         .onAppear {
-            self.subscriptionManager.currentPage = self.page
+            self.screenManager.currentPage = self.page
         }
         .background(Color(UIColor.secondarySystemBackground))
         .edgesIgnoringSafeArea([.horizontal, .bottom])
@@ -117,7 +116,7 @@ struct PageView: View {
     }
     
     func showSubscribe() {
-        self.subscriptionManager.subscribe()
+        self.screenManager.subscribe()
     }
     
     private func calcGridTracks(_ availableWidth: CGFloat) -> Tracks {
