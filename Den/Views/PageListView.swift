@@ -14,8 +14,7 @@ import SwiftUI
 struct PageListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Binding var editMode: EditMode
-    
-    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
+
     var pages: FetchedResults<Page>
     
     var body: some View {

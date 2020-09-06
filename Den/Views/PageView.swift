@@ -18,6 +18,7 @@ struct PageView: View {
     }
     
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var screenManager: ScreenManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @ObservedObject var page: Page

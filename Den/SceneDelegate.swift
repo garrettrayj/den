@@ -32,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         persistentContainer.viewContext.undoManager = nil
         
         // Create manager services
+        let screenManager = ScreenManager()
         let refreshManager = RefreshManager(persistentContainer: persistentContainer)
         let cacheManager = CacheManager(persistentContainer: persistentContainer)
         let importManager = ImportManager(viewContext: persistentContainer.viewContext)
@@ -40,6 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath
         let contentView = ContentView()
             .environment(\.managedObjectContext, persistentContainer.viewContext)
+            .environmentObject(screenManager)
             .environmentObject(refreshManager)
             .environmentObject(cacheManager)
             .environmentObject(importManager)
