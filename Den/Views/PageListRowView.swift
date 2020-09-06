@@ -16,7 +16,7 @@ struct PageListRowView: View {
     @ObservedObject var page: Page
     
     var body: some View {
-        NavigationLink(destination: PageView(page: page), tag: page.id!.uuidString, selection: $screenManager.activePage) {
+        NavigationLink(destination: PageView(page: page), tag: page.id!.uuidString, selection: $screenManager.activeScreen) {
             HStack {
                 Image(systemName: "square.grid.2x2").resizable().scaledToFit().frame(width: 18, height: 18).padding(.trailing, 2)
                 Text(page.wrappedName).fontWeight(.medium).lineLimit(1).multilineTextAlignment(.leading)

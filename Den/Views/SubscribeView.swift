@@ -16,8 +16,7 @@ struct SubscribeView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
-    @ObservedObject var page: Page
+    @EnvironmentObject var screenManager: ScreenManager
     
     @State private var activeStage: SubscribeStage = .urlEntry
     @State private var urlText: String = ""
@@ -25,58 +24,60 @@ struct SubscribeView: View {
     @State private var validationMessage: String?
     @State private var newFeed: Feed?
     
+    var pages: FetchedResults<Page>
+    
     var body: some View {
         VStack {
-            if activeStage == .urlEntry {
-                urlEntryStage
-            } else if activeStage == .configuration {
-                configurationStage
-            }
+            NavigationView {
+                if activeStage == .urlEntry {
+                    urlEntryStage
+                } else if activeStage == .configuration {
+                    configurationStage
+                }
+            }.navigationViewStyle(StackNavigationViewStyle())
         }
         .onDisappear {
-            self.subscriptionManager.reset()
+            self.screenManager.resetSubscribe()
         }
     }
     
     var urlEntryStage: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("FEED URL"), footer: Text("RSS, Atom or JSON Feed")) {
-                    HStack {
-                        TextField("https://example.com/feed.xml", text: $urlText, onEditingChanged: validateUrl)
-                            .lineLimit(1)
-                            .disableAutocorrection(true)
-                        
-                        if urlIsValid == true {
-                            Image(systemName: "checkmark").foregroundColor(Color.green)
-                        }
-                    }
-                }
-                
-                if self.urlIsValid == false {
-                    Section {
-                        Text(validationMessage ?? "Unknown validation error")
+        Form {
+            Section(header: Text("FEED URL"), footer: Text("RSS, Atom or JSON Feed")) {
+                HStack {
+                    TextField("https://example.com/feed.xml", text: $urlText, onEditingChanged: validateUrl)
+                        .lineLimit(1)
+                        .disableAutocorrection(true)
+                    
+                    if urlIsValid == true {
+                        Image(systemName: "checkmark").foregroundColor(Color.green)
                     }
                 }
             }
-            .navigationBarTitle("Add Feed", displayMode: .inline)
-            .navigationBarItems(
-                leading: Button(action: cancel) {
-                    Text("Cancel")
-                },
-                trailing: Button(action: createFeed) {
-                    HStack {
-                        Text("Next")
-                        Image(systemName: "chevron.right")
-                    }
+            
+            if self.urlIsValid == false {
+                Section {
+                    Text(validationMessage ?? "Unknown validation error")
                 }
-            )
+            }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarTitle("Add Feed", displayMode: .inline)
+        .navigationBarItems(
+            leading: Button(action: cancel) {
+                Text("Cancel")
+            },
+            trailing: Button(action: createFeed) {
+                HStack {
+                    Text("Next")
+                    Image(systemName: "chevron.right")
+                }
+            }
+        )
         .onAppear {
-            self.urlText = self.subscriptionManager.feedURLString
+            self.urlText = self.screenManager.subscribeURLString
         }
     }
+    
     
     var configurationStage: some View {
         Group {
@@ -87,13 +88,11 @@ struct SubscribeView: View {
                 }
             } else {
                 if self.newFeed != nil && self.newFeed?.error == nil {
-                    NavigationView {
-                        FeedOptionsView(feed: self.newFeed!, onDelete: cancel, onMove: {})
-                            .navigationBarItems(
-                                leading: Button(action: cancel) { Text("Cancel") },
-                                trailing: Button(action: save) { Text("Save") }
-                            )
-                    }.navigationViewStyle(StackNavigationViewStyle())
+                    FeedOptionsView(feed: self.newFeed!, onDelete: cancel, onMove: {})
+                        .navigationBarItems(
+                            leading: Button(action: cancel) { Text("Cancel") },
+                            trailing: Button(action: save) { Text("Save") }
+                        )
                 } else {
                     VStack(alignment: .center, spacing: 16) {
                         Image(systemName: "slash.circle").resizable().scaledToFit().frame(width: 48, height: 48).foregroundColor(.red)
@@ -174,7 +173,7 @@ struct SubscribeView: View {
             }
         }
         
-        self.newFeed = Feed.create(in: self.viewContext, page: self.page)
+        self.newFeed = Feed.create(in: self.viewContext, page: self.screenManager.currentPage ?? self.pages.first!)
         self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
         
         if self.viewContext.hasChanges {
@@ -198,6 +197,10 @@ struct SubscribeView: View {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+        
+        if let pageWithNewFeed = self.newFeed?.page {
+            self.screenManager.activeScreen = pageWithNewFeed.id?.uuidString
         }
         
         self.presentationMode.wrappedValue.dismiss()

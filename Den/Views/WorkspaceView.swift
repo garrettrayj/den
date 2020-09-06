@@ -17,7 +17,6 @@ struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var screenManager: ScreenManager
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @State var editMode: EditMode = .inactive
     
@@ -75,7 +74,7 @@ struct WorkspaceView: View {
                     NavigationLink(
                         destination: SettingsView(pages: pages).environmentObject(userDefaultsManager),
                         tag: "settings",
-                        selection: $screenManager.activePage
+                        selection: $screenManager.activeScreen
                     ) {
                         Image(systemName: "gear").titleBarIconView()
                     }
@@ -113,22 +112,7 @@ struct WorkspaceView: View {
                     }
                 }
             }
-        ).sheet(isPresented: $subscriptionManager.showSubscribeView) {
-            if self.pages.count > 0 {
-                SubscribeView(page: self.subscriptionManager.currentPage != nil ? self.subscriptionManager.currentPage! : self.pages.first!)
-                    .environment(\.managedObjectContext, self.viewContext)
-                    .environmentObject(self.refreshManager)
-                    .environmentObject(self.subscriptionManager)
-            } else {
-                VStack(spacing: 16) {
-                    Text("Page Required").font(.title)
-                    Text("Create a new page before subscribing to feeds.")
-                    Button(action: { self.subscriptionManager.reset() }) {
-                        Text("Close").fontWeight(.medium)
-                    }.buttonStyle(BorderedButtonStyle())
-                }
-            }
-        }
+        )
     }
     
     func doneEditing() {
