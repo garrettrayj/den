@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
     
     var body: some View {

@@ -15,12 +15,12 @@ import CoreData
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var screenManager: ScreenManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @State var editMode: EditMode = .inactive
     
-    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
     
     let workspaceHeaderHeight: CGFloat = 140
@@ -64,7 +64,7 @@ struct WorkspaceView: View {
                 HeaderProgressBarView(refreshables: pages.map { $0 })
                     .frame(height: refreshManager.isRefreshing(pages.map { $0 }) ? 2 : 0)
                 
-                PageListView(editMode: $editMode)
+                PageListView(editMode: $editMode, pages: pages)
                     .navigationBarTitle("Den", displayMode: .large)
             }
             
@@ -72,7 +72,11 @@ struct WorkspaceView: View {
             
             if pages.count > 0 {
                 HStack {
-                    NavigationLink(destination: SettingsView().environmentObject(userDefaultsManager)) {
+                    NavigationLink(
+                        destination: SettingsView(pages: pages).environmentObject(userDefaultsManager),
+                        tag: "settings",
+                        selection: $screenManager.activePage
+                    ) {
                         Image(systemName: "gear").titleBarIconView()
                     }
                     Spacer()

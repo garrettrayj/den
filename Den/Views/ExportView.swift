@@ -15,7 +15,6 @@ struct ExportView: View {
     @State private var isFilePickerShown = false
     @State private var picker: ExportDocumentPicker?
     
-    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
     
     var body: some View {

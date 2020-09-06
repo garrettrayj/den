@@ -17,7 +17,6 @@ struct SettingsView: View {
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @State private var showingClearWorkspaceAlert = false
     
-    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
     
     var body: some View {
@@ -40,7 +39,7 @@ struct SettingsView: View {
                     Image(systemName: "arrow.down.doc")
                     Text("Import OPML")
                 }
-                NavigationLink(destination: ExportView()) {
+                NavigationLink(destination: ExportView(pages: pages)) {
                     Image(systemName: "arrow.up.doc")
                     Text("Export OPML")
                 }
