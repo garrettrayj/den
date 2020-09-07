@@ -27,8 +27,9 @@ class SearchManager: ObservableObject {
                 .removeDuplicates()
                 .debounce(for: 0.6, scheduler: DispatchQueue.main)
                 .sink { searchText in
-                    if self.searchIsValid(query: searchText) {
-                        self.performSearch(query: searchText)
+                    let trimmedQuery = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if self.searchIsValid(query: trimmedQuery) {
+                        self.performSearch(query: trimmedQuery)
                     }
                 }
         )
