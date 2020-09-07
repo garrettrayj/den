@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="error" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
@@ -7,6 +7,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="itemLimit" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="showLargePreviews" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="showThumbnails" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -34,7 +35,7 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="Feed" positionX="270" positionY="216" width="128" height="253"/>
+        <element name="Feed" positionX="270" positionY="216" width="128" height="268"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="163"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="103"/>
     </elements>
