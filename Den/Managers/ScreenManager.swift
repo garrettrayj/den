@@ -11,7 +11,6 @@ import Foundation
 class ScreenManager: ObservableObject {
     @Published var activeScreen: String? = nil
     @Published var currentPage: Page? // Current page updated by PageView onAppear()
-    
     @Published var showSubscribe: Bool = false
     @Published var subscribeURLString: String = ""
     

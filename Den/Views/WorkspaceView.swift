@@ -18,6 +18,7 @@ struct WorkspaceView: View {
     @EnvironmentObject var screenManager: ScreenManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
+    @EnvironmentObject var searchManager: SearchManager
     @State var editMode: EditMode = .inactive
     
     var pages: FetchedResults<Page>
@@ -79,6 +80,14 @@ struct WorkspaceView: View {
                         Image(systemName: "gear").titleBarIconView()
                     }
                     Spacer()
+                    
+                    NavigationLink(
+                        destination: SearchView().environmentObject(searchManager),
+                        tag: "search",
+                        selection: $screenManager.activeScreen
+                    ) {
+                        Image(systemName: "magnifyingglass").titleBarIconView()
+                    }
                 }.padding(4)
             }
         }
@@ -107,7 +116,7 @@ struct WorkspaceView: View {
                         }.offset(x: 12)
                     } else {
                         Button(action: { self.editMode = .active }) {
-                            Image(systemName: "list.bullet").titleBarIconView()
+                            Text("Edit").background(Color.clear).padding(12)
                         }.offset(x: 12)
                     }
                 }
@@ -124,6 +133,7 @@ struct WorkspaceView: View {
     }
     
     func loadDemo() {
+        var newPages: [Page] = []
         guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
@@ -132,6 +142,7 @@ struct WorkspaceView: View {
         opmlReader.outlineFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext)
             page.name = opmlFolder.name
+            newPages.append(page)
             
             opmlFolder.feeds.forEach { opmlFeed in
                 let feed = Feed.create(in: self.viewContext, page: page)
@@ -146,6 +157,6 @@ struct WorkspaceView: View {
             fatalError("Unable to save import context: \(error)")
         }
         
-        refreshManager.refresh(pages.map { $0 })
+        refreshManager.refresh(newPages)
     }
 }
