@@ -44,5 +44,6 @@ struct ContentView: View {
                 }
             }
         }
+        .modifier(AvoidKeyboardModifier())
     }
 }

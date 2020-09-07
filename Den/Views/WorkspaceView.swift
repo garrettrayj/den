@@ -70,7 +70,7 @@ struct WorkspaceView: View {
             
             Spacer()
             
-            if pages.count > 0 {
+            if pages.count > 0 && editMode == .inactive {
                 HStack {
                     NavigationLink(
                         destination: SettingsView(pages: pages).environmentObject(userDefaultsManager),
