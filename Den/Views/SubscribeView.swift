@@ -173,7 +173,7 @@ struct SubscribeView: View {
             }
         }
         
-        self.newFeed = Feed.create(in: self.viewContext, page: self.screenManager.currentPage ?? self.pages.first!)
+        self.newFeed = Feed.create(in: self.viewContext, page: self.screenManager.currentPage ?? self.pages.first!, prepend: true)
         self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
         
         if self.viewContext.hasChanges {

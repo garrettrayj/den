@@ -24,9 +24,18 @@ public class Page: Refreshable, Identifiable {
         }
     }
     
-    var feedUserOrderMin: Int16 {
+    var feedsUserOrderMin: Int16 {
         feedsArray.reduce(0) { (result, feed) -> Int16 in
             if feed.userOrder < result {
+                return feed.userOrder
+            }
+            return result
+        }
+    }
+    
+    var feedsUserOrderMax: Int16 {
+        feedsArray.reduce(0) { (result, feed) -> Int16 in
+            if feed.userOrder > result {
                 return feed.userOrder
             }
             return result
