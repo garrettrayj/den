@@ -42,14 +42,19 @@ public class Feed: Refreshable, Identifiable {
         }).count
     }
     
-    static func create(in managedObjectContext: NSManagedObjectContext, page: Page) -> Feed {
+    static func create(in managedObjectContext: NSManagedObjectContext, page: Page, prepend: Bool = false) -> Feed {
         let newFeed = self.init(context: managedObjectContext)
         newFeed.id = UUID()
-        newFeed.userOrder = page.feedUserOrderMin - 1
         newFeed.itemLimit = 5
         newFeed.showLargePreviews = false
         newFeed.showThumbnails = true
         newFeed.page = page
+        
+        if prepend {
+            newFeed.userOrder = page.feedsUserOrderMin - 1
+        } else {
+            newFeed.userOrder = page.feedsUserOrderMax + 1
+        }
         
         return newFeed
     }
