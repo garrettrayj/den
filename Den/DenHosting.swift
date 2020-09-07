@@ -17,7 +17,7 @@ class DenHosting {
     static var controller: UIViewController?
     static var nextModalPresentationStyle: UIModalPresentationStyle?
 
-    static func openSafari(url:URL,tint:UIColor? = nil) {
+    static func openSafari(url:URL, readerMode: Bool = false) {
         guard let controller = controller else {
             preconditionFailure("No controller present. Did you remember to use DenHostingController instead of UIHostingController in your SceneDelegate?")
         }
@@ -26,9 +26,9 @@ class DenHosting {
         // Some websites have popups that fill the screen after load and disable scrolling, locking you on the page.
         // Frantic swiping seems to fix it eventually, but I'm going to just avoid it altogether by disabling bar collapsing.
         config.barCollapsingEnabled = false
+        config.entersReaderIfAvailable = readerMode
         
         let vc = SFSafariViewController(url: url, configuration: config)
-        vc.preferredBarTintColor = tint
     
         //vc.delegate = self
         controller.present(vc, animated: true)

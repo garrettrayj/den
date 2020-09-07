@@ -62,6 +62,14 @@ struct FeedOptionsView: View {
                     Stepper("\(feed.itemLimit)", value: $feed.itemLimit, in: 1...10).frame(maxWidth: 120)
                 }
                 
+                #if !targetEnvironment(macCatalyst)
+                HStack {
+                    Toggle(isOn: $feed.readerMode) {
+                        Text("Enter Reader Mode if Available")
+                    }
+                }
+                #endif
+                
                 HStack {
                     Toggle(isOn: showThumbnailsToggleIsOn) {
                         Text("Show Thumbnails")
