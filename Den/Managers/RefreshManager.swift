@@ -14,6 +14,7 @@ import FeedKit
 class RefreshManager: ObservableObject {
     @Published public var refreshing: Bool = false
     @Published public var currentRefreshables: [Refreshable]?
+    @Published public var currentFeeds: [Feed] = []
     
     public var progress = Progress(totalUnitCount: 1)
     
@@ -39,7 +40,13 @@ class RefreshManager: ObservableObject {
         
         if refreshing == false {
             refreshing = true
-            currentRefreshables = refreshables
+            currentRefreshables = processRefreshables
+            
+            processRefreshables.forEach { refreshable in
+                refreshable.feedsArray.forEach { feed in
+                    self.currentFeeds.append(feed)
+                }
+            }
         } else {
             print("Update manager already updating feeds")
             return
@@ -74,8 +81,6 @@ class RefreshManager: ObservableObject {
     
     private func createOperations(_ refreshables: [Refreshable]) -> [Operation] {
         var operations: [Operation] = []
-        
-        
         refreshables.forEach { refreshable in
             refreshable.feedsArray.forEach { feed in
                 operations.append(contentsOf: createFeedOperations(feed: feed))
@@ -99,6 +104,12 @@ class RefreshManager: ObservableObject {
         let ingestOperation = IngestOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
         ingestOperation.completionBlock = {
             self.progress.completedUnitCount += 1
+            
+            DispatchQueue.main.async {
+                self.currentFeeds.removeAll { feed in
+                    feed.objectID == ingestOperation.feedObjectID
+                }
+            }
         }
         
         let fetchParseAdapter = BlockOperation() { [unowned parseOperation, unowned fetchOperation] in
@@ -204,6 +215,7 @@ class RefreshManager: ObservableObject {
     private func reset() {
         progress.completedUnitCount = 0
         currentRefreshables = nil
+        currentFeeds = []
         refreshing = false
     }
 }
