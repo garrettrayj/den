@@ -39,7 +39,7 @@ class SearchManager: ObservableObject {
         cancellable?.cancel()
     }
     
-    private func searchIsValid(query: String) -> Bool {
+    func searchIsValid(query: String) -> Bool {
         if query == "" || query.count >= 3 {
             return true
         }

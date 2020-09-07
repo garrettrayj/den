@@ -53,19 +53,29 @@ struct SearchView: View {
             .padding(.horizontal)
             .frame(maxWidth: .infinity)
             .background(Color(UIColor.tertiarySystemBackground))
-            
-            
+
             Divider()
             
-            GeometryReader { geometry in
-                ScrollView {
-                    Grid(self.searchManager.results, id: \.self) { sectionItems in
-                        SearchResultView(items: sectionItems)
+            if searchManager.results.count > 0 && searchManager.searchIsValid(query: searchManager.query) {
+                GeometryReader { geometry in
+                    ScrollView {
+                        Grid(self.searchManager.results, id: \.self) { sectionItems in
+                            SearchResultView(items: sectionItems)
+                        }
+                        .gridStyle(StaggeredGridStyle(availableWidth: geometry.size.width))
+                        .padding()
+                        .padding(.bottom, 64)
                     }
-                    .gridStyle(StaggeredGridStyle(availableWidth: geometry.size.width))
-                    .padding()
-                    .padding(.bottom, 64)
                 }
+            } else if searchManager.query == "" {
+                Text("Filter feeds and headlines by keyword").padding()
+                Spacer()
+            } else if !searchManager.searchIsValid(query: searchManager.query) {
+                Text("Minimum three characters required").padding()
+                Spacer()
+            } else {
+                Text("No results found").padding()
+                Spacer()
             }
         }
         .background(Color(UIColor.secondarySystemBackground))
