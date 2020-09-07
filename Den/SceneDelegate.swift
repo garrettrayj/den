@@ -36,6 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let cacheManager = CacheManager(persistentContainer: persistentContainer)
         let importManager = ImportManager(viewContext: persistentContainer.viewContext)
         let userDefaultsManager = UserDefaultsManager()
+        let searchManager = SearchManager(moc: persistentContainer.viewContext)
         
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath
         let contentView = ContentView()
@@ -45,6 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(cacheManager)
             .environmentObject(importManager)
             .environmentObject(userDefaultsManager)
+            .environmentObject(searchManager)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

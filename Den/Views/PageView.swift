@@ -47,7 +47,7 @@ struct PageView: View {
                                 Grid(self.page.feedsArray) { feed in
                                     FeedView(feed: feed, parent: self)
                                 }
-                                .gridStyle(StaggeredGridStyle(.vertical, tracks: self.calcGridTracks(geometry.size.width), spacing: 16))
+                                .gridStyle(StaggeredGridStyle(availableWidth: geometry.size.width))
                                 .padding()
                                 .padding(.bottom, 64)
                             }
