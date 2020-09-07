@@ -17,8 +17,8 @@ class IngestOperation: Operation {
     var parsedFeed: FeedKit.Feed?
     var fetchMeta: Bool = false
     var favicon: URL?
+    var feedObjectID: NSManagedObjectID
     
-    private var feedObjectID: NSManagedObjectID
     private var persistentContainer: NSPersistentContainer
     
     init(persistentContainer: NSPersistentContainer, feedObjectID: NSManagedObjectID) {

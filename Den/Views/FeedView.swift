@@ -13,7 +13,9 @@ import URLImage
  Block view with channel title and items (articles)
  */
 struct FeedView: View {
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
+    @State private var isRefreshing: Bool = false
     
     var parent: PageView
     
@@ -25,6 +27,7 @@ struct FeedView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            // MARK: Feed Header
             HStack(alignment: .center) {
                 if feed.favicon != nil {
                     URLImage(
@@ -51,17 +54,32 @@ struct FeedView: View {
                 }
                 Text(feed.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()
-                Button(action: showOptions) {
-                    Image(systemName: "ellipsis").faviconView()
+                
+                if isRefreshing {
+                    ActivityRep()
+                } else {
+                    Button(action: showOptions) {
+                        Image(systemName: "ellipsis").faviconView()
+                    }
                 }
-            }.padding(.horizontal, 12).padding(.vertical, 8)
-
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .onReceive(refreshManager.$currentFeeds.receive(on: RunLoop.main)) { currentFeeds in
+                if currentFeeds.contains(self.feed) {
+                    self.isRefreshing = true
+                } else {
+                    self.isRefreshing = false
+                }
+            }
+            
+            // MARK: Feed Items
             VStack(spacing: 0) {
                 if feed.error != nil {
                     Divider()
                     VStack {
                         VStack(spacing: 4) {
-                            Text("Unable to update feed:")
+                            Text("Unable to update feed")
                                 .foregroundColor(.secondary)
                                 .font(.callout)
                                 .fontWeight(.medium)
@@ -91,19 +109,15 @@ struct FeedView: View {
                     }
                     .drawingGroup()
                 } else {
-                    if feed.refreshed == nil {
-                        Text("Feed Never Fetched")
-                            .foregroundColor(.secondary)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .multilineTextAlignment(.center)
-                    } else {
-                        Text("Feed Empty")
-                            .foregroundColor(.secondary)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .multilineTextAlignment(.center)
+                    if feed.error == nil {
+                        Divider()
                     }
+                    
+                    Text("Feed Empty")
+                    .foregroundColor(.secondary)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
                 }
             }
         }

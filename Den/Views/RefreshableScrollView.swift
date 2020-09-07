@@ -136,13 +136,3 @@ struct RefreshableKeyTypes {
         typealias Value = [PrefData]
     }
 }
-
-struct ActivityRep: UIViewRepresentable {
-    func makeUIView(context: UIViewRepresentableContext<ActivityRep>) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView()
-    }
-    
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityRep>) {
-        uiView.startAnimating()
-    }
-}
