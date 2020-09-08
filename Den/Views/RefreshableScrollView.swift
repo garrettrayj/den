@@ -20,7 +20,7 @@ struct RefreshableScrollView<Content: View>: View {
     @State private var rotation: Angle = .degrees(0)
     
     var refreshables: [Refreshable]
-    var threshold: CGFloat = 102
+    var threshold: CGFloat = 80
     let content: Content
 
     var body: some View {

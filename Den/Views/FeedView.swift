@@ -15,7 +15,6 @@ import URLImage
 struct FeedView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
-    @State private var isRefreshing: Bool = false
     
     var parent: PageView
     
@@ -55,23 +54,12 @@ struct FeedView: View {
                 Text(feed.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()
                 
-                if isRefreshing {
-                    ActivityRep()
-                } else {
-                    Button(action: showOptions) {
-                        Image(systemName: "ellipsis").faviconView()
-                    }
+                Button(action: showOptions) {
+                    Image(systemName: "ellipsis").faviconView()
                 }
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .onReceive(refreshManager.$currentFeeds.receive(on: RunLoop.main)) { currentFeeds in
-                if currentFeeds.contains(self.feed) {
-                    self.isRefreshing = true
-                } else {
-                    self.isRefreshing = false
-                }
-            }
             
             // MARK: Feed Items
             VStack(spacing: 0) {
