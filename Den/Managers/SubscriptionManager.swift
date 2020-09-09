@@ -30,7 +30,7 @@ class SubscriptionManager: ObservableObject {
         self.showSubscribe = true
     }
     
-    func resetSubscribe() {
+    func reset() {
         showSubscribe = false
         subscribeURLString = ""
     }

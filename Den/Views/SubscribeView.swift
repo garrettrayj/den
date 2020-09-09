@@ -16,7 +16,7 @@ struct SubscribeView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var screenManager: ScreenManager
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
     
     @State private var activeStage: SubscribeStage = .urlEntry
     @State private var urlText: String = ""
@@ -37,7 +37,7 @@ struct SubscribeView: View {
             }.navigationViewStyle(StackNavigationViewStyle())
         }
         .onDisappear {
-            self.screenManager.resetSubscribe()
+            self.subscriptionManager.reset()
         }
     }
     
@@ -74,7 +74,7 @@ struct SubscribeView: View {
             }
         )
         .onAppear {
-            self.urlText = self.screenManager.subscribeURLString
+            self.urlText = self.subscriptionManager.subscribeURLString
         }
     }
     
@@ -173,7 +173,7 @@ struct SubscribeView: View {
             }
         }
         
-        self.newFeed = Feed.create(in: self.viewContext, page: self.screenManager.currentPage ?? self.pages.first!, prepend: true)
+        self.newFeed = Feed.create(in: self.viewContext, page: self.subscriptionManager.currentPage ?? self.pages.first!, prepend: true)
         self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
         
         if self.viewContext.hasChanges {
@@ -197,10 +197,6 @@ struct SubscribeView: View {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
-        }
-        
-        if let pageWithNewFeed = self.newFeed?.page {
-            self.screenManager.activeScreen = pageWithNewFeed.id?.uuidString
         }
         
         self.presentationMode.wrappedValue.dismiss()
