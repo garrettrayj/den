@@ -21,12 +21,16 @@ struct FeedOptionsView: View {
     var pages: FetchedResults<Page>
     
     var body: some View {
-        let pagePickerSelection = Binding<Int>(get: {
-            return self.pickedPage
-        }, set: {
-            self.pickedPage = $0
-            self.feed.page = self.pages[$0]
-        })
+        let pagePickerSelection = Binding<Int>(
+            get: {
+                return self.pickedPage
+            },
+            set: {
+                self.pickedPage = $0
+                self.feed.userOrder = self.pages[$0].feedsUserOrderMax + 1
+                self.feed.page = self.pages[$0]
+            }
+        )
         
         let showThumbnailsToggleIsOn = Binding<Bool>(
             get: { self.feed.showThumbnails },

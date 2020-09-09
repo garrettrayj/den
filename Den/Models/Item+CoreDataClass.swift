@@ -110,7 +110,6 @@ public class Item: NSManagedObject, Identifiable {
             item.image = thumbnailURL
         }
         
-        
         if let summary = atomEntry.summary?.value?.htmlUnescape() {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: summary)
             item.summary = plainSummary
