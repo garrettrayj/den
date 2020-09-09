@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0">
 	<head>
-		<title>Den Demo</title>
+		<title>Den Export</title>
 	</head>
 	<body>
 		<outline text="World News" title="World News">
 			<outline text="NPR - World" title="NPR - World" type="rss" xmlUrl="https://feeds.npr.org/1004/rss.xml" />
-			<outline text="New York Times - World News" title="New York Times - World News" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/World.xml" />
-			<outline text="The Washington Post - World" title="The Washington Post - World" type="rss" xmlUrl="http://feeds.washingtonpost.com/rss/world?itid=lk_inline_manual_44" />
+			<outline text="The New York Times - World News" title="The New York Times - World News" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/World.xml" />
 			<outline text="The Christian Science Monitor - World" title="The Christian Science Monitor - World" type="rss" xmlUrl="http://rss.csmonitor.com/feeds/world" />
 			<outline text="CNN.com - World" title="CNN.com - World" type="rss" xmlUrl="http://rss.cnn.com/rss/cnn_world.rss" />
 			<outline text="DER SPIEGEL - International" title="DER SPIEGEL - International" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
 			<outline text="The Guardian - World News" title="The Guardian - World News" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
+			<outline text="Metro - World" title="Metro - World" type="rss" xmlUrl="https://metro.co.uk/news/world/feed/" />
 			<outline text="Vox -  World" title="Vox -  World" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
 			<outline text="BuzzFeed News - World" title="BuzzFeed News - World" type="rss" xmlUrl="https://www.buzzfeed.com/world.xml" />
 			<outline text=" Raw Story - World" title=" Raw Story - World" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
 			<outline text="ChannelNewsAsia" title="ChannelNewsAsia" type="rss" xmlUrl="http://www.channelnewsasia.com/rssfeeds/8395884" />
+			<outline text="Deutsche Welle - World" title="Deutsche Welle - World" type="rss" xmlUrl="http://rss.dw.com/rdf/rss-en-world" />
 			<outline text="Sky News - World" title="Sky News - World" type="rss" xmlUrl="http://feeds.skynews.com/feeds/rss/world.xml" />
 			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
 			<outline text="BBC News - World" title="BBC News - World" type="rss" xmlUrl="http://feeds.bbci.co.uk/news/world/rss.xml" />
@@ -23,7 +24,6 @@
 			<outline text="CBSNews.com - World" title="CBSNews.com - World" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/world" />
 			<outline text="TIME - World" title="TIME - World" type="rss" xmlUrl="http://feeds.feedburner.com/time/world" />
 			<outline text="Al Jazeera English" title="Al Jazeera English" type="rss" xmlUrl="https://www.aljazeera.com/xml/rss/all.xml" />
-			<outline text="Global Issues News Headlines" title="Global Issues News Headlines" type="rss" xmlUrl="https://www.globalissues.org/news/feed" />
 			<outline text="Euronews" title="Euronews" type="rss" xmlUrl="https://www.euronews.com/rss?level=theme&amp;name=news" />
 		</outline>
 		<outline text="Geopolitics" title="Geopolitics">
@@ -94,7 +94,6 @@
 		</outline>
 		<outline text="Business" title="Business">
 			<outline text="Benzinga" title="Benzinga" type="rss" xmlUrl="http://feeds.benzinga.com/benzinga" />
-			<outline text="Washington Post - Business" title="Washington Post - Business" type="rss" xmlUrl="http://feeds.washingtonpost.com/rss/business?itid=sf_business_subnav" />
 			<outline text="Yahoo Finance" title="Yahoo Finance" type="rss" xmlUrl="http://finance.yahoo.com/rss/topstories" />
 			<outline text="New York Times - Business" title="New York Times - Business" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
 			<outline text="Financial Post" title="Financial Post" type="rss" xmlUrl="https://financialpost.com/category/news/feed.xml" />
@@ -102,6 +101,7 @@
 			<outline text="Deutsche Welle - Business" title="Deutsche Welle - Business" type="rss" xmlUrl="http://rss.dw.com/rdf/rss-en-bus" />
 			<outline text="Fortune" title="Fortune" type="rss" xmlUrl="https://fortune.com/feed" />
 			<outline text="FXEMPIRE - News" title="FXEMPIRE - News" type="rss" xmlUrl="https://www.fxempire.com/api/v1/en/articles/rss/news" />
+			<outline text="Money &amp; Markets" title="Money &amp; Markets" type="rss" xmlUrl="https://moneyandmarkets.com/feed/" />
 			<outline text="MarketScreener.com" title="MarketScreener.com" type="rss" xmlUrl="https://www.marketscreener.com/rss/FeedNews.php" />
 			<outline text="Financial Buzz" title="Financial Buzz" type="rss" xmlUrl="https://www.financialbuzz.com/feed/" />
 			<outline text="Economic Times - Markets" title="Economic Times - Markets" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
