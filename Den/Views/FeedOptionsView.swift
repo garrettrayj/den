@@ -56,11 +56,7 @@ struct FeedOptionsView: View {
                     }
                 }
                 
-                HStack {
-                    Text("Item Limit")
-                    Spacer()
-                    Stepper("\(feed.itemLimit)", value: $feed.itemLimit, in: 1...10).frame(maxWidth: 120)
-                }
+                Stepper("Item Limit: \(feed.itemLimit)", value: $feed.itemLimit, in: 1...Int16.max)
                 
                 #if !targetEnvironment(macCatalyst)
                 HStack {
@@ -113,7 +109,6 @@ struct FeedOptionsView: View {
                 }
             }
         }
-        .padding(.top)
         .navigationBarTitle("Feed Options", displayMode: .inline)
         .onDisappear {
             if self.viewContext.hasChanges {

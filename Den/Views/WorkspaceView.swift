@@ -15,7 +15,6 @@ import CoreData
 */
 struct WorkspaceView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var screenManager: ScreenManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var searchManager: SearchManager
@@ -73,18 +72,14 @@ struct WorkspaceView: View {
             if pages.count > 0 && editMode == .inactive {
                 HStack {
                     NavigationLink(
-                        destination: SettingsView(pages: pages).environmentObject(userDefaultsManager),
-                        tag: "settings",
-                        selection: $screenManager.activeScreen
+                        destination: SettingsView(pages: pages).environmentObject(userDefaultsManager)
                     ) {
                         Image(systemName: "gear").titleBarIconView()
                     }
                     Spacer()
                     
                     NavigationLink(
-                        destination: SearchView().environmentObject(searchManager),
-                        tag: "search",
-                        selection: $screenManager.activeScreen
+                        destination: SearchView().environmentObject(searchManager)
                     ) {
                         Image(systemName: "magnifyingglass").titleBarIconView()
                     }

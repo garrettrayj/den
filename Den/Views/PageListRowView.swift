@@ -12,13 +12,12 @@ import SwiftUI
  Page list item view. Transforms name text labels into text fields when .editMode is active.
  */
 struct PageListRowView: View {
-    @EnvironmentObject var screenManager: ScreenManager
     @ObservedObject var page: Page
     
     var body: some View {
         Group {
             if page.id != nil {
-                NavigationLink(destination: PageView(page: page), tag: page.id!.uuidString, selection: $screenManager.activeScreen) {
+                NavigationLink(destination: PageView(page: page)) {
                     HStack {
                         Image(systemName: "square.grid.2x2").resizable().scaledToFit().frame(width: 18, height: 18).padding(.trailing, 2)
                         Text(page.wrappedName).fontWeight(.medium).lineLimit(1).multilineTextAlignment(.leading)

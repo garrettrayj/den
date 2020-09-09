@@ -18,7 +18,7 @@ struct PageView: View {
     }
     
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var screenManager: ScreenManager
+    @EnvironmentObject var screenManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var page: Page
     @State var showingSheet: Bool = false

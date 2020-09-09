@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private(set) static var shared: SceneDelegate?
     
     var window: UIWindow?
-    var screenManager: ScreenManager = ScreenManager()
+    var screenManager: SubscriptionManager = SubscriptionManager()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Self.shared = self
