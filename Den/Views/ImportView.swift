@@ -28,7 +28,7 @@ struct ImportView: View {
             }
         }
         .onDisappear { self.importManager.reset() }
-        .frame(maxWidth: 980)
+        .frame(maxWidth: 1044)
         .navigationBarTitle("Import", displayMode: .inline)
     }
     
