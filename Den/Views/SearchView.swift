@@ -54,31 +54,34 @@ struct SearchView: View {
             .frame(maxWidth: .infinity)
             .background(Color(UIColor.tertiarySystemBackground))
 
-            Divider()
-            
-            if searchManager.results.count > 0 && searchManager.searchIsValid(query: searchManager.query) {
-                GeometryReader { geometry in
-                    ScrollView {
-                        Grid(self.searchManager.results, id: \.self) { sectionItems in
-                            SearchResultView(items: sectionItems)
+            VStack(spacing: 0) {
+                Divider()
+                
+                if searchManager.results.count > 0 && searchManager.searchIsValid(query: searchManager.query) {
+                    GeometryReader { geometry in
+                        ScrollView {
+                            Grid(self.searchManager.results, id: \.self) { sectionItems in
+                                SearchResultView(items: sectionItems)
+                            }
+                            .gridStyle(StaggeredGridStyle(availableWidth: geometry.size.width))
+                            .padding()
+                            .padding(.bottom, 64)
                         }
-                        .gridStyle(StaggeredGridStyle(availableWidth: geometry.size.width))
-                        .padding()
-                        .padding(.bottom, 64)
                     }
+                } else if searchManager.query == "" {
+                    Text("Filter feeds and headlines by keyword").padding()
+                    Spacer()
+                } else if !searchManager.searchIsValid(query: searchManager.query) {
+                    Text("Minimum three characters required").padding()
+                    Spacer()
+                } else {
+                    Text("No results found").padding()
+                    Spacer()
                 }
-            } else if searchManager.query == "" {
-                Text("Filter feeds and headlines by keyword").padding()
-                Spacer()
-            } else if !searchManager.searchIsValid(query: searchManager.query) {
-                Text("Minimum three characters required").padding()
-                Spacer()
-            } else {
-                Text("No results found").padding()
-                Spacer()
             }
+            .background(Color(UIColor.secondarySystemBackground))
+            .edgesIgnoringSafeArea([.horizontal, .bottom])
         }
-        .background(Color(UIColor.secondarySystemBackground))
         .navigationBarTitle("Search", displayMode: .inline)
     }
 }

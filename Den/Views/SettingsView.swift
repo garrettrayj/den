@@ -76,8 +76,34 @@ struct SettingsView: View {
                     )
                 }
             }
+            
+            Section(header: Text("ABOUT")) {
+                HStack {
+                    Image("TitleIcon").resizable().scaledToFit().frame(width: 40, height: 40)
+                    VStack(alignment: .leading) {
+                        Text("Den").font(.headline)
+                        Text("Version \(Bundle.main.releaseVersionNumber!) (\(Bundle.main.buildVersionNumber!))").font(.subheadline)
+                    }
+                }.padding(.vertical)
+                
+                Button(action: openHomepage) {
+                    HStack {
+                        Image(systemName: "house")
+                        Text("Homepage")
+                    }
+                    
+                }
+                
+                Button(action: emailSupport) {
+                    HStack {
+                        Image(systemName: "envelope")
+                        Text("Email Support")
+                    }
+                    
+                }
+            }
         }
-        .frame(maxWidth: 980)
+        .frame(maxWidth: 1044)
         .navigationBarTitle("Settings")
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -113,5 +139,18 @@ struct SettingsView: View {
         
         restoreDefaultSettings()
         cacheManager.clearWebCaches()
+    }
+    
+    func openHomepage() {
+        if let url = URL(string: "https://devsci.net") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func emailSupport() {
+        // Note: "mailto:" links do not work in simulator, only on devices
+        if let url = URL(string: "mailto:support@devsci.net") {
+            UIApplication.shared.open(url)
+        }
     }
 }
