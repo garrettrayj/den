@@ -11,10 +11,10 @@ import SwiftUI
 
 extension Image {
     func faviconView() -> some View {
-        return self.resizable().scaledToFit().frame(width: 16, height: 16)
+        return self.imageScale(.small)
     }
     
     func titleBarIconView() -> some View {
-        return self.resizable().scaledToFit().frame(width: 20, height: 20).padding(12)
+        return self.imageScale(.medium).padding(12).font(.body)
     }
 }

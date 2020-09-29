@@ -67,8 +67,6 @@ struct WorkspaceView: View {
                     .navigationBarTitle("Den", displayMode: .large)
             }
             
-            Spacer()
-            
             if pages.count > 0 && editMode == .inactive {
                 HStack {
                     NavigationLink(
@@ -84,17 +82,20 @@ struct WorkspaceView: View {
                         Image(systemName: "magnifyingglass").titleBarIconView()
                     }
                 }.padding(4)
+            } else if editMode == .active {
+                HStack {
+                    Spacer()
+                    Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
+                        Image(systemName: "plus").titleBarIconView()
+                    }
+                }.padding(4)
             }
         }
         .padding(.top, 1)
         .navigationBarItems(
             leading: HStack {
                 if pages.count > 0 {
-                    if self.editMode == .active {
-                        Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
-                            Image(systemName: "plus").titleBarIconView()
-                        }.offset(x: -12)
-                    } else {
+                    if self.editMode == .inactive {
                         Button(action: { self.refreshManager.refresh(self.pages.map { $0 }) }) {
                             Image(systemName: "arrow.clockwise").titleBarIconView()
                         }
@@ -107,11 +108,11 @@ struct WorkspaceView: View {
                 if pages.count > 0 {
                     if self.editMode == .active {
                         Button(action: doneEditing) {
-                            Text("Done").background(Color.clear).padding(12)
+                            Text("Done").background(Color.clear).padding(12).font(.body)
                         }.offset(x: 12)
                     } else {
                         Button(action: { self.editMode = .active }) {
-                            Text("Edit").background(Color.clear).padding(12)
+                            Text("Edit").background(Color.clear).padding(12).font(.body)
                         }.offset(x: 12)
                     }
                 }

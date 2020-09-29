@@ -11,7 +11,7 @@ import CoreData
 import FeedKit
 
 @objc(Feed)
-public class Feed: Refreshable, Identifiable {
+public class Feed: Refreshable {
     public var itemsArray: [Item] {
         guard let items = items else {
             return []

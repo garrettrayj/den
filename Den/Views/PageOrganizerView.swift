@@ -20,8 +20,8 @@ struct PageOrganizerView: View {
     var body: some View {
         NavigationView {
             Form {
-                List {
-                    Section(header: HStack { Text("\(page.feedsArray.count) FEEDS"); Spacer(); Text("DRAG TO REORDER") }) {
+                Section(header: HStack { Text("\(page.feedsArray.count) FEEDS"); Spacer(); Text("DRAG TO REORDER") }) {
+                    List {
                         ForEach(page.feedsArray) { feed in
                             Text(feed.wrappedTitle)
                         }
@@ -31,7 +31,7 @@ struct PageOrganizerView: View {
                     }
                 }
             }
-            .navigationBarTitle("Organize Page", displayMode: .inline)
+            .navigationBarTitle("Organizer Feeds", displayMode: .inline)
             .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Close") })
             .environment(\.editMode, .constant(.active))
         }
