@@ -13,7 +13,7 @@ import HTMLEntities
 import SwiftSoup
 
 @objc(Item)
-public class Item: NSManagedObject, Identifiable {
+public class Item: NSManagedObject {
     public var wrappedTitle: String {
         get{title ?? "Untitled"}
         set{title = newValue}

@@ -92,7 +92,7 @@ struct ImportView: View {
     
     var completeStage: some View {
         VStack(spacing: 16) {
-            Image(systemName: "checkmark.circle").resizable().scaledToFit().foregroundColor(.green).frame(width: 32, height: 32)
+            Image(systemName: "checkmark.circle").imageScale(.large)
             Text("Finished").font(.title)
         }
     }

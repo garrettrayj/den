@@ -28,9 +28,8 @@ struct PageListView: View {
                     .onDelete(perform: self.delete)
                     // Defined to workaround fatal error because of missing insert action while moving. Probably a SwiftUI bug.
                     .onInsert(of: [String()], perform: self.insert(at:itemProvider:))
-                    .allowsHitTesting(false)
                 }
-                .frame(height: geometry.size.height)
+                .listStyle(PlainListStyle())
                 .environment(\.editMode, self.$editMode)
             } else {
                 RefreshableScrollView(refreshables: self.pages.map { $0 }) {

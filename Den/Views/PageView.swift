@@ -94,7 +94,7 @@ struct PageView: View {
                                 Image(systemName: "arrow.clockwise").titleBarIconView()
                             }.disabled(refreshManager.refreshing)
                         }
-                    }.offset(x: 12)
+                    }.offset(x: 12).font(.body)
                 )
             }
         }

@@ -15,7 +15,6 @@ struct BorderedButtonStyle: ButtonStyle {
         configuration.label
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
-            .animation(Animation.linear(duration: 2))
             .overlay(
                 RoundedRectangle(cornerRadius: 4).stroke(lineWidth: 1)
             )
