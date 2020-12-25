@@ -61,8 +61,6 @@ struct FeedOptionsView: View {
                     }
                 }
                 
-                Stepper("Item Limit: \(feed.itemLimit)", value: $feed.itemLimit, in: 1...Int16.max)
-                
                 #if !targetEnvironment(macCatalyst)
                 HStack {
                     Toggle(isOn: $feed.readerMode) {

@@ -12,8 +12,13 @@ import CoreData
 @objc(Page)
 public class Page: Refreshable {
     var wrappedName: String {
-        get {name ?? "No Name"}
-        set {name = newValue}
+        get { name ?? "Untitled" }
+        set { name = newValue }
+    }
+    
+    var wrappedItemsPerFeed: Int {
+        get { Int(itemsPerFeed) }
+        set { itemsPerFeed = Int16(newValue) }
     }
     
     var unreadCount: Int {
@@ -50,6 +55,7 @@ public class Page: Refreshable {
             newPage.id = UUID()
             newPage.userOrder = Int16(pages.count + 1)
             newPage.name = "New Page"
+            newPage.itemsPerFeed = Int16(5)
             
             return newPage
         } catch {

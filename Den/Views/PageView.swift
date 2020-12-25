@@ -21,7 +21,7 @@ struct PageView: View {
     @State var showingPageMenu: Bool = false
     
     let columns = [
-        GridItem(.adaptive(minimum: 320, maximum: 520), spacing: 20, alignment: .top)
+        GridItem(.adaptive(minimum: 320, maximum: 560), spacing: 20, alignment: .top)
     ]
     
     var body: some View {
@@ -46,7 +46,7 @@ struct PageView: View {
                                     FeedView(feed: feed, activeSheet: $activeSheet)
                                 }
                             }
-                            .padding()
+                            .padding(20)
                         }
                     } else {
                         Text("Empty Page").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -90,7 +90,7 @@ struct PageView: View {
                                 Image(systemName: "arrow.clockwise").titleBarIconView()
                             }.disabled(refreshManager.refreshing)
                         }
-                    }.offset(x: 12).font(.body)
+                    }.offset(x: 12)
                 )
             }
         }

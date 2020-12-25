@@ -259,6 +259,13 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		68130EB525968420008AB6FC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		683CEC5C2506FE6C0005F305 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,9 +394,10 @@
 				68C4131F247263C700D1DC7B /* Info.plist */,
 				68C4130E247263C700D1DC7B /* Den.xcdatamodeld */,
 				6845BCFC24EC004B0008B296 /* Misc */,
-				68C4134724727BED00D1DC7B /* Models */,
 				680E57C124D1927600196F6D /* Managers */,
 				687D9CC724B0C43800EB7F46 /* Operations */,
+				68C4134724727BED00D1DC7B /* Models */,
+				68130EB525968420008AB6FC /* ViewModels */,
 				68C413422472760400D1DC7B /* Views */,
 				68B34A5F2487C4E10066B215 /* Extensions */,
 				68D58E6124922FE5007ED1AC /* Utilities */,
