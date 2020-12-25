@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="error" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
@@ -29,6 +29,7 @@
     </entity>
     <entity name="Page" representedClassName="Page" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="itemsPerFeed" attributeType="Integer 16" minValueString="1" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="New Desk"/>
         <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
@@ -37,6 +38,6 @@
     <elements>
         <element name="Feed" positionX="270" positionY="216" width="128" height="268"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="163"/>
-        <element name="Page" positionX="261" positionY="189" width="128" height="103"/>
+        <element name="Page" positionX="261" positionY="189" width="128" height="104"/>
     </elements>
 </model>

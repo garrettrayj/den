@@ -20,6 +20,10 @@ struct PageOrganizerView: View {
     var body: some View {
         NavigationView {
             Form {
+                Section() {
+                    Stepper("Items per Feed: \(page.itemsPerFeed)", value: $page.itemsPerFeed, in: 1...Int16.max)
+                }
+                
                 Section(header: HStack { Text("\(page.feedsArray.count) FEEDS"); Spacer(); Text("DRAG TO REORDER") }) {
                     List {
                         ForEach(page.feedsArray) { feed in

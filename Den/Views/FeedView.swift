@@ -17,11 +17,14 @@ struct FeedView: View {
     @ObservedObject var feed: Feed
     @Binding var activeSheet: PageSheet?
     
-    func showOptions() {
-        self.activeSheet = PageSheet(state: .options, feed: feed)
+    var body: some View {
+        ZStack(alignment: .top) {
+            Rectangle().fill(Color.white).cornerRadius(12)
+            widgetContent
+        }
     }
     
-    var body: some View {
+    var widgetContent: some View {
         VStack(spacing: 0) {
             // MARK: Feed Header
             HStack(alignment: .center) {
@@ -83,7 +86,7 @@ struct FeedView: View {
                 
                 if feed.itemsArray.count > 0 {
                     VStack(spacing: 0) {
-                        ForEach(feed.itemsArray.prefix(Int(feed.itemLimit))) { item in
+                        ForEach(feed.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
                             Group {
                                 Divider()
                                 FeedItemView(item: item)
@@ -104,7 +107,9 @@ struct FeedView: View {
                 }
             }
         }
-        .background(Color(.systemBackground))
-        .cornerRadius(8)
+    }
+    
+    func showOptions() {
+        self.activeSheet = PageSheet(state: .options, feed: feed)
     }
 }
