@@ -15,13 +15,10 @@ import URLImage
 struct FeedView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
-    
-    var parent: PageView
+    @Binding var activeSheet: PageSheet?
     
     func showOptions() {
-        self.parent.editingFeed = self.feed
-        self.parent.activeSheet = .feedEdit
-        self.parent.showingSheet = true
+        self.activeSheet = PageSheet(state: .options, feed: feed)
     }
     
     var body: some View {

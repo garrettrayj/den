@@ -23,8 +23,10 @@ struct FeedEditView: View {
                 onDelete: close,
                 onMove: close
             )
+            .navigationBarTitle("Feed Options", displayMode: .inline)
             .navigationBarItems(leading: Button(action: close) { Text("Close") })
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func close() {

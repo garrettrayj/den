@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedOptionsView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
     @State private var pickedPage: Int = 0
@@ -43,17 +44,17 @@ struct FeedOptionsView: View {
         )
         
         return Form {
-            Section(header: Text("TITLE")) {
-                TextField("Title", text: $feed.wrappedTitle)
-            }
-            
-            Section(header: Text("SETTINGS")) {
+            Section() {
+                HStack {
+                    Text("Title")
+                    TextField("Title", text: $feed.wrappedTitle).multilineTextAlignment(.trailing)
+                }
+                
                 Picker(selection: pagePickerSelection, label: Text("Page")) {
                     ForEach(0 ..< pages.count) {
                         Text(self.pages[$0].wrappedName).tag($0)
-                    }.navigationBarTitle("Select Page")
+                    }
                 }
-                .navigationBarTitle("Feed Options", displayMode: .inline)
                 .onAppear {
                     if let page = self.feed.page, let pageIndex = self.pages.firstIndex(of: page) {
                         self.pickedPage = pageIndex
@@ -83,7 +84,7 @@ struct FeedOptionsView: View {
                 }
             }
             
-            Section(header: Text("INFORMATION")) {
+            Section() {
                 HStack(alignment: .center) {
                     Text("URL")
                     Spacer()
@@ -113,7 +114,6 @@ struct FeedOptionsView: View {
                 }
             }
         }
-        .navigationBarTitle("Feed Options", displayMode: .inline)
         .onDisappear {
             if self.viewContext.hasChanges {
                 do {
