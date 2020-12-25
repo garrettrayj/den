@@ -13,18 +13,16 @@ import Grid
  Grid layout of Feed views. Hosts sheets for editing and organizing feeds, subscribing to new feeds.
  */
 struct PageView: View {
-    enum PageSheet {
-        case organizer, feedEdit, subscribe
-    }
-    
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var screenManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var page: Page
-    @State var showingSheet: Bool = false
-    @State var activeSheet: PageSheet = .organizer
-    @State var editingFeed: Feed?
-    @State var showingActionSheet: Bool = false
+    @State var activeSheet: PageSheet?
+    @State var showingPageMenu: Bool = false
+    
+    let columns = [
+        GridItem(.adaptive(minimum: 320, maximum: 520), spacing: 20, alignment: .top)
+    ]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -42,25 +40,23 @@ struct PageView: View {
                             HeaderProgressBarView(refreshables: [self.page])
                         }
                         
-                        GeometryReader { geometry in
-                            RefreshableScrollView(refreshables: [self.page]) {
-                                Grid(self.page.feedsArray) { feed in
-                                    FeedView(feed: feed, parent: self)
+                        RefreshableScrollView(refreshables: [self.page]) {
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                ForEach(self.page.feedsArray) { feed in
+                                    FeedView(feed: feed, activeSheet: $activeSheet)
                                 }
-                                .gridStyle(StaggeredGridStyle(availableWidth: geometry.size.width))
-                                .padding()
-                                .padding(.bottom, 64)
                             }
+                            .padding()
                         }
                     } else {
                         Text("Empty Page").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-                .sheet(isPresented: self.$showingSheet) {
-                    if self.activeSheet == .organizer {
+                .sheet(item: $activeSheet) { pageSheet in
+                    if pageSheet.state == .organizer {
                         PageOrganizerView(page: self.page).environment(\.managedObjectContext, self.viewContext)
-                    } else if self.activeSheet == .feedEdit {
-                        FeedEditView(feed: self.editingFeed!)
+                    } else if pageSheet.state == .options {
+                        FeedEditView(feed: pageSheet.feed!)
                             .environment(\.managedObjectContext, self.viewContext)
                             .environmentObject(self.refreshManager)
                     }
@@ -74,7 +70,7 @@ struct PageView: View {
                                 Image(systemName: "hammer").titleBarIconView()
                             }
                             .disabled(refreshManager.refreshing)
-                            .actionSheet(isPresented: $showingActionSheet) {
+                            .actionSheet(isPresented: $showingPageMenu) {
                                 ActionSheet(title: Text("Page Actions"), message: nil, buttons: [
                                     .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
                                     .default(Text("Organize")) { self.showOrganizer() },
@@ -107,12 +103,11 @@ struct PageView: View {
     }
     
     func showMenu() {
-        self.showingActionSheet = true
+        self.showingPageMenu = true
     }
     
     func showOrganizer() {
-        self.activeSheet = .organizer
-        self.showingSheet = true
+        self.activeSheet = PageSheet(state: .organizer)
     }
     
     func showSubscribe() {

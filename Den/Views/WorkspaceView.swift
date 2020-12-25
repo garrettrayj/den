@@ -108,11 +108,11 @@ struct WorkspaceView: View {
                 if pages.count > 0 {
                     if self.editMode == .active {
                         Button(action: doneEditing) {
-                            Text("Done").background(Color.clear).padding(12).font(.body)
+                            Text("Done").background(Color.clear).padding(12)
                         }.offset(x: 12)
                     } else {
                         Button(action: { self.editMode = .active }) {
-                            Text("Edit").background(Color.clear).padding(12).font(.body)
+                            Text("Edit").background(Color.clear).padding(12)
                         }.offset(x: 12)
                     }
                 }
