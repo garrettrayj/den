@@ -50,7 +50,7 @@ struct SearchResultView: View {
                     ForEach(items.prefix(Int(feed.itemLimit))) { item in
                         Group {
                             Divider()
-                            FeedItemView(item: item)
+                            FeedWidgetItemRowView(item: item)
                         }
                     }
                 }

@@ -88,7 +88,7 @@ struct SubscribeView: View {
                 }
             } else {
                 if self.newFeed != nil && self.newFeed?.error == nil {
-                    FeedOptionsView(feed: self.newFeed!, onDelete: cancel, onMove: {})
+                    FeedOptionsFormView(feed: self.newFeed!, onDelete: cancel, onMove: {})
                         .navigationBarItems(
                             leading: Button(action: cancel) { Text("Cancel") },
                             trailing: Button(action: save) { Text("Save") }

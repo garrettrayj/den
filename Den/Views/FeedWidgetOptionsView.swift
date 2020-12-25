@@ -12,13 +12,13 @@ import SwiftUI
 /**
  FeedOptionsView wrapper for displaying options in a modal sheet.
  */
-struct FeedEditView: View {
+struct FeedWidgetOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var feed: Feed    
     
     var body: some View {
         NavigationView {
-            FeedOptionsView(
+            FeedOptionsFormView(
                 feed: feed,
                 onDelete: close,
                 onMove: close

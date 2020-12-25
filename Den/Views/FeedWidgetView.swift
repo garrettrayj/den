@@ -12,10 +12,10 @@ import URLImage
 /**
  Block view with channel title and items (articles)
  */
-struct FeedView: View {
+struct FeedWidgetView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
-    @Binding var activeSheet: PageSheet?
+    @Binding var activeSheet: PageSheetViewModel?
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -89,7 +89,7 @@ struct FeedView: View {
                         ForEach(feed.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
                             Group {
                                 Divider()
-                                FeedItemView(item: item)
+                                FeedWidgetItemRowView(item: item)
                             }
                         }
                     }
@@ -110,6 +110,6 @@ struct FeedView: View {
     }
     
     func showOptions() {
-        self.activeSheet = PageSheet(state: .options, feed: feed)
+        self.activeSheet = PageSheetViewModel(state: .options, feed: feed)
     }
 }

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FeedOptionsView: View {
+struct FeedOptionsFormView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
@@ -149,6 +149,6 @@ struct FeedOptionsView: View {
 
 struct FeedOptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedOptionsView(feed: Feed(), onDelete: {}, onMove: {})
+        FeedOptionsFormView(feed: Feed(), onDelete: {}, onMove: {})
     }
 }

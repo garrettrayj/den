@@ -17,7 +17,7 @@ struct PageView: View {
     @EnvironmentObject var screenManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var page: Page
-    @State var activeSheet: PageSheet?
+    @State var activeSheet: PageSheetViewModel?
     @State var showingPageMenu: Bool = false
     
     let columns = [
@@ -43,7 +43,7 @@ struct PageView: View {
                         RefreshableScrollView(refreshables: [self.page]) {
                             LazyVGrid(columns: columns, spacing: 20) {
                                 ForEach(self.page.feedsArray) { feed in
-                                    FeedView(feed: feed, activeSheet: $activeSheet)
+                                    FeedWidgetView(feed: feed, activeSheet: $activeSheet)
                                 }
                             }
                             .padding(20)
@@ -56,7 +56,7 @@ struct PageView: View {
                     if pageSheet.state == .organizer {
                         PageOrganizerView(page: self.page).environment(\.managedObjectContext, self.viewContext)
                     } else if pageSheet.state == .options {
-                        FeedEditView(feed: pageSheet.feed!)
+                        FeedWidgetOptionsView(feed: pageSheet.feed!)
                             .environment(\.managedObjectContext, self.viewContext)
                             .environmentObject(self.refreshManager)
                     }
@@ -107,7 +107,7 @@ struct PageView: View {
     }
     
     func showOrganizer() {
-        self.activeSheet = PageSheet(state: .organizer)
+        self.activeSheet = PageSheetViewModel(state: .organizer)
     }
     
     func showSubscribe() {

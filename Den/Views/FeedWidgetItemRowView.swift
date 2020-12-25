@@ -12,7 +12,7 @@ import URLImage
 /**
  Item (article) row for feeds
  */
-struct FeedItemView: View {
+struct FeedWidgetItemRowView: View {
     @ObservedObject var item: Item
     
     var body: some View {
