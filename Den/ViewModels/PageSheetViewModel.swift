@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PageSheet {
+class PageSheetViewModel {
     enum PageSheetState {
         case organizer, options, subscribe
     }
@@ -24,7 +24,7 @@ class PageSheet {
 
 // MARK: - <Hashable>
 
-extension PageSheet: Hashable {
+extension PageSheetViewModel: Hashable {
 
     public func hash(into hasher: inout Hasher) {
          hasher.combine(ObjectIdentifier(self).hashValue)
@@ -40,9 +40,9 @@ extension PageSheet: Hashable {
 
 // MARK: - <Equatable>
 
-extension PageSheet: Equatable {
+extension PageSheetViewModel: Equatable {
 
-    public static func ==(lhs: PageSheet, rhs: PageSheet) -> Bool {
+    public static func ==(lhs: PageSheetViewModel, rhs: PageSheetViewModel) -> Bool {
         return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }
@@ -50,5 +50,5 @@ extension PageSheet: Equatable {
 
 // MARK: - <Identifiable>
 
-extension PageSheet: Identifiable {
+extension PageSheetViewModel: Identifiable {
 }
