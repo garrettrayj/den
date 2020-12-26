@@ -54,7 +54,7 @@ struct PageView: View {
                 }
                 .sheet(item: $activeSheet) { pageSheet in
                     if pageSheet.state == .organizer {
-                        PageOrganizerView(page: self.page).environment(\.managedObjectContext, self.viewContext)
+                        PageSettingsView(page: self.page).environment(\.managedObjectContext, self.viewContext)
                     } else if pageSheet.state == .options {
                         FeedWidgetOptionsView(feed: pageSheet.feed!)
                             .environment(\.managedObjectContext, self.viewContext)
@@ -70,8 +70,8 @@ struct PageView: View {
                         .disabled(refreshManager.refreshing)
                         .actionSheet(isPresented: $showingPageMenu) {
                             ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
-                                .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
-                                .default(Text("Add Feed")) { self.showSubscribe() },
+                                .default(Text("Refresh Feeds")) { self.refreshManager.refresh([self.page]) },
+                                .default(Text("Add Subscription")) { self.showSubscribe() },
                                 .default(Text("Page Settings")) { self.showOrganizer() },
                                 .cancel()
                             ])

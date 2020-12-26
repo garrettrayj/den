@@ -18,13 +18,15 @@ struct FeedWidgetOptionsView: View {
     
     var body: some View {
         NavigationView {
-            FeedOptionsFormView(
+            FeedSettingsFormView(
                 feed: feed,
                 onDelete: close,
                 onMove: close
             )
-            .navigationBarTitle("Feed Options", displayMode: .inline)
-            .navigationBarItems(leading: Button(action: close) { Text("Close") })
+            .navigationBarTitle("Feed Settings", displayMode: .inline)
+            .toolbar(content: {
+                Button(action: close) { Text("Close") }
+            })
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

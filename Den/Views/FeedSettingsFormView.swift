@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FeedOptionsFormView: View {
+struct FeedSettingsFormView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
@@ -144,11 +144,5 @@ struct FeedOptionsFormView: View {
     func copyFeed() {
         let pasteboard = UIPasteboard.general
         pasteboard.string = feed.url!.absoluteString
-    }
-}
-
-struct FeedOptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedOptionsFormView(feed: Feed(), onDelete: {}, onMove: {})
     }
 }
