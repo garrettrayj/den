@@ -17,7 +17,6 @@ struct UpdateStatusView: View {
     
     var body: some View {
         VStack {
-            Spacer()
             if refreshManager.isRefreshing(refreshables) { // If loading, show the activity control
                 ActivityRep()
                 Text("Updating feeds…")
@@ -27,7 +26,7 @@ struct UpdateStatusView: View {
                     .scaledToFit()
                     .frame(width: 20, height: 20)
                 Text("Other refresh in progress")
-            } else {
+            } else if symbolRotation > .degrees(0) {
                 Image(systemName: "arrow.down")
                     .resizable()
                     .scaledToFit()
@@ -37,10 +36,10 @@ struct UpdateStatusView: View {
                 
                 lastRefreshedLabel()
             }
-            Spacer()
         }
         .font(.callout)
         .foregroundColor(Color.secondary)
+        .fixedSize()
         .frame(height: height)
         .offset(y: -height + (refreshManager.isRefreshing(refreshables) ? +height : 0.0))
     }

@@ -21,7 +21,7 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("APPEARANCE")) {
+            Section(header: Text("Appearance")) {
                 HStack {
                     Image(systemName: "circle.righthalf.fill")
                     Text("Theme")
@@ -34,18 +34,18 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text("SUBSCRIPTIONS")) {
+            Section(header: Text("OPML Sharing")) {
                 NavigationLink(destination: ImportView()) {
                     Image(systemName: "arrow.down.doc")
-                    Text("Import OPML")
+                    Text("Import Subscriptions")
                 }
                 NavigationLink(destination: ExportView(pages: pages)) {
                     Image(systemName: "arrow.up.doc")
-                    Text("Export OPML")
+                    Text("Export Subscriptions")
                 }
             }
 
-            Section(header: Text("CLEAR DATA")) {
+            Section(header: Text("Clear Data")) {
                 Button(action: clearCache) {
                     HStack {
                         Image(systemName: "bin.xmark")
@@ -77,12 +77,12 @@ struct SettingsView: View {
                 }
             }
             
-            Section(header: Text("ABOUT")) {
+            Section(header: Text("About")) {
                 HStack {
                     Image("TitleIcon").resizable().scaledToFit().frame(width: 40, height: 40)
                     VStack(alignment: .leading) {
                         Text("Den").font(.headline)
-                        Text("Version \(Bundle.main.releaseVersionNumber!) (\(Bundle.main.buildVersionNumber!))").font(.subheadline)
+                        Text("Version \(Bundle.main.releaseVersionNumber!)").font(.subheadline)
                     }
                 }.padding(.vertical)
                 
@@ -103,9 +103,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .frame(maxWidth: 1044)
-        .navigationBarTitle("Settings")
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationBarTitle("Settings", displayMode: .inline)
     }
     
     func clearCache() {

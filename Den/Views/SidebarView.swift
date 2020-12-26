@@ -69,7 +69,7 @@ struct SidebarView: View {
             }
         }
         .animation(nil)
-        .listStyle(GroupedListStyle())
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Den")
         .navigationBarItems(trailing: HStack {
             Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {

@@ -21,7 +21,7 @@ struct PageView: View {
     @State var showingPageMenu: Bool = false
     
     let columns = [
-        GridItem(.adaptive(minimum: 320, maximum: 560), spacing: 20, alignment: .top)
+        GridItem(.adaptive(minimum: 320, maximum: 560), spacing: 16, alignment: .top)
     ]
     
     var body: some View {
@@ -34,22 +34,20 @@ struct PageView: View {
                     .navigationBarItems(trailing: EmptyView())
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                VStack(spacing: 0) {
+                ZStack(alignment: .top) {
                     if self.page.feedsArray.count > 0 {
-                        if self.refreshManager.isRefreshing([self.page]) {
-                            HeaderProgressBarView(refreshables: [self.page])
-                        }
+                        HeaderProgressBarView(refreshables: [self.page])
                         
                         RefreshableScrollView(refreshables: [self.page]) {
-                            LazyVGrid(columns: columns, spacing: 20) {
+                            LazyVGrid(columns: columns, spacing: 16) {
                                 ForEach(self.page.feedsArray) { feed in
                                     FeedWidgetView(feed: feed, activeSheet: $activeSheet)
                                 }
                             }
-                            .padding(20)
+                            .padding(16)
                         }
                     } else {
-                        Text("Empty Page").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity)
+                        Text("Empty Page").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
                 }
                 .sheet(item: $activeSheet) { pageSheet in
@@ -80,12 +78,12 @@ struct PageView: View {
                 )
             }
         }
-        .padding(.top, 1)
+        .padding(.top, 85)
         .onAppear {
             self.screenManager.currentPage = self.page
         }
         .background(Color(UIColor.systemGroupedBackground))
-        .edgesIgnoringSafeArea([.horizontal, .bottom])
+        .edgesIgnoringSafeArea(.all)
     }
     
     func showMenu() {

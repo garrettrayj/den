@@ -20,7 +20,7 @@ struct RefreshableScrollView<Content: View>: View {
     @State private var rotation: Angle = .degrees(0)
     
     var refreshables: [Refreshable]
-    var threshold: CGFloat = 102
+    var threshold: CGFloat = 80
     let content: Content
 
     var body: some View {
@@ -31,7 +31,11 @@ struct RefreshableScrollView<Content: View>: View {
                     VStack { self.content }.alignmentGuide(.top, computeValue: {
                         d in (self.refreshManager.isRefreshing(self.refreshables)) ? -self.threshold : 0.0
                     })
-                    UpdateStatusView(refreshables: refreshables, height: self.threshold, symbolRotation: rotation)
+                    UpdateStatusView(
+                        refreshables: refreshables,
+                        height: self.threshold,
+                        symbolRotation: rotation
+                    )
                 }
             }
             .background(FixedView())

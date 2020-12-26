@@ -14,7 +14,7 @@ struct ExportDocumentPicker: UIViewControllerRepresentable {
     
     init(url: URL, onDismiss: @escaping () -> Void) {
         self.onDismiss = onDismiss
-        self.viewController = UIDocumentPickerViewController(url: url, in: .exportToService)
+        self.viewController = UIDocumentPickerViewController(forExporting: [url])
         self.viewController.allowsMultipleSelection = false
     }
     
