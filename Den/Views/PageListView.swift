@@ -24,8 +24,6 @@ struct PageListView: View {
             }
             .onMove(perform: self.move)
             .onDelete(perform: self.delete)
-            // Defined to workaround fatal error because of missing insert action while moving. Probably a SwiftUI bug.
-            .onInsert(of: [String(kUTTypeURL)], perform: onInsert)
         }
         .listStyle(SidebarListStyle())
         .environment(\.editMode, self.$editMode)

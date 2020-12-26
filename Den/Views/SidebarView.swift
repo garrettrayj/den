@@ -26,15 +26,33 @@ struct SidebarView: View {
 
     var body: some View {
         List {
-            Section(header: Text("Pages")) {
-                ForEach(self.pages) { page in
-                    PageListRowView(page: page, editMode: $editMode)
+            if pages.count > 0 {
+                Section(header: Text("Pages")) {
+                    ForEach(self.pages) { page in
+                        PageListRowView(page: page, editMode: $editMode)
+                    }
+                    .onMove(perform: self.move)
+                    .onDelete(perform: self.delete)
                 }
-                .onMove(perform: self.move)
-                .onDelete(perform: self.delete)
+            } else {
+                Section(header: Text("Get Started"), footer: Text("or import subscriptions in settings")) {
+                    Button(action: newPage) {
+                        HStack {
+                            Image(systemName: "plus")
+                            Text("Create a New Page").fontWeight(.medium)
+                        }
+                    }
+                    Button(action: loadDemo) {
+                        HStack {
+                            Image(systemName: "wand.and.stars")
+                            Text("Load Demo Feeds").fontWeight(.medium)
+                        }
+                    }
+                }
             }
+            
         
-            Section(header: Text("More")) {
+            Section() {
                 NavigationLink(
                     destination: SearchView().environmentObject(searchManager)
                 ) {
