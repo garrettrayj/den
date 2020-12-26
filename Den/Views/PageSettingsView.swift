@@ -11,7 +11,7 @@ import SwiftUI
 /**
  User interface for reordering, moving, and deleting Gadgets within a Page
  */
-struct PageOrganizerView: View {
+struct PageSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var page: Page
@@ -29,7 +29,7 @@ struct PageOrganizerView: View {
                     Stepper("Max Items Per Feed: \(page.itemsPerFeed)", value: $page.itemsPerFeed, in: 1...Int16.max)
                 }
                 
-                Section(header: HStack { Text("\(page.feedsArray.count) FEEDS"); Spacer(); Text("DRAG TO REORDER") }) {
+                Section(header: HStack { Text("\(page.feedsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
                     List {
                         ForEach(page.feedsArray) { feed in
                             Text(feed.wrappedTitle)
@@ -40,8 +40,10 @@ struct PageOrganizerView: View {
                     }
                 }
             }
-            .navigationBarTitle("Organizer Feeds", displayMode: .inline)
-            .navigationBarItems(leading: Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Close") })
+            .navigationBarTitle("Page Settings", displayMode: .inline)
+            .toolbar(content: {
+                Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Close") }
+            })
             .environment(\.editMode, .constant(.active))
         }
         .navigationViewStyle(StackNavigationViewStyle())
