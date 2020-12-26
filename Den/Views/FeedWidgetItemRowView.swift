@@ -114,8 +114,8 @@ struct FeedWidgetItemRowView: View {
     }
     
     func openLink() {
-        DenHosting.nextModalPresentationStyle = .fullScreen
-        DenHosting.openSafari(url: item.link!, readerMode: item.feed?.readerMode ?? false)
+        SafariPresenter.nextModalPresentationStyle = .fullScreen
+        SafariPresenter.openSafari(url: item.link!, readerMode: item.feed?.readerMode ?? false)
         item.markRead()
     }
 }

@@ -35,6 +35,8 @@ struct DenApp: App {
                         titlebar.toolbar = nil
                     }
                     #endif
+                    
+                    SafariPresenter.controller = window?.rootViewController
                 }
         }
     }
@@ -60,4 +62,3 @@ fileprivate struct HostingWindowFinder: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {
     }
 }
-

@@ -84,7 +84,7 @@ struct PageView: View {
         .onAppear {
             self.screenManager.currentPage = self.page
         }
-        .background(Color(UIColor.secondarySystemBackground))
+        .background(Color(UIColor.systemGroupedBackground))
         .edgesIgnoringSafeArea([.horizontal, .bottom])
     }
     
