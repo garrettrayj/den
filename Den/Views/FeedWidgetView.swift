@@ -53,7 +53,7 @@ struct FeedWidgetView: View {
                 Spacer()
                 
                 Button(action: showOptions) {
-                    Image(systemName: "ellipsis").faviconView()
+                    Image(systemName: "gearshape").faviconView()
                 }
             }
             .padding(.horizontal, 12)

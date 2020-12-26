@@ -16,18 +16,19 @@ struct HeaderProgressBarView: View {
     var refreshables: [Refreshable]
     
     var body: some View {
-        VStack {
+        if self.refreshManager.isRefreshing(self.refreshables) {
             GeometryReader { geometry in
-                if self.refreshManager.isRefreshing(self.refreshables) {
-                    Rectangle()
-                        .foregroundColor(Color.accentColor)
-                        .frame(width: geometry.size.width * self.observedProgress, height: 2)
-                        .animation(.linear)
-                        .onReceive(self.refreshManager.progress.publisher(for: \.fractionCompleted).receive(on: RunLoop.main)) { fractionCompleted in
-                            self.observedProgress = CGFloat(fractionCompleted)
-                        }
-                }
+                Rectangle()
+                    .foregroundColor(Color.accentColor)
+                    .frame(width: geometry.size.width * self.observedProgress)
+                    .animation(.linear)
+                    .onReceive(self.refreshManager.progress.publisher(for: \.fractionCompleted).receive(on: RunLoop.main)) { fractionCompleted in
+                        self.observedProgress = CGFloat(fractionCompleted)
+                    }
             }
-        }.frame(height: 2)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(height: 2)
+            .clipped()
+        }
     }
 }

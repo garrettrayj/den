@@ -28,7 +28,6 @@ struct ImportView: View {
             }
         }
         .onDisappear { self.importManager.reset() }
-        .frame(maxWidth: 1044)
         .navigationBarTitle("Import", displayMode: .inline)
     }
     
@@ -71,7 +70,7 @@ struct ImportView: View {
                 }) {
                     HStack {
                         Image(systemName: "arrow.down.doc")
-                        Text("Import Feeds")
+                        Text("Import Subscriptions")
                     }
                 }
             }
