@@ -18,6 +18,20 @@ struct PageListView: View {
     var pages: FetchedResults<Page>
     
     var body: some View {
+        List {
+            ForEach(self.pages) { page in
+                PageListEditRowView(page: page)
+            }
+            .onMove(perform: self.move)
+            .onDelete(perform: self.delete)
+            // Defined to workaround fatal error because of missing insert action while moving. Probably a SwiftUI bug.
+            .onInsert(of: [String(kUTTypeURL)], perform: onInsert)
+        }
+        .listStyle(SidebarListStyle())
+        .environment(\.editMode, self.$editMode)
+        
+        
+        
         GeometryReader { geometry in
             if self.editMode == EditMode.active {
                 List {
@@ -27,19 +41,17 @@ struct PageListView: View {
                     .onMove(perform: self.move)
                     .onDelete(perform: self.delete)
                     // Defined to workaround fatal error because of missing insert action while moving. Probably a SwiftUI bug.
-                    .onInsert(of: [String()], perform: self.insert(at:itemProvider:))
                 }
-                .listStyle(PlainListStyle())
+                .listStyle(SidebarListStyle())
                 .environment(\.editMode, self.$editMode)
             } else {
                 RefreshableScrollView(refreshables: self.pages.map { $0 }) {
                     List {
                         ForEach(self.pages) { page in
-                            PageListRowView(page: page)
+                            PageListRowView(page: page, editMode: $editMode)
                         }.listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
                     }
-                    
-                    .frame(height: geometry.size.height)
+                    .navigationTitle("Den")
                 }.background(Color(UIColor.secondarySystemBackground))
             }
         }
@@ -73,7 +85,7 @@ struct PageListView: View {
         pages.delete(at: indices, from: viewContext)
     }
     
-    func insert(at offset: Int, itemProvider: [NSItemProvider]) {
+    func onInsert(at offset: Int, itemProvider: [NSItemProvider]) {
         print("Page list insert action not available")
     }
 }

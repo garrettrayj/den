@@ -20,8 +20,13 @@ struct PageOrganizerView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section() {
-                    Stepper("Items per Feed: \(page.itemsPerFeed)", value: $page.itemsPerFeed, in: 1...Int16.max)
+                Section(header: Text("Settings")) {
+                    HStack {
+                        Text("Title")
+                        TextField("Title", text: $page.wrappedName).multilineTextAlignment(.trailing)
+                    }
+                    
+                    Stepper("Max Items Per Feed: \(page.itemsPerFeed)", value: $page.itemsPerFeed, in: 1...Int16.max)
                 }
                 
                 Section(header: HStack { Text("\(page.feedsArray.count) FEEDS"); Spacer(); Text("DRAG TO REORDER") }) {

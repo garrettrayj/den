@@ -13,26 +13,40 @@ import SwiftUI
  */
 struct PageListRowView: View {
     @ObservedObject var page: Page
+    @Binding var editMode: EditMode
     
     var body: some View {
-        Group {
-            if page.id != nil {
+        if page.id != nil {
+            if editMode == .inactive {
                 NavigationLink(destination: PageView(page: page)) {
-                    HStack {
-                        Image(systemName: "square.grid.2x2").resizable().scaledToFit().frame(width: 18, height: 18).padding(.trailing, 2)
-                        Text(page.wrappedName).fontWeight(.medium).lineLimit(1).multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(String(page.unreadCount))
-                            .font(.caption)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 8)
-                            .background(
-                                Capsule(style: .circular).foregroundColor(Color(UIColor.secondarySystemBackground)
-                            )
-                        ).accessibility(value: Text("\(page.wrappedName): \(page.unreadCount) unread"))
-                    }
-                }.frame(height: 44)
+                    Image(systemName: "square.grid.2x2").sidebarIconView()
+                    
+                    Text(page.wrappedName)
+                        .fontWeight(.medium)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text(String(page.unreadCount))
+                        .font(.caption)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background(
+                            Capsule(style: .circular)
+                                .foregroundColor(Color(.systemGroupedBackground))
+                        )
+                        .accessibility(value: Text("\(page.wrappedName): \(page.unreadCount) unread"))
+                    
+                }.animation(nil)
+            } else {
+                Text(page.wrappedName)
+                    .fontWeight(.medium)
+                    .lineLimit(1)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
+            
+            
         }
     }
 }

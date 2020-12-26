@@ -18,7 +18,10 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            WorkspaceView(pages: pages)
+            // Sidebar
+            SidebarView(pages: pages)
+            
+            // Default view for detail area
             WelcomeView(pages: pages)
         }
         .sheet(isPresented: $subscriptionManager.showSubscribe) {

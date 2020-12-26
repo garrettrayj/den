@@ -20,12 +20,7 @@ class UserDefaultsManager: ObservableObject {
             },
             set: {
                 UserDefaults.standard.setValue($0.rawValue, forKey: "UIStyle")
-                self.applyUIStyle()
             }
         )
-    }
-    
-    func applyUIStyle() {
-        SceneDelegate.shared?.window!.overrideUserInterfaceStyle = uiStyle.wrappedValue
     }
 }

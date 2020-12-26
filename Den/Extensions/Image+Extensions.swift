@@ -17,4 +17,8 @@ extension Image {
     func titleBarIconView() -> some View {
         return self.imageScale(.medium).padding(12)
     }
+    
+    func sidebarIconView() -> some View {
+        return self.imageScale(.medium)
+    }
 }

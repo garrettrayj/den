@@ -64,31 +64,17 @@ struct PageView: View {
                 .navigationBarTitle(Text(page.name ?? "Page Deleted"), displayMode: .inline)
                 .navigationBarItems(
                     trailing: HStack(alignment: .center, spacing: 0) {
-                        if UIDevice.current.userInterfaceIdiom == .phone {
-                            // Action menu for phone users
-                            Button(action: showMenu) {
-                                Image(systemName: "hammer").titleBarIconView()
-                            }
-                            .disabled(refreshManager.refreshing)
-                            .actionSheet(isPresented: $showingPageMenu) {
-                                ActionSheet(title: Text("Page Actions"), message: nil, buttons: [
-                                    .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
-                                    .default(Text("Organize")) { self.showOrganizer() },
-                                    .default(Text("Add Feed")) { self.showSubscribe() },
-                                    .cancel()
-                                ])
-                            }
-                        } else {
-                            // Just show three buttons on larger screens
-                            Button(action: showSubscribe) {
-                                Image(systemName: "plus").titleBarIconView()
-                            }
-                            Button(action: showOrganizer) {
-                                Image(systemName: "arrow.up.arrow.down").titleBarIconView()
-                            }
-                            Button(action: { self.refreshManager.refresh([self.page]) }) {
-                                Image(systemName: "arrow.clockwise").titleBarIconView()
-                            }.disabled(refreshManager.refreshing)
+                        Button(action: showMenu) {
+                            Image(systemName: "ellipsis").titleBarIconView()
+                        }
+                        .disabled(refreshManager.refreshing)
+                        .actionSheet(isPresented: $showingPageMenu) {
+                            ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
+                                .default(Text("Refresh")) { self.refreshManager.refresh([self.page]) },
+                                .default(Text("Add Feed")) { self.showSubscribe() },
+                                .default(Text("Page Settings")) { self.showOrganizer() },
+                                .cancel()
+                            ])
                         }
                     }.offset(x: 12)
                 )
