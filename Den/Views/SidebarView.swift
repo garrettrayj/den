@@ -13,7 +13,7 @@ import CoreData
 /**
  Master navigation list with links to Pages. Activating editMode enables CRUD for pages
 */
-struct WorkspaceView: View {
+struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var userDefaultsManager: UserDefaultsManager
@@ -25,6 +25,46 @@ struct WorkspaceView: View {
     let workspaceHeaderHeight: CGFloat = 140
 
     var body: some View {
+        List {
+            Section(header: Text("Pages")) {
+                ForEach(self.pages) { page in
+                    PageListRowView(page: page, editMode: $editMode)
+                }
+                .onMove(perform: self.move)
+                .onDelete(perform: self.delete)
+            }
+        
+            Section(header: Text("More")) {
+                NavigationLink(
+                    destination: SearchView().environmentObject(searchManager)
+                ) {
+                    Image(systemName: "magnifyingglass").sidebarIconView()
+                    Text("Search")
+                }
+                
+                NavigationLink(
+                    destination: SettingsView(pages: pages).environmentObject(userDefaultsManager)
+                ) {
+                    Image(systemName: "gear").sidebarIconView()
+                    Text("Settings")
+                }
+            }
+        }
+        .animation(nil)
+        .listStyle(GroupedListStyle())
+        .navigationTitle("Den")
+        .navigationBarItems(trailing: HStack {
+            Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
+                Image(systemName: "plus").titleBarIconView()
+            }
+            EditButton()
+        })
+        .environment(\.editMode, self.$editMode)
+        
+        
+        
+        
+        /*
         VStack(spacing: 0) {
             if pages.count == 0 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
                 Spacer()
@@ -64,7 +104,6 @@ struct WorkspaceView: View {
                     .frame(height: refreshManager.isRefreshing(pages.map { $0 }) ? 2 : 0)
                 
                 PageListView(editMode: $editMode, pages: pages)
-                    .navigationBarTitle("Den", displayMode: .large)
             }
             
             if pages.count > 0 && editMode == .inactive {
@@ -93,17 +132,6 @@ struct WorkspaceView: View {
         }
         .padding(.top, 1)
         .navigationBarItems(
-            leading: HStack {
-                if pages.count > 0 {
-                    if self.editMode == .inactive {
-                        Button(action: { self.refreshManager.refresh(self.pages.map { $0 }) }) {
-                            Image(systemName: "arrow.clockwise").titleBarIconView()
-                        }
-                        .disabled(refreshManager.refreshing)
-                        .offset(x: -12)
-                    }
-                }
-            },
             trailing: HStack {
                 if pages.count > 0 {
                     if self.editMode == .active {
@@ -118,6 +146,34 @@ struct WorkspaceView: View {
                 }
             }
         )
+        */
+    }
+    
+    var intro: some View {
+        VStack(alignment: .center, spacing: 16) {
+            Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
+            Text("Get Started").font(.title).fontWeight(.semibold)
+            Button(action: newPage) {
+                HStack {
+                    Image(systemName: "plus")
+                    Text("Create a New Page").fontWeight(.medium)
+                }
+            }
+            Button(action: loadDemo) {
+                HStack {
+                    Image(systemName: "wand.and.stars")
+                    Text("Load Demo Feeds").fontWeight(.medium)
+                }
+            }
+            NavigationLink(destination: ImportView()) {
+                HStack {
+                    Image(systemName: "arrow.down.doc")
+                    Text("Import OPML File").fontWeight(.medium)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .buttonStyle(BorderedButtonStyle())
     }
     
     func doneEditing() {
@@ -126,6 +182,34 @@ struct WorkspaceView: View {
     
     func newPage() {
         let _ = Page.create(in: viewContext)
+    }
+    
+    private func move( from source: IndexSet, to destination: Int) {
+        // Make an array of items from fetched results
+        var revisedItems: [Page] = pages.map { $0 }
+
+        // change the order of the items in the array
+        revisedItems.move(fromOffsets: source, toOffset: destination)
+
+        // update the userOrder attribute in revisedItems to
+        // persist the new order. This is done in reverse order
+        // to minimize changes to the indices.
+        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
+            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
+        }
+        
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+    func delete(indices: IndexSet) {
+        pages.delete(at: indices, from: viewContext)
     }
     
     func loadDemo() {

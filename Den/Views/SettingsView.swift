@@ -118,8 +118,6 @@ struct SettingsView: View {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
         
-        // Refresh UI style to apply changes to window
-        userDefaultsManager.applyUIStyle()
     }
     
     func showResetAlert() {
