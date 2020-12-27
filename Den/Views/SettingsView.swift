@@ -14,7 +14,6 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
-    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @State private var showingClearWorkspaceAlert = false
     
     var pages: FetchedResults<Page>
@@ -26,7 +25,7 @@ struct SettingsView: View {
                     Image(systemName: "circle.righthalf.fill")
                     Text("Theme")
                     Spacer()
-                    Picker(selection: userDefaultsManager.uiStyle, label: Text("Interface Style")) {
+                    Picker(selection: UserInterfaceStyle.shared.uiStyle, label: Text("Interface Style")) {
                         Text("Default").tag(UIUserInterfaceStyle.unspecified)
                         Text("Light").tag(UIUserInterfaceStyle.light)
                         Text("Dark").tag(UIUserInterfaceStyle.dark)

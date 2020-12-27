@@ -16,7 +16,6 @@ import CoreData
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var userDefaultsManager: UserDefaultsManager
     @EnvironmentObject var searchManager: SearchManager
     @State var editMode: EditMode = .inactive
     
@@ -61,7 +60,7 @@ struct SidebarView: View {
                 }
                 
                 NavigationLink(
-                    destination: SettingsView(pages: pages).environmentObject(userDefaultsManager)
+                    destination: SettingsView(pages: pages)
                 ) {
                     Image(systemName: "gear").sidebarIconView()
                     Text("Settings")

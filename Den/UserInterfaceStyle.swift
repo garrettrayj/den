@@ -1,18 +1,18 @@
 //
-//  UserDefaultManager.swift
+//  StyleChanger.swift
 //  Den
 //
-//  Created by Garrett Johnson on 8/19/20.
+//  Created by Garrett Johnson on 12/26/20.
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
 import Foundation
 import SwiftUI
 
-/**
- SwiftUI bindings for user settings
- */
-class UserDefaultsManager: ObservableObject {
+class UserInterfaceStyle {
+    static var shared = UserInterfaceStyle()
+    
+    var window: UIWindow?
     var uiStyle: Binding<UIUserInterfaceStyle> {
         Binding (
             get: {
@@ -20,7 +20,12 @@ class UserDefaultsManager: ObservableObject {
             },
             set: {
                 UserDefaults.standard.setValue($0.rawValue, forKey: "UIStyle")
+                self.applyUIStyle()
             }
         )
+    }
+    
+    func applyUIStyle() {
+        window?.overrideUserInterfaceStyle = uiStyle.wrappedValue
     }
 }

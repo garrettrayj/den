@@ -25,65 +25,68 @@ struct PageView: View {
     ]
     
     var body: some View {
-        VStack(spacing: 0) {
-            if page.name == nil {
-                Text("Page Deleted")
-                    .font(.title)
-                    .foregroundColor(.secondary)
-                    .navigationBarTitle("")
-                    .navigationBarItems(trailing: EmptyView())
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                ZStack(alignment: .top) {
-                    if self.page.feedsArray.count > 0 {
-                        HeaderProgressBarView(refreshables: [self.page])
-                        
-                        RefreshableScrollView(refreshables: [self.page]) {
-                            LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(self.page.feedsArray) { feed in
-                                    FeedWidgetView(feed: feed, activeSheet: $activeSheet)
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                if page.name == nil {
+                    Text("Page Deleted")
+                        .font(.title)
+                        .foregroundColor(.secondary)
+                        .navigationBarTitle("")
+                        .navigationBarItems(trailing: EmptyView())
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    ZStack(alignment: .top) {
+                        if self.page.feedsArray.count > 0 {
+                            HeaderProgressBarView(refreshables: [self.page])
+                            
+                            RefreshableScrollView(refreshables: [self.page]) {
+                                LazyVGrid(columns: columns, spacing: 16) {
+                                    ForEach(self.page.feedsArray) { feed in
+                                        FeedWidgetView(feed: feed, activeSheet: $activeSheet)
+                                    }
                                 }
+                                .padding(16)
                             }
-                            .padding(16)
+                        } else {
+                            Text("Page Empty").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         }
-                    } else {
-                        Text("Empty Page").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     }
-                }
-                .sheet(item: $activeSheet) { pageSheet in
-                    if pageSheet.state == .organizer {
-                        PageSettingsView(page: self.page).environment(\.managedObjectContext, self.viewContext)
-                    } else if pageSheet.state == .options {
-                        FeedWidgetOptionsView(feed: pageSheet.feed!)
-                            .environment(\.managedObjectContext, self.viewContext)
-                            .environmentObject(self.refreshManager)
+                    .sheet(item: $activeSheet) { pageSheet in
+                        if pageSheet.state == .organizer {
+                            PageSettingsView(page: self.page).environment(\.managedObjectContext, self.viewContext)
+                        } else if pageSheet.state == .options {
+                            FeedWidgetOptionsView(feed: pageSheet.feed!)
+                                .environment(\.managedObjectContext, self.viewContext)
+                                .environmentObject(self.refreshManager)
+                        }
                     }
+                    .navigationBarTitle(Text(page.name ?? "Page Deleted"), displayMode: .inline)
+                    .navigationBarItems(
+                        trailing: HStack(alignment: .center, spacing: 0) {
+                            Button(action: showMenu) {
+                                Image(systemName: "ellipsis").titleBarIconView()
+                            }
+                            .disabled(refreshManager.refreshing)
+                            .actionSheet(isPresented: $showingPageMenu) {
+                                ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
+                                    .default(Text("Refresh Feeds")) { self.refreshManager.refresh([self.page]) },
+                                    .default(Text("Add Subscription")) { self.showSubscribe() },
+                                    .default(Text("Page Settings")) { self.showOrganizer() },
+                                    .cancel()
+                                ])
+                            }
+                        }.offset(x: 12)
+                    )
                 }
-                .navigationBarTitle(Text(page.name ?? "Page Deleted"), displayMode: .inline)
-                .navigationBarItems(
-                    trailing: HStack(alignment: .center, spacing: 0) {
-                        Button(action: showMenu) {
-                            Image(systemName: "ellipsis").titleBarIconView()
-                        }
-                        .disabled(refreshManager.refreshing)
-                        .actionSheet(isPresented: $showingPageMenu) {
-                            ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
-                                .default(Text("Refresh Feeds")) { self.refreshManager.refresh([self.page]) },
-                                .default(Text("Add Subscription")) { self.showSubscribe() },
-                                .default(Text("Page Settings")) { self.showOrganizer() },
-                                .cancel()
-                            ])
-                        }
-                    }.offset(x: 12)
-                )
             }
+            .padding(.top, geometry.safeAreaInsets.top)
+            .onAppear {
+                self.screenManager.currentPage = self.page
+            }
+            .background(Color(UIColor.systemGroupedBackground))
+            .edgesIgnoringSafeArea(.all)
         }
-        .padding(.top, 85)
-        .onAppear {
-            self.screenManager.currentPage = self.page
-        }
-        .background(Color(UIColor.systemGroupedBackground))
-        .edgesIgnoringSafeArea(.all)
+        
     }
     
     func showMenu() {
