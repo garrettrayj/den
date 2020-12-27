@@ -33,16 +33,6 @@ struct FeedSettingsFormView: View {
             }
         )
         
-        let showThumbnailsToggleIsOn = Binding<Bool>(
-            get: { self.feed.showThumbnails },
-            set: { self.feed.showThumbnails = $0; self.feed.showLargePreviews = false }
-        )
-        
-        let showLargePreviewsToggleIsOn = Binding<Bool>(
-            get: { self.feed.showLargePreviews },
-            set: { self.feed.showLargePreviews = $0; self.feed.showThumbnails = false }
-        )
-        
         return Form {
             Section() {
                 HStack {
@@ -61,6 +51,12 @@ struct FeedSettingsFormView: View {
                     }
                 }
                 
+                HStack {
+                    Toggle(isOn: $feed.showThumbnails) {
+                        Text("Show Thumbnails")
+                    }
+                }
+                
                 #if !targetEnvironment(macCatalyst)
                 HStack {
                     Toggle(isOn: $feed.readerMode) {
@@ -68,18 +64,6 @@ struct FeedSettingsFormView: View {
                     }
                 }
                 #endif
-                
-                HStack {
-                    Toggle(isOn: showThumbnailsToggleIsOn) {
-                        Text("Show Thumbnails")
-                    }
-                }
-                
-                HStack {
-                    Toggle(isOn: showLargePreviewsToggleIsOn) {
-                        Text("Show Large Images")
-                    }
-                }
             }
             
             Section() {

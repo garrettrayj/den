@@ -33,7 +33,7 @@ public class Feed: Refreshable {
     }
     
     public var unreadItemCount: Int {
-        itemsArray.prefix(Int(itemLimit)).filter { item in item.read == false }.count
+        itemsArray.filter { item in item.read == false }.count
     }
     
     public var itemsWithImageCount: Int {
@@ -45,7 +45,6 @@ public class Feed: Refreshable {
     static func create(in managedObjectContext: NSManagedObjectContext, page: Page, prepend: Bool = false) -> Feed {
         let newFeed = self.init(context: managedObjectContext)
         newFeed.id = UUID()
-        newFeed.itemLimit = 5
         newFeed.showLargePreviews = false
         newFeed.showThumbnails = true
         newFeed.page = page
@@ -85,7 +84,7 @@ public class Feed: Refreshable {
             return
         }
         
-        atomEntries.prefix(Int(self.itemLimit)).forEach { atomEntry in
+        atomEntries.forEach { atomEntry in
             // Continue if link is missing
             guard let itemLink = atomEntry.linkURL else {
                 print("MISSING LINK")
@@ -140,7 +139,7 @@ public class Feed: Refreshable {
         }
         
         // Add new items
-        rssItems.prefix(Int(self.itemLimit)).forEach { (rssItem: RSSFeedItem) in
+        rssItems.forEach { (rssItem: RSSFeedItem) in
             guard let itemLink = rssItem.linkURL else {
                 print("RSS ITEM MISSING LINK")
                 return
@@ -189,7 +188,7 @@ public class Feed: Refreshable {
         }
         
         // Add new items
-        jsonItems.prefix(Int(self.itemLimit)).forEach { jsonItem in
+        jsonItems.forEach { jsonItem in
             guard let itemLink = jsonItem.linkURL else {
                 return
             }

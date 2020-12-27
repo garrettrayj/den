@@ -42,7 +42,7 @@ struct SearchResultView: View {
 
             VStack(spacing: 0) {
                 VStack(spacing: 0) {
-                    ForEach(items.prefix(Int(feed.itemLimit))) { item in
+                    ForEach(items) { item in
                         Group {
                             Divider()
                             FeedWidgetItemRowView(item: item)
