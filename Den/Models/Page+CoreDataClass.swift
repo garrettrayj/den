@@ -24,7 +24,7 @@ public class Page: Refreshable {
     var unreadCount: Int {
         get {            
             feedsArray.reduce(0) { (result, feed) -> Int in
-                result + feed.unreadItemCount
+                result + min(self.wrappedItemsPerFeed, feed.unreadItemCount)
             }
         }
     }
@@ -44,6 +44,12 @@ public class Page: Refreshable {
                 return feed.userOrder
             }
             return result
+        }
+    }
+    
+    func sendChildrenWillChange() {
+        feedsArray.forEach { feed in
+            feed.objectWillChange.send()
         }
     }
     

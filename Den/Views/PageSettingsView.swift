@@ -26,7 +26,7 @@ struct PageSettingsView: View {
                         TextField("Title", text: $page.wrappedName).multilineTextAlignment(.trailing)
                     }
                     
-                    Stepper("Max Items Per Feed: \(page.itemsPerFeed)", value: $page.itemsPerFeed, in: 1...Int16.max)
+                    Stepper("Feed Item Limit: \(page.itemsPerFeed)", value: $page.itemsPerFeed, in: 1...Int16.max)
                 }
                 
                 Section(header: HStack { Text("\(page.feedsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
@@ -51,6 +51,9 @@ struct PageSettingsView: View {
             if self.viewContext.hasChanges {
                 do {
                     try self.viewContext.save()
+                    
+                    self.page.objectWillChange.send()
+                    self.page.sendChildrenWillChange()
                 } catch {
                     let nserror = error as NSError
                     fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
