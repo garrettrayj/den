@@ -21,9 +21,6 @@ struct FeedWidgetView: View {
         ZStack(alignment: .top) {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(.systemBackground))
-            
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(.secondarySystemBackground), lineWidth: 1)
 
             widgetContent
         }
