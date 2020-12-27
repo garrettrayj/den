@@ -25,7 +25,6 @@ class CacheManager: ObservableObject {
     
     func clearWebCaches() {
         URLCache.shared.removeAllCachedResponses()
-        URLImageService.shared.resetFileCache()
     }
     
     func clearItems() {

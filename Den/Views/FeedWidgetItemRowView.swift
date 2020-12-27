@@ -20,7 +20,7 @@ struct FeedWidgetItemRowView: View {
             if item.published != nil {
                 Text("\(item.published!, formatter: DateFormatter.create())")
                     .font(.caption)
-                    .foregroundColor(Color(UIColor.secondaryLabel))
+                    .foregroundColor(Color(.secondaryLabel))
             }
             
             HStack(alignment: .top, spacing: 10) {
@@ -44,9 +44,8 @@ struct FeedWidgetItemRowView: View {
     
     var thumbnailImage: some View {
         URLImage(
-            item.image!,
-            processors: [ Resize(size: CGSize(width: 96, height: 64), scale: UIScreen.main.scale) ],
-            placeholder: { _ in
+            url: item.image!,
+            inProgress: { _ in
                 VStack {
                     Image(systemName: "photo").foregroundColor(.secondary)
                 }
@@ -55,7 +54,7 @@ struct FeedWidgetItemRowView: View {
                 .padding(1)
                 .border(Color(UIColor.separator), width: 1)
             },
-            failure: { _ in
+            failure: { _,_ in
                 VStack {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
                 }
@@ -64,14 +63,14 @@ struct FeedWidgetItemRowView: View {
                 .padding(1)
                 .border(Color(UIColor.separator), width: 1)
             },
-            content: { content in
-                content.image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 96, height: 64)
-                .clipped()
-                .padding(1)
-                .border(Color(UIColor.separator), width: 1)
+            content: {
+                $0
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 96, height: 64)
+                    .clipped()
+                    .padding(1)
+                    .border(Color(UIColor.separator), width: 1)
             }
         )
         .frame(width: 96, height: 64)
@@ -80,8 +79,8 @@ struct FeedWidgetItemRowView: View {
     
     var largeImage: some View {
         URLImage(
-            self.item.image!,
-            placeholder: { _ in
+            url: self.item.image!,
+            inProgress: { _ in
                 VStack {
                     Image(systemName: "photo").foregroundColor(.secondary)
                 }
@@ -90,7 +89,7 @@ struct FeedWidgetItemRowView: View {
                 .padding(1)
                 .border(Color(UIColor.separator), width: 1)
             },
-            failure: { _ in
+            failure: { _,_ in
                 VStack {
                     Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
                 }
@@ -100,7 +99,7 @@ struct FeedWidgetItemRowView: View {
                 .border(Color(UIColor.separator), width: 1)
             },
             content:  {
-                $0.image
+                $0
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: .infinity)

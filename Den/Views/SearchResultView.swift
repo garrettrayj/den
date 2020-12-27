@@ -20,21 +20,16 @@ struct SearchResultView: View {
             HStack(alignment: .center) {
                 if feed.favicon != nil {
                     URLImage(
-                        feed.favicon!,
-                        //processors: [ Resize(size: CGSize(width: 16, height: 16), scale: UIScreen.main.scale) ],
-                        placeholder: { _ in
-                            Image("RSSIcon").faviconView()
-                        },
-                        failure: { _ in
+                        url: feed.favicon!,
+                        failure: { _,_ in
                             Image("RSSIcon").faviconView()
                         },
                         content: {
-                            $0.image
+                            $0
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 16, height: 16)
                                 .clipped()
-                            
                         }
                     )
                     .frame(width: 16, height: 16)
