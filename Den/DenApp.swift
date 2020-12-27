@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct DenApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     let persistenceController = PersistenceController.shared
     
     var body: some Scene {

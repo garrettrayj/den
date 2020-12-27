@@ -48,6 +48,7 @@
 		684DFA0324BAC7680023D6DB /* MIMETypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0224BAC7680023D6DB /* MIMETypes.swift */; };
 		684DFA0524BC39EB0023D6DB /* RefreshableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0424BC39EB0023D6DB /* RefreshableScrollView.swift */; };
 		68710C47259819E4007B2507 /* UserInterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C46259819E4007B2507 /* UserInterfaceStyle.swift */; };
+		68710C55259825BA007B2507 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C54259825BA007B2507 /* AppDelegate.swift */; };
 		687D9CA624A4FF7000EB7F46 /* ListButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */; };
 		687D9CAA24A5DE2E00EB7F46 /* SafariPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA924A5DE2E00EB7F46 /* SafariPresenter.swift */; };
 		687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */; };
@@ -165,6 +166,7 @@
 		684DFA0224BAC7680023D6DB /* MIMETypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIMETypes.swift; sourceTree = "<group>"; };
 		684DFA0424BC39EB0023D6DB /* RefreshableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScrollView.swift; sourceTree = "<group>"; };
 		68710C46259819E4007B2507 /* UserInterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceStyle.swift; sourceTree = "<group>"; };
+		68710C54259825BA007B2507 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListButtonStyle.swift; sourceTree = "<group>"; };
 		687D9CA924A5DE2E00EB7F46 /* SafariPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariPresenter.swift; sourceTree = "<group>"; };
 		687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLWriter.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				689460822596A7BB00ED4064 /* DenApp.swift */,
+				68710C54259825BA007B2507 /* AppDelegate.swift */,
 				689460812596A7BB00ED4064 /* Persistence.swift */,
 				68710C46259819E4007B2507 /* UserInterfaceStyle.swift */,
 				687D9CA924A5DE2E00EB7F46 /* SafariPresenter.swift */,
@@ -677,6 +680,7 @@
 				687D9CDB24B3E0BB00EB7F46 /* WebpageOperation.swift in Sources */,
 				68130EC4259687E3008AB6FC /* ItemDetailViewModel.swift in Sources */,
 				68998B9125064FFC00FDB6EE /* SearchManager.swift in Sources */,
+				68710C55259825BA007B2507 /* AppDelegate.swift in Sources */,
 				684DFA0324BAC7680023D6DB /* MIMETypes.swift in Sources */,
 				68C413462472773100D1DC7B /* PageView.swift in Sources */,
 				68C4FA24247466C900D2C0D6 /* Item+Collection.swift in Sources */,
@@ -1111,7 +1115,7 @@
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.15;
+				minimumVersion = 2.2.0;
 			};
 		};
 		68C4FA302475391C00D2C0D6 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {

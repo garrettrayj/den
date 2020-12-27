@@ -19,7 +19,12 @@ struct FeedWidgetView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            Rectangle().fill(Color.white).cornerRadius(12)
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+            
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color(.secondarySystemBackground), lineWidth: 1)
+
             widgetContent
         }
     }
@@ -30,19 +35,15 @@ struct FeedWidgetView: View {
             HStack(alignment: .center) {
                 if feed.favicon != nil {
                     URLImage(
-                        feed.favicon!,
-                        processors: [ Resize(size: CGSize(width: 16, height: 16), scale: UIScreen.main.scale) ],
-                        placeholder: { _ in
+                        url: feed.favicon!,
+                        inProgress: { _ in
                             Image("RSSIcon").faviconView()
                         },
-                        failure: { _ in
+                        failure: { _,_ in
                             Image("RSSIcon").faviconView()
                         },
                         content: {
-                            $0.image
-                                .resizable()
-                                .faviconView()
-                            
+                            $0.resizable().faviconView()
                         }
                     )
                     .frame(width: 16, height: 16)
