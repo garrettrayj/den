@@ -15,7 +15,6 @@ struct DenApp: App {
         let refreshManager = RefreshManager(persistentContainer: persistenceController.container)
         let cacheManager = CacheManager(persistentContainer: persistenceController.container)
         let importManager = ImportManager(viewContext: persistenceController.container.viewContext)
-        let userDefaultsManager = UserDefaultsManager()
         let searchManager = SearchManager(moc: persistenceController.container.viewContext)
         let subscriptionManager = SubscriptionManager()
         
@@ -25,7 +24,6 @@ struct DenApp: App {
                 .environmentObject(refreshManager)
                 .environmentObject(cacheManager)
                 .environmentObject(importManager)
-                .environmentObject(userDefaultsManager)
                 .environmentObject(searchManager)
                 .environmentObject(subscriptionManager)
                 .withHostingWindow { window in
@@ -37,6 +35,8 @@ struct DenApp: App {
                     #endif
                     
                     SafariPresenter.controller = window?.rootViewController
+                    UserInterfaceStyle.shared.window = window
+                    UserInterfaceStyle.shared.applyUIStyle()
                 }
         }
     }
