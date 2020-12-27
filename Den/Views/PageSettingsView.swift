@@ -40,7 +40,8 @@ struct PageSettingsView: View {
                     }
                 }
             }
-            .navigationBarTitle("Page Settings", displayMode: .inline)
+            .navigationTitle("Page Settings")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Close") }
             })

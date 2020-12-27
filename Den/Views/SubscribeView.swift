@@ -61,7 +61,8 @@ struct SubscribeView: View {
                 }
             }
         }
-        .navigationBarTitle("Add Feed", displayMode: .inline)
+        .navigationTitle("Add Feed")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(
             leading: Button(action: cancel) {
                 Text("Cancel")

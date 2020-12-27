@@ -28,7 +28,8 @@ struct ImportView: View {
             }
         }
         .onDisappear { self.importManager.reset() }
-        .navigationBarTitle("Import", displayMode: .inline)
+        .navigationTitle("Import")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     var pickFileStage: some View {

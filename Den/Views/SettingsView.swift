@@ -102,7 +102,8 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationBarTitle("Settings", displayMode: .inline)
+        .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     func clearCache() {
