@@ -23,7 +23,8 @@ struct FeedWidgetOptionsView: View {
                 onDelete: close,
                 onMove: close
             )
-            .navigationBarTitle("Feed Settings", displayMode: .inline)
+            .navigationTitle("Feed Settings")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 Button(action: close) { Text("Close") }
             })

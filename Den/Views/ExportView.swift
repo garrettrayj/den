@@ -51,7 +51,8 @@ struct ExportView: View {
                 }
             }
         }
-        .navigationBarTitle("Export", displayMode: .inline)
+        .navigationTitle("Export")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private var allSelected: Bool {

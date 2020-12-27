@@ -31,8 +31,7 @@ struct PageView: View {
                     Text("Page Deleted")
                         .font(.title)
                         .foregroundColor(.secondary)
-                        .navigationBarTitle("")
-                        .navigationBarItems(trailing: EmptyView())
+                        .navigationTitle("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     ZStack(alignment: .top) {
@@ -60,7 +59,8 @@ struct PageView: View {
                                 .environmentObject(self.refreshManager)
                         }
                     }
-                    .navigationBarTitle(Text(page.name ?? "Page Deleted"), displayMode: .inline)
+                    .navigationTitle(Text(page.name ?? "Page Deleted"))
+                    .navigationBarTitleDisplayMode(.inline)
                     .navigationBarItems(
                         trailing: HStack(alignment: .center, spacing: 0) {
                             Button(action: showMenu) {
