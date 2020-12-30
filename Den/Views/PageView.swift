@@ -27,12 +27,12 @@ struct PageView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                if page.name == nil {
+                if page.isDeleted {
                     Text("Page Deleted")
                         .font(.title)
                         .foregroundColor(.secondary)
-                        .navigationTitle("")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .navigationTitle("")
                 } else {
                     ZStack(alignment: .top) {
                         if self.page.feedsArray.count > 0 {
@@ -40,7 +40,7 @@ struct PageView: View {
                             
                             RefreshableScrollView(refreshables: [self.page]) {
                                 LazyVGrid(columns: columns, spacing: 16) {
-                                    ForEach(self.page.feedsArray) { feed in
+                                    ForEach(self.page.feedsArray, id: \.self) { feed in
                                         FeedWidgetView(feed: feed, activeSheet: $activeSheet)
                                     }
                                 }
