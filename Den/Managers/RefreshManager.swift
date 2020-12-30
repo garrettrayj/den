@@ -169,6 +169,8 @@ class RefreshManager: ObservableObject {
                 ingestOperation.favicon = faviconResultOperation.favicon
             }
             
+            let deduplicationOperation = DeduplicationOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
+            
             parseWebpageAdapter.addDependency(parseOperation)
             webpageOperation.addDependency(parseWebpageAdapter)
             webpageMetadataAdapter.addDependency(webpageOperation)
@@ -182,6 +184,7 @@ class RefreshManager: ObservableObject {
             faviconResultOperation.addDependency(checkFaviconResultAdapterOperation)
             ingestAdapter.addDependency(faviconResultOperation)
             ingestOperation.addDependency(ingestAdapter)
+            deduplicationOperation.addDependency(ingestOperation)
             
             operations.append(webpageOperation)
             operations.append(metadataOperation)
@@ -194,6 +197,7 @@ class RefreshManager: ObservableObject {
             operations.append(checkFaviconResultAdapterOperation)
             operations.append(faviconResultOperation)
             operations.append(ingestAdapter)
+            operations.append(deduplicationOperation)
         }
         
         return operations
