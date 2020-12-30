@@ -49,7 +49,7 @@
       "size" : "60x60"
     },
     {
-      "filename" : "iPad Notifications.png",
+      "filename" : "iPad Notifications@1x.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
@@ -61,7 +61,7 @@
       "size" : "20x20"
     },
     {
-      "filename" : "iPad Settings.png",
+      "filename" : "iPad Settings@1x.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
@@ -73,7 +73,7 @@
       "size" : "29x29"
     },
     {
-      "filename" : "iPad Spotlight.png",
+      "filename" : "iPad Spotlight@1x.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
@@ -85,7 +85,7 @@
       "size" : "40x40"
     },
     {
-      "filename" : "iPad App.png",
+      "filename" : "iPad App@1x.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
@@ -97,73 +97,73 @@
       "size" : "76x76"
     },
     {
-      "filename" : "iPad Pro App.png",
+      "filename" : "iPad Pro App@1x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "App Store iOS.png",
+      "filename" : "App Store iOS@1x.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
     },
     {
-      "filename" : "Mac 16.png",
+      "filename" : "Mac 16pt@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "Mac 16@2x.png",
+      "filename" : "Mac 16pt@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "Mac 16@2x-1.png",
+      "filename" : "Mac 32pt@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "Mac 32@2x.png",
+      "filename" : "Mac 32pt@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
     },
     {
-      "filename" : "Mac 128.png",
+      "filename" : "Mac 128pt@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
     },
     {
-      "filename" : "Mac 128@2x.png",
+      "filename" : "Mac 128pt@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "128x128"
     },
     {
-      "filename" : "Mac 256.png",
+      "filename" : "Mac 256pt@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
     },
     {
-      "filename" : "Mac 256@2x.png",
+      "filename" : "Mac 512pt@1x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "Mac 512.png",
+      "filename" : "Mac 512pt@1x-1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
     },
     {
-      "filename" : "Mac 512@2x.png",
+      "filename" : "Mac 512pt@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "512x512"

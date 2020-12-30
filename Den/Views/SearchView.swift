@@ -26,7 +26,6 @@ struct SearchView: View {
             .background(Color(UIColor.secondarySystemBackground))
             .edgesIgnoringSafeArea(.all)
             .navigationTitle(Text("Search"))
-            .navigationSubtitle(Text("Filter subscriptions and headlines by keyword"))
             .navigationBarTitleDisplayMode(.inline)
         }
         
