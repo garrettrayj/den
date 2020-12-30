@@ -46,6 +46,7 @@
 		68710C47259819E4007B2507 /* UserInterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C46259819E4007B2507 /* UserInterfaceStyle.swift */; };
 		68710C55259825BA007B2507 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C54259825BA007B2507 /* AppDelegate.swift */; };
 		68710C80259C4108007B2507 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C7F259C4108007B2507 /* Date+Extensions.swift */; };
+		68710C85259C439D007B2507 /* DeduplicationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C84259C439D007B2507 /* DeduplicationOperation.swift */; };
 		687D9CA624A4FF7000EB7F46 /* ListButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */; };
 		687D9CAA24A5DE2E00EB7F46 /* SafariPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA924A5DE2E00EB7F46 /* SafariPresenter.swift */; };
 		687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */; };
@@ -161,6 +162,7 @@
 		68710C46259819E4007B2507 /* UserInterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceStyle.swift; sourceTree = "<group>"; };
 		68710C54259825BA007B2507 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68710C7F259C4108007B2507 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		68710C84259C439D007B2507 /* DeduplicationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeduplicationOperation.swift; sourceTree = "<group>"; };
 		687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListButtonStyle.swift; sourceTree = "<group>"; };
 		687D9CA924A5DE2E00EB7F46 /* SafariPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariPresenter.swift; sourceTree = "<group>"; };
 		687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLWriter.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				6809EFD224DDE5B9007B5CF1 /* CheckFaviconOperation.swift */,
 				6809EFD424DDEEF7007B5CF1 /* FaviconResultOperation.swift */,
 				6845BD4F24F6A4080008B296 /* IngestOperation.swift */,
+				68710C84259C439D007B2507 /* DeduplicationOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				687D9CA624A4FF7000EB7F46 /* ListButtonStyle.swift in Sources */,
 				68998B8B2504DFC500FDB6EE /* StaggeredGridStyle+Extensions.swift in Sources */,
 				68C41314247263C700D1DC7B /* Page+Collection.swift in Sources */,
+				68710C85259C439D007B2507 /* DeduplicationOperation.swift in Sources */,
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */,
 				6885FD0E24819446007A3D5B /* ItemLinkButtonStyle.swift in Sources */,

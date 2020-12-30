@@ -168,9 +168,6 @@ public class Feed: Refreshable {
         })
     }
     
-    /**
-     TODO: JSON Feed importer
-     */
     func ingest(content: JSONFeed, moc managedObjectContext: NSManagedObjectContext) {
         if self.title == nil {
             if let title = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
