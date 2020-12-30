@@ -5,7 +5,6 @@
         <attribute name="favicon" optional="YES" attributeType="URI"/>
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="itemLimit" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -36,7 +35,7 @@
         <userInfo/>
     </entity>
     <elements>
-        <element name="Feed" positionX="270" positionY="216" width="128" height="268"/>
+        <element name="Feed" positionX="270" positionY="216" width="128" height="239"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="163"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="104"/>
     </elements>
