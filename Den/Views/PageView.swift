@@ -82,6 +82,12 @@ struct PageView: View {
             .padding(.top, geometry.safeAreaInsets.top)
             .onAppear {
                 self.screenManager.currentPage = self.page
+                
+                if let lastRefreshed = self.page.lastRefreshed {
+                    if Date() - lastRefreshed > TimeInterval(7200) {
+                        refreshManager.refresh([self.page])
+                    }
+                }
             }
             .background(Color(.secondarySystemBackground))
             .edgesIgnoringSafeArea(.all)
