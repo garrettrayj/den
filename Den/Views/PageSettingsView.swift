@@ -52,9 +52,10 @@ struct PageSettingsView: View {
             if self.viewContext.hasChanges {
                 do {
                     try self.viewContext.save()
-                    
                     self.page.objectWillChange.send()
-                    self.page.sendChildrenWillChange()
+                    self.page.feedsArray.forEach { feed in
+                        feed.objectWillChange.send()
+                    }
                 } catch {
                     let nserror = error as NSError
                     fatalError("Unresolved error \(nserror), \(nserror.userInfo)")

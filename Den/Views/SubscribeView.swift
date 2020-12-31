@@ -82,7 +82,7 @@ struct SubscribeView: View {
     
     var configurationStage: some View {
         Group {
-            if self.newFeed != nil && refreshManager.isRefreshing([self.newFeed!]) {
+            if self.newFeed != nil && refreshManager.feedIsRefreshing(feed: self.newFeed!) {
                 VStack {
                     Text("Downloading feed…").font(.title)
                     ActivityRep()
@@ -187,7 +187,7 @@ struct SubscribeView: View {
         }
         
         self.activeStage = .configuration
-        self.refreshManager.refresh([newFeed!])
+        self.refreshManager.refresh(newFeed!)
     }
     
     func save() {

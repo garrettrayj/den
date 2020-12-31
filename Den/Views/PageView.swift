@@ -36,9 +36,9 @@ struct PageView: View {
                 } else {
                     ZStack(alignment: .top) {
                         if self.page.feedsArray.count > 0 {
-                            HeaderProgressBarView(refreshables: [self.page])
+                            HeaderProgressBarView(page: page)
                             
-                            RefreshableScrollView(refreshables: [self.page]) {
+                            RefreshableScrollView(page: page) {
                                 LazyVGrid(columns: columns, spacing: 16) {
                                     ForEach(self.page.feedsArray, id: \.self) { feed in
                                         FeedWidgetView(feed: feed, activeSheet: $activeSheet)
@@ -63,13 +63,14 @@ struct PageView: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationBarItems(
                         trailing: HStack(alignment: .center, spacing: 0) {
+                            
                             Button(action: showMenu) {
                                 Image(systemName: "ellipsis").titleBarIconView()
                             }
                             .disabled(refreshManager.refreshing)
                             .actionSheet(isPresented: $showingPageMenu) {
                                 ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
-                                    .default(Text("Refresh Feeds")) { self.refreshManager.refresh([self.page]) },
+                                    .default(Text("Refresh Feeds")) { self.refreshManager.refresh(self.page) },
                                     .default(Text("Add Subscription")) { self.showSubscribe() },
                                     .default(Text("Page Settings")) { self.showOrganizer() },
                                     .cancel()
@@ -82,11 +83,13 @@ struct PageView: View {
             .padding(.top, geometry.safeAreaInsets.top)
             .onAppear {
                 self.screenManager.currentPage = self.page
-                
-                if let lastRefreshed = self.page.lastRefreshed {
+                if let lastRefreshed = page.minimumRefreshedDate {
                     if Date() - lastRefreshed > TimeInterval(7200) {
-                        refreshManager.refresh([self.page])
+                        refreshManager.refresh(self.page)
                     }
+                } else {
+                    // Initial feed load
+                    refreshManager.refresh(self.page)
                 }
             }
             .background(Color(.secondarySystemBackground))

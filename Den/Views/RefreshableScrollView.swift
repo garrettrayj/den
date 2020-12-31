@@ -19,7 +19,7 @@ struct RefreshableScrollView<Content: View>: View {
     @State private var scrollOffset: CGFloat = 0
     @State private var rotation: Angle = .degrees(0)
     
-    var refreshables: [Refreshable]
+    var page: Page
     var threshold: CGFloat = 80
     let content: Content
 
@@ -29,10 +29,10 @@ struct RefreshableScrollView<Content: View>: View {
                 ZStack(alignment: .top) {
                     MovingView()
                     VStack { self.content }.alignmentGuide(.top, computeValue: {
-                        d in (self.refreshManager.isRefreshing(self.refreshables)) ? -self.threshold : 0.0
+                        d in (self.refreshManager.pageIsRefreshing(page: page)) ? -self.threshold : 0.0
                     })
                     UpdateStatusView(
-                        refreshables: refreshables,
+                        page: page,
                         height: self.threshold,
                         symbolRotation: rotation
                     )
@@ -45,8 +45,8 @@ struct RefreshableScrollView<Content: View>: View {
         }
     }
     
-    init(refreshables: [Refreshable], @ViewBuilder content: () -> Content) {
-        self.refreshables = refreshables
+    init(page: Page, @ViewBuilder content: () -> Content) {
+        self.page = page
         self.content = content()
     }
     
@@ -65,7 +65,7 @@ struct RefreshableScrollView<Content: View>: View {
                 !self.refreshManager.refreshing &&
                 (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold)
             {
-                self.refreshManager.refresh(self.refreshables)
+                self.refreshManager.refresh(self.page)
             }
             
             // Update last scroll offset

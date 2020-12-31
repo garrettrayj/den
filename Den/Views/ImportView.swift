@@ -67,7 +67,6 @@ struct ImportView: View {
             Section {
                 Button(action: {
                     self.importManager.importSelected()
-                    self.refreshManager.refresh()
                 }) {
                     HStack {
                         Image(systemName: "arrow.down.doc")

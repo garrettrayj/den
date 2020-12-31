@@ -13,10 +13,9 @@ import FeedKit
 
 class RefreshManager: ObservableObject {
     @Published public var refreshing: Bool = false
-    @Published public var currentRefreshables: [Refreshable]?
+    @Published public var refreshingFeeds: [Feed] = []
     
-    public var progress = Progress(totalUnitCount: 1)
-    
+    public var progress = Progress(totalUnitCount: 0)
     private var queue = OperationQueue()
     private var persistentContainer: NSPersistentContainer
 
@@ -24,63 +23,34 @@ class RefreshManager: ObservableObject {
         self.persistentContainer = persistentContainer
     }
     
-    public func refresh(_ refreshables: [Refreshable]? = nil) {
-        var processRefreshables: [Refreshable] = []
-        
-        if refreshables == nil {
-            do {
-                processRefreshables = try self.persistentContainer.viewContext.fetch(Page.fetchRequest()) as! [Page]
-            } catch {
-                fatalError("Unable to fetch pages for refresh")
-            }
-        } else {
-            processRefreshables = refreshables!
+    public func refresh(_ page: Page) {
+        page.feedsArray.forEach { feed in
+            self.refresh(feed)
         }
-        
-        if refreshing == false {
-            refreshing = true
-            currentRefreshables = processRefreshables
-        } else {
-            print("Update manager already updating feeds")
+    }
+    
+    public func refresh(_ feed: Feed) {
+        // Skip if feed is already queued for refresh
+        if refreshingFeeds.contains(feed) {
             return
         }
         
-        let feedCount = processRefreshables.reduce(0) { result, refreshable -> Int in
-            result + refreshable.feedsArray.count
-        }
-        
-        if feedCount == 0 {
-            self.reset()
-            return
-        } else {
-            progress.totalUnitCount = Int64(feedCount)
-        }
+        refreshingFeeds.append(feed)
+        progress.totalUnitCount += 1
         
         DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(self.createOperations(processRefreshables), waitUntilFinished: true)
-            
-            DispatchQueue.main.async {
-                processRefreshables.forEach { refreshable in
-                    refreshable.onRefreshComplete()
-                }
-                self.reset()
-            }
+            self.queue.addOperations(self.createFeedOperations(feed: feed), waitUntilFinished: false)
         }
     }
     
-    public func isRefreshing(_ refreshables: [Refreshable]) -> Bool {
-        refreshables == self.currentRefreshables && self.refreshing == true
+    public func feedIsRefreshing(feed: Feed) -> Bool {
+        refreshingFeeds.contains(feed)
     }
     
-    private func createOperations(_ refreshables: [Refreshable]) -> [Operation] {
-        var operations: [Operation] = []
-        refreshables.forEach { refreshable in
-            refreshable.feedsArray.forEach { feed in
-                operations.append(contentsOf: createFeedOperations(feed: feed))
-            }
+    public func pageIsRefreshing(page: Page) -> Bool {
+        refreshingFeeds.contains { feed in
+            feed.page == page
         }
-
-        return operations
     }
     
     private func createFeedOperations(feed: Feed) -> [Operation] {
@@ -95,21 +65,38 @@ class RefreshManager: ObservableObject {
         let fetchOperation = FetchOperation(url: feedURL)
         let parseOperation = ParseOperation()
         let ingestOperation = IngestOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
-        ingestOperation.completionBlock = {
-            self.progress.completedUnitCount += 1
-        }
         
         let fetchParseAdapter = BlockOperation() { [unowned parseOperation, unowned fetchOperation] in
             parseOperation.data = fetchOperation.data
         }
         
+        let deduplicationOperation = DeduplicationOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
+        
+        let completionOperation = BlockOperation {
+            DispatchQueue.main.async {
+                self.progress.completedUnitCount += 1
+                if self.progress.fractionCompleted == 1 {
+                    self.refreshing = false
+                }
+                self.refreshingFeeds.removeAll { refreshingFeed in
+                    refreshingFeed == feed
+                }
+                
+                feed.page?.objectWillChange.send()
+            }
+        }
+        
         fetchParseAdapter.addDependency(fetchOperation)
         parseOperation.addDependency(fetchParseAdapter)
+        deduplicationOperation.addDependency(ingestOperation)
+        completionOperation.addDependency(deduplicationOperation)
 
         operations.append(fetchOperation)
         operations.append(parseOperation)
         operations.append(ingestOperation)
         operations.append(fetchParseAdapter)
+        operations.append(deduplicationOperation)
+        operations.append(completionOperation)
 
         if !fetchMeta {
             // Regular feed update without fetching meta
@@ -169,8 +156,6 @@ class RefreshManager: ObservableObject {
                 ingestOperation.favicon = faviconResultOperation.favicon
             }
             
-            let deduplicationOperation = DeduplicationOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
-            
             parseWebpageAdapter.addDependency(parseOperation)
             webpageOperation.addDependency(parseWebpageAdapter)
             webpageMetadataAdapter.addDependency(webpageOperation)
@@ -184,7 +169,6 @@ class RefreshManager: ObservableObject {
             faviconResultOperation.addDependency(checkFaviconResultAdapterOperation)
             ingestAdapter.addDependency(faviconResultOperation)
             ingestOperation.addDependency(ingestAdapter)
-            deduplicationOperation.addDependency(ingestOperation)
             
             operations.append(webpageOperation)
             operations.append(metadataOperation)
@@ -197,7 +181,6 @@ class RefreshManager: ObservableObject {
             operations.append(checkFaviconResultAdapterOperation)
             operations.append(faviconResultOperation)
             operations.append(ingestAdapter)
-            operations.append(deduplicationOperation)
         }
         
         return operations
@@ -205,7 +188,7 @@ class RefreshManager: ObservableObject {
     
     private func reset() {
         progress.completedUnitCount = 0
-        currentRefreshables = nil
         refreshing = false
+        refreshingFeeds = []
     }
 }
