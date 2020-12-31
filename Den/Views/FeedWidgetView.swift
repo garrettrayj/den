@@ -97,11 +97,19 @@ struct FeedWidgetView: View {
                         Divider()
                     }
                     
-                    Text("Feed Empty")
-                    .foregroundColor(.secondary)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .multilineTextAlignment(.center)
+                    if refreshManager.feedIsRefreshing(feed: feed) {
+                        Text("Updating feed…")
+                        .foregroundColor(.secondary)
+                        .padding()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .multilineTextAlignment(.center)
+                    } else {
+                        Text("Empty Feed")
+                        .foregroundColor(.secondary)
+                        .padding()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .multilineTextAlignment(.center)
+                    }
                 }
             }
         }

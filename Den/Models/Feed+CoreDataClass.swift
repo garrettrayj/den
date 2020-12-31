@@ -11,7 +11,7 @@ import CoreData
 import FeedKit
 
 @objc(Feed)
-public class Feed: Refreshable {
+public class Feed: NSManagedObject {
     public var itemsArray: [Item] {
         guard let items = items else {
             return []
@@ -211,18 +211,5 @@ public class Feed: Refreshable {
                 self.removeFromItems(item)
             }
         })
-    }
-    
-    // MARK: Refreshable abstract properties and methods implementations
-    override public var lastRefreshed: Date? {
-        return refreshed
-    }
-    
-    override public var feedsArray: [Feed] {
-        return [self]
-    }
-    
-    override func onRefreshComplete() {
-        page?.objectWillChange.send()
     }
 }

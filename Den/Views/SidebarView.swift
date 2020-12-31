@@ -20,8 +20,6 @@ struct SidebarView: View {
     @State var editMode: EditMode = .inactive
     
     var pages: FetchedResults<Page>
-    
-    let workspaceHeaderHeight: CGFloat = 140
 
     var body: some View {
         List {
@@ -49,7 +47,6 @@ struct SidebarView: View {
                     }
                 }
             }
-            
         
             Section() {
                 NavigationLink(
@@ -77,93 +74,6 @@ struct SidebarView: View {
             EditButton()
         })
         .environment(\.editMode, self.$editMode)
-        
-        
-        
-        
-        /*
-        VStack(spacing: 0) {
-            if pages.count == 0 && UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
-                Spacer()
-            }
-            
-            if pages.count == 0 {
-                VStack(alignment: .center, spacing: 16) {
-                    Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
-                    Text("Get Started").font(.title).fontWeight(.semibold)
-                    Button(action: newPage) {
-                        HStack {
-                            Image(systemName: "plus")
-                            Text("Create a New Page").fontWeight(.medium)
-                        }
-                    }
-                    Button(action: loadDemo) {
-                        HStack {
-                            Image(systemName: "wand.and.stars")
-                            Text("Load Demo Feeds").fontWeight(.medium)
-                        }
-                    }
-                    NavigationLink(destination: ImportView()) {
-                        HStack {
-                            Image(systemName: "arrow.down.doc")
-                            Text("Import OPML File").fontWeight(.medium)
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .buttonStyle(BorderedButtonStyle())
-                
-                Spacer()
-                Spacer()
-                Spacer()
-            } else {
-                HeaderProgressBarView(refreshables: pages.map { $0 })
-                    .frame(height: refreshManager.isRefreshing(pages.map { $0 }) ? 2 : 0)
-                
-                PageListView(editMode: $editMode, pages: pages)
-            }
-            
-            if pages.count > 0 && editMode == .inactive {
-                HStack {
-                    NavigationLink(
-                        destination: SettingsView(pages: pages).environmentObject(userDefaultsManager)
-                    ) {
-                        Image(systemName: "gear").titleBarIconView()
-                    }
-                    Spacer()
-                    
-                    NavigationLink(
-                        destination: SearchView().environmentObject(searchManager)
-                    ) {
-                        Image(systemName: "magnifyingglass").titleBarIconView()
-                    }
-                }.padding(4)
-            } else if editMode == .active {
-                HStack {
-                    Spacer()
-                    Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
-                        Image(systemName: "plus").titleBarIconView()
-                    }
-                }.padding(4)
-            }
-        }
-        .padding(.top, 1)
-        .navigationBarItems(
-            trailing: HStack {
-                if pages.count > 0 {
-                    if self.editMode == .active {
-                        Button(action: doneEditing) {
-                            Text("Done").background(Color.clear).padding(12)
-                        }.offset(x: 12)
-                    } else {
-                        Button(action: { self.editMode = .active }) {
-                            Text("Edit").background(Color.clear).padding(12)
-                        }.offset(x: 12)
-                    }
-                }
-            }
-        )
-        */
     }
     
     var intro: some View {
@@ -253,7 +163,5 @@ struct SidebarView: View {
         } catch {
             fatalError("Unable to save import context: \(error)")
         }
-        
-        refreshManager.refresh(newPages)
     }
 }

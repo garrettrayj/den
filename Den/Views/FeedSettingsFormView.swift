@@ -104,12 +104,9 @@ struct FeedSettingsFormView: View {
                     let nserror = error as NSError
                     fatalError("Unable to save feed options context: \(nserror), \(nserror.userInfo)")
                 }
-                
                 self.feed.itemsArray.forEach { item in
                     item.objectWillChange.send()
                 }
-                
-                self.refreshManager.refresh([self.feed])
             }
         }
     }

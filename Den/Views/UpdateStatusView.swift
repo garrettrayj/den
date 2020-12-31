@@ -11,22 +11,16 @@ import SwiftUI
 struct UpdateStatusView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     
-    var refreshables: [Refreshable]
+    var page: Page
     var height: CGFloat
     var symbolRotation: Angle
     
     var body: some View {
         VStack {
-            if refreshManager.isRefreshing(refreshables) { // If loading, show the activity control
+            if refreshManager.pageIsRefreshing(page: page) { // If loading, show the activity control
                 ActivityRep()
                 Text("Updating feeds…")
-            } else if refreshManager.refreshing && !refreshManager.isRefreshing(refreshables) {
-                Image(systemName: "slash.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 20, height: 20)
-                Text("Other refresh in progress")
-            } else if symbolRotation > .degrees(0) {
+            } else if symbolRotation > .degrees(0) && !refreshManager.pageIsRefreshing(page: page) {
                 Image(systemName: "arrow.down")
                     .resizable()
                     .scaledToFit()
@@ -41,20 +35,11 @@ struct UpdateStatusView: View {
         .foregroundColor(Color.secondary)
         .fixedSize()
         .frame(height: height)
-        .offset(y: -height + (refreshManager.isRefreshing(refreshables) ? +height : 0.0))
+        .offset(y: -height + (refreshManager.pageIsRefreshing(page: page) ? +height : 0.0))
     }
     
     func lastRefreshedLabel() -> Text {
-        var earliestRefreshDate: Date? = nil
-        
-        refreshables.forEach { refreshable in
-            guard let refreshed = refreshable.lastRefreshed else { return }
-            if earliestRefreshDate == nil  || refreshed < earliestRefreshDate! {
-                earliestRefreshDate = refreshed
-            }
-        }
-        
-        guard let lastRefreshed = earliestRefreshDate else {
+        guard let lastRefreshed = page.minimumRefreshedDate else {
             return Text("Never updated")
         }
         
