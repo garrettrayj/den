@@ -39,6 +39,8 @@ struct DenApp: App {
                     SafariPresenter.controller = window?.rootViewController
                     UserInterfaceStyle.shared.window = window
                     UserInterfaceStyle.shared.applyUIStyle()
+                }.onOpenURL { url in
+                    subscriptionManager.subscribe(to: url)
                 }
         }
     }
