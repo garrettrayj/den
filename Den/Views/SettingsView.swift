@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 /**
  Application settings form. Contain fields for options stored in Workspace entity (shared on all devices) and local user preferences.
@@ -130,7 +131,7 @@ struct SettingsView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            print("Failure to create new workspace: ", error)
+            fatalError("Failed to save context after resetting workspace. \(error)")
         }
         
         restoreDefaultSettings()

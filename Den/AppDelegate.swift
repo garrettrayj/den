@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import URLImage
 import SwiftUI
+import OSLog
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     override func buildMenu(with builder: UIMenuBuilder) {

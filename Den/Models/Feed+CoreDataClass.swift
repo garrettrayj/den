@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import FeedKit
+import OSLog
 
 @objc(Feed)
 public class Feed: NSManagedObject {
@@ -87,7 +88,7 @@ public class Feed: NSManagedObject {
         atomEntries.prefix(page!.wrappedItemsPerFeed).forEach { atomEntry in
             // Continue if link is missing
             guard let itemLink = atomEntry.linkURL else {
-                print("MISSING LINK")
+                Logger.ingest.notice("Missing link for Atom entry: \(atomEntry.title ?? "Untitled")")
                 return
             }
             
@@ -141,7 +142,7 @@ public class Feed: NSManagedObject {
         // Add new items
         rssItems.prefix(page!.wrappedItemsPerFeed).forEach { (rssItem: RSSFeedItem) in
             guard let itemLink = rssItem.linkURL else {
-                print("RSS ITEM MISSING LINK")
+                Logger.ingest.notice("Missing link for RSS item: \(rssItem.title ?? "Untitled")")
                 return
             }
             
@@ -187,6 +188,7 @@ public class Feed: NSManagedObject {
         // Add new items
         jsonItems.prefix(page!.wrappedItemsPerFeed).forEach { jsonItem in
             guard let itemLink = jsonItem.linkURL else {
+                Logger.ingest.notice("Missing link for JSON item: \(jsonItem.title ?? "Untitled")")
                 return
             }
             

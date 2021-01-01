@@ -46,6 +46,7 @@
 		68710C80259C4108007B2507 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C7F259C4108007B2507 /* Date+Extensions.swift */; };
 		68710C85259C439D007B2507 /* DeduplicationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C84259C439D007B2507 /* DeduplicationOperation.swift */; };
 		68710C96259ECD7B007B2507 /* PageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C95259ECD7B007B2507 /* PageViewModel.swift */; };
+		68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */; };
 		687D9CA624A4FF7000EB7F46 /* ListButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */; };
 		687D9CAA24A5DE2E00EB7F46 /* SafariPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA924A5DE2E00EB7F46 /* SafariPresenter.swift */; };
 		687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */; };
@@ -160,6 +161,7 @@
 		68710C7F259C4108007B2507 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		68710C84259C439D007B2507 /* DeduplicationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeduplicationOperation.swift; sourceTree = "<group>"; };
 		68710C95259ECD7B007B2507 /* PageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewModel.swift; sourceTree = "<group>"; };
+		68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListButtonStyle.swift; sourceTree = "<group>"; };
 		687D9CA924A5DE2E00EB7F46 /* SafariPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariPresenter.swift; sourceTree = "<group>"; };
 		687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLWriter.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				683CEC5F250966410005F305 /* Bundle+Extensions.swift */,
 				689461162596BE3200ED4064 /* View+HostingWindow.swift */,
 				68710C7F259C4108007B2507 /* Date+Extensions.swift */,
+				68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				68C41314247263C700D1DC7B /* Page+Collection.swift in Sources */,
 				68710C85259C439D007B2507 /* DeduplicationOperation.swift in Sources */,
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
+				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */,
 				6885FD0E24819446007A3D5B /* ItemLinkButtonStyle.swift in Sources */,
 				687D9CB824A9CA2A00EB7F46 /* FeedWidgetItemRowView.swift in Sources */,

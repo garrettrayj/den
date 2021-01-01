@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import FeedKit
+import OSLog
 
 class IngestOperation: Operation {
     var transportError: Error?
@@ -49,13 +50,13 @@ class IngestOperation: Operation {
         
         if let transportError = transportError {
             feed.error = transportError.localizedDescription
-            print("Transport error while fetching \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+            Logger.ingest.notice("Transport error while fetching \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
             return
         }
         
         guard let httpResponse = httpResponse else {
             feed.error = "Server did not respond"
-            print("Server did not respond to request for \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+            Logger.ingest.notice("Server did not respond to request for \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
             return
         }
         
@@ -63,41 +64,41 @@ class IngestOperation: Operation {
         
         if !(200...299).contains(httpResponse.statusCode) {
             feed.error = HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode).capitalized(with: .autoupdatingCurrent)
-            print("Invalid HTTP response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+            Logger.ingest.notice("Invalid HTTP response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
             return
         }
         
         if let parserError = parserError {
-            feed.error = "Failed to parse response"
-            print("Failed to parse response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(parserError.localizedDescription)")
+            feed.error = "Failed to parse feed content"
+            Logger.ingest.notice("Failed to parse response from \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(parserError.localizedDescription)")
             return
         }
         
         switch parsedFeed  {
             case let .atom(content):
                 if content.entries == nil || content.entries?.count == 0 {
-                    feed.error = "Empty Atom feed"
-                    print("Feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                    feed.error = "Feed empty"
+                    Logger.ingest.notice("Atom feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
                     return
                 }
                 feed.ingest(content: content, moc: context)
             case let .rss(content):
                 if content.items == nil || content.items?.count == 0 {
-                    feed.error = "Empty RSS feed"
-                    print("Feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                    feed.error = "Feed empty"
+                    Logger.ingest.notice("RSS feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
                     return
                 }
                 feed.ingest(content: content, moc: context)
             case let .json(content):
                 if content.items == nil || content.items?.count == 0 {
-                    feed.error = "Empty JSON feed"
-                    print("Feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                    feed.error = "Feed empty"
+                    Logger.ingest.notice("JSON feed has no items \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
                     return
                 }
                 feed.ingest(content: content, moc: context)
             case .none:
-                feed.error = "Unknown format"
-                print("Unknown feed format for \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
+                feed.error = "Unknown feed format"
+                Logger.ingest.notice("Unknown feed format for \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
                 return
         }
         
