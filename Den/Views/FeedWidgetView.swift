@@ -15,7 +15,7 @@ import URLImage
 struct FeedWidgetView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
-    @Binding var activeSheet: PageSheetViewModel?
+    @Binding var pageSheetViewModel: PageSheetViewModel?
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -116,6 +116,6 @@ struct FeedWidgetView: View {
     }
     
     func showOptions() {
-        self.activeSheet = PageSheetViewModel(state: .options, feed: feed)
+        self.pageSheetViewModel = PageSheetViewModel(modal: .options, feed: feed)
     }
 }

@@ -18,7 +18,7 @@ struct PageListRowView: View {
     var body: some View {
         if page.id != nil {
             if editMode == .inactive {
-                NavigationLink(destination: PageView(page: page)) {
+                NavigationLink(destination: PageView(pageViewModel: PageViewModel(page: page))) {
                     Image(systemName: "square.grid.2x2").sidebarIconView()
                     
                     Text(page.wrappedName)
