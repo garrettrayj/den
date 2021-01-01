@@ -30,6 +30,7 @@ struct FeedSettingsFormView: View {
                 self.pickedPage = $0
                 self.feed.userOrder = self.pages[$0].feedsUserOrderMax + 1
                 self.feed.page = self.pages[$0]
+                self.onMove()
             }
         )
         

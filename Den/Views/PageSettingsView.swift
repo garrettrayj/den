@@ -15,7 +15,6 @@ struct PageSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var page: Page
-    @State var movingItem: Bool = false
 
     var body: some View {
         NavigationView {
@@ -85,6 +84,7 @@ struct PageSettingsView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                page.objectWillChange.send()
             } catch {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
