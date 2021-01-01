@@ -55,7 +55,7 @@ struct FeedWidgetView: View {
                 
                 Button(action: showOptions) {
                     Image(systemName: "gearshape").faviconView()
-                }
+                }.disabled(refreshManager.refreshing)
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)

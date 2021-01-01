@@ -12,7 +12,7 @@ import CoreData
 extension Collection where Element == Page, Index == Int {
     
     func delete(at indices: IndexSet, from managedObjectContext: NSManagedObjectContext) {
-        indices.forEach { managedObjectContext.delete(self[$0]) }       
+        indices.forEach { managedObjectContext.delete(self[$0]) }
  
         do {
             try managedObjectContext.save()

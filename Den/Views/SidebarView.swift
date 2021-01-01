@@ -11,7 +11,7 @@ import SwiftUI
 import CoreData
 
 /**
- Master navigation list with links to Pages. Activating editMode enables CRUD for pages
+ Master navigation list with links to page views.
 */
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
@@ -24,51 +24,17 @@ struct SidebarView: View {
     var body: some View {
         List {
             if pages.count > 0 {
-                Section(header: Text("Pages")) {
-                    ForEach(self.pages) { page in
-                        PageListRowView(page: page, editMode: $editMode)
-                    }
-                    .onMove(perform: self.move)
-                    .onDelete(perform: self.delete)
-                }
+                pageList
             } else {
-                Section(header: Text("Get Started"), footer: Text("or import subscriptions in settings")) {
-                    Button(action: newPage) {
-                        HStack {
-                            Image(systemName: "plus")
-                            Text("Create a New Page").fontWeight(.medium)
-                        }
-                    }
-                    Button(action: loadDemo) {
-                        HStack {
-                            Image(systemName: "wand.and.stars")
-                            Text("Load Demo Feeds").fontWeight(.medium)
-                        }
-                    }
-                }
+                getStartedSection
             }
-        
-            Section() {
-                NavigationLink(
-                    destination: SearchView().environmentObject(searchManager)
-                ) {
-                    Image(systemName: "magnifyingglass").sidebarIconView()
-                    Text("Search")
-                }
-                
-                NavigationLink(
-                    destination: SettingsView(pages: pages)
-                ) {
-                    Image(systemName: "gear").sidebarIconView()
-                    Text("Settings")
-                }
-            }
+            moreSection
         }
         .animation(nil)
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Den")
         .navigationBarItems(trailing: HStack {
-            Button(action: { withAnimation { let _ = Page.create(in: self.viewContext) }}) {
+            Button(action: { withAnimation { createPage() }}) {
                 Image(systemName: "plus").titleBarIconView()
             }
             EditButton()
@@ -76,11 +42,22 @@ struct SidebarView: View {
         .environment(\.editMode, self.$editMode)
     }
     
-    var intro: some View {
-        VStack(alignment: .center, spacing: 16) {
-            Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
-            Text("Get Started").font(.title).fontWeight(.semibold)
-            Button(action: newPage) {
+    var pageList: some View {
+        Section(header: Text("Pages")) {
+            ForEach(self.pages) { page in
+                PageListRowView(page: page, editMode: $editMode)
+            }
+            .onMove(perform: self.move)
+            .onDelete(perform: self.delete)
+        }
+    }
+    
+    var getStartedSection: some View {
+        Section(
+            header: Text("Get Started"),
+            footer: Text("or import subscriptions in settings.")
+        ) {
+            Button(action: createPage) {
                 HStack {
                     Image(systemName: "plus")
                     Text("Create a New Page").fontWeight(.medium)
@@ -92,23 +69,39 @@ struct SidebarView: View {
                     Text("Load Demo Feeds").fontWeight(.medium)
                 }
             }
-            NavigationLink(destination: ImportView()) {
-                HStack {
-                    Image(systemName: "arrow.down.doc")
-                    Text("Import OPML File").fontWeight(.medium)
-                }
+        }
+    }
+    
+    var moreSection: some View {
+        Section() {
+            NavigationLink(
+                destination: SearchView().environmentObject(searchManager)
+            ) {
+                Image(systemName: "magnifyingglass").sidebarIconView()
+                Text("Search")
+            }
+            
+            NavigationLink(
+                destination: SettingsView(pages: pages)
+            ) {
+                Image(systemName: "gear").sidebarIconView()
+                Text("Settings")
             }
         }
-        .frame(maxWidth: .infinity)
-        .buttonStyle(BorderedButtonStyle())
     }
     
     func doneEditing() {
         self.editMode = .inactive
     }
     
-    func newPage() {
+    func createPage() {
         let _ = Page.create(in: viewContext)
+        do {
+            try viewContext.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
     }
     
     private func move( from source: IndexSet, to destination: Int) {

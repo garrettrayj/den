@@ -19,6 +19,8 @@ class ImportManager: ObservableObject {
     @Published var opmlFolders: [OPMLFolder] = []
     @Published var selectedFolders: [OPMLFolder] = []
     @Published var pickedURL: URL?
+    @Published var feedsImported: [Feed] = []
+    @Published var pagesImported: [Page] = []
     
     var documentPicker: ImportDocumentPicker!
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
@@ -32,11 +34,13 @@ class ImportManager: ObservableObject {
     }
     
     func reset() {
-        self.stage = .pickFile
-        self.importProgress = 0
-        self.opmlFolders = []
-        self.selectedFolders = []
-        self.pickedURL = nil
+        stage = .pickFile
+        importProgress = 0
+        opmlFolders = []
+        selectedFolders = []
+        pickedURL = nil
+        feedsImported = []
+        pagesImported = []
     }
     
     func toggleFolder(_ folder: OPMLFolder) {
@@ -73,11 +77,13 @@ class ImportManager: ObservableObject {
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext)
             page.name = opmlFolder.name
+            pagesImported.append(page)
             
             opmlFolder.feeds.forEach { opmlFeed in
                 let feed = Feed.create(in: self.viewContext, page: page)
                 feed.title = opmlFeed.title
                 feed.url = opmlFeed.url
+                feedsImported.append(feed)
             }
         }
         
