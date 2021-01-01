@@ -82,7 +82,7 @@ struct SubscribeView: View {
     
     var configurationStage: some View {
         Group {
-            if self.newFeed != nil && refreshManager.feedIsRefreshing(feed: self.newFeed!) {
+            if self.newFeed != nil && refreshManager.refreshingFeeds.contains(self.newFeed!) {
                 VStack {
                     Text("Downloading feed…").font(.title)
                     ActivityRep()

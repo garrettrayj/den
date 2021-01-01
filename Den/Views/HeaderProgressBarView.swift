@@ -16,7 +16,7 @@ struct HeaderProgressBarView: View {
     var page: Page
     
     var body: some View {
-        if self.refreshManager.pageIsRefreshing(page: page) {
+        if self.refreshManager.refreshingPages.contains(page) {
             ProgressView(value: observedProgress)
                 .onReceive(self.refreshManager.progress.publisher(for: \.fractionCompleted).receive(on: RunLoop.main)) { fractionCompleted in
                 self.observedProgress = CGFloat(fractionCompleted)

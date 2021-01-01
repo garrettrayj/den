@@ -9,33 +9,34 @@ import Foundation
 import SwiftUI
 
 struct UpdateStatusView: View {
-    @EnvironmentObject var refreshManager: RefreshManager
-    
     var page: Page
     var height: CGFloat
+    var loading: Bool
     var symbolRotation: Angle
     
     var body: some View {
-        VStack {
-            if refreshManager.pageIsRefreshing(page: page) { // If loading, show the activity control
+        VStack(spacing: 8) {
+            if loading { // If loading, show the activity control
+                Spacer()
                 ActivityRep()
                 Text("Updating feeds…")
-            } else if symbolRotation > .degrees(0) && !refreshManager.pageIsRefreshing(page: page) {
-                Image(systemName: "arrow.down")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 16, height: 16)
-                    .fixedSize()
-                    .rotationEffect(symbolRotation)
-                
-                lastRefreshedLabel()
+            } else {
+                if symbolRotation > .degrees(0) {
+                    Spacer()
+                    Image(systemName: "arrow.down")
+                        .imageScale(.medium)
+                        .fixedSize()
+                        .rotationEffect(symbolRotation)
+                    
+                    lastRefreshedLabel()
+                }
             }
         }
         .font(.callout)
         .foregroundColor(Color.secondary)
         .fixedSize()
         .frame(height: height)
-        .offset(y: -height + (refreshManager.pageIsRefreshing(page: page) ? +height : 0.0))
+        .offset(y: -height + (loading ? height : 0.0))
     }
     
     func lastRefreshedLabel() -> Text {
