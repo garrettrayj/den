@@ -20,7 +20,7 @@ struct SubscribeView: View {
     
     @State private var activeStage: SubscribeStage = .urlEntry
     @State private var urlText: String = ""
-    @State private var urlIsValid: Bool?
+    @State private var urlIsValid: Bool = false
     @State private var validationMessage: String?
     @State private var newFeed: Feed?
     
@@ -56,8 +56,10 @@ struct SubscribeView: View {
             }
             
             if self.urlIsValid == false {
-                Section {
-                    Text(validationMessage ?? "Unknown validation error")
+                if validationMessage != nil {
+                    Section {
+                        Text(validationMessage!)
+                    }
                 }
             }
         }
@@ -72,13 +74,12 @@ struct SubscribeView: View {
                     Text("Next")
                     Image(systemName: "chevron.right")
                 }
-            }
+            }.disabled(!urlIsValid)
         )
         .onAppear {
             self.urlText = self.subscriptionManager.subscribeURLString
         }
     }
-    
     
     var configurationStage: some View {
         Group {
@@ -95,13 +96,24 @@ struct SubscribeView: View {
                             trailing: Button(action: save) { Text("Save") }
                         )
                 } else {
-                    VStack(alignment: .center, spacing: 16) {
-                        Image(systemName: "slash.circle").resizable().scaledToFit().frame(width: 48, height: 48).foregroundColor(.red)
+                    VStack(alignment: .center) {
+                        Image(systemName: "slash.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 48, height: 48)
+                            .foregroundColor(Color(.systemRed))
+                            .padding(.bottom)
                         Text("Download Error").font(.title)
-                        Text(newFeed?.error ?? "Unknown error").foregroundColor(.red).padding()
-                        Button(action: back) { Text("Back").fontWeight(.medium) }
-                        Button(action: cancel) { Text("Cancel").fontWeight(.medium) }
+                        Text(newFeed?.error ?? "Unknown error").foregroundColor(Color(.secondaryLabel)).padding()
                     }
+                    .navigationBarItems(
+                        leading: Button(action: back) {
+                            Image(systemName: "chevron.backward").imageScale(.medium)
+                            Text("Back").fontWeight(.medium)
+                        },
+                        trailing: Button(action: cancel) { Text("Cancel").fontWeight(.medium) }
+                    )
+                    
                     .buttonStyle(BorderedButtonStyle())
                     .padding()
                 }
@@ -110,7 +122,7 @@ struct SubscribeView: View {
     }
     
     func back() {
-        self.urlIsValid = nil
+        self.urlIsValid = false
         self.activeStage = .urlEntry
     }
     
@@ -131,37 +143,46 @@ struct SubscribeView: View {
         self.presentationMode.wrappedValue.dismiss()
     }
     
-    func verifyUrl(urlString: String) -> Bool {
-        guard let url = URL(string: urlString) else {
-            return false
+    func validateUrl(edit: Bool) {
+        
+        if self.urlText == "" {
+            self.validationMessage = nil
+            self.urlIsValid = false
+            return
         }
         
-        return UIApplication.shared.canOpenURL(url)
-    }
-    
-    func validateUrl(edit: Bool) {
-        if edit == true {
+        if self.urlText.contains(" ") {
+            self.validationMessage = "Address may not contain spaces"
+            self.urlIsValid = false
+            return
+        }
+        
+        if self.urlText.prefix(7).lowercased() != "http://" && self.urlText.prefix(8).lowercased() != "https://" {
+            self.validationMessage = "Address must begin with http:// or https://"
+            self.urlIsValid = false
+            return
+        }
+        
+        if !self.urlText.isValidURL {
+            self.validationMessage = "Address is not a valid web URL"
+            self.urlIsValid = false
             return
         }
         
         guard let url = URL(string: self.urlText) else {
-            self.validationMessage = "Invalid address"
+            self.validationMessage = "Unable to parse URL"
             self.urlIsValid = false
             return
         }
         
-        if url.scheme == nil {
-            self.validationMessage = "Address must begin with https:// or http://"
+        if !UIApplication.shared.canOpenURL(url) {
+            self.validationMessage = "Unable to open URL"
             self.urlIsValid = false
             return
         }
         
-        
-        if UIApplication.shared.canOpenURL(url) {
-            self.validationMessage = nil
-            self.urlIsValid = true
-            return
-        }
+        self.validationMessage = nil
+        self.urlIsValid = true
     }
     
     func createFeed() {

@@ -12,15 +12,14 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     
-    let persistenceController = PersistenceController.shared
+    private let persistenceController = PersistenceController.shared
+    private let refreshManager = RefreshManager(persistentContainer: PersistenceController.shared.container)
+    private let cacheManager = CacheManager(persistentContainer: PersistenceController.shared.container)
+    private let importManager = ImportManager(viewContext: PersistenceController.shared.container.viewContext)
+    private let searchManager = SearchManager(moc: PersistenceController.shared.container.viewContext)
+    private let subscriptionManager = SubscriptionManager()
     
     var body: some Scene {
-        let refreshManager = RefreshManager(persistentContainer: persistenceController.container)
-        let cacheManager = CacheManager(persistentContainer: persistenceController.container)
-        let importManager = ImportManager(viewContext: persistenceController.container.viewContext)
-        let searchManager = SearchManager(moc: persistenceController.container.viewContext)
-        let subscriptionManager = SubscriptionManager()
-        
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)

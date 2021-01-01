@@ -59,11 +59,9 @@ class RefreshManager: ObservableObject {
         let completionOperation = BlockOperation {
             DispatchQueue.main.async {
                 self.progress.completedUnitCount += 1
-                
                 if self.progress.fractionCompleted == 1 {
                     self.refreshing = false
                 }
-                
                 feed.page?.objectWillChange.send()
             }
         }

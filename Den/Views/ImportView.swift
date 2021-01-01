@@ -20,11 +20,7 @@ struct ImportView: View {
             } else if self.importManager.stage == .folderSelection {
                 folderSelectionStage
             } else if self.importManager.stage == .importing {
-                if refreshManager.refreshing {
-                    inProgressStage
-                } else {
-                    completeStage
-                }
+                completeStage
             }
         }
         .onDisappear { self.importManager.reset() }
@@ -77,35 +73,31 @@ struct ImportView: View {
         }
     }
     
-    var inProgressStage: some View {
-        VStack (spacing: 16) {
-            ActivityRep()
-            Text("Fetching feeds…").font(.title)
-            StandaloneProgressBarView().frame(maxWidth: 256, maxHeight: 8)
-        }
-    }
-    
     var errorStage: some View {
         Text("Error").font(.title)
     }
     
     var completeStage: some View {
         VStack(spacing: 16) {
-            Image(systemName: "checkmark.circle").imageScale(.large)
-            Text("Finished").font(.title)
+            Image(systemName: "checkmark.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 48, height: 48)
+            Text("Import Complete").font(.title)
+            Text("Added \(importManager.feedsImported.count) feeds to \(importManager.pagesImported.count) pages").foregroundColor(Color(.secondaryLabel))
         }
     }
     
     var selectionSectionHeader: some View {
         HStack {
-            Text("SELECT FOLDERS")
+            Text("Select Folders")
             Spacer()
             Button(action: importManager.selectAll) {
-                Text("ALL")
+                Text("All")
             }.disabled(importManager.allSelected)
             Text("/")
             Button(action: importManager.selectNone) {
-                Text("NONE")
+                Text("None")
             }.disabled(importManager.noneSelected)
         }
     }

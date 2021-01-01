@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /**
  Adapted from https://gist.github.com/budidino/8585eecd55fd4284afaaef762450f98e#gistcomment-2270476
  */
@@ -33,6 +32,16 @@ extension String {
             return "\(self.prefix(headCharactersCount))\(leader)\(self.suffix(tailCharactersCount))"
         case .tail:
             return self.prefix(limit) + leader
+        }
+    }
+}
+
+extension String {
+    var isValidURL: Bool {
+        get {
+            let regEx = "((?:http|https)://)?(?:www\\.)?[\\w\\d\\-_]+\\.\\w{2,3}(\\.\\w{2})?(/(?<=/)(?:[\\w\\d\\-./_]+)?)?"
+            let predicate = NSPredicate(format: "SELF MATCHES %@", argumentArray: [regEx])
+            return predicate.evaluate(with: self)
         }
     }
 }

@@ -12,6 +12,7 @@ import OSLog
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
+    @EnvironmentObject var refreshManager: RefreshManager
     @State private var showingClearWorkspaceAlert = false
     
     var pages: FetchedResults<Page>
@@ -20,7 +21,7 @@ struct SettingsView: View {
         Form {
             appearanceSection
             sharingSection
-            resetSection
+            dataSection
             aboutSection
         }
         .navigationTitle("Settings")
@@ -55,14 +56,14 @@ struct SettingsView: View {
         }
     }
     
-    var resetSection: some View {
+    var dataSection: some View {
         Section(header: Text("Data")) {
             Button(action: clearCache) {
                 HStack {
                     Image(systemName: "bin.xmark")
                     Text("Empty Caches")
                 }
-            }
+            }.disabled(refreshManager.refreshing)
             
             Button(action: restoreDefaultSettings) {
                 HStack {
@@ -75,7 +76,7 @@ struct SettingsView: View {
                 HStack {
                     Image(systemName: "clear")
                     Text("Reset All")
-                }.foregroundColor(Color(.systemRed))
+                }.foregroundColor(refreshManager.refreshing ? Color(.secondaryLabel) : Color(.systemRed))
             }.alert(isPresented: $showingClearWorkspaceAlert) {
                 Alert(
                     title: Text("Are you sure you want to reset?"),
@@ -85,7 +86,7 @@ struct SettingsView: View {
                     },
                     secondaryButton: .cancel()
                 )
-            }
+            }.disabled(refreshManager.refreshing)
         }
     }
     
