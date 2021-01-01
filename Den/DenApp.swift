@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @Environment(\.scenePhase) private var scenePhase
     
     let persistenceController = PersistenceController.shared
     

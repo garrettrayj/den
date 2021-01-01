@@ -45,6 +45,9 @@ struct FeedWidgetItemRowView: View {
     var thumbnailImage: some View {
         URLImage(
             url: item.image!,
+            options: URLImageOptions(
+                cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: 0.25)
+            ),
             inProgress: { _ in
                 VStack {
                     Image(systemName: "photo").foregroundColor(.secondary)

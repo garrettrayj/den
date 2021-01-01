@@ -33,6 +33,9 @@ struct FeedWidgetView: View {
                 if feed.favicon != nil {
                     URLImage(
                         url: feed.favicon!,
+                        options: URLImageOptions(
+                            cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: 0.25)
+                        ),
                         inProgress: { _ in
                             Image("RSSIcon").faviconView()
                         },
@@ -76,7 +79,11 @@ struct FeedWidgetView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                     }
-                    .background(RoundedRectangle(cornerRadius: 4).stroke(lineWidth: 1).foregroundColor(.red))
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(lineWidth: 1)
+                            .foregroundColor(.red)
+                    )
                     .padding([.horizontal, .top])
                     .padding(.bottom, 2)
                     .frame(maxWidth: .infinity)
@@ -97,19 +104,11 @@ struct FeedWidgetView: View {
                         Divider()
                     }
                     
-                    if refreshManager.refreshing {
-                        Text("Updating feed…")
+                    Text("Feed Empty")
                         .foregroundColor(.secondary)
                         .padding()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .multilineTextAlignment(.center)
-                    } else {
-                        Text("Empty Feed")
-                        .foregroundColor(.secondary)
-                        .padding()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .multilineTextAlignment(.center)
-                    }
                 }
             }
         }
