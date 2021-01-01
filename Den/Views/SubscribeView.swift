@@ -43,7 +43,7 @@ struct SubscribeView: View {
     
     var urlEntryStage: some View {
         Form {
-            Section(header: Text("FEED URL"), footer: Text("RSS, Atom or JSON Feed")) {
+            Section(header: Text("Feed URL"), footer: Text("RSS, Atom or JSON Feed")) {
                 HStack {
                     TextField("https://example.com/feed.xml", text: $urlText, onEditingChanged: validateUrl)
                         .lineLimit(1)
@@ -82,7 +82,7 @@ struct SubscribeView: View {
     
     var configurationStage: some View {
         Group {
-            if self.newFeed != nil && refreshManager.refreshingFeeds.contains(self.newFeed!) {
+            if self.newFeed != nil && refreshManager.refreshing {
                 VStack {
                     Text("Downloading feed…").font(.title)
                     ActivityRep()

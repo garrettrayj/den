@@ -30,7 +30,7 @@ struct RefreshableScrollView<Content: View>: View {
                 ZStack(alignment: .top) {
                     MovingView()
                     VStack { self.content }.alignmentGuide(.top, computeValue: { d in
-                        if self.refreshManager.refreshingPages.contains(page) {
+                        if self.refreshManager.refreshing {
                             return -self.threshold
                         } else {
                             return 0.0
@@ -39,7 +39,7 @@ struct RefreshableScrollView<Content: View>: View {
                     UpdateStatusView(
                         page: page,
                         height: threshold,
-                        loading: refreshManager.refreshingPages.contains(page),
+                        loading: refreshManager.refreshing,
                         symbolRotation: rotation
                     )
                 }
@@ -68,7 +68,7 @@ struct RefreshableScrollView<Content: View>: View {
             
             // Crossing the threshold on the way down, we start the refresh process
             if
-                !self.refreshManager.refreshingPages.contains(page) &&
+                !self.refreshManager.refreshing &&
                 (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold)
             {
                 self.rotation = .degrees(0)

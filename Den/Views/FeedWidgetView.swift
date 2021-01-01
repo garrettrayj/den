@@ -97,7 +97,7 @@ struct FeedWidgetView: View {
                         Divider()
                     }
                     
-                    if refreshManager.refreshingFeeds.contains(feed) {
+                    if refreshManager.refreshing {
                         Text("Updating feed…")
                         .foregroundColor(.secondary)
                         .padding()

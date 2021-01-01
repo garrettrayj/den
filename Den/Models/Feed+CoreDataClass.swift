@@ -84,7 +84,7 @@ public class Feed: NSManagedObject {
             return
         }
         
-        atomEntries.forEach { atomEntry in
+        atomEntries.prefix(page!.wrappedItemsPerFeed).forEach { atomEntry in
             // Continue if link is missing
             guard let itemLink = atomEntry.linkURL else {
                 print("MISSING LINK")
@@ -139,7 +139,7 @@ public class Feed: NSManagedObject {
         }
         
         // Add new items
-        rssItems.forEach { (rssItem: RSSFeedItem) in
+        rssItems.prefix(page!.wrappedItemsPerFeed).forEach { (rssItem: RSSFeedItem) in
             guard let itemLink = rssItem.linkURL else {
                 print("RSS ITEM MISSING LINK")
                 return
@@ -185,7 +185,7 @@ public class Feed: NSManagedObject {
         }
         
         // Add new items
-        jsonItems.forEach { jsonItem in
+        jsonItems.prefix(page!.wrappedItemsPerFeed).forEach { jsonItem in
             guard let itemLink = jsonItem.linkURL else {
                 return
             }
