@@ -26,27 +26,23 @@ struct PageView: View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
                 if pageViewModel.page.isDeleted {
-                    Text("Page Deleted")
-                        .font(.title)
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .navigationTitle("")
+                    pageDeleted
                 } else {
                     ZStack(alignment: .top) {
-                        if pageViewModel.page.feedsArray.count > 0 {
-                            dashboardModeContent
+                        if pageViewModel.hasFeeds() {
+                            dashboardMode
                         } else {
-                            Text("Page Empty").font(.title).foregroundColor(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                            pageEmpty
                         }
                     }
                     .sheet(item: $pageViewModel.pageSheetViewModel) { pageSheet in
                         if pageSheet.modal == .organizer {
-                            PageSettingsView(page: self.pageViewModel.page)
-                                .environment(\.managedObjectContext, self.viewContext)
+                            PageSettingsView(page: pageViewModel.page)
+                                .environment(\.managedObjectContext, viewContext)
                         } else if pageSheet.modal == .options {
                             FeedWidgetOptionsView(feed: pageSheet.feed!)
-                                .environment(\.managedObjectContext, self.viewContext)
-                                .environmentObject(self.refreshManager)
+                                .environment(\.managedObjectContext, viewContext)
+                                .environmentObject(refreshManager)
                         }
                     }
                     .navigationTitle(Text(pageViewModel.page.name ?? "Page Deleted"))
@@ -55,14 +51,14 @@ struct PageView: View {
                 }
             }
             .padding(.top, geometry.safeAreaInsets.top)
-            .onAppear(perform: checkRefresh)
+            .onAppear(perform: onAppear)
             .background(Color(.secondarySystemBackground))
             .edgesIgnoringSafeArea(.all)
         }
     }
     
-    var dashboardModeContent: some View {
-        VStack {
+    var dashboardMode: some View {
+        VStack(spacing: 0) {
             HeaderProgressBarView(page: pageViewModel.page)
             
             RefreshableScrollView(page: pageViewModel.page) {
@@ -74,6 +70,21 @@ struct PageView: View {
                 .padding(16)
             }
         }
+    }
+    
+    var pageEmpty: some View {
+        Text("Page Empty")
+            .font(.title)
+            .foregroundColor(.secondary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+    }
+    
+    var pageDeleted: some View {
+        Text("Page Deleted")
+            .font(.title)
+            .foregroundColor(.secondary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .navigationTitle("")
     }
     
     var trailingNavigationBarItems: some View {
@@ -105,8 +116,9 @@ struct PageView: View {
         self.screenManager.subscribe()
     }
     
-    func checkRefresh() {
+    func onAppear() {
         self.screenManager.currentPage = pageViewModel.page
+        
         if let lastRefreshed = pageViewModel.page.minimumRefreshedDate {
             if Date() - lastRefreshed > TimeInterval(7200) {
                 refreshManager.refresh(pageViewModel.page)
@@ -115,13 +127,5 @@ struct PageView: View {
             // Initial feed load
             refreshManager.refresh(pageViewModel.page)
         }
-    }
-    
-    private func calcGridTracks(_ availableWidth: CGFloat) -> Tracks {
-        if availableWidth > 2000 {
-            return Tracks.min(400)
-        }
-        
-        return Tracks.min(320)
     }
 }

@@ -21,4 +21,8 @@ class PageViewModel: ObservableObject {
     init(page: Page) {
         self.page = page
     }
+    
+    func hasFeeds() -> Bool {
+        return self.page.feedsArray.count > 0
+    }
 }
