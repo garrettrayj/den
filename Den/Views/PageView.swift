@@ -25,7 +25,7 @@ struct PageView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                if pageViewModel.page.isDeleted {
+                if pageViewModel.page.managedObjectContext == nil {
                     pageDeleted
                 } else {
                     ZStack(alignment: .top) {
