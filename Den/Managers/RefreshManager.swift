@@ -13,8 +13,6 @@ import FeedKit
 
 class RefreshManager: ObservableObject {
     @Published public var refreshing: Bool = false
-    @Published public var refreshingFeeds: [Feed] = []
-    @Published public var refreshingPages: [Page] = []
     
     public var progress = Progress(totalUnitCount: 0)
     private var queue = OperationQueue()
@@ -31,13 +29,7 @@ class RefreshManager: ObservableObject {
     }
     
     public func refresh(_ feed: Feed) {
-        // Skip if feed is already queued for refresh
-        if refreshingFeeds.contains(feed) {
-            return
-        }
-        
-        refreshingFeeds.append(feed)
-        refreshingPages.append(feed.page!)
+        refreshing = true
         progress.totalUnitCount += 1
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -67,19 +59,6 @@ class RefreshManager: ObservableObject {
         let completionOperation = BlockOperation {
             DispatchQueue.main.async {
                 self.progress.completedUnitCount += 1
-                
-                // Remove refreshing entries for completed feed
-                if let feedIndex = self.refreshingFeeds.firstIndex(where: { refreshingFeed in
-                    refreshingFeed == feed
-                }) {
-                    self.refreshingFeeds.remove(at: feedIndex)
-                }
-                
-                if let pageIndex = self.refreshingPages.firstIndex(where: { refreshingPage in
-                    refreshingPage == feed.page
-                }) {
-                    self.refreshingPages.remove(at: pageIndex)
-                }
                 
                 if self.progress.fractionCompleted == 1 {
                     self.refreshing = false

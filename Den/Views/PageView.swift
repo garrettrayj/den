@@ -39,6 +39,7 @@ struct PageView: View {
                         if pageSheet.modal == .organizer {
                             PageSettingsView(page: pageViewModel.page)
                                 .environment(\.managedObjectContext, viewContext)
+                                .environmentObject(refreshManager)
                         } else if pageSheet.modal == .options {
                             FeedWidgetOptionsView(feed: pageSheet.feed!)
                                 .environment(\.managedObjectContext, viewContext)

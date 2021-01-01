@@ -14,7 +14,9 @@ import SwiftUI
 struct PageSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var page: Page
+    @State var itemsPerFeedStepperValue: Int = 0
 
     var body: some View {
         NavigationView {
@@ -25,7 +27,7 @@ struct PageSettingsView: View {
                         TextField("Title", text: $page.wrappedName).multilineTextAlignment(.trailing)
                     }
                     
-                    Stepper("Feed Item Limit: \(page.itemsPerFeed)", value: $page.itemsPerFeed, in: 1...Int16.max)
+                    Stepper("Feed Item Limit: \(itemsPerFeedStepperValue)", value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max))
                 }
                 
                 Section(header: HStack { Text("\(page.feedsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
@@ -35,7 +37,6 @@ struct PageSettingsView: View {
                         }
                         .onDelete(perform: delete)
                         .onMove(perform: move)
-                        .onInsert(of: [], perform: insert)
                     }
                 }
             }
@@ -47,14 +48,18 @@ struct PageSettingsView: View {
             .environment(\.editMode, .constant(.active))
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            itemsPerFeedStepperValue = page.wrappedItemsPerFeed
+        }
         .onDisappear {
+            if itemsPerFeedStepperValue != page.wrappedItemsPerFeed {
+                page.wrappedItemsPerFeed = itemsPerFeedStepperValue
+            }
+            
             if self.viewContext.hasChanges {
                 do {
-                    try self.viewContext.save()
-                    self.page.objectWillChange.send()
-                    self.page.feedsArray.forEach { feed in
-                        feed.objectWillChange.send()
-                    }
+                    try viewContext.save()
+                    refreshManager.refresh(page)
                 } catch {
                     let nserror = error as NSError
                     fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
@@ -80,19 +85,5 @@ struct PageSettingsView: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-        
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-                page.objectWillChange.send()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
-    func insert(at offset: Int, itemProviders: [NSItemProvider]) {
-        print("Page list insert action not available")
     }
 }
