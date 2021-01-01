@@ -14,11 +14,8 @@ struct WelcomeView: View {
     var body: some View {
         VStack {
             VStack(spacing: 16) {
-                Image("TitleIcon").resizable().scaledToFit().frame(width: 72, height: 72)
+                Image("TitleIcon").resizable().scaledToFit().frame(width: 100, height: 100)
                 Text("Welcome").font(.title).fontWeight(.semibold)
-                if pages.count > 0 {
-                    Text("Select a page to view feeds")
-                }
                 Spacer()
             }.frame(height: 296)
         }

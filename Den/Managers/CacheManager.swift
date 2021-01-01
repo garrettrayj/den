@@ -19,28 +19,35 @@ class CacheManager: ObservableObject {
     }
     
     func clearAll() {
-        clearItems()
+        resetFeeds()
         clearWebCaches()
     }
     
     func clearWebCaches() {
+        URLImageService.shared.removeAllCachedImages()
         URLCache.shared.removeAllCachedResponses()
     }
     
-    func clearItems() {
+    func resetFeeds() {
+        // Reset feed meta data and remove items
         do {
-            let items = try self.persistentContainer.viewContext.fetch(Item.fetchRequest()) as! [Item]
-            items.forEach { item in
-                self.persistentContainer.viewContext.delete(item)
-            }
-            
-            do {
-                try self.persistentContainer.viewContext.save()
-            } catch {
-                fatalError("Unable to save context after item cleanup: \(error)")
+            let feeds = try self.persistentContainer.viewContext.fetch(Feed.fetchRequest()) as! [Feed]
+            feeds.forEach { feed in
+                feed.itemsArray.forEach { item in
+                    self.persistentContainer.viewContext.delete(item)
+                }
+                feed.refreshed = nil
+                feed.favicon = nil
             }
         } catch {
             fatalError("Unable to fetch items: \(error)")
+        }
+        
+        // Save context to apply changes to Core Data
+        do {
+            try self.persistentContainer.viewContext.save()
+        } catch {
+            fatalError("Unable to save context after item cleanup: \(error)")
         }
         
         // Send object events on pages to update counts
@@ -52,6 +59,5 @@ class CacheManager: ObservableObject {
         } catch {
             fatalError("Unable to fetch pages: \(error)")
         }
-        
     }
 }
