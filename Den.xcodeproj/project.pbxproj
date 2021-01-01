@@ -265,8 +265,8 @@
 		68130EB525968420008AB6FC /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				68130EA72595F0D9008AB6FC /* PageSheetViewModel.swift */,
 				68710C95259ECD7B007B2507 /* PageViewModel.swift */,
+				68130EA72595F0D9008AB6FC /* PageSheetViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
