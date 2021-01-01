@@ -58,8 +58,8 @@ struct PageView: View {
     }
     
     var dashboardMode: some View {
-        VStack(spacing: 0) {
-            HeaderProgressBarView(page: pageViewModel.page)
+        ZStack(alignment: .top) {
+            
             
             RefreshableScrollView(page: pageViewModel.page) {
                 LazyVGrid(columns: columns, spacing: 16) {
@@ -69,6 +69,8 @@ struct PageView: View {
                 }
                 .padding(16)
             }
+            
+            HeaderProgressBarView(page: pageViewModel.page)
         }
     }
     

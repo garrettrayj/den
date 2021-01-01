@@ -14,6 +14,7 @@ import FeedKit
 class RefreshManager: ObservableObject {
     @Published public var refreshing: Bool = false
     @Published public var refreshingFeeds: [Feed] = []
+    @Published public var refreshingPages: [Page] = []
     
     public var progress = Progress(totalUnitCount: 0)
     private var queue = OperationQueue()
@@ -36,20 +37,11 @@ class RefreshManager: ObservableObject {
         }
         
         refreshingFeeds.append(feed)
+        refreshingPages.append(feed.page!)
         progress.totalUnitCount += 1
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(self.createFeedOperations(feed: feed), waitUntilFinished: false)
-        }
-    }
-    
-    public func feedIsRefreshing(feed: Feed) -> Bool {
-        refreshingFeeds.contains(feed)
-    }
-    
-    public func pageIsRefreshing(page: Page) -> Bool {
-        refreshingFeeds.contains { feed in
-            feed.page == page
         }
     }
     
@@ -75,11 +67,22 @@ class RefreshManager: ObservableObject {
         let completionOperation = BlockOperation {
             DispatchQueue.main.async {
                 self.progress.completedUnitCount += 1
+                
+                // Remove refreshing entries for completed feed
+                if let feedIndex = self.refreshingFeeds.firstIndex(where: { refreshingFeed in
+                    refreshingFeed == feed
+                }) {
+                    self.refreshingFeeds.remove(at: feedIndex)
+                }
+                
+                if let pageIndex = self.refreshingPages.firstIndex(where: { refreshingPage in
+                    refreshingPage == feed.page
+                }) {
+                    self.refreshingPages.remove(at: pageIndex)
+                }
+                
                 if self.progress.fractionCompleted == 1 {
                     self.refreshing = false
-                }
-                self.refreshingFeeds.removeAll { refreshingFeed in
-                    refreshingFeed == feed
                 }
                 
                 feed.page?.objectWillChange.send()
@@ -184,11 +187,5 @@ class RefreshManager: ObservableObject {
         }
         
         return operations
-    }
-    
-    private func reset() {
-        progress.completedUnitCount = 0
-        refreshing = false
-        refreshingFeeds = []
     }
 }
