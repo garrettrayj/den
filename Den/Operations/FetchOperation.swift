@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import FeedKit
+import OSLog
 
 /**
  Operation for fetching feed XML (or JSON) data.
@@ -43,7 +44,7 @@ class FetchOperation : AsynchronousOperation {
     }
 
     override func main() {
-        print("Fetching \(url)")
+        Logger.ingest.info("Fetching feed at \(self.url)")
         task.resume()
     }
 }

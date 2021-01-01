@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import AEXML
+import OSLog
 
 struct OPMLFolder: Hashable {
     var name: String
@@ -36,7 +37,7 @@ class OPMLReader {
             parseDocument(xmlDoc: xmlDoc)
         }
         catch {
-            print("\(error)")
+            Logger.main.error("Error reading OPML: \(error.localizedDescription)")
         }
     }
     
