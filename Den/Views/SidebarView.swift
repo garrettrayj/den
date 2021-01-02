@@ -37,7 +37,7 @@ struct SidebarView: View {
             Button(action: { withAnimation { createPage() }}) {
                 Image(systemName: "plus").titleBarIconView()
             }
-            EditButton()
+            EditButton().disabled(refreshManager.refreshing)
         })
         .environment(\.editMode, self.$editMode)
     }

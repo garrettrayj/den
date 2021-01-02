@@ -31,20 +31,24 @@ class RefreshManager: ObservableObject {
     public func refresh(_ feed: Feed) {
         refreshing = true
         progress.totalUnitCount += 1
+        
+        let fetchMeta = feed.refreshed == nil
         feed.refreshed = Date()
         
         DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(self.createFeedOperations(feed: feed), waitUntilFinished: false)
+            self.queue.addOperations(
+                self.createFeedOperations(feed: feed, fetchMeta: fetchMeta),
+                waitUntilFinished: false
+            )
         }
     }
     
-    private func createFeedOperations(feed: Feed) -> [Operation] {
+    private func createFeedOperations(feed: Feed, fetchMeta: Bool) -> [Operation] {
         guard let feedURL = feed.url else {
             return []
         }
         
         var operations: [Operation] = []
-        let fetchMeta = feed.refreshed == nil
                 
         // Create standard feed operations
         let fetchOperation = FetchOperation(url: feedURL)
