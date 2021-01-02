@@ -31,6 +31,7 @@ class RefreshManager: ObservableObject {
     public func refresh(_ feed: Feed) {
         refreshing = true
         progress.totalUnitCount += 1
+        feed.refreshed = Date()
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(self.createFeedOperations(feed: feed), waitUntilFinished: false)

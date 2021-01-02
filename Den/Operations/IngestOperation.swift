@@ -106,7 +106,6 @@ class IngestOperation: Operation {
             feed.favicon = favicon
         }
         
-        feed.refreshed = Date()
         feed.error = nil
     }
 }
