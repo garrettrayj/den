@@ -21,7 +21,7 @@ Just add widely available RSS feeds to stay up-to-date without all the noise. Th
 
 ### Foundations
 
-Den is a UIKit application written in Swift and SwiftUI with a good deal of work put towards creating a native experience on MacOS via Catalyst. The major core framework dependencies are Core Data, CloudKit, and Safari Services. 
+Den is a UIKit application written in Swift and SwiftUI with a good deal of work put towards creating a native experience on MacOS via Catalyst. The major core framework dependencies are Core Data, CloudKit, and Safari Services. Xcode is the only development dependency.
 
 ### Open Source Dependencies
 
