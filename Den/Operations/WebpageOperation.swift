@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import OSLog
 
 class WebpageOperation : AsynchronousOperation {
     var webpage: URL?
@@ -26,6 +27,8 @@ class WebpageOperation : AsynchronousOperation {
             self.finish()
             return
         }
+        
+        Logger.ingest.debug("Fetching webpage for feed metadata \(url.absoluteString)")
         
         task = URLSession.shared.dataTask(with: url) { data, response, error in
             self.data = data

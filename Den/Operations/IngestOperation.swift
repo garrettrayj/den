@@ -31,15 +31,13 @@ class IngestOperation: Operation {
     override func main() {
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
-        
         context.performAndWait {
             ingestFeed(context: context)
-            
             if context.hasChanges {
                 do {
                     try context.save()
                 } catch {
-                    fatalError("Unable to save background context: \(error)")
+                    fatalError("Unable to save feed ingest background context: \(error)")
                 }
             }
         }

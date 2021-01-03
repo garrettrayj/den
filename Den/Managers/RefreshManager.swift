@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import CoreData
 import FeedKit
+import OSLog
 
 class RefreshManager: ObservableObject {
     @Published public var refreshing: Bool = false

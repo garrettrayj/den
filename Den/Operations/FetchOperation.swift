@@ -44,7 +44,7 @@ class FetchOperation : AsynchronousOperation {
     }
 
     override func main() {
-        Logger.ingest.info("Fetching feed at \(self.url)")
+        Logger.ingest.info("Fetching feed \(self.url)")
         task.resume()
     }
 }
