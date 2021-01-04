@@ -31,8 +31,14 @@ struct ContentView: View {
                             .environmentObject(crashManager)
                     } else {
                         VStack(spacing: 16) {
+                            Image(systemName: "exclamationmark.triangle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48, height: 48)
                             Text("Page Required").font(.title)
-                            Text("Create a new page before subscribing to feeds.")
+                            Text("Create a page before adding subscriptions")
+                                .foregroundColor(Color(.secondaryLabel))
+                                .multilineTextAlignment(.center)
                             Button(action: { self.subscriptionManager.reset() }) {
                                 Text("Close").fontWeight(.medium)
                             }.buttonStyle(BorderedButtonStyle())
@@ -44,14 +50,11 @@ struct ContentView: View {
             WelcomeView(pages: pages)
         }
         .sheet(isPresented: $crashManager.showingAlert) {
-            VStack() {
-                Image(systemName: "ladybug").resizable().scaledToFit().frame(width: 48, height: 48).padding()
+            VStack(spacing: 16) {
+                Image(systemName: "ladybug").resizable().scaledToFit().frame(width: 48, height: 48)
                 Text("Application Crashed").font(.title)
-                VStack {
-                    Text("A critical error occurred. Quit the app and restart to try again. Please consider sending a bug report if you see this repeatedly.")
-                }
+                Text("A critical error occurred. Quit the app and restart to try again. Please consider sending a bug report if you see this repeatedly.")
                 .foregroundColor(Color(.secondaryLabel))
-                .padding()
                 .multilineTextAlignment(.center)
             }.padding()
         }

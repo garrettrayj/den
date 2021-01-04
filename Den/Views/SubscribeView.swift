@@ -114,8 +114,6 @@ struct SubscribeView: View {
                         },
                         trailing: Button(action: cancel) { Text("Cancel").fontWeight(.medium) }
                     )
-                    
-                    .buttonStyle(BorderedButtonStyle())
                     .padding()
                 }
             }
