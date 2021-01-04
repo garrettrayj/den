@@ -14,6 +14,7 @@ struct SettingsView: View {
     @EnvironmentObject var cacheManager: CacheManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var themeManager: ThemeManager
     @State private var showingClearWorkspaceAlert = false
     
     var pages: FetchedResults<Page>
@@ -35,7 +36,7 @@ struct SettingsView: View {
                 Image(systemName: "circle.righthalf.fill")
                 Text("Theme")
                 Spacer()
-                Picker(selection: UserInterfaceStyle.shared.uiStyle, label: Text("Interface Style")) {
+                Picker(selection: themeManager.uiStyle, label: Text("Interface Style")) {
                     Text("Default").tag(UIUserInterfaceStyle.unspecified)
                     Text("Light").tag(UIUserInterfaceStyle.light)
                     Text("Dark").tag(UIUserInterfaceStyle.dark)
@@ -137,7 +138,7 @@ struct SettingsView: View {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
         
-        UserInterfaceStyle.shared.applyUIStyle()
+        themeManager.applyUIStyle()
     }
     
     func showResetAlert() {

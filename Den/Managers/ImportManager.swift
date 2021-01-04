@@ -26,10 +26,12 @@ class ImportManager: ObservableObject {
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
     var noneSelected: Bool { selectedFolders.count == 0 }
     
+    private var crashManager: CrashManager
     private var viewContext: NSManagedObjectContext
     
-    init(viewContext: NSManagedObjectContext) {
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
         self.viewContext = viewContext
+        self.crashManager = crashManager
         self.documentPicker = ImportDocumentPicker(importManager: self)
     }
     
@@ -89,8 +91,8 @@ class ImportManager: ObservableObject {
         
         do {
             try viewContext.save()
-        } catch {
-            fatalError("Unable to save import context: \(error)")
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
         }
     }
 }

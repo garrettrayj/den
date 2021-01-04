@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var safariManager: SafariManager
     
     @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
@@ -23,10 +24,11 @@ struct ContentView: View {
             SidebarView(pages: pages)
                 .sheet(isPresented: $subscriptionManager.showSubscribe) {
                     if self.pages.count > 0 {
-                        SubscribeView(pages: self.pages)
-                            .environment(\.managedObjectContext, self.viewContext)
-                            .environmentObject(self.subscriptionManager)
-                            .environmentObject(self.refreshManager)
+                        SubscribeView(pages: pages)
+                            .environment(\.managedObjectContext, viewContext)
+                            .environmentObject(subscriptionManager)
+                            .environmentObject(refreshManager)
+                            .environmentObject(crashManager)
                     } else {
                         VStack(spacing: 16) {
                             Text("Page Required").font(.title)

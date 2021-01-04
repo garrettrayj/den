@@ -10,17 +10,18 @@ import Foundation
 import Combine
 import SwiftUI
 import CoreData
+import OSLog
 
 class SearchManager: ObservableObject {
     @Published var query: String = ""
     @Published var results: [[Item]] = []
     @Published var isEditing: Bool = false
 
-    private var managedObjectContext: NSManagedObjectContext
+    private var viewContext: NSManagedObjectContext
     private var cancellable: AnyCancellable? = nil
 
-    init(moc managedObjectContext: NSManagedObjectContext) {
-        self.managedObjectContext = managedObjectContext
+    init(viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
         
         cancellable = AnyCancellable(
             $query
@@ -58,10 +59,10 @@ class SearchManager: ObservableObject {
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
     
         do {
-            let fetchResults = try managedObjectContext.fetch(fetchRequest) as! [Item]
+            let fetchResults = try viewContext.fetch(fetchRequest) as! [Item]
             self.results = groupFetchResults(fetchResults)
-        } catch {
-            fatalError("Failed to execute search: \(error)")
+        } catch let error as NSError {
+            Logger.main.error("Unable to execute search: \(error)")
         }
     }
     

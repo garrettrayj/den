@@ -1,5 +1,5 @@
 //
-//  DenHosting.swift
+//  SafariManager.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/26/20.
@@ -11,15 +11,14 @@ import SwiftUI
 import SafariServices
 
 /**
- Static class for providing functionality not quite reachable with SwiftUI (such as opening SFSafariViewController full screen)
+ Class for providing functionality not quite reachable with SwiftUI
+ (such as opening SFSafariViewController full screen)
  */
-class SafariPresenter {
-    static let shared = SafariPresenter()
-    
-    static var controller: UIViewController?
-    static var nextModalPresentationStyle: UIModalPresentationStyle?
+class SafariManager: ObservableObject {
+    public var controller: UIViewController?
+    public var nextModalPresentationStyle: UIModalPresentationStyle?
 
-    static func openSafari(url:URL, readerMode: Bool = false) {
+    func openSafari(url:URL, readerMode: Bool = false) {
         guard let controller = controller else {
             preconditionFailure("No controller present.")
         }
@@ -29,9 +28,9 @@ class SafariPresenter {
         
         let vc = SFSafariViewController(url: url, configuration: config)
         
-        if let nextStyle = SafariPresenter.nextModalPresentationStyle {
+        if let nextStyle = nextModalPresentationStyle {
             controller.modalPresentationStyle = nextStyle
-            SafariPresenter.nextModalPresentationStyle = nil
+            nextModalPresentationStyle = nil
         }
         
         controller.present(vc, animated: true)

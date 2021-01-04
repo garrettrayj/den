@@ -35,9 +35,8 @@ class OPMLReader {
         do {
             let xmlDoc = try AEXMLDocument(xml: data)
             parseDocument(xmlDoc: xmlDoc)
-        }
-        catch {
-            Logger.main.error("Error reading OPML: \(error.localizedDescription)")
+        } catch let error as NSError {
+            Logger.main.error("Error reading OPML: \(error)")
         }
     }
     

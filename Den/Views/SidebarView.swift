@@ -76,7 +76,7 @@ struct SidebarView: View {
     var moreSection: some View {
         Section() {
             NavigationLink(
-                destination: SearchView().environmentObject(searchManager)
+                destination: SearchView()
             ) {
                 Image(systemName: "magnifyingglass").sidebarIconView()
                 Text("Search")
