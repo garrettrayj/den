@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var crashManager: CrashManager
     
     @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
@@ -39,6 +40,16 @@ struct ContentView: View {
                     }.buttonStyle(BorderedButtonStyle())
                 }
             }
+        }
+        .alert(isPresented: $crashManager.showingAlert) {
+            Alert(
+                title: Text("Application Crashed"),
+                message: Text("A critical error occurred. It's not your fault. Please restart and consider sending a bug report if you see this repeatedly."),
+                dismissButton: Alert.Button.default(
+                    Text("Close"),
+                    action: { exit(1) }
+                )
+            )
         }
     }
 }

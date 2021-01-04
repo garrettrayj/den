@@ -15,6 +15,7 @@ struct PageSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var crashManager: CrashManager
     @ObservedObject var page: Page
     @State var itemsPerFeedStepperValue: Int = 0
 
@@ -59,12 +60,12 @@ struct PageSettingsView: View {
             if self.viewContext.hasChanges {
                 do {
                     try viewContext.save()
-                    refreshManager.refresh(page)
-                } catch {
-                    let nserror = error as NSError
-                    fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                } catch let error as NSError {
+                    crashManager.handleCriticalError(error)
                 }
             }
+            
+            refreshManager.refresh(page)
         }
     }
     

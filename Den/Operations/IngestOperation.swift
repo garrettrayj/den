@@ -21,10 +21,12 @@ class IngestOperation: Operation {
     var feedObjectID: NSManagedObjectID
     
     private var persistentContainer: NSPersistentContainer
+    private var crashManager: CrashManager
     
-    init(persistentContainer: NSPersistentContainer, feedObjectID: NSManagedObjectID) {
+    init(persistentContainer: NSPersistentContainer, feedObjectID: NSManagedObjectID, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
         self.feedObjectID = feedObjectID
+        self.crashManager = crashManager
         super.init()
     }
 
@@ -32,20 +34,23 @@ class IngestOperation: Operation {
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
         context.performAndWait {
-            ingestFeed(context: context)
+            let feed = context.object(with: feedObjectID) as! Feed
+            ingestFeed(context: context, feed: feed)
+            deduplicateFeedItems(context: context, feed: feed)
+            
             if context.hasChanges {
                 do {
                     try context.save()
                 } catch {
-                    fatalError("Unable to save feed ingest background context: \(error)")
+                    DispatchQueue.main.async {
+                        self.crashManager.handleCriticalError(error as NSError)
+                    }
                 }
             }
         }
     }
     
-    func ingestFeed(context: NSManagedObjectContext) {
-        let feed = context.object(with: feedObjectID) as! Feed
-        
+    func ingestFeed(context: NSManagedObjectContext, feed: Feed) {
         if let transportError = transportError {
             feed.error = transportError.localizedDescription
             Logger.ingest.notice("Transport error while fetching \"\(feed.wrappedTitle)\" (\(feed.urlString)): \(feed.error!)")
@@ -105,5 +110,23 @@ class IngestOperation: Operation {
         }
         
         feed.error = nil
+    }
+    
+    func deduplicateFeedItems(context: NSManagedObjectContext, feed: Feed) {
+        let crossReference = Dictionary(grouping: feed.itemsArray, by: { $0.link })
+        let duplicates = crossReference
+            .filter { $1.count > 1 }             // filter down to only those with multiple contacts
+            .sorted { $0.1.count > $1.1.count }  // sort in descending order by number of duplicates
+        
+        duplicates.forEach { (link, item) in
+            let duplicateGroup = feed.itemsArray.filter { item in
+                item.link == link
+            }
+            
+            duplicateGroup.suffix(from: 1).forEach { item in
+                context.delete(item)
+                feed.removeFromItems(item)
+            }
+        }
     }
 }

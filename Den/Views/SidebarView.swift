@@ -17,6 +17,7 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var searchManager: SearchManager
+    @EnvironmentObject var crashManager: CrashManager
     @State var editMode: EditMode = .inactive
     
     var pages: FetchedResults<Page>
@@ -37,7 +38,7 @@ struct SidebarView: View {
             Button(action: { withAnimation { createPage() }}) {
                 Image(systemName: "plus").titleBarIconView()
             }
-            EditButton().disabled(refreshManager.refreshing)
+            EditButton()
         })
         .environment(\.editMode, self.$editMode)
     }
@@ -98,9 +99,8 @@ struct SidebarView: View {
         let _ = Page.create(in: viewContext)
         do {
             try viewContext.save()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
         }
     }
     
@@ -121,9 +121,8 @@ struct SidebarView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
             }
         }
     }
@@ -153,8 +152,8 @@ struct SidebarView: View {
         
         do {
             try viewContext.save()
-        } catch {
-            fatalError("Unable to save import context: \(error)")
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
         }
     }
 }

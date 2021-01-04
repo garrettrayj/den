@@ -13,6 +13,7 @@ struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var crashManager: CrashManager
     @State private var showingClearWorkspaceAlert = false
     
     var pages: FetchedResults<Page>
@@ -151,7 +152,7 @@ struct SettingsView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            fatalError("Failed to save context after resetting workspace. \(error)")
+            crashManager.handleCriticalError(error)
         }
         
         restoreDefaultSettings()
