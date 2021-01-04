@@ -36,7 +36,6 @@ class RefreshManager: ObservableObject {
         progress.totalUnitCount += 1
         
         let fetchMeta = feed.refreshed == nil
-        feed.refreshed = Date()
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(

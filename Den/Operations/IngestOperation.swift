@@ -37,6 +37,7 @@ class IngestOperation: Operation {
             let feed = context.object(with: feedObjectID) as! Feed
             ingestFeed(context: context, feed: feed)
             deduplicateFeedItems(context: context, feed: feed)
+            feed.refreshed = Date()
             
             if context.hasChanges {
                 do {
