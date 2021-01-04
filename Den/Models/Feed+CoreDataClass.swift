@@ -80,12 +80,12 @@ public class Feed: NSManagedObject {
             }
         }
         
-        guard let atomEntries = content.entries else {
-            // TODO: HANDLE MISSING ATOM ENTRIES
-            return
-        }
+        guard
+            let atomEntries = content.entries,
+            let itemsPerFeed = page?.wrappedItemsPerFeed
+        else { return }
         
-        atomEntries.prefix(page!.wrappedItemsPerFeed).forEach { atomEntry in
+        atomEntries.prefix(itemsPerFeed).forEach { atomEntry in
             // Continue if link is missing
             guard let itemLink = atomEntry.linkURL else {
                 Logger.ingest.notice("Missing link for Atom entry: \(atomEntry.title ?? "Untitled")")
@@ -134,13 +134,13 @@ public class Feed: NSManagedObject {
             }
         }
         
-        guard let rssItems = content.items else {
-            // TODO: HANDLE MISSING ITEMS
-            return
-        }
+        guard
+            let rssItems = content.items,
+            let itemsPerFeed = page?.wrappedItemsPerFeed
+        else { return }
         
         // Add new items
-        rssItems.prefix(page!.wrappedItemsPerFeed).forEach { (rssItem: RSSFeedItem) in
+        rssItems.prefix(itemsPerFeed).forEach { (rssItem: RSSFeedItem) in
             guard let itemLink = rssItem.linkURL else {
                 Logger.ingest.notice("Missing link for RSS item: \(rssItem.title ?? "Untitled")")
                 return
@@ -180,13 +180,13 @@ public class Feed: NSManagedObject {
             self.link = link
         }
         
-        guard let jsonItems = content.items else {
-            // TODO: HANDLE MISSING ITEMS
-            return
-        }
+        guard
+            let jsonItems = content.items,
+            let itemsPerFeed = page?.wrappedItemsPerFeed
+        else { return }
         
         // Add new items
-        jsonItems.prefix(page!.wrappedItemsPerFeed).forEach { jsonItem in
+        jsonItems.prefix(itemsPerFeed).forEach { jsonItem in
             guard let itemLink = jsonItem.linkURL else {
                 Logger.ingest.notice("Missing link for JSON item: \(jsonItem.title ?? "Untitled")")
                 return

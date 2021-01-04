@@ -12,6 +12,10 @@ import URLImage
 import SwiftUI
 import OSLog
 
+/**
+ AppDelegate contains handlers for application startup and OS chrome customization.
+ AppDelegate has mostly been superseded by `DenApp` but is still needed for system menu customization.
+ */
 class AppDelegate: UIResponder, UIApplicationDelegate {
     override func buildMenu(with builder: UIMenuBuilder) {
         super.buildMenu(with: builder)

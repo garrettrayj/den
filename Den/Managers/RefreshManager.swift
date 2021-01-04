@@ -18,9 +18,11 @@ class RefreshManager: ObservableObject {
     public var progress = Progress(totalUnitCount: 0)
     private var queue = OperationQueue()
     private var persistentContainer: NSPersistentContainer
+    private var crashManager: CrashManager
 
-    init(persistentContainer: NSPersistentContainer) {
+    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
+        self.crashManager = crashManager
     }
     
     public func refresh(_ page: Page) {
@@ -54,13 +56,15 @@ class RefreshManager: ObservableObject {
         // Create standard feed operations
         let fetchOperation = FetchOperation(url: feedURL)
         let parseOperation = ParseOperation()
-        let ingestOperation = IngestOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
+        let ingestOperation = IngestOperation(
+            persistentContainer: persistentContainer,
+            feedObjectID: feed.objectID,
+            crashManager: crashManager
+        )
         
         let fetchParseAdapter = BlockOperation() { [unowned parseOperation, unowned fetchOperation] in
             parseOperation.data = fetchOperation.data
         }
-        
-        let deduplicationOperation = DeduplicationOperation(persistentContainer: persistentContainer, feedObjectID: feed.objectID)
         
         let completionOperation = BlockOperation {
             DispatchQueue.main.async {
@@ -74,14 +78,12 @@ class RefreshManager: ObservableObject {
         
         fetchParseAdapter.addDependency(fetchOperation)
         parseOperation.addDependency(fetchParseAdapter)
-        deduplicationOperation.addDependency(ingestOperation)
-        completionOperation.addDependency(deduplicationOperation)
+        completionOperation.addDependency(ingestOperation)
 
         operations.append(fetchOperation)
         operations.append(parseOperation)
         operations.append(ingestOperation)
         operations.append(fetchParseAdapter)
-        operations.append(deduplicationOperation)
         operations.append(completionOperation)
 
         if !fetchMeta {

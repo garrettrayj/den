@@ -12,6 +12,7 @@ struct FeedSettingsFormView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var crashManager: CrashManager
     @ObservedObject var feed: Feed
     @State private var pickedPage: Int = 0
 
@@ -101,9 +102,8 @@ struct FeedSettingsFormView: View {
             if self.viewContext.hasChanges {
                 do {
                     try self.viewContext.save()
-                } catch {
-                    let nserror = error as NSError
-                    fatalError("Unable to save feed options context: \(nserror), \(nserror.userInfo)")
+                } catch let error as NSError {
+                    crashManager.handleCriticalError(error)
                 }
                 self.feed.itemsArray.forEach { item in
                     item.objectWillChange.send()

@@ -17,6 +17,7 @@ struct SubscribeView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
+    @EnvironmentObject var crashManager: CrashManager
     
     @State private var activeStage: SubscribeStage = .urlEntry
     @State private var urlText: String = ""
@@ -134,9 +135,8 @@ struct SubscribeView: View {
         if self.viewContext.hasChanges {
             do {
                 try self.viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
             }
         }
         
@@ -190,8 +190,8 @@ struct SubscribeView: View {
             self.viewContext.delete(exisitingNewFeed)
             do {
                 try viewContext.save()
-            } catch {
-                fatalError("Error saving view context after deleting existing newFeed: \(error)")
+            } catch let error as NSError{
+                crashManager.handleCriticalError(error)
             }
         }
         
@@ -201,9 +201,8 @@ struct SubscribeView: View {
         if self.viewContext.hasChanges {
             do {
                 try self.viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unable to create feed \(nserror), \(nserror.userInfo)")
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
             }
         }
         
@@ -215,9 +214,8 @@ struct SubscribeView: View {
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
             }
         }
         
