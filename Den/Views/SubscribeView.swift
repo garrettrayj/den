@@ -163,12 +163,6 @@ struct SubscribeView: View {
             return
         }
         
-        if !self.urlText.isValidURL {
-            self.validationMessage = "Address is not a valid web URL"
-            self.urlIsValid = false
-            return
-        }
-        
         guard let url = URL(string: self.urlText) else {
             self.validationMessage = "Unable to parse URL"
             self.urlIsValid = false

@@ -16,6 +16,7 @@ class RefreshManager: ObservableObject {
     @Published public var refreshing: Bool = false
     
     public var progress = Progress(totalUnitCount: 0)
+    
     private var queue = OperationQueue()
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager

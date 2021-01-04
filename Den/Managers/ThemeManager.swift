@@ -1,18 +1,17 @@
 //
-//  StyleChanger.swift
+//  ThemeManager.swift
 //  Den
 //
-//  Created by Garrett Johnson on 12/26/20.
-//  Copyright © 2020 Garrett Johnson. All rights reserved.
+//  Created by Garrett Johnson on 1/4/21.
+//  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
 import Foundation
 import SwiftUI
 
-class UserInterfaceStyle {
-    static var shared = UserInterfaceStyle()
-    
+class ThemeManager: ObservableObject {
     var window: UIWindow?
+    
     var uiStyle: Binding<UIUserInterfaceStyle> {
         Binding (
             get: {

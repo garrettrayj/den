@@ -9,13 +9,15 @@
 import Foundation
 import CoreData
 import URLImage
+import OSLog
 
 class CacheManager: ObservableObject {
+    private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
     
-    private var persistentContainer: NSPersistentContainer
-    
-    init(persistentContainer: NSPersistentContainer) {
-        self.persistentContainer = persistentContainer
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+        self.viewContext = viewContext
+        self.crashManager = crashManager
     }
     
     func clearAll() {
@@ -29,35 +31,26 @@ class CacheManager: ObservableObject {
     }
     
     func resetFeeds() {
-        // Reset feed meta data and remove items
         do {
-            let feeds = try self.persistentContainer.viewContext.fetch(Feed.fetchRequest()) as! [Feed]
-            feeds.forEach { feed in
-                feed.itemsArray.forEach { item in
-                    self.persistentContainer.viewContext.delete(item)
-                }
-                feed.refreshed = nil
-                feed.favicon = nil
-            }
-        } catch {
-            fatalError("Unable to fetch items: \(error)")
-        }
-        
-        // Save context to apply changes to Core Data
-        do {
-            try self.persistentContainer.viewContext.save()
-        } catch {
-            fatalError("Unable to save context after item cleanup: \(error)")
-        }
-        
-        // Send object events on pages to update counts
-        do {
-            let pages = try self.persistentContainer.viewContext.fetch(Page.fetchRequest()) as! [Page]
+            let pages = try viewContext.fetch(Page.fetchRequest()) as! [Page]
             pages.forEach { page in
+                page.feedsArray.forEach { feed in
+                    feed.itemsArray.forEach { item in
+                        viewContext.delete(item)
+                    }
+                    feed.refreshed = nil
+                    feed.favicon = nil
+                }
                 page.objectWillChange.send()
             }
-        } catch {
-            fatalError("Unable to fetch pages: \(error)")
+        } catch let error as NSError {
+            Logger.main.info("Error occured while resetting pages. \(error)")
+        }
+        
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
         }
     }
 }

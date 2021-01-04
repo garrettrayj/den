@@ -16,6 +16,7 @@ struct PageView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var screenManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var crashManager: CrashManager
     @ObservedObject var pageViewModel: PageViewModel
     
     let columns = [
@@ -40,10 +41,12 @@ struct PageView: View {
                             PageSettingsView(page: pageViewModel.page)
                                 .environment(\.managedObjectContext, viewContext)
                                 .environmentObject(refreshManager)
+                                .environmentObject(crashManager)
                         } else if pageSheet.modal == .options {
                             FeedWidgetOptionsView(feed: pageSheet.feed!)
                                 .environment(\.managedObjectContext, viewContext)
                                 .environmentObject(refreshManager)
+                                .environmentObject(crashManager)
                         }
                     }
                     .navigationTitle(Text(pageViewModel.page.name ?? "Page Deleted"))

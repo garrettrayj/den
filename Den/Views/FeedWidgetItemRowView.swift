@@ -13,6 +13,7 @@ import URLImage
  Item (article) row for feeds
  */
 struct FeedWidgetItemRowView: View {
+    @EnvironmentObject var safariManager: SafariManager
     @ObservedObject var item: Item
     
     var body: some View {
@@ -116,8 +117,8 @@ struct FeedWidgetItemRowView: View {
     }
     
     func openLink() {
-        SafariPresenter.nextModalPresentationStyle = .fullScreen
-        SafariPresenter.openSafari(url: item.link!, readerMode: item.feed?.readerMode ?? false)
+        safariManager.nextModalPresentationStyle = .fullScreen
+        safariManager.openSafari(url: item.link!, readerMode: item.feed?.readerMode ?? false)
         item.markRead()
     }
 }
