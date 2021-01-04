@@ -25,12 +25,12 @@ Den is a UIKit application written in Swift and SwiftUI with a good deal of work
 
 ### Open Source Dependencies
 
-* [AEXML](https://github.com/tadija/AEXML) is used for reading and writing OPML files
-* [FeedKit](https://github.com/nmdias/FeedKit) for parsing feeds into Swift objects
-* [Grid](https://github.com/spacenation/swiftui-grid) for staggard display of widgets (search view)
-* [HTMLEntities](https://github.com/Kitura/swift-html-entities) for unescaping `&blah;` in titles and summaries
-* [SwiftSoup](https://github.com/scinfu/SwiftSoup) for parsing and cleaning HTML (used to find favicons, preview images, etc.)
-* [URLImage](https://github.com/dmytro-anokhin/url-image) for asynchronous image loading and display in views
+- [AEXML](https://github.com/tadija/AEXML) is used for reading and writing OPML files
+- [FeedKit](https://github.com/nmdias/FeedKit) for parsing feeds into Swift objects
+- [Grid](https://github.com/spacenation/swiftui-grid) for staggard display of widgets (search view)
+- [HTMLEntities](https://github.com/Kitura/swift-html-entities) for unescaping `&blah;` in titles and summaries
+- [SwiftSoup](https://github.com/scinfu/SwiftSoup) for parsing and cleaning HTML (used to find favicons, preview images, etc.)
+- [URLImage](https://github.com/dmytro-anokhin/url-image) for asynchronous image loading and display in views
 
 ### Repository Layout
 
