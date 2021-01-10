@@ -8,9 +8,11 @@
 import CoreData
 
 struct PersistenceController {
+    static var shared = PersistenceController()
+    
     let container: NSPersistentCloudKitContainer
     
-    init(crashManager: CrashManager) {
+    init() {
         container = NSPersistentCloudKitContainer(name: "Den")
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.undoManager = nil
@@ -23,7 +25,7 @@ struct PersistenceController {
                 - The device is out of space.
                 - The store could not be migrated to the current model version.
                 */
-                crashManager.handleCriticalError(error)
+                CrashManager.shared.handleCriticalError(error)
             }
         })
     }

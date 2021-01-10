@@ -153,7 +153,7 @@ struct SettingsView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.shared.handleCriticalError(error)
         }
         
         restoreDefaultSettings()

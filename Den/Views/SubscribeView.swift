@@ -134,7 +134,7 @@ struct SubscribeView: View {
             do {
                 try self.viewContext.save()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                CrashManager.shared.handleCriticalError(error)
             }
         }
         
@@ -183,7 +183,7 @@ struct SubscribeView: View {
             do {
                 try viewContext.save()
             } catch let error as NSError{
-                crashManager.handleCriticalError(error)
+                CrashManager.shared.handleCriticalError(error)
             }
         }
         
@@ -194,7 +194,7 @@ struct SubscribeView: View {
             do {
                 try self.viewContext.save()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                CrashManager.shared.handleCriticalError(error)
             }
         }
         
@@ -207,7 +207,7 @@ struct SubscribeView: View {
             do {
                 try viewContext.save()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                CrashManager.shared.handleCriticalError(error)
             }
         }
         

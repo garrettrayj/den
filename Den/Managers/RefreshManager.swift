@@ -18,14 +18,8 @@ class RefreshManager: ObservableObject {
     public var progress = Progress(totalUnitCount: 0)
     
     private var queue = OperationQueue()
-    private var persistentContainer: NSPersistentContainer
-    private var crashManager: CrashManager
+    private var persistentContainer: NSPersistentContainer = PersistenceController.shared.container
 
-    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
-        self.persistentContainer = persistentContainer
-        self.crashManager = crashManager
-    }
-    
     public func refresh(_ page: Page) {
         page.feedsArray.forEach { feed in
             self.refresh(feed)
@@ -58,8 +52,7 @@ class RefreshManager: ObservableObject {
         let parseOperation = ParseOperation()
         let ingestOperation = IngestOperation(
             persistentContainer: persistentContainer,
-            feedObjectID: feed.objectID,
-            crashManager: crashManager
+            feedObjectID: feed.objectID
         )
         
         let fetchParseAdapter = BlockOperation() { [unowned parseOperation, unowned fetchOperation] in

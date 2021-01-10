@@ -21,12 +21,10 @@ class IngestOperation: Operation {
     var feedObjectID: NSManagedObjectID
     
     private var persistentContainer: NSPersistentContainer
-    private var crashManager: CrashManager
     
-    init(persistentContainer: NSPersistentContainer, feedObjectID: NSManagedObjectID, crashManager: CrashManager) {
+    init(persistentContainer: NSPersistentContainer, feedObjectID: NSManagedObjectID) {
         self.persistentContainer = persistentContainer
         self.feedObjectID = feedObjectID
-        self.crashManager = crashManager
         super.init()
     }
 
@@ -44,7 +42,7 @@ class IngestOperation: Operation {
                     try context.save()
                 } catch {
                     DispatchQueue.main.async {
-                        self.crashManager.handleCriticalError(error as NSError)
+                        CrashManager.shared.handleCriticalError(error as NSError)
                     }
                 }
             }

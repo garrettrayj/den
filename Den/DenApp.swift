@@ -14,15 +14,16 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     
-    private let persistenceController: PersistenceController
-    private let crashManager: CrashManager
-    private let refreshManager: RefreshManager
-    private let cacheManager: CacheManager
-    private let importManager: ImportManager
-    private let searchManager: SearchManager
-    private let subscriptionManager: SubscriptionManager
-    private let themeManager: ThemeManager
-    private let safariManager: SafariManager
+    let persistenceController: PersistenceController = PersistenceController.shared
+    
+    @StateObject var crashManager: CrashManager = CrashManager.shared
+    @StateObject var refreshManager: RefreshManager = RefreshManager()
+    @StateObject var cacheManager: CacheManager = CacheManager()
+    @StateObject var importManager: ImportManager = ImportManager()
+    @StateObject var searchManager: SearchManager = SearchManager()
+    @StateObject var subscriptionManager: SubscriptionManager = SubscriptionManager()
+    @StateObject var themeManager: ThemeManager = ThemeManager()
+    @StateObject var safariManager: SafariManager = SafariManager()
     
     var body: some Scene {
         WindowGroup {
@@ -52,27 +53,6 @@ struct DenApp: App {
                     subscriptionManager.subscribe(to: url)
                 }
         }
-    }
-    
-    init() {
-        crashManager = CrashManager()
-        persistenceController = PersistenceController(crashManager: crashManager)
-        refreshManager = RefreshManager(
-            persistentContainer: persistenceController.container,
-            crashManager: crashManager
-        )
-        cacheManager = CacheManager(
-            viewContext: persistenceController.container.viewContext,
-            crashManager: crashManager
-        )
-        importManager = ImportManager(
-            viewContext: persistenceController.container.viewContext,
-            crashManager: crashManager
-        )
-        searchManager = SearchManager(viewContext: persistenceController.container.viewContext)
-        subscriptionManager = SubscriptionManager()
-        themeManager = ThemeManager()
-        safariManager = SafariManager()
     }
 }
 

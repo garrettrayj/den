@@ -17,12 +17,10 @@ class SearchManager: ObservableObject {
     @Published var results: [[Item]] = []
     @Published var isEditing: Bool = false
 
-    private var viewContext: NSManagedObjectContext
+    private var viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
     private var cancellable: AnyCancellable? = nil
 
-    init(viewContext: NSManagedObjectContext) {
-        self.viewContext = viewContext
-        
+    init() {
         cancellable = AnyCancellable(
             $query
                 .removeDuplicates()

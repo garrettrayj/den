@@ -100,7 +100,7 @@ struct SidebarView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.shared.handleCriticalError(error)
         }
     }
     
@@ -122,7 +122,7 @@ struct SidebarView: View {
             do {
                 try viewContext.save()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                CrashManager.shared.handleCriticalError(error)
             }
         }
     }
@@ -153,7 +153,7 @@ struct SidebarView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.shared.handleCriticalError(error)
         }
     }
 }

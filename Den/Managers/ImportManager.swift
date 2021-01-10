@@ -25,13 +25,10 @@ class ImportManager: ObservableObject {
     var documentPicker: ImportDocumentPicker!
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
     var noneSelected: Bool { selectedFolders.count == 0 }
+
+    private var viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
     
-    private var crashManager: CrashManager
-    private var viewContext: NSManagedObjectContext
-    
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
-        self.viewContext = viewContext
-        self.crashManager = crashManager
+    init() {
         self.documentPicker = ImportDocumentPicker(importManager: self)
     }
     
@@ -92,7 +89,7 @@ class ImportManager: ObservableObject {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.shared.handleCriticalError(error)
         }
     }
 }
