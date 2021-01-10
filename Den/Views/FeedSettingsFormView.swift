@@ -103,7 +103,7 @@ struct FeedSettingsFormView: View {
                 do {
                     try self.viewContext.save()
                 } catch let error as NSError {
-                    crashManager.handleCriticalError(error)
+                    CrashManager.shared.handleCriticalError(error)
                 }
                 self.feed.itemsArray.forEach { item in
                     item.objectWillChange.send()

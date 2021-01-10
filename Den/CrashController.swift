@@ -14,10 +14,12 @@ class CrashManager: ObservableObject {
     static var shared = CrashManager()
     
     @Published var showingAlert: Bool = false
+    
+    public var appHasCrashed: Bool = false
 
     public func handleCriticalError(_ anError: NSError) {
         Logger.main.critical("\(self.formatErrorMessage(anError))")
-        showingAlert = true
+        appHasCrashed = true
     }
     
     private func formatErrorMessage(_ anError: NSError?) -> String {
@@ -100,4 +102,5 @@ class CrashManager: ObservableObject {
         
         return messages
     }
+    
 }

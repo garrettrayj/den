@@ -12,13 +12,7 @@ import URLImage
 import OSLog
 
 class CacheManager: ObservableObject {
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
-    
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
-        self.viewContext = viewContext
-        self.crashManager = crashManager
-    }
+    private var viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
     
     func clearAll() {
         resetFeeds()
@@ -50,7 +44,7 @@ class CacheManager: ObservableObject {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.shared.handleCriticalError(error)
         }
     }
 }

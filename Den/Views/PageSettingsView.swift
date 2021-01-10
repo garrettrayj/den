@@ -60,12 +60,15 @@ struct PageSettingsView: View {
             if self.viewContext.hasChanges {
                 do {
                     try viewContext.save()
+                    
+                    DispatchQueue.main.async {
+                        refreshManager.refresh(page)
+                    }
+                    
                 } catch let error as NSError {
-                    crashManager.handleCriticalError(error)
+                    CrashManager.shared.handleCriticalError(error)
                 }
             }
-            
-            refreshManager.refresh(page)
         }
     }
     
