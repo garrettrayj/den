@@ -5,7 +5,7 @@
 
 Den is a minimalist feed reader made to deliver the latest headlines without distraction, obfuscation, or manipulation. It helps you follow many sources and discover great content while keeping things in perspective.
 
-Just add widely available RSS feeds to stay up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends; just an alway-fresh buffet of links to peruse and enjoy.
+Just add widely available RSS feeds to stay up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends; just an alway-fresh buffet of links to browse.
 
 ### Features
 

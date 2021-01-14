@@ -48,7 +48,7 @@ struct DenApp: App {
                     safariManager.controller = window?.rootViewController
                     
                     themeManager.window = window
-                    themeManager.applyUIStyle()
+                    themeManager.applyUIStyle()                    
                 }.onOpenURL { url in
                     subscriptionManager.subscribe(to: url)
                 }
