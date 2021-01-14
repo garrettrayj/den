@@ -65,7 +65,7 @@ struct SearchView: View {
                     }.layoutPriority(2)
                 }
             }.padding(.horizontal, 12)
-        }.padding(.horizontal)
+        }.padding([.top, .horizontal])
     }
     
     var searchResults: some View {
