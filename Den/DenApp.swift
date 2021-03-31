@@ -14,21 +14,20 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     
-    let persistenceController: PersistenceController = PersistenceController.shared
-    
-    @StateObject var crashManager: CrashManager = CrashManager.shared
-    @StateObject var refreshManager: RefreshManager = RefreshManager()
-    @StateObject var cacheManager: CacheManager = CacheManager()
-    @StateObject var importManager: ImportManager = ImportManager()
-    @StateObject var searchManager: SearchManager = SearchManager()
-    @StateObject var subscriptionManager: SubscriptionManager = SubscriptionManager()
-    @StateObject var themeManager: ThemeManager = ThemeManager()
-    @StateObject var safariManager: SafariManager = SafariManager()
+    @StateObject var persistenceManager: PersistenceManager
+    @StateObject var crashManager: CrashManager
+    @StateObject var refreshManager: RefreshManager
+    @StateObject var cacheManager: CacheManager
+    @StateObject var importManager: ImportManager
+    @StateObject var searchManager: SearchManager
+    @StateObject var subscriptionManager: SubscriptionManager
+    @StateObject var themeManager: ThemeManager
+    @StateObject var safariManager: SafariManager
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceManager.container.viewContext)
                 .environmentObject(refreshManager)
                 .environmentObject(cacheManager)
                 .environmentObject(importManager)
@@ -53,6 +52,28 @@ struct DenApp: App {
                     subscriptionManager.subscribe(to: url)
                 }
         }
+    }
+    
+    init() {
+        let crashManager = CrashManager()
+        let persistenceManager = PersistenceManager(crashManager: crashManager)
+        let refreshManager = RefreshManager(persistenceManager: persistenceManager, crashManager: crashManager)
+        let cacheManager = CacheManager(persistenceManager: persistenceManager)
+        let importManager = ImportManager(persistenceManager: persistenceManager, crashManager: crashManager)
+        let searchManager = SearchManager(persistenceManager: persistenceManager, crashManager: crashManager)
+        let subscriptionManager = SubscriptionManager()
+        let themeManager = ThemeManager()
+        let safariManager = SafariManager()
+    
+        _crashManager = StateObject(wrappedValue: crashManager)
+        _persistenceManager = StateObject(wrappedValue: persistenceManager)
+        _refreshManager = StateObject(wrappedValue: refreshManager)
+        _cacheManager = StateObject(wrappedValue: cacheManager)
+        _importManager = StateObject(wrappedValue: importManager)
+        _searchManager = StateObject(wrappedValue: searchManager)
+        _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
+        _themeManager = StateObject(wrappedValue: themeManager)
+        _safariManager = StateObject(wrappedValue: safariManager)
     }
 }
 

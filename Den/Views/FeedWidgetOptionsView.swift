@@ -14,12 +14,12 @@ import SwiftUI
  */
 struct FeedWidgetOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var feed: Feed    
+    @ObservedObject var subscription: Subscription
     
     var body: some View {
         NavigationView {
             FeedSettingsFormView(
-                feed: feed,
+                subscription: subscription,
                 onDelete: close,
                 onMove: close
             )

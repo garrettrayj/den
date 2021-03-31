@@ -30,7 +30,7 @@ struct PageView: View {
                     pageDeleted
                 } else {
                     ZStack(alignment: .top) {
-                        if pageViewModel.hasFeeds() {
+                        if pageViewModel.hasSubscriptions() {
                             dashboardMode
                         } else {
                             pageEmpty
@@ -43,7 +43,7 @@ struct PageView: View {
                                 .environmentObject(refreshManager)
                                 .environmentObject(crashManager)
                         } else if pageSheet.modal == .options {
-                            FeedWidgetOptionsView(feed: pageSheet.feed!)
+                            FeedWidgetOptionsView(subscription: pageSheet.subscription!)
                                 .environment(\.managedObjectContext, viewContext)
                                 .environmentObject(refreshManager)
                                 .environmentObject(crashManager)
@@ -63,12 +63,10 @@ struct PageView: View {
     
     var dashboardMode: some View {
         ZStack(alignment: .top) {
-            
-            
             RefreshableScrollView(page: pageViewModel.page) {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(pageViewModel.page.feedsArray, id: \.self) { feed in
-                        FeedWidgetView(feed: feed, pageSheetViewModel: $pageViewModel.pageSheetViewModel)
+                    ForEach(pageViewModel.page.subscriptionsArray, id: \.self) { subscription in
+                        FeedWidgetView(subscription: subscription, pageSheetViewModel: $pageViewModel.pageSheetViewModel)
                     }
                 }
                 .padding(16)

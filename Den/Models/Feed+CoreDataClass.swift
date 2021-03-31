@@ -13,6 +13,11 @@ import OSLog
 
 @objc(Feed)
 public class Feed: NSManagedObject {
+    public var subscription: Subscription? {
+        let values = value(forKey: "subscription") as! [Subscription]
+        return values.first
+    }
+    
     public var itemsArray: [Item] {
         guard let items = items else {
             return []
@@ -23,16 +28,7 @@ public class Feed: NSManagedObject {
         ) as! [Item]
     }
     
-    public var urlString: String {
-        get{url?.absoluteString ?? ""}
-        set{url = URL(string: newValue)}
-    }
-    
-    public var wrappedTitle: String {
-        get{title ?? "Untitled"}
-        set{title = newValue}
-    }
-    
+
     public var unreadItemCount: Int {
         itemsArray.filter { item in item.read == false }.count
     }
@@ -43,18 +39,10 @@ public class Feed: NSManagedObject {
         }).count
     }
     
-    static func create(in managedObjectContext: NSManagedObjectContext, page: Page, prepend: Bool = false) -> Feed {
+    static func create(in managedObjectContext: NSManagedObjectContext, subscriptionId: UUID) -> Feed {
         let newFeed = self.init(context: managedObjectContext)
         newFeed.id = UUID()
-        newFeed.showLargePreviews = false
-        newFeed.showThumbnails = true
-        newFeed.page = page
-        
-        if prepend {
-            newFeed.userOrder = page.feedsUserOrderMin - 1
-        } else {
-            newFeed.userOrder = page.feedsUserOrderMax + 1
-        }
+        newFeed.subscriptionId = subscriptionId
         
         return newFeed
     }
@@ -63,9 +51,11 @@ public class Feed: NSManagedObject {
      Atom feed handler responsible for populating application data model from FeedKit AtomFeed result.
      */
     public func ingest(content: AtomFeed, moc managedObjectContext: NSManagedObjectContext) {
-        if self.title == nil {
+        guard let subscription = self.subscription else { return }
+        
+        if subscription.title == nil {
             if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                self.title = feedTitle
+                subscription.title = feedTitle
             }
         }
         
@@ -82,7 +72,7 @@ public class Feed: NSManagedObject {
         
         guard
             let atomEntries = content.entries,
-            let itemsPerFeed = page?.wrappedItemsPerFeed
+            let itemsPerFeed = subscription.page?.wrappedItemsPerFeed
         else { return }
         
         atomEntries.prefix(itemsPerFeed).forEach { atomEntry in
@@ -122,9 +112,11 @@ public class Feed: NSManagedObject {
      RSS feed handler responsible for populating application data model from FeedKit RSSFeed result.
      */
     public func ingest(content: RSSFeed, moc managedObjectContext: NSManagedObjectContext) {
-        if self.title == nil {
+        guard let subscription = self.subscription else { return }
+        
+        if subscription.title == nil {
             if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                self.title = feedTitle
+                subscription.title = feedTitle
             }
         }
         
@@ -136,7 +128,7 @@ public class Feed: NSManagedObject {
         
         guard
             let rssItems = content.items,
-            let itemsPerFeed = page?.wrappedItemsPerFeed
+            let itemsPerFeed = subscription.page?.wrappedItemsPerFeed
         else { return }
         
         // Add new items
@@ -170,9 +162,11 @@ public class Feed: NSManagedObject {
     }
     
     func ingest(content: JSONFeed, moc managedObjectContext: NSManagedObjectContext) {
-        if self.title == nil {
+        guard let subscription = self.subscription else { return }
+        
+        if subscription.title == nil {
             if let title = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
-                self.title = title
+                subscription.title = title
             }
         }
         
@@ -182,7 +176,7 @@ public class Feed: NSManagedObject {
         
         guard
             let jsonItems = content.items,
-            let itemsPerFeed = page?.wrappedItemsPerFeed
+            let itemsPerFeed = subscription.page?.wrappedItemsPerFeed
         else { return }
         
         // Add new items

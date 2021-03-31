@@ -14,7 +14,7 @@ import URLImage
  */
 struct FeedWidgetView: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    @ObservedObject var feed: Feed
+    @ObservedObject var subscription: Subscription
     @Binding var pageSheetViewModel: PageSheetViewModel?
     
     var body: some View {
@@ -30,9 +30,9 @@ struct FeedWidgetView: View {
         VStack(spacing: 0) {
             // MARK: Feed Header
             HStack(alignment: .center) {
-                if feed.favicon != nil {
+                if subscription.feed?.favicon != nil {
                     URLImage(
-                        url: feed.favicon!,
+                        url: subscription.feed!.favicon!,
                         options: URLImageOptions(
                             cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: 0.25)
                         ),
@@ -50,7 +50,7 @@ struct FeedWidgetView: View {
                     .clipped()
                     .accessibility(label: Text("Favicon"))
                 }
-                Text(feed.wrappedTitle).font(.headline).lineLimit(1)
+                Text(subscription.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()
                 
                 Button(action: showOptions) {
@@ -62,7 +62,7 @@ struct FeedWidgetView: View {
             
             // MARK: Feed Items
             VStack(spacing: 0) {
-                if feed.error != nil {
+                if subscription.feed?.error != nil {
                     Divider()
                     VStack {
                         VStack(spacing: 4) {
@@ -71,7 +71,7 @@ struct FeedWidgetView: View {
                                 .font(.callout)
                                 .fontWeight(.medium)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(feed.error!)
+                            Text(subscription.feed!.error!)
                                 .foregroundColor(.red)
                                 .fontWeight(.medium)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -89,9 +89,9 @@ struct FeedWidgetView: View {
                     .frame(maxWidth: .infinity)
                 }
                 
-                if feed.itemsArray.count > 0 {
+                if subscription.feed != nil && subscription.feed!.itemsArray.count > 0 {
                     VStack(spacing: 0) {
-                        ForEach(feed.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
+                        ForEach(subscription.feed!.itemsArray.prefix(subscription.page?.wrappedItemsPerFeed ?? 5)) { item in
                             Group {
                                 Divider()
                                 FeedWidgetItemRowView(item: item)
@@ -100,7 +100,7 @@ struct FeedWidgetView: View {
                     }
                     .drawingGroup()
                 } else {
-                    if feed.error == nil {
+                    if subscription.feed != nil && subscription.feed!.error == nil {
                         Divider()
                     }
                     
@@ -115,6 +115,6 @@ struct FeedWidgetView: View {
     }
     
     func showOptions() {
-        self.pageSheetViewModel = PageSheetViewModel(modal: .options, feed: feed)
+        self.pageSheetViewModel = PageSheetViewModel(modal: .options, subscription: subscription)
     }
 }

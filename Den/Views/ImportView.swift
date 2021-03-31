@@ -84,7 +84,7 @@ struct ImportView: View {
                 .scaledToFit()
                 .frame(width: 48, height: 48)
             Text("Import Complete").font(.title)
-            Text("Added \(importManager.feedsImported.count) feeds to \(importManager.pagesImported.count) pages").foregroundColor(Color(.secondaryLabel))
+            Text("Added \(importManager.subscriptionsImported.count) feeds to \(importManager.pagesImported.count) pages").foregroundColor(Color(.secondaryLabel))
         }
     }
     

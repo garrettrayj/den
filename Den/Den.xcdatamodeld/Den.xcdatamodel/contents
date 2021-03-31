@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="error" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
-        <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="showLargePreviews" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="showThumbnails" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="url" optional="YES" attributeType="URI"/>
-        <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="subscriptionId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feed" inverseEntity="Item"/>
-        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="feeds" inverseEntity="Page"/>
+        <fetchedProperty name="subscription" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Subscription" predicateString="id = $FETCH_SOURCE.subscriptionId"/>
+        </fetchedProperty>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
+        <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="read" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="items" inverseEntity="Feed"/>
@@ -31,12 +29,43 @@
         <attribute name="itemsPerFeed" attributeType="Integer 16" minValueString="1" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="New Desk"/>
         <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
+        <relationship name="subscriptions" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Subscription" inverseName="page" inverseEntity="Subscription"/>
         <userInfo/>
     </entity>
+    <entity name="Subscription" representedClassName="Subscription" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="showThumbnails" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <attribute name="userOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="subscriptions" inverseEntity="Page"/>
+        <relationship name="visits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Visit" inverseName="subscription" inverseEntity="Visit"/>
+        <fetchedProperty name="feed" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Feed" predicateString="subscriptionId = $FETCH_SOURCE.id"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="Visit" representedClassName="Visit" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="subscription" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subscription" inverseName="visits" inverseEntity="Subscription"/>
+    </entity>
+    <configuration name="Cloud" usedWithCloudKit="YES">
+        <memberEntity name="Visit"/>
+        <memberEntity name="Page"/>
+        <memberEntity name="Subscription"/>
+    </configuration>
+    <configuration name="Local">
+        <memberEntity name="Item"/>
+        <memberEntity name="Feed"/>
+    </configuration>
     <elements>
-        <element name="Feed" positionX="270" positionY="216" width="128" height="239"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="163"/>
+        <element name="Feed" positionX="270" positionY="216" width="128" height="170"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="164"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="104"/>
+        <element name="Subscription" positionX="288" positionY="333" width="128" height="170"/>
+        <element name="Visit" positionX="270" positionY="315" width="128" height="104"/>
     </elements>
 </model>

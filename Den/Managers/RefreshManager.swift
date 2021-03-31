@@ -18,41 +18,48 @@ class RefreshManager: ObservableObject {
     public var progress = Progress(totalUnitCount: 0)
     
     private var queue = OperationQueue()
-    private var persistentContainer: NSPersistentContainer = PersistenceController.shared.container
-
+    private var persistentContainer: NSPersistentContainer
+    private var crashManager: CrashManager
+    
+    init(persistenceManager: PersistenceManager, crashManager: CrashManager) {
+        self.persistentContainer = persistenceManager.container
+        self.crashManager = crashManager
+    }
+    
     public func refresh(_ page: Page) {
-        page.feedsArray.forEach { feed in
-            self.refresh(feed)
+        page.subscriptionsArray.forEach { subscription in
+            self.refresh(subscription)
         }
     }
     
-    public func refresh(_ feed: Feed) {
+    public func refresh(_ subscription: Subscription) {
         refreshing = true
         progress.totalUnitCount += 1
         
-        let fetchMeta = feed.refreshed == nil
+        let fetchMeta = false // TODO:
+        
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(
-                self.createFeedOperations(feed: feed, fetchMeta: fetchMeta),
+                self.createFeedOperations(subscription: subscription, fetchMeta: fetchMeta),
                 waitUntilFinished: false
             )
         }
     }
     
-    private func createFeedOperations(feed: Feed, fetchMeta: Bool) -> [Operation] {
-        guard let feedURL = feed.url else {
+    private func createFeedOperations(subscription: Subscription, fetchMeta: Bool) -> [Operation] {
+        var operations: [Operation] = []
+        
+        guard let feedURL = subscription.url else {
             return []
         }
-        
-        var operations: [Operation] = []
-                
+         
         // Create standard feed operations
         let fetchOperation = FetchOperation(url: feedURL)
         let parseOperation = ParseOperation()
         let ingestOperation = IngestOperation(
             persistentContainer: persistentContainer,
-            feedObjectID: feed.objectID
+            subscriptionObjectID: subscription.objectID
         )
         
         let fetchParseAdapter = BlockOperation() { [unowned parseOperation, unowned fetchOperation] in
@@ -65,7 +72,7 @@ class RefreshManager: ObservableObject {
                 if self.progress.fractionCompleted == 1 {
                     self.refreshing = false
                 }
-                feed.page?.objectWillChange.send()
+                subscription.page?.objectWillChange.send()
             }
         }
         
@@ -112,7 +119,7 @@ class RefreshManager: ObservableObject {
             let faviconCheckStatusAdapter = BlockOperation() {[unowned checkWebpageFaviconOperation, unowned checkDefaultFaviconOperation] in
                 checkDefaultFaviconOperation.performCheck = checkWebpageFaviconOperation.foundFavicon == nil
             }
-            let faviconResultOperation = FaviconResultOperation(feedObjectID: feed.objectID)
+            let faviconResultOperation = FaviconResultOperation()
             let checkFaviconResultAdapterOperation = BlockOperation() { [
                 unowned faviconResultOperation,
                 unowned checkWebpageFaviconOperation,
@@ -165,5 +172,6 @@ class RefreshManager: ObservableObject {
         }
         
         return operations
+        
     }
 }

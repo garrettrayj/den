@@ -31,10 +31,10 @@ struct PageSettingsView: View {
                     Stepper("Feed Item Limit: \(itemsPerFeedStepperValue)", value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max))
                 }
                 
-                Section(header: HStack { Text("\(page.feedsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
+                Section(header: HStack { Text("\(page.subscriptionsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
                     List {
-                        ForEach(page.feedsArray) { feed in
-                            Text(feed.wrappedTitle)
+                        ForEach(page.subscriptionsArray) { subscription in
+                            Text(subscription.wrappedTitle)
                         }
                         .onDelete(perform: delete)
                         .onMove(perform: move)
@@ -73,12 +73,12 @@ struct PageSettingsView: View {
     }
     
     func delete(indices: IndexSet) {
-        page.feedsArray.delete(at: indices, from: viewContext)
+        page.subscriptionsArray.delete(at: indices, from: viewContext)
     }
     
     private func move( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Feed] = page.feedsArray.map { $0 }
+        var revisedItems: [Subscription] = page.subscriptionsArray.map { $0 }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
