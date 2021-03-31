@@ -29,16 +29,12 @@ struct FeedWidgetItemRowView: View {
                     Text(item.wrappedTitle)
                 }
                 
-                if item.image != nil && item.feed != nil && item.feed!.showThumbnails == true {
+                if item.image != nil && item.feed != nil && item.feed?.subscription?.showThumbnails == true {
                     thumbnailImage
                 }
             }
-            
-            if item.image != nil && item.feed != nil && item.feed!.showLargePreviews == true {
-                largeImage
-            }
         }
-        .buttonStyle(ItemLinkButtonStyle(read: $item.read))
+        .buttonStyle(ItemLinkButtonStyle(read: .constant(true))) // TODO:
         .frame(maxWidth: .infinity)
         .padding(12)
     }
@@ -118,7 +114,7 @@ struct FeedWidgetItemRowView: View {
     
     func openLink() {
         safariManager.nextModalPresentationStyle = .fullScreen
-        safariManager.openSafari(url: item.link!, readerMode: item.feed?.readerMode ?? false)
+        safariManager.openSafari(url: item.link!, readerMode: item.feed?.subscription?.readerMode ?? false)
         item.markRead()
     }
 }

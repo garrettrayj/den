@@ -144,9 +144,9 @@ struct SidebarView: View {
             newPages.append(page)
             
             opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page)
-                feed.title = opmlFeed.title
-                feed.url = opmlFeed.url
+                let subscription = Subscription.create(in: self.viewContext, page: page)
+                subscription.title = opmlFeed.title
+                subscription.url = opmlFeed.url
             }
         }
         

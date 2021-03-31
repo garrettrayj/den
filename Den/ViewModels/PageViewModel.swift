@@ -22,7 +22,7 @@ class PageViewModel: ObservableObject {
         self.page = page
     }
     
-    func hasFeeds() -> Bool {
-        return self.page.feedsArray.count > 0
+    func hasSubscriptions() -> Bool {
+        return self.page.subscriptionsArray.count > 0
     }
 }

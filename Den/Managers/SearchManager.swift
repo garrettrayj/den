@@ -17,10 +17,15 @@ class SearchManager: ObservableObject {
     @Published var results: [[Item]] = []
     @Published var isEditing: Bool = false
 
-    private var viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
+    private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
+    
     private var cancellable: AnyCancellable? = nil
 
-    init() {
+    init(persistenceManager: PersistenceManager, crashManager: CrashManager) {
+        self.viewContext = persistenceManager.container.viewContext
+        self.crashManager = crashManager
+        
         cancellable = AnyCancellable(
             $query
                 .removeDuplicates()
@@ -48,10 +53,8 @@ class SearchManager: ObservableObject {
     private func performSearch(query: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
         fetchRequest.predicate = NSPredicate(
-            format: "%K CONTAINS[C] %@ OR %K CONTAINS[C] %@",
+            format: "%K CONTAINS[C] %@",
             #keyPath(Item.title),
-            query,
-            #keyPath(Item.feed.title),
             query
         )
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
@@ -68,7 +71,7 @@ class SearchManager: ObservableObject {
         Dictionary(grouping: fetchResults) { item in
             item.feed!
         }.values.sorted { a, b in
-            return a[0].feed!.title! < b[0].feed!.title!
+            return a[0].feed!.subscription!.title! < b[0].feed!.subscription!.title!
         }
     }
 }

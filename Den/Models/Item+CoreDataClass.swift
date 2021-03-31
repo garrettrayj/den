@@ -20,6 +20,9 @@ public class Item: NSManagedObject {
     }
     
     func markRead() {
+        
+        /*
+        
         if read == true { return }
         read = true
         
@@ -34,6 +37,7 @@ public class Item: NSManagedObject {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+         */
     }
     
     /**

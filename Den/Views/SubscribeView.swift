@@ -23,7 +23,7 @@ struct SubscribeView: View {
     @State private var urlText: String = ""
     @State private var urlIsValid: Bool = false
     @State private var validationMessage: String?
-    @State private var newFeed: Feed?
+    @State private var newSubscription: Subscription?
     
     var pages: FetchedResults<Page>
     
@@ -70,7 +70,7 @@ struct SubscribeView: View {
             leading: Button(action: cancel) {
                 Text("Cancel")
             },
-            trailing: Button(action: createFeed) {
+            trailing: Button(action: createSubscription) {
                 HStack {
                     Text("Next")
                     Image(systemName: "chevron.right")
@@ -84,14 +84,14 @@ struct SubscribeView: View {
     
     var configurationStage: some View {
         Group {
-            if self.newFeed != nil && refreshManager.refreshing {
+            if self.newSubscription != nil && refreshManager.refreshing {
                 VStack {
                     Text("Downloading feed…").font(.title)
                     ActivityRep()
                 }
             } else {
-                if self.newFeed != nil && self.newFeed?.error == nil {
-                    FeedSettingsFormView(feed: self.newFeed!, onDelete: cancel, onMove: {})
+                if self.newSubscription != nil && self.newSubscription?.feed?.error == nil {
+                    FeedSettingsFormView(subscription: self.newSubscription!, onDelete: cancel, onMove: {})
                         .navigationBarItems(
                             leading: Button(action: cancel) { Text("Cancel") },
                             trailing: Button(action: save) { Text("Save") }
@@ -105,7 +105,7 @@ struct SubscribeView: View {
                             .foregroundColor(Color(.systemRed))
                             .padding(.bottom)
                         Text("Download Error").font(.title)
-                        Text(newFeed?.error ?? "Unknown error").foregroundColor(Color(.secondaryLabel)).padding()
+                        Text(newSubscription?.feed?.error ?? "Unknown error").foregroundColor(Color(.secondaryLabel)).padding()
                     }
                     .navigationBarItems(
                         leading: Button(action: back) {
@@ -126,8 +126,8 @@ struct SubscribeView: View {
     }
     
     func cancel() {
-        if let newFeed = self.newFeed {
-            viewContext.delete(newFeed)
+        if let newSubscription = newSubscription {
+            viewContext.delete(newSubscription)
         }
         
         if self.viewContext.hasChanges {
@@ -177,9 +177,9 @@ struct SubscribeView: View {
         self.urlIsValid = true
     }
     
-    func createFeed() {
-        if let exisitingNewFeed = self.newFeed {
-            self.viewContext.delete(exisitingNewFeed)
+    func createSubscription() {
+        if let exisitingNewSubscription = self.newSubscription {
+            self.viewContext.delete(exisitingNewSubscription)
             do {
                 try viewContext.save()
             } catch let error as NSError{
@@ -187,8 +187,9 @@ struct SubscribeView: View {
             }
         }
         
-        self.newFeed = Feed.create(in: self.viewContext, page: self.subscriptionManager.currentPage ?? self.pages.first!, prepend: true)
-        self.newFeed!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
+        
+        self.newSubscription = Subscription.create(in: self.viewContext, page: self.subscriptionManager.currentPage ?? self.pages.first!)
+        self.newSubscription!.url = URL(string: self.urlText.trimmingCharacters(in: .whitespacesAndNewlines))
         
         if self.viewContext.hasChanges {
             do {
@@ -199,7 +200,6 @@ struct SubscribeView: View {
         }
         
         self.activeStage = .configuration
-        self.refreshManager.refresh(newFeed!)
     }
     
     func save() {

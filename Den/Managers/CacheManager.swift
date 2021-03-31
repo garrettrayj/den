@@ -12,7 +12,11 @@ import URLImage
 import OSLog
 
 class CacheManager: ObservableObject {
-    private var viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
+    private var viewContext: NSManagedObjectContext
+    
+    init(persistenceManager: PersistenceManager) {
+        self.viewContext = persistenceManager.container.viewContext
+    }
     
     func clearAll() {
         resetFeeds()
@@ -28,12 +32,15 @@ class CacheManager: ObservableObject {
         do {
             let pages = try viewContext.fetch(Page.fetchRequest()) as! [Page]
             pages.forEach { page in
-                page.feedsArray.forEach { feed in
-                    feed.itemsArray.forEach { item in
-                        viewContext.delete(item)
+                page.subscriptionsArray.forEach { subscription in
+                    
+                    if let feed = subscription.feed {
+                        feed.itemsArray.forEach { item in
+                            viewContext.delete(item)
+                        }
+                        feed.refreshed = nil
+                        feed.favicon = nil
                     }
-                    feed.refreshed = nil
-                    feed.favicon = nil
                 }
                 page.objectWillChange.send()
             }

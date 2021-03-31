@@ -36,7 +36,7 @@ struct SearchResultView: View {
                     .clipped()
                     .accessibility(label: Text("Favicon"))
                 }
-                Text(feed.wrappedTitle).font(.headline).lineLimit(1)
+                Text(feed.subscription?.wrappedTitle ?? "Untitled").font(.headline).lineLimit(1)
                 Spacer()
             }.padding(.horizontal, 12).padding(.vertical, 8)
 

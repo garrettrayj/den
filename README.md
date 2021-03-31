@@ -7,9 +7,7 @@ Den is a minimalist feed reader made to deliver the latest headlines without dis
 
 Just add widely available RSS feeds to stay up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends; just an alway-fresh buffet of links to browse.
 
-### Features
-
-- Compatible with iPhone, iPad, and Mac
+- Available for iPhone, iPad, and Mac
 - Subscriptions and read items sync across devices with iCloud
 - Compatible with RSS, Atom, and JSON feed formats
 - Search for current articles by keyword

@@ -14,10 +14,10 @@ class PageSheetViewModel: ObservableObject, Identifiable {
     }
     
     @Published var modal: PageSheetModal
-    @Published var feed: Feed?
+    @Published var subscription: Subscription?
     
-    init(modal: PageSheetModal, feed: Feed? = nil) {
+    init(modal: PageSheetModal, feed: Feed? = nil, subscription: Subscription? = nil) {
         self.modal = modal
-        self.feed = feed
+        self.subscription = subscription
     }
 }

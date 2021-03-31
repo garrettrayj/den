@@ -19,16 +19,20 @@ class ImportManager: ObservableObject {
     @Published var opmlFolders: [OPMLFolder] = []
     @Published var selectedFolders: [OPMLFolder] = []
     @Published var pickedURL: URL?
-    @Published var feedsImported: [Feed] = []
+    @Published var subscriptionsImported: [Subscription] = []
     @Published var pagesImported: [Page] = []
     
     var documentPicker: ImportDocumentPicker!
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
     var noneSelected: Bool { selectedFolders.count == 0 }
 
-    private var viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
+    private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
     
-    init() {
+    init(persistenceManager: PersistenceManager, crashManager: CrashManager) {
+        self.viewContext = persistenceManager.container.viewContext
+        self.crashManager = crashManager
+        
         self.documentPicker = ImportDocumentPicker(importManager: self)
     }
     
@@ -38,7 +42,7 @@ class ImportManager: ObservableObject {
         opmlFolders = []
         selectedFolders = []
         pickedURL = nil
-        feedsImported = []
+        subscriptionsImported = []
         pagesImported = []
     }
     
@@ -79,10 +83,10 @@ class ImportManager: ObservableObject {
             pagesImported.append(page)
             
             opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page)
-                feed.title = opmlFeed.title
-                feed.url = opmlFeed.url
-                feedsImported.append(feed)
+                let subscription = Subscription.create(in: self.viewContext, page: page)
+                subscription.title = opmlFeed.title
+                subscription.url = opmlFeed.url
+                subscriptionsImported.append(subscription)
             }
         }
         
