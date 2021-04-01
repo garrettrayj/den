@@ -47,7 +47,7 @@
 		68710CD025A31B43007B2507 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CCF25A31B43007B2507 /* ThemeManager.swift */; };
 		68710CE125A325A9007B2507 /* BorderedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CE025A325A9007B2507 /* BorderedButtonStyle.swift */; };
 		687D9CA624A4FF7000EB7F46 /* ListButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */; };
-		687D9CAA24A5DE2E00EB7F46 /* SafariManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA924A5DE2E00EB7F46 /* SafariManager.swift */; };
+		687D9CAA24A5DE2E00EB7F46 /* BrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CA924A5DE2E00EB7F46 /* BrowserManager.swift */; };
 		687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */; };
 		687D9CB624A9C14700EB7F46 /* PageListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB524A9C14700EB7F46 /* PageListRowView.swift */; };
 		687D9CB824A9CA2A00EB7F46 /* FeedWidgetItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB724A9CA2A00EB7F46 /* FeedWidgetItemRowView.swift */; };
@@ -165,7 +165,7 @@
 		68710CCF25A31B43007B2507 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		68710CE025A325A9007B2507 /* BorderedButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButtonStyle.swift; sourceTree = "<group>"; };
 		687D9CA524A4FF7000EB7F46 /* ListButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListButtonStyle.swift; sourceTree = "<group>"; };
-		687D9CA924A5DE2E00EB7F46 /* SafariManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariManager.swift; sourceTree = "<group>"; };
+		687D9CA924A5DE2E00EB7F46 /* BrowserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserManager.swift; sourceTree = "<group>"; };
 		687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLWriter.swift; sourceTree = "<group>"; };
 		687D9CB524A9C14700EB7F46 /* PageListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageListRowView.swift; sourceTree = "<group>"; };
 		687D9CB724A9CA2A00EB7F46 /* FeedWidgetItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedWidgetItemRowView.swift; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 				68998B822503F63E00FDB6EE /* SubscriptionManager.swift */,
 				68998B9025064FFC00FDB6EE /* SearchManager.swift */,
 				68710CCF25A31B43007B2507 /* ThemeManager.swift */,
-				687D9CA924A5DE2E00EB7F46 /* SafariManager.swift */,
+				687D9CA924A5DE2E00EB7F46 /* BrowserManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -404,7 +404,6 @@
 				68C4131C247263C700D1DC7B /* LaunchScreen.storyboard */,
 				68C4131F247263C700D1DC7B /* Info.plist */,
 				68C4130E247263C700D1DC7B /* Den.xcdatamodeld */,
-				6845BCFC24EC004B0008B296 /* Misc */,
 				680E57C124D1927600196F6D /* Managers */,
 				687D9CC724B0C43800EB7F46 /* Operations */,
 				68C4134724727BED00D1DC7B /* Models */,
@@ -412,6 +411,7 @@
 				68C413422472760400D1DC7B /* Views */,
 				68B34A5F2487C4E10066B215 /* Extensions */,
 				68D58E6124922FE5007ED1AC /* Utilities */,
+				6845BCFC24EC004B0008B296 /* Misc */,
 				68C41319247263C700D1DC7B /* Preview Content */,
 			);
 			path = Den;
@@ -719,7 +719,7 @@
 				6809EFCD24DD49C9007B5CF1 /* ParseOperation.swift in Sources */,
 				687D9CE124B4103100EB7F46 /* Image+Extensions.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* SubscribeView.swift in Sources */,
-				687D9CAA24A5DE2E00EB7F46 /* SafariManager.swift in Sources */,
+				687D9CAA24A5DE2E00EB7F46 /* BrowserManager.swift in Sources */,
 				68710C96259ECD7B007B2507 /* PageViewModel.swift in Sources */,
 				68C41310247263C700D1DC7B /* Den.xcdatamodeld in Sources */,
 				687D9CB624A9C14700EB7F46 /* PageListRowView.swift in Sources */,

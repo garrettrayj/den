@@ -9,12 +9,12 @@
 import Foundation
 import CoreData
 
-@objc(Read)
+@objc(Visit)
 public class Visit: NSManagedObject {
     static func create(in managedObjectContext: NSManagedObjectContext) -> Visit {
-        let read = self.init(context: managedObjectContext)
-        read.id = UUID()
+        let visit = self.init(context: managedObjectContext)
+        visit.id = UUID()
         
-        return read
+        return visit
     }
 }

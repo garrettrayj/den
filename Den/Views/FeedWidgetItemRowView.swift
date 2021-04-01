@@ -13,8 +13,9 @@ import URLImage
  Item (article) row for feeds
  */
 struct FeedWidgetItemRowView: View {
-    @EnvironmentObject var safariManager: SafariManager
+    @EnvironmentObject var browserManager: BrowserManager
     @ObservedObject var item: Item
+    @ObservedObject var subscription: Subscription
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -34,7 +35,7 @@ struct FeedWidgetItemRowView: View {
                 }
             }
         }
-        .buttonStyle(ItemLinkButtonStyle(read: .constant(true))) // TODO:
+        .buttonStyle(ItemLinkButtonStyle(read: item.read))
         .frame(maxWidth: .infinity)
         .padding(12)
     }
@@ -113,8 +114,11 @@ struct FeedWidgetItemRowView: View {
     }
     
     func openLink() {
-        safariManager.nextModalPresentationStyle = .fullScreen
-        safariManager.openSafari(url: item.link!, readerMode: item.feed?.subscription?.readerMode ?? false)
-        item.markRead()
+        guard let url = item.link else { return }
+        
+        browserManager.logVisit(url: url, title: item.wrappedTitle)
+        subscription.objectWillChange.send()
+        
+        browserManager.openSafari(url: url)
     }
 }

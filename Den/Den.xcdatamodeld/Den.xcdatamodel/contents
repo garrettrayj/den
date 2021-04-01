@@ -19,10 +19,12 @@
         <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="items" inverseEntity="Feed"/>
+        <fetchedProperty name="visits" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Visit" predicateString="link = $FETCH_SOURCE.link"/>
+        </fetchedProperty>
     </entity>
     <entity name="Page" representedClassName="Page" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -40,7 +42,6 @@
         <attribute name="url" optional="YES" attributeType="URI"/>
         <attribute name="userOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="subscriptions" inverseEntity="Page"/>
-        <relationship name="visits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Visit" inverseName="subscription" inverseEntity="Visit"/>
         <fetchedProperty name="feed" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="Feed" predicateString="subscriptionId = $FETCH_SOURCE.id"/>
         </fetchedProperty>
@@ -48,9 +49,8 @@
     <entity name="Visit" representedClassName="Visit" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="subscription" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subscription" inverseName="visits" inverseEntity="Subscription"/>
+        <attribute name="visited" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <configuration name="Cloud" usedWithCloudKit="YES">
         <memberEntity name="Visit"/>
@@ -63,9 +63,9 @@
     </configuration>
     <elements>
         <element name="Feed" positionX="270" positionY="216" width="128" height="170"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="164"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="170"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="104"/>
-        <element name="Subscription" positionX="288" positionY="333" width="128" height="170"/>
-        <element name="Visit" positionX="270" positionY="315" width="128" height="104"/>
+        <element name="Subscription" positionX="288" positionY="333" width="128" height="155"/>
+        <element name="Visit" positionX="270" positionY="315" width="128" height="89"/>
     </elements>
 </model>
