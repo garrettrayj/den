@@ -14,30 +14,14 @@ import SwiftSoup
 
 @objc(Item)
 public class Item: NSManagedObject {
+    public var read: Bool {
+        let values = value(forKey: "visits") as! [Visit]
+        return !values.isEmpty
+    }
+    
     public var wrappedTitle: String {
         get{title ?? "Untitled"}
         set{title = newValue}
-    }
-    
-    func markRead() {
-        
-        /*
-        
-        if read == true { return }
-        read = true
-        
-        // Update unread count capsules
-        self.feed?.page?.objectWillChange.send()
-        
-        if self.managedObjectContext?.hasChanges == true {
-            do {
-                try self.managedObjectContext?.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-         */
     }
     
     /**

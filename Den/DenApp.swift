@@ -22,7 +22,7 @@ struct DenApp: App {
     @StateObject var searchManager: SearchManager
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
-    @StateObject var safariManager: SafariManager
+    @StateObject var browserManager: BrowserManager
     
     var body: some Scene {
         WindowGroup {
@@ -35,7 +35,7 @@ struct DenApp: App {
                 .environmentObject(subscriptionManager)
                 .environmentObject(crashManager)
                 .environmentObject(themeManager)
-                .environmentObject(safariManager)
+                .environmentObject(browserManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
                     if let titlebar = window?.windowScene?.titlebar {
@@ -44,7 +44,7 @@ struct DenApp: App {
                     }
                     #endif
                     
-                    safariManager.controller = window?.rootViewController
+                    browserManager.controller = window?.rootViewController
                     
                     themeManager.window = window
                     themeManager.applyUIStyle()                    
@@ -63,7 +63,7 @@ struct DenApp: App {
         let searchManager = SearchManager(persistenceManager: persistenceManager, crashManager: crashManager)
         let subscriptionManager = SubscriptionManager()
         let themeManager = ThemeManager()
-        let safariManager = SafariManager()
+        let browserManager = BrowserManager(persistenceManager: persistenceManager, crashManager: crashManager)
     
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
@@ -73,7 +73,7 @@ struct DenApp: App {
         _searchManager = StateObject(wrappedValue: searchManager)
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
-        _safariManager = StateObject(wrappedValue: safariManager)
+        _browserManager = StateObject(wrappedValue: browserManager)
     }
 }
 

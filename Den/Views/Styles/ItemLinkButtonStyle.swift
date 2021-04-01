@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ItemLinkButtonStyle: ButtonStyle {
-    @Binding var read: Bool
+    var read: Bool
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label

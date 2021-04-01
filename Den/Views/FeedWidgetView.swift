@@ -94,7 +94,7 @@ struct FeedWidgetView: View {
                         ForEach(subscription.feed!.itemsArray.prefix(subscription.page?.wrappedItemsPerFeed ?? 5)) { item in
                             Group {
                                 Divider()
-                                FeedWidgetItemRowView(item: item)
+                                FeedWidgetItemRowView(item: item, subscription: subscription)
                             }
                         }
                     }

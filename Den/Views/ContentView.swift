@@ -13,7 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var safariManager: SafariManager
+    @EnvironmentObject var safariManager: BrowserManager
     
     @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
