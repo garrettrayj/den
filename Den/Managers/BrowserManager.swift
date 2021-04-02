@@ -40,15 +40,16 @@ class BrowserManager: ObservableObject {
         controller.present(vc, animated: true)
     }
     
-    func logVisit(url: URL, title: String = "") {
+    func logVisit(item: Item) {
         let visit = Visit.create(in: self.viewContext)
-        visit.link = url
-        visit.title = title
+        visit.link = item.link
+        visit.title = item.title
         visit.visited = Date()
         
         if self.viewContext.hasChanges {
             do {
                 try self.viewContext.save()
+                item.objectWillChange.send()
             } catch {
                 DispatchQueue.main.async {
                     self.crashManager.handleCriticalError(error as NSError)

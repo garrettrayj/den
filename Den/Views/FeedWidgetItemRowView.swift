@@ -116,8 +116,8 @@ struct FeedWidgetItemRowView: View {
     func openLink() {
         guard let url = item.link else { return }
         
-        browserManager.logVisit(url: url, title: item.wrappedTitle)
-        subscription.objectWillChange.send()
+        browserManager.logVisit(item: item)
+        
         
         browserManager.openSafari(url: url)
     }
