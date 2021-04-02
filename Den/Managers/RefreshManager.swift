@@ -36,8 +36,12 @@ class RefreshManager: ObservableObject {
         refreshing = true
         progress.totalUnitCount += 1
         
-        let fetchMeta = false // TODO:
-        
+        var fetchMeta = false
+        // Fetch meta (favicon, etc.) on first refresh or if user cleared cache
+        // then check for updates occasionally
+        if subscription.feed?.metaFetched == nil || subscription.feed!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
+            fetchMeta = true
+        }
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(
@@ -140,7 +144,7 @@ class RefreshManager: ObservableObject {
                 ingestOperation.transportError = fetchOperation.error
                 ingestOperation.parsedFeed = parseOperation.parsedFeed
                 ingestOperation.parserError = parseOperation.error
-                ingestOperation.fetchMeta = true
+                ingestOperation.fetchMeta = fetchMeta
                 ingestOperation.favicon = faviconResultOperation.favicon
             }
             

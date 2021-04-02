@@ -1107,7 +1107,7 @@
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.0;
+				minimumVersion = 2.2.1;
 			};
 		};
 		68C4FA302475391C00D2C0D6 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {

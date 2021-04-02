@@ -34,7 +34,7 @@ struct FeedWidgetView: View {
                     URLImage(
                         url: subscription.feed!.favicon!,
                         options: URLImageOptions(
-                            cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: 0.25)
+                            cachePolicy: URLImageOptions.CachePolicy.returnCacheDontLoad()
                         ),
                         inProgress: { _ in
                             Image("RSSIcon").faviconView()

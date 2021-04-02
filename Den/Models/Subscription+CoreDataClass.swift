@@ -12,8 +12,13 @@ import CoreData
 @objc(Subscription)
 public class Subscription: NSManagedObject {
     public var feed: Feed? {
-        let values = value(forKey: "feed") as! [Feed]
-        return values.first
+        let values = value(forKey: "feed") as? [Feed]
+        
+        if let unwrappedValues = values {
+            return unwrappedValues.first
+        }
+        
+        return nil
     }
     
     public var urlString: String {
