@@ -44,7 +44,7 @@ struct FeedWidgetItemRowView: View {
         URLImage(
             url: item.image!,
             options: URLImageOptions(
-                cachePolicy: URLImageOptions.CachePolicy.returnCacheDontLoad(delay: Double.random(in: 0.1 ..< 0.3))
+                cachePolicy: URLImageOptions.CachePolicy.returnCacheDontLoad(delay: Double.random(in: 0.1 ..< 0.2))
             ),
             inProgress: { _ in
                 VStack {
