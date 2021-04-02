@@ -10,8 +10,12 @@ import Foundation
 import CoreData
 import FeedKit
 import OSLog
+import UIKit
+import URLImage
+import Combine
+import func AVFoundation.AVMakeRect
 
-class IngestOperation: Operation {
+class IngestOperation: AsynchronousOperation {
     var transportError: Error?
     var httpResponse: HTTPURLResponse?
     var parserError: FeedKit.ParserError?
@@ -19,13 +23,20 @@ class IngestOperation: Operation {
     var fetchMeta: Bool = false
     var favicon: URL?
     var subscriptionObjectID: NSManagedObjectID
+    var feedIngestMeta: Feed.FeedIngestMeta?
     
     private var persistentContainer: NSPersistentContainer
+    private var cancellable: AnyCancellable?
     
     init(persistentContainer: NSPersistentContainer, subscriptionObjectID: NSManagedObjectID) {
         self.persistentContainer = persistentContainer
         self.subscriptionObjectID = subscriptionObjectID
         super.init()
+    }
+    
+    override func cancel() {
+        cancellable?.cancel()
+        super.cancel()
     }
 
     override func main() {
@@ -39,13 +50,34 @@ class IngestOperation: Operation {
             deduplicateFeedItems(context: context, feed: feed)
             feed.refreshed = Date()
             
-            if context.hasChanges {
-                do {
-                    try context.save()
-                } catch {
-                    DispatchQueue.main.async {
-                        CrashManager.shared.handleCriticalError(error as NSError)
+            // Cache thumbnail images (this is the async part of operation)
+            if let thumbnails = feedIngestMeta?.thumbnails, thumbnails.count > 0 {
+                let publishers = thumbnails.map { URLImageService.shared.remoteImagePublisher($0) }
+                cancellable = Publishers.MergeMany(publishers)
+                    .tryMap { $0.cgImage }
+                    .catch { _ in
+                        Just(nil)
                     }
+                    .collect()
+                    .sink { images in
+                        // images is [CGImage?]
+                        self.saveContext(context: context)
+                        self.finish()
+                    }
+            } else {
+                self.saveContext(context: context)
+                self.finish()
+            }
+        }
+    }
+    
+    func saveContext(context: NSManagedObjectContext) {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                DispatchQueue.main.async {
+                    CrashManager.shared.handleCriticalError(error as NSError)
                 }
             }
         }
@@ -85,21 +117,25 @@ class IngestOperation: Operation {
                     Logger.ingest.notice("Atom feed has no items \"\(subscription.wrappedTitle)\" (\(subscription.urlString)): \(feed.error!)")
                     return
                 }
-                feed.ingest(content: content, moc: context)
+                
+                feedIngestMeta = feed.ingest(content: content, moc: context)
+
             case let .rss(content):
                 if content.items == nil || content.items?.count == 0 {
                     feed.error = "Feed empty"
                     Logger.ingest.notice("RSS feed has no items \"\(subscription.wrappedTitle)\" (\(subscription.urlString)): \(feed.error!)")
                     return
                 }
-                feed.ingest(content: content, moc: context)
+                
+                feedIngestMeta = feed.ingest(content: content, moc: context)
+                
             case let .json(content):
                 if content.items == nil || content.items?.count == 0 {
                     feed.error = "Feed empty"
                     Logger.ingest.notice("JSON feed has no items \"\(subscription.wrappedTitle)\" (\(subscription.urlString)): \(feed.error!)")
                     return
                 }
-                feed.ingest(content: content, moc: context)
+                feedIngestMeta = feed.ingest(content: content, moc: context)
             case .none:
                 feed.error = "Unknown feed format"
                 Logger.ingest.notice("Unknown feed format for \"\(subscription.wrappedTitle)\" (\(subscription.urlString)): \(feed.error!)")
@@ -108,6 +144,7 @@ class IngestOperation: Operation {
         
         if fetchMeta == true {
             feed.favicon = favicon
+            feed.metaFetched = Date()
         }
         
         feed.error = nil

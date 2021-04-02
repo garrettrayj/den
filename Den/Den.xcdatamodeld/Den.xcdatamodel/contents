@@ -6,6 +6,7 @@
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="metaFetched" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="subscriptionId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feed" inverseEntity="Item"/>
@@ -62,7 +63,7 @@
         <memberEntity name="Feed"/>
     </configuration>
     <elements>
-        <element name="Feed" positionX="270" positionY="216" width="128" height="170"/>
+        <element name="Feed" positionX="270" positionY="216" width="128" height="185"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="170"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="104"/>
         <element name="Subscription" positionX="288" positionY="333" width="128" height="155"/>

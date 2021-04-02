@@ -24,29 +24,33 @@ public class Item: NSManagedObject {
         set{title = newValue}
     }
     
-    /**
-     Creates item entity from an Atom feed entry
-     */
-    static func create(atomEntry: AtomFeedEntry, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
+    static func create(moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
         item.feed = feed
-
+        
+        return item
+    }
+    
+    /**
+     Creates item entity from an Atom feed entry
+     */
+    public func ingest(_ atomEntry: AtomFeedEntry) {
         if let published = atomEntry.published {
-            item.published = published
+            self.published = published
         } else {
             if let published = atomEntry.updated {
-                item.published = published
+                self.published = published
             }
         }
         
         if let title = atomEntry.title {
-            item.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
+            self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
         } else {
-            item.title = "Untitled"
+            self.title = "Untitled"
         }
         
-        item.link = atomEntry.linkURL
+        self.link = atomEntry.linkURL
         
         // Look for preview image in <links> and <media:content>
         if
@@ -62,7 +66,7 @@ public class Item: NSManagedObject {
             {
                 // Incompatible MIME type
             } else {
-                item.image = imageURL
+                self.image = imageURL
             }
         } else if
             let media = atomEntry.media,
@@ -76,7 +80,7 @@ public class Item: NSManagedObject {
             {
                 // Incompatible MIME type
             } else {
-                item.image = mediaURL
+                self.image = mediaURL
             }
         } else if
             let mediaThumbnails = atomEntry.media?.mediaThumbnails?.sorted(by: { a, b in
@@ -95,55 +99,49 @@ public class Item: NSManagedObject {
             let thumbnailURLString = thumbnail.attributes?.url,
             let thumbnailURL = URL(string: thumbnailURLString)
         {
-            item.image = thumbnailURL
+            self.image = thumbnailURL
         }
         
         if let summary = atomEntry.summary?.value?.htmlUnescape() {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: summary)
-            item.summary = plainSummary
-            if item.image == nil && image != nil {
-                item.image = image
+            self.summary = plainSummary
+            if self.image == nil && image != nil {
+                self.image = image
             }
         }
         
         if let body = atomEntry.content?.value?.htmlUnescape() {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: body)
-            if item.summary == nil {
-                item.summary = plainSummary
+            if self.summary == nil {
+                self.summary = plainSummary
             }
-            if item.image == nil {
-                item.image = image
+            if self.image == nil {
+                self.image = image
             }
         }
-        
-        return item
     }
     
     /**
      Creates item entity from a RSS feed item
      */
-    static func create(rssItem: RSSFeedItem, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
-        let item = Item.init(context: managedObjectContext)
-        item.id = UUID()
-        item.feed = feed
-        
+    public func ingest(_ rssItem: RSSFeedItem) {
         // Prefer RSS pubDate element for published date
         if let published = rssItem.pubDate {
-            item.published = published
+            self.published = published
         } else {
             // Fallback to Dublin Core metadata for published date (ex. http://feeds.feedburner.com/oatmealfeed does not have pubDate)
             if let published = rssItem.dublinCore?.dcDate {
-                item.published = published
+                self.published = published
             }
         }
         
         if let title = rssItem.title {
-            item.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
+            self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
         } else {
-            item.title = "Untitled"
+            self.title = "Untitled"
         }
 
-        item.link = rssItem.linkURL
+        self.link = rssItem.linkURL
         
         // Look for preview image in <enclosure> and <media:content>
         if
@@ -153,7 +151,7 @@ public class Item: NSManagedObject {
             let enclosureURLString = enclosure.attributes?.url,
             let enclosureURL = URL(string: enclosureURLString)
         {
-            item.image = enclosureURL
+            self.image = enclosureURL
         } else if
             let media = rssItem.media,
             let imageMediaContent = media.mediaContents?.first,
@@ -166,7 +164,7 @@ public class Item: NSManagedObject {
             {
                 // Incompatible MIME type
             } else {
-                item.image = mediaURL
+                self.image = mediaURL
             }
         } else if
             let media = rssItem.media?.mediaGroup,
@@ -180,7 +178,7 @@ public class Item: NSManagedObject {
             {
                 // Incompatible MIME type
             } else {
-                item.image = mediaURL
+                self.image = mediaURL
             }
         } else if
             let mediaThumbnails = rssItem.media?.mediaThumbnails?.sorted(by: { a, b in
@@ -198,53 +196,47 @@ public class Item: NSManagedObject {
             let thumbnailURLString = thumbnail.attributes?.url,
             let thumbnailURL = URL(string: thumbnailURLString)
         {
-            item.image = thumbnailURL
+            self.image = thumbnailURL
         }
         
         if let description = rssItem.description?.htmlUnescape() {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: description)
-            item.summary = plainSummary
-            if item.image == nil {
-                item.image = image
+            self.summary = plainSummary
+            if self.image == nil {
+                self.image = image
             }
         }
         
         if let body = rssItem.content?.contentEncoded {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: body)
-            if item.summary == nil {
-                item.summary = plainSummary
+            if self.summary == nil {
+                self.summary = plainSummary
             }
-            if item.image == nil {
-                item.image = image
+            if self.image == nil {
+                self.image = image
             }
         }
-        
-        return item
     }
     
     /**
      Creates item entity from a JSON feed item
      */
-    static func create(jsonItem: JSONFeedItem, moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
-        let item = Item.init(context: managedObjectContext)
-        item.id = UUID()
-        item.feed = feed
-        
+    public func ingest(_ jsonItem: JSONFeedItem) {
         // Prefer RSS pubDate element for published date
         if let published = jsonItem.datePublished {
-            item.published = published
+            self.published = published
         }
         
         if let title = jsonItem.title {
-            item.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
+            self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
         } else {
-            item.title = "Untitled"
+            self.title = "Untitled"
         }
 
         if let urlString = jsonItem.url, let link = URL(string: urlString) {
-            item.link = link
+            self.link = link
         } else if let urlString = jsonItem.id, let link = URL(string: urlString) {
-            item.link = link
+            self.link = link
         }
         
         if let imageAttachment = jsonItem.attachments?.first(where: { attachment in
@@ -254,14 +246,12 @@ public class Item: NSManagedObject {
             return false
         }) {
             if let imageString = imageAttachment.url, let image = URL(string: imageString) {
-                item.image = image
+                self.image = image
             }
         }
         
         if let summary = jsonItem.summary {
-            item.summary = HTMLCleaner.stripTags(summary)?.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.summary = HTMLCleaner.stripTags(summary)?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        
-        return item
     }
 }

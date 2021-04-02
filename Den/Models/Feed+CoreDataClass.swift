@@ -13,9 +13,17 @@ import OSLog
 
 @objc(Feed)
 public class Feed: NSManagedObject {
+    struct FeedIngestMeta {
+        var thumbnails: [URL] = []
+    }
+    
     public var subscription: Subscription? {
-        let values = value(forKey: "subscription") as! [Subscription]
-        return values.first
+        let values = value(forKey: "subscription") as? [Subscription]
+        if let unwrappedValues = values {
+            return unwrappedValues.first
+        }
+        
+        return nil
     }
     
     public var itemsArray: [Item] {
@@ -50,8 +58,10 @@ public class Feed: NSManagedObject {
     /**
      Atom feed handler responsible for populating application data model from FeedKit AtomFeed result.
      */
-    public func ingest(content: AtomFeed, moc managedObjectContext: NSManagedObjectContext) {
-        guard let subscription = self.subscription else { return }
+    func ingest(content: AtomFeed, moc managedObjectContext: NSManagedObjectContext) -> FeedIngestMeta {
+        var ingestMeta = FeedIngestMeta()
+        
+        guard let subscription = self.subscription else { return ingestMeta }
         
         if subscription.title == nil {
             if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
@@ -73,7 +83,7 @@ public class Feed: NSManagedObject {
         guard
             let atomEntries = content.entries,
             let itemsPerFeed = subscription.page?.wrappedItemsPerFeed
-        else { return }
+        else { return ingestMeta }
         
         atomEntries.prefix(itemsPerFeed).forEach { atomEntry in
             // Continue if link is missing
@@ -87,32 +97,24 @@ public class Feed: NSManagedObject {
                 return
             }
             
-            let newItem = Item.create(atomEntry: atomEntry, moc: managedObjectContext, feed: self)
-            self.addToItems(newItem)
+            let newItem = Item.create(moc: managedObjectContext, feed: self)
+            newItem.ingest(atomEntry)
+            
+            if let thumbnail = newItem.image {
+                ingestMeta.thumbnails.append(thumbnail)
+            }
         }
         
-        // Cleanup items not present in feed
-        self.itemsArray.forEach({ item in
-            if (
-                atomEntries.contains(where: { feedItem in
-                    guard let atomEntryAlternateLink = feedItem.linkURL else {
-                        return false
-                    }
-                    
-                    return item.link == atomEntryAlternateLink
-                }) == false
-            ) {
-                self.removeFromItems(item)
-                managedObjectContext.delete(item)
-            }
-        })
+        return ingestMeta
     }
     
     /**
      RSS feed handler responsible for populating application data model from FeedKit RSSFeed result.
      */
-    public func ingest(content: RSSFeed, moc managedObjectContext: NSManagedObjectContext) {
-        guard let subscription = self.subscription else { return }
+    func ingest(content: RSSFeed, moc managedObjectContext: NSManagedObjectContext) -> FeedIngestMeta {
+        var ingestMeta = FeedIngestMeta()
+        
+        guard let subscription = self.subscription else { return ingestMeta }
         
         if subscription.title == nil {
             if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
@@ -129,7 +131,7 @@ public class Feed: NSManagedObject {
         guard
             let rssItems = content.items,
             let itemsPerFeed = subscription.page?.wrappedItemsPerFeed
-        else { return }
+        else { return ingestMeta }
         
         // Add new items
         rssItems.prefix(itemsPerFeed).forEach { (rssItem: RSSFeedItem) in
@@ -143,26 +145,21 @@ public class Feed: NSManagedObject {
                 return
             }
             
-            let newItem = Item.create(rssItem: rssItem, moc: managedObjectContext, feed: self)
-            self.addToItems(newItem)
+            let newItem = Item.create(moc: managedObjectContext, feed: self)
+            newItem.ingest(rssItem)
+            
+            if let thumbnail = newItem.image {
+                ingestMeta.thumbnails.append(thumbnail)
+            }
         }
         
-        // Cleanup items not present in feed
-        self.itemsArray.forEach({ item in
-            if (
-                rssItems.contains(where: { (feedItem) -> Bool in
-                    guard let feedItemLink = feedItem.linkURL else { return false }
-                    return item.link == feedItemLink
-                }) == false
-            ) {
-                self.removeFromItems(item)
-                managedObjectContext.delete(item)
-            }
-        })
+        return ingestMeta
     }
     
-    func ingest(content: JSONFeed, moc managedObjectContext: NSManagedObjectContext) {
-        guard let subscription = self.subscription else { return }
+    func ingest(content: JSONFeed, moc managedObjectContext: NSManagedObjectContext) -> FeedIngestMeta {
+        var ingestMeta = FeedIngestMeta()
+        
+        guard let subscription = self.subscription else { return ingestMeta }
         
         if subscription.title == nil {
             if let title = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
@@ -177,7 +174,7 @@ public class Feed: NSManagedObject {
         guard
             let jsonItems = content.items,
             let itemsPerFeed = subscription.page?.wrappedItemsPerFeed
-        else { return }
+        else { return ingestMeta }
         
         // Add new items
         jsonItems.prefix(itemsPerFeed).forEach { jsonItem in
@@ -191,21 +188,14 @@ public class Feed: NSManagedObject {
                 return
             }
             
-            let newItem = Item.create(jsonItem: jsonItem, moc: managedObjectContext, feed: self)
-            self.addToItems(newItem)
+            let newItem = Item.create(moc: managedObjectContext, feed: self)
+            newItem.ingest(jsonItem)
+            
+            if let thumbnail = newItem.image {
+                ingestMeta.thumbnails.append(thumbnail)
+            }
         }
         
-        // Cleanup items not present in feed
-        self.itemsArray.forEach({ item in
-            if (
-                jsonItems.contains(where: { (feedItem) -> Bool in
-                    guard let feedItemLink = feedItem.linkURL else { return false }
-                    return item.link == feedItemLink
-                }) == false
-            ) {
-                managedObjectContext.delete(item)
-                self.removeFromItems(item)
-            }
-        })
+        return ingestMeta
     }
 }

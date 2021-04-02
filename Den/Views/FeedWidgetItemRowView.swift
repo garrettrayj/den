@@ -44,7 +44,7 @@ struct FeedWidgetItemRowView: View {
         URLImage(
             url: item.image!,
             options: URLImageOptions(
-                cachePolicy: .returnCacheElseLoad(cacheDelay: nil, downloadDelay: 0.25)
+                cachePolicy: URLImageOptions.CachePolicy.returnCacheDontLoad(delay: Double.random(in: 0.1 ..< 0.3))
             ),
             inProgress: { _ in
                 VStack {
@@ -68,51 +68,14 @@ struct FeedWidgetItemRowView: View {
                 $0
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 96, height: 64)
-                    .clipped()
-                    .padding(1)
-                    .border(Color(UIColor.separator), width: 1)
             }
         )
         .frame(width: 96, height: 64)
+        .clipped()
+        .padding(1)
+        .border(Color(UIColor.separator), width: 1)
         .accessibility(label: Text("Thumbnail image"))
     }
-    
-    var largeImage: some View {
-        URLImage(
-            url: self.item.image!,
-            inProgress: { _ in
-                VStack {
-                    Image(systemName: "photo").foregroundColor(.secondary)
-                }
-                .frame(width: 96, height: 64)
-                .background(Color(UIColor.secondarySystemBackground))
-                .padding(1)
-                .border(Color(UIColor.separator), width: 1)
-            },
-            failure: { _,_ in
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
-                }
-                .frame(width: 96, height: 64)
-                .background(Color(UIColor.secondarySystemBackground))
-                .padding(1)
-                .border(Color(UIColor.separator), width: 1)
-            },
-            content:  {
-                $0
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity)
-                    .clipped()
-                    .padding(1)
-                    .border(Color(UIColor.separator), width: 1)
-            }
-        )
-        .padding(.top, 4)
-        .accessibility(label: Text("Preview image"))
-    }
-    
     func openLink() {
         guard let url = item.link else { return }
         
