@@ -30,7 +30,7 @@ struct FeedWidgetItemRowView: View {
                     Text(item.wrappedTitle)
                 }
                 
-                if item.image != nil && item.feed != nil && item.feed?.subscription?.showThumbnails == true {
+                if item.thumbnailImage != nil && item.feed != nil && item.feed?.subscription?.showThumbnails == true {
                     thumbnailImage
                 }
             }
@@ -41,46 +41,18 @@ struct FeedWidgetItemRowView: View {
     }
     
     var thumbnailImage: some View {
-        URLImage(
-            url: item.image!,
-            options: URLImageOptions(
-                cachePolicy: URLImageOptions.CachePolicy.returnCacheDontLoad(delay: Double.random(in: 0.1 ..< 0.2))
-            ),
-            inProgress: { _ in
-                VStack {
-                    Image(systemName: "photo").foregroundColor(.secondary)
-                }
-                .frame(width: 96, height: 64)
-                .background(Color(UIColor.secondarySystemBackground))
-                .padding(1)
-                .border(Color(UIColor.separator), width: 1)
-            },
-            failure: { _,_ in
-                VStack {
-                    Image(systemName: "exclamationmark.triangle").foregroundColor(.secondary)
-                }
-                .frame(width: 96, height: 64)
-                .background(Color(UIColor.secondarySystemBackground))
-                .padding(1)
-                .border(Color(UIColor.separator), width: 1)
-            },
-            content: {
-                $0
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            }
-        )
+        item.thumbnailImage
         .frame(width: 96, height: 64)
         .clipped()
         .padding(1)
         .border(Color(UIColor.separator), width: 1)
-        .accessibility(label: Text("Thumbnail image"))
+        .accessibility(label: Text("Article Thumbnail Image"))
     }
+    
     func openLink() {
         guard let url = item.link else { return }
         
         browserManager.logVisit(item: item)
-        
         
         browserManager.openSafari(url: url)
     }

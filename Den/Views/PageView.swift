@@ -123,12 +123,7 @@ struct PageView: View {
     func onAppear() {
         self.screenManager.currentPage = pageViewModel.page
         
-        if let lastRefreshed = pageViewModel.page.minimumRefreshedDate {
-            if Date() - lastRefreshed > TimeInterval(7200) {
-                refreshManager.refresh(pageViewModel.page)
-            }
-        } else {
-            // Initial feed load
+        if pageViewModel.page.minimumRefreshedDate == nil {
             refreshManager.refresh(pageViewModel.page)
         }
     }

@@ -3,6 +3,7 @@
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="error" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
+        <attribute name="faviconLocal" optional="YES" attributeType="URI"/>
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
@@ -17,6 +18,7 @@
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
+        <attribute name="imageLocal" optional="YES" attributeType="URI"/>
         <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -63,8 +65,8 @@
         <memberEntity name="Feed"/>
     </configuration>
     <elements>
-        <element name="Feed" positionX="270" positionY="216" width="128" height="185"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="170"/>
+        <element name="Feed" positionX="270" positionY="216" width="128" height="200"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="185"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="104"/>
         <element name="Subscription" positionX="288" positionY="333" width="128" height="155"/>
         <element name="Visit" positionX="270" positionY="315" width="128" height="89"/>

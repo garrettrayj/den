@@ -36,6 +36,8 @@ class RefreshManager: ObservableObject {
         refreshing = true
         progress.totalUnitCount += 1
         
+        let feed = self.checkSubscriptionFeed(subscription)
+        
         var fetchMeta = false
         // Fetch meta (favicon, etc.) on first refresh or if user cleared cache
         // then check for updates occasionally
@@ -43,32 +45,63 @@ class RefreshManager: ObservableObject {
             fetchMeta = true
         }
         
+        let operations = self.planFullUpdate(subscription: subscription, feed: feed)
+        
         DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(
-                self.createFeedOperations(subscription: subscription, fetchMeta: fetchMeta),
-                waitUntilFinished: false
-            )
+            self.queue.addOperations(operations, waitUntilFinished: false)
         }
     }
     
-    private func createFeedOperations(subscription: Subscription, fetchMeta: Bool) -> [Operation] {
+    private func checkSubscriptionFeed(_ subscription: Subscription) -> Feed {
+        if subscription.feed == nil {
+            let feed = Feed.create(in: self.persistentContainer.viewContext, subscriptionId: subscription.id!)
+            do {
+                try self.persistentContainer.viewContext.save()
+            } catch {
+                DispatchQueue.main.async {
+                    self.crashManager.handleCriticalError(error as NSError)
+                }
+            }
+            
+            return feed
+        }
+        
+        return subscription.feed!
+    }
+    
+    private func planFullUpdate(subscription: Subscription, feed: Feed) -> [Operation] {
         var operations: [Operation] = []
         
-        guard let feedURL = subscription.url else {
+        guard
+            let feedUrl = subscription.url,
+            let itemLimit = subscription.page?.wrappedItemsPerFeed
+        else {
             return []
         }
-         
-        // Create standard feed operations
-        let fetchOperation = FetchOperation(url: feedURL)
-        let parseOperation = ParseOperation()
-        let ingestOperation = IngestOperation(
-            persistentContainer: persistentContainer,
+        
+        let existingItemLinks = feed.itemsArray.map({ item in
+            return item.link!
+        })
+        
+        // Create base operations
+        let fetchOperation = DataTaskOperation(feedUrl)
+        let parseOperation = ParseFeedData(
+            subscriptionUrl: feedUrl,
+            itemLimit: itemLimit,
+            existingItemLinks: existingItemLinks,
+            feedId: feed.id!
+        )
+        let webpageDataOperation = DataTaskOperation()
+        let metadataOperation = MetadataOperation()
+        let defaultFaviconDataOperation = DataTaskOperation()
+        let webpageFaviconDataOperation = DataTaskOperation()
+        let saveFaviconOperation = SaveFaviconOperation()
+        let downloadThumbnailsOperation = DownloadThumbnailsOperation()
+        let saveFeedOperation = SaveFeedOperation(
+            persistentContainer: self.persistentContainer,
+            crashManager: self.crashManager,
             subscriptionObjectID: subscription.objectID
         )
-        
-        let fetchParseAdapter = BlockOperation() { [unowned parseOperation, unowned fetchOperation] in
-            parseOperation.data = fetchOperation.data
-        }
         
         let completionOperation = BlockOperation {
             DispatchQueue.main.async {
@@ -80,102 +113,91 @@ class RefreshManager: ObservableObject {
             }
         }
         
-        fetchParseAdapter.addDependency(fetchOperation)
-        parseOperation.addDependency(fetchParseAdapter)
-        completionOperation.addDependency(ingestOperation)
+        // Create adapters
+        let fetchParseAdapter = BlockOperation() { [unowned fetchOperation, unowned parseOperation] in
+            parseOperation.httpResponse = fetchOperation.response
+            parseOperation.httpTransportError = fetchOperation.error
+            parseOperation.data = fetchOperation.data
+        }
 
-        operations.append(fetchOperation)
-        operations.append(parseOperation)
-        operations.append(ingestOperation)
-        operations.append(fetchParseAdapter)
-        operations.append(completionOperation)
-
-        if !fetchMeta {
-            // Regular feed update without fetching meta
-            let ingestAdapter = BlockOperation() { [unowned fetchOperation, unowned parseOperation, unowned ingestOperation] in
-                ingestOperation.httpResponse = fetchOperation.response
-                ingestOperation.transportError = fetchOperation.error
-                ingestOperation.parsedFeed = parseOperation.parsedFeed
-                ingestOperation.parserError = parseOperation.error
-            }
-            
-            ingestAdapter.addDependency(parseOperation)
-            ingestOperation.addDependency(ingestAdapter)
-            
-            operations.append(ingestAdapter)
-        } else {
-            // Add additional operations for fetching metadata
-            let webpageOperation = WebpageOperation()
-            let parseWebpageAdapter = BlockOperation() { [unowned webpageOperation, unowned parseOperation] in
-                webpageOperation.webpage = parseOperation.parsedFeed?.webpage
-            }
-            let metadataOperation = MetadataOperation()
-            let webpageMetadataAdapter = BlockOperation() { [unowned metadataOperation, unowned webpageOperation] in
-                metadataOperation.webpage = webpageOperation.webpage
-                metadataOperation.data = webpageOperation.data
-            }
-            let checkWebpageFaviconOperation = CheckFaviconOperation()
-            let checkDefaultFaviconOperation = CheckFaviconOperation()
-            let faviconCheckMetadataAdapter = BlockOperation() { [unowned metadataOperation, unowned checkWebpageFaviconOperation, unowned checkDefaultFaviconOperation] in
-                checkWebpageFaviconOperation.checkLocation = metadataOperation.webpageFavicon
-                checkDefaultFaviconOperation.checkLocation = metadataOperation.defaultFavicon
-            }
-            let faviconCheckStatusAdapter = BlockOperation() {[unowned checkWebpageFaviconOperation, unowned checkDefaultFaviconOperation] in
-                checkDefaultFaviconOperation.performCheck = checkWebpageFaviconOperation.foundFavicon == nil
-            }
-            let faviconResultOperation = FaviconResultOperation()
-            let checkFaviconResultAdapterOperation = BlockOperation() { [
-                unowned faviconResultOperation,
-                unowned checkWebpageFaviconOperation,
-                unowned checkDefaultFaviconOperation
-            ] in
-                faviconResultOperation.checkedWebpageFavicon = checkWebpageFaviconOperation.foundFavicon
-                faviconResultOperation.checkedDefaultFavicon = checkDefaultFaviconOperation.foundFavicon
-            }
-            
-            // Create ingest adapter that also passes favicon results
-            let ingestAdapter = BlockOperation() { [
-                unowned fetchOperation,
-                unowned parseOperation,
-                unowned ingestOperation,
-                unowned faviconResultOperation
-            ] in
-                ingestOperation.httpResponse = fetchOperation.response
-                ingestOperation.transportError = fetchOperation.error
-                ingestOperation.parsedFeed = parseOperation.parsedFeed
-                ingestOperation.parserError = parseOperation.error
-                ingestOperation.fetchMeta = fetchMeta
-                ingestOperation.favicon = faviconResultOperation.favicon
-            }
-            
-            parseWebpageAdapter.addDependency(parseOperation)
-            webpageOperation.addDependency(parseWebpageAdapter)
-            webpageMetadataAdapter.addDependency(webpageOperation)
-            metadataOperation.addDependency(webpageMetadataAdapter)
-            faviconCheckMetadataAdapter.addDependency(metadataOperation)
-            checkWebpageFaviconOperation.addDependency(faviconCheckMetadataAdapter)
-            faviconCheckStatusAdapter.addDependency(checkWebpageFaviconOperation)
-            checkDefaultFaviconOperation.addDependency(faviconCheckStatusAdapter)
-            checkFaviconResultAdapterOperation.addDependency(checkWebpageFaviconOperation)
-            checkFaviconResultAdapterOperation.addDependency(checkDefaultFaviconOperation)
-            faviconResultOperation.addDependency(checkFaviconResultAdapterOperation)
-            ingestAdapter.addDependency(faviconResultOperation)
-            ingestOperation.addDependency(ingestAdapter)
-            
-            operations.append(webpageOperation)
-            operations.append(metadataOperation)
-            operations.append(parseWebpageAdapter)
-            operations.append(webpageMetadataAdapter)
-            operations.append(faviconCheckMetadataAdapter)
-            operations.append(checkWebpageFaviconOperation)
-            operations.append(faviconCheckStatusAdapter)
-            operations.append(checkDefaultFaviconOperation)
-            operations.append(checkFaviconResultAdapterOperation)
-            operations.append(faviconResultOperation)
-            operations.append(ingestAdapter)
+        let parseWebpageAdapter = BlockOperation() { [unowned parseOperation, unowned webpageDataOperation] in
+            webpageDataOperation.url = parseOperation.workingFeed.link
         }
         
-        return operations
+        let webpageMetadataAdapter = BlockOperation() { [unowned metadataOperation, unowned webpageDataOperation] in
+            metadataOperation.webpageUrl = webpageDataOperation.url
+            metadataOperation.webpageData = webpageDataOperation.data
+        }
         
+        let metadataDefaultFaviconDataAdapter = BlockOperation() { [unowned metadataOperation, unowned defaultFaviconDataOperation] in
+            defaultFaviconDataOperation.url = metadataOperation.defaultFavicon
+        }
+        
+        let metadataWebpageFaviconDataAdapter = BlockOperation() { [unowned metadataOperation, unowned webpageFaviconDataOperation] in
+            webpageFaviconDataOperation.url = metadataOperation.webpageFavicon
+        }
+        
+        let saveFaviconAdapter = BlockOperation() {[
+            unowned defaultFaviconDataOperation,
+            unowned webpageFaviconDataOperation,
+            unowned saveFaviconOperation
+        ] in
+            saveFaviconOperation.workingFeed = parseOperation.workingFeed
+            saveFaviconOperation.defaultFaviconData = defaultFaviconDataOperation.data
+            saveFaviconOperation.defaultFaviconResponse = defaultFaviconDataOperation.response
+            saveFaviconOperation.webpageFaviconData = webpageFaviconDataOperation.data
+            saveFaviconOperation.webpageFaviconResponse = webpageFaviconDataOperation.response
+        }
+        
+        let parseDownloadThumbnailsAdapter = BlockOperation() { [unowned parseOperation, unowned downloadThumbnailsOperation] in
+            downloadThumbnailsOperation.inputWorkingItems = parseOperation.workingItems
+        }
+        
+        let saveFeedAdapter = BlockOperation() { [unowned saveFeedOperation, unowned saveFaviconOperation, unowned downloadThumbnailsOperation] in
+            saveFeedOperation.workingFeed = saveFaviconOperation.workingFeed
+            saveFeedOperation.workingFeedItems = downloadThumbnailsOperation.outputWorkingItems
+        }
+
+        // Dependency graph
+        fetchParseAdapter.addDependency(fetchOperation)
+        parseOperation.addDependency(fetchParseAdapter)
+        parseWebpageAdapter.addDependency(parseOperation)
+        webpageDataOperation.addDependency(parseWebpageAdapter)
+        webpageMetadataAdapter.addDependency(webpageDataOperation)
+        metadataOperation.addDependency(webpageMetadataAdapter)
+        metadataDefaultFaviconDataAdapter.addDependency(metadataOperation)
+        metadataWebpageFaviconDataAdapter.addDependency(metadataOperation)
+        defaultFaviconDataOperation.addDependency(metadataDefaultFaviconDataAdapter)
+        webpageFaviconDataOperation.addDependency(metadataWebpageFaviconDataAdapter)
+        saveFaviconAdapter.addDependency(defaultFaviconDataOperation)
+        saveFaviconAdapter.addDependency(webpageFaviconDataOperation)
+        saveFaviconOperation.addDependency(saveFaviconAdapter)
+        parseDownloadThumbnailsAdapter.addDependency(parseOperation)
+        downloadThumbnailsOperation.addDependency(parseDownloadThumbnailsAdapter)
+        saveFeedAdapter.addDependency(downloadThumbnailsOperation)
+        saveFeedAdapter.addDependency(saveFaviconOperation)
+        saveFeedOperation.addDependency(saveFeedAdapter)
+        completionOperation.addDependency(saveFeedOperation)
+
+        operations.append(fetchOperation)
+        operations.append(fetchParseAdapter)
+        operations.append(parseOperation)
+        operations.append(parseWebpageAdapter)
+        operations.append(webpageDataOperation)
+        operations.append(webpageMetadataAdapter)
+        operations.append(metadataOperation)
+        operations.append(metadataDefaultFaviconDataAdapter)
+        operations.append(defaultFaviconDataOperation)
+        operations.append(metadataWebpageFaviconDataAdapter)
+        operations.append(webpageFaviconDataOperation)
+        operations.append(saveFaviconAdapter)
+        operations.append(saveFaviconOperation)
+        operations.append(parseDownloadThumbnailsAdapter)
+        operations.append(downloadThumbnailsOperation)
+        operations.append(saveFeedAdapter)
+        operations.append(saveFeedOperation)
+        operations.append(completionOperation)
+        
+        return operations
     }
 }

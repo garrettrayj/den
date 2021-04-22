@@ -9,25 +9,33 @@
 import Foundation
 import SwiftSoup
 import CoreData
+import OSLog
 
 class MetadataOperation: Operation {
-    var webpage: URL?
-    var data: Data?
-    var webpageFavicon: URL?
+    // Operation inputs
+    var webpageUrl: URL?
+    var webpageData: Data?
+    
+    // Operation outputs
     var defaultFavicon: URL?
+    var webpageFavicon: URL?
 
     override func main() {
         if isCancelled {
             return
         }
         
-        guard let webpage = webpage else {
+        guard let webpage = webpageUrl else {
             return
         }
         
-        defaultFavicon = self.getDefaultFavicon(url: webpage)
-        webpageFavicon = self.getWebpageFavicon(url: webpage, data: data)
-        return
+        if let webpageFaviconUrl = self.getWebpageFavicon(url: webpage, data: webpageData) {
+            self.webpageFavicon = webpageFaviconUrl
+        }
+        
+        if let defaultFaviconUrl = self.getDefaultFavicon(url: webpage) {
+            self.defaultFavicon = defaultFaviconUrl
+        }
     }
     
     private func getWebpageFavicon(url: URL, data: Data?) -> URL? {
