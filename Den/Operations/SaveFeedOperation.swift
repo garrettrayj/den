@@ -11,7 +11,6 @@ import CoreData
 import FeedKit
 import OSLog
 import UIKit
-import URLImage
 import Combine
 
 import func AVFoundation.AVMakeRect

@@ -129,7 +129,7 @@ struct SettingsView: View {
     }
     
     func clearCache() {
-        cacheManager.clearAll()
+        cacheManager.resetFeeds()
     }
     
     func restoreDefaultSettings() {
@@ -157,7 +157,6 @@ struct SettingsView: View {
         }
         
         restoreDefaultSettings()
-        cacheManager.clearWebCaches()
     }
     
     func openHomepage() {

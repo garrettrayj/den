@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import URLImage
 import SwiftUI
 import OSLog
 
@@ -23,13 +22,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.remove(menu: .services)
         builder.remove(menu: .format)
         builder.remove(menu: .toolbar)
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
-    ) -> Bool {
-        URLImageService.shared.cleanup()
-        return true
     }
 }

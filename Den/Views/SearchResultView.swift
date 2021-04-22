@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import URLImage
 
 struct SearchResultView: View {
     var items: [Item]
@@ -18,23 +17,8 @@ struct SearchResultView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {
-                if feed.favicon != nil {
-                    URLImage(
-                        url: feed.favicon!,
-                        failure: { _,_ in
-                            Image("RSSIcon").faviconView()
-                        },
-                        content: {
-                            $0
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 16, height: 16)
-                                .clipped()
-                        }
-                    )
-                    .frame(width: 16, height: 16)
-                    .clipped()
-                    .accessibility(label: Text("Favicon"))
+                if feed.faviconImage != nil {
+                    feed.faviconImage!.resizable().scaledToFit().frame(width: 16, height: 16)
                 }
                 Text(feed.subscription?.wrappedTitle ?? "Untitled").font(.headline).lineLimit(1)
                 Spacer()
