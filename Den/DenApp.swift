@@ -51,7 +51,18 @@ struct DenApp: App {
                 }.onOpenURL { url in
                     subscriptionManager.subscribe(to: url)
                 }
-        }
+        }.onChange(of: scenePhase) { newScenePhase in
+            switch newScenePhase {
+            case .background:
+                cacheManager.performBackgroundCleanup()
+            case .inactive:
+                break
+            case .active:
+                break
+            @unknown default:
+                break
+            }
+          }
     }
     
     init() {
