@@ -1,40 +1,28 @@
 //
-//  Item+CoreDataClass.swift
+//  WorkingFeedItem.swift
 //  Den
 //
-//  Created by Garrett Johnson on 7/30/20.
-//  Copyright © 2020 Garrett Johnson. All rights reserved.
+//  Created by Garrett Johnson on 4/3/21.
+//  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
 import Foundation
-import CoreData
 import FeedKit
-import HTMLEntities
-import SwiftSoup
+import OSLog
 
-@objc(Item)
-public class Item: NSManagedObject {
-    public var read: Bool {
-        let values = value(forKey: "visits") as! [Visit]
-        return !values.isEmpty
-    }
-    
-    public var wrappedTitle: String {
-        get{title ?? "Untitled"}
-        set{title = newValue}
-    }
-    
-    static func create(moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
-        let item = Item.init(context: managedObjectContext)
-        item.id = UUID()
-        item.feed = feed
-        
-        return item
-    }
-    
-    /**
-     Creates item entity from an Atom feed entry
-     */
+/**
+ Item entity representation for working with data outside of NSManagedObjectContext (e.g. feed ingest operations)
+ */
+class WorkingFeedItem {
+    var id: UUID?
+    var image: URL?
+    var imageLocal: URL?
+    var ingested: Date?
+    var link: URL?
+    var published: Date?
+    var summary: String?
+    var title: String?    
+
     public func ingest(_ atomEntry: AtomFeedEntry) {
         if let published = atomEntry.published {
             self.published = published
@@ -118,6 +106,10 @@ public class Item: NSManagedObject {
             if self.image == nil {
                 self.image = image
             }
+        }
+        
+        if self.image != nil {
+            self.imageLocal = self.createLocalImagePath()
         }
     }
     
@@ -216,6 +208,10 @@ public class Item: NSManagedObject {
                 self.image = image
             }
         }
+        
+        if self.image != nil {
+            self.imageLocal = self.createLocalImagePath()
+        }
     }
     
     /**
@@ -253,5 +249,31 @@ public class Item: NSManagedObject {
         if let summary = jsonItem.summary {
             self.summary = HTMLCleaner.stripTags(summary)?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
+        
+        if self.image != nil {
+            self.imageLocal = self.createLocalImagePath()
+        }
+    }
+    
+    private func createLocalImagePath() -> URL? {
+        let directoryPath = FileManager
+            .default
+            .urls(for: .applicationSupportDirectory, in: .userDomainMask)
+            .last!
+            .appendingPathExtension("Images/")
+        
+        if !FileManager.default.fileExists(atPath: directoryPath.absoluteString) {
+            do {
+                try FileManager.default.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                Logger.main.critical("Could not create Images directory \(directoryPath.absoluteString)")
+            }
+        }
+        
+        guard let filename = self.id?.uuidString.appending(".png") else { return nil }
+        
+        let filepath = directoryPath.appendingPathExtension(filename)
+        
+        return filepath
     }
 }

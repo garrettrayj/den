@@ -30,25 +30,8 @@ struct FeedWidgetView: View {
         VStack(spacing: 0) {
             // MARK: Feed Header
             HStack(alignment: .center) {
-                if subscription.feed?.favicon != nil {
-                    URLImage(
-                        url: subscription.feed!.favicon!,
-                        options: URLImageOptions(
-                            cachePolicy: URLImageOptions.CachePolicy.returnCacheDontLoad()
-                        ),
-                        inProgress: { _ in
-                            Image("RSSIcon").faviconView()
-                        },
-                        failure: { _,_ in
-                            Image("RSSIcon").faviconView()
-                        },
-                        content: {
-                            $0.resizable().faviconView()
-                        }
-                    )
-                    .frame(width: 16, height: 16)
-                    .clipped()
-                    .accessibility(label: Text("Favicon"))
+                if subscription.feed?.faviconImage != nil {
+                    subscription.feed!.faviconImage!.resizable().scaledToFit().frame(width: 16, height: 16)
                 }
                 Text(subscription.wrappedTitle).font(.headline).lineLimit(1)
                 Spacer()

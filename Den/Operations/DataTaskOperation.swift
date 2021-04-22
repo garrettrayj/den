@@ -14,19 +14,34 @@ import OSLog
 /**
  Operation for fetching feed XML (or JSON) data.
  */
-class FetchOperation : AsynchronousOperation {
+class DataTaskOperation : AsynchronousOperation {
+    var url: URL?
     var data: Data?
     var error: Error?
     var response: HTTPURLResponse?
     
-    private var url: URL
-    private var task: URLSessionTask!
+    private var task: URLSessionTask?
 
-    init(url: URL) {
+    init(_ url: URL? = nil) {
         self.url = url
         super.init()
-    
-        var request = URLRequest(url: url)
+    }
+
+    override func cancel() {
+        task?.cancel()
+        super.cancel()
+    }
+
+    override func main() {
+        guard let requestUrl = url else {
+            Logger.ingest.debug("DataTaskOperation missing URL")
+            self.finish()
+            return
+        }
+                
+        Logger.ingest.info("Downloading \(requestUrl)")
+        
+        var request = URLRequest(url: requestUrl)
         request.httpShouldHandleCookies = false
         request.timeoutInterval = 30
         
@@ -36,15 +51,6 @@ class FetchOperation : AsynchronousOperation {
             self.response = response as? HTTPURLResponse
             self.finish()
         }
-    }
-
-    override func cancel() {
-        task.cancel()
-        super.cancel()
-    }
-
-    override func main() {
-        Logger.ingest.info("Fetching feed \(self.url)")
-        task.resume()
+        task!.resume()
     }
 }
