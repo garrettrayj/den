@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import URLImage
 import OSLog
 
 class CacheManager: ObservableObject {
@@ -16,16 +15,6 @@ class CacheManager: ObservableObject {
     
     init(persistenceManager: PersistenceManager) {
         self.viewContext = persistenceManager.container.viewContext
-    }
-    
-    func clearAll() {
-        resetFeeds()
-        clearWebCaches()
-    }
-    
-    func clearWebCaches() {
-        URLImageService.shared.removeAllCachedImages()
-        URLCache.shared.removeAllCachedResponses()
     }
     
     func resetFeeds() {

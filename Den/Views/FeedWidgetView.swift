@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import URLImage
 
 /**
  Block view with channel title and items (articles)
