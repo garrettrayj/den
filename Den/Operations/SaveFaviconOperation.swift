@@ -71,28 +71,16 @@ class SaveFaviconOperation: Operation {
     }
     
     func saveFavicon(image: UIImage) -> URL? {
-        let directoryPath = FileManager
-            .default
-            .urls(for: .applicationSupportDirectory, in: .userDomainMask)
-            .last!
-            .appendingPathComponent("Favicons/")
-        
-        if !FileManager.default.fileExists(atPath: directoryPath.absoluteString) {
-            do {
-                try FileManager.default.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                Logger.ingest.error("\(error.localizedDescription)")
-            }
-        }
+        guard let faviconDirectory = FileManager.default.faviconsDirectory() else { return nil }
         
         let filename = UUID().uuidString.appending(".png")
-        let filepath = directoryPath.appendingPathComponent(filename)
+        let filepath = faviconDirectory.appendingPathComponent(filename)
 
         do {
             try image.pngData()?.write(to: filepath, options: .atomic)
             return filepath
         } catch {
-            print("Error info: \(error)")
+            Logger.ingest.error("Unable to save local favicon image: \(error as NSError)")
             return nil
         }
     }

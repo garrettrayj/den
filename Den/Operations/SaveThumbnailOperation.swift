@@ -34,7 +34,7 @@ class SaveThumbnailOperation: Operation {
             let url = httpResponse.url,
             let data = thumbnailData,
             let resizedImage = self.resizeImage(imageData: data, size: self.thumbnailSize),
-            let localPath = self.saveFavicon(image: resizedImage)
+            let localPath = self.saveThumbnail(image: resizedImage)
         {
             self.workingFeedItem?.image = url
             self.workingFeedItem?.imageLocal = localPath
@@ -54,28 +54,17 @@ class SaveThumbnailOperation: Operation {
         }
     }
     
-    func saveFavicon(image: UIImage) -> URL? {
-        let directoryPath = FileManager
-            .default
-            .urls(for: .applicationSupportDirectory, in: .userDomainMask)
-            .last!
-            .appendingPathComponent("Thumbnails/")
-        
-        if !FileManager.default.fileExists(atPath: directoryPath.absoluteString) {
-            do {
-                try FileManager.default.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                Logger.ingest.error("\(error.localizedDescription)")
-            }
-        }
+    func saveThumbnail(image: UIImage) -> URL? {
+        guard let thumbnailDirectory = FileManager.default.thumbnailsDirectory() else { return nil }
         
         let filename = UUID().uuidString.appending(".png")
-        let filepath = directoryPath.appendingPathComponent(filename)
+        let filepath = thumbnailDirectory.appendingPathComponent(filename)
 
         do {
             try image.pngData()?.write(to: filepath, options: .atomic)
             return filepath
         } catch {
+            Logger.ingest.error("Unable to save local thumbnail image: \(error as NSError)")
             return nil
         }
     }
