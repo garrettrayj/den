@@ -20,16 +20,17 @@ class SaveFeedOperation: Operation {
     // Operation inputs
     var workingFeed: WorkingFeed?
     var workingFeedItems: [WorkingFeedItem] = []
-    var fetchMeta: Bool = true
-
+    
     private var subscriptionObjectID: NSManagedObjectID
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
+    private var saveMeta: Bool
     
-    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager, subscriptionObjectID: NSManagedObjectID) {
+    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager, subscriptionObjectID: NSManagedObjectID, saveMeta: Bool) {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
         self.subscriptionObjectID = subscriptionObjectID
+        self.saveMeta = saveMeta
         super.init()
     }
     
@@ -65,7 +66,7 @@ class SaveFeedOperation: Operation {
             subscription.title = workingFeed?.title
         }
         
-        if fetchMeta == true {
+        if saveMeta == true {
             feed.favicon = self.workingFeed?.favicon
             feed.faviconLocal = self.workingFeed?.faviconLocal
             feed.metaFetched = Date()
