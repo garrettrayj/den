@@ -12,6 +12,7 @@ import OSLog
 
 class CacheManager: ObservableObject {
     private var viewContext: NSManagedObjectContext
+    private var lastBackgroundCleanup: Date?
     
     init(persistenceManager: PersistenceManager) {
         self.viewContext = persistenceManager.container.viewContext
@@ -45,9 +46,15 @@ class CacheManager: ObservableObject {
     }
     
     func performBackgroundCleanup() {
+        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -4 * 60 * 60) {
+            return
+        }
+        
         self.cleanupItems()
         self.cleanupThumbnails()
         self.cleanupFavicons()
+        
+        lastBackgroundCleanup = Date()
         Logger.main.info("Finished cleaning up feed items and images.")
     }
     
