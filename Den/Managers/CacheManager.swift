@@ -62,6 +62,11 @@ class CacheManager: ObservableObject {
         do {
             let feeds = try viewContext.fetch(Feed.fetchRequest()) as! [Feed]
             for feed in feeds {
+                if feed.subscription == nil {
+                    viewContext.delete(feed)
+                    return
+                }
+                
                 guard let itemLimit = feed.subscription?.page?.wrappedItemsPerFeed else { return }
                 let oldItems = feed.itemsArray.suffix(from: itemLimit)
                 oldItems.forEach { viewContext.delete($0) }
