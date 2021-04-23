@@ -52,7 +52,9 @@ struct FeedWidgetItemRowView: View {
         guard let url = item.link else { return }
         
         browserManager.logVisit(item: item)
-        
         browserManager.openSafari(url: url)
+        
+        // Update unread count in page navigation
+        item.feed?.subscription?.page?.objectWillChange.send()
     }
 }
