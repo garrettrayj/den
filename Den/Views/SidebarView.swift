@@ -18,7 +18,9 @@ struct SidebarView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var searchManager: SearchManager
     @EnvironmentObject var crashManager: CrashManager
+    
     @State var editMode: EditMode = .inactive
+    @State var navSelection: String?
     
     var pages: FetchedResults<Page>
 
@@ -46,7 +48,7 @@ struct SidebarView: View {
     var pageList: some View {
         Section(header: Text("Pages")) {
             ForEach(self.pages) { page in
-                PageListRowView(page: page, editMode: $editMode)
+                PageListRowView(page: page, editMode: $editMode, navSelection: $navSelection)
             }
             .onMove(perform: self.move)
             .onDelete(perform: self.delete)
@@ -75,16 +77,12 @@ struct SidebarView: View {
     
     var moreSection: some View {
         Section() {
-            NavigationLink(
-                destination: SearchView()
-            ) {
+            NavigationLink(destination: SearchView(), tag: "search", selection: $navSelection) {
                 Image(systemName: "magnifyingglass").sidebarIconView()
                 Text("Search")
             }
             
-            NavigationLink(
-                destination: SettingsView(pages: pages)
-            ) {
+            NavigationLink(destination: SettingsView(pages: pages), tag: "settings", selection: $navSelection) {
                 Image(systemName: "gear").sidebarIconView()
                 Text("Settings")
             }
