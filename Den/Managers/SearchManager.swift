@@ -58,12 +58,20 @@ class SearchManager: ObservableObject {
             query
         )
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
+        fetchRequest.relationshipKeyPathsForPrefetching = ["feed"]
     
         do {
             let fetchResults = try viewContext.fetch(fetchRequest) as! [Item]
-            self.results = groupFetchResults(fetchResults)
-        } catch let error as NSError {
-            Logger.main.error("Unable to execute search: \(error)")
+            var compactedFetchResults: [Item] = []
+            fetchResults.forEach { item in
+                if item.feed?.subscription != nil {
+                    compactedFetchResults.append(item)
+                }
+            }
+            
+            self.results = groupFetchResults(compactedFetchResults)
+        } catch {
+            Logger.main.error("Failed to fetch search results: \(error as NSError)")
         }
     }
     
@@ -71,7 +79,7 @@ class SearchManager: ObservableObject {
         Dictionary(grouping: fetchResults) { item in
             item.feed!
         }.values.sorted { a, b in
-            return a[0].feed!.subscription!.title! < b[0].feed!.subscription!.title!
+            return a[0].feed!.subscription!.wrappedTitle < b[0].feed!.subscription!.wrappedTitle
         }
     }
 }
