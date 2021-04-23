@@ -14,11 +14,16 @@ import SwiftUI
 struct PageListRowView: View {
     @ObservedObject var page: Page
     @Binding var editMode: EditMode
+    @Binding var navSelection: String?
     
     var body: some View {
         if page.id != nil {
-            if editMode == .inactive {
-                NavigationLink(destination: PageView(pageViewModel: PageViewModel(page: page))) {
+            if editMode == .inactive {                
+                NavigationLink(
+                    destination: PageView(pageViewModel: PageViewModel(page: page)),
+                    tag: page.id!.uuidString,
+                    selection: $navSelection
+                ) {
                     Image(systemName: "square.grid.2x2").sidebarIconView()
                     
                     Text(page.wrappedName)
@@ -36,8 +41,7 @@ struct PageListRowView: View {
                                 .foregroundColor(Color(.systemGroupedBackground))
                         )
                         .accessibility(value: Text("\(page.wrappedName): \(page.unreadCount) unread"))
-                    
-                }.animation(nil)
+                }
             } else {
                 Text(page.wrappedName)
                     .fontWeight(.medium)
@@ -45,8 +49,6 @@ struct PageListRowView: View {
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            
-            
         }
     }
 }
