@@ -43,6 +43,11 @@ struct SidebarView: View {
             EditButton()
         })
         .environment(\.editMode, self.$editMode)
+        .onAppear(perform: {
+            if pages.count > 0 && pages.first?.id != nil {
+                navSelection = pages.first!.id!.uuidString
+            }
+        })
     }
     
     var pageList: some View {

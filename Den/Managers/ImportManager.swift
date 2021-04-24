@@ -6,7 +6,7 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 import CoreData
 
 class ImportManager: ObservableObject {
@@ -95,5 +95,15 @@ class ImportManager: ObservableObject {
         } catch let error as NSError {
             CrashManager.shared.handleCriticalError(error)
         }
+    }
+    
+    /**
+     Presents the document picker from the root view controller.
+     This is required on Catalyst but works on iOS and iPadOS too, so we do it this way instead of in a UIViewControllerRepresentable
+     */
+    func pickFile() {
+        let viewController = UIApplication.shared.windows[0].rootViewController!
+        let controller = self.documentPicker.viewController
+        viewController.present(controller, animated: true)
     }
 }

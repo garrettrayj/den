@@ -24,7 +24,7 @@ struct ContentView: View {
             SidebarView(pages: pages)
                 .sheet(isPresented: $subscriptionManager.showSubscribe) {
                     if self.pages.count > 0 {
-                        SubscribeView(pages: pages)
+                        SubscribeView(page: subscriptionManager.currentPage ?? pages.first!)
                             .environment(\.managedObjectContext, viewContext)
                             .environmentObject(subscriptionManager)
                             .environmentObject(refreshManager)

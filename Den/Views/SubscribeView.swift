@@ -19,7 +19,7 @@ struct SubscribeView: View {
     @State private var validationAttempts: Int = 0
     @State private var validationMessage: String?
     
-    var pages: FetchedResults<Page>
+    var page: Page
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -52,7 +52,7 @@ struct SubscribeView: View {
             .cornerRadius(8)
             .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
 
-            Button(action: validateUrl) { Text("Continue") }
+            Button(action: validateUrl) { Text("Add to \(page.wrappedName)") }
             .disabled(!(urlText.count > 0))
             .buttonStyle(ActionButtonStyle())
             
@@ -125,7 +125,7 @@ struct SubscribeView: View {
     func createSubscription() {
         let newSubscription = Subscription.create(
             in: self.viewContext,
-            page: self.subscriptionManager.currentPage ?? self.pages.first!,
+            page: page,
             prepend: true
         )
         newSubscription.url = URL(string: self.urlText)

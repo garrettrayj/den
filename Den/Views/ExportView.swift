@@ -38,17 +38,22 @@ struct ExportView: View {
                         }.onAppear(perform: { self.selectedPages.append(page) })
                     }
                 }
+                
                 Section() {
-                    Button(action: {
-                        self.export()
-                        UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.up.doc")
-                            Text("Save OPML File")
-                        }
-                    }
+                    HStack(alignment: .center) {
+                        Button(action: {
+                            self.export()
+                            UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
+                        }) {
+                            HStack {
+                                Image(systemName: "arrow.up.doc")
+                                Text("Save OPML File")
+                            }
+                        }.buttonStyle(ActionButtonStyle())
+                    }.frame(maxWidth: .infinity)
                 }
+                .listRowInsets(.none)
+                .listRowBackground(Color(UIColor.secondarySystemBackground))
             }
         }
         .navigationTitle("Export")

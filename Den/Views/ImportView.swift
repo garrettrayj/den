@@ -29,13 +29,9 @@ struct ImportView: View {
     }
     
     var pickFileStage: some View {
-        Form {
-            Section(header: Text("SELECT FILE")) {
-                Button(action: pickFile) {
-                    Text("Choose OPML file…")
-                }
-            }
-        }
+        Button(action: importManager.pickFile) {
+            Text("Select OPML File")
+        }.buttonStyle(ActionButtonStyle())
     }
     
     var folderSelectionStage: some View {
@@ -60,16 +56,20 @@ struct ImportView: View {
                 }
             }
             
-            Section {
-                Button(action: {
-                    self.importManager.importSelected()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.down.doc")
-                        Text("Import Subscriptions")
-                    }
-                }
+            Section() {
+                HStack(alignment: .center) {
+                    Button(action: {
+                        self.importManager.importSelected()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.down.doc")
+                            Text("Import Subscriptions")
+                        }
+                    }.buttonStyle(ActionButtonStyle())
+                }.frame(maxWidth: .infinity)
             }
+            .listRowInsets(.none)
+            .listRowBackground(Color(UIColor.secondarySystemBackground))
         }
     }
     
@@ -101,15 +101,5 @@ struct ImportView: View {
                 Text("None")
             }.disabled(importManager.noneSelected)
         }
-    }
-    
-    /**
-     Presents the document picker from the root view controller.
-     This is required on Catalyst but works on iOS and iPadOS too, so we do it this way instead of in a UIViewControllerRepresentable
-     */
-    func pickFile() {
-        let viewController = UIApplication.shared.windows[0].rootViewController!
-        let controller = self.importManager.documentPicker.viewController
-        viewController.present(controller, animated: true)
     }
 }
