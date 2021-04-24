@@ -93,17 +93,16 @@ struct PageView: View {
     
     var trailingNavigationBarItems: some View {
         HStack(alignment: .center, spacing: 0) {
-            Button(action: showMenu) {
-                Image(systemName: "ellipsis").titleBarIconView()
+            Button(action: { refreshManager.refresh(self.pageViewModel.page) }) {
+                Image(systemName: "arrow.clockwise").titleBarIconView()
             }
-            .disabled(refreshManager.refreshing)
-            .actionSheet(isPresented: $pageViewModel.showingMenu) {
-                ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
-                    .default(Text("Refresh Feeds")) { self.refreshManager.refresh(self.pageViewModel.page) },
-                    .default(Text("Add Subscription")) { self.showSubscribe() },
-                    .default(Text("Page Settings")) { self.showOrganizer() },
-                    .cancel()
-                ])
+            
+            Button(action: showSubscribe) {
+                Image(systemName: "plus.circle").titleBarIconView()
+            }
+            
+            Button(action: showOrganizer) {
+                Image(systemName: "wrench").titleBarIconView()
             }
         }.offset(x: 12)
     }

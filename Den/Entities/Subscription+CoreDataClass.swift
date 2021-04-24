@@ -46,7 +46,6 @@ public class Subscription: NSManagedObject {
         
         return subscription
     }
-    
 }
 
 extension Collection where Element == Subscription, Index == Int {
