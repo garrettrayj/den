@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
@@ -31,8 +32,10 @@ struct ContentView: View {
                     if mainViewModel.pageSheetMode == .organizer {
                         PageSettingsView(mainViewModel: mainViewModel)
                             .environment(\.managedObjectContext, viewContext)
+                            .environment(\.colorScheme, colorScheme)
                             .environmentObject(refreshManager)
                             .environmentObject(crashManager)
+                            
                     } else if mainViewModel.pageSheetMode == .options {
                         
                         if mainViewModel.pageSheetSubscription == nil {
@@ -40,15 +43,19 @@ struct ContentView: View {
                         } else {
                             FeedWidgetOptionsView(subscription: mainViewModel.pageSheetSubscription!, pages: pages)
                                 .environment(\.managedObjectContext, viewContext)
+                                .environment(\.colorScheme, colorScheme)
                                 .environmentObject(refreshManager)
                                 .environmentObject(crashManager)
+                                
                         }
                     } else if mainViewModel.pageSheetMode == .subscribe {
                         SubscribeView(page: mainViewModel.activePage ?? pages.first!)
                             .environment(\.managedObjectContext, viewContext)
+                            .environment(\.colorScheme, colorScheme)
                             .environmentObject(subscriptionManager)
                             .environmentObject(refreshManager)
                             .environmentObject(crashManager)
+                        
                     }
                 }
             
