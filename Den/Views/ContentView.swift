@@ -55,7 +55,6 @@ struct ContentView: View {
                             .environmentObject(subscriptionManager)
                             .environmentObject(refreshManager)
                             .environmentObject(crashManager)
-                        
                     }
                 }
             
