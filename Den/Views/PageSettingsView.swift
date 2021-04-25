@@ -12,73 +12,102 @@ import SwiftUI
  User interface for reordering, moving, and deleting Gadgets within a Page
  */
 struct PageSettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    @ObservedObject var page: Page
+    
+    @ObservedObject var mainViewModel: MainViewModel
+    
     @State var itemsPerFeedStepperValue: Int = 0
+    @State var pageNameText: String = ""
 
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Settings")) {
-                    HStack {
-                        Text("Title")
-                        TextField("Title", text: $page.wrappedName).multilineTextAlignment(.trailing)
-                    }
-                    
-                    Stepper("Feed Item Limit: \(itemsPerFeedStepperValue)", value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max))
-                }
-                
-                Section(header: HStack { Text("\(page.subscriptionsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
-                    List {
-                        ForEach(page.subscriptionsArray) { subscription in
-                            Text(subscription.wrappedTitle)
+        if mainViewModel.activePage == nil {
+            Text("Page Settings Unavailable")
+        } else {
+            NavigationView {
+                Form {
+                    Section(header: Text("Settings")) {
+                        HStack {
+                            Text("Name")
+                            TextField("Name", text: $pageNameText).multilineTextAlignment(.trailing)
                         }
-                        .onDelete(perform: delete)
-                        .onMove(perform: move)
-                    }
-                }
-            }
-            .navigationTitle("Page Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                Button(action: { self.presentationMode.wrappedValue.dismiss() }) { Text("Close") }
-            })
-            .environment(\.editMode, .constant(.active))
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            itemsPerFeedStepperValue = page.wrappedItemsPerFeed
-        }
-        .onDisappear {
-            if itemsPerFeedStepperValue != page.wrappedItemsPerFeed {
-                page.wrappedItemsPerFeed = itemsPerFeedStepperValue
-            }
-            
-            if self.viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                    
-                    DispatchQueue.main.async {
-                        refreshManager.refresh(page)
+                        
+                        Stepper("Feed Item Limit: \(itemsPerFeedStepperValue)", value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max))
                     }
                     
-                } catch let error as NSError {
-                    CrashManager.shared.handleCriticalError(error)
+                    Section(header: HStack { Text("\(mainViewModel.activePage!.subscriptionsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
+                        List {
+                            ForEach(mainViewModel.activePage!.subscriptionsArray) { subscription in
+                                Text(subscription.wrappedTitle)
+                            }
+                            .onDelete(perform: delete)
+                            .onMove(perform: move)
+                        }.environment(\.editMode, .constant(.active))
+                    }
                 }
+                .navigationTitle("Page Settings")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(content: {
+                    Button(action: close) { Text("Close") }
+                })
+                .environment(\.editMode, .constant(.active))
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .onAppear(perform: load)
+            .onDisappear(perform: save)
+        }
+    }
+    
+    func close() {
+        self.mainViewModel.showingPageSheet = false
+    }
+    
+    func load() {
+        guard let page = mainViewModel.activePage else { return }
+        
+        itemsPerFeedStepperValue = page.wrappedItemsPerFeed
+        pageNameText = page.wrappedName
+    }
+    
+    func save() {
+        guard let page = mainViewModel.activePage else { return }
+
+        var refresh = false
+        
+        if itemsPerFeedStepperValue != page.wrappedItemsPerFeed {
+            page.wrappedItemsPerFeed = itemsPerFeedStepperValue
+            refresh = true
+        }
+        
+        if pageNameText != page.wrappedName {
+            page.wrappedName = pageNameText
+        }
+        
+        if self.viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                
+                if refresh == true {
+                    self.refreshManager.refresh(page)
+                }
+            } catch let error as NSError {
+                CrashManager.shared.handleCriticalError(error)
             }
         }
     }
     
     func delete(indices: IndexSet) {
-        page.subscriptionsArray.delete(at: indices, from: viewContext)
+        if mainViewModel.activePage == nil { return }
+        
+        mainViewModel.activePage!.subscriptionsArray.delete(at: indices, from: viewContext)
     }
     
     private func move( from source: IndexSet, to destination: Int) {
+        if mainViewModel.activePage == nil { return }
+        
         // Make an array of items from fetched results
-        var revisedItems: [Subscription] = page.subscriptionsArray.map { $0 }
+        var revisedItems: [Subscription] = mainViewModel.activePage!.subscriptionsArray.map { $0 }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)

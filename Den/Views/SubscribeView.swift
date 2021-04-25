@@ -19,45 +19,60 @@ struct SubscribeView: View {
     @State private var validationAttempts: Int = 0
     @State private var validationMessage: String?
     
-    var page: Page
+    var page: Page?
     
     var body: some View {
+        
+        
+        
         VStack(alignment: .center, spacing: 20) {
             Text("Add Subscription").font(.title)
             
-            HStack {
-                TextField("https://example.com/feed.xml", text: $urlText)
-                    .lineLimit(1)
-                    .disableAutocorrection(true)
-                
-                if urlIsValid != nil {
-                    if urlIsValid == true {
-                        Image(systemName: "checkmark.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(Color(UIColor.systemGreen))
-                            
-                    } else {
-                        Image(systemName: "slash.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(Color(UIColor.systemRed))
+            if page != nil {
+                HStack {
+                    TextField("https://example.com/feed.xml", text: $urlText)
+                        .lineLimit(1)
+                        .disableAutocorrection(true)
+                    
+                    if urlIsValid != nil {
+                        if urlIsValid == true {
+                            Image(systemName: "checkmark.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color(UIColor.systemGreen))
+                                
+                        } else {
+                            Image(systemName: "slash.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color(UIColor.systemRed))
+                        }
                     }
                 }
-            }
-            .padding()
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(8)
-            .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
+                .padding()
+                .background(Color(UIColor.systemBackground))
+                .cornerRadius(8)
+                .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
 
-            Button(action: validateUrl) { Text("Add to \(page.wrappedName)") }
-            .disabled(!(urlText.count > 0))
-            .buttonStyle(ActionButtonStyle())
-            
-            if validationMessage != nil {
-                Text(validationMessage!)
+                Button(action: validateUrl) { Text("Add to \(page!.wrappedName)") }
+                .disabled(!(urlText.count > 0))
+                .buttonStyle(ActionButtonStyle())
+                
+                if validationMessage != nil {
+                    Text(validationMessage!)
+                }
+            } else {
+                VStack(spacing: 16) {
+                    Image(systemName: "exclamationmark.triangle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 48, height: 48)
+                    Text("Create a page before adding subscriptions.")
+                        .foregroundColor(Color(.secondaryLabel))
+                        .multilineTextAlignment(.center)
+                }
             }
             
             Spacer()
@@ -123,9 +138,11 @@ struct SubscribeView: View {
     }
     
     func createSubscription() {
+        guard let targetPage = page else { return }
+        
         let newSubscription = Subscription.create(
             in: self.viewContext,
-            page: page,
+            page: targetPage,
             prepend: true
         )
         newSubscription.url = URL(string: self.urlText)

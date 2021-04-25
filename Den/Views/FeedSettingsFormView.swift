@@ -19,7 +19,6 @@ struct FeedSettingsFormView: View {
     var onDelete: () -> Void
     var onMove: () -> Void
     
-    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
     var pages: FetchedResults<Page>
     
     var body: some View {
@@ -42,7 +41,7 @@ struct FeedSettingsFormView: View {
                     TextField("Title", text: $subscription.wrappedTitle).multilineTextAlignment(.trailing)
                 }
                 
-                Picker(selection: pagePickerSelection, label: Text("Page")) {
+                Picker("Page", selection: pagePickerSelection) {
                     ForEach(0 ..< pages.count) {
                         Text(self.pages[$0].wrappedName).tag($0)
                     }
@@ -98,27 +97,30 @@ struct FeedSettingsFormView: View {
                 }
             }
         }
-        .onDisappear {
-            if self.viewContext.hasChanges {
-                do {
-                    try self.viewContext.save()
-                } catch let error as NSError {
-                    CrashManager.shared.handleCriticalError(error)
-                }
-                
-                if let feed = subscription.feed {
-                    feed.itemsArray.forEach { item in
-                        item.objectWillChange.send()
-                    }
+        .onDisappear(perform: save)
+    }
+    
+    init(subscription: Subscription, pages: FetchedResults<Page>, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
+        self.subscription = subscription
+        self.pages = pages
+        self.onDelete = onDelete
+        self.onMove = onMove
+    }
+    
+    func save() {
+        if self.viewContext.hasChanges {
+            do {
+                try self.viewContext.save()
+            } catch let error as NSError {
+                CrashManager.shared.handleCriticalError(error)
+            }
+            
+            if let feed = subscription.feed {
+                feed.itemsArray.forEach { item in
+                    item.objectWillChange.send()
                 }
             }
         }
-    }
-    
-    init(subscription: Subscription, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
-        self.subscription = subscription
-        self.onDelete = onDelete
-        self.onMove = onMove
     }
     
     func delete() {

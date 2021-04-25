@@ -13,6 +13,8 @@ import SwiftUI
  */
 struct PageListRowView: View {
     @ObservedObject var page: Page
+    @ObservedObject var mainViewModel: MainViewModel
+    
     @Binding var editMode: EditMode
     @Binding var navSelection: String?
     
@@ -20,7 +22,7 @@ struct PageListRowView: View {
         if page.id != nil {
             if editMode == .inactive {                
                 NavigationLink(
-                    destination: PageView(pageViewModel: PageViewModel(page: page)),
+                    destination: PageView(mainViewModel: mainViewModel, page: page),
                     tag: page.id!.uuidString,
                     selection: $navSelection
                 ) {
