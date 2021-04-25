@@ -46,7 +46,7 @@ class CacheManager: ObservableObject {
     }
     
     func performBackgroundCleanup() {
-        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -4 * 60 * 60) {
+        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -24 * 60 * 60) {
             return
         }
         

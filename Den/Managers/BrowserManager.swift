@@ -1,5 +1,5 @@
 //
-//  SafariManager.swift
+//  BrowserManager.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/26/20.
@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import SafariServices
+import CoreData
 
 /**
  Class for providing functionality not quite reachable with SwiftUI
