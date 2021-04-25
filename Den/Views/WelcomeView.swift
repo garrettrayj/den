@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    var pages: FetchedResults<Page>
-    
     var body: some View {
         VStack {
             VStack(spacing: 16) {

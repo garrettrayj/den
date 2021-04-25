@@ -17,7 +17,8 @@ struct PageView: View {
     @EnvironmentObject var screenManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    @ObservedObject var pageViewModel: PageViewModel
+    @ObservedObject var mainViewModel: MainViewModel
+    @ObservedObject var page: Page
     
     let columns = [
         GridItem(.adaptive(minimum: 320, maximum: 560), spacing: 16, alignment: .top)
@@ -26,34 +27,21 @@ struct PageView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                if pageViewModel.page.managedObjectContext == nil {
+                if page.managedObjectContext == nil {
                     pageDeleted
                 } else {
                     ZStack(alignment: .top) {
-                        if pageViewModel.hasSubscriptions() {
+                        if page.subscriptions?.count ?? 0 > 0 {
                             dashboardMode
                         } else {
                             pageEmpty
                         }
                     }
-                    .sheet(item: $pageViewModel.pageSheetViewModel) { pageSheet in
-                        if pageSheet.modal == .organizer {
-                            PageSettingsView(page: pageViewModel.page)
-                                .environment(\.managedObjectContext, viewContext)
-                                .environmentObject(refreshManager)
-                                .environmentObject(crashManager)
-                        } else if pageSheet.modal == .options {
-                            FeedWidgetOptionsView(subscription: pageSheet.subscription!)
-                                .environment(\.managedObjectContext, viewContext)
-                                .environmentObject(refreshManager)
-                                .environmentObject(crashManager)
-                        }
-                    }
-                    .navigationTitle(Text(pageViewModel.page.name ?? "Page Deleted"))
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationBarItems(trailing: trailingNavigationBarItems)
                 }
             }
+            .navigationTitle(Text(page.wrappedName))
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: trailingNavigationBarItems)
             .padding(.top, geometry.safeAreaInsets.top)
             .onAppear(perform: onAppear)
             .background(Color(.secondarySystemBackground))
@@ -63,16 +51,16 @@ struct PageView: View {
     
     var dashboardMode: some View {
         ZStack(alignment: .top) {
-            RefreshableScrollView(page: pageViewModel.page) {
+            RefreshableScrollView(page: page) {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(pageViewModel.page.subscriptionsArray, id: \.self) { subscription in
-                        FeedWidgetView(subscription: subscription, pageSheetViewModel: $pageViewModel.pageSheetViewModel)
+                    ForEach(page.subscriptionsArray, id: \.self) { subscription in
+                        FeedWidgetView(subscription: subscription, mainViewModel: mainViewModel)
                     }
                 }
                 .padding(16)
             }
             
-            HeaderProgressBarView(page: pageViewModel.page)
+            HeaderProgressBarView(page: page)
         }
     }
     
@@ -93,7 +81,7 @@ struct PageView: View {
     
     var trailingNavigationBarItems: some View {
         HStack(alignment: .center, spacing: 0) {
-            Button(action: { refreshManager.refresh(self.pageViewModel.page) }) {
+            Button(action: { refreshManager.refresh(self.page) }) {
                 Image(systemName: "arrow.clockwise").titleBarIconView()
             }
             
@@ -107,23 +95,21 @@ struct PageView: View {
         }.offset(x: 12)
     }
     
-    func showMenu() {
-        self.pageViewModel.showingMenu = true
-    }
-    
     func showOrganizer() {
-        self.pageViewModel.pageSheetViewModel = PageSheetViewModel(modal: .organizer)
+        mainViewModel.pageSheetMode = .organizer
+        mainViewModel.showingPageSheet = true
     }
     
     func showSubscribe() {
-        self.screenManager.subscribe()
+        mainViewModel.pageSheetMode = .subscribe
+        mainViewModel.showingPageSheet = true
     }
     
     func onAppear() {
-        self.screenManager.currentPage = pageViewModel.page
+        self.mainViewModel.activePage = page
         
-        if pageViewModel.page.minimumRefreshedDate == nil {
-            refreshManager.refresh(pageViewModel.page)
+        if page.minimumRefreshedDate == nil {
+            refreshManager.refresh(page)
         }
     }
 }

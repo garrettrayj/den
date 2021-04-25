@@ -16,10 +16,13 @@ struct FeedWidgetOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var subscription: Subscription
     
+    var pages: FetchedResults<Page>
+    
     var body: some View {
         NavigationView {
             FeedSettingsFormView(
                 subscription: subscription,
+                pages: pages,
                 onDelete: close,
                 onMove: close
             )

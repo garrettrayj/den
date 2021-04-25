@@ -14,7 +14,7 @@ import SwiftUI
 struct FeedWidgetView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var subscription: Subscription
-    @Binding var pageSheetViewModel: PageSheetViewModel?
+    @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -97,6 +97,8 @@ struct FeedWidgetView: View {
     }
     
     func showOptions() {
-        self.pageSheetViewModel = PageSheetViewModel(modal: .options, subscription: subscription)
+        self.mainViewModel.pageSheetSubscription = subscription
+        self.mainViewModel.pageSheetMode = .options
+        self.mainViewModel.showingPageSheet = true
     }
 }

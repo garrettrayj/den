@@ -15,39 +15,45 @@ struct ContentView: View {
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var safariManager: BrowserManager
     
-    @FetchRequest(entity: Page.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)])
+    @ObservedObject var mainViewModel: MainViewModel
+    
+    @FetchRequest(
+        entity: Page.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Page.userOrder, ascending: true)]
+    )
     var pages: FetchedResults<Page>
     
     var body: some View {
         NavigationView {
             // Sidebar
-            SidebarView(pages: pages)
-                .sheet(isPresented: $subscriptionManager.showSubscribe) {
-                    if self.pages.count > 0 {
-                        SubscribeView(page: subscriptionManager.currentPage ?? pages.first!)
+            SidebarView(pageViewModel: mainViewModel, pages: pages)
+                .sheet(isPresented: $mainViewModel.showingPageSheet) {
+                    if mainViewModel.pageSheetMode == .organizer {
+                        PageSettingsView(mainViewModel: mainViewModel)
+                            .environment(\.managedObjectContext, viewContext)
+                            .environmentObject(refreshManager)
+                            .environmentObject(crashManager)
+                    } else if mainViewModel.pageSheetMode == .options {
+                        
+                        if mainViewModel.pageSheetSubscription == nil {
+                            Text("Feed Options Unavailable")
+                        } else {
+                            FeedWidgetOptionsView(subscription: mainViewModel.pageSheetSubscription!, pages: pages)
+                                .environment(\.managedObjectContext, viewContext)
+                                .environmentObject(refreshManager)
+                                .environmentObject(crashManager)
+                        }
+                    } else if mainViewModel.pageSheetMode == .subscribe {
+                        SubscribeView(page: mainViewModel.activePage ?? pages.first!)
                             .environment(\.managedObjectContext, viewContext)
                             .environmentObject(subscriptionManager)
                             .environmentObject(refreshManager)
                             .environmentObject(crashManager)
-                    } else {
-                        VStack(spacing: 16) {
-                            Image(systemName: "exclamationmark.triangle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 48, height: 48)
-                            Text("Page Required").font(.title)
-                            Text("Create a page before adding subscriptions")
-                                .foregroundColor(Color(.secondaryLabel))
-                                .multilineTextAlignment(.center)
-                            Button(action: { self.subscriptionManager.reset() }) {
-                                Text("Close").fontWeight(.medium)
-                            }.buttonStyle(BorderedButtonStyle())
-                        }
                     }
                 }
             
             // Default view for detail area
-            WelcomeView(pages: pages)
+            WelcomeView()
         }
         .sheet(isPresented: $crashManager.showingAlert) {
             VStack(spacing: 16) {

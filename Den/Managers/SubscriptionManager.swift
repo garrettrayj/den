@@ -9,9 +9,14 @@
 import Foundation
 
 class SubscriptionManager: ObservableObject {
-    @Published var currentPage: Page? // Current page updated by PageView onAppear()
     @Published var showSubscribe: Bool = false
     @Published var subscribeURLString: String = ""
+    
+    var mainViewModel: MainViewModel
+    
+    init(mainViewModel: MainViewModel) {
+        self.mainViewModel = mainViewModel
+    }
     
     func subscribe(to url: URL? = nil) {        
         if
@@ -27,7 +32,8 @@ class SubscriptionManager: ObservableObject {
             }
         }
         
-        self.showSubscribe = true
+        self.mainViewModel.pageSheetMode = .subscribe
+        self.mainViewModel.showingPageSheet = true
     }
     
     func reset() {
