@@ -49,7 +49,7 @@ struct ContentView: View {
                                 
                         }
                     } else if mainViewModel.pageSheetMode == .subscribe {
-                        SubscribeView(page: mainViewModel.activePage ?? pages.first!)
+                        SubscribeView(page: mainViewModel.activePage ?? pages.first)
                             .environment(\.managedObjectContext, viewContext)
                             .environment(\.colorScheme, colorScheme)
                             .environmentObject(subscriptionManager)

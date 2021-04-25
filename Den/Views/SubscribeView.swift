@@ -72,7 +72,7 @@ struct SubscribeView: View {
                     Text("Create a page before adding subscriptions.")
                         .foregroundColor(Color(.secondaryLabel))
                         .multilineTextAlignment(.center)
-                }
+                }.frame(maxWidth: .infinity)
             }
             
             Spacer()
