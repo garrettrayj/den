@@ -52,7 +52,6 @@ struct ExportView: View {
                         }.buttonStyle(ActionButtonStyle())
                     }.frame(maxWidth: .infinity)
                 }
-                .listRowInsets(.none)
                 .listRowBackground(Color(UIColor.secondarySystemBackground))
             }
         }
