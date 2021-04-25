@@ -26,7 +26,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             // Sidebar
-            SidebarView(pageViewModel: mainViewModel, pages: pages)
+            SidebarView(mainViewModel: mainViewModel, pages: pages)
                 .sheet(isPresented: $mainViewModel.showingPageSheet) {
                     if mainViewModel.pageSheetMode == .organizer {
                         PageSettingsView(mainViewModel: mainViewModel)

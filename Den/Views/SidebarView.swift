@@ -19,7 +19,7 @@ struct SidebarView: View {
     @EnvironmentObject var searchManager: SearchManager
     @EnvironmentObject var crashManager: CrashManager
     
-    @ObservedObject var pageViewModel: MainViewModel
+    @ObservedObject var mainViewModel: MainViewModel
     
     @State var editMode: EditMode = .inactive
     @State var navSelection: String?
@@ -55,7 +55,7 @@ struct SidebarView: View {
     var pageList: some View {
         Section(header: Text("Pages")) {
             ForEach(self.pages) { page in
-                PageListRowView(page: page, mainViewModel: pageViewModel, editMode: $editMode, navSelection: $navSelection)
+                PageListRowView(page: page, mainViewModel: mainViewModel, editMode: $editMode, navSelection: $navSelection)
             }
             .onMove(perform: self.move)
             .onDelete(perform: self.delete)
