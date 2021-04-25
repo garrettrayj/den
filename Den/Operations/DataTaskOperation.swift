@@ -38,8 +38,6 @@ class DataTaskOperation : AsynchronousOperation {
             self.finish()
             return
         }
-                
-        Logger.ingest.info("Downloading \(requestUrl)")
         
         var request = URLRequest(url: requestUrl)
         request.httpShouldHandleCookies = false
