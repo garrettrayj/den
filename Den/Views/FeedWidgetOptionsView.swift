@@ -13,29 +13,34 @@ import SwiftUI
  FeedOptionsView wrapper for displaying options in a modal sheet.
  */
 struct FeedWidgetOptionsView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var subscription: Subscription
+    @Environment(\.presentationMode) var presentation
+    @ObservedObject var mainViewModel: MainViewModel
     
     var pages: FetchedResults<Page>
     
     var body: some View {
-        NavigationView {
-            FeedSettingsFormView(
-                subscription: subscription,
-                pages: pages,
-                onDelete: close,
-                onMove: close
-            )
-            .navigationTitle("Feed Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                Button(action: close) { Text("Close") }
-            })
+        
+        if mainViewModel.pageSheetSubscription == nil {
+            Text("Feed Options Unavailable")
+        } else {
+            NavigationView {
+                FeedSettingsFormView(
+                    subscription: mainViewModel.pageSheetSubscription!,
+                    pages: pages,
+                    onDelete: close,
+                    onMove: close
+                )
+                .navigationTitle("Feed Options")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(content: {
+                    Button(action: close) { Text("Close") }
+                })
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func close() {
-        presentationMode.wrappedValue.dismiss()
+        presentation.wrappedValue.dismiss()
     }
 }

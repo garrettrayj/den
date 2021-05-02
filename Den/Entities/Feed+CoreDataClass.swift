@@ -49,9 +49,15 @@ public class Feed: NSManagedObject {
     }
     
     public var faviconImage: Image? {
-        guard let localUrl = self.faviconLocal else { return nil }
+        guard
+            let faviconsDirectory = FileManager.default.faviconsDirectory,
+            let filename = self.faviconFile
+        else { return nil }
+        
+        let filepath = faviconsDirectory.appendingPathComponent(filename)
+        
         do {
-            let imageData = try Data(contentsOf: localUrl)
+            let imageData = try Data(contentsOf: filepath)
             if let uiImage = UIImage(data: imageData) {
                 return Image(uiImage: uiImage)
             }

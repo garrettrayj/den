@@ -112,7 +112,7 @@ struct FeedSettingsFormView: View {
             do {
                 try self.viewContext.save()
             } catch let error as NSError {
-                CrashManager.shared.handleCriticalError(error)
+                crashManager.handleCriticalError(error)
             }
             
             if let feed = subscription.feed {

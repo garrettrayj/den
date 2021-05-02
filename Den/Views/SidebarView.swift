@@ -15,6 +15,7 @@ import CoreData
 */
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.presentationMode) var presentation
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var searchManager: SearchManager
     @EnvironmentObject var crashManager: CrashManager
@@ -37,19 +38,17 @@ struct SidebarView: View {
         }
         .animation(nil)
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Den")
-        .navigationBarItems(trailing: HStack {
-            Button(action: { withAnimation { createPage() }}) {
-                Image(systemName: "plus").titleBarIconView()
+        .navigationBarTitleDisplayMode(.large)
+        .navigationTitle(Text("Den"))
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: { withAnimation { createPage() }}) {
+                    Image(systemName: "plus")
+                }
+                EditButton()
             }
-            EditButton()
-        })
+        }
         .environment(\.editMode, self.$editMode)
-        .onAppear(perform: {
-            if pages.count > 0 && pages.first?.id != nil {
-                navSelection = pages.first!.id!.uuidString
-            }
-        })
     }
     
     var pageList: some View {
@@ -105,7 +104,7 @@ struct SidebarView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            CrashManager.shared.handleCriticalError(error)
+            crashManager.handleCriticalError(error)
         }
     }
     
@@ -127,7 +126,7 @@ struct SidebarView: View {
             do {
                 try viewContext.save()
             } catch let error as NSError {
-                CrashManager.shared.handleCriticalError(error)
+                crashManager.handleCriticalError(error)
             }
         }
     }
@@ -158,7 +157,7 @@ struct SidebarView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            CrashManager.shared.handleCriticalError(error)
+            crashManager.handleCriticalError(error)
         }
     }
 }

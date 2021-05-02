@@ -10,11 +10,12 @@ import Foundation
 
 class MainViewModel: ObservableObject {
     enum PageSheetMode {
-        case none, organizer, options, subscribe
+        case none, pageSettings, feedPreferences, subscribe, crashMessage
     }
     
     @Published var activePage: Page?
     @Published var pageSheetMode: PageSheetMode = .none
     @Published var pageSheetSubscription: Subscription?
     @Published var showingPageSheet: Bool = false
+    @Published var showingPageMenu: Bool = false
 }

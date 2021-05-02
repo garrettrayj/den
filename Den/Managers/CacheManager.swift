@@ -11,115 +11,113 @@ import CoreData
 import OSLog
 
 class CacheManager: ObservableObject {
-    private var viewContext: NSManagedObjectContext
+    private var persistentContainer: NSPersistentContainer
+    private var crashManager: CrashManager
     private var lastBackgroundCleanup: Date?
     
-    init(persistenceManager: PersistenceManager) {
-        self.viewContext = persistenceManager.container.viewContext
+    init(persistenceManager: PersistenceManager, crashManager: CrashManager) {
+        self.persistentContainer = persistenceManager.container
+        self.crashManager = crashManager
     }
     
     func resetFeeds() {
-        do {
-            let pages = try viewContext.fetch(Page.fetchRequest()) as! [Page]
-            pages.forEach { page in
-                page.subscriptionsArray.forEach { subscription in
-                    if let feed = subscription.feed {
-                        feed.itemsArray.forEach { item in
-                            viewContext.delete(item)
+        let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
+        context.undoManager = nil
+        context.performAndWait {
+            do {
+                let pages = try context.fetch(Page.fetchRequest()) as! [Page]
+                pages.forEach { page in
+                    page.subscriptionsArray.forEach { subscription in
+                        if let feed = subscription.feed {
+                            feed.itemsArray.forEach { item in
+                                context.delete(item)
+                            }
+                            feed.refreshed = nil
+                            feed.favicon = nil
+                            feed.metaFetched = nil
                         }
-                        feed.refreshed = nil
-                        feed.favicon = nil
-                        feed.metaFetched = nil
+                    }
+                    page.objectWillChange.send()
+                }
+                
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                    } catch {
+                        DispatchQueue.main.async {
+                            self.crashManager.handleCriticalError(error as NSError)
+                        }
                     }
                 }
-                page.objectWillChange.send()
+            } catch let error as NSError {
+                Logger.main.info("Error occured while resetting pages. \(error)")
             }
-        } catch let error as NSError {
-            Logger.main.info("Error occured while resetting pages. \(error)")
-        }
-        
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            CrashManager.shared.handleCriticalError(error)
         }
     }
     
     func performBackgroundCleanup() {
-        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -24 * 60 * 60) {
-            return
-        }
+        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -24 * 60 * 60) { return }
+        guard let faviconsDirectory = FileManager.default.faviconsDirectory else { return }
+        guard let thumbnailsDirectory = FileManager.default.thumbnailsDirectory else { return }
         
-        self.cleanupItems()
-        self.cleanupThumbnails()
-        self.cleanupFavicons()
+        var cleanFeeds: [Feed] = []
+        
+        let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
+        context.undoManager = nil
+        context.performAndWait {
+            do {
+                let feeds = try context.fetch(Feed.fetchRequest()) as! [Feed]
+                
+                for feed in feeds {
+                    if feed.subscription == nil {
+                        context.delete(feed)
+                        return
+                    }
+                    
+                    guard let itemLimit = feed.subscription?.page?.wrappedItemsPerFeed else { return }
+                    
+                    if feed.itemsArray.count > itemLimit {
+                        let oldItems = feed.itemsArray.suffix(from: itemLimit)
+                        oldItems.forEach { context.delete($0) }
+                    }
+                    
+                    cleanFeeds.append(feed)
+                }
+                
+                let activeFavicons: [URL] = cleanFeeds.compactMap { feed in
+                    if let filename = feed.faviconFile {
+                        return faviconsDirectory.appendingPathComponent(filename)
+                    }
+                    return nil
+                }
+                self.cleanupCacheDirectory(cacheDirectory: faviconsDirectory, activeFileList: activeFavicons)
+                
+                
+                let items: [Item] = cleanFeeds.flatMap { $0.itemsArray }
+                let activeThumbnails: [URL] = items.compactMap { item in
+                    if let filename = item.imageFile {
+                        return thumbnailsDirectory.appendingPathComponent(filename)
+                    }
+                    return nil
+                }
+                self.cleanupCacheDirectory(cacheDirectory: thumbnailsDirectory, activeFileList: activeThumbnails)
+                
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                    } catch {
+                        DispatchQueue.main.async {
+                            self.crashManager.handleCriticalError(error as NSError)
+                        }
+                    }
+                }
+            } catch let error as NSError {
+                Logger.main.info("Error occured fetching feeds for item cleanup. \(error)")
+            }
+        }
         
         lastBackgroundCleanup = Date()
-        Logger.main.info("Finished cleaning up feed items and images.")
-    }
-    
-    func cleanupItems() {
-        do {
-            let feeds = try viewContext.fetch(Feed.fetchRequest()) as! [Feed]
-            for feed in feeds {
-                if feed.subscription == nil {
-                    viewContext.delete(feed)
-                    return
-                }
-                
-                guard let itemLimit = feed.subscription?.page?.wrappedItemsPerFeed else { return }
-                let oldItems = feed.itemsArray.suffix(from: itemLimit)
-                oldItems.forEach { viewContext.delete($0) }
-            }
-        } catch let error as NSError {
-            Logger.main.info("Error occured fetching feeds for item cleanup. \(error)")
-        }
-        
-        do {
-            try viewContext.save()
-        } catch {
-            Logger.main.error("Error while saving context after cleanup: \(error as NSError)")
-        }
-    }
-    
-    func cleanupFavicons() {
-        guard let faviconsDirectory = FileManager.default.faviconsDirectory() else { return }
-        var activeFaviconFileList: [URL] = []
-
-        do {
-            let feeds = try viewContext.fetch(Feed.fetchRequest()) as! [Feed]
-            activeFaviconFileList = feeds.compactMap { feed in
-                if let localUrl = feed.faviconLocal {
-                    return localUrl
-                }
-                
-                return nil
-            }
-        } catch let error as NSError {
-            Logger.main.info("Error occured fetching feeds for favicon cleanup. \(error)")
-        }
-        
-        self.cleanupCacheDirectory(cacheDirectory: faviconsDirectory, activeFileList: activeFaviconFileList)
-    }
-    
-    func cleanupThumbnails() {
-        guard let thumbnailsDirectory = FileManager.default.thumbnailsDirectory() else { return }
-        var activeFaviconFileList: [URL] = []
-
-        do {
-            let items = try viewContext.fetch(Item.fetchRequest()) as! [Item]
-            activeFaviconFileList = items.compactMap { item in
-                if let localUrl = item.imageLocal {
-                    return localUrl
-                }
-                
-                return nil
-            }
-        } catch let error as NSError {
-            Logger.main.info("Error occured fetching feeds for favicon cleanup. \(error)")
-        }
-        
-        self.cleanupCacheDirectory(cacheDirectory: thumbnailsDirectory, activeFileList: activeFaviconFileList)
+        Logger.main.info("Finished cleaning up databases and files.")
     }
     
     func cleanupCacheDirectory(cacheDirectory: URL, activeFileList: [URL]) {

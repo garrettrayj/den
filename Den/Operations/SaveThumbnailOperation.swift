@@ -33,10 +33,10 @@ class SaveThumbnailOperation: Operation {
             let url = httpResponse.url,
             let data = thumbnailData,
             let resizedImage = self.resizeImage(imageData: data, size: self.thumbnailSize),
-            let localPath = self.saveThumbnail(image: resizedImage)
+            let filename = self.saveThumbnail(image: resizedImage)
         {
             self.workingFeedItem?.image = url
-            self.workingFeedItem?.imageLocal = localPath
+            self.workingFeedItem?.imageFile = filename
         }
     }
     
@@ -44,24 +44,24 @@ class SaveThumbnailOperation: Operation {
         guard let image = UIImage(data: imageData) else {
             return nil
         }
-
-        let renderer = UIGraphicsImageRenderer(size: size)
-        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: size))
+        
+        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: CGSize(width: 128, height: 128)))
+        let renderer = UIGraphicsImageRenderer(size: rect.size)
     
         return renderer.image { (context) in
-            image.draw(in: rect)
+            image.draw(in: CGRect(origin: .zero, size: rect.size))
         }
     }
     
-    func saveThumbnail(image: UIImage) -> URL? {
-        guard let thumbnailDirectory = FileManager.default.thumbnailsDirectory() else { return nil }
+    func saveThumbnail(image: UIImage) -> String? {
+        guard let thumbnailDirectory = FileManager.default.thumbnailsDirectory else { return nil }
         
         let filename = UUID().uuidString.appending(".png")
         let filepath = thumbnailDirectory.appendingPathComponent(filename)
 
         do {
             try image.pngData()?.write(to: filepath, options: .atomic)
-            return filepath
+            return filename
         } catch {
             Logger.ingest.error("Unable to save local thumbnail image: \(error as NSError)")
             return nil

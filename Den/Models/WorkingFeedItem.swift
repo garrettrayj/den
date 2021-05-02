@@ -16,7 +16,7 @@ import OSLog
 class WorkingFeedItem {
     var id: UUID?
     var image: URL?
-    var imageLocal: URL?
+    var imageFile: String?
     var ingested: Date?
     var link: URL?
     var published: Date?
@@ -106,10 +106,6 @@ class WorkingFeedItem {
             if self.image == nil {
                 self.image = image
             }
-        }
-        
-        if self.image != nil {
-            self.imageLocal = self.createLocalImagePath()
         }
     }
     
@@ -208,10 +204,6 @@ class WorkingFeedItem {
                 self.image = image
             }
         }
-        
-        if self.image != nil {
-            self.imageLocal = self.createLocalImagePath()
-        }
     }
     
     /**
@@ -249,31 +241,5 @@ class WorkingFeedItem {
         if let summary = jsonItem.summary {
             self.summary = HTMLCleaner.stripTags(summary)?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        
-        if self.image != nil {
-            self.imageLocal = self.createLocalImagePath()
-        }
-    }
-    
-    private func createLocalImagePath() -> URL? {
-        let directoryPath = FileManager
-            .default
-            .urls(for: .applicationSupportDirectory, in: .userDomainMask)
-            .last!
-            .appendingPathExtension("Images/")
-        
-        if !FileManager.default.fileExists(atPath: directoryPath.absoluteString) {
-            do {
-                try FileManager.default.createDirectory(at: directoryPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                Logger.main.critical("Could not create Images directory \(directoryPath.absoluteString)")
-            }
-        }
-        
-        guard let filename = self.id?.uuidString.appending(".png") else { return nil }
-        
-        let filepath = directoryPath.appendingPathExtension(filename)
-        
-        return filepath
     }
 }

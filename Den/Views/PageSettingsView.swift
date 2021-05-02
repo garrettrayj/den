@@ -92,7 +92,7 @@ struct PageSettingsView: View {
                     self.refreshManager.refresh(page)
                 }
             } catch let error as NSError {
-                CrashManager.shared.handleCriticalError(error)
+                crashManager.handleCriticalError(error)
             }
         }
     }
