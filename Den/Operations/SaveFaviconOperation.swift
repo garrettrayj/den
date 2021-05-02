@@ -35,10 +35,10 @@ class SaveFaviconOperation: Operation {
             let faviconUrl = httpResponse.url,
             let faviconData = webpageFaviconData,
             let resizedImage = self.resizeImage(imageData: faviconData, size: self.faviconSize),
-            let localPath = self.saveFavicon(image: resizedImage)
+            let filename = self.saveFavicon(image: resizedImage)
         {
             self.workingFeed?.favicon = faviconUrl
-            self.workingFeed?.faviconLocal = localPath
+            self.workingFeed?.faviconFile = filename
         } else if
             let httpResponse = defaultFaviconResponse,
             200..<300 ~= httpResponse.statusCode,
@@ -47,10 +47,10 @@ class SaveFaviconOperation: Operation {
             let faviconUrl = httpResponse.url,
             let faviconData = defaultFaviconData,
             let resizedImage = self.resizeImage(imageData: faviconData, size: self.faviconSize),
-            let localPath = self.saveFavicon(image: resizedImage)
+            let filename = self.saveFavicon(image: resizedImage)
         {
             self.workingFeed?.favicon = faviconUrl
-            self.workingFeed?.faviconLocal = localPath
+            self.workingFeed?.faviconFile = filename
         }
         
         return
@@ -69,15 +69,15 @@ class SaveFaviconOperation: Operation {
         }
     }
     
-    func saveFavicon(image: UIImage) -> URL? {
-        guard let faviconDirectory = FileManager.default.faviconsDirectory() else { return nil }
+    func saveFavicon(image: UIImage) -> String? {
+        guard let faviconDirectory = FileManager.default.faviconsDirectory else { return nil }
         
         let filename = UUID().uuidString.appending(".png")
         let filepath = faviconDirectory.appendingPathComponent(filename)
 
         do {
             try image.pngData()?.write(to: filepath, options: .atomic)
-            return filepath
+            return filename
         } catch {
             Logger.ingest.error("Unable to save local favicon image: \(error as NSError)")
             return nil

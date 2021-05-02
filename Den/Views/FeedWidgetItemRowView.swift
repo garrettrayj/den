@@ -40,9 +40,12 @@ struct FeedWidgetItemRowView: View {
     }
     
     var thumbnailImage: some View {
-        item.thumbnailImage
+        item.thumbnailImage?
+        .resizable()
+        .scaledToFill()
         .frame(width: 96, height: 64)
         .clipped()
+        .background(Color.black)
         .padding(1)
         .border(Color(UIColor.separator), width: 1)
         .accessibility(label: Text("Article Thumbnail Image"))

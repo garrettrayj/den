@@ -108,8 +108,7 @@ class RefreshManager: ObservableObject {
             DispatchQueue.main.async {
                 self.progress.completedUnitCount += 1
                 if self.progress.isFinished {
-                    self.refreshing = false
-                    subscription.page?.objectWillChange.send()
+                    self.refreshFinished(page: subscription.page)
                 }
             }
         }
@@ -236,8 +235,7 @@ class RefreshManager: ObservableObject {
             DispatchQueue.main.async {
                 self.progress.completedUnitCount += 1
                 if self.progress.isFinished {
-                    self.refreshing = false
-                    subscription.page?.objectWillChange.send()
+                    self.refreshFinished(page: subscription.page)
                 }
             }
         }
@@ -278,5 +276,19 @@ class RefreshManager: ObservableObject {
         operations.append(completionOperation)
         
         return operations
+    }
+    
+    private func refreshFinished(page: Page?) {
+        if self.persistentContainer.viewContext.hasChanges {
+            do {
+                try self.persistentContainer.viewContext.save()
+            } catch let error as NSError {
+                self.crashManager.handleCriticalError(error)
+            }
+        }
+        
+        page?.objectWillChange.send()
+        
+        self.refreshing = false
     }
 }

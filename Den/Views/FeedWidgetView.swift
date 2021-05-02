@@ -12,15 +12,14 @@ import SwiftUI
  Block view with channel title and items (articles)
  */
 struct FeedWidgetView: View {
+    @Environment(\.presentationMode) var presentation
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var subscription: Subscription
     @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
         ZStack(alignment: .top) {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.systemBackground))
-
+            RoundedRectangle(cornerRadius: 12).fill(Color(.systemBackground))
             widgetContent
         }
     }
@@ -28,19 +27,18 @@ struct FeedWidgetView: View {
     var widgetContent: some View {
         VStack(spacing: 0) {
             // MARK: Feed Header
-            HStack(alignment: .center) {
+            HStack {
                 if subscription.feed?.faviconImage != nil {
-                    subscription.feed!.faviconImage!.resizable().scaledToFit().frame(width: 16, height: 16)
+                    subscription.feed!.faviconImage!.faviconView()
                 }
                 Text(subscription.wrappedTitle).font(.headline).lineLimit(1)
+                
                 Spacer()
                 
                 Button(action: showOptions) {
-                    Image(systemName: "gearshape").faviconView()
+                    Image(systemName: "gearshape").faviconView().padding(12)
                 }.disabled(refreshManager.refreshing)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            }.padding(.leading, 12)
             
             // MARK: Feed Items
             VStack(spacing: 0) {
@@ -68,7 +66,6 @@ struct FeedWidgetView: View {
                     )
                     .padding([.horizontal, .top])
                     .padding(.bottom, 2)
-                    .frame(maxWidth: .infinity)
                 }
                 
                 if subscription.feed != nil && subscription.feed!.itemsArray.count > 0 {
@@ -80,7 +77,6 @@ struct FeedWidgetView: View {
                             }
                         }
                     }
-                    .drawingGroup()
                 } else {
                     if subscription.feed != nil && subscription.feed!.error == nil {
                         Divider()
@@ -98,7 +94,7 @@ struct FeedWidgetView: View {
     
     func showOptions() {
         self.mainViewModel.pageSheetSubscription = subscription
-        self.mainViewModel.pageSheetMode = .options
+        self.mainViewModel.pageSheetMode = .feedPreferences
         self.mainViewModel.showingPageSheet = true
     }
 }

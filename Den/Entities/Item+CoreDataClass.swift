@@ -27,14 +27,20 @@ public class Item: NSManagedObject {
     }
     
     public var thumbnailImage: Image? {
-        guard let localUrl = self.imageLocal else { return nil }
+        guard
+            let thumbnailsDirectory = FileManager.default.thumbnailsDirectory,
+            let filename = self.imageFile
+        else { return nil }
+        
+        let filepath = thumbnailsDirectory.appendingPathComponent(filename)
+        
         do {
-            let imageData = try Data(contentsOf: localUrl)
+            let imageData = try Data(contentsOf: filepath)
             if let uiImage = UIImage(data: imageData) {
                 return Image(uiImage: uiImage)
             }
         } catch {
-            Logger.main.notice("Error loading thumnail image: \(error.localizedDescription)")
+            Logger.main.notice("Error loading thumbnail image: \(error.localizedDescription)")
         }
         
         return nil
@@ -47,8 +53,6 @@ public class Item: NSManagedObject {
         
         return item
     }
-    
-    
 }
 
 extension Collection where Element == Item, Index == Int {

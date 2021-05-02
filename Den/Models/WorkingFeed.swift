@@ -16,7 +16,7 @@ import OSLog
 class WorkingFeed {
     var error: String?
     var favicon: URL?
-    var faviconLocal: URL?
+    var faviconFile: String?
     var httpStatus: Int?
     var id: UUID?
     var link: URL?

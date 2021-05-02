@@ -14,29 +14,33 @@ class PersistenceManager: ObservableObject {
     
     init(crashManager: CrashManager) {
         self.crashManager = crashManager
-
-        let applicationSupportDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).last!
+        self.container = NSPersistentCloudKitContainer(name: "Den")
+        
+        guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
+            crashManager.handleCriticalError(NSError(domain: "net.devsci.den", code: 1010, userInfo: nil))
+            return
+        }
         
         // Create a store description for a CloudKit-backed store
-        let cloudStoreLocation = applicationSupportDirectory.appendingPathExtension("Den.sqlite")
+        let cloudStoreLocation = appSupportDirectory.appendingPathComponent("Den.sqlite")
         let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreLocation)
         cloudStoreDescription.configuration = "Cloud"
         cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.net.devsci.den")
         
         // Create a store description for a local store
-        let localStoreLocation = applicationSupportDirectory.appendingPathExtension("Den-Local.sqlite")
+        let localStoreLocation = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
         let localStoreDescription = NSPersistentStoreDescription(url: localStoreLocation)
         localStoreDescription.configuration = "Local"
         
         // Create container
-        container = NSPersistentCloudKitContainer(name: "Den")
-        container.persistentStoreDescriptions = [
+        
+        self.container.persistentStoreDescriptions = [
             cloudStoreDescription,
             localStoreDescription
         ]
         
         // Load both stores
-        container.loadPersistentStores { storeDescription, error in
+        self.container.loadPersistentStores { storeDescription, error in
             guard error == nil else {
                 /*
                 Typical reasons for an error here include:

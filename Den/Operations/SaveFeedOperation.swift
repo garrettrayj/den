@@ -67,7 +67,7 @@ class SaveFeedOperation: Operation {
         
         if saveMeta == true {
             feed.favicon = self.workingFeed?.favicon
-            feed.faviconLocal = self.workingFeed?.faviconLocal
+            feed.faviconFile = self.workingFeed?.faviconFile
             feed.metaFetched = Date()
         }
         
@@ -80,16 +80,15 @@ class SaveFeedOperation: Operation {
     func updateFeedItems(feed: Feed, context: NSManagedObjectContext) {
         self.workingFeedItems.forEach { workingItem in
             let item = Item.init(context: context)
+            item.feed = feed
             item.id = workingItem.id
             item.image = workingItem.image
-            item.imageLocal = workingItem.imageLocal
+            item.imageFile = workingItem.imageFile
             item.ingested = workingItem.ingested
             item.link = workingItem.link
             item.published = workingItem.published
             item.summary = workingItem.summary
             item.title = workingItem.title
-            
-            feed.addToItems(item)
         }
     }
 }

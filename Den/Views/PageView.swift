@@ -30,18 +30,49 @@ struct PageView: View {
                 if page.managedObjectContext == nil {
                     pageDeleted
                 } else {
-                    ZStack(alignment: .top) {
-                        if page.subscriptions?.count ?? 0 > 0 {
-                            dashboardMode
-                        } else {
-                            pageEmpty
-                        }
+                    if page.subscriptions?.count ?? 0 > 0 {
+                        dashboardMode
+                    } else {
+                        pageEmpty
                     }
                 }
             }
+            .actionSheet(isPresented: $mainViewModel.showingPageMenu) {
+                ActionSheet(title: Text("Page"), message: nil, buttons: [
+                    .default(Text("Refresh")) { self.refreshManager.refresh(self.page) },
+                    .default(Text("Page Preferences")) { self.showSettings() },
+                    .default(Text("Add Subscription")) { self.showSubscribe() },
+                    .cancel()
+                ])
+            }
             .navigationTitle(Text(page.wrappedName))
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: trailingNavigationBarItems)
+            .toolbar() {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        // Action menu for phone users
+                        Button(action: showMenu) {
+                            Image(systemName: "ellipsis")
+                        }
+                        .disabled(refreshManager.refreshing)
+                        
+                    } else {
+                        // Show three buttons on larger screens
+                        Button(action: { refreshManager.refresh(self.page) }) {
+                            Image(systemName: "arrow.clockwise")
+                        }.accessibility(hint: Text("Refresh"))
+                        
+                        Button(action: showSubscribe) {
+                            Image(systemName: "plus.circle")
+                        }.accessibility(hint: Text("Add Subscription"))
+                        
+                        Button(action: showSettings) {
+                            Image(systemName: "wrench")
+                        }.accessibility(hint: Text("Page Preferences"))
+                    }
+                }
+            }
+            
             .padding(.top, geometry.safeAreaInsets.top)
             .onAppear(perform: onAppear)
             .background(Color(.secondarySystemBackground))
@@ -56,8 +87,7 @@ struct PageView: View {
                     ForEach(page.subscriptionsArray, id: \.self) { subscription in
                         FeedWidgetView(subscription: subscription, mainViewModel: mainViewModel)
                     }
-                }
-                .padding(16)
+                }.padding([.top, .horizontal], 16).padding(.bottom, 64)
             }
             
             HeaderProgressBarView(page: page)
@@ -79,24 +109,12 @@ struct PageView: View {
             .navigationTitle("")
     }
     
-    var trailingNavigationBarItems: some View {
-        HStack(alignment: .center, spacing: 0) {
-            Button(action: { refreshManager.refresh(self.page) }) {
-                Image(systemName: "arrow.clockwise").titleBarIconView()
-            }
-            
-            Button(action: showSubscribe) {
-                Image(systemName: "plus.circle").titleBarIconView()
-            }
-            
-            Button(action: showOrganizer) {
-                Image(systemName: "wrench").titleBarIconView()
-            }
-        }.offset(x: 12)
+    func showMenu() {
+        mainViewModel.showingPageMenu = true
     }
     
-    func showOrganizer() {
-        mainViewModel.pageSheetMode = .organizer
+    func showSettings() {
+        mainViewModel.pageSheetMode = .pageSettings
         mainViewModel.showingPageSheet = true
     }
     

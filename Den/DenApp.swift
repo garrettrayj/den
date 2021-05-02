@@ -55,7 +55,9 @@ struct DenApp: App {
             }.onChange(of: scenePhase) { newScenePhase in
                 switch newScenePhase {
                 case .background:
-                    cacheManager.performBackgroundCleanup()
+                    if refreshManager.refreshing == false {
+                        cacheManager.performBackgroundCleanup()
+                    }
                 case .inactive:
                     break
                 case .active:
@@ -68,10 +70,10 @@ struct DenApp: App {
     
     init() {
         let mainViewModel = MainViewModel()
-        let crashManager = CrashManager()
+        let crashManager = CrashManager(mainViewModel: mainViewModel)
         let persistenceManager = PersistenceManager(crashManager: crashManager)
         let refreshManager = RefreshManager(persistenceManager: persistenceManager, crashManager: crashManager)
-        let cacheManager = CacheManager(persistenceManager: persistenceManager)
+        let cacheManager = CacheManager(persistenceManager: persistenceManager, crashManager: crashManager)
         let importManager = ImportManager(persistenceManager: persistenceManager, crashManager: crashManager)
         let searchManager = SearchManager(persistenceManager: persistenceManager, crashManager: crashManager)
         let subscriptionManager = SubscriptionManager(mainViewModel: mainViewModel)
@@ -88,6 +90,8 @@ struct DenApp: App {
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
         _browserManager = StateObject(wrappedValue: browserManager)
+        
+        FileManager.default.initAppDirectories()
     }
 }
 
