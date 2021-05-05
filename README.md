@@ -1,19 +1,28 @@
 # Den for RSS
 
-
 ## App Description
 
-Den is a minimalist feed reader made to deliver the latest headlines without distraction, obfuscation, or manipulation. It helps you follow many sources and discover great content while keeping things in perspective.
+Den is a feed reader created to deliver the latest headlines without distraction, obfuscation, or manipulation.
 
-Just add widely available RSS feeds to stay up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends; just an alway-fresh buffet of links to browse.
+Just add widely available RSS feeds to stay up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends; just a buffet of links from just the publishers you choose.
 
-- Available for iPhone, iPad, and Mac
+- Compatible with iPhone, iPad, and Mac
 - Subscriptions and read items sync across devices with iCloud
 - Compatible with RSS, Atom, and JSON feed formats
-- Search for current articles by keyword
-- OPML import/export for adding and sharing subscriptions
-- No additional service subscriptions or accounts
+- Search for items and subscriptions
+- OPML import and export for adding and sharing subscriptions
 - Light and dark theme options
+
+## Release Notes
+
+### Den 1.3
+
+Version 1.3 includes major application performance improvements and minor UI bugfixes.
+
+- Data is stored in two databases; local and cloud synced. Feed content is kept in local, while subscriptions and visits are stored in the cloud database. Cloud sync may still be disabled in iCloud preferences and the app will work entirely with local databases.
+- Images are downloaded, resized, and saved in a local cache during feed refresh.
+- Fixed UI bug that caused dialog boxes to close randomly.
+- Fixed UI bug that caused dialog boxes to ignore dark/light mode setting.
 
 ## Technical Documentation
 
@@ -28,19 +37,18 @@ Den is a UIKit application written in Swift and SwiftUI with a good deal of work
 - [Grid](https://github.com/spacenation/swiftui-grid) for staggard display of widgets (search view)
 - [HTMLEntities](https://github.com/Kitura/swift-html-entities) for unescaping `&blah;` in titles and summaries
 - [SwiftSoup](https://github.com/scinfu/SwiftSoup) for parsing and cleaning HTML (used to find favicons, preview images, etc.)
-- [URLImage](https://github.com/dmytro-anokhin/url-image) for asynchronous image loading and display in views
 
 ### Repository Layout
 
 * `Documents` Design files
 * `Den` Main source directory
-  * `Misc` Misc artifacts (file type icons, demo feeds)
+  * `Entities` Classes for Core Data entities and collections
+  * `Models` Data objects and view models
   * `Managers` Global service managers provided to views via `.environmentObject()`
   * `Operations` Classes used to build workflows for `OperationQueue()` (ex. feed ingest)
-  * `Models` Classes for Core Data entities and collections
-  * `ViewModels` Classes to encapsulate business logic related to particular views in the application
   * `Views` SwiftUI interface declarations
   * `Extensions` Various patches to core and vendor classes
-  * `Utilities` Helper classes for I/0, text transformation, etc.
+  * `Utilities` Helper classes for OPML I/0, text transformation, etc.
+  * `Misc` Misc artifacts (file type icons, demo feeds)
 * `DenTests` TODO
 * `DenUITests` TODO
