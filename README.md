@@ -7,10 +7,11 @@ Den is a feed reader created to deliver the latest headlines without distraction
 Just add widely available RSS feeds to stay up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends; just a buffet of links from just the publishers you choose.
 
 - Compatible with iPhone, iPad, and Mac
+- No registration or extra account needed
 - Subscriptions and read items sync across devices with iCloud
 - Compatible with RSS, Atom, and JSON feed formats
-- Search for items and subscriptions
-- OPML import and export for adding and sharing subscriptions
+- Search items and feeds by keyword
+- Import and export subscriptions with OPML
 - Light and dark theme options
 
 ## Release Notes
