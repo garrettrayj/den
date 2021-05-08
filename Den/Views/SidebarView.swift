@@ -22,39 +22,41 @@ struct SidebarView: View {
     
     @ObservedObject var mainViewModel: MainViewModel
     
-    @State var editMode: EditMode = .inactive
-    @State var navSelection: String?
-    
     var pages: FetchedResults<Page>
 
     var body: some View {
-        List {
-            if pages.count > 0 {
-                pageList
-            } else {
-                getStartedSection
-            }
-            moreSection
-        }
-        .animation(nil)
-        .listStyle(InsetGroupedListStyle())
-        .navigationBarTitleDisplayMode(.large)
-        .navigationTitle(Text("Den"))
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button(action: { withAnimation { createPage() }}) {
-                    Image(systemName: "plus")
+        VStack {
+            List {
+                if pages.count > 0 {
+                    pageList
+                } else {
+                    getStartedSection
                 }
-                EditButton()
+                moreSection
             }
+            .animation(nil)
+            .listStyle(InsetGroupedListStyle())
+            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle(Text("Den"))
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button(action: { withAnimation { createPage() }}) {
+                        Image(systemName: "plus")
+                    }
+                    EditButton()
+                }
+            }
+            .environment(\.editMode, self.$mainViewModel.sidebarEditMode)
+            
+            hiddenLinks.hidden()
         }
-        .environment(\.editMode, self.$editMode)
+        
     }
     
     var pageList: some View {
         Section(header: Text("Pages")) {
             ForEach(self.pages) { page in
-                PageListRowView(page: page, mainViewModel: mainViewModel, editMode: $editMode, navSelection: $navSelection)
+                PageListRowView(page: page, mainViewModel: mainViewModel)
             }
             .onMove(perform: self.move)
             .onDelete(perform: self.delete)
@@ -83,20 +85,32 @@ struct SidebarView: View {
     
     var moreSection: some View {
         Section() {
-            NavigationLink(destination: SearchView(), tag: "search", selection: $navSelection) {
+            NavigationLink(destination: SearchView(), tag: "search", selection: $mainViewModel.navSelection) {
                 Image(systemName: "magnifyingglass").sidebarIconView()
                 Text("Search")
             }
             
-            NavigationLink(destination: SettingsView(pages: pages), tag: "settings", selection: $navSelection) {
+            NavigationLink(destination: SettingsView(mainViewModel: mainViewModel, pages: pages), tag: "settings", selection: $mainViewModel.navSelection) {
                 Image(systemName: "gear").sidebarIconView()
                 Text("Settings")
             }
         }
     }
     
+    var hiddenLinks: some View {
+        Group {
+            NavigationLink(destination: ImportView(mainViewModel: mainViewModel), tag: "import", selection: $mainViewModel.navSelection) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: ExportView(mainViewModel: mainViewModel, pages: pages), tag: "export", selection: $mainViewModel.navSelection) {
+                EmptyView()
+            }
+        }
+    }
+    
     func doneEditing() {
-        self.editMode = .inactive
+        self.mainViewModel.sidebarEditMode = .inactive
     }
     
     func createPage() {

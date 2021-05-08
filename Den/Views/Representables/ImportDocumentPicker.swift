@@ -26,7 +26,7 @@ final class ImportDocumentPicker: NSObject {
     /// Returns the view controller that must be presented to display the picker
     lazy var viewController: UIDocumentPickerViewController = {
         let vc = UIDocumentPickerViewController(
-            forOpeningContentTypes: [.init(importedAs: "opml"), .xml],
+            forOpeningContentTypes: [.init(importedAs: "public.opml"), .xml],
             asCopy: true
         )
         vc.delegate = self
