@@ -37,14 +37,6 @@ struct PageView: View {
                     }
                 }
             }
-            .actionSheet(isPresented: $mainViewModel.showingPageMenu) {
-                ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
-                    .default(Text("Refresh")) { self.refreshManager.refresh(self.page) },
-                    .default(Text("Preferences")) { self.showSettings() },
-                    .default(Text("Add Subscription")) { self.showSubscribe() },
-                    .cancel()
-                ])
-            }
             .navigationTitle(Text(page.wrappedName))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -117,10 +109,6 @@ struct PageView: View {
             .foregroundColor(.secondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .navigationTitle("")
-    }
-    
-    func showMenu() {
-        mainViewModel.showingPageMenu = true
     }
     
     func showSettings() {

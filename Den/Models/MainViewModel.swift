@@ -17,7 +17,6 @@ class MainViewModel: ObservableObject {
     @Published var pageSheetMode: PageSheetMode = .none
     @Published var pageSheetSubscription: Subscription?
     @Published var showingPageSheet: Bool = false
-    @Published var showingPageMenu: Bool = false
     @Published var sidebarEditMode: EditMode = .inactive
     @Published var navSelection: String?
 }
