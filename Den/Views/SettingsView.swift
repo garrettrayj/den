@@ -15,6 +15,9 @@ struct SettingsView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var themeManager: ThemeManager
+    
+    @ObservedObject var mainViewModel: MainViewModel
+    
     @State private var showingClearWorkspaceAlert = false
     
     var pages: FetchedResults<Page>
@@ -22,7 +25,7 @@ struct SettingsView: View {
     var body: some View {
         Form {
             appearanceSection
-            sharingSection
+            opmlSection
             dataSection
             aboutSection
         }
@@ -34,7 +37,7 @@ struct SettingsView: View {
         Section(header: Text("Appearance")) {
             HStack {
                 Image(systemName: "circle.righthalf.fill")
-                Text("Theme")
+                Text("Theme").lineLimit(1)
                 Spacer()
                 Picker(selection: themeManager.uiStyle, label: Text("Interface Style")) {
                     Text("Default").tag(UIUserInterfaceStyle.unspecified)
@@ -45,15 +48,20 @@ struct SettingsView: View {
         }
     }
     
-    var sharingSection: some View {
-        Section(header: Text("Backup")) {
-            NavigationLink(destination: ImportView()) {
-                Image(systemName: "arrow.down.doc")
-                Text("Import Subscriptions")
+    var opmlSection: some View {
+        Section(header: Text("OPML")) {
+            Button(action: { mainViewModel.navSelection = "import" }) {
+                HStack {
+                    Image(systemName: "arrow.down.doc")
+                    Text("Import Subscriptions")
+                }
             }
-            NavigationLink(destination: ExportView(pages: pages)) {
-                Image(systemName: "arrow.up.doc")
-                Text("Export Subscriptions")
+            
+            Button(action: { mainViewModel.navSelection = "export" }) {
+                HStack {
+                    Image(systemName: "arrow.up.doc")
+                    Text("Export Subscriptions")
+                }
             }
         }
     }

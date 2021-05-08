@@ -15,16 +15,13 @@ struct PageListRowView: View {
     @ObservedObject var page: Page
     @ObservedObject var mainViewModel: MainViewModel
     
-    @Binding var editMode: EditMode
-    @Binding var navSelection: String?
-    
     var body: some View {
         if page.id != nil {
-            if editMode == .inactive {                
+            if mainViewModel.sidebarEditMode == .inactive {
                 NavigationLink(
                     destination: PageView(mainViewModel: mainViewModel, page: page),
                     tag: page.id!.uuidString,
-                    selection: $navSelection
+                    selection: $mainViewModel.navSelection
                 ) {
                     Image(systemName: "square.grid.2x2").sidebarIconView()
                     

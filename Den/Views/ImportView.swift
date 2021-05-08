@@ -13,6 +13,8 @@ struct ImportView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
     
+    @ObservedObject var mainViewModel: MainViewModel
+    
     var body: some View {
         Group {
             if self.importManager.stage == .pickFile {
@@ -23,15 +25,29 @@ struct ImportView: View {
                 completeStage
             }
         }
-        .onDisappear { self.importManager.reset() }
         .navigationTitle("Import")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar() {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: backToSettings) {
+                    HStack {
+                        Text("Cancel")
+                    }
+                }
+            }
+        }
     }
     
     var pickFileStage: some View {
-        Button(action: importManager.pickFile) {
-            Text("Select OPML File")
-        }.buttonStyle(ActionButtonStyle())
+        VStack(alignment: .center) {
+            Button(action: importManager.pickFile) {
+                Text("Select OPML File")
+            }.buttonStyle(ActionButtonStyle())
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(UIColor.systemGroupedBackground))
+        .edgesIgnoringSafeArea(.all)
     }
     
     var folderSelectionStage: some View {
@@ -56,19 +72,16 @@ struct ImportView: View {
                 }
             }
             
-            Section() {
-                HStack(alignment: .center) {
-                    Button(action: {
-                        self.importManager.importSelected()
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.down.doc")
-                            Text("Import Subscriptions")
-                        }
-                    }.buttonStyle(ActionButtonStyle())
-                }.frame(maxWidth: .infinity)
-            }
-            .listRowBackground(Color(UIColor.secondarySystemBackground))
+            VStack(alignment: .center) {
+                Button(action: {
+                    self.importManager.importSelected()
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.down.doc")
+                        Text("Import Subscriptions").lineLimit(1)
+                    }
+                }.buttonStyle(ActionButtonStyle()).frame(alignment: .center)
+            }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
         }
     }
     
@@ -100,5 +113,10 @@ struct ImportView: View {
                 Text("None")
             }.disabled(importManager.noneSelected)
         }
+    }
+    
+    private func backToSettings() {
+        self.mainViewModel.navSelection = "settings"
+        self.importManager.reset()
     }
 }

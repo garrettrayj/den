@@ -6,7 +6,7 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class MainViewModel: ObservableObject {
     enum PageSheetMode {
@@ -18,4 +18,6 @@ class MainViewModel: ObservableObject {
     @Published var pageSheetSubscription: Subscription?
     @Published var showingPageSheet: Bool = false
     @Published var showingPageMenu: Bool = false
+    @Published var sidebarEditMode: EditMode = .inactive
+    @Published var navSelection: String?
 }
