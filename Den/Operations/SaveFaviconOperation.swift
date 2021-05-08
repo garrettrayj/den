@@ -62,6 +62,7 @@ class SaveFaviconOperation: Operation {
         }
 
         let renderer = UIGraphicsImageRenderer(size: size)
+        
         let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: size))
     
         return renderer.image { (context) in

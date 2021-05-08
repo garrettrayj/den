@@ -50,18 +50,15 @@ struct SettingsView: View {
     
     var opmlSection: some View {
         Section(header: Text("OPML")) {
-            Button(action: { mainViewModel.navSelection = "import" }) {
-                HStack {
-                    Image(systemName: "arrow.down.doc")
-                    Text("Import Subscriptions")
-                }
+            
+            NavigationLink(destination: ImportView(mainViewModel: mainViewModel)) {
+                Image(systemName: "arrow.down.doc")
+                Text("Import Subscriptions")
             }
             
-            Button(action: { mainViewModel.navSelection = "export" }) {
-                HStack {
-                    Image(systemName: "arrow.up.doc")
-                    Text("Export Subscriptions")
-                }
+            NavigationLink(destination: ExportView(mainViewModel: mainViewModel, pages: pages)) {
+                Image(systemName: "arrow.up.doc")
+                Text("Export Subscriptions")
             }
         }
     }

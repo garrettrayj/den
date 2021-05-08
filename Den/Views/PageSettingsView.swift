@@ -48,9 +48,11 @@ struct PageSettingsView: View {
                 }
                 .navigationTitle("Page Settings")
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    Button(action: close) { Text("Close") }
-                })
+                .toolbar() {
+                    ToolbarItem() {
+                        Button(action: close) { Text("Close") }
+                    }
+                }
                 .environment(\.editMode, .constant(.active))
             }
             .navigationViewStyle(StackNavigationViewStyle())

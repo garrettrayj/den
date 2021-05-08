@@ -32,15 +32,17 @@ struct FeedWidgetOptionsView: View {
                 )
                 .navigationTitle("Feed Options")
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar(content: {
-                    Button(action: close) { Text("Close") }
-                })
+                .toolbar() {
+                    ToolbarItem() {
+                        Button(action: close) { Text("Close") }
+                    }
+                }
             }
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     
-    func close() {
+    private func close() {
         presentation.wrappedValue.dismiss()
     }
 }

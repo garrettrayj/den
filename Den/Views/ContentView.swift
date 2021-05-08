@@ -33,6 +33,11 @@ struct ContentView: View {
             // Default view for detail area
             WelcomeView()
         }
+        .onAppear {
+            #if targetEnvironment(macCatalyst)
+                UITableView.appearance().showsVerticalScrollIndicator = false
+            #endif
+        }
         .sheet(isPresented: $mainViewModel.showingPageSheet) {
             if mainViewModel.pageSheetMode == .pageSettings {
                 PageSettingsView(mainViewModel: mainViewModel)

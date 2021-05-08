@@ -57,7 +57,6 @@
 		687D9CC624AE38BD00EB7F46 /* DataTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CC524AE38BD00EB7F46 /* DataTaskOperation.swift */; };
 		687D9CD924B38FF100EB7F46 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CD824B38FF100EB7F46 /* AsynchronousOperation.swift */; };
 		687D9CDD24B3E31400EB7F46 /* MetadataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CDC24B3E31400EB7F46 /* MetadataOperation.swift */; };
-		687D9CE124B4103100EB7F46 /* Image+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CE024B4103100EB7F46 /* Image+Extensions.swift */; };
 		6885FD0E24819446007A3D5B /* ItemLinkButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0D24819446007A3D5B /* ItemLinkButtonStyle.swift */; };
 		6885FD10248287C3007A3D5B /* FeedSettingsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0F248287C3007A3D5B /* FeedSettingsFormView.swift */; };
 		6887D40925B35B83004A170D /* Visit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* Visit+CoreDataClass.swift */; };
@@ -172,7 +171,6 @@
 		687D9CC524AE38BD00EB7F46 /* DataTaskOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskOperation.swift; sourceTree = "<group>"; };
 		687D9CD824B38FF100EB7F46 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		687D9CDC24B3E31400EB7F46 /* MetadataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataOperation.swift; sourceTree = "<group>"; };
-		687D9CE024B4103100EB7F46 /* Image+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extensions.swift"; sourceTree = "<group>"; };
 		6885FD0D24819446007A3D5B /* ItemLinkButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLinkButtonStyle.swift; sourceTree = "<group>"; };
 		6885FD0F248287C3007A3D5B /* FeedSettingsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSettingsFormView.swift; sourceTree = "<group>"; };
 		6887D40825B35B83004A170D /* Visit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Visit+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -363,7 +361,6 @@
 			children = (
 				6845BCF924EBE4B60008B296 /* FeedKit */,
 				68B34A602487C50A0066B215 /* DateFormatter+Extensions.swift */,
-				687D9CE024B4103100EB7F46 /* Image+Extensions.swift */,
 				6809EFD624DE9031007B5CF1 /* Array+Extensions.swift */,
 				6809EFD824DE9521007B5CF1 /* Dictionary+Extensions.swift */,
 				6845BD0324ECF44E0008B296 /* URLSession+Extensions.swift */,
@@ -716,7 +713,6 @@
 				687D9CD924B38FF100EB7F46 /* AsynchronousOperation.swift in Sources */,
 				688FD918247750350006A2DE /* PageSettingsView.swift in Sources */,
 				6809EFCD24DD49C9007B5CF1 /* ParseFeedData.swift in Sources */,
-				687D9CE124B4103100EB7F46 /* Image+Extensions.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* SubscribeView.swift in Sources */,
 				687D9CAA24A5DE2E00EB7F46 /* BrowserManager.swift in Sources */,
 				68710C96259ECD7B007B2507 /* MainViewModel.swift in Sources */,
@@ -829,7 +825,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -884,7 +880,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -914,6 +910,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -939,6 +936,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

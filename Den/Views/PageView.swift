@@ -38,37 +38,47 @@ struct PageView: View {
                 }
             }
             .actionSheet(isPresented: $mainViewModel.showingPageMenu) {
-                ActionSheet(title: Text("Page"), message: nil, buttons: [
+                ActionSheet(title: Text("Page Menu"), message: nil, buttons: [
                     .default(Text("Refresh")) { self.refreshManager.refresh(self.page) },
-                    .default(Text("Page Preferences")) { self.showSettings() },
+                    .default(Text("Preferences")) { self.showSettings() },
                     .default(Text("Add Subscription")) { self.showSubscribe() },
                     .cancel()
                 ])
             }
             .navigationTitle(Text(page.wrappedName))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar() {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
+            .toolbar {
+                ToolbarItemGroup {
                     if UIDevice.current.userInterfaceIdiom == .phone {
                         // Action menu for phone users
-                        Button(action: showMenu) {
-                            Image(systemName: "ellipsis")
+                        Menu {
+                            Button(action: showSubscribe) {
+                                Label("Add Subscription", systemImage: "plus.circle")
+                            }
+                            
+                            Button(action: showSettings) {
+                                Label("Preferences", systemImage: "wrench")
+                            }
+                            
+                            Button(action: { refreshManager.refresh(self.page) }) {
+                                Label("Refresh", systemImage: "arrow.clockwise")
+                            }
+                        } label: {
+                            Label("Page Menu", systemImage: "ellipsis")
                         }
-                        .disabled(refreshManager.refreshing)
-                        
                     } else {
                         // Show three buttons on larger screens
-                        Button(action: { refreshManager.refresh(self.page) }) {
-                            Image(systemName: "arrow.clockwise")
-                        }.accessibility(hint: Text("Refresh"))
-                        
                         Button(action: showSubscribe) {
-                            Image(systemName: "plus.circle")
-                        }.accessibility(hint: Text("Add Subscription"))
+                            Label("Add Subscription", systemImage: "plus.circle")
+                        }.help("Add Subscription")
                         
                         Button(action: showSettings) {
-                            Image(systemName: "wrench")
-                        }.accessibility(hint: Text("Page Preferences"))
+                            Label("Preferences", systemImage: "wrench")
+                        }.help("Preferences")
+                        
+                        Button(action: { refreshManager.refresh(self.page) }) {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }.help("Refresh")
                     }
                 }
             }

@@ -11,6 +11,7 @@ import SwiftUI
 import AEXML
 
 struct ExportView: View {
+    @Environment(\.presentationMode) var presentation
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
     @State private var picker: ExportDocumentPicker?
@@ -20,57 +21,47 @@ struct ExportView: View {
     var pages: FetchedResults<Page>
     
     var body: some View {
-        VStack {
-            Form {
-                Section(header: selectionSectionHeader) {
-                    if pages.count > 0 {
-                        List(pages) { page in
-                            // .editMode doesn't work inside forms, so creating selection buttons manually
-                            Button(action: { self.togglePage(page) }) {
-                                HStack {
-                                    if self.selectedPages.contains(page) {
-                                        Image(systemName: "checkmark.circle.fill")
-                                    } else {
-                                        Image(systemName: "circle")
-                                    }
-                                    
-                                    Text(page.wrappedName).foregroundColor(.primary)
-                                    Spacer()
-                                    Text("\(page.subscriptions!.count) feeds").foregroundColor(.secondary)
+        Form {
+            Section(header: selectionSectionHeader) {
+                if pages.count > 0 {
+                    List(pages) { page in
+                        // .editMode doesn't work inside forms, so creating selection buttons manually
+                        Button(action: { self.togglePage(page) }) {
+                            HStack {
+                                if self.selectedPages.contains(page) {
+                                    Image(systemName: "checkmark.circle.fill")
+                                } else {
+                                    Image(systemName: "circle")
                                 }
-                            }.onAppear(perform: { self.selectedPages.append(page) })
-                        }
-                    } else {
-                        VStack(alignment: .center) {
-                            Text("No pages available for export").foregroundColor(Color(UIColor.secondaryLabel))
-                        }.padding().frame(maxWidth: .infinity)
+                                
+                                Text(page.wrappedName).foregroundColor(.primary)
+                                Spacer()
+                                Text("\(page.subscriptions!.count) feeds").foregroundColor(.secondary)
+                            }
+                        }.onAppear(perform: { self.selectedPages.append(page) })
                     }
+                } else {
+                    VStack(alignment: .center) {
+                        Text("No pages available for export").foregroundColor(Color(UIColor.secondaryLabel))
+                    }.padding().frame(maxWidth: .infinity)
                 }
-                
-                VStack(alignment: .center) {
-                    Button(action: {
-                        self.export()
-                        UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.up.doc")
-                            Text("Save OPML File")
-                        }
-                    }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
-                }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
             }
+            
+            VStack(alignment: .center) {
+                Button(action: {
+                    self.export()
+                    UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.up.doc")
+                        Text("Save OPML File")
+                    }
+                }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
+            }.listRowBackground(Color(UIColor.systemGroupedBackground))
         }
         .navigationTitle("Export")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar() {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: backToSettings) {
-                    HStack {
-                        Text("Cancel")
-                    }
-                }
-            }
-        }
+        
     }
     
     private var allSelected: Bool {
@@ -129,7 +120,7 @@ struct ExportView: View {
         self.picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
     }
     
-    private func backToSettings() {
-        self.mainViewModel.navSelection = "settings"
+    private func cancel() {
+        presentation.wrappedValue.dismiss()
     }
 }
