@@ -41,14 +41,13 @@ struct FeedWidgetItemRowView: View {
     
     var thumbnailImage: some View {
         item.thumbnailImage?
-        .resizable()
-        .scaledToFill()
-        .frame(width: 96, height: 64)
+        .scaleEffect(1 / UIScreen.main.scale)
+        .frame(width: 96, height: 64, alignment: .center)
         .clipped()
-        .background(Color.black)
+        .background(Color(UIColor.tertiarySystemGroupedBackground))
         .padding(1)
         .border(Color(UIColor.separator), width: 1)
-        .accessibility(label: Text("Article Thumbnail Image"))
+        .accessibility(label: Text("Thumbnail Image"))
     }
     
     func openLink() {

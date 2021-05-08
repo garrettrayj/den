@@ -23,7 +23,7 @@ struct PageListRowView: View {
                     tag: page.id!.uuidString,
                     selection: $mainViewModel.navSelection
                 ) {
-                    Image(systemName: "square.grid.2x2").sidebarIconView()
+                    Image(systemName: "square.grid.2x2")
                     
                     Text(page.wrappedName)
                         .fontWeight(.medium)

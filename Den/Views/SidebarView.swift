@@ -47,8 +47,6 @@ struct SidebarView: View {
                 }
             }
             .environment(\.editMode, self.$mainViewModel.sidebarEditMode)
-            
-            hiddenLinks.hidden()
         }
         
     }
@@ -86,25 +84,13 @@ struct SidebarView: View {
     var moreSection: some View {
         Section() {
             NavigationLink(destination: SearchView(), tag: "search", selection: $mainViewModel.navSelection) {
-                Image(systemName: "magnifyingglass").sidebarIconView()
+                Image(systemName: "magnifyingglass")
                 Text("Search")
             }
             
             NavigationLink(destination: SettingsView(mainViewModel: mainViewModel, pages: pages), tag: "settings", selection: $mainViewModel.navSelection) {
-                Image(systemName: "gear").sidebarIconView()
+                Image(systemName: "gear")
                 Text("Settings")
-            }
-        }
-    }
-    
-    var hiddenLinks: some View {
-        Group {
-            NavigationLink(destination: ImportView(mainViewModel: mainViewModel), tag: "import", selection: $mainViewModel.navSelection) {
-                EmptyView()
-            }
-            
-            NavigationLink(destination: ExportView(mainViewModel: mainViewModel, pages: pages), tag: "export", selection: $mainViewModel.navSelection) {
-                EmptyView()
             }
         }
     }

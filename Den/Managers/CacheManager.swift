@@ -34,15 +34,25 @@ class CacheManager: ObservableObject {
                             }
                             feed.refreshed = nil
                             feed.favicon = nil
+                            feed.faviconFile = nil
                             feed.metaFetched = nil
                         }
                     }
-                    page.objectWillChange.send()
                 }
                 
                 if context.hasChanges {
                     do {
                         try context.save()
+                        
+                        DispatchQueue.main.async {
+                            do {
+                                try self.persistentContainer.viewContext.fetch(Page.fetchRequest()).forEach { page in
+                                    page.objectWillChange.send()
+                                }
+                            } catch {
+                                
+                            }
+                        }
                     } catch {
                         DispatchQueue.main.async {
                             self.crashManager.handleCriticalError(error as NSError)

@@ -45,11 +45,15 @@ class SaveThumbnailOperation: Operation {
             return nil
         }
         
-        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: CGSize(width: 128, height: 128)))
-        let renderer = UIGraphicsImageRenderer(size: rect.size)
+        let renderer = UIGraphicsImageRenderer(size: thumbnailSize)
+        
+        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: thumbnailSize))
     
         return renderer.image { (context) in
-            image.draw(in: CGRect(origin: .zero, size: rect.size))
+            image.draw(in: CGRect(
+                origin: CGPoint(x: thumbnailSize.width / 2 - rect.width / 2, y: thumbnailSize.height / 2 - rect.height / 2),
+                size: rect.size
+            ))
         }
     }
     

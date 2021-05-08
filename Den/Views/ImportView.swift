@@ -10,6 +10,7 @@ import CoreData
 import SwiftUI
 
 struct ImportView: View {
+    @Environment(\.presentationMode) var presentation
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
     
@@ -27,15 +28,6 @@ struct ImportView: View {
         }
         .navigationTitle("Import")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar() {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: backToSettings) {
-                    HStack {
-                        Text("Cancel")
-                    }
-                }
-            }
-        }
     }
     
     var pickFileStage: some View {
@@ -83,6 +75,13 @@ struct ImportView: View {
                 }.buttonStyle(ActionButtonStyle()).frame(alignment: .center)
             }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
         }
+        .toolbar() {
+            ToolbarItem() {
+                Button(action: cancel) {
+                    Text("Cancel")
+                }
+            }
+        }
     }
     
     var errorStage: some View {
@@ -115,8 +114,7 @@ struct ImportView: View {
         }
     }
     
-    private func backToSettings() {
-        self.mainViewModel.navSelection = "settings"
+    private func cancel() {
         self.importManager.reset()
     }
 }

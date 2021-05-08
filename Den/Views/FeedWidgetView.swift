@@ -29,14 +29,14 @@ struct FeedWidgetView: View {
             // MARK: Feed Header
             HStack {
                 if subscription.feed?.faviconImage != nil {
-                    subscription.feed!.faviconImage!.faviconView()
+                    subscription.feed!.faviconImage!.scaleEffect(1 / UIScreen.main.scale).frame(width: 16, height: 16, alignment: .center).clipped()
                 }
                 Text(subscription.wrappedTitle).font(.headline).lineLimit(1)
                 
                 Spacer()
                 
                 Button(action: showOptions) {
-                    Image(systemName: "gearshape").faviconView().padding(12)
+                    Image(systemName: "gearshape").frame(width: 16, height: 16, alignment: .center).padding(12)
                 }.disabled(refreshManager.refreshing)
             }.padding(.leading, 12)
             
