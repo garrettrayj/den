@@ -57,20 +57,20 @@ struct PageView: View {
                             }
                         } label: {
                             Label("Page Menu", systemImage: "ellipsis")
-                        }
+                        }.disabled(refreshManager.refreshing == true)
                     } else {
                         // Show three buttons on larger screens
                         Button(action: showSubscribe) {
                             Label("Add Subscription", systemImage: "plus.circle")
-                        }.help("Add Subscription")
+                        }.disabled(refreshManager.refreshing == true)
                         
                         Button(action: showSettings) {
                             Label("Page Settings", systemImage: "wrench")
-                        }.help("Page Settings")
+                        }.disabled(refreshManager.refreshing == true)
                         
                         Button(action: { refreshManager.refresh(self.page) }) {
                             Label("Refresh", systemImage: "arrow.clockwise")
-                        }.help("Refresh")
+                        }.disabled(refreshManager.refreshing == true)
                     }
                 }
             }
