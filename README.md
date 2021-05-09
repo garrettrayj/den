@@ -2,12 +2,12 @@
 
 ## App Description
 
-Den is a feed reader created to deliver the latest headlines without distraction, obfuscation, or manipulation.
+Den is a feed reader built for delivering the latest headlines without distraction, obfuscation, or manipulation. 
 
-Just add widely available RSS feeds to stay up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends; just a buffet of links from just the publishers you choose.
+Just add RSS feeds to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends. You and you alone are in control of the content you follow. RSS is an open format that can be published by any website, therefore there isn't a single company that can trap you inside a bubble or mess with your head. Why be a social media school fish when you could be a manatee, doing your own thing?
 
 - Compatible with iPhone, iPad, and Mac
-- No registration or extra account needed
+- No account or registration required
 - Subscriptions and read items sync across devices with iCloud
 - Compatible with RSS, Atom, and JSON feed formats
 - Search items and feeds by keyword

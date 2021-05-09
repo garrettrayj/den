@@ -49,7 +49,7 @@ struct PageView: View {
                             }
                             
                             Button(action: showSettings) {
-                                Label("Preferences", systemImage: "wrench")
+                                Label("Page Settings", systemImage: "wrench")
                             }
                             
                             Button(action: { refreshManager.refresh(self.page) }) {
@@ -65,8 +65,8 @@ struct PageView: View {
                         }.help("Add Subscription")
                         
                         Button(action: showSettings) {
-                            Label("Preferences", systemImage: "wrench")
-                        }.help("Preferences")
+                            Label("Page Settings", systemImage: "wrench")
+                        }.help("Page Settings")
                         
                         Button(action: { refreshManager.refresh(self.page) }) {
                             Label("Refresh", systemImage: "arrow.clockwise")
