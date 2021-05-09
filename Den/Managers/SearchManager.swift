@@ -64,7 +64,7 @@ class SearchManager: ObservableObject {
             let fetchResults = try viewContext.fetch(fetchRequest) as! [Item]
             var compactedFetchResults: [Item] = []
             fetchResults.forEach { item in
-                if item.feed?.subscription != nil {
+                if item.feedData?.feed != nil {
                     compactedFetchResults.append(item)
                 }
             }
@@ -77,9 +77,9 @@ class SearchManager: ObservableObject {
     
     private func groupFetchResults(_ fetchResults: [Item])-> [[Item]] {
         Dictionary(grouping: fetchResults) { item in
-            item.feed!
+            item.feedData!
         }.values.sorted { a, b in
-            return a[0].feed!.subscription!.wrappedTitle < b[0].feed!.subscription!.wrappedTitle
+            return a[0].feedData!.feed!.wrappedTitle < b[0].feedData!.feed!.wrappedTitle
         }
     }
 }

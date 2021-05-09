@@ -134,20 +134,20 @@ struct SubscribeView: View {
         
         self.urlIsValid = true
         
-        self.createSubscription()
+        self.createFeed()
     }
     
-    func createSubscription() {
+    func createFeed() {
         guard let targetPage = page else { return }
         
-        let newSubscription = Subscription.create(
+        let newFeed = Feed.create(
             in: self.viewContext,
             page: targetPage,
             prepend: true
         )
-        newSubscription.url = URL(string: self.urlText)
+        newFeed.url = URL(string: self.urlText)
         
-        self.refreshManager.refresh(newSubscription)
+        self.refreshManager.refresh(newFeed)
         self.presentationMode.wrappedValue.dismiss()
     }
 }

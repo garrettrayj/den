@@ -27,15 +27,15 @@ class CacheManager: ObservableObject {
             do {
                 let pages = try context.fetch(Page.fetchRequest()) as! [Page]
                 pages.forEach { page in
-                    page.subscriptionsArray.forEach { subscription in
-                        if let feed = subscription.feed {
-                            feed.itemsArray.forEach { item in
+                    page.feedsArray.forEach { feed in
+                        if let feedData = feed.feedData {
+                            feedData.itemsArray.forEach { item in
                                 context.delete(item)
                             }
-                            feed.refreshed = nil
-                            feed.favicon = nil
-                            feed.faviconFile = nil
-                            feed.metaFetched = nil
+                            feedData.refreshed = nil
+                            feedData.favicon = nil
+                            feedData.faviconFile = nil
+                            feedData.metaFetched = nil
                         }
                     }
                 }
@@ -70,28 +70,28 @@ class CacheManager: ObservableObject {
         guard let faviconsDirectory = FileManager.default.faviconsDirectory else { return }
         guard let thumbnailsDirectory = FileManager.default.thumbnailsDirectory else { return }
         
-        var cleanFeeds: [Feed] = []
+        var cleanFeeds: [FeedData] = []
         
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
         context.performAndWait {
             do {
-                let feeds = try context.fetch(Feed.fetchRequest()) as! [Feed]
+                let feedDatas = try context.fetch(FeedData.fetchRequest()) as! [FeedData]
                 
-                for feed in feeds {
-                    if feed.subscription == nil {
-                        context.delete(feed)
+                for feedData in feedDatas {
+                    if feedData.feed == nil {
+                        context.delete(feedData)
                         return
                     }
                     
-                    guard let itemLimit = feed.subscription?.page?.wrappedItemsPerFeed else { return }
+                    guard let itemLimit = feedData.feed?.page?.wrappedItemsPerFeed else { return }
                     
-                    if feed.itemsArray.count > itemLimit {
-                        let oldItems = feed.itemsArray.suffix(from: itemLimit)
+                    if feedData.itemsArray.count > itemLimit {
+                        let oldItems = feedData.itemsArray.suffix(from: itemLimit)
                         oldItems.forEach { context.delete($0) }
                     }
                     
-                    cleanFeeds.append(feed)
+                    cleanFeeds.append(feedData)
                 }
                 
                 let activeFavicons: [URL] = cleanFeeds.compactMap { feed in

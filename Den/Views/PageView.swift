@@ -30,7 +30,7 @@ struct PageView: View {
                 if page.managedObjectContext == nil {
                     pageDeleted
                 } else {
-                    if page.subscriptions?.count ?? 0 > 0 {
+                    if page.feeds?.count ?? 0 > 0 {
                         dashboardMode
                     } else {
                         pageEmpty
@@ -86,8 +86,8 @@ struct PageView: View {
         ZStack(alignment: .top) {
             RefreshableScrollView(page: page) {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(page.subscriptionsArray, id: \.self) { subscription in
-                        FeedWidgetView(subscription: subscription, mainViewModel: mainViewModel)
+                    ForEach(page.feedsArray, id: \.self) { feed in
+                        FeedWidgetView(feed: feed, mainViewModel: mainViewModel)
                     }
                 }.padding([.top, .horizontal], 16).padding(.bottom, 64)
             }

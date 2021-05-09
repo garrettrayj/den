@@ -15,7 +15,7 @@ import func AVFoundation.AVMakeRect
 
 class SaveFaviconOperation: Operation {
     // Operation inputs
-    var workingFeed: WorkingFeed?
+    var workingFeed: WorkingFeedData?
     var webpageFaviconResponse: HTTPURLResponse?
     var webpageFaviconData: Data?
     var defaultFaviconResponse: HTTPURLResponse?

@@ -13,8 +13,8 @@ import OSLog
 
 
 class DownloadThumbnailsOperation: Operation {
-    var inputWorkingItems: [WorkingFeedItem] = []
-    var outputWorkingItems: [WorkingFeedItem] = []
+    var inputWorkingItems: [WorkingItem] = []
+    var outputWorkingItems: [WorkingItem] = []
     
     private var queue = OperationQueue()
 

@@ -17,7 +17,7 @@ class SaveThumbnailOperation: Operation {
     // Operation inputs
     var thumbnailResponse: HTTPURLResponse?
     var thumbnailData: Data?
-    var workingFeedItem: WorkingFeedItem?
+    var workingFeedItem: WorkingItem?
     
     private var thumbnailSize = CGSize(width: 96, height: 64)
     private let acceptableTypes = ["image/gif", "image/jpeg", "image/png"]

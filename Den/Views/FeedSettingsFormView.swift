@@ -13,7 +13,7 @@ struct FeedSettingsFormView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    @ObservedObject var subscription: Subscription
+    @ObservedObject var feed: Feed
     @State private var pickedPage: Int = 0
 
     var onDelete: () -> Void
@@ -28,8 +28,8 @@ struct FeedSettingsFormView: View {
             },
             set: {
                 self.pickedPage = $0
-                self.subscription.userOrder = self.pages[$0].subscriptionsUserOrderMax + 1
-                self.subscription.page = self.pages[$0]
+                self.feed.userOrder = self.pages[$0].feedsUserOrderMax + 1
+                self.feed.page = self.pages[$0]
                 self.onMove()
             }
         )
@@ -38,7 +38,7 @@ struct FeedSettingsFormView: View {
             Section() {
                 HStack {
                     Text("Title")
-                    TextField("Title", text: $subscription.wrappedTitle).multilineTextAlignment(.trailing)
+                    TextField("Title", text: $feed.wrappedTitle).multilineTextAlignment(.trailing)
                 }
                 
                 Picker("Page", selection: pagePickerSelection) {
@@ -47,13 +47,13 @@ struct FeedSettingsFormView: View {
                     }
                 }
                 .onAppear {
-                    if let page = self.subscription.page, let pageIndex = self.pages.firstIndex(of: page) {
+                    if let page = self.feed.page, let pageIndex = self.pages.firstIndex(of: page) {
                         self.pickedPage = pageIndex
                     }
                 }
                 
                 HStack {
-                    Toggle(isOn: $subscription.showThumbnails) {
+                    Toggle(isOn: $feed.showThumbnails) {
                         Text("Show Thumbnails")
                     }
                 }
@@ -71,7 +71,7 @@ struct FeedSettingsFormView: View {
                 HStack(alignment: .center) {
                     Text("URL")
                     Spacer()
-                    Text(subscription.urlString).lineLimit(1).foregroundColor(.secondary)
+                    Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                     Button(action: copyFeed) {
                         Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                     }
@@ -80,8 +80,8 @@ struct FeedSettingsFormView: View {
                 HStack(alignment: .center) {
                     Text("Last Refresh")
                     Spacer()
-                    if subscription.feed?.refreshed != nil {
-                        Text("\(subscription.feed!.refreshed!, formatter: DateFormatter.create())").foregroundColor(.secondary)
+                    if feed.feedData?.refreshed != nil {
+                        Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.create())").foregroundColor(.secondary)
                     } else {
                         Text("Never").foregroundColor(.secondary)
                     }
@@ -100,8 +100,8 @@ struct FeedSettingsFormView: View {
         .onDisappear(perform: save)
     }
     
-    init(subscription: Subscription, pages: FetchedResults<Page>, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
-        self.subscription = subscription
+    init(subscription: Feed, pages: FetchedResults<Page>, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
+        self.feed = subscription
         self.pages = pages
         self.onDelete = onDelete
         self.onMove = onMove
@@ -115,8 +115,8 @@ struct FeedSettingsFormView: View {
                 crashManager.handleCriticalError(error)
             }
             
-            if let feed = subscription.feed {
-                feed.itemsArray.forEach { item in
+            if let feedData = feed.feedData {
+                feedData.itemsArray.forEach { item in
                     item.objectWillChange.send()
                 }
             }
@@ -124,12 +124,12 @@ struct FeedSettingsFormView: View {
     }
     
     func delete() {
-        self.viewContext.delete(self.subscription)
+        self.viewContext.delete(self.feed)
         self.onDelete()
     }
     
     func copyFeed() {
         let pasteboard = UIPasteboard.general
-        pasteboard.string = subscription.url!.absoluteString
+        pasteboard.string = feed.url!.absoluteString
     }
 }

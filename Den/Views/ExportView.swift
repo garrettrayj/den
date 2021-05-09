@@ -36,7 +36,7 @@ struct ExportView: View {
                                 
                                 Text(page.wrappedName).foregroundColor(.primary)
                                 Spacer()
-                                Text("\(page.subscriptions!.count) feeds").foregroundColor(.secondary)
+                                Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
                             }
                         }.onAppear(perform: { self.selectedPages.append(page) })
                     }

@@ -21,17 +21,17 @@ class ParseFeedData : AsynchronousOperation {
     var data: Data?
     
     // Operation outputs
-    var workingFeed: WorkingFeed = WorkingFeed()
-    var workingItems: [WorkingFeedItem] = []
+    var workingFeed: WorkingFeedData = WorkingFeedData()
+    var workingItems: [WorkingItem] = []
     
     private var parser: FeedParser!
-    private var subscriptionUrl: URL
+    private var feedUrl: URL
     private var itemLimit: Int
     private var existingItemLinks: [URL]
     private var feedId: UUID
     
-    init(subscriptionUrl: URL, itemLimit: Int, existingItemLinks: [URL], feedId: UUID) {
-        self.subscriptionUrl = subscriptionUrl
+    init(feedUrl: URL, itemLimit: Int, existingItemLinks: [URL], feedId: UUID) {
+        self.feedUrl = feedUrl
         self.itemLimit = itemLimit
         self.existingItemLinks = existingItemLinks
         self.feedId = feedId
@@ -94,7 +94,7 @@ class ParseFeedData : AsynchronousOperation {
     private func handleAtomContent(content: AtomFeed) {
         guard let atomEntries = content.entries, atomEntries.count > 0 else {
             self.workingFeed.error = "Feed empty"
-            Logger.ingest.notice("Atom feed has no items \(self.subscriptionUrl)")
+            Logger.ingest.notice("Atom feed has no items \(self.feedUrl)")
             return
         }
         
@@ -113,7 +113,7 @@ class ParseFeedData : AsynchronousOperation {
                 return
             }
             
-            let item = WorkingFeedItem()
+            let item = WorkingItem()
             item.id = UUID()
             item.ingest(atomEntry)
             self.workingItems.append(item)
@@ -123,7 +123,7 @@ class ParseFeedData : AsynchronousOperation {
     private func handleRssContent(content: RSSFeed) {
         guard let rssItems = content.items, rssItems.count > 0 else {
             self.workingFeed.error = "Feed empty"
-            Logger.ingest.notice("Atom feed has no items \(self.subscriptionUrl)")
+            Logger.ingest.notice("Atom feed has no items \(self.feedUrl)")
             return
         }
         
@@ -141,7 +141,7 @@ class ParseFeedData : AsynchronousOperation {
                 return
             }
             
-            let item = WorkingFeedItem()
+            let item = WorkingItem()
             item.id = UUID()
             item.ingest(rssItem)
             self.workingItems.append(item)
@@ -151,7 +151,7 @@ class ParseFeedData : AsynchronousOperation {
     private func handleJsonContent(content: JSONFeed) {
         guard let jsonItems = content.items, jsonItems.count > 0 else {
             self.workingFeed.error = "Feed empty"
-            Logger.ingest.notice("Atom feed has no items \(self.subscriptionUrl)")
+            Logger.ingest.notice("Atom feed has no items \(self.feedUrl)")
             return
         }
         
@@ -169,7 +169,7 @@ class ParseFeedData : AsynchronousOperation {
                 return
             }
             
-            let item = WorkingFeedItem()
+            let item = WorkingItem()
             item.ingest(rssItem)
             item.id = UUID()
             self.workingItems.append(item)
