@@ -47,7 +47,7 @@ struct ContentView: View {
                     .environmentObject(crashManager)
                     
             } else if mainViewModel.pageSheetMode == .feedPreferences {
-                FeedWidgetOptionsView(mainViewModel: mainViewModel, pages: pages)
+                FeedWidgetSettingsView(mainViewModel: mainViewModel, pages: pages)
                     .environment(\.managedObjectContext, viewContext)
                     .environment(\.colorScheme, colorScheme)
                     .environmentObject(refreshManager)

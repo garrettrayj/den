@@ -12,7 +12,7 @@ import SwiftUI
 /**
  FeedOptionsView wrapper for displaying options in a modal sheet.
  */
-struct FeedWidgetOptionsView: View {
+struct FeedWidgetSettingsView: View {
     @Environment(\.presentationMode) var presentation
     @ObservedObject var mainViewModel: MainViewModel
     
@@ -21,7 +21,7 @@ struct FeedWidgetOptionsView: View {
     var body: some View {
         
         if mainViewModel.pageSheetSubscription == nil {
-            Text("Feed Options Unavailable")
+            Text("Feed Settings Unavailable")
         } else {
             NavigationView {
                 FeedSettingsFormView(
@@ -30,7 +30,7 @@ struct FeedWidgetOptionsView: View {
                     onDelete: close,
                     onMove: close
                 )
-                .navigationTitle("Feed Options")
+                .navigationTitle("Feed Settings")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar() {
                     ToolbarItem() {
