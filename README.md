@@ -1,6 +1,6 @@
 # Den for RSS
 
-Den is a feed reader built to deliver the news without distraction, obfuscation, or manipulation. 
+Den is a feed reader made for delivering the news without distraction, obfuscation, or manipulation. 
 
 Just add feeds to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. You and you alone are in control of the content you follow. RSS is an open format that can be published by any website, therefore no single company has control over what you see. Why be a social media school fish when you can be a manatee, doing your own thing?
 
