@@ -1,10 +1,8 @@
 # Den for RSS
 
-## App Description
+Den is a feed reader built to deliver the news without distraction, obfuscation, or manipulation. 
 
-Den is a feed reader built for delivering the latest headlines without distraction, obfuscation, or manipulation. 
-
-Just add RSS feeds to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, or trends. You and you alone are in control of the content you follow. RSS is an open format that can be published by any website, therefore there isn't a single company that can trap you inside a bubble or mess with your head. Why be a social media school fish when you could be a manatee, doing your own thing?
+Just add feeds to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. You and you alone are in control of the content you follow. RSS is an open format that can be published by any website, therefore no single company has control over what you see. Why be a social media school fish when you can be a manatee, doing your own thing?
 
 - Compatible with iPhone, iPad, and Mac
 - No account or registration required
@@ -20,10 +18,11 @@ Just add RSS feeds to keep up-to-date without all the noise. There is no adverti
 
 Version 1.3 includes major application performance improvements and minor UI bugfixes.
 
-- Data is stored in two databases; local and cloud synced. Feed content is kept in local, while subscriptions and visits are stored in the cloud database. Cloud sync may still be disabled in iCloud preferences and the app will work entirely with local databases.
-- Images are downloaded, resized, and saved in a local cache during feed refresh.
+- Data is now stored in two databases; one local and one cloud synced. Feed content is kept local, while subscriptions and history are stored in the cloud. Cloud sync may still be disabled in iCloud preferences and the app will work entirely with local databases.
+- Images are now downloaded, resized, and saved to locally during feed refresh. The result is better performance and lower memory usage, especially on Mac where a lot images can be in view at once.
 - Fixed UI bug that caused dialog boxes to close randomly.
 - Fixed UI bug that caused dialog boxes to ignore dark/light mode setting.
+- Various other bug fixes, performance improvements, and usability enhancements.
 
 ## Technical Documentation
 
