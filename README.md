@@ -16,7 +16,7 @@ Just add feeds to keep up-to-date without all the noise. There is no advertising
 
 ### Den 1.3
 
-Version 1.3 includes major application performance improvements and minor UI bugfixes.
+Version 1.3 contains several major application performance improvements and many minor user interface enhancements.
 
 - Data is now stored in two databases; one local and one cloud synced. Feed content is kept local, while subscriptions and history are stored in the cloud. Cloud sync may still be disabled in iCloud preferences and the app will work entirely with local databases.
 - Images are now downloaded, resized, and saved to locally during feed refresh. The result is better performance and lower memory usage, especially on Mac where a lot images can be in view at once.
