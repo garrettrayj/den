@@ -17,18 +17,18 @@ import func AVFoundation.AVMakeRect
 
 class SaveFeedOperation: Operation {
     // Operation inputs
-    var workingFeed: WorkingFeed?
-    var workingFeedItems: [WorkingFeedItem] = []
+    var workingFeed: WorkingFeedData?
+    var workingFeedItems: [WorkingItem] = []
     
-    private var subscriptionObjectID: NSManagedObjectID
+    private var feedObjectID: NSManagedObjectID
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
     private var saveMeta: Bool
     
-    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager, subscriptionObjectID: NSManagedObjectID, saveMeta: Bool) {
+    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager, feedObjectID: NSManagedObjectID, saveMeta: Bool) {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
-        self.subscriptionObjectID = subscriptionObjectID
+        self.feedObjectID = feedObjectID
         self.saveMeta = saveMeta
         super.init()
     }
@@ -39,10 +39,10 @@ class SaveFeedOperation: Operation {
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
         context.performAndWait {
-            let subscription = context.object(with: subscriptionObjectID) as! Subscription
-            guard let feed = updateFeed(subscription: subscription, context: context) else { return }
+            let feed = context.object(with: feedObjectID) as! Feed
+            guard let feedData = updateFeed(feed: feed, context: context) else { return }
             
-            updateFeedItems(feed: feed, context: context)
+            updateFeedItems(feedData: feedData, context: context)
             
             if context.hasChanges {
                 do {
@@ -56,31 +56,31 @@ class SaveFeedOperation: Operation {
         }
     }
     
-    func updateFeed(subscription: Subscription, context: NSManagedObjectContext) -> Feed? {
-        guard let feed = subscription.feed else {
+    func updateFeed(feed: Feed, context: NSManagedObjectContext) -> FeedData? {
+        guard let feedData = feed.feedData else {
             return nil
         }
         
-        if subscription.title == nil {
-            subscription.title = workingFeed?.title
+        if feed.title == nil {
+            feed.title = workingFeed?.title
         }
         
         if saveMeta == true {
-            feed.favicon = self.workingFeed?.favicon
-            feed.faviconFile = self.workingFeed?.faviconFile
-            feed.metaFetched = Date()
+            feedData.favicon = self.workingFeed?.favicon
+            feedData.faviconFile = self.workingFeed?.faviconFile
+            feedData.metaFetched = Date()
         }
         
-        feed.error = self.workingFeed?.error
-        feed.refreshed = Date()
+        feedData.error = self.workingFeed?.error
+        feedData.refreshed = Date()
         
-        return feed
+        return feedData
     }
     
-    func updateFeedItems(feed: Feed, context: NSManagedObjectContext) {
+    func updateFeedItems(feedData: FeedData, context: NSManagedObjectContext) {
         self.workingFeedItems.forEach { workingItem in
             let item = Item.init(context: context)
-            item.feed = feed
+            item.feedData = feedData
             item.id = workingItem.id
             item.image = workingItem.image
             item.imageFile = workingItem.imageFile

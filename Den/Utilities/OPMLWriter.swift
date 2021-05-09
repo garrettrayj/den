@@ -26,12 +26,12 @@ class OPMLWriter {
         let body = root.addChild(name: "body")
         pages.forEach { page in
             let outline = body.addChild(name: "outline", attributes: ["text": page.wrappedName, "title": page.wrappedName])
-            page.subscriptionsArray.forEach { subscription in
+            page.feedsArray.forEach { feed in
                 let attributes = [
-                    "text": subscription.wrappedTitle,
-                    "title": subscription.wrappedTitle,
+                    "text": feed.wrappedTitle,
+                    "title": feed.wrappedTitle,
                     "type": "rss",
-                    "xmlUrl": subscription.urlString
+                    "xmlUrl": feed.urlString
                 ]
                 outline.addChild(name: "outline", attributes: attributes)
             }

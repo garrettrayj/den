@@ -20,12 +20,12 @@ struct FeedWidgetSettingsView: View {
     
     var body: some View {
         
-        if mainViewModel.pageSheetSubscription == nil {
+        if mainViewModel.pageSheetFeed == nil {
             Text("Feed Settings Unavailable")
         } else {
             NavigationView {
                 FeedSettingsFormView(
-                    subscription: mainViewModel.pageSheetSubscription!,
+                    subscription: mainViewModel.pageSheetFeed!,
                     pages: pages,
                     onDelete: close,
                     onMove: close

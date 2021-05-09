@@ -27,24 +27,24 @@ class RefreshManager: ObservableObject {
     }
     
     public func refresh(_ page: Page) {
-        page.subscriptionsArray.forEach { subscription in
-            self.refresh(subscription)
+        page.feedsArray.forEach { feed in
+            self.refresh(feed)
         }
     }
     
-    public func refresh(_ subscription: Subscription) {
+    public func refresh(_ feed: Feed) {
         refreshing = true
         progress.totalUnitCount += 1
         
-        let feed = self.checkSubscriptionFeed(subscription)
+        let feedData = self.checkFeedData(feed)
         
         var operations: [Operation] = []
         
         // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally
-        if subscription.feed?.metaFetched == nil || subscription.feed!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
-            operations = self.planFullUpdate(subscription: subscription, feed: feed)
+        if feedData.metaFetched == nil || feedData.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
+            operations = self.planFullUpdate(feed: feed, feedData: feedData)
         } else {
-            operations = self.planContentUpdate(subscription: subscription, feed: feed)
+            operations = self.planContentUpdate(feed: feed, feedData: feedData)
         }
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -52,9 +52,9 @@ class RefreshManager: ObservableObject {
         }
     }
     
-    private func checkSubscriptionFeed(_ subscription: Subscription) -> Feed {
-        if subscription.feed == nil {
-            let feed = Feed.create(in: self.persistentContainer.viewContext, subscriptionId: subscription.id!)
+    private func checkFeedData(_ feed: Feed) -> FeedData {
+        if feed.feedData == nil {
+            let feed = FeedData.create(in: self.persistentContainer.viewContext, feedId: feed.id!)
             do {
                 try self.persistentContainer.viewContext.save()
             } catch {
@@ -66,27 +66,27 @@ class RefreshManager: ObservableObject {
             return feed
         }
         
-        return subscription.feed!
+        return feed.feedData!
     }
     
-    private func planFullUpdate(subscription: Subscription, feed: Feed) -> [Operation] {
+    private func planFullUpdate(feed: Feed, feedData: FeedData) -> [Operation] {
         var operations: [Operation] = []
         
         guard
-            let feedUrl = subscription.url,
-            let itemLimit = subscription.page?.wrappedItemsPerFeed
+            let feedUrl = feed.url,
+            let itemLimit = feed.page?.wrappedItemsPerFeed
         else {
             return []
         }
         
-        let existingItemLinks = feed.itemsArray.map({ item in
+        let existingItemLinks = feedData.itemsArray.map({ item in
             return item.link!
         })
         
         // Create base operations
         let fetchOperation = DataTaskOperation(feedUrl)
         let parseOperation = ParseFeedData(
-            subscriptionUrl: feedUrl,
+            feedUrl: feedUrl,
             itemLimit: itemLimit,
             existingItemLinks: existingItemLinks,
             feedId: feed.id!
@@ -100,7 +100,7 @@ class RefreshManager: ObservableObject {
         let saveFeedOperation = SaveFeedOperation(
             persistentContainer: self.persistentContainer,
             crashManager: self.crashManager,
-            subscriptionObjectID: subscription.objectID,
+            feedObjectID: feed.objectID,
             saveMeta: true
         )
         
@@ -108,7 +108,7 @@ class RefreshManager: ObservableObject {
             DispatchQueue.main.async {
                 self.progress.completedUnitCount += 1
                 if self.progress.isFinished {
-                    self.refreshFinished(page: subscription.page)
+                    self.refreshFinished(page: feed.page)
                 }
             }
         }
@@ -201,33 +201,33 @@ class RefreshManager: ObservableObject {
         return operations
     }
     
-    private func planContentUpdate(subscription: Subscription, feed: Feed) -> [Operation] {
+    private func planContentUpdate(feed: Feed, feedData: FeedData) -> [Operation] {
         var operations: [Operation] = []
         
         guard
-            let feedUrl = subscription.url,
-            let itemLimit = subscription.page?.wrappedItemsPerFeed
+            let feedUrl = feed.url,
+            let itemLimit = feed.page?.wrappedItemsPerFeed
         else {
             return []
         }
         
-        let existingItemLinks = feed.itemsArray.map({ item in
+        let existingItemLinks = feedData.itemsArray.map({ item in
             return item.link!
         })
         
         // Create base operations
         let fetchOperation = DataTaskOperation(feedUrl)
         let parseOperation = ParseFeedData(
-            subscriptionUrl: feedUrl,
+            feedUrl: feedUrl,
             itemLimit: itemLimit,
             existingItemLinks: existingItemLinks,
-            feedId: feed.id!
+            feedId: feedData.id!
         )
         let downloadThumbnailsOperation = DownloadThumbnailsOperation()
         let saveFeedOperation = SaveFeedOperation(
             persistentContainer: self.persistentContainer,
             crashManager: self.crashManager,
-            subscriptionObjectID: subscription.objectID,
+            feedObjectID: feed.objectID,
             saveMeta: false
         )
         
@@ -235,7 +235,7 @@ class RefreshManager: ObservableObject {
             DispatchQueue.main.async {
                 self.progress.completedUnitCount += 1
                 if self.progress.isFinished {
-                    self.refreshFinished(page: subscription.page)
+                    self.refreshFinished(page: feed.page)
                 }
             }
         }

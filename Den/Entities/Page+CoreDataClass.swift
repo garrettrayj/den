@@ -23,9 +23,9 @@ public class Page: NSManagedObject {
     
     public var unreadCount: Int {
         get {            
-            subscriptionsArray.reduce(0) { (result, subscription) -> Int in
-                if let feed = subscription.feed {
-                    return result + min(self.wrappedItemsPerFeed, feed.unreadItemCount)
+            feedsArray.reduce(0) { (result, feed) -> Int in
+                if let feedData = feed.feedData {
+                    return result + min(self.wrappedItemsPerFeed, feedData.unreadItemCount)
                 } else {
                     return 0
                 }
@@ -33,42 +33,42 @@ public class Page: NSManagedObject {
         }
     }
     
-    public var subscriptionsArray: [Subscription] {
+    public var feedsArray: [Feed] {
         get {
-            guard let subscriptions = self.subscriptions else { return [] }
-            return subscriptions.sortedArray(using: [NSSortDescriptor(key: "userOrder", ascending: true)]) as! [Subscription]
+            guard let feeds = self.feeds else { return [] }
+            return feeds.sortedArray(using: [NSSortDescriptor(key: "userOrder", ascending: true)]) as! [Feed]
         }
         set {
-            subscriptions = NSSet(array: newValue)
+            feeds = NSSet(array: newValue)
         }
     }
     
-    public var subscriptionsUserOrderMin: Int16 {
-        subscriptionsArray.reduce(0) { (result, subscription) -> Int16 in
-            if subscription.userOrder < result {
-                return subscription.userOrder
+    public var feedsUserOrderMin: Int16 {
+        feedsArray.reduce(0) { (result, feed) -> Int16 in
+            if feed.userOrder < result {
+                return feed.userOrder
             }
             return result
         }
     }
     
-    public var subscriptionsUserOrderMax: Int16 {
-        subscriptionsArray.reduce(0) { (result, subscription) -> Int16 in
-            if subscription.userOrder > result {
-                return subscription.userOrder
+    public var feedsUserOrderMax: Int16 {
+        feedsArray.reduce(0) { (result, feed) -> Int16 in
+            if feed.userOrder > result {
+                return feed.userOrder
             }
             return result
         }
     }
     
     public var minimumRefreshedDate: Date? {
-        subscriptionsArray.sorted { a, b in
-            if let aRefreshed = a.feed?.refreshed,
-               let bRefreshed = b.feed?.refreshed {
+        feedsArray.sorted { a, b in
+            if let aRefreshed = a.feedData?.refreshed,
+               let bRefreshed = b.feedData?.refreshed {
                 return aRefreshed < bRefreshed
             }
             return false
-        }.first?.feed?.refreshed
+        }.first?.feedData?.refreshed
     }
     
     static func create(in managedObjectContext: NSManagedObjectContext) -> Page {

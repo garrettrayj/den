@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="showThumbnails" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+        <attribute name="userOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="feeds" inverseEntity="Page"/>
+        <fetchedProperty name="feedData" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="FeedData" predicateString="feedId = $FETCH_SOURCE.id"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="FeedData" representedClassName="FeedData" syncable="YES" codeGenerationType="category">
         <attribute name="error" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
         <attribute name="faviconFile" optional="YES" attributeType="String"/>
+        <attribute name="feedId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="metaFetched" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="subscriptionId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feed" inverseEntity="Item"/>
-        <fetchedProperty name="subscription" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Subscription" predicateString="id = $FETCH_SOURCE.subscriptionId"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feedData" inverseEntity="Item"/>
+        <fetchedProperty name="feed" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Feed" predicateString="id = $FETCH_SOURCE.feedId"/>
         </fetchedProperty>
+    </entity>
+    <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="visited" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -24,9 +42,9 @@
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="feed" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feed" inverseName="items" inverseEntity="Feed"/>
-        <fetchedProperty name="visits" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Visit" predicateString="link = $FETCH_SOURCE.link"/>
+        <relationship name="feedData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedData" inverseName="items" inverseEntity="FeedData"/>
+        <fetchedProperty name="history" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="History" predicateString="link = $FETCH_SOURCE.link"/>
         </fetchedProperty>
     </entity>
     <entity name="Page" representedClassName="Page" codeGenerationType="category">
@@ -34,41 +52,23 @@
         <attribute name="itemsPerFeed" attributeType="Integer 16" minValueString="1" defaultValueString="5" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString="New Desk"/>
         <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="subscriptions" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Subscription" inverseName="page" inverseEntity="Subscription"/>
+        <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>
         <userInfo/>
     </entity>
-    <entity name="Subscription" representedClassName="Subscription" syncable="YES" codeGenerationType="category">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="showThumbnails" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="url" optional="YES" attributeType="URI"/>
-        <attribute name="userOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="page" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="subscriptions" inverseEntity="Page"/>
-        <fetchedProperty name="feed" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Feed" predicateString="subscriptionId = $FETCH_SOURCE.id"/>
-        </fetchedProperty>
-    </entity>
-    <entity name="Visit" representedClassName="Visit" syncable="YES" codeGenerationType="category">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="link" optional="YES" attributeType="URI"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="visited" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-    </entity>
     <configuration name="Cloud" usedWithCloudKit="YES">
-        <memberEntity name="Visit"/>
+        <memberEntity name="History"/>
         <memberEntity name="Page"/>
-        <memberEntity name="Subscription"/>
+        <memberEntity name="Feed"/>
     </configuration>
     <configuration name="Local">
         <memberEntity name="Item"/>
-        <memberEntity name="Feed"/>
+        <memberEntity name="FeedData"/>
     </configuration>
     <elements>
-        <element name="Feed" positionX="270" positionY="216" width="128" height="200"/>
+        <element name="FeedData" positionX="270" positionY="216" width="128" height="200"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="185"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="104"/>
-        <element name="Subscription" positionX="288" positionY="333" width="128" height="155"/>
-        <element name="Visit" positionX="270" positionY="315" width="128" height="89"/>
+        <element name="Feed" positionX="288" positionY="333" width="128" height="155"/>
+        <element name="History" positionX="270" positionY="315" width="128" height="89"/>
     </elements>
 </model>

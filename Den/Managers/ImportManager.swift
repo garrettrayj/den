@@ -19,7 +19,7 @@ class ImportManager: ObservableObject {
     @Published var opmlFolders: [OPMLFolder] = []
     @Published var selectedFolders: [OPMLFolder] = []
     @Published var pickedURL: URL?
-    @Published var subscriptionsImported: [Subscription] = []
+    @Published var feedsImported: [Feed] = []
     @Published var pagesImported: [Page] = []
     
     var documentPicker: ImportDocumentPicker!
@@ -42,7 +42,7 @@ class ImportManager: ObservableObject {
         opmlFolders = []
         selectedFolders = []
         pickedURL = nil
-        subscriptionsImported = []
+        feedsImported = []
         pagesImported = []
     }
     
@@ -83,10 +83,10 @@ class ImportManager: ObservableObject {
             pagesImported.append(page)
             
             opmlFolder.feeds.forEach { opmlFeed in
-                let subscription = Subscription.create(in: self.viewContext, page: page)
-                subscription.title = opmlFeed.title
-                subscription.url = opmlFeed.url
-                subscriptionsImported.append(subscription)
+                let feed = Feed.create(in: self.viewContext, page: page)
+                feed.title = opmlFeed.title
+                feed.url = opmlFeed.url
+                feedsImported.append(feed)
             }
         }
         

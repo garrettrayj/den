@@ -14,7 +14,7 @@ import SwiftUI
 struct FeedWidgetView: View {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var refreshManager: RefreshManager
-    @ObservedObject var subscription: Subscription
+    @ObservedObject var feed: Feed
     @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
@@ -28,10 +28,10 @@ struct FeedWidgetView: View {
         VStack(spacing: 0) {
             // MARK: Feed Header
             HStack {
-                if subscription.feed?.faviconImage != nil {
-                    subscription.feed!.faviconImage!.scaleEffect(1 / UIScreen.main.scale).frame(width: 16, height: 16, alignment: .center).clipped()
+                if feed.feedData?.faviconImage != nil {
+                    feed.feedData!.faviconImage!.scaleEffect(1 / UIScreen.main.scale).frame(width: 16, height: 16, alignment: .center).clipped()
                 }
-                Text(subscription.wrappedTitle).font(.headline).lineLimit(1)
+                Text(feed.wrappedTitle).font(.headline).lineLimit(1)
                 
                 Spacer()
                 
@@ -42,7 +42,7 @@ struct FeedWidgetView: View {
             
             // MARK: Feed Items
             VStack(spacing: 0) {
-                if subscription.feed?.error != nil {
+                if feed.feedData?.error != nil {
                     Divider()
                     VStack {
                         VStack(spacing: 4) {
@@ -51,7 +51,7 @@ struct FeedWidgetView: View {
                                 .font(.callout)
                                 .fontWeight(.medium)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(subscription.feed!.error!)
+                            Text(feed.feedData!.error!)
                                 .foregroundColor(.red)
                                 .fontWeight(.medium)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -68,17 +68,17 @@ struct FeedWidgetView: View {
                     .padding(.bottom, 2)
                 }
                 
-                if subscription.feed != nil && subscription.feed!.itemsArray.count > 0 {
+                if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
                     VStack(spacing: 0) {
-                        ForEach(subscription.feed!.itemsArray.prefix(subscription.page?.wrappedItemsPerFeed ?? 5)) { item in
+                        ForEach(feed.feedData!.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
                             Group {
                                 Divider()
-                                FeedWidgetItemRowView(item: item, subscription: subscription)
+                                FeedWidgetItemRowView(item: item, feed: feed)
                             }
                         }
                     }
                 } else {
-                    if subscription.feed != nil && subscription.feed!.error == nil {
+                    if feed.feedData != nil && feed.feedData!.error == nil {
                         Divider()
                     }
                     
@@ -93,7 +93,7 @@ struct FeedWidgetView: View {
     }
     
     func showOptions() {
-        self.mainViewModel.pageSheetSubscription = subscription
+        self.mainViewModel.pageSheetFeed = feed
         self.mainViewModel.pageSheetMode = .feedPreferences
         self.mainViewModel.showingPageSheet = true
     }

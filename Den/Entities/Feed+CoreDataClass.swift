@@ -2,24 +2,18 @@
 //  Feed+CoreDataClass.swift
 //  Den
 //
-//  Created by Garrett Johnson on 7/30/20.
-//  Copyright © 2020 Garrett Johnson. All rights reserved.
+//  Created by Garrett Johnson on 1/19/21.
+//  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
 import Foundation
 import CoreData
-import FeedKit
-import OSLog
-import SwiftUI
 
 @objc(Feed)
 public class Feed: NSManagedObject {
-    struct FeedIngestMeta {
-        var thumbnails: [URL] = []
-    }
-    
-    public var subscription: Subscription? {
-        let values = value(forKey: "subscription") as? [Subscription]
+    public var feedData: FeedData? {
+        let values = value(forKey: "feedData") as? [FeedData]
+        
         if let unwrappedValues = values {
             return unwrappedValues.first
         }
@@ -27,57 +21,35 @@ public class Feed: NSManagedObject {
         return nil
     }
     
-    public var itemsArray: [Item] {
-        guard let items = items else {
-            return []
+    public var urlString: String {
+        get{url?.absoluteString ?? ""}
+        set{url = URL(string: newValue)}
+    }
+    
+    public var wrappedTitle: String {
+        get{title ?? "Untitled"}
+        set{title = newValue}
+    }
+    
+    
+    static func create(in managedObjectContext: NSManagedObjectContext, page: Page, prepend: Bool = false) -> Feed {
+        let feed = self.init(context: managedObjectContext)
+        feed.id = UUID()
+        feed.showThumbnails = true
+        feed.page = page
+        
+        if prepend {
+            feed.userOrder = page.feedsUserOrderMin - 1
+        } else {
+            feed.userOrder = page.feedsUserOrderMax + 1
         }
         
-        return items.sortedArray(
-            using: [NSSortDescriptor(key: "published", ascending: false)]
-        ) as! [Item]
-    }
-    
-
-    public var unreadItemCount: Int {
-        itemsArray.filter { item in item.read == false }.count
-    }
-    
-    public var itemsWithImageCount: Int {
-        itemsArray.filter({ item in
-            item.image != nil
-        }).count
-    }
-    
-    public var faviconImage: Image? {
-        guard
-            let faviconsDirectory = FileManager.default.faviconsDirectory,
-            let filename = self.faviconFile
-        else { return nil }
-        
-        let filepath = faviconsDirectory.appendingPathComponent(filename)
-        
-        do {
-            let imageData = try Data(contentsOf: filepath)
-            if let uiImage = UIImage(data: imageData) {
-                return Image(uiImage: uiImage)
-            }
-        } catch {
-            Logger.main.notice("Error loading favicon image: \(error.localizedDescription)")
-        }
-        
-        return nil
-    }
-    
-    static func create(in managedObjectContext: NSManagedObjectContext, subscriptionId: UUID) -> Feed {
-        let newFeed = self.init(context: managedObjectContext)
-        newFeed.id = UUID()
-        newFeed.subscriptionId = subscriptionId
-        
-        return newFeed
+        return feed
     }
 }
 
 extension Collection where Element == Feed, Index == Int {
+    
     func delete(at indices: IndexSet, from managedObjectContext: NSManagedObjectContext) {
         indices.forEach { managedObjectContext.delete(self[$0]) }
  

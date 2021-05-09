@@ -10,17 +10,17 @@ import SwiftUI
 
 struct SearchResultView: View {
     var items: [Item]
-    var feed: Feed {
-        items.first!.feed!
+    var feedData: FeedData {
+        items.first!.feedData!
     }
     
     var body: some View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {
-                if feed.faviconImage != nil {
-                    feed.faviconImage!.resizable().scaledToFit().frame(width: 16, height: 16)
+                if feedData.faviconImage != nil {
+                    feedData.faviconImage!.resizable().scaledToFit().frame(width: 16, height: 16)
                 }
-                Text(feed.subscription?.wrappedTitle ?? "Untitled").font(.headline).lineLimit(1)
+                Text(feedData.feed?.wrappedTitle ?? "Untitled").font(.headline).lineLimit(1)
                 Spacer()
             }.padding(.horizontal, 12).padding(.vertical, 8)
 
@@ -29,7 +29,7 @@ struct SearchResultView: View {
                     ForEach(items) { item in
                         Group {
                             Divider()
-                            FeedWidgetItemRowView(item: item, subscription: feed.subscription!)
+                            FeedWidgetItemRowView(item: item, feed: feedData.feed!)
                         }
                     }
                 }

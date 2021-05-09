@@ -14,7 +14,7 @@ import SwiftUI
 struct FeedWidgetItemRowView: View {
     @EnvironmentObject var browserManager: BrowserManager
     @ObservedObject var item: Item
-    @ObservedObject var subscription: Subscription
+    @ObservedObject var feed: Feed
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -29,7 +29,7 @@ struct FeedWidgetItemRowView: View {
                     Text(item.wrappedTitle)
                 }
                 
-                if item.thumbnailImage != nil && item.feed != nil && item.feed?.subscription?.showThumbnails == true {
+                if item.thumbnailImage != nil && item.feedData != nil && item.feedData?.feed?.showThumbnails == true {
                     thumbnailImage
                 }
             }
@@ -53,10 +53,10 @@ struct FeedWidgetItemRowView: View {
     func openLink() {
         guard let url = item.link else { return }
         
-        browserManager.logVisit(item: item)
+        browserManager.logHistory(item: item)
         browserManager.openSafari(url: url)
         
         // Update unread count in page navigation
-        item.feed?.subscription?.page?.objectWillChange.send()
+        item.feedData?.feed?.page?.objectWillChange.send()
     }
 }

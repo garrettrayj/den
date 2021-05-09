@@ -41,11 +41,11 @@ class BrowserManager: ObservableObject {
         controller.present(vc, animated: true)
     }
     
-    func logVisit(item: Item) {
-        let visit = Visit.create(in: self.viewContext)
-        visit.link = item.link
-        visit.title = item.title
-        visit.visited = Date()
+    func logHistory(item: Item) {
+        let history = History.create(in: self.viewContext)
+        history.link = item.link
+        history.title = item.title
+        history.visited = Date()
         
         if self.viewContext.hasChanges {
             do {

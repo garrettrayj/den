@@ -17,7 +17,7 @@ import OSLog
 @objc(Item)
 public class Item: NSManagedObject {
     public var read: Bool {
-        let values = value(forKey: "visits") as! [Visit]
+        let values = value(forKey: "history") as! [History]
         return !values.isEmpty
     }
     
@@ -46,10 +46,10 @@ public class Item: NSManagedObject {
         return nil
     }
     
-    static func create(moc managedObjectContext: NSManagedObjectContext, feed: Feed) -> Item {
+    static func create(moc managedObjectContext: NSManagedObjectContext, feedData: FeedData) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
-        item.feed = feed
+        item.feedData = feedData
         
         return item
     }
