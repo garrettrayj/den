@@ -60,7 +60,7 @@ struct FeedSettingsFormView: View {
                 
                 #if !targetEnvironment(macCatalyst)
                 HStack {
-                    Toggle(isOn: $subscription.readerMode) {
+                    Toggle(isOn: $feed.readerMode) {
                         Text("Enter Reader Mode if Available")
                     }
                 }
