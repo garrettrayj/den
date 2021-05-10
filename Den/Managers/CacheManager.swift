@@ -66,16 +66,15 @@ class CacheManager: ObservableObject {
     }
     
     func performBackgroundCleanup() {
-        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -24 * 60 * 60) { return }
+        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -12 * 60 * 60) { return }
         guard let faviconsDirectory = FileManager.default.faviconsDirectory else { return }
         guard let thumbnailsDirectory = FileManager.default.thumbnailsDirectory else { return }
-        
-        var cleanFeeds: [FeedData] = []
         
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
         context.performAndWait {
             do {
+                var cleanFeedDatas: [FeedData] = []
                 let feedDatas = try context.fetch(FeedData.fetchRequest()) as! [FeedData]
                 
                 for feedData in feedDatas {
@@ -91,22 +90,23 @@ class CacheManager: ObservableObject {
                         oldItems.forEach { context.delete($0) }
                     }
                     
-                    cleanFeeds.append(feedData)
+                    cleanFeedDatas.append(feedData)
                 }
                 
-                let activeFavicons: [URL] = cleanFeeds.compactMap { feed in
-                    if let filename = feed.faviconFile {
-                        return faviconsDirectory.appendingPathComponent(filename)
+                let activeFavicons: [URL] = cleanFeedDatas.compactMap { feedData in
+                    if let filename = feedData.faviconFile {
+                        return faviconsDirectory.appendingPathComponent(filename).absoluteURL
                     }
                     return nil
                 }
+                
                 self.cleanupCacheDirectory(cacheDirectory: faviconsDirectory, activeFileList: activeFavicons)
                 
                 
-                let items: [Item] = cleanFeeds.flatMap { $0.itemsArray }
+                let items: [Item] = cleanFeedDatas.flatMap { $0.itemsArray }
                 let activeThumbnails: [URL] = items.compactMap { item in
                     if let filename = item.imageFile {
-                        return thumbnailsDirectory.appendingPathComponent(filename)
+                        return thumbnailsDirectory.appendingPathComponent(filename).absoluteURL
                     }
                     return nil
                 }
@@ -131,25 +131,24 @@ class CacheManager: ObservableObject {
     }
     
     func cleanupCacheDirectory(cacheDirectory: URL, activeFileList: [URL]) {
+        guard activeFileList.count > 0 else { return }
+        
         let resourceKeys: [URLResourceKey] = [.creationDateKey, .isDirectoryKey]
-        let enumerator = FileManager.default.enumerator(at: cacheDirectory, includingPropertiesForKeys: resourceKeys)!
-
-        for case let fileUrl as URL in enumerator {
-            do {
-                let resourceValues = try fileUrl.resourceValues(forKeys: Set(resourceKeys))
-                if resourceValues.isDirectory! { return }
-            } catch {
-                Logger.main.error("Unable to fetch file resource values: \(error as NSError)")
-                return
-            }
-            
-            if !activeFileList.contains(fileUrl) {
-                do {
-                    try FileManager.default.removeItem(at: fileUrl)
-                } catch {
-                    Logger.main.error("Unable to remove file: \(error as NSError)")
+        
+        do {
+            let cacheContents = try FileManager.default.contentsOfDirectory(at: cacheDirectory, includingPropertiesForKeys: resourceKeys)
+            cacheContents.forEach { cachedFile in
+                if !activeFileList.contains(cachedFile.standardizedFileURL) {
+                    do {
+                        try FileManager.default.removeItem(at: cachedFile)
+                    } catch {
+                        Logger.main.error("Unable to remove file: \(error as NSError)")
+                    }
                 }
+                
             }
+        } catch {
+            Logger.main.error("Unable to read cache directory contents: \(error as NSError)")
         }
     }
 }
