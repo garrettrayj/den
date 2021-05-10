@@ -15,6 +15,7 @@ extension FileManager {
             return try self
                 .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                 .appendingPathComponent("Den")
+                .standardizedFileURL
         } catch let error as NSError  {
             Logger.main.error("Could not find favicon directory: \(error)")
             return nil
