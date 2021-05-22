@@ -24,7 +24,7 @@ struct FeedWidgetItemRowView: View {
                     .foregroundColor(Color(.secondaryLabel))
             }
             
-            HStack(alignment: .top, spacing: 10) {
+            HStack(alignment: .top, spacing: 12) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
                 }
@@ -45,8 +45,6 @@ struct FeedWidgetItemRowView: View {
         .frame(width: 96, height: 64, alignment: .center)
         .clipped()
         .background(Color(UIColor.tertiarySystemGroupedBackground))
-        .padding(1)
-        .border(Color(UIColor.separator), width: 1)
         .accessibility(label: Text("Thumbnail Image"))
     }
     
