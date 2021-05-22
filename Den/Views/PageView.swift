@@ -31,7 +31,23 @@ struct PageView: View {
                     pageDeleted
                 } else {
                     if page.feeds?.count ?? 0 > 0 {
-                        dashboardMode
+                        ZStack(alignment: .top) {
+                            RefreshableScrollView(page: page) {
+                                LazyVGrid(columns: columns, spacing: 16) {
+                                    ForEach(page.feedsArray, id: \.self) { feed in
+                                        FeedWidgetView(feed: feed, mainViewModel: mainViewModel)
+                                    }
+                                }
+                                .padding(.leading, geometry.safeAreaInsets.leading + 16)
+                                .padding(.trailing, geometry.safeAreaInsets.trailing + 16)
+                                .padding(.top, 16)
+                                .padding(.bottom, 64)
+                                
+                            }
+                            
+                            HeaderProgressBarView(page: page)
+                        }
+                            
                     } else {
                         pageEmpty
                     }
@@ -56,7 +72,7 @@ struct PageView: View {
                                 Label("Refresh", systemImage: "arrow.clockwise")
                             }
                         } label: {
-                            Label("Page Menu", systemImage: "ellipsis")
+                            Label("Page Menu", systemImage: "ellipsis").padding(12).offset(x: 12)
                         }.disabled(refreshManager.refreshing == true)
                     } else {
                         // Show three buttons on larger screens
@@ -74,7 +90,6 @@ struct PageView: View {
                     }
                 }
             }
-            
             .padding(.top, geometry.safeAreaInsets.top)
             .onAppear(perform: onAppear)
             .background(Color(.secondarySystemBackground))

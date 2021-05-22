@@ -36,8 +36,11 @@ struct FeedWidgetView: View {
                 Spacer()
                 
                 Button(action: showOptions) {
-                    Image(systemName: "gearshape").frame(width: 16, height: 16, alignment: .center).padding(12)
-                }.disabled(refreshManager.refreshing)
+                    Image(systemName: "gearshape")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16, alignment: .center)
+                }.disabled(refreshManager.refreshing).padding(12)
             }.padding(.leading, 12)
             
             // MARK: Feed Items
