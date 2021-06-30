@@ -153,34 +153,8 @@ struct SettingsView: View {
     }
     
     func reset() {
-        do {
-            try viewContext.fetch(History.fetchRequest()).forEach { history in
-                self.viewContext.delete(history)
-            }
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
-        }
-        
-        do {
-            try viewContext.fetch(Profile.fetchRequest()).forEach { profile in
-                self.viewContext.delete(profile)
-            }
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
-        }
-        
-        do {
-            try viewContext.save()
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
-        }
-        
         restoreDefaultSettings()
-        
-        let defaultProfile = profileManager.createDefault()
-        
-        mainViewModel.activeProfile = defaultProfile
-        mainViewModel.objectWillChange.send()
+        profileManager.resetProfiles()
     }
     
     func openHomepage() {

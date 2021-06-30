@@ -36,7 +36,7 @@ struct PageView: View {
                     ZStack(alignment: .top) {
                         RefreshableScrollView(page: page) {
                             LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(page.feedsArray) { feed in
+                                ForEach(page.feedsArray, id: \.self) { feed in
                                     FeedWidgetView(feed: feed, mainViewModel: mainViewModel)
                                 }
                             }
@@ -69,7 +69,9 @@ struct PageView: View {
                             Label("Refresh", systemImage: "arrow.clockwise")
                         }
                     } label: {
-                        Label("Page Menu", systemImage: "ellipsis").padding(12).offset(x: 12)
+                        Label("Page Menu", systemImage: "ellipsis")
+                            .frame(height: 44)
+                            .padding(.leading)
                     }.disabled(refreshManager.refreshing == true)
                 } else {
                     // Show three buttons on larger screens
