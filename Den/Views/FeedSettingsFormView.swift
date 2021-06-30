@@ -13,13 +13,14 @@ struct FeedSettingsFormView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
+    
+    @ObservedObject var mainViewModel: MainViewModel
     @ObservedObject var feed: Feed
+    
     @State private var pickedPage: Int = 0
 
     var onDelete: () -> Void
     var onMove: () -> Void
-    
-    var pages: FetchedResults<Page>
     
     var body: some View {
         let pagePickerSelection = Binding<Int>(
@@ -27,9 +28,10 @@ struct FeedSettingsFormView: View {
                 return self.pickedPage
             },
             set: {
+                let pages = mainViewModel.activeProfile!.pagesArray
                 self.pickedPage = $0
-                self.feed.userOrder = self.pages[$0].feedsUserOrderMax + 1
-                self.feed.page = self.pages[$0]
+                self.feed.userOrder = pages[$0].feedsUserOrderMax + 1
+                self.feed.page = pages[$0]
                 self.onMove()
             }
         )
@@ -42,12 +44,15 @@ struct FeedSettingsFormView: View {
                 }
                 
                 Picker("Page", selection: pagePickerSelection) {
-                    ForEach(0 ..< pages.count) {
-                        Text(self.pages[$0].wrappedName).tag($0)
+                    ForEach(0 ..< mainViewModel.activeProfile!.pagesArray.count) {
+                        Text(mainViewModel.activeProfile!.pagesArray[$0].wrappedName).tag($0)
                     }
                 }
                 .onAppear {
-                    if let page = self.feed.page, let pageIndex = self.pages.firstIndex(of: page) {
+                    if
+                        let page = self.feed.page,
+                        let pageIndex = mainViewModel.activeProfile!.pagesArray.firstIndex(of: page)
+                    {
                         self.pickedPage = pageIndex
                     }
                 }
@@ -100,9 +105,9 @@ struct FeedSettingsFormView: View {
         .onDisappear(perform: save)
     }
     
-    init(subscription: Feed, pages: FetchedResults<Page>, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
+    init(subscription: Feed, mainViewModel: MainViewModel, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
         self.feed = subscription
-        self.pages = pages
+        self.mainViewModel = mainViewModel
         self.onDelete = onDelete
         self.onMove = onMove
     }

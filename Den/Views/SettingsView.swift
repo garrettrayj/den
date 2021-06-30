@@ -15,26 +15,28 @@ struct SettingsView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var profileManager: ProfileManager
     
     @ObservedObject var mainViewModel: MainViewModel
     
     @State private var showingClearWorkspaceAlert = false
     
-    var pages: FetchedResults<Page>
-    
     var body: some View {
-        Form {
-            appearanceSection
-            opmlSection
-            dataSection
-            aboutSection
+        NavigationView {
+            Form {
+                appearanceSection
+                opmlSection
+                dataSection
+                aboutSection
+            }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Settings")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     var appearanceSection: some View {
-        Section(header: Text("Appearance")) {
+        Section(header: Text("\nAppearance")) {
             HStack {
                 Image(systemName: "circle.righthalf.fill")
                 Text("Theme").lineLimit(1)
@@ -56,7 +58,7 @@ struct SettingsView: View {
                 Text("Import Subscriptions")
             }
             
-            NavigationLink(destination: ExportView(mainViewModel: mainViewModel, pages: pages)) {
+            NavigationLink(destination: ExportView(mainViewModel: mainViewModel)) {
                 Image(systemName: "arrow.up.doc")
                 Text("Export Subscriptions")
             }
@@ -151,17 +153,34 @@ struct SettingsView: View {
     }
     
     func reset() {
-        pages.forEach { page in
-            self.viewContext.delete(page)
+        do {
+            try viewContext.fetch(History.fetchRequest()).forEach { history in
+                self.viewContext.delete(history)
+            }
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
+        }
+        
+        do {
+            try viewContext.fetch(Profile.fetchRequest()).forEach { profile in
+                self.viewContext.delete(profile)
+            }
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
         }
         
         do {
             try viewContext.save()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
         }
         
         restoreDefaultSettings()
+        
+        let defaultProfile = profileManager.createDefault()
+        
+        mainViewModel.activeProfile = defaultProfile
+        mainViewModel.objectWillChange.send()
     }
     
     func openHomepage() {

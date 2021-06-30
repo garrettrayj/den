@@ -71,12 +71,13 @@ public class Page: NSManagedObject {
         }.first?.feedData?.refreshed
     }
     
-    static func create(in managedObjectContext: NSManagedObjectContext) -> Page {
+    static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Page {
         do {
             let pages = try managedObjectContext.fetch(Page.fetchRequest())
             
             let newPage = self.init(context: managedObjectContext)
             newPage.id = UUID()
+            newPage.profile = profile
             newPage.userOrder = Int16(pages.count + 1)
             newPage.name = "New Page"
             newPage.itemsPerFeed = Int16(5)

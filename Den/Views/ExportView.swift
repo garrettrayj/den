@@ -12,19 +12,18 @@ import AEXML
 
 struct ExportView: View {
     @Environment(\.presentationMode) var presentation
+    
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
     @State private var picker: ExportDocumentPicker?
     
     @ObservedObject var mainViewModel: MainViewModel
     
-    var pages: FetchedResults<Page>
-    
     var body: some View {
         Form {
             Section(header: selectionSectionHeader) {
-                if pages.count > 0 {
-                    List(pages) { page in
+                if mainViewModel.activeProfile!.pagesArray.count > 0 {
+                    ForEach(mainViewModel.activeProfile!.pagesArray) { page in
                         // .editMode doesn't work inside forms, so creating selection buttons manually
                         Button(action: { self.togglePage(page) }) {
                             HStack {
@@ -57,7 +56,9 @@ struct ExportView: View {
                         Text("Save OPML File")
                     }
                 }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
-            }.listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color(UIColor.systemGroupedBackground))
         }
         .navigationTitle("Export")
         .navigationBarTitleDisplayMode(.inline)
@@ -65,7 +66,7 @@ struct ExportView: View {
     }
     
     private var allSelected: Bool {
-        selectedPages.count == pages.count
+        selectedPages.count == mainViewModel.activeProfile!.pagesArray.count
     }
     
     private var noneSelected: Bool {
@@ -95,7 +96,7 @@ struct ExportView: View {
     }
     
     private func selectAll() {
-        pages.forEach { page in
+        mainViewModel.activeProfile!.pagesArray.forEach { page in
             if !selectedPages.contains(page) {
                 selectedPages.append(page)
             }
@@ -107,7 +108,7 @@ struct ExportView: View {
     }
     
     private func export() {
-        let exportPages: [Page] = pages.compactMap { page in
+        let exportPages: [Page] = mainViewModel.activeProfile!.pagesArray.compactMap { page in
             if selectedPages.contains(page) {
                 return page
             }

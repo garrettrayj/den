@@ -13,6 +13,7 @@ class MainViewModel: ObservableObject {
         case none, pageSettings, feedPreferences, subscribe, crashMessage
     }
     
+    @Published var activeProfile: Profile?
     @Published var activePage: Page?
     @Published var pageSheetMode: PageSheetMode = .none
     @Published var pageSheetFeed: Feed?

@@ -17,22 +17,22 @@ struct DenApp: App {
     @StateObject var mainViewModel: MainViewModel
     @StateObject var persistenceManager: PersistenceManager
     @StateObject var crashManager: CrashManager
+    @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
     @StateObject var cacheManager: CacheManager
     @StateObject var importManager: ImportManager
-    @StateObject var searchManager: SearchManager
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
-    @StateObject var browserManager: BrowserManager
+    @StateObject var browserManager: LinkManager
     
     var body: some Scene {
         WindowGroup {
             ContentView(mainViewModel: mainViewModel)
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
+                .environmentObject(profileManager)
                 .environmentObject(refreshManager)
                 .environmentObject(cacheManager)
                 .environmentObject(importManager)
-                .environmentObject(searchManager)
                 .environmentObject(subscriptionManager)
                 .environmentObject(crashManager)
                 .environmentObject(themeManager)
@@ -70,23 +70,37 @@ struct DenApp: App {
     
     init() {
         let mainViewModel = MainViewModel()
+        
         let crashManager = CrashManager(mainViewModel: mainViewModel)
         let persistenceManager = PersistenceManager(crashManager: crashManager)
+        let profileManager = ProfileManager(
+            persistenceManager: persistenceManager,
+            crashManager: crashManager,
+            mainViewModel: mainViewModel
+        )
         let refreshManager = RefreshManager(persistenceManager: persistenceManager, crashManager: crashManager)
         let cacheManager = CacheManager(persistenceManager: persistenceManager, crashManager: crashManager)
-        let importManager = ImportManager(persistenceManager: persistenceManager, crashManager: crashManager)
-        let searchManager = SearchManager(persistenceManager: persistenceManager, crashManager: crashManager)
+        let importManager = ImportManager(
+            persistenceManager: persistenceManager,
+            crashManager: crashManager,
+            mainViewModel: mainViewModel
+        )
         let subscriptionManager = SubscriptionManager(mainViewModel: mainViewModel)
         let themeManager = ThemeManager()
-        let browserManager = BrowserManager(persistenceManager: persistenceManager, crashManager: crashManager)
+        let browserManager = LinkManager(
+            persistenceManager: persistenceManager,
+            crashManager: crashManager,
+            mainViewModel: mainViewModel
+        )
+        
     
         _mainViewModel = StateObject(wrappedValue: mainViewModel)
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
+        _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
         _cacheManager = StateObject(wrappedValue: cacheManager)
         _importManager = StateObject(wrappedValue: importManager)
-        _searchManager = StateObject(wrappedValue: searchManager)
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
         _browserManager = StateObject(wrappedValue: browserManager)

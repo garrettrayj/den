@@ -12,7 +12,7 @@ import SwiftUI
  Item (article) row for feeds
  */
 struct FeedWidgetItemRowView: View {
-    @EnvironmentObject var browserManager: BrowserManager
+    @EnvironmentObject var linkManager: LinkManager
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
     
@@ -50,11 +50,6 @@ struct FeedWidgetItemRowView: View {
     
     func openLink() {
         guard let url = item.link else { return }
-        
-        browserManager.logHistory(item: item)
-        browserManager.openSafari(url: url)
-        
-        // Update unread count in page navigation
-        item.feedData?.feed?.page?.objectWillChange.send()
+        linkManager.openLink(url: url, logHistoryItem: item)
     }
 }

@@ -11,9 +11,10 @@ import CoreData
 
 @objc(History)
 public class History: NSManagedObject {
-    static func create(in managedObjectContext: NSManagedObjectContext) -> History {
+    static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> History {
         let history = self.init(context: managedObjectContext)
         history.id = UUID()
+        history.profile = profile
         
         return history
     }

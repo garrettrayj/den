@@ -28,10 +28,12 @@ class ImportManager: ObservableObject {
 
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
+    private var mainViewModel: MainViewModel
     
-    init(persistenceManager: PersistenceManager, crashManager: CrashManager) {
+    init(persistenceManager: PersistenceManager, crashManager: CrashManager, mainViewModel: MainViewModel) {
         self.viewContext = persistenceManager.container.viewContext
         self.crashManager = crashManager
+        self.mainViewModel = mainViewModel
         
         self.documentPicker = ImportDocumentPicker(importManager: self)
     }
@@ -77,8 +79,9 @@ class ImportManager: ObservableObject {
     }
     
     func importFolders(opmlFolders: [OPMLFolder]) {
+        guard let profile = mainViewModel.activeProfile else { return }
         opmlFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext)
+            let page = Page.create(in: self.viewContext, profile: profile)
             page.name = opmlFolder.name
             pagesImported.append(page)
             
