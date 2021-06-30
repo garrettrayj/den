@@ -46,7 +46,7 @@ struct SidebarView: View {
             .environment(\.editMode, self.$mainViewModel.sidebarEditMode)
         }
         .onAppear {
-            if pageSelection == nil {
+            if pageSelection == nil && UIDevice.current.userInterfaceIdiom != .phone {
                 pageSelection = mainViewModel.activeProfile?.pagesArray.first?.id?.uuidString
             }
         }
