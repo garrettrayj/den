@@ -16,8 +16,6 @@ struct FeedWidgetSettingsView: View {
     @Environment(\.presentationMode) var presentation
     @ObservedObject var mainViewModel: MainViewModel
     
-    var pages: FetchedResults<Page>
-    
     var body: some View {
         
         if mainViewModel.pageSheetFeed == nil {
@@ -26,7 +24,7 @@ struct FeedWidgetSettingsView: View {
             NavigationView {
                 FeedSettingsFormView(
                     subscription: mainViewModel.pageSheetFeed!,
-                    pages: pages,
+                    mainViewModel: mainViewModel,
                     onDelete: close,
                     onMove: close
                 )

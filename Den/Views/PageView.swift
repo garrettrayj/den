@@ -25,90 +25,70 @@ struct PageView: View {
     ]
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 0) {
-                if page.managedObjectContext == nil {
-                    pageDeleted
-                } else {
-                    if page.feeds?.count ?? 0 > 0 {
-                        ZStack(alignment: .top) {
-                            RefreshableScrollView(page: page) {
-                                LazyVGrid(columns: columns, spacing: 16) {
-                                    ForEach(page.feedsArray, id: \.self) { feed in
-                                        FeedWidgetView(feed: feed, mainViewModel: mainViewModel)
-                                    }
+        
+        VStack(spacing: 0) {
+            if page.managedObjectContext == nil {
+                pageDeleted
+            } else if page.feedsArray.count == 0 {
+                pageEmpty
+            } else {
+                GeometryReader { geometry in
+                    ZStack(alignment: .top) {
+                        RefreshableScrollView(page: page) {
+                            LazyVGrid(columns: columns, spacing: 16) {
+                                ForEach(page.feedsArray) { feed in
+                                    FeedWidgetView(feed: feed, mainViewModel: mainViewModel)
                                 }
-                                .padding(.leading, geometry.safeAreaInsets.leading + 16)
-                                .padding(.trailing, geometry.safeAreaInsets.trailing + 16)
-                                .padding(.top, 16)
-                                .padding(.bottom, 64)
-                                
                             }
-                            
-                            HeaderProgressBarView(page: page)
+                            .padding(.leading, geometry.safeAreaInsets.leading + 16)
+                            .padding(.trailing, geometry.safeAreaInsets.trailing + 16)
+                            .padding(.top, 16)
+                            .padding(.bottom, 64)
                         }
-                            
-                    } else {
-                        pageEmpty
+                        HeaderProgressBarView(page: page)
                     }
                 }
             }
-            .navigationTitle(Text(page.wrappedName))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItemGroup {
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        // Action menu for phone users
-                        Menu {
-                            Button(action: showSubscribe) {
-                                Label("Add Subscription", systemImage: "plus.circle")
-                            }
-                            
-                            Button(action: showSettings) {
-                                Label("Page Settings", systemImage: "wrench")
-                            }
-                            
-                            Button(action: { refreshManager.refresh(self.page) }) {
-                                Label("Refresh", systemImage: "arrow.clockwise")
-                            }
-                        } label: {
-                            Label("Page Menu", systemImage: "ellipsis").padding(12).offset(x: 12)
-                        }.disabled(refreshManager.refreshing == true)
-                    } else {
-                        // Show three buttons on larger screens
+        }
+        .navigationTitle(Text(page.wrappedName))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItemGroup {
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    // Action menu for phone users
+                    Menu {
                         Button(action: showSubscribe) {
                             Label("Add Subscription", systemImage: "plus.circle")
-                        }.disabled(refreshManager.refreshing == true)
+                        }
                         
                         Button(action: showSettings) {
                             Label("Page Settings", systemImage: "wrench")
-                        }.disabled(refreshManager.refreshing == true)
+                        }
                         
                         Button(action: { refreshManager.refresh(self.page) }) {
                             Label("Refresh", systemImage: "arrow.clockwise")
-                        }.disabled(refreshManager.refreshing == true)
-                    }
+                        }
+                    } label: {
+                        Label("Page Menu", systemImage: "ellipsis").padding(12).offset(x: 12)
+                    }.disabled(refreshManager.refreshing == true)
+                } else {
+                    // Show three buttons on larger screens
+                    Button(action: showSubscribe) {
+                        Label("Add Subscription", systemImage: "plus.circle")
+                    }.disabled(refreshManager.refreshing == true)
+                    
+                    Button(action: showSettings) {
+                        Label("Page Settings", systemImage: "wrench")
+                    }.disabled(refreshManager.refreshing == true)
+                    
+                    Button(action: { refreshManager.refresh(self.page) }) {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }.disabled(refreshManager.refreshing == true)
                 }
             }
-            .padding(.top, geometry.safeAreaInsets.top)
-            .onAppear(perform: onAppear)
-            .background(Color(.secondarySystemBackground))
-            .edgesIgnoringSafeArea(.all)
         }
-    }
-    
-    var dashboardMode: some View {
-        ZStack(alignment: .top) {
-            RefreshableScrollView(page: page) {
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(page.feedsArray, id: \.self) { feed in
-                        FeedWidgetView(feed: feed, mainViewModel: mainViewModel)
-                    }
-                }.padding([.top, .horizontal], 16).padding(.bottom, 64)
-            }
-            
-            HeaderProgressBarView(page: page)
-        }
+        .onAppear(perform: onAppear)
+        .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
     
     var pageEmpty: some View {

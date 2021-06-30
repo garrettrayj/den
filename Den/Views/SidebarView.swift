@@ -17,27 +17,24 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var searchManager: SearchManager
     @EnvironmentObject var crashManager: CrashManager
     
     @ObservedObject var mainViewModel: MainViewModel
     
-    var pages: FetchedResults<Page>
-
+    @State var pageSelection: String?
+    
     var body: some View {
         VStack {
             List {
-                if pages.count > 0 {
+                if mainViewModel.activeProfile!.pagesArray.count > 0 {
                     pageList
                 } else {
                     getStartedSection
                 }
-                moreSection
             }
             .animation(nil)
             .listStyle(InsetGroupedListStyle())
-            .navigationBarTitleDisplayMode(.large)
-            .navigationTitle(Text("Den"))
+            .navigationTitle("Den")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: { withAnimation { createPage() }}) {
@@ -48,17 +45,20 @@ struct SidebarView: View {
             }
             .environment(\.editMode, self.$mainViewModel.sidebarEditMode)
         }
+        .onAppear {
+            if pageSelection == nil {
+                pageSelection = mainViewModel.activeProfile?.pagesArray.first?.id?.uuidString
+            }
+        }
         
     }
     
     var pageList: some View {
-        Section(header: Text("Pages")) {
-            ForEach(self.pages) { page in
-                PageListRowView(page: page, mainViewModel: mainViewModel)
-            }
-            .onMove(perform: self.move)
-            .onDelete(perform: self.delete)
+        ForEach(mainViewModel.activeProfile!.pagesArray) { page in
+            PageListRowView(page: page, mainViewModel: mainViewModel, pageSelection: $pageSelection)
         }
+        .onMove(perform: self.move)
+        .onDelete(perform: self.delete)
     }
     
     var getStartedSection: some View {
@@ -81,26 +81,12 @@ struct SidebarView: View {
         }
     }
     
-    var moreSection: some View {
-        Section() {
-            NavigationLink(destination: SearchView(), tag: "search", selection: $mainViewModel.navSelection) {
-                Image(systemName: "magnifyingglass")
-                Text("Search")
-            }
-            
-            NavigationLink(destination: SettingsView(mainViewModel: mainViewModel, pages: pages), tag: "settings", selection: $mainViewModel.navSelection) {
-                Image(systemName: "gear")
-                Text("Settings")
-            }
-        }
-    }
-    
     func doneEditing() {
         self.mainViewModel.sidebarEditMode = .inactive
     }
     
     func createPage() {
-        let _ = Page.create(in: viewContext)
+        let _ = Page.create(in: viewContext, profile: mainViewModel.activeProfile!)
         do {
             try viewContext.save()
         } catch let error as NSError {
@@ -109,8 +95,7 @@ struct SidebarView: View {
     }
     
     private func move( from source: IndexSet, to destination: Int) {
-        // Make an array of items from fetched results
-        var revisedItems: [Page] = pages.map { $0 }
+        var revisedItems = mainViewModel.activeProfile!.pagesArray
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -132,18 +117,19 @@ struct SidebarView: View {
     }
     
     func delete(indices: IndexSet) {
-        pages.delete(at: indices, from: viewContext)
+        mainViewModel.activeProfile!.pagesArray.delete(at: indices, from: viewContext)
     }
     
     func loadDemo() {
-        var newPages: [Page] = []
         guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
+        
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
         
+        var newPages: [Page] = []
         opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext)
+            let page = Page.create(in: self.viewContext, profile: mainViewModel.activeProfile!)
             page.name = opmlFolder.name
             newPages.append(page)
             
@@ -159,5 +145,7 @@ struct SidebarView: View {
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
+        
+        mainViewModel.objectWillChange.send()
     }
 }
