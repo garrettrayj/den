@@ -21,8 +21,8 @@ class RefreshManager: ObservableObject {
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
     
-    init(persistenceManager: PersistenceManager, crashManager: CrashManager) {
-        self.persistentContainer = persistenceManager.container
+    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
+        self.persistentContainer = persistentContainer
         self.crashManager = crashManager
     }
     

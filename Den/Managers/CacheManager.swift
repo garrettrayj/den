@@ -15,8 +15,8 @@ class CacheManager: ObservableObject {
     private var crashManager: CrashManager
     private var lastBackgroundCleanup: Date?
     
-    init(persistenceManager: PersistenceManager, crashManager: CrashManager) {
-        self.persistentContainer = persistenceManager.container
+    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
+        self.persistentContainer = persistentContainer
         self.crashManager = crashManager
     }
     

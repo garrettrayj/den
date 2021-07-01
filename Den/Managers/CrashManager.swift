@@ -1,5 +1,5 @@
 //
-//  CrashController.swift
+//  CrashManager.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/6/21.

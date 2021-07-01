@@ -1,6 +1,6 @@
 //
-//  Persistence.swift
-//  Shared
+//  PersistenceManager.swift
+//  Den
 //
 //  Created by Garrett Johnson on 12/25/20.
 //
@@ -33,7 +33,6 @@ class PersistenceManager: ObservableObject {
         localStoreDescription.configuration = "Local"
         
         // Create container
-        
         self.container.persistentStoreDescriptions = [
             cloudStoreDescription,
             localStoreDescription
