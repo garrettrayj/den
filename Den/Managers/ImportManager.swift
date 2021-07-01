@@ -30,8 +30,8 @@ class ImportManager: ObservableObject {
     private var crashManager: CrashManager
     private var mainViewModel: MainViewModel
     
-    init(persistenceManager: PersistenceManager, crashManager: CrashManager, mainViewModel: MainViewModel) {
-        self.viewContext = persistenceManager.container.viewContext
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, mainViewModel: MainViewModel) {
+        self.viewContext = viewContext
         self.crashManager = crashManager
         self.mainViewModel = mainViewModel
         

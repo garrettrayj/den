@@ -74,26 +74,31 @@ struct DenApp: App {
         let crashManager = CrashManager(mainViewModel: mainViewModel)
         let persistenceManager = PersistenceManager(crashManager: crashManager)
         let profileManager = ProfileManager(
-            persistenceManager: persistenceManager,
+            viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager,
             mainViewModel: mainViewModel
         )
-        let refreshManager = RefreshManager(persistenceManager: persistenceManager, crashManager: crashManager)
-        let cacheManager = CacheManager(persistenceManager: persistenceManager, crashManager: crashManager)
+        let refreshManager = RefreshManager(
+            persistentContainer: persistenceManager.container,
+            crashManager: crashManager
+        )
+        let cacheManager = CacheManager(
+            persistentContainer: persistenceManager.container,
+            crashManager: crashManager
+        )
         let importManager = ImportManager(
-            persistenceManager: persistenceManager,
+            viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager,
             mainViewModel: mainViewModel
         )
         let subscriptionManager = SubscriptionManager(mainViewModel: mainViewModel)
         let themeManager = ThemeManager()
         let browserManager = LinkManager(
-            persistenceManager: persistenceManager,
+            viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager,
             mainViewModel: mainViewModel
         )
         
-    
         _mainViewModel = StateObject(wrappedValue: mainViewModel)
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
