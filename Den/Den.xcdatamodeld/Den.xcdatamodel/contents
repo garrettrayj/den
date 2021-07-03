@@ -58,7 +58,7 @@
         <userInfo/>
     </entity>
     <entity name="Profile" representedClassName="Profile" syncable="YES" codeGenerationType="category">
-        <attribute name="history_retention" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="historyRetention" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="History" inverseName="profile" inverseEntity="History"/>

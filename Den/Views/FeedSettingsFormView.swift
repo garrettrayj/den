@@ -95,10 +95,7 @@ struct FeedSettingsFormView: View {
             }
             Section {
                 Button(action: delete) {
-                    HStack {
-                        Image(systemName: "trash")
-                        Text("Delete Feed")
-                    }.foregroundColor(Color.red)
+                    Label("Delete Feed", systemImage: "trash").foregroundColor(Color.red)
                 }
             }
         }

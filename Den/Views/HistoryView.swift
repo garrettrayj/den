@@ -25,9 +25,7 @@ struct HistoryView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                searchEntry
-                    .padding(.horizontal, 16).padding(.bottom, 12).padding(.top, 12)
-                    .background(Color(UIColor.tertiarySystemBackground).edgesIgnoringSafeArea(.all))
+                SearchFieldView(searchQuery: $searchQuery)
                 
                 if searchResults.count == 0 && searchQuery == "" {
                     Text("History empty or unavailable")
@@ -68,13 +66,6 @@ struct HistoryView: View {
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItemGroup {
-                    Button(action: clear) {
-                        Text("Clear")
-                    }
-                }
-            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
@@ -94,42 +85,6 @@ struct HistoryView: View {
             }
         )
         
-    }
-    
-    var searchEntry: some View {
-        ZStack {
-            HStack {
-                TextField(
-                    "Search…",
-                    text: $searchQuery
-                )
-                    .font(Font.system(size: 18, design: .default))
-                    .frame(height: 40)
-                    .background(Color(UIColor.systemBackground))
-            }
-            .padding(.horizontal, 40)
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(12)
-            
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .imageScale(.medium).foregroundColor(.secondary)
-                Spacer()
-                
-                if self.searchQuery != "" {
-                    Button(action: reset) {
-                        Image(systemName: "multiply.circle.fill")
-                            .imageScale(.medium).foregroundColor(Color.secondary)
-                    }.layoutPriority(2)
-                }
-            }
-            .padding(.horizontal, 12)
-        }
-    }
-    
-    private func reset() {
-        self.searchQuery = ""
-        self.search(query: "")
     }
     
     private func search(query: String) {
@@ -165,25 +120,4 @@ struct HistoryView: View {
             Logger.main.error("Failed to fetch search results: \(error as NSError)")
         }
     }
-    
-    private func clear() {
-        mainViewModel.activeProfile?.historyArray.forEach { history in
-            self.viewContext.delete(history)
-        }
-        
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
-        }
-        
-        mainViewModel.activeProfile?.pagesArray.forEach({ page in
-            page.feedsArray.forEach { feed in
-                feed.objectWillChange.send()
-            }
-        })
-        
-        reset()
-    }
-    
 }

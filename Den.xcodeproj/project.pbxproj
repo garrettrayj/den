@@ -58,6 +58,7 @@
 		687D9CC624AE38BD00EB7F46 /* DataTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CC524AE38BD00EB7F46 /* DataTaskOperation.swift */; };
 		687D9CD924B38FF100EB7F46 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CD824B38FF100EB7F46 /* AsynchronousOperation.swift */; };
 		687D9CDD24B3E31400EB7F46 /* MetadataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CDC24B3E31400EB7F46 /* MetadataOperation.swift */; };
+		687F488A268EF90300EA2498 /* SearchFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F4889268EF90300EA2498 /* SearchFieldView.swift */; };
 		6885FD0E24819446007A3D5B /* ItemLinkButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0D24819446007A3D5B /* ItemLinkButtonStyle.swift */; };
 		6885FD10248287C3007A3D5B /* FeedSettingsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0F248287C3007A3D5B /* FeedSettingsFormView.swift */; };
 		6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* History+CoreDataClass.swift */; };
@@ -77,7 +78,6 @@
 		68998B8B2504DFC500FDB6EE /* StaggeredGridStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B8A2504DFC500FDB6EE /* StaggeredGridStyle+Extensions.swift */; };
 		68998B93250665E500FDB6EE /* ActivityRep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B92250665E500FDB6EE /* ActivityRep.swift */; };
 		68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADABC224A21F2500BE41E2 /* WelcomeView.swift */; };
-		68ADCDEF2597A86500328966 /* SafariPresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADCDEE2597A86500328966 /* SafariPresentationView.swift */; };
 		68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A5D2486D2AD0066B215 /* ImportView.swift */; };
 		68B34A612487C50A0066B215 /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A602487C50A0066B215 /* DateFormatter+Extensions.swift */; };
 		68B34A672487ED870066B215 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A662487ED870066B215 /* ExportView.swift */; };
@@ -175,6 +175,7 @@
 		687D9CC524AE38BD00EB7F46 /* DataTaskOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskOperation.swift; sourceTree = "<group>"; };
 		687D9CD824B38FF100EB7F46 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		687D9CDC24B3E31400EB7F46 /* MetadataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataOperation.swift; sourceTree = "<group>"; };
+		687F4889268EF90300EA2498 /* SearchFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldView.swift; sourceTree = "<group>"; };
 		6885FD0D24819446007A3D5B /* ItemLinkButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLinkButtonStyle.swift; sourceTree = "<group>"; };
 		6885FD0F248287C3007A3D5B /* FeedSettingsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSettingsFormView.swift; sourceTree = "<group>"; };
 		6887D40825B35B83004A170D /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -193,7 +194,6 @@
 		68998B8A2504DFC500FDB6EE /* StaggeredGridStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StaggeredGridStyle+Extensions.swift"; sourceTree = "<group>"; };
 		68998B92250665E500FDB6EE /* ActivityRep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRep.swift; sourceTree = "<group>"; };
 		68ADABC224A21F2500BE41E2 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		68ADCDEE2597A86500328966 /* SafariPresentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariPresentationView.swift; sourceTree = "<group>"; };
 		68B34A5D2486D2AD0066B215 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		68B34A602487C50A0066B215 /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		68B34A662487ED870066B215 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
@@ -480,9 +480,9 @@
 				68710CBF259FC36E007B2507 /* StandaloneProgressBarView.swift */,
 				687D9CC324ACB86900EB7F46 /* UpdateStatusView.swift */,
 				680E57BC24D132D700196F6D /* HeaderProgressBarView.swift */,
+				687F4889268EF90300EA2498 /* SearchFieldView.swift */,
 				68998B842504C87400FDB6EE /* SearchView.swift */,
 				68998B882504DDEC00FDB6EE /* SearchResultView.swift */,
-				68ADCDEE2597A86500328966 /* SafariPresentationView.swift */,
 				68D345942658D0610080783F /* HistoryView.swift */,
 			);
 			path = Views;
@@ -698,6 +698,7 @@
 				6845BCF024E90D0D0008B296 /* RefreshManager.swift in Sources */,
 				68915B232623273600E4C0CB /* DownloadThumbnailsOperation.swift in Sources */,
 				68D58E65249274D0007ED1AC /* HTMLCleaner.swift in Sources */,
+				687F488A268EF90300EA2498 /* SearchFieldView.swift in Sources */,
 				687D9CC424ACB86900EB7F46 /* UpdateStatusView.swift in Sources */,
 				684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */,
 				68998B892504DDEC00FDB6EE /* SearchResultView.swift in Sources */,
@@ -711,7 +712,6 @@
 				687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedWidgetSettingsView.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
-				68ADCDEF2597A86500328966 /* SafariPresentationView.swift in Sources */,
 				6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */,
 				68998B852504C87400FDB6EE /* SearchView.swift in Sources */,
 				68998B832503F63E00FDB6EE /* SubscriptionManager.swift in Sources */,

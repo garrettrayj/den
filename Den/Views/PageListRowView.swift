@@ -25,10 +25,7 @@ struct PageListRowView: View {
                     tag: page.id!.uuidString,
                     selection: $pageSelection
                 ) {
-                    Image(systemName: "square.grid.2x2")
-                    
-                    Text(page.wrappedName)
-                        .fontWeight(.medium)
+                    Label(page.wrappedName, systemImage: "square.grid.2x2")
                         .lineLimit(1)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)

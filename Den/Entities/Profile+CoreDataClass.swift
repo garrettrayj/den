@@ -16,6 +16,11 @@ public class Profile: NSManagedObject {
         set { name = newValue }
     }
     
+    public var wrappedHistoryRetention: Int {
+        get { Int(historyRetention) }
+        set { historyRetention = Int16(newValue) }
+    }
+    
     public var historyArray: [History] {
         get {
             guard let history = self.history else { return [] }

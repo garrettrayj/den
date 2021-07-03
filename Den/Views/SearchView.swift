@@ -20,10 +20,7 @@ struct SearchView: View {
     var body: some View {
         NavigationView() {
             VStack(spacing: 0) {
-                searchEntry
-                    .padding(.horizontal, 16).padding(.bottom, 12).padding(.top, 12)
-                    .background(Color(UIColor.tertiarySystemBackground).edgesIgnoringSafeArea(.all))
-                
+                SearchFieldView(searchQuery: $searchQuery)
                 
                 if searchResults.count > 0 && searchIsValid(query: searchQuery) {
                     ScrollView {
@@ -50,8 +47,6 @@ struct SearchView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding()
                 }
-                
-                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
@@ -75,34 +70,6 @@ struct SearchView: View {
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())
-    }
-    
-    var searchEntry: some View {
-        ZStack {
-            HStack {
-                TextField("Search…", text: $searchQuery)
-                    .font(Font.system(size: 18, design: .default))
-                    .frame(height: 40)
-                    .background(Color(UIColor.systemBackground))
-            }
-            .padding(.horizontal, 40)
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(12)
-            
-            
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .imageScale(.medium).foregroundColor(.secondary)
-                Spacer()
-                
-                if searchQuery != "" {
-                    Button(action: { searchQuery = "" }) {
-                        Image(systemName: "multiply.circle.fill")
-                            .imageScale(.medium).foregroundColor(Color.secondary)
-                    }.layoutPriority(2)
-                }
-            }.padding(.horizontal, 12)
-        }
     }
     
     private func searchIsValid(query: String) -> Bool {
