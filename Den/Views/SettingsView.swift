@@ -20,26 +20,28 @@ struct SettingsView: View {
     @ObservedObject var mainViewModel: MainViewModel
     
     @State private var showingClearWorkspaceAlert = false
+    @State var historyRentionDays: Int = 0
     
     var body: some View {
         NavigationView {
             Form {
                 appearanceSection
                 opmlSection
+                historySection
                 dataSection
                 aboutSection
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .onAppear(perform: loadProfile)
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
     var appearanceSection: some View {
         Section(header: Text("\nAppearance")) {
             HStack {
-                Image(systemName: "circle.righthalf.fill")
-                Text("Theme").lineLimit(1)
+                Label("Theme", systemImage: "paintpalette")
                 Spacer()
                 Picker(selection: themeManager.uiStyle, label: Text("Interface Style")) {
                     Text("Default").tag(UIUserInterfaceStyle.unspecified)
@@ -52,40 +54,45 @@ struct SettingsView: View {
     
     var opmlSection: some View {
         Section(header: Text("OPML")) {
-            
             NavigationLink(destination: ImportView(mainViewModel: mainViewModel)) {
-                Image(systemName: "arrow.down.doc")
-                Text("Import Subscriptions")
+                Label("Import Subscriptions", systemImage: "arrow.down.doc")
             }
             
             NavigationLink(destination: ExportView(mainViewModel: mainViewModel)) {
-                Image(systemName: "arrow.up.doc")
-                Text("Export Subscriptions")
+                Label("Export Subscriptions", systemImage: "arrow.up.doc")
             }
         }
     }
     
-    var dataSection: some View {
-        Section(header: Text("Data")) {
-            Button(action: clearCache) {
-                HStack {
-                    Image(systemName: "bin.xmark")
-                    Text("Empty Caches")
-                }
-            }.disabled(refreshManager.refreshing)
-            
-            Button(action: restoreDefaultSettings) {
-                HStack {
-                    Image(systemName: "arrow.counterclockwise")
-                    Text("Restore Default Preferences")
-                }
+    var historySection: some View {
+        Section(header: Text("History")) {
+            Picker("Keep History", selection: $historyRentionDays) {
+                Text("Forever").tag(0 as Int)
+                Text("One Year").tag(365 as Int)
+                Text("Six Months").tag(182 as Int)
+                Text("Three Months").tag(90 as Int)
+                Text("One Month").tag(30 as Int)
+                Text("Two Weeks").tag(14 as Int)
+                Text("One Week").tag(7 as Int)
+            }.onChange(of: historyRentionDays) { _ in
+                saveProfile()
             }
             
+            Button(action: clearHistory) {
+                Label("Clear History", systemImage: "clear")
+            }
+            
+        }
+    }
+    
+    var dataSection: some View {
+        Section(header: Text("Reset")) {
+            Button(action: clearCache) {
+                Label("Empty Caches", systemImage: "bin.xmark")
+            }.disabled(refreshManager.refreshing)
+            
             Button(action: showResetAlert) {
-                HStack {
-                    Image(systemName: "clear")
-                    Text("Reset All")
-                }.foregroundColor(refreshManager.refreshing ? Color(.secondaryLabel) : Color(.systemRed))
+                Label("Reset Everything", systemImage: "clear").foregroundColor(Color(.systemRed))
             }.alert(isPresented: $showingClearWorkspaceAlert) {
                 Alert(
                     title: Text("Are you sure you want to reset?"),
@@ -101,7 +108,7 @@ struct SettingsView: View {
     
     var aboutSection: some View {
         Section(header: Text("About")) {
-            HStack {
+            HStack(spacing: 16) {
                 Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
                 VStack(alignment: .leading) {
                     Text("Den").font(.headline)
@@ -110,33 +117,61 @@ struct SettingsView: View {
             }.padding(.vertical)
             
             Button(action: openHomepage) {
-                HStack {
-                    Image(systemName: "house")
-                    Text("Homepage")
-                }
-                
+                Label("Homepage", systemImage: "house")
             }
             
             Button(action: emailSupport) {
-                HStack {
-                    Image(systemName: "lifepreserver")
-                    Text("Email Support")
-                }
-                
+                Label("Email Support", systemImage: "lifepreserver")
             }
             
             Button(action: openPrivacyPolicy) {
-                HStack {
-                    Image(systemName: "lock.shield")
-                    Text("Privacy Policy")
-                }
-                
+                Label("Privacy Policy", systemImage: "lock.shield")
+            }
+        }
+    }
+    
+    func loadProfile() {
+        guard let profile = mainViewModel.activeProfile else { return }
+    
+        historyRentionDays = profile.wrappedHistoryRetention
+    }
+    
+    func saveProfile() {
+        guard let profile = mainViewModel.activeProfile else { return }
+
+        if historyRentionDays != profile.wrappedHistoryRetention {
+            profile.wrappedHistoryRetention = historyRentionDays
+        }
+        
+        if self.viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
             }
         }
     }
     
     func clearCache() {
         cacheManager.resetFeeds()
+    }
+    
+    private func clearHistory() {
+        mainViewModel.activeProfile?.historyArray.forEach { history in
+            self.viewContext.delete(history)
+        }
+        
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
+        }
+        
+        mainViewModel.activeProfile?.pagesArray.forEach({ page in
+            page.feedsArray.forEach { feed in
+                feed.objectWillChange.send()
+            }
+        })
     }
     
     func restoreDefaultSettings() {

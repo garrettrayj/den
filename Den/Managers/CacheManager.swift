@@ -74,6 +74,8 @@ class CacheManager: ObservableObject {
         context.undoManager = nil
         context.performAndWait {
             do {
+                cleanupHistory(context: context)
+                
                 var cleanFeedDatas: [FeedData] = []
                 let feedDatas = try context.fetch(FeedData.fetchRequest()) as! [FeedData]
                 
@@ -130,7 +132,33 @@ class CacheManager: ObservableObject {
         Logger.main.info("Finished cleaning up databases and files.")
     }
     
-    func cleanupCacheDirectory(cacheDirectory: URL, activeFileList: [URL]) {
+    private func cleanupHistory(context: NSManagedObjectContext) {
+        do {
+            let profiles = try context.fetch(Profile.fetchRequest()) as! [Profile]
+            profiles.forEach { profile in
+                if profile.historyRetention == 0 { return }
+                let historyRetentionStart = Date().addingTimeInterval(-Double(profile.historyRetention) * 24 * 60 * 60)
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
+                fetchRequest.predicate = NSPredicate(
+                    format: "%K < %@",
+                    #keyPath(History.visited),
+                    historyRetentionStart as NSDate
+                )
+                fetchRequest.sortDescriptors = []
+            
+                do {
+                    let fetchResults = try context.fetch(fetchRequest) as! [History]
+                    fetchResults.forEach { context.delete($0) }
+                } catch {
+                    crashManager.handleCriticalError(error as NSError)
+                }
+            }
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
+        }
+    }
+    
+    private func cleanupCacheDirectory(cacheDirectory: URL, activeFileList: [URL]) {
         guard activeFileList.count > 0 else { return }
         
         let resourceKeys: [URLResourceKey] = [.creationDateKey, .isDirectoryKey]

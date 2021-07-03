@@ -34,16 +34,16 @@ struct SidebarView: View {
             }
             .animation(nil)
             .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Den")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: { withAnimation { createPage() }}) {
-                        Image(systemName: "plus")
-                    }
-                    EditButton()
-                }
-            }
             .environment(\.editMode, self.$mainViewModel.sidebarEditMode)
+        }
+        .navigationTitle("Den")
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: { withAnimation { createPage() }}) {
+                    Image(systemName: "plus")
+                }
+                EditButton()
+            }
         }
         .onAppear {
             if pageSelection == nil && UIDevice.current.userInterfaceIdiom != .phone {
