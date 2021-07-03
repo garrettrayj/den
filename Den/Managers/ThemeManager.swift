@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-class ThemeManager: ObservableObject {
+final class ThemeManager: ObservableObject {
     var window: UIWindow?
     
     var uiStyle: Binding<UIUserInterfaceStyle> {

@@ -13,7 +13,7 @@ import OSLog
 /**
  Item entity representation for working with data outside of NSManagedObjectContext (e.g. feed ingest operations)
  */
-class WorkingItem {
+final class WorkingItem {
     var id: UUID?
     var image: URL?
     var imageFile: String?

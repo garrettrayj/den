@@ -12,10 +12,9 @@ import SafariServices
 import CoreData
 
 /**
- Class for providing functionality not quite reachable with SwiftUI
- (such as opening SFSafariViewController full screen)
+ Opens links and logs history
  */
-class LinkManager: ObservableObject {
+final class LinkManager: ObservableObject {
     public var controller: UIViewController?
     
     private var viewContext: NSManagedObjectContext
@@ -45,7 +44,7 @@ class LinkManager: ObservableObject {
         controller.present(vc, animated: true)
     }
     
-    public func logHistory(item: Item) {
+    private func logHistory(item: Item) {
         guard let profile = mainViewModel.activeProfile else { return }
         
         let history = History.create(in: self.viewContext, profile: profile)

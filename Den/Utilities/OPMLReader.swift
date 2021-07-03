@@ -21,9 +21,10 @@ struct OPMLFeed: Hashable {
     var url: URL
 }
 
-class OPMLReader {
-    var xmlURL: URL
-    var data: Data?
+final class OPMLReader {
+    private var xmlURL: URL
+    private var data: Data?
+    
     var outlineFolders: [OPMLFolder] = []
     
     init(xmlURL: URL) {

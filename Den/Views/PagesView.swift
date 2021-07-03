@@ -24,15 +24,13 @@ struct PagesView: View {
         NavigationView {
             // Sidebar
             SidebarView(mainViewModel: mainViewModel)
-                
+            
             // Default view for detail area
             WelcomeView()
         }
         .sheet(isPresented: $mainViewModel.showingPageSheet) {
             VStack {
-                if mainViewModel.pageSheetMode == .pageSettings {
-                    PageSettingsView(mainViewModel: mainViewModel)
-                } else if mainViewModel.pageSheetMode == .feedPreferences {
+                if mainViewModel.pageSheetMode == .feedPreferences {
                     FeedWidgetSettingsView(mainViewModel: mainViewModel)
                 } else if mainViewModel.pageSheetMode == .subscribe {
                     SubscribeView(page: mainViewModel.activePage ?? mainViewModel.activeProfile!.pagesArray.first)

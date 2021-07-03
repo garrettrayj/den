@@ -12,7 +12,7 @@ import CoreData
 import FeedKit
 import OSLog
 
-class RefreshManager: ObservableObject {
+final class RefreshManager: ObservableObject {
     @Published public var refreshing: Bool = false
     
     public var progress = Progress(totalUnitCount: 0)

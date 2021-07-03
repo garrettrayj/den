@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ListButtonStyle: ButtonStyle {
-
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .overlay(configuration.isPressed ? Color.red.opacity(0.4) : Color.clear)

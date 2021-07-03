@@ -20,12 +20,13 @@ struct PageView: View {
     @ObservedObject var mainViewModel: MainViewModel
     @ObservedObject var page: Page
     
+    @State var showingSettings: Bool = false
+    
     let columns = [
         GridItem(.adaptive(minimum: 320, maximum: 560), spacing: 16, alignment: .top)
     ]
     
     var body: some View {
-        
         VStack(spacing: 0) {
             if page.managedObjectContext == nil {
                 pageDeleted
@@ -34,6 +35,10 @@ struct PageView: View {
             } else {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
+                        NavigationLink(destination: PageSettingsView(page: page), isActive: $showingSettings) {
+                            Label("Page Settings", systemImage: "wrench")
+                        }.hidden()
+                        
                         RefreshableScrollView(page: page) {
                             LazyVGrid(columns: columns, spacing: 16) {
                                 ForEach(page.feedsArray, id: \.self) { feed in
@@ -93,14 +98,14 @@ struct PageView: View {
         .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
     
-    var pageEmpty: some View {
+    private var pageEmpty: some View {
         Text("Page Empty")
             .font(.title)
             .foregroundColor(.secondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
     
-    var pageDeleted: some View {
+    private var pageDeleted: some View {
         Text("Page Deleted")
             .font(.title)
             .foregroundColor(.secondary)
@@ -108,17 +113,16 @@ struct PageView: View {
             .navigationTitle("")
     }
     
-    func showSettings() {
-        mainViewModel.pageSheetMode = .pageSettings
-        mainViewModel.showingPageSheet = true
+    private func showSettings() {
+        showingSettings = true
     }
     
-    func showSubscribe() {
+    private func showSubscribe() {
         mainViewModel.pageSheetMode = .subscribe
         mainViewModel.showingPageSheet = true
     }
     
-    func onAppear() {
+    private func onAppear() {
         self.mainViewModel.activePage = page
         
         if page.minimumRefreshedDate == nil {

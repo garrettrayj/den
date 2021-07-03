@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import OSLog
 
-class CacheManager: ObservableObject {
+final class CacheManager: ObservableObject {
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
     private var lastBackgroundCleanup: Date?

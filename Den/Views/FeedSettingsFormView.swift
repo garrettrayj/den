@@ -19,8 +19,8 @@ struct FeedSettingsFormView: View {
     
     @State private var pickedPage: Int = 0
 
-    var onDelete: () -> Void
-    var onMove: () -> Void
+    private var onDelete: () -> Void
+    private var onMove: () -> Void
     
     var body: some View {
         let pagePickerSelection = Binding<Int>(
@@ -77,7 +77,7 @@ struct FeedSettingsFormView: View {
                     Text("URL")
                     Spacer()
                     Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
-                    Button(action: copyFeed) {
+                    Button(action: copyFeedUrl) {
                         Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                     }
                 }
@@ -94,22 +94,27 @@ struct FeedSettingsFormView: View {
                 
             }
             Section {
-                Button(action: delete) {
+                Button(action: deleteFeed) {
                     Label("Delete Feed", systemImage: "trash").foregroundColor(Color.red)
                 }
             }
         }
-        .onDisappear(perform: save)
+        .onDisappear(perform: saveFeed)
     }
     
-    init(subscription: Feed, mainViewModel: MainViewModel, onDelete: @escaping () -> Void, onMove: @escaping () -> Void) {
+    init(
+        subscription: Feed,
+        mainViewModel: MainViewModel,
+        onDelete: @escaping () -> Void,
+        onMove: @escaping () -> Void
+    ) {
         self.feed = subscription
         self.mainViewModel = mainViewModel
         self.onDelete = onDelete
         self.onMove = onMove
     }
     
-    func save() {
+    private func saveFeed() {
         if self.viewContext.hasChanges {
             do {
                 try self.viewContext.save()
@@ -125,12 +130,12 @@ struct FeedSettingsFormView: View {
         }
     }
     
-    func delete() {
+    private func deleteFeed() {
         self.viewContext.delete(self.feed)
         self.onDelete()
     }
     
-    func copyFeed() {
+    private func copyFeedUrl() {
         let pasteboard = UIPasteboard.general
         pasteboard.string = feed.url!.absoluteString
     }

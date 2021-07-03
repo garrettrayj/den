@@ -22,9 +22,6 @@ struct SubscribeView: View {
     var page: Page?
     
     var body: some View {
-        
-        
-        
         VStack(alignment: .center, spacing: 20) {
             Text("Add Subscription").font(.title)
             
@@ -92,18 +89,18 @@ struct SubscribeView: View {
         }
     }
     
-    func cancel() {
+    private func cancel() {
         self.presentationMode.wrappedValue.dismiss()
     }
     
-    func failValidation(message: String) {
+    private func failValidation(message: String) {
         self.urlIsValid = false
         self.validationMessage = message
         
         withAnimation(.default) { self.validationAttempts += 1 }
     }
     
-    func validateUrl() {
+    private func validateUrl() {
         self.validationMessage = nil
         self.urlIsValid = nil
         
@@ -137,7 +134,7 @@ struct SubscribeView: View {
         self.createFeed()
     }
     
-    func createFeed() {
+    private func createFeed() {
         guard let targetPage = page else { return }
         
         let newFeed = Feed.create(

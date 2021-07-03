@@ -13,7 +13,7 @@ import Combine
 import OSLog
 import func AVFoundation.AVMakeRect
 
-class SaveThumbnailOperation: Operation {
+final class SaveThumbnailOperation: Operation {
     // Operation inputs
     var thumbnailResponse: HTTPURLResponse?
     var thumbnailData: Data?
@@ -40,7 +40,7 @@ class SaveThumbnailOperation: Operation {
         }
     }
     
-    func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
+    private func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
         guard let image = UIImage(data: imageData) else {
             return nil
         }
@@ -57,7 +57,7 @@ class SaveThumbnailOperation: Operation {
         }
     }
     
-    func saveThumbnail(image: UIImage) -> String? {
+    private func saveThumbnail(image: UIImage) -> String? {
         guard let thumbnailDirectory = FileManager.default.thumbnailsDirectory else { return nil }
         
         let filename = UUID().uuidString.appending(".png")

@@ -7,7 +7,7 @@
 
 import CoreData
 
-class PersistenceManager: ObservableObject {
+final class PersistenceManager: ObservableObject {
     let container: NSPersistentCloudKitContainer
     
     private let crashManager: CrashManager

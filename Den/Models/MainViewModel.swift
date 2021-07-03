@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-class MainViewModel: ObservableObject {
+final class MainViewModel: ObservableObject {
     enum PageSheetMode {
-        case none, pageSettings, feedPreferences, subscribe, crashMessage
+        case none, feedPreferences, subscribe, crashMessage
     }
     
     @Published var activeProfile: Profile?
@@ -18,6 +18,4 @@ class MainViewModel: ObservableObject {
     @Published var pageSheetMode: PageSheetMode = .none
     @Published var pageSheetFeed: Feed?
     @Published var showingPageSheet: Bool = false
-    @Published var sidebarEditMode: EditMode = .inactive
-    @Published var navSelection: String?
 }

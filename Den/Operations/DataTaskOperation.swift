@@ -14,7 +14,7 @@ import OSLog
 /**
  Operation for fetching feed XML (or JSON) data.
  */
-class DataTaskOperation : AsynchronousOperation {
+final class DataTaskOperation : AsynchronousOperation {
     var url: URL?
     var data: Data?
     var error: Error?

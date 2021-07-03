@@ -19,8 +19,8 @@ struct HistoryView: View {
     
     @ObservedObject var mainViewModel: MainViewModel
     
-    @State var searchQuery: String = ""
-    @State var searchResults: [[History]] = []
+    @State private var searchQuery: String = ""
+    @State private var searchResults: [[History]] = []
     
     var body: some View {
         NavigationView {

@@ -10,7 +10,6 @@ import Foundation
 import SwiftUI
 
 struct BorderedButtonStyle: ButtonStyle {
-    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding(.vertical, 8)

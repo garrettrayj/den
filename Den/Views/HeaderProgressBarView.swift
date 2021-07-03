@@ -18,8 +18,15 @@ struct HeaderProgressBarView: View {
     var body: some View {
         if refreshManager.refreshing {
             ProgressView(value: observedProgress)
-                .onReceive(self.refreshManager.progress.publisher(for: \.fractionCompleted).receive(on: RunLoop.main)) { fractionCompleted in
-                self.observedProgress = CGFloat(fractionCompleted)
+                .frame(maxWidth: .infinity)
+                .frame(height: 4)
+                .progressViewStyle(SquaredLinearProgressViewStyle())
+                .onReceive(
+                    self.refreshManager.progress
+                        .publisher(for: \.fractionCompleted)
+                        .receive(on: RunLoop.main)
+                ) { fractionCompleted in
+                    self.observedProgress = CGFloat(fractionCompleted)
                 }
         }
     }
