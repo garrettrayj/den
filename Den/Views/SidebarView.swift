@@ -16,6 +16,7 @@ import CoreData
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentation
+    @Environment(\.editMode) var editMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
     
@@ -24,23 +25,21 @@ struct SidebarView: View {
     @State var pageSelection: String?
     
     var body: some View {
-        VStack {
-            List {
-                if mainViewModel.activeProfile!.pagesArray.count > 0 {
-                    pageList
-                } else {
-                    getStartedSection
-                }
+        List {
+            if mainViewModel.activeProfile!.pagesArray.count > 0 {
+                pageListSection
+            } else {
+                getStartedSection
             }
-            .animation(nil)
-            .listStyle(InsetGroupedListStyle())
-            .environment(\.editMode, self.$mainViewModel.sidebarEditMode)
         }
+        .environment(\.editMode, editMode)
+        .animation(nil)
+        .listStyle(InsetGroupedListStyle())
         .navigationTitle("Den")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button(action: { withAnimation { createPage() }}) {
-                    Image(systemName: "plus")
+                Button(action: createPage) {
+                    Label("Create Page", systemImage: "plus")
                 }
                 EditButton()
             }
@@ -53,15 +52,17 @@ struct SidebarView: View {
         
     }
     
-    var pageList: some View {
-        ForEach(mainViewModel.activeProfile!.pagesArray) { page in
-            PageListRowView(page: page, mainViewModel: mainViewModel, pageSelection: $pageSelection)
+    private var pageListSection: some View {
+        Section(header: Text("Pages").hidden()) {
+            ForEach(mainViewModel.activeProfile!.pagesArray) { page in
+                PageListRowView(page: page, mainViewModel: mainViewModel, pageSelection: $pageSelection)
+            }
+            .onMove(perform: self.movePage)
+            .onDelete(perform: self.deletePage)
         }
-        .onMove(perform: self.move)
-        .onDelete(perform: self.delete)
     }
     
-    var getStartedSection: some View {
+    private var getStartedSection: some View {
         Section(
             header: Text("Get Started"),
             footer: Text("or import subscriptions in settings.")
@@ -81,20 +82,17 @@ struct SidebarView: View {
         }
     }
     
-    func doneEditing() {
-        self.mainViewModel.sidebarEditMode = .inactive
-    }
-    
-    func createPage() {
+    private func createPage() {
         let _ = Page.create(in: viewContext, profile: mainViewModel.activeProfile!)
         do {
             try viewContext.save()
+            mainViewModel.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
     }
     
-    private func move( from source: IndexSet, to destination: Int) {
+    private func movePage( from source: IndexSet, to destination: Int) {
         var revisedItems = mainViewModel.activeProfile!.pagesArray
 
         // change the order of the items in the array
@@ -110,17 +108,19 @@ struct SidebarView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                mainViewModel.objectWillChange.send()
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
         }
     }
     
-    func delete(indices: IndexSet) {
+    private func deletePage(indices: IndexSet) {
         mainViewModel.activeProfile!.pagesArray.delete(at: indices, from: viewContext)
+        mainViewModel.objectWillChange.send()
     }
     
-    func loadDemo() {
+    private func loadDemo() {
         guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
@@ -142,10 +142,9 @@ struct SidebarView: View {
         
         do {
             try viewContext.save()
+            mainViewModel.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
-        
-        mainViewModel.objectWillChange.send()
     }
 }

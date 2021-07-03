@@ -9,9 +9,8 @@
 import Foundation
 import SwiftSoup
 
-struct HTMLCleaner {
+final class HTMLCleaner {
     static let imageSourceBlacklist = ["feedburner", "npr-rss-pixel"]
-    
     
     static func stripTags(_ input: String) -> String? {
         guard let doc: Document = try? SwiftSoup.parseBodyFragment(input) else { return nil } // parse html

@@ -13,7 +13,7 @@ import OSLog
 /**
  Feed entity representation for working with data outside of NSManagedObjectContext (e.g. feed ingest operations)
  */
-class WorkingFeedData {
+final class WorkingFeedData {
     var error: String?
     var favicon: URL?
     var faviconFile: String?

@@ -13,7 +13,7 @@ import Combine
 import OSLog
 import func AVFoundation.AVMakeRect
 
-class SaveFaviconOperation: Operation {
+final class SaveFaviconOperation: Operation {
     // Operation inputs
     var workingFeed: WorkingFeedData?
     var webpageFaviconResponse: HTTPURLResponse?
@@ -56,7 +56,7 @@ class SaveFaviconOperation: Operation {
         return
     }
     
-    func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
+    private func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
         guard let image = UIImage(data: imageData) else {
             return nil
         }
@@ -70,7 +70,7 @@ class SaveFaviconOperation: Operation {
         }
     }
     
-    func saveFavicon(image: UIImage) -> String? {
+    private func saveFavicon(image: UIImage) -> String? {
         guard let faviconDirectory = FileManager.default.faviconsDirectory else { return nil }
         
         let filename = UUID().uuidString.appending(".png")

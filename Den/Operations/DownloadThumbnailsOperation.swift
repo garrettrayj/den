@@ -12,7 +12,7 @@ import FeedKit
 import OSLog
 
 
-class DownloadThumbnailsOperation: Operation {
+final class DownloadThumbnailsOperation: Operation {
     var inputWorkingItems: [WorkingItem] = []
     var outputWorkingItems: [WorkingItem] = []
     

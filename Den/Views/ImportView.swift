@@ -30,7 +30,7 @@ struct ImportView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    var pickFileStage: some View {
+    private var pickFileStage: some View {
         VStack(alignment: .center) {
             Button(action: importManager.pickFile) {
                 Text("Select OPML File")
@@ -42,7 +42,7 @@ struct ImportView: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-    var folderSelectionStage: some View {
+    private var folderSelectionStage: some View {
         Form {
             Section(header: selectionSectionHeader) {
                 ForEach(importManager.opmlFolders, id: \.name) { folder in
@@ -84,11 +84,11 @@ struct ImportView: View {
         }
     }
     
-    var errorStage: some View {
+    private var errorStage: some View {
         Text("Error").font(.title)
     }
     
-    var completeStage: some View {
+    private var completeStage: some View {
         VStack(spacing: 16) {
             Image(systemName: "checkmark.circle")
                 .resizable()
@@ -100,7 +100,7 @@ struct ImportView: View {
         }
     }
     
-    var selectionSectionHeader: some View {
+    private var selectionSectionHeader: some View {
         HStack {
             Text("Select Folders")
             Spacer()

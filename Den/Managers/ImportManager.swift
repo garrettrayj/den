@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-class ImportManager: ObservableObject {
+final class ImportManager: ObservableObject {
     enum ImportStage {
         case pickFile, folderSelection, error, importing
     }

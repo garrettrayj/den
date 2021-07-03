@@ -12,6 +12,7 @@ import SwiftUI
  Page list item view. Transforms name text labels into text fields when .editMode is active.
  */
 struct PageListRowView: View {
+    @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
     @ObservedObject var mainViewModel: MainViewModel
     
@@ -19,7 +20,7 @@ struct PageListRowView: View {
     
     var body: some View {
         if page.id != nil {
-            if mainViewModel.sidebarEditMode == .inactive {
+            if editMode?.wrappedValue == .inactive {
                 NavigationLink(
                     destination: PageView(mainViewModel: mainViewModel, page: page),
                     tag: page.id!.uuidString,

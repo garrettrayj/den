@@ -39,7 +39,7 @@ struct UpdateStatusView: View {
         .offset(y: -height + (loading ? height : 0.0))
     }
     
-    func lastRefreshedLabel() -> Text {
+    private func lastRefreshedLabel() -> Text {
         guard let lastRefreshed = page.minimumRefreshedDate else {
             return Text("Never updated")
         }

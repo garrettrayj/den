@@ -11,7 +11,7 @@ import SwiftSoup
 import CoreData
 import OSLog
 
-class MetadataOperation: Operation {
+final class MetadataOperation: Operation {
     // Operation inputs
     var webpageUrl: URL?
     var webpageData: Data?

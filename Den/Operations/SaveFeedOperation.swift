@@ -15,7 +15,7 @@ import Combine
 
 import func AVFoundation.AVMakeRect
 
-class SaveFeedOperation: Operation {
+final class SaveFeedOperation: Operation {
     // Operation inputs
     var workingFeed: WorkingFeedData?
     var workingFeedItems: [WorkingItem] = []
@@ -56,7 +56,7 @@ class SaveFeedOperation: Operation {
         }
     }
     
-    func updateFeed(feed: Feed, context: NSManagedObjectContext) -> FeedData? {
+    private func updateFeed(feed: Feed, context: NSManagedObjectContext) -> FeedData? {
         guard let feedData = feed.feedData else {
             return nil
         }
@@ -77,7 +77,7 @@ class SaveFeedOperation: Operation {
         return feedData
     }
     
-    func updateFeedItems(feedData: FeedData, context: NSManagedObjectContext) {
+    private func updateFeedItems(feedData: FeedData, context: NSManagedObjectContext) {
         self.workingFeedItems.forEach { workingItem in
             let item = Item.init(context: context)
             item.feedData = feedData

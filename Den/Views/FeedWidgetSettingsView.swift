@@ -17,7 +17,6 @@ struct FeedWidgetSettingsView: View {
     @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
-        
         if mainViewModel.pageSheetFeed == nil {
             Text("Feed Settings Unavailable")
         } else {

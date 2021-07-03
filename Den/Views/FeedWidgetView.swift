@@ -24,7 +24,7 @@ struct FeedWidgetView: View {
         }
     }
     
-    var widgetContent: some View {
+    private var widgetContent: some View {
         VStack(spacing: 0) {
             // MARK: Feed Header
             HStack {
@@ -95,7 +95,7 @@ struct FeedWidgetView: View {
         }
     }
     
-    func showOptions() {
+    private func showOptions() {
         self.mainViewModel.pageSheetFeed = feed
         self.mainViewModel.pageSheetMode = .feedPreferences
         self.mainViewModel.showingPageSheet = true

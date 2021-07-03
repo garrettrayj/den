@@ -39,7 +39,7 @@ struct FeedWidgetItemRowView: View {
         .padding(12)
     }
     
-    var thumbnailImage: some View {
+    private var thumbnailImage: some View {
         item.thumbnailImage?
         .scaleEffect(1 / UIScreen.main.scale)
         .frame(width: 96, height: 64, alignment: .center)
@@ -48,8 +48,8 @@ struct FeedWidgetItemRowView: View {
         .accessibility(label: Text("Thumbnail Image"))
     }
     
-    func openLink() {
+    private func openLink() {
         guard let url = item.link else { return }
-        linkManager.openLink(url: url, logHistoryItem: item)
+        linkManager.openLink(url: url, logHistoryItem: item, readerMode: feed.readerMode)
     }
 }

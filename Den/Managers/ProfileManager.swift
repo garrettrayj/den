@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import OSLog
 
-class ProfileManager: ObservableObject {
+final class ProfileManager: ObservableObject {
     @Published var profiles: [Profile] = []
     
     private var viewContext: NSManagedObjectContext
@@ -25,7 +25,7 @@ class ProfileManager: ObservableObject {
         loadProfiles()
     }
     
-    public func loadProfiles() {
+    private func loadProfiles() {
         do {
             profiles = try self.viewContext.fetch(Profile.fetchRequest()) as! [Profile]
             if profiles.count == 0 {
@@ -37,7 +37,7 @@ class ProfileManager: ObservableObject {
         }
     }
     
-    public func createDefault(adoptOrphans: Bool = false) -> Profile {
+    private func createDefault(adoptOrphans: Bool = false) -> Profile {
         let defaultProfile = Profile.create(in: viewContext)
         
         if adoptOrphans == true {

@@ -20,7 +20,7 @@ struct SettingsView: View {
     @ObservedObject var mainViewModel: MainViewModel
     
     @State private var showingClearWorkspaceAlert = false
-    @State var historyRentionDays: Int = 0
+    @State private var historyRentionDays: Int = 0
     
     var body: some View {
         NavigationView {
@@ -38,7 +38,7 @@ struct SettingsView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
-    var appearanceSection: some View {
+    private var appearanceSection: some View {
         Section(header: Text("\nAppearance")) {
             HStack {
                 Label("Theme", systemImage: "paintpalette")
@@ -52,7 +52,7 @@ struct SettingsView: View {
         }
     }
     
-    var opmlSection: some View {
+    private var opmlSection: some View {
         Section(header: Text("OPML")) {
             NavigationLink(destination: ImportView(mainViewModel: mainViewModel)) {
                 Label("Import Subscriptions", systemImage: "arrow.down.doc")
@@ -64,7 +64,7 @@ struct SettingsView: View {
         }
     }
     
-    var historySection: some View {
+    private var historySection: some View {
         Section(header: Text("History")) {
             Picker("Keep History", selection: $historyRentionDays) {
                 Text("Forever").tag(0 as Int)
@@ -85,7 +85,7 @@ struct SettingsView: View {
         }
     }
     
-    var dataSection: some View {
+    private var dataSection: some View {
         Section(header: Text("Reset")) {
             Button(action: clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark")
@@ -98,7 +98,7 @@ struct SettingsView: View {
                     title: Text("Are you sure you want to reset?"),
                     message: Text("All pages and feeds will be deleted. If iCloud Sync is enabled then other synced devices will also be reset."),
                     primaryButton: .destructive(Text("Reset")) {
-                        self.reset()
+                        self.resetEverything()
                     },
                     secondaryButton: .cancel()
                 )
@@ -106,7 +106,7 @@ struct SettingsView: View {
         }
     }
     
-    var aboutSection: some View {
+    private var aboutSection: some View {
         Section(header: Text("About")) {
             HStack(spacing: 16) {
                 Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
@@ -130,13 +130,13 @@ struct SettingsView: View {
         }
     }
     
-    func loadProfile() {
+    private func loadProfile() {
         guard let profile = mainViewModel.activeProfile else { return }
     
         historyRentionDays = profile.wrappedHistoryRetention
     }
     
-    func saveProfile() {
+    private func saveProfile() {
         guard let profile = mainViewModel.activeProfile else { return }
 
         if historyRentionDays != profile.wrappedHistoryRetention {
@@ -152,7 +152,7 @@ struct SettingsView: View {
         }
     }
     
-    func clearCache() {
+    private func clearCache() {
         cacheManager.resetFeeds()
     }
     
@@ -174,7 +174,7 @@ struct SettingsView: View {
         })
     }
     
-    func restoreDefaultSettings() {
+    private func restoreDefaultSettings() {
         // Clear our UserDefaults domain
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
@@ -183,29 +183,29 @@ struct SettingsView: View {
         themeManager.applyUIStyle()
     }
     
-    func showResetAlert() {
+    private func showResetAlert() {
         self.showingClearWorkspaceAlert = true
     }
     
-    func reset() {
+    private func resetEverything() {
         restoreDefaultSettings()
         profileManager.resetProfiles()
     }
     
-    func openHomepage() {
+    private func openHomepage() {
         if let url = URL(string: "https://devsci.net") {
             UIApplication.shared.open(url)
         }
     }
     
-    func emailSupport() {
+    private func emailSupport() {
         // Note: "mailto:" links do not work in simulator, only on devices
         if let url = URL(string: "mailto:support@devsci.net") {
             UIApplication.shared.open(url)
         }
     }
     
-    func openPrivacyPolicy() {
+    private func openPrivacyPolicy() {
         if let url = URL(string: "https://devsci.net/privacy-policy.html") {
             UIApplication.shared.open(url)
         }

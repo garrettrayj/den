@@ -14,7 +14,7 @@ import OSLog
 /**
  Parses fetched feed data with FeedKit
  */
-class ParseFeedData : AsynchronousOperation {
+final class ParseFeedData : AsynchronousOperation {
     // Operation inputs
     var httpTransportError: Error?
     var httpResponse: HTTPURLResponse?

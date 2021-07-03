@@ -13,7 +13,7 @@ struct ActionButtonStyle: ButtonStyle {
         ActionButton(configuration: configuration)
     }
 
-    struct ActionButton: View {
+    private struct ActionButton: View {
         let configuration: ButtonStyle.Configuration
 
         @Environment(\.isEnabled) private var isEnabled: Bool

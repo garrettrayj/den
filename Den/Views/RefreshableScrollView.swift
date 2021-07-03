@@ -56,7 +56,7 @@ struct RefreshableScrollView<Content: View>: View {
         self.content = content()
     }
     
-    func refreshLogic(values: [RefreshableKeyTypes.PrefData]) {
+    private func refreshLogic(values: [RefreshableKeyTypes.PrefData]) {
         DispatchQueue.main.async {
             // Calculate scroll offset
             let movingBounds = values.first { $0.vType == .movingView }?.bounds ?? .zero
@@ -81,7 +81,7 @@ struct RefreshableScrollView<Content: View>: View {
         }
     }
     
-    func symbolRotation(_ scrollOffset: CGFloat) -> Angle {
+    private func symbolRotation(_ scrollOffset: CGFloat) -> Angle {
         // We will begin rotation, only after we have passed 50% of the way of reaching the threshold.
         if scrollOffset < self.threshold * 0.50 {
             return .degrees(0)
@@ -94,7 +94,7 @@ struct RefreshableScrollView<Content: View>: View {
         }
     }
     
-    struct MovingView: View {
+    private struct MovingView: View {
         var body: some View {
             GeometryReader { proxy in
                 Color.clear.preference(
@@ -110,7 +110,7 @@ struct RefreshableScrollView<Content: View>: View {
         }
     }
     
-    struct FixedView: View {
+    private struct FixedView: View {
         var body: some View {
             GeometryReader { proxy in
                 Color.clear.preference(

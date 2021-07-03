@@ -13,68 +13,63 @@ import SwiftUI
  */
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
     
-    @ObservedObject var mainViewModel: MainViewModel
+    @ObservedObject var page: Page
     
     @State var itemsPerFeedStepperValue: Int = 0
     @State var pageNameText: String = ""
 
     var body: some View {
-        if mainViewModel.activePage == nil {
-            Text("Page Settings Unavailable")
-        } else {
-            NavigationView {
-                Form {
-                    Section(header: Text("Settings")) {
-                        HStack {
-                            Text("Name")
-                            TextField("Name", text: $pageNameText).multilineTextAlignment(.trailing)
-                        }
-                        
-                        Stepper("Feed Item Limit: \(itemsPerFeedStepperValue)", value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max))
-                    }
-                    
-                    Section(header: HStack { Text("\(mainViewModel.activePage!.feedsArray.count) Feeds"); Spacer(); Text("Drag to Reorder") }) {
-                        List {
-                            ForEach(mainViewModel.activePage!.feedsArray) { feed in
-                                Text(feed.wrappedTitle)
-                            }
-                            .onDelete(perform: delete)
-                            .onMove(perform: move)
-                        }.environment(\.editMode, .constant(.active))
-                    }
+        Form {
+            Section(header: Text("\nSettings")) {
+                HStack {
+                    Text("Name")
+                    TextField("Name", text: $pageNameText).multilineTextAlignment(.trailing)
                 }
-                .navigationTitle("Page Settings")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar() {
-                    ToolbarItem() {
-                        Button(action: close) { Text("Close") }
-                    }
-                }
-                .environment(\.editMode, .constant(.active))
+                
+                Stepper("Feed Item Limit: \(itemsPerFeedStepperValue)", value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max))
             }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .onAppear(perform: load)
-            .onDisappear(perform: save)
+            
+            Section(
+                header: HStack {
+                    Text("\(page.feedsArray.count) Feeds")
+                    Spacer()
+                    Text("Drag to Reorder")
+                }
+            ) {
+                ForEach(page.feedsArray) { feed in
+                    HStack(alignment: .center, spacing: 12) {
+                        feed.feedData?.faviconImage
+                            .scaleEffect(1 / UIScreen.main.scale)
+                            .frame(width: 16, height: 16, alignment: .center)
+                            .clipped()
+                        Text(feed.wrappedTitle)
+                    }
+                }
+                .onDelete(perform: deleteFeed)
+                .onMove(perform: moveFeed)
+            }
         }
+        .environment(\.editMode, .constant(.active))
+        .navigationTitle("Page Settings")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: loadPage)
+        .onDisappear(perform: savePage)
     }
     
-    func close() {
-        self.mainViewModel.showingPageSheet = false
+    private func close() {
+        presentationMode.wrappedValue.dismiss()
     }
     
-    func load() {
-        guard let page = mainViewModel.activePage else { return }
-        
+    private func loadPage() {
         itemsPerFeedStepperValue = page.wrappedItemsPerFeed
         pageNameText = page.wrappedName
     }
     
-    func save() {
-        guard let page = mainViewModel.activePage else { return }
-
+    private func savePage() {
         var refresh = false
         
         if itemsPerFeedStepperValue != page.wrappedItemsPerFeed {
@@ -99,17 +94,13 @@ struct PageSettingsView: View {
         }
     }
     
-    func delete(indices: IndexSet) {
-        if mainViewModel.activePage == nil { return }
-        
-        mainViewModel.activePage!.feedsArray.delete(at: indices, from: viewContext)
+    private func deleteFeed(indices: IndexSet) {
+        page.feedsArray.delete(at: indices, from: viewContext)
     }
     
-    private func move( from source: IndexSet, to destination: Int) {
-        if mainViewModel.activePage == nil { return }
-        
+    private func moveFeed( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Feed] = mainViewModel.activePage!.feedsArray.map { $0 }
+        var revisedItems: [Feed] = page.feedsArray.map { $0 }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)

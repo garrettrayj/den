@@ -14,8 +14,8 @@ import OSLog
 struct SearchView: View {
     @Environment(\.managedObjectContext) var viewContext
     
-    @State var searchQuery: String = ""
-    @State var searchResults: [[Item]] = []
+    @State private var searchQuery: String = ""
+    @State private var searchResults: [[Item]] = []
     
     var body: some View {
         NavigationView() {

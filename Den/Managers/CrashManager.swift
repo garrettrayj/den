@@ -10,8 +10,8 @@ import Foundation
 import OSLog
 import CoreData
 
-class CrashManager: ObservableObject {
-    var mainViewModel: MainViewModel
+final class CrashManager: ObservableObject {
+    private var mainViewModel: MainViewModel
 
     init(mainViewModel: MainViewModel) {
         self.mainViewModel = mainViewModel

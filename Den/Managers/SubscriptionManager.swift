@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SubscriptionManager: ObservableObject {
+final class SubscriptionManager: ObservableObject {
     @Published var showSubscribe: Bool = false
     @Published var subscribeURLString: String = ""
     

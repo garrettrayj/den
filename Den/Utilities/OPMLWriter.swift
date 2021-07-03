@@ -9,8 +9,8 @@
 import SwiftUI
 import AEXML
 
-class OPMLWriter {
-    var pages: [Page]
+final class OPMLWriter {
+    private var pages: [Page]
     
     init(pages: [Page]) {
         self.pages = pages
