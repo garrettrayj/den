@@ -14,7 +14,7 @@ extension FeedKit.JSONFeedItem {
      Returns a webpage URL for the item; <link> value is preferred, with fallback to <guid>.
      For example, items from https://devblogs.microsoft.com/feed/landingpage/ do not include a link.
      */
-    var linkURL: URL? {        
+    var linkURL: URL? {
         if
             let itemLinkString = self.url?.trimmingCharacters(in: .whitespacesAndNewlines),
             let linkURL = URL(string: itemLinkString)
@@ -26,7 +26,7 @@ extension FeedKit.JSONFeedItem {
         {
             return linkURL
         }
-        
+
         return nil
     }
 }

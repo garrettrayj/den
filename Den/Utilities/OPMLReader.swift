@@ -24,13 +24,13 @@ struct OPMLFeed: Hashable {
 final class OPMLReader {
     private var xmlURL: URL
     private var data: Data?
-    
+
     var outlineFolders: [OPMLFolder] = []
-    
+
     init(xmlURL: URL) {
         self.xmlURL = xmlURL
         self.data = try? Data(contentsOf: xmlURL)
-        
+
         // Populate outline with XML data
         guard let data = data else { return }
         do {
@@ -40,18 +40,18 @@ final class OPMLReader {
             Logger.main.error("Error reading OPML: \(error)")
         }
     }
-    
+
     private func parseDocument(xmlDoc: AEXMLDocument) {
         let folders = xmlDoc.root["body"].allDescendants { element in
             element.attributes["title"] != nil && element.attributes["xmlUrl"] == nil
         }
-        
+
         folders.forEach { folderElement in
             var opmlFolder = OPMLFolder(name: folderElement.attributes["title"] ?? "Uncategorized")
             let feeds = folderElement.allDescendants { element in
                 element.attributes["xmlUrl"] != nil
             }
-            
+
             feeds.forEach({ feedElement in
                 guard
                     let title = feedElement.attributes["title"],
@@ -60,11 +60,11 @@ final class OPMLReader {
                 else {
                     return
                 }
-                
+
                 let feed = OPMLFeed(title: title, url: xmlURL)
                 opmlFolder.feeds.append(feed)
             })
-            
+
             outlineFolders.append(opmlFolder)
         }
     }

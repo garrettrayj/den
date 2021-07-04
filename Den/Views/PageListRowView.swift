@@ -15,7 +15,7 @@ struct PageListRowView: View {
     @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
     @Binding var pageSelection: String?
-    
+
     var body: some View {
         if page.id != nil {
             if editMode?.wrappedValue == .inactive {
@@ -28,7 +28,7 @@ struct PageListRowView: View {
                         .lineLimit(1)
                         .multilineTextAlignment(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
+
                     Text(String(page.unreadCount))
                         .font(.caption)
                         .padding(.vertical, 4)

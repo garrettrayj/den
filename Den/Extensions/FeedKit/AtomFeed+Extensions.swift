@@ -19,7 +19,7 @@ extension FeedKit.AtomFeed {
         else {
             return nil
         }
-        
+
         return webpage
     }
 }

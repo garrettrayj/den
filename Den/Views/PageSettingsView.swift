@@ -16,9 +16,9 @@ struct PageSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    
+
     @ObservedObject var page: Page
-    
+
     @State var itemsPerFeedStepperValue: Int = 0
     @State var pageNameText: String = ""
 
@@ -29,10 +29,14 @@ struct PageSettingsView: View {
                     Text("Name")
                     TextField("Name", text: $pageNameText).multilineTextAlignment(.trailing)
                 }
-                
-                Stepper("Feed Item Limit: \(itemsPerFeedStepperValue)", value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max))
+
+                Stepper(
+                    "Feed Item Limit: \(itemsPerFeedStepperValue)",
+                    value: $itemsPerFeedStepperValue,
+                    in: 1...Int(Int16.max)
+                )
             }
-            
+
             Section(
                 header: HStack {
                     Text("\(page.feedsArray.count) Feeds")
@@ -59,32 +63,32 @@ struct PageSettingsView: View {
         .onAppear(perform: loadPage)
         .onDisappear(perform: savePage)
     }
-    
+
     private func close() {
         presentationMode.wrappedValue.dismiss()
     }
-    
+
     private func loadPage() {
         itemsPerFeedStepperValue = page.wrappedItemsPerFeed
         pageNameText = page.wrappedName
     }
-    
+
     private func savePage() {
         var refresh = false
-        
+
         if itemsPerFeedStepperValue != page.wrappedItemsPerFeed {
             page.wrappedItemsPerFeed = itemsPerFeedStepperValue
             refresh = true
         }
-        
+
         if pageNameText != page.wrappedName {
             page.wrappedName = pageNameText
         }
-        
+
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()
-                
+
                 if refresh == true {
                     self.refreshManager.refresh(page)
                 }
@@ -93,11 +97,11 @@ struct PageSettingsView: View {
             }
         }
     }
-    
+
     private func deleteFeed(indices: IndexSet) {
         page.feedsArray.delete(at: indices, from: viewContext)
     }
-    
+
     private func moveFeed( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
         var revisedItems: [Feed] = page.feedsArray.map { $0 }

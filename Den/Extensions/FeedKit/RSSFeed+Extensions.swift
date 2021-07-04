@@ -17,7 +17,7 @@ extension FeedKit.RSSFeed {
         {
             return link
         }
-        
+
         return nil
     }
 }

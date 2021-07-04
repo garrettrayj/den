@@ -7,13 +7,14 @@
 import SwiftUI
 
 @main
-/**
- Main application setup. In the past similar functionality was contained in `SceneDelegate`.
- */
+
 struct DenApp: App {
+    /**
+     Main application setup. In the past similar functionality was contained in `SceneDelegate`.
+     */
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @StateObject var persistenceManager: PersistenceManager
     @StateObject var crashManager: CrashManager
     @StateObject var profileManager: ProfileManager
@@ -23,7 +24,7 @@ struct DenApp: App {
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
     @StateObject var browserManager: LinkManager
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -43,9 +44,9 @@ struct DenApp: App {
                         titlebar.toolbar = nil
                     }
                     #endif
-                    
+
                     browserManager.controller = window?.rootViewController
-                    
+
                     themeManager.window = window
                     themeManager.applyUIStyle()
                 }.onOpenURL { url in
@@ -66,9 +67,9 @@ struct DenApp: App {
                 }
             }
     }
-    
+
     init() {
-        
+
         let crashManager = CrashManager()
         let persistenceManager = PersistenceManager(crashManager: crashManager)
         let profileManager = ProfileManager(
@@ -95,7 +96,7 @@ struct DenApp: App {
             crashManager: crashManager,
             profileManager: profileManager
         )
-        
+
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
         _profileManager = StateObject(wrappedValue: profileManager)
@@ -105,7 +106,7 @@ struct DenApp: App {
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
         _browserManager = StateObject(wrappedValue: browserManager)
-        
+
         FileManager.default.initAppDirectories()
     }
 }

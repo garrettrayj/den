@@ -17,28 +17,30 @@ final class CrashManager: ObservableObject {
         Logger.main.critical("\(self.formatErrorMessage(anError))")
         showingCrashMessage = true
     }
-    
+
     private func formatErrorMessage(_ anError: NSError?) -> String {
         guard let anError = anError else { return "Unknown error" }
-            
+
         guard anError.domain.compare("NSCocoaErrorDomain") == .orderedSame else {
             return "Application error: \(anError)"
         }
-        
+
         let messages: String = "Unrecoverable data error. \(anError.localizedDescription)"
         var errors = [AnyObject]()
-        
+
         if anError.code == NSValidationMultipleErrorsError {
-            errors = anError.userInfo[NSDetailedErrorsKey] as! [AnyObject]
+            if let multipleErros = anError.userInfo[NSDetailedErrorsKey] as? [AnyObject] {
+                errors = multipleErros
+            }
         } else {
             errors = [AnyObject]()
             errors.append(anError)
         }
-        
+
         if errors.count == 0 {
             return ""
         }
-        
+
         return messages
     }
 }

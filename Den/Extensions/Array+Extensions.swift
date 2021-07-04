@@ -14,7 +14,7 @@ extension Array {
             Array(self[$0 ..< Swift.min($0 + size, count)])
         }
     }
-    
+
     func batched(into numBatches: Int) -> [[Element]] {
         let batchCount = count / numBatches
         return stride(from: 0, to: count, by: batchCount).map {

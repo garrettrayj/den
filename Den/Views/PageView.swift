@@ -19,14 +19,13 @@ struct PageView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
     @ObservedObject var page: Page
-    
+
     @State private var showingSettings: Bool = false
-    
-    
+
     let columns = [
         GridItem(.adaptive(minimum: 360, maximum: 480), spacing: 16, alignment: .top)
     ]
-    
+
     var body: some View {
         VStack(spacing: 0) {
             if page.managedObjectContext == nil {
@@ -39,7 +38,7 @@ struct PageView: View {
                         NavigationLink(destination: PageSettingsView(page: page), isActive: $showingSettings) {
                             Label("Page Settings", systemImage: "wrench")
                         }.hidden()
-                        
+
                         RefreshableScrollView(page: page) {
                             LazyVGrid(columns: columns, spacing: 16) {
                                 ForEach(page.feedsArray, id: \.self) { feed in
@@ -66,12 +65,12 @@ struct PageView: View {
                         Button(action: showSubscribe) {
                             Label("Add Subscription", systemImage: "plus.circle")
                         }
-                        
+
                         Button(action: showSettings) {
                             Label("Page Settings", systemImage: "wrench")
                         }
-                        
-                        Button(action: { refreshManager.refresh(self.page) }) {
+
+                        Button { refreshManager.refresh(self.page) } label: {
                             Label("Refresh", systemImage: "arrow.clockwise")
                         }
                     } label: {
@@ -84,12 +83,12 @@ struct PageView: View {
                     Button(action: showSubscribe) {
                         Label("Add Subscription", systemImage: "plus.circle")
                     }.disabled(refreshManager.refreshing == true)
-                    
+
                     Button(action: showSettings) {
                         Label("Page Settings", systemImage: "wrench")
                     }.disabled(refreshManager.refreshing == true)
-                    
-                    Button(action: { refreshManager.refresh(self.page) }) {
+
+                    Button { refreshManager.refresh(self.page) } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }.disabled(refreshManager.refreshing == true)
                 }
@@ -98,14 +97,14 @@ struct PageView: View {
         .onAppear(perform: onAppear)
         .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
-    
+
     private var pageEmpty: some View {
         Text("Page Empty")
             .font(.title)
             .foregroundColor(.secondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
-    
+
     private var pageDeleted: some View {
         Text("Page Deleted")
             .font(.title)
@@ -113,18 +112,18 @@ struct PageView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .navigationTitle("")
     }
-    
+
     private func showSettings() {
         showingSettings = true
     }
-    
+
     private func showSubscribe() {
         subscriptionManager.showAddSubscription()
     }
-    
+
     private func onAppear() {
         subscriptionManager.destinationPage = page
-        
+
         if page.minimumRefreshedDate == nil {
             refreshManager.refresh(page)
         }

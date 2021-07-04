@@ -13,14 +13,14 @@ struct FeedSettingsFormView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    
+
     @ObservedObject var feed: Feed
-    
+
     @State private var pickedPage: Int = 0
 
     private var onDelete: () -> Void
     private var onMove: () -> Void
-    
+
     var body: some View {
         let pagePickerSelection = Binding<Int>(
             get: {
@@ -34,14 +34,14 @@ struct FeedSettingsFormView: View {
                 self.onMove()
             }
         )
-        
+
         return Form {
-            Section() {
+            Section {
                 HStack {
                     Text("Title")
                     TextField("Title", text: $feed.wrappedTitle).multilineTextAlignment(.trailing)
                 }
-                
+
                 Picker("Page", selection: pagePickerSelection) {
                     ForEach(0 ..< (feed.page?.profile?.pagesArray.count ?? 0)) {
                         Text(feed.page!.profile!.pagesArray[$0].wrappedName).tag($0)
@@ -55,13 +55,13 @@ struct FeedSettingsFormView: View {
                         self.pickedPage = pageIndex
                     }
                 }
-                
+
                 HStack {
                     Toggle(isOn: $feed.showThumbnails) {
                         Text("Show Thumbnails")
                     }
                 }
-                
+
                 #if !targetEnvironment(macCatalyst)
                 HStack {
                     Toggle(isOn: $feed.readerMode) {
@@ -70,8 +70,8 @@ struct FeedSettingsFormView: View {
                 }
                 #endif
             }
-            
-            Section() {
+
+            Section {
                 HStack(alignment: .center) {
                     Text("URL")
                     Spacer()
@@ -80,17 +80,18 @@ struct FeedSettingsFormView: View {
                         Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                     }
                 }
-                
+
                 HStack(alignment: .center) {
                     Text("Last Refresh")
                     Spacer()
                     if feed.feedData?.refreshed != nil {
-                        Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.create())").foregroundColor(.secondary)
+                        Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.create())")
+                            .foregroundColor(.secondary)
                     } else {
                         Text("Never").foregroundColor(.secondary)
                     }
                 }
-                
+
             }
             Section {
                 Button(action: deleteFeed) {
@@ -100,7 +101,7 @@ struct FeedSettingsFormView: View {
         }
         .onDisappear(perform: saveFeed)
     }
-    
+
     init(
         feed: Feed,
         onDelete: @escaping () -> Void,
@@ -110,7 +111,7 @@ struct FeedSettingsFormView: View {
         self.onDelete = onDelete
         self.onMove = onMove
     }
-    
+
     private func saveFeed() {
         if self.viewContext.hasChanges {
             do {
@@ -118,7 +119,7 @@ struct FeedSettingsFormView: View {
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
-            
+
             if let feedData = feed.feedData {
                 feedData.itemsArray.forEach { item in
                     item.objectWillChange.send()
@@ -126,12 +127,12 @@ struct FeedSettingsFormView: View {
             }
         }
     }
-    
+
     private func deleteFeed() {
         self.viewContext.delete(self.feed)
         self.onDelete()
     }
-    
+
     private func copyFeedUrl() {
         let pasteboard = UIPasteboard.general
         pasteboard.string = feed.url!.absoluteString

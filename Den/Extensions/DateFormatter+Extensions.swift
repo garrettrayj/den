@@ -9,19 +9,22 @@
 import Foundation
 
 extension DateFormatter {
-    static func create(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .short) -> DateFormatter {
+    static func create(
+        dateStyle: DateFormatter.Style = .medium,
+        timeStyle: DateFormatter.Style = .short
+    ) -> DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = dateStyle
         dateFormatter.timeStyle = timeStyle
         dateFormatter.locale = .autoupdatingCurrent
-        
+
         return dateFormatter
     }
-    
+
     static func getFormattedDate(date: Date, format: String) -> String {
         let dateformat = DateFormatter()
         dateformat.dateFormat = format
-        
+
         return dateformat.string(from: date)
     }
 }

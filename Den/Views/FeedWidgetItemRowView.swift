@@ -15,7 +15,7 @@ struct FeedWidgetItemRowView: View {
     @EnvironmentObject var linkManager: LinkManager
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if item.published != nil {
@@ -23,12 +23,12 @@ struct FeedWidgetItemRowView: View {
                     .font(.caption)
                     .foregroundColor(Color(.secondaryLabel))
             }
-            
+
             HStack(alignment: .top, spacing: 12) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
                 }
-                
+
                 if item.thumbnailImage != nil && item.feedData != nil && item.feedData?.feed?.showThumbnails == true {
                     thumbnailImage
                 }
@@ -38,7 +38,7 @@ struct FeedWidgetItemRowView: View {
         .frame(maxWidth: .infinity)
         .padding(12)
     }
-    
+
     private var thumbnailImage: some View {
         item.thumbnailImage?
         .scaleEffect(1 / UIScreen.main.scale)
@@ -47,7 +47,7 @@ struct FeedWidgetItemRowView: View {
         .background(Color(UIColor.tertiarySystemGroupedBackground))
         .accessibility(label: Text("Thumbnail Image"))
     }
-    
+
     private func openLink() {
         guard let url = item.link else { return }
         linkManager.openLink(url: url, logHistoryItem: item, readerMode: feed.readerMode)

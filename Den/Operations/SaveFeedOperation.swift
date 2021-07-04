@@ -19,31 +19,36 @@ final class SaveFeedOperation: Operation {
     // Operation inputs
     var workingFeed: WorkingFeedData?
     var workingFeedItems: [WorkingItem] = []
-    
+
     private var feedObjectID: NSManagedObjectID
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
     private var saveMeta: Bool
-    
-    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager, feedObjectID: NSManagedObjectID, saveMeta: Bool) {
+
+    init(
+        persistentContainer: NSPersistentContainer,
+        crashManager: CrashManager,
+        feedObjectID: NSManagedObjectID,
+        saveMeta: Bool
+    ) {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
         self.feedObjectID = feedObjectID
         self.saveMeta = saveMeta
         super.init()
     }
-    
-    override func main() {        
+
+    override func main() {
         if isCancelled { return }
-        
+
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
         context.performAndWait {
-            let feed = context.object(with: feedObjectID) as! Feed
+            guard let feed = context.object(with: feedObjectID) as? Feed else { return }
             guard let feedData = updateFeed(feed: feed, context: context) else { return }
-            
+
             updateFeedItems(feedData: feedData, context: context)
-            
+
             if context.hasChanges {
                 do {
                     try context.save()
@@ -55,28 +60,28 @@ final class SaveFeedOperation: Operation {
             }
         }
     }
-    
+
     private func updateFeed(feed: Feed, context: NSManagedObjectContext) -> FeedData? {
         guard let feedData = feed.feedData else {
             return nil
         }
-        
+
         if feed.title == nil {
             feed.title = workingFeed?.title
         }
-        
+
         if saveMeta == true {
             feedData.favicon = self.workingFeed?.favicon
             feedData.faviconFile = self.workingFeed?.faviconFile
             feedData.metaFetched = Date()
         }
-        
+
         feedData.error = self.workingFeed?.error
         feedData.refreshed = Date()
-        
+
         return feedData
     }
-    
+
     private func updateFeedItems(feedData: FeedData, context: NSManagedObjectContext) {
         self.workingFeedItems.forEach { workingItem in
             let item = Item.init(context: context)

@@ -13,7 +13,7 @@ struct ImportView: View {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
-    
+
     var body: some View {
         Group {
             if self.importManager.stage == .pickFile {
@@ -27,7 +27,7 @@ struct ImportView: View {
         .navigationTitle("Import")
         .navigationBarTitleDisplayMode(.inline)
     }
-    
+
     private var pickFileStage: some View {
         VStack(alignment: .center) {
             Button(action: importManager.pickFile) {
@@ -39,12 +39,12 @@ struct ImportView: View {
         .background(Color(UIColor.systemGroupedBackground))
         .edgesIgnoringSafeArea(.all)
     }
-    
+
     private var folderSelectionStage: some View {
         Form {
             Section(header: selectionSectionHeader) {
                 ForEach(importManager.opmlFolders, id: \.name) { folder in
-                    Button(action: { self.importManager.toggleFolder(folder) }) {
+                    Button { self.importManager.toggleFolder(folder) } label: {
                         HStack {
                             if self.importManager.selectedFolders.contains(folder) {
                                 Image(systemName: "checkmark.circle.fill")
@@ -61,28 +61,26 @@ struct ImportView: View {
                     }
                 }
             }
-            
+
             VStack(alignment: .center) {
-                Button(action: {
-                    self.importManager.importSelected()
-                }) {
+                Button(action: importFeeds) {
                     Label("Import Subscription", systemImage: "arrow.down.doc")
                 }.buttonStyle(ActionButtonStyle()).frame(alignment: .center)
             }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
         }
-        .toolbar() {
-            ToolbarItem() {
+        .toolbar {
+            ToolbarItem {
                 Button(action: cancel) {
                     Text("Cancel")
                 }
             }
         }
     }
-    
+
     private var errorStage: some View {
         Text("Error").font(.title)
     }
-    
+
     private var completeStage: some View {
         VStack(spacing: 16) {
             Image(systemName: "checkmark.circle")
@@ -94,7 +92,7 @@ struct ImportView: View {
                 .foregroundColor(Color(.secondaryLabel))
         }
     }
-    
+
     private var selectionSectionHeader: some View {
         HStack {
             Text("Select Folders")
@@ -108,7 +106,11 @@ struct ImportView: View {
             }.disabled(importManager.noneSelected)
         }
     }
-    
+
+    private func importFeeds() {
+        self.importManager.importSelected()
+    }
+
     private func cancel() {
         self.importManager.reset()
     }

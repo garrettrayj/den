@@ -17,7 +17,7 @@ extension FeedKit.JSONFeed {
         {
             return linkURL
         }
-        
+
         return nil
     }
 }

@@ -16,12 +16,13 @@ struct MIMETypes {
         case jpeg = "image/jpeg"
         case gif = "image/gif"
     }
-    
+
     enum ImageMIMETypes: String, CaseIterable {
         case png = "image/png"
         case jpeg = "image/jpeg"
         case gif = "image/gif"
-        // Cover incorrect JPEG MIME type usage, e.g. images in Raw Story feeds (https://www.rawstory.com/category/world/feed/)
+        // Cover incorrect JPEG MIME type usage,
+        // e.g. images in Raw Story feeds (https://www.rawstory.com/category/world/feed/)
         case jpg = "image/jpg"
     }
 }

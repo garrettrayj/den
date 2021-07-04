@@ -19,7 +19,7 @@ extension AtomFeedEntry {
         else {
             return nil
         }
-        
+
         return linkURL
     }
 }

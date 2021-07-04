@@ -13,15 +13,15 @@ import OSLog
 
 struct SearchView: View {
     @Environment(\.managedObjectContext) var viewContext
-    
+
     @State private var searchQuery: String = ""
     @State private var searchResults: [[Item]] = []
-    
+
     var body: some View {
-        NavigationView() {
+        NavigationView {
             VStack(spacing: 0) {
                 SearchFieldView(searchQuery: $searchQuery)
-                
+
                 if searchResults.count > 0 && searchIsValid(query: searchQuery) {
                     ScrollView {
                         Grid(searchResults, id: \.self) { sectionItems in
@@ -65,20 +65,20 @@ struct SearchView: View {
                             self.search(query: trimmedQuery)
                         }
                     }
-                    
+
                 }
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
+
     private func searchIsValid(query: String) -> Bool {
         if query == "" || query.count >= 3 {
             return true
         }
         return false
     }
-    
+
     private func search(query: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
         fetchRequest.predicate = NSPredicate(
@@ -88,26 +88,26 @@ struct SearchView: View {
         )
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
         fetchRequest.relationshipKeyPathsForPrefetching = ["feed"]
-    
+
         do {
-            let fetchResults = try viewContext.fetch(fetchRequest) as! [Item]
+            guard let fetchResults = try viewContext.fetch(fetchRequest) as? [Item] else { return }
             var compactedFetchResults: [Item] = []
             fetchResults.forEach { item in
                 if item.feedData?.feed != nil {
                     compactedFetchResults.append(item)
                 }
             }
-            
+
             self.searchResults = Dictionary(grouping: compactedFetchResults) { item in
                 item.feedData!
-            }.values.sorted { a, b in
+            }.values.sorted { aItem, bItem in
                 guard
-                    let aTitle = a[0].feedData?.feed?.wrappedTitle,
-                    let bTitle = b[0].feedData?.feed?.wrappedTitle
+                    let aTitle = aItem[0].feedData?.feed?.wrappedTitle,
+                    let bTitle = bItem[0].feedData?.feed?.wrappedTitle
                 else {
                     return false
                 }
-                
+
                 return aTitle < bTitle
             }
         } catch {

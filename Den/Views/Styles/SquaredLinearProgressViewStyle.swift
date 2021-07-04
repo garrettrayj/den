@@ -12,13 +12,13 @@ import SwiftUI
 struct SquaredLinearProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         let fractionCompleted = configuration.fractionCompleted ?? 0
-        
+
         return GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .frame(width: geometry.size.width , height: geometry.size.height)
+                    .frame(width: geometry.size.width, height: geometry.size.height)
                     .foregroundColor(Color(UIColor.separator))
-                
+
                 Rectangle()
                     .frame(
                         width: min(CGFloat(fractionCompleted) * geometry.size.width, geometry.size.width),

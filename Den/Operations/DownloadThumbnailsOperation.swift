@@ -11,39 +11,38 @@ import CoreData
 import FeedKit
 import OSLog
 
-
 final class DownloadThumbnailsOperation: Operation {
     var inputWorkingItems: [WorkingItem] = []
     var outputWorkingItems: [WorkingItem] = []
-    
+
     private var queue = OperationQueue()
 
     override func main() {
-        var combinedThumbnailOperations: [Operation] = []
-        var saveOperations: [SaveThumbnailOperation] = []
-        
-        for item in inputWorkingItems {
-            let thumbnailDataOperation = DataTaskOperation(item.image)
-            let saveThumbnailOperation = SaveThumbnailOperation()
-            saveOperations.append(saveThumbnailOperation)
-            
-            let thumbnailDataAdapter = BlockOperation() { [unowned saveThumbnailOperation, unowned thumbnailDataOperation] in
-                saveThumbnailOperation.thumbnailData = thumbnailDataOperation.data
-                saveThumbnailOperation.thumbnailResponse = thumbnailDataOperation.response
-                saveThumbnailOperation.workingFeedItem = item
-            }
-            
-            thumbnailDataAdapter.addDependency(thumbnailDataOperation)
-            saveThumbnailOperation.addDependency(thumbnailDataAdapter)
+        var combinedOps: [Operation] = []
+        var saveOps: [SaveThumbnailOperation] = []
 
-            combinedThumbnailOperations.append(thumbnailDataOperation)
-            combinedThumbnailOperations.append(thumbnailDataAdapter)
-            combinedThumbnailOperations.append(saveThumbnailOperation)
+        for item in inputWorkingItems {
+            let dataOp = DataTaskOperation(item.image)
+            let saveOp = SaveThumbnailOperation()
+            saveOps.append(saveOp)
+
+            let thumbnailDataAdapter = BlockOperation { [unowned saveOp, unowned dataOp] in
+                saveOp.thumbnailData = dataOp.data
+                saveOp.thumbnailResponse = dataOp.response
+                saveOp.workingFeedItem = item
+            }
+
+            thumbnailDataAdapter.addDependency(dataOp)
+            saveOp.addDependency(thumbnailDataAdapter)
+
+            combinedOps.append(dataOp)
+            combinedOps.append(thumbnailDataAdapter)
+            combinedOps.append(saveOp)
         }
-        
-        self.queue.addOperations(combinedThumbnailOperations, waitUntilFinished: true)
-        
-        for operation in saveOperations {
+
+        self.queue.addOperations(combinedOps, waitUntilFinished: true)
+
+        for operation in saveOps {
             if let workingFeedItem = operation.workingFeedItem {
                 outputWorkingItems.append(workingFeedItem)
             }

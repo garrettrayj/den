@@ -24,7 +24,7 @@ final class WorkingFeedData {
     var refreshed: Date?
     var feedId: UUID?
     var title: String?
-    
+
     /**
      Atom feed handler responsible for populating application data model from FeedKit AtomFeed result.
      */
@@ -32,17 +32,16 @@ final class WorkingFeedData {
         if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
             self.title = feedTitle
         }
-        
+
         if
             let atomLink = content.links?.first(where: { atomLink in
                 atomLink.attributes?.rel == "alternate" || atomLink.attributes?.rel == nil
             }),
-            let homepageURL = atomLink.attributes?.href
-        {
+            let homepageURL = atomLink.attributes?.href {
             self.link = URL(string: homepageURL)
         }
     }
-    
+
     /**
      RSS feed handler responsible for populating application data model from FeedKit RSSFeed result.
      */
@@ -50,12 +49,15 @@ final class WorkingFeedData {
         if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
             self.title = feedTitle
         }
-        
-        if let homepage = content.link?.trimmingCharacters(in: .whitespacesAndNewlines), let homepageURL = URL(string: homepage) {
+
+        if
+            let homepage = content.link?.trimmingCharacters(in: .whitespacesAndNewlines),
+            let homepageURL = URL(string: homepage)
+        {
             self.link = homepageURL
         }
     }
-    
+
     /**
      JSON feed handler responsible for populating application data model from FeedKit JSONFeed result.
      */
@@ -63,7 +65,7 @@ final class WorkingFeedData {
         if let title = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
             self.title = title
         }
-        
+
         if let link = content.webpage {
             self.link = link
         }

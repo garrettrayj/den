@@ -16,7 +16,7 @@ struct ContentView: View {
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var safariManager: LinkManager
-    
+
     var body: some View {
         if crashManager.showingCrashMessage == true {
             CrashMessageView()

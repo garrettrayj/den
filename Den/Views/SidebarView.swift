@@ -20,9 +20,9 @@ struct SidebarView: View {
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    
+
     @State var pageSelection: String?
-    
+
     var body: some View {
         List {
             if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
@@ -48,9 +48,9 @@ struct SidebarView: View {
                 pageSelection = profileManager.activeProfile?.pagesArray.first?.id?.uuidString
             }
         }
-        
+
     }
-    
+
     private var pageListSection: some View {
         Section(header: Text("Pages").hidden()) {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
@@ -60,7 +60,7 @@ struct SidebarView: View {
             .onDelete(perform: self.deletePage)
         }
     }
-    
+
     private var getStartedSection: some View {
         Section(
             header: Text("Get Started"),
@@ -80,9 +80,9 @@ struct SidebarView: View {
             }
         }
     }
-    
+
     private func createPage() {
-        let _ = Page.create(in: viewContext, profile: profileManager.activeProfile!)
+        _ = Page.create(in: viewContext, profile: profileManager.activeProfile!)
         do {
             try viewContext.save()
             profileManager.activeProfile?.objectWillChange.send()
@@ -90,7 +90,7 @@ struct SidebarView: View {
             crashManager.handleCriticalError(error)
         }
     }
-    
+
     private func movePage( from source: IndexSet, to destination: Int) {
         guard var revisedItems = profileManager.activeProfile?.pagesArray else { return }
 
@@ -103,7 +103,7 @@ struct SidebarView: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-        
+
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
@@ -113,32 +113,32 @@ struct SidebarView: View {
             }
         }
     }
-    
+
     private func deletePage(indices: IndexSet) {
         profileManager.activeProfile?.pagesArray.delete(at: indices, from: viewContext)
         profileManager.activeProfile?.objectWillChange.send()
     }
-    
+
     private func loadDemo() {
         guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
-        
+
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
-        
+
         var newPages: [Page] = []
         opmlReader.outlineFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profileManager.activeProfile!)
             page.name = opmlFolder.name
             newPages.append(page)
-            
+
             opmlFolder.feeds.forEach { opmlFeed in
                 let feed = Feed.create(in: self.viewContext, page: page)
                 feed.title = opmlFeed.title
                 feed.url = opmlFeed.url
             }
         }
-        
+
         do {
             try viewContext.save()
             profileManager.activeProfile?.objectWillChange.send()
