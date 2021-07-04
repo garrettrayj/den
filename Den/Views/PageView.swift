@@ -14,16 +14,17 @@ import Grid
  */
 struct PageView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var screenManager: SubscriptionManager
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    @ObservedObject var mainViewModel: MainViewModel
     @ObservedObject var page: Page
     
-    @State var showingSettings: Bool = false
+    @State private var showingSettings: Bool = false
+    
     
     let columns = [
-        GridItem(.adaptive(minimum: 320, maximum: 560), spacing: 16, alignment: .top)
+        GridItem(.adaptive(minimum: 360, maximum: 480), spacing: 16, alignment: .top)
     ]
     
     var body: some View {
@@ -42,7 +43,7 @@ struct PageView: View {
                         RefreshableScrollView(page: page) {
                             LazyVGrid(columns: columns, spacing: 16) {
                                 ForEach(page.feedsArray, id: \.self) { feed in
-                                    FeedWidgetView(feed: feed, mainViewModel: mainViewModel)
+                                    FeedWidgetView(feed: feed)
                                 }
                             }
                             .padding(.leading, geometry.safeAreaInsets.leading + 16)
@@ -118,12 +119,11 @@ struct PageView: View {
     }
     
     private func showSubscribe() {
-        mainViewModel.pageSheetMode = .subscribe
-        mainViewModel.showingPageSheet = true
+        subscriptionManager.showAddSubscription()
     }
     
     private func onAppear() {
-        self.mainViewModel.activePage = page
+        subscriptionManager.destinationPage = page
         
         if page.minimumRefreshedDate == nil {
             refreshManager.refresh(page)

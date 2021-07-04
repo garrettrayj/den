@@ -14,29 +14,24 @@ import SwiftUI
  */
 struct FeedWidgetSettingsView: View {
     @Environment(\.presentationMode) var presentation
-    @ObservedObject var mainViewModel: MainViewModel
+    @ObservedObject var feed: Feed
     
     var body: some View {
-        if mainViewModel.pageSheetFeed == nil {
-            Text("Feed Settings Unavailable")
-        } else {
-            NavigationView {
-                FeedSettingsFormView(
-                    subscription: mainViewModel.pageSheetFeed!,
-                    mainViewModel: mainViewModel,
-                    onDelete: close,
-                    onMove: close
-                )
-                .navigationTitle("Feed Settings")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar() {
-                    ToolbarItem() {
-                        Button(action: close) { Text("Close") }
-                    }
+        NavigationView {
+            FeedSettingsFormView(
+                feed: feed,
+                onDelete: close,
+                onMove: close
+            )
+            .navigationTitle("Feed Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar() {
+                ToolbarItem() {
+                    Button(action: close) { Text("Close") }
                 }
             }
-            .navigationViewStyle(StackNavigationViewStyle())
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func close() {

@@ -14,8 +14,6 @@ struct ImportView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
     
-    @ObservedObject var mainViewModel: MainViewModel
-    
     var body: some View {
         Group {
             if self.importManager.stage == .pickFile {
@@ -68,10 +66,7 @@ struct ImportView: View {
                 Button(action: {
                     self.importManager.importSelected()
                 }) {
-                    HStack {
-                        Image(systemName: "arrow.down.doc")
-                        Text("Import Subscriptions").lineLimit(1)
-                    }
+                    Label("Import Subscription", systemImage: "arrow.down.doc")
                 }.buttonStyle(ActionButtonStyle()).frame(alignment: .center)
             }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
         }

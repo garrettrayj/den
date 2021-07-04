@@ -14,7 +14,6 @@ struct FeedSettingsFormView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
     
-    @ObservedObject var mainViewModel: MainViewModel
     @ObservedObject var feed: Feed
     
     @State private var pickedPage: Int = 0
@@ -28,7 +27,7 @@ struct FeedSettingsFormView: View {
                 return self.pickedPage
             },
             set: {
-                let pages = mainViewModel.activeProfile!.pagesArray
+                guard let pages = feed.page?.profile?.pagesArray else { return }
                 self.pickedPage = $0
                 self.feed.userOrder = pages[$0].feedsUserOrderMax + 1
                 self.feed.page = pages[$0]
@@ -44,14 +43,14 @@ struct FeedSettingsFormView: View {
                 }
                 
                 Picker("Page", selection: pagePickerSelection) {
-                    ForEach(0 ..< mainViewModel.activeProfile!.pagesArray.count) {
-                        Text(mainViewModel.activeProfile!.pagesArray[$0].wrappedName).tag($0)
+                    ForEach(0 ..< (feed.page?.profile?.pagesArray.count ?? 0)) {
+                        Text(feed.page!.profile!.pagesArray[$0].wrappedName).tag($0)
                     }
                 }
                 .onAppear {
                     if
                         let page = self.feed.page,
-                        let pageIndex = mainViewModel.activeProfile!.pagesArray.firstIndex(of: page)
+                        let pageIndex = page.profile?.pagesArray.firstIndex(of: page)
                     {
                         self.pickedPage = pageIndex
                     }
@@ -103,13 +102,11 @@ struct FeedSettingsFormView: View {
     }
     
     init(
-        subscription: Feed,
-        mainViewModel: MainViewModel,
+        feed: Feed,
         onDelete: @escaping () -> Void,
         onMove: @escaping () -> Void
     ) {
-        self.feed = subscription
-        self.mainViewModel = mainViewModel
+        self.feed = feed
         self.onDelete = onDelete
         self.onMove = onMove
     }

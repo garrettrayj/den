@@ -17,16 +17,15 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentation
     @Environment(\.editMode) var editMode
+    @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
-    
-    @ObservedObject var mainViewModel: MainViewModel
     
     @State var pageSelection: String?
     
     var body: some View {
         List {
-            if mainViewModel.activeProfile!.pagesArray.count > 0 {
+            if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
                 pageListSection
             } else {
                 getStartedSection
@@ -46,7 +45,7 @@ struct SidebarView: View {
         }
         .onAppear {
             if pageSelection == nil && UIDevice.current.userInterfaceIdiom != .phone {
-                pageSelection = mainViewModel.activeProfile?.pagesArray.first?.id?.uuidString
+                pageSelection = profileManager.activeProfile?.pagesArray.first?.id?.uuidString
             }
         }
         
@@ -54,8 +53,8 @@ struct SidebarView: View {
     
     private var pageListSection: some View {
         Section(header: Text("Pages").hidden()) {
-            ForEach(mainViewModel.activeProfile!.pagesArray) { page in
-                PageListRowView(page: page, mainViewModel: mainViewModel, pageSelection: $pageSelection)
+            ForEach(profileManager.activeProfile!.pagesArray) { page in
+                PageListRowView(page: page, pageSelection: $pageSelection)
             }
             .onMove(perform: self.movePage)
             .onDelete(perform: self.deletePage)
@@ -83,17 +82,17 @@ struct SidebarView: View {
     }
     
     private func createPage() {
-        let _ = Page.create(in: viewContext, profile: mainViewModel.activeProfile!)
+        let _ = Page.create(in: viewContext, profile: profileManager.activeProfile!)
         do {
             try viewContext.save()
-            mainViewModel.objectWillChange.send()
+            profileManager.activeProfile?.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
     }
     
     private func movePage( from source: IndexSet, to destination: Int) {
-        var revisedItems = mainViewModel.activeProfile!.pagesArray
+        guard var revisedItems = profileManager.activeProfile?.pagesArray else { return }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -108,7 +107,7 @@ struct SidebarView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                mainViewModel.objectWillChange.send()
+                profileManager.activeProfile?.objectWillChange.send()
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
@@ -116,8 +115,8 @@ struct SidebarView: View {
     }
     
     private func deletePage(indices: IndexSet) {
-        mainViewModel.activeProfile!.pagesArray.delete(at: indices, from: viewContext)
-        mainViewModel.objectWillChange.send()
+        profileManager.activeProfile?.pagesArray.delete(at: indices, from: viewContext)
+        profileManager.activeProfile?.objectWillChange.send()
     }
     
     private func loadDemo() {
@@ -129,7 +128,7 @@ struct SidebarView: View {
         
         var newPages: [Page] = []
         opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, profile: mainViewModel.activeProfile!)
+            let page = Page.create(in: self.viewContext, profile: profileManager.activeProfile!)
             page.name = opmlFolder.name
             newPages.append(page)
             
@@ -142,7 +141,7 @@ struct SidebarView: View {
         
         do {
             try viewContext.save()
-            mainViewModel.objectWillChange.send()
+            profileManager.activeProfile?.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }

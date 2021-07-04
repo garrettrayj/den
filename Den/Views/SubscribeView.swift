@@ -11,6 +11,7 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     
@@ -19,74 +20,75 @@ struct SubscribeView: View {
     @State private var validationAttempts: Int = 0
     @State private var validationMessage: String?
     
-    var page: Page?
-    
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Text("Add Subscription").font(.title)
             
-            if page != nil {
-                HStack {
-                    TextField("https://example.com/feed.xml", text: $urlText)
-                        .lineLimit(1)
-                        .disableAutocorrection(true)
-                    
-                    if urlIsValid != nil {
-                        if urlIsValid == true {
-                            Image(systemName: "checkmark.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(Color(UIColor.systemGreen))
-                                
-                        } else {
-                            Image(systemName: "slash.circle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(Color(UIColor.systemRed))
-                        }
-                    }
-                }
-                .padding()
-                .background(Color(UIColor.systemBackground))
-                .cornerRadius(8)
-                .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
+            if subscriptionManager.destinationPage != nil {
+                feedUrlInput
 
-                Button(action: validateUrl) { Text("Add to \(page!.wrappedName)") }
-                .disabled(!(urlText.count > 0))
-                .buttonStyle(ActionButtonStyle())
+                Button(action: validateUrl) { Text("Add to \(subscriptionManager.destinationPage!.wrappedName)") }
+                    .disabled(!(urlText.count > 0))
+                    .buttonStyle(ActionButtonStyle())
                 
-                if validationMessage != nil {
-                    Text(validationMessage!)
-                }
+                if validationMessage != nil { Text(validationMessage!) }
             } else {
-                VStack(spacing: 16) {
-                    Image(systemName: "exclamationmark.triangle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 48, height: 48)
-                    Text("Create a page before adding subscriptions.")
-                        .foregroundColor(Color(.secondaryLabel))
-                        .multilineTextAlignment(.center)
-                }.frame(maxWidth: .infinity)
+                missingPage
             }
             
             Spacer()
-            
-            Button(action: cancel) {
-                Text("Cancel")
-            }
+            Button(action: cancel) { Text("Cancel") }
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(32)
-        .background(Color(UIColor.secondarySystemBackground))
+        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             self.urlText = self.subscriptionManager.subscribeURLString
+            if self.subscriptionManager.destinationPage == nil {
+                self.subscriptionManager.destinationPage = profileManager.activeProfile?.pagesArray.first
+            }
         }
-        .onDisappear {
-            self.subscriptionManager.reset()
+        .onDisappear { self.subscriptionManager.reset() }
+    }
+    
+    private var feedUrlInput: some View {
+        HStack {
+            TextField("https://example.com/feed.xml", text: $urlText)
+                .lineLimit(1)
+                .disableAutocorrection(true)
+            
+            if urlIsValid != nil {
+                if urlIsValid == true {
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color(UIColor.systemGreen))
+                } else {
+                    Image(systemName: "slash.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color(UIColor.systemRed))
+                }
+            }
         }
+        .padding()
+        .background(Color(UIColor.systemBackground))
+        .cornerRadius(8)
+        .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
+    }
+    
+    private var missingPage: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "exclamationmark.triangle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 48, height: 48)
+            Text("Create a page before adding subscriptions")
+                .foregroundColor(Color(.secondaryLabel))
+                .multilineTextAlignment(.center)
+        }.frame(maxWidth: .infinity)
     }
     
     private func cancel() {
@@ -135,13 +137,9 @@ struct SubscribeView: View {
     }
     
     private func createFeed() {
-        guard let targetPage = page else { return }
+        guard let destinationPage = subscriptionManager.destinationPage else { return }
         
-        let newFeed = Feed.create(
-            in: self.viewContext,
-            page: targetPage,
-            prepend: true
-        )
+        let newFeed = Feed.create(in: self.viewContext, page: destinationPage, prepend: true)
         newFeed.url = URL(string: self.urlText)
         
         self.refreshManager.refresh(newFeed)

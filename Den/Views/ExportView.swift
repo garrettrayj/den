@@ -12,61 +12,57 @@ import AEXML
 
 struct ExportView: View {
     @Environment(\.presentationMode) var presentation
+    @EnvironmentObject var profileManager: ProfileManager
     
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
     @State private var picker: ExportDocumentPicker?
     
-    @ObservedObject var mainViewModel: MainViewModel
-    
     var body: some View {
-        Form {
-            Section(header: selectionSectionHeader) {
-                if mainViewModel.activeProfile!.pagesArray.count > 0 {
-                    ForEach(mainViewModel.activeProfile!.pagesArray) { page in
-                        // .editMode doesn't work inside forms, so creating selection buttons manually
-                        Button(action: { self.togglePage(page) }) {
-                            HStack {
-                                if self.selectedPages.contains(page) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                } else {
-                                    Image(systemName: "circle")
-                                }
-                                
-                                Text(page.wrappedName).foregroundColor(.primary)
-                                Spacer()
-                                Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
-                            }
-                        }.onAppear(perform: { self.selectedPages.append(page) })
-                    }
-                } else {
-                    VStack(alignment: .center) {
-                        Text("No pages available for export").foregroundColor(Color(UIColor.secondaryLabel))
-                    }.padding().frame(maxWidth: .infinity)
+        if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
+            Form {
+                pageList
+                
+                VStack(alignment: .center) {
+                    Button(action: exportOpml) {
+                        Label("Save OPML File", systemImage: "arrow.up.doc")
+                    }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
                 }
+                .frame(maxWidth: .infinity)
+                .listRowBackground(Color(UIColor.systemGroupedBackground))
             }
-            
+            .navigationTitle("Export")
+            .navigationBarTitleDisplayMode(.inline)
+        } else {
             VStack(alignment: .center) {
-                Button(action: {
-                    self.export()
-                    UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.up.doc")
-                        Text("Save OPML File")
-                    }
-                }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
-            }
-            .frame(maxWidth: .infinity)
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
+                Text("No pages available for export").foregroundColor(Color(UIColor.secondaryLabel))
+            }.padding().frame(maxWidth: .infinity)
         }
-        .navigationTitle("Export")
-        .navigationBarTitleDisplayMode(.inline)
-        
+    }
+    
+    private var pageList: some View {
+        Section(header: selectionSectionHeader) {
+            ForEach(profileManager.activeProfile!.pagesArray) { page in
+                // .editMode doesn't work inside forms, so creating selection buttons manually
+                Button(action: { self.togglePage(page) }) {
+                    HStack {
+                        if self.selectedPages.contains(page) {
+                            Image(systemName: "checkmark.circle.fill")
+                        } else {
+                            Image(systemName: "circle")
+                        }
+                        
+                        Text(page.wrappedName).foregroundColor(.primary)
+                        Spacer()
+                        Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
+                    }
+                }.onAppear(perform: { self.selectedPages.append(page) })
+            }
+        }
     }
     
     private var allSelected: Bool {
-        selectedPages.count == mainViewModel.activeProfile!.pagesArray.count
+        selectedPages.count == profileManager.activeProfile?.pagesArray.count ?? 0
     }
     
     private var noneSelected: Bool {
@@ -96,7 +92,7 @@ struct ExportView: View {
     }
     
     private func selectAll() {
-        mainViewModel.activeProfile!.pagesArray.forEach { page in
+        profileManager.activeProfile?.pagesArray.forEach { page in
             if !selectedPages.contains(page) {
                 selectedPages.append(page)
             }
@@ -107,8 +103,8 @@ struct ExportView: View {
         selectedPages.removeAll()
     }
     
-    private func export() {
-        let exportPages: [Page] = mainViewModel.activeProfile!.pagesArray.compactMap { page in
+    private func exportOpml() {
+        let exportPages: [Page] = profileManager.activeProfile!.pagesArray.compactMap { page in
             if selectedPages.contains(page) {
                 return page
             }
@@ -119,6 +115,8 @@ struct ExportView: View {
         let opmlWriter = OPMLWriter(pages: exportPages)
         let temporaryFileURL = opmlWriter.writeToFile()
         self.picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
+        
+        UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
     }
     
     private func cancel() {

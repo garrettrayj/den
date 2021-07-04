@@ -14,7 +14,6 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     
-    @StateObject var mainViewModel: MainViewModel
     @StateObject var persistenceManager: PersistenceManager
     @StateObject var crashManager: CrashManager
     @StateObject var profileManager: ProfileManager
@@ -27,7 +26,7 @@ struct DenApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(mainViewModel: mainViewModel)
+            ContentView()
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
                 .environmentObject(profileManager)
                 .environmentObject(refreshManager)
@@ -50,7 +49,7 @@ struct DenApp: App {
                     themeManager.window = window
                     themeManager.applyUIStyle()
                 }.onOpenURL { url in
-                    subscriptionManager.subscribe(to: url)
+                    subscriptionManager.showAddSubscription(to: url)
                 }
             }.onChange(of: scenePhase) { newScenePhase in
                 switch newScenePhase {
@@ -69,14 +68,12 @@ struct DenApp: App {
     }
     
     init() {
-        let mainViewModel = MainViewModel()
         
-        let crashManager = CrashManager(mainViewModel: mainViewModel)
+        let crashManager = CrashManager()
         let persistenceManager = PersistenceManager(crashManager: crashManager)
         let profileManager = ProfileManager(
             viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager,
-            mainViewModel: mainViewModel
+            crashManager: crashManager
         )
         let refreshManager = RefreshManager(
             persistentContainer: persistenceManager.container,
@@ -89,17 +86,16 @@ struct DenApp: App {
         let importManager = ImportManager(
             viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager,
-            mainViewModel: mainViewModel
+            profileManager: profileManager
         )
-        let subscriptionManager = SubscriptionManager(mainViewModel: mainViewModel)
+        let subscriptionManager = SubscriptionManager()
         let themeManager = ThemeManager()
         let browserManager = LinkManager(
             viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager,
-            mainViewModel: mainViewModel
+            profileManager: profileManager
         )
         
-        _mainViewModel = StateObject(wrappedValue: mainViewModel)
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
         _profileManager = StateObject(wrappedValue: profileManager)
