@@ -40,8 +40,7 @@ final class OPMLWriter {
             }
         }
 
-        let dateFormatter = DateFormatter.create(dateStyle: .long, timeStyle: .medium)
-        let fileDate = dateFormatter
+        let fileDate = DateFormatter.longMedium
             .string(from: Date())
             .replacingOccurrences(of: "/", with: "-")
             .replacingOccurrences(of: ":", with: ".")

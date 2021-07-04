@@ -19,7 +19,7 @@ struct FeedWidgetItemRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if item.published != nil {
-                Text("\(item.published!, formatter: DateFormatter.create())")
+                Text("\(item.published!, formatter: DateFormatter.mediumShort)")
                     .font(.caption)
                     .foregroundColor(Color(.secondaryLabel))
             }

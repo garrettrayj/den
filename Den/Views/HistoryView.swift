@@ -20,8 +20,6 @@ struct HistoryView: View {
     @State private var searchQuery: String = ""
     @State private var searchResults: [[History]] = []
 
-    private var dateFormatter = DateFormatter.create(dateStyle: .medium, timeStyle: .none)
-
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -43,7 +41,7 @@ struct HistoryView: View {
                         ForEach(searchResults, id: \.self) { resultGroup in
                             if resultGroup.first?.visited != nil {
                                 Section(
-                                    header: Text("\(resultGroup.first!.visited!, formatter: dateFormatter)")
+                                    header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.mediumNone)")
                                 ) {
                                     ForEach(resultGroup) { result in
                                         if result.title != nil && result.link != nil {
@@ -112,7 +110,7 @@ struct HistoryView: View {
 
             let grouping = Dictionary(
                 grouping: compactedFetchResults,
-                by: { DateFormatter.getFormattedDate(date: $0.visited!, format: "yyyy-MM-dd") }
+                by: { DateFormatter.isoDate.string(from: $0.visited!) }
             )
 
             self.searchResults = grouping.values.sorted { aHistory, bHistory in
