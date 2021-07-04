@@ -70,11 +70,11 @@ final class WorkingItem {
                 self.image = mediaURL
             }
         } else if
-            let mediaThumbnails = atomEntry.media?.mediaThumbnails?.sorted(by: { a, b in
+            let mediaThumbnails = atomEntry.media?.mediaThumbnails?.sorted(by: { aThumb, bThumb in
                 guard
-                    let aWidthString = a.attributes?.width,
+                    let aWidthString = aThumb.attributes?.width,
                     let aWidth = Int(aWidthString),
-                    let bWidthString = b.attributes?.width,
+                    let bWidthString = bThumb.attributes?.width,
                     let bWidth = Int(bWidthString)
                 else {
                     return false
@@ -115,7 +115,8 @@ final class WorkingItem {
         if let published = rssItem.pubDate {
             self.published = published
         } else {
-            // Fallback to Dublin Core metadata for published date (ex. http://feeds.feedburner.com/oatmealfeed does not have pubDate)
+            // Fallback to Dublin Core metadata for published date
+            // (ex. http://feeds.feedburner.com/oatmealfeed does not have pubDate)
             if let published = rssItem.dublinCore?.dcDate {
                 self.published = published
             }
@@ -133,7 +134,7 @@ final class WorkingItem {
         if
             let enclosure = rssItem.enclosure,
             let mimeTypeString = enclosure.attributes?.type,
-            let _ = MIMETypes.ImageMIMETypes(rawValue: mimeTypeString),
+            MIMETypes.ImageMIMETypes(rawValue: mimeTypeString) != nil,
             let enclosureURLString = enclosure.attributes?.url,
             let enclosureURL = URL(string: enclosureURLString)
         {
@@ -167,11 +168,11 @@ final class WorkingItem {
                 self.image = mediaURL
             }
         } else if
-            let mediaThumbnails = rssItem.media?.mediaThumbnails?.sorted(by: { a, b in
+            let mediaThumbnails = rssItem.media?.mediaThumbnails?.sorted(by: { aThumb, bThumb in
                 guard
-                    let aWidthString = a.attributes?.width,
+                    let aWidthString = aThumb.attributes?.width,
                     let aWidth = Int(aWidthString),
-                    let bWidthString = b.attributes?.width,
+                    let bWidthString = bThumb.attributes?.width,
                     let bWidth = Int(bWidthString)
                 else {
                     return false
@@ -225,7 +226,10 @@ final class WorkingItem {
         }
 
         if let imageAttachment = jsonItem.attachments?.first(where: { attachment in
-            if let mimeTypeString = attachment.mimeType, let _ = MIMETypes.ImageMIMETypes(rawValue: mimeTypeString) {
+            if
+                let mimeTypeString = attachment.mimeType,
+                MIMETypes.ImageMIMETypes(rawValue: mimeTypeString) != nil
+            {
                 return true
             }
             return false
