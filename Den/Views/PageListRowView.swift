@@ -14,15 +14,13 @@ import SwiftUI
 struct PageListRowView: View {
     @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
-    @ObservedObject var mainViewModel: MainViewModel
-    
     @Binding var pageSelection: String?
     
     var body: some View {
         if page.id != nil {
             if editMode?.wrappedValue == .inactive {
                 NavigationLink(
-                    destination: PageView(mainViewModel: mainViewModel, page: page),
+                    destination: PageView(page: page),
                     tag: page.id!.uuidString,
                     selection: $pageSelection
                 ) {

@@ -17,8 +17,6 @@ struct HistoryView: View {
     @EnvironmentObject var linkManager: LinkManager
     @EnvironmentObject var crashManager: CrashManager
     
-    @ObservedObject var mainViewModel: MainViewModel
-    
     @State private var searchQuery: String = ""
     @State private var searchResults: [[History]] = []
     

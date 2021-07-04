@@ -17,23 +17,24 @@ struct ContentView: View {
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var safariManager: LinkManager
     
-    @ObservedObject var mainViewModel: MainViewModel
-    
-    
     var body: some View {
-        TabView {
-            PagesView(mainViewModel: mainViewModel)
-                .tabItem { Label("Pages", systemImage: "list.dash") }
-            
-            SearchView()
-                .tabItem { Label("Search", systemImage: "magnifyingglass") }
-            
-            HistoryView(mainViewModel: mainViewModel)
-                .tabItem { Label("History", systemImage: "clock") }
-            
-            SettingsView(mainViewModel: mainViewModel)
-                .tabItem { Label("Settings", systemImage: "gear") }
-        
+        if crashManager.showingCrashMessage == true {
+            CrashMessageView()
+        } else {
+            TabView {
+                PagesView().tabItem { Label("Pages", systemImage: "list.dash") }
+                SearchView().tabItem { Label("Search", systemImage: "magnifyingglass") }
+                HistoryView().tabItem { Label("History", systemImage: "clock") }
+                SettingsView().tabItem { Label("Settings", systemImage: "gear") }
+            }
+            .sheet(isPresented: $subscriptionManager.showingAddSubscription) {
+                SubscribeView()
+                    .environment(\.managedObjectContext, viewContext)
+                    .environment(\.colorScheme, colorScheme)
+                    .environmentObject(subscriptionManager)
+                    .environmentObject(refreshManager)
+                    .environmentObject(crashManager)
+            }
         }
     }
 }

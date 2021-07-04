@@ -9,16 +9,11 @@
 import Foundation
 
 final class SubscriptionManager: ObservableObject {
-    @Published var showSubscribe: Bool = false
+    @Published var destinationPage: Page?
+    @Published var showingAddSubscription: Bool = false
     @Published var subscribeURLString: String = ""
     
-    var mainViewModel: MainViewModel
-    
-    init(mainViewModel: MainViewModel) {
-        self.mainViewModel = mainViewModel
-    }
-    
-    func subscribe(to url: URL? = nil) {        
+    func showAddSubscription(to url: URL? = nil) {        
         if
             let url = url,
             var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
@@ -32,12 +27,11 @@ final class SubscriptionManager: ObservableObject {
             }
         }
         
-        self.mainViewModel.pageSheetMode = .subscribe
-        self.mainViewModel.showingPageSheet = true
+        self.showingAddSubscription = true
     }
     
     func reset() {
-        showSubscribe = false
+        showingAddSubscription = false
         subscribeURLString = ""
     }
 }

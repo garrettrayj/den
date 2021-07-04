@@ -11,17 +11,11 @@ import OSLog
 import CoreData
 
 final class CrashManager: ObservableObject {
-    private var mainViewModel: MainViewModel
+    @Published var showingCrashMessage: Bool = false
 
-    init(mainViewModel: MainViewModel) {
-        self.mainViewModel = mainViewModel
-    }
-    
     public func handleCriticalError(_ anError: NSError) {
         Logger.main.critical("\(self.formatErrorMessage(anError))")
-        
-        mainViewModel.pageSheetMode = .crashMessage
-        mainViewModel.showingPageSheet = true
+        showingCrashMessage = true
     }
     
     private func formatErrorMessage(_ anError: NSError?) -> String {

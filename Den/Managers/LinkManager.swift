@@ -19,12 +19,12 @@ final class LinkManager: ObservableObject {
     
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
-    private var mainViewModel: MainViewModel
+    private var profileManager: ProfileManager
     
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, mainViewModel: MainViewModel) {
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profileManager: ProfileManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager
-        self.mainViewModel = mainViewModel
+        self.profileManager = profileManager
     }
     
     public func openLink(url:URL, logHistoryItem: Item? = nil, readerMode: Bool = false) {
@@ -45,7 +45,7 @@ final class LinkManager: ObservableObject {
     }
     
     private func logHistory(item: Item) {
-        guard let profile = mainViewModel.activeProfile else { return }
+        guard let profile = profileManager.activeProfile else { return }
         
         let history = History.create(in: self.viewContext, profile: profile)
         history.link = item.link

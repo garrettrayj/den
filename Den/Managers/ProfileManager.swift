@@ -12,15 +12,14 @@ import OSLog
 
 final class ProfileManager: ObservableObject {
     @Published var profiles: [Profile] = []
+    @Published var activeProfile: Profile?
     
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
-    private var mainViewModel: MainViewModel
     
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, mainViewModel: MainViewModel) {
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager
-        self.mainViewModel = mainViewModel
         
         loadProfiles()
     }
@@ -31,7 +30,7 @@ final class ProfileManager: ObservableObject {
             if profiles.count == 0 {
                 profiles.append(createDefault(adoptOrphans: true))
             }
-            mainViewModel.activeProfile = profiles.first
+            activeProfile = profiles.first
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
@@ -73,7 +72,7 @@ final class ProfileManager: ObservableObject {
     
     public func resetProfiles() {
         let defaultProfile = createDefault()
-        mainViewModel.activeProfile = defaultProfile
+        activeProfile = defaultProfile
         
         profiles.forEach { profile in
             if profile != defaultProfile {

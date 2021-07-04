@@ -12,10 +12,14 @@ import SwiftUI
  Block view with channel title and items (articles)
  */
 struct FeedWidgetView: View {
+    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentation
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var feed: Feed
-    @ObservedObject var mainViewModel: MainViewModel
+    
+    @State private var showingFeedPreferences: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -93,11 +97,16 @@ struct FeedWidgetView: View {
                 }
             }
         }
+        .sheet(isPresented: $showingFeedPreferences) {
+            FeedWidgetSettingsView(feed: feed)
+                .environment(\.managedObjectContext, viewContext)
+                .environment(\.colorScheme, colorScheme)
+                .environmentObject(refreshManager)
+                .environmentObject(crashManager)
+        }
     }
     
     private func showOptions() {
-        self.mainViewModel.pageSheetFeed = feed
-        self.mainViewModel.pageSheetMode = .feedPreferences
-        self.mainViewModel.showingPageSheet = true
+        self.showingFeedPreferences = true
     }
 }

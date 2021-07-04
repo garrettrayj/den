@@ -27,7 +27,7 @@ struct SearchView: View {
                         Grid(searchResults, id: \.self) { sectionItems in
                             SearchResultView(items: sectionItems)
                         }
-                        .gridStyle(StaggeredGridStyle(availableWidth: 200))
+                        .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(360), spacing: 16))
                         .padding()
                         .padding(.bottom, 64)
                     }

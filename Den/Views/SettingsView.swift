@@ -17,8 +17,6 @@ struct SettingsView: View {
     @EnvironmentObject var themeManager: ThemeManager
     @EnvironmentObject var profileManager: ProfileManager
     
-    @ObservedObject var mainViewModel: MainViewModel
-    
     @State private var showingClearWorkspaceAlert = false
     @State private var historyRentionDays: Int = 0
     
@@ -54,11 +52,11 @@ struct SettingsView: View {
     
     private var opmlSection: some View {
         Section(header: Text("OPML")) {
-            NavigationLink(destination: ImportView(mainViewModel: mainViewModel)) {
+            NavigationLink(destination: ImportView()) {
                 Label("Import Subscriptions", systemImage: "arrow.down.doc")
             }
             
-            NavigationLink(destination: ExportView(mainViewModel: mainViewModel)) {
+            NavigationLink(destination: ExportView()) {
                 Label("Export Subscriptions", systemImage: "arrow.up.doc")
             }
         }
@@ -131,13 +129,13 @@ struct SettingsView: View {
     }
     
     private func loadProfile() {
-        guard let profile = mainViewModel.activeProfile else { return }
+        guard let profile = profileManager.activeProfile else { return }
     
         historyRentionDays = profile.wrappedHistoryRetention
     }
     
     private func saveProfile() {
-        guard let profile = mainViewModel.activeProfile else { return }
+        guard let profile = profileManager.activeProfile else { return }
 
         if historyRentionDays != profile.wrappedHistoryRetention {
             profile.wrappedHistoryRetention = historyRentionDays
@@ -157,7 +155,7 @@ struct SettingsView: View {
     }
     
     private func clearHistory() {
-        mainViewModel.activeProfile?.historyArray.forEach { history in
+        profileManager.activeProfile?.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
         
@@ -167,7 +165,7 @@ struct SettingsView: View {
             crashManager.handleCriticalError(error)
         }
         
-        mainViewModel.activeProfile?.pagesArray.forEach({ page in
+        profileManager.activeProfile?.pagesArray.forEach({ page in
             page.feedsArray.forEach { feed in
                 feed.objectWillChange.send()
             }
