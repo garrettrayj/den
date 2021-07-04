@@ -85,7 +85,7 @@ struct FeedSettingsFormView: View {
                     Text("Last Refresh")
                     Spacer()
                     if feed.feedData?.refreshed != nil {
-                        Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.create())")
+                        Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.mediumShort)")
                             .foregroundColor(.secondary)
                     } else {
                         Text("Never").foregroundColor(.secondary)

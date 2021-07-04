@@ -52,7 +52,7 @@ struct SidebarView: View {
     }
 
     private var pageListSection: some View {
-        Section(header: Text("Pages").hidden()) {
+        Section {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
                 PageListRowView(page: page, pageSelection: $pageSelection)
             }

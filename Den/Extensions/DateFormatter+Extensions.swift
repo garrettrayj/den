@@ -9,22 +9,37 @@
 import Foundation
 
 extension DateFormatter {
-    static func create(
-        dateStyle: DateFormatter.Style = .medium,
-        timeStyle: DateFormatter.Style = .short
-    ) -> DateFormatter {
+    static let mediumShort: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = dateStyle
-        dateFormatter.timeStyle = timeStyle
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
         dateFormatter.locale = .autoupdatingCurrent
 
         return dateFormatter
-    }
+    }()
+    
+    static let mediumNone: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = .autoupdatingCurrent
 
-    static func getFormattedDate(date: Date, format: String) -> String {
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = format
+        return dateFormatter
+    }()
+    
+    static let longMedium: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .medium
+        dateFormatter.locale = .autoupdatingCurrent
 
-        return dateformat.string(from: date)
-    }
+        return dateFormatter
+    }()
+    
+    static let isoDate: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        return dateFormatter
+    }()
 }

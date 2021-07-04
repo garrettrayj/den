@@ -44,6 +44,6 @@ struct UpdateStatusView: View {
             return Text("Never updated")
         }
 
-        return Text("Updated \(lastRefreshed, formatter: DateFormatter.create())")
+        return Text("Updated \(lastRefreshed, formatter: DateFormatter.mediumShort)")
     }
 }
