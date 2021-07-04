@@ -19,7 +19,9 @@ import Foundation
 
  - call `completeOperation()` function when the asynchronous task is done;
 
- - optionally, periodically check `self.cancelled` status, performing any clean-up necessary and then ensuring that `finish()` is called;
+ - optionally, periodically check `self.cancelled` status,
+   performing any clean-up necessary and then ensuring that `finish()` is called;
+ 
    or override `cancel` method, calling `super.cancel()` and then cleaning-up and ensuring `finish()` is called.
  */
 class AsynchronousOperation: Operation {
@@ -45,9 +47,9 @@ class AsynchronousOperation: Operation {
 
     // MARK: - Various `Operation` properties
 
-    open         override var isReady:        Bool { return state == .ready && super.isReady }
-    public final override var isExecuting:    Bool { return state == .executing }
-    public final override var isFinished:     Bool { return state == .finished }
+    open         override var isReady: Bool { return state == .ready && super.isReady }
+    public final override var isExecuting: Bool { return state == .executing }
+    public final override var isFinished: Bool { return state == .finished }
 
     // KVO for dependent properties
 
@@ -72,7 +74,8 @@ class AsynchronousOperation: Operation {
         main()
     }
 
-    /// Subclasses must implement this to perform their work and they must not call `super`. The default implementation of this function throws an exception.
+    /// Subclasses must implement this to perform their work and they must not call `super`.
+    /// The default implementation of this function throws an exception.
     open override func main() {
         fatalError("Subclasses must implement `main`.")
     }

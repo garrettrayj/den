@@ -22,8 +22,8 @@ extension View {
 /**
  Representable to perform a callback with the view context's window.
  */
-fileprivate struct HostingWindowFinder: UIViewRepresentable {
-    var callback: (UIWindow?) -> ()
+private struct HostingWindowFinder: UIViewRepresentable {
+    var callback: (UIWindow?) -> Void
 
     func makeUIView(context: Context) -> UIView {
         let view = UIView()

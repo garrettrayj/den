@@ -16,15 +16,15 @@ struct PagesView: View {
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var safariManager: LinkManager
-    
+
     var body: some View {
         NavigationView {
             // Sidebar
             SidebarView()
-            
+
             // Default view for detail area
             WelcomeView()
         }
-        
+
     }
 }

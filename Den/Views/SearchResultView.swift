@@ -13,7 +13,7 @@ struct SearchResultView: View {
     var feedData: FeedData {
         items.first!.feedData!
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             HStack(alignment: .center) {

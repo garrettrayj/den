@@ -13,7 +13,7 @@ final class ImportManager: ObservableObject {
     enum ImportStage {
         case pickFile, folderSelection, error, importing
     }
-    
+
     @Published var stage: ImportStage = .pickFile
     @Published var importProgress: Double = 0
     @Published var opmlFolders: [OPMLFolder] = []
@@ -21,7 +21,7 @@ final class ImportManager: ObservableObject {
     @Published var pickedURL: URL?
     @Published var feedsImported: [Feed] = []
     @Published var pagesImported: [Page] = []
-    
+
     var documentPicker: ImportDocumentPicker!
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
     var noneSelected: Bool { selectedFolders.count == 0 }
@@ -29,15 +29,15 @@ final class ImportManager: ObservableObject {
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
     private var profileManager: ProfileManager
-    
+
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profileManager: ProfileManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager
         self.profileManager = profileManager
-        
+
         self.documentPicker = ImportDocumentPicker(importManager: self)
     }
-    
+
     func reset() {
         stage = .pickFile
         importProgress = 0
@@ -47,7 +47,7 @@ final class ImportManager: ObservableObject {
         feedsImported = []
         pagesImported = []
     }
-    
+
     func toggleFolder(_ folder: OPMLFolder) {
         if selectedFolders.contains(folder) {
             selectedFolders.removeAll { $0 == folder }
@@ -55,7 +55,7 @@ final class ImportManager: ObservableObject {
             selectedFolders.append(folder)
         }
     }
-    
+
     func selectAll() {
         opmlFolders.forEach { folder in
             if !selectedFolders.contains(folder) {
@@ -63,28 +63,28 @@ final class ImportManager: ObservableObject {
             }
         }
     }
-    
+
     func selectNone() {
         selectedFolders.removeAll()
     }
-    
+
     func importSelected() {
         stage = .importing
-        
+
         let foldersToImport = opmlFolders.filter { opmlFolder in
             self.selectedFolders.contains(opmlFolder)
         }
-        
+
         self.importFolders(opmlFolders: foldersToImport)
     }
-    
+
     func importFolders(opmlFolders: [OPMLFolder]) {
         guard let profile = profileManager.activeProfile else { return }
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profile)
             page.name = opmlFolder.name
             pagesImported.append(page)
-            
+
             opmlFolder.feeds.forEach { opmlFeed in
                 let feed = Feed.create(in: self.viewContext, page: page)
                 feed.title = opmlFeed.title
@@ -92,17 +92,18 @@ final class ImportManager: ObservableObject {
                 feedsImported.append(feed)
             }
         }
-        
+
         do {
             try viewContext.save()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
     }
-    
+
     /**
      Presents the document picker from the root view controller.
-     This is required on Catalyst but works on iOS and iPadOS too, so we do it this way instead of in a UIViewControllerRepresentable
+     This is required on Catalyst but works on iOS and iPadOS too,
+     so we do it this way instead of in a UIViewControllerRepresentable
      */
     func pickFile() {
         let viewController = UIApplication.shared.windows[0].rootViewController!

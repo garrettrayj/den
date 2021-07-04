@@ -16,15 +16,17 @@ struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var linkManager: LinkManager
     @EnvironmentObject var crashManager: CrashManager
-    
+
     @State private var searchQuery: String = ""
     @State private var searchResults: [[History]] = []
-    
+
+    private var dateFormatter = DateFormatter.create(dateStyle: .medium, timeStyle: .none)
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 SearchFieldView(searchQuery: $searchQuery)
-                
+
                 if searchResults.count == 0 && searchQuery == "" {
                     Text("History empty or unavailable")
                         .foregroundColor(.secondary)
@@ -35,23 +37,25 @@ struct HistoryView: View {
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding()
-                        
+
                 } else {
                     List {
                         ForEach(searchResults, id: \.self) { resultGroup in
                             if resultGroup.first?.visited != nil {
                                 Section(
-                                    header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.create(dateStyle: .medium, timeStyle: .none))")
+                                    header: Text("\(resultGroup.first!.visited!, formatter: dateFormatter)")
                                 ) {
                                     ForEach(resultGroup) { result in
                                         if result.title != nil && result.link != nil {
-                                            Button(action: { linkManager.openLink(url: result.link!) }) {
+                                            Button { linkManager.openLink(url: result.link!) } label: {
                                                 VStack(alignment: .leading, spacing: 4) {
                                                     Text(result.title!).font(.system(size: 18))
-                                                    Text(result.link!.absoluteString).font(.caption).foregroundColor(Color.secondary).lineLimit(1)
+                                                    Text(result.link!.absoluteString)
+                                                        .font(.caption)
+                                                        .foregroundColor(Color.secondary)
+                                                        .lineLimit(1)
                                                 }
                                             }
-                                            
                                         }
                                     }
                                 }
@@ -82,13 +86,13 @@ struct HistoryView: View {
                 }
             }
         )
-        
+
     }
-    
+
     private func search(query: String) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \History.visited, ascending: false)]
-        
+
         if query != "" {
             fetchRequest.predicate = NSPredicate(
                 format: "%K CONTAINS[C] %@",
@@ -96,23 +100,23 @@ struct HistoryView: View {
                 query
             )
         }
-    
+
         do {
-            let fetchResults = try viewContext.fetch(fetchRequest) as! [History]
+            guard let fetchResults = try viewContext.fetch(fetchRequest) as? [History] else { return }
             var compactedFetchResults: [History] = []
             fetchResults.forEach { history in
                 if history.visited != nil {
                     compactedFetchResults.append(history)
                 }
             }
-            
+
             let grouping = Dictionary(
                 grouping: compactedFetchResults,
                 by: { DateFormatter.getFormattedDate(date: $0.visited!, format: "yyyy-MM-dd") }
             )
-            
-            self.searchResults = grouping.values.sorted { a, b in
-                return a[0].visited! > b[0].visited!
+
+            self.searchResults = grouping.values.sorted { aHistory, bHistory in
+                return aHistory[0].visited! > bHistory[0].visited!
             }
         } catch {
             Logger.main.error("Failed to fetch search results: \(error as NSError)")

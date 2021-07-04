@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ItemLinkButtonStyle: ButtonStyle {
     var read: Bool
-    
+
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .font(.headline)

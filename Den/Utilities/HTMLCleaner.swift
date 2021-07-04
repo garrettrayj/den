@@ -10,37 +10,36 @@ import Foundation
 import SwiftSoup
 
 final class HTMLCleaner {
-    static let imageSourceBlacklist = ["feedburner", "npr-rss-pixel"]
-    
+    static let imageSourceBlockList = ["feedburner", "npr-rss-pixel"]
+
     static func stripTags(_ input: String) -> String? {
         guard let doc: Document = try? SwiftSoup.parseBodyFragment(input) else { return nil } // parse html
         guard let txt = try? doc.text() else { return nil }
 
         return txt
     }
-    
+
     static func extractSummaryAndImage(summaryFragment: String) -> (String?, URL?) {
-        var summary: String? = nil
-        var image: URL? = nil
-        
+        var summary: String?
+        var image: URL?
+
         guard let doc: Document = try? SwiftSoup.parseBodyFragment(summaryFragment) else {
             return (summary, image)
         }
-        
+
         if
             let firstImageElement = try? doc.select("img").first(where: { element in
                 if
                     let src = try? element.attr("src"),
-                    imageSourceBlacklist.contains(where: src.contains)
+                    imageSourceBlockList.contains(where: src.contains)
                 {
                     return false
                 }
-                
+
                 return true
             }),
             let imageSrc = try? firstImageElement.attr("src"),
-            let imageURL = URL(string: imageSrc)
-        {
+            let imageURL = URL(string: imageSrc) {
             if
                 let imageHeight = try? Int(firstImageElement.attr("height")),
                 imageHeight < 64
@@ -61,11 +60,11 @@ final class HTMLCleaner {
                 image = imageURL
             }
         }
-        
+
         if let plainSummary = try? doc.text() {
             summary = plainSummary.trimmingCharacters(in: .whitespacesAndNewlines).truncated(limit: 2000)
         }
-        
+
         return (summary, image)
     }
 }

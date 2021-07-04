@@ -15,7 +15,7 @@ public class History: NSManagedObject {
         let history = self.init(context: managedObjectContext)
         history.id = UUID()
         history.profile = profile
-        
+
         return history
     }
 }

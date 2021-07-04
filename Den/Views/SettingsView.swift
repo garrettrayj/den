@@ -16,10 +16,10 @@ struct SettingsView: View {
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var themeManager: ThemeManager
     @EnvironmentObject var profileManager: ProfileManager
-    
+
     @State private var showingClearWorkspaceAlert = false
     @State private var historyRentionDays: Int = 0
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -35,7 +35,7 @@ struct SettingsView: View {
         .onAppear(perform: loadProfile)
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
+
     private var appearanceSection: some View {
         Section(header: Text("\nAppearance")) {
             HStack {
@@ -49,19 +49,19 @@ struct SettingsView: View {
             }
         }
     }
-    
+
     private var opmlSection: some View {
         Section(header: Text("OPML")) {
             NavigationLink(destination: ImportView()) {
                 Label("Import Subscriptions", systemImage: "arrow.down.doc")
             }
-            
+
             NavigationLink(destination: ExportView()) {
                 Label("Export Subscriptions", systemImage: "arrow.up.doc")
             }
         }
     }
-    
+
     private var historySection: some View {
         Section(header: Text("History")) {
             Picker("Keep History", selection: $historyRentionDays) {
@@ -75,26 +75,29 @@ struct SettingsView: View {
             }.onChange(of: historyRentionDays) { _ in
                 saveProfile()
             }
-            
+
             Button(action: clearHistory) {
                 Label("Clear History", systemImage: "clear")
             }
-            
+
         }
     }
-    
+
     private var dataSection: some View {
         Section(header: Text("Reset")) {
             Button(action: clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark")
             }.disabled(refreshManager.refreshing)
-            
+
             Button(action: showResetAlert) {
                 Label("Reset Everything", systemImage: "clear").foregroundColor(Color(.systemRed))
             }.alert(isPresented: $showingClearWorkspaceAlert) {
                 Alert(
                     title: Text("Are you sure you want to reset?"),
-                    message: Text("All pages and feeds will be deleted. If iCloud Sync is enabled then other synced devices will also be reset."),
+                    message: Text("""
+                        All pages and feeds will be deleted.
+                        If iCloud Sync is enabled then other synced devices will also be reset.
+                    """),
                     primaryButton: .destructive(Text("Reset")) {
                         self.resetEverything()
                     },
@@ -103,7 +106,7 @@ struct SettingsView: View {
             }.disabled(refreshManager.refreshing)
         }
     }
-    
+
     private var aboutSection: some View {
         Section(header: Text("About")) {
             HStack(spacing: 16) {
@@ -113,34 +116,34 @@ struct SettingsView: View {
                     Text("Version \(Bundle.main.releaseVersionNumber!)").font(.subheadline)
                 }
             }.padding(.vertical)
-            
+
             Button(action: openHomepage) {
                 Label("Homepage", systemImage: "house")
             }
-            
+
             Button(action: emailSupport) {
                 Label("Email Support", systemImage: "lifepreserver")
             }
-            
+
             Button(action: openPrivacyPolicy) {
                 Label("Privacy Policy", systemImage: "lock.shield")
             }
         }
     }
-    
+
     private func loadProfile() {
         guard let profile = profileManager.activeProfile else { return }
-    
+
         historyRentionDays = profile.wrappedHistoryRetention
     }
-    
+
     private func saveProfile() {
         guard let profile = profileManager.activeProfile else { return }
 
         if historyRentionDays != profile.wrappedHistoryRetention {
             profile.wrappedHistoryRetention = historyRentionDays
         }
-        
+
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()
@@ -149,60 +152,60 @@ struct SettingsView: View {
             }
         }
     }
-    
+
     private func clearCache() {
         cacheManager.resetFeeds()
     }
-    
+
     private func clearHistory() {
         profileManager.activeProfile?.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
-        
+
         do {
             try viewContext.save()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
-        
+
         profileManager.activeProfile?.pagesArray.forEach({ page in
             page.feedsArray.forEach { feed in
                 feed.objectWillChange.send()
             }
         })
     }
-    
+
     private func restoreDefaultSettings() {
         // Clear our UserDefaults domain
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
-        
+
         themeManager.applyUIStyle()
     }
-    
+
     private func showResetAlert() {
         self.showingClearWorkspaceAlert = true
     }
-    
+
     private func resetEverything() {
         restoreDefaultSettings()
         profileManager.resetProfiles()
     }
-    
+
     private func openHomepage() {
         if let url = URL(string: "https://devsci.net") {
             UIApplication.shared.open(url)
         }
     }
-    
+
     private func emailSupport() {
         // Note: "mailto:" links do not work in simulator, only on devices
         if let url = URL(string: "mailto:support@devsci.net") {
             UIApplication.shared.open(url)
         }
     }
-    
+
     private func openPrivacyPolicy() {
         if let url = URL(string: "https://devsci.net/privacy-policy.html") {
             UIApplication.shared.open(url)

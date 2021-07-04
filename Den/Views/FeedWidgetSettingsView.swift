@@ -15,7 +15,7 @@ import SwiftUI
 struct FeedWidgetSettingsView: View {
     @Environment(\.presentationMode) var presentation
     @ObservedObject var feed: Feed
-    
+
     var body: some View {
         NavigationView {
             FeedSettingsFormView(
@@ -25,15 +25,15 @@ struct FeedWidgetSettingsView: View {
             )
             .navigationTitle("Feed Settings")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar() {
-                ToolbarItem() {
+            .toolbar {
+                ToolbarItem {
                     Button(action: close) { Text("Close") }
                 }
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
+
     private func close() {
         presentation.wrappedValue.dismiss()
     }

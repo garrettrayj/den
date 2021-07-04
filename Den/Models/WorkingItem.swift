@@ -21,7 +21,7 @@ final class WorkingItem {
     var link: URL?
     var published: Date?
     var summary: String?
-    var title: String?    
+    var title: String?
 
     public func ingest(_ atomEntry: AtomFeedEntry) {
         if let published = atomEntry.published {
@@ -31,23 +31,22 @@ final class WorkingItem {
                 self.published = published
             }
         }
-        
+
         if let title = atomEntry.title {
             self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
         } else {
             self.title = "Untitled"
         }
-        
+
         self.link = atomEntry.linkURL
-        
+
         // Look for preview image in <links> and <media:content>
         if
             let imageLink = atomEntry.links?.first(where: { link in
                 link.attributes?.rel == "enclosure"
             }),
             let imageURLString = imageLink.attributes?.href,
-            let imageURL = URL(string: imageURLString)
-        {
+            let imageURL = URL(string: imageURLString) {
             if
                 let linkMimeType = imageLink.attributes?.type,
                 MIMETypes.ImageMIMETypes(rawValue: linkMimeType) == nil
@@ -80,16 +79,15 @@ final class WorkingItem {
                 else {
                     return false
                 }
-                
+
                 return bWidth > aWidth
             }),
             let thumbnail = mediaThumbnails.first,
             let thumbnailURLString = thumbnail.attributes?.url,
-            let thumbnailURL = URL(string: thumbnailURLString)
-        {
+            let thumbnailURL = URL(string: thumbnailURLString) {
             self.image = thumbnailURL
         }
-        
+
         if let summary = atomEntry.summary?.value?.htmlUnescape() {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: summary)
             self.summary = plainSummary
@@ -97,7 +95,7 @@ final class WorkingItem {
                 self.image = image
             }
         }
-        
+
         if let body = atomEntry.content?.value?.htmlUnescape() {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: body)
             if self.summary == nil {
@@ -108,7 +106,7 @@ final class WorkingItem {
             }
         }
     }
-    
+
     /**
      Creates item entity from a RSS feed item
      */
@@ -122,7 +120,7 @@ final class WorkingItem {
                 self.published = published
             }
         }
-        
+
         if let title = rssItem.title {
             self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
         } else {
@@ -130,7 +128,7 @@ final class WorkingItem {
         }
 
         self.link = rssItem.linkURL
-        
+
         // Look for preview image in <enclosure> and <media:content>
         if
             let enclosure = rssItem.enclosure,
@@ -182,11 +180,10 @@ final class WorkingItem {
             }),
             let thumbnail = mediaThumbnails.first,
             let thumbnailURLString = thumbnail.attributes?.url,
-            let thumbnailURL = URL(string: thumbnailURLString)
-        {
+            let thumbnailURL = URL(string: thumbnailURLString) {
             self.image = thumbnailURL
         }
-        
+
         if let description = rssItem.description?.htmlUnescape() {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: description)
             self.summary = plainSummary
@@ -194,7 +191,7 @@ final class WorkingItem {
                 self.image = image
             }
         }
-        
+
         if let body = rssItem.content?.contentEncoded {
             let (plainSummary, image) = HTMLCleaner.extractSummaryAndImage(summaryFragment: body)
             if self.summary == nil {
@@ -205,7 +202,7 @@ final class WorkingItem {
             }
         }
     }
-    
+
     /**
      Creates item entity from a JSON feed item
      */
@@ -214,7 +211,7 @@ final class WorkingItem {
         if let published = jsonItem.datePublished {
             self.published = published
         }
-        
+
         if let title = jsonItem.title {
             self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
         } else {
@@ -226,7 +223,7 @@ final class WorkingItem {
         } else if let urlString = jsonItem.id, let link = URL(string: urlString) {
             self.link = link
         }
-        
+
         if let imageAttachment = jsonItem.attachments?.first(where: { attachment in
             if let mimeTypeString = attachment.mimeType, let _ = MIMETypes.ImageMIMETypes(rawValue: mimeTypeString) {
                 return true
@@ -237,7 +234,7 @@ final class WorkingItem {
                 self.image = image
             }
         }
-        
+
         if let summary = jsonItem.summary {
             self.summary = HTMLCleaner.stripTags(summary)?.trimmingCharacters(in: .whitespacesAndNewlines)
         }

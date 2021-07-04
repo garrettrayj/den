@@ -13,16 +13,16 @@ import AEXML
 struct ExportView: View {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var profileManager: ProfileManager
-    
+
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
     @State private var picker: ExportDocumentPicker?
-    
+
     var body: some View {
         if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
             Form {
                 pageList
-                
+
                 VStack(alignment: .center) {
                     Button(action: exportOpml) {
                         Label("Save OPML File", systemImage: "arrow.up.doc")
@@ -39,36 +39,36 @@ struct ExportView: View {
             }.padding().frame(maxWidth: .infinity)
         }
     }
-    
+
     private var pageList: some View {
         Section(header: selectionSectionHeader) {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
                 // .editMode doesn't work inside forms, so creating selection buttons manually
-                Button(action: { self.togglePage(page) }) {
+                Button { self.togglePage(page) } label: {
                     HStack {
                         if self.selectedPages.contains(page) {
                             Image(systemName: "checkmark.circle.fill")
                         } else {
                             Image(systemName: "circle")
                         }
-                        
+
                         Text(page.wrappedName).foregroundColor(.primary)
                         Spacer()
                         Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
                     }
-                }.onAppear(perform: { self.selectedPages.append(page) })
+                }.onAppear { self.selectedPages.append(page) }
             }
         }
     }
-    
+
     private var allSelected: Bool {
         selectedPages.count == profileManager.activeProfile?.pagesArray.count ?? 0
     }
-    
+
     private var noneSelected: Bool {
         selectedPages.count == 0
     }
-    
+
     private var selectionSectionHeader: some View {
         HStack {
             Text("SELECT PAGES")
@@ -82,7 +82,7 @@ struct ExportView: View {
             }.disabled(noneSelected)
         }
     }
-    
+
     private func togglePage(_ page: Page) {
         if selectedPages.contains(page) {
             selectedPages.removeAll { $0 == page }
@@ -90,7 +90,7 @@ struct ExportView: View {
             selectedPages.append(page)
         }
     }
-    
+
     private func selectAll() {
         profileManager.activeProfile?.pagesArray.forEach { page in
             if !selectedPages.contains(page) {
@@ -98,27 +98,27 @@ struct ExportView: View {
             }
         }
     }
-    
+
     private func selectNone() {
         selectedPages.removeAll()
     }
-    
+
     private func exportOpml() {
         let exportPages: [Page] = profileManager.activeProfile!.pagesArray.compactMap { page in
             if selectedPages.contains(page) {
                 return page
             }
-            
+
             return nil
         }
-        
+
         let opmlWriter = OPMLWriter(pages: exportPages)
         let temporaryFileURL = opmlWriter.writeToFile()
         self.picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
-        
+
         UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
     }
-    
+
     private func cancel() {
         presentation.wrappedValue.dismiss()
     }

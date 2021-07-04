@@ -17,21 +17,21 @@ import MobileCoreServices
  */
 final class ImportDocumentPicker: NSObject {
     @ObservedObject var importManager: ImportManager
-    
+
     init(importManager: ImportManager) {
         self.importManager = importManager
         super.init()
     }
-    
+
     /// Returns the view controller that must be presented to display the picker
     lazy var viewController: UIDocumentPickerViewController = {
-        let vc = UIDocumentPickerViewController(
+        let viewController = UIDocumentPickerViewController(
             forOpeningContentTypes: [.init(importedAs: "public.opml"), .xml],
             asCopy: true
         )
-        vc.delegate = self
-        vc.allowsMultipleSelection = false
-        return vc
+        viewController.delegate = self
+        viewController.allowsMultipleSelection = false
+        return viewController
     }()
 }
 

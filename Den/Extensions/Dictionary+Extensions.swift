@@ -14,7 +14,7 @@ extension Dictionary {
         for (_, value) in self {
             valuesArray.append(value)
         }
-        
+
         return valuesArray
     }
 }

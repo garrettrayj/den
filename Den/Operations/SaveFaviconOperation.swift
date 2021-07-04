@@ -20,13 +20,13 @@ final class SaveFaviconOperation: Operation {
     var webpageFaviconData: Data?
     var defaultFaviconResponse: HTTPURLResponse?
     var defaultFaviconData: Data?
-    
+
     private var faviconSize = CGSize(width: 16, height: 16)
     private let acceptableTypes = ["image/x-icon", "image/vnd.microsoft.icon", "image/gif", "image/png", "image/jpeg"]
 
     override func main() {
         if isCancelled { return }
-        
+
         if
             let httpResponse = webpageFaviconResponse,
             200..<300 ~= httpResponse.statusCode,
@@ -52,27 +52,27 @@ final class SaveFaviconOperation: Operation {
             self.workingFeed?.favicon = faviconUrl
             self.workingFeed?.faviconFile = filename
         }
-        
+
         return
     }
-    
+
     private func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
         guard let image = UIImage(data: imageData) else {
             return nil
         }
 
         let renderer = UIGraphicsImageRenderer(size: size)
-        
+
         let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: size))
-    
-        return renderer.image { (context) in
+
+        return renderer.image { (_) in
             image.draw(in: rect)
         }
     }
-    
+
     private func saveFavicon(image: UIImage) -> String? {
         guard let faviconDirectory = FileManager.default.faviconsDirectory else { return nil }
-        
+
         let filename = UUID().uuidString.appending(".png")
         let filepath = faviconDirectory.appendingPathComponent(filename)
 

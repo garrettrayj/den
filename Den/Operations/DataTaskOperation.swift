@@ -14,12 +14,12 @@ import OSLog
 /**
  Operation for fetching feed XML (or JSON) data.
  */
-final class DataTaskOperation : AsynchronousOperation {
+final class DataTaskOperation: AsynchronousOperation {
     var url: URL?
     var data: Data?
     var error: Error?
     var response: HTTPURLResponse?
-    
+
     private var task: URLSessionTask?
 
     init(_ url: URL? = nil) {
@@ -38,11 +38,11 @@ final class DataTaskOperation : AsynchronousOperation {
             self.finish()
             return
         }
-        
+
         var request = URLRequest(url: requestUrl)
         request.httpShouldHandleCookies = false
         request.timeoutInterval = 30
-        
+
         task = URLSession.shared.dataTask(with: request) { data, response, error in
             self.data = data
             self.error = error

@@ -15,11 +15,11 @@ import SwiftUI
  */
 struct RefreshableScrollView<Content: View>: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    
+
     @State private var previousScrollOffset: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
     @State private var rotation: Angle = .degrees(0)
-    
+
     var page: Page
     var threshold: CGFloat = 80
     let content: Content
@@ -29,7 +29,7 @@ struct RefreshableScrollView<Content: View>: View {
             ScrollView {
                 ZStack(alignment: .top) {
                     MovingView()
-                    VStack { self.content }.alignmentGuide(.top, computeValue: { d in
+                    VStack { self.content }.alignmentGuide(.top, computeValue: { _ in
                         if self.refreshManager.refreshing {
                             return -self.threshold
                         } else {
@@ -50,22 +50,22 @@ struct RefreshableScrollView<Content: View>: View {
             }
         }
     }
-    
+
     init(page: Page, @ViewBuilder content: () -> Content) {
         self.page = page
         self.content = content()
     }
-    
+
     private func refreshLogic(values: [RefreshableKeyTypes.PrefData]) {
         DispatchQueue.main.async {
             // Calculate scroll offset
             let movingBounds = values.first { $0.vType == .movingView }?.bounds ?? .zero
             let fixedBounds = values.first { $0.vType == .fixedView }?.bounds ?? .zero
-            
+
             self.scrollOffset  = movingBounds.minY - fixedBounds.minY
-            
+
             self.rotation = self.symbolRotation(self.scrollOffset)
-            
+
             // Crossing the threshold on the way down, we start the refresh process
             if
                 !self.refreshManager.refreshing &&
@@ -74,26 +74,25 @@ struct RefreshableScrollView<Content: View>: View {
                 self.rotation = .degrees(0)
                 self.refreshManager.refresh(self.page)
             }
-            
-            
+
             // Update last scroll offset
             self.previousScrollOffset = self.scrollOffset
         }
     }
-    
+
     private func symbolRotation(_ scrollOffset: CGFloat) -> Angle {
         // We will begin rotation, only after we have passed 50% of the way of reaching the threshold.
         if scrollOffset < self.threshold * 0.50 {
             return .degrees(0)
         } else {
             // Calculate rotation, based on the amount of scroll offset
-            let h = Double(self.threshold)
-            let d = Double(scrollOffset)
-            let v = max(min(d - (h * 0.6), h * 0.4), 0)
-            return .degrees(180 * v / (h * 0.4))
+            let height = Double(self.threshold)
+            let distance = Double(scrollOffset)
+            let vector = max(min(distance - (height * 0.6), height * 0.4), 0)
+            return .degrees(180 * vector / (height * 0.4))
         }
     }
-    
+
     private struct MovingView: View {
         var body: some View {
             GeometryReader { proxy in
@@ -109,7 +108,7 @@ struct RefreshableScrollView<Content: View>: View {
             }.frame(height: 0)
         }
     }
-    
+
     private struct FixedView: View {
         var body: some View {
             GeometryReader { proxy in

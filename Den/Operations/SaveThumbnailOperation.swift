@@ -18,13 +18,13 @@ final class SaveThumbnailOperation: Operation {
     var thumbnailResponse: HTTPURLResponse?
     var thumbnailData: Data?
     var workingFeedItem: WorkingItem?
-    
+
     private var thumbnailSize = CGSize(width: 96, height: 64)
     private let acceptableTypes = ["image/gif", "image/jpeg", "image/png"]
 
     override func main() {
         if isCancelled { return }
-        
+
         if
             let httpResponse = thumbnailResponse,
             200..<300 ~= httpResponse.statusCode,
@@ -39,27 +39,30 @@ final class SaveThumbnailOperation: Operation {
             self.workingFeedItem?.imageFile = filename
         }
     }
-    
+
     private func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
         guard let image = UIImage(data: imageData) else {
             return nil
         }
-        
+
         let renderer = UIGraphicsImageRenderer(size: thumbnailSize)
-        
+
         let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: thumbnailSize))
-    
-        return renderer.image { (context) in
+
+        return renderer.image { (_) in
             image.draw(in: CGRect(
-                origin: CGPoint(x: thumbnailSize.width / 2 - rect.width / 2, y: thumbnailSize.height / 2 - rect.height / 2),
+                origin: CGPoint(
+                    x: thumbnailSize.width / 2 - rect.width / 2,
+                    y: thumbnailSize.height / 2 - rect.height / 2
+                ),
                 size: rect.size
             ))
         }
     }
-    
+
     private func saveThumbnail(image: UIImage) -> String? {
         guard let thumbnailDirectory = FileManager.default.thumbnailsDirectory else { return nil }
-        
+
         let filename = UUID().uuidString.appending(".png")
         let filepath = thumbnailDirectory.appendingPathComponent(filename)
 

@@ -11,9 +11,9 @@ import SwiftUI
 
 final class ThemeManager: ObservableObject {
     var window: UIWindow?
-    
+
     var uiStyle: Binding<UIUserInterfaceStyle> {
-        Binding (
+        Binding(
             get: {
                 UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
             },
@@ -23,7 +23,7 @@ final class ThemeManager: ObservableObject {
             }
         )
     }
-    
+
     func applyUIStyle() {
         window?.overrideUserInterfaceStyle = uiStyle.wrappedValue
     }

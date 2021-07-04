@@ -26,7 +26,7 @@ extension RSSFeedItem {
         {
             return linkURL
         }
-        
+
         return nil
     }
 }

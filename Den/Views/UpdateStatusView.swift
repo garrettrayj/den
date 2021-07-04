@@ -13,7 +13,7 @@ struct UpdateStatusView: View {
     var height: CGFloat
     var loading: Bool
     var symbolRotation: Angle
-    
+
     var body: some View {
         VStack(spacing: 8) {
             if loading { // If loading, show the activity control
@@ -27,7 +27,7 @@ struct UpdateStatusView: View {
                         .imageScale(.medium)
                         .fixedSize()
                         .rotationEffect(symbolRotation)
-                    
+
                     lastRefreshedLabel()
                 }
             }
@@ -38,12 +38,12 @@ struct UpdateStatusView: View {
         .frame(height: height)
         .offset(y: -height + (loading ? height : 0.0))
     }
-    
+
     private func lastRefreshedLabel() -> Text {
         guard let lastRefreshed = page.minimumRefreshedDate else {
             return Text("Never updated")
         }
-        
+
         return Text("Updated \(lastRefreshed, formatter: DateFormatter.create())")
     }
 }
