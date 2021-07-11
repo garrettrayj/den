@@ -26,12 +26,12 @@ struct HistoryView: View {
                 SearchFieldView(searchQuery: $searchQuery)
 
                 if searchResults.count == 0 && searchQuery == "" {
-                    Text("History empty or unavailable")
+                    Text("History is Empty")
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding()
                 } else if searchResults.count == 0 && searchQuery != "" {
-                    Text("No results found")
+                    Text("No Results Found")
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding()
@@ -84,7 +84,6 @@ struct HistoryView: View {
                 }
             }
         )
-
     }
 
     private func search(query: String) {

@@ -19,25 +19,28 @@ struct ExportView: View {
     @State private var picker: ExportDocumentPicker?
 
     var body: some View {
-        if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
-            Form {
-                pageList
+        VStack {
+            if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
+                Form {
+                    pageList
 
-                VStack(alignment: .center) {
-                    Button(action: exportOpml) {
-                        Label("Save OPML File", systemImage: "arrow.up.doc")
-                    }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
+                    VStack(alignment: .center) {
+                        Button(action: exportOpml) {
+                            Label("Save OPML File", systemImage: "arrow.up.doc")
+                        }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
                 }
-                .frame(maxWidth: .infinity)
-                .listRowBackground(Color(UIColor.systemGroupedBackground))
+            } else {
+                VStack(alignment: .center) {
+                    Text("No pages available for export").foregroundColor(Color(UIColor.secondaryLabel))
+                }.padding().frame(maxWidth: .infinity)
             }
-            .navigationTitle("Export")
-            .navigationBarTitleDisplayMode(.inline)
-        } else {
-            VStack(alignment: .center) {
-                Text("No pages available for export").foregroundColor(Color(UIColor.secondaryLabel))
-            }.padding().frame(maxWidth: .infinity)
         }
+        .navigationTitle("Export")
+        .navigationBarTitleDisplayMode(.inline)
+        
     }
 
     private var pageList: some View {
@@ -70,8 +73,8 @@ struct ExportView: View {
     }
 
     private var selectionSectionHeader: some View {
-        HStack {
-            Text("SELECT PAGES")
+        HStack(alignment: .bottom) {
+            Text("\nSELECT PAGES")
             Spacer()
             Button(action: selectAll) {
                 Text("ALL")

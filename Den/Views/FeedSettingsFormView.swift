@@ -13,6 +13,7 @@ struct FeedSettingsFormView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var profileManager: ProfileManager
 
     @ObservedObject var feed: Feed
 
@@ -43,8 +44,10 @@ struct FeedSettingsFormView: View {
                 }
 
                 Picker("Page", selection: pagePickerSelection) {
-                    ForEach(0 ..< (feed.page?.profile?.pagesArray.count ?? 0)) {
-                        Text(feed.page!.profile!.pagesArray[$0].wrappedName).tag($0)
+                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                        Text(page.wrappedName).tag(
+                            profileManager.activeProfile?.pagesArray.firstIndex(of: page)
+                        )
                     }
                 }
                 .onAppear {

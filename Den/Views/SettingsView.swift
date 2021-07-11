@@ -93,11 +93,8 @@ struct SettingsView: View {
                 Label("Reset Everything", systemImage: "clear").foregroundColor(Color(.systemRed))
             }.alert(isPresented: $showingClearWorkspaceAlert) {
                 Alert(
-                    title: Text("Are you sure you want to reset?"),
-                    message: Text("""
-                        All pages and feeds will be deleted.
-                        If iCloud Sync is enabled then other synced devices will also be reset.
-                    """),
+                    title: Text("Are you sure?"),
+                    message: Text("All pages and feeds will be permanently removed."),
                     primaryButton: .destructive(Text("Reset")) {
                         self.resetEverything()
                     },

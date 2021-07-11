@@ -23,7 +23,7 @@ struct PageView: View {
     @State private var showingSettings: Bool = false
 
     let columns = [
-        GridItem(.adaptive(minimum: 360, maximum: 480), spacing: 16, alignment: .top)
+        GridItem(.adaptive(minimum: 360, maximum: 460), spacing: 16, alignment: .top)
     ]
 
     var body: some View {
@@ -57,45 +57,47 @@ struct PageView: View {
         }
         .navigationTitle(Text(page.wrappedName))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItemGroup {
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    // Action menu for phone users
-                    Menu {
-                        Button(action: showSubscribe) {
-                            Label("Add Subscription", systemImage: "plus.circle")
-                        }
-
-                        Button(action: showSettings) {
-                            Label("Page Settings", systemImage: "wrench")
-                        }
-
-                        Button { refreshManager.refresh(self.page) } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
-                        }
-                    } label: {
-                        Label("Page Menu", systemImage: "ellipsis")
-                            .frame(height: 44)
-                            .padding(.leading)
-                    }.disabled(refreshManager.refreshing == true)
-                } else {
-                    // Show three buttons on larger screens
+        .toolbar { pageToolbar }
+        .onAppear(perform: onAppear)
+        .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+    }
+    
+    private var pageToolbar: some ToolbarContent {
+        ToolbarItemGroup {
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                // Action menu for phone users
+                Menu {
                     Button(action: showSubscribe) {
                         Label("Add Subscription", systemImage: "plus.circle")
-                    }.disabled(refreshManager.refreshing == true)
+                    }
 
                     Button(action: showSettings) {
                         Label("Page Settings", systemImage: "wrench")
-                    }.disabled(refreshManager.refreshing == true)
+                    }
 
                     Button { refreshManager.refresh(self.page) } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
-                    }.disabled(refreshManager.refreshing == true)
-                }
+                    }
+                } label: {
+                    Label("Page Menu", systemImage: "ellipsis")
+                        .frame(height: 44)
+                        .padding(.leading)
+                }.disabled(refreshManager.refreshing == true)
+            } else {
+                // Show three buttons on larger screens
+                Button(action: showSubscribe) {
+                    Label("Add Subscription", systemImage: "plus.circle")
+                }.disabled(refreshManager.refreshing == true)
+
+                Button(action: showSettings) {
+                    Label("Page Settings", systemImage: "wrench")
+                }.disabled(refreshManager.refreshing == true)
+
+                Button { refreshManager.refresh(self.page) } label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }.disabled(refreshManager.refreshing == true)
             }
         }
-        .onAppear(perform: onAppear)
-        .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
 
     private var pageEmpty: some View {
@@ -123,9 +125,5 @@ struct PageView: View {
 
     private func onAppear() {
         subscriptionManager.destinationPage = page
-
-        if page.minimumRefreshedDate == nil {
-            refreshManager.refresh(page)
-        }
     }
 }

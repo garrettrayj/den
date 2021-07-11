@@ -85,7 +85,7 @@ struct SidebarView: View {
         _ = Page.create(in: viewContext, profile: profileManager.activeProfile!)
         do {
             try viewContext.save()
-            profileManager.activeProfile?.objectWillChange.send()
+            profileManager.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
@@ -141,7 +141,7 @@ struct SidebarView: View {
 
         do {
             try viewContext.save()
-            profileManager.activeProfile?.objectWillChange.send()
+            profileManager.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }

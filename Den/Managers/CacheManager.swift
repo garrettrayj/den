@@ -29,13 +29,7 @@ final class CacheManager: ObservableObject {
                 pages.forEach { page in
                     page.feedsArray.forEach { feed in
                         if let feedData = feed.feedData {
-                            feedData.itemsArray.forEach { item in
-                                context.delete(item)
-                            }
-                            feedData.refreshed = nil
-                            feedData.favicon = nil
-                            feedData.faviconFile = nil
-                            feedData.metaFetched = nil
+                            context.delete(feedData)
                         }
                     }
                 }
@@ -43,24 +37,14 @@ final class CacheManager: ObservableObject {
                 if context.hasChanges {
                     do {
                         try context.save()
-
-                        DispatchQueue.main.async {
-                            do {
-                                try self.persistentContainer.viewContext.fetch(Page.fetchRequest()).forEach { page in
-                                    page.objectWillChange.send()
-                                }
-                            } catch {
-
-                            }
-                        }
                     } catch {
                         DispatchQueue.main.async {
                             self.crashManager.handleCriticalError(error as NSError)
                         }
                     }
                 }
-            } catch let error as NSError {
-                Logger.main.info("Error occured while resetting pages. \(error)")
+            } catch {
+                self.crashManager.handleCriticalError(error as NSError)
             }
         }
     }
@@ -180,7 +164,6 @@ final class CacheManager: ObservableObject {
                         Logger.main.error("Unable to remove file: \(error as NSError)")
                     }
                 }
-
             }
         } catch {
             Logger.main.error("Unable to read cache directory contents: \(error as NSError)")

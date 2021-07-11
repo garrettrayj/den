@@ -19,7 +19,7 @@ struct UpdateStatusView: View {
             if loading { // If loading, show the activity control
                 Spacer()
                 ActivityRep()
-                Text("Updating feeds…")
+                Text("Updating Feeds…")
             } else {
                 if symbolRotation > .degrees(0) {
                     Spacer()
@@ -41,7 +41,7 @@ struct UpdateStatusView: View {
 
     private func lastRefreshedLabel() -> Text {
         guard let lastRefreshed = page.minimumRefreshedDate else {
-            return Text("Never updated")
+            return Text("First Update")
         }
 
         return Text("Updated \(lastRefreshed, formatter: DateFormatter.mediumShort)")

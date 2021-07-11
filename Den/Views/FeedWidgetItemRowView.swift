@@ -43,6 +43,7 @@ struct FeedWidgetItemRowView: View {
         item.thumbnailImage?
         .scaleEffect(1 / UIScreen.main.scale)
         .frame(width: 96, height: 64, alignment: .center)
+        .border(Color(UIColor.separator))
         .clipped()
         .background(Color(UIColor.tertiarySystemGroupedBackground))
         .accessibility(label: Text("Thumbnail Image"))
