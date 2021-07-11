@@ -18,10 +18,6 @@ struct CrashMessageView: View {
                 Fully close Den then restart to try again.
                 Please consider sending a bug report if you see this repeatedly.
             """)
-            .foregroundColor(Color(.secondaryLabel))
-            .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .padding()
+        }.modifier(SimpleMessageModifier())
     }
 }

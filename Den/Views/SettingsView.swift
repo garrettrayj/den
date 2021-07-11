@@ -39,7 +39,7 @@ struct SettingsView: View {
     private var appearanceSection: some View {
         Section(header: Text("\nAppearance")) {
             HStack {
-                Label("Theme", systemImage: "paintpalette")
+                Label("Theme", systemImage: "paintpalette").foregroundColor(Color(UIColor.label))
                 Spacer()
                 Picker(selection: themeManager.uiStyle, label: Text("Interface Style")) {
                     Text("Default").tag(UIUserInterfaceStyle.unspecified)
@@ -54,31 +54,36 @@ struct SettingsView: View {
         Section(header: Text("OPML")) {
             NavigationLink(destination: ImportView()) {
                 Label("Import Subscriptions", systemImage: "arrow.down.doc")
+                    .foregroundColor(Color(UIColor.label))
             }
 
             NavigationLink(destination: ExportView()) {
                 Label("Export Subscriptions", systemImage: "arrow.up.doc")
+                    .foregroundColor(Color(UIColor.label))
             }
         }
     }
 
     private var historySection: some View {
         Section(header: Text("History")) {
-            Picker("Keep History", selection: $historyRentionDays) {
-                Text("Forever").tag(0 as Int)
-                Text("One Year").tag(365 as Int)
-                Text("Six Months").tag(182 as Int)
-                Text("Three Months").tag(90 as Int)
-                Text("One Month").tag(30 as Int)
-                Text("Two Weeks").tag(14 as Int)
-                Text("One Week").tag(7 as Int)
-            }.onChange(of: historyRentionDays) { _ in
-                saveProfile()
-            }
+            HStack(spacing: 16) {
+                Image(systemName: "clock")
+                Picker("Keep History", selection: $historyRentionDays) {
+                    Text("Forever").tag(0 as Int)
+                    Text("One Year").tag(365 as Int)
+                    Text("Six Months").tag(182 as Int)
+                    Text("Three Months").tag(90 as Int)
+                    Text("One Month").tag(30 as Int)
+                    Text("Two Weeks").tag(14 as Int)
+                    Text("One Week").tag(7 as Int)
+                }.onChange(of: historyRentionDays) { _ in
+                    saveProfile()
+                }
+            }.padding(.leading, 4)
 
             Button(action: clearHistory) {
                 Label("Clear History", systemImage: "clear")
-            }
+            }.buttonStyle(ActionButtonStyle())
 
         }
     }
@@ -87,7 +92,7 @@ struct SettingsView: View {
         Section(header: Text("Reset")) {
             Button(action: clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark")
-            }.disabled(refreshManager.refreshing)
+            }.disabled(refreshManager.refreshing).buttonStyle(ActionButtonStyle())
 
             Button(action: showResetAlert) {
                 Label("Reset Everything", systemImage: "clear").foregroundColor(Color(.systemRed))
@@ -100,7 +105,7 @@ struct SettingsView: View {
                     },
                     secondaryButton: .cancel()
                 )
-            }.disabled(refreshManager.refreshing)
+            }.disabled(refreshManager.refreshing).buttonStyle(DestructiveButtonStyle())
         }
     }
 
@@ -114,17 +119,19 @@ struct SettingsView: View {
                 }
             }.padding(.vertical)
 
-            Button(action: openHomepage) {
-                Label("Homepage", systemImage: "house")
-            }
+            Group {
+                Button(action: openHomepage) {
+                    Label("Homepage", systemImage: "house")
+                }
 
-            Button(action: emailSupport) {
-                Label("Email Support", systemImage: "lifepreserver")
-            }
+                Button(action: emailSupport) {
+                    Label("Email Support", systemImage: "lifepreserver")
+                }
 
-            Button(action: openPrivacyPolicy) {
-                Label("Privacy Policy", systemImage: "lock.shield")
-            }
+                Button(action: openPrivacyPolicy) {
+                    Label("Privacy Policy", systemImage: "lock.shield")
+                }
+            }.buttonStyle(ActionButtonStyle())
         }
     }
 
