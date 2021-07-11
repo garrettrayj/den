@@ -32,17 +32,17 @@ struct SearchView: View {
                         .padding(.bottom, 64)
                     }
                 } else if searchQuery == "" {
-                    Text("Filter current headlines by keyword")
+                    Text("Filter Current Headlines by Keyword")
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding()
                 } else if !searchIsValid(query: searchQuery) {
-                    Text("Minimum three characters required")
+                    Text("Mininum: Three Characters")
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding()
                 } else {
-                    Text("No results found")
+                    Text("No Results Found")
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .padding()

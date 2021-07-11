@@ -15,8 +15,8 @@ struct CrashMessageView: View {
             Text("Application Crashed").font(.title)
             Text("""
                 A critical error occurred.
-                Quit the app and restart to try again.
-                Consider sending a bug report if you see this repeatedly.
+                Fully close Den then restart to try again.
+                Please consider sending a bug report if you see this repeatedly.
             """)
             .foregroundColor(Color(.secondaryLabel))
             .multilineTextAlignment(.center)

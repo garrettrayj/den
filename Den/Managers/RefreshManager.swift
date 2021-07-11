@@ -41,7 +41,7 @@ final class RefreshManager: ObservableObject {
         var ops: [Operation] = []
 
         // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally
-        if feedData.metaFetched == nil || feedData.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
+        if feedData.metaFetched == nil || feedData.metaFetched! < Date(timeIntervalSinceNow: -30 * 24 * 60 * 60) {
             ops = self.planFullUpdate(feed: feed, feedData: feedData)
         } else {
             ops = self.planContentUpdate(feed: feed, feedData: feedData)
