@@ -27,7 +27,7 @@ struct ExportView: View {
                     VStack(alignment: .center) {
                         Button(action: exportOpml) {
                             Label("Save OPML File", systemImage: "arrow.up.doc")
-                        }.buttonStyle(ActionButtonStyle()).disabled(selectedPages.count == 0)
+                        }.buttonStyle(AccentButtonStyle()).disabled(selectedPages.count == 0)
                     }
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
@@ -40,7 +40,6 @@ struct ExportView: View {
         }
         .navigationTitle("Export")
         .navigationBarTitleDisplayMode(.inline)
-        
     }
 
     private var pageList: some View {
@@ -54,7 +53,6 @@ struct ExportView: View {
                         } else {
                             Image(systemName: "circle")
                         }
-
                         Text(page.wrappedName).foregroundColor(.primary)
                         Spacer()
                         Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)

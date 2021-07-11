@@ -26,40 +26,13 @@ struct HistoryView: View {
                 SearchFieldView(searchQuery: $searchQuery)
 
                 if searchResults.count == 0 && searchQuery == "" {
-                    Text("History is Empty")
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .padding()
+                    Text("History is Empty").modifier(SimpleMessageModifier())
+                } else if !searchIsValid(query: searchQuery) {
+                    Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else if searchResults.count == 0 && searchQuery != "" {
-                    Text("No Results Found")
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .padding()
-
+                    Text("No Results Found").modifier(SimpleMessageModifier())
                 } else {
-                    List {
-                        ForEach(searchResults, id: \.self) { resultGroup in
-                            if resultGroup.first?.visited != nil {
-                                Section(
-                                    header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.mediumNone)")
-                                ) {
-                                    ForEach(resultGroup) { result in
-                                        if result.title != nil && result.link != nil {
-                                            Button { linkManager.openLink(url: result.link!) } label: {
-                                                VStack(alignment: .leading, spacing: 4) {
-                                                    Text(result.title!).font(.system(size: 18))
-                                                    Text(result.link!.absoluteString)
-                                                        .font(.caption)
-                                                        .foregroundColor(Color.secondary)
-                                                        .lineLimit(1)
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    resultsList
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -84,6 +57,32 @@ struct HistoryView: View {
                 }
             }
         )
+    }
+    
+    private var resultsList: some View {
+        List {
+            ForEach(searchResults, id: \.self) { resultGroup in
+                if resultGroup.first?.visited != nil {
+                    Section(
+                        header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.mediumNone)")
+                    ) {
+                        ForEach(resultGroup) { result in
+                            if result.title != nil && result.link != nil {
+                                Button { linkManager.openLink(url: result.link!) } label: {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(result.title!).font(.system(size: 18))
+                                        Text(result.link!.absoluteString)
+                                            .font(.caption)
+                                            .foregroundColor(Color.secondary)
+                                            .lineLimit(1)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private func search(query: String) {
@@ -118,5 +117,12 @@ struct HistoryView: View {
         } catch {
             Logger.main.error("Failed to fetch search results: \(error as NSError)")
         }
+    }
+    
+    private func searchIsValid(query: String) -> Bool {
+        if query == "" || query.count >= 3 {
+            return true
+        }
+        return false
     }
 }

@@ -32,12 +32,10 @@ struct ImportView: View {
         VStack(alignment: .center) {
             Button(action: importManager.pickFile) {
                 Text("Select OPML File")
-            }.buttonStyle(ActionButtonStyle())
+            }.buttonStyle(AccentButtonStyle())
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(UIColor.systemGroupedBackground))
-        .edgesIgnoringSafeArea(.all)
+        .modifier(SimpleMessageModifier())
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
     }
 
     private var folderSelectionStage: some View {
@@ -65,7 +63,7 @@ struct ImportView: View {
             VStack(alignment: .center) {
                 Button(action: importFeeds) {
                     Label("Import Subscription", systemImage: "arrow.down.doc")
-                }.buttonStyle(ActionButtonStyle()).frame(alignment: .center)
+                }.buttonStyle(AccentButtonStyle()).frame(alignment: .center)
             }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
         }
         .toolbar {

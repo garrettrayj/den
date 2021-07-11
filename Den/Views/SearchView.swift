@@ -32,20 +32,11 @@ struct SearchView: View {
                         .padding(.bottom, 64)
                     }
                 } else if searchQuery == "" {
-                    Text("Filter Current Headlines by Keyword")
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .padding()
+                    Text("Filter Current Headlines by Keyword").modifier(SimpleMessageModifier())
                 } else if !searchIsValid(query: searchQuery) {
-                    Text("Mininum: Three Characters")
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .padding()
+                    Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else {
-                    Text("No Results Found")
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .padding()
+                    Text("No Results Found").modifier(SimpleMessageModifier())
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
