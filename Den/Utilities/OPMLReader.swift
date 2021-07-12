@@ -6,10 +6,10 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
-import AEXML
 import OSLog
+import SwiftUI
+
+import AEXML
 
 struct OPMLFolder: Hashable {
     var name: String

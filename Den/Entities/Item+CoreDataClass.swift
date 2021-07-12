@@ -6,11 +6,8 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
 import CoreData
-import FeedKit
 import HTMLEntities
-import SwiftSoup
 import SwiftUI
 import OSLog
 

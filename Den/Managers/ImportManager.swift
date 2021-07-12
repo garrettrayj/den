@@ -6,8 +6,8 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import SwiftUI
 import CoreData
+import SwiftUI
 
 final class ImportManager: ObservableObject {
     enum ImportStage {

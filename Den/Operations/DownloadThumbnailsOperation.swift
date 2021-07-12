@@ -6,9 +6,7 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
 import CoreData
-import FeedKit
 import OSLog
 
 final class DownloadThumbnailsOperation: Operation {

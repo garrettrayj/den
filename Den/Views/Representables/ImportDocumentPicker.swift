@@ -6,9 +6,8 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
 import MobileCoreServices
+import SwiftUI
 
 /**
  Wrapper for UIDocumentPickerViewController that acts as a delegate and passes the selected file to a callback.

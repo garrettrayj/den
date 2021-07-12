@@ -6,11 +6,10 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
 import CoreData
-import UIKit
-import Combine
 import OSLog
+import UIKit
+
 import func AVFoundation.AVMakeRect
 
 final class SaveThumbnailOperation: Operation {

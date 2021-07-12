@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import OSLog
 
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext

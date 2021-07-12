@@ -8,9 +8,6 @@
 
 import SwiftUI
 
-/**
- Item (article) row for feeds
- */
 struct FeedWidgetItemRowView: View {
     @EnvironmentObject var linkManager: LinkManager
     @ObservedObject var item: Item

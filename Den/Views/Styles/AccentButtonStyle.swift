@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct AccentButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         AccentButton(configuration: configuration)

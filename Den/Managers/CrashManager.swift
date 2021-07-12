@@ -6,9 +6,8 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
-import OSLog
 import CoreData
+import OSLog
 
 final class CrashManager: ObservableObject {
     @Published var showingCrashMessage: Bool = false

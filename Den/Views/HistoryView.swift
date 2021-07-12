@@ -6,11 +6,8 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import SwiftUI
 import CoreData
-import Grid
-import OSLog
-import Combine
+import SwiftUI
 
 struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
@@ -115,7 +112,7 @@ struct HistoryView: View {
                 return aHistory[0].visited! > bHistory[0].visited!
             }
         } catch {
-            Logger.main.error("Failed to fetch search results: \(error as NSError)")
+            crashManager.handleCriticalError(error as NSError)
         }
     }
     
