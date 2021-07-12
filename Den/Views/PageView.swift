@@ -19,7 +19,7 @@ struct PageView: View {
     @State private var showingSettings: Bool = false
 
     let columns = [
-        GridItem(.adaptive(minimum: 360, maximum: 460), spacing: 16, alignment: .top)
+        GridItem(.adaptive(minimum: 340, maximum: 460), spacing: 16, alignment: .top)
     ]
 
     var body: some View {
