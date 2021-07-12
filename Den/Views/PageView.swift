@@ -41,13 +41,14 @@ struct PageView: View {
                                     FeedWidgetView(feed: feed)
                                 }
                             }
-                            .padding(.leading, geometry.safeAreaInsets.leading + 16)
-                            .padding(.trailing, geometry.safeAreaInsets.trailing + 16)
+                            .padding(.leading, horizontalInset(geometry.safeAreaInsets.leading))
+                            .padding(.trailing, horizontalInset(geometry.safeAreaInsets.trailing))
                             .padding(.top, 16)
                             .padding(.bottom, 64)
                         }
                         HeaderProgressBarView(page: page)
                     }
+                    .edgesIgnoringSafeArea(.horizontal)
                 }
             }
         }
@@ -121,5 +122,13 @@ struct PageView: View {
 
     private func onAppear() {
         subscriptionManager.destinationPage = page
+    }
+    
+    private func horizontalInset(_ safeArea: CGFloat) -> CGFloat {
+        if safeArea > 0 {
+            return safeArea
+        }
+        
+        return 16
     }
 }
