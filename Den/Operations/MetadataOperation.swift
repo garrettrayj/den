@@ -6,10 +6,10 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
-import SwiftSoup
 import CoreData
 import OSLog
+
+import SwiftSoup
 
 final class MetadataOperation: Operation {
     // Operation inputs

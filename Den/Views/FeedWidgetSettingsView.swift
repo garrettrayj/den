@@ -1,17 +1,13 @@
 //
-//  FeedEditView.swift
+//  FeedWidgetSettingsView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/23/20.
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
-/**
- FeedOptionsView wrapper for displaying options in a modal sheet.
- */
 struct FeedWidgetSettingsView: View {
     @Environment(\.presentationMode) var presentation
     @ObservedObject var feed: Feed

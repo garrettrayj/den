@@ -6,10 +6,7 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
 import CoreData
-import FeedKit
 import OSLog
 
 final class RefreshManager: ObservableObject {

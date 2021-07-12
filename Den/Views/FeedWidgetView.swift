@@ -1,5 +1,5 @@
 //
-//  FeedView.swift
+//  FeedWidgetView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/18/20.
@@ -8,9 +8,6 @@
 
 import SwiftUI
 
-/**
- Block view with channel title and items (articles)
- */
 struct FeedWidgetView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentation

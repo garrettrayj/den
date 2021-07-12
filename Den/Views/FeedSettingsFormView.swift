@@ -1,5 +1,5 @@
 //
-//  FeedOptionsView.swift
+//  FeedSettingsFormView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/30/20.

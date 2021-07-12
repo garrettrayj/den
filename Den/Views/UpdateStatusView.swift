@@ -1,11 +1,11 @@
 //
-//  RefreshView.swift
+//  UpdateStatusView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/1/20.
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
-import Foundation
+
 import SwiftUI
 
 struct UpdateStatusView: View {

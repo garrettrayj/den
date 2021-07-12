@@ -7,11 +7,7 @@
 //
 
 import SwiftUI
-import Grid
 
-/**
- Grid layout of Feed views. Hosts sheets for editing and organizing feeds, subscribing to new feeds.
- */
 struct PageView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme

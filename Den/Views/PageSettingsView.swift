@@ -1,5 +1,5 @@
 //
-//  PageOrganizerView.swift
+//  PageSettingsView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/21/20.
@@ -8,9 +8,6 @@
 
 import SwiftUI
 
-/**
- User interface for reordering, moving, and deleting Gadgets within a Page
- */
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode

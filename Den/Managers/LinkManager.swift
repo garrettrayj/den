@@ -6,10 +6,8 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
-import SafariServices
 import CoreData
+import SafariServices
 
 /**
  Opens links and logs history

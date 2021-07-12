@@ -6,13 +6,14 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import SwiftUI
 import CoreData
+import SwiftUI
+
 import Grid
-import OSLog
 
 struct SearchView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var crashManager: CrashManager
 
     @State private var searchQuery: String = ""
     @State private var searchResults: [[Item]] = []
@@ -102,7 +103,7 @@ struct SearchView: View {
                 return aTitle < bTitle
             }
         } catch {
-            Logger.main.error("Failed to fetch search results: \(error as NSError)")
+            crashManager.handleCriticalError(error as NSError)
         }
     }
 }

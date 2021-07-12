@@ -6,9 +6,7 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
-import CoreData
 
 /**
  Master navigation list with links to page views.

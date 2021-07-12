@@ -6,7 +6,6 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import CoreData
 import SwiftUI
 
 struct ImportView: View {

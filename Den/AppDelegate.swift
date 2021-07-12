@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import CoreData
-import SwiftUI
-import OSLog
 
 /**
  AppDelegate contains handlers for application startup and OS chrome customization.

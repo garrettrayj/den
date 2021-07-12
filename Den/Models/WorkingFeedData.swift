@@ -7,8 +7,9 @@
 //
 
 import Foundation
-import FeedKit
 import OSLog
+
+import FeedKit
 
 /**
  Feed entity representation for working with data outside of NSManagedObjectContext (e.g. feed ingest operations)

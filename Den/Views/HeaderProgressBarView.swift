@@ -1,5 +1,5 @@
 //
-//  ProgressBarView.swift
+//  HeaderProgressBarView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/28/20.
@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct HeaderProgressBarView: View {
     @EnvironmentObject var refreshManager: RefreshManager

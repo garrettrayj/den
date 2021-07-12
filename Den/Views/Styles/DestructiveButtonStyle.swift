@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct DestructiveButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         DestructiveButton(configuration: configuration)
