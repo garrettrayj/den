@@ -32,7 +32,7 @@ struct FeedWidgetView: View {
                 feedItems
             } else {
                 Divider()
-                
+
                 if feed.feedData == nil {
                     feedNotFetched
                 } else if feed.feedData?.error != nil {
@@ -52,7 +52,7 @@ struct FeedWidgetView: View {
                 .environmentObject(crashManager)
         }
     }
-    
+
     private var feedHeader: some View {
         HStack {
             if feed.feedData?.faviconImage != nil {
@@ -73,7 +73,7 @@ struct FeedWidgetView: View {
             }.disabled(refreshManager.refreshing).padding(12)
         }.padding(.leading, 12)
     }
-    
+
     private var feedItems: some View {
         VStack(spacing: 0) {
             ForEach(feed.feedData!.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
@@ -84,7 +84,7 @@ struct FeedWidgetView: View {
             }
         }
     }
-    
+
     private var feedError: some View {
         VStack {
             VStack(spacing: 4) {
@@ -109,7 +109,7 @@ struct FeedWidgetView: View {
         .padding([.horizontal, .top])
         .padding(.bottom, 2)
     }
-    
+
     private var feedEmpty: some View {
         Text("Feed Empty")
             .foregroundColor(.secondary)
@@ -117,7 +117,7 @@ struct FeedWidgetView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .multilineTextAlignment(.center)
     }
-    
+
     private var feedNotFetched: some View {
         Text("Refresh to Fetch Content")
             .foregroundColor(.secondary)
@@ -125,7 +125,7 @@ struct FeedWidgetView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .multilineTextAlignment(.center)
     }
-    
+
     private var feedStatusUnknown: some View {
         Text("Feed Status Unavailable")
             .foregroundColor(.secondary)

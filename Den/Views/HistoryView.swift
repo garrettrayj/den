@@ -55,7 +55,7 @@ struct HistoryView: View {
             }
         )
     }
-    
+
     private var resultsList: some View {
         List {
             ForEach(searchResults, id: \.self) { resultGroup in
@@ -115,7 +115,7 @@ struct HistoryView: View {
             crashManager.handleCriticalError(error as NSError)
         }
     }
-    
+
     private func searchIsValid(query: String) -> Bool {
         if query == "" || query.count >= 3 {
             return true

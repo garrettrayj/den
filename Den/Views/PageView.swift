@@ -58,7 +58,7 @@ struct PageView: View {
         .onAppear(perform: onAppear)
         .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
-    
+
     private var pageToolbar: some ToolbarContent {
         ToolbarItemGroup {
             if UIDevice.current.userInterfaceIdiom == .phone {
@@ -123,12 +123,12 @@ struct PageView: View {
     private func onAppear() {
         subscriptionManager.destinationPage = page
     }
-    
+
     private func horizontalInset(_ safeArea: CGFloat) -> CGFloat {
         if safeArea > 0 {
             return safeArea
         }
-        
+
         return 16
     }
 }

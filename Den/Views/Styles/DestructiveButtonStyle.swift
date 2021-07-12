@@ -17,18 +17,18 @@ struct DestructiveButtonStyle: ButtonStyle {
         let configuration: ButtonStyle.Configuration
 
         @Environment(\.isEnabled) private var isEnabled: Bool
-        
+
         var body: some View {
             configuration.label
                 .foregroundColor(labelColor(isEnabled: isEnabled))
                 .opacity(configuration.isPressed ? 0.6 : 1.0)
         }
-        
+
         private func labelColor(isEnabled: Bool) -> Color {
             if isEnabled == true {
                 return Color(UIColor.systemRed)
             }
-            
+
             return Color.secondary
         }
     }

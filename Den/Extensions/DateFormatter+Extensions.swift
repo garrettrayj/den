@@ -17,7 +17,7 @@ extension DateFormatter {
 
         return dateFormatter
     }()
-    
+
     static let mediumNone: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -26,7 +26,7 @@ extension DateFormatter {
 
         return dateFormatter
     }()
-    
+
     static let longMedium: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
@@ -35,7 +35,7 @@ extension DateFormatter {
 
         return dateFormatter
     }()
-    
+
     static let isoDate: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

@@ -144,6 +144,7 @@ struct RefreshableKeyTypes {
             value.append(contentsOf: nextValue())
         }
 
+        // swiftlint:disable:next nesting
         typealias Value = [PrefData]
     }
 }
