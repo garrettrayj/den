@@ -24,8 +24,20 @@ final class RefreshManager: ObservableObject {
     }
 
     public func refresh(_ page: Page) {
+        refreshing = true
+
+        var operations: [Operation] = []
+
         page.feedsArray.forEach { feed in
-            self.refresh(feed)
+            progress.totalUnitCount += 1
+            operations.append(contentsOf: self.createFeedOps(feed))
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.queue.addOperations(operations, waitUntilFinished: true)
+            DispatchQueue.main.async {
+                self.refreshComplete(page: page)
+            }
         }
     }
 
@@ -33,15 +45,22 @@ final class RefreshManager: ObservableObject {
         refreshing = true
         progress.totalUnitCount += 1
 
-        let feedData = self.checkFeedData(feed)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.queue.addOperations(self.createFeedOps(feed), waitUntilFinished: true)
+            DispatchQueue.main.async {
+                self.refreshComplete(page: feed.page)
+            }
+        }
+    }
 
+    private func createFeedOps(_ feed: Feed) -> [Operation] {
+        let feedData = self.checkFeedData(feed)
         let refreshPlan = RefreshPlan(
             feed: feed,
             feedData: feedData,
             persistentContainer: persistentContainer,
             crashManager: crashManager,
-            progress: progress,
-            completionCallback: { self.refreshFinished(page: feed.page) }
+            progress: progress
         )
 
         // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally
@@ -51,9 +70,7 @@ final class RefreshManager: ObservableObject {
 
         refreshPlan.configureOps()
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(refreshPlan.operations, waitUntilFinished: false)
-        }
+        return refreshPlan.getOps()
     }
 
     private func checkFeedData(_ feed: Feed) -> FeedData {
@@ -73,16 +90,10 @@ final class RefreshManager: ObservableObject {
         return feed.feedData!
     }
 
-    private func refreshFinished(page: Page?) {
-        if self.persistentContainer.viewContext.hasChanges {
-            do {
-                try self.persistentContainer.viewContext.save()
-            } catch let error as NSError {
-                self.crashManager.handleCriticalError(error)
-            }
-        }
-
+    private func refreshComplete(page: Page?) {
         page?.objectWillChange.send()
         self.refreshing = false
+        self.progress.totalUnitCount = 0
+        self.progress.completedUnitCount = 0
     }
 }
