@@ -12,8 +12,6 @@ struct HeaderProgressBarView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @State var observedProgress: CGFloat = 0
 
-    var page: Page
-
     var body: some View {
         if refreshManager.refreshing {
             ProgressView(value: observedProgress)

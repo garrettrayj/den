@@ -46,7 +46,7 @@ struct PageView: View {
                             .padding(.top, 16)
                             .padding(.bottom, 64)
                         }
-                        HeaderProgressBarView(page: page)
+                        HeaderProgressBarView()
                     }
                     .edgesIgnoringSafeArea(.horizontal)
                 }

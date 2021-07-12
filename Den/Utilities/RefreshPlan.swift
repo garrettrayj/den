@@ -8,7 +8,7 @@
 
 import CoreData
 
-class RefreshPlan {
+final class RefreshPlan {
     public var fullUpdate: Bool = false
 
     private var feed: Feed
@@ -16,7 +16,6 @@ class RefreshPlan {
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
     private var progress: Progress
-    private var completionCallback: () -> Void
 
     // Feed processing operations
     private var fetchOp: DataTaskOperation?
@@ -40,8 +39,8 @@ class RefreshPlan {
     private var parseDownloadThumbnailsAdapter: BlockOperation?
     private var saveFeedAdapter: BlockOperation?
 
-    var operations: [Operation] {
-        let allOps = [
+    func getOps() -> [Operation] {
+        return [
             fetchOp,
             fetchParseAdapter,
             parseOp,
@@ -60,9 +59,7 @@ class RefreshPlan {
             saveFeedAdapter,
             saveFeedOp,
             completionOp
-        ]
-
-        return allOps.compactMap { $0 }
+        ].compactMap { $0 }
     }
 
     init(
@@ -70,15 +67,13 @@ class RefreshPlan {
         feedData: FeedData,
         persistentContainer: NSPersistentContainer,
         crashManager: CrashManager,
-        progress: Progress,
-        completionCallback: @escaping () -> Void
+        progress: Progress
     ) {
         self.feed = feed
         self.feedData = feedData
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
         self.progress = progress
-        self.completionCallback = completionCallback
     }
 
     public func configureOps() {
@@ -119,13 +114,8 @@ class RefreshPlan {
             feedObjectID: feed.objectID,
             saveMeta: fullUpdate
         )
-        completionOp = BlockOperation {
-            DispatchQueue.main.async {
-                self.progress.completedUnitCount += 1
-                if self.progress.isFinished {
-                    self.completionCallback()
-                }
-            }
+        completionOp = BlockOperation { [unowned progress] in
+            progress.completedUnitCount += 1
         }
     }
 
