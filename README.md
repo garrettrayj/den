@@ -2,19 +2,32 @@
 
 Den is a feed reader made for delivering the news without distraction, obfuscation, or manipulation. 
 
-Just add feeds to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. You and you alone are in control of the content you follow. RSS is an open format that can be published by any website, therefore no single company has control over what you see. Why be a social media school fish when you can be a manatee, doing your own thing?
+Just add feeds to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. RSS is an open format that can be published by any website, therefore no single company has control over what you see. Den enables one to use RSS feeds as building blocks to create objective dashboards, with multiple sources on a level field, to cover any topic. In summary, this app is for people who would prefer to do their own thing rather than swim with the school fishes.
+
+Features
 
 - Compatible with iPhone, iPad, and Mac
 - No account or registration required
 - Subscriptions and read items sync across devices with iCloud
 - Compatible with RSS, Atom, and JSON feed formats
-- Search items and feeds by keyword
-- Import and export subscriptions with OPML
+- Global search for filtering current items by keyword
+- OPML import and export for sharing subscriptions
 - Light and dark theme options
+- History view with search for finding previously visited links
+- Adjustable history retention period
+- Fast, clean, simple interface created around one rule: The user has full control over content and updates.
 
 ## Release Notes
 
-### Den 1.3
+### Den v1.4
+
+Version 1.4 enables viewing and managing visited links, also known as history.
+
+- Reorganized user interface with tabs
+- History view with title search
+- Several minor user interface bug fixes and improvements
+
+### Den v1.3
 
 Version 1.3 contains several major application performance improvements and many minor user interface enhancements.
 

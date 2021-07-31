@@ -95,5 +95,13 @@ final class RefreshManager: ObservableObject {
         self.refreshing = false
         self.progress.totalUnitCount = 0
         self.progress.completedUnitCount = 0
+
+        if persistentContainer.viewContext.hasChanges {
+            do {
+                try persistentContainer.viewContext.save()
+            } catch {
+                self.crashManager.handleCriticalError(error as NSError)
+            }
+        }
     }
 }

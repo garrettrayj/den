@@ -13,20 +13,18 @@ struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var linkManager: LinkManager
     @EnvironmentObject var crashManager: CrashManager
-
-    @State private var searchQuery: String = ""
-    @State private var searchResults: [[History]] = []
+    @EnvironmentObject var searchManager: SearchManager
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(searchQuery: $searchQuery)
+                SearchFieldView(searchQuery: $searchManager.searchQuery)
 
-                if searchResults.count == 0 && searchQuery == "" {
+                if searchManager.historyResults.count == 0 && searchManager.searchQuery == "" {
                     Text("History is Empty").modifier(SimpleMessageModifier())
-                } else if !searchIsValid(query: searchQuery) {
+                } else if !searchIsValid(query: searchManager.searchQuery) {
                     Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
-                } else if searchResults.count == 0 && searchQuery != "" {
+                } else if searchManager.historyResults.count == 0 && searchManager.searchQuery != "" {
                     Text("No Results Found").modifier(SimpleMessageModifier())
                 } else {
                     resultsList
@@ -39,17 +37,17 @@ struct HistoryView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
-            self.search(query: searchQuery)
+            self.search(query: searchManager.searchQuery)
         }
         .onReceive(
-            searchQuery
+            searchManager.searchQuery
                 .publisher
                 .removeDuplicates()
                 .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
                 .collect(),
             perform: { _ in
                 DispatchQueue.main.async {
-                    let trimmedQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let trimmedQuery = searchManager.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
                     self.search(query: trimmedQuery)
                 }
             }
@@ -58,7 +56,7 @@ struct HistoryView: View {
 
     private var resultsList: some View {
         List {
-            ForEach(searchResults, id: \.self) { resultGroup in
+            ForEach(searchManager.historyResults, id: \.self) { resultGroup in
                 if resultGroup.first?.visited != nil {
                     Section(
                         header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.mediumNone)")
@@ -108,7 +106,7 @@ struct HistoryView: View {
                 by: { DateFormatter.isoDate.string(from: $0.visited!) }
             )
 
-            self.searchResults = grouping.values.sorted { aHistory, bHistory in
+            searchManager.historyResults = grouping.values.sorted { aHistory, bHistory in
                 return aHistory[0].visited! > bHistory[0].visited!
             }
         } catch {

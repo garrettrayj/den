@@ -14,27 +14,25 @@ import Grid
 struct SearchView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var crashManager: CrashManager
-
-    @State private var searchQuery: String = ""
-    @State private var searchResults: [[Item]] = []
+    @EnvironmentObject var searchManager: SearchManager
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(searchQuery: $searchQuery)
+                SearchFieldView(searchQuery: $searchManager.searchQuery)
 
-                if searchResults.count > 0 && searchIsValid(query: searchQuery) {
+                if searchManager.searchResults.count > 0 && searchIsValid(query: searchManager.searchQuery) {
                     ScrollView {
-                        Grid(searchResults, id: \.self) { sectionItems in
+                        Grid(searchManager.searchResults, id: \.self) { sectionItems in
                             SearchResultView(items: sectionItems)
                         }
                         .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(360), spacing: 16))
                         .padding()
                         .padding(.bottom, 64)
                     }
-                } else if searchQuery == "" {
+                } else if searchManager.searchQuery == "" {
                     Text("Filter Current Headlines by Keyword").modifier(SimpleMessageModifier())
-                } else if !searchIsValid(query: searchQuery) {
+                } else if !searchIsValid(query: searchManager.searchQuery) {
                     Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else {
                     Text("No Results Found").modifier(SimpleMessageModifier())
@@ -45,14 +43,14 @@ struct SearchView: View {
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .onReceive(
-                searchQuery
+                searchManager.searchQuery
                     .publisher
                     .removeDuplicates()
                     .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
                     .collect(),
                 perform: { _ in
                     DispatchQueue.main.async {
-                        let trimmedQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+                        let trimmedQuery = searchManager.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
                         if self.searchIsValid(query: trimmedQuery) {
                             self.search(query: trimmedQuery)
                         }
@@ -90,7 +88,7 @@ struct SearchView: View {
                 }
             }
 
-            self.searchResults = Dictionary(grouping: compactedFetchResults) { item in
+            searchManager.searchResults = Dictionary(grouping: compactedFetchResults) { item in
                 item.feedData!
             }.values.sorted { aItem, bItem in
                 guard

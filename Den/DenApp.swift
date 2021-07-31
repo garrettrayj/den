@@ -24,6 +24,7 @@ struct DenApp: App {
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
     @StateObject var browserManager: LinkManager
+    @StateObject var searchManager: SearchManager
 
     var body: some Scene {
         WindowGroup {
@@ -37,6 +38,7 @@ struct DenApp: App {
                 .environmentObject(crashManager)
                 .environmentObject(themeManager)
                 .environmentObject(browserManager)
+                .environmentObject(searchManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
                     if let titlebar = window?.windowScene?.titlebar {
@@ -69,7 +71,6 @@ struct DenApp: App {
     }
 
     init() {
-
         let crashManager = CrashManager()
         let persistenceManager = PersistenceManager(crashManager: crashManager)
         let profileManager = ProfileManager(
@@ -89,13 +90,18 @@ struct DenApp: App {
             crashManager: crashManager,
             profileManager: profileManager
         )
-        let subscriptionManager = SubscriptionManager()
+        let subscriptionManager = SubscriptionManager(
+            viewContext: persistenceManager.container.viewContext,
+            profileManager: profileManager,
+            crashManager: crashManager
+        )
         let themeManager = ThemeManager()
         let browserManager = LinkManager(
             viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager,
             profileManager: profileManager
         )
+        let searchManager = SearchManager()
 
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
@@ -106,7 +112,12 @@ struct DenApp: App {
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
         _browserManager = StateObject(wrappedValue: browserManager)
+        _searchManager = StateObject(wrappedValue: searchManager)
 
         FileManager.default.initAppDirectories()
+
+        if CommandLine.arguments.contains("--reset") {
+            profileManager.resetProfiles()
+        }
     }
 }

@@ -17,6 +17,7 @@ struct SidebarView: View {
     @Environment(\.editMode) var editMode
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var crashManager: CrashManager
 
     @State var pageSelection: String?
@@ -46,7 +47,6 @@ struct SidebarView: View {
                 pageSelection = profileManager.activeProfile?.pagesArray.first?.id?.uuidString
             }
         }
-
     }
 
     private var pageListSection: some View {
@@ -70,7 +70,7 @@ struct SidebarView: View {
                     Text("Create a New Page").fontWeight(.medium)
                 }
             }
-            Button(action: loadDemo) {
+            Button(action: subscriptionManager.loadDemo) {
                 HStack {
                     Image(systemName: "wand.and.stars")
                     Text("Load Demo Feeds").fontWeight(.medium)
@@ -115,33 +115,5 @@ struct SidebarView: View {
     private func deletePage(indices: IndexSet) {
         profileManager.activeProfile?.pagesArray.delete(at: indices, from: viewContext)
         profileManager.activeProfile?.objectWillChange.send()
-    }
-
-    private func loadDemo() {
-        guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
-            preconditionFailure("Missing demo feeds source file")
-        }
-
-        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
-
-        var newPages: [Page] = []
-        opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, profile: profileManager.activeProfile!)
-            page.name = opmlFolder.name
-            newPages.append(page)
-
-            opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page)
-                feed.title = opmlFeed.title
-                feed.url = opmlFeed.url
-            }
-        }
-
-        do {
-            try viewContext.save()
-            profileManager.objectWillChange.send()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
-        }
     }
 }
