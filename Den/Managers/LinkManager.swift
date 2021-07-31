@@ -50,20 +50,16 @@ final class LinkManager: ObservableObject {
         history.title = item.title
         history.visited = Date()
 
-        if self.viewContext.hasChanges {
-            do {
-                try self.viewContext.save()
+        do {
+            try self.viewContext.save()
 
-                // Update link color
-                item.objectWillChange.send()
+            // Update link color
+            item.objectWillChange.send()
 
-                // Update unread count in page navigation
-                item.feedData?.feed?.page?.objectWillChange.send()
-            } catch {
-                DispatchQueue.main.async {
-                    self.crashManager.handleCriticalError(error as NSError)
-                }
-            }
+            // Update unread count in page navigation
+            item.feedData?.feed?.page?.objectWillChange.send()
+        } catch {
+            self.crashManager.handleCriticalError(error as NSError)
         }
     }
 }

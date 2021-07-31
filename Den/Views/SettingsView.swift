@@ -38,7 +38,7 @@ struct SettingsView: View {
     private var appearanceSection: some View {
         Section(header: Text("\nAppearance")) {
             HStack {
-                Label("Theme", systemImage: "paintpalette").foregroundColor(Color(UIColor.label))
+                Text("Theme").foregroundColor(Color(UIColor.label))
                 Spacer()
                 Picker(selection: themeManager.uiStyle, label: Text("Interface Style")) {
                     Text("Default").tag(UIUserInterfaceStyle.unspecified)
