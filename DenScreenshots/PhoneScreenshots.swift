@@ -193,7 +193,11 @@ class PhoneScreenshots: ScreenshotTestCase {
     private func gotoLink(_ elementIndex: Int) {
         let elementsQuery = app.scrollViews.otherElements
 
-        elementsQuery.buttons.element(boundBy: elementIndex).tap()
+        elementsQuery
+            .buttons
+            .matching(identifier: "Item Link")
+            .element(boundBy: elementIndex)
+            .tap()
 
         let doneButton = app.buttons["Done"]
         expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)

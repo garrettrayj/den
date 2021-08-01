@@ -12,6 +12,8 @@ class PadScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .pad }
 
     func testGetStarted() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         let getStartedLabel = app.staticTexts["GET STARTED"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
@@ -20,6 +22,8 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testPageList() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         loadDemoFeeds()
 
         // Wait for pages to appear
@@ -32,6 +36,8 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testPage() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         loadDemoFeeds()
 
         refreshPage("Science")
@@ -44,17 +50,18 @@ class PadScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "3-PageView")
     }
 
+    func testSetBut() {
+
+    }
+
     func testPageSettings() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         loadDemoFeeds()
 
         refreshPage("Science")
 
-        let pageMenuButton = app.navigationBars["Science"].buttons["Page Menu"]
-        expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageMenuButton.tap()
-
-        let pageSettingsButton = app.collectionViews.buttons["Page Settings"]
+        let pageSettingsButton = app.navigationBars["Science"].buttons["Wrench"]
         expectation(for: existsPredicate, evaluatedWith: pageSettingsButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageSettingsButton.tap()
@@ -67,24 +74,21 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testFeedSettings() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         loadDemoFeeds()
 
         refreshPage("Science")
 
-        let predicate = NSPredicate(format: "label CONTAINS 'Livescience.com'")
-        let feedHeader = app.staticTexts.containing(predicate).firstMatch
+        let feedHeaderPredicate = NSPredicate(format: "label CONTAINS 'Livescience.com'")
+        let feedHeader = app.staticTexts.containing(feedHeaderPredicate).firstMatch
         expectation(for: existsPredicate, evaluatedWith: feedHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 
-        app.scrollViews
-            .children(matching: .other)
-            .element(boundBy: 0)
-            .children(matching: .other)
-            .element
-            .children(matching: .button)
-            .matching(identifier: "gearshape")
-            .element(boundBy: 0)
-            .tap()
+        let feedSettingsButton = app.buttons.matching(identifier: "Feed Settings").firstMatch
+        expectation(for: existsPredicate, evaluatedWith: feedSettingsButton, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        feedSettingsButton.tap()
 
         let closeButton = app.navigationBars["Feed Settings"].buttons["Close"]
         expectation(for: existsPredicate, evaluatedWith: closeButton, handler: nil)
@@ -94,6 +98,8 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testSearch() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         loadDemoFeeds()
 
         refreshPage("Technology")
@@ -113,21 +119,18 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testHistory() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         loadDemoFeeds()
 
-        refreshPage("Science")
+        refreshPage("Gaming")
 
         gotoLink(1)
         gotoLink(3)
-        gotoLink(4)
+        gotoLink(6)
+        gotoLink(8)
 
-        gotoLink(7)
-        gotoLink(9)
-        gotoLink(10)
-
-        gotoLink(13)
-        gotoLink(15)
-        gotoLink(16)
+        app.activate()
 
         app.tabBars["Tab Bar"].buttons["History"].tap()
 
@@ -139,6 +142,8 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testSettings() {
+        XCUIDevice.shared.orientation = .landscapeRight
+
         app.tabBars["Tab Bar"].buttons["Settings"].tap()
 
         let settingsHeader = app.navigationBars["Settings"]
@@ -149,7 +154,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     private func loadDemoFeeds() {
-        // Load demo pages
         let loadDemoButton = app.tables.buttons["Load Demo Feeds"]
         expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
@@ -157,19 +161,13 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     private func refreshPage(_ pageName: String) {
-
         let pageButtonPredicate = NSPredicate(format: "label CONTAINS '\(pageName)'")
         let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
         expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageButton.tap()
 
-        let pageMenuButton = app.navigationBars[pageName].buttons["Page Menu"]
-        expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageMenuButton.tap()
-
-        let refreshButton = app.collectionViews.buttons["Refresh"]
+        let refreshButton = app.navigationBars[pageName].buttons["refresh"]
         expectation(for: existsPredicate, evaluatedWith: refreshButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         refreshButton.tap()
@@ -193,7 +191,11 @@ class PadScreenshots: ScreenshotTestCase {
     private func gotoLink(_ elementIndex: Int) {
         let elementsQuery = app.scrollViews.otherElements
 
-        elementsQuery.buttons.element(boundBy: elementIndex).tap()
+        elementsQuery
+            .buttons
+            .matching(identifier: "Item Link")
+            .element(boundBy: elementIndex)
+            .tap()
 
         let doneButton = app.buttons["Done"]
         expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)
