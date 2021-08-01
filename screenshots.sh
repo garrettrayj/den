@@ -16,7 +16,15 @@ testBundle="DenScreenshots"
 # All the simulators we want to screenshot
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
-    "iPhone 11 Pro"
+    "iPhone 12 Pro Max"
+    "iPhone 12 Pro"
+    "iPhone 8 Plus"
+    "iPhone 8"
+    "iPad Pro (12.9-inch) (5th generation)"
+    "iPad Pro (12.9-inch) (2nd generation)"
+    "iPad Pro (11-inch) (3rd generation)"
+    "iPad Pro (10.5-inch)"
+    "iPad Pro (9.7-inch)"
 )
 
 # All the languages we want to screenshot (ISO 3166-1 codes)
@@ -27,7 +35,7 @@ languages=(
 # All the appearances we want to screenshot (options are "light" and "dark")
 appearances=(
     "light"
-    "dark"
+    #"dark"
 )
 
 # Save final screenshots into this folder (it will be created)
