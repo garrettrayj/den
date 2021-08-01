@@ -50,10 +50,6 @@ class PadScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "3-PageView")
     }
 
-    func testSetBut() {
-
-    }
-
     func testPageSettings() {
         XCUIDevice.shared.orientation = .landscapeRight
 
