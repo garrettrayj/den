@@ -55,21 +55,20 @@ struct FeedWidgetView: View {
 
     private var feedHeader: some View {
         HStack {
-            if feed.feedData?.faviconImage != nil {
-                feed.feedData!.faviconImage!
-                    .scaleEffect(1 / UIScreen.main.scale)
-                    .frame(width: 16, height: 16, alignment: .center)
-                    .clipped()
+            HStack {
+                if feed.feedData?.faviconImage != nil {
+                    feed.feedData!.faviconImage!
+                        .scaleEffect(1 / UIScreen.main.scale)
+                        .frame(width: 16, height: 16, alignment: .center)
+                        .clipped()
+                }
+                Text(feed.wrappedTitle).font(.headline).lineLimit(1)
             }
-            Text(feed.wrappedTitle).font(.headline).lineLimit(1)
 
             Spacer()
 
             Button(action: showOptions) {
-                Image(systemName: "gearshape")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 16, height: 16, alignment: .center)
+                Label("Feed Settings", systemImage: "gearshape").labelStyle(IconOnlyLabelStyle())
             }.disabled(refreshManager.refreshing).padding(12)
         }.padding(.leading, 12)
     }
