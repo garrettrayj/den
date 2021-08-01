@@ -93,7 +93,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--reset"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>
