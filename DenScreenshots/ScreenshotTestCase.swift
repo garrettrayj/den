@@ -36,9 +36,17 @@ class ScreenshotTestCase: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
 
-        if UIDevice.current.userInterfaceIdiom != targetIdiom {
+        let currentDevice = UIDevice.current.userInterfaceIdiom
+
+        #if targetEnvironment(macCatalyst)
+        if targetIdiom != .mac {
             throw XCTSkip("Incompatible device type")
         }
+        #else
+        if currentDevice != targetIdiom {
+            throw XCTSkip("Incompatible device type")
+        }
+        #endif
 
         // Initialize the application
         app = XCUIApplication()

@@ -51,10 +51,12 @@ struct DenApp: App {
 
                     themeManager.window = window
                     themeManager.applyUIStyle()
-                }.onOpenURL { url in
+                }
+                .onOpenURL { url in
                     subscriptionManager.showAddSubscription(to: url)
                 }
-            }.onChange(of: scenePhase) { newScenePhase in
+        }
+        .onChange(of: scenePhase) { newScenePhase in
                 switch newScenePhase {
                 case .background:
                     if refreshManager.refreshing == false {

@@ -24,7 +24,7 @@ struct FeedWidgetItemRowView: View {
             HStack(alignment: .top, spacing: 12) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
-                }
+                }.accessibility(identifier: "Item Link")
 
                 if item.thumbnailImage != nil && item.feedData != nil && item.feedData?.feed?.showThumbnails == true {
                     thumbnailImage
