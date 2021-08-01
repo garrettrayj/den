@@ -1,8 +1,10 @@
 # Den for RSS
 
-Den is a feed reader made for delivering the news without distraction, obfuscation, or manipulation. 
+A feed reader made for delivering headlines without distraction, obfuscation, or manipulation. 
 
-Just add feeds to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. RSS is an open format that can be published by any website, therefore no single company has control over what you see. Den enables one to use RSS feeds as building blocks to create objective dashboards, with multiple sources on a level field, to cover any topic. In summary, this app is for people who would prefer to do their own thing rather than swim with the school fishes.
+Just add RSS to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. RSS is an open format that can be published by any website, therefore no single company has control over what you see.
+
+Den lets you use feeds as building blocks to create objective dashboards, with multiple sources on a level field, to cover any topic.
 
 Features
 
@@ -14,8 +16,7 @@ Features
 - OPML import and export for sharing subscriptions
 - Light and dark theme options
 - History view with search for finding previously visited links
-- Adjustable history retention period
-- Fast, clean, simple interface created around one rule: The user has full control over content and updates.
+- Simple app created around one rule: Users have full control over content and updates
 
 ## Release Notes
 
@@ -23,9 +24,9 @@ Features
 
 Version 1.4 enables viewing and managing visited links, also known as history.
 
-- Reorganized user interface with tabs
-- History view with title search
-- Several minor user interface bug fixes and improvements
+- Tab bar for top level views
+- History view with search
+- Several bug fixes and improvements
 
 ### Den v1.3
 
@@ -65,3 +66,8 @@ Den is a UIKit application written in Swift and SwiftUI with a good deal of work
   * `Misc` Misc artifacts (file type icons, demo feeds)
 * `DenTests` TODO
 * `DenUITests` TODO
+* `DenScreenshots` UI Tests for generating App Store screenshots
+
+---
+
+Copyright 2020 Garrett Johnson. All Rights Reserved.
