@@ -181,7 +181,7 @@ class MacScreenshots: ScreenshotTestCase {
         app.windows["Den"].buttons
             .matching(identifier: "Item Link")
             .element(boundBy: elementIndex)
-            .click()
+            .tap()
 
     }
 }
