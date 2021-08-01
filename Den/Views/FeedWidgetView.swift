@@ -14,6 +14,7 @@ struct FeedWidgetView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var profileManager: ProfileManager
     @ObservedObject var feed: Feed
 
     @State private var showingFeedPreferences: Bool = false
@@ -50,6 +51,7 @@ struct FeedWidgetView: View {
                 .environment(\.colorScheme, colorScheme)
                 .environmentObject(refreshManager)
                 .environmentObject(crashManager)
+                .environmentObject(profileManager)
         }
     }
 
