@@ -48,7 +48,7 @@ struct ImportView: View {
                             } else {
                                 Image(systemName: "circle")
                             }
-                            Text(folder.name).foregroundColor(Color.primary)
+                            Text(folder.name).foregroundColor(Color.primary).padding(.vertical, 4)
                             Spacer()
                             Text("\(folder.feeds.count) feeds").font(.callout).foregroundColor(.secondary)
                         }
@@ -69,7 +69,7 @@ struct ImportView: View {
             ToolbarItem {
                 Button(action: cancel) {
                     Text("Cancel")
-                }
+                }.buttonStyle(ActionButtonStyle())
             }
         }
     }
@@ -101,7 +101,7 @@ struct ImportView: View {
             Button(action: importManager.selectNone) {
                 Text("None")
             }.disabled(importManager.noneSelected)
-        }
+        }.buttonStyle(ActionButtonStyle())
     }
 
     private func importFeeds() {
