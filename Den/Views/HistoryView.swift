@@ -18,11 +18,11 @@ struct HistoryView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(searchQuery: $searchManager.searchQuery)
+                SearchFieldView()
 
                 if searchManager.historyResults.count == 0 && searchManager.searchQuery == "" {
                     Text("History is Empty").modifier(SimpleMessageModifier())
-                } else if !searchIsValid(query: searchManager.searchQuery) {
+                } else if !searchManager.searchIsValid() {
                     Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else if searchManager.historyResults.count == 0 && searchManager.searchQuery != "" {
                     Text("No Results Found").modifier(SimpleMessageModifier())
@@ -47,8 +47,10 @@ struct HistoryView: View {
                 .collect(),
             perform: { _ in
                 DispatchQueue.main.async {
-                    let trimmedQuery = searchManager.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
-                    self.search(query: trimmedQuery)
+                    searchManager.trimQuery()
+                    if searchManager.searchIsValid() {
+                        self.search(query: searchManager.searchQuery)
+                    }
                 }
             }
         )
@@ -65,7 +67,7 @@ struct HistoryView: View {
                             if result.title != nil && result.link != nil {
                                 Button { linkManager.openLink(url: result.link!) } label: {
                                     VStack(alignment: .leading, spacing: 4) {
-                                        Text(result.title!).font(.system(size: 18))
+                                        Text(result.title!).font(.title3)
                                         Text(result.link!.absoluteString)
                                             .font(.caption)
                                             .foregroundColor(Color.secondary)
@@ -112,12 +114,5 @@ struct HistoryView: View {
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
-    }
-
-    private func searchIsValid(query: String) -> Bool {
-        if query == "" || query.count >= 3 {
-            return true
-        }
-        return false
     }
 }

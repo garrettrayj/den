@@ -36,10 +36,12 @@ struct SidebarView: View {
         .navigationTitle("Den")
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button(action: createPage) {
-                    Label("Create Page", systemImage: "plus")
-                }
-                EditButton()
+                HStack {
+                    Button(action: createPage) {
+                        Label("Create Page", systemImage: "plus")
+                    }
+                    EditButton()
+                }.buttonStyle(ActionButtonStyle())
             }
         }
         .onAppear {
@@ -67,13 +69,13 @@ struct SidebarView: View {
             Button(action: createPage) {
                 HStack {
                     Image(systemName: "plus")
-                    Text("Create a New Page").fontWeight(.medium)
+                    Text("Create a New Page").fontWeight(.medium).padding(.vertical, 4)
                 }
             }
             Button(action: subscriptionManager.loadDemo) {
                 HStack {
                     Image(systemName: "wand.and.stars")
-                    Text("Load Demo Feeds").fontWeight(.medium)
+                    Text("Load Demo Feeds").fontWeight(.medium).padding(.vertical, 4)
                 }
             }
         }

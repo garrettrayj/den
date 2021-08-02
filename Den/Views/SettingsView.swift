@@ -54,11 +54,13 @@ struct SettingsView: View {
             NavigationLink(destination: ImportView()) {
                 Label("Import Subscriptions", systemImage: "arrow.down.doc")
                     .foregroundColor(Color(UIColor.label))
+                    .padding(.vertical, 4)
             }
 
             NavigationLink(destination: ExportView()) {
                 Label("Export Subscriptions", systemImage: "arrow.up.doc")
                     .foregroundColor(Color(UIColor.label))
+                    .padding(.vertical, 4)
             }
         }
     }
@@ -66,8 +68,9 @@ struct SettingsView: View {
     private var historySection: some View {
         Section(header: Text("History")) {
             HStack(spacing: 16) {
-                Image(systemName: "clock")
-                Picker("Keep History", selection: $historyRentionDays) {
+                Label("Keep History", systemImage: "clock").foregroundColor(.primary).padding(.vertical, 4)
+                Spacer()
+                Picker("", selection: $historyRentionDays) {
                     Text("Forever").tag(0 as Int)
                     Text("One Year").tag(365 as Int)
                     Text("Six Months").tag(182 as Int)
@@ -75,13 +78,15 @@ struct SettingsView: View {
                     Text("One Month").tag(30 as Int)
                     Text("Two Weeks").tag(14 as Int)
                     Text("One Week").tag(7 as Int)
-                }.onChange(of: historyRentionDays) { _ in
+                }
+                .frame(maxWidth: 200)
+                .onChange(of: historyRentionDays) { _ in
                     saveProfile()
                 }
-            }.padding(.leading, 4)
+            }
 
             Button(action: clearHistory) {
-                Label("Clear History", systemImage: "clear")
+                Label("Clear History", systemImage: "clear").padding(.vertical, 4)
             }.buttonStyle(ActionButtonStyle())
 
         }
@@ -90,11 +95,13 @@ struct SettingsView: View {
     private var dataSection: some View {
         Section(header: Text("Reset")) {
             Button(action: clearCache) {
-                Label("Empty Caches", systemImage: "bin.xmark")
+                Label("Empty Caches", systemImage: "bin.xmark").padding(.vertical, 4)
             }.disabled(refreshManager.refreshing).buttonStyle(ActionButtonStyle())
 
             Button(action: showResetAlert) {
-                Label("Reset Everything", systemImage: "clear").foregroundColor(Color(.systemRed))
+                Label("Reset Everything", systemImage: "clear")
+                    .foregroundColor(Color(.systemRed))
+                    .padding(.vertical, 4)
             }.alert(isPresented: $showingClearWorkspaceAlert) {
                 Alert(
                     title: Text("Are you sure?"),
@@ -120,15 +127,15 @@ struct SettingsView: View {
 
             Group {
                 Button(action: openHomepage) {
-                    Label("Homepage", systemImage: "house")
+                    Label("Homepage", systemImage: "house").padding(.vertical, 4)
                 }
 
                 Button(action: emailSupport) {
-                    Label("Email Support", systemImage: "lifepreserver")
+                    Label("Email Support", systemImage: "lifepreserver").padding(.vertical, 4)
                 }
 
                 Button(action: openPrivacyPolicy) {
-                    Label("Privacy Policy", systemImage: "lock.shield")
+                    Label("Privacy Policy", systemImage: "lock.shield").padding(.vertical, 4)
                 }
             }.buttonStyle(ActionButtonStyle())
         }

@@ -51,7 +51,7 @@ struct ExportView: View {
                         } else {
                             Image(systemName: "circle")
                         }
-                        Text(page.wrappedName).foregroundColor(.primary)
+                        Text(page.wrappedName).foregroundColor(.primary).padding(.vertical, 4)
                         Spacer()
                         Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
                     }
@@ -79,7 +79,7 @@ struct ExportView: View {
             Button(action: selectNone) {
                 Text("NONE")
             }.disabled(noneSelected)
-        }
+        }.buttonStyle(ActionButtonStyle())
     }
 
     private func togglePage(_ page: Page) {

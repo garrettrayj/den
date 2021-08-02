@@ -19,20 +19,20 @@ struct SearchView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(searchQuery: $searchManager.searchQuery)
+                SearchFieldView()
 
-                if searchManager.searchResults.count > 0 && searchIsValid(query: searchManager.searchQuery) {
+                if searchManager.searchResults.count > 0 && searchManager.searchIsValid() {
                     ScrollView {
                         Grid(searchManager.searchResults, id: \.self) { sectionItems in
                             SearchResultView(items: sectionItems)
                         }
-                        .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(360), spacing: 16))
+                        .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
                         .padding()
                         .padding(.bottom, 64)
                     }
                 } else if searchManager.searchQuery == "" {
                     Text("Filter Current Headlines by Keyword").modifier(SimpleMessageModifier())
-                } else if !searchIsValid(query: searchManager.searchQuery) {
+                } else if !searchManager.searchIsValid() {
                     Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else {
                     Text("No Results Found").modifier(SimpleMessageModifier())
@@ -50,9 +50,9 @@ struct SearchView: View {
                     .collect(),
                 perform: { _ in
                     DispatchQueue.main.async {
-                        let trimmedQuery = searchManager.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
-                        if self.searchIsValid(query: trimmedQuery) {
-                            self.search(query: trimmedQuery)
+                        searchManager.trimQuery()
+                        if searchManager.searchIsValid() {
+                            self.search(query: searchManager.searchQuery)
                         }
                     }
 
@@ -60,13 +60,6 @@ struct SearchView: View {
             )
         }
         .navigationViewStyle(StackNavigationViewStyle())
-    }
-
-    private func searchIsValid(query: String) -> Bool {
-        if query == "" || query.count >= 3 {
-            return true
-        }
-        return false
     }
 
     private func search(query: String) {
