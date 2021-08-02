@@ -6,6 +6,8 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
+// swiftlint:disable cyclomatic_complexity function_body_length
+
 import Foundation
 import OSLog
 

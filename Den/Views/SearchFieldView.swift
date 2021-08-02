@@ -23,10 +23,12 @@ struct SearchFieldView: View {
                 .frame(height: 32)
                 .background(Color(UIColor.systemBackground))
                 .onChange(of: searchManager.searchQuery, perform: { _ in
-                    if searchManager.searchIsValid() {
-                        if isHistorySearchField == true {
+                    if isHistorySearchField == true {
+                        if searchManager.searchIsValid() || searchManager.searchQuery == "" {
                             searchManager.performHistorySearch()
-                        } else {
+                        }
+                    } else {
+                        if searchManager.searchIsValid() {
                             searchManager.performItemSearch()
                         }
                     }
