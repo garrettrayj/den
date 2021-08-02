@@ -11,6 +11,8 @@ import SwiftUI
 struct SearchFieldView: View {
     @EnvironmentObject var searchManager: SearchManager
 
+    var isHistorySearchField: Bool = false
+
     var body: some View {
         ZStack {
             HStack {
@@ -20,6 +22,18 @@ struct SearchFieldView: View {
                 )
                 .frame(height: 32)
                 .background(Color(UIColor.systemBackground))
+                .onChange(of: searchManager.searchQuery, perform: { _ in
+                    if searchManager.searchIsValid() {
+                        if isHistorySearchField == true {
+                            searchManager.performHistorySearch()
+                        } else {
+                            searchManager.performItemSearch()
+                        }
+                    }
+                })
+                .onDisappear {
+                    searchManager.reset()
+                }
             }
             .padding(.horizontal, 32)
             .background(Color(UIColor.systemBackground))

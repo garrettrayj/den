@@ -18,7 +18,7 @@ struct HistoryView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView()
+                SearchFieldView(isHistorySearchField: true)
 
                 if searchManager.historyResults.count == 0 && searchManager.searchQuery == "" {
                     Text("History is Empty").modifier(SimpleMessageModifier())
@@ -32,28 +32,14 @@ struct HistoryView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+            .onAppear {
+                searchManager.performHistorySearch()
+            }
+
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            self.search(query: searchManager.searchQuery)
-        }
-        .onReceive(
-            searchManager.searchQuery
-                .publisher
-                .removeDuplicates()
-                .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-                .collect(),
-            perform: { _ in
-                DispatchQueue.main.async {
-                    searchManager.trimQuery()
-                    if searchManager.searchIsValid() {
-                        self.search(query: searchManager.searchQuery)
-                    }
-                }
-            }
-        )
     }
 
     private var resultsList: some View {
@@ -79,40 +65,6 @@ struct HistoryView: View {
                     }
                 }
             }
-        }
-    }
-
-    private func search(query: String) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \History.visited, ascending: false)]
-
-        if query != "" {
-            fetchRequest.predicate = NSPredicate(
-                format: "%K CONTAINS[C] %@",
-                #keyPath(History.title),
-                query
-            )
-        }
-
-        do {
-            guard let fetchResults = try viewContext.fetch(fetchRequest) as? [History] else { return }
-            var compactedFetchResults: [History] = []
-            fetchResults.forEach { history in
-                if history.visited != nil {
-                    compactedFetchResults.append(history)
-                }
-            }
-
-            let grouping = Dictionary(
-                grouping: compactedFetchResults,
-                by: { DateFormatter.isoDate.string(from: $0.visited!) }
-            )
-
-            searchManager.historyResults = grouping.values.sorted { aHistory, bHistory in
-                return aHistory[0].visited! > bHistory[0].visited!
-            }
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
         }
     }
 }
