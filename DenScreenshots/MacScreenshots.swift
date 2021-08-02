@@ -51,7 +51,7 @@ class MacScreenshots: ScreenshotTestCase {
 
         let pageSettingsButton = app.windows["SceneWindow"].windows
             .navigationBars["Science"]
-            .buttons["Wrench"]
+            .buttons["Page Settings"]
         expectation(for: existsPredicate, evaluatedWith: pageSettingsButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageSettingsButton.tap()
@@ -154,7 +154,7 @@ class MacScreenshots: ScreenshotTestCase {
 
         let refreshButton = app.windows["SceneWindow"].windows
             .navigationBars[pageName]
-            .buttons["refresh"]
+            .buttons["Refresh"]
         expectation(for: existsPredicate, evaluatedWith: refreshButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         refreshButton.tap()

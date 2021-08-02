@@ -54,6 +54,13 @@ class ScreenshotTestCase: XCTestCase {
         // We send a command line argument to our app, to enable it to reset its state
         app.launchArguments.append("--reset")
         app.launch()
+
+        #if !targetEnvironment(macCatalyst)
+        if targetIdiom == .pad {
+            XCUIDevice.shared.orientation = .landscapeRight
+        }
+        #endif
+
     }
 
     override func tearDownWithError() throws {
