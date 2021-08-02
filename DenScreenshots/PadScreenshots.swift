@@ -12,8 +12,6 @@ class PadScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .pad }
 
     func testGetStarted() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         let getStartedLabel = app.staticTexts["GET STARTED"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
@@ -22,8 +20,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testPageList() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         loadDemoFeeds()
 
         // Wait for pages to appear
@@ -36,8 +32,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testPage() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         loadDemoFeeds()
 
         refreshPage("Science")
@@ -51,8 +45,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testPageSettings() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         loadDemoFeeds()
 
         refreshPage("Science")
@@ -70,8 +62,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testFeedSettings() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         loadDemoFeeds()
 
         refreshPage("Science")
@@ -94,8 +84,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testSearch() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         loadDemoFeeds()
 
         refreshPage("Technology")
@@ -115,8 +103,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testHistory() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         loadDemoFeeds()
 
         refreshPage("Gaming")
@@ -138,8 +124,6 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     func testSettings() {
-        XCUIDevice.shared.orientation = .landscapeRight
-
         app.tabBars["Tab Bar"].buttons["Settings"].tap()
 
         let settingsHeader = app.navigationBars["Settings"]
