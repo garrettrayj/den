@@ -22,7 +22,7 @@ struct HistoryView: View {
 
                 if searchManager.historyResults.count == 0 && searchManager.searchQuery == "" {
                     Text("History is Empty").modifier(SimpleMessageModifier())
-                } else if !searchManager.searchIsValid() {
+                } else if !searchManager.searchIsValid() && searchManager.searchQuery != "" {
                     Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else if searchManager.historyResults.count == 0 && searchManager.searchQuery != "" {
                     Text("No Results Found").modifier(SimpleMessageModifier())
@@ -35,7 +35,6 @@ struct HistoryView: View {
             .onAppear {
                 searchManager.performHistorySearch()
             }
-
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
         }
