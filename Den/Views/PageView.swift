@@ -19,7 +19,7 @@ struct PageView: View {
     @State private var showingSettings: Bool = false
 
     let columns = [
-        GridItem(.adaptive(minimum: 340, maximum: 460), spacing: 16, alignment: .top)
+        GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)
     ]
 
     var body: some View {
@@ -82,17 +82,22 @@ struct PageView: View {
                 }.disabled(refreshManager.refreshing == true)
             } else {
                 // Show three buttons on larger screens
-                Button(action: showSubscribe) {
-                    Label("Add Subscription", systemImage: "plus.circle")
-                }.disabled(refreshManager.refreshing == true)
+                HStack(spacing: 16) {
+                    Button(action: showSubscribe) {
+                        Label("Add Subscription", systemImage: "plus.circle")
+                    }
 
-                Button(action: showSettings) {
-                    Label("Page Settings", systemImage: "wrench")
-                }.disabled(refreshManager.refreshing == true)
+                    Button(action: showSettings) {
+                        Label("Page Settings", systemImage: "wrench")
+                    }
 
-                Button { refreshManager.refresh(self.page) } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }.disabled(refreshManager.refreshing == true)
+                    Button { refreshManager.refresh(self.page) } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                }
+                .disabled(refreshManager.refreshing == true)
+                .buttonStyle(ActionButtonStyle())
+
             }
         }
     }

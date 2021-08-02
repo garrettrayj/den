@@ -24,20 +24,22 @@ struct PageListRowView: View {
                     tag: page.id!.uuidString,
                     selection: $pageSelection
                 ) {
-                    Label(page.wrappedName, systemImage: "square.grid.2x2")
-                        .lineLimit(1)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack {
+                        Image(systemName: "square.grid.2x2")
+                        Text(page.wrappedName).lineLimit(1).padding(.vertical, 4)
 
-                    Text(String(page.unreadCount))
-                        .font(.caption)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                        .background(
-                            Capsule(style: .circular)
-                                .foregroundColor(Color(.systemGroupedBackground))
-                        )
-                        .accessibility(value: Text("\(page.wrappedName): \(page.unreadCount) unread"))
+                        Spacer()
+
+                        Text(String(page.unreadCount))
+                            .lineLimit(1)
+                            .font(.caption)
+                            .padding(.vertical, 4)
+                            .padding(.horizontal, 8)
+                            .background(
+                                Capsule(style: .circular)
+                                    .foregroundColor(Color(.systemGroupedBackground))
+                            )
+                    }
                 }
             } else {
                 Text(page.wrappedName)
@@ -45,6 +47,7 @@ struct PageListRowView: View {
                     .lineLimit(1)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, 4)
             }
         }
     }

@@ -18,11 +18,11 @@ struct HistoryView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(searchQuery: $searchManager.searchQuery)
+                SearchFieldView(isHistorySearchField: true)
 
                 if searchManager.historyResults.count == 0 && searchManager.searchQuery == "" {
                     Text("History is Empty").modifier(SimpleMessageModifier())
-                } else if !searchIsValid(query: searchManager.searchQuery) {
+                } else if !searchManager.searchIsValid() {
                     Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else if searchManager.historyResults.count == 0 && searchManager.searchQuery != "" {
                     Text("No Results Found").modifier(SimpleMessageModifier())
@@ -32,26 +32,14 @@ struct HistoryView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+            .onAppear {
+                searchManager.performHistorySearch()
+            }
+
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            self.search(query: searchManager.searchQuery)
-        }
-        .onReceive(
-            searchManager.searchQuery
-                .publisher
-                .removeDuplicates()
-                .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-                .collect(),
-            perform: { _ in
-                DispatchQueue.main.async {
-                    let trimmedQuery = searchManager.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
-                    self.search(query: trimmedQuery)
-                }
-            }
-        )
     }
 
     private var resultsList: some View {
@@ -65,7 +53,7 @@ struct HistoryView: View {
                             if result.title != nil && result.link != nil {
                                 Button { linkManager.openLink(url: result.link!) } label: {
                                     VStack(alignment: .leading, spacing: 4) {
-                                        Text(result.title!).font(.system(size: 18))
+                                        Text(result.title!).font(.title3)
                                         Text(result.link!.absoluteString)
                                             .font(.caption)
                                             .foregroundColor(Color.secondary)
@@ -78,46 +66,5 @@ struct HistoryView: View {
                 }
             }
         }
-    }
-
-    private func search(query: String) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \History.visited, ascending: false)]
-
-        if query != "" {
-            fetchRequest.predicate = NSPredicate(
-                format: "%K CONTAINS[C] %@",
-                #keyPath(History.title),
-                query
-            )
-        }
-
-        do {
-            guard let fetchResults = try viewContext.fetch(fetchRequest) as? [History] else { return }
-            var compactedFetchResults: [History] = []
-            fetchResults.forEach { history in
-                if history.visited != nil {
-                    compactedFetchResults.append(history)
-                }
-            }
-
-            let grouping = Dictionary(
-                grouping: compactedFetchResults,
-                by: { DateFormatter.isoDate.string(from: $0.visited!) }
-            )
-
-            searchManager.historyResults = grouping.values.sorted { aHistory, bHistory in
-                return aHistory[0].visited! > bHistory[0].visited!
-            }
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
-        }
-    }
-
-    private func searchIsValid(query: String) -> Bool {
-        if query == "" || query.count >= 3 {
-            return true
-        }
-        return false
     }
 }

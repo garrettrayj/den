@@ -21,7 +21,7 @@ struct FeedWidgetView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            RoundedRectangle(cornerRadius: 12).fill(Color(.systemBackground))
+            RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground))
             widgetContent
         }
     }
@@ -64,14 +64,18 @@ struct FeedWidgetView: View {
                         .frame(width: 16, height: 16, alignment: .center)
                         .clipped()
                 }
-                Text(feed.wrappedTitle).font(.headline).lineLimit(1)
+                Text(feed.wrappedTitle).font(.headline.weight(.medium)).lineLimit(1)
             }
 
             Spacer()
 
             Button(action: showOptions) {
                 Label("Feed Settings", systemImage: "gearshape").labelStyle(IconOnlyLabelStyle())
-            }.disabled(refreshManager.refreshing).padding(12)
+            }
+            .buttonStyle(ActionButtonStyle())
+            .disabled(refreshManager.refreshing)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
         }.padding(.leading, 12)
     }
 
