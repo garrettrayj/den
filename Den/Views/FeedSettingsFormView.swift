@@ -39,30 +39,40 @@ struct FeedSettingsFormView: View {
         return Form {
             Section {
                 HStack {
-                    Text("Title")
-                    TextField("Title", text: $feed.wrappedTitle).multilineTextAlignment(.trailing)
+                    Text("Title").padding(.vertical, 4)
+                    Spacer()
+                    TextField("Title", text: $feed.wrappedTitle)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.trailing)
+                        .frame(minWidth: 200, maxWidth: 300)
                 }
 
-                Picker("Page", selection: pagePickerSelection) {
-                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                        Text(page.wrappedName).tag(
-                            profileManager.activeProfile?.pagesArray.firstIndex(of: page)
-                        )
+                HStack {
+                    Text("Page").padding(.vertical, 4)
+                    Spacer()
+
+                    Picker("", selection: pagePickerSelection) {
+                        ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                            Text(page.wrappedName).tag(
+                                profileManager.activeProfile?.pagesArray.firstIndex(of: page)
+                            )
+                        }
                     }
-                }
-                .onAppear {
-                    if
-                        let page = self.feed.page,
-                        let pageIndex = page.profile?.pagesArray.firstIndex(of: page)
-                    {
-                        self.pickedPage = pageIndex
+                    .frame(maxWidth: 200)
+                    .onAppear {
+                        if
+                            let page = self.feed.page,
+                            let pageIndex = page.profile?.pagesArray.firstIndex(of: page)
+                        {
+                            self.pickedPage = pageIndex
+                        }
                     }
                 }
 
                 HStack {
                     Toggle(isOn: $feed.showThumbnails) {
                         Text("Show Thumbnails")
-                    }
+                    }.padding(.vertical, 4)
                 }
 
                 #if !targetEnvironment(macCatalyst)
@@ -76,7 +86,7 @@ struct FeedSettingsFormView: View {
 
             Section {
                 HStack(alignment: .center) {
-                    Text("URL")
+                    Text("URL").padding(.vertical, 4)
                     Spacer()
                     Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                     Button(action: copyFeedUrl) {
@@ -85,7 +95,7 @@ struct FeedSettingsFormView: View {
                 }
 
                 HStack(alignment: .center) {
-                    Text("Last Refresh")
+                    Text("Last Refresh").padding(.vertical, 4)
                     Spacer()
                     if feed.feedData?.refreshed != nil {
                         Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.mediumShort)")
@@ -100,6 +110,8 @@ struct FeedSettingsFormView: View {
                 Button(action: deleteFeed) {
                     Label("Delete Feed", systemImage: "trash").foregroundColor(Color.red)
                 }
+                .padding(.vertical, 4)
+                .buttonStyle(DestructiveButtonStyle())
             }
         }
         .onDisappear(perform: saveFeed)

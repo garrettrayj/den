@@ -23,15 +23,26 @@ struct PageSettingsView: View {
         Form {
             Section(header: Text("\nSettings")) {
                 HStack {
-                    Text("Name")
-                    TextField("Name", text: $pageNameText).multilineTextAlignment(.trailing)
+                    Text("Name").padding(.vertical, 4)
+                    Spacer()
+                    TextField("Name", text: $pageNameText)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.trailing)
+                        .frame(maxWidth: 300)
+
                 }
 
-                Stepper(
-                    "Feed Item Limit: \(itemsPerFeedStepperValue)",
-                    value: $itemsPerFeedStepperValue,
-                    in: 1...Int(Int16.max)
-                )
+                HStack {
+                    Text("Item Limit")
+                    Spacer()
+                    Text("\(itemsPerFeedStepperValue)")
+                    Stepper(
+                        "Item Limit",
+                        value: $itemsPerFeedStepperValue,
+                        in: 1...Int(Int16.max)
+                    ).labelsHidden()
+                }
+
             }
 
             Section(
@@ -47,7 +58,7 @@ struct PageSettingsView: View {
                             .scaleEffect(1 / UIScreen.main.scale)
                             .frame(width: 16, height: 16, alignment: .center)
                             .clipped()
-                        Text(feed.wrappedTitle)
+                        Text(feed.wrappedTitle).padding(.vertical, 4)
                     }
                 }
                 .onDelete(perform: deleteFeed)

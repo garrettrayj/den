@@ -103,7 +103,10 @@ struct DenApp: App {
             crashManager: crashManager,
             profileManager: profileManager
         )
-        let searchManager = SearchManager()
+        let searchManager = SearchManager(
+            viewContext: persistenceManager.container.viewContext,
+            crashManager: crashManager
+        )
 
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
