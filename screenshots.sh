@@ -43,27 +43,23 @@ appearances=(
 targetFolder="$PWD/Documents/Screenshots"
 rm -rf $targetFolder/*
 
-rm -rf /tmp/DenDerivedData
-
 for language in "${languages[@]}"
 do
     for appearance in "${appearances[@]}"
     do
-        rm -rf /tmp/DenDerivedData/Logs/Test
-    
         # Capture macOS screenshots
-        xcodebuild \
-            -testLanguage $language \
-            -scheme $schemeName \
-            -project $projectName \
-            -derivedDataPath '/tmp/DenDerivedData/' \
-            -destination "platform=macOS,arch=x86_64,variant=Mac Catalyst" \
-            -only-testing:$testBundle \
-            build test
+        # xcodebuild \
+        #     -testLanguage $language \
+        #     -scheme $schemeName \
+        #     -project $projectName \
+        #     -derivedDataPath '/tmp/DenDerivedData/' \
+        #     -destination "platform=macOS,arch=x86_64,variant=Mac Catalyst" \
+        #     -only-testing:$testBundle \
+        #     build test
             
-        echo "🖼  Collecting macOS results..."
-        mkdir -p "$targetFolder/macOS/$language/$appearance"
-        find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
+        # echo "🖼  Collecting macOS results..."
+        # mkdir -p "$targetFolder/macOS/$language/$appearance"
+        # find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
     
         # Run iOS simulators for iPhone and iPad screenshots
         for simulator in "${simulators[@]}"
