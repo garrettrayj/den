@@ -5,6 +5,7 @@
 #
 #  Created by Garrett Johnson on 7/18/21.
 #  Copyright © 2021 Garrett Johnson. All rights reserved.
+set -e
 
 # The Xcode project to create screenshots for
 projectName="./Den.xcodeproj"
@@ -42,6 +43,8 @@ appearances=(
 targetFolder="$PWD/Documents/Screenshots"
 rm -rf $targetFolder/*
 
+rm -rf /tmp/DenDerivedData
+
 for language in "${languages[@]}"
 do
     for appearance in "${appearances[@]}"
@@ -54,9 +57,10 @@ do
             -scheme $schemeName \
             -project $projectName \
             -derivedDataPath '/tmp/DenDerivedData/' \
-            -destination "platform=macOS" \
+            -destination "platform=macOS,arch=x86_64,variant=Mac Catalyst" \
             -only-testing:$testBundle \
             build test
+            
         echo "🖼  Collecting macOS results..."
         mkdir -p "$targetFolder/macOS/$language/$appearance"
         find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
