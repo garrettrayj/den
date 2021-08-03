@@ -50,7 +50,6 @@
 		687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */; };
 		687D9CB624A9C14700EB7F46 /* PageListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB524A9C14700EB7F46 /* PageListRowView.swift */; };
 		687D9CB824A9CA2A00EB7F46 /* FeedWidgetItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB724A9CA2A00EB7F46 /* FeedWidgetItemRowView.swift */; };
-		687D9CBE24AA7E5300EB7F46 /* HTMLEntities in Frameworks */ = {isa = PBXBuildFile; productRef = 687D9CBD24AA7E5300EB7F46 /* HTMLEntities */; };
 		687D9CC424ACB86900EB7F46 /* UpdateStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CC324ACB86900EB7F46 /* UpdateStatusView.swift */; };
 		687D9CC624AE38BD00EB7F46 /* DataTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CC524AE38BD00EB7F46 /* DataTaskOperation.swift */; };
 		687D9CD924B38FF100EB7F46 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CD824B38FF100EB7F46 /* AsynchronousOperation.swift */; };
@@ -68,7 +67,6 @@
 		6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* History+CoreDataClass.swift */; };
 		6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */; };
 		688FD918247750350006A2DE /* PageSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD917247750350006A2DE /* PageSettingsView.swift */; };
-		688FD92F247982A90006A2DE /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 688FD92E247982A90006A2DE /* Grid */; };
 		688FD931247A34830006A2DE /* FeedWidgetSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688FD930247A34830006A2DE /* FeedWidgetSettingsView.swift */; };
 		68915AFC2618CF6D00E4C0CB /* WorkingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68915AFB2618CF6D00E4C0CB /* WorkingItem.swift */; };
 		68915B012618CF7B00E4C0CB /* WorkingFeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68915B002618CF7B00E4C0CB /* WorkingFeedData.swift */; };
@@ -76,6 +74,10 @@
 		68915B232623273600E4C0CB /* DownloadThumbnailsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68915B222623273600E4C0CB /* DownloadThumbnailsOperation.swift */; };
 		689460842596A7BB00ED4064 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689460812596A7BB00ED4064 /* PersistenceManager.swift */; };
 		689460852596A7BB00ED4064 /* DenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689460822596A7BB00ED4064 /* DenApp.swift */; };
+		6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52526B91C0100833DDA /* HTMLEntities */; };
+		6897D52926B91C2300833DDA /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52826B91C2300833DDA /* Grid */; };
+		6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52B26B91C3C00833DDA /* SwiftSoup */; };
+		6897D52F26B91C5800833DDA /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52E26B91C5800833DDA /* FeedKit */; };
 		68998B832503F63E00FDB6EE /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B822503F63E00FDB6EE /* SubscriptionManager.swift */; };
 		68998B852504C87400FDB6EE /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B842504C87400FDB6EE /* SearchView.swift */; };
 		68998B892504DDEC00FDB6EE /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B882504DDEC00FDB6EE /* SearchResultView.swift */; };
@@ -102,9 +104,7 @@
 		68C413462472773100D1DC7B /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C413452472773100D1DC7B /* PageView.swift */; };
 		68C4134B24727F2B00D1DC7B /* FeedWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* FeedWidgetView.swift */; };
 		68C4138224733D7D00D1DC7B /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* SubscribeView.swift */; };
-		68C413892473483500D1DC7B /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 68C413882473483500D1DC7B /* FeedKit */; };
 		68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4FA252474927800D2C0D6 /* SettingsView.swift */; };
-		68C4FA322475391C00D2C0D6 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 68C4FA312475391C00D2C0D6 /* SwiftSoup */; };
 		68D345952658D0610080783F /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D345942658D0610080783F /* HistoryView.swift */; };
 		68D58E65249274D0007ED1AC /* HTMLCleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E64249274D0007ED1AC /* HTMLCleaner.swift */; };
 		68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E6824955321007ED1AC /* OPMLReader.swift */; };
@@ -266,11 +266,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
-				68C413892473483500D1DC7B /* FeedKit in Frameworks */,
-				687D9CBE24AA7E5300EB7F46 /* HTMLEntities in Frameworks */,
+				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
-				688FD92F247982A90006A2DE /* Grid in Frameworks */,
-				68C4FA322475391C00D2C0D6 /* SwiftSoup in Frameworks */,
+				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
+				6897D52926B91C2300833DDA /* Grid in Frameworks */,
+				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,11 +597,11 @@
 			);
 			name = Den;
 			packageProductDependencies = (
-				68C413882473483500D1DC7B /* FeedKit */,
-				68C4FA312475391C00D2C0D6 /* SwiftSoup */,
-				688FD92E247982A90006A2DE /* Grid */,
 				68B34A6B24880ADE0066B215 /* AEXML */,
-				687D9CBD24AA7E5300EB7F46 /* HTMLEntities */,
+				6897D52526B91C0100833DDA /* HTMLEntities */,
+				6897D52826B91C2300833DDA /* Grid */,
+				6897D52B26B91C3C00833DDA /* SwiftSoup */,
+				6897D52E26B91C5800833DDA /* FeedKit */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -680,11 +680,11 @@
 			);
 			mainGroup = 68C41300247263C700D1DC7B;
 			packageReferences = (
-				68C413872473483500D1DC7B /* XCRemoteSwiftPackageReference "FeedKit" */,
-				68C4FA302475391C00D2C0D6 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				688FD92D247982A90006A2DE /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 				68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */,
-				687D9CBC24AA7E5300EB7F46 /* XCRemoteSwiftPackageReference "swift-html-entities" */,
+				6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */,
+				6897D52726B91C2300833DDA /* XCRemoteSwiftPackageReference "swiftui-grid" */,
+				6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1256,20 +1256,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		687D9CBC24AA7E5300EB7F46 /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
+		6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/IBM-Swift/swift-html-entities";
+			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.14;
+				minimumVersion = 3.0.200;
 			};
 		};
-		688FD92D247982A90006A2DE /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
+		6897D52726B91C2300833DDA /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/swift-extensions/swiftui-grid";
+			repositoryURL = "https://github.com/swift-extensions/swiftui-grid.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.4;
+				minimumVersion = 1.1.0;
+			};
+		};
+		6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.2;
+			};
+		};
+		6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nmdias/FeedKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.2;
 			};
 		};
 		68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */ = {
@@ -1280,49 +1296,33 @@
 				minimumVersion = 4.5.0;
 			};
 		};
-		68C413872473483500D1DC7B /* XCRemoteSwiftPackageReference "FeedKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nmdias/FeedKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.1.2;
-			};
-		};
-		68C4FA302475391C00D2C0D6 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.2;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		687D9CBD24AA7E5300EB7F46 /* HTMLEntities */ = {
+		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 687D9CBC24AA7E5300EB7F46 /* XCRemoteSwiftPackageReference "swift-html-entities" */;
+			package = 6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */;
 			productName = HTMLEntities;
 		};
-		688FD92E247982A90006A2DE /* Grid */ = {
+		6897D52826B91C2300833DDA /* Grid */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 688FD92D247982A90006A2DE /* XCRemoteSwiftPackageReference "swiftui-grid" */;
+			package = 6897D52726B91C2300833DDA /* XCRemoteSwiftPackageReference "swiftui-grid" */;
 			productName = Grid;
+		};
+		6897D52B26B91C3C00833DDA /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		6897D52E26B91C5800833DDA /* FeedKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */;
+			productName = FeedKit;
 		};
 		68B34A6B24880ADE0066B215 /* AEXML */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */;
 			productName = AEXML;
-		};
-		68C413882473483500D1DC7B /* FeedKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 68C413872473483500D1DC7B /* XCRemoteSwiftPackageReference "FeedKit" */;
-			productName = FeedKit;
-		};
-		68C4FA312475391C00D2C0D6 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 68C4FA302475391C00D2C0D6 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
 		};
 /* End XCSwiftPackageProductDependency section */
 
