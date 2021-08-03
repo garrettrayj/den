@@ -82,7 +82,7 @@ class PhoneScreenshots: ScreenshotTestCase {
             .children(matching: .other)
             .element
             .children(matching: .button)
-            .matching(identifier: "gearshape")
+            .matching(identifier: "Feed Settings")
             .element(boundBy: 0)
             .tap()
 
