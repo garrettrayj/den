@@ -98,7 +98,6 @@
 			<outline text="Sci-News.com" title="Sci-News.com" type="rss" xmlUrl="http://feeds.feedburner.com/BreakingScienceNews?format=xml" />
 			<outline text="Science Advances " title="Science Advances " type="rss" xmlUrl="https://advances.sciencemag.org/rss/current.xml" />
 			<outline text="Advanced Science News" title="Advanced Science News" type="rss" xmlUrl="https://www.advancedsciencenews.com/feed/" />
-			<outline text="Retraction Watch" title="Retraction Watch" type="rss" xmlUrl="https://retractionwatch.com/feed/" />
 			<outline text="LabRoots" title="LabRoots" type="rss" xmlUrl="http://www.labroots.com/rss/trending" />
 		</outline>
 		<outline text="Space" title="Space">
@@ -180,7 +179,6 @@
 			<outline text="What&apos;s on Netflix" title="What&apos;s on Netflix" type="rss" xmlUrl="https://www.whats-on-netflix.com/feed/" />
 			<outline text="Collider" title="Collider" type="rss" xmlUrl="https://collider.com/feed/" />
 			<outline text="Little White Lies" title="Little White Lies" type="rss" xmlUrl="https://lwlies.com/feed/" />
-			<outline text="ScreenRant" title="ScreenRant" type="rss" xmlUrl="https://screenrant.com/feed/" />
 			<outline text="AV Club - Film" title="AV Club - Film" type="rss" xmlUrl="https://film.avclub.com/rss" />
 			<outline text="JoBlo&apos;s Movie Emporium News" title="JoBlo&apos;s Movie Emporium News" type="rss" xmlUrl="https://www.joblo.com/newsfeeds/rss.xml" />
 			<outline text="ScreenCrush" title="ScreenCrush" type="rss" xmlUrl="https://screencrush.com/feed/" />
