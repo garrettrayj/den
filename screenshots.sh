@@ -42,19 +42,32 @@ appearances=(
 targetFolder="$PWD/Documents/Screenshots"
 rm -rf $targetFolder/*
 
-## No need to edit anything beyond this point
-
-for simulator in "${simulators[@]}"
+for language in "${languages[@]}"
 do
-    for language in "${languages[@]}"
+    for appearance in "${appearances[@]}"
     do
-        for appearance in "${appearances[@]}"
+        rm -rf /tmp/DenDerivedData/Logs/Test
+    
+        # Capture macOS screenshots
+        xcodebuild \
+            -testLanguage $language \
+            -scheme $schemeName \
+            -project $projectName \
+            -derivedDataPath '/tmp/DenDerivedData/' \
+            -destination "platform=macOS" \
+            -only-testing:$testBundle \
+            build test
+        echo "🖼  Collecting macOS results..."
+        mkdir -p "$targetFolder/macOS/$language/$appearance"
+        find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
+    
+        # Run iOS simulators for iPhone and iPad screenshots
+        for simulator in "${simulators[@]}"
         do
             rm -rf /tmp/DenDerivedData/Logs/Test
-            echo "📲  Building and Running for $simulator in $language"
+            echo "📲  Building and Running for $simulator in $language with $appearance appearance"
 
-            # Boot up the new simulator and set it to
-            # the correct appearance
+            # Boot up the new simulator and set it to the correct appearance
             xcrun simctl boot "$simulator"
             xcrun simctl ui "$simulator" appearance $appearance
 
@@ -67,11 +80,10 @@ do
                 -destination "platform=iOS Simulator,name=$simulator" \
                 -only-testing:$testBundle \
                 build test
-            echo "🖼  Collecting Results..."
+            echo "🖼  Collecting $simulator results..."
             mkdir -p "$targetFolder/$simulator/$language/$appearance"
             find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
         done
     done
-
-    echo "✅  Done"
 done
+echo "✅  Done"
