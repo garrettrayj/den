@@ -18,14 +18,9 @@ testBundle="DenScreenshots"
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
     "iPhone 12 Pro Max"
-    "iPhone 12 Pro"
     "iPhone 8 Plus"
-    "iPhone 8"
     "iPad Pro (12.9-inch) (5th generation)"
     "iPad Pro (12.9-inch) (2nd generation)"
-    "iPad Pro (11-inch) (3rd generation)"
-    "iPad Pro (10.5-inch)"
-    "iPad Pro (9.7-inch)"
 )
 
 # All the languages we want to screenshot (ISO 3166-1 codes)
@@ -43,31 +38,41 @@ appearances=(
 targetFolder="$PWD/Documents/Screenshots"
 rm -rf $targetFolder/*
 
-for language in "${languages[@]}"
+# Capture macOS screenshots
+# for language in "${languages[@]}"
+# do
+#     for appearance in "${appearances[@]}"
+#     do
+#         rm -rf /tmp/DenDerivedData/Logs/Test
+#
+#         xcodebuild \
+#             -testLanguage $language \
+#             -scheme $schemeName \
+#             -project $projectName \
+#             -derivedDataPath '/tmp/DenDerivedData/' \
+#             -only-testing:$testBundle \
+#             build test
+#
+#         echo "🖼  Collecting macOS results..."
+#         mkdir -p "$targetFolder/macOS/$language/$appearance"
+#         find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/macOS/$language/$appearance" \;
+#     done
+# done
+# echo "✅  Mac Screenshots Done"
+
+
+# Capture iOS screenshots
+for simulator in "${simulators[@]}"
 do
-    for appearance in "${appearances[@]}"
+    for language in "${languages[@]}"
     do
-        # Capture macOS screenshots
-        # xcodebuild \
-        #     -testLanguage $language \
-        #     -scheme $schemeName \
-        #     -project $projectName \
-        #     -derivedDataPath '/tmp/DenDerivedData/' \
-        #     -destination "platform=macOS,arch=x86_64,variant=Mac Catalyst" \
-        #     -only-testing:$testBundle \
-        #     build test
-            
-        # echo "🖼  Collecting macOS results..."
-        # mkdir -p "$targetFolder/macOS/$language/$appearance"
-        # find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
-    
-        # Run iOS simulators for iPhone and iPad screenshots
-        for simulator in "${simulators[@]}"
+        for appearance in "${appearances[@]}"
         do
             rm -rf /tmp/DenDerivedData/Logs/Test
-            echo "📲  Building and Running for $simulator in $language with $appearance appearance"
+            echo "📲  Building and Running for $simulator in $language"
 
-            # Boot up the new simulator and set it to the correct appearance
+            # Boot up the new simulator and set it to
+            # the correct appearance
             xcrun simctl boot "$simulator"
             xcrun simctl ui "$simulator" appearance $appearance
 
@@ -80,13 +85,15 @@ do
                 -destination "platform=iOS Simulator,name=$simulator" \
                 -only-testing:$testBundle \
                 build test
-            echo "🖼  Collecting $simulator results..."
+            echo "🖼  Collecting Results..."
             mkdir -p "$targetFolder/$simulator/$language/$appearance"
             find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
             
-            echo "🖼  Shutting down $simulator..."
             xcrun simctl shutdown "$simulator"
         done
     done
+
+    echo "✅  iOS Screenshots Done"
 done
-echo "✅  Done"
+
+
