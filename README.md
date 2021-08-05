@@ -68,6 +68,14 @@ Den is a UIKit application written in Swift and SwiftUI with a good deal of work
 * `DenUITests` TODO
 * `DenScreenshots` UI Tests for generating App Store screenshots
 
+
+## Developer Setup
+
+### Requirements
+
+1. Xcode with Command Line Tools
+2. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results `brew install chargepoint/xcparse/xcparse`
+
 ---
 
 Copyright 2020 Garrett Johnson. All Rights Reserved.

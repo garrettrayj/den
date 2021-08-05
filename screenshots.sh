@@ -83,6 +83,9 @@ do
             echo "🖼  Collecting $simulator results..."
             mkdir -p "$targetFolder/$simulator/$language/$appearance"
             find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
+            
+            echo "🖼  Shutting down $simulator..."
+            xcrun simctl shutdown "$simulator"
         done
     done
 done
