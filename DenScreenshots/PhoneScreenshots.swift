@@ -6,20 +6,20 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
+// swiftlint:disable function_body_length
+
 import XCTest
 
 class PhoneScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .phone }
 
-    func testGetStarted() {
+    func testScreenshots() {
         let getStartedLabel = app.staticTexts["GET STARTED"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
 
         takeScreenshot(named: "1-GetStarted")
-    }
 
-    func testPageList() {
         loadDemoFeeds()
 
         // Wait for pages to appear
@@ -29,27 +29,23 @@ class PhoneScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 10, handler: nil)
 
         takeScreenshot(named: "2-PageList")
-    }
 
-    func testPage() {
-        loadDemoFeeds()
+        goToPage("Technology")
+        refreshPage("Technology")
 
-        refreshPage("Science")
+        goToLink(8)
+        goToLink(6)
+        goToLink(3)
+        goToLink(1)
 
-        let predicate = NSPredicate(format: "label CONTAINS 'Livescience.com'")
+        let predicate = NSPredicate(format: "label CONTAINS 'Ars Technica'")
         let feedHeader = app.staticTexts.containing(predicate).firstMatch
         expectation(for: existsPredicate, evaluatedWith: feedHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "3-PageView")
-    }
 
-    func testPageSettings() {
-        loadDemoFeeds()
-
-        refreshPage("Science")
-
-        let pageMenuButton = app.navigationBars["Science"].buttons["Page Menu"]
+        let pageMenuButton = app.navigationBars["Technology"].buttons["Page Menu"]
         expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageMenuButton.tap()
@@ -59,22 +55,12 @@ class PhoneScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         pageSettingsButton.tap()
 
-        let backButton = app.navigationBars["Page Settings"].buttons["Science"]
+        let backButton = app.navigationBars["Page Settings"].buttons["Technology"]
         expectation(for: existsPredicate, evaluatedWith: backButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "4-PageSettings")
-    }
-
-    func testFeedSettings() {
-        loadDemoFeeds()
-
-        refreshPage("Science")
-
-        let predicate = NSPredicate(format: "label CONTAINS 'Livescience.com'")
-        let feedHeader = app.staticTexts.containing(predicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: feedHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        backButton.tap()
 
         app.scrollViews
             .children(matching: .other)
@@ -91,12 +77,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "5-FeedSettings")
-    }
-
-    func testSearch() {
-        loadDemoFeeds()
-
-        refreshPage("Technology")
+        closeButton.tap()
 
         app.tabBars["Tab Bar"].buttons["Search"].tap()
 
@@ -110,24 +91,6 @@ class PhoneScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "6-Search")
-    }
-
-    func testHistory() {
-        loadDemoFeeds()
-
-        refreshPage("Science")
-
-        gotoLink(1)
-        gotoLink(3)
-        gotoLink(4)
-
-        gotoLink(7)
-        gotoLink(9)
-        gotoLink(10)
-
-        gotoLink(13)
-        gotoLink(15)
-        gotoLink(16)
 
         app.tabBars["Tab Bar"].buttons["History"].tap()
 
@@ -136,9 +99,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "7-History")
-    }
 
-    func testSettings() {
         app.tabBars["Tab Bar"].buttons["Settings"].tap()
 
         let settingsHeader = app.navigationBars["Settings"]
@@ -156,14 +117,15 @@ class PhoneScreenshots: ScreenshotTestCase {
         loadDemoButton.tap()
     }
 
-    private func refreshPage(_ pageName: String) {
-
+    private func goToPage(_ pageName: String) {
         let pageButtonPredicate = NSPredicate(format: "label CONTAINS '\(pageName)'")
         let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
         expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageButton.tap()
+    }
 
+    private func refreshPage(_ pageName: String) {
         let pageMenuButton = app.navigationBars[pageName].buttons["Page Menu"]
         expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
@@ -183,14 +145,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 30, handler: nil)
     }
 
-    private func gotoPageSettings(pageName: String) {
-        let pageMenuButton = app.navigationBars[pageName].buttons["Page Menu"]
-        expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageMenuButton.tap()
-    }
-
-    private func gotoLink(_ elementIndex: Int) {
+    private func goToLink(_ elementIndex: Int) {
         let elementsQuery = app.scrollViews.otherElements
 
         elementsQuery
