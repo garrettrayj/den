@@ -77,7 +77,7 @@ class ScreenshotTestCase: XCTestCase {
         // it later.
         let screenshotAttachment = XCTAttachment(
             uniformTypeIdentifier: "public.png",
-            name: "Screenshot-\(UIDevice.current.name)-\(name).png",
+            name: "\(name).png",
             payload: fullScreenshot.pngRepresentation,
             userInfo: nil
         )

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 #  screenshots.sh
 #  Den
@@ -36,7 +36,6 @@ appearances=(
 
 # Save final screenshots into this folder (it will be created)
 targetFolder="$PWD/Documents/Screenshots"
-rm -rf $targetFolder/*
 
 # Capture macOS screenshots
 # for language in "${languages[@]}"
@@ -70,9 +69,11 @@ do
         do
             rm -rf /tmp/DenDerivedData/Logs/Test
             echo "📲  Building and Running for $simulator in $language"
+            
+            # Attempt to shutdown simulator in case it's already booted
+            xcrun simctl shutdown "$simulator" || true
 
-            # Boot up the new simulator and set it to
-            # the correct appearance
+            # Boot up then simulator and set the appearance
             xcrun simctl boot "$simulator"
             xcrun simctl ui "$simulator" appearance $appearance
 
@@ -86,8 +87,15 @@ do
                 -only-testing:$testBundle \
                 build test
             echo "🖼  Collecting Results..."
-            mkdir -p "$targetFolder/$simulator/$language/$appearance"
-            find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/$simulator/$language/$appearance" \;
+            destination="$targetFolder/$simulator/$language/$appearance"
+            mkdir -p "$destination"
+            find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$destination" \;
+            
+            # Remove UUID from screenshot filenames
+            for file ($destination/*.png(ND.)) {
+                new_name=${file/_1_*\.png/\.png}
+                mv -f "$file" "$new_name"
+            }
             
             xcrun simctl shutdown "$simulator"
         done
