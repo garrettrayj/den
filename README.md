@@ -2,21 +2,20 @@
 
 A feed reader made for delivering headlines without distraction, obfuscation, or manipulation. 
 
-Just add RSS to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. RSS is an open format that can be published by any website, therefore no single company has control over what you see.
+Just add RSS to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. RSS is an open format that can be published by any website; Therefore no single company has control over what you see.
 
-Den lets you use feeds as building blocks to create objective dashboards, with multiple sources on a level field, to cover any topic.
+Den is an app for news manatees; for those who don't always swim with the school fishes; for original web surfers who browse on their own terms. It's about being informed by a variety of sources presented on a level field. It reinvisions the classic _start-page with widgets_ design as a simple, fast, native application available on all of your favorite devices.
 
 Features
 
 - Compatible with iPhone, iPad, and Mac
-- No account or registration required
-- Subscriptions and read items sync across devices with iCloud
+- No extra website account or registration required
+- Subscriptions and history synchronizes across devices with iCloud
 - Compatible with RSS, Atom, and JSON feed formats
 - Global search for filtering current items by keyword
 - OPML import and export for sharing subscriptions
 - Light and dark theme options
 - History view with search for finding previously visited links
-- Simple app created around one rule: Users have full control over content and updates
 
 ## Release Notes
 
