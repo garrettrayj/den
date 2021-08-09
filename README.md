@@ -1,10 +1,8 @@
 # Den for RSS
 
-A feed reader made for delivering headlines without distraction, obfuscation, or manipulation. 
+Den is a start-page app for creating dashboards with feeds from your favorite websites.
 
-Just add RSS to keep up-to-date without all the noise. There is no advertising, notifications, recommendations, comments, reactions, or trends. RSS is an open format that can be published by any website; Therefore no single company has control over what you see.
-
-Den is an app for news manatees; for those who don't always swim with the school fishes; for original web surfers who browse on their own terms. It's about being informed by a variety of sources presented on a level field. It reinvisions the classic _start-page with widgets_ design as a simple, fast, native application available on all of your favorite devices.
+It's designed to be a simple way to catch up on what's happening without all the extras. It's about browsing the latest headlines without being interupted by ads or distracted by the latest social media hooks. It enables one to create as many pages as they like, containing as many feeds as desired, for following anything they want.
 
 Features
 
@@ -16,16 +14,18 @@ Features
 - OPML import and export for sharing subscriptions
 - Light and dark theme options
 - History view with search for finding previously visited links
+- Native app engineered for speed and efficiency
+
 
 ## Release Notes
 
 ### Den v1.4
 
-Version 1.4 enables viewing and managing visited links, also known as history.
+Version 1.4 enables viewing and managing visited links (history).
 
 - Tab bar for top level views
 - History view with search
-- Several bug fixes and improvements
+- Several general bug fixes and improvements
 
 ### Den v1.3
 
