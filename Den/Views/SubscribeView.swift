@@ -11,6 +11,7 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
@@ -27,17 +28,20 @@ struct SubscribeView: View {
             if subscriptionManager.destinationPage != nil {
                 feedUrlInput
 
-                Button(action: validateUrl) { Text("Add to \(subscriptionManager.destinationPage!.wrappedName)") }
-                    .disabled(!(urlText.count > 0))
-                    .buttonStyle(ActionButtonStyle())
-
                 if validationMessage != nil { Text(validationMessage!) }
+
+                Spacer()
+
+                Button(action: validateUrl) {
+                    Label("Add to \(subscriptionManager.destinationPage!.wrappedName)", systemImage: "plus")
+                }
+                .disabled(!(urlText.count > 0))
+                .buttonStyle(AccentButtonStyle())
             } else {
                 missingPage
+                Spacer()
             }
-
-            Spacer()
-            Button(action: cancel) { Text("Cancel") }
+            Button(action: cancel) { Text("Cancel") }.buttonStyle(ActionButtonStyle())
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(32)
@@ -48,7 +52,6 @@ struct SubscribeView: View {
                 self.subscriptionManager.destinationPage = profileManager.activeProfile?.pagesArray.first
             }
         }
-        .onDisappear { self.subscriptionManager.reset() }
     }
 
     private var feedUrlInput: some View {
@@ -60,20 +63,14 @@ struct SubscribeView: View {
             if urlIsValid != nil {
                 if urlIsValid == true {
                     Image(systemName: "checkmark.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 20, height: 20)
                         .foregroundColor(Color(UIColor.systemGreen))
                 } else {
                     Image(systemName: "slash.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 20, height: 20)
                         .foregroundColor(Color(UIColor.systemRed))
                 }
             }
         }
-        .padding()
+        .padding(12)
         .background(Color(UIColor.systemBackground))
         .cornerRadius(8)
         .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
@@ -133,16 +130,16 @@ struct SubscribeView: View {
 
         self.urlIsValid = true
 
-        self.createFeed()
+        self.addSubscription()
     }
 
-    private func createFeed() {
-        guard let destinationPage = subscriptionManager.destinationPage else { return }
+    private func addSubscription() {
+        guard let url = URL(string: self.urlText) else { return }
 
-        let newFeed = Feed.create(in: self.viewContext, page: destinationPage, prepend: true)
-        newFeed.url = URL(string: self.urlText)
-
-        self.refreshManager.refresh(newFeed)
-        self.presentationMode.wrappedValue.dismiss()
+        if let feed = subscriptionManager.createFeed(url: url) {
+            refreshManager.refresh(feed: feed) { _ in
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 }

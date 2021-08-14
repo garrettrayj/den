@@ -23,7 +23,7 @@ struct FeedWidgetSettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    Button(action: close) { Text("Close") }
+                    Button(action: close) { Text("Close") }.buttonStyle(ActionButtonStyle())
                 }
             }
         }

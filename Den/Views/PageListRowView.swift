@@ -25,8 +25,7 @@ struct PageListRowView: View {
                     selection: $pageSelection
                 ) {
                     HStack {
-                        Image(systemName: "square.grid.2x2")
-                        Text(page.wrappedName).lineLimit(1).padding(.vertical, 4)
+                        Label(page.wrappedName, systemImage: "square.grid.2x2").padding(.vertical, 4)
 
                         Spacer()
 

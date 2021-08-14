@@ -17,13 +17,16 @@ struct PageView: View {
     @ObservedObject var page: Page
 
     @State private var showingSettings: Bool = false
-
     let columns = [
         GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)
     ]
 
     var body: some View {
         VStack(spacing: 0) {
+            NavigationLink(destination: PageSettingsView(page: page), isActive: $showingSettings) {
+                Label("Page Settings", systemImage: "wrench")
+            }.hidden().frame(height: 0)
+
             if page.managedObjectContext == nil {
                 pageDeleted
             } else if page.feedsArray.count == 0 {
@@ -31,10 +34,6 @@ struct PageView: View {
             } else {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
-                        NavigationLink(destination: PageSettingsView(page: page), isActive: $showingSettings) {
-                            Label("Page Settings", systemImage: "wrench")
-                        }.hidden()
-
                         RefreshableScrollView(page: page) {
                             LazyVGrid(columns: columns, spacing: 16) {
                                 ForEach(page.feedsArray, id: \.self) { feed in
@@ -61,43 +60,45 @@ struct PageView: View {
 
     private var pageToolbar: some ToolbarContent {
         ToolbarItemGroup {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                // Action menu for phone users
-                Menu {
-                    Button(action: showSubscribe) {
-                        Label("Add Subscription", systemImage: "plus.circle")
-                    }
+            if page.managedObjectContext != nil {
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    // Action menu for phone users
+                    Menu {
+                        Button(action: showSubscribe) {
+                            Label("Add Subscription", systemImage: "plus.circle")
+                        }
 
-                    Button(action: showSettings) {
-                        Label("Page Settings", systemImage: "wrench")
-                    }
+                        Button(action: showSettings) {
+                            Label("Page Settings", systemImage: "wrench")
+                        }
 
-                    Button { refreshManager.refresh(self.page) } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                } label: {
-                    Label("Page Menu", systemImage: "ellipsis")
-                        .frame(height: 44)
-                        .padding(.leading)
-                }.disabled(refreshManager.refreshing == true)
-            } else {
-                // Show three buttons on larger screens
-                HStack(spacing: 16) {
-                    Button(action: showSubscribe) {
-                        Label("Add Subscription", systemImage: "plus.circle")
-                    }
+                        Button { refreshManager.refresh(page: self.page) } label: {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }
+                    } label: {
+                        Label("Page Menu", systemImage: "ellipsis")
+                            .frame(height: 44)
+                            .padding(.leading)
+                    }.disabled(refreshManager.refreshing == true)
+                } else {
+                    // Show three buttons on larger screens
+                    HStack(spacing: 16) {
+                        Button(action: showSubscribe) {
+                            Label("Add Subscription", systemImage: "plus.circle")
+                        }
 
-                    Button(action: showSettings) {
-                        Label("Page Settings", systemImage: "wrench")
-                    }
+                        Button(action: showSettings) {
+                            Label("Page Settings", systemImage: "wrench")
+                        }
 
-                    Button { refreshManager.refresh(self.page) } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
+                        Button { refreshManager.refresh(page: self.page) } label: {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }
                     }
+                    .disabled(refreshManager.refreshing == true)
+                    .buttonStyle(ActionButtonStyle())
+
                 }
-                .disabled(refreshManager.refreshing == true)
-                .buttonStyle(ActionButtonStyle())
-
             }
         }
     }

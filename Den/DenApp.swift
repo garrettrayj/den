@@ -95,6 +95,7 @@ struct DenApp: App {
         let subscriptionManager = SubscriptionManager(
             viewContext: persistenceManager.container.viewContext,
             profileManager: profileManager,
+            refreshManager: refreshManager,
             crashManager: crashManager
         )
         let themeManager = ThemeManager()

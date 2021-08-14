@@ -15,11 +15,18 @@ final class SubscriptionManager: ObservableObject {
 
     private var viewContext: NSManagedObjectContext
     private var profileManager: ProfileManager
+    private var refreshManager: RefreshManager
     private var crashManager: CrashManager
 
-    init(viewContext: NSManagedObjectContext, profileManager: ProfileManager, crashManager: CrashManager) {
+    init(
+        viewContext: NSManagedObjectContext,
+        profileManager: ProfileManager,
+        refreshManager: RefreshManager,
+        crashManager: CrashManager
+    ) {
         self.viewContext = viewContext
         self.profileManager = profileManager
+        self.refreshManager = refreshManager
         self.crashManager = crashManager
     }
 
@@ -43,6 +50,15 @@ final class SubscriptionManager: ObservableObject {
     func reset() {
         showingAddSubscription = false
         subscribeURLString = ""
+    }
+
+    func createFeed(url: URL) -> Feed? {
+        guard let destinationPage = destinationPage else { return nil }
+
+        let feed = Feed.create(in: self.viewContext, page: destinationPage, prepend: true)
+        feed.url = url
+
+        return feed
     }
 
     func loadDemo() {
