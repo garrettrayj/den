@@ -72,7 +72,7 @@ struct RefreshableScrollView<Content: View>: View {
                 (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold)
             {
                 self.rotation = .degrees(0)
-                self.refreshManager.refresh(self.page)
+                self.refreshManager.refresh(page: self.page)
             }
 
             // Update last scroll offset

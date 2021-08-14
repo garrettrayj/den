@@ -58,6 +58,7 @@ final class PersistenceManager: ObservableObject {
 
             self.container.viewContext.automaticallyMergesChangesFromParent = true
             self.container.viewContext.undoManager = nil
+            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         }
     }
 }

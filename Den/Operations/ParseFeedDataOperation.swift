@@ -14,7 +14,7 @@ import FeedKit
 /**
  Parses fetched feed data with FeedKit
  */
-final class ParseFeedDataOperation: AsynchronousOperation {
+final class ParseFeedDataOperation: Operation {
     // Operation inputs
     var httpTransportError: Error?
     var httpResponse: HTTPURLResponse?
@@ -37,28 +37,20 @@ final class ParseFeedDataOperation: AsynchronousOperation {
         self.feedId = feedId
     }
 
-    override func cancel() {
-        parser.abortParsing()
-        super.cancel()
-    }
-
     override func main() {
         guard let fetchedData = data else {
-            self.finish()
             return
         }
 
         if let transportError = self.httpTransportError {
             self.workingFeed.error = transportError.localizedDescription
             Logger.ingest.notice("Transport error")
-            self.finish()
             return
         }
 
         guard let httpResponse = self.httpResponse else {
             self.workingFeed.error = "Server did not respond"
             Logger.ingest.notice("Server did not respond to request")
-            self.finish()
             return
         }
 
@@ -70,27 +62,24 @@ final class ParseFeedDataOperation: AsynchronousOperation {
             ).capitalized(with: .autoupdatingCurrent)
 
             Logger.ingest.notice("Invalid HTTP response")
-            self.finish()
             return
         }
 
         parser = FeedParser(data: fetchedData)
-        parser.parseAsync(queue: .global(qos: .background)) { parserResult in
-            defer { self.finish() }
+        let parserResult = parser.parse()
 
-            switch parserResult {
-            case .success(let feed):
-                switch feed {
-                case let .atom(content):
-                    self.handleAtomContent(content: content)
-                case let .rss(content):
-                    self.handleRssContent(content: content)
-                case let .json(content):
-                    self.handleJsonContent(content: content)
-                }
-            case .failure(let error):
-                self.workingFeed.error = error.localizedDescription
+        switch parserResult {
+        case .success(let feed):
+            switch feed {
+            case let .atom(content):
+                self.handleAtomContent(content: content)
+            case let .rss(content):
+                self.handleRssContent(content: content)
+            case let .json(content):
+                self.handleJsonContent(content: content)
             }
+        case .failure(let error):
+            self.workingFeed.error = error.localizedDescription
         }
     }
 

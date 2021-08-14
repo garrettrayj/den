@@ -23,7 +23,7 @@ final class RefreshManager: ObservableObject {
         self.crashManager = crashManager
     }
 
-    public func refresh(_ page: Page) {
+    public func refresh(page: Page, callback: ((Page) -> Void)? = nil) {
         refreshing = true
 
         var operations: [Operation] = []
@@ -37,11 +37,14 @@ final class RefreshManager: ObservableObject {
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
                 self.refreshComplete(page: page)
+                if let callback = callback {
+                    callback(page)
+                }
             }
         }
     }
 
-    public func refresh(_ feed: Feed) {
+    public func refresh(feed: Feed, callback: ((Feed) -> Void)? = nil) {
         refreshing = true
         progress.totalUnitCount += 1
 
@@ -49,6 +52,9 @@ final class RefreshManager: ObservableObject {
             self.queue.addOperations(self.createFeedOps(feed), waitUntilFinished: true)
             DispatchQueue.main.async {
                 self.refreshComplete(page: feed.page)
+                if let callback = callback {
+                    callback(feed)
+                }
             }
         }
     }

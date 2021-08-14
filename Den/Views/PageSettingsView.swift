@@ -18,6 +18,63 @@ struct PageSettingsView: View {
 
     @State var itemsPerFeedStepperValue: Int = 0
     @State var pageNameText: String = ""
+    @State var iconPickerSelection: String?
+    @State var showingIconPicker: Bool = false
+
+    let icons: [String] = [
+        "scribble.variable",
+        "highlighter",
+        "pencil.and.outline",
+        "lasso.sparkles",
+        "paperplane",
+        "folder",
+        "questionmark.folder",
+        "archivebox",
+        "doc.richtext",
+        "terminal",
+        "doc.text.magnifyingglass",
+        "calendar",
+        "book",
+        "newspaper",
+        "books.vertical",
+        "bookmark",
+        "greetingcard",
+        "rosette",
+        "graduationcap",
+        "ticket",
+        "paperclip",
+        "person",
+        "person.and.arrow.left.and.arrow.right",
+        "person.2",
+        "person.3",
+        "rectangle.stack.person.crop",
+        "escape",
+        "wake",
+        "sleep",
+        "globe",
+        "network",
+        "dot.arrowtriangles.up.right.down.left.circle",
+        "sun.max",
+        "sunrise",
+        "sunset",
+        "moon",
+        "zzz",
+        "moon.zzz",
+        "sparkle",
+        "sparkles",
+        "moon.stars",
+        "cloud",
+        "cloud.rain",
+        "cloud.sun",
+        "smoke",
+        "tornado",
+        "snow",
+        "tropicalstorm",
+        "thermometer",
+        "umbrella",
+        "flame",
+        "cursorarrow.rays"
+    ]
 
     var body: some View {
         Form {
@@ -98,7 +155,7 @@ struct PageSettingsView: View {
                 try viewContext.save()
 
                 if refresh == true {
-                    self.refreshManager.refresh(page)
+                    self.refreshManager.refresh(page: page)
                 }
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)

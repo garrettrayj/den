@@ -23,15 +23,14 @@ struct FeedSettingsFormView: View {
     private var onMove: () -> Void
 
     var body: some View {
-        let pagePickerSelection = Binding<Int>(
+        let pagePickerSelection = Binding<Page?>(
             get: {
-                return self.pickedPage
+                return self.feed.page
             },
             set: {
-                guard let pages = feed.page?.profile?.pagesArray else { return }
-                self.pickedPage = $0
-                self.feed.userOrder = pages[$0].feedsUserOrderMax + 1
-                self.feed.page = pages[$0]
+                guard let page = $0 else { return }
+                self.feed.userOrder = page.feedsUserOrderMax + 1
+                self.feed.page = page
                 self.onMove()
             }
         )
@@ -53,20 +52,11 @@ struct FeedSettingsFormView: View {
 
                     Picker("", selection: pagePickerSelection) {
                         ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                            Text(page.wrappedName).tag(
-                                profileManager.activeProfile?.pagesArray.firstIndex(of: page)
-                            )
+                            Text(page.wrappedName).tag(page as Page?)
                         }
                     }
                     .frame(maxWidth: 200)
-                    .onAppear {
-                        if
-                            let page = self.feed.page,
-                            let pageIndex = page.profile?.pagesArray.firstIndex(of: page)
-                        {
-                            self.pickedPage = pageIndex
-                        }
-                    }
+
                 }
 
                 HStack {
