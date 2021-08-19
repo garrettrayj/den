@@ -9,14 +9,6 @@
 import SwiftUI
 
 struct PagesView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @Environment(\.presentationMode) var presentation
-    @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var safariManager: LinkManager
-
     var body: some View {
         NavigationView {
             // Sidebar
@@ -25,6 +17,5 @@ struct PagesView: View {
             // Default view for detail area
             WelcomeView()
         }
-
     }
 }

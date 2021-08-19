@@ -11,11 +11,9 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @Environment(\.presentationMode) var presentation
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var safariManager: LinkManager
 
     var body: some View {
         if crashManager.showingCrashMessage == true {

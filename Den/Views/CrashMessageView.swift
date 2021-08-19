@@ -14,9 +14,8 @@ struct CrashMessageView: View {
             Image(systemName: "ladybug").resizable().scaledToFit().frame(width: 48, height: 48)
             Text("Application Crashed").font(.title)
             Text("""
-                A critical error occurred.
-                Fully close Den then restart to try again.
-                Please consider sending a bug report if you see this repeatedly.
+                An unexpected error occurred.\n
+                Close Den and restart to try again.
             """)
         }.modifier(SimpleMessageModifier())
     }

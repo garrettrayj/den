@@ -10,7 +10,6 @@ import CoreData
 import OSLog
 
 final class ProfileManager: ObservableObject {
-    @Published var profiles: [Profile] = []
     @Published var activeProfile: Profile?
 
     private var viewContext: NSManagedObjectContext
@@ -25,7 +24,7 @@ final class ProfileManager: ObservableObject {
 
     private func loadProfiles() {
         do {
-            profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
+            var profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
             if profiles.count == 0 {
                 profiles.append(createDefault(adoptOrphans: true))
             }
@@ -61,7 +60,6 @@ final class ProfileManager: ObservableObject {
 
         do {
             try viewContext.save()
-            profiles.append(defaultProfile)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
@@ -73,10 +71,16 @@ final class ProfileManager: ObservableObject {
         let defaultProfile = createDefault()
         activeProfile = defaultProfile
 
-        profiles.forEach { profile in
-            if profile != defaultProfile {
-                viewContext.delete(profile)
+        do {
+            let profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
+            profiles.forEach { profile in
+                if profile != defaultProfile {
+                    viewContext.delete(profile)
+                }
             }
+            activeProfile = profiles.first
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
         }
 
         do {

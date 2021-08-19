@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct FeedWidgetItemRowView: View {
+struct FeedWidgetRowView: View {
     @EnvironmentObject var linkManager: LinkManager
+
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
 
@@ -40,9 +41,11 @@ struct FeedWidgetItemRowView: View {
         item.thumbnailImage?
         .scaleEffect(1 / UIScreen.main.scale)
         .frame(width: 96, height: 64, alignment: .center)
-        .border(Color(UIColor.separator))
-        .clipped()
         .background(Color(UIColor.tertiarySystemGroupedBackground))
+            .cornerRadius(4)
+        .overlay(
+            RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+        )
         .accessibility(label: Text("Thumbnail Image"))
     }
 

@@ -73,6 +73,7 @@ final class SaveFeedOperation: Operation {
             feedData.metaFetched = Date()
         }
 
+        feedData.link = self.workingFeed?.link
         feedData.error = self.workingFeed?.error
         feedData.refreshed = Date()
 

@@ -16,10 +16,8 @@ struct PageSettingsView: View {
 
     @ObservedObject var page: Page
 
-    @State var itemsPerFeedStepperValue: Int = 0
-    @State var pageNameText: String = ""
-    @State var iconPickerSelection: String?
-    @State var showingIconPicker: Bool = false
+    @State private var itemsPerFeedStepperValue: Int = 0
+    @State private var showingIconPicker: Bool = false
 
     let icons: [String] = [
         "scribble.variable",
@@ -77,18 +75,32 @@ struct PageSettingsView: View {
     ]
 
     var body: some View {
+        VStack {
+            form
+        }
+        .navigationTitle("Page Settings")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    var form: some View {
         Form {
-            Section(header: Text("\nSettings")) {
+            Section(header: Text("Name & Icon")) {
                 HStack {
-                    Text("Name").padding(.vertical, 4)
-                    Spacer()
-                    TextField("Name", text: $pageNameText)
-                        .lineLimit(1)
-                        .multilineTextAlignment(.trailing)
-                        .frame(maxWidth: 300)
+                    TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4)
 
+                    HStack {
+                        Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
+                        Image(systemName: "chevron.down")
+                            .imageScale(.small)
+                            .foregroundColor(Color.secondary)
+                    }
+                    .onTapGesture { showingIconPicker = true }
+                    .sheet(isPresented: $showingIconPicker) {
+                        IconPickerView(activeIcon: $page.wrappedSymbol)
+                    }
                 }
-
+            }
+            Section(header: Text("Settings")) {
                 HStack {
                     Text("Item Limit")
                     Spacer()
@@ -123,42 +135,33 @@ struct PageSettingsView: View {
             }
         }
         .environment(\.editMode, .constant(.active))
-        .navigationTitle("Page Settings")
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear(perform: loadPage)
-        .onDisappear(perform: savePage)
+        .onAppear(perform: load)
+        .onDisappear(perform: save)
     }
 
     private func close() {
         presentationMode.wrappedValue.dismiss()
     }
 
-    private func loadPage() {
+    private func load() {
         itemsPerFeedStepperValue = page.wrappedItemsPerFeed
-        pageNameText = page.wrappedName
     }
 
-    private func savePage() {
+    private func save() {
         var refresh = false
-
         if itemsPerFeedStepperValue != page.wrappedItemsPerFeed {
             page.wrappedItemsPerFeed = itemsPerFeedStepperValue
             refresh = true
         }
 
-        if pageNameText != page.wrappedName {
-            page.wrappedName = pageNameText
-        }
-
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()
-
                 if refresh == true {
                     self.refreshManager.refresh(page: page)
                 }
-            } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
             }
         }
     }

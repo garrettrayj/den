@@ -10,11 +10,11 @@ import CoreData
 import OSLog
 
 final class RefreshManager: ObservableObject {
-    @Published public var refreshing: Bool = false
+    @Published var refreshing: Bool = false
 
     let progress = Progress(totalUnitCount: 0)
+    let queue = OperationQueue()
 
-    private var queue = OperationQueue()
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
 
@@ -60,7 +60,8 @@ final class RefreshManager: ObservableObject {
     }
 
     private func createFeedOps(_ feed: Feed) -> [Operation] {
-        let feedData = self.checkFeedData(feed)
+        guard let feedData = checkFeedData(feed) else { return [] }
+
         let refreshPlan = RefreshPlan(
             feed: feed,
             feedData: feedData,
@@ -79,29 +80,25 @@ final class RefreshManager: ObservableObject {
         return refreshPlan.getOps()
     }
 
-    private func checkFeedData(_ feed: Feed) -> FeedData {
-        if feed.feedData == nil {
-            let feed = FeedData.create(in: self.persistentContainer.viewContext, feedId: feed.id!)
-            do {
-                try self.persistentContainer.viewContext.save()
-            } catch {
-                DispatchQueue.main.async {
-                    self.crashManager.handleCriticalError(error as NSError)
-                }
-            }
-
-            return feed
+    private func checkFeedData(_ feed: Feed) -> FeedData? {
+        if let feedData = feed.feedData {
+            return feedData
         }
 
-        return feed.feedData!
+        guard let feedId = feed.id else { return nil }
+
+        let feedData = FeedData.create(in: persistentContainer.viewContext, feedId: feedId)
+        do {
+            try persistentContainer.viewContext.save()
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
+        }
+
+        return feedData
     }
 
     private func refreshComplete(page: Page?) {
         page?.objectWillChange.send()
-        self.refreshing = false
-        self.progress.totalUnitCount = 0
-        self.progress.completedUnitCount = 0
-
         if persistentContainer.viewContext.hasChanges {
             do {
                 try persistentContainer.viewContext.save()
@@ -109,5 +106,8 @@ final class RefreshManager: ObservableObject {
                 self.crashManager.handleCriticalError(error as NSError)
             }
         }
+        refreshing = false
+        progress.totalUnitCount = 0
+        progress.completedUnitCount = 0
     }
 }

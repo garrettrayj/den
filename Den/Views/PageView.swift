@@ -9,14 +9,12 @@
 import SwiftUI
 
 struct PageView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var crashManager: CrashManager
     @ObservedObject var page: Page
 
     @State private var showingSettings: Bool = false
+
     let columns = [
         GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)
     ]
@@ -43,7 +41,7 @@ struct PageView: View {
                             .padding(.leading, horizontalInset(geometry.safeAreaInsets.leading))
                             .padding(.trailing, horizontalInset(geometry.safeAreaInsets.trailing))
                             .padding(.top, 16)
-                            .padding(.bottom, 64)
+                            .padding(.bottom, 40)
                         }
                         HeaderProgressBarView()
                     }
@@ -51,10 +49,12 @@ struct PageView: View {
                 }
             }
         }
-        .navigationTitle(Text(page.wrappedName))
+        .navigationTitle(Text(page.displayName))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { pageToolbar }
-        .onAppear(perform: onAppear)
+        .onAppear {
+            subscriptionManager.destinationPage = page
+        }
         .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
 
@@ -124,10 +124,6 @@ struct PageView: View {
 
     private func showSubscribe() {
         subscriptionManager.showAddSubscription()
-    }
-
-    private func onAppear() {
-        subscriptionManager.destinationPage = page
     }
 
     private func horizontalInset(_ safeArea: CGFloat) -> CGFloat {

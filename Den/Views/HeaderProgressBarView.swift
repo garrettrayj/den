@@ -10,7 +10,8 @@ import SwiftUI
 
 struct HeaderProgressBarView: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    @State var observedProgress: CGFloat = 0
+
+    @State private var observedProgress: CGFloat = 0
 
     var body: some View {
         if refreshManager.refreshing {

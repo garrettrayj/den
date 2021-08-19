@@ -38,13 +38,15 @@ struct SettingsView: View {
     private var appearanceSection: some View {
         Section(header: Text("\nAppearance")) {
             HStack {
-                Text("Theme").foregroundColor(Color(UIColor.label))
+                Label("Theme", systemImage: "paintbrush").foregroundColor(Color(UIColor.label))
                 Spacer()
-                Picker(selection: themeManager.uiStyle, label: Text("Interface Style")) {
-                    Text("Default").tag(UIUserInterfaceStyle.unspecified)
+                Picker("", selection: themeManager.uiStyle) {
+                    Text("System").tag(UIUserInterfaceStyle.unspecified)
                     Text("Light").tag(UIUserInterfaceStyle.light)
                     Text("Dark").tag(UIUserInterfaceStyle.dark)
-                }.pickerStyle(SegmentedPickerStyle()).frame(width: 220)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(width: 190)
             }
         }
     }
@@ -185,7 +187,7 @@ struct SettingsView: View {
         })
     }
 
-    private func restoreDefaultSettings() {
+    private func restoreUserDefaults() {
         // Clear our UserDefaults domain
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
@@ -199,7 +201,7 @@ struct SettingsView: View {
     }
 
     private func resetEverything() {
-        restoreDefaultSettings()
+        restoreUserDefaults()
         profileManager.resetProfiles()
     }
 
