@@ -57,15 +57,7 @@ struct FeedWidgetView: View {
 
     private var feedHeader: some View {
         HStack {
-            HStack {
-                if feed.feedData?.faviconImage != nil {
-                    feed.feedData!.faviconImage!
-                        .scaleEffect(1 / UIScreen.main.scale)
-                        .frame(width: 16, height: 16, alignment: .center)
-                        .clipped()
-                }
-                Text(feed.wrappedTitle).font(.headline.weight(.medium)).lineLimit(1)
-            }
+            FeedLabelView(feed: feed)
 
             Spacer()
 

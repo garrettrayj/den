@@ -19,70 +19,7 @@ struct PageSettingsView: View {
     @State private var itemsPerFeedStepperValue: Int = 0
     @State private var showingIconPicker: Bool = false
 
-    let icons: [String] = [
-        "scribble.variable",
-        "highlighter",
-        "pencil.and.outline",
-        "lasso.sparkles",
-        "paperplane",
-        "folder",
-        "questionmark.folder",
-        "archivebox",
-        "doc.richtext",
-        "terminal",
-        "doc.text.magnifyingglass",
-        "calendar",
-        "book",
-        "newspaper",
-        "books.vertical",
-        "bookmark",
-        "greetingcard",
-        "rosette",
-        "graduationcap",
-        "ticket",
-        "paperclip",
-        "person",
-        "person.and.arrow.left.and.arrow.right",
-        "person.2",
-        "person.3",
-        "rectangle.stack.person.crop",
-        "escape",
-        "wake",
-        "sleep",
-        "globe",
-        "network",
-        "dot.arrowtriangles.up.right.down.left.circle",
-        "sun.max",
-        "sunrise",
-        "sunset",
-        "moon",
-        "zzz",
-        "moon.zzz",
-        "sparkle",
-        "sparkles",
-        "moon.stars",
-        "cloud",
-        "cloud.rain",
-        "cloud.sun",
-        "smoke",
-        "tornado",
-        "snow",
-        "tropicalstorm",
-        "thermometer",
-        "umbrella",
-        "flame",
-        "cursorarrow.rays"
-    ]
-
     var body: some View {
-        VStack {
-            form
-        }
-        .navigationTitle("Page Settings")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-
-    var form: some View {
         Form {
             Section(header: Text("Name & Icon")) {
                 HStack {
@@ -114,29 +51,29 @@ struct PageSettingsView: View {
 
             }
 
-            Section(
-                header: HStack {
-                    Text("\(page.feedsArray.count) Feeds")
-                    Spacer()
-                    Text("Drag to Reorder")
-                }
-            ) {
-                ForEach(page.feedsArray) { feed in
-                    HStack(alignment: .center, spacing: 12) {
-                        feed.feedData?.faviconImage
-                            .scaleEffect(1 / UIScreen.main.scale)
-                            .frame(width: 16, height: 16, alignment: .center)
-                            .clipped()
-                        Text(feed.wrappedTitle).padding(.vertical, 4)
-                    }
-                }
-                .onDelete(perform: deleteFeed)
-                .onMove(perform: moveFeed)
-            }
+            feedsSection
         }
+        .navigationTitle("Page Settings")
+        .navigationBarTitleDisplayMode(.inline)
         .environment(\.editMode, .constant(.active))
         .onAppear(perform: load)
         .onDisappear(perform: save)
+    }
+
+    private var feedsSection: some View {
+        Section(
+            header: HStack {
+                Text("\(page.feedsArray.count) Feeds")
+                Spacer()
+                Text("Drag to Reorder")
+            }
+        ) {
+            ForEach(page.feedsArray) { feed in
+                FeedLabelView(feed: feed).padding(.vertical, 4)
+            }
+            .onDelete(perform: deleteFeed)
+            .onMove(perform: moveFeed)
+        }
     }
 
     private func close() {
