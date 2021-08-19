@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		680201D82688E95000DE600C /* PagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680201D72688E95000DE600C /* PagesView.swift */; };
+		6804171C26CE59F80082BD9C /* FeedLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6804171B26CE59F80082BD9C /* FeedLabelView.swift */; };
 		6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */; };
 		6809EFCD24DD49C9007B5CF1 /* ParseFeedDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCC24DD49C9007B5CF1 /* ParseFeedDataOperation.swift */; };
 		6809EFD524DDEEF7007B5CF1 /* SaveFaviconOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFD424DDEEF7007B5CF1 /* SaveFaviconOperation.swift */; };
@@ -139,6 +140,7 @@
 
 /* Begin PBXFileReference section */
 		680201D72688E95000DE600C /* PagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesView.swift; sourceTree = "<group>"; };
+		6804171B26CE59F80082BD9C /* FeedLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLabelView.swift; sourceTree = "<group>"; };
 		6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedKitFeed+Extensions.swift"; sourceTree = "<group>"; };
 		6809EFCC24DD49C9007B5CF1 /* ParseFeedDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseFeedDataOperation.swift; sourceTree = "<group>"; };
 		6809EFD424DDEEF7007B5CF1 /* SaveFaviconOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFaviconOperation.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				68B34A5D2486D2AD0066B215 /* ImportView.swift */,
 				68B34A662487ED870066B215 /* ExportView.swift */,
 				687F488F269165EE00EA2498 /* CrashMessageView.swift */,
+				6804171B26CE59F80082BD9C /* FeedLabelView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -815,6 +818,7 @@
 				687D9CC424ACB86900EB7F46 /* RefreshStatusView.swift in Sources */,
 				684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */,
 				689EDBFC269B98C30055811A /* DestructiveButtonStyle.swift in Sources */,
+				6804171C26CE59F80082BD9C /* FeedLabelView.swift in Sources */,
 				68998B892504DDEC00FDB6EE /* SearchResultView.swift in Sources */,
 				68915B1E261C253E00E4C0CB /* SaveThumbnailOperation.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
