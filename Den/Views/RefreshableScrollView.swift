@@ -16,12 +16,13 @@ import SwiftUI
 struct RefreshableScrollView<Content: View>: View {
     @EnvironmentObject var refreshManager: RefreshManager
 
+    @ObservedObject var page: Page
+
     @State private var previousScrollOffset: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
-    @State private var rotation: Angle = .degrees(0)
+    @State private var symbolRotation: Angle = .degrees(0)
 
-    var page: Page
-    var threshold: CGFloat = 80
+    let threshold: CGFloat = 80
     let content: Content
 
     var body: some View {
@@ -36,11 +37,10 @@ struct RefreshableScrollView<Content: View>: View {
                             return 0.0
                         }
                     })
-                    UpdateStatusView(
+                    RefreshStatusView(
                         page: page,
-                        height: threshold,
-                        loading: refreshManager.refreshing,
-                        symbolRotation: rotation
+                        loading: $refreshManager.refreshing,
+                        symbolRotation: $symbolRotation
                     )
                 }
             }
@@ -62,21 +62,21 @@ struct RefreshableScrollView<Content: View>: View {
             let movingBounds = values.first { $0.vType == .movingView }?.bounds ?? .zero
             let fixedBounds = values.first { $0.vType == .fixedView }?.bounds ?? .zero
 
-            self.scrollOffset  = movingBounds.minY - fixedBounds.minY
+            scrollOffset  = movingBounds.minY - fixedBounds.minY
 
-            self.rotation = self.symbolRotation(self.scrollOffset)
+            symbolRotation = symbolRotation(scrollOffset)
 
             // Crossing the threshold on the way down, we start the refresh process
             if
-                !self.refreshManager.refreshing &&
-                (self.scrollOffset > self.threshold && self.previousScrollOffset <= self.threshold)
+                !refreshManager.refreshing &&
+                (scrollOffset > threshold && previousScrollOffset <= threshold)
             {
-                self.rotation = .degrees(0)
-                self.refreshManager.refresh(page: self.page)
+                symbolRotation = .degrees(0)
+                refreshManager.refresh(page: page)
             }
 
             // Update last scroll offset
-            self.previousScrollOffset = self.scrollOffset
+            previousScrollOffset = scrollOffset
         }
     }
 

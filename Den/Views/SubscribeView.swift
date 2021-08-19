@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct SubscribeView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
@@ -41,7 +39,7 @@ struct SubscribeView: View {
                 missingPage
                 Spacer()
             }
-            Button(action: cancel) { Text("Cancel") }.buttonStyle(ActionButtonStyle())
+            Button(action: close) { Text("Cancel") }.buttonStyle(ActionButtonStyle())
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(32)
@@ -88,7 +86,7 @@ struct SubscribeView: View {
         }.frame(maxWidth: .infinity)
     }
 
-    private func cancel() {
+    private func close() {
         self.presentationMode.wrappedValue.dismiss()
     }
 

@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import SwiftUI
 
 final class SubscriptionManager: ObservableObject {
     @Published var destinationPage: Page?
@@ -17,6 +18,20 @@ final class SubscriptionManager: ObservableObject {
     private var profileManager: ProfileManager
     private var refreshManager: RefreshManager
     private var crashManager: CrashManager
+
+    let symbolMap = [
+        "World News": "globe",
+        "US News": "newspaper",
+        "Technology": "cpu",
+        "Business": "briefcase",
+        "Science": "atom",
+        "Space": "sparkles",
+        "Funnies": "face.smiling",
+        "Curiosity": "person.and.arrow.left.and.arrow.right",
+        "Gaming": "gamecontroller",
+        "TV & Movies": "film",
+        "Music": "music.note"
+    ]
 
     init(
         viewContext: NSManagedObjectContext,
@@ -66,12 +81,15 @@ final class SubscriptionManager: ObservableObject {
             preconditionFailure("Missing demo feeds source file")
         }
 
+        guard let profile = profileManager.activeProfile else { return }
+
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
 
         var newPages: [Page] = []
         opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, profile: profileManager.activeProfile!)
+            let page = Page.create(in: self.viewContext, profile: profile)
             page.name = opmlFolder.name
+            page.symbol = symbolMap[opmlFolder.name]
             newPages.append(page)
 
             opmlFolder.feeds.forEach { opmlFeed in

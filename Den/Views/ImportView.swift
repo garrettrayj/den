@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct ImportView: View {
-    @Environment(\.presentationMode) var presentation
-    @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var importManager: ImportManager
 
     var body: some View {

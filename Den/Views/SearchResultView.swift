@@ -29,7 +29,7 @@ struct SearchResultView: View {
                     ForEach(items) { item in
                         Group {
                             Divider()
-                            FeedWidgetItemRowView(item: item, feed: feedData.feed!)
+                            FeedWidgetRowView(item: item, feed: feedData.feed!)
                         }
                     }
                 }

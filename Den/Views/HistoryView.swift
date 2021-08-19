@@ -12,7 +12,6 @@ import SwiftUI
 struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var linkManager: LinkManager
-    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var searchManager: SearchManager
 
     var body: some View {

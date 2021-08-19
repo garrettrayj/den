@@ -12,8 +12,6 @@ import SwiftUI
 import Grid
 
 struct SearchView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var searchManager: SearchManager
 
     var body: some View {

@@ -13,8 +13,10 @@ import SwiftUI
  */
 struct PageListRowView: View {
     @Environment(\.editMode) var editMode
+
     @ObservedObject var page: Page
-    @Binding var pageSelection: String?
+
+    @Binding var activePageId: String?
 
     var body: some View {
         if page.id != nil {
@@ -22,10 +24,13 @@ struct PageListRowView: View {
                 NavigationLink(
                     destination: PageView(page: page),
                     tag: page.id!.uuidString,
-                    selection: $pageSelection
+                    selection: $activePageId
                 ) {
                     HStack {
-                        Label(page.wrappedName, systemImage: "square.grid.2x2").padding(.vertical, 4)
+                        Label(page.displayName, systemImage: page.wrappedSymbol)
+                            .lineLimit(1)
+                            .foregroundColor(Color.primary)
+                            .padding(.vertical, 4)
 
                         Spacer()
 

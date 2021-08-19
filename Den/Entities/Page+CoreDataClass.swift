@@ -10,9 +10,18 @@ import CoreData
 
 @objc(Page)
 public class Page: NSManagedObject {
+    public var displayName: String {
+        name == nil || name == "" ? "Untitled" : name!
+    }
+
     public var wrappedName: String {
         get { name ?? "Untitled" }
         set { name = newValue }
+    }
+
+    public var wrappedSymbol: String {
+        get { symbol ?? "square.grid.2x2" }
+        set { symbol = newValue }
     }
 
     public var wrappedItemsPerFeed: Int {
@@ -92,7 +101,6 @@ public class Page: NSManagedObject {
 }
 
 extension Collection where Element == Page, Index == Int {
-
     func delete(at indices: IndexSet, from managedObjectContext: NSManagedObjectContext) {
         indices.forEach { managedObjectContext.delete(self[$0]) }
 

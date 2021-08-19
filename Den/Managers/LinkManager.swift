@@ -45,13 +45,13 @@ final class LinkManager: ObservableObject {
     private func logHistory(item: Item) {
         guard let profile = profileManager.activeProfile else { return }
 
-        let history = History.create(in: self.viewContext, profile: profile)
+        let history = History.create(in: viewContext, profile: profile)
         history.link = item.link
         history.title = item.title
         history.visited = Date()
 
         do {
-            try self.viewContext.save()
+            try viewContext.save()
 
             // Update link color
             item.objectWillChange.send()
@@ -59,7 +59,7 @@ final class LinkManager: ObservableObject {
             // Update unread count in page navigation
             item.feedData?.feed?.page?.objectWillChange.send()
         } catch {
-            self.crashManager.handleCriticalError(error as NSError)
+            crashManager.handleCriticalError(error as NSError)
         }
     }
 }

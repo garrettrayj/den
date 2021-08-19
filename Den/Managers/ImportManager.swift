@@ -15,7 +15,6 @@ final class ImportManager: ObservableObject {
     }
 
     @Published var stage: ImportStage = .pickFile
-    @Published var importProgress: Double = 0
     @Published var opmlFolders: [OPMLFolder] = []
     @Published var selectedFolders: [OPMLFolder] = []
     @Published var pickedURL: URL?
@@ -40,7 +39,6 @@ final class ImportManager: ObservableObject {
 
     func reset() {
         stage = .pickFile
-        importProgress = 0
         opmlFolders = []
         selectedFolders = []
         pickedURL = nil

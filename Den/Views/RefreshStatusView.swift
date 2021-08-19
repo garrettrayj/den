@@ -8,11 +8,13 @@
 
 import SwiftUI
 
-struct UpdateStatusView: View {
-    var page: Page
-    var height: CGFloat
-    var loading: Bool
-    var symbolRotation: Angle
+struct RefreshStatusView: View {
+    @ObservedObject var page: Page
+
+    @Binding var loading: Bool
+    @Binding var symbolRotation: Angle
+
+    let height: CGFloat = 80
 
     var body: some View {
         VStack(spacing: 8) {

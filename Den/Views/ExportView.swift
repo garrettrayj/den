@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ExportView: View {
-    @Environment(\.presentationMode) var presentation
     @EnvironmentObject var profileManager: ProfileManager
 
     @State private var selectedPages: [Page] = []
@@ -116,9 +115,5 @@ struct ExportView: View {
         self.picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
 
         UIApplication.shared.windows[0].rootViewController!.present(self.picker!.viewController, animated: true)
-    }
-
-    private func cancel() {
-        presentation.wrappedValue.dismiss()
     }
 }

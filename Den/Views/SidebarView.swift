@@ -16,11 +16,10 @@ struct SidebarView: View {
     @Environment(\.presentationMode) var presentation
     @Environment(\.editMode) var editMode
     @EnvironmentObject var profileManager: ProfileManager
-    @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var crashManager: CrashManager
 
-    @State var pageSelection: String?
+    @State private var activePageId: String?
 
     var body: some View {
         List {
@@ -45,8 +44,8 @@ struct SidebarView: View {
             }
         }
         .onAppear {
-            if pageSelection == nil && UIDevice.current.userInterfaceIdiom != .phone {
-                pageSelection = profileManager.activeProfile?.pagesArray.first?.id?.uuidString
+            if activePageId == nil && UIDevice.current.userInterfaceIdiom != .phone {
+                activePageId = profileManager.activeProfile?.pagesArray.first?.id?.uuidString
             }
         }
     }
@@ -54,7 +53,7 @@ struct SidebarView: View {
     private var pageListSection: some View {
         Section {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
-                PageListRowView(page: page, pageSelection: $pageSelection)
+                PageListRowView(page: page, activePageId: $activePageId)
             }
             .onMove(perform: self.movePage)
             .onDelete(perform: self.deletePage)
