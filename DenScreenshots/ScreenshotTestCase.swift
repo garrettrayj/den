@@ -50,8 +50,6 @@ class ScreenshotTestCase: XCTestCase {
 
         // Initialize the application
         app = XCUIApplication()
-
-        // We send a command line argument to our app, to enable it to reset its state
         app.launchArguments.append("--reset")
         app.launch()
 

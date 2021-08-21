@@ -68,23 +68,20 @@ final class ProfileManager: ObservableObject {
     }
 
     public func resetProfiles() {
-        let defaultProfile = createDefault()
-        activeProfile = defaultProfile
+        activeProfile = createDefault()
 
         do {
             let profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
             profiles.forEach { profile in
-                if profile != defaultProfile {
+                if profile != activeProfile {
                     viewContext.delete(profile)
                 }
             }
-            activeProfile = profiles.first
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
-        }
-
-        do {
-            try viewContext.save()
+            do {
+                try viewContext.save()
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
+            }
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }

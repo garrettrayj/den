@@ -65,7 +65,7 @@ class MacScreenshots: ScreenshotTestCase {
         feedSettingsButton.tap()
 
         let closeButton = app.windows["SceneWindow"].sheets.windows.navigationBars["Feed Settings"]
-            .buttons["Close"]
+            .buttons["close"]
         expectation(for: existsPredicate, evaluatedWith: closeButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 

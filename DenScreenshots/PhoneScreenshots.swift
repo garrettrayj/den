@@ -72,9 +72,9 @@ class PhoneScreenshots: ScreenshotTestCase {
             .element(boundBy: 0)
             .tap()
 
-        let closeButton = app.navigationBars["Feed Settings"].buttons["Close"]
+        let closeButton = app.navigationBars["Feed Settings"].buttons["close"]
         expectation(for: existsPredicate, evaluatedWith: closeButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
 
         takeScreenshot(named: "5-FeedSettings")
         closeButton.tap()
