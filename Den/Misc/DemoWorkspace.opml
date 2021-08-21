@@ -47,7 +47,6 @@
 		</outline>
 		<outline text="Technology" title="Technology">
 			<outline text="Ars Technica" title="Ars Technica" type="rss" xmlUrl="http://feeds.arstechnica.com/arstechnica/index" />
-			<outline text="SciTechDaily" title="SciTechDaily" type="rss" xmlUrl="https://scitechdaily.com/feed/" />
 			<outline text="The Verge" title="The Verge" type="rss" xmlUrl="https://www.theverge.com/rss/index.xml" />
 			<outline text="Wired" title="Wired" type="rss" xmlUrl="https://www.wired.com/feed/rss" />
 			<outline text="BGR" title="BGR" type="rss" xmlUrl="https://bgr.com/tech/feed/" />
@@ -82,11 +81,12 @@
 			<outline text="MetalMiner" title="MetalMiner" type="rss" xmlUrl="http://feeds.feedburner.com/agmetalminer" />
 		</outline>
 		<outline text="Science" title="Science">
-			<outline text="Livescience.com" title="Livescience.com" type="rss" xmlUrl="http://www.livescience.com/feeds/all" />
+			<outline text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed" />
 			<outline text="ScienceAlert " title="ScienceAlert " type="rss" xmlUrl="http://feeds.feedburner.com/sciencealert-latestnews" />
+			<outline text="SciTechDaily" title="SciTechDaily" type="rss" xmlUrl="https://scitechdaily.com/feed/" />
+			<outline text="Livescience.com" title="Livescience.com" type="rss" xmlUrl="http://www.livescience.com/feeds/all" />
 			<outline text="Science News" title="Science News" type="rss" xmlUrl="https://www.sciencenews.org/feed" />
 			<outline text="The Scientist" title="The Scientist" type="rss" xmlUrl="http://www.the-scientist.com/?rss.feed/" />
-			<outline text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed" />
 			<outline text="Phys.org " title="Phys.org " type="rss" xmlUrl="https://phys.org/rss-feed/" />
 			<outline text="symmetry magazine" title="symmetry magazine" type="rss" xmlUrl="http://www.symmetrymagazine.org/feed" />
 			<outline text="Improbable Research" title="Improbable Research" type="rss" xmlUrl="https://www.improbable.com/feed/" />
@@ -161,10 +161,10 @@
 			<outline text="PCGamer" title="PCGamer" type="rss" xmlUrl="https://www.pcgamer.com/rss/" />
 			<outline text="Xbox Wire" title="Xbox Wire" type="rss" xmlUrl="https://news.xbox.com/en-us/feed/" />
 			<outline text="Eurogamer.net" title="Eurogamer.net" type="rss" xmlUrl="http://www.eurogamer.net/?format=rss" />
-			<outline text="The Indie Game Website" title="The Indie Game Website" type="rss" xmlUrl="https://www.indiegamewebsite.com/feed/" />
 			<outline text="Nintendo Life" title="Nintendo Life" type="rss" xmlUrl="http://www.nintendolife.com/feeds/latest" />
 			<outline text="New On Steam" title="New On Steam" type="rss" xmlUrl="http://store.steampowered.com/feeds/newreleases.xml" />
 			<outline text="BoardGameGeek" title="BoardGameGeek" type="rss" xmlUrl="https://boardgamegeek.com/rss/blog/1" />
+			<outline text="The Indie Game Website" title="The Indie Game Website" type="rss" xmlUrl="https://www.indiegamewebsite.com/feed/" />
 			<outline text="Retronauts" title="Retronauts" type="rss" xmlUrl="https://retronauts.com/feed" />
 			<outline text="Vintage is the New Old" title="Vintage is the New Old" type="rss" xmlUrl="https://vintageisthenewold.com/feed/" />
 			<outline text="Destructoid" title="Destructoid" type="rss" xmlUrl="https://feeds.feedburner.com/Destructoid-Rss" />
@@ -184,7 +184,6 @@
 		</outline>
 		<outline text="Music" title="Music">
 			<outline text="Billboard" title="Billboard" type="rss" xmlUrl="https://www.billboard.com/rss" />
-			<outline text="SPIN" title="SPIN" type="rss" xmlUrl="https://www.spin.com/new-music/feed/" />
 			<outline text="American Songwriter" title="American Songwriter" type="rss" xmlUrl="https://americansongwriter.com/feed/" />
 			<outline text="iTunes Store: Top Albums" title="iTunes Store: Top Albums" type="rss" xmlUrl="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topalbums/limit=10/xml" />
 			<outline text="XXL - Hip-Hop News" title="XXL - Hip-Hop News" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />

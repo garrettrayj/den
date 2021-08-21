@@ -27,7 +27,7 @@ struct FeedWidgetRowView: View {
                     Text(item.wrappedTitle)
                 }.accessibility(identifier: "Item Link")
 
-                if item.thumbnailImage != nil && item.feedData != nil && item.feedData?.feed?.showThumbnails == true {
+                if item.feedData?.feed?.showThumbnails == true {
                     thumbnailImage
                 }
             }
@@ -39,14 +39,14 @@ struct FeedWidgetRowView: View {
 
     private var thumbnailImage: some View {
         item.thumbnailImage?
-        .scaleEffect(1 / UIScreen.main.scale)
-        .frame(width: 96, height: 64, alignment: .center)
-        .background(Color(UIColor.tertiarySystemGroupedBackground))
-            .cornerRadius(4)
-        .overlay(
-            RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-        )
-        .accessibility(label: Text("Thumbnail Image"))
+            .scaleEffect(1 / UIScreen.main.scale)
+            .frame(width: 96, height: 64, alignment: .center)
+            .background(Color(UIColor.tertiarySystemGroupedBackground))
+                .cornerRadius(4)
+            .overlay(
+                RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+            )
+            .accessibility(label: Text("Thumbnail Image"))
     }
 
     private func openLink() {

@@ -62,45 +62,50 @@ struct PageView: View {
         ToolbarItemGroup {
             if page.managedObjectContext != nil {
                 if UIDevice.current.userInterfaceIdiom == .phone {
-                    // Action menu for phone users
-                    Menu {
-                        Button(action: showSubscribe) {
-                            Label("Add Subscription", systemImage: "plus.circle")
-                        }
-
-                        Button(action: showSettings) {
-                            Label("Page Settings", systemImage: "wrench")
-                        }
-
-                        Button { refreshManager.refresh(page: self.page) } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
-                        }
-                    } label: {
-                        Label("Page Menu", systemImage: "ellipsis")
-                            .frame(height: 44)
-                            .padding(.leading)
-                    }.disabled(refreshManager.refreshing == true)
+                    compactPageToolbar
                 } else {
-                    // Show three buttons on larger screens
-                    HStack(spacing: 16) {
-                        Button(action: showSubscribe) {
-                            Label("Add Subscription", systemImage: "plus.circle")
-                        }
-
-                        Button(action: showSettings) {
-                            Label("Page Settings", systemImage: "wrench")
-                        }
-
-                        Button { refreshManager.refresh(page: self.page) } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
-                        }
-                    }
-                    .disabled(refreshManager.refreshing == true)
-                    .buttonStyle(ActionButtonStyle())
-
+                    fullPageToolbar
                 }
             }
         }
+    }
+
+    private var compactPageToolbar: some View {
+        Menu {
+            Button(action: showSubscribe) {
+                Label("Add Subscription", systemImage: "plus.circle")
+            }
+
+            Button(action: showSettings) {
+                Label("Page Settings", systemImage: "wrench")
+            }
+
+            Button { refreshManager.refresh(page: self.page) } label: {
+                Label("Refresh", systemImage: "arrow.clockwise")
+            }
+        } label: {
+            Label("Page Menu", systemImage: "ellipsis")
+                .frame(height: 44)
+                .padding(.leading)
+        }.disabled(refreshManager.refreshing == true)
+    }
+
+    private var fullPageToolbar: some View {
+        HStack(spacing: 16) {
+            Button(action: showSubscribe) {
+                Label("Add Subscription", systemImage: "plus.circle")
+            }
+
+            Button(action: showSettings) {
+                Label("Page Settings", systemImage: "wrench")
+            }
+
+            Button { refreshManager.refresh(page: self.page) } label: {
+                Label("Refresh", systemImage: "arrow.clockwise")
+            }
+        }
+        .disabled(refreshManager.refreshing == true)
+        .buttonStyle(ActionButtonStyle())
     }
 
     private var pageEmpty: some View {
