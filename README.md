@@ -19,6 +19,14 @@ Features
 
 ## Release Notes
 
+### Den v1.5
+
+Version 1.5 adds page icon customization.
+
+- Page icon picker with over 300 symbols
+- Fixed bug that prevented moving feeds between pages
+- Minor interface and performance improvements
+
 ### Den v1.4
 
 Version 1.4 enables viewing and managing visited links (history).
