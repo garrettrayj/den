@@ -62,7 +62,7 @@ class PadScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         feedSettingsButton.tap()
 
-        let closeButton = app.navigationBars["Feed Settings"].buttons["Close"]
+        let closeButton = app.navigationBars["Feed Settings"].buttons["close"]
         expectation(for: existsPredicate, evaluatedWith: closeButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 
