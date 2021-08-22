@@ -12,27 +12,32 @@ import SwiftUI
 struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var linkManager: LinkManager
-    @EnvironmentObject var searchManager: SearchManager
+
+    @ObservedObject var historyViewModel: HistoryViewModel
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(isHistorySearchField: true)
+                SearchFieldView(query: $historyViewModel.query, onCommit: historyViewModel.performHistorySearch)
 
-                if searchManager.historyResults.count == 0 && searchManager.searchQuery == "" {
-                    Text("History is Empty").modifier(SimpleMessageModifier())
-                } else if !searchManager.searchIsValid() && searchManager.searchQuery != "" {
-                    Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
-                } else if searchManager.historyResults.count == 0 && searchManager.searchQuery != "" {
-                    Text("No Results Found").modifier(SimpleMessageModifier())
+                if historyViewModel.queryIsValid == false {
+                    Text(historyViewModel.validationMessage ?? "Invalid search query")
+                        .modifier(SimpleMessageModifier())
+                } else if historyViewModel.queryIsValid == true {
+                    if historyViewModel.results.count > 0 {
+                        resultsList
+                    } else {
+                        Text("No Results Found").modifier(SimpleMessageModifier())
+                    }
                 } else {
                     resultsList
                 }
+
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .onAppear {
-                searchManager.performHistorySearch()
+                historyViewModel.performHistorySearch()
             }
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
@@ -42,7 +47,7 @@ struct HistoryView: View {
 
     private var resultsList: some View {
         List {
-            ForEach(searchManager.historyResults, id: \.self) { resultGroup in
+            ForEach(historyViewModel.results, id: \.self) { resultGroup in
                 if resultGroup.first?.visited != nil {
                     Section(
                         header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.mediumNone)")

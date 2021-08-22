@@ -9,33 +9,19 @@
 import SwiftUI
 
 struct SearchFieldView: View {
-    @EnvironmentObject var searchManager: SearchManager
+    @Binding var query: String
 
-    var isHistorySearchField: Bool = false
+    var onCommit: () -> Void
 
     var body: some View {
         ZStack {
             HStack {
-                TextField(
-                    "Search…",
-                    text: $searchManager.searchQuery
-                )
+                TextField("Search", text: $query, onEditingChanged: { edit in
+                    print("edit: \(edit)")
+                }, onCommit: onCommit)
+
                 .frame(height: 32)
                 .background(Color(UIColor.systemBackground))
-                .onChange(of: searchManager.searchQuery, perform: { _ in
-                    if isHistorySearchField == true {
-                        if searchManager.searchIsValid() || searchManager.searchQuery == "" {
-                            searchManager.performHistorySearch()
-                        }
-                    } else {
-                        if searchManager.searchIsValid() {
-                            searchManager.performItemSearch()
-                        }
-                    }
-                })
-                .onDisappear {
-                    searchManager.reset()
-                }
             }
             .padding(.horizontal, 32)
             .background(Color(UIColor.systemBackground))
@@ -45,8 +31,8 @@ struct SearchFieldView: View {
                 Image(systemName: "magnifyingglass").imageScale(.medium).foregroundColor(.secondary)
                 Spacer()
 
-                if searchManager.searchQuery != "" {
-                    Button(action: searchManager.reset) {
+                if query != "" {
+                    Button { query = "" } label: {
                         Image(systemName: "multiply.circle.fill").imageScale(.medium).foregroundColor(Color.secondary)
                     }.layoutPriority(2)
                 }

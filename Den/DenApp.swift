@@ -24,7 +24,6 @@ struct DenApp: App {
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
     @StateObject var browserManager: LinkManager
-    @StateObject var searchManager: SearchManager
 
     var body: some Scene {
         WindowGroup {
@@ -38,7 +37,6 @@ struct DenApp: App {
                 .environmentObject(crashManager)
                 .environmentObject(themeManager)
                 .environmentObject(browserManager)
-                .environmentObject(searchManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
                     if let titlebar = window?.windowScene?.titlebar {
@@ -104,10 +102,6 @@ struct DenApp: App {
             crashManager: crashManager,
             profileManager: profileManager
         )
-        let searchManager = SearchManager(
-            viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager
-        )
 
         _crashManager = StateObject(wrappedValue: crashManager)
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
@@ -118,7 +112,6 @@ struct DenApp: App {
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
         _browserManager = StateObject(wrappedValue: browserManager)
-        _searchManager = StateObject(wrappedValue: searchManager)
 
         FileManager.default.initAppDirectories()
     }

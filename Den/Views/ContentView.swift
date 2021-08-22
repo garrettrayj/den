@@ -21,8 +21,23 @@ struct ContentView: View {
         } else {
             TabView {
                 PagesView().tabItem { Label("Pages", systemImage: "list.dash") }
-                SearchView().tabItem { Label("Search", systemImage: "magnifyingglass") }
-                HistoryView().tabItem { Label("History", systemImage: "clock") }
+
+                SearchView(
+                    searchViewModel: SearchViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager
+                    )
+                )
+                .tabItem { Label("Search", systemImage: "magnifyingglass") }
+
+                HistoryView(
+                    historyViewModel: HistoryViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager
+                    )
+                )
+                .tabItem { Label("History", systemImage: "clock") }
+
                 SettingsView().tabItem { Label("Settings", systemImage: "gear") }
             }
             .sheet(isPresented: $subscriptionManager.showingAddSubscription) {

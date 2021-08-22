@@ -1,0 +1,84 @@
+//
+//  SearchViewModel.swift
+//  Den
+//
+//  Created by Garrett Johnson on 8/22/21.
+//  Copyright © 2021 Garrett Johnson. All rights reserved.
+//
+
+import CoreData
+
+final class SearchViewModel: ObservableObject {
+    @Published var query: String = ""
+    @Published var results: [[Item]] = []
+    @Published var queryIsValid: Bool?
+    @Published var validationMessage: String?
+
+    private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
+
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+        self.viewContext = viewContext
+        self.crashManager = crashManager
+    }
+
+    func reset() {
+        query = ""
+    }
+
+    func validateQuery() -> Bool {
+        queryIsValid = true
+
+        if query == "" {
+            queryIsValid = false
+            validationMessage = "Search is empty"
+        }
+
+        if query.count < 3 {
+            queryIsValid = false
+            validationMessage = "Search needs at least three characters"
+        }
+
+        return queryIsValid!
+    }
+
+    func performItemSearch() {
+        if validateQuery() == false {
+            return
+        }
+
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+        fetchRequest.predicate = NSPredicate(
+            format: "%K CONTAINS[C] %@",
+            #keyPath(Item.title),
+            query
+        )
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
+        fetchRequest.relationshipKeyPathsForPrefetching = ["feed"]
+
+        do {
+            guard let fetchResults = try viewContext.fetch(fetchRequest) as? [Item] else { return }
+            var compactedFetchResults: [Item] = []
+            fetchResults.forEach { item in
+                if item.feedData?.feed != nil {
+                    compactedFetchResults.append(item)
+                }
+            }
+
+            results = Dictionary(grouping: compactedFetchResults) { item in
+                item.feedData!
+            }.values.sorted { aItem, bItem in
+                guard
+                    let aTitle = aItem[0].feedData?.feed?.wrappedTitle,
+                    let bTitle = bItem[0].feedData?.feed?.wrappedTitle
+                else {
+                    return false
+                }
+
+                return aTitle < bTitle
+            }
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
+        }
+    }
+}
