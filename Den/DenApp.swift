@@ -22,7 +22,7 @@ struct DenApp: App {
     @StateObject var cacheManager: CacheManager
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
-    @StateObject var browserManager: LinkManager
+    @StateObject var linkManager: LinkManager
 
     var body: some Scene {
         WindowGroup {
@@ -34,7 +34,7 @@ struct DenApp: App {
                 .environmentObject(subscriptionManager)
                 .environmentObject(crashManager)
                 .environmentObject(themeManager)
-                .environmentObject(browserManager)
+                .environmentObject(linkManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
                     if let titlebar = window?.windowScene?.titlebar {
@@ -43,7 +43,7 @@ struct DenApp: App {
                     }
                     #endif
 
-                    browserManager.controller = window?.rootViewController
+                    linkManager.controller = window?.rootViewController
 
                     themeManager.window = window
                     themeManager.applyUIStyle()
@@ -103,7 +103,7 @@ struct DenApp: App {
         _cacheManager = StateObject(wrappedValue: cacheManager)
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
-        _browserManager = StateObject(wrappedValue: browserManager)
+        _linkManager = StateObject(wrappedValue: browserManager)
 
         FileManager.default.initAppDirectories()
     }
