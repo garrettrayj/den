@@ -12,28 +12,31 @@ import SwiftUI
 import Grid
 
 struct SearchView: View {
-    @EnvironmentObject var searchManager: SearchManager
+    @ObservedObject var searchViewModel: SearchViewModel
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView()
+                SearchFieldView(query: $searchViewModel.query, onCommit: searchViewModel.performItemSearch)
 
-                if searchManager.searchResults.count > 0 && searchManager.searchIsValid() {
-                    ScrollView {
-                        Grid(searchManager.searchResults, id: \.self) { sectionItems in
-                            SearchResultView(items: sectionItems)
+                if searchViewModel.queryIsValid == false {
+                    Text(searchViewModel.validationMessage ?? "Invalid search query")
+                        .modifier(SimpleMessageModifier())
+                } else if searchViewModel.queryIsValid == true {
+                    if searchViewModel.results.count > 0 {
+                        ScrollView {
+                            Grid(searchViewModel.results, id: \.self) { sectionItems in
+                                SearchResultView(items: sectionItems)
+                            }
+                            .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
+                            .padding()
+                            .padding(.bottom, 64)
                         }
-                        .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
-                        .padding()
-                        .padding(.bottom, 64)
+                    } else {
+                        Text("No Results Found").modifier(SimpleMessageModifier())
                     }
-                } else if searchManager.searchQuery == "" {
-                    Text("Filter Current Headlines by Keyword").modifier(SimpleMessageModifier())
-                } else if !searchManager.searchIsValid() {
-                    Text("Minimum Three Characters Required to Search").modifier(SimpleMessageModifier())
                 } else {
-                    Text("No Results Found").modifier(SimpleMessageModifier())
+                    Text("Filter Current Headlines by Keyword").modifier(SimpleMessageModifier())
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
