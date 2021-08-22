@@ -14,32 +14,33 @@ struct SearchFieldView: View {
     var onCommit: () -> Void
 
     var body: some View {
-        ZStack {
+        Group {
             HStack {
-                TextField("Search", text: $query, onEditingChanged: { edit in
-                    print("edit: \(edit)")
-                }, onCommit: onCommit)
-
-                .frame(height: 32)
-                .background(Color(UIColor.systemBackground))
-            }
-            .padding(.horizontal, 32)
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(8)
-
-            HStack {
-                Image(systemName: "magnifyingglass").imageScale(.medium).foregroundColor(.secondary)
-                Spacer()
+                Label(
+                    title: {
+                        TextField("Search", text: $query, onEditingChanged: { edit in
+                            print("edit: \(edit)")
+                        }, onCommit: onCommit).padding(.vertical, 6)
+                    },
+                    icon: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                )
 
                 if query != "" {
                     Button { query = "" } label: {
-                        Image(systemName: "multiply.circle.fill").imageScale(.medium).foregroundColor(Color.secondary)
+                        Label("Clear", systemImage: "multiply.circle.fill")
+                            .foregroundColor(Color.secondary)
+                            .labelStyle(IconOnlyLabelStyle())
                     }.layoutPriority(2)
                 }
             }
-            .padding(.horizontal, 12)
+            .padding(.leading, 12)
+            .padding(.trailing, 8)
+            .background(Color(UIColor.systemBackground))
+            .cornerRadius(8)
         }
-        .padding(.horizontal, 16).padding(.bottom, 12).padding(.top, 12)
-        .background(Color(UIColor.tertiarySystemBackground).edgesIgnoringSafeArea(.all))
+        .padding(8)
+        .background(Color(UIColor.tertiarySystemBackground))
     }
 }

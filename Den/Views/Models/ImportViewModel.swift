@@ -34,7 +34,7 @@ final class ImportViewModel: ObservableObject {
         self.crashManager = crashManager
         self.profileManager = profileManager
 
-        self.documentPicker = ImportDocumentPicker(importManager: self)
+        self.documentPicker = ImportDocumentPicker(importViewModel: self)
     }
 
     func reset() {
