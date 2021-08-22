@@ -19,7 +19,11 @@ final class ProfileManager: ObservableObject {
         self.viewContext = viewContext
         self.crashManager = crashManager
 
-        loadProfiles()
+        if CommandLine.arguments.contains("--reset") {
+            resetProfiles()
+        } else {
+            loadProfiles()
+        }
     }
 
     private func loadProfiles() {

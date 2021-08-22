@@ -21,34 +21,27 @@ struct PageSettingsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Name & Icon")) {
-                HStack {
-                    TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4)
+            Section(header: Text("Icon and Name")) {
+                Label(
+                    title: { TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4) },
+                    icon: {
+                        Image(systemName: page.wrappedSymbol)
+                            .foregroundColor(Color.accentColor)
+                            .onTapGesture { showingIconPicker = true }
+                            .sheet(isPresented: $showingIconPicker) {
+                                IconPickerView(activeIcon: $page.wrappedSymbol)
+                            }
 
-                    HStack {
-                        Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
-                        Image(systemName: "chevron.down")
-                            .imageScale(.small)
-                            .foregroundColor(Color.secondary)
                     }
-                    .onTapGesture { showingIconPicker = true }
-                    .sheet(isPresented: $showingIconPicker) {
-                        IconPickerView(activeIcon: $page.wrappedSymbol)
-                    }
-                }
+                )
             }
             Section(header: Text("Settings")) {
-                HStack {
-                    Text("Item Limit")
-                    Spacer()
-                    Text("\(itemsPerFeedStepperValue)")
-                    Stepper(
-                        "Item Limit",
-                        value: $itemsPerFeedStepperValue,
-                        in: 1...Int(Int16.max)
-                    ).labelsHidden()
-                }
 
+                Stepper(value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max), step: 1) { _ in
+                    page.wrappedItemsPerFeed = itemsPerFeedStepperValue
+                } label: {
+                    Label("Items Per Feed: \(itemsPerFeedStepperValue)", systemImage: "list.bullet.rectangle")
+                }
             }
 
             feedsSection
@@ -69,7 +62,22 @@ struct PageSettingsView: View {
             }
         ) {
             ForEach(page.feedsArray) { feed in
-                FeedLabelView(feed: feed).padding(.vertical, 4)
+                Label {
+                    Text(feed.wrappedTitle).lineLimit(1)
+                } icon: {
+                    if feed.feedData?.faviconImage != nil {
+                        feed.feedData!.faviconImage!
+                            .scaleEffect(1 / UIScreen.main.scale)
+                            .frame(width: 16, height: 16, alignment: .center)
+                            .clipped()
+                    } else {
+                        Image(uiImage: UIImage(named: "RSSIcon")!)
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(Color.secondary)
+                            .frame(width: 14, height: 14, alignment: .center)
+                    }
+                }.padding(.vertical, 4)
             }
             .onDelete(perform: deleteFeed)
             .onMove(perform: moveFeed)

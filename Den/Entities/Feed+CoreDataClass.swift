@@ -25,6 +25,14 @@ public class Feed: NSManagedObject {
         set {url = URL(string: newValue)}
     }
 
+    public var urlSchemeSymbol: String {
+        if url?.scheme?.contains("https") == true {
+            return "lock"
+        }
+
+        return "lock.slash"
+    }
+
     public var wrappedTitle: String {
         get {title ?? "Untitled"}
         set {title = newValue}

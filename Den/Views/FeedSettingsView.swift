@@ -73,9 +73,9 @@ struct FeedSettingsView: View {
         )
 
         return Section(header: Text("Settings")) {
-
+            #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Page").padding(.vertical, 4)
+                Label("Page", systemImage: "square.grid.2x2").padding(.vertical, 4)
                 Spacer()
                 Picker("", selection: pagePickerSelection) {
                     ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
@@ -84,18 +84,26 @@ struct FeedSettingsView: View {
                 }
                 .frame(maxWidth: 200)
             }
-
             HStack {
-                Text("Show Images")
+                Label("Show Thumbnails", systemImage: "photo").padding(.vertical, 4)
                 Spacer()
-                Toggle("", isOn: $feed.showThumbnails).padding(.vertical, 4)
+                Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
             }
-
-            #if !targetEnvironment(macCatalyst)
-            HStack {
-                Toggle(isOn: $feed.readerMode) {
-                    Text("Enter Reader Mode if Available")
+            #else
+            Picker(
+                selection: pagePickerSelection,
+                label: Label("Page", systemImage: "square.grid.2x2"),
+                content: {
+                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                        Text(page.wrappedName).tag(page as Page?)
+                    }
                 }
+            )
+            Toggle(isOn: $feed.showThumbnails) {
+                Label("Show Thumbnails", systemImage: "photo")
+            }
+            Toggle(isOn: $feed.readerMode) {
+                Label("Use Reader Mode", systemImage: "doc.plaintext")
             }
             #endif
         }
@@ -103,17 +111,17 @@ struct FeedSettingsView: View {
 
     private var info: some View {
         Section(header: Text("Info")) {
-            HStack(alignment: .center) {
-                Text("URL").padding(.vertical, 4)
+            HStack {
+                Label("URL", systemImage: "globe")
                 Spacer()
-                Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
+                Text(feed.urlString).lineLimit(1).foregroundColor(.secondary).padding(.vertical, 4)
                 Button(action: copyFeedUrl) {
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                 }.buttonStyle(ActionButtonStyle())
             }
 
-            HStack(alignment: .center) {
-                Text("Refreshed").padding(.vertical, 4)
+            HStack {
+                Label("Refreshed", systemImage: "arrow.clockwise").padding(.vertical, 4)
                 Spacer()
                 if feed.feedData?.refreshed != nil {
                     Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.mediumShort)")
