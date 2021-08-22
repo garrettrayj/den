@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct ImportView: View {
-    @EnvironmentObject var importManager: ImportManager
+    @ObservedObject var importViewModel: ImportViewModel
 
     var body: some View {
         Group {
-            if self.importManager.stage == .pickFile {
+            if self.importViewModel.stage == .pickFile {
                 pickFileStage
-            } else if self.importManager.stage == .folderSelection {
+            } else if self.importViewModel.stage == .folderSelection {
                 folderSelectionStage
-            } else if self.importManager.stage == .importing {
+            } else if self.importViewModel.stage == .importing {
                 completeStage
             }
         }
@@ -27,7 +27,7 @@ struct ImportView: View {
 
     private var pickFileStage: some View {
         VStack(alignment: .center) {
-            Button(action: importManager.pickFile) {
+            Button(action: importViewModel.pickFile) {
                 Text("Select OPML File")
             }.buttonStyle(AccentButtonStyle())
         }
@@ -38,8 +38,8 @@ struct ImportView: View {
     private var folderSelectionStage: some View {
         Form {
             Section(header: selectionSectionHeader) {
-                ForEach(importManager.opmlFolders, id: \.name) { folder in
-                    Button { self.importManager.toggleFolder(folder) } label: {
+                ForEach(importViewModel.opmlFolders, id: \.name) { folder in
+                    Button { self.importViewModel.toggleFolder(folder) } label: {
                         Label(
                             title: {
                                 HStack {
@@ -50,7 +50,7 @@ struct ImportView: View {
 
                             },
                             icon: {
-                                if self.importManager.selectedFolders.contains(folder) {
+                                if self.importViewModel.selectedFolders.contains(folder) {
                                     Image(systemName: "checkmark.circle.fill")
                                 } else {
                                     Image(systemName: "circle")
@@ -59,7 +59,7 @@ struct ImportView: View {
                         )
                     }
                     .onAppear {
-                        self.importManager.selectedFolders.append(folder)
+                        self.importViewModel.selectedFolders.append(folder)
                     }
                 }
             }
@@ -90,7 +90,7 @@ struct ImportView: View {
                 .scaledToFit()
                 .frame(width: 48, height: 48)
             Text("Import Complete").font(.title)
-            Text("Added \(importManager.feedsImported.count) feeds to \(importManager.pagesImported.count) pages")
+            Text("Added \(importViewModel.feedsImported.count) feeds to \(importViewModel.pagesImported.count) pages")
                 .foregroundColor(Color(.secondaryLabel))
         }
     }
@@ -99,21 +99,21 @@ struct ImportView: View {
         HStack {
             Text("Select Folders")
             Spacer()
-            Button(action: importManager.selectAll) {
+            Button(action: importViewModel.selectAll) {
                 Text("All")
-            }.disabled(importManager.allSelected)
+            }.disabled(importViewModel.allSelected)
             Text("/")
-            Button(action: importManager.selectNone) {
+            Button(action: importViewModel.selectNone) {
                 Text("None")
-            }.disabled(importManager.noneSelected)
+            }.disabled(importViewModel.noneSelected)
         }.buttonStyle(ActionButtonStyle())
     }
 
     private func importFeeds() {
-        self.importManager.importSelected()
+        self.importViewModel.importSelected()
     }
 
     private func cancel() {
-        self.importManager.reset()
+        self.importViewModel.reset()
     }
 }

@@ -72,14 +72,20 @@ struct SettingsView: View {
 
     private var opmlSection: some View {
         Section(header: Text("Subscriptions")) {
-            NavigationLink(destination: ImportView()) {
-                Label("Import", systemImage: "arrow.down.doc")
-                    .padding(.vertical, 4)
+            NavigationLink(
+                destination: ImportView(
+                    importViewModel: ImportViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager,
+                        profileManager: profileManager
+                    )
+                )
+            ) {
+                Label("Import", systemImage: "arrow.down.doc").padding(.vertical, 4)
             }
 
             NavigationLink(destination: ExportView()) {
-                Label("Export", systemImage: "arrow.up.doc")
-                    .padding(.vertical, 4)
+                Label("Export", systemImage: "arrow.up.doc").padding(.vertical, 4)
             }
         }
     }

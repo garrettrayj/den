@@ -20,7 +20,6 @@ struct DenApp: App {
     @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
     @StateObject var cacheManager: CacheManager
-    @StateObject var importManager: ImportManager
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
     @StateObject var browserManager: LinkManager
@@ -32,7 +31,6 @@ struct DenApp: App {
                 .environmentObject(profileManager)
                 .environmentObject(refreshManager)
                 .environmentObject(cacheManager)
-                .environmentObject(importManager)
                 .environmentObject(subscriptionManager)
                 .environmentObject(crashManager)
                 .environmentObject(themeManager)
@@ -85,11 +83,6 @@ struct DenApp: App {
             persistentContainer: persistenceManager.container,
             crashManager: crashManager
         )
-        let importManager = ImportManager(
-            viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager,
-            profileManager: profileManager
-        )
         let subscriptionManager = SubscriptionManager(
             viewContext: persistenceManager.container.viewContext,
             profileManager: profileManager,
@@ -108,7 +101,6 @@ struct DenApp: App {
         _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
         _cacheManager = StateObject(wrappedValue: cacheManager)
-        _importManager = StateObject(wrappedValue: importManager)
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
         _browserManager = StateObject(wrappedValue: browserManager)
