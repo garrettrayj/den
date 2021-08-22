@@ -1,5 +1,5 @@
 //
-//  ImportManager.swift
+//  ImportViewModel.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/19/20.
@@ -9,7 +9,7 @@
 import CoreData
 import SwiftUI
 
-final class ImportManager: ObservableObject {
+final class ImportViewModel: ObservableObject {
     enum ImportStage {
         case pickFile, folderSelection, error, importing
     }
