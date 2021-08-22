@@ -40,16 +40,23 @@ struct ImportView: View {
             Section(header: selectionSectionHeader) {
                 ForEach(importManager.opmlFolders, id: \.name) { folder in
                     Button { self.importManager.toggleFolder(folder) } label: {
-                        HStack {
-                            if self.importManager.selectedFolders.contains(folder) {
-                                Image(systemName: "checkmark.circle.fill")
-                            } else {
-                                Image(systemName: "circle")
+                        Label(
+                            title: {
+                                HStack {
+                                    Text(folder.name).foregroundColor(.primary)
+                                    Spacer()
+                                    Text("\(folder.feeds.count) feeds").foregroundColor(.secondary)
+                                }.padding(.vertical, 4)
+
+                            },
+                            icon: {
+                                if self.importManager.selectedFolders.contains(folder) {
+                                    Image(systemName: "checkmark.circle.fill")
+                                } else {
+                                    Image(systemName: "circle")
+                                }
                             }
-                            Text(folder.name).foregroundColor(Color.primary).padding(.vertical, 4)
-                            Spacer()
-                            Text("\(folder.feeds.count) feeds").font(.callout).foregroundColor(.secondary)
-                        }
+                        )
                     }
                     .onAppear {
                         self.importManager.selectedFolders.append(folder)

@@ -16,6 +16,7 @@ struct SettingsView: View {
     @EnvironmentObject var themeManager: ThemeManager
     @EnvironmentObject var profileManager: ProfileManager
 
+    @State private var selectedTheme: UIUserInterfaceStyle = .unspecified
     @State private var showingClearWorkspaceAlert = false
     @State private var historyRentionDays: Int = 0
 
@@ -36,32 +37,48 @@ struct SettingsView: View {
     }
 
     private var appearanceSection: some View {
-        Section(header: Text("\nAppearance")) {
+        Section(header: Text("Appearance")) {
+            #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Theme", systemImage: "paintbrush").foregroundColor(Color(UIColor.label))
+                Label("Theme", systemImage: "paintbrush").padding(.vertical, 4)
                 Spacer()
-                Picker("", selection: themeManager.uiStyle) {
+                Picker("", selection: $selectedTheme) {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
                     Text("Light").tag(UIUserInterfaceStyle.light)
                     Text("Dark").tag(UIUserInterfaceStyle.dark)
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .frame(width: 190)
+                .frame(width: 200)
             }
+            #else
+            Picker(
+                selection: $selectedTheme,
+                label: Label("Theme", systemImage: "paintbrush"),
+                content: {
+                    Text("System").tag(UIUserInterfaceStyle.unspecified)
+                    Text("Light").tag(UIUserInterfaceStyle.light)
+                    Text("Dark").tag(UIUserInterfaceStyle.dark)
+                }
+            )
+            #endif
+        }
+        .onChange(of: selectedTheme, perform: { value in
+            UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
+            themeManager.applyUIStyle()
+        }).onAppear {
+            selectedTheme = UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
         }
     }
 
     private var opmlSection: some View {
-        Section(header: Text("OPML")) {
+        Section(header: Text("Subscriptions")) {
             NavigationLink(destination: ImportView()) {
-                Label("Import Subscriptions", systemImage: "arrow.down.doc")
-                    .foregroundColor(Color(UIColor.label))
+                Label("Import", systemImage: "arrow.down.doc")
                     .padding(.vertical, 4)
             }
 
             NavigationLink(destination: ExportView()) {
-                Label("Export Subscriptions", systemImage: "arrow.up.doc")
-                    .foregroundColor(Color(UIColor.label))
+                Label("Export", systemImage: "arrow.up.doc")
                     .padding(.vertical, 4)
             }
         }
@@ -69,8 +86,9 @@ struct SettingsView: View {
 
     private var historySection: some View {
         Section(header: Text("History")) {
-            HStack(spacing: 16) {
-                Label("Keep History", systemImage: "clock").foregroundColor(.primary).padding(.vertical, 4)
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                Label("Keep History", systemImage: "clock").padding(.vertical, 4)
                 Spacer()
                 Picker("", selection: $historyRentionDays) {
                     Text("Forever").tag(0 as Int)
@@ -82,15 +100,28 @@ struct SettingsView: View {
                     Text("One Week").tag(7 as Int)
                 }
                 .frame(maxWidth: 200)
-                .onChange(of: historyRentionDays) { _ in
-                    saveProfile()
-                }
             }
+            #else
+            Picker(
+                selection: $historyRentionDays,
+                label: Label("Keep History", systemImage: "clock"),
+                content: {
+                    Text("Forever").tag(0 as Int)
+                    Text("One Year").tag(365 as Int)
+                    Text("Six Months").tag(182 as Int)
+                    Text("Three Months").tag(90 as Int)
+                    Text("One Month").tag(30 as Int)
+                    Text("Two Weeks").tag(14 as Int)
+                    Text("One Week").tag(7 as Int)
+                }
+            )
+            #endif
 
             Button(action: clearHistory) {
                 Label("Clear History", systemImage: "clear").padding(.vertical, 4)
-            }.buttonStyle(ActionButtonStyle())
-
+            }
+        }.onChange(of: historyRentionDays) { _ in
+            saveProfile()
         }
     }
 
@@ -98,7 +129,7 @@ struct SettingsView: View {
         Section(header: Text("Reset")) {
             Button(action: clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark").padding(.vertical, 4)
-            }.disabled(refreshManager.refreshing).buttonStyle(ActionButtonStyle())
+            }.disabled(refreshManager.refreshing)
 
             Button(action: showResetAlert) {
                 Label("Reset Everything", systemImage: "clear")
@@ -113,19 +144,23 @@ struct SettingsView: View {
                     },
                     secondaryButton: .cancel()
                 )
-            }.disabled(refreshManager.refreshing).buttonStyle(DestructiveButtonStyle())
+            }.disabled(refreshManager.refreshing)
         }
     }
 
     private var aboutSection: some View {
         Section(header: Text("About")) {
             HStack(spacing: 16) {
-                Image("TitleIcon").resizable().scaledToFit().frame(width: 48, height: 48)
-                VStack(alignment: .leading) {
+                Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 48, height: 48)
+                    .cornerRadius(8)
+                VStack(alignment: .leading, spacing: 2) {
                     Text("Den").font(.headline)
-                    Text("Version \(Bundle.main.releaseVersionNumber!)").font(.subheadline)
+                    Text("Version \(Bundle.main.releaseVersionNumber!)").font(.caption)
                 }
-            }.padding(.vertical)
+            }.padding(.vertical, 8)
 
             Group {
                 Button(action: openHomepage) {

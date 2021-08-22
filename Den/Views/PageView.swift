@@ -49,7 +49,7 @@ struct PageView: View {
                 }
             }
         }
-        .navigationTitle(Text(page.displayName))
+        .navigationTitle(page.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { pageToolbar }
         .onAppear {

@@ -27,23 +27,24 @@ struct IconPickerView: View {
                     ForEach(icons, id: \.self) { icon in
                         Image(systemName: icon)
                             .tag(icon)
-                            .frame(width: 32, height: 32, alignment: .center)
-                            .imageScale(.large)
+                            .imageScale(.medium)
+                            .foregroundColor(.primary)
                             .onTapGesture {
                                 activeIcon = icon
                             }
                             .overlay(
-                                RoundedRectangle(cornerRadius: 4).strokeBorder(
-                                    Color.accentColor,
-                                    lineWidth: icon == activeIcon ? 2 : 0
-                                )
+                                RoundedRectangle(cornerRadius: 4)
+                                    .strokeBorder(
+                                        Color.accentColor,
+                                        lineWidth: icon == activeIcon ? 2 : 0
+                                    )
+                                    .frame(width: 32, height: 32, alignment: .center)
                             )
                             .padding(.vertical, 4)
-
                     }
-                }.padding(.top)
+                }.padding()
             }
-            .navigationTitle("Select Symbol")
+            .navigationTitle("Choose Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {

@@ -121,9 +121,5 @@ struct DenApp: App {
         _searchManager = StateObject(wrappedValue: searchManager)
 
         FileManager.default.initAppDirectories()
-
-        if CommandLine.arguments.contains("--reset") {
-            profileManager.resetProfiles()
-        }
     }
 }

@@ -11,19 +11,8 @@ import SwiftUI
 final class ThemeManager: ObservableObject {
     var window: UIWindow?
 
-    var uiStyle: Binding<UIUserInterfaceStyle> {
-        Binding(
-            get: {
-                UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
-            },
-            set: {
-                UserDefaults.standard.setValue($0.rawValue, forKey: "UIStyle")
-                self.applyUIStyle()
-            }
-        )
-    }
-
     func applyUIStyle() {
-        window?.overrideUserInterfaceStyle = uiStyle.wrappedValue
+        let uiStyle = UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
+        window?.overrideUserInterfaceStyle = uiStyle
     }
 }
