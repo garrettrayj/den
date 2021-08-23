@@ -23,7 +23,7 @@ struct ExportView: View {
 
                     VStack(alignment: .center) {
                         Button(action: exportOpml) {
-                            Label("Save OPML File", systemImage: "arrow.up.doc")
+                            Label("Export Subscriptions", systemImage: "arrow.up.doc")
                         }.buttonStyle(AccentButtonStyle()).disabled(selectedPages.count == 0)
                     }
                     .frame(maxWidth: .infinity)

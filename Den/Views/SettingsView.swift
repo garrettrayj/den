@@ -24,7 +24,7 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 appearanceSection
-                opmlSection
+                subscriptionsSection
                 historySection
                 dataSection
                 aboutSection
@@ -70,7 +70,7 @@ struct SettingsView: View {
         }
     }
 
-    private var opmlSection: some View {
+    private var subscriptionsSection: some View {
         Section(header: Text("Subscriptions")) {
             NavigationLink(
                 destination: ImportView(
@@ -81,11 +81,15 @@ struct SettingsView: View {
                     )
                 )
             ) {
-                Label("Import", systemImage: "arrow.down.doc").padding(.vertical, 4)
+                Label("Import OPML", systemImage: "arrow.down.doc").padding(.vertical, 4)
             }
 
             NavigationLink(destination: ExportView()) {
-                Label("Export", systemImage: "arrow.up.doc").padding(.vertical, 4)
+                Label("Export OPML", systemImage: "arrow.up.doc").padding(.vertical, 4)
+            }
+
+            NavigationLink(destination: SecurityCheckView()) {
+                Label("Security Check", systemImage: "lock").padding(.vertical, 4)
             }
         }
     }
@@ -178,7 +182,7 @@ struct SettingsView: View {
                 }
 
                 Button(action: openPrivacyPolicy) {
-                    Label("Privacy Policy", systemImage: "lock.shield").padding(.vertical, 4)
+                    Label("Privacy Policy", systemImage: "hand.raised.slash").padding(.vertical, 4)
                 }
             }.buttonStyle(ActionButtonStyle())
         }

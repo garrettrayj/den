@@ -12,7 +12,7 @@ struct ImportView: View {
     @ObservedObject var importViewModel: ImportViewModel
 
     var body: some View {
-        Group {
+        VStack {
             if self.importViewModel.stage == .pickFile {
                 pickFileStage
             } else if self.importViewModel.stage == .folderSelection {
@@ -21,6 +21,10 @@ struct ImportView: View {
                 completeStage
             }
         }
+        .onDisappear(perform: {
+            importViewModel.reset()
+        })
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Import")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -32,7 +36,6 @@ struct ImportView: View {
             }.buttonStyle(AccentButtonStyle())
         }
         .modifier(SimpleMessageModifier())
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
     }
 
     private var folderSelectionStage: some View {
@@ -66,16 +69,12 @@ struct ImportView: View {
 
             VStack(alignment: .center) {
                 Button(action: importFeeds) {
-                    Label("Import Subscription", systemImage: "arrow.down.doc")
-                }.buttonStyle(AccentButtonStyle()).frame(alignment: .center)
+                    Label("Import Subscriptions", systemImage: "arrow.down.doc")
+                }
+                .buttonStyle(AccentButtonStyle())
+                .frame(alignment: .center)
+                .disabled(!(importViewModel.selectedFolders.count > 0))
             }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
-        }
-        .toolbar {
-            ToolbarItem {
-                Button(action: cancel) {
-                    Text("Cancel")
-                }.buttonStyle(ActionButtonStyle())
-            }
         }
     }
 
@@ -93,6 +92,8 @@ struct ImportView: View {
             Text("Added \(importViewModel.feedsImported.count) feeds to \(importViewModel.pagesImported.count) pages")
                 .foregroundColor(Color(.secondaryLabel))
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .padding()
     }
 
     private var selectionSectionHeader: some View {
