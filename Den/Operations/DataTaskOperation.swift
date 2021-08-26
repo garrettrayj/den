@@ -18,7 +18,7 @@ final class DataTaskOperation: AsynchronousOperation {
     var error: Error?
     var response: HTTPURLResponse?
 
-    private var task: URLSessionTask?
+    private var task: URLSessionTask!
 
     init(_ url: URL? = nil) {
         self.url = url
@@ -26,7 +26,7 @@ final class DataTaskOperation: AsynchronousOperation {
     }
 
     override func cancel() {
-        task?.cancel()
+        task.cancel()
         super.cancel()
     }
 
@@ -47,6 +47,6 @@ final class DataTaskOperation: AsynchronousOperation {
             self.response = response as? HTTPURLResponse
             self.finish()
         }
-        task!.resume()
+        task.resume()
     }
 }

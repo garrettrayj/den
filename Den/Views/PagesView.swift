@@ -11,11 +11,11 @@ import SwiftUI
 struct PagesView: View {
     var body: some View {
         NavigationView {
-            // Sidebar
             SidebarView()
 
             // Default view for detail area
             WelcomeView()
         }
+
     }
 }

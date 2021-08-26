@@ -54,6 +54,12 @@ public class Page: NSManagedObject {
         }
     }
 
+    public var insecureFeeds: [Feed] {
+        feedsArray.filter { feed in
+            feed.url?.scheme != "https"
+        }
+    }
+
     public var feedsUserOrderMin: Int16 {
         feedsArray.reduce(0) { (result, feed) -> Int16 in
             if feed.userOrder < result {
@@ -91,7 +97,7 @@ public class Page: NSManagedObject {
             newPage.profile = profile
             newPage.userOrder = Int16(pages.count + 1)
             newPage.name = "New Page"
-            newPage.itemsPerFeed = Int16(5)
+            newPage.itemsPerFeed = Int16(4)
 
             return newPage
         } catch {

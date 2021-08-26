@@ -88,7 +88,15 @@ struct SettingsView: View {
                 Label("Export OPML", systemImage: "arrow.up.doc").padding(.vertical, 4)
             }
 
-            NavigationLink(destination: SecurityCheckView()) {
+            NavigationLink(
+                destination: SecurityCheckView(
+                    viewModel: SecurityCheckViewModel(
+                        viewContext: viewContext,
+                        profileManager: profileManager,
+                        crashManager: crashManager
+                    )
+                )
+            ) {
                 Label("Security Check", systemImage: "lock").padding(.vertical, 4)
             }
         }
