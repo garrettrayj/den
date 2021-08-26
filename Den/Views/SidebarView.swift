@@ -43,11 +43,6 @@ struct SidebarView: View {
                 }.buttonStyle(ActionButtonStyle())
             }
         }
-        .onAppear {
-            if activePageId == nil && UIDevice.current.userInterfaceIdiom != .phone {
-                activePageId = profileManager.activeProfile?.pagesArray.first?.id?.uuidString
-            }
-        }
     }
 
     private var pageListSection: some View {

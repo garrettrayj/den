@@ -99,6 +99,10 @@ final class RefreshManager: ObservableObject {
 
     private func refreshComplete(page: Page?) {
         page?.objectWillChange.send()
+        page?.feedsArray.forEach({ feed in
+            feed.objectWillChange.send()
+        })
+
         if persistentContainer.viewContext.hasChanges {
             do {
                 try persistentContainer.viewContext.save()

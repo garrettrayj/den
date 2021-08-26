@@ -22,7 +22,7 @@ struct FeedWidgetRowView: View {
                     .foregroundColor(Color(.secondaryLabel))
             }
 
-            HStack(alignment: .top, spacing: 12) {
+            HStack(alignment: .top, spacing: 8) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
                 }.accessibility(identifier: "Item Link")
