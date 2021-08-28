@@ -11,9 +11,8 @@ import SwiftUI
 struct PageView: View {
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var refreshManager: RefreshManager
-    @ObservedObject var page: Page
 
-    @State private var showingSettings: Bool = false
+    @ObservedObject var viewModel: PageViewModel
 
     let columns = [
         GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)
@@ -21,20 +20,23 @@ struct PageView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            NavigationLink(destination: PageSettingsView(page: page), isActive: $showingSettings) {
+            NavigationLink(
+                destination: PageSettingsView(page: viewModel.page),
+                isActive: $viewModel.showingSettings
+            ) {
                 Label("Page Settings", systemImage: "wrench")
             }.hidden().frame(height: 0)
 
-            if page.managedObjectContext == nil {
+            if viewModel.page.managedObjectContext == nil {
                 pageDeleted
-            } else if page.feedsArray.count == 0 {
+            } else if viewModel.page.feedsArray.count == 0 {
                 pageEmpty
             } else {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
-                        RefreshableScrollView(page: page) {
+                        RefreshableScrollView(viewModel: viewModel) {
                             LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(page.feedsArray, id: \.self) { feed in
+                                ForEach(viewModel.page.feedsArray, id: \.self) { feed in
                                     FeedWidgetView(feed: feed)
                                 }
                             }
@@ -43,24 +45,27 @@ struct PageView: View {
                             .padding(.top, 16)
                             .padding(.bottom, 40)
                         }
-                        HeaderProgressBarView()
+                        HeaderProgressBarView(
+                            refreshing: $viewModel.refreshing,
+                            fractionCompleted: $viewModel.refreshFractionCompleted
+                        )
                     }
                     .edgesIgnoringSafeArea(.horizontal)
                 }
             }
         }
-        .navigationTitle(page.displayName)
+        .navigationTitle(viewModel.page.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { pageToolbar }
         .onAppear {
-            subscriptionManager.destinationPage = page
+            subscriptionManager.destinationPage = viewModel.page
         }
         .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
 
     private var pageToolbar: some ToolbarContent {
         ToolbarItemGroup {
-            if page.managedObjectContext != nil {
+            if viewModel.page.managedObjectContext != nil {
                 if UIDevice.current.userInterfaceIdiom == .phone {
                     compactPageToolbar
                 } else {
@@ -80,14 +85,20 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }
 
-            Button { refreshManager.refresh(page: self.page) } label: {
+            Button {
+                refreshManager.refresh(
+                    page: viewModel.page,
+                    refreshing: $viewModel.refreshing,
+                    progress: viewModel.progress
+                )
+            } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
         } label: {
             Label("Page Menu", systemImage: "ellipsis")
                 .frame(height: 44)
                 .padding(.leading)
-        }.disabled(refreshManager.refreshing == true)
+        }.disabled(viewModel.refreshing == true)
     }
 
     private var fullPageToolbar: some View {
@@ -100,11 +111,17 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }
 
-            Button { refreshManager.refresh(page: self.page) } label: {
+            Button {
+                refreshManager.refresh(
+                    page: viewModel.page,
+                    refreshing: $viewModel.refreshing,
+                    progress: viewModel.progress
+                )
+            } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
         }
-        .disabled(refreshManager.refreshing == true)
+        .disabled(viewModel.refreshing == true)
         .buttonStyle(ActionButtonStyle())
     }
 
@@ -124,7 +141,7 @@ struct PageView: View {
     }
 
     private func showSettings() {
-        showingSettings = true
+        viewModel.showingSettings = true
     }
 
     private func showSubscribe() {

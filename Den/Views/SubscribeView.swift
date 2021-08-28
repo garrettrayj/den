@@ -135,9 +135,11 @@ struct SubscribeView: View {
         guard let url = URL(string: self.urlText) else { return }
 
         if let feed = subscriptionManager.createFeed(url: url) {
+            /*
             refreshManager.refresh(feed: feed) { _ in
                 self.presentationMode.wrappedValue.dismiss()
             }
+             */
         }
     }
 }

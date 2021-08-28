@@ -55,9 +55,7 @@ struct DenApp: App {
         .onChange(of: scenePhase) { newScenePhase in
                 switch newScenePhase {
                 case .background:
-                    if refreshManager.refreshing == false {
-                        cacheManager.performBackgroundCleanup()
-                    }
+                    cacheManager.performBackgroundCleanup()
                 case .inactive:
                     break
                 case .active:

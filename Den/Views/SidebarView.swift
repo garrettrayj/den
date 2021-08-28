@@ -13,17 +13,14 @@ import SwiftUI
 */
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.presentationMode) var presentation
     @Environment(\.editMode) var editMode
-    @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
-    @EnvironmentObject var crashManager: CrashManager
 
-    @State private var activePageId: String?
+    @ObservedObject var viewModel: PagesViewModel
 
     var body: some View {
         List {
-            if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
+            if viewModel.profile.pagesArray.count > 0 {
                 pageListSection
             } else {
                 getStartedSection
@@ -36,7 +33,7 @@ struct SidebarView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
-                    Button(action: createPage) {
+                    Button(action: viewModel.createPage) {
                         Label("Create Page", systemImage: "plus")
                     }
                     EditButton()
@@ -47,11 +44,11 @@ struct SidebarView: View {
 
     private var pageListSection: some View {
         Section {
-            ForEach(profileManager.activeProfile!.pagesArray) { page in
-                PageListRowView(page: page, activePageId: $activePageId)
+            ForEach(viewModel.profile.pagesArray) { page in
+                PageListRowView(page: page)
             }
-            .onMove(perform: self.movePage)
-            .onDelete(perform: self.deletePage)
+            .onMove(perform: viewModel.movePage)
+            .onDelete(perform: viewModel.deletePage)
         }
     }
 
@@ -60,7 +57,7 @@ struct SidebarView: View {
             header: Text("Get Started"),
             footer: Text("or import subscriptions in settings.")
         ) {
-            Button(action: createPage) {
+            Button(action: viewModel.createPage) {
                 HStack {
                     Image(systemName: "plus")
                     Text("Create a New Page").fontWeight(.medium).padding(.vertical, 4)
@@ -73,43 +70,5 @@ struct SidebarView: View {
                 }
             }
         }
-    }
-
-    private func createPage() {
-        _ = Page.create(in: viewContext, profile: profileManager.activeProfile!)
-        do {
-            try viewContext.save()
-            profileManager.objectWillChange.send()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
-        }
-    }
-
-    private func movePage( from source: IndexSet, to destination: Int) {
-        guard var revisedItems = profileManager.activeProfile?.pagesArray else { return }
-
-        // change the order of the items in the array
-        revisedItems.move(fromOffsets: source, toOffset: destination)
-
-        // update the userOrder attribute in revisedItems to
-        // persist the new order. This is done in reverse order
-        // to minimize changes to the indices.
-        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
-            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
-        }
-
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-                profileManager.activeProfile?.objectWillChange.send()
-            } catch let error as NSError {
-                crashManager.handleCriticalError(error)
-            }
-        }
-    }
-
-    private func deletePage(indices: IndexSet) {
-        profileManager.activeProfile?.pagesArray.delete(at: indices, from: viewContext)
-        profileManager.activeProfile?.objectWillChange.send()
     }
 }

@@ -8,23 +8,16 @@
 
 import SwiftUI
 
-/**
- Page list item view. Transforms name text labels into text fields when .editMode is active.
- */
 struct PageListRowView: View {
     @Environment(\.editMode) var editMode
 
     @ObservedObject var page: Page
 
-    @Binding var activePageId: String?
-
     var body: some View {
         if page.id != nil {
             if editMode?.wrappedValue == .inactive {
                 NavigationLink(
-                    destination: PageView(page: page),
-                    tag: page.id!.uuidString,
-                    selection: $activePageId
+                    destination: PageView(viewModel: PageViewModel(page: page))
                 ) {
                     HStack {
                         Label(page.displayName, systemImage: page.wrappedSymbol)

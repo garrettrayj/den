@@ -65,7 +65,6 @@ struct FeedWidgetView: View {
                 Label("Feed Settings", systemImage: "gearshape").labelStyle(IconOnlyLabelStyle())
             }
             .buttonStyle(ActionButtonStyle())
-            .disabled(refreshManager.refreshing)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
         }.padding(.leading, 12)

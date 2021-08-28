@@ -9,9 +9,19 @@
 import SwiftUI
 
 struct PagesView: View {
+    @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject var crashManager: CrashManager
+
     var body: some View {
         NavigationView {
-            SidebarView()
+            SidebarView(
+                viewModel: PagesViewModel(
+                    profile: profileManager.activeProfile!,
+                    viewContext: viewContext,
+                    crashManager: crashManager
+                )
+            )
 
             // Default view for detail area
             WelcomeView()

@@ -8,11 +8,9 @@
 
 import CoreData
 import OSLog
+import SwiftUI
 
 final class RefreshManager: ObservableObject {
-    @Published var refreshing: Bool = false
-
-    let progress = Progress(totalUnitCount: 0)
     let queue = OperationQueue()
 
     private var persistentContainer: NSPersistentContainer
@@ -23,20 +21,25 @@ final class RefreshManager: ObservableObject {
         self.crashManager = crashManager
     }
 
-    public func refresh(page: Page, callback: ((Page) -> Void)? = nil) {
-        refreshing = true
+    public func refresh(
+        page: Page,
+        refreshing: Binding<Bool>,
+        progress: Progress,
+        callback: ((Page) -> Void)? = nil
+    ) {
+        refreshing.wrappedValue = true
 
         var operations: [Operation] = []
 
         page.feedsArray.forEach { feed in
             progress.totalUnitCount += 1
-            operations.append(contentsOf: self.createFeedOps(feed))
+            operations.append(contentsOf: self.createFeedOps(feed, progress: progress))
         }
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
-                self.refreshComplete(page: page)
+                self.refreshComplete(page: page, refreshing: refreshing, progress: progress)
                 if let callback = callback {
                     callback(page)
                 }
@@ -44,15 +47,20 @@ final class RefreshManager: ObservableObject {
         }
     }
 
-    public func refresh(feed: Feed, callback: ((Feed) -> Void)? = nil) {
-        refreshing = true
+    public func refresh(
+        feed: Feed,
+        refreshing: Binding<Bool>,
+        progress: Progress,
+        callback: ((Feed) -> Void)? = nil
+    ) {
+        refreshing.wrappedValue = true
         progress.totalUnitCount += 1
-        let operations = self.createFeedOps(feed)
+        let operations = self.createFeedOps(feed, progress: progress)
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
-                self.refreshComplete(page: feed.page)
+                self.refreshComplete(page: feed.page, refreshing: refreshing, progress: progress)
                 if let callback = callback {
                     callback(feed)
                 }
@@ -60,7 +68,7 @@ final class RefreshManager: ObservableObject {
         }
     }
 
-    private func createFeedOps(_ feed: Feed) -> [Operation] {
+    private func createFeedOps(_ feed: Feed, progress: Progress) -> [Operation] {
         guard let feedData = checkFeedData(feed) else { return [] }
 
         let refreshPlan = RefreshPlan(
@@ -98,7 +106,7 @@ final class RefreshManager: ObservableObject {
         return feedData
     }
 
-    private func refreshComplete(page: Page?) {
+    private func refreshComplete(page: Page?, refreshing: Binding<Bool>, progress: Progress) {
         page?.objectWillChange.send()
         page?.feedsArray.forEach({ feed in
             feed.objectWillChange.send()
@@ -111,7 +119,7 @@ final class RefreshManager: ObservableObject {
                 self.crashManager.handleCriticalError(error as NSError)
             }
         }
-        refreshing = false
+        refreshing.wrappedValue = false
         progress.totalUnitCount = 0
         progress.completedUnitCount = 0
     }
