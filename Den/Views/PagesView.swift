@@ -17,7 +17,7 @@ struct PagesView: View {
         NavigationView {
             SidebarView(
                 viewModel: PagesViewModel(
-                    profile: profileManager.activeProfile!,
+                    profileManager: profileManager,
                     viewContext: viewContext,
                     crashManager: crashManager
                 )

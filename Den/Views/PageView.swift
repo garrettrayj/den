@@ -126,18 +126,14 @@ struct PageView: View {
     }
 
     private var pageEmpty: some View {
-        Text("Page Empty")
-            .font(.title)
-            .foregroundColor(.secondary)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        Text("Tap \(Image(systemName: "plus.circle")) to add a subscription").modifier(SimpleMessageModifier())
+
     }
 
     private var pageDeleted: some View {
-        Text("Page Deleted")
-            .font(.title)
-            .foregroundColor(.secondary)
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .navigationTitle("")
+        Text("Page does not exist")
+            .modifier(SimpleMessageModifier())
+            .navigationTitle("Page Deleted")
     }
 
     private func showSettings() {

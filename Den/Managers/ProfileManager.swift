@@ -10,7 +10,7 @@ import CoreData
 import OSLog
 
 final class ProfileManager: ObservableObject {
-    @Published var activeProfile: Profile?
+    @Published var activeProfile: Profile!
 
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
