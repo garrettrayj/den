@@ -27,7 +27,11 @@ struct HistoryView: View {
                     if historyViewModel.results.count > 0 {
                         resultsList
                     } else {
-                        Text("No Results Found").modifier(SimpleMessageModifier())
+                        if historyViewModel.query == "" {
+                            Text("No history").modifier(SimpleMessageModifier())
+                        } else {
+                            Text("No results found").modifier(SimpleMessageModifier())
+                        }
                     }
                 } else {
                     resultsList
