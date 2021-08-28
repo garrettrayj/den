@@ -32,7 +32,9 @@ public class Page: NSManagedObject {
     public var unreadCount: Int {
         feedsArray.reduce(0) { (result, feed) -> Int in
             if let feedData = feed.feedData {
-                return result + min(self.wrappedItemsPerFeed, feedData.unreadItemCount)
+                return result + feedData.itemsArray
+                    .prefix(wrappedItemsPerFeed)
+                    .filter { item in item.read == false }.count
             } else {
                 return 0
             }

@@ -47,9 +47,10 @@ final class RefreshManager: ObservableObject {
     public func refresh(feed: Feed, callback: ((Feed) -> Void)? = nil) {
         refreshing = true
         progress.totalUnitCount += 1
+        let operations = self.createFeedOps(feed)
 
         DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(self.createFeedOps(feed), waitUntilFinished: true)
+            self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
                 self.refreshComplete(page: feed.page)
                 if let callback = callback {

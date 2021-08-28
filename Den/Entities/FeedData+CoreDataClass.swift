@@ -36,10 +36,6 @@ public class FeedData: NSManagedObject {
         return items
     }
 
-    public var unreadItemCount: Int {
-        itemsArray.filter { item in item.read == false }.count
-    }
-
     public var itemsWithImageCount: Int {
         itemsArray.filter({ item in
             item.image != nil
