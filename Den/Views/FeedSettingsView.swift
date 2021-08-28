@@ -26,10 +26,6 @@ struct FeedSettingsView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
 
-    private func close() {
-        presentationMode.wrappedValue.dismiss()
-    }
-
     var form: some View {
         return Form {
             title
@@ -42,7 +38,7 @@ struct FeedSettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem {
-                Button(action: close) {
+                Button { presentationMode.wrappedValue.dismiss() } label: {
                     Label("Close", systemImage: "xmark.circle")
                 }.buttonStyle(ActionButtonStyle())
             }
@@ -68,7 +64,7 @@ struct FeedSettingsView: View {
                 guard let page = $0 else { return }
                 feed.userOrder = page.feedsUserOrderMax + 1
                 feed.page = page
-                close()
+                presentationMode.wrappedValue.dismiss()
             }
         )
 
@@ -184,7 +180,7 @@ struct FeedSettingsView: View {
 
     private func deleteFeed() {
         viewContext.delete(self.feed)
-        close()
+        presentationMode.wrappedValue.dismiss()
     }
 
     private func copyFeedUrl() {

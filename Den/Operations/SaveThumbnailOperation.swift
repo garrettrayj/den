@@ -31,31 +31,12 @@ final class SaveThumbnailOperation: Operation {
             self.acceptableTypes.contains(mimeType),
             let url = httpResponse.url,
             let data = thumbnailData,
-            let resizedImage = self.resizeImage(imageData: data, size: self.thumbnailSize),
+            let originalImage = UIImage(data: data),
+            let resizedImage = originalImage.resizedToFill(size: thumbnailSize),
             let filename = self.saveThumbnail(image: resizedImage)
         {
             self.workingFeedItem?.image = url
             self.workingFeedItem?.imageFile = filename
-        }
-    }
-
-    private func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
-        guard let image = UIImage(data: imageData) else {
-            return nil
-        }
-
-        let renderer = UIGraphicsImageRenderer(size: thumbnailSize)
-
-        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: thumbnailSize))
-
-        return renderer.image { (_) in
-            image.draw(in: CGRect(
-                origin: CGPoint(
-                    x: thumbnailSize.width / 2 - rect.width / 2,
-                    y: thumbnailSize.height / 2 - rect.height / 2
-                ),
-                size: rect.size
-            ))
         }
     }
 
@@ -73,4 +54,5 @@ final class SaveThumbnailOperation: Operation {
             return nil
         }
     }
+
 }
