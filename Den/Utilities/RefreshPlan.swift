@@ -15,7 +15,7 @@ final class RefreshPlan {
     private var feedData: FeedData
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
-    private var progress: Progress
+    private var progress: Progress?
 
     // Feed processing operations
     private var fetchOp: DataTaskOperation?
@@ -67,7 +67,7 @@ final class RefreshPlan {
         feedData: FeedData,
         persistentContainer: NSPersistentContainer,
         crashManager: CrashManager,
-        progress: Progress
+        progress: Progress? = nil
     ) {
         self.feed = feed
         self.feedData = feedData
@@ -115,7 +115,7 @@ final class RefreshPlan {
             saveMeta: fullUpdate
         )
         completionOp = BlockOperation { [unowned progress] in
-            progress.completedUnitCount += 1
+            progress?.completedUnitCount += 1
         }
     }
 

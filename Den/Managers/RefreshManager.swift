@@ -49,18 +49,14 @@ final class RefreshManager: ObservableObject {
 
     public func refresh(
         feed: Feed,
-        refreshing: Binding<Bool>,
-        progress: Progress,
         callback: ((Feed) -> Void)? = nil
     ) {
-        refreshing.wrappedValue = true
-        progress.totalUnitCount += 1
-        let operations = self.createFeedOps(feed, progress: progress)
+        let operations = self.createFeedOps(feed)
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
-                self.refreshComplete(page: feed.page, refreshing: refreshing, progress: progress)
+                self.refreshComplete(page: feed.page)
                 if let callback = callback {
                     callback(feed)
                 }
@@ -68,7 +64,7 @@ final class RefreshManager: ObservableObject {
         }
     }
 
-    private func createFeedOps(_ feed: Feed, progress: Progress) -> [Operation] {
+    private func createFeedOps(_ feed: Feed, progress: Progress? = nil) -> [Operation] {
         guard let feedData = checkFeedData(feed) else { return [] }
 
         let refreshPlan = RefreshPlan(
@@ -106,7 +102,7 @@ final class RefreshManager: ObservableObject {
         return feedData
     }
 
-    private func refreshComplete(page: Page?, refreshing: Binding<Bool>, progress: Progress) {
+    private func refreshComplete(page: Page?, refreshing: Binding<Bool>? = nil, progress: Progress? = nil) {
         page?.objectWillChange.send()
         page?.feedsArray.forEach({ feed in
             feed.objectWillChange.send()
@@ -119,8 +115,8 @@ final class RefreshManager: ObservableObject {
                 self.crashManager.handleCriticalError(error as NSError)
             }
         }
-        refreshing.wrappedValue = false
-        progress.totalUnitCount = 0
-        progress.completedUnitCount = 0
+        refreshing?.wrappedValue = false
+        progress?.totalUnitCount = 0
+        progress?.completedUnitCount = 0
     }
 }
