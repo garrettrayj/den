@@ -26,6 +26,9 @@ struct SecurityCheckView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
+        .onDisappear {
+            viewModel.reset()
+        }
         .navigationTitle("Security Check")
     }
 
@@ -92,7 +95,7 @@ struct SecurityCheckView: View {
                     .lineLimit(1)
                     .foregroundColor(.secondary)
 
-                    if viewModel.failedRemediation.contains(feed) == true {
+                    if viewModel.failedRemediation.contains(feed.id) == true {
                         Image(systemName: "shield.slash").foregroundColor(.red)
                     }
 

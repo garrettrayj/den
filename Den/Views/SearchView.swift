@@ -33,17 +33,16 @@ struct SearchView: View {
                             .padding(.bottom, 64)
                         }
                     } else {
-                        Text("No Results Found").modifier(SimpleMessageModifier())
+                        Text("No results found").modifier(SimpleMessageModifier())
                     }
                 } else {
-                    Text("Filter Current Headlines by Keyword").modifier(SimpleMessageModifier())
+                    Text("Filter items by keyword").modifier(SimpleMessageModifier())
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
-
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

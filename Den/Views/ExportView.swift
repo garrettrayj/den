@@ -30,11 +30,10 @@ struct ExportView: View {
                     .listRowBackground(Color(UIColor.systemGroupedBackground))
                 }
             } else {
-                VStack(alignment: .center) {
-                    Text("No pages available for export").foregroundColor(Color(UIColor.secondaryLabel))
-                }.padding().frame(maxWidth: .infinity)
+                Text("No pages available for export").modifier(SimpleMessageModifier())
             }
         }
+        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Export")
         .navigationBarTitleDisplayMode(.inline)
     }

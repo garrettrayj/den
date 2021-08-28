@@ -10,7 +10,7 @@ import CoreData
 
 final class SecurityCheckViewModel: ObservableObject {
     @Published var remediationInProgress: Bool = false
-    @Published var failedRemediation: [Feed] = []
+    @Published var failedRemediation: [UUID?] = []
 
     let queue = OperationQueue()
 
@@ -22,6 +22,12 @@ final class SecurityCheckViewModel: ObservableObject {
         self.viewContext = viewContext
         self.profileManager = profileManager
         self.crashManager = crashManager
+    }
+
+    func reset() {
+        queue.cancelAllOperations()
+        remediationInProgress = false
+        failedRemediation = []
     }
 
     func remedyInsecureUrls() {
@@ -64,7 +70,7 @@ final class SecurityCheckViewModel: ObservableObject {
                 if checkOp.feedIsValid {
                     feed.url = secureUrl
                 } else {
-                    self.failedRemediation.append(feed)
+                    self.failedRemediation.append(feed.id)
                 }
             }
         }
