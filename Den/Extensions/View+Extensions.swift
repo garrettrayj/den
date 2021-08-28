@@ -19,15 +19,6 @@ extension View {
 }
 
 /**
- DeviceRotationModifier wrapper
- */
-extension View {
-    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
-        self.modifier(DeviceRotationModifier(action: action))
-    }
-}
-
-/**
  Representable to perform a callback with the view context's window.
  */
 private struct HostingWindowFinder: UIViewRepresentable {

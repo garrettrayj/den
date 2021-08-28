@@ -18,7 +18,6 @@ struct PageSettingsView: View {
 
     @State private var itemsPerFeedStepperValue: Int = 0
     @State private var showingIconPicker: Bool = false
-    @State private var refreshAfterSave: Bool = false
 
     var body: some View {
         Form {
@@ -39,7 +38,6 @@ struct PageSettingsView: View {
             Section(header: Text("Settings")) {
                 Stepper(value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max), step: 1) { _ in
                     page.wrappedItemsPerFeed = itemsPerFeedStepperValue
-                    refreshAfterSave = true
                 } label: {
                     Label("Items Per Feed: \(itemsPerFeedStepperValue)", systemImage: "list.bullet.rectangle")
                 }
@@ -82,9 +80,6 @@ struct PageSettingsView: View {
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()
-                if refreshAfterSave == true {
-                    self.refreshManager.refresh(page: page)
-                }
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }

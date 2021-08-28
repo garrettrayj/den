@@ -147,7 +147,7 @@ struct SettingsView: View {
         Section(header: Text("Reset")) {
             Button(action: clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark").padding(.vertical, 4)
-            }.disabled(refreshManager.refreshing)
+            }
 
             Button(action: showResetAlert) {
                 Label("Reset Everything", systemImage: "clear")
@@ -162,7 +162,7 @@ struct SettingsView: View {
                     },
                     secondaryButton: .cancel()
                 )
-            }.disabled(refreshManager.refreshing)
+            }
         }
     }
 

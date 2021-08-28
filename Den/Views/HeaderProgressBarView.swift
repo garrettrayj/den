@@ -9,23 +9,15 @@
 import SwiftUI
 
 struct HeaderProgressBarView: View {
-    @EnvironmentObject var refreshManager: RefreshManager
-
-    @State private var observedProgress: CGFloat = 0
+    @Binding var refreshing: Bool
+    @Binding var fractionCompleted: CGFloat
 
     var body: some View {
-        if refreshManager.refreshing {
-            ProgressView(value: observedProgress)
+        if refreshing {
+            ProgressView(value: fractionCompleted)
                 .frame(maxWidth: .infinity)
                 .frame(height: 4)
                 .progressViewStyle(SquaredLinearProgressViewStyle())
-                .onReceive(
-                    self.refreshManager.progress
-                        .publisher(for: \.fractionCompleted)
-                        .receive(on: RunLoop.main)
-                ) { fractionCompleted in
-                    self.observedProgress = CGFloat(fractionCompleted)
-                }
         }
     }
 }

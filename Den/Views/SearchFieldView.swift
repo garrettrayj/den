@@ -18,9 +18,12 @@ struct SearchFieldView: View {
             HStack {
                 Label(
                     title: {
-                        TextField("Search", text: $query, onEditingChanged: { edit in
-                            print("edit: \(edit)")
-                        }, onCommit: onCommit).padding(.vertical, 6)
+                        TextField(
+                            "Search",
+                            text: $query,
+                            onEditingChanged: {_ in },
+                            onCommit: onCommit
+                        ).padding(.vertical, 6)
                     },
                     icon: {
                         Image(systemName: "magnifyingglass")

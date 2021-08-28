@@ -16,7 +16,7 @@ import SwiftUI
 struct RefreshableScrollView<Content: View>: View {
     @EnvironmentObject var refreshManager: RefreshManager
 
-    @ObservedObject var page: Page
+    @ObservedObject var viewModel: PageViewModel
 
     @State private var previousScrollOffset: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
@@ -31,15 +31,15 @@ struct RefreshableScrollView<Content: View>: View {
                 ZStack(alignment: .top) {
                     MovingView()
                     VStack { self.content }.alignmentGuide(.top, computeValue: { _ in
-                        if self.refreshManager.refreshing {
+                        if viewModel.refreshing {
                             return -self.threshold
                         } else {
                             return 0.0
                         }
                     })
                     RefreshStatusView(
-                        page: page,
-                        loading: $refreshManager.refreshing,
+                        page: viewModel.page,
+                        loading: $viewModel.refreshing,
                         symbolRotation: $symbolRotation
                     )
                 }
@@ -51,8 +51,8 @@ struct RefreshableScrollView<Content: View>: View {
         }
     }
 
-    init(page: Page, @ViewBuilder content: () -> Content) {
-        self.page = page
+    init(viewModel: PageViewModel, @ViewBuilder content: () -> Content) {
+        self.viewModel = viewModel
         self.content = content()
     }
 
@@ -68,11 +68,15 @@ struct RefreshableScrollView<Content: View>: View {
 
             // Crossing the threshold on the way down, we start the refresh process
             if
-                !refreshManager.refreshing &&
+                !viewModel.refreshing &&
                 (scrollOffset > threshold && previousScrollOffset <= threshold)
             {
                 symbolRotation = .degrees(0)
-                refreshManager.refresh(page: page)
+                refreshManager.refresh(
+                    page: viewModel.page,
+                    refreshing: $viewModel.refreshing,
+                    progress: viewModel.progress
+                )
             }
 
             // Update last scroll offset
