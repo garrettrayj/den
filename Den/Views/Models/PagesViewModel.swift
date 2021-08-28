@@ -11,22 +11,27 @@ import CoreData
 final class PagesViewModel: ObservableObject {
     @Published var profile: Profile
 
+    private var profileManager: ProfileManager
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
 
-    init(profile: Profile, viewContext: NSManagedObjectContext, crashManager: CrashManager) {
-        self.profile = profile
+    init(profileManager: ProfileManager, viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+        self.profileManager = profileManager
         self.viewContext = viewContext
         self.crashManager = crashManager
+
+        self.profile = profileManager.activeProfile
     }
 
     func createPage() {
         _ = Page.create(in: viewContext, profile: profile)
         do {
             try viewContext.save()
+            profileManager.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
+
     }
 
     func movePage( from source: IndexSet, to destination: Int) {
@@ -53,6 +58,5 @@ final class PagesViewModel: ObservableObject {
 
     func deletePage(indices: IndexSet) {
         profile.pagesArray.delete(at: indices, from: viewContext)
-        profile.objectWillChange.send()
     }
 }
