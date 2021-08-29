@@ -34,9 +34,13 @@ struct SidebarView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
                     Button(action: viewModel.createPage) {
-                        Label("Create Page", systemImage: "plus")
+                        Label("New Page", systemImage: "plus.square")
                     }
-                    EditButton()
+                    Button {
+                        editMode?.wrappedValue.toggle()
+                    } label: {
+                        Text(editMode?.wrappedValue == .active ? "Done" : "Manage")
+                    }
                 }.buttonStyle(ActionButtonStyle())
             }
         }
@@ -59,7 +63,7 @@ struct SidebarView: View {
         ) {
             Button(action: viewModel.createPage) {
                 HStack {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus.square")
                     Text("Create a New Page").fontWeight(.medium).padding(.vertical, 4)
                 }
             }

@@ -97,7 +97,7 @@ struct SettingsView: View {
                     )
                 )
             ) {
-                Label("Security Check", systemImage: "lock").padding(.vertical, 4)
+                Label("Security Check", systemImage: "checkmark.shield").padding(.vertical, 4)
             }
         }
     }
@@ -180,19 +180,17 @@ struct SettingsView: View {
                 }
             }.padding(.vertical, 8)
 
-            Group {
-                Button(action: openHomepage) {
-                    Label("Homepage", systemImage: "house").padding(.vertical, 4)
-                }
+            Button(action: openHomepage) {
+                Label("Homepage", systemImage: "house").padding(.vertical, 4)
+            }
 
-                Button(action: emailSupport) {
-                    Label("Email Support", systemImage: "lifepreserver").padding(.vertical, 4)
-                }
+            Button(action: emailSupport) {
+                Label("Email Support", systemImage: "lifepreserver").padding(.vertical, 4)
+            }
 
-                Button(action: openPrivacyPolicy) {
-                    Label("Privacy Policy", systemImage: "hand.raised.slash").padding(.vertical, 4)
-                }
-            }.buttonStyle(ActionButtonStyle())
+            Button(action: openPrivacyPolicy) {
+                Label("Privacy Policy", systemImage: "hand.raised.slash").padding(.vertical, 4)
+            }
         }
     }
 

@@ -15,7 +15,7 @@ struct SecurityCheckView: View {
 
     var body: some View {
         List {
-            if profileManager.activeProfile!.insecureFeedCount == 0 {
+            if profileManager.activeProfile.insecureFeedCount == 0 {
                 allClearSummary
             } else {
                 warningSummary
@@ -36,13 +36,11 @@ struct SecurityCheckView: View {
         Section(header: Text("Summary")) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("No Issues")
-                        .fontWeight(.medium)
-
-                    Text("All subscriptions use secure URLs").foregroundColor(.secondary)
+                    Text("No Issues Here").fontWeight(.medium)
+                    Text("All subscriptions have secure URLs").foregroundColor(.secondary)
                 }
             }, icon: {
-                Image(systemName: "checkmark.seal")
+                Image(systemName: "checkmark.shield")
                     .imageScale(.large)
                     .foregroundColor(.green)
             }).padding(.vertical, 8)
@@ -53,14 +51,17 @@ struct SecurityCheckView: View {
         Section(header: Text("Summary")) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("\(profileManager.activeProfile!.insecureFeedCount) subscriptions have insecure URLs")
-                        .fontWeight(.medium)
-
-                    Text("Den can look for secure alternatives to use instead").foregroundColor(.secondary)
+                    if profileManager.activeProfile.insecureFeedCount > 1 {
+                        Text("\(profileManager.activeProfile.insecureFeedCount) subscriptions have insecure URLs")
+                            .fontWeight(.medium)
+                        Text("Den can look for secure alternatives to use instead").foregroundColor(.secondary)
+                    } else {
+                        Text("One subscription with an insecure URL").fontWeight(.medium)
+                        Text("Den can look for a secure alternative to use instead").foregroundColor(.secondary)
+                    }
                 }
-
             }, icon: {
-                Image(systemName: "exclamationmark.triangle.fill")
+                Image(systemName: "exclamationmark.shield")
                     .imageScale(.large)
                     .foregroundColor(.orange)
             }).padding(.vertical, 8)

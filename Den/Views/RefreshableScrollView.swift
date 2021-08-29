@@ -63,7 +63,6 @@ struct RefreshableScrollView<Content: View>: View {
             let fixedBounds = values.first { $0.vType == .fixedView }?.bounds ?? .zero
 
             scrollOffset  = movingBounds.minY - fixedBounds.minY
-
             symbolRotation = symbolRotation(scrollOffset)
 
             // Crossing the threshold on the way down, we start the refresh process
