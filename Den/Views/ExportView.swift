@@ -85,7 +85,7 @@ struct ExportView: View {
             Button(action: selectNone) {
                 Text("NONE")
             }.disabled(noneSelected)
-        }.buttonStyle(ActionButtonStyle())
+        }
     }
 
     private func togglePage(_ page: Page) {

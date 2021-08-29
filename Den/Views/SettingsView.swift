@@ -151,7 +151,7 @@ struct SettingsView: View {
 
             Button(action: showResetAlert) {
                 Label("Reset Everything", systemImage: "clear")
-                    .foregroundColor(Color(.systemRed))
+                    .foregroundColor(.red)
                     .padding(.vertical, 4)
             }.alert(isPresented: $showingClearWorkspaceAlert) {
                 Alert(

@@ -40,7 +40,7 @@ struct FeedSettingsView: View {
             ToolbarItem {
                 Button { presentationMode.wrappedValue.dismiss() } label: {
                     Label("Close", systemImage: "xmark.circle")
-                }.buttonStyle(ActionButtonStyle())
+                }
             }
         }
     }
@@ -113,7 +113,7 @@ struct FeedSettingsView: View {
                 Text(feed.urlString).lineLimit(1).foregroundColor(.secondary).padding(.vertical, 4)
                 Button(action: copyFeedUrl) {
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
-                }.buttonStyle(ActionButtonStyle())
+                }
             }
 
             HStack {
@@ -135,14 +135,12 @@ struct FeedSettingsView: View {
                 Label("Open Website", systemImage: "arrow.up.right.square")
             }
             .padding(.vertical, 4)
-            .buttonStyle(ActionButtonStyle())
             .disabled(feed.feedData?.link == nil)
 
             Button { showingDeleteAlert = true } label: {
-                Label("Delete Feed", systemImage: "trash")
+                Label("Delete Feed", systemImage: "trash").foregroundColor(.red)
             }
             .padding(.vertical, 4)
-            .buttonStyle(DestructiveButtonStyle())
             .alert(isPresented: $showingDeleteAlert) {
                 Alert(
                     title: Text("Are you sure?"),

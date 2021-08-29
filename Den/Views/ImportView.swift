@@ -107,7 +107,7 @@ struct ImportView: View {
             Button(action: importViewModel.selectNone) {
                 Text("None")
             }.disabled(importViewModel.noneSelected)
-        }.buttonStyle(ActionButtonStyle())
+        }
     }
 
     private func importFeeds() {

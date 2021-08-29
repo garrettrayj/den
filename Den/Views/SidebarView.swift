@@ -41,7 +41,7 @@ struct SidebarView: View {
                     } label: {
                         Text(editMode?.wrappedValue == .active ? "Done" : "Manage")
                     }
-                }.buttonStyle(ActionButtonStyle())
+                }
             }
         }
     }
@@ -65,12 +65,14 @@ struct SidebarView: View {
                 HStack {
                     Image(systemName: "plus.square")
                     Text("Create a New Page").fontWeight(.medium).padding(.vertical, 4)
+                    Spacer()
                 }
             }
             Button(action: subscriptionManager.loadDemo) {
                 HStack {
                     Image(systemName: "wand.and.stars")
                     Text("Load Demo Feeds").fontWeight(.medium).padding(.vertical, 4)
+                    Spacer()
                 }
             }
         }

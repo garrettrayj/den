@@ -40,6 +40,7 @@ struct ContentView: View {
 
                 SettingsView().tabItem { Label("Settings", systemImage: "gear") }
             }
+            .buttonStyle(BorderlessButtonStyle())
             .sheet(isPresented: $subscriptionManager.showingAddSubscription) {
                 SubscribeView()
                     .environment(\.managedObjectContext, viewContext)

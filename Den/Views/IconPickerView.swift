@@ -52,7 +52,7 @@ struct IconPickerView: View {
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         Label("Close", systemImage: "xmark.circle")
-                    }.buttonStyle(ActionButtonStyle())
+                    }
                 }
             }
         }
