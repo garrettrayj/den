@@ -122,7 +122,6 @@ struct PageView: View {
             }
         }
         .disabled(viewModel.refreshing == true)
-        .buttonStyle(ActionButtonStyle())
     }
 
     private var pageEmpty: some View {

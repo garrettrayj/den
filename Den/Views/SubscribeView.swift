@@ -20,36 +20,53 @@ struct SubscribeView: View {
     @State private var validationMessage: String?
 
     var body: some View {
-        VStack(alignment: .center, spacing: 20) {
-            Text("Add Subscription").font(.title)
+        NavigationView {
+            Form {
+                if subscriptionManager.destinationPage != nil {
+                    Section(header: Text("Feed URL")) {
+                        VStack {
+                            feedUrlInput
+                            if validationMessage != nil {
+                                Divider()
+                                Text(validationMessage!)
+                                    .font(.caption)
+                                    .foregroundColor(.red)
+                                    .padding(.vertical, 4)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                    }
+                    Button(action: validateUrl) {
+                        Label("Add to \(subscriptionManager.destinationPage!.wrappedName)", systemImage: "plus")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                    .disabled(!(urlText.count > 0))
+                    .buttonStyle(AccentButtonStyle())
 
-            if subscriptionManager.destinationPage != nil {
-                feedUrlInput
-
-                if validationMessage != nil { Text(validationMessage!) }
-
-                Spacer()
-
-                Button(action: validateUrl) {
-                    Label("Add to \(subscriptionManager.destinationPage!.wrappedName)", systemImage: "plus")
+                } else {
+                    missingPage
                 }
-                .disabled(!(urlText.count > 0))
-                .buttonStyle(AccentButtonStyle())
-            } else {
-                missingPage
-                Spacer()
             }
-            Button(action: close) { Text("Cancel") }.buttonStyle(ActionButtonStyle())
+            .onAppear {
+                self.urlText = self.subscriptionManager.subscribeURLString
+                if self.subscriptionManager.destinationPage == nil {
+                    self.subscriptionManager.destinationPage = profileManager.activeProfile?.pagesArray.first
+                }
+            }
+            .navigationTitle("Add Subscription")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem {
+                    Button { presentationMode.wrappedValue.dismiss() } label: {
+                        Label("Close", systemImage: "xmark.circle")
+                    }.buttonStyle(BorderlessButtonStyle())
+                }
+            }
         }
-        .frame(maxHeight: .infinity, alignment: .top)
-        .padding(32)
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
-        .onAppear {
-            self.urlText = self.subscriptionManager.subscribeURLString
-            if self.subscriptionManager.destinationPage == nil {
-                self.subscriptionManager.destinationPage = profileManager.activeProfile?.pagesArray.first
-            }
-        }
+        .navigationViewStyle(StackNavigationViewStyle())
+
     }
 
     private var feedUrlInput: some View {
@@ -57,6 +74,7 @@ struct SubscribeView: View {
             TextField("https://example.com/feed.xml", text: $urlText)
                 .lineLimit(1)
                 .disableAutocorrection(true)
+                .padding(.vertical, 8)
 
             if urlIsValid != nil {
                 if urlIsValid == true {
@@ -68,9 +86,6 @@ struct SubscribeView: View {
                 }
             }
         }
-        .padding(12)
-        .background(Color(UIColor.systemBackground))
-        .cornerRadius(8)
         .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
     }
 
