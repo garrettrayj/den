@@ -21,25 +21,32 @@ struct PageSettingsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Icon and Name")) {
-                Label(
-                    title: { TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4) },
-                    icon: {
+            Section(header: Text("Name and Icon")) {
+
+                HStack {
+                    TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4)
+
+                    HStack {
                         Image(systemName: page.wrappedSymbol)
                             .foregroundColor(Color.accentColor)
-                            .onTapGesture { showingIconPicker = true }
-                            .sheet(isPresented: $showingIconPicker) {
-                                IconPickerView(activeIcon: $page.wrappedSymbol)
-                            }
+
+                        Image(systemName: "chevron.down")
+                            .imageScale(.small)
+                            .foregroundColor(.secondary)
 
                     }
-                )
+                    .onTapGesture { showingIconPicker = true }
+                    .sheet(isPresented: $showingIconPicker) {
+                        IconPickerView(activeIcon: $page.wrappedSymbol)
+                    }
+
+                }
             }
             Section(header: Text("Settings")) {
                 Stepper(value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max), step: 1) { _ in
                     page.wrappedItemsPerFeed = itemsPerFeedStepperValue
                 } label: {
-                    Label("Items Per Feed: \(itemsPerFeedStepperValue)", systemImage: "list.bullet.rectangle")
+                    Label("Widget Item Limit: \(itemsPerFeedStepperValue)", systemImage: "list.bullet.rectangle")
                 }
             }
 
