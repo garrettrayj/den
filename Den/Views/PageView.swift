@@ -95,7 +95,7 @@ struct PageView: View {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
         } label: {
-            Label("Page Menu", systemImage: "ellipsis")
+            Label("Page Menu", systemImage: "ellipsis.circle")
                 .frame(height: 44)
                 .padding(.leading)
         }.disabled(viewModel.refreshing == true)
@@ -126,8 +126,15 @@ struct PageView: View {
     }
 
     private var pageEmpty: some View {
-        Text("Tap \(Image(systemName: "plus.circle")) to add a subscription").modifier(SimpleMessageModifier())
-
+        Group {
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                Text("Tap \(Image(systemName: "ellipsis.circle")) to add a subscription")
+                    .modifier(SimpleMessageModifier())
+            } else {
+                Text("Tap \(Image(systemName: "plus.circle")) to add a subscription")
+                    .modifier(SimpleMessageModifier())
+            }
+        }
     }
 
     private var pageDeleted: some View {

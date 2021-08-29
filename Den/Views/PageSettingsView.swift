@@ -77,6 +77,11 @@ struct PageSettingsView: View {
     }
 
     private func save() {
+        page.objectWillChange.send()
+        page.feedsArray.forEach({ feed in
+            feed.objectWillChange.send()
+        })
+
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()

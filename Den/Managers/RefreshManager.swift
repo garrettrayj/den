@@ -40,9 +40,6 @@ final class RefreshManager: ObservableObject {
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
                 self.refreshComplete(page: page, refreshing: refreshing, progress: progress)
-                if let callback = callback {
-                    callback(page)
-                }
             }
         }
     }
@@ -103,11 +100,6 @@ final class RefreshManager: ObservableObject {
     }
 
     private func refreshComplete(page: Page?, refreshing: Binding<Bool>? = nil, progress: Progress? = nil) {
-        page?.objectWillChange.send()
-        page?.feedsArray.forEach({ feed in
-            feed.objectWillChange.send()
-        })
-
         if persistentContainer.viewContext.hasChanges {
             do {
                 try persistentContainer.viewContext.save()
@@ -115,8 +107,14 @@ final class RefreshManager: ObservableObject {
                 self.crashManager.handleCriticalError(error as NSError)
             }
         }
+
         refreshing?.wrappedValue = false
         progress?.totalUnitCount = 0
         progress?.completedUnitCount = 0
+
+        page?.objectWillChange.send()
+        page?.feedsArray.forEach({ feed in
+            feed.objectWillChange.send()
+        })
     }
 }

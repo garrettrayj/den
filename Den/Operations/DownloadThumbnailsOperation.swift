@@ -13,9 +13,8 @@ final class DownloadThumbnailsOperation: Operation {
     var inputWorkingItems: [WorkingItem] = []
     var outputWorkingItems: [WorkingItem] = []
 
-    private var queue = OperationQueue()
-
     override func main() {
+        let queue = OperationQueue()
         var combinedOps: [Operation] = []
         var saveOps: [SaveThumbnailOperation] = []
 
@@ -38,8 +37,7 @@ final class DownloadThumbnailsOperation: Operation {
             combinedOps.append(saveOp)
         }
 
-        self.queue.addOperations(combinedOps, waitUntilFinished: true)
-
+        queue.addOperations(combinedOps, waitUntilFinished: true)
         for operation in saveOps {
             if let workingFeedItem = operation.workingFeedItem {
                 outputWorkingItems.append(workingFeedItem)

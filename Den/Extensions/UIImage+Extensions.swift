@@ -38,11 +38,10 @@ extension UIImage {
             width: width,
             height: height
         )
-        UIGraphicsBeginImageContextWithOptions(size, true, 0)
-        self.draw(in: imageRect)
-        let newImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
 
-        return newImage
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { (_) in
+            self.draw(in: imageRect)
+        }
     }
 }
