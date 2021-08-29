@@ -6,7 +6,7 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 final class PageViewModel: ObservableObject {
     @Published var page: Page
@@ -23,7 +23,7 @@ final class PageViewModel: ObservableObject {
             .publisher(for: \.fractionCompleted)
             .receive(on: RunLoop.main)
             .map { fractionCompleted in
-                return CGFloat(fractionCompleted)
+                CGFloat(fractionCompleted)
             }
             .assign(to: &$refreshFractionCompleted)
     }

@@ -24,7 +24,7 @@ struct PagesView: View {
             )
 
             // Default view for detail area
-            WelcomeView()
+            WelcomeView(profile: profileManager.activeProfile)
         }
 
     }
