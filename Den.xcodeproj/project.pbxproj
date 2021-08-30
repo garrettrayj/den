@@ -28,7 +28,7 @@
 		6845BD0424ECF44E0008B296 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD0324ECF44E0008B296 /* URLSession+Extensions.swift */; };
 		6845BD0624EDCB9C0008B296 /* ImportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD0524EDCB9C0008B296 /* ImportViewModel.swift */; };
 		6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD0D24EFB2AC0008B296 /* .gitignore */; };
-		6845BD1124EFB8AD0008B296 /* DemoWorkspace.opml in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */; };
+		6845BD1124EFB8AD0008B296 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD1024EFB8AD0008B296 /* Demo.opml */; };
 		6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6845BD4D24F6824C0008B296 /* CloudKit.framework */; };
 		6845BD5024F6A4080008B296 /* SaveFeedOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD4F24F6A4080008B296 /* SaveFeedOperation.swift */; };
 		6845BD5824F90F450008B296 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD5724F90F450008B296 /* String+Extensions.swift */; };
@@ -85,6 +85,7 @@
 		68998B892504DDEC00FDB6EE /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B882504DDEC00FDB6EE /* SearchResultView.swift */; };
 		68998B93250665E500FDB6EE /* ActivityRep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B92250665E500FDB6EE /* ActivityRep.swift */; };
 		689C734C26DB9ABB009AAD2F /* EditMode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C734B26DB9ABB009AAD2F /* EditMode+Extensions.swift */; };
+		689C735E26DC392B009AAD2F /* MacButtonStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C735D26DC392B009AAD2F /* MacButtonStyleModifier.swift */; };
 		689EDBFA269B97E30055811A /* AccentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDBF9269B97E30055811A /* AccentButtonStyle.swift */; };
 		689EDBFE269BB5E00055811A /* SimpleMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDBFD269BB5E00055811A /* SimpleMessageModifier.swift */; };
 		689EDC02269BD6C80055811A /* RefreshPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDC01269BD6C80055811A /* RefreshPlan.swift */; };
@@ -168,7 +169,7 @@
 		6845BD0524EDCB9C0008B296 /* ImportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewModel.swift; sourceTree = "<group>"; };
 		6845BD0D24EFB2AC0008B296 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6845BD0F24EFB38C0008B296 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */ = {isa = PBXFileReference; lastKnownFileType = text; path = DemoWorkspace.opml; sourceTree = "<group>"; };
+		6845BD1024EFB8AD0008B296 /* Demo.opml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
 		6845BD4D24F6824C0008B296 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6845BD4F24F6A4080008B296 /* SaveFeedOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFeedOperation.swift; sourceTree = "<group>"; };
 		6845BD5724F90F450008B296 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -220,6 +221,7 @@
 		68998B882504DDEC00FDB6EE /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		68998B92250665E500FDB6EE /* ActivityRep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRep.swift; sourceTree = "<group>"; };
 		689C734B26DB9ABB009AAD2F /* EditMode+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditMode+Extensions.swift"; sourceTree = "<group>"; };
+		689C735D26DC392B009AAD2F /* MacButtonStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacButtonStyleModifier.swift; sourceTree = "<group>"; };
 		689EDBF8269188580055811A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		689EDBF9269B97E30055811A /* AccentButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButtonStyle.swift; sourceTree = "<group>"; };
 		689EDBFD269BB5E00055811A /* SimpleMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMessageModifier.swift; sourceTree = "<group>"; };
@@ -339,7 +341,7 @@
 			children = (
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
 				68D58E6A2498481A007ED1AC /* OPMLIcon.png */,
-				6845BD1024EFB8AD0008B296 /* DemoWorkspace.opml */,
+				6845BD1024EFB8AD0008B296 /* Demo.opml */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -357,6 +359,7 @@
 			children = (
 				689EDBFD269BB5E00055811A /* SimpleMessageModifier.swift */,
 				687C27972634A89A00099FCA /* ShakeModifier.swift */,
+				689C735D26DC392B009AAD2F /* MacButtonStyleModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -743,7 +746,7 @@
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
-				6845BD1124EFB8AD0008B296 /* DemoWorkspace.opml in Resources */,
+				6845BD1124EFB8AD0008B296 /* Demo.opml in Resources */,
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
 				6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
@@ -822,6 +825,7 @@
 				6809EFD724DE9031007B5CF1 /* Array+Extensions.swift in Sources */,
 				6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */,
 				689460842596A7BB00ED4064 /* PersistenceManager.swift in Sources */,
+				689C735E26DC392B009AAD2F /* MacButtonStyleModifier.swift in Sources */,
 				687D9CDD24B3E31400EB7F46 /* MetadataOperation.swift in Sources */,
 				68B34A672487ED870066B215 /* ExportView.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,

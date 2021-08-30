@@ -33,13 +33,15 @@ struct SidebarView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack {
-                    Button(action: viewModel.createPage) {
-                        Label("New Page", systemImage: "plus.square")
-                    }
-                    Button {
-                        editMode?.wrappedValue.toggle()
-                    } label: {
-                        Text(editMode?.wrappedValue == .active ? "Done" : "Manage")
+                    if viewModel.profile.pagesArray.count > 0 {
+                        Button(action: viewModel.createPage) {
+                            Label("New Page", systemImage: "plus.square")
+                        }
+                        Button {
+                            editMode?.wrappedValue.toggle()
+                        } label: {
+                            Text(editMode?.wrappedValue == .active ? "Done" : "Manage")
+                        }
                     }
                 }
             }
@@ -59,21 +61,13 @@ struct SidebarView: View {
     private var getStartedSection: some View {
         Section(
             header: Text("Get Started"),
-            footer: Text("or import subscriptions in settings.")
+            footer: Text("or import subscriptions in \(Image(systemName: "gear")) Settings")
         ) {
             Button(action: viewModel.createPage) {
-                HStack {
-                    Image(systemName: "plus.square")
-                    Text("Create a New Page").fontWeight(.medium).padding(.vertical, 4)
-                    Spacer()
-                }
+                Label("New Page", systemImage: "plus.square").padding(.vertical, 4)
             }
             Button(action: subscriptionManager.loadDemo) {
-                HStack {
-                    Image(systemName: "wand.and.stars")
-                    Text("Load Demo Feeds").fontWeight(.medium).padding(.vertical, 4)
-                    Spacer()
-                }
+                Label("Load Demo", systemImage: "wand.and.stars").padding(.vertical, 4)
             }
         }
     }

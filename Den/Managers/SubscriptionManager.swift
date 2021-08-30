@@ -29,8 +29,7 @@ final class SubscriptionManager: ObservableObject {
         "Funnies": "face.smiling",
         "Curiosity": "person.and.arrow.left.and.arrow.right",
         "Gaming": "gamecontroller",
-        "TV & Movies": "film",
-        "Music": "music.note"
+        "Entertainment": "film"
     ]
 
     init(
@@ -77,7 +76,7 @@ final class SubscriptionManager: ObservableObject {
     }
 
     func loadDemo() {
-        guard let demoPath = Bundle.main.path(forResource: "DemoWorkspace", ofType: "opml") else {
+        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
 
