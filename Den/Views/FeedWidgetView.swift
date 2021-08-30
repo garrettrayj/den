@@ -83,7 +83,7 @@ struct FeedWidgetView: View {
     private var feedError: some View {
         VStack {
             VStack(spacing: 4) {
-                Text("Unable to Update Feed")
+                Text("Unable to update feed")
                     .foregroundColor(.secondary)
                     .font(.callout)
                     .fontWeight(.medium)
@@ -106,7 +106,7 @@ struct FeedWidgetView: View {
     }
 
     private var feedEmpty: some View {
-        Text("Feed Empty")
+        Text("Feed empty")
             .foregroundColor(.secondary)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -114,7 +114,7 @@ struct FeedWidgetView: View {
     }
 
     private var feedNotFetched: some View {
-        Text("Refresh to Fetch Content")
+        Text("Refresh to fetch content")
             .foregroundColor(.secondary)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -122,7 +122,7 @@ struct FeedWidgetView: View {
     }
 
     private var feedStatusUnknown: some View {
-        Text("Feed Status Unavailable")
+        Text("Feed status unavailable")
             .foregroundColor(.secondary)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)

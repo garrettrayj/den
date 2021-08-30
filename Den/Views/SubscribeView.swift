@@ -151,6 +151,7 @@ struct SubscribeView: View {
 
         if let feed = subscriptionManager.createFeed(url: url) {
             refreshManager.refresh(feed: feed) { _ in
+                subscriptionManager.reset()
                 self.presentationMode.wrappedValue.dismiss()
             }
         }

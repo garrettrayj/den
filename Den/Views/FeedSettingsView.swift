@@ -33,7 +33,7 @@ struct FeedSettingsView: View {
             info
             actions
         }
-        .onDisappear(perform: saveFeed)
+        .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -111,7 +111,7 @@ struct FeedSettingsView: View {
                 Label("URL", systemImage: "globe")
                 Spacer()
                 Text(feed.urlString).lineLimit(1).foregroundColor(.secondary).padding(.vertical, 4)
-                Button(action: copyFeedUrl) {
+                Button(action: copyUrl) {
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                 }
             }
@@ -146,7 +146,7 @@ struct FeedSettingsView: View {
                     title: Text("Are you sure?"),
                     message: Text("\(feed.wrappedTitle)\nwill be permanently removed."),
                     primaryButton: .destructive(Text("Delete")) {
-                        self.deleteFeed()
+                        self.delete()
                     },
                     secondaryButton: .cancel()
                 )
@@ -160,7 +160,7 @@ struct FeedSettingsView: View {
         }
     }
 
-    private func saveFeed() {
+    private func save() {
         if self.viewContext.hasChanges {
             do {
                 try self.viewContext.save()
@@ -168,6 +168,7 @@ struct FeedSettingsView: View {
                 crashManager.handleCriticalError(error)
             }
 
+            feed.page?.objectWillChange.send()
             if let feedData = feed.feedData {
                 feedData.itemsArray.forEach { item in
                     item.objectWillChange.send()
@@ -176,12 +177,12 @@ struct FeedSettingsView: View {
         }
     }
 
-    private func deleteFeed() {
+    private func delete() {
         viewContext.delete(self.feed)
         presentationMode.wrappedValue.dismiss()
     }
 
-    private func copyFeedUrl() {
+    private func copyUrl() {
         let pasteboard = UIPasteboard.general
         pasteboard.string = feed.url!.absoluteString
     }
