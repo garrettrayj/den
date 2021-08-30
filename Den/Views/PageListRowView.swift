@@ -22,6 +22,7 @@ struct PageListRowView: View {
                     HStack {
                         Label(page.displayName, systemImage: page.wrappedSymbol)
                             .lineLimit(1)
+                            .foregroundColor(.primary)
                             .padding(.vertical, 4)
 
                         Spacer()
