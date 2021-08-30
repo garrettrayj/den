@@ -66,12 +66,10 @@ final class SecurityCheckViewModel: ObservableObject {
             checkOp.data = fetchOp.data
         }
         let completionOp = BlockOperation { [unowned checkOp] in
-            DispatchQueue.main.async {
-                if checkOp.feedIsValid {
-                    feed.url = secureUrl
-                } else {
-                    self.failedRemediation.append(feed.id)
-                }
+            if checkOp.feedIsValid {
+                feed.url = secureUrl
+            } else {
+                self.failedRemediation.append(feed.id)
             }
         }
 

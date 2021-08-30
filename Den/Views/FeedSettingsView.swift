@@ -167,12 +167,12 @@ struct FeedSettingsView: View {
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
+        }
 
-            feed.page?.objectWillChange.send()
-            if let feedData = feed.feedData {
-                feedData.itemsArray.forEach { item in
-                    item.objectWillChange.send()
-                }
+        feed.page?.objectWillChange.send()
+        if let feedData = feed.feedData {
+            feedData.itemsArray.forEach { item in
+                item.objectWillChange.send()
             }
         }
     }
