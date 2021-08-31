@@ -14,6 +14,7 @@
 			<outline text="DER SPIEGEL - International" title="DER SPIEGEL - International" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
 			<outline text="Vox -  World" title="Vox -  World" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
 			<outline text="Foreign Policy" title="Foreign Policy" type="rss" xmlUrl="https://foreignpolicy.com/feed" />
+			<outline text="E-International Relations" title="E-International Relations" type="rss" xmlUrl="https://www.e-ir.info/feed/" />
 			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://www.un.org/apps/news/rss/rss_top.asp" />
 			<outline text="Sky News - World" title="Sky News - World" type="rss" xmlUrl="https://feeds.skynews.com/feeds/rss/world.xml" />
 			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
@@ -83,6 +84,7 @@
 			<outline text="Protocol" title="Protocol" type="rss" xmlUrl="https://www.protocol.com/feeds/bulletins.rss" />
 			<outline text="Wired - Business" title="Wired - Business" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
 			<outline text="Fast Company" title="Fast Company" type="rss" xmlUrl="https://www.fastcompany.com/latest/rss" />
+			<outline text="Crunchbase News" title="Crunchbase News" type="rss" xmlUrl="https://news.crunchbase.com/feed/" />
 			<outline text="VentureBeat" title="VentureBeat" type="rss" xmlUrl="https://feeds.feedburner.com/venturebeat/SZYF" />
 			<outline text="The Financial Express" title="The Financial Express" type="rss" xmlUrl="https://www.financialexpress.com/feed/" />
 			<outline text="Economic Times - Markets" title="Economic Times - Markets" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
@@ -123,6 +125,7 @@
 			<outline text="LabRoots" title="LabRoots" type="rss" xmlUrl="https://www.labroots.com/rss/trending" />
 		</outline>
 		<outline text="Space" title="Space">
+			<outline text="Push Square | Latest Updates" title="Push Square | Latest Updates" type="rss" xmlUrl="https://www.pushsquare.com/feeds/latest" />
 			<outline text="Space.com" title="Space.com" type="rss" xmlUrl="https://www.space.com/feeds/all" />
 			<outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
 			<outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed" />

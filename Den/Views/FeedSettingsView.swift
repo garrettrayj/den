@@ -56,12 +56,17 @@ struct FeedSettingsView: View {
     }
 
     private var settings: some View {
-        let pagePickerSelection = Binding<Page?>(
+        let pagePickerSelection = Binding<String?>(
             get: {
-                return feed.page
+                return feed.page?.id?.uuidString
             },
             set: {
-                guard let page = $0 else { return }
+                guard
+                    let pageIdString = $0,
+                    let page = profileManager.activeProfile.pagesArray.first(where: { page in
+                    return page.id?.uuidString == pageIdString
+                }) else { return }
+
                 feed.userOrder = page.feedsUserOrderMax + 1
                 feed.page = page
                 presentationMode.wrappedValue.dismiss()
@@ -75,7 +80,7 @@ struct FeedSettingsView: View {
                 Spacer()
                 Picker("", selection: pagePickerSelection) {
                     ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                        Text(page.wrappedName).tag(page as Page?)
+                        Text(page.wrappedName).tag(page.id?.uuidString)
                     }
                 }
                 .frame(maxWidth: 200)
@@ -91,7 +96,7 @@ struct FeedSettingsView: View {
                 label: Label("Page", systemImage: "square.grid.2x2"),
                 content: {
                     ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                        Text(page.wrappedName).tag(page as Page?)
+                        Text(page.wrappedName).tag(page.id?.uuidString)
                     }
                 }
             )
@@ -144,7 +149,7 @@ struct FeedSettingsView: View {
             .alert(isPresented: $showingDeleteAlert) {
                 Alert(
                     title: Text("Are you sure?"),
-                    message: Text("\(feed.wrappedTitle)\nwill be permanently removed."),
+                    message: Text("Removing a subscription cannot be undone"),
                     primaryButton: .destructive(Text("Delete")) {
                         self.delete()
                     },
@@ -168,17 +173,11 @@ struct FeedSettingsView: View {
                 crashManager.handleCriticalError(error)
             }
         }
-
-        feed.page?.objectWillChange.send()
-        if let feedData = feed.feedData {
-            feedData.itemsArray.forEach { item in
-                item.objectWillChange.send()
-            }
-        }
     }
 
     private func delete() {
         viewContext.delete(self.feed)
+        feed.page?.objectWillChange.send()
         presentationMode.wrappedValue.dismiss()
     }
 
