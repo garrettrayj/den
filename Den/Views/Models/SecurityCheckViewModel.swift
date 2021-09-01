@@ -22,6 +22,8 @@ final class SecurityCheckViewModel: ObservableObject {
         self.viewContext = viewContext
         self.profileManager = profileManager
         self.crashManager = crashManager
+
+        self.queue.maxConcurrentOperationCount = 10
     }
 
     func reset() {

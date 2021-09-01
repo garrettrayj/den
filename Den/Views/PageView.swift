@@ -10,7 +10,6 @@ import SwiftUI
 
 struct PageView: View {
     @EnvironmentObject var subscriptionManager: SubscriptionManager
-    @EnvironmentObject var refreshManager: RefreshManager
 
     @ObservedObject var viewModel: PageViewModel
 
@@ -21,7 +20,7 @@ struct PageView: View {
     var body: some View {
         VStack(spacing: 0) {
             NavigationLink(
-                destination: PageSettingsView(page: viewModel.page),
+                destination: PageSettingsView(viewModel: viewModel),
                 isActive: $viewModel.showingSettings
             ) {
                 Label("Page Settings", systemImage: "wrench")
@@ -86,11 +85,7 @@ struct PageView: View {
             }
 
             Button {
-                refreshManager.refresh(
-                    page: viewModel.page,
-                    refreshing: $viewModel.refreshing,
-                    progress: viewModel.progress
-                )
+                viewModel.refresh()
             } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
@@ -112,11 +107,7 @@ struct PageView: View {
             }
 
             Button {
-                refreshManager.refresh(
-                    page: viewModel.page,
-                    refreshing: $viewModel.refreshing,
-                    progress: viewModel.progress
-                )
+                viewModel.refresh()
             } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }

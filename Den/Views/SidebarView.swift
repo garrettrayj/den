@@ -37,10 +37,11 @@ struct SidebarView: View {
                         Button(action: viewModel.createPage) {
                             Label("New Page", systemImage: "plus.square")
                         }
+                        EditButton()
                         Button {
-                            editMode?.wrappedValue.toggle()
+                            viewModel.refreshAll()
                         } label: {
-                            Text(editMode?.wrappedValue == .active ? "Done" : "Manage")
+                            Label("Refresh All", systemImage: "arrow.clockwise")
                         }
                     }
                 }
@@ -50,8 +51,8 @@ struct SidebarView: View {
 
     private var pageListSection: some View {
         Section {
-            ForEach(viewModel.profile.pagesArray) { page in
-                PageListRowView(page: page)
+            ForEach(viewModel.pageViewModels) { pageViewModel in
+                PageListRowView(pageViewModel: pageViewModel)
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)

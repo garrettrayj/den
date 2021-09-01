@@ -11,23 +11,19 @@ import SwiftUI
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
 
-    @ObservedObject var page: Page
-
-    @State private var itemsPerFeedStepperValue: Int = 0
-    @State private var showingIconPicker: Bool = false
+    @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
         Form {
             Section(header: Text("Name and Icon")) {
 
                 HStack {
-                    TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4)
+                    TextField("Untitled", text: $viewModel.page.wrappedName).lineLimit(1).padding(.vertical, 4)
 
                     HStack {
-                        Image(systemName: page.wrappedSymbol)
+                        Image(systemName: viewModel.page.wrappedSymbol)
                             .foregroundColor(Color.accentColor)
 
                         Image(systemName: "chevron.down")
@@ -35,18 +31,22 @@ struct PageSettingsView: View {
                             .foregroundColor(.secondary)
 
                     }
-                    .onTapGesture { showingIconPicker = true }
-                    .sheet(isPresented: $showingIconPicker) {
-                        IconPickerView(activeIcon: $page.wrappedSymbol)
+                    .onTapGesture { viewModel.showingIconPicker = true }
+                    .sheet(isPresented: $viewModel.showingIconPicker) {
+                        IconPickerView(activeIcon: $viewModel.page.wrappedSymbol)
                     }
 
                 }
             }
             Section(header: Text("Settings")) {
-                Stepper(value: $itemsPerFeedStepperValue, in: 1...Int(Int16.max), step: 1) { _ in
-                    page.wrappedItemsPerFeed = itemsPerFeedStepperValue
+
+                Stepper(value: $viewModel.page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) { _ in
+                    viewModel.refreshAfterSave = true
                 } label: {
-                    Label("Widget Item Limit: \(itemsPerFeedStepperValue)", systemImage: "list.bullet.rectangle")
+                    Label(
+                        "Widget Item Limit: \(viewModel.page.wrappedItemsPerFeed)",
+                        systemImage: "list.bullet.rectangle"
+                    )
                 }
             }
 
@@ -55,19 +55,18 @@ struct PageSettingsView: View {
         .navigationTitle("Page Settings")
         .navigationBarTitleDisplayMode(.inline)
         .environment(\.editMode, .constant(.active))
-        .onAppear(perform: load)
         .onDisappear(perform: save)
     }
 
     private var feedsSection: some View {
         Section(
             header: HStack {
-                Text("\(page.feedsArray.count) Feeds")
+                Text("\(viewModel.page.feedsArray.count) Feeds")
                 Spacer()
                 Text("Drag to Reorder")
             }
         ) {
-            ForEach(page.feedsArray) { feed in
+            ForEach(viewModel.page.feedsArray) { feed in
                 FeedTitleLabelView(feed: feed).padding(.vertical, 4)
             }
             .onDelete(perform: deleteFeed)
@@ -79,13 +78,9 @@ struct PageSettingsView: View {
         presentationMode.wrappedValue.dismiss()
     }
 
-    private func load() {
-        itemsPerFeedStepperValue = page.wrappedItemsPerFeed
-    }
-
     private func save() {
-        page.objectWillChange.send()
-        page.feedsArray.forEach({ feed in
+        viewModel.page.objectWillChange.send()
+        viewModel.page.feedsArray.forEach({ feed in
             feed.objectWillChange.send()
         })
 
@@ -95,16 +90,20 @@ struct PageSettingsView: View {
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }
+
+            if viewModel.refreshAfterSave {
+                viewModel.refresh()
+            }
         }
     }
 
     private func deleteFeed(indices: IndexSet) {
-        page.feedsArray.delete(at: indices, from: viewContext)
+        viewModel.page.feedsArray.delete(at: indices, from: viewContext)
     }
 
     private func moveFeed( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Feed] = page.feedsArray.map { $0 }
+        var revisedItems: [Feed] = viewModel.page.feedsArray.map { $0 }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)

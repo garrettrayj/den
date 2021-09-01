@@ -12,6 +12,7 @@ struct PagesView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var refreshManager: RefreshManager
 
     var body: some View {
         NavigationView {
@@ -19,7 +20,8 @@ struct PagesView: View {
                 viewModel: PagesViewModel(
                     profileManager: profileManager,
                     viewContext: viewContext,
-                    crashManager: crashManager
+                    crashManager: crashManager,
+                    refreshManager: refreshManager
                 )
             )
 

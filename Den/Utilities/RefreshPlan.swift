@@ -115,7 +115,9 @@ final class RefreshPlan {
             saveMeta: fullUpdate
         )
         completionOp = BlockOperation { [unowned progress] in
-            progress?.completedUnitCount += 1
+            DispatchQueue.main.async {
+                progress?.completedUnitCount += 1
+            }
         }
     }
 

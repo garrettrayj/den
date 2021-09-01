@@ -19,35 +19,30 @@ final class RefreshManager: ObservableObject {
     init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
+
+        self.queue.maxConcurrentOperationCount = 10
     }
 
-    public func refresh(
-        page: Page,
-        refreshing: Binding<Bool>,
-        progress: Progress,
-        callback: ((Page) -> Void)? = nil
-    ) {
-        refreshing.wrappedValue = true
-
+    public func refresh(pageViewModel: PageViewModel) {
+        pageViewModel.refreshing = true
         var operations: [Operation] = []
 
-        page.feedsArray.forEach { feed in
-            progress.totalUnitCount += 1
-            operations.append(contentsOf: self.createFeedOps(feed, progress: progress))
+        pageViewModel.page.feedsArray.forEach { feed in
+            pageViewModel.progress.totalUnitCount += 1
+            operations.append(
+                contentsOf: self.createFeedOps(feed, progress: pageViewModel.progress)
+            )
         }
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
-                self.refreshComplete(page: page, refreshing: refreshing, progress: progress)
+                self.refreshComplete(page: pageViewModel.page, pageViewModel: pageViewModel)
             }
         }
     }
 
-    public func refresh(
-        feed: Feed,
-        callback: ((Feed) -> Void)? = nil
-    ) {
+    public func refresh(feed: Feed, callback: ((Feed) -> Void)? = nil) {
         let operations = self.createFeedOps(feed)
 
         DispatchQueue.global(qos: .userInitiated).async {
@@ -99,7 +94,16 @@ final class RefreshManager: ObservableObject {
         return feedData
     }
 
-    private func refreshComplete(page: Page?, refreshing: Binding<Bool>? = nil, progress: Progress? = nil) {
+    private func refreshComplete(page: Page?, pageViewModel: PageViewModel? = nil) {
+        pageViewModel?.refreshing = false
+        pageViewModel?.progress.completedUnitCount = 0
+        pageViewModel?.progress.totalUnitCount = 0
+
+        page?.objectWillChange.send()
+        page?.feedsArray.forEach({ feed in
+            feed.objectWillChange.send()
+        })
+
         if persistentContainer.viewContext.hasChanges {
             do {
                 try persistentContainer.viewContext.save()
@@ -107,14 +111,5 @@ final class RefreshManager: ObservableObject {
                 self.crashManager.handleCriticalError(error as NSError)
             }
         }
-
-        refreshing?.wrappedValue = false
-        progress?.totalUnitCount = 0
-        progress?.completedUnitCount = 0
-
-        page?.objectWillChange.send()
-        page?.feedsArray.forEach({ feed in
-            feed.objectWillChange.send()
-        })
     }
 }
