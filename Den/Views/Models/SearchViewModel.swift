@@ -24,6 +24,8 @@ final class SearchViewModel: ObservableObject {
 
     func reset() {
         query = ""
+        results = []
+        queryIsValid = nil
     }
 
     func validateQuery() -> Bool {

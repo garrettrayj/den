@@ -12,20 +12,24 @@ import SwiftUI
 import Grid
 
 struct SearchView: View {
-    @ObservedObject var searchViewModel: SearchViewModel
+    @ObservedObject var viewModel: SearchViewModel
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(query: $searchViewModel.query, onCommit: searchViewModel.performItemSearch)
+                SearchFieldView(
+                    query: $viewModel.query,
+                    onCommit: viewModel.performItemSearch,
+                    onClear: viewModel.reset
+                )
 
-                if searchViewModel.queryIsValid == false {
-                    Text(searchViewModel.validationMessage ?? "Invalid search query")
+                if viewModel.queryIsValid == false {
+                    Text(viewModel.validationMessage ?? "Invalid search query")
                         .modifier(SimpleMessageModifier())
-                } else if searchViewModel.queryIsValid == true {
-                    if searchViewModel.results.count > 0 {
+                } else if viewModel.queryIsValid == true {
+                    if viewModel.results.count > 0 {
                         ScrollView {
-                            Grid(searchViewModel.results, id: \.self) { sectionItems in
+                            Grid(viewModel.results, id: \.self) { sectionItems in
                                 SearchResultView(items: sectionItems)
                             }
                             .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))

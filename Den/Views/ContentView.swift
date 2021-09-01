@@ -23,7 +23,7 @@ struct ContentView: View {
                 PagesView().tabItem { Label("Pages", systemImage: "list.dash") }
 
                 SearchView(
-                    searchViewModel: SearchViewModel(
+                    viewModel: SearchViewModel(
                         viewContext: viewContext,
                         crashManager: crashManager
                     )
@@ -31,7 +31,7 @@ struct ContentView: View {
                 .tabItem { Label("Search", systemImage: "magnifyingglass") }
 
                 HistoryView(
-                    historyViewModel: HistoryViewModel(
+                    viewModel: HistoryViewModel(
                         viewContext: viewContext,
                         crashManager: crashManager
                     )

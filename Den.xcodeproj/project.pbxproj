@@ -47,7 +47,6 @@
 		687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */; };
 		687D9CB624A9C14700EB7F46 /* PageListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB524A9C14700EB7F46 /* PageListRowView.swift */; };
 		687D9CB824A9CA2A00EB7F46 /* FeedWidgetRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB724A9CA2A00EB7F46 /* FeedWidgetRowView.swift */; };
-		687D9CC424ACB86900EB7F46 /* RefreshStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CC324ACB86900EB7F46 /* RefreshStatusView.swift */; };
 		687D9CC624AE38BD00EB7F46 /* DataTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CC524AE38BD00EB7F46 /* DataTaskOperation.swift */; };
 		687D9CD924B38FF100EB7F46 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CD824B38FF100EB7F46 /* AsynchronousOperation.swift */; };
 		687D9CDD24B3E31400EB7F46 /* MetadataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CDC24B3E31400EB7F46 /* MetadataOperation.swift */; };
@@ -86,6 +85,7 @@
 		68998B93250665E500FDB6EE /* ActivityRep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B92250665E500FDB6EE /* ActivityRep.swift */; };
 		689C734C26DB9ABB009AAD2F /* EditMode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C734B26DB9ABB009AAD2F /* EditMode+Extensions.swift */; };
 		689C735E26DC392B009AAD2F /* MacButtonStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C735D26DC392B009AAD2F /* MacButtonStyleModifier.swift */; };
+		689C736026DF770A009AAD2F /* RefreshStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C735F26DF770A009AAD2F /* RefreshStatusView.swift */; };
 		689EDBFA269B97E30055811A /* AccentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDBF9269B97E30055811A /* AccentButtonStyle.swift */; };
 		689EDBFE269BB5E00055811A /* SimpleMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDBFD269BB5E00055811A /* SimpleMessageModifier.swift */; };
 		689EDC02269BD6C80055811A /* RefreshPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDC01269BD6C80055811A /* RefreshPlan.swift */; };
@@ -188,7 +188,6 @@
 		687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLWriter.swift; sourceTree = "<group>"; };
 		687D9CB524A9C14700EB7F46 /* PageListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageListRowView.swift; sourceTree = "<group>"; };
 		687D9CB724A9CA2A00EB7F46 /* FeedWidgetRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedWidgetRowView.swift; sourceTree = "<group>"; };
-		687D9CC324ACB86900EB7F46 /* RefreshStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshStatusView.swift; sourceTree = "<group>"; };
 		687D9CC524AE38BD00EB7F46 /* DataTaskOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTaskOperation.swift; sourceTree = "<group>"; };
 		687D9CD824B38FF100EB7F46 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		687D9CDC24B3E31400EB7F46 /* MetadataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataOperation.swift; sourceTree = "<group>"; };
@@ -222,6 +221,7 @@
 		68998B92250665E500FDB6EE /* ActivityRep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRep.swift; sourceTree = "<group>"; };
 		689C734B26DB9ABB009AAD2F /* EditMode+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditMode+Extensions.swift"; sourceTree = "<group>"; };
 		689C735D26DC392B009AAD2F /* MacButtonStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacButtonStyleModifier.swift; sourceTree = "<group>"; };
+		689C735F26DF770A009AAD2F /* RefreshStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshStatusView.swift; sourceTree = "<group>"; };
 		689EDBF8269188580055811A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		689EDBF9269B97E30055811A /* AccentButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButtonStyle.swift; sourceTree = "<group>"; };
 		689EDBFD269BB5E00055811A /* SimpleMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMessageModifier.swift; sourceTree = "<group>"; };
@@ -542,7 +542,7 @@
 				687D9CB724A9CA2A00EB7F46 /* FeedWidgetRowView.swift */,
 				688FD930247A34830006A2DE /* FeedSettingsView.swift */,
 				684DFA0424BC39EB0023D6DB /* RefreshableScrollView.swift */,
-				687D9CC324ACB86900EB7F46 /* RefreshStatusView.swift */,
+				689C735F26DF770A009AAD2F /* RefreshStatusView.swift */,
 				680E57BC24D132D700196F6D /* HeaderProgressBarView.swift */,
 				68998B842504C87400FDB6EE /* SearchView.swift */,
 				687F4889268EF90300EA2498 /* SearchFieldView.swift */,
@@ -855,7 +855,6 @@
 				68915B232623273600E4C0CB /* DownloadThumbnailsOperation.swift in Sources */,
 				68D58E65249274D0007ED1AC /* HTMLCleaner.swift in Sources */,
 				687F488A268EF90300EA2498 /* SearchFieldView.swift in Sources */,
-				687D9CC424ACB86900EB7F46 /* RefreshStatusView.swift in Sources */,
 				684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */,
 				68998B892504DDEC00FDB6EE /* SearchResultView.swift in Sources */,
 				68915B1E261C253E00E4C0CB /* SaveThumbnailOperation.swift in Sources */,
@@ -882,6 +881,7 @@
 				6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */,
 				687D9CD924B38FF100EB7F46 /* AsynchronousOperation.swift in Sources */,
 				688FD918247750350006A2DE /* PageSettingsView.swift in Sources */,
+				689C736026DF770A009AAD2F /* RefreshStatusView.swift in Sources */,
 				6809EFCD24DD49C9007B5CF1 /* ParseFeedDataOperation.swift in Sources */,
 				689C734C26DB9ABB009AAD2F /* EditMode+Extensions.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* SubscribeView.swift in Sources */,

@@ -13,21 +13,25 @@ struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var linkManager: LinkManager
 
-    @ObservedObject var historyViewModel: HistoryViewModel
+    @ObservedObject var viewModel: HistoryViewModel
 
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                SearchFieldView(query: $historyViewModel.query, onCommit: historyViewModel.performHistorySearch)
+                SearchFieldView(
+                    query: $viewModel.query,
+                    onCommit: viewModel.performHistorySearch,
+                    onClear: viewModel.reset
+                )
 
-                if historyViewModel.queryIsValid == false {
-                    Text(historyViewModel.validationMessage ?? "Invalid search query")
+                if viewModel.queryIsValid == false {
+                    Text(viewModel.validationMessage ?? "Invalid search query")
                         .modifier(SimpleMessageModifier())
-                } else if historyViewModel.queryIsValid == true {
-                    if historyViewModel.results.count > 0 {
+                } else if viewModel.queryIsValid == true {
+                    if viewModel.results.count > 0 {
                         resultsList
                     } else {
-                        if historyViewModel.query == "" {
+                        if viewModel.query == "" {
                             Text("No history").modifier(SimpleMessageModifier())
                         } else {
                             Text("No results found").modifier(SimpleMessageModifier())
@@ -41,7 +45,7 @@ struct HistoryView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .onAppear {
-                historyViewModel.performHistorySearch()
+                viewModel.performHistorySearch()
             }
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
@@ -51,7 +55,7 @@ struct HistoryView: View {
 
     private var resultsList: some View {
         List {
-            ForEach(historyViewModel.results, id: \.self) { resultGroup in
+            ForEach(viewModel.results, id: \.self) { resultGroup in
                 if resultGroup.first?.visited != nil {
                     Section(
                         header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.mediumNone)")

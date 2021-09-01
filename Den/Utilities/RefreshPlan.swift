@@ -39,29 +39,6 @@ final class RefreshPlan {
     private var parseDownloadThumbnailsAdapter: BlockOperation?
     private var saveFeedAdapter: BlockOperation?
 
-    func getOps() -> [Operation] {
-        return [
-            fetchOp,
-            fetchParseAdapter,
-            parseOp,
-            parseWebpageAdapter,
-            webpageDataOp,
-            webpageMetadataAdapter,
-            metadataOp,
-            metadataDefaultFaviconDataAdapter,
-            defaultFaviconDataOp,
-            metadataWebpageFaviconDataAdapter,
-            webpageFaviconDataOp,
-            saveFaviconAdapter,
-            saveFaviconOp,
-            parseDownloadThumbnailsAdapter,
-            downloadThumbnailsOp,
-            saveFeedAdapter,
-            saveFeedOp,
-            completionOp
-        ].compactMap { $0 }
-    }
-
     init(
         feed: Feed,
         feedData: FeedData,
@@ -240,5 +217,28 @@ final class RefreshPlan {
         saveFaviconAdapter.addDependency(webpageFaviconDataOp)
         saveFaviconOp.addDependency(saveFaviconAdapter)
         saveFeedAdapter.addDependency(saveFaviconOp)
+    }
+
+    func getOps() -> [Operation] {
+        return [
+            fetchOp,
+            fetchParseAdapter,
+            parseOp,
+            parseWebpageAdapter,
+            webpageDataOp,
+            webpageMetadataAdapter,
+            metadataOp,
+            metadataDefaultFaviconDataAdapter,
+            defaultFaviconDataOp,
+            metadataWebpageFaviconDataAdapter,
+            webpageFaviconDataOp,
+            saveFaviconAdapter,
+            saveFaviconOp,
+            parseDownloadThumbnailsAdapter,
+            downloadThumbnailsOp,
+            saveFeedAdapter,
+            saveFeedOp,
+            completionOp
+        ].compactMap { $0 }
     }
 }
