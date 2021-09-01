@@ -11,39 +11,31 @@ import SwiftUI
 struct PageListRowView: View {
     @Environment(\.editMode) var editMode
 
-    @ObservedObject var page: Page
+    @ObservedObject var pageViewModel: PageViewModel
 
     var body: some View {
-        if page.id != nil {
+        if pageViewModel.page.id != nil {
             if editMode?.wrappedValue == .inactive {
                 NavigationLink(
-                    destination: PageView(viewModel: PageViewModel(page: page))
+                    destination: PageView(viewModel: pageViewModel)
                 ) {
-                    HStack {
-                        Label(page.displayName, systemImage: page.wrappedSymbol)
-                            .lineLimit(1)
-                            .foregroundColor(.primary)
-                            .padding(.vertical, 4)
+                    Label(
+                        title: { Text(pageViewModel.page.displayName).padding(.vertical, 4) },
+                        icon: {
+                            if pageViewModel.refreshing {
+                                ProgressView(value: pageViewModel.refreshFractionCompleted)
+                                    .progressViewStyle(CircularProgressViewStyle())
+                            } else {
+                                Image(systemName: pageViewModel.page.wrappedSymbol).foregroundColor(.primary)
+                            }
 
-                        Spacer()
-
-                        Text(String(page.unreadCount))
-                            .lineLimit(1)
-                            .font(.caption)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 8)
-                            .background(
-                                Capsule(style: .circular)
-                                    .foregroundColor(Color(.systemGroupedBackground))
-                            )
-                    }
+                        }
+                    )
                 }
             } else {
-                Text(page.wrappedName)
-                    .fontWeight(.medium)
+                Text(pageViewModel.page.displayName)
                     .lineLimit(1)
                     .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 4)
             }
         }

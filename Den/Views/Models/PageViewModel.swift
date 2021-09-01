@@ -8,16 +8,22 @@
 
 import SwiftUI
 
-final class PageViewModel: ObservableObject {
+final class PageViewModel: ObservableObject, Identifiable {
     @Published var page: Page
     @Published var refreshing: Bool = false
-    @Published var showingSettings: Bool = false
     @Published var refreshFractionCompleted: CGFloat = 0
+    @Published var progress = Progress(totalUnitCount: 0)
 
-    let progress = Progress(totalUnitCount: 0)
+    @Published var showingSettings: Bool = false
+    @Published var itemsPerFeedStepperValue: Int = 0
+    @Published var showingIconPicker: Bool = false
+    @Published var refreshAfterSave: Bool = false
 
-    init(page: Page) {
+    private var refreshManager: RefreshManager
+
+    init(page: Page, refreshManager: RefreshManager) {
         self.page = page
+        self.refreshManager = refreshManager
 
         progress
             .publisher(for: \.fractionCompleted)
@@ -26,5 +32,9 @@ final class PageViewModel: ObservableObject {
                 CGFloat(fractionCompleted)
             }
             .assign(to: &$refreshFractionCompleted)
+    }
+
+    func refresh() {
+        refreshManager.refresh(pageViewModel: self)
     }
 }

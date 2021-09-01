@@ -10,17 +10,35 @@ import CoreData
 
 final class PagesViewModel: ObservableObject {
     @Published var profile: Profile
+    @Published var pageViewModels: [PageViewModel]
 
     private var profileManager: ProfileManager
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
+    private var refreshManager: RefreshManager
 
-    init(profileManager: ProfileManager, viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+    init(
+        profileManager: ProfileManager,
+        viewContext: NSManagedObjectContext,
+        crashManager: CrashManager,
+        refreshManager: RefreshManager
+    ) {
         self.profileManager = profileManager
         self.viewContext = viewContext
         self.crashManager = crashManager
+        self.refreshManager = refreshManager
 
         self.profile = profileManager.activeProfile
+
+        self.pageViewModels = profileManager.activeProfile.pagesArray.map({ page in
+            PageViewModel(page: page, refreshManager: refreshManager)
+        })
+    }
+
+    func refreshAll() {
+        pageViewModels.forEach { pageViewModel in
+            pageViewModel.refresh()
+        }
     }
 
     func createPage() {

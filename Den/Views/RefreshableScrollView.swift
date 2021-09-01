@@ -71,11 +71,7 @@ struct RefreshableScrollView<Content: View>: View {
                 (scrollOffset > threshold && previousScrollOffset <= threshold)
             {
                 symbolRotation = .degrees(0)
-                refreshManager.refresh(
-                    page: viewModel.page,
-                    refreshing: $viewModel.refreshing,
-                    progress: viewModel.progress
-                )
+                refreshManager.refresh(pageViewModel: viewModel)
             }
 
             // Update last scroll offset

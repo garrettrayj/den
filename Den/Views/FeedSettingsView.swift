@@ -11,7 +11,6 @@ import SwiftUI
 struct FeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var profileManager: ProfileManager
 
