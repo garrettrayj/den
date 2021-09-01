@@ -23,7 +23,7 @@ final class SecurityCheckViewModel: ObservableObject {
         self.profileManager = profileManager
         self.crashManager = crashManager
 
-        self.queue.maxConcurrentOperationCount = 10
+        self.queue.maxConcurrentOperationCount = ProcessInfo.processInfo.processorCount
     }
 
     func reset() {

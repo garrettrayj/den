@@ -20,7 +20,21 @@ struct PageListRowView: View {
                     destination: PageView(viewModel: pageViewModel)
                 ) {
                     Label(
-                        title: { Text(pageViewModel.page.displayName).padding(.vertical, 4) },
+                        title: {
+                            HStack {
+                                Text(pageViewModel.page.displayName).padding(.vertical, 4)
+                                Spacer()
+                                Text(String(pageViewModel.page.unreadCount))
+                                    .lineLimit(1)
+                                    .font(.caption)
+                                    .padding(.vertical, 4)
+                                    .padding(.horizontal, 8)
+                                    .background(
+                                        Capsule(style: .circular)
+                                            .foregroundColor(Color(.systemGroupedBackground))
+                                    )
+                            }
+                        },
                         icon: {
                             if pageViewModel.refreshing {
                                 ProgressView(value: pageViewModel.refreshFractionCompleted)

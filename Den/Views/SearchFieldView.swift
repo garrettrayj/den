@@ -12,6 +12,7 @@ struct SearchFieldView: View {
     @Binding var query: String
 
     var onCommit: () -> Void
+    var onClear: () -> Void
 
     var body: some View {
         Group {
@@ -31,7 +32,7 @@ struct SearchFieldView: View {
                 )
 
                 if query != "" {
-                    Button { query = "" } label: {
+                    Button(action: onClear) {
                         Label("Clear", systemImage: "multiply.circle.fill")
                             .foregroundColor(Color.secondary)
                             .labelStyle(IconOnlyLabelStyle())

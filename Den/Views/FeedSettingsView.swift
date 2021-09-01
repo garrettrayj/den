@@ -63,8 +63,9 @@ struct FeedSettingsView: View {
                 guard
                     let pageIdString = $0,
                     let page = profileManager.activeProfile.pagesArray.first(where: { page in
-                    return page.id?.uuidString == pageIdString
-                }) else { return }
+                        return page.id?.uuidString == pageIdString
+                    })
+                else { return }
 
                 feed.userOrder = page.feedsUserOrderMax + 1
                 feed.page = page
@@ -168,6 +169,9 @@ struct FeedSettingsView: View {
         if self.viewContext.hasChanges {
             do {
                 try self.viewContext.save()
+                DispatchQueue.main.async {
+                    feed.page?.objectWillChange.send()
+                }
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
@@ -176,7 +180,6 @@ struct FeedSettingsView: View {
 
     private func delete() {
         viewContext.delete(self.feed)
-        feed.page?.objectWillChange.send()
         presentationMode.wrappedValue.dismiss()
     }
 

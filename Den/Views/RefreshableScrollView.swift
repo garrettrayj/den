@@ -37,11 +37,7 @@ struct RefreshableScrollView<Content: View>: View {
                             return 0.0
                         }
                     })
-                    RefreshStatusView(
-                        page: viewModel.page,
-                        loading: $viewModel.refreshing,
-                        symbolRotation: $symbolRotation
-                    )
+                    statusMessage
                 }
             }
             .background(FixedView())
@@ -51,9 +47,40 @@ struct RefreshableScrollView<Content: View>: View {
         }
     }
 
+    var statusMessage: some View {
+        VStack(spacing: 8) {
+            Spacer()
+            if viewModel.refreshing { // If loading, show the activity control
+                ActivityRep()
+                Text("Updating feeds…")
+            } else {
+                if symbolRotation > .degrees(0) {
+                    Spacer()
+                    Image(systemName: "arrow.down").rotationEffect(symbolRotation)
+                    lastRefreshedLabel()
+                }
+            }
+            Spacer()
+        }
+        .font(.callout)
+        .foregroundColor(Color.secondary)
+        .padding(.top)
+        .frame(height: threshold)
+        .fixedSize()
+        .offset(y: -threshold + (viewModel.refreshing ? threshold : 0.0))
+    }
+
     init(viewModel: PageViewModel, @ViewBuilder content: () -> Content) {
         self.viewModel = viewModel
         self.content = content()
+    }
+
+    private func lastRefreshedLabel() -> Text {
+        guard let lastRefreshed = viewModel.page.minimumRefreshedDate else {
+            return Text("First update")
+        }
+
+        return Text("Updated \(lastRefreshed, formatter: DateFormatter.mediumShort)")
     }
 
     private func refreshLogic(values: [RefreshableKeyTypes.PrefData]) {

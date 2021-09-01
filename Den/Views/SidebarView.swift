@@ -30,19 +30,27 @@ struct SidebarView: View {
         .animation(nil)
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Den")
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                HStack {
-                    if viewModel.profile.pagesArray.count > 0 {
-                        Button(action: viewModel.createPage) {
-                            Label("New Page", systemImage: "plus.square")
-                        }
-                        EditButton()
+        .toolbar { toolbar }
+    }
+
+    private var toolbar: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            HStack {
+                if viewModel.profile.pagesArray.count > 0 {
+                    if editMode?.wrappedValue == .inactive {
                         Button {
                             viewModel.refreshAll()
                         } label: {
                             Label("Refresh All", systemImage: "arrow.clockwise")
                         }
+                    }
+                    Button(action: viewModel.createPage) {
+                        Label("New Page", systemImage: "plus.square")
+                    }
+                    Button {
+                        editMode?.wrappedValue.toggle()
+                    } label: {
+                        Text(editMode?.wrappedValue == .active ? "Done" : "Edit")
                     }
                 }
             }

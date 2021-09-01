@@ -90,7 +90,7 @@ struct PageView: View {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
         } label: {
-            Label("Page Menu", systemImage: "ellipsis.circle")
+            Label("Page Menu", systemImage: "ellipsis")
                 .frame(height: 44)
                 .padding(.leading)
         }.disabled(viewModel.refreshing == true)

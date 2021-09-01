@@ -24,6 +24,7 @@ final class HistoryViewModel: ObservableObject {
 
     func reset() {
         query = ""
+        performHistorySearch()
     }
 
     func validateQuery() -> Bool {
