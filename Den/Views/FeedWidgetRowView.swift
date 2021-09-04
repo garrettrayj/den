@@ -33,7 +33,7 @@ struct FeedWidgetRowView: View {
             }
         }
         .buttonStyle(ItemLinkButtonStyle(read: item.read))
-        .frame(maxWidth: .infinity)
+        .frame(minWidth: 200, maxWidth: .infinity)
         .padding(12)
     }
 

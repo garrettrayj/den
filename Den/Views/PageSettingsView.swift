@@ -50,7 +50,9 @@ struct PageSettingsView: View {
                 }
             }
 
-            feedsSection
+            if viewModel.page.feedsArray.count > 0 {
+                feedsSection
+            }
         }
         .navigationTitle("Page Settings")
         .navigationBarTitleDisplayMode(.inline)
