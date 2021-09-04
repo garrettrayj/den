@@ -9,7 +9,6 @@ The dashboard layout for feeds is what sets Den apart from other syndication app
 Created with a minimalist design philosophy, Den is unobtrusive with some purposefully manual qualities. There are no notifications or badges to attract attention. Feed refresh is always triggered by the user so as little work as possible is done in the background. Finally, system appearance and accessibility preferences are respected so the app fits into your setup. The overall goal is a clean, crispy app that doesn't weigh down the system or the user.
 
 
-
 FEATURES
 
 + Made for iPhone, iPad, and Mac
