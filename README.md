@@ -4,9 +4,11 @@ Made for casual surfers and serious wire scanners alike, Den is a simple app for
 
 Catch up on what's happening without all the extras. Browse headlines without ad interuptions, social media distractions, or privacy intrusions. Create as many pages as you like, containing as many feeds as desired, for following anything you want. With Den you have complete control over what you follow.
 
-The dashboard layout for feeds is what sets Den apart from other syndication apps. It's not a feed reader per se, but a feed buffet. It showcases links organized by publisher so one may discover trends and compare sources by skimming through pages. The layout is also ideal for keeping an eye on latest from high volume feeds. The reading experience is powered by Safari or your default system browser depending on device. On phones and tablets, articles open in a Safari view, with an option to automatically enter reader mode. On computers, articles open in the default web browser. On large displays, split-screen with the browser is an especially comfortable window configuration.
+The dashboard layout for feeds is what sets Den apart from other syndication apps. It's not a feed reader per se, but a feed buffet. It showcases links organized by publisher so one may discover trends and compare sources by skimming through pages. The layout is also ideal for keeping an eye on high volume feeds. The reading experience is powered by Safari or your default system browser depending on device. On phones and tablets, articles open in a Safari view, with an option to automatically enter reader mode. On computers, articles open in the default web browser. On large displays, split-screen with the browser is an especially comfortable window configuration.
 
-Created with a minimalist design philosophy, Den is unobtrusive with some purposefully manual qualities. There are no notifications or badges to attract attention. Refreshing is always triggered by the user so as little as possible is done in the background. Finally, system appearance and accessibility preferences are respected. The overall goal is a clean, crispy app that doesn't weigh down the system or the user.
+Created with a minimalist design philosophy, Den is unobtrusive with some purposefully manual qualities. There are no notifications or badges to attract attention. Feed refresh is always triggered by the user so as little work as possible is done in the background. Finally, system appearance and accessibility preferences are respected so the app fits into your setup. The overall goal is a clean, crispy app that doesn't weigh down the system or the user.
+
+
 
 FEATURES
 
@@ -20,7 +22,7 @@ Subscriptions and history on all your devices without yet another account.
 Works with popular formats so the library of compatible feeds is limitless.
 
 + OPML Import and Export
-Bring in subscriptions from other syndication apps and services with ease. Backup or share subscriptions using the same widely used format.
+Bring in subscriptions from other apps and services with ease. Backup or share subscriptions using the same widely used format.
 
 + Article Search
 Quickly get the latest on a particular topic by searching the titles of all items for keywords.
