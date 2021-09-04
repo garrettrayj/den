@@ -81,11 +81,11 @@ struct SettingsView: View {
                     )
                 )
             ) {
-                Label("Import OPML", systemImage: "arrow.down.doc").padding(.vertical, 4)
+                Label("Import", systemImage: "arrow.down.doc").padding(.vertical, 4)
             }
 
             NavigationLink(destination: ExportView()) {
-                Label("Export OPML", systemImage: "arrow.up.doc").padding(.vertical, 4)
+                Label("Export", systemImage: "arrow.up.doc").padding(.vertical, 4)
             }
 
             NavigationLink(
@@ -169,14 +169,16 @@ struct SettingsView: View {
     private var aboutSection: some View {
         Section(header: Text("About")) {
             HStack(spacing: 16) {
-                Image(uiImage: UIImage(named: "AppIcon") ?? UIImage())
+                Image(uiImage: UIImage(named: "TitleIcon") ?? UIImage())
                     .resizable()
                     .scaledToFit()
                     .frame(width: 48, height: 48)
                     .cornerRadius(8)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Den").font(.headline)
-                    Text("Version \(Bundle.main.releaseVersionNumber!)").font(.caption)
+                    Text("v\(Bundle.main.releaseVersionNumber!)")
+                        .foregroundColor(.secondary)
+                        .font(.callout)
                 }
             }.padding(.vertical, 8)
 

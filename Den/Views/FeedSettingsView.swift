@@ -169,12 +169,13 @@ struct FeedSettingsView: View {
         if self.viewContext.hasChanges {
             do {
                 try self.viewContext.save()
-                DispatchQueue.main.async {
-                    feed.page?.objectWillChange.send()
-                }
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
+        }
+
+        DispatchQueue.main.async {
+            feed.page?.objectWillChange.send()
         }
     }
 

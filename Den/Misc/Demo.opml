@@ -7,19 +7,19 @@
 		<outline text="World News" title="World News">
 			<outline text="ABC News - International" title="ABC News - International" type="rss" xmlUrl="https://abcnews.go.com/abcnews/internationalheadlines" />
 			<outline text="The Christian Science Monitor - World" title="The Christian Science Monitor - World" type="rss" xmlUrl="https://rss.csmonitor.com/feeds/world" />
-			<outline text="Raw Story - World" title="Raw Story - World" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
-			<outline text="BuzzFeed News - World" title="BuzzFeed News - World" type="rss" xmlUrl="https://www.buzzfeed.com/world.xml" />
 			<outline text="The New York Times - World News" title="The New York Times - World News" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/World.xml" />
 			<outline text="The Guardian - World News" title="The Guardian - World News" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
 			<outline text="DER SPIEGEL - International" title="DER SPIEGEL - International" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
 			<outline text="Vox -  World" title="Vox -  World" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
+			<outline text="BuzzFeed News - World" title="BuzzFeed News - World" type="rss" xmlUrl="https://www.buzzfeed.com/world.xml" />
+			<outline text="Raw Story - World" title="Raw Story - World" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
 			<outline text="Foreign Policy" title="Foreign Policy" type="rss" xmlUrl="https://foreignpolicy.com/feed" />
 			<outline text="E-International Relations" title="E-International Relations" type="rss" xmlUrl="https://www.e-ir.info/feed/" />
 			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://www.un.org/apps/news/rss/rss_top.asp" />
 			<outline text="Sky News - World" title="Sky News - World" type="rss" xmlUrl="https://feeds.skynews.com/feeds/rss/world.xml" />
 			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
-			<outline text="NPR - World" title="NPR - World" type="rss" xmlUrl="https://feeds.npr.org/1004/rss.xml" />
 			<outline text="ChannelNewsAsia" title="ChannelNewsAsia" type="rss" xmlUrl="https://www.channelnewsasia.com/rssfeeds/8395884" />
+			<outline text="NPR - World" title="NPR - World" type="rss" xmlUrl="https://feeds.npr.org/1004/rss.xml" />
 			<outline text="TIME - World" title="TIME - World" type="rss" xmlUrl="https://feeds.feedburner.com/time/world" />
 			<outline text="Deutsche Welle - World" title="Deutsche Welle - World" type="rss" xmlUrl="https://rss.dw.com/rdf/rss-en-world" />
 			<outline text="The Diplomat" title="The Diplomat" type="rss" xmlUrl="https://thediplomat.com/feed/" />
@@ -53,7 +53,6 @@
 		<outline text="Technology" title="Technology">
 			<outline text="Ars Technica" title="Ars Technica" type="rss" xmlUrl="https://feeds.arstechnica.com/arstechnica/index" />
 			<outline text="The Verge" title="The Verge" type="rss" xmlUrl="https://www.theverge.com/rss/index.xml" />
-			<outline text="Digital Trends" title="Digital Trends" type="rss" xmlUrl="https://www.digitaltrends.com/feed/" />
 			<outline text="Engadget" title="Engadget" type="rss" xmlUrl="https://www.engadget.com/rss.xml" />
 			<outline text="BGR" title="BGR" type="rss" xmlUrl="https://bgr.com/tech/feed/" />
 			<outline text="Futurism" title="Futurism" type="rss" xmlUrl="https://futurism.com/feed" />
@@ -62,13 +61,13 @@
 			<outline text="InfoWorld" title="InfoWorld" type="rss" xmlUrl="https://www.infoworld.com/index.rss" />
 			<outline text="VentureBeat" title="VentureBeat" type="rss" xmlUrl="https://feeds.feedburner.com/venturebeat/SZYF" />
 			<outline text="Mashable" title="Mashable" type="rss" xmlUrl="https://mashable.com/feeds/rss/all" />
-			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
 			<outline text="9to5Mac" title="9to5Mac" type="rss" xmlUrl="https://9to5mac.com/feed/" />
 			<outline text="AppleInsider News" title="AppleInsider News" type="rss" xmlUrl="https://appleinsider.com/rss/news/" />
 			<outline text="Apple Newsroom" title="Apple Newsroom" type="rss" xmlUrl="https://www.apple.com/newsroom/rss-feed.rss" />
 			<outline text="Macworld" title="Macworld" type="rss" xmlUrl="https://www.macworld.com/index.rss" />
 			<outline text="Cult of Mac" title="Cult of Mac" type="rss" xmlUrl="https://www.cultofmac.com/feed/" />
 			<outline text="Computerworld" title="Computerworld" type="rss" xmlUrl="https://www.computerworld.com/index.rss" />
+			<outline text="Digital Trends" title="Digital Trends" type="rss" xmlUrl="https://www.digitaltrends.com/feed/" />
 			<outline text="TechCrunch" title="TechCrunch" type="rss" xmlUrl="https://feeds.feedburner.com/TechCrunch/" />
 			<outline text="TESLARATI" title="TESLARATI" type="rss" xmlUrl="https://www.teslarati.com/feed/" />
 			<outline text="MIT Technology Review" title="MIT Technology Review" type="rss" xmlUrl="https://www.technologyreview.com/topnews.rss" />
@@ -81,13 +80,14 @@
 			<outline text="Yahoo Finance" title="Yahoo Finance" type="rss" xmlUrl="https://finance.yahoo.com/rss/topstories" />
 			<outline text="New York Times - Business" title="New York Times - Business" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
 			<outline text="Financial Post" title="Financial Post" type="rss" xmlUrl="https://financialpost.com/category/news/feed.xml" />
+			<outline text="Economic Times - Markets" title="Economic Times - Markets" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
+			<outline text="The Financial Express - Markets" title="The Financial Express - Markets" type="rss" xmlUrl="https://www.financialexpress.com/market/feed/" />
 			<outline text="Protocol" title="Protocol" type="rss" xmlUrl="https://www.protocol.com/feeds/bulletins.rss" />
 			<outline text="Wired - Business" title="Wired - Business" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
 			<outline text="Fast Company" title="Fast Company" type="rss" xmlUrl="https://www.fastcompany.com/latest/rss" />
 			<outline text="Crunchbase News" title="Crunchbase News" type="rss" xmlUrl="https://news.crunchbase.com/feed/" />
 			<outline text="VentureBeat" title="VentureBeat" type="rss" xmlUrl="https://feeds.feedburner.com/venturebeat/SZYF" />
-			<outline text="The Financial Express" title="The Financial Express" type="rss" xmlUrl="https://www.financialexpress.com/feed/" />
-			<outline text="Economic Times - Markets" title="Economic Times - Markets" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
+			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
 			<outline text="3D Printing Media Network" title="3D Printing Media Network" type="rss" xmlUrl="https://www.3dprintingmedia.network/feed/" />
 			<outline text="Forbes - Money" title="Forbes - Money" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
 			<outline text="Adweek" title="Adweek" type="rss" xmlUrl="https://www.adweek.com/rss" />
@@ -148,16 +148,16 @@
 			<outline text="The Beaverton" title="The Beaverton" type="rss" xmlUrl="https://www.thebeaverton.com/feed/" />
 			<outline text="xkcd.com" title="xkcd.com" type="rss" xmlUrl="https://xkcd.com/rss.xml" />
 			<outline text="they can talk" title="they can talk" type="rss" xmlUrl="https://theycantalk.com/rss" />
-			<outline text="Girls With Slingshots" title="Girls With Slingshots" type="rss" xmlUrl="https://girlswithslingshots.com/rss.php" />
+			<outline text="Saturday Morning Breakfast Cereal" title="Saturday Morning Breakfast Cereal" type="rss" xmlUrl="https://www.smbc-comics.com/comic/rss" />
+			<outline text="Diesel Sweeties" title="Diesel Sweeties" type="rss" xmlUrl="https://www.dieselsweeties.com/ds-unifeed.xml" />
+			<outline text="Cat and Girl" title="Cat and Girl" type="rss" xmlUrl="https://catandgirl.com/feed/" />
+			<outline text="Poorly Drawn Lines" title="Poorly Drawn Lines" type="rss" xmlUrl="https://feeds.feedburner.com/PoorlyDrawnLines" />
 			<outline text="War and Peas" title="War and Peas" type="rss" xmlUrl="https://warandpeas.com/feed/" />
 			<outline text="Loading Artist" title="Loading Artist" type="rss" xmlUrl="https://loadingartist.com/index.xml" />
 			<outline text="cartoonconnie comics blog" title="cartoonconnie comics blog" type="rss" xmlUrl="https://www.conniewonnie.com/feeds/posts/default" />
-			<outline text="Saturday Morning Breakfast Cereal" title="Saturday Morning Breakfast Cereal" type="rss" xmlUrl="https://www.smbc-comics.com/comic/rss" />
-			<outline text="Diesel Sweeties" title="Diesel Sweeties" type="rss" xmlUrl="https://www.dieselsweeties.com/ds-unifeed.xml" />
-			<outline text="Poorly Drawn Lines" title="Poorly Drawn Lines" type="rss" xmlUrl="https://feeds.feedburner.com/PoorlyDrawnLines" />
-			<outline text="Awkward Zombie" title="Awkward Zombie" type="rss" xmlUrl="https://www.awkwardzombie.com/awkward-zombie/rss" />
+			<outline text="Girls With Slingshots" title="Girls With Slingshots" type="rss" xmlUrl="https://girlswithslingshots.com/rss.php" />
 			<outline text="Something Positive" title="Something Positive" type="rss" xmlUrl="https://somethingpositive.net/feed/" />
-			<outline text="Cat and Girl" title="Cat and Girl" type="rss" xmlUrl="https://catandgirl.com/feed/" />
+			<outline text="Awkward Zombie" title="Awkward Zombie" type="rss" xmlUrl="https://www.awkwardzombie.com/awkward-zombie/rss" />
 			<outline text="Dinosaur Comics!" title="Dinosaur Comics!" type="rss" xmlUrl="https://www.qwantz.com/rssfeed.php" />
 			<outline text="MonkeyUser" title="MonkeyUser" type="rss" xmlUrl="https://www.monkeyuser.com/feed.xml" />
 		</outline>

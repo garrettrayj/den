@@ -1,23 +1,47 @@
 # Den for RSS
 
-Den is a start-page app for creating dashboards with feeds from your favorite websites.
+Made for casual surfers and serious wire scanners alike, Den is a simple app for creating dashboards with feeds from your favorite websites.
 
-It's designed to be a simple way to catch up on what's happening without all the extras. It's about browsing the latest headlines without being interupted by ads or distracted by the latest social media hooks. It enables one to create as many pages as they like, containing as many feeds as desired, for following anything they want.
+Catch up on what's happening without all the extras. Browse headlines without ad interuptions, social media distractions, or privacy intrusions. Create as many pages as you like, containing as many feeds as desired, for following anything you want. With Den you have complete control over what you follow.
 
-Features
+The dashboard layout for feeds is what sets Den apart from other syndication apps. It's not a feed reader per se, but a feed buffet. It showcases links organized by publisher so one may discover trends and compare sources by skimming through pages. The layout is also ideal for keeping an eye on latest from high volume feeds. The reading experience is powered by Safari or your default system browser depending on device. On phones and tablets, articles open in a Safari view, with an option to automatically enter reader mode. On computers, articles open in the default web browser. On large displays, split-screen with the browser is an especially comfortable window configuration.
 
-- Compatible with iPhone, iPad, and Mac
-- No extra website account or registration required
-- Subscriptions and history synchronizes across devices with iCloud
-- Compatible with RSS, Atom, and JSON feed formats
-- Global search for filtering current items by keyword
-- OPML import and export for sharing subscriptions
-- Light and dark theme options
-- History view with search for finding previously visited links
-- Native app engineered for speed and efficiency
+Created with a minimalist design philosophy, Den is unobtrusive with some purposefully manual qualities. There are no notifications or badges to attract attention. Refreshing is always triggered by the user so as little as possible is done in the background. Finally, system appearance and accessibility preferences are respected. The overall goal is a clean, crispy app that doesn't weigh down the system or the user.
+
+FEATURES
+
++ Made for iPhone, iPad, and Mac
+Developed from the start for phones, tablets, laptops, and desktops; The interface adapts to look great on screens of all sizes.
+
++ iCloud Sync
+Subscriptions and history on all your devices without yet another account. 
+
++ RSS, Atom, and JSON Feed
+Works with popular formats so the library of compatible feeds is limitless.
+
++ OPML Import and Export
+Bring in subscriptions from other syndication apps and services with ease. Backup or share subscriptions using the same widely used format.
+
++ Article Search
+Quickly get the latest on a particular topic by searching the titles of all items for keywords.
+
++ History View
+Remember previous reads by searching through your history of purple links.
+
++ Security Check
+See which feeds use insecure URLs and check for secure, HTTPS addresses to use instead.
 
 
 ## Release Notes
+
+### Den v1.6
+
+Version 1.6 includes a new Security Check feature and brings back refreshing all pages at once.
+
+- Security Check shows feeds using insecure URLs and provides an easy way to check for HTTPS alternatives.
+- The main page list now has it's own refresh button to refresh all feeds. 
+- Other improvements to feed refresh responsiveness and progress display.
+- General interface and performance improvements.
 
 ### Den v1.5
 

@@ -22,7 +22,7 @@ struct PageListRowView: View {
                     Label(
                         title: {
                             HStack {
-                                Text(pageViewModel.page.displayName).padding(.vertical, 4)
+                                Text(pageViewModel.page.displayName).lineLimit(1).padding(.vertical, 4)
                                 Spacer()
                                 Text(String(pageViewModel.page.unreadCount))
                                     .lineLimit(1)

@@ -36,7 +36,7 @@ struct SecurityCheckView: View {
         Section(header: Text("Summary")) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("No Issues Here").fontWeight(.medium)
+                    Text("No Issues").fontWeight(.medium)
                     Text("All subscriptions have secure URLs").foregroundColor(.secondary)
                 }
             }, icon: {
