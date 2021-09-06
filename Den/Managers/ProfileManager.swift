@@ -71,7 +71,7 @@ final class ProfileManager: ObservableObject {
         return defaultProfile
     }
 
-    public func resetProfiles() {
+    func resetProfiles() {
         activeProfile = createDefault()
 
         do {

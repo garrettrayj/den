@@ -38,11 +38,17 @@ public class Feed: NSManagedObject {
         set {title = newValue}
     }
 
-    static func create(in managedObjectContext: NSManagedObjectContext, page: Page, prepend: Bool = false) -> Feed {
+    static func create(
+        in managedObjectContext: NSManagedObjectContext,
+        page: Page,
+        url: URL,
+        prepend: Bool = false
+    ) -> Feed {
         let feed = self.init(context: managedObjectContext)
         feed.id = UUID()
-        feed.showThumbnails = true
         feed.page = page
+        feed.url = url
+        feed.showThumbnails = true
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1

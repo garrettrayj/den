@@ -20,7 +20,7 @@ final class RefreshManager: ObservableObject {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
 
-        self.queue.maxConcurrentOperationCount = ProcessInfo.processInfo.processorCount
+        self.queue.maxConcurrentOperationCount = 10
     }
 
     public func refresh(pageViewModel: PageViewModel) {
@@ -43,9 +43,8 @@ final class RefreshManager: ObservableObject {
     }
 
     public func refresh(feed: Feed, callback: ((Feed) -> Void)? = nil) {
-        let operations = self.createFeedOps(feed)
-
         DispatchQueue.global(qos: .userInitiated).async {
+            let operations = self.createFeedOps(feed)
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
                 self.refreshComplete(page: feed.page)

@@ -52,7 +52,7 @@ struct RefreshableScrollView<Content: View>: View {
             Spacer()
             if viewModel.refreshing { // If loading, show the activity control
                 ActivityRep()
-                Text("Updating feeds…")
+                Text("Refreshing feeds…")
             } else {
                 if symbolRotation > .degrees(0) {
                     Spacer()
@@ -77,10 +77,10 @@ struct RefreshableScrollView<Content: View>: View {
 
     private func lastRefreshedLabel() -> Text {
         guard let lastRefreshed = viewModel.page.minimumRefreshedDate else {
-            return Text("First update")
+            return Text("First refresh")
         }
 
-        return Text("Updated \(lastRefreshed, formatter: DateFormatter.mediumShort)")
+        return Text("Refreshed \(lastRefreshed, formatter: DateFormatter.mediumShort)")
     }
 
     private func refreshLogic(values: [RefreshableKeyTypes.PrefData]) {

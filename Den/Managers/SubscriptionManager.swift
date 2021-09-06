@@ -10,39 +10,9 @@ import CoreData
 import SwiftUI
 
 final class SubscriptionManager: ObservableObject {
-    @Published var destinationPage: Page?
+    @Published var currentPageId: UUID?
     @Published var showingAddSubscription: Bool = false
-    @Published var subscribeURLString: String = ""
-
-    private var viewContext: NSManagedObjectContext
-    private var profileManager: ProfileManager
-    private var refreshManager: RefreshManager
-    private var crashManager: CrashManager
-
-    let symbolMap = [
-        "World News": "globe",
-        "US News": "newspaper",
-        "Technology": "cpu",
-        "Business": "briefcase",
-        "Science": "atom",
-        "Space": "sparkles",
-        "Funnies": "face.smiling",
-        "Curiosity": "person.and.arrow.left.and.arrow.right",
-        "Gaming": "gamecontroller",
-        "Entertainment": "film"
-    ]
-
-    init(
-        viewContext: NSManagedObjectContext,
-        profileManager: ProfileManager,
-        refreshManager: RefreshManager,
-        crashManager: CrashManager
-    ) {
-        self.viewContext = viewContext
-        self.profileManager = profileManager
-        self.refreshManager = refreshManager
-        self.crashManager = crashManager
-    }
+    @Published var openedUrlString: String = ""
 
     func showAddSubscription(to url: URL? = nil) {
         if
@@ -54,7 +24,7 @@ final class SubscriptionManager: ObservableObject {
             }
 
             if let urlString = urlComponents.string {
-                subscribeURLString = urlString
+                openedUrlString = urlString
             }
         }
 
@@ -63,46 +33,6 @@ final class SubscriptionManager: ObservableObject {
 
     func reset() {
         showingAddSubscription = false
-        subscribeURLString = ""
-    }
-
-    func createFeed(url: URL) -> Feed? {
-        guard let destinationPage = destinationPage else { return nil }
-
-        let feed = Feed.create(in: self.viewContext, page: destinationPage, prepend: true)
-        feed.url = url
-
-        return feed
-    }
-
-    func loadDemo() {
-        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
-            preconditionFailure("Missing demo feeds source file")
-        }
-
-        guard let profile = profileManager.activeProfile else { return }
-
-        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
-
-        var newPages: [Page] = []
-        opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, profile: profile)
-            page.name = opmlFolder.name
-            page.symbol = symbolMap[opmlFolder.name]
-            newPages.append(page)
-
-            opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page)
-                feed.title = opmlFeed.title
-                feed.url = opmlFeed.url
-            }
-        }
-
-        do {
-            try viewContext.save()
-            profileManager.objectWillChange.send()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
-        }
+        openedUrlString = ""
     }
 }

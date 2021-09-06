@@ -35,9 +35,9 @@ public class Page: NSManagedObject {
                 return result + feedData.itemsArray
                     .prefix(wrappedItemsPerFeed)
                     .filter { item in item.read == false }.count
-            } else {
-                return 0
             }
+
+            return result + 0
         }
     }
 

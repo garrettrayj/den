@@ -57,7 +57,7 @@ struct PageView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { pageToolbar }
         .onAppear {
-            subscriptionManager.destinationPage = viewModel.page
+            subscriptionManager.currentPageId = viewModel.page.id
         }
         .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
@@ -93,7 +93,7 @@ struct PageView: View {
             Label("Page Menu", systemImage: "ellipsis")
                 .frame(height: 44)
                 .padding(.leading)
-        }.disabled(viewModel.refreshing == true)
+        }
     }
 
     private var fullPageToolbar: some View {
@@ -112,7 +112,6 @@ struct PageView: View {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
         }
-        .disabled(viewModel.refreshing == true)
     }
 
     private var pageEmpty: some View {

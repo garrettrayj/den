@@ -84,9 +84,8 @@ final class ImportViewModel: ObservableObject {
             pagesImported.append(page)
 
             opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page)
+                let feed = Feed.create(in: self.viewContext, page: page, url: opmlFeed.url)
                 feed.title = opmlFeed.title
-                feed.url = opmlFeed.url
                 feedsImported.append(feed)
             }
         }

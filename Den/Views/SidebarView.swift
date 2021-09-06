@@ -14,13 +14,12 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.editMode) var editMode
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
 
     @ObservedObject var viewModel: PagesViewModel
 
     var body: some View {
         List {
-            if viewModel.profile.pagesArray.count > 0 {
+            if viewModel.pageViewModels.count > 0 {
                 pageListSection
             } else {
                 getStartedSection
@@ -35,8 +34,8 @@ struct SidebarView: View {
 
     private var toolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            HStack {
-                if viewModel.profile.pagesArray.count > 0 {
+            if viewModel.pageViewModels.count > 0 {
+                HStack {
                     if editMode?.wrappedValue == .inactive {
                         Button {
                             viewModel.refreshAll()
@@ -75,7 +74,7 @@ struct SidebarView: View {
             Button(action: viewModel.createPage) {
                 Label("New Page", systemImage: "plus.square").padding(.vertical, 4)
             }
-            Button(action: subscriptionManager.loadDemo) {
+            Button(action: viewModel.loadDemo) {
                 Label("Load Demo", systemImage: "wand.and.stars").padding(.vertical, 4)
             }
         }
