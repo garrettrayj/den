@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscriptionManager: SubscriptionManager
     @EnvironmentObject var crashManager: CrashManager
@@ -42,12 +43,13 @@ struct ContentView: View {
             }
             .modifier(MacButtonStyleModifier())
             .sheet(isPresented: $subscriptionManager.showingAddSubscription) {
-                SubscribeView()
-                    .environment(\.managedObjectContext, viewContext)
-                    .environment(\.colorScheme, colorScheme)
-                    .environmentObject(subscriptionManager)
-                    .environmentObject(refreshManager)
-                    .environmentObject(crashManager)
+                SubscribeView(viewModel: SubscribeViewModel(
+                    viewContext: viewContext,
+                    subscriptionManager: subscriptionManager,
+                    refreshManager: refreshManager,
+                    profileManager: profileManager
+                ))
+                .environment(\.colorScheme, colorScheme)
             }
         }
     }

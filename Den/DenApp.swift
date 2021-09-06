@@ -81,12 +81,7 @@ struct DenApp: App {
             persistentContainer: persistenceManager.container,
             crashManager: crashManager
         )
-        let subscriptionManager = SubscriptionManager(
-            viewContext: persistenceManager.container.viewContext,
-            profileManager: profileManager,
-            refreshManager: refreshManager,
-            crashManager: crashManager
-        )
+        let subscriptionManager = SubscriptionManager()
         let themeManager = ThemeManager()
         let browserManager = LinkManager(
             viewContext: persistenceManager.container.viewContext,
