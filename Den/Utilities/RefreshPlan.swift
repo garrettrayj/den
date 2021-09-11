@@ -8,6 +8,7 @@
 
 import CoreData
 
+// swiftlint:disable type_body_length
 final class RefreshPlan {
     public var fullUpdate: Bool = false
 
@@ -65,9 +66,14 @@ final class RefreshPlan {
             return item.link!
         })
 
-        addStandardProcessingOps(feedUrl: feedUrl, itemLimit: itemLimit, existingItemLinks: existingItemLinks)
-        addStandardAdapters()
-        wireStandardDependencies()
+        addStandardProcessingOps(
+            feedUrl: feedUrl,
+            itemLimit: itemLimit,
+            existingItemLinks: existingItemLinks,
+            downloadImages: feed.showThumbnails
+        )
+        addStandardAdapters(downloadImages: feed.showThumbnails)
+        wireStandardDependencies(downloadImages: feed.showThumbnails)
 
         if fullUpdate == true {
             addMetaProcessingOps()
@@ -76,7 +82,12 @@ final class RefreshPlan {
         }
     }
 
-    private func addStandardProcessingOps(feedUrl: URL, itemLimit: Int, existingItemLinks: [URL]) {
+    private func addStandardProcessingOps(
+        feedUrl: URL,
+        itemLimit: Int,
+        existingItemLinks: [URL],
+        downloadImages: Bool
+    ) {
         fetchOp = DataTaskOperation(feedUrl)
         parseOp = ParseFeedDataOperation(
             feedUrl: feedUrl,
@@ -84,7 +95,9 @@ final class RefreshPlan {
             existingItemLinks: existingItemLinks,
             feedId: feed.id!
         )
-        downloadThumbnailsOp = DownloadThumbnailsOperation()
+
+        if downloadImages { downloadThumbnailsOp = DownloadThumbnailsOperation() }
+
         saveFeedOp = SaveFeedOperation(
             persistentContainer: persistentContainer,
             crashManager: crashManager,
@@ -106,27 +119,40 @@ final class RefreshPlan {
         saveFaviconOp = SaveFaviconOperation()
     }
 
-    private func addStandardAdapters() {
+    private func addStandardAdapters(downloadImages: Bool) {
         fetchParseAdapter = BlockOperation { [unowned fetchOp, unowned parseOp] in
             parseOp?.httpResponse = fetchOp?.response
             parseOp?.httpTransportError = fetchOp?.error
             parseOp?.data = fetchOp?.data
         }
 
-        parseDownloadThumbnailsAdapter = BlockOperation { [unowned parseOp, unowned downloadThumbnailsOp] in
-            downloadThumbnailsOp?.inputWorkingItems = parseOp?.workingItems ?? []
-        }
+        if downloadImages {
+            parseDownloadThumbnailsAdapter = BlockOperation { [unowned parseOp, unowned downloadThumbnailsOp] in
+                downloadThumbnailsOp?.inputWorkingItems = parseOp?.workingItems ?? []
+            }
 
-        // swiftlint:disable closure_parameter_position
-        saveFeedAdapter =
-            BlockOperation {[
-                unowned saveFeedOp,
-                unowned downloadThumbnailsOp,
-                unowned parseOp,
-                unowned saveFaviconOp
-            ] in
-                saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
-                saveFeedOp?.workingFeedItems = downloadThumbnailsOp?.outputWorkingItems ?? []
+            // swiftlint:disable closure_parameter_position
+            saveFeedAdapter =
+                BlockOperation {[
+                    unowned saveFeedOp,
+                    unowned downloadThumbnailsOp,
+                    unowned parseOp,
+                    unowned saveFaviconOp
+                ] in
+                    saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
+                    saveFeedOp?.workingFeedItems = downloadThumbnailsOp?.outputWorkingItems ?? []
+                }
+        } else {
+            // swiftlint:disable closure_parameter_position
+            saveFeedAdapter =
+                BlockOperation {[
+                    unowned saveFeedOp,
+                    unowned parseOp,
+                    unowned saveFaviconOp
+                ] in
+                    saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
+                    saveFeedOp?.workingFeedItems = parseOp?.workingItems ?? []
+                }
         }
     }
 
@@ -163,13 +189,11 @@ final class RefreshPlan {
             }
     }
 
-    private func wireStandardDependencies() {
+    private func wireStandardDependencies(downloadImages: Bool) {
         guard
             let fetchOp = fetchOp,
             let fetchParseAdapter = fetchParseAdapter,
             let parseOp = parseOp,
-            let parseDownloadThumbnailsAdapter = parseDownloadThumbnailsAdapter,
-            let downloadThumbnailsOp = downloadThumbnailsOp,
             let saveFeedAdapter = saveFeedAdapter,
             let saveFeedOp = saveFeedOp,
             let completionOp = completionOp
@@ -177,12 +201,26 @@ final class RefreshPlan {
             preconditionFailure("Cannot wire standard dependencies due to operations not being configured.")
         }
 
-        // Standard
+        // Initial common dependencies
         fetchParseAdapter.addDependency(fetchOp)
         parseOp.addDependency(fetchParseAdapter)
-        parseDownloadThumbnailsAdapter.addDependency(parseOp)
-        downloadThumbnailsOp.addDependency(parseDownloadThumbnailsAdapter)
-        saveFeedAdapter.addDependency(downloadThumbnailsOp)
+
+        // Conditional dependencies
+        if downloadImages {
+            guard
+                let parseDownloadThumbnailsAdapter = parseDownloadThumbnailsAdapter,
+                let downloadThumbnailsOp = downloadThumbnailsOp
+            else {
+                preconditionFailure("Cannot wire image download dependencies, missing download operation.")
+            }
+            parseDownloadThumbnailsAdapter.addDependency(parseOp)
+            downloadThumbnailsOp.addDependency(parseDownloadThumbnailsAdapter)
+            saveFeedAdapter.addDependency(downloadThumbnailsOp)
+        } else {
+            saveFeedAdapter.addDependency(parseOp)
+        }
+
+        // Final common dependencies
         saveFeedOp.addDependency(saveFeedAdapter)
         completionOp.addDependency(saveFeedOp)
     }

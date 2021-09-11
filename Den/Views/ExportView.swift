@@ -21,7 +21,7 @@ struct ExportView: View {
                 Form {
                     pageList
 
-                    VStack(alignment: .center) {
+                    Section {
                         Button(action: exportOpml) {
                             Label("Export Subscriptions", systemImage: "arrow.up.doc")
                         }.buttonStyle(AccentButtonStyle()).disabled(selectedPages.count == 0)
@@ -60,7 +60,6 @@ struct ExportView: View {
                             }
                         }
                     )
-
                 }.onAppear { self.selectedPages.append(page) }
             }
         }

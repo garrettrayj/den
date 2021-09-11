@@ -39,8 +39,7 @@ struct FeedWidgetRowView: View {
 
     private var thumbnailImage: some View {
         item.thumbnailImage?
-            .scaleEffect(1 / UIScreen.main.scale)
-            .frame(width: 96, height: 64, alignment: .center)
+            .thumbnail()
             .background(Color(UIColor.tertiarySystemGroupedBackground))
                 .cornerRadius(4)
             .overlay(

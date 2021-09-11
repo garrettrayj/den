@@ -20,23 +20,11 @@ class PhoneScreenshots: ScreenshotTestCase {
 
         takeScreenshot(named: "1-GetStarted")
 
-        loadDemoFeeds()
-
-        // Wait for pages to appear
-        let pageButtonPredicate = NSPredicate(format: "label CONTAINS 'World News'")
-        let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        loadDemo()
 
         takeScreenshot(named: "2-PageList")
 
         goToPage("Technology")
-        refreshPage("Technology")
-
-        goToLink(8)
-        goToLink(6)
-        goToLink(3)
-        goToLink(1)
 
         let predicate = NSPredicate(format: "label CONTAINS 'Ars Technica'")
         let feedHeader = app.staticTexts.containing(predicate).firstMatch
@@ -44,6 +32,11 @@ class PhoneScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "3-PageView")
+
+        goToLink(8)
+        goToLink(6)
+        goToLink(3)
+        goToLink(1)
 
         let pageMenuButton = app.navigationBars["Technology"].buttons["Page Menu"]
         expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
@@ -81,7 +74,7 @@ class PhoneScreenshots: ScreenshotTestCase {
 
         app.tabBars["Tab Bar"].buttons["Search"].tap()
 
-        let searchTextField = app.textFields["Search…"]
+        let searchTextField = app.textFields["Search"]
         searchTextField.tap()
         searchTextField.typeText("Apple")
         searchTextField.typeText("\n")
@@ -109,12 +102,20 @@ class PhoneScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "8-Settings")
     }
 
-    private func loadDemoFeeds() {
+    private func loadDemo() {
         // Load demo pages
-        let loadDemoButton = app.tables.buttons["Load Demo Feeds"]
+        let loadDemoButton = app.tables.buttons["Load Demo"]
         expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
         loadDemoButton.tap()
+
+        app.navigationBars["Den"].buttons["Refresh All"].tap()
+
+        let lastPageUnreadCount = app.tables.cells["Entertainment, 76"]
+        expectation(for: existsPredicate, evaluatedWith: lastPageUnreadCount, handler: nil)
+        waitForExpectations(timeout: 120, handler: nil)
+
+        sleep(10)
     }
 
     private func goToPage(_ pageName: String) {
@@ -123,26 +124,6 @@ class PhoneScreenshots: ScreenshotTestCase {
         expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageButton.tap()
-    }
-
-    private func refreshPage(_ pageName: String) {
-        let pageMenuButton = app.navigationBars[pageName].buttons["Page Menu"]
-        expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageMenuButton.tap()
-
-        let refreshButton = app.collectionViews.buttons["Refresh"]
-        expectation(for: existsPredicate, evaluatedWith: refreshButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        refreshButton.tap()
-
-        let refreshLabel = app.staticTexts["Refresh to Fetch Content"]
-        expectation(for: notExistsPredicate, evaluatedWith: refreshLabel, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
-
-        let emptyLabel = app.staticTexts["Feed Empty"]
-        expectation(for: notExistsPredicate, evaluatedWith: emptyLabel, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
     }
 
     private func goToLink(_ elementIndex: Int) {
@@ -156,7 +137,7 @@ class PhoneScreenshots: ScreenshotTestCase {
 
         let doneButton = app.buttons["Done"]
         expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         doneButton.tap()
     }
 }

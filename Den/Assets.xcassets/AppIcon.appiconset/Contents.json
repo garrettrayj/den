@@ -151,13 +151,13 @@
       "size" : "256x256"
     },
     {
-      "filename" : "Mac 512pt@1x.png",
+      "filename" : "Mac 256pt@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "Mac 512pt@1x-1.png",
+      "filename" : "Mac 512pt@1x.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"

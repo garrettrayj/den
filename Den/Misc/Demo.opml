@@ -10,12 +10,12 @@
 			<outline text="The New York Times - World News" title="The New York Times - World News" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/World.xml" />
 			<outline text="The Guardian - World News" title="The Guardian - World News" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
 			<outline text="DER SPIEGEL - International" title="DER SPIEGEL - International" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
-			<outline text="Vox -  World" title="Vox -  World" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
-			<outline text="BuzzFeed News - World" title="BuzzFeed News - World" type="rss" xmlUrl="https://www.buzzfeed.com/world.xml" />
-			<outline text="Raw Story - World" title="Raw Story - World" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
 			<outline text="Foreign Policy" title="Foreign Policy" type="rss" xmlUrl="https://foreignpolicy.com/feed" />
 			<outline text="E-International Relations" title="E-International Relations" type="rss" xmlUrl="https://www.e-ir.info/feed/" />
 			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://www.un.org/apps/news/rss/rss_top.asp" />
+			<outline text="Vox -  World" title="Vox -  World" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
+			<outline text="Raw Story - World" title="Raw Story - World" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
+			<outline text="BuzzFeed News - World" title="BuzzFeed News - World" type="rss" xmlUrl="https://www.buzzfeed.com/world.xml" />
 			<outline text="Sky News - World" title="Sky News - World" type="rss" xmlUrl="https://feeds.skynews.com/feeds/rss/world.xml" />
 			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
 			<outline text="ChannelNewsAsia" title="ChannelNewsAsia" type="rss" xmlUrl="https://www.channelnewsasia.com/rssfeeds/8395884" />

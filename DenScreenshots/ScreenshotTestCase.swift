@@ -58,7 +58,6 @@ class ScreenshotTestCase: XCTestCase {
             XCUIDevice.shared.orientation = .landscapeRight
         }
         #endif
-
     }
 
     override func tearDownWithError() throws {

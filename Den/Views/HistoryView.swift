@@ -44,9 +44,6 @@ struct HistoryView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
-            .onAppear {
-                viewModel.performHistorySearch()
-            }
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -58,13 +55,15 @@ struct HistoryView: View {
             ForEach(viewModel.results, id: \.self) { resultGroup in
                 if resultGroup.first?.visited != nil {
                     Section(
-                        header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.mediumNone)")
+                        header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.longNone)")
                     ) {
                         ForEach(resultGroup) { result in
                             if result.title != nil && result.link != nil {
                                 Button { linkManager.openLink(url: result.link!) } label: {
                                     VStack(alignment: .leading, spacing: 4) {
-                                        Text(result.title!).font(.title3)
+                                        Text(result.title!)
+                                            .font(.title3)
+                                            .foregroundColor(Color(UIColor.systemPurple))
                                         Text(result.link!.absoluteString)
                                             .font(.caption)
                                             .foregroundColor(Color.secondary)
