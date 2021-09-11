@@ -20,7 +20,12 @@ final class DownloadThumbnailsOperation: Operation {
         var saveOps: [SaveThumbnailOperation] = []
 
         for item in inputWorkingItems {
-            let dataOp = DataTaskOperation(item.image)
+            guard let url = item.image else {
+                outputWorkingItems.append(item)
+                continue
+            }
+
+            let dataOp = DataTaskOperation(url)
             let saveOp = SaveThumbnailOperation()
             saveOps.append(saveOp)
 

@@ -36,20 +36,20 @@ struct SidebarView: View {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
             if viewModel.pageViewModels.count > 0 {
                 HStack {
+                    Button(action: viewModel.createPage) {
+                        Label("New Page", systemImage: "plus")
+                    }
+                    Button {
+                        editMode?.wrappedValue.toggle()
+                    } label: {
+                        Text(editMode?.wrappedValue == .active ? "Done" : "Edit")
+                    }
                     if editMode?.wrappedValue == .inactive {
                         Button {
                             viewModel.refreshAll()
                         } label: {
                             Label("Refresh All", systemImage: "arrow.clockwise")
                         }
-                    }
-                    Button(action: viewModel.createPage) {
-                        Label("New Page", systemImage: "plus.square")
-                    }
-                    Button {
-                        editMode?.wrappedValue.toggle()
-                    } label: {
-                        Text(editMode?.wrappedValue == .active ? "Done" : "Edit")
                     }
                 }
             }
@@ -72,7 +72,7 @@ struct SidebarView: View {
             footer: Text("or import subscriptions in \(Image(systemName: "gear")) Settings")
         ) {
             Button(action: viewModel.createPage) {
-                Label("New Page", systemImage: "plus.square").padding(.vertical, 4)
+                Label("New Page", systemImage: "plus").padding(.vertical, 4)
             }
             Button(action: viewModel.loadDemo) {
                 Label("Load Demo", systemImage: "wand.and.stars").padding(.vertical, 4)

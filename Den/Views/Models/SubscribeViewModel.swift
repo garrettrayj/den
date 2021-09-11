@@ -6,6 +6,7 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 final class SubscribeViewModel: ObservableObject {

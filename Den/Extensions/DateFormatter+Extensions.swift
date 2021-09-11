@@ -36,6 +36,15 @@ extension DateFormatter {
         return dateFormatter
     }()
 
+    static let longNone: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = .autoupdatingCurrent
+
+        return dateFormatter
+    }()
+
     static let isoDate: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

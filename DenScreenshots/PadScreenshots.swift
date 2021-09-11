@@ -20,23 +20,11 @@ class PadScreenshots: ScreenshotTestCase {
 
         takeScreenshot(named: "1-GetStarted")
 
-        loadDemoFeeds()
-
-        // Wait for pages to appear
-        let pageButtonPredicate = NSPredicate(format: "label CONTAINS 'World News'")
-        let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        loadDemo()
 
         takeScreenshot(named: "2-PageList")
 
         goToPage("Technology")
-        refreshPage("Technology")
-
-        goToLink(1)
-        goToLink(3)
-        goToLink(6)
-        goToLink(8)
 
         let predicate = NSPredicate(format: "label CONTAINS 'Ars Technica'")
         let feedHeader = app.staticTexts.containing(predicate).firstMatch
@@ -44,6 +32,11 @@ class PadScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "3-PageView")
+
+        goToLink(1)
+        goToLink(3)
+        goToLink(6)
+        goToLink(8)
 
         let pageSettingsButton = app.navigationBars["Technology"].buttons["Page Settings"]
         expectation(for: existsPredicate, evaluatedWith: pageSettingsButton, handler: nil)
@@ -71,7 +64,7 @@ class PadScreenshots: ScreenshotTestCase {
 
         app.tabBars["Tab Bar"].buttons["Search"].tap()
 
-        let searchTextField = app.textFields["Search…"]
+        let searchTextField = app.textFields["Search"]
         searchTextField.tap()
         searchTextField.typeText("Apple")
         searchTextField.typeText("\n")
@@ -99,11 +92,19 @@ class PadScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "8-Settings")
     }
 
-    private func loadDemoFeeds() {
-        let loadDemoButton = app.tables.buttons["Load Demo Feeds"]
+    private func loadDemo() {
+        let loadDemoButton = app.tables.buttons["Load Demo"]
         expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
         loadDemoButton.tap()
+
+        app.navigationBars["Den"].buttons["Refresh All"].tap()
+
+        let lastPageUnreadCount = app.tables.cells["Entertainment, 76"]
+        expectation(for: existsPredicate, evaluatedWith: lastPageUnreadCount, handler: nil)
+        waitForExpectations(timeout: 120, handler: nil)
+
+        sleep(10)
     }
 
     private func goToPage(_ pageName: String) {
@@ -112,21 +113,6 @@ class PadScreenshots: ScreenshotTestCase {
         expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageButton.tap()
-    }
-
-    private func refreshPage(_ pageName: String) {
-        let refreshButton = app.navigationBars[pageName].buttons["Refresh"]
-        expectation(for: existsPredicate, evaluatedWith: refreshButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        refreshButton.tap()
-
-        let refreshLabel = app.staticTexts["Refresh to Fetch Content"]
-        expectation(for: notExistsPredicate, evaluatedWith: refreshLabel, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
-
-        let emptyLabel = app.staticTexts["Feed Empty"]
-        expectation(for: notExistsPredicate, evaluatedWith: emptyLabel, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
     }
 
     private func goToLink(_ elementIndex: Int) {
@@ -140,7 +126,7 @@ class PadScreenshots: ScreenshotTestCase {
 
         let doneButton = app.buttons["Done"]
         expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         doneButton.tap()
     }
 }

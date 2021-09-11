@@ -1,17 +1,15 @@
 # Den for RSS
 
-Made for casual surfers and serious wire scanners alike, Den is a simple app for creating dashboards with feeds from your favorite websites. 
+A simple app for creating dashboards with feeds from your favorite websites. Made for casual surfers and serious wire scanners alike.
 
-Catch up on what's happening without all the extras. Browse headlines without ad interuptions, social media distractions, or privacy intrusions. Create as many pages as you like, containing as many feeds as desired, for following anything you want. With Den you have complete control.
+Catch up on what's happening without all the extras. Browse headlines without ad interuptions, social media distractions, or privacy intrusions. Create as many pages as you like, containing as many feeds as desired, for watching any topic. Den is an unobtrusive and lightweight tool for following publishers on your terms.
 
-The dashboard layout for feeds is what sets Den apart from other syndication apps. It's not a feed reader per se, but a feed buffet. Drawing inspiration from classic internet start pages, subscriptions are showcased within gadgets. The easily skimmable grid makes trends aparent and comparing sources natural. The layout is also ideal for subscriptions that are not ordinary news feeds. Weather reports, stock alerts, server status feeds, and other odd sources can all have a place. Reading is powered by Safari or your default browser depending on device. On phones and tablets, articles open in a Safari view, with an option to automatically enter reader mode. On computers, articles open in the default web browser. On large displays, split-screen with the browser is an especially comfortable window configuration.
-
-Den is unobtrusive with some purposefully bland qualities. There are no notifications or badges to attract attention. System appearance and accessibility preferences are respected. Finally, the design sticks to recommended guidelines so it feels familiar from the start. The overall goal is a crispy app that doesn't weigh down users or devices.
+The dashboard layout is what sets Den apart from other apps. It's not a feed reader per se, but a feed buffet. Drawing inspiration from classic internet start pages, subscriptions are showcased within gadgets. The skimmable grid makes trends aparent and comparing sources natural. The layout is also ideal for subscriptions that are not ordinary news feeds. Weather reports, stock alerts, sports scores, and other odd sources can all have a place. Reading is powered by Safari or your default browser depending on device. On phones and tablets, articles open in a Safari view, with an option to automatically enter reader mode. On computers, articles open in the default web browser.
 
 FEATURES
 
 + Made for iPhone, iPad, and Mac
-Developed from the beginning for phones, tablets, laptops, and desktops; The interface adapts to look great on screens of all sizes.
+Developed from the start for phones, tablets, laptops, and desktops; The app adapts to look great on all devices.
 
 + iCloud Sync
 Subscriptions and history on all your devices without signing up for yet another account. 
@@ -20,28 +18,28 @@ Subscriptions and history on all your devices without signing up for yet another
 Works with popular formats so the library of compatible feeds is limitless.
 
 + OPML Import and Export
-Bring in subscriptions from other apps and services with ease. Backup and share subscriptions using the same widely supported format.
+Bring in subscriptions from other apps with ease. Backup or share feeds using the same dependable format.
 
 + Article Search
 Quickly get the latest on a particular topic by searching the titles of current items.
 
 + History View
-Remember previous reads by searching through your history of purple links.
+Remember previous reads by searching through your history of visited articles.
 
 + Security Check
-See which feeds use insecure URLs and check for secure, HTTPS addresses to use instead.
+See which feeds use insecure URLs and check for secure alternatives to use instead.
 
 
 ## Release Notes
 
 ### Den v1.6
 
-Version 1.6 includes a new Security Check feature and brings back refreshing all pages at once.
+Version 1.6 includes a new security check feature and enables refreshing all pages at once.
 
-- Security Check shows feeds using insecure URLs and provides an easy way to check for HTTPS alternatives.
-- The main page list now has it's own refresh button to refresh all feeds. 
-- Other improvements to feed refresh responsiveness and progress display.
-- General interface and performance improvements.
+- Security Check shows feeds using insecure URLs and provides an easy way to check for HTTPS alternatives
+- The page list now has it's own button to refresh all pages/feeds in one go
+- Improved feed refresh responsiveness and progress display
+- Various bug fixes and performance improvements
 
 ### Den v1.5
 

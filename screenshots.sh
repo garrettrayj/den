@@ -7,6 +7,8 @@
 #  Copyright © 2021 Garrett Johnson. All rights reserved.
 set -e
 
+rm -rf /tmp/DenDerivedData/
+
 # The Xcode project to create screenshots for
 projectName="./Den.xcodeproj"
 

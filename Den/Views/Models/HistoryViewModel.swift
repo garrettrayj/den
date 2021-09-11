@@ -20,6 +20,8 @@ final class HistoryViewModel: ObservableObject {
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager
+
+        self.performHistorySearch()
     }
 
     func reset() {
@@ -65,7 +67,7 @@ final class HistoryViewModel: ObservableObject {
 
             let grouping = Dictionary(
                 grouping: compactedFetchResults,
-                by: { DateFormatter.isoDate.string(from: $0.visited!) }
+                by: { DateFormatter.longNone.string(from: $0.visited!) }
             )
 
             results = grouping.values.sorted { aHistory, bHistory in
