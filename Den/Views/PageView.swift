@@ -127,7 +127,7 @@ struct PageView: View {
     }
 
     private var pageDeleted: some View {
-        Text("Page does not exist")
+        Text("Page removed. Select another to continue…")
             .modifier(SimpleMessageModifier())
             .navigationTitle("Page Deleted")
     }
