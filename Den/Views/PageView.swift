@@ -12,6 +12,7 @@ struct PageView: View {
     @EnvironmentObject var subscriptionManager: SubscriptionManager
 
     @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var page: Page
 
     let columns = [
         GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)
@@ -26,16 +27,16 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }.hidden().frame(height: 0)
 
-            if viewModel.page.managedObjectContext == nil {
+            if page.managedObjectContext == nil {
                 pageDeleted
-            } else if viewModel.page.feedsArray.count == 0 {
+            } else if page.feedsArray.count == 0 {
                 pageEmpty
             } else {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
                         RefreshableScrollView(viewModel: viewModel) {
                             LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(viewModel.page.feedsArray, id: \.self) { feed in
+                                ForEach(page.feedsArray, id: \.self) { feed in
                                     FeedWidgetView(feed: feed)
                                 }
                             }
@@ -53,18 +54,18 @@ struct PageView: View {
                 }
             }
         }
-        .navigationTitle(viewModel.page.displayName)
+        .navigationTitle(page.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar { pageToolbar }
         .onAppear {
-            subscriptionManager.currentPageId = viewModel.page.id
+            subscriptionManager.currentPageId = page.id
         }
         .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
 
     private var pageToolbar: some ToolbarContent {
         ToolbarItemGroup {
-            if viewModel.page.managedObjectContext != nil {
+            if page.managedObjectContext != nil {
                 if UIDevice.current.userInterfaceIdiom == .phone {
                     compactPageToolbar
                 } else {
@@ -127,7 +128,7 @@ struct PageView: View {
     }
 
     private var pageDeleted: some View {
-        Text("Page removed. Select another to continue…")
+        Text("Page no longer exists")
             .modifier(SimpleMessageModifier())
             .navigationTitle("Page Deleted")
     }
