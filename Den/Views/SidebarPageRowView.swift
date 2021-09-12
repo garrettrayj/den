@@ -12,7 +12,7 @@ struct SidebarPageRowView: View {
     @ObservedObject var pageViewModel: PageViewModel
 
     var body: some View {
-        NavigationLink(destination: PageView(viewModel: pageViewModel)) {
+        NavigationLink(destination: PageView(viewModel: pageViewModel, page: pageViewModel.page)) {
             Label(
                 title: {
                     HStack {

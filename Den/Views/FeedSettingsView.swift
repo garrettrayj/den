@@ -173,10 +173,6 @@ struct FeedSettingsView: View {
                 crashManager.handleCriticalError(error)
             }
         }
-
-        DispatchQueue.main.async {
-            feed.page?.objectWillChange.send()
-        }
     }
 
     private func delete() {
