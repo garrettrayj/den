@@ -17,7 +17,7 @@ struct PagesView: View {
     var body: some View {
         NavigationView {
             SidebarView(
-                viewModel: PagesViewModel(
+                viewModel: SidebarViewModel(
                     profileManager: profileManager,
                     viewContext: viewContext,
                     crashManager: crashManager,

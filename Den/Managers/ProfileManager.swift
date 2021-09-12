@@ -83,6 +83,7 @@ final class ProfileManager: ObservableObject {
             }
             do {
                 try viewContext.save()
+                self.objectWillChange.send()
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }

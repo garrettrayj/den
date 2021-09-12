@@ -8,12 +8,13 @@
 
 import CoreData
 
-final class PagesViewModel: ObservableObject {
-    @Published var pageViewModels: [PageViewModel]
+final class SidebarViewModel: ObservableObject {
+    @Published var pageViewModels: [PageViewModel] = []
 
     private var profileManager: ProfileManager
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
+    private var refreshManager: RefreshManager
 
     init(
         profileManager: ProfileManager,
@@ -24,27 +25,27 @@ final class PagesViewModel: ObservableObject {
         self.profileManager = profileManager
         self.viewContext = viewContext
         self.crashManager = crashManager
+        self.refreshManager = refreshManager
 
-        self.pageViewModels = profileManager.activeProfile.pagesArray.map({ page in
+        pageViewModels = profileManager.activeProfile.pagesArray.map({ page in
             PageViewModel(page: page, refreshManager: refreshManager)
         })
     }
 
     func refreshAll() {
-        pageViewModels.forEach { pageViewModel in
+        self.pageViewModels.forEach { pageViewModel in
             pageViewModel.refresh()
         }
     }
 
     func createPage() {
-        _ = Page.create(in: viewContext, profile: profileManager.activeProfile)
+        let page = Page.create(in: viewContext, profile: profileManager.activeProfile)
         do {
             try viewContext.save()
-            profileManager.objectWillChange.send()
+            self.pageViewModels.append(PageViewModel(page: page, refreshManager: refreshManager))
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
-
     }
 
     func movePage( from source: IndexSet, to destination: Int) {
@@ -63,6 +64,9 @@ final class PagesViewModel: ObservableObject {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                pageViewModels.sort { aViewModel, bViewModel in
+                    aViewModel.page.userOrder < bViewModel.page.userOrder
+                }
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
@@ -70,7 +74,19 @@ final class PagesViewModel: ObservableObject {
     }
 
     func deletePage(indices: IndexSet) {
-        profileManager.activeProfile.pagesArray.delete(at: indices, from: viewContext)
+        indices.forEach {
+            let page = profileManager.activeProfile.pagesArray[$0]
+            viewContext.delete(page)
+            pageViewModels.remove(at: $0)
+        }
+
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
+            }
+        }
     }
 
     func loadDemo() {
@@ -108,10 +124,11 @@ final class PagesViewModel: ObservableObject {
 
         do {
             try viewContext.save()
+            newPages.forEach { page in
+                self.pageViewModels.append(PageViewModel(page: page, refreshManager: refreshManager))
+            }
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
-
-        profileManager.objectWillChange.send()
     }
 }

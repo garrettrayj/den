@@ -15,14 +15,18 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.editMode) var editMode
 
-    @ObservedObject var viewModel: PagesViewModel
+    @ObservedObject var viewModel: SidebarViewModel
 
     var body: some View {
         List {
-            if viewModel.pageViewModels.count > 0 {
-                pageListSection
+            if editMode?.wrappedValue == .active {
+                editListSection
             } else {
-                getStartedSection
+                if viewModel.pageViewModels.count > 0 {
+                    pageListSection
+                } else {
+                    getStartedSection
+                }
             }
         }
         .environment(\.editMode, editMode)
@@ -34,35 +38,56 @@ struct SidebarView: View {
 
     private var toolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            if viewModel.pageViewModels.count > 0 {
-                HStack {
+            HStack {
+                if viewModel.pageViewModels.count > 0 || editMode?.wrappedValue == .active {
                     Button(action: viewModel.createPage) {
                         Label("New Page", systemImage: "plus")
                     }
+                }
+
+                if editMode?.wrappedValue == .active {
                     Button {
-                        editMode?.wrappedValue.toggle()
+                        editMode?.wrappedValue = .inactive
                     } label: {
-                        Text(editMode?.wrappedValue == .active ? "Done" : "Edit")
+                        Text("Done")
                     }
-                    if editMode?.wrappedValue == .inactive {
-                        Button {
-                            viewModel.refreshAll()
-                        } label: {
-                            Label("Refresh All", systemImage: "arrow.clockwise")
-                        }
+                }
+
+                if editMode?.wrappedValue == .inactive && viewModel.pageViewModels.count > 0 {
+                    Button {
+                        editMode?.wrappedValue = .active
+                    } label: {
+                        Text("Edit")
+                    }
+
+                    Button {
+                        viewModel.refreshAll()
+                    } label: {
+                        Label("Refresh All", systemImage: "arrow.clockwise")
                     }
                 }
             }
         }
     }
 
-    private var pageListSection: some View {
+    private var editListSection: some View {
         Section {
             ForEach(viewModel.pageViewModels) { pageViewModel in
-                PageListRowView(pageViewModel: pageViewModel)
+                Text(pageViewModel.page.displayName)
+                    .lineLimit(1)
+                    .multilineTextAlignment(.leading)
+                    .padding(.vertical, 4)
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)
+        }
+    }
+
+    private var pageListSection: some View {
+        Section {
+            ForEach(viewModel.pageViewModels) { pageViewModel in
+                SidebarPageRowView(pageViewModel: pageViewModel)
+            }
         }
     }
 
