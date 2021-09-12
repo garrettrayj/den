@@ -107,11 +107,3 @@ public class Page: NSManagedObject {
         }
     }
 }
-
-extension Collection where Element == Page, Index == Int {
-    func delete(at indices: IndexSet, from managedObjectContext: NSManagedObjectContext) {
-        indices.forEach {
-            managedObjectContext.delete(self[$0])
-        }
-    }
-}
