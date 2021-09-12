@@ -100,7 +100,13 @@ struct PageSettingsView: View {
     }
 
     private func deleteFeed(indices: IndexSet) {
-        viewModel.page.feedsArray.delete(at: indices, from: viewContext)
+        indices.forEach { viewContext.delete(viewModel.page.feedsArray[$0]) }
+
+        do {
+            try viewContext.save()
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
+        }
     }
 
     private func moveFeed( from source: IndexSet, to destination: Int) {
