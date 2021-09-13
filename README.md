@@ -34,6 +34,8 @@ See which feeds use insecure URLs and check for secure alternatives to use inste
 
 ### Den v1.6.1
 
+Version 1.6.1 includes various bug fixes and minor improvements.
+
 - Fix bugs related to page and feed deletion, reordering
 - Increase spacing around toolbar icons
 
