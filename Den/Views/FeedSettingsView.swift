@@ -39,7 +39,7 @@ struct FeedSettingsView: View {
             ToolbarItem {
                 Button { presentationMode.wrappedValue.dismiss() } label: {
                     Label("Close", systemImage: "xmark.circle")
-                }
+                }.buttonStyle(ToolbarButtonStyle())
             }
         }
     }

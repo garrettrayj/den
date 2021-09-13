@@ -61,9 +61,11 @@ struct FeedWidgetView: View {
 
             Button(action: showOptions) {
                 Label("Feed Settings", systemImage: "gearshape").labelStyle(IconOnlyLabelStyle())
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.clear)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+
         }.padding(.leading, 12)
     }
 

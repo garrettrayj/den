@@ -67,7 +67,7 @@ struct SubscribeView: View {
                 ToolbarItem {
                     Button { presentationMode.wrappedValue.dismiss() } label: {
                         Label("Close", systemImage: "xmark.circle")
-                    }.buttonStyle(BorderlessButtonStyle())
+                    }.buttonStyle(ToolbarButtonStyle())
                 }
             }
         }

@@ -2,9 +2,9 @@
 
 A simple app for creating dashboards with feeds from your favorite websites. Made for casual surfers and serious wire scanners alike.
 
-Catch up on what's happening without all the extras. Browse headlines without ad interuptions, social media distractions, or privacy intrusions. Create as many pages as you like, containing as many feeds as desired, for watching any topic. Den is an unobtrusive and lightweight tool for following publishers on your terms.
+Catch up on what's happening without all the extras. Browse headlines without ad interuptions, social media distractions, or privacy intrusions. Create as many pages as you like, containing as many feeds as desired, for watching any topic. Den is a lightweight and unobtrusive tool for following publishers on your terms.
 
-The dashboard layout is what sets Den apart from other apps. It's not a feed reader per se, but a feed buffet. Drawing inspiration from classic internet start pages, subscriptions are showcased within gadgets. The skimmable grid makes trends aparent and comparing sources natural. The layout is also ideal for subscriptions that are not ordinary news feeds. Weather reports, stock alerts, sports scores, and other odd sources can all have a place. Reading is powered by Safari or your default browser depending on device. On phones and tablets, articles open in a Safari view, with an option to automatically enter reader mode. On computers, articles open in the default web browser.
+The dashboard layout is what sets Den apart from other apps. It's not a feed reader per se, but a feed buffet. Drawing inspiration from classic internet start pages, subscriptions are showcased within gadgets. The skimmable grid makes trends aparent and comparing sources natural. The layout is also ideal for unusual feeds. Weather reports, stock alerts, sports scores, and more can all have a place. Reading is powered by Safari or your default browser depending on device. On phones and tablets, articles open in a Safari view, with an option to automatically enter reader mode. On computers, articles open in the default web browser.
 
 FEATURES
 
@@ -31,6 +31,12 @@ See which feeds use insecure URLs and check for secure alternatives to use inste
 
 
 ## Release Notes
+
+### Den v1.6.1
+
+- Fix bugs related to page and feed deletion, reordering
+- Increase spacing around toolbar icons
+
 
 ### Den v1.6
 
