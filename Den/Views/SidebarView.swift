@@ -38,7 +38,7 @@ struct SidebarView: View {
 
     private var toolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
-            HStack {
+            HStack(spacing: 0) {
                 if viewModel.pageViewModels.count > 0 || editMode?.wrappedValue == .active {
                     Button(action: viewModel.createPage) {
                         Label("New Page", systemImage: "plus")
@@ -66,7 +66,7 @@ struct SidebarView: View {
                         Label("Refresh All", systemImage: "arrow.clockwise")
                     }
                 }
-            }
+            }.buttonStyle(ToolbarButtonStyle())
         }
     }
 

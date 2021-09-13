@@ -18,10 +18,8 @@ struct PageSettingsView: View {
     var body: some View {
         Form {
             Section(header: Text("Name and Icon")) {
-
                 HStack {
                     TextField("Untitled", text: $viewModel.page.wrappedName).lineLimit(1).padding(.vertical, 4)
-
                     HStack {
                         Image(systemName: viewModel.page.wrappedSymbol)
                             .foregroundColor(Color.accentColor)
@@ -35,16 +33,14 @@ struct PageSettingsView: View {
                     .sheet(isPresented: $viewModel.showingIconPicker) {
                         IconPickerView(activeIcon: $viewModel.page.wrappedSymbol)
                     }
-
                 }
             }
             Section(header: Text("Settings")) {
-
                 Stepper(value: $viewModel.page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) { _ in
                     viewModel.refreshAfterSave = true
                 } label: {
                     Label(
-                        "Widget Item Limit: \(viewModel.page.wrappedItemsPerFeed)",
+                        "Gadget Item Limit: \(viewModel.page.wrappedItemsPerFeed)",
                         systemImage: "list.bullet.rectangle"
                     )
                 }

@@ -93,12 +93,13 @@ struct PageView: View {
         } label: {
             Label("Page Menu", systemImage: "ellipsis")
                 .frame(height: 44)
-                .padding(.leading)
+                .padding(.horizontal, 12)
+                .background(Color.clear)
         }
     }
 
     private var fullPageToolbar: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 0) {
             Button(action: showSubscribe) {
                 Label("Add Subscription", systemImage: "plus.circle")
             }
@@ -112,7 +113,7 @@ struct PageView: View {
             } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
-        }
+        }.buttonStyle(ToolbarButtonStyle())
     }
 
     private var pageEmpty: some View {
