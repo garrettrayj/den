@@ -19,7 +19,7 @@ struct WelcomeView: View {
 
             Group {
                 if profile.pagesArray.count > 0 {
-                    Text("Select a page to view subscriptions")
+                    Text("Select a page to view feeds")
                 } else {
                     Text("Add a page to begin")
                 }

@@ -24,7 +24,7 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 appearanceSection
-                subscriptionsSection
+                feedsSection
                 historySection
                 dataSection
                 aboutSection
@@ -70,8 +70,8 @@ struct SettingsView: View {
         }
     }
 
-    private var subscriptionsSection: some View {
-        Section(header: Text("Subscriptions")) {
+    private var feedsSection: some View {
+        Section(header: Text("Feeds")) {
             NavigationLink(
                 destination: ImportView(
                     importViewModel: ImportViewModel(

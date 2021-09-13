@@ -61,7 +61,7 @@ struct SubscribeView: View {
                     missingPage
                 }
             }
-            .navigationTitle("Add Subscription")
+            .navigationTitle("Add Feed")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {

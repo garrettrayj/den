@@ -69,7 +69,7 @@ struct ImportView: View {
 
             VStack(alignment: .center) {
                 Button(action: importFeeds) {
-                    Label("Import Subscriptions", systemImage: "arrow.down.doc")
+                    Label("Import Feeds", systemImage: "arrow.down.doc")
                 }
                 .buttonStyle(AccentButtonStyle())
                 .frame(alignment: .center)

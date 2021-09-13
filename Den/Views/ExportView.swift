@@ -23,7 +23,7 @@ struct ExportView: View {
 
                     Section {
                         Button(action: exportOpml) {
-                            Label("Export Subscriptions", systemImage: "arrow.up.doc")
+                            Label("Export OPML", systemImage: "arrow.up.doc")
                         }.buttonStyle(AccentButtonStyle()).disabled(selectedPages.count == 0)
                     }
                     .frame(maxWidth: .infinity)
