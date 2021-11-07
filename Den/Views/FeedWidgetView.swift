@@ -19,10 +19,8 @@ struct FeedWidgetView: View {
     @State private var showingFeedPreferences: Bool = false
 
     var body: some View {
-        ZStack(alignment: .top) {
-            RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground))
-            widgetContent
-        }
+        widgetContent
+            .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground)))
     }
 
     private var widgetContent: some View {
