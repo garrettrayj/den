@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		680201D82688E95000DE600C /* PagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680201D72688E95000DE600C /* PagesView.swift */; };
+		6808F4422737A5A600AEEDAC /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 6808F4412737A5A600AEEDAC /* Grid */; };
 		6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */; };
 		6809EFCD24DD49C9007B5CF1 /* ParseFeedDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCC24DD49C9007B5CF1 /* ParseFeedDataOperation.swift */; };
 		6809EFD524DDEEF7007B5CF1 /* SaveFaviconOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFD424DDEEF7007B5CF1 /* SaveFaviconOperation.swift */; };
@@ -78,7 +79,6 @@
 		689460842596A7BB00ED4064 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689460812596A7BB00ED4064 /* PersistenceManager.swift */; };
 		689460852596A7BB00ED4064 /* DenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689460822596A7BB00ED4064 /* DenApp.swift */; };
 		6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52526B91C0100833DDA /* HTMLEntities */; };
-		6897D52926B91C2300833DDA /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52826B91C2300833DDA /* Grid */; };
 		6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52B26B91C3C00833DDA /* SwiftSoup */; };
 		6897D52F26B91C5800833DDA /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52E26B91C5800833DDA /* FeedKit */; };
 		68998B832503F63E00FDB6EE /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68998B822503F63E00FDB6EE /* SubscriptionManager.swift */; };
@@ -289,7 +289,7 @@
 				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
-				6897D52926B91C2300833DDA /* Grid in Frameworks */,
+				6808F4422737A5A600AEEDAC /* Grid in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,9 +637,9 @@
 			packageProductDependencies = (
 				68B34A6B24880ADE0066B215 /* AEXML */,
 				6897D52526B91C0100833DDA /* HTMLEntities */,
-				6897D52826B91C2300833DDA /* Grid */,
 				6897D52B26B91C3C00833DDA /* SwiftSoup */,
 				6897D52E26B91C5800833DDA /* FeedKit */,
+				6808F4412737A5A600AEEDAC /* Grid */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -720,9 +720,9 @@
 			packageReferences = (
 				68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */,
 				6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */,
-				6897D52726B91C2300833DDA /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 				6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */,
+				6808F4402737A5A600AEEDAC /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1304,20 +1304,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6808F4402737A5A600AEEDAC /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/garrettrayj/swiftui-grid.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.200;
-			};
-		};
-		6897D52726B91C2300833DDA /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/swift-extensions/swiftui-grid.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
 			};
 		};
 		6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
@@ -1347,15 +1347,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6808F4412737A5A600AEEDAC /* Grid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6808F4402737A5A600AEEDAC /* XCRemoteSwiftPackageReference "swiftui-grid" */;
+			productName = Grid;
+		};
 		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */;
 			productName = HTMLEntities;
-		};
-		6897D52826B91C2300833DDA /* Grid */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6897D52726B91C2300833DDA /* XCRemoteSwiftPackageReference "swiftui-grid" */;
-			productName = Grid;
 		};
 		6897D52B26B91C3C00833DDA /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
