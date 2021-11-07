@@ -31,7 +31,7 @@ struct SidebarView: View {
         }
         .environment(\.editMode, editMode)
         .animation(nil)
-        .listStyle(InsetGroupedListStyle())
+        .listStyle(GroupedListStyle())
         .navigationTitle("Den")
         .toolbar { toolbar }
     }
