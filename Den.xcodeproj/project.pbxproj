@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		680201D82688E95000DE600C /* PagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680201D72688E95000DE600C /* PagesView.swift */; };
 		6808F4422737A5A600AEEDAC /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 6808F4412737A5A600AEEDAC /* Grid */; };
+		6808F4442737B31E00AEEDAC /* CircularIconProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6808F4432737B31E00AEEDAC /* CircularIconProgressViewStyle.swift */; };
 		6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */; };
 		6809EFCD24DD49C9007B5CF1 /* ParseFeedDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCC24DD49C9007B5CF1 /* ParseFeedDataOperation.swift */; };
 		6809EFD524DDEEF7007B5CF1 /* SaveFaviconOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFD424DDEEF7007B5CF1 /* SaveFaviconOperation.swift */; };
@@ -150,6 +151,7 @@
 
 /* Begin PBXFileReference section */
 		680201D72688E95000DE600C /* PagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesView.swift; sourceTree = "<group>"; };
+		6808F4432737B31E00AEEDAC /* CircularIconProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularIconProgressViewStyle.swift; sourceTree = "<group>"; };
 		6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedKitFeed+Extensions.swift"; sourceTree = "<group>"; };
 		6809EFCC24DD49C9007B5CF1 /* ParseFeedDataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseFeedDataOperation.swift; sourceTree = "<group>"; };
 		6809EFD424DDEEF7007B5CF1 /* SaveFaviconOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFaviconOperation.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				687F488B2690648700EA2498 /* SquaredLinearProgressViewStyle.swift */,
 				689EDBF9269B97E30055811A /* AccentButtonStyle.swift */,
 				68207F4026EEF7D400B91B31 /* ToolbarButtonStyle.swift */,
+				6808F4432737B31E00AEEDAC /* CircularIconProgressViewStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -849,6 +852,7 @@
 				6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */,
 				6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */,
 				680E57BD24D132D700196F6D /* HeaderProgressBarView.swift in Sources */,
+				6808F4442737B31E00AEEDAC /* CircularIconProgressViewStyle.swift in Sources */,
 				6885C43026DA502D002C41B0 /* PageViewModel.swift in Sources */,
 				68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */,
 				689460852596A7BB00ED4064 /* DenApp.swift in Sources */,
