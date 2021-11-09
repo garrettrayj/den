@@ -9,10 +9,9 @@
 import SwiftUI
 
 struct FeedWidgetRowView: View {
-    @EnvironmentObject var linkManager: LinkManager
-
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
+    @ObservedObject var contentViewModel: ContentViewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -50,6 +49,6 @@ struct FeedWidgetRowView: View {
 
     private func openLink() {
         guard let url = item.link else { return }
-        linkManager.openLink(url: url, logHistoryItem: item, readerMode: feed.readerMode)
+        contentViewModel.openLink(url: url, logHistoryItem: item, readerMode: feed.readerMode)
     }
 }

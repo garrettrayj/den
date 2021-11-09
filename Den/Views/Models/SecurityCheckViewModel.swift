@@ -14,14 +14,13 @@ final class SecurityCheckViewModel: ObservableObject {
 
     let queue = OperationQueue()
 
-    private var viewContext: NSManagedObjectContext
-    private var profileManager: ProfileManager
-    private var crashManager: CrashManager
+    var contentViewModel: ContentViewModel
 
-    init(viewContext: NSManagedObjectContext, profileManager: ProfileManager, crashManager: CrashManager) {
+    private var viewContext: NSManagedObjectContext
+
+    init(viewContext: NSManagedObjectContext, contentViewModel: ContentViewModel) {
         self.viewContext = viewContext
-        self.profileManager = profileManager
-        self.crashManager = crashManager
+        self.contentViewModel = contentViewModel
 
         self.queue.maxConcurrentOperationCount = 10
     }
@@ -33,8 +32,11 @@ final class SecurityCheckViewModel: ObservableObject {
     }
 
     func remedyInsecureUrls() {
+        guard let activeProfile = contentViewModel.activeProfile else { return }
+
         var operations: [Operation] = []
-        profileManager.activeProfile!.insecureFeeds.forEach { feed in
+
+        activeProfile.insecureFeeds.forEach { feed in
             operations.append(contentsOf: createRemedyOps(feed: feed))
         }
 
@@ -47,7 +49,7 @@ final class SecurityCheckViewModel: ObservableObject {
                     do {
                         try self.viewContext.save()
                     } catch {
-                        self.crashManager.handleCriticalError(error as NSError)
+                        self.contentViewModel.handleCriticalError(error as NSError)
                     }
                 }
             }

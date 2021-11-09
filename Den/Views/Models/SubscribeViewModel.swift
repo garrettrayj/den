@@ -10,18 +10,23 @@ import CoreData
 import SwiftUI
 
 final class SubscribeViewModel: ObservableObject {
-    @Published var destinationPageId: UUID?
+    @Published var destinationPageId: String?
     @Published var urlText: String = ""
     @Published var urlIsValid: Bool?
     @Published var validationAttempts: Int = 0
     @Published var validationMessage: String?
     @Published var loading: Bool = false
 
+    private var viewContext: NSManagedObjectContext
+    private var contentViewModel: ContentViewModel
+
     var destinationPage: Page? {
+        guard let activeProfile = contentViewModel.activeProfile else { return nil }
+
         if
             let destinationPageId = destinationPageId,
-            let destinationPage = profileManager.activeProfile.pagesArray.first(where: { page in
-                page.id != nil && page.id == destinationPageId
+            let destinationPage = activeProfile.pagesArray.first(where: { page in
+                page.id != nil && page.id?.uuidString == destinationPageId
             }) {
             return destinationPage
         }
@@ -29,24 +34,15 @@ final class SubscribeViewModel: ObservableObject {
         return nil
     }
 
-    private var viewContext: NSManagedObjectContext
-    private var subscriptionManager: SubscriptionManager
-    private var refreshManager: RefreshManager
-    private var profileManager: ProfileManager
-
     init(
         viewContext: NSManagedObjectContext,
-        subscriptionManager: SubscriptionManager,
-        refreshManager: RefreshManager,
-        profileManager: ProfileManager
+        contentViewModel: ContentViewModel
     ) {
         self.viewContext = viewContext
-        self.subscriptionManager = subscriptionManager
-        self.refreshManager = refreshManager
-        self.profileManager = profileManager
+        self.contentViewModel = contentViewModel
 
-        self.urlText = subscriptionManager.openedUrlString
-        self.destinationPageId = subscriptionManager.currentPageId
+        self.urlText = contentViewModel.openedUrlString
+        self.destinationPageId = contentViewModel.currentPageId
     }
 
     func failValidation(message: String) {
@@ -96,8 +92,8 @@ final class SubscribeViewModel: ObservableObject {
 
         self.loading = true
         let feed = Feed.create(in: self.viewContext, page: destinationPage, url: url, prepend: true)
-        refreshManager.refresh(feed: feed) { _ in
-            self.subscriptionManager.reset()
+        contentViewModel.refresh(feed: feed) { _ in
+            self.contentViewModel.resetSubscribe()
             self.loading = false
             callback()
         }

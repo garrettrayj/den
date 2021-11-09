@@ -11,29 +11,19 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
-    @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var themeManager: ThemeManager
-    @EnvironmentObject var profileManager: ProfileManager
 
-    @State private var selectedTheme: UIUserInterfaceStyle = .unspecified
-    @State private var showingClearWorkspaceAlert = false
-    @State private var historyRentionDays: Int = 0
+    @ObservedObject var viewModel: SettingsViewModel
 
     var body: some View {
-        NavigationView {
-            Form {
-                appearanceSection
-                feedsSection
-                historySection
-                dataSection
-                aboutSection
-            }
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
+        Form {
+            appearanceSection
+            feedsSection
+            historySection
+            dataSection
+            aboutSection
         }
+        .navigationTitle("Settings")
         .onAppear(perform: loadProfile)
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     private var appearanceSection: some View {
@@ -42,7 +32,7 @@ struct SettingsView: View {
             HStack {
                 Label("Theme", systemImage: "paintbrush").padding(.vertical, 4)
                 Spacer()
-                Picker("", selection: $selectedTheme) {
+                Picker("", selection: $viewModel.selectedTheme) {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
                     Text("Light").tag(UIUserInterfaceStyle.light)
                     Text("Dark").tag(UIUserInterfaceStyle.dark)
@@ -62,11 +52,11 @@ struct SettingsView: View {
             )
             #endif
         }
-        .onChange(of: selectedTheme, perform: { value in
+        .onChange(of: viewModel.selectedTheme, perform: { value in
             UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
-            themeManager.applyUIStyle()
+            viewModel.contentViewModel.applyUIStyle()
         }).onAppear {
-            selectedTheme = UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
+            viewModel.selectedTheme = UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
         }
     }
 
@@ -76,15 +66,20 @@ struct SettingsView: View {
                 destination: ImportView(
                     importViewModel: ImportViewModel(
                         viewContext: viewContext,
-                        crashManager: crashManager,
-                        profileManager: profileManager
+                        contentViewModel: viewModel.contentViewModel
                     )
                 )
             ) {
                 Label("Import", systemImage: "arrow.down.doc").padding(.vertical, 4)
             }
 
-            NavigationLink(destination: ExportView()) {
+            NavigationLink(
+                destination: ExportView(
+                    viewModel: ExportViewModel(
+                        contentViewModel: viewModel.contentViewModel
+                    )
+                )
+            ) {
                 Label("Export", systemImage: "arrow.up.doc").padding(.vertical, 4)
             }
 
@@ -92,8 +87,7 @@ struct SettingsView: View {
                 destination: SecurityCheckView(
                     viewModel: SecurityCheckViewModel(
                         viewContext: viewContext,
-                        profileManager: profileManager,
-                        crashManager: crashManager
+                        contentViewModel: viewModel.contentViewModel
                     )
                 )
             ) {
@@ -108,7 +102,7 @@ struct SettingsView: View {
             HStack {
                 Label("Keep History", systemImage: "clock").padding(.vertical, 4)
                 Spacer()
-                Picker("", selection: $historyRentionDays) {
+                Picker("", selection: $viewModel.historyRentionDays) {
                     Text("Forever").tag(0 as Int)
                     Text("One Year").tag(365 as Int)
                     Text("Six Months").tag(182 as Int)
@@ -121,7 +115,7 @@ struct SettingsView: View {
             }
             #else
             Picker(
-                selection: $historyRentionDays,
+                selection: $viewModel.historyRentionDays,
                 label: Label("Keep History", systemImage: "clock"),
                 content: {
                     Text("Forever").tag(0 as Int)
@@ -138,7 +132,7 @@ struct SettingsView: View {
             Button(action: clearHistory) {
                 Label("Clear History", systemImage: "clear").padding(.vertical, 4)
             }
-        }.onChange(of: historyRentionDays) { _ in
+        }.onChange(of: viewModel.historyRentionDays) { _ in
             saveProfile()
         }
     }
@@ -153,7 +147,7 @@ struct SettingsView: View {
                 Label("Reset Everything", systemImage: "clear")
                     .foregroundColor(.red)
                     .padding(.vertical, 4)
-            }.alert(isPresented: $showingClearWorkspaceAlert) {
+            }.alert(isPresented: $viewModel.showingClearWorkspaceAlert) {
                 Alert(
                     title: Text("Are you sure?"),
                     message: Text("All pages and feeds will be permanently removed."),
@@ -197,23 +191,23 @@ struct SettingsView: View {
     }
 
     private func loadProfile() {
-        guard let profile = profileManager.activeProfile else { return }
+        guard let profile = viewModel.contentViewModel.activeProfile else { return }
 
-        historyRentionDays = profile.wrappedHistoryRetention
+        viewModel.historyRentionDays = profile.wrappedHistoryRetention
     }
 
     private func saveProfile() {
-        guard let profile = profileManager.activeProfile else { return }
+        guard let profile = viewModel.contentViewModel.activeProfile else { return }
 
-        if historyRentionDays != profile.wrappedHistoryRetention {
-            profile.wrappedHistoryRetention = historyRentionDays
+        if viewModel.historyRentionDays != profile.wrappedHistoryRetention {
+            profile.wrappedHistoryRetention = viewModel.historyRentionDays
         }
 
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                viewModel.contentViewModel.handleCriticalError(error)
             }
         }
     }
@@ -223,17 +217,17 @@ struct SettingsView: View {
     }
 
     private func clearHistory() {
-        profileManager.activeProfile?.historyArray.forEach { history in
+        viewModel.contentViewModel.activeProfile?.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
 
         do {
             try viewContext.save()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            viewModel.contentViewModel.handleCriticalError(error)
         }
 
-        profileManager.activeProfile?.pagesArray.forEach({ page in
+        viewModel.contentViewModel.activeProfile?.pagesArray.forEach({ page in
             page.feedsArray.forEach { feed in
                 feed.objectWillChange.send()
             }
@@ -246,16 +240,16 @@ struct SettingsView: View {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
 
-        themeManager.applyUIStyle()
+        viewModel.contentViewModel.applyUIStyle()
     }
 
     private func showResetAlert() {
-        self.showingClearWorkspaceAlert = true
+        viewModel.showingClearWorkspaceAlert = true
     }
 
     private func resetEverything() {
         restoreUserDefaults()
-        profileManager.resetProfiles()
+        viewModel.contentViewModel.resetProfiles()
     }
 
     private func openHomepage() {

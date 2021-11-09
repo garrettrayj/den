@@ -10,14 +10,10 @@ import CoreData
 final class PersistenceManager: ObservableObject {
     let container: NSPersistentCloudKitContainer
 
-    private let crashManager: CrashManager
-
-    init(crashManager: CrashManager) {
-        self.crashManager = crashManager
+    init() {
         self.container = NSPersistentCloudKitContainer(name: "Den")
 
         guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
-            crashManager.handleCriticalError(NSError(domain: "net.devsci.den", code: 1010, userInfo: nil))
             return
         }
 
@@ -52,7 +48,6 @@ final class PersistenceManager: ObservableObject {
                 - The device is out of space.
                 - The store could not be migrated to the current model version.
                 */
-                crashManager.handleCriticalError(error! as NSError)
                 return
             }
 

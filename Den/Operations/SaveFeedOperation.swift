@@ -18,17 +18,14 @@ final class SaveFeedOperation: Operation {
 
     private var feedObjectID: NSManagedObjectID
     private var persistentContainer: NSPersistentContainer
-    private var crashManager: CrashManager
     private var saveMeta: Bool
 
     init(
         persistentContainer: NSPersistentContainer,
-        crashManager: CrashManager,
         feedObjectID: NSManagedObjectID,
         saveMeta: Bool
     ) {
         self.persistentContainer = persistentContainer
-        self.crashManager = crashManager
         self.feedObjectID = feedObjectID
         self.saveMeta = saveMeta
         super.init()
@@ -50,9 +47,7 @@ final class SaveFeedOperation: Operation {
                 do {
                     try context.save()
                 } catch {
-                    DispatchQueue.main.async {
-                        self.crashManager.handleCriticalError(error as NSError)
-                    }
+                    self.cancel()
                 }
             }
         }

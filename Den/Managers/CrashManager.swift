@@ -9,12 +9,16 @@
 import CoreData
 import OSLog
 
-final class CrashManager: ObservableObject {
-    @Published var showingCrashMessage: Bool = false
+final class CrashManager {
+    private var contentViewModel: ContentViewModel
+
+    init(contentViewModel: ContentViewModel) {
+        self.contentViewModel = contentViewModel
+    }
 
     public func handleCriticalError(_ anError: NSError) {
         Logger.main.critical("\(self.formatErrorMessage(anError))")
-        showingCrashMessage = true
+        contentViewModel.showingCrashMessage = true
     }
 
     private func formatErrorMessage(_ anError: NSError?) -> String {

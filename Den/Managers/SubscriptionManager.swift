@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 final class SubscriptionManager: ObservableObject {
-    @Published var currentPageId: UUID?
+    @Published var currentPageId: String?
     @Published var showingAddSubscription: Bool = false
     @Published var openedUrlString: String = ""
 

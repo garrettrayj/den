@@ -62,7 +62,6 @@ final class RefreshManager: ObservableObject {
             feed: feed,
             feedData: feedData,
             persistentContainer: persistentContainer,
-            crashManager: crashManager,
             progress: progress
         )
 

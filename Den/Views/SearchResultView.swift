@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct SearchResultView: View {
+    @ObservedObject var contentViewModel: ContentViewModel
+
     var items: [Item]
     var feedData: FeedData {
         items.first!.feedData!
@@ -29,7 +31,11 @@ struct SearchResultView: View {
                     ForEach(items) { item in
                         Group {
                             Divider()
-                            FeedWidgetRowView(item: item, feed: feedData.feed!)
+                            FeedWidgetRowView(
+                                item: item,
+                                feed: feedData.feed!,
+                                contentViewModel: contentViewModel
+                            )
                         }
                     }
                 }

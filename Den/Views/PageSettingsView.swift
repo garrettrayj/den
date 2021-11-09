@@ -11,7 +11,6 @@ import SwiftUI
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var crashManager: CrashManager
 
     @ObservedObject var viewModel: PageViewModel
 
@@ -86,7 +85,7 @@ struct PageSettingsView: View {
             do {
                 try viewContext.save()
             } catch {
-                crashManager.handleCriticalError(error as NSError)
+                viewModel.contentViewModel.handleCriticalError(error as NSError)
             }
 
             if viewModel.refreshAfterSave {
@@ -101,7 +100,7 @@ struct PageSettingsView: View {
         do {
             try viewContext.save()
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            viewModel.contentViewModel.handleCriticalError(error as NSError)
         }
     }
 
