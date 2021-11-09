@@ -9,10 +9,7 @@
 import SwiftUI
 
 struct PageView: View {
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
-
     @ObservedObject var viewModel: PageViewModel
-    @ObservedObject var page: Page
 
     let columns = [
         GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)
@@ -27,22 +24,22 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }.hidden().frame(height: 0)
 
-            if page.managedObjectContext == nil {
+            if viewModel.page.managedObjectContext == nil {
                 pageDeleted
-            } else if page.feedsArray.count == 0 {
+            } else if viewModel.page.feedsArray.count == 0 {
                 pageEmpty
             } else {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
                         RefreshableScrollView(viewModel: viewModel) {
                             LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(page.feedsArray, id: \.self) { feed in
-                                    FeedWidgetView(feed: feed)
+                                ForEach(viewModel.page.feedsArray) { feed in
+                                    FeedWidgetView(feed: feed, contentViewModel: viewModel.contentViewModel)
                                 }
                             }
                             .padding(.leading, horizontalInset(geometry.safeAreaInsets.leading))
                             .padding(.trailing, horizontalInset(geometry.safeAreaInsets.trailing))
-                            .padding(.top, 16)
+                            .padding(.top, 8)
                             .padding(.bottom, 40)
                         }
                         HeaderProgressBarView(
@@ -54,18 +51,17 @@ struct PageView: View {
                 }
             }
         }
-        .navigationTitle(page.displayName)
-        .navigationBarTitleDisplayMode(.inline)
+        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+        .navigationTitle(viewModel.page.displayName)
         .toolbar { pageToolbar }
         .onAppear {
-            subscriptionManager.currentPageId = page.id
+            viewModel.contentViewModel.currentPageId = viewModel.page.id?.uuidString
         }
-        .background(Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
 
     private var pageToolbar: some ToolbarContent {
         ToolbarItemGroup {
-            if page.managedObjectContext != nil {
+            if viewModel.page.managedObjectContext != nil {
                 if UIDevice.current.userInterfaceIdiom == .phone {
                     compactPageToolbar
                 } else {
@@ -139,7 +135,7 @@ struct PageView: View {
     }
 
     private func showSubscribe() {
-        subscriptionManager.showAddSubscription()
+        viewModel.contentViewModel.showAddSubscription()
     }
 
     private func horizontalInset(_ safeArea: CGFloat) -> CGFloat {

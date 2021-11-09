@@ -9,35 +9,42 @@
 import SwiftUI
 
 struct SidebarPageRowView: View {
+    @Binding var activeNav: String?
     @ObservedObject var pageViewModel: PageViewModel
 
     var body: some View {
-        NavigationLink(destination: PageView(viewModel: pageViewModel, page: pageViewModel.page)) {
-            Label(
-                title: {
-                    HStack {
-                        Text(pageViewModel.page.displayName).lineLimit(1).padding(.vertical, 4)
-                        Spacer()
-                        Text(String(pageViewModel.page.unreadCount))
-                            .lineLimit(1)
-                            .font(.caption)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 8)
-                            .background(
-                                Capsule(style: .circular)
-                                    .foregroundColor(Color(.systemGroupedBackground))
-                            )
-                    }
-                },
-                icon: {
-                    if pageViewModel.refreshing {
-                        ProgressView(value: pageViewModel.refreshFractionCompleted)
-                            .progressViewStyle(CircularIconProgressViewStyle())
-                    } else {
-                        Image(systemName: pageViewModel.page.wrappedSymbol).foregroundColor(.primary)
-                    }
-                }
-            )
+        if pageViewModel.page.id != nil {
+            NavigationLink(
+                tag: pageViewModel.page.id!.uuidString,
+                selection: $activeNav
+            ) {
+                PageView(viewModel: pageViewModel)
+            } label: {
+                rowLabel
+            }
         }
+    }
+
+    var rowLabel: some View {
+        Label(
+            title: {
+                HStack {
+                    Text(pageViewModel.page.displayName).lineLimit(1)
+                    Spacer()
+                    Text(String(pageViewModel.page.unreadCount))
+                        .lineLimit(1)
+                        .font(.footnote.monospacedDigit())
+                        .padding(.trailing, 4)
+                }
+            },
+            icon: {
+                if pageViewModel.refreshing {
+                    ProgressView(value: pageViewModel.refreshFractionCompleted)
+                        .progressViewStyle(CircularIconProgressViewStyle())
+                } else {
+                    Image(systemName: pageViewModel.page.wrappedSymbol).foregroundColor(.primary)
+                }
+            }
+        )
     }
 }

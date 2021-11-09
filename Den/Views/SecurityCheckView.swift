@@ -9,17 +9,15 @@
 import SwiftUI
 
 struct SecurityCheckView: View {
-    @EnvironmentObject var profileManager: ProfileManager
-
     @ObservedObject var viewModel: SecurityCheckViewModel
 
     var body: some View {
         List {
-            if profileManager.activeProfile.insecureFeedCount == 0 {
+            if viewModel.contentViewModel.activeProfile?.insecureFeedCount == 0 {
                 allClearSummary
             } else {
                 warningSummary
-                ForEach(profileManager.activeProfile!.pagesWithInsecureFeeds) { page in
+                ForEach(viewModel.contentViewModel.activeProfile!.pagesWithInsecureFeeds) { page in
                     pageSection(page: page)
                 }
 
@@ -51,8 +49,8 @@ struct SecurityCheckView: View {
         Section(header: Text("Summary")) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
-                    if profileManager.activeProfile.insecureFeedCount > 1 {
-                        Text("\(profileManager.activeProfile.insecureFeedCount) subscriptions have insecure URLs")
+                    if viewModel.contentViewModel.activeProfile?.insecureFeedCount ?? 0 > 0 {
+                        Text("\(viewModel.contentViewModel.activeProfile?.insecureFeedCount ?? 0) subscriptions have insecure URLs")
                             .fontWeight(.medium)
                         Text("Den can look for secure alternatives to use instead").foregroundColor(.secondary)
                     } else {

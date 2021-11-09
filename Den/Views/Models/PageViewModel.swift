@@ -19,11 +19,11 @@ final class PageViewModel: ObservableObject, Identifiable {
     @Published var showingIconPicker: Bool = false
     @Published var refreshAfterSave: Bool = false
 
-    private var refreshManager: RefreshManager
+    var contentViewModel: ContentViewModel
 
-    init(page: Page, refreshManager: RefreshManager) {
+    init(page: Page, contentViewModel: ContentViewModel) {
         self.page = page
-        self.refreshManager = refreshManager
+        self.contentViewModel = contentViewModel
 
         progress
             .publisher(for: \.fractionCompleted)
@@ -35,6 +35,6 @@ final class PageViewModel: ObservableObject, Identifiable {
     }
 
     func refresh() {
-        refreshManager.refresh(pageViewModel: self)
+        contentViewModel.refresh(pageViewModel: self)
     }
 }

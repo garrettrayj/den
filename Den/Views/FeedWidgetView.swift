@@ -11,16 +11,19 @@ import SwiftUI
 struct FeedWidgetView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var profileManager: ProfileManager
 
     @ObservedObject var feed: Feed
+    @ObservedObject var contentViewModel: ContentViewModel
 
     @State private var showingFeedPreferences: Bool = false
 
     var body: some View {
         widgetContent
-            .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground)))
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(.systemBackground))
+
+            )
     }
 
     private var widgetContent: some View {
@@ -43,11 +46,9 @@ struct FeedWidgetView: View {
             }
         }
         .sheet(isPresented: $showingFeedPreferences) {
-            FeedSettingsView(feed: feed)
+            FeedSettingsView(feed: feed, contentViewModel: contentViewModel)
                 .environment(\.managedObjectContext, viewContext)
                 .environment(\.colorScheme, colorScheme)
-                .environmentObject(crashManager)
-                .environmentObject(profileManager)
         }
     }
 
@@ -72,7 +73,7 @@ struct FeedWidgetView: View {
             ForEach(feed.feedData!.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
                 Group {
                     Divider()
-                    FeedWidgetRowView(item: item, feed: feed)
+                    FeedWidgetRowView(item: item, feed: feed, contentViewModel: contentViewModel)
                 }
             }
         }

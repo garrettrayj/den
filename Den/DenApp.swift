@@ -15,26 +15,15 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var persistenceManager: PersistenceManager
-    @StateObject var crashManager: CrashManager
-    @StateObject var profileManager: ProfileManager
-    @StateObject var refreshManager: RefreshManager
-    @StateObject var cacheManager: CacheManager
-    @StateObject var subscriptionManager: SubscriptionManager
-    @StateObject var themeManager: ThemeManager
-    @StateObject var linkManager: LinkManager
+    @StateObject var contentViewModel: ContentViewModel
+
+    var persistenceManager: PersistenceManager
+    var cacheManager: CacheManager
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: contentViewModel)
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
-                .environmentObject(profileManager)
-                .environmentObject(refreshManager)
-                .environmentObject(cacheManager)
-                .environmentObject(subscriptionManager)
-                .environmentObject(crashManager)
-                .environmentObject(themeManager)
-                .environmentObject(linkManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
                     if let titlebar = window?.windowScene?.titlebar {
@@ -43,13 +32,11 @@ struct DenApp: App {
                     }
                     #endif
 
-                    linkManager.controller = window?.rootViewController
-
-                    themeManager.window = window
-                    themeManager.applyUIStyle()
+                    contentViewModel.hostingWindow = window
+                    contentViewModel.applyUIStyle()
                 }
                 .onOpenURL { url in
-                    subscriptionManager.showAddSubscription(to: url)
+                    contentViewModel.showAddSubscription(to: url)
                 }
         }
         .onChange(of: scenePhase) { newScenePhase in
@@ -67,37 +54,16 @@ struct DenApp: App {
     }
 
     init() {
-        let crashManager = CrashManager()
-        let persistenceManager = PersistenceManager(crashManager: crashManager)
-        let profileManager = ProfileManager(
-            viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager
-        )
-        let refreshManager = RefreshManager(
-            persistentContainer: persistenceManager.container,
-            crashManager: crashManager
-        )
-        let cacheManager = CacheManager(
-            persistentContainer: persistenceManager.container,
-            crashManager: crashManager
-        )
-        let subscriptionManager = SubscriptionManager()
-        let themeManager = ThemeManager()
-        let browserManager = LinkManager(
-            viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager,
-            profileManager: profileManager
-        )
-
-        _crashManager = StateObject(wrappedValue: crashManager)
-        _persistenceManager = StateObject(wrappedValue: persistenceManager)
-        _profileManager = StateObject(wrappedValue: profileManager)
-        _refreshManager = StateObject(wrappedValue: refreshManager)
-        _cacheManager = StateObject(wrappedValue: cacheManager)
-        _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
-        _themeManager = StateObject(wrappedValue: themeManager)
-        _linkManager = StateObject(wrappedValue: browserManager)
-
         FileManager.default.initAppDirectories()
+
+        persistenceManager = PersistenceManager()
+
+        let contentViewModel = ContentViewModel(persistenceManager: persistenceManager)
+        _contentViewModel = StateObject(wrappedValue: contentViewModel)
+
+        cacheManager = CacheManager(
+            persistentContainer: persistenceManager.container,
+            contentViewModel: contentViewModel
+        )
     }
 }

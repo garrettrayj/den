@@ -15,11 +15,12 @@ final class HistoryViewModel: ObservableObject {
     @Published var validationMessage: String?
 
     private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
 
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+    public var contentViewModel: ContentViewModel
+
+    init(viewContext: NSManagedObjectContext, contentViewModel: ContentViewModel) {
         self.viewContext = viewContext
-        self.crashManager = crashManager
+        self.contentViewModel = contentViewModel
 
         self.performHistorySearch()
     }
@@ -74,7 +75,7 @@ final class HistoryViewModel: ObservableObject {
                 return aHistory[0].visited! > bHistory[0].visited!
             }
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            contentViewModel.handleCriticalError(error as NSError)
         }
     }
 }

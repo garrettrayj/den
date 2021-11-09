@@ -11,46 +11,41 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @EnvironmentObject var profileManager: ProfileManager
-    @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
-    @EnvironmentObject var crashManager: CrashManager
+
+    @StateObject var viewModel: ContentViewModel
 
     var body: some View {
-        if crashManager.showingCrashMessage == true {
+        if viewModel.showingCrashMessage == true {
             CrashMessageView()
         } else {
-            TabView {
-                PagesView().tabItem { Label("Pages", systemImage: "list.dash") }
-
-                SearchView(
-                    viewModel: SearchViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager
+            if viewModel.pageViewModels.count > 0 {
+                navigationView
+                    .searchable(
+                        text: $viewModel.searchViewModel.searchText,
+                        placement: .navigationBarDrawer(displayMode: .always),
+                        prompt: Text("Search")
                     )
-                )
-                .tabItem { Label("Search", systemImage: "magnifyingglass") }
-
-                HistoryView(
-                    viewModel: HistoryViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager
-                    )
-                )
-                .tabItem { Label("History", systemImage: "clock") }
-
-                SettingsView().tabItem { Label("Settings", systemImage: "gear") }
+                    .onSubmit(of: .search) {
+                        viewModel.showSearch()
+                        viewModel.searchViewModel.performItemSearch()
+                    }
+            } else {
+                navigationView
             }
-            .modifier(MacButtonStyleModifier())
-            .sheet(isPresented: $subscriptionManager.showingAddSubscription) {
-                SubscribeView(viewModel: SubscribeViewModel(
-                    viewContext: viewContext,
-                    subscriptionManager: subscriptionManager,
-                    refreshManager: refreshManager,
-                    profileManager: profileManager
-                ))
-                .environment(\.colorScheme, colorScheme)
-            }
+        }
+    }
+
+    private var navigationView: some View {
+        NavigationView {
+            SidebarView(viewModel: viewModel)
+
+            // Default view for detail area
+            WelcomeView(contentViewModel: viewModel)
+        }
+        .modifier(MacButtonStyleModifier())
+        .sheet(isPresented: $viewModel.showingAddSubscription) {
+            SubscribeView(viewModel: viewModel.subscribeViewModel)
+            .environment(\.colorScheme, colorScheme)
         }
     }
 }

@@ -7,23 +7,25 @@
 //
 
 import CoreData
+import Combine
 
 final class SearchViewModel: ObservableObject {
-    @Published var query: String = ""
+    @Published var searchText: String = ""
     @Published var results: [[Item]] = []
     @Published var queryIsValid: Bool?
     @Published var validationMessage: String?
 
     private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
 
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+    public var contentViewModel: ContentViewModel
+
+    init(viewContext: NSManagedObjectContext, contentViewModel: ContentViewModel) {
         self.viewContext = viewContext
-        self.crashManager = crashManager
+        self.contentViewModel = contentViewModel
     }
 
     func reset() {
-        query = ""
+        searchText = ""
         results = []
         queryIsValid = nil
     }
@@ -31,12 +33,12 @@ final class SearchViewModel: ObservableObject {
     func validateQuery() -> Bool {
         queryIsValid = true
 
-        if query == "" {
+        if searchText == "" {
             queryIsValid = false
             validationMessage = "Search is empty"
         }
 
-        if query.count < 3 {
+        if searchText.count < 3 {
             queryIsValid = false
             validationMessage = "Search needs at least three characters"
         }
@@ -53,7 +55,7 @@ final class SearchViewModel: ObservableObject {
         fetchRequest.predicate = NSPredicate(
             format: "%K CONTAINS[C] %@",
             #keyPath(Item.title),
-            query
+            searchText
         )
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
         fetchRequest.relationshipKeyPathsForPrefetching = ["feed"]
@@ -80,7 +82,7 @@ final class SearchViewModel: ObservableObject {
                 return aTitle < bTitle
             }
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            contentViewModel.handleCriticalError(error as NSError)
         }
     }
 }

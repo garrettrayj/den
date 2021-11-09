@@ -15,7 +15,6 @@ final class RefreshPlan {
     private var feed: Feed
     private var feedData: FeedData
     private var persistentContainer: NSPersistentContainer
-    private var crashManager: CrashManager
     private var progress: Progress?
 
     // Feed processing operations
@@ -44,13 +43,11 @@ final class RefreshPlan {
         feed: Feed,
         feedData: FeedData,
         persistentContainer: NSPersistentContainer,
-        crashManager: CrashManager,
         progress: Progress? = nil
     ) {
         self.feed = feed
         self.feedData = feedData
         self.persistentContainer = persistentContainer
-        self.crashManager = crashManager
         self.progress = progress
     }
 
@@ -100,7 +97,6 @@ final class RefreshPlan {
 
         saveFeedOp = SaveFeedOperation(
             persistentContainer: persistentContainer,
-            crashManager: crashManager,
             feedObjectID: feed.objectID,
             saveMeta: fullUpdate
         )

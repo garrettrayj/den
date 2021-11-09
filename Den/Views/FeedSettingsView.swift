@@ -11,10 +11,9 @@ import SwiftUI
 struct FeedSettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var profileManager: ProfileManager
 
     @ObservedObject var feed: Feed
+    @ObservedObject var contentViewModel: ContentViewModel
 
     @State private var showingDeleteAlert = false
 
@@ -62,7 +61,7 @@ struct FeedSettingsView: View {
             set: {
                 guard
                     let pageIdString = $0,
-                    let page = profileManager.activeProfile.pagesArray.first(where: { page in
+                    let page = contentViewModel.activeProfile?.pagesArray.first(where: { page in
                         return page.id?.uuidString == pageIdString
                     })
                 else { return }
@@ -79,7 +78,7 @@ struct FeedSettingsView: View {
                 Label("Page", systemImage: "square.grid.2x2").padding(.vertical, 4)
                 Spacer()
                 Picker("", selection: pagePickerSelection) {
-                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                    ForEach(contentViewModel.activeProfile?.pagesArray ?? []) { page in
                         Text(page.wrappedName).tag(page.id?.uuidString)
                     }
                 }
@@ -170,7 +169,7 @@ struct FeedSettingsView: View {
             do {
                 try self.viewContext.save()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                contentViewModel.handleCriticalError(error)
             }
         }
     }
