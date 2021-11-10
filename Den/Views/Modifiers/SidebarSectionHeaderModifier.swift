@@ -10,9 +10,13 @@ import SwiftUI
 
 struct SidebarSectionHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
+
+        #if targetEnvironment(macCatalyst)
         content
-            .font(.footnote)
-            .textCase(.uppercase)
-            .foregroundColor(.secondary)
+            .font(.title3.weight(.semibold))
+            .padding(.vertical, 8)
+        #else
+        content.font(.title3.weight(.semibold))
+        #endif
     }
 }

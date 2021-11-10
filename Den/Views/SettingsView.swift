@@ -27,7 +27,7 @@ struct SettingsView: View {
     }
 
     private var appearanceSection: some View {
-        Section(header: Text("Appearance")) {
+        Section(header: Text("Appearance").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Theme", systemImage: "paintbrush").padding(.vertical, 4)
@@ -42,7 +42,7 @@ struct SettingsView: View {
             }
             #else
             Picker(
-                selection: $selectedTheme,
+                selection: $viewModel.selectedTheme,
                 label: Label("Theme", systemImage: "paintbrush"),
                 content: {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
@@ -56,12 +56,14 @@ struct SettingsView: View {
             UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
             viewModel.contentViewModel.applyUIStyle()
         }).onAppear {
-            viewModel.selectedTheme = UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
+            viewModel.selectedTheme = UIUserInterfaceStyle.init(
+                rawValue: UserDefaults.standard.integer(forKey: "UIStyle")
+            )!
         }
     }
 
     private var feedsSection: some View {
-        Section(header: Text("Feeds")) {
+        Section(header: Text("Feeds").modifier(SectionHeaderModifier())) {
             NavigationLink(
                 destination: ImportView(
                     importViewModel: ImportViewModel(
@@ -97,7 +99,7 @@ struct SettingsView: View {
     }
 
     private var historySection: some View {
-        Section(header: Text("History")) {
+        Section(header: Text("History").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Keep History", systemImage: "clock").padding(.vertical, 4)
@@ -138,7 +140,7 @@ struct SettingsView: View {
     }
 
     private var dataSection: some View {
-        Section(header: Text("Reset")) {
+        Section(header: Text("Reset").modifier(SectionHeaderModifier())) {
             Button(action: clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark").padding(.vertical, 4)
             }
@@ -161,7 +163,7 @@ struct SettingsView: View {
     }
 
     private var aboutSection: some View {
-        Section(header: Text("About")) {
+        Section(header: Text("About").modifier(SectionHeaderModifier())) {
             HStack(spacing: 16) {
                 Image(uiImage: UIImage(named: "TitleIcon") ?? UIImage())
                     .resizable()
@@ -250,6 +252,7 @@ struct SettingsView: View {
     private func resetEverything() {
         restoreUserDefaults()
         viewModel.contentViewModel.resetProfiles()
+        viewModel.contentViewModel.pageViewModels = []
     }
 
     private func openHomepage() {

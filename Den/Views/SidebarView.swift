@@ -25,33 +25,37 @@ struct SidebarView: View {
          Consider using a Refresh menu item bound to ⌘-R
      */
     var body: some View {
-        #if targetEnvironment(macCatalyst)
-        list
-        #else
-        if viewModel.pageViewModels.count > 0 {
-            list.refreshable {
-                viewModel.refreshAll()
+        Group {
+            if editMode?.wrappedValue == .active {
+                editingList.environment(\.editMode, editMode)
+            } else {
+                #if targetEnvironment(macCatalyst)
+                navigationList
+                #else
+                if viewModel.pageViewModels.count > 0 {
+                    navigationList.refreshable {
+                        viewModel.refreshAll()
+                    }
+                } else {
+                    navigationList
+                }
+                #endif
             }
-        } else {
-            list
         }
-        #endif
+        .navigationTitle("Den")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar { toolbar }
     }
 
-    private var list: some View {
+    private var navigationList: some View {
         List {
-            if editMode?.wrappedValue == .active {
-                editListSection
+            if viewModel.pageViewModels.count > 0 {
+                pageListSection
             } else {
-                if viewModel.pageViewModels.count > 0 {
-                    Divider()
-                    pageListSection
-                } else {
-                    getStartedSection
-                }
+                getStartedSection
             }
-            Divider()
-            otherSection
+
+            moreSection
         }
         .background(
             NavigationLink(tag: "search", selection: $viewModel.activeNav) {
@@ -60,21 +64,32 @@ struct SidebarView: View {
                 Label("History", systemImage: "clock")
             }.hidden()
         )
-        .environment(\.editMode, editMode)
         .listStyle(SidebarListStyle())
-        .navigationTitle("Den")
-        .toolbar { toolbar }
+        .searchable(
+            text: $viewModel.searchViewModel.searchText,
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: Text("Search")
+        )
+        .onSubmit(of: .search) {
+            viewModel.showSearch()
+            viewModel.searchViewModel.performItemSearch()
+        }
+    }
+
+    private var editingList: some View {
+        List {
+            editListSection
+
+            Button(action: viewModel.createPage) {
+                Label("New Page", systemImage: "plus.circle")
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
     }
 
     private var toolbar: some ToolbarContent {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
             HStack(spacing: 0) {
-                if viewModel.pageViewModels.count > 0 || editMode?.wrappedValue == .active {
-                    Button(action: viewModel.createPage) {
-                        Label("New Page", systemImage: "plus")
-                    }
-                }
-
                 if editMode?.wrappedValue == .active {
                     Button {
                         editMode?.wrappedValue = .inactive
@@ -101,22 +116,28 @@ struct SidebarView: View {
     }
 
     private var editListSection: some View {
-        Section {
+        Section(
+            header: Text("Pages").font(.title3.weight(.semibold)).padding(.leading, 8)
+        ) {
             ForEach(viewModel.pageViewModels) { pageViewModel in
                 Text(pageViewModel.page.displayName)
                     .lineLimit(1)
                     .multilineTextAlignment(.leading)
-                    .padding(.vertical, 4)
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)
         }
+        .headerProminence(.increased)
     }
 
     private var pageListSection: some View {
-        ForEach(viewModel.pageViewModels) { pageViewModel in
-            SidebarPageRowView(activeNav: $viewModel.activeNav, pageViewModel: pageViewModel)
-                .padding(.leading, 8)
+        Section(
+            header: Text("Pages").modifier(SidebarSectionHeaderModifier())
+        ) {
+            ForEach(viewModel.pageViewModels) { pageViewModel in
+                SidebarPageRowView(activeNav: $viewModel.activeNav, pageViewModel: pageViewModel)
+                    .padding(.leading, 8)
+            }
         }
     }
 
@@ -134,7 +155,7 @@ struct SidebarView: View {
         }
     }
 
-    private var otherSection: some View {
+    private var moreSection: some View {
         Group {
             if viewModel.pageViewModels.count > 0 {
                 NavigationLink(tag: "history", selection: $viewModel.activeNav) {

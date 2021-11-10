@@ -33,9 +33,9 @@ struct SidebarPageRowView: View {
                     Spacer()
                     Text(String(pageViewModel.page.unreadCount))
                         .lineLimit(1)
-                        .font(.footnote.monospacedDigit())
+                        .font(.footnote.monospacedDigit().weight(.medium))
                         .padding(.trailing, 4)
-                }
+                }.padding(.vertical, 4)
             },
             icon: {
                 if pageViewModel.refreshing {
