@@ -94,7 +94,7 @@ struct FeedSettingsView: View {
                 selection: pagePickerSelection,
                 label: Label("Page", systemImage: "square.grid.2x2"),
                 content: {
-                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                    ForEach(contentViewModel.activeProfile?.pagesArray ?? []) { page in
                         Text(page.wrappedName).tag(page.id?.uuidString)
                     }
                 }

@@ -28,8 +28,6 @@ final class ContentViewModel: ObservableObject {
 
     public var hostingWindow: UIWindow?
     public var searchViewModel: SearchViewModel!
-    public var subscribeViewModel: SubscribeViewModel!
-    public var historyViewModel: HistoryViewModel!
 
     init(persistenceManager: PersistenceManager) {
         self.persistenceManager = persistenceManager
@@ -47,16 +45,6 @@ final class ContentViewModel: ObservableObject {
         }) ?? []
 
         self.searchViewModel = SearchViewModel(
-            viewContext: viewContext,
-            contentViewModel: self
-        )
-
-        self.subscribeViewModel = SubscribeViewModel(
-            viewContext: viewContext,
-            contentViewModel: self
-        )
-
-        self.historyViewModel = HistoryViewModel(
             viewContext: viewContext,
             contentViewModel: self
         )
@@ -289,6 +277,73 @@ final class ContentViewModel: ObservableObject {
         return messages
     }
 
+    func showAddSubscription(to url: URL? = nil) {
+        if
+            let url = url,
+            var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
+        {
+            if urlComponents.scheme == nil {
+                urlComponents.scheme = "http"
+            }
+
+            if let urlString = urlComponents.string {
+                openedUrlString = urlString
+            }
+        }
+
+        self.showingAddSubscription = true
+    }
+
+    func resetSubscribe() {
+        showingAddSubscription = false
+        openedUrlString = ""
+    }
+
+    public func openLink(url: URL, logHistoryItem: Item? = nil, readerMode: Bool = false) {
+        guard let controller = hostingWindow?.rootViewController else {
+            preconditionFailure("No controller present.")
+        }
+
+        if let historyItem = logHistoryItem {
+            logHistory(item: historyItem)
+        }
+
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = readerMode
+
+        let safariViewController = SFSafariViewController(url: url, configuration: config)
+        controller.modalPresentationStyle = .fullScreen
+        controller.present(safariViewController, animated: true)
+    }
+
+    private func logHistory(item: Item) {
+        guard let activeProfile = activeProfile else {
+            return
+        }
+
+        let history = History.create(in: viewContext, profile: activeProfile)
+        history.link = item.link
+        history.title = item.title
+        history.visited = Date()
+
+        do {
+            try viewContext.save()
+
+            // Update link color
+            item.objectWillChange.send()
+
+            // Update unread count in page navigation
+            item.feedData?.feed?.page?.objectWillChange.send()
+        } catch {
+            handleCriticalError(error as NSError)
+        }
+    }
+}
+
+/**
+ Refresh management
+ */
+extension ContentViewModel {
     public func refresh(pageViewModel: PageViewModel) {
         pageViewModel.refreshing = true
         var operations: [Operation] = []
@@ -374,68 +429,6 @@ final class ContentViewModel: ObservableObject {
             } catch {
                 self.handleCriticalError(error as NSError)
             }
-        }
-    }
-
-    func showAddSubscription(to url: URL? = nil) {
-        if
-            let url = url,
-            var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
-        {
-            if urlComponents.scheme == nil {
-                urlComponents.scheme = "http"
-            }
-
-            if let urlString = urlComponents.string {
-                openedUrlString = urlString
-            }
-        }
-
-        self.showingAddSubscription = true
-    }
-
-    func resetSubscribe() {
-        showingAddSubscription = false
-        openedUrlString = ""
-    }
-
-    public func openLink(url: URL, logHistoryItem: Item? = nil, readerMode: Bool = false) {
-        guard let controller = hostingWindow?.rootViewController else {
-            preconditionFailure("No controller present.")
-        }
-
-        if let historyItem = logHistoryItem {
-            logHistory(item: historyItem)
-        }
-
-        let config = SFSafariViewController.Configuration()
-        config.entersReaderIfAvailable = readerMode
-
-        let safariViewController = SFSafariViewController(url: url, configuration: config)
-        controller.modalPresentationStyle = .fullScreen
-        controller.present(safariViewController, animated: true)
-    }
-
-    private func logHistory(item: Item) {
-        guard let activeProfile = activeProfile else {
-            return
-        }
-
-        let history = History.create(in: viewContext, profile: activeProfile)
-        history.link = item.link
-        history.title = item.title
-        history.visited = Date()
-
-        do {
-            try viewContext.save()
-
-            // Update link color
-            item.objectWillChange.send()
-
-            // Update unread count in page navigation
-            item.feedData?.feed?.page?.objectWillChange.send()
-        } catch {
-            handleCriticalError(error as NSError)
         }
     }
 }

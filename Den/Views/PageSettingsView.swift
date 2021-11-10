@@ -50,7 +50,6 @@ struct PageSettingsView: View {
             }
         }
         .navigationTitle("Page Settings")
-        .navigationBarTitleDisplayMode(.inline)
         .environment(\.editMode, .constant(.active))
         .onDisappear(perform: save)
     }

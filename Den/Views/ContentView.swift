@@ -18,20 +18,7 @@ struct ContentView: View {
         if viewModel.showingCrashMessage == true {
             CrashMessageView()
         } else {
-            if viewModel.pageViewModels.count > 0 {
-                navigationView
-                    .searchable(
-                        text: $viewModel.searchViewModel.searchText,
-                        placement: .navigationBarDrawer(displayMode: .always),
-                        prompt: Text("Search")
-                    )
-                    .onSubmit(of: .search) {
-                        viewModel.showSearch()
-                        viewModel.searchViewModel.performItemSearch()
-                    }
-            } else {
-                navigationView
-            }
+            navigationView
         }
     }
 
@@ -44,7 +31,7 @@ struct ContentView: View {
         }
         .modifier(MacButtonStyleModifier())
         .sheet(isPresented: $viewModel.showingAddSubscription) {
-            SubscribeView(viewModel: viewModel.subscribeViewModel)
+            SubscribeView(viewModel: SubscribeViewModel(viewContext: viewContext, contentViewModel: viewModel))
             .environment(\.colorScheme, colorScheme)
         }
     }

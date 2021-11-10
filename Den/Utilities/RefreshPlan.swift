@@ -8,7 +8,6 @@
 
 import CoreData
 
-// swiftlint:disable type_body_length
 final class RefreshPlan {
     public var fullUpdate: Bool = false
 
