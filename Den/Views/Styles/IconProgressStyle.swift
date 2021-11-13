@@ -1,5 +1,5 @@
 //
-//  CircularIndeterminateProgressViewStyle.swift
+//  IconProgressStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/7/21.
@@ -11,7 +11,7 @@ import SwiftUI
 /**
  Indederminate circular ProgressViewStyle for use in icon positions.
  */
-struct CircularIconProgressViewStyle: ProgressViewStyle {
+struct IconProgressStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         let view = ProgressView(configuration).progressViewStyle(CircularProgressViewStyle())
 

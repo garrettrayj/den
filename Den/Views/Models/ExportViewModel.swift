@@ -6,25 +6,25 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 final class ExportViewModel: ObservableObject {
     @Published var selectedPages: [Page] = []
     @Published var isFilePickerShown = false
     @Published var picker: ExportDocumentPicker?
 
-    var contentViewModel: ContentViewModel
-
     var allSelected: Bool {
-        selectedPages.count == contentViewModel.activeProfile?.pagesArray.count ?? 0
+        selectedPages.count == profileManager.activeProfile?.pagesArray.count ?? 0
     }
 
     var noneSelected: Bool {
         selectedPages.count == 0
     }
 
-    init(contentViewModel: ContentViewModel) {
-        self.contentViewModel = contentViewModel
+    private var profileManager: ProfileManager
+
+    init(profileManager: ProfileManager) {
+        self.profileManager = profileManager
     }
 
     func togglePage(_ page: Page) {
@@ -36,7 +36,7 @@ final class ExportViewModel: ObservableObject {
     }
 
     func selectAll() {
-        contentViewModel.activeProfile?.pagesArray.forEach { page in
+        profileManager.activeProfile?.pagesArray.forEach { page in
             if !selectedPages.contains(page) {
                 selectedPages.append(page)
             }
@@ -48,7 +48,7 @@ final class ExportViewModel: ObservableObject {
     }
 
     func exportOpml() {
-        guard let activeProfile = contentViewModel.activeProfile else { return }
+        guard let activeProfile = profileManager.activeProfile else { return }
 
         let exportPages: [Page] = activeProfile.pagesArray.compactMap { page in
             if selectedPages.contains(page) {
@@ -60,8 +60,15 @@ final class ExportViewModel: ObservableObject {
 
         let opmlWriter = OPMLWriter(pages: exportPages)
         let temporaryFileURL = opmlWriter.writeToFile()
-        self.picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
+        let picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
 
-        contentViewModel.hostingWindow?.rootViewController?.present(self.picker!.viewController, animated: true)
+        let scenes = UIApplication.shared.connectedScenes
+        if
+            let windowScene = scenes.first as? UIWindowScene,
+            let window = windowScene.windows.first,
+            let rootViewController = window.rootViewController
+        {
+            rootViewController.present(picker.viewController, animated: true)
+        }
     }
 }

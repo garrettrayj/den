@@ -12,10 +12,9 @@ struct FeedWidgetView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
-    @ObservedObject var feed: Feed
-    @ObservedObject var contentViewModel: ContentViewModel
+    @Binding var activeFeed: String?
 
-    @State private var showingFeedPreferences: Bool = false
+    @ObservedObject var viewModel: FeedWidgetViewModel
 
     var body: some View {
         widgetContent
@@ -27,53 +26,47 @@ struct FeedWidgetView: View {
     }
 
     private var widgetContent: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             feedHeader
-            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
+            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                 feedItems
             } else {
                 Divider()
 
-                if feed.feedData == nil {
+                if viewModel.feed.feedData == nil {
                     feedNotFetched
-                } else if feed.feedData?.error != nil {
+                } else if viewModel.feed.feedData?.error != nil {
                     feedError
-                } else if feed.feedData!.itemsArray.count == 0 {
+                } else if viewModel.feed.feedData!.itemsArray.count == 0 {
                     feedEmpty
                 } else {
                     feedStatusUnknown
                 }
             }
         }
-        .sheet(isPresented: $showingFeedPreferences) {
-            FeedSettingsView(feed: feed, contentViewModel: contentViewModel)
-                .environment(\.managedObjectContext, viewContext)
-                .environment(\.colorScheme, colorScheme)
-        }
     }
 
     private var feedHeader: some View {
-        HStack {
-            FeedTitleLabelView(feed: feed).font(.headline.weight(.medium))
-
-            Spacer()
-
-            Button(action: showOptions) {
-                Label("Feed Settings", systemImage: "gearshape").labelStyle(IconOnlyLabelStyle())
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(Color.clear)
-            }
-
-        }.padding(.leading, 12)
+        NavigationLink(tag: viewModel.feed.id!.uuidString, selection: $activeFeed) {
+            FeedView(
+                viewModel: FeedViewModel(feed: viewModel.feed),
+                activeFeed: $activeFeed
+            )
+        } label: {
+            FeedTitleLabelView(feed: viewModel.feed)
+        }
+        .buttonStyle(WidgetHeaderButtonStyle())
     }
 
     private var feedItems: some View {
         VStack(spacing: 0) {
-            ForEach(feed.feedData!.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
+            ForEach(viewModel.feed.feedData!.itemsArray.prefix(viewModel.feed.page?.wrappedItemsPerFeed ?? 5)) { item in
                 Group {
                     Divider()
-                    FeedWidgetRowView(item: item, feed: feed, contentViewModel: contentViewModel)
+                    FeedWidgetRowView(
+                        item: item,
+                        feed: viewModel.feed
+                    )
                 }
             }
         }
@@ -87,7 +80,7 @@ struct FeedWidgetView: View {
                     .font(.callout)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(feed.feedData!.error!)
+                Text(viewModel.feed.feedData!.error!)
                     .foregroundColor(.red)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -126,9 +119,5 @@ struct FeedWidgetView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .multilineTextAlignment(.center)
-    }
-
-    private func showOptions() {
-        self.showingFeedPreferences = true
     }
 }

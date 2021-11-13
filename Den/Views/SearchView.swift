@@ -22,7 +22,7 @@ struct SearchView: View {
             } else if viewModel.queryIsValid == true {
                 if viewModel.results.count > 0 {
                     Grid(viewModel.results, id: \.self) { sectionItems in
-                        SearchResultView(contentViewModel: viewModel.contentViewModel, items: sectionItems)
+                        SearchResultView(items: sectionItems)
                     }
                     .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
                     .padding(.top, 8)

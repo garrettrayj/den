@@ -14,8 +14,11 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.editMode) var editMode
+    @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var refreshManager: RefreshManager
 
-    @StateObject var viewModel: ContentViewModel
+    @ObservedObject var contentViewModel: ContentViewModel
+    @ObservedObject var searchViewModel: SearchViewModel
 
     /**
      Switch refreshable() on and off depending on environment and page count.
@@ -49,7 +52,7 @@ struct SidebarView: View {
 
     private var navigationList: some View {
         List {
-            if viewModel.pageViewModels.count > 0 {
+            if contentViewModel.pageViewModels.count > 0 {
                 pageListSection
             } else {
                 getStartedSection
@@ -58,21 +61,21 @@ struct SidebarView: View {
             moreSection
         }
         .background(
-            NavigationLink(tag: "search", selection: $viewModel.activeNav) {
-                SearchView(viewModel: viewModel.searchViewModel)
+            NavigationLink(tag: "search", selection: $contentViewModel.activeNav) {
+                SearchView(viewModel: searchViewModel)
             } label: {
                 Label("History", systemImage: "clock")
             }.hidden()
         )
         .listStyle(SidebarListStyle())
         .searchable(
-            text: $viewModel.searchViewModel.searchText,
+            text: $searchViewModel.searchText,
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {
-            viewModel.showSearch()
-            viewModel.searchViewModel.performItemSearch()
+            contentViewModel.showSearch()
+            searchViewModel.performItemSearch()
         }
     }
 
@@ -80,7 +83,7 @@ struct SidebarView: View {
         List {
             editListSection
 
-            Button(action: viewModel.createPage) {
+            Button(action: contentViewModel.createPage) {
                 Label("New Page", systemImage: "plus.circle")
             }
         }
@@ -98,7 +101,7 @@ struct SidebarView: View {
                     }
                 }
 
-                if editMode?.wrappedValue == .inactive && viewModel.pageViewModels.count > 0 {
+                if editMode?.wrappedValue == .inactive && contentViewModel.pageViewModels.count > 0 {
                     Button {
                         editMode?.wrappedValue = .active
                     } label: {
@@ -106,7 +109,7 @@ struct SidebarView: View {
                     }
 
                     Button {
-                        viewModel.refreshAll()
+                        refreshManager.refresh(contentViewModel: contentViewModel)
                     } label: {
                         Label("Refresh All", systemImage: "arrow.clockwise")
                     }
@@ -119,13 +122,13 @@ struct SidebarView: View {
         Section(
             header: Text("Pages").font(.title3.weight(.semibold)).padding(.leading, 8)
         ) {
-            ForEach(viewModel.pageViewModels) { pageViewModel in
+            ForEach(contentViewModel.pageViewModels) { pageViewModel in
                 Text(pageViewModel.page.displayName)
                     .lineLimit(1)
                     .multilineTextAlignment(.leading)
             }
-            .onMove(perform: viewModel.movePage)
-            .onDelete(perform: viewModel.deletePage)
+            .onMove(perform: contentViewModel.movePage)
+            .onDelete(perform: contentViewModel.deletePage)
         }
         .headerProminence(.increased)
     }
@@ -134,8 +137,8 @@ struct SidebarView: View {
         Section(
             header: Text("Pages").modifier(SidebarSectionHeaderModifier())
         ) {
-            ForEach(viewModel.pageViewModels) { pageViewModel in
-                SidebarPageRowView(activeNav: $viewModel.activeNav, pageViewModel: pageViewModel)
+            ForEach(contentViewModel.pageViewModels) { pageViewModel in
+                SidebarPageRowView(activeNav: $contentViewModel.activeNav, pageViewModel: pageViewModel)
                     .padding(.leading, 8)
             }
         }
@@ -146,10 +149,10 @@ struct SidebarView: View {
             header: Text("Get Started").modifier(SidebarSectionHeaderModifier()),
             footer: Text("or import subscriptions in \(Image(systemName: "gear")) Settings")
         ) {
-            Button(action: viewModel.createPage) {
+            Button(action: contentViewModel.createPage) {
                 Label("New Page", systemImage: "plus").padding(.vertical, 4)
             }
-            Button(action: viewModel.loadDemo) {
+            Button(action: contentViewModel.loadDemo) {
                 Label("Load Demo", systemImage: "wand.and.stars").padding(.vertical, 4)
             }
         }
@@ -157,11 +160,11 @@ struct SidebarView: View {
 
     private var moreSection: some View {
         Group {
-            if viewModel.pageViewModels.count > 0 {
-                NavigationLink(tag: "history", selection: $viewModel.activeNav) {
+            if contentViewModel.pageViewModels.count > 0 {
+                NavigationLink(tag: "history", selection: $contentViewModel.activeNav) {
                     HistoryView(viewModel: HistoryViewModel(
                         viewContext: viewContext,
-                        contentViewModel: viewModel
+                        crashManager: crashManager
                     ))
                 } label: {
                     Label {
@@ -172,8 +175,8 @@ struct SidebarView: View {
                 }.padding(.leading, 8)
             }
 
-            NavigationLink(tag: "settings", selection: $viewModel.activeNav) {
-                SettingsView(viewModel: SettingsViewModel(contentViewModel: viewModel))
+            NavigationLink(tag: "settings", selection: $contentViewModel.activeNav) {
+                SettingsView(viewModel: SettingsViewModel())
             } label: {
                 Label {
                     Text("Settings")

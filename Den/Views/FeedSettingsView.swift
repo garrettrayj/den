@@ -9,44 +9,28 @@
 import SwiftUI
 
 struct FeedSettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var profileManager: ProfileManager
 
-    @ObservedObject var feed: Feed
-    @ObservedObject var contentViewModel: ContentViewModel
+    @Binding var activeFeed: String?
 
-    @State private var showingDeleteAlert = false
+    @ObservedObject var viewModel: FeedSettingsViewModel
 
     var body: some View {
-        NavigationView {
-            form
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-    }
-
-    var form: some View {
-        return Form {
+        Form {
             title
             settings
             info
             actions
         }
-        .onDisappear(perform: save)
+        .onDisappear(perform: viewModel.save)
         .navigationTitle("Feed Settings")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem {
-                Button { presentationMode.wrappedValue.dismiss() } label: {
-                    Label("Close", systemImage: "xmark.circle")
-                }.buttonStyle(ToolbarButtonStyle())
-            }
-        }
     }
 
     private var title: some View {
-        Section(header: Text("Title")) {
+        Section(header: Text("Title").modifier(SectionHeaderModifier())) {
             HStack {
-                TextField("Title", text: $feed.wrappedTitle)
+                TextField("Title", text: $viewModel.feed.wrappedTitle)
                     .lineLimit(1)
                     .padding(.vertical, 4)
             }
@@ -56,29 +40,28 @@ struct FeedSettingsView: View {
     private var settings: some View {
         let pagePickerSelection = Binding<String?>(
             get: {
-                return feed.page?.id?.uuidString
+                return viewModel.feed.page?.id?.uuidString
             },
             set: {
                 guard
                     let pageIdString = $0,
-                    let page = contentViewModel.activeProfile?.pagesArray.first(where: { page in
+                    let page = profileManager.activeProfile?.pagesArray.first(where: { page in
                         return page.id?.uuidString == pageIdString
                     })
                 else { return }
 
-                feed.userOrder = page.feedsUserOrderMax + 1
-                feed.page = page
-                presentationMode.wrappedValue.dismiss()
+                viewModel.feed.userOrder = page.feedsUserOrderMax + 1
+                viewModel.feed.page = page
             }
         )
 
-        return Section(header: Text("Settings")) {
+        return Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Page", systemImage: "square.grid.2x2").padding(.vertical, 4)
                 Spacer()
                 Picker("", selection: pagePickerSelection) {
-                    ForEach(contentViewModel.activeProfile?.pagesArray ?? []) { page in
+                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                         Text(page.wrappedName).tag(page.id?.uuidString)
                     }
                 }
@@ -87,7 +70,7 @@ struct FeedSettingsView: View {
             HStack {
                 Label("Show Thumbnails", systemImage: "photo").padding(.vertical, 4)
                 Spacer()
-                Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
+                Toggle("Show Thumbnails", isOn: $viewModel.feed.showThumbnails).labelsHidden()
             }
             #else
             Picker(
@@ -110,12 +93,12 @@ struct FeedSettingsView: View {
     }
 
     private var info: some View {
-        Section(header: Text("Info")) {
+        Section(header: Text("Info").modifier(SectionHeaderModifier())) {
             HStack {
                 Label("URL", systemImage: "globe")
                 Spacer()
-                Text(feed.urlString).lineLimit(1).foregroundColor(.secondary).padding(.vertical, 4)
-                Button(action: copyUrl) {
+                Text(viewModel.feed.urlString).lineLimit(1).foregroundColor(.secondary).padding(.vertical, 4)
+                Button(action: viewModel.copyUrl) {
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                 }
             }
@@ -123,8 +106,8 @@ struct FeedSettingsView: View {
             HStack {
                 Label("Refreshed", systemImage: "arrow.clockwise").padding(.vertical, 4)
                 Spacer()
-                if feed.feedData?.refreshed != nil {
-                    Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.mediumShort)")
+                if viewModel.feed.feedData?.refreshed != nil {
+                    Text("\(viewModel.feed.feedData!.refreshed!, formatter: DateFormatter.mediumShort)")
                         .foregroundColor(.secondary)
                 } else {
                     Text("Never").foregroundColor(.secondary)
@@ -134,53 +117,28 @@ struct FeedSettingsView: View {
     }
 
     private var actions: some View {
-        Section(header: Text("Actions")) {
-            Button(action: openWebsite) {
+        Section(header: Text("Actions").modifier(SectionHeaderModifier())) {
+            Button(action: viewModel.openWebsite) {
                 Label("Open Website", systemImage: "arrow.up.right.square")
             }
             .padding(.vertical, 4)
-            .disabled(feed.feedData?.link == nil)
+            .disabled(viewModel.feed.feedData?.link == nil)
 
-            Button { showingDeleteAlert = true } label: {
+            Button { viewModel.showingDeleteAlert = true } label: {
                 Label("Delete Feed", systemImage: "trash").foregroundColor(.red)
             }
             .padding(.vertical, 4)
-            .alert(isPresented: $showingDeleteAlert) {
+            .alert(isPresented: $viewModel.showingDeleteAlert) {
                 Alert(
                     title: Text("Are you sure?"),
                     message: Text("Removing a subscription cannot be undone"),
                     primaryButton: .destructive(Text("Delete")) {
-                        self.delete()
+                        viewModel.delete()
+                        activeFeed = nil
                     },
                     secondaryButton: .cancel()
                 )
             }
         }
-    }
-
-    private func openWebsite() {
-        if let url = feed.feedData?.link {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    private func save() {
-        if self.viewContext.hasChanges {
-            do {
-                try self.viewContext.save()
-            } catch let error as NSError {
-                contentViewModel.handleCriticalError(error)
-            }
-        }
-    }
-
-    private func delete() {
-        viewContext.delete(self.feed)
-        presentationMode.wrappedValue.dismiss()
-    }
-
-    private func copyUrl() {
-        let pasteboard = UIPasteboard.general
-        pasteboard.string = feed.url!.absoluteString
     }
 }

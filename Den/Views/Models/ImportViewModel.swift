@@ -21,18 +21,17 @@ final class ImportViewModel: ObservableObject {
     @Published var feedsImported: [Feed] = []
     @Published var pagesImported: [Page] = []
 
-    private var viewContext: NSManagedObjectContext
-
-    var contentViewModel: ContentViewModel
-    var documentPicker: ImportDocumentPicker!
     var allSelected: Bool { selectedFolders.count == opmlFolders.count }
     var noneSelected: Bool { selectedFolders.count == 0 }
 
-    init(viewContext: NSManagedObjectContext, contentViewModel: ContentViewModel) {
-        self.viewContext = viewContext
-        self.contentViewModel = contentViewModel
+    private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
+    private var profileManager: ProfileManager
 
-        self.documentPicker = ImportDocumentPicker(importViewModel: self)
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profileManager: ProfileManager) {
+        self.viewContext = viewContext
+        self.crashManager = crashManager
+        self.profileManager = profileManager
     }
 
     func reset() {
@@ -75,7 +74,7 @@ final class ImportViewModel: ObservableObject {
     }
 
     func importFolders(opmlFolders: [OPMLFolder]) {
-        guard let profile = contentViewModel.activeProfile else { return }
+        guard let profile = profileManager.activeProfile else { return }
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profile)
             page.name = opmlFolder.name
@@ -91,7 +90,7 @@ final class ImportViewModel: ObservableObject {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            contentViewModel.handleCriticalError(error)
+            crashManager.handleCriticalError(error)
         }
     }
 
@@ -101,15 +100,15 @@ final class ImportViewModel: ObservableObject {
      so we do it this way instead of in a UIViewControllerRepresentable
      */
     func pickFile() {
-        let scenes = UIApplication.shared.connectedScenes
+        let documentPicker = ImportDocumentPicker(importViewModel: self)
 
+        let scenes = UIApplication.shared.connectedScenes
         if
             let windowScene = scenes.first as? UIWindowScene,
             let window = windowScene.windows.first,
-            let viewController = window.rootViewController
+            let rootViewController = window.rootViewController
         {
-            let controller = self.documentPicker.viewController
-            viewController.present(controller, animated: true)
+            rootViewController.present(documentPicker.viewController, animated: true)
         }
     }
 }

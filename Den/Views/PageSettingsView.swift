@@ -11,12 +11,13 @@ import SwiftUI
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var crashManager: CrashManager
 
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var viewModel: PageSettingsViewModel
 
     var body: some View {
         Form {
-            Section(header: Text("Name and Icon")) {
+            Section(header: Text("Name and Icon").modifier(SectionHeaderModifier())) {
                 HStack {
                     TextField("Untitled", text: $viewModel.page.wrappedName).lineLimit(1).padding(.vertical, 4)
                     HStack {
@@ -34,10 +35,8 @@ struct PageSettingsView: View {
                     }
                 }
             }
-            Section(header: Text("Settings")) {
-                Stepper(value: $viewModel.page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) { _ in
-                    viewModel.refreshAfterSave = true
-                } label: {
+            Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
+                Stepper(value: $viewModel.page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) {
                     Label(
                         "Gadget Item Limit: \(viewModel.page.wrappedItemsPerFeed)",
                         systemImage: "list.bullet.rectangle"
@@ -60,7 +59,7 @@ struct PageSettingsView: View {
                 Text("\(viewModel.page.feedsArray.count) Feeds")
                 Spacer()
                 Text("Drag to Reorder")
-            }
+            }.modifier(SectionHeaderModifier())
         ) {
             ForEach(viewModel.page.feedsArray) { feed in
                 FeedTitleLabelView(feed: feed).padding(.vertical, 4)
@@ -84,11 +83,7 @@ struct PageSettingsView: View {
             do {
                 try viewContext.save()
             } catch {
-                viewModel.contentViewModel.handleCriticalError(error as NSError)
-            }
-
-            if viewModel.refreshAfterSave {
-                viewModel.refresh()
+                crashManager.handleCriticalError(error as NSError)
             }
         }
     }
@@ -99,7 +94,7 @@ struct PageSettingsView: View {
         do {
             try viewContext.save()
         } catch {
-            viewModel.contentViewModel.handleCriticalError(error as NSError)
+            crashManager.handleCriticalError(error as NSError)
         }
     }
 

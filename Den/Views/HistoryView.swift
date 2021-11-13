@@ -11,6 +11,7 @@ import SwiftUI
 
 struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var linkManager: LinkManager
 
     @ObservedObject var viewModel: HistoryViewModel
 
@@ -65,7 +66,7 @@ struct HistoryView: View {
                 ForEach(resultGroup) { result in
                     if result.title != nil && result.link != nil {
                         VStack(alignment: .leading, spacing: 4) {
-                            Button { viewModel.contentViewModel.openLink(url: result.link!) } label: {
+                            Button { linkManager.openLink(url: result.link) } label: {
                                 Text(result.title!)
                                     .multilineTextAlignment(.leading)
                                     .font(.title3)

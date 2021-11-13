@@ -19,6 +19,18 @@ struct ToolbarButtonStyle: ButtonStyle {
         @Environment(\.isEnabled) private var isEnabled: Bool
         var body: some View {
 
+            #if targetEnvironment(macCatalyst)
+            configuration.label
+                .frame(minWidth: 0, minHeight: 40, alignment: .center)
+                .padding(.horizontal, 8)
+                .foregroundColor(
+                    isEnabled ?
+                        configuration.isPressed ? Color.accentColor.opacity(0.32) : Color.accentColor
+                        :
+                        Color.secondary
+                )
+                .background(Color.clear)
+            #else
             configuration.label
                 .frame(minWidth: 0, minHeight: 40, alignment: .center)
                 .padding(.horizontal, 12)
@@ -29,6 +41,8 @@ struct ToolbarButtonStyle: ButtonStyle {
                         Color.secondary
                 )
                 .background(Color.clear)
+            #endif
+
         }
     }
 }

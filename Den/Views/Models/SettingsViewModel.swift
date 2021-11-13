@@ -13,10 +13,4 @@ final class SettingsViewModel: ObservableObject {
     @Published var selectedTheme: UIUserInterfaceStyle = .unspecified
     @Published var showingClearWorkspaceAlert = false
     @Published var historyRentionDays: Int = 0
-
-    var contentViewModel: ContentViewModel
-
-    init(contentViewModel: ContentViewModel) {
-        self.contentViewModel = contentViewModel
-    }
 }

@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct PageView: View {
+    @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var subscribeManager: SubscribeManager
+
     @ObservedObject var viewModel: PageViewModel
 
     let columns = [
@@ -17,13 +20,6 @@ struct PageView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            NavigationLink(
-                destination: PageSettingsView(viewModel: viewModel),
-                isActive: $viewModel.showingSettings
-            ) {
-                Label("Page Settings", systemImage: "wrench")
-            }.hidden().frame(height: 0)
-
             if viewModel.page.managedObjectContext == nil {
                 pageDeleted
             } else if viewModel.page.feedsArray.count == 0 {
@@ -34,7 +30,13 @@ struct PageView: View {
                         RefreshableScrollView(viewModel: viewModel) {
                             LazyVGrid(columns: columns, spacing: 16) {
                                 ForEach(viewModel.page.feedsArray) { feed in
-                                    FeedWidgetView(feed: feed, contentViewModel: viewModel.contentViewModel)
+                                    FeedWidgetView(
+                                        activeFeed: $viewModel.activeFeed,
+                                        viewModel: FeedWidgetViewModel(
+                                            feed: feed,
+                                            pageViewModel: viewModel
+                                        )
+                                    )
                                 }
                             }
                             .padding(.leading, horizontalInset(geometry.safeAreaInsets.leading))
@@ -52,10 +54,16 @@ struct PageView: View {
             }
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+        .background(NavigationLink(
+            destination: PageSettingsView(viewModel: PageSettingsViewModel(page: viewModel.page)),
+            isActive: $viewModel.showingSettings
+        ) {
+            EmptyView()
+        })
         .navigationTitle(viewModel.page.displayName)
         .toolbar { pageToolbar }
         .onAppear {
-            viewModel.contentViewModel.currentPageId = viewModel.page.id?.uuidString
+            subscribeManager.currentPageId = viewModel.page.id?.uuidString
         }
     }
 
@@ -82,7 +90,7 @@ struct PageView: View {
             }
 
             Button {
-                viewModel.refresh()
+                refreshManager.refresh(pageViewModel: viewModel)
             } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }
@@ -98,16 +106,20 @@ struct PageView: View {
         HStack(spacing: 0) {
             Button(action: showSubscribe) {
                 Label("Add Subscription", systemImage: "plus.circle")
-            }
+            }.disabled(viewModel.refreshing)
 
             Button(action: showSettings) {
                 Label("Page Settings", systemImage: "wrench")
-            }
+            }.disabled(viewModel.refreshing)
 
-            Button {
-                viewModel.refresh()
-            } label: {
-                Label("Refresh", systemImage: "arrow.clockwise")
+            if viewModel.refreshing {
+                ProgressView(value: 0).progressViewStyle(ToolbarProgressStyle())
+            } else {
+                Button {
+                    refreshManager.refresh(pageViewModel: viewModel)
+                } label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }
             }
         }.buttonStyle(ToolbarButtonStyle())
     }
@@ -135,7 +147,7 @@ struct PageView: View {
     }
 
     private func showSubscribe() {
-        viewModel.contentViewModel.showAddSubscription()
+        subscribeManager.showAddSubscription()
     }
 
     private func horizontalInset(_ safeArea: CGFloat) -> CGFloat {

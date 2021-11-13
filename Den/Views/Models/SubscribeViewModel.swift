@@ -18,10 +18,12 @@ final class SubscribeViewModel: ObservableObject {
     @Published var loading: Bool = false
 
     private var viewContext: NSManagedObjectContext
-    private var contentViewModel: ContentViewModel
+    private var profileManager: ProfileManager
+    private var refreshManager: RefreshManager
+    private var subscribeManager: SubscribeManager
 
     var destinationPage: Page? {
-        guard let activeProfile = contentViewModel.activeProfile else { return nil }
+        guard let activeProfile = profileManager.activeProfile else { return nil }
 
         if
             let destinationPageId = destinationPageId,
@@ -36,13 +38,19 @@ final class SubscribeViewModel: ObservableObject {
 
     init(
         viewContext: NSManagedObjectContext,
-        contentViewModel: ContentViewModel
+        profileManager: ProfileManager,
+        refreshManager: RefreshManager,
+        subscribeManager: SubscribeManager,
+        urlText: String,
+        destinationPageId: String?
     ) {
         self.viewContext = viewContext
-        self.contentViewModel = contentViewModel
+        self.profileManager = profileManager
+        self.refreshManager = refreshManager
+        self.subscribeManager = subscribeManager
 
-        self.urlText = contentViewModel.openedUrlString
-        self.destinationPageId = contentViewModel.currentPageId
+        self.urlText = urlText
+        self.destinationPageId = destinationPageId
     }
 
     func failValidation(message: String) {
@@ -92,8 +100,8 @@ final class SubscribeViewModel: ObservableObject {
 
         self.loading = true
         let feed = Feed.create(in: self.viewContext, page: destinationPage, url: url, prepend: true)
-        contentViewModel.refresh(feed: feed) { _ in
-            self.contentViewModel.resetSubscribe()
+        refreshManager.refresh(feed: feed) {
+            self.subscribeManager.resetSubscribe()
             self.loading = false
             callback()
         }

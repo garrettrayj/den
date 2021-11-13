@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct FeedWidgetRowView: View {
+    @EnvironmentObject var linkManager: LinkManager
+
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
-    @ObservedObject var contentViewModel: ContentViewModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -24,14 +25,18 @@ struct FeedWidgetRowView: View {
             HStack(alignment: .top, spacing: 8) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
-                }.accessibility(identifier: "Item Link")
+                }
+                .font(.headline)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .accessibility(identifier: "Item Link")
 
                 if item.feedData?.feed?.showThumbnails == true {
                     thumbnailImage
                 }
             }
         }
-        .buttonStyle(ItemLinkButtonStyle(read: item.read))
+        .buttonStyle(ItemButtonStyle(read: item.read))
         .frame(minWidth: 200, maxWidth: .infinity)
         .padding(12)
     }
@@ -48,7 +53,6 @@ struct FeedWidgetRowView: View {
     }
 
     private func openLink() {
-        guard let url = item.link else { return }
-        contentViewModel.openLink(url: url, logHistoryItem: item, readerMode: feed.readerMode)
+        linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
     }
 }

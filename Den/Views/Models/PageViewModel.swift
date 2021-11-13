@@ -10,20 +10,19 @@ import SwiftUI
 
 final class PageViewModel: ObservableObject, Identifiable {
     @Published var page: Page
+    @Published var activeFeed: String?
     @Published var refreshing: Bool = false
     @Published var refreshFractionCompleted: CGFloat = 0
     @Published var progress = Progress(totalUnitCount: 0)
-
     @Published var showingSettings: Bool = false
-    @Published var itemsPerFeedStepperValue: Int = 0
-    @Published var showingIconPicker: Bool = false
-    @Published var refreshAfterSave: Bool = false
 
-    var contentViewModel: ContentViewModel
+    private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
 
-    init(page: Page, contentViewModel: ContentViewModel) {
+    init(page: Page, viewContext: NSManagedObjectContext, crashManager: CrashManager) {
         self.page = page
-        self.contentViewModel = contentViewModel
+        self.viewContext = viewContext
+        self.crashManager = crashManager
 
         progress
             .publisher(for: \.fractionCompleted)
@@ -32,9 +31,5 @@ final class PageViewModel: ObservableObject, Identifiable {
                 CGFloat(fractionCompleted)
             }
             .assign(to: &$refreshFractionCompleted)
-    }
-
-    func refresh() {
-        contentViewModel.refresh(pageViewModel: self)
     }
 }
