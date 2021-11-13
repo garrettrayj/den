@@ -11,12 +11,12 @@ import OSLog
 
 final class CacheManager: ObservableObject {
     private var persistentContainer: NSPersistentContainer
-    private var contentViewModel: ContentViewModel
+    private var crashManager: CrashManager
     private var lastBackgroundCleanup: Date?
 
-    init(persistentContainer: NSPersistentContainer, contentViewModel: ContentViewModel) {
+    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
-        self.contentViewModel = contentViewModel
+        self.crashManager = crashManager
     }
 
     func resetFeeds() {
@@ -38,12 +38,12 @@ final class CacheManager: ObservableObject {
                         try context.save()
                     } catch {
                         DispatchQueue.main.async {
-                            self.contentViewModel.handleCriticalError(error as NSError)
+                            self.crashManager.handleCriticalError(error as NSError)
                         }
                     }
                 }
             } catch {
-                self.contentViewModel.handleCriticalError(error as NSError)
+                self.crashManager.handleCriticalError(error as NSError)
             }
         }
     }
@@ -62,7 +62,7 @@ final class CacheManager: ObservableObject {
                     try context.save()
                 } catch {
                     DispatchQueue.main.async {
-                        self.contentViewModel.handleCriticalError(error as NSError)
+                        self.crashManager.handleCriticalError(error as NSError)
                     }
                 }
             }
@@ -115,7 +115,7 @@ final class CacheManager: ObservableObject {
             }
             self.cleanupCacheDirectory(cacheDirectory: thumbnailsDirectory, activeFileList: activeThumbnails)
         } catch {
-            contentViewModel.handleCriticalError(error as NSError)
+            crashManager.handleCriticalError(error as NSError)
         }
     }
 
@@ -137,11 +137,11 @@ final class CacheManager: ObservableObject {
                     guard let fetchResults = try context.fetch(fetchRequest) as? [History] else { return }
                     fetchResults.forEach { context.delete($0) }
                 } catch {
-                    contentViewModel.handleCriticalError(error as NSError)
+                    crashManager.handleCriticalError(error as NSError)
                 }
             }
         } catch {
-            contentViewModel.handleCriticalError(error as NSError)
+            crashManager.handleCriticalError(error as NSError)
         }
     }
 

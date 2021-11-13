@@ -11,11 +11,15 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var subscribeManager: SubscribeManager
 
     @StateObject var viewModel: ContentViewModel
 
     var body: some View {
-        if viewModel.showingCrashMessage == true {
+        if crashManager.showingCrashMessage == true {
             CrashMessageView()
         } else {
             navigationView
@@ -24,14 +28,25 @@ struct ContentView: View {
 
     private var navigationView: some View {
         NavigationView {
-            SidebarView(viewModel: viewModel)
+            SidebarView(
+                contentViewModel: viewModel,
+                searchViewModel: SearchViewModel(viewContext: viewContext, crashManager: crashManager)
+            )
 
             // Default view for detail area
-            WelcomeView(contentViewModel: viewModel)
+            WelcomeView()
         }
         .modifier(MacButtonStyleModifier())
-        .sheet(isPresented: $viewModel.showingAddSubscription) {
-            SubscribeView(viewModel: SubscribeViewModel(viewContext: viewContext, contentViewModel: viewModel))
+        .sheet(isPresented: $subscribeManager.showingAddSubscription) {
+            SubscribeView(viewModel: SubscribeViewModel(
+                viewContext: viewContext,
+                profileManager: profileManager,
+                refreshManager: refreshManager,
+                subscribeManager: subscribeManager,
+                urlText: subscribeManager.openedUrlString,
+                destinationPageId: subscribeManager.currentPageId
+
+            ))
             .environment(\.colorScheme, colorScheme)
         }
     }

@@ -11,6 +11,9 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var cacheManager: CacheManager
+    @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject var themeManager: ThemeManager
 
     @ObservedObject var viewModel: SettingsViewModel
 
@@ -54,7 +57,7 @@ struct SettingsView: View {
         }
         .onChange(of: viewModel.selectedTheme, perform: { value in
             UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
-            viewModel.contentViewModel.applyUIStyle()
+            themeManager.applyUIStyle()
         }).onAppear {
             viewModel.selectedTheme = UIUserInterfaceStyle.init(
                 rawValue: UserDefaults.standard.integer(forKey: "UIStyle")
@@ -68,7 +71,8 @@ struct SettingsView: View {
                 destination: ImportView(
                     importViewModel: ImportViewModel(
                         viewContext: viewContext,
-                        contentViewModel: viewModel.contentViewModel
+                        crashManager: crashManager,
+                        profileManager: profileManager
                     )
                 )
             ) {
@@ -77,9 +81,7 @@ struct SettingsView: View {
 
             NavigationLink(
                 destination: ExportView(
-                    viewModel: ExportViewModel(
-                        contentViewModel: viewModel.contentViewModel
-                    )
+                    viewModel: ExportViewModel(profileManager: profileManager)
                 )
             ) {
                 Label("Export", systemImage: "arrow.up.doc").padding(.vertical, 4)
@@ -89,7 +91,8 @@ struct SettingsView: View {
                 destination: SecurityCheckView(
                     viewModel: SecurityCheckViewModel(
                         viewContext: viewContext,
-                        contentViewModel: viewModel.contentViewModel
+                        crashManager: crashManager,
+                        profileManager: profileManager
                     )
                 )
             ) {
@@ -193,13 +196,13 @@ struct SettingsView: View {
     }
 
     private func loadProfile() {
-        guard let profile = viewModel.contentViewModel.activeProfile else { return }
+        guard let profile = profileManager.activeProfile else { return }
 
         viewModel.historyRentionDays = profile.wrappedHistoryRetention
     }
 
     private func saveProfile() {
-        guard let profile = viewModel.contentViewModel.activeProfile else { return }
+        guard let profile = profileManager.activeProfile else { return }
 
         if viewModel.historyRentionDays != profile.wrappedHistoryRetention {
             profile.wrappedHistoryRetention = viewModel.historyRentionDays
@@ -209,7 +212,7 @@ struct SettingsView: View {
             do {
                 try viewContext.save()
             } catch let error as NSError {
-                viewModel.contentViewModel.handleCriticalError(error)
+                crashManager.handleCriticalError(error)
             }
         }
     }
@@ -219,17 +222,17 @@ struct SettingsView: View {
     }
 
     private func clearHistory() {
-        viewModel.contentViewModel.activeProfile?.historyArray.forEach { history in
+        profileManager.activeProfile?.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
 
         do {
             try viewContext.save()
         } catch let error as NSError {
-            viewModel.contentViewModel.handleCriticalError(error)
+            crashManager.handleCriticalError(error)
         }
 
-        viewModel.contentViewModel.activeProfile?.pagesArray.forEach({ page in
+        profileManager.activeProfile?.pagesArray.forEach({ page in
             page.feedsArray.forEach { feed in
                 feed.objectWillChange.send()
             }
@@ -242,7 +245,7 @@ struct SettingsView: View {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
 
-        viewModel.contentViewModel.applyUIStyle()
+        themeManager.applyUIStyle()
     }
 
     private func showResetAlert() {
@@ -251,8 +254,7 @@ struct SettingsView: View {
 
     private func resetEverything() {
         restoreUserDefaults()
-        viewModel.contentViewModel.resetProfiles()
-        viewModel.contentViewModel.pageViewModels = []
+        profileManager.resetProfiles()
     }
 
     private func openHomepage() {

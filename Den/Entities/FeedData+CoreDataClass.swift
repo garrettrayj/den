@@ -42,6 +42,14 @@ public class FeedData: NSManagedObject {
         }).count
     }
 
+    public var linkDisplayString: String? {
+        guard let link = link else { return nil }
+
+        return link.absoluteString
+            .replacingOccurrences(of: "http://", with: "")
+            .replacingOccurrences(of: "https://", with: "")
+    }
+
     public var faviconImage: Image? {
         guard
             let faviconsDirectory = FileManager.default.faviconsDirectory,

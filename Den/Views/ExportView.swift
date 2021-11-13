@@ -9,11 +9,12 @@
 import SwiftUI
 
 struct ExportView: View {
+    @EnvironmentObject var profileManager: ProfileManager
     @ObservedObject var viewModel: ExportViewModel
 
     var body: some View {
         VStack {
-            if viewModel.contentViewModel.activeProfile?.pagesArray.count ?? 0 > 0 {
+            if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
                 Form {
                     pageList
 
@@ -36,7 +37,7 @@ struct ExportView: View {
 
     private var pageList: some View {
         Section(header: selectionSectionHeader) {
-            ForEach(viewModel.contentViewModel.activeProfile!.pagesArray) { page in
+            ForEach(profileManager.activeProfile!.pagesArray) { page in
                 // .editMode doesn't work inside forms, so creating selection buttons manually
                 Button { self.viewModel.togglePage(page) } label: {
                     Label(

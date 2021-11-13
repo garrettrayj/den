@@ -51,12 +51,11 @@ final class RefreshPlan {
     }
 
     public func configureOps() {
-        guard
-            let feedUrl = feed.url,
-            let itemLimit = feed.page?.wrappedItemsPerFeed
-        else {
+        guard let feedUrl = feed.url else {
             return
         }
+
+        let itemLimit = 40
 
         let existingItemLinks = feedData.itemsArray.map({ item in
             return item.link!

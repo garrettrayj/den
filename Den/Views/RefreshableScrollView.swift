@@ -14,6 +14,8 @@ import SwiftUI
  Adapted from https://swiftui-lab.com/scrollview-pull-to-refresh/
  */
 struct RefreshableScrollView<Content: View>: View {
+    @EnvironmentObject var refreshManager: RefreshManager
+
     @ObservedObject var viewModel: PageViewModel
 
     @State private var previousScrollOffset: CGFloat = 0
@@ -96,7 +98,7 @@ struct RefreshableScrollView<Content: View>: View {
                 (scrollOffset > threshold && previousScrollOffset <= threshold)
             {
                 symbolRotation = .degrees(0)
-                viewModel.contentViewModel.refresh(pageViewModel: viewModel)
+                refreshManager.refresh(pageViewModel: viewModel)
             }
 
             // Update last scroll offset

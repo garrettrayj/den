@@ -14,15 +14,16 @@ final class SecurityCheckViewModel: ObservableObject {
 
     let queue = OperationQueue()
 
-    var contentViewModel: ContentViewModel
-
     private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
+    private var profileManager: ProfileManager
 
-    init(viewContext: NSManagedObjectContext, contentViewModel: ContentViewModel) {
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profileManager: ProfileManager) {
         self.viewContext = viewContext
-        self.contentViewModel = contentViewModel
+        self.crashManager = crashManager
+        self.profileManager = profileManager
 
-        self.queue.maxConcurrentOperationCount = 10
+        self.queue.maxConcurrentOperationCount = 6
     }
 
     func reset() {
@@ -32,7 +33,7 @@ final class SecurityCheckViewModel: ObservableObject {
     }
 
     func remedyInsecureUrls() {
-        guard let activeProfile = contentViewModel.activeProfile else { return }
+        guard let activeProfile = profileManager.activeProfile else { return }
 
         var operations: [Operation] = []
 
@@ -49,7 +50,7 @@ final class SecurityCheckViewModel: ObservableObject {
                     do {
                         try self.viewContext.save()
                     } catch {
-                        self.contentViewModel.handleCriticalError(error as NSError)
+                        self.crashManager.handleCriticalError(error as NSError)
                     }
                 }
             }

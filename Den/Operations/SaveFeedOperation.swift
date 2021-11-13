@@ -9,8 +9,6 @@
 import CoreData
 import OSLog
 
-import func AVFoundation.AVMakeRect
-
 final class SaveFeedOperation: Operation {
     // Operation inputs
     var workingFeed: WorkingFeedData?

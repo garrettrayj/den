@@ -15,15 +15,32 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var contentViewModel: ContentViewModel
+    @StateObject var cacheManager: CacheManager
+    @StateObject var crashManager: CrashManager
+    @StateObject var linkManager: LinkManager
+    @StateObject var profileManager: ProfileManager
+    @StateObject var refreshManager: RefreshManager
+    @StateObject var subscribeManager: SubscribeManager
+    @StateObject var themeManager: ThemeManager
 
     var persistenceManager: PersistenceManager
-    var cacheManager: CacheManager
 
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: contentViewModel)
+            ContentView(viewModel: ContentViewModel(
+                viewContext: persistenceManager.container.viewContext,
+                crashManager: crashManager,
+                refreshManager: refreshManager,
+                profileManager: profileManager
+            ))
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
+                .environmentObject(cacheManager)
+                .environmentObject(crashManager)
+                .environmentObject(linkManager)
+                .environmentObject(profileManager)
+                .environmentObject(refreshManager)
+                .environmentObject(subscribeManager)
+                .environmentObject(themeManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
                     if let titlebar = window?.windowScene?.titlebar {
@@ -32,11 +49,12 @@ struct DenApp: App {
                     }
                     #endif
 
-                    contentViewModel.hostingWindow = window
-                    contentViewModel.applyUIStyle()
+                    linkManager.hostingWindow = window
+                    themeManager.hostingWindow = window
+                    themeManager.applyUIStyle()
                 }
                 .onOpenURL { url in
-                    contentViewModel.showAddSubscription(to: url)
+                    subscribeManager.showAddSubscription(to: url)
                 }
         }
         .onChange(of: scenePhase) { newScenePhase in
@@ -55,15 +73,36 @@ struct DenApp: App {
 
     init() {
         FileManager.default.initAppDirectories()
-
         persistenceManager = PersistenceManager()
 
-        let contentViewModel = ContentViewModel(persistenceManager: persistenceManager)
-        _contentViewModel = StateObject(wrappedValue: contentViewModel)
-
-        cacheManager = CacheManager(
+        let crashManager = CrashManager()
+        let cacheManager = CacheManager(
             persistentContainer: persistenceManager.container,
-            contentViewModel: contentViewModel
+            crashManager: crashManager
         )
+        let profileManager = ProfileManager(
+            viewContext: persistenceManager.container.viewContext,
+            crashManager: crashManager
+        )
+        let linkManager = LinkManager(
+            viewContext: persistenceManager.container.viewContext,
+            crashManager: crashManager,
+            profileManager: profileManager
+        )
+        let refreshManager = RefreshManager(
+            persistentContainer: persistenceManager.container,
+            crashManager: crashManager
+        )
+        let subscribeManager = SubscribeManager()
+        let themeManager = ThemeManager()
+
+        // StateObject managers
+        _cacheManager = StateObject(wrappedValue: cacheManager)
+        _crashManager = StateObject(wrappedValue: crashManager)
+        _linkManager = StateObject(wrappedValue: linkManager)
+        _profileManager = StateObject(wrappedValue: profileManager)
+        _refreshManager = StateObject(wrappedValue: refreshManager)
+        _subscribeManager = StateObject(wrappedValue: subscribeManager)
+        _themeManager = StateObject(wrappedValue: themeManager)
     }
 }

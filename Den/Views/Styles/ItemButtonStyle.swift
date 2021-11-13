@@ -8,14 +8,11 @@
 
 import SwiftUI
 
-struct ItemLinkButtonStyle: ButtonStyle {
+struct ItemButtonStyle: ButtonStyle {
     var read: Bool
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .font(.headline)
             .foregroundColor(read ? Color(UIColor.systemPurple) : Color(UIColor.link))
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }

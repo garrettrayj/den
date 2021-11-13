@@ -12,78 +12,60 @@ import SafariServices
 import SwiftUI
 
 final class ContentViewModel: ObservableObject {
-    @Published var activeProfile: Profile?
     @Published var activeNav: String?
     @Published var pageViewModels: [PageViewModel] = []
-    @Published var showingCrashMessage: Bool = false
-    @Published var currentPageId: String?
-    @Published var showingAddSubscription: Bool = false
-    @Published var openedUrlString: String = ""
 
     let queue = OperationQueue()
 
-    private var persistenceManager: PersistenceManager
-    private var persistentContainer: NSPersistentContainer
     private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
+    private var refreshManager: RefreshManager
+    private var profileManager: ProfileManager
 
     public var hostingWindow: UIWindow?
     public var searchViewModel: SearchViewModel!
 
-    init(persistenceManager: PersistenceManager) {
-        self.persistenceManager = persistenceManager
-        self.persistentContainer = persistenceManager.container
-        self.viewContext = persistenceManager.container.viewContext
+    init(
+        viewContext: NSManagedObjectContext,
+        crashManager: CrashManager,
+        refreshManager: RefreshManager,
+        profileManager: ProfileManager
+    ) {
+        self.viewContext = viewContext
 
-        if CommandLine.arguments.contains("--reset") {
-            resetProfiles()
-        } else {
-            loadProfiles()
-        }
+        self.crashManager = crashManager
+        self.refreshManager = refreshManager
+        self.profileManager = profileManager
 
-        self.pageViewModels = activeProfile?.pagesArray.map({ page in
-            PageViewModel(page: page, contentViewModel: self)
+        self.pageViewModels = profileManager.activeProfile?.pagesArray.map({ page in
+            PageViewModel(page: page, viewContext: viewContext, crashManager: crashManager)
         }) ?? []
-
-        self.searchViewModel = SearchViewModel(
-            viewContext: viewContext,
-            contentViewModel: self
-        )
-
-        self.queue.maxConcurrentOperationCount = 10
-    }
-
-    func applyUIStyle() {
-        let uiStyle = UIUserInterfaceStyle.init(rawValue: UserDefaults.standard.integer(forKey: "UIStyle"))!
-        hostingWindow?.overrideUserInterfaceStyle = uiStyle
-    }
-
-    public func handleCriticalError(_ anError: NSError) {
-        Logger.main.critical("\(self.formatErrorMessage(anError))")
-        showingCrashMessage = true
     }
 
     func refreshAll() {
-        self.pageViewModels.forEach { pageViewModel in
-            pageViewModel.refresh()
-        }
+        refreshManager.refresh(contentViewModel: self)
     }
 
     func createPage() {
-        guard let activeProfile = activeProfile else {
+        guard let activeProfile = profileManager.activeProfile else {
             return
         }
 
         let page = Page.create(in: viewContext, profile: activeProfile)
         do {
             try viewContext.save()
-            self.pageViewModels.append(PageViewModel(page: page, contentViewModel: self))
+            self.pageViewModels.append(PageViewModel(
+                page: page,
+                viewContext: viewContext,
+                crashManager: crashManager
+            ))
         } catch let error as NSError {
-            self.handleCriticalError(error)
+            crashManager.handleCriticalError(error)
         }
     }
 
     func movePage( from source: IndexSet, to destination: Int) {
-        guard let activeProfile = activeProfile else {
+        guard let activeProfile = profileManager.activeProfile else {
             return
         }
 
@@ -106,13 +88,13 @@ final class ContentViewModel: ObservableObject {
                     aViewModel.page.userOrder < bViewModel.page.userOrder
                 }
             } catch let error as NSError {
-                self.handleCriticalError(error)
+                crashManager.handleCriticalError(error)
             }
         }
     }
 
     func deletePage(indices: IndexSet) {
-        guard let activeProfile = activeProfile else {
+        guard let activeProfile = profileManager.activeProfile else {
             return
         }
 
@@ -126,7 +108,7 @@ final class ContentViewModel: ObservableObject {
             do {
                 try viewContext.save()
             } catch let error as NSError {
-                self.handleCriticalError(error)
+                crashManager.handleCriticalError(error)
             }
         }
     }
@@ -136,7 +118,7 @@ final class ContentViewModel: ObservableObject {
             preconditionFailure("Missing demo feeds source file")
         }
 
-        guard let activeProfile = activeProfile else {
+        guard let activeProfile = profileManager.activeProfile else {
             return
         }
 
@@ -171,264 +153,20 @@ final class ContentViewModel: ObservableObject {
         do {
             try viewContext.save()
             newPages.forEach { page in
-                self.pageViewModels.append(PageViewModel(page: page, contentViewModel: self))
+                self.pageViewModels.append(PageViewModel(
+                    page: page,
+                    viewContext: viewContext,
+                    crashManager: crashManager
+                ))
             }
         } catch let error as NSError {
-            self.handleCriticalError(error)
+            crashManager.handleCriticalError(error)
         }
     }
 
     func showSearch() {
         if activeNav != "search" {
             activeNav = "search"
-        }
-    }
-
-    private func loadProfiles() {
-        do {
-            let profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
-            if profiles.count == 0 {
-                activeProfile = createDefault(adoptOrphans: true)
-            } else {
-                activeProfile = profiles.first
-            }
-        } catch {
-            self.handleCriticalError(error as NSError)
-        }
-    }
-
-    private func createDefault(adoptOrphans: Bool = false) -> Profile {
-        let defaultProfile = Profile.create(in: viewContext)
-
-        if adoptOrphans == true {
-            // Adopt existing pages and history for profile upgrade
-            do {
-                let history = try self.viewContext.fetch(History.fetchRequest()) as [History]
-                history.forEach { visit in
-                    defaultProfile.addToHistory(visit)
-                }
-            } catch {
-                self.handleCriticalError(error as NSError)
-            }
-
-            do {
-                let pages = try self.viewContext.fetch(Page.fetchRequest()) as [Page]
-                pages.forEach { page in
-                    defaultProfile.addToPages(page)
-                }
-            } catch {
-                self.handleCriticalError(error as NSError)
-            }
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-            self.handleCriticalError(error as NSError)
-        }
-
-        return defaultProfile
-    }
-
-    func resetProfiles() {
-        activeProfile = createDefault()
-
-        do {
-            let profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
-            profiles.forEach { profile in
-                if profile != activeProfile {
-                    viewContext.delete(profile)
-                }
-            }
-            do {
-                try viewContext.save()
-                self.objectWillChange.send()
-            } catch {
-                self.handleCriticalError(error as NSError)
-            }
-        } catch {
-            self.handleCriticalError(error as NSError)
-        }
-    }
-
-    private func formatErrorMessage(_ anError: NSError?) -> String {
-        guard let anError = anError else { return "Unknown error" }
-
-        guard anError.domain.compare("NSCocoaErrorDomain") == .orderedSame else {
-            return "Application error: \(anError)"
-        }
-
-        let messages: String = "Unrecoverable data error. \(anError.localizedDescription)"
-        var errors = [AnyObject]()
-
-        if anError.code == NSValidationMultipleErrorsError {
-            if let multipleErros = anError.userInfo[NSDetailedErrorsKey] as? [AnyObject] {
-                errors = multipleErros
-            }
-        } else {
-            errors = [AnyObject]()
-            errors.append(anError)
-        }
-
-        if errors.count == 0 {
-            return ""
-        }
-
-        return messages
-    }
-
-    func showAddSubscription(to url: URL? = nil) {
-        if
-            let url = url,
-            var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
-        {
-            if urlComponents.scheme == nil {
-                urlComponents.scheme = "http"
-            }
-
-            if let urlString = urlComponents.string {
-                openedUrlString = urlString
-            }
-        }
-
-        self.showingAddSubscription = true
-    }
-
-    func resetSubscribe() {
-        showingAddSubscription = false
-        openedUrlString = ""
-    }
-
-    public func openLink(url: URL, logHistoryItem: Item? = nil, readerMode: Bool = false) {
-        guard let controller = hostingWindow?.rootViewController else {
-            preconditionFailure("No controller present.")
-        }
-
-        if let historyItem = logHistoryItem {
-            logHistory(item: historyItem)
-        }
-
-        let config = SFSafariViewController.Configuration()
-        config.entersReaderIfAvailable = readerMode
-
-        let safariViewController = SFSafariViewController(url: url, configuration: config)
-        controller.modalPresentationStyle = .fullScreen
-        controller.present(safariViewController, animated: true)
-    }
-
-    private func logHistory(item: Item) {
-        guard let activeProfile = activeProfile else {
-            return
-        }
-
-        let history = History.create(in: viewContext, profile: activeProfile)
-        history.link = item.link
-        history.title = item.title
-        history.visited = Date()
-
-        do {
-            try viewContext.save()
-
-            // Update link color
-            item.objectWillChange.send()
-
-            // Update unread count in page navigation
-            item.feedData?.feed?.page?.objectWillChange.send()
-        } catch {
-            handleCriticalError(error as NSError)
-        }
-    }
-}
-
-/**
- Refresh management
- */
-extension ContentViewModel {
-    public func refresh(pageViewModel: PageViewModel) {
-        pageViewModel.refreshing = true
-        var operations: [Operation] = []
-
-        pageViewModel.page.feedsArray.forEach { feed in
-            pageViewModel.progress.totalUnitCount += 1
-            operations.append(
-                contentsOf: self.createFeedOps(feed, progress: pageViewModel.progress)
-            )
-        }
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(operations, waitUntilFinished: true)
-            DispatchQueue.main.async {
-                self.refreshComplete(page: pageViewModel.page, pageViewModel: pageViewModel)
-            }
-        }
-    }
-
-    public func refresh(feed: Feed, callback: ((Feed) -> Void)? = nil) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let operations = self.createFeedOps(feed)
-            self.queue.addOperations(operations, waitUntilFinished: true)
-            DispatchQueue.main.async {
-                self.refreshComplete(page: feed.page)
-                if let callback = callback {
-                    callback(feed)
-                }
-            }
-        }
-    }
-
-    private func createFeedOps(_ feed: Feed, progress: Progress? = nil) -> [Operation] {
-        guard let feedData = checkFeedData(feed) else { return [] }
-
-        let refreshPlan = RefreshPlan(
-            feed: feed,
-            feedData: feedData,
-            persistentContainer: persistentContainer,
-            progress: progress
-        )
-
-        // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally
-        if feedData.metaFetched == nil || feedData.metaFetched! < Date(timeIntervalSinceNow: -30 * 24 * 60 * 60) {
-            refreshPlan.fullUpdate = true
-        }
-
-        refreshPlan.configureOps()
-
-        return refreshPlan.getOps()
-    }
-
-    private func checkFeedData(_ feed: Feed) -> FeedData? {
-        if let feedData = feed.feedData {
-            return feedData
-        }
-
-        guard let feedId = feed.id else { return nil }
-
-        let feedData = FeedData.create(in: persistentContainer.viewContext, feedId: feedId)
-        do {
-            try persistentContainer.viewContext.save()
-        } catch {
-            self.handleCriticalError(error as NSError)
-        }
-
-        return feedData
-    }
-
-    private func refreshComplete(page: Page?, pageViewModel: PageViewModel? = nil) {
-        pageViewModel?.refreshing = false
-        pageViewModel?.progress.completedUnitCount = 0
-        pageViewModel?.progress.totalUnitCount = 0
-
-        page?.objectWillChange.send()
-        page?.feedsArray.forEach({ feed in
-            feed.objectWillChange.send()
-        })
-
-        if persistentContainer.viewContext.hasChanges {
-            do {
-                try persistentContainer.viewContext.save()
-            } catch {
-                self.handleCriticalError(error as NSError)
-            }
         }
     }
 }

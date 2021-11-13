@@ -13,9 +13,14 @@ final class DownloadThumbnailsOperation: Operation {
     var inputWorkingItems: [WorkingItem] = []
     var outputWorkingItems: [WorkingItem] = []
 
-    override func main() {
-        let queue = OperationQueue()
+    var queue = OperationQueue()
+
+    override init() {
+        super.init()
         queue.maxConcurrentOperationCount = 1
+    }
+
+    override func main() {
         var combinedOps: [Operation] = []
         var saveOps: [SaveThumbnailOperation] = []
 

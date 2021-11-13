@@ -40,7 +40,7 @@ struct SidebarPageRowView: View {
             icon: {
                 if pageViewModel.refreshing {
                     ProgressView(value: pageViewModel.refreshFractionCompleted)
-                        .progressViewStyle(CircularIconProgressViewStyle())
+                        .progressViewStyle(IconProgressStyle())
                 } else {
                     Image(systemName: pageViewModel.page.wrappedSymbol).foregroundColor(.primary)
                 }
