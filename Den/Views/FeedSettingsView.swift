@@ -22,8 +22,8 @@ struct FeedSettingsView: View {
 
     var body: some View {
         Form {
-            title
-            settings
+            titleSection
+            configurationSection
             info
             Spacer().listRowBackground(Color.clear)
         }
@@ -35,17 +35,13 @@ struct FeedSettingsView: View {
         .toolbar { toolbar }
     }
 
-    private var title: some View {
+    private var titleSection: some View {
         Section(header: Text("Title").modifier(SectionHeaderModifier())) {
-            HStack {
-                TextField("Title", text: $feed.wrappedTitle)
-                    .lineLimit(1)
-                    .padding(.vertical, 4)
-            }
+            TextField("Title", text: $feed.wrappedTitle).lineLimit(1).modifier(FormRowModifier())
         }
     }
 
-    private var settings: some View {
+    private var configurationSection: some View {
         let pagePickerSelection = Binding<String?>(
             get: {
                 return feed.page?.id?.uuidString
@@ -66,7 +62,7 @@ struct FeedSettingsView: View {
         return Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Page", systemImage: "square.grid.2x2").padding(.vertical, 4)
+                Label("Page", systemImage: "square.grid.2x2")
                 Spacer()
                 Picker("", selection: pagePickerSelection) {
                     ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
@@ -74,12 +70,12 @@ struct FeedSettingsView: View {
                     }
                 }
                 .frame(maxWidth: 200)
-            }
+            }.modifier(FormRowModifier())
             HStack {
-                Label("Show Thumbnails", systemImage: "photo").padding(.vertical, 4)
+                Label("Show Thumbnails", systemImage: "photo")
                 Spacer()
                 Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
-            }
+            }.modifier(FormRowModifier())
             #else
             Picker(
                 selection: pagePickerSelection,
@@ -103,16 +99,23 @@ struct FeedSettingsView: View {
     private var info: some View {
         Section(header: Text("Info").modifier(SectionHeaderModifier())) {
             HStack {
-                Label("URL", systemImage: "globe")
+                Label {
+                    Text("RSS URL").lineLimit(1)
+                } icon: {
+                    Image(uiImage: UIImage(named: "RSSIcon")!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 14, height: 14, alignment: .center)
+                }
                 Spacer()
-                Text(feed.urlString).lineLimit(1).foregroundColor(.secondary).padding(.vertical, 4)
+                Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                 Button(action: copyUrl) {
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                 }
-            }
+            }.modifier(FormRowModifier())
 
             HStack {
-                Label("Refreshed", systemImage: "arrow.clockwise").padding(.vertical, 4)
+                Label("Refreshed", systemImage: "arrow.clockwise")
                 Spacer()
                 if feed.feedData?.refreshed != nil {
                     Text("\(feed.feedData!.refreshed!, formatter: DateFormatter.mediumShort)")
@@ -120,7 +123,7 @@ struct FeedSettingsView: View {
                 } else {
                     Text("Never").foregroundColor(.secondary)
                 }
-            }
+            }.modifier(FormRowModifier())
         }
     }
 

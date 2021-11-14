@@ -26,7 +26,6 @@ struct SettingsView: View {
             historySection
             dataSection
             aboutSection
-            Spacer().listRowBackground(Color.clear)
         }
         .navigationTitle("Settings")
         .onAppear(perform: loadProfile)
@@ -36,7 +35,7 @@ struct SettingsView: View {
         Section(header: Text("Appearance").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Theme", systemImage: "paintbrush").padding(.vertical, 4)
+                Label("Theme", systemImage: "paintbrush")
                 Spacer()
                 Picker("", selection: $selectedTheme) {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
@@ -45,7 +44,7 @@ struct SettingsView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .frame(width: 200)
-            }
+            }.modifier(FormRowModifier())
             #else
             Picker(
                 selection: $selectedTheme,
@@ -79,16 +78,16 @@ struct SettingsView: View {
                     )
                 )
             ) {
-                Label("Import", systemImage: "arrow.down.doc").padding(.vertical, 4)
-            }
+                Label("Import", systemImage: "arrow.down.doc")
+            }.modifier(FormRowModifier())
 
             NavigationLink(
                 destination: ExportView(
                     viewModel: ExportViewModel(profileManager: profileManager)
                 )
             ) {
-                Label("Export", systemImage: "arrow.up.doc").padding(.vertical, 4)
-            }
+                Label("Export", systemImage: "arrow.up.doc")
+            }.modifier(FormRowModifier())
 
             NavigationLink(
                 destination: SecurityCheckView(
@@ -99,8 +98,8 @@ struct SettingsView: View {
                     )
                 )
             ) {
-                Label("Security Check", systemImage: "checkmark.shield").padding(.vertical, 4)
-            }
+                Label("Security Check", systemImage: "checkmark.shield")
+            }.modifier(FormRowModifier())
         }
     }
 
@@ -108,7 +107,7 @@ struct SettingsView: View {
         Section(header: Text("History").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Keep History", systemImage: "clock").padding(.vertical, 4)
+                Label("Keep History", systemImage: "clock")
                 Spacer()
                 Picker("", selection: $historyRentionDays) {
                     Text("Forever").tag(0 as Int)
@@ -120,7 +119,7 @@ struct SettingsView: View {
                     Text("One Week").tag(7 as Int)
                 }
                 .frame(maxWidth: 200)
-            }
+            }.modifier(FormRowModifier())
             #else
             Picker(
                 selection: $historyRentionDays,
@@ -138,8 +137,8 @@ struct SettingsView: View {
             #endif
 
             Button(action: clearHistory) {
-                Label("Clear History", systemImage: "clear").padding(.vertical, 4)
-            }
+                Label("Clear History", systemImage: "clear")
+            }.modifier(FormRowModifier())
         }.onChange(of: historyRentionDays) { _ in
             saveProfile()
         }
@@ -148,14 +147,16 @@ struct SettingsView: View {
     private var dataSection: some View {
         Section(header: Text("Reset").modifier(SectionHeaderModifier())) {
             Button(action: clearCache) {
-                Label("Empty Caches", systemImage: "bin.xmark").padding(.vertical, 4)
+                Label("Empty Caches", systemImage: "bin.xmark")
             }
+            .modifier(FormRowModifier())
 
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
                 Label("Reset", systemImage: "clear").symbolRenderingMode(.multicolor)
             }
+            .modifier(FormRowModifier())
             .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
                 Button("Cancel", role: .cancel) { }
                 Button("Reset", role: .destructive) {
@@ -184,16 +185,16 @@ struct SettingsView: View {
             }.padding(.vertical, 8)
 
             Button(action: openHomepage) {
-                Label("Homepage", systemImage: "house").padding(.vertical, 4)
-            }
+                Label("Homepage", systemImage: "house")
+            }.modifier(FormRowModifier())
 
             Button(action: emailSupport) {
-                Label("Email Support", systemImage: "lifepreserver").padding(.vertical, 4)
-            }
+                Label("Email Support", systemImage: "lifepreserver")
+            }.modifier(FormRowModifier())
 
             Button(action: openPrivacyPolicy) {
-                Label("Privacy Policy", systemImage: "hand.raised.slash").padding(.vertical, 4)
-            }
+                Label("Privacy Policy", systemImage: "hand.raised.slash")
+            }.modifier(FormRowModifier())
         }
     }
 

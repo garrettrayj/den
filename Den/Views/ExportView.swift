@@ -46,7 +46,7 @@ struct ExportView: View {
                                 Text(page.wrappedName).foregroundColor(.primary)
                                 Spacer()
                                 Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
-                            }.padding(.vertical, 4)
+                            }
 
                         },
                         icon: {
@@ -57,7 +57,9 @@ struct ExportView: View {
                             }
                         }
                     )
-                }.onAppear { self.viewModel.selectedPages.append(page) }
+                }
+                .modifier(FormRowModifier())
+                .onAppear { self.viewModel.selectedPages.append(page) }
             }
         }
     }

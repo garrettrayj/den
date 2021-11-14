@@ -20,6 +20,7 @@
 		680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */; };
 		680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
+		681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681E6F122741AD8F00C74590 /* FormRowModifier.swift */; };
 		68207F4126EEF7D400B91B31 /* ToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68207F4026EEF7D400B91B31 /* ToolbarButtonStyle.swift */; };
 		683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CEC5F250966410005F305 /* Bundle+Extensions.swift */; };
 		6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */; };
@@ -170,6 +171,7 @@
 		680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Page+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
+		681E6F122741AD8F00C74590 /* FormRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRowModifier.swift; sourceTree = "<group>"; };
 		68207F4026EEF7D400B91B31 /* ToolbarButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonStyle.swift; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeedItem+Extensions.swift"; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				687C27972634A89A00099FCA /* ShakeModifier.swift */,
 				689C735D26DC392B009AAD2F /* MacButtonStyleModifier.swift */,
 				68701DD82738F7F200C6BB69 /* SidebarSectionHeaderModifier.swift */,
+				681E6F122741AD8F00C74590 /* FormRowModifier.swift */,
 				68701DE0273BAEB700C6BB69 /* SectionHeaderModifier.swift */,
 			);
 			path = Modifiers;
@@ -865,6 +868,7 @@
 				68998B93250665E500FDB6EE /* ActivityRep.swift in Sources */,
 				689EDBFE269BB5E00055811A /* SimpleMessageModifier.swift in Sources */,
 				68710C55259825BA007B2507 /* AppDelegate.swift in Sources */,
+				681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */,
 				68E4274326D2C2BB00E496E3 /* SecurityCheckView.swift in Sources */,
 				68701DF9273E559C00C6BB69 /* ProfileManager.swift in Sources */,
 				684DFA0324BAC7680023D6DB /* MIMETypes.swift in Sources */,

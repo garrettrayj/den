@@ -81,10 +81,10 @@ struct SecurityCheckView: View {
     }
 
     private func pageSection(page: Page) -> some View {
-        Section(header: Text(page.displayName)) {
+        Section(header: Text(page.displayName).modifier(SectionHeaderModifier())) {
             ForEach(page.insecureFeeds) { feed in
                 HStack {
-                    FeedTitleLabelView(feed: feed).padding(.vertical, 4)
+                    FeedTitleLabelView(feed: feed)
                     Spacer()
 
                     HStack(spacing: 4) {
@@ -98,8 +98,7 @@ struct SecurityCheckView: View {
                     if viewModel.failedRemediation.contains(feed.id) == true {
                         Image(systemName: "shield.slash").foregroundColor(.red)
                     }
-
-                }
+                }.modifier(FormRowModifier())
             }
         }
     }
