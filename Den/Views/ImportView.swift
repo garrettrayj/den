@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ImportView: View {
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var importViewModel: ImportViewModel
 
     var body: some View {
@@ -40,7 +41,7 @@ struct ImportView: View {
 
     private var folderSelectionStage: some View {
         Form {
-            Section(header: selectionSectionHeader) {
+            Section(header: selectionSectionHeader.modifier(SectionHeaderModifier())) {
                 ForEach(importViewModel.opmlFolders, id: \.name) { folder in
                     Button { self.importViewModel.toggleFolder(folder) } label: {
                         Label(
@@ -68,14 +69,16 @@ struct ImportView: View {
                 }
             }
 
-            VStack(alignment: .center) {
+            Section {
                 Button(action: importFeeds) {
                     Label("Import Feeds", systemImage: "arrow.down.doc")
                 }
                 .buttonStyle(AccentButtonStyle())
-                .frame(alignment: .center)
                 .disabled(!(importViewModel.selectedFolders.count > 0))
-            }.frame(maxWidth: .infinity).listRowBackground(Color(UIColor.systemGroupedBackground))
+            }
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets())
         }
     }
 
@@ -113,6 +116,7 @@ struct ImportView: View {
 
     private func importFeeds() {
         self.importViewModel.importSelected()
+        dismiss()
     }
 
     private func cancel() {

@@ -93,7 +93,7 @@ struct FeedWidgetView: View {
                 .foregroundColor(.red)
         )
         .padding([.horizontal, .top])
-        .padding(.bottom, 2)
+        .padding(.bottom)
     }
 
     private var feedEmpty: some View {

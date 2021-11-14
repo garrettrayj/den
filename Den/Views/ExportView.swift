@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ExportView: View {
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var profileManager: ProfileManager
     @ObservedObject var viewModel: ExportViewModel
 
@@ -16,15 +17,21 @@ struct ExportView: View {
         VStack {
             if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
                 Form {
-                    pageList
+                    pageListSection
 
                     Section {
-                        Button(action: viewModel.exportOpml) {
+                        Button {
+                            viewModel.exportOpml()
+                            dismiss()
+                        } label: {
                             Label("Export OPML", systemImage: "arrow.up.doc")
-                        }.buttonStyle(AccentButtonStyle()).disabled(viewModel.selectedPages.count == 0)
+                        }
+                        .buttonStyle(AccentButtonStyle())
+                        .disabled(viewModel.selectedPages.count == 0)
                     }
                     .frame(maxWidth: .infinity)
-                    .listRowBackground(Color(UIColor.systemGroupedBackground))
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
                 }
             } else {
                 Text("No pages available for export").modifier(SimpleMessageModifier())
@@ -32,11 +39,10 @@ struct ExportView: View {
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Export")
-        .navigationBarTitleDisplayMode(.inline)
     }
 
-    private var pageList: some View {
-        Section(header: selectionSectionHeader) {
+    private var pageListSection: some View {
+        Section(header: selectionSectionHeader.modifier(SectionHeaderModifier())) {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
                 // .editMode doesn't work inside forms, so creating selection buttons manually
                 Button { self.viewModel.togglePage(page) } label: {

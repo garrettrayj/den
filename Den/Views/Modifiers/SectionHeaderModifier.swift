@@ -11,7 +11,7 @@ import SwiftUI
 struct SectionHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         #if targetEnvironment(macCatalyst)
-        content.padding(.top, 12).padding(.bottom, 4)
+        content.listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 4, trailing: 16))
         #else
         content
         #endif
