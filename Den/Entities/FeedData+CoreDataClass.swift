@@ -48,6 +48,7 @@ public class FeedData: NSManagedObject {
         return link.absoluteString
             .replacingOccurrences(of: "http://", with: "")
             .replacingOccurrences(of: "https://", with: "")
+            .trimmingCharacters(in: .init(charactersIn: "/"))
     }
 
     public var faviconImage: Image? {

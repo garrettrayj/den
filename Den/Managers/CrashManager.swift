@@ -6,8 +6,9 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import SwiftUI
+import CoreData
 import OSLog
+import SwiftUI
 
 final class CrashManager: ObservableObject {
     @Published var showingCrashMessage = false

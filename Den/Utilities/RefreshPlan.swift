@@ -98,8 +98,9 @@ final class RefreshPlan {
             feedObjectID: feed.objectID,
             saveMeta: fullUpdate
         )
-        completionOp = BlockOperation { [unowned progress] in
+        completionOp = BlockOperation { [unowned feed, unowned progress] in
             DispatchQueue.main.async {
+                feed.objectWillChange.send()
                 progress?.completedUnitCount += 1
             }
         }

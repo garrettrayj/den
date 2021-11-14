@@ -15,7 +15,9 @@ struct SettingsView: View {
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var themeManager: ThemeManager
 
-    @ObservedObject var viewModel: SettingsViewModel
+    @State var selectedTheme: UIUserInterfaceStyle = .unspecified
+    @State var showingResetAlert = false
+    @State var historyRentionDays: Int = 0
 
     var body: some View {
         Form {
@@ -24,6 +26,7 @@ struct SettingsView: View {
             historySection
             dataSection
             aboutSection
+            Spacer().listRowBackground(Color.clear)
         }
         .navigationTitle("Settings")
         .onAppear(perform: loadProfile)
@@ -35,7 +38,7 @@ struct SettingsView: View {
             HStack {
                 Label("Theme", systemImage: "paintbrush").padding(.vertical, 4)
                 Spacer()
-                Picker("", selection: $viewModel.selectedTheme) {
+                Picker("", selection: $selectedTheme) {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
                     Text("Light").tag(UIUserInterfaceStyle.light)
                     Text("Dark").tag(UIUserInterfaceStyle.dark)
@@ -45,7 +48,7 @@ struct SettingsView: View {
             }
             #else
             Picker(
-                selection: $viewModel.selectedTheme,
+                selection: $selectedTheme,
                 label: Label("Theme", systemImage: "paintbrush"),
                 content: {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
@@ -55,11 +58,11 @@ struct SettingsView: View {
             )
             #endif
         }
-        .onChange(of: viewModel.selectedTheme, perform: { value in
+        .onChange(of: selectedTheme, perform: { value in
             UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
             themeManager.applyUIStyle()
         }).onAppear {
-            viewModel.selectedTheme = UIUserInterfaceStyle.init(
+            selectedTheme = UIUserInterfaceStyle.init(
                 rawValue: UserDefaults.standard.integer(forKey: "UIStyle")
             )!
         }
@@ -107,7 +110,7 @@ struct SettingsView: View {
             HStack {
                 Label("Keep History", systemImage: "clock").padding(.vertical, 4)
                 Spacer()
-                Picker("", selection: $viewModel.historyRentionDays) {
+                Picker("", selection: $historyRentionDays) {
                     Text("Forever").tag(0 as Int)
                     Text("One Year").tag(365 as Int)
                     Text("Six Months").tag(182 as Int)
@@ -120,7 +123,7 @@ struct SettingsView: View {
             }
             #else
             Picker(
-                selection: $viewModel.historyRentionDays,
+                selection: $historyRentionDays,
                 label: Label("Keep History", systemImage: "clock"),
                 content: {
                     Text("Forever").tag(0 as Int)
@@ -137,7 +140,7 @@ struct SettingsView: View {
             Button(action: clearHistory) {
                 Label("Clear History", systemImage: "clear").padding(.vertical, 4)
             }
-        }.onChange(of: viewModel.historyRentionDays) { _ in
+        }.onChange(of: historyRentionDays) { _ in
             saveProfile()
         }
     }
@@ -148,20 +151,19 @@ struct SettingsView: View {
                 Label("Empty Caches", systemImage: "bin.xmark").padding(.vertical, 4)
             }
 
-            Button(action: showResetAlert) {
-                Label("Reset Everything", systemImage: "clear")
-                    .foregroundColor(.red)
-                    .padding(.vertical, 4)
-            }.alert(isPresented: $viewModel.showingClearWorkspaceAlert) {
-                Alert(
-                    title: Text("Are you sure?"),
-                    message: Text("All pages and feeds will be permanently removed."),
-                    primaryButton: .destructive(Text("Reset")) {
-                        self.resetEverything()
-                    },
-                    secondaryButton: .cancel()
-                )
+            Button(role: .destructive) {
+                showingResetAlert = true
+            } label: {
+                Label("Reset", systemImage: "clear").symbolRenderingMode(.multicolor)
             }
+            .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
+                Button("Cancel", role: .cancel) { }
+                Button("Reset", role: .destructive) {
+                    resetEverything()
+                }
+            }, message: {
+                Text("Settings will to defaults; Pages, feeds, and history will be deleted.")
+            })
         }
     }
 
@@ -198,14 +200,14 @@ struct SettingsView: View {
     private func loadProfile() {
         guard let profile = profileManager.activeProfile else { return }
 
-        viewModel.historyRentionDays = profile.wrappedHistoryRetention
+        historyRentionDays = profile.wrappedHistoryRetention
     }
 
     private func saveProfile() {
         guard let profile = profileManager.activeProfile else { return }
 
-        if viewModel.historyRentionDays != profile.wrappedHistoryRetention {
-            profile.wrappedHistoryRetention = viewModel.historyRentionDays
+        if historyRentionDays != profile.wrappedHistoryRetention {
+            profile.wrappedHistoryRetention = historyRentionDays
         }
 
         if self.viewContext.hasChanges {
@@ -219,6 +221,7 @@ struct SettingsView: View {
 
     private func clearCache() {
         cacheManager.resetFeeds()
+        profileManager.activeProfile?.objectWillChange.send()
     }
 
     private func clearHistory() {
@@ -246,10 +249,6 @@ struct SettingsView: View {
         UserDefaults.standard.synchronize()
 
         themeManager.applyUIStyle()
-    }
-
-    private func showResetAlert() {
-        viewModel.showingClearWorkspaceAlert = true
     }
 
     private func resetEverything() {

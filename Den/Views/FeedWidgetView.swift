@@ -12,9 +12,7 @@ struct FeedWidgetView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
-    @Binding var activeFeed: String?
-
-    @ObservedObject var viewModel: FeedWidgetViewModel
+    @ObservedObject var feed: Feed
 
     var body: some View {
         widgetContent
@@ -28,16 +26,16 @@ struct FeedWidgetView: View {
     private var widgetContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             feedHeader
-            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
                 feedItems
             } else {
                 Divider()
 
-                if viewModel.feed.feedData == nil {
+                if feed.feedData == nil {
                     feedNotFetched
-                } else if viewModel.feed.feedData?.error != nil {
+                } else if feed.feedData?.error != nil {
                     feedError
-                } else if viewModel.feed.feedData!.itemsArray.count == 0 {
+                } else if feed.feedData!.itemsArray.count == 0 {
                     feedEmpty
                 } else {
                     feedStatusUnknown
@@ -47,25 +45,26 @@ struct FeedWidgetView: View {
     }
 
     private var feedHeader: some View {
-        NavigationLink(tag: viewModel.feed.id!.uuidString, selection: $activeFeed) {
-            FeedView(
-                viewModel: FeedViewModel(feed: viewModel.feed),
-                activeFeed: $activeFeed
-            )
-        } label: {
-            FeedTitleLabelView(feed: viewModel.feed)
+        Group {
+            if feed.id != nil {
+                NavigationLink {
+                    FeedView(feed: feed)
+                } label: {
+                    FeedTitleLabelView(feed: feed)
+                }
+                .buttonStyle(WidgetHeaderButtonStyle())
+            }
         }
-        .buttonStyle(WidgetHeaderButtonStyle())
     }
 
     private var feedItems: some View {
         VStack(spacing: 0) {
-            ForEach(viewModel.feed.feedData!.itemsArray.prefix(viewModel.feed.page?.wrappedItemsPerFeed ?? 5)) { item in
+            ForEach(feed.feedData!.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
                 Group {
                     Divider()
                     FeedWidgetRowView(
                         item: item,
-                        feed: viewModel.feed
+                        feed: feed
                     )
                 }
             }
@@ -80,7 +79,7 @@ struct FeedWidgetView: View {
                     .font(.callout)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(viewModel.feed.feedData!.error!)
+                Text(feed.feedData!.error!)
                     .foregroundColor(.red)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)

@@ -22,13 +22,13 @@ struct FeedItemView: View {
                     .foregroundColor(Color(.secondaryLabel))
             }
 
-            Button(action: {
+            Button {
                 linkManager.openLink(
                     url: item.link,
                     logHistoryItem: item,
                     readerMode: item.feedData?.feed?.readerMode ?? false
                 )
-            }) {
+            } label: {
                 Text(item.wrappedTitle)
                     .font(.title2)
                     .multilineTextAlignment(.leading)

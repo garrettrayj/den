@@ -6,15 +6,14 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 final class PageViewModel: ObservableObject, Identifiable {
     @Published var page: Page
-    @Published var activeFeed: String?
-    @Published var refreshing: Bool = false
+    @Published var refreshState: RefreshState = .waiting
     @Published var refreshFractionCompleted: CGFloat = 0
     @Published var progress = Progress(totalUnitCount: 0)
-    @Published var showingSettings: Bool = false
 
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
