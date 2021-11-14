@@ -17,45 +17,8 @@ struct SubscribeView: View {
         NavigationView {
             Form {
                 if viewModel.destinationPage != nil {
-                    Section(
-                        header: Text("Feed URL"),
-                        footer: Group {
-                            if viewModel.validationMessage != nil {
-                                Text(viewModel.validationMessage!)
-                                    .foregroundColor(.red)
-                                    .multilineTextAlignment(.center)
-                                    .frame(maxWidth: .infinity)
-                            }
-                        }
-                    ) {
-                        feedUrlInput
-                    }
-
-                    Section {
-                        Button {
-                            viewModel.validateUrl()
-                            if viewModel.urlIsValid == true {
-                                viewModel.addSubscription {
-                                    self.presentationMode.wrappedValue.dismiss()
-                                }
-                            }
-                        } label: {
-                            Label(
-                                title: { Text("Add to \(viewModel.destinationPage!.wrappedName)") },
-                                icon: {
-                                    if viewModel.loading {
-                                        ProgressView().progressViewStyle(CircularProgressViewStyle())
-                                    } else {
-                                        Image(systemName: "plus")
-                                    }
-                                }
-                            )
-                        }
-                        .frame(maxWidth: .infinity)
-                        .listRowBackground(Color(UIColor.systemGroupedBackground))
-                        .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
-                        .buttonStyle(AccentButtonStyle())
-                    }
+                    feedUrlSection
+                    submitButtonSection
 
                 } else {
                     missingPage
@@ -73,6 +36,50 @@ struct SubscribeView: View {
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+
+    private var feedUrlSection: some View {
+        Section(
+            header: Text("Feed URL"),
+            footer: Group {
+                if viewModel.validationMessage != nil {
+                    Text(viewModel.validationMessage!)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+        ) {
+            feedUrlInput
+        }
+    }
+
+    private var submitButtonSection: some View {
+        Section {
+            Button {
+                viewModel.validateUrl()
+                if viewModel.urlIsValid == true {
+                    viewModel.addSubscription {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            } label: {
+                Label(
+                    title: { Text("Add to \(viewModel.destinationPage!.wrappedName)") },
+                    icon: {
+                        if viewModel.loading {
+                            ProgressView().progressViewStyle(CircularProgressViewStyle())
+                        } else {
+                            Image(systemName: "plus")
+                        }
+                    }
+                )
+            }
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color(UIColor.systemGroupedBackground))
+            .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
+            .buttonStyle(AccentButtonStyle())
+        }
     }
 
     private var feedUrlInput: some View {

@@ -49,7 +49,7 @@ struct ImportView: View {
                                     Text(folder.name).foregroundColor(.primary)
                                     Spacer()
                                     Text("\(folder.feeds.count) feeds").foregroundColor(.secondary)
-                                }.padding(.vertical, 4)
+                                }
 
                             },
                             icon: {
@@ -61,6 +61,7 @@ struct ImportView: View {
                             }
                         )
                     }
+                    .modifier(FormRowModifier())
                     .onAppear {
                         self.importViewModel.selectedFolders.append(folder)
                     }

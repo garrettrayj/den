@@ -24,37 +24,12 @@ struct PageSettingsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Name and Icon").modifier(SectionHeaderModifier())) {
-                HStack {
-                    TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4)
-                    HStack {
-                        Image(systemName: page.wrappedSymbol)
-                            .foregroundColor(Color.accentColor)
-
-                        Image(systemName: "chevron.down")
-                            .imageScale(.small)
-                            .foregroundColor(.secondary)
-
-                    }
-                    .onTapGesture { showingIconPicker = true }
-                    .sheet(isPresented: $showingIconPicker) {
-                        IconPickerView(activeIcon: $page.wrappedSymbol)
-                    }
-                }
-            }
-            Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
-                Stepper(value: $page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) {
-                    Label(
-                        "Item Limit: \(page.wrappedItemsPerFeed)",
-                        systemImage: "list.bullet.rectangle"
-                    )
-                }
-            }
+            nameIconSection
+            configurationSection
 
             if page.feedsArray.count > 0 {
                 feedsSection
             }
-
         }
         .navigationTitle("Page Settings")
         .environment(\.editMode, .constant(.active))
@@ -62,6 +37,38 @@ struct PageSettingsView: View {
         .onDisappear(perform: save)
         .onReceive(pageDeleted) { _ in
             dismiss()
+        }
+    }
+
+    private var nameIconSection: some View {
+        Section(header: Text("Name and Icon").modifier(SectionHeaderModifier())) {
+            HStack {
+                TextField("Untitled", text: $page.wrappedName).lineLimit(1)
+                HStack {
+                    Image(systemName: page.wrappedSymbol)
+                        .foregroundColor(Color.accentColor)
+
+                    Image(systemName: "chevron.down")
+                        .imageScale(.small)
+                        .foregroundColor(.secondary)
+
+                }
+                .onTapGesture { showingIconPicker = true }
+                .sheet(isPresented: $showingIconPicker) {
+                    IconPickerView(activeIcon: $page.wrappedSymbol)
+                }
+            }.modifier(FormRowModifier())
+        }
+    }
+
+    private var configurationSection: some View {
+        Section(header: Text("Configuration").modifier(SectionHeaderModifier())) {
+            Stepper(value: $page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) {
+                Label(
+                    "Item Limit: \(page.wrappedItemsPerFeed)",
+                    systemImage: "list.bullet.rectangle"
+                )
+            }.modifier(FormRowModifier())
         }
     }
 
