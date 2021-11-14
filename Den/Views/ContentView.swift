@@ -16,8 +16,6 @@ struct ContentView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscribeManager: SubscribeManager
 
-    @StateObject var viewModel: ContentViewModel
-
     var body: some View {
         if crashManager.showingCrashMessage == true {
             CrashMessageView()
@@ -29,8 +27,10 @@ struct ContentView: View {
     private var navigationView: some View {
         NavigationView {
             SidebarView(
-                contentViewModel: viewModel,
-                searchViewModel: SearchViewModel(viewContext: viewContext, crashManager: crashManager)
+                searchViewModel: SearchViewModel(
+                    viewContext: viewContext,
+                    crashManager: crashManager
+                )
             )
 
             // Default view for detail area

@@ -24,7 +24,6 @@ struct SquaredLinearProgressViewStyle: ProgressViewStyle {
                         height: geometry.size.height
                     )
                     .foregroundColor(Color.accentColor)
-                    .animation(.linear, value: 1)
             }
         }
     }

@@ -27,12 +27,7 @@ struct DenApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: ContentViewModel(
-                viewContext: persistenceManager.container.viewContext,
-                crashManager: crashManager,
-                refreshManager: refreshManager,
-                profileManager: profileManager
-            ))
+            ContentView()
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
                 .environmentObject(cacheManager)
                 .environmentObject(crashManager)

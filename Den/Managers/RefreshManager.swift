@@ -10,11 +10,12 @@ import Foundation
 import CoreData
 
 final class RefreshManager: ObservableObject {
-
     let queue = OperationQueue()
 
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
+
+    private var currentPageViewModels: [PageViewModel] = []
 
     init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
@@ -23,12 +24,8 @@ final class RefreshManager: ObservableObject {
         queue.maxConcurrentOperationCount = 6
     }
 
-    public func refresh(contentViewModel: ContentViewModel) {
-
-    }
-
     public func refresh(pageViewModel: PageViewModel) {
-        pageViewModel.refreshing = true
+        pageViewModel.refreshState = .loading
         var operations: [Operation] = []
 
         pageViewModel.page.feedsArray.forEach { feed in
@@ -41,21 +38,9 @@ final class RefreshManager: ObservableObject {
         DispatchQueue.global(qos: .userInitiated).async {
             self.queue.addOperations(operations, waitUntilFinished: true)
             DispatchQueue.main.async {
-                pageViewModel.refreshing = false
+                pageViewModel.refreshState = .waiting
                 pageViewModel.progress.completedUnitCount = 0
                 pageViewModel.progress.totalUnitCount = 0
-            }
-        }
-    }
-
-    public func refresh(feedViewModel: FeedViewModel) {
-        feedViewModel.refreshing = true
-        let operations = self.createFeedOps(feedViewModel.feed)
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(operations, waitUntilFinished: true)
-            DispatchQueue.main.async {
-                feedViewModel.refreshing = false
             }
         }
     }
@@ -105,9 +90,5 @@ final class RefreshManager: ObservableObject {
         }
 
         return feedData
-    }
-
-    private func refreshComplete(page: Page) {
-        page.objectWillChange.send()
     }
 }

@@ -10,18 +10,25 @@ import SwiftUI
 
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var crashManager: CrashManager
 
-    @ObservedObject var viewModel: PageSettingsViewModel
+    @ObservedObject var page: Page
+
+    @State var showingIconPicker: Bool = false
+    @State var showingDeleteAlert: Bool = false
+
+    @State var itemsPerFeedStepperValue: Int = 0
+
+    let pageDeleted = NotificationCenter.default.publisher(for: .pageDeleted)
 
     var body: some View {
         Form {
             Section(header: Text("Name and Icon").modifier(SectionHeaderModifier())) {
                 HStack {
-                    TextField("Untitled", text: $viewModel.page.wrappedName).lineLimit(1).padding(.vertical, 4)
+                    TextField("Untitled", text: $page.wrappedName).lineLimit(1).padding(.vertical, 4)
                     HStack {
-                        Image(systemName: viewModel.page.wrappedSymbol)
+                        Image(systemName: page.wrappedSymbol)
                             .foregroundColor(Color.accentColor)
 
                         Image(systemName: "chevron.down")
@@ -29,39 +36,44 @@ struct PageSettingsView: View {
                             .foregroundColor(.secondary)
 
                     }
-                    .onTapGesture { viewModel.showingIconPicker = true }
-                    .sheet(isPresented: $viewModel.showingIconPicker) {
-                        IconPickerView(activeIcon: $viewModel.page.wrappedSymbol)
+                    .onTapGesture { showingIconPicker = true }
+                    .sheet(isPresented: $showingIconPicker) {
+                        IconPickerView(activeIcon: $page.wrappedSymbol)
                     }
                 }
             }
             Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
-                Stepper(value: $viewModel.page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) {
+                Stepper(value: $page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) {
                     Label(
-                        "Gadget Item Limit: \(viewModel.page.wrappedItemsPerFeed)",
+                        "Item Limit: \(page.wrappedItemsPerFeed)",
                         systemImage: "list.bullet.rectangle"
                     )
                 }
             }
 
-            if viewModel.page.feedsArray.count > 0 {
+            if page.feedsArray.count > 0 {
                 feedsSection
             }
+
         }
         .navigationTitle("Page Settings")
         .environment(\.editMode, .constant(.active))
+        .toolbar { toolbar }
         .onDisappear(perform: save)
+        .onReceive(pageDeleted) { _ in
+            dismiss()
+        }
     }
 
     private var feedsSection: some View {
         Section(
             header: HStack {
-                Text("\(viewModel.page.feedsArray.count) Feeds")
+                Text("\(page.feedsArray.count) Feeds")
                 Spacer()
                 Text("Drag to Reorder")
             }.modifier(SectionHeaderModifier())
         ) {
-            ForEach(viewModel.page.feedsArray) { feed in
+            ForEach(page.feedsArray) { feed in
                 FeedTitleLabelView(feed: feed).padding(.vertical, 4)
             }
             .onDelete(perform: deleteFeed)
@@ -69,17 +81,26 @@ struct PageSettingsView: View {
         }
     }
 
-    private func close() {
-        presentationMode.wrappedValue.dismiss()
+    private var toolbar: some ToolbarContent {
+        ToolbarItemGroup {
+            HStack(spacing: 0) {
+                Button(role: .destructive) {
+                    showingDeleteAlert = true
+                } label: {
+                    Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
+                }
+                .alert("Remove \(page.displayName)?", isPresented: $showingDeleteAlert, actions: {
+                    Button("Cancel", role: .cancel) { }
+                    Button("Delete", role: .destructive) {
+                        deletePage()
+                    }
+                })
+            }
+        }
     }
 
     private func save() {
-        viewModel.page.objectWillChange.send()
-        viewModel.page.feedsArray.forEach({ feed in
-            feed.objectWillChange.send()
-        })
-
-        if self.viewContext.hasChanges {
+        if viewContext.hasChanges {
             do {
                 try viewContext.save()
             } catch {
@@ -88,8 +109,19 @@ struct PageSettingsView: View {
         }
     }
 
+    private func deletePage() {
+        viewContext.delete(page)
+
+        do {
+            try viewContext.save()
+            NotificationCenter.default.post(name: .pageDeleted, object: nil)
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
+        }
+    }
+
     private func deleteFeed(indices: IndexSet) {
-        indices.forEach { viewContext.delete(viewModel.page.feedsArray[$0]) }
+        indices.forEach { viewContext.delete(page.feedsArray[$0]) }
 
         do {
             try viewContext.save()
@@ -100,7 +132,7 @@ struct PageSettingsView: View {
 
     private func moveFeed( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Feed] = viewModel.page.feedsArray.map { $0 }
+        var revisedItems: [Feed] = page.feedsArray.map { $0 }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)

@@ -9,77 +9,85 @@
 import SwiftUI
 
 struct PageView: View {
+    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscribeManager: SubscribeManager
 
     @ObservedObject var viewModel: PageViewModel
+    @State var showingSettings: Bool = false
 
-    let columns = [
-        GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)
-    ]
+    let columns = [GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)]
+    let pageDeleted = NotificationCenter.default.publisher(for: .pageDeleted)
 
     var body: some View {
         VStack(spacing: 0) {
             if viewModel.page.managedObjectContext == nil {
-                pageDeleted
+                pageRemoved
             } else if viewModel.page.feedsArray.count == 0 {
                 pageEmpty
             } else {
-                GeometryReader { geometry in
-                    ZStack(alignment: .top) {
-                        RefreshableScrollView(viewModel: viewModel) {
-                            LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(viewModel.page.feedsArray) { feed in
-                                    FeedWidgetView(
-                                        activeFeed: $viewModel.activeFeed,
-                                        viewModel: FeedWidgetViewModel(
-                                            feed: feed,
-                                            pageViewModel: viewModel
-                                        )
-                                    )
-                                }
-                            }
-                            .padding(.leading, horizontalInset(geometry.safeAreaInsets.leading))
-                            .padding(.trailing, horizontalInset(geometry.safeAreaInsets.trailing))
-                            .padding(.top, 8)
-                            .padding(.bottom, 40)
-                        }
-                        HeaderProgressBarView(
-                            refreshing: $viewModel.refreshing,
-                            fractionCompleted: $viewModel.refreshFractionCompleted
-                        )
-                    }
-                    .edgesIgnoringSafeArea(.horizontal)
+                #if targetEnvironment(macCatalyst)
+                ScrollView {
+                    widgetGrid
                 }
+                #else
+                RefreshableScrollView(
+                    state: $viewModel.refreshState,
+                    onRefresh: { done in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            done()
+                        }
+                    },
+                    content: { widgetGrid }
+                )
+                #endif
             }
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .background(NavigationLink(
-            destination: PageSettingsView(viewModel: PageSettingsViewModel(page: viewModel.page)),
-            isActive: $viewModel.showingSettings
+            destination: PageSettingsView(page: viewModel.page),
+            isActive: $showingSettings
         ) {
-            EmptyView()
+            Text("Show Settings")
         })
         .navigationTitle(viewModel.page.displayName)
-        .toolbar { pageToolbar }
+        .toolbar { toolbar }
         .onAppear {
             subscribeManager.currentPageId = viewModel.page.id?.uuidString
         }
+        .onReceive(pageDeleted) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                dismiss()
+            }
+        }
     }
 
-    private var pageToolbar: some ToolbarContent {
+    private var widgetGrid: some View {
+        LazyVGrid(columns: columns, spacing: 16) {
+            ForEach(viewModel.page.feedsArray) { feed in
+                FeedWidgetView(feed: feed)
+            }
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
+        .padding(.bottom, 64)
+    }
+
+    private var toolbar: some ToolbarContent {
         ToolbarItemGroup {
             if viewModel.page.managedObjectContext != nil {
                 if UIDevice.current.userInterfaceIdiom == .phone {
-                    compactPageToolbar
+                    compactToolbar.disabled(viewModel.refreshState == .loading)
                 } else {
-                    fullPageToolbar
+                    fullToolbar.disabled(viewModel.refreshState == .loading)
                 }
             }
         }
     }
 
-    private var compactPageToolbar: some View {
+    private var compactToolbar: some View {
         Menu {
             Button(action: showSubscribe) {
                 Label("Add Subscription", systemImage: "plus.circle")
@@ -102,17 +110,17 @@ struct PageView: View {
         }
     }
 
-    private var fullPageToolbar: some View {
+    private var fullToolbar: some View {
         HStack(spacing: 0) {
             Button(action: showSubscribe) {
                 Label("Add Subscription", systemImage: "plus.circle")
-            }.disabled(viewModel.refreshing)
+            }
 
             Button(action: showSettings) {
                 Label("Page Settings", systemImage: "wrench")
-            }.disabled(viewModel.refreshing)
+            }
 
-            if viewModel.refreshing {
+            if viewModel.refreshState == .loading {
                 ProgressView(value: 0).progressViewStyle(ToolbarProgressStyle())
             } else {
                 Button {
@@ -136,14 +144,14 @@ struct PageView: View {
         }
     }
 
-    private var pageDeleted: some View {
-        Text("Page no longer exists")
+    private var pageRemoved: some View {
+        Text("This page no longer exists")
             .modifier(SimpleMessageModifier())
-            .navigationTitle("Page Deleted")
+            .navigationTitle("Page Removed")
     }
 
     private func showSettings() {
-        viewModel.showingSettings = true
+        showingSettings = true
     }
 
     private func showSubscribe() {
