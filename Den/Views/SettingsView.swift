@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var cacheManager: CacheManager
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var profileManager: ProfileManager
@@ -161,6 +162,7 @@ struct SettingsView: View {
                 Button("Cancel", role: .cancel) { }
                 Button("Reset", role: .destructive) {
                     resetEverything()
+                    dismiss()
                 }
             }, message: {
                 Text("Settings will to defaults; Pages, feeds, and history will be deleted.")

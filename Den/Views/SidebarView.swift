@@ -34,17 +34,18 @@ struct SidebarView: View {
             if editMode?.wrappedValue == .active {
                 editingList.environment(\.editMode, editMode)
             } else {
-                #if targetEnvironment(macCatalyst)
-                navigationList
-                #else
                 if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
+                    #if targetEnvironment(macCatalyst)
+                    navigationList
+                    #else
                     navigationList.refreshable {
                         refreshAll()
                     }
+                    #endif
                 } else {
-                    navigationList
+                    getStartedList
                 }
-                #endif
+
             }
         }
         .listStyle(SidebarListStyle())
@@ -55,14 +56,9 @@ struct SidebarView: View {
 
     private var navigationList: some View {
         List {
-            if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
-                pageListSection
-            } else {
-                getStartedSection
-            }
+            pageListSection
 
             moreSection
-            Spacer().listRowBackground(Color.clear)
         }
         .background(
             NavigationLink(tag: "search", selection: $activeNav) {
@@ -151,13 +147,15 @@ struct SidebarView: View {
         }
     }
 
-    private var getStartedSection: some View {
-        Section(header: Text("Get Started").modifier(SidebarSectionHeaderModifier())) {
-            Button(action: createPage) {
-                Label("New Page", systemImage: "plus").padding(.vertical, 4)
-            }
-            Button(action: loadDemo) {
-                Label("Load Demo", systemImage: "wand.and.stars").padding(.vertical, 4)
+    private var getStartedList: some View {
+        List {
+            Section(header: Text("Get Started").modifier(SidebarSectionHeaderModifier())) {
+                Button(action: createPage) {
+                    Label("New Page", systemImage: "plus").padding(.vertical, 4)
+                }
+                Button(action: loadDemo) {
+                    Label("Load Demo", systemImage: "wand.and.stars").padding(.vertical, 4)
+                }
             }
         }
     }

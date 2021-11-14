@@ -27,6 +27,7 @@ final class ImportViewModel: ObservableObject {
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
     private var profileManager: ProfileManager
+    private var documentPicker: ImportDocumentPicker?
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profileManager: ProfileManager) {
         self.viewContext = viewContext
@@ -89,6 +90,7 @@ final class ImportViewModel: ObservableObject {
 
         do {
             try viewContext.save()
+            profileManager.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
@@ -100,15 +102,16 @@ final class ImportViewModel: ObservableObject {
      so we do it this way instead of in a UIViewControllerRepresentable
      */
     func pickFile() {
-        let documentPicker = ImportDocumentPicker(importViewModel: self)
+        self.documentPicker = ImportDocumentPicker(importViewModel: self)
 
         let scenes = UIApplication.shared.connectedScenes
         if
             let windowScene = scenes.first as? UIWindowScene,
             let window = windowScene.windows.first,
-            let rootViewController = window.rootViewController
+            let rootViewController = window.rootViewController,
+            let pickerViewController = documentPicker?.viewController
         {
-            rootViewController.present(documentPicker.viewController, animated: true)
+            rootViewController.present(pickerViewController, animated: true)
         }
     }
 }
