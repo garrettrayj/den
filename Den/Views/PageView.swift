@@ -101,7 +101,7 @@ struct PageView: View {
                 refreshManager.refresh(pageViewModel: viewModel)
             } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
-            }
+            }.keyboardShortcut("r", modifiers: [.command])
         } label: {
             Label("Page Menu", systemImage: "ellipsis")
                 .frame(height: 44)
@@ -127,7 +127,7 @@ struct PageView: View {
                     refreshManager.refresh(pageViewModel: viewModel)
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
-                }
+                }.keyboardShortcut("r", modifiers: [.command])
             }
         }.buttonStyle(ToolbarButtonStyle())
     }
