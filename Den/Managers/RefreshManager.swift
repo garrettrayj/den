@@ -45,6 +45,18 @@ final class RefreshManager: ObservableObject {
         }
     }
 
+    public func refresh(feedViewModel: FeedViewModel) {
+        feedViewModel.refreshing = true
+        let operations = self.createFeedOps(feedViewModel.feed)
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.queue.addOperations(operations, waitUntilFinished: true)
+            DispatchQueue.main.async {
+                feedViewModel.refreshing = false
+            }
+        }
+    }
+
     public func refresh(feed: Feed, callback: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let operations = self.createFeedOps(feed)

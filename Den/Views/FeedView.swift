@@ -16,23 +16,22 @@ struct FeedView: View {
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
 
-    @ObservedObject var feed: Feed
+    @ObservedObject var viewModel: FeedViewModel
 
     @State var showingSettings: Bool = false
-    @State var refreshing: Bool = false
 
     let feedDeleted = NotificationCenter.default.publisher(for: .feedDeleted)
 
     var body: some View {
         VStack(spacing: 0) {
-            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
+            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                 feedItems
             } else {
-                if feed.feedData == nil {
+                if viewModel.feed.feedData == nil {
                     feedNotFetched
-                } else if feed.feedData?.error != nil {
+                } else if viewModel.feed.feedData?.error != nil {
                     feedError
-                } else if feed.feedData!.itemsArray.count == 0 {
+                } else if viewModel.feed.feedData!.itemsArray.count == 0 {
                     feedEmpty
                 } else {
                     feedStatusUnknown
@@ -42,12 +41,12 @@ struct FeedView: View {
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .background(NavigationLink(
-            destination: FeedSettingsView(feed: feed),
+            destination: FeedSettingsView(feed: viewModel.feed),
             isActive: $showingSettings
         ) {
             EmptyView()
         })
-        .navigationTitle(feed.wrappedTitle)
+        .navigationTitle(viewModel.feed.wrappedTitle)
         .toolbar { toolbar }
         .onReceive(feedDeleted) { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -58,8 +57,8 @@ struct FeedView: View {
 
     private var feedHeader: some View {
         HStack {
-            if feed.feedData?.faviconImage != nil {
-                feed.feedData!.faviconImage!
+            if viewModel.feed.feedData?.faviconImage != nil {
+                viewModel.feed.feedData!.faviconImage!
                     .scaleEffect(1 / UIScreen.main.scale)
                     .frame(width: 16, height: 16, alignment: .center)
                     .clipped()
@@ -71,7 +70,7 @@ struct FeedView: View {
                     .frame(width: 14, height: 14, alignment: .center)
             }
 
-            Text(feed.feedData?.linkDisplayString ?? "Website not available")
+            Text(viewModel.feed.feedData?.linkDisplayString ?? "Website not available")
                 .font(.callout)
 
             Spacer()
@@ -94,7 +93,7 @@ struct FeedView: View {
         ScrollView {
             feedHeader
 
-            Grid(feed.feedData!.itemsArray, id: \.self) { item in
+            Grid(viewModel.feed.feedData!.itemsArray, id: \.self) { item in
                 FeedItemView(item: item)
             }
             .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
@@ -112,7 +111,7 @@ struct FeedView: View {
                     .font(.callout)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(feed.feedData!.error!)
+                Text(viewModel.feed.feedData!.error!)
                     .foregroundColor(.red)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -154,7 +153,7 @@ struct FeedView: View {
     }
 
     private func lastRefreshedLabel() -> Text {
-        guard let lastRefreshed = feed.feedData?.refreshed else {
+        guard let lastRefreshed = viewModel.feed.feedData?.refreshed else {
             return Text("First refresh")
         }
 
@@ -170,19 +169,16 @@ struct FeedView: View {
                     Label("Feed Settings", systemImage: "wrench")
                 }.buttonStyle(ToolbarButtonStyle())
 
-                if refreshing {
+                if viewModel.refreshing {
                     ProgressView(value: 0).progressViewStyle(ToolbarProgressStyle())
                 } else {
                     Button {
-                        refreshing = true
-                        refreshManager.refresh(feed: feed) {
-                            refreshing = false
-                        }
+                        refreshManager.refresh(feedViewModel: viewModel)
                     } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }.buttonStyle(ToolbarButtonStyle())
                 }
-            }
+            }.disabled(viewModel.refreshing)
         }
     }
 }
