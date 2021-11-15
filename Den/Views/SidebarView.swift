@@ -202,11 +202,11 @@ struct SidebarView: View {
 
     private func createPage() {
         guard let profile = profileManager.activeProfile else { return }
-
         _ = Page.create(in: viewContext, profile: profile)
 
         do {
             try viewContext.save()
+            profileManager.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }

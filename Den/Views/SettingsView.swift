@@ -224,7 +224,7 @@ struct SettingsView: View {
 
     private func clearCache() {
         cacheManager.resetFeeds()
-        profileManager.activeProfile?.objectWillChange.send()
+        profileManager.objectWillChange.send()
     }
 
     private func clearHistory() {

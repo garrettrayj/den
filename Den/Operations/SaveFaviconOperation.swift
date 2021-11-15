@@ -20,8 +20,15 @@ final class SaveFaviconOperation: Operation {
     var defaultFaviconResponse: HTTPURLResponse?
     var defaultFaviconData: Data?
 
-    private var faviconSize = CGSize(width: 16, height: 16)
-    private let acceptableTypes = ["image/x-icon", "image/vnd.microsoft.icon", "image/gif", "image/png", "image/jpeg"]
+    let faviconSize = CGSize(width: 16 * UIScreen.main.scale, height: 16 * UIScreen.main.scale)
+
+    private let acceptableTypes = [
+        "image/x-icon",
+        "image/vnd.microsoft.icon",
+        "image/gif",
+        "image/png",
+        "image/jpeg"
+    ]
 
     override func main() {
         if isCancelled { return }
@@ -33,8 +40,9 @@ final class SaveFaviconOperation: Operation {
             self.acceptableTypes.contains(mimeType),
             let faviconUrl = httpResponse.url,
             let faviconData = webpageFaviconData,
-            let resizedImage = self.resizeImage(imageData: faviconData, size: self.faviconSize),
-            let filename = self.saveFavicon(image: resizedImage)
+            let image = UIImage(data: faviconData),
+            let resizedImage = image.preparingThumbnail(of: faviconSize),
+            let filename = saveFavicon(image: resizedImage)
         {
             self.workingFeed?.favicon = faviconUrl
             self.workingFeed?.faviconFile = filename
@@ -45,7 +53,8 @@ final class SaveFaviconOperation: Operation {
             self.acceptableTypes.contains(mimeType),
             let faviconUrl = httpResponse.url,
             let faviconData = defaultFaviconData,
-            let resizedImage = self.resizeImage(imageData: faviconData, size: self.faviconSize),
+            let image = UIImage(data: faviconData),
+            let resizedImage = image.preparingThumbnail(of: faviconSize),
             let filename = self.saveFavicon(image: resizedImage)
         {
             self.workingFeed?.favicon = faviconUrl
@@ -53,20 +62,6 @@ final class SaveFaviconOperation: Operation {
         }
 
         return
-    }
-
-    private func resizeImage(imageData: Data, size: CGSize) -> UIImage? {
-        guard let image = UIImage(data: imageData) else {
-            return nil
-        }
-
-        let renderer = UIGraphicsImageRenderer(size: size)
-
-        let rect = AVMakeRect(aspectRatio: image.size, insideRect: CGRect(origin: .zero, size: size))
-
-        return renderer.image { (_) in
-            image.draw(in: rect)
-        }
     }
 
     private func saveFavicon(image: UIImage) -> String? {

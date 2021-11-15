@@ -17,7 +17,8 @@ extension Image {
             .frame(width: 72, height: 48, alignment: .center)
         #else
         self
-            .scaleEffect(1 / UIScreen.main.scale)
+            .resizable()
+            .scaledToFill()
             .frame(width: 96, height: 64, alignment: .center)
         #endif
     }

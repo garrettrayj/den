@@ -18,7 +18,7 @@ final class SaveThumbnailOperation: Operation {
     var thumbnailData: Data?
     var workingFeedItem: WorkingItem?
 
-    private var thumbnailSize = CGSize(width: 96, height: 64)
+    private var thumbnailSize = CGSize(width: 96 * UIScreen.main.scale, height: 64 * UIScreen.main.scale)
     private let acceptableTypes = ["image/gif", "image/jpeg", "image/png"]
 
     override func main() {
@@ -31,8 +31,8 @@ final class SaveThumbnailOperation: Operation {
             self.acceptableTypes.contains(mimeType),
             let url = httpResponse.url,
             let data = thumbnailData,
-            let originalImage = UIImage(data: data),
-            let resizedImage = originalImage.resizedToFill(size: thumbnailSize),
+            let image = UIImage(data: data),
+            let resizedImage = image.preparingThumbnail(of: thumbnailSize),
             let filename = self.saveThumbnail(image: resizedImage)
         {
             self.workingFeedItem?.image = url
