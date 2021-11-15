@@ -110,7 +110,7 @@ struct SidebarView: View {
                         NotificationCenter.default.post(name: .refreshAll, object: nil)
                     } label: {
                         Label("Refresh All", systemImage: "arrow.clockwise")
-                    }
+                    }.keyboardShortcut("r", modifiers: [.command, .shift])
                 }
             }.buttonStyle(ToolbarButtonStyle())
         }

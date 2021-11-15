@@ -167,7 +167,7 @@ struct FeedView: View {
                     showingSettings = true
                 } label: {
                     Label("Feed Settings", systemImage: "wrench")
-                }.buttonStyle(ToolbarButtonStyle())
+                }
 
                 if viewModel.refreshing {
                     ProgressView(value: 0).progressViewStyle(ToolbarProgressStyle())
@@ -176,9 +176,12 @@ struct FeedView: View {
                         refreshManager.refresh(feedViewModel: viewModel)
                     } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
-                    }.buttonStyle(ToolbarButtonStyle())
+                    }
+                    .keyboardShortcut("r", modifiers: [.command])
                 }
-            }.disabled(viewModel.refreshing)
+            }
+            .buttonStyle(ToolbarButtonStyle())
+            .disabled(viewModel.refreshing)
         }
     }
 }
