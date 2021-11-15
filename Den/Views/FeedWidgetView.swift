@@ -48,7 +48,7 @@ struct FeedWidgetView: View {
         Group {
             if feed.id != nil {
                 NavigationLink {
-                    FeedView(feed: feed)
+                    FeedView(viewModel: FeedViewModel(feed: feed))
                 } label: {
                     FeedTitleLabelView(feed: feed)
                 }
