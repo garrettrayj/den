@@ -14,6 +14,8 @@ struct FeedWidgetView: View {
 
     @ObservedObject var feed: Feed
 
+    @Binding var refreshState: RefreshState
+
     var body: some View {
         widgetContent
             .background(
@@ -53,6 +55,7 @@ struct FeedWidgetView: View {
                     FeedTitleLabelView(feed: feed)
                 }
                 .buttonStyle(WidgetHeaderButtonStyle())
+                .disabled(refreshState == .loading)
             }
         }
     }

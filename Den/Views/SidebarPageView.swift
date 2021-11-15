@@ -28,7 +28,11 @@ struct SidebarPageView: View {
             } label: {
                 rowLabel
             }.onReceive(refreshAllPublisher) { _ in
-                refreshManager.refresh(pageViewModel: viewModel)
+                DispatchQueue.main.asyncAfter(
+                    deadline: .now() + Double(viewModel.page.userOrder) / 4
+                ) {
+                    refreshManager.refresh(pageViewModel: viewModel)
+                }
             }
         }
     }

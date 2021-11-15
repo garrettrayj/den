@@ -18,8 +18,7 @@ struct FeedTitleLabelView: View {
             if feed.feedData?.faviconImage != nil {
                 feed.feedData!.faviconImage!
                     .scaleEffect(1 / UIScreen.main.scale)
-                    .frame(width: 16, height: 16, alignment: .center)
-                    .clipped()
+                    .frame(width: 16, height: 16)
             } else {
                 Image(uiImage: UIImage(named: "RSSIcon")!)
                     .resizable()
