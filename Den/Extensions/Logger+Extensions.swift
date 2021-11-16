@@ -15,10 +15,10 @@ extension Logger {
     /**
      Main application log for general messages
      */
-    static let main = Logger(subsystem: subsystem, category: "data")
+    static let main = Logger(subsystem: subsystem, category: "Main")
 
     /**
      Ingest log for messages related to downloading feed content
      */
-    static let ingest = Logger(subsystem: subsystem, category: "ingest")
+    static let ingest = Logger(subsystem: subsystem, category: "Ingest")
 }

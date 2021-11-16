@@ -36,8 +36,8 @@ struct FeedItemView: View {
             }
             .accessibility(identifier: "Item Link")
 
-            if item.thumbnailImage != nil {
-                thumbnailImage
+            if item.previewImage != nil {
+                previewImage
             }
 
             if item.summary != nil {
@@ -51,8 +51,8 @@ struct FeedItemView: View {
         )
     }
 
-    private var thumbnailImage: some View {
-        item.thumbnailImage?
+    private var previewImage: some View {
+        item.previewImage?
             .resizable()
             .scaledToFit()
             .frame(maxWidth: .infinity)

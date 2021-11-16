@@ -23,10 +23,30 @@ public class Item: NSManagedObject {
         set {title = newValue}
     }
 
+    public var previewImage: Image? {
+        guard
+            let previewsDirectory = FileManager.default.previewsDirectory,
+            let filename = self.imagePreview
+        else { return nil }
+
+        let filepath = previewsDirectory.appendingPathComponent(filename)
+
+        do {
+            let imageData = try Data(contentsOf: filepath)
+            if let uiImage = UIImage(data: imageData) {
+                return Image(uiImage: uiImage)
+            }
+        } catch {
+            Logger.main.notice("Error loading thumbnail image: \(error.localizedDescription)")
+        }
+
+        return nil
+    }
+
     public var thumbnailImage: Image? {
         guard
             let thumbnailsDirectory = FileManager.default.thumbnailsDirectory,
-            let filename = self.imageFile
+            let filename = self.imageThumbnail
         else { return nil }
 
         let filepath = thumbnailsDirectory.appendingPathComponent(filename)

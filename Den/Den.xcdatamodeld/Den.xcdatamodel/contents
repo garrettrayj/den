@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -38,6 +38,8 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="imageFile" optional="YES" attributeType="String"/>
+        <attribute name="imagePreview" optional="YES" attributeType="String"/>
+        <attribute name="imageThumbnail" optional="YES" attributeType="String"/>
         <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -79,7 +81,7 @@
         <element name="Feed" positionX="288" positionY="333" width="128" height="155"/>
         <element name="FeedData" positionX="270" positionY="216" width="128" height="200"/>
         <element name="History" positionX="270" positionY="315" width="128" height="104"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="185"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="215"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
         <element name="Profile" positionX="270" positionY="324" width="128" height="104"/>
     </elements>

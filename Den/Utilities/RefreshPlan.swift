@@ -10,6 +10,7 @@ import CoreData
 
 final class RefreshPlan {
     public var fullUpdate: Bool = false
+    public var completionOp: BlockOperation?
 
     private var feed: Feed
     private var feedData: FeedData
@@ -24,9 +25,8 @@ final class RefreshPlan {
     private var defaultFaviconDataOp: DataTaskOperation?
     private var webpageFaviconDataOp: DataTaskOperation?
     private var saveFaviconOp: SaveFaviconOperation?
-    private var downloadThumbnailsOp: DownloadThumbnailsOperation?
+    private var downloadItemImagesOp: DownloadItemImagesOperation?
     private var saveFeedOp: SaveFeedOperation?
-    private var completionOp: BlockOperation?
 
     // Adapter operations pass data between processing operations in a concurrency-friendly way
     private var fetchParseAdapter: BlockOperation?
@@ -41,13 +41,11 @@ final class RefreshPlan {
     init(
         feed: Feed,
         feedData: FeedData,
-        persistentContainer: NSPersistentContainer,
-        progress: Progress? = nil
+        persistentContainer: NSPersistentContainer
     ) {
         self.feed = feed
         self.feedData = feedData
         self.persistentContainer = persistentContainer
-        self.progress = progress
     }
 
     public func configureOps() {
@@ -55,7 +53,8 @@ final class RefreshPlan {
             return
         }
 
-        let itemLimit = 40
+        let itemLimit = 100
+        let imageLimit = feed.page?.wrappedItemsPerFeed ?? 0
 
         let existingItemLinks = feedData.itemsArray.map({ item in
             return item.link!
@@ -65,7 +64,8 @@ final class RefreshPlan {
             feedUrl: feedUrl,
             itemLimit: itemLimit,
             existingItemLinks: existingItemLinks,
-            downloadImages: feed.showThumbnails
+            downloadImages: feed.showThumbnails,
+            imageLimit: imageLimit
         )
         addStandardAdapters(downloadImages: feed.showThumbnails)
         wireStandardDependencies(downloadImages: feed.showThumbnails)
@@ -81,7 +81,8 @@ final class RefreshPlan {
         feedUrl: URL,
         itemLimit: Int,
         existingItemLinks: [URL],
-        downloadImages: Bool
+        downloadImages: Bool,
+        imageLimit: Int
     ) {
         fetchOp = DataTaskOperation(feedUrl)
         parseOp = ParseFeedDataOperation(
@@ -91,17 +92,16 @@ final class RefreshPlan {
             feedId: feed.id!
         )
 
-        if downloadImages { downloadThumbnailsOp = DownloadThumbnailsOperation() }
+        if downloadImages { downloadItemImagesOp = DownloadItemImagesOperation(itemLimit: imageLimit) }
 
         saveFeedOp = SaveFeedOperation(
             persistentContainer: persistentContainer,
             feedObjectID: feed.objectID,
             saveMeta: fullUpdate
         )
-        completionOp = BlockOperation { [unowned feed, unowned progress] in
+        completionOp = BlockOperation { [unowned feed] in
             DispatchQueue.main.async {
-                feed.objectWillChange.send()
-                progress?.completedUnitCount += 1
+                NotificationCenter.default.post(name: .feedRefreshed, object: feed.objectID)
             }
         }
     }
@@ -122,20 +122,20 @@ final class RefreshPlan {
         }
 
         if downloadImages {
-            parseDownloadThumbnailsAdapter = BlockOperation { [unowned parseOp, unowned downloadThumbnailsOp] in
-                downloadThumbnailsOp?.inputWorkingItems = parseOp?.workingItems ?? []
+            parseDownloadThumbnailsAdapter = BlockOperation { [unowned parseOp, unowned downloadItemImagesOp] in
+                downloadItemImagesOp?.inputWorkingItems = parseOp?.workingItems ?? []
             }
 
             // swiftlint:disable closure_parameter_position
             saveFeedAdapter =
                 BlockOperation {[
                     unowned saveFeedOp,
-                    unowned downloadThumbnailsOp,
+                    unowned downloadItemImagesOp,
                     unowned parseOp,
                     unowned saveFaviconOp
                 ] in
                     saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
-                    saveFeedOp?.workingFeedItems = downloadThumbnailsOp?.outputWorkingItems ?? []
+                    saveFeedOp?.workingFeedItems = downloadItemImagesOp?.outputWorkingItems ?? []
                 }
         } else {
             // swiftlint:disable closure_parameter_position
@@ -204,13 +204,13 @@ final class RefreshPlan {
         if downloadImages {
             guard
                 let parseDownloadThumbnailsAdapter = parseDownloadThumbnailsAdapter,
-                let downloadThumbnailsOp = downloadThumbnailsOp
+                let downloadItemImagesOp = downloadItemImagesOp
             else {
                 preconditionFailure("Cannot wire image download dependencies, missing download operation.")
             }
             parseDownloadThumbnailsAdapter.addDependency(parseOp)
-            downloadThumbnailsOp.addDependency(parseDownloadThumbnailsAdapter)
-            saveFeedAdapter.addDependency(downloadThumbnailsOp)
+            downloadItemImagesOp.addDependency(parseDownloadThumbnailsAdapter)
+            saveFeedAdapter.addDependency(downloadItemImagesOp)
         } else {
             saveFeedAdapter.addDependency(parseOp)
         }
@@ -268,7 +268,7 @@ final class RefreshPlan {
             saveFaviconAdapter,
             saveFaviconOp,
             parseDownloadThumbnailsAdapter,
-            downloadThumbnailsOp,
+            downloadItemImagesOp,
             saveFeedAdapter,
             saveFeedOp,
             completionOp

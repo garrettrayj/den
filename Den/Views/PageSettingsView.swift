@@ -20,8 +20,6 @@ struct PageSettingsView: View {
 
     @State var itemsPerFeedStepperValue: Int = 0
 
-    let pageDeleted = NotificationCenter.default.publisher(for: .pageDeleted)
-
     var body: some View {
         Form {
             nameIconSection
@@ -35,7 +33,9 @@ struct PageSettingsView: View {
         .environment(\.editMode, .constant(.active))
         .toolbar { toolbar }
         .onDisappear(perform: save)
-        .onReceive(pageDeleted) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .pageDeleted, object: page.objectID)
+        ) { _ in
             dismiss()
         }
     }
@@ -117,11 +117,11 @@ struct PageSettingsView: View {
     }
 
     private func deletePage() {
+        NotificationCenter.default.post(name: .pageDeleted, object: page.objectID)
         viewContext.delete(page)
 
         do {
             try viewContext.save()
-            NotificationCenter.default.post(name: .pageDeleted, object: nil)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }

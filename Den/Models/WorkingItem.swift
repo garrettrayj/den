@@ -20,6 +20,8 @@ final class WorkingItem {
     var id: UUID?
     var image: URL?
     var imageFile: String?
+    var imagePreview: String?
+    var imageThumbnail: String?
     var ingested: Date?
     var link: URL?
     var published: Date?

@@ -10,72 +10,63 @@ import CoreData
 import OSLog
 
 final class CacheManager: ObservableObject {
-    private var persistentContainer: NSPersistentContainer
+    private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
     private var lastBackgroundCleanup: Date?
 
-    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
-        self.persistentContainer = persistentContainer
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+        self.viewContext = viewContext
         self.crashManager = crashManager
     }
 
     func resetFeeds() {
-        let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
-        context.undoManager = nil
-        context.performAndWait {
-            do {
-                let pages = try context.fetch(Page.fetchRequest()) as [Page]
-                pages.forEach { page in
-                    page.feedsArray.forEach { feed in
-                        if let feedData = feed.feedData {
-                            context.delete(feedData)
-                        }
+        do {
+            let pages = try viewContext.fetch(Page.fetchRequest()) as [Page]
+            pages.forEach { page in
+                page.feedsArray.forEach { feed in
+                    if let feedData = feed.feedData {
+                        viewContext.delete(feedData)
                     }
                 }
-
-                if context.hasChanges {
-                    do {
-                        try context.save()
-                    } catch {
-                        DispatchQueue.main.async {
-                            self.crashManager.handleCriticalError(error as NSError)
-                        }
-                    }
-                }
-            } catch {
-                self.crashManager.handleCriticalError(error as NSError)
             }
-        }
-    }
 
-    func performBackgroundCleanup() {
-        if let cleanupDate = lastBackgroundCleanup, cleanupDate > Date(timeIntervalSinceNow: -12 * 60 * 60) { return }
-
-        let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
-        context.undoManager = nil
-        context.performAndWait {
-            cleanupHistory(context: context)
-            cleanupFeedsAndImages(context: context)
-
-            if context.hasChanges {
+            if viewContext.hasChanges {
                 do {
-                    try context.save()
+                    try viewContext.save()
                 } catch {
                     DispatchQueue.main.async {
                         self.crashManager.handleCriticalError(error as NSError)
                     }
                 }
             }
+        } catch {
+            self.crashManager.handleCriticalError(error as NSError)
+        }
+    }
+
+    func performBackgroundCleanup() {
+        if
+            let cleanupDate = lastBackgroundCleanup,
+                cleanupDate > Date(timeIntervalSinceNow: -60 * 60)
+        { return }
+
+        cleanupHistory(context: viewContext)
+        cleanupFeedsAndImages(context: viewContext)
+
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                Logger.main.error("Saving background cleanup CoreData context failed")
+            }
         }
 
         lastBackgroundCleanup = Date()
-        Logger.main.info("Finished cleaning up databases and files.")
+        Logger.main.info("Background cleanup finished")
     }
 
     private func cleanupFeedsAndImages(context: NSManagedObjectContext) {
         guard let faviconsDirectory = FileManager.default.faviconsDirectory else { return }
-        guard let thumbnailsDirectory = FileManager.default.thumbnailsDirectory else { return }
-
         var cleanFeedDatas: [FeedData] = []
 
         do {
@@ -84,11 +75,11 @@ final class CacheManager: ObservableObject {
             for feedData in feedDatas {
                 if feedData.feed == nil {
                     context.delete(feedData)
-                    return
+                    print("Orphan")
+                    continue
                 }
 
-                guard let itemLimit = feedData.feed?.page?.wrappedItemsPerFeed else { return }
-
+                let itemLimit = 100
                 if feedData.itemsArray.count > itemLimit {
                     let oldItems = feedData.itemsArray.suffix(from: itemLimit)
                     oldItems.forEach { context.delete($0) }
@@ -97,26 +88,46 @@ final class CacheManager: ObservableObject {
                 cleanFeedDatas.append(feedData)
             }
 
+            print(feedDatas.count)
+
             let activeFavicons: [URL] = cleanFeedDatas.compactMap { feedData in
                 if let filename = feedData.faviconFile {
                     return faviconsDirectory.appendingPathComponent(filename).absoluteURL
                 }
                 return nil
             }
-
             self.cleanupCacheDirectory(cacheDirectory: faviconsDirectory, activeFileList: activeFavicons)
 
             let items: [Item] = cleanFeedDatas.flatMap { $0.itemsArray }
-            let activeThumbnails: [URL] = items.compactMap { item in
-                if let filename = item.imageFile {
-                    return thumbnailsDirectory.appendingPathComponent(filename).absoluteURL
-                }
-                return nil
-            }
-            self.cleanupCacheDirectory(cacheDirectory: thumbnailsDirectory, activeFileList: activeThumbnails)
+
+            cleanupItemImages(items)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
+
+    }
+
+    private func cleanupItemImages(_ items: [Item]) {
+        guard
+            let previewsDirectory = FileManager.default.previewsDirectory,
+            let thumbnailsDirectory = FileManager.default.thumbnailsDirectory
+        else { return }
+
+        let activePreviews: [URL] = items.compactMap { item in
+            if let filename = item.imagePreview {
+                return previewsDirectory.appendingPathComponent(filename).absoluteURL
+            }
+            return nil
+        }
+        self.cleanupCacheDirectory(cacheDirectory: previewsDirectory, activeFileList: activePreviews)
+
+        let activeThumbnails: [URL] = items.compactMap { item in
+            if let filename = item.imageThumbnail {
+                return thumbnailsDirectory.appendingPathComponent(filename).absoluteURL
+            }
+            return nil
+        }
+        self.cleanupCacheDirectory(cacheDirectory: thumbnailsDirectory, activeFileList: activeThumbnails)
     }
 
     private func cleanupHistory(context: NSManagedObjectContext) {
@@ -146,8 +157,6 @@ final class CacheManager: ObservableObject {
     }
 
     private func cleanupCacheDirectory(cacheDirectory: URL, activeFileList: [URL]) {
-        guard activeFileList.count > 0 else { return }
-
         let resourceKeys: [URLResourceKey] = [.creationDateKey, .isDirectoryKey]
 
         do {

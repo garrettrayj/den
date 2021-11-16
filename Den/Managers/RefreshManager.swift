@@ -10,71 +10,64 @@ import Foundation
 import CoreData
 
 final class RefreshManager: ObservableObject {
-    let queue = OperationQueue()
+    var queue = OperationQueue()
 
     private var persistentContainer: NSPersistentContainer
     private var crashManager: CrashManager
 
-    private var currentPageViewModels: [PageViewModel] = []
-
     init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
-
-        queue.maxConcurrentOperationCount = 6
+        queue.maxConcurrentOperationCount = 4
     }
 
-    public func refresh(pageViewModel: PageViewModel) {
-        pageViewModel.refreshState = .loading
+    public func refresh(pages: [Page]) {
         var operations: [Operation] = []
+        pages.forEach { page in
+            var pageOps: [Operation] = []
+            var pageCompletionOps: [Operation] = []
 
-        pageViewModel.page.feedsArray.forEach { feed in
-            pageViewModel.progress.totalUnitCount += 1
-            operations.append(
-                contentsOf: createFeedOps(feed, progress: pageViewModel.progress)
-            )
-        }
+            page.feedsArray.forEach { feed in
+                guard
+                    let refreshPlan = createRefreshPlan(feed),
+                    let feedCompletionOp = refreshPlan.completionOp
+                else { return }
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(operations, waitUntilFinished: true)
-            DispatchQueue.main.async {
-                pageViewModel.refreshState = .waiting
-                pageViewModel.progress.completedUnitCount = 0
-                pageViewModel.progress.totalUnitCount = 0
+                pageOps.append(contentsOf: refreshPlan.getOps())
+                pageCompletionOps.append(feedCompletionOp)
+
+                NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
             }
+            NotificationCenter.default.post(name: .pageQueued, object: page.objectID)
+            let completionOp = BlockOperation { [unowned page] in
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
+                }
+            }
+            pageCompletionOps.forEach { operation in
+                completionOp.addDependency(operation)
+            }
+            pageOps.append(completionOp)
+
+            operations.append(contentsOf: pageOps)
         }
+
+        self.queue.addOperations(operations, waitUntilFinished: false)
     }
 
-    public func refresh(feedViewModel: FeedViewModel) {
-        feedViewModel.refreshing = true
-        let operations = self.createFeedOps(feedViewModel.feed)
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.queue.addOperations(operations, waitUntilFinished: true)
-            DispatchQueue.main.async {
-                feedViewModel.refreshing = false
-            }
-        }
+    public func refresh(feed: Feed) {
+        guard let operations = self.createRefreshPlan(feed)?.getOps() else { return }
+        NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
+        self.queue.addOperations(operations, waitUntilFinished: false)
     }
 
-    public func refresh(feed: Feed, callback: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let operations = self.createFeedOps(feed)
-            self.queue.addOperations(operations, waitUntilFinished: true)
-            DispatchQueue.main.async {
-                callback()
-            }
-        }
-    }
-
-    func createFeedOps(_ feed: Feed, progress: Progress? = nil) -> [Operation] {
-        guard let feedData = checkFeedData(feed) else { return [] }
+    func createRefreshPlan(_ feed: Feed) -> RefreshPlan? {
+        guard let feedData = checkFeedData(feed) else { return nil }
 
         let refreshPlan = RefreshPlan(
             feed: feed,
             feedData: feedData,
-            persistentContainer: persistentContainer,
-            progress: progress
+            persistentContainer: persistentContainer
         )
 
         // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally
@@ -84,7 +77,7 @@ final class RefreshManager: ObservableObject {
 
         refreshPlan.configureOps()
 
-        return refreshPlan.getOps()
+        return refreshPlan
     }
 
     private func checkFeedData(_ feed: Feed) -> FeedData? {

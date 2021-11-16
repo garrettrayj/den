@@ -18,8 +18,6 @@ struct FeedSettingsView: View {
 
     @State var showingDeleteAlert = false
 
-    let feedDeleted = NotificationCenter.default.publisher(for: .feedDeleted)
-
     var body: some View {
         Form {
             titleSection
@@ -29,7 +27,9 @@ struct FeedSettingsView: View {
         }
         .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
-        .onReceive(feedDeleted) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: feed.objectID)
+        ) { _ in
             dismiss()
         }
         .toolbar { toolbar }
@@ -156,9 +156,10 @@ struct FeedSettingsView: View {
     }
 
     private func delete() {
+        NotificationCenter.default.post(name: .feedWillBeDeleted, object: feed.objectID)
+
         viewContext.delete(feed)
-        // Save handled by onDissapear(), which will be triggered by...
-        NotificationCenter.default.post(name: .feedDeleted, object: nil)
+        save()
     }
 
     private func copyUrl() {

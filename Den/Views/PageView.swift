@@ -9,17 +9,14 @@
 import SwiftUI
 
 struct PageView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscribeManager: SubscribeManager
 
-    @ObservedObject var viewModel: PageViewModel
+    @StateObject var viewModel: PageViewModel
     @State var showingSettings: Bool = false
 
     let columns = [GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)]
-    let pageDeleted = NotificationCenter.default.publisher(for: .pageDeleted)
 
     var body: some View {
         VStack(spacing: 0) {
@@ -57,7 +54,9 @@ struct PageView: View {
         .onAppear {
             subscribeManager.currentPageId = viewModel.page.id?.uuidString
         }
-        .onReceive(pageDeleted) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .pageDeleted, object: viewModel.page.objectID)
+        ) { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 dismiss()
             }
@@ -67,7 +66,7 @@ struct PageView: View {
     private var widgetGrid: some View {
         LazyVGrid(columns: columns, spacing: 16) {
             ForEach(viewModel.page.feedsArray) { feed in
-                FeedWidgetView(feed: feed, refreshState: $viewModel.refreshState)
+                FeedWidgetView(feed: feed)
             }
         }
         .padding(.horizontal)
@@ -98,7 +97,7 @@ struct PageView: View {
             }
 
             Button {
-                refreshManager.refresh(pageViewModel: viewModel)
+                refreshManager.refresh(pages: [viewModel.page])
             } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }.keyboardShortcut("r", modifiers: [.command])
@@ -124,7 +123,7 @@ struct PageView: View {
                 ProgressView(value: 0).progressViewStyle(ToolbarProgressStyle())
             } else {
                 Button {
-                    refreshManager.refresh(pageViewModel: viewModel)
+                    refreshManager.refresh(pages: [viewModel.page])
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }.keyboardShortcut("r", modifiers: [.command])
