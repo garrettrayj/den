@@ -28,6 +28,12 @@ extension FileManager {
         return appSupportDirectory.appendingPathComponent("Favicons/")
     }
 
+    public var previewsDirectory: URL? {
+        guard let appSupportDirectory = self.appSupportDirectory else { return nil }
+
+        return appSupportDirectory.appendingPathComponent("Previews/")
+    }
+
     public var thumbnailsDirectory: URL? {
         guard let appSupportDirectory = self.appSupportDirectory else { return nil }
 
@@ -37,11 +43,13 @@ extension FileManager {
     public func initAppDirectories() {
         guard
             let faviconsDirectory = self.faviconsDirectory,
+            let previewsDirectory = self.previewsDirectory,
             let thumbnailsDirectory = self.thumbnailsDirectory
         else { return }
 
-        self.createDirectoryIfMissing(faviconsDirectory)
-        self.createDirectoryIfMissing(thumbnailsDirectory)
+        createDirectoryIfMissing(faviconsDirectory)
+        createDirectoryIfMissing(previewsDirectory)
+        createDirectoryIfMissing(thumbnailsDirectory)
     }
 
     public func createDirectoryIfMissing(_ directory: URL) {

@@ -10,38 +10,39 @@ import SwiftUI
 import func AVFoundation.AVMakeRect
 
 extension UIImage {
-    func resizedToFit(size: CGSize) -> UIImage? {
-        let renderer = UIGraphicsImageRenderer(size: size)
-        let rect = AVMakeRect(aspectRatio: self.size, insideRect: CGRect(origin: .zero, size: size))
+    /**
+     Given a required height, returns a (rasterised) copy of the image, aspect-fitted to that height.
+     */
+    func aspectFittedToHeight(_ newHeight: CGFloat) -> UIImage {
+        if newHeight > self.size.height {
+            return self
+        }
 
-        return renderer.image { (_) in
-            self.draw(in: CGRect(
-                origin: CGPoint(
-                    x: size.width / 2 - rect.width / 2,
-                    y: size.height / 2 - rect.height / 2
-                ),
-                size: rect.size
-            ))
+        let scale = newHeight / self.size.height
+        let newWidth = self.size.width * scale
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
         }
     }
 
-    func resizedToFill(size: CGSize) -> UIImage? {
-        let scale: CGFloat = max(
-            size.width / self.size.width,
-            size.height / self.size.height
-        )
-        let width: CGFloat = self.size.width * scale
-        let height: CGFloat = self.size.height * scale
-        let imageRect = CGRect(
-            x: (size.width - width) / 2.0,
-            y: (size.height - height) / 2.0,
-            width: width,
-            height: height
-        )
+    /**
+     Given a required width, returns a (rasterised) copy of the image, aspect-fitted to that width.
+     */
+    func aspectFittedToWidth(_ newWidth: CGFloat) -> UIImage {
+        if newWidth > self.size.width {
+            return self
+        }
 
-        let renderer = UIGraphicsImageRenderer(size: size)
-        return renderer.image { (_) in
-            self.draw(in: imageRect)
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
         }
     }
 }

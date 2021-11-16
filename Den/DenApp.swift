@@ -72,7 +72,7 @@ struct DenApp: App {
 
         let crashManager = CrashManager()
         let cacheManager = CacheManager(
-            persistentContainer: persistenceManager.container,
+            viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager
         )
         let profileManager = ProfileManager(

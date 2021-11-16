@@ -80,6 +80,8 @@ final class SaveFeedOperation: Operation {
             item.id = workingItem.id
             item.image = workingItem.image
             item.imageFile = workingItem.imageFile
+            item.imagePreview = workingItem.imagePreview
+            item.imageThumbnail = workingItem.imageThumbnail
             item.ingested = workingItem.ingested
             item.link = workingItem.link
             item.published = workingItem.published

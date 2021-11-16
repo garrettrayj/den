@@ -9,20 +9,18 @@
 import SwiftUI
 
 struct FeedWidgetView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-
     @ObservedObject var feed: Feed
-
-    @Binding var refreshState: RefreshState
 
     var body: some View {
         widgetContent
             .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(.systemBackground))
-
+                RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground))
             )
+            .onReceive(
+                NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
+            ) { _ in
+                feed.objectWillChange.send()
+            }
     }
 
     private var widgetContent: some View {
@@ -55,7 +53,6 @@ struct FeedWidgetView: View {
                     FeedTitleLabelView(feed: feed)
                 }
                 .buttonStyle(WidgetHeaderButtonStyle())
-                .disabled(refreshState == .loading)
             }
         }
     }

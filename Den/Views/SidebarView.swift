@@ -20,7 +20,7 @@ struct SidebarView: View {
 
     @State var activeNav: String?
 
-    @StateObject var searchViewModel: SearchViewModel
+    @ObservedObject var searchViewModel: SearchViewModel
 
     /**
      Switch refreshable() on and off depending on environment and page count.
@@ -57,7 +57,6 @@ struct SidebarView: View {
     private var navigationList: some View {
         List {
             pageListSection
-
             moreSection
         }
         .background(
@@ -85,34 +84,6 @@ struct SidebarView: View {
                 Label("New Page", systemImage: "plus.circle")
             }
             Spacer().listRowBackground(Color.clear)
-        }
-    }
-
-    private var toolbar: some ToolbarContent {
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            HStack(spacing: 0) {
-                if editMode?.wrappedValue == .active {
-                    Button {
-                        editMode?.wrappedValue = .inactive
-                    } label: {
-                        Text("Done")
-                    }
-                }
-
-                if editMode?.wrappedValue == .inactive && profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
-                    Button {
-                        editMode?.wrappedValue = .active
-                    } label: {
-                        Text("Edit")
-                    }
-
-                    Button {
-                        NotificationCenter.default.post(name: .refreshAll, object: nil)
-                    } label: {
-                        Label("Refresh All", systemImage: "arrow.clockwise")
-                    }.keyboardShortcut("r", modifiers: [.command, .shift])
-                }
-            }.buttonStyle(ToolbarButtonStyle())
         }
     }
 
@@ -190,14 +161,38 @@ struct SidebarView: View {
         }
     }
 
+    private var toolbar: some ToolbarContent {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            HStack(spacing: 0) {
+                if editMode?.wrappedValue == .active {
+                    Button {
+                        editMode?.wrappedValue = .inactive
+                    } label: {
+                        Text("Done")
+                    }
+                }
+
+                if editMode?.wrappedValue == .inactive && profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
+                    Button {
+                        editMode?.wrappedValue = .active
+                    } label: {
+                        Text("Edit")
+                    }
+
+                    Button {
+                        refreshManager.refresh(pages: profileManager.activeProfile?.pagesArray ?? [])
+                    } label: {
+                        Label("Refresh All", systemImage: "arrow.clockwise")
+                    }.keyboardShortcut("r", modifiers: [.command, .shift])
+                }
+            }.buttonStyle(ToolbarButtonStyle())
+        }
+    }
+
     private func showSearch() {
         if activeNav != "search" {
             activeNav = "search"
         }
-    }
-
-    private func refreshAll() {
-        NotificationCenter.default.post(name: .refreshAll, object: nil)
     }
 
     private func createPage() {

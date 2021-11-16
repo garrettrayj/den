@@ -100,10 +100,6 @@ final class SubscribeViewModel: ObservableObject {
 
         self.loading = true
         let feed = Feed.create(in: self.viewContext, page: destinationPage, url: url, prepend: true)
-        refreshManager.refresh(feed: feed) {
-            self.subscribeManager.resetSubscribe()
-            self.loading = false
-            callback()
-        }
+        refreshManager.refresh(feed: feed)
     }
 }

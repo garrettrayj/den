@@ -10,7 +10,6 @@ import CoreData
 import SwiftUI
 
 struct HistoryView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var linkManager: LinkManager
 
     @ObservedObject var viewModel: HistoryViewModel

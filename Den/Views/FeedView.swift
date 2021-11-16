@@ -11,16 +11,11 @@ import SwiftUI
 import Grid
 
 struct FeedView: View {
-    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
 
-    @ObservedObject var viewModel: FeedViewModel
-
+    @StateObject var viewModel: FeedViewModel
     @State var showingSettings: Bool = false
-
-    let feedDeleted = NotificationCenter.default.publisher(for: .feedDeleted)
 
     var body: some View {
         VStack(spacing: 0) {
@@ -48,10 +43,20 @@ struct FeedView: View {
         })
         .navigationTitle(viewModel.feed.wrappedTitle)
         .toolbar { toolbar }
-        .onReceive(feedDeleted) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: viewModel.feed.objectID)
+        ) { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 dismiss()
             }
+        }.onReceive(
+            NotificationCenter.default.publisher(for: .feedQueued, object: viewModel.feed.objectID)
+        ) { _ in
+            viewModel.refreshing = true
+        }.onReceive(
+            NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.feed.objectID)
+        ) { _ in
+            viewModel.refreshing = false
         }
     }
 
@@ -173,7 +178,7 @@ struct FeedView: View {
                     ProgressView(value: 0).progressViewStyle(ToolbarProgressStyle())
                 } else {
                     Button {
-                        refreshManager.refresh(feedViewModel: viewModel)
+                        refreshManager.refresh(feed: viewModel.feed)
                     } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
