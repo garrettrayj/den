@@ -139,7 +139,7 @@ struct SidebarView: View {
                     Label {
                         Text("History")
                     } icon: {
-                        Image(systemName: "clock").foregroundColor(.primary)
+                        Image(systemName: "clock")
                     }
                 }
             }
@@ -150,7 +150,7 @@ struct SidebarView: View {
                 Label {
                     Text("Settings")
                 } icon: {
-                    Image(systemName: "gear").foregroundColor(.primary)
+                    Image(systemName: "gear")
                 }
 
             }
@@ -164,7 +164,7 @@ struct SidebarView: View {
                     Button {
                         editMode?.wrappedValue = .inactive
                     } label: {
-                        Text("Done")
+                        Text("Done").lineLimit(1)
                     }
                 }
 
@@ -172,7 +172,7 @@ struct SidebarView: View {
                     Button {
                         editMode?.wrappedValue = .active
                     } label: {
-                        Text("Edit")
+                        Text("Edit").lineLimit(1)
                     }
 
                     Button {

@@ -21,6 +21,7 @@ struct SubscribeView: View {
                         .font(.callout.weight(.medium))
                         .foregroundColor(.secondary)
                         .padding(.horizontal)
+                        .padding(.top, 32)
 
                     feedUrlInput
 
@@ -35,11 +36,13 @@ struct SubscribeView: View {
                 } else {
                     missingPage
                 }
+
                 Spacer()
             }
             .padding()
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .navigationTitle("Add Feed")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
                     HStack {
@@ -55,7 +58,6 @@ struct SubscribeView: View {
                 dismiss()
             }
         }
-
         .navigationViewStyle(StackNavigationViewStyle())
     }
 
@@ -97,9 +99,11 @@ struct SubscribeView: View {
                 if viewModel.urlIsValid == true {
                     Image(systemName: "checkmark.circle")
                         .foregroundColor(Color(UIColor.systemGreen))
+                        .imageScale(.large)
                 } else {
                     Image(systemName: "slash.circle")
                         .foregroundColor(Color(UIColor.systemRed))
+                        .imageScale(.large)
                 }
             }
         }
