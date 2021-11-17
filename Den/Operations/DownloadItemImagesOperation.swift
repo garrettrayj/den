@@ -19,7 +19,8 @@ final class DownloadItemImagesOperation: Operation {
 
     init(itemLimit: Int) {
         self.itemLimit = itemLimit
-        queue.maxConcurrentOperationCount = 2
+
+        queue.maxConcurrentOperationCount = 1
     }
 
     override func main() {

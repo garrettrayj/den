@@ -11,14 +11,21 @@ import SwiftUI
 struct FeedWidgetView: View {
     @ObservedObject var feed: Feed
 
+    @State var refreshing: Bool
+
     var body: some View {
         widgetContent
             .background(
                 RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground))
             )
             .onReceive(
+                NotificationCenter.default.publisher(for: .feedQueued, object: feed.objectID)
+            ) { _ in
+                refreshing = true
+            }.onReceive(
                 NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
             ) { _ in
+                refreshing = false
                 feed.objectWillChange.send()
             }
     }
@@ -45,14 +52,18 @@ struct FeedWidgetView: View {
     }
 
     private var feedHeader: some View {
-        Group {
+        HStack {
             if feed.id != nil {
                 NavigationLink {
-                    FeedView(viewModel: FeedViewModel(feed: feed))
+                    FeedView(feed: feed, refreshing: $refreshing)
                 } label: {
                     FeedTitleLabelView(feed: feed)
                 }
                 .buttonStyle(WidgetHeaderButtonStyle())
+            }
+            Spacer()
+            if refreshing {
+                ProgressView().progressViewStyle(IconProgressStyle()).padding(.trailing, 8)
             }
         }
     }

@@ -14,19 +14,21 @@ struct FeedView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var refreshManager: RefreshManager
 
-    @StateObject var viewModel: FeedViewModel
+    @ObservedObject var feed: Feed
+
+    @Binding var refreshing: Bool
     @State var showingSettings: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
-            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
                 feedItems
             } else {
-                if viewModel.feed.feedData == nil {
+                if feed.feedData == nil {
                     feedNotFetched
-                } else if viewModel.feed.feedData?.error != nil {
+                } else if feed.feedData?.error != nil {
                     feedError
-                } else if viewModel.feed.feedData!.itemsArray.count == 0 {
+                } else if feed.feedData!.itemsArray.count == 0 {
                     feedEmpty
                 } else {
                     feedStatusUnknown
@@ -36,34 +38,26 @@ struct FeedView: View {
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .background(NavigationLink(
-            destination: FeedSettingsView(feed: viewModel.feed),
+            destination: FeedSettingsView(feed: feed),
             isActive: $showingSettings
         ) {
             EmptyView()
         })
-        .navigationTitle(viewModel.feed.wrappedTitle)
+        .navigationTitle(feed.wrappedTitle)
         .toolbar { toolbar }
         .onReceive(
-            NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: viewModel.feed.objectID)
+            NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: feed.objectID)
         ) { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 dismiss()
             }
-        }.onReceive(
-            NotificationCenter.default.publisher(for: .feedQueued, object: viewModel.feed.objectID)
-        ) { _ in
-            viewModel.refreshing = true
-        }.onReceive(
-            NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.feed.objectID)
-        ) { _ in
-            viewModel.refreshing = false
         }
     }
 
     private var feedHeader: some View {
         HStack {
-            if viewModel.feed.feedData?.faviconImage != nil {
-                viewModel.feed.feedData!.faviconImage!
+            if feed.feedData?.faviconImage != nil {
+                feed.feedData!.faviconImage!
                     .scaleEffect(1 / UIScreen.main.scale)
                     .frame(width: 16, height: 16, alignment: .center)
                     .clipped()
@@ -75,7 +69,7 @@ struct FeedView: View {
                     .frame(width: 14, height: 14, alignment: .center)
             }
 
-            Text(viewModel.feed.feedData?.linkDisplayString ?? "Website not available")
+            Text(feed.feedData?.linkDisplayString ?? "Website not available")
                 .font(.callout)
 
             Spacer()
@@ -98,7 +92,7 @@ struct FeedView: View {
         ScrollView {
             feedHeader
 
-            Grid(viewModel.feed.feedData!.itemsArray, id: \.self) { item in
+            Grid(feed.feedData!.itemsArray, id: \.self) { item in
                 FeedItemView(item: item)
             }
             .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
@@ -116,7 +110,7 @@ struct FeedView: View {
                     .font(.callout)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(viewModel.feed.feedData!.error!)
+                Text(feed.feedData!.error!)
                     .foregroundColor(.red)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -158,7 +152,7 @@ struct FeedView: View {
     }
 
     private func lastRefreshedLabel() -> Text {
-        guard let lastRefreshed = viewModel.feed.feedData?.refreshed else {
+        guard let lastRefreshed = feed.feedData?.refreshed else {
             return Text("First refresh")
         }
 
@@ -174,11 +168,11 @@ struct FeedView: View {
                     Label("Feed Settings", systemImage: "wrench")
                 }
 
-                if viewModel.refreshing {
-                    ProgressView(value: 0).progressViewStyle(ToolbarProgressStyle())
+                if refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
                 } else {
                     Button {
-                        refreshManager.refresh(feed: viewModel.feed)
+                        refreshManager.refresh(feed: feed)
                     } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
@@ -186,7 +180,7 @@ struct FeedView: View {
                 }
             }
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(viewModel.refreshing)
+            .disabled(refreshing)
         }
     }
 }

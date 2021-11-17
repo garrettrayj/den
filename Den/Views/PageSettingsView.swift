@@ -110,6 +110,9 @@ struct PageSettingsView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                page.feedsArray.forEach { feed in
+                    feed.objectWillChange.send()
+                }
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }
