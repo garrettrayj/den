@@ -96,12 +96,20 @@ struct PageSettingsView: View {
                 } label: {
                     Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
                 }
-                .alert("Remove \(page.displayName)?", isPresented: $showingDeleteAlert, actions: {
-                    Button("Cancel", role: .cancel) { }
-                    Button("Delete", role: .destructive) {
-                        deletePage()
+                .alert(
+                    "Delete \(page.displayName)?",
+                    isPresented: $showingDeleteAlert,
+                    actions: {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete", role: .destructive) {
+                            deletePage()
+                        }
+                    },
+                    message: {
+                        Text("All feeds will be removed.")
                     }
-                })
+                )
+
             }
         }
     }

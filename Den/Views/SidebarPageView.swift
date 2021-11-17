@@ -41,18 +41,25 @@ struct SidebarPageView: View {
                 HStack {
                     Text(page.displayName).lineLimit(1)
                     Spacer()
-                    Text(String(page.unreadCount))
-                        .lineLimit(1)
-                        .font(.footnote.monospacedDigit().weight(.medium))
-                        .padding(.trailing, 4)
+                    if refreshing {
+                        ProgressView().progressViewStyle(IconProgressStyle()).padding(.trailing, 4)
+                    } else {
+                        Text(String(page.unreadCount))
+                            .lineLimit(1)
+                            .font(.caption.monospacedDigit().weight(.semibold))
+                            .foregroundColor(Color(UIColor.secondaryLabel))
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(
+                                Capsule().fill(Color(UIColor.secondarySystemFill))
+                            )
+                            .padding(.trailing, 4)
+                    }
+
                 }
             },
             icon: {
-                if refreshing {
-                    ProgressView().progressViewStyle(IconProgressStyle())
-                } else {
-                    Image(systemName: page.wrappedSymbol).foregroundColor(.primary)
-                }
+                Image(systemName: page.wrappedSymbol)
             }
         )
     }

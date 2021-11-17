@@ -135,12 +135,16 @@ struct FeedSettingsView: View {
                 } label: {
                     Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
                 }
-                .alert("Remove \(feed.wrappedTitle)?", isPresented: $showingDeleteAlert, actions: {
-                    Button("Cancel", role: .cancel) { }
-                    Button("Delete", role: .destructive) {
-                        delete()
+                .alert(
+                    "Delete \(feed.wrappedTitle)?",
+                    isPresented: $showingDeleteAlert,
+                    actions: {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete", role: .destructive) {
+                            delete()
+                        }
                     }
-                })
+                )
             }.buttonStyle(ToolbarButtonStyle())
         }
     }
