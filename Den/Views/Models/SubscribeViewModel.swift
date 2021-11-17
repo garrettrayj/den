@@ -17,6 +17,8 @@ final class SubscribeViewModel: ObservableObject {
     @Published var validationMessage: String?
     @Published var loading: Bool = false
 
+    var newFeed: Feed?
+
     private var viewContext: NSManagedObjectContext
     private var profileManager: ProfileManager
     private var refreshManager: RefreshManager
@@ -92,14 +94,14 @@ final class SubscribeViewModel: ObservableObject {
         urlIsValid = true
     }
 
-    func addSubscription(callback: @escaping () -> Void) {
+    func addSubscription() {
         guard
             let url = URL(string: urlText),
             let destinationPage = destinationPage
         else { return }
 
         self.loading = true
-        let feed = Feed.create(in: self.viewContext, page: destinationPage, url: url, prepend: true)
-        refreshManager.refresh(feed: feed)
+        newFeed = Feed.create(in: self.viewContext, page: destinationPage, url: url, prepend: true)
+        refreshManager.refresh(feed: newFeed!)
     }
 }

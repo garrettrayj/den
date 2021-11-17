@@ -18,7 +18,8 @@ final class RefreshManager: ObservableObject {
     init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
-        queue.maxConcurrentOperationCount = 4
+
+        queue.maxConcurrentOperationCount = ProcessInfo.processInfo.processorCount
     }
 
     public func refresh(pages: [Page]) {

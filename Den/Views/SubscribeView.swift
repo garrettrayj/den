@@ -9,49 +9,54 @@
 import SwiftUI
 
 struct SubscribeView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
 
     @ObservedObject var viewModel: SubscribeViewModel
 
     var body: some View {
         NavigationView {
-            Form {
+            VStack(spacing: 24) {
                 if viewModel.destinationPage != nil {
-                    feedUrlSection
-                    submitButtonSection
+                    Text("Enter RSS or Atom feed URL")
+                        .font(.callout.weight(.medium))
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
 
+                    feedUrlInput
+
+                    if viewModel.validationMessage != nil {
+                        Text(viewModel.validationMessage!)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity)
+                    }
+
+                    submitButtonSection
                 } else {
                     missingPage
                 }
+                Spacer()
             }
+            .padding()
+            .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .navigationTitle("Add Feed")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    Button { presentationMode.wrappedValue.dismiss() } label: {
-                        Label("Close", systemImage: "xmark.circle")
-                    }.buttonStyle(ToolbarButtonStyle())
+                    HStack {
+                        Button { dismiss() } label: {
+                            Label("Close", systemImage: "xmark.circle")
+                        }.buttonStyle(ToolbarButtonStyle())
+                    }
                 }
             }
+            .onReceive(
+                NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.newFeed?.objectID)
+            ) { _ in
+                dismiss()
+            }
         }
-        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
-        .navigationViewStyle(StackNavigationViewStyle())
-    }
 
-    private var feedUrlSection: some View {
-        Section(
-            header: Text("Feed URL"),
-            footer: Group {
-                if viewModel.validationMessage != nil {
-                    Text(viewModel.validationMessage!)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                }
-            }
-        ) {
-            feedUrlInput
-        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     private var submitButtonSection: some View {
@@ -59,16 +64,14 @@ struct SubscribeView: View {
             Button {
                 viewModel.validateUrl()
                 if viewModel.urlIsValid == true {
-                    viewModel.addSubscription {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
+                    viewModel.addSubscription()
                 }
             } label: {
                 Label(
                     title: { Text("Add to \(viewModel.destinationPage!.wrappedName)") },
                     icon: {
                         if viewModel.loading {
-                            ProgressView().progressViewStyle(CircularProgressViewStyle())
+                            ProgressView().progressViewStyle(IconProgressStyle())
                         } else {
                             Image(systemName: "plus")
                         }
@@ -88,6 +91,7 @@ struct SubscribeView: View {
                 .lineLimit(1)
                 .disableAutocorrection(true)
                 .padding(.vertical, 4)
+                .multilineTextAlignment(.center)
 
             if viewModel.urlIsValid != nil {
                 if viewModel.urlIsValid == true {
@@ -99,7 +103,13 @@ struct SubscribeView: View {
                 }
             }
         }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(Color(UIColor.systemBackground))
+        .cornerRadius(8)
         .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
+        .padding(.horizontal)
+
     }
 
     private var missingPage: some View {
@@ -112,9 +122,5 @@ struct SubscribeView: View {
                 .foregroundColor(Color(.secondaryLabel))
                 .multilineTextAlignment(.center)
         }.frame(maxWidth: .infinity)
-    }
-
-    private func close() {
-        self.presentationMode.wrappedValue.dismiss()
     }
 }

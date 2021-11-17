@@ -107,12 +107,8 @@ struct SidebarView: View {
         Section(header: Text("Pages").modifier(SidebarSectionHeaderModifier())) {
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                 SidebarPageView(
-                    activeNav: $activeNav,
-                    viewModel: PageViewModel(
-                        page: page,
-                        viewContext: viewContext,
-                        crashManager: crashManager
-                    )
+                    page: page,
+                    activeNav: $activeNav
                 )
             }
         }
