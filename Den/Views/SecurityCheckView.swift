@@ -32,7 +32,7 @@ struct SecurityCheckView: View {
     }
 
     private var allClearSummary: some View {
-        Section(header: Text("Summary")) {
+        Section(header: Text("Summary").modifier(SectionHeaderModifier())) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("No Issues").fontWeight(.medium)
@@ -47,7 +47,7 @@ struct SecurityCheckView: View {
     }
 
     private var warningSummary: some View {
-        Section(header: Text("Summary")) {
+        Section(header: Text("Summary").modifier(SectionHeaderModifier())) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
                     if profileManager.activeProfile?.insecureFeedCount ?? 0 > 0 {

@@ -15,15 +15,11 @@ struct SubscribeView: View {
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 24) {
+            Form {
                 if viewModel.destinationPage != nil {
-                    Text("Enter RSS or Atom feed URL")
-                        .font(.callout.weight(.medium))
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal)
-                        .padding(.top, 32)
-
-                    feedUrlInput
+                    Section(header: Text("Enter RSS or Atom feed URL").modifier(SectionHeaderModifier())) {
+                        feedUrlInput
+                    }
 
                     if viewModel.validationMessage != nil {
                         Text(viewModel.validationMessage!)
@@ -36,20 +32,14 @@ struct SubscribeView: View {
                 } else {
                     missingPage
                 }
-
-                Spacer()
             }
-            .padding()
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .navigationTitle("Add Feed")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    HStack {
-                        Button { dismiss() } label: {
-                            Label("Close", systemImage: "xmark.circle")
-                        }.buttonStyle(ToolbarButtonStyle())
-                    }
+                    Button { dismiss() } label: {
+                        Label("Close", systemImage: "xmark.circle")
+                    }.buttonStyle(ToolbarButtonStyle())
                 }
             }
             .onReceive(
@@ -62,29 +52,27 @@ struct SubscribeView: View {
     }
 
     private var submitButtonSection: some View {
-        Section {
-            Button {
-                viewModel.validateUrl()
-                if viewModel.urlIsValid == true {
-                    viewModel.addSubscription()
-                }
-            } label: {
-                Label(
-                    title: { Text("Add to \(viewModel.destinationPage!.wrappedName)") },
-                    icon: {
-                        if viewModel.loading {
-                            ProgressView().progressViewStyle(IconProgressStyle())
-                        } else {
-                            Image(systemName: "plus")
-                        }
-                    }
-                )
+        Button {
+            viewModel.validateUrl()
+            if viewModel.urlIsValid == true {
+                viewModel.addSubscription()
             }
-            .frame(maxWidth: .infinity)
-            .listRowBackground(Color(UIColor.systemGroupedBackground))
-            .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
-            .buttonStyle(AccentButtonStyle())
+        } label: {
+            Label(
+                title: { Text("Add to \(viewModel.destinationPage!.wrappedName)") },
+                icon: {
+                    if viewModel.loading {
+                        ProgressView().progressViewStyle(IconProgressStyle())
+                    } else {
+                        Image(systemName: "plus")
+                    }
+                }
+            )
         }
+        .frame(maxWidth: .infinity)
+        .listRowBackground(Color(UIColor.systemGroupedBackground))
+        .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
+        .buttonStyle(AccentButtonStyle())
     }
 
     private var feedUrlInput: some View {
@@ -92,8 +80,6 @@ struct SubscribeView: View {
             TextField("https://example.com/feed.xml", text: $viewModel.urlText)
                 .lineLimit(1)
                 .disableAutocorrection(true)
-                .padding(.vertical, 4)
-                .multilineTextAlignment(.center)
 
             if viewModel.urlIsValid != nil {
                 if viewModel.urlIsValid == true {
@@ -107,12 +93,9 @@ struct SubscribeView: View {
                 }
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.vertical, 4)
         .background(Color(UIColor.systemBackground))
-        .cornerRadius(8)
         .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
-        .padding(.horizontal)
 
     }
 

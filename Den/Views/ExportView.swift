@@ -22,7 +22,6 @@ struct ExportView: View {
                     Section {
                         Button {
                             viewModel.exportOpml()
-                            dismiss()
                         } label: {
                             Label("Export OPML", systemImage: "arrow.up.doc")
                         }
@@ -71,8 +70,8 @@ struct ExportView: View {
     }
 
     private var selectionSectionHeader: some View {
-        HStack(alignment: .bottom) {
-            Text("\nSELECT PAGES")
+        HStack {
+            Text("SELECT PAGES")
             Spacer()
             Button(action: viewModel.selectAll) {
                 Text("ALL")

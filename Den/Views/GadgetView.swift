@@ -1,5 +1,5 @@
 //
-//  FeedWidgetView.swift
+//  GadgetView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/18/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FeedWidgetView: View {
+struct GadgetView: View {
     @ObservedObject var feed: Feed
 
     @State var refreshing: Bool
@@ -27,6 +27,10 @@ struct FeedWidgetView: View {
             ) { _ in
                 refreshing = false
                 feed.objectWillChange.send()
+            }.onReceive(
+                NotificationCenter.default.publisher(for: .pageRefreshed, object: feed.page?.objectID)
+            ) { _ in
+                refreshing = false
             }
     }
 
@@ -73,7 +77,7 @@ struct FeedWidgetView: View {
             ForEach(feed.feedData!.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
                 Group {
                     Divider()
-                    FeedWidgetRowView(
+                    GadgetItemView(
                         item: item,
                         feed: feed
                     )

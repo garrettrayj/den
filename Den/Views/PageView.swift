@@ -68,7 +68,7 @@ struct PageView: View {
     private var widgetGrid: some View {
         LazyVGrid(columns: columns, spacing: 16) {
             ForEach(page.feedsArray) { feed in
-                FeedWidgetView(feed: feed, refreshing: refreshing)
+                GadgetView(feed: feed, refreshing: refreshing)
             }
         }
         .padding(.horizontal)
