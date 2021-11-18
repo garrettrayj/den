@@ -20,7 +20,7 @@ struct SidebarView: View {
 
     @State var activeNav: String?
 
-    @ObservedObject var searchViewModel: SearchViewModel
+    @StateObject var searchViewModel: SearchViewModel
 
     /**
      Switch refreshable() on and off depending on environment and page count.
@@ -48,24 +48,41 @@ struct SidebarView: View {
 
             }
         }
+        .background(
+            Group {
+                NavigationLink(tag: "search", selection: $activeNav) {
+                    SearchView(viewModel: searchViewModel)
+                } label: {
+                    Text("Search")
+                }.hidden()
+
+                NavigationLink(tag: "history", selection: $activeNav) {
+                    HistoryView(viewModel: HistoryViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager
+                    ))
+                } label: {
+                    Label("History", systemImage: "clock")
+                }.hidden()
+
+                NavigationLink(tag: "settings", selection: $activeNav) {
+                    SettingsView()
+                } label: {
+                    Label("Settings", systemImage: "gear")
+                }.hidden()
+            }
+        )
         .listStyle(SidebarListStyle())
         .navigationTitle("Den")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar { toolbar }
     }
 
     private var navigationList: some View {
         List {
-            pageListSection
-            moreSection
+            Divider()
+            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                SidebarPageView(page: page, activeNav: $activeNav)
+            }
         }
-        .background(
-            NavigationLink(tag: "search", selection: $activeNav) {
-                SearchView(viewModel: searchViewModel)
-            } label: {
-                Text("Search")
-            }.hidden()
-        )
         .searchable(
             text: $searchViewModel.searchText,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -75,113 +92,86 @@ struct SidebarView: View {
             showSearch()
             searchViewModel.performItemSearch()
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    editMode?.wrappedValue = .active
+                } label: {
+                    Text("Edit").lineLimit(1)
+                }.buttonStyle(ToolbarButtonStyle())
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    refreshManager.refresh(pages: profileManager.activeProfile?.pagesArray ?? [])
+                } label: {
+                    Label("Refresh All", systemImage: "arrow.clockwise")
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .keyboardShortcut("r", modifiers: [.command, .shift])
+            }
+
+            ToolbarItem(placement: .bottomBar) {
+                Button {
+                    activeNav = "settings"
+                } label: {
+                    Label("Settings", systemImage: "gear")
+                }
+            }
+
+            ToolbarItem(placement: .bottomBar) {
+                Button {
+                    activeNav = "history"
+                } label: {
+                    Label("History", systemImage: "clock")
+                }
+            }
+        }
     }
 
     private var editingList: some View {
         List {
-            editListSection
-            Button(action: createPage) {
-                Label("New Page", systemImage: "plus.circle")
-            }
-            Spacer().listRowBackground(Color.clear)
-        }
-    }
-
-    private var editListSection: some View {
-        Section(header: Text("Pages").modifier(SidebarSectionHeaderModifier())) {
+            Divider()
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                Label(
-                    title: {
-                        Text(page.displayName).lineLimit(1)
-                    },
-                    icon: {
-                        Image(systemName: page.wrappedSymbol).foregroundColor(.primary)
-                    }
-                ).offset(x: -36)
+                Label(page.displayName, systemImage: page.wrappedSymbol).lineLimit(1)
             }
             .onMove(perform: movePage)
+            .onDelete(perform: deletePage)
         }
-    }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    editMode?.wrappedValue = .inactive
+                } label: {
+                    Text("Done").lineLimit(1)
+                }.buttonStyle(ToolbarButtonStyle())
+            }
 
-    private var pageListSection: some View {
-        Section(header: Text("Pages").modifier(SidebarSectionHeaderModifier())) {
-            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                SidebarPageView(
-                    page: page,
-                    activeNav: $activeNav
-                )
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: createPage) {
+                    Label("New Page", systemImage: "plus.circle").labelStyle(.titleAndIcon)
+                }.buttonStyle(ToolbarButtonStyle())
             }
         }
     }
 
     private var getStartedList: some View {
         List {
-            Section(header: Text("Get Started").modifier(SidebarSectionHeaderModifier())) {
-                Button(action: createPage) {
-                    Label("New Page", systemImage: "plus").padding(.vertical, 4)
-                }
-                Button(action: loadDemo) {
-                    Label("Load Demo", systemImage: "wand.and.stars").padding(.vertical, 4)
-                }
+            Button(action: createPage) {
+                Label("New Page", systemImage: "plus")
+            }
+            Button(action: loadDemo) {
+                Label("Load Demo", systemImage: "wand.and.stars")
             }
         }
-    }
-
-    private var moreSection: some View {
-        Group {
-            if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
-                NavigationLink(tag: "history", selection: $activeNav) {
-                    HistoryView(viewModel: HistoryViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager
-                    ))
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Button {
+                    activeNav = "settings"
                 } label: {
-                    Label {
-                        Text("History")
-                    } icon: {
-                        Image(systemName: "clock")
-                    }
-                }
+                    Label("Settings", systemImage: "gear")
+                }.buttonStyle(ToolbarButtonStyle())
             }
-
-            NavigationLink(tag: "settings", selection: $activeNav) {
-                SettingsView()
-            } label: {
-                Label {
-                    Text("Settings")
-                } icon: {
-                    Image(systemName: "gear")
-                }
-
-            }
-        }
-    }
-
-    private var toolbar: some ToolbarContent {
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            HStack(spacing: 0) {
-                if editMode?.wrappedValue == .active {
-                    Button {
-                        editMode?.wrappedValue = .inactive
-                    } label: {
-                        Text("Done").lineLimit(1)
-                    }
-                }
-
-                if editMode?.wrappedValue == .inactive && profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
-                    Button {
-                        editMode?.wrappedValue = .active
-                    } label: {
-                        Text("Edit").lineLimit(1)
-                    }
-
-                    Button {
-                        refreshManager.refresh(pages: profileManager.activeProfile?.pagesArray ?? [])
-                    } label: {
-                        Label("Refresh All", systemImage: "arrow.clockwise")
-                    }.keyboardShortcut("r", modifiers: [.command, .shift])
-                }
-            }.buttonStyle(ToolbarButtonStyle())
         }
     }
 

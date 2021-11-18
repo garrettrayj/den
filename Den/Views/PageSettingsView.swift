@@ -31,7 +31,29 @@ struct PageSettingsView: View {
         }
         .navigationTitle("Page Settings")
         .environment(\.editMode, .constant(.active))
-        .toolbar { toolbar }
+        .toolbar {
+            ToolbarItem {
+                Button(role: .destructive) {
+                    showingDeleteAlert = true
+                } label: {
+                    Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .alert(
+                    "Delete \(page.displayName)?",
+                    isPresented: $showingDeleteAlert,
+                    actions: {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete", role: .destructive) {
+                            deletePage()
+                        }
+                    },
+                    message: {
+                        Text("All feeds will be removed.")
+                    }
+                )
+            }
+        }
         .onDisappear(perform: save)
         .onReceive(
             NotificationCenter.default.publisher(for: .pageDeleted, object: page.objectID)
@@ -85,32 +107,6 @@ struct PageSettingsView: View {
             }
             .onDelete(perform: deleteFeed)
             .onMove(perform: moveFeed)
-        }
-    }
-
-    private var toolbar: some ToolbarContent {
-        ToolbarItemGroup {
-            HStack(spacing: 0) {
-                Button(role: .destructive) {
-                    showingDeleteAlert = true
-                } label: {
-                    Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
-                }
-                .alert(
-                    "Delete \(page.displayName)?",
-                    isPresented: $showingDeleteAlert,
-                    actions: {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Delete", role: .destructive) {
-                            deletePage()
-                        }
-                    },
-                    message: {
-                        Text("All feeds will be removed.")
-                    }
-                )
-
-            }
         }
     }
 

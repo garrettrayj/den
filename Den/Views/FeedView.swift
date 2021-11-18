@@ -44,7 +44,32 @@ struct FeedView: View {
             EmptyView()
         })
         .navigationTitle(feed.wrappedTitle)
-        .toolbar { toolbar }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    showingSettings = true
+                } label: {
+                    Label("Feed Settings", systemImage: "wrench")
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .disabled(refreshing)
+            }
+
+            ToolbarItem {
+                if refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        refreshManager.refresh(feed: feed)
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .disabled(refreshing)
+                }
+            }
+        }
         .onReceive(
             NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: feed.objectID)
         ) { _ in
@@ -157,30 +182,5 @@ struct FeedView: View {
         }
 
         return Text("\(lastRefreshed, formatter: DateFormatter.longShort)")
-    }
-
-    private var toolbar: some ToolbarContent {
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            HStack(spacing: 0) {
-                Button {
-                    showingSettings = true
-                } label: {
-                    Label("Feed Settings", systemImage: "wrench")
-                }
-
-                if refreshing {
-                    ProgressView().progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Button {
-                        refreshManager.refresh(feed: feed)
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                    .keyboardShortcut("r", modifiers: [.command])
-                }
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .disabled(refreshing)
-        }
     }
 }

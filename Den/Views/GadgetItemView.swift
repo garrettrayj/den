@@ -1,5 +1,5 @@
 //
-//  FeedItemView.swift
+//  GadgetItemView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FeedWidgetRowView: View {
+struct GadgetItemView: View {
     @EnvironmentObject var linkManager: LinkManager
 
     @ObservedObject var item: Item

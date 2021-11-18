@@ -32,7 +32,26 @@ struct FeedSettingsView: View {
         ) { _ in
             dismiss()
         }
-        .toolbar { toolbar }
+        .toolbar {
+            ToolbarItem {
+                Button(role: .destructive) {
+                    showingDeleteAlert = true
+                } label: {
+                    Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .alert(
+                    "Delete \(feed.wrappedTitle)?",
+                    isPresented: $showingDeleteAlert,
+                    actions: {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete", role: .destructive) {
+                            delete()
+                        }
+                    }
+                )
+            }
+        }
     }
 
     private var titleSection: some View {
@@ -130,21 +149,7 @@ struct FeedSettingsView: View {
     private var toolbar: some ToolbarContent {
         ToolbarItemGroup {
             HStack(spacing: 0) {
-                Button(role: .destructive) {
-                    showingDeleteAlert = true
-                } label: {
-                    Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
-                }
-                .alert(
-                    "Delete \(feed.wrappedTitle)?",
-                    isPresented: $showingDeleteAlert,
-                    actions: {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Delete", role: .destructive) {
-                            delete()
-                        }
-                    }
-                )
+
             }.buttonStyle(ToolbarButtonStyle())
         }
     }

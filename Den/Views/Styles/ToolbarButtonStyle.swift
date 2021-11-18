@@ -21,8 +21,7 @@ struct ToolbarButtonStyle: ButtonStyle {
 
             #if targetEnvironment(macCatalyst)
             configuration.label
-                .frame(minWidth: 0, minHeight: 40, alignment: .center)
-                .padding(.horizontal, 8)
+                .frame(minHeight: 40, alignment: .center)
                 .foregroundColor(
                     isEnabled ?
                         configuration.isPressed ? Color.accentColor.opacity(0.32) : Color.accentColor
@@ -30,10 +29,11 @@ struct ToolbarButtonStyle: ButtonStyle {
                         Color.secondary
                 )
                 .background(Color.clear)
+                .padding(.leading, 16)
             #else
             configuration.label
-                .frame(minWidth: 0, minHeight: 40, alignment: .center)
                 .padding(.horizontal, 12)
+                .frame(minHeight: 40, alignment: .center)
                 .foregroundColor(
                     isEnabled ?
                         configuration.isPressed ? Color.accentColor.opacity(0.32) : Color.accentColor

@@ -61,7 +61,7 @@ struct HistoryView: View {
                 .padding(.horizontal, 20)
                 .background(Color(UIColor.secondarySystemBackground))
         ) {
-            VStack(spacing: 12) {
+            VStack(spacing: 0) {
                 ForEach(resultGroup) { result in
                     if result.title != nil && result.link != nil {
                         VStack(alignment: .leading, spacing: 4) {
@@ -77,10 +77,14 @@ struct HistoryView: View {
                                 .lineLimit(1)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(12)
+
+                        if resultGroup.last != result {
+                            Divider()
+                        }
                     }
                 }
             }
-            .padding(12)
             .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground)))
             .padding(.horizontal, 16)
             .padding(.vertical, 8)

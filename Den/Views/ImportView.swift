@@ -27,7 +27,6 @@ struct ImportView: View {
         })
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Import")
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     private var pickFileStage: some View {
