@@ -192,7 +192,7 @@ struct SidebarView: View {
                 Button {
                     activeNav = "settings"
                 } label: {
-                    Label("Settings", systemImage: "gear")
+                    Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
                 }.buttonStyle(ToolbarButtonStyle())
             }
         }

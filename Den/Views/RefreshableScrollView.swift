@@ -107,7 +107,9 @@ struct RefreshableScrollView<Content: View>: View {
                 ZStack {
                     Rectangle().foregroundColor(.clear).frame(height: THRESHOLD)
                     if refreshing {
-                        ProgressView().progressViewStyle(CircularProgressViewStyle())
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .scaleEffect(1.5)
                     }
                 }.offset(y: refreshing ? 0 : -THRESHOLD)
             }
