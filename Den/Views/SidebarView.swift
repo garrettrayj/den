@@ -19,8 +19,13 @@ struct SidebarView: View {
     @EnvironmentObject var profileManager: ProfileManager
 
     @State var activeNav: String?
+    @State var refreshingCount: Int = 0
 
     @StateObject var searchViewModel: SearchViewModel
+
+    var feedsRefreshing: Bool {
+        refreshingCount > 0
+    }
 
     /**
      Switch refreshable() on and off depending on environment and page count.
@@ -74,11 +79,19 @@ struct SidebarView: View {
         )
         .listStyle(SidebarListStyle())
         .navigationTitle("Den")
+        .onReceive(
+            NotificationCenter.default.publisher(for: .feedQueued)
+        ) { _ in
+            refreshingCount += 1
+        }.onReceive(
+            NotificationCenter.default.publisher(for: .feedRefreshed)
+        ) { _ in
+            refreshingCount -= 1
+        }
     }
 
     private var navigationList: some View {
         List {
-            Divider()
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                 SidebarPageView(page: page, activeNav: $activeNav)
             }
@@ -98,12 +111,23 @@ struct SidebarView: View {
                     editMode?.wrappedValue = .active
                 } label: {
                     Text("Edit").lineLimit(1)
-                }.buttonStyle(ToolbarButtonStyle())
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .disabled(feedsRefreshing)
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
+                if feedsRefreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button(action: refreshAll) {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .keyboardShortcut("r", modifiers: [.command, .shift])
+                }
                 Button {
-                    refreshManager.refresh(pages: profileManager.activeProfile?.pagesArray ?? [])
+                    refreshAll()
                 } label: {
                     Label("Refresh All", systemImage: "arrow.clockwise")
                 }
@@ -116,7 +140,7 @@ struct SidebarView: View {
                     activeNav = "settings"
                 } label: {
                     Label("Settings", systemImage: "gear")
-                }
+                }.disabled(feedsRefreshing)
             }
 
             ToolbarItem(placement: .bottomBar) {
@@ -131,7 +155,6 @@ struct SidebarView: View {
 
     private var editingList: some View {
         List {
-            Divider()
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                 Label(page.displayName, systemImage: page.wrappedSymbol).lineLimit(1)
             }
@@ -173,6 +196,10 @@ struct SidebarView: View {
                 }.buttonStyle(ToolbarButtonStyle())
             }
         }
+    }
+
+    private func refreshAll() {
+        refreshManager.refresh(pages: profileManager.activeProfile?.pagesArray ?? [])
     }
 
     private func showSearch() {

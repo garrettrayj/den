@@ -68,7 +68,6 @@ struct HistoryView: View {
                             Button { linkManager.openLink(url: result.link) } label: {
                                 Text(result.title!)
                                     .multilineTextAlignment(.leading)
-                                    .font(.title3)
                                     .foregroundColor(Color(UIColor.systemPurple))
                             }
                             Text(result.link!.absoluteString)

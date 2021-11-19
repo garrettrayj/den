@@ -23,7 +23,7 @@ public class Item: NSManagedObject {
         set {title = newValue}
     }
 
-    public var previewImage: Image? {
+    public var previewUIImage: UIImage? {
         guard
             let previewsDirectory = FileManager.default.previewsDirectory,
             let filename = self.imagePreview
@@ -34,12 +34,19 @@ public class Item: NSManagedObject {
         do {
             let imageData = try Data(contentsOf: filepath)
             if let uiImage = UIImage(data: imageData) {
-                return Image(uiImage: uiImage)
+                return uiImage
             }
         } catch {
             Logger.main.notice("Error loading thumbnail image: \(error.localizedDescription)")
         }
 
+        return nil
+    }
+
+    public var previewImage: Image? {
+        if let previewUIImage = previewUIImage {
+            return Image(uiImage: previewUIImage)
+        }
         return nil
     }
 

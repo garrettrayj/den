@@ -33,11 +33,9 @@ struct PageView: View {
                 }
                 #else
                 RefreshableScrollView(
-                    state: $refreshState,
-                    onRefresh: { done in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            done()
-                        }
+                    refreshing: $refreshing,
+                    onRefresh: { _ in
+                        refresh()
                     },
                     content: { widgetGrid }
                 )
@@ -116,9 +114,7 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }
 
-            Button {
-                refreshManager.refresh(pages: [page])
-            } label: {
+            Button(action: refresh) {
                 Label("Refresh", systemImage: "arrow.clockwise")
             }.keyboardShortcut("r", modifiers: [.command])
         } label: {
@@ -130,7 +126,7 @@ struct PageView: View {
     }
 
     private var fullToolbar: some View {
-        HStack(spacing: 0) {
+        Group {
             Button(action: showSubscribe) {
                 Label("Add Subscription", systemImage: "plus.circle")
             }
@@ -142,13 +138,15 @@ struct PageView: View {
             if refreshing {
                 ProgressView().progressViewStyle(ToolbarProgressStyle())
             } else {
-                Button {
-                    refreshManager.refresh(pages: [page])
-                } label: {
+                Button(action: refresh) {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }.keyboardShortcut("r", modifiers: [.command])
             }
         }.buttonStyle(ToolbarButtonStyle())
+    }
+
+    private func refresh() {
+        refreshManager.refresh(pages: [page])
     }
 
     private func showSettings() {

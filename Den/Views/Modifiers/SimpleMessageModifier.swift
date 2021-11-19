@@ -11,7 +11,7 @@ import SwiftUI
 struct SimpleMessageModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.title2)
+            .font(.title3)
             .multilineTextAlignment(.center)
             .foregroundColor(.secondary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

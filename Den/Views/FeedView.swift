@@ -20,21 +20,21 @@ struct FeedView: View {
     @State var showingSettings: Bool = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
-                feedItems
-            } else {
-                if feed.feedData == nil {
-                    feedNotFetched
-                } else if feed.feedData?.error != nil {
-                    feedError
-                } else if feed.feedData!.itemsArray.count == 0 {
-                    feedEmpty
-                } else {
-                    feedStatusUnknown
-                }
+        Group {
+
+            #if targetEnvironment(macCatalyst)
+            ScrollView {
+                feedContent
             }
-            Spacer()
+            #else
+            RefreshableScrollView(
+                refreshing: $refreshing,
+                onRefresh: { _ in
+                    refreshManager.refresh(feed: feed)
+                },
+                content: { feedContent }
+            )
+            #endif
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .background(NavigationLink(
@@ -113,67 +113,30 @@ struct FeedView: View {
         .padding(.top, 8)
     }
 
-    private var feedItems: some View {
-        ScrollView {
-            feedHeader
-
-            Grid(feed.feedData!.itemsArray, id: \.self) { item in
-                FeedItemView(item: item)
-            }
-            .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
-            .padding(.top, 8)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 64)
-        }
-    }
-
-    private var feedError: some View {
+    private var feedContent: some View {
         VStack {
-            VStack(spacing: 4) {
-                Text("Unable to update feed")
-                    .foregroundColor(.secondary)
-                    .font(.callout)
-                    .fontWeight(.medium)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Text(feed.feedData!.error!)
-                    .foregroundColor(.red)
-                    .fontWeight(.medium)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
+                feedHeader
+
+                Grid(feed.feedData!.itemsArray, id: \.self) { item in
+                    FeedItemView(item: item)
+                }
+                .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
+                .padding(.top, 8)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 64)
+            } else {
+                if feed.feedData == nil {
+                    Text("Refresh to fetch content").modifier(SimpleMessageModifier())
+                } else if feed.feedData?.error != nil {
+                    Text("Unable to update feed").modifier(SimpleMessageModifier())
+                } else if feed.feedData!.itemsArray.count == 0 {
+                    Text("Feed empty").modifier(SimpleMessageModifier())
+                } else {
+                    Text("Feed status unavailable").modifier(SimpleMessageModifier())
+                }
             }
-            .padding()
-            .frame(maxWidth: .infinity)
         }
-        .background(
-            RoundedRectangle(cornerRadius: 4)
-                .stroke(lineWidth: 1)
-                .foregroundColor(.red)
-        )
-        .padding([.horizontal, .top])
-        .padding(.bottom, 2)
-    }
-
-    private var feedEmpty: some View {
-        Text("Feed empty")
-            .foregroundColor(.secondary)
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .multilineTextAlignment(.center)
-    }
-
-    private var feedNotFetched: some View {
-        Text("Refresh to fetch content")
-            .foregroundColor(.secondary)
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .multilineTextAlignment(.center)
-    }
-
-    private var feedStatusUnknown: some View {
-        Text("Feed status unavailable")
-            .foregroundColor(.secondary)
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .multilineTextAlignment(.center)
     }
 
     private func lastRefreshedLabel() -> Text {
@@ -181,6 +144,6 @@ struct FeedView: View {
             return Text("First refresh")
         }
 
-        return Text("\(lastRefreshed, formatter: DateFormatter.longShort)")
+        return Text("\(lastRefreshed, formatter: DateFormatter.mediumShort)")
     }
 }

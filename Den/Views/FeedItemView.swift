@@ -36,8 +36,34 @@ struct FeedItemView: View {
             }
             .accessibility(identifier: "Item Link")
 
-            if item.previewImage != nil {
-                previewImage
+            if item.previewUIImage != nil {
+                SingleAxisGeometryReader(axis: .horizontal, alignment: .leading) { width in
+                    Group {
+                        if item.previewUIImage!.size.width < width {
+                            Image(uiImage: item.previewUIImage!)
+                                .background(Color(UIColor.tertiarySystemGroupedBackground))
+                                .cornerRadius(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+                                )
+                                .accessibility(label: Text("Preview Image"))
+
+                        } else {
+                            Image(uiImage: item.previewUIImage!)
+                                .resizable()
+                                .scaledToFit()
+                                .background(Color(UIColor.tertiarySystemGroupedBackground))
+                                .cornerRadius(4)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+                                )
+                                .accessibility(label: Text("Preview Image"))
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
             }
 
             if item.summary != nil {
@@ -50,19 +76,4 @@ struct FeedItemView: View {
             RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground))
         )
     }
-
-    private var previewImage: some View {
-        item.previewImage?
-            .resizable()
-            .scaledToFit()
-            .frame(maxWidth: .infinity)
-            .background(Color(UIColor.tertiarySystemGroupedBackground))
-            .cornerRadius(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-            )
-            .accessibility(label: Text("Preview Image"))
-            .padding(.vertical, 4)
-    }
-
 }
