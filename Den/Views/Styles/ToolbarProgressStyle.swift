@@ -18,7 +18,7 @@ struct ToolbarProgressStyle: ProgressViewStyle {
         #if targetEnvironment(macCatalyst)
         return view.scaleEffect(0.6).frame(width: 33, alignment: .trailing)
         #else
-        return view
+        return view.scaleEffect(1.25).frame(width: 38, alignment: .trailing)
         #endif
     }
 }

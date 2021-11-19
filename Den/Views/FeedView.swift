@@ -21,7 +21,6 @@ struct FeedView: View {
 
     var body: some View {
         Group {
-
             #if targetEnvironment(macCatalyst)
             ScrollView {
                 feedContent
