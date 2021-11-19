@@ -70,18 +70,19 @@ struct RefreshableScrollView<Content: View>: View {
     let onRefresh: OnRefresh // the refreshing action
     let content: Content // the ScrollView content
 
-    @Binding var state: RefreshState // the current state
+    @Binding var refreshing: Bool // the current state
+    @State var primed: Bool = false
 
     // We use a custom constructor to allow for usage of a @ViewBuilder for the content
     init(
-        state: Binding<RefreshState>,
+        refreshing: Binding<Bool>,
         onRefresh: @escaping OnRefresh,
         @ViewBuilder content: () -> Content
     ) {
         self.onRefresh = onRefresh
         self.content = content()
 
-        _state = state
+        _refreshing = refreshing
     }
 
     var body: some View {
@@ -99,16 +100,16 @@ struct RefreshableScrollView<Content: View>: View {
                 // to keep it below the loading view, hence the alignmentGuide.
                 content
                     .alignmentGuide(.top, computeValue: { _ in
-                        (state == .loading) ? -THRESHOLD : 0
+                        refreshing ? -THRESHOLD : 0
                     })
 
                 // The loading view. It's offset to the top of the content unless we're loading.
                 ZStack {
                     Rectangle().foregroundColor(.clear).frame(height: THRESHOLD)
-                    if state != .waiting {
+                    if refreshing {
                         ProgressView().progressViewStyle(CircularProgressViewStyle())
                     }
-                }.offset(y: (state == .loading) ? 0 : -THRESHOLD)
+                }.offset(y: refreshing ? 0 : -THRESHOLD)
             }
         }
         // Put a fixed PositionIndicator in the background so that we have
@@ -117,7 +118,7 @@ struct RefreshableScrollView<Content: View>: View {
         // Once the scrolling offset changes, we want to see if there should
         // be a state change.
         .onPreferenceChange(PositionPreferenceKey.self) { values in
-            if state != .loading { // If we're already loading, ignore everything
+            if !refreshing { // If we're already loading, ignore everything
                 // Map the preference change action to the UI thread
                 DispatchQueue.main.async {
                     // Compute the offset between the moving and fixed PositionIndicators
@@ -126,18 +127,20 @@ struct RefreshableScrollView<Content: View>: View {
                     let offset = movingY - fixedY
 
                     // If the user pulled down below the threshold, prime the view
-                    if offset > THRESHOLD && state == .waiting {
-                        state = .primed
+                    if offset > THRESHOLD && !refreshing {
+                        primed = true
 
                         // If the view is primed and we've crossed the threshold again on the
                         // way back, trigger the refresh
-                    } else if offset < THRESHOLD && state == .primed {
-                        state = .loading
+                    } else if offset < THRESHOLD && primed == true {
+                        primed = false
+                        refreshing = true
+
                         onRefresh { // trigger the refreshing callback
                             // once refreshing is done, smoothly move the loading view
                             // back to the offset position
                             withAnimation {
-                                self.state = .waiting
+                                self.refreshing = false
                             }
                         }
                     }
