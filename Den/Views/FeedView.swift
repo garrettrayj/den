@@ -36,12 +36,23 @@ struct FeedView: View {
             #endif
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
-        .background(NavigationLink(
-            destination: FeedSettingsView(feed: feed),
-            isActive: $showingSettings
-        ) {
-            EmptyView()
-        })
+        .background(
+            Group {
+                // Hidden button for iOS keyboard shortcuts
+                #if !targetEnvironment(macCatalyst)
+                Button(action: { refreshManager.refresh(feed: feed) }, label: { Text("Refresh") })
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .hidden()
+                #endif
+
+                NavigationLink(
+                    destination: FeedSettingsView(feed: feed),
+                    isActive: $showingSettings
+                ) {
+                    EmptyView()
+                }
+            }
+        )
         .navigationTitle(feed.wrappedTitle)
         .toolbar {
             ToolbarItem {
@@ -54,20 +65,22 @@ struct FeedView: View {
                 .disabled(refreshing)
             }
 
+            #if targetEnvironment(macCatalyst)
             ToolbarItem {
-                if refreshing {
-                    ProgressView().progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Button {
-                        refreshManager.refresh(feed: feed)
-                    } label: {
+                Button {
+                    refreshManager.refresh(feed: feed)
+                } label: {
+                    if refreshing {
+                        ProgressView().progressViewStyle(ToolbarProgressStyle())
+                    } else {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .disabled(refreshing)
                 }
+                .buttonStyle(ToolbarButtonStyle())
+                .keyboardShortcut("r", modifiers: [.command])
+                .disabled(refreshing)
             }
+            #endif
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: feed.objectID)
@@ -80,21 +93,16 @@ struct FeedView: View {
 
     private var feedHeader: some View {
         HStack {
-            if feed.feedData?.faviconImage != nil {
-                feed.feedData!.faviconImage!
-                    .scaleEffect(1 / UIScreen.main.scale)
-                    .frame(width: 16, height: 16, alignment: .center)
-                    .clipped()
-            } else {
-                Image(uiImage: UIImage(named: "RSSIcon")!)
-                    .resizable()
-                    .scaledToFit()
-                    .foregroundColor(Color.secondary)
-                    .frame(width: 14, height: 14, alignment: .center)
-            }
+            if feed.feedData?.linkDisplayString != nil {
+                if feed.feedData?.faviconImage != nil {
+                    feed.feedData!.faviconImage!
+                        .scaleEffect(1 / UIScreen.main.scale)
+                        .frame(width: 16, height: 16, alignment: .center)
+                        .clipped()
+                }
 
-            Text(feed.feedData?.linkDisplayString ?? "Website not available")
-                .font(.callout)
+                Text(feed.feedData?.linkDisplayString ?? "").font(.callout)
+            }
 
             Spacer()
 

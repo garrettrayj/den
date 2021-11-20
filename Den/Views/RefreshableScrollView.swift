@@ -64,7 +64,7 @@ typealias OnRefresh = (@escaping RefreshComplete) -> Void
 
 // The offset threshold. 50 is a good number, but you can play
 // with it to your liking.
-private let THRESHOLD: CGFloat = 50
+private let THRESHOLD: CGFloat = 64
 
 struct RefreshableScrollView<Content: View>: View {
     let onRefresh: OnRefresh // the refreshing action

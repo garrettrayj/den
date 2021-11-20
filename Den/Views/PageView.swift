@@ -43,12 +43,22 @@ struct PageView: View {
             }
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
-        .background(NavigationLink(
-            destination: PageSettingsView(page: page),
-            isActive: $showingSettings
-        ) {
-            Text("Show Settings")
-        })
+        .background(
+            Group {
+                NavigationLink(
+                    destination: PageSettingsView(page: page),
+                    isActive: $showingSettings
+                ) {
+                    Text("Show Settings")
+                }
+
+                // Hidden button for iOS keyboard shortcut
+                #if !targetEnvironment(macCatalyst)
+                Button(action: refresh, label: { Text("Refresh") })
+                    .keyboardShortcut("r", modifiers: [.command])
+                #endif
+            }
+        )
         .navigationTitle(page.displayName)
         .toolbar { toolbar }
         .onAppear {
@@ -113,10 +123,6 @@ struct PageView: View {
             Button(action: showSettings) {
                 Label("Page Settings", systemImage: "wrench")
             }
-
-            Button(action: refresh) {
-                Label("Refresh", systemImage: "arrow.clockwise")
-            }.keyboardShortcut("r", modifiers: [.command])
         } label: {
             Label("Page Menu", systemImage: "ellipsis")
                 .frame(height: 44)
@@ -135,14 +141,17 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }
 
-            if refreshing {
-                ProgressView().progressViewStyle(ToolbarProgressStyle())
-            } else {
-                Button(action: refresh) {
+            #if targetEnvironment(macCatalyst)
+            Button(action: refresh) {
+                if refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
                     Label("Refresh", systemImage: "arrow.clockwise")
-                }.keyboardShortcut("r", modifiers: [.command])
-            }
-        }.buttonStyle(ToolbarButtonStyle())
+                }
+            }.keyboardShortcut("r", modifiers: [.command])
+            #endif
+        }
+        .buttonStyle(ToolbarButtonStyle())
     }
 
     private func refresh() {

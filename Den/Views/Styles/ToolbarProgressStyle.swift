@@ -16,9 +16,9 @@ struct ToolbarProgressStyle: ProgressViewStyle {
         let view = ProgressView(configuration).progressViewStyle(CircularProgressViewStyle())
 
         #if targetEnvironment(macCatalyst)
-        return view.scaleEffect(0.6).frame(width: 33, alignment: .trailing)
+        return view.scaleEffect(0.6).frame(width: 17, alignment: .trailing)
         #else
-        return view.scaleEffect(1.25).frame(width: 38, alignment: .trailing)
+        return view.scaleEffect(1.25).frame(width: 22, alignment: .trailing)
         #endif
     }
 }
