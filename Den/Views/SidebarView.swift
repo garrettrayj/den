@@ -19,13 +19,8 @@ struct SidebarView: View {
     @EnvironmentObject var profileManager: ProfileManager
 
     @State var activeNav: String?
-    @State var refreshingCount: Int = 0
 
     @StateObject var searchViewModel: SearchViewModel
-
-    var feedsRefreshing: Bool {
-        refreshingCount > 0
-    }
 
     /**
      Switch refreshable() on and off depending on environment and page count.
@@ -79,15 +74,6 @@ struct SidebarView: View {
         )
         .listStyle(SidebarListStyle())
         .navigationTitle("Den")
-        .onReceive(
-            NotificationCenter.default.publisher(for: .feedQueued)
-        ) { _ in
-            refreshingCount += 1
-        }.onReceive(
-            NotificationCenter.default.publisher(for: .feedRefreshed)
-        ) { _ in
-            refreshingCount -= 1
-        }
     }
 
     private var navigationList: some View {
@@ -113,34 +99,24 @@ struct SidebarView: View {
                     Text("Edit").lineLimit(1)
                 }
                 .buttonStyle(ToolbarButtonStyle())
-                .disabled(feedsRefreshing)
             }
 
+            #if targetEnvironment(macCatalyst)
             ToolbarItem(placement: .navigationBarTrailing) {
-                if feedsRefreshing {
-                    ProgressView().progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Button(action: refreshAll) {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .keyboardShortcut("r", modifiers: [.command, .shift])
-                }
-                Button {
-                    refreshAll()
-                } label: {
-                    Label("Refresh All", systemImage: "arrow.clockwise")
+                Button(action: refreshAll) {
+                    Label("Refresh", systemImage: "arrow.clockwise")
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
             }
+            #endif
 
             ToolbarItem(placement: .bottomBar) {
                 Button {
                     activeNav = "settings"
                 } label: {
                     Label("Settings", systemImage: "gear")
-                }.disabled(feedsRefreshing)
+                }
             }
 
             ToolbarItem(placement: .bottomBar) {
@@ -151,6 +127,17 @@ struct SidebarView: View {
                 }
             }
         }
+        .background(
+            Group {
+                #if !targetEnvironment(macCatalyst)
+                Button(action: refreshAll) {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .keyboardShortcut("r", modifiers: [.command, .shift])
+                #endif
+            }.hidden()
+        )
     }
 
     private var editingList: some View {
