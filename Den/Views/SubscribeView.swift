@@ -94,7 +94,6 @@ struct SubscribeView: View {
             }
         }
         .padding(.vertical, 4)
-        .background(Color(UIColor.systemBackground))
         .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
 
     }

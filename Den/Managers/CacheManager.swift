@@ -75,7 +75,6 @@ final class CacheManager: ObservableObject {
             for feedData in feedDatas {
                 if feedData.feed == nil {
                     context.delete(feedData)
-                    print("Orphan")
                     continue
                 }
 
@@ -87,8 +86,6 @@ final class CacheManager: ObservableObject {
 
                 cleanFeedDatas.append(feedData)
             }
-
-            print(feedDatas.count)
 
             let activeFavicons: [URL] = cleanFeedDatas.compactMap { feedData in
                 if let filename = feedData.faviconFile {

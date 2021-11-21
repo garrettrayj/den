@@ -21,7 +21,7 @@ struct AccentButtonStyle: ButtonStyle {
 
             configuration.label
                 .font(.system(size: 16).weight(.medium))
-                .padding(.vertical, 8)
+                .padding(.vertical, 12)
                 .padding(.horizontal, 16)
                 .background(
                     configuration.isPressed ?

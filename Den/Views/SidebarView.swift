@@ -13,13 +13,13 @@ import SwiftUI
 */
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.editMode) var editMode
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var profileManager: ProfileManager
 
     @StateObject var searchViewModel: SearchViewModel
 
+    @State var editingPages: Bool = false
     @State var showingSearch: Bool = false
     @State var showingHistory: Bool = false
     @State var showingSettings: Bool = false
@@ -33,8 +33,8 @@ struct SidebarView: View {
      */
     var body: some View {
         Group {
-            if editMode?.wrappedValue == .active {
-                editingList.environment(\.editMode, editMode)
+            if editingPages {
+                editingList
             } else {
                 if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
                     #if targetEnvironment(macCatalyst)
@@ -74,7 +74,7 @@ struct SidebarView: View {
             }
         )
         .listStyle(SidebarListStyle())
-        .navigationTitle("Den")
+
     }
 
     private var navigationList: some View {
@@ -83,7 +83,6 @@ struct SidebarView: View {
                 SidebarPageView(page: page)
             }
         }
-        .listStyle(SidebarListStyle())
         .searchable(
             text: $searchViewModel.searchText,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -96,7 +95,7 @@ struct SidebarView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    editMode?.wrappedValue = .active
+                    editingPages = true
                 } label: {
                     Text("Edit").lineLimit(1)
                 }
@@ -140,6 +139,7 @@ struct SidebarView: View {
                 #endif
             }.hidden()
         )
+        .navigationTitle("Den")
     }
 
     private var editingList: some View {
@@ -150,10 +150,11 @@ struct SidebarView: View {
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)
         }
+        .environment(\.editMode, .constant(.active))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    editMode?.wrappedValue = .inactive
+                    editingPages = false
                 } label: {
                     Text("Done").lineLimit(1)
                 }.buttonStyle(NavigationBarButtonStyle())
@@ -170,10 +171,10 @@ struct SidebarView: View {
     private var getStartedList: some View {
         List {
             Button(action: createPage) {
-                Label("New Page", systemImage: "plus")
+                Label("Create a New Page", systemImage: "plus")
             }
             Button(action: loadDemo) {
-                Label("Load Demo", systemImage: "wand.and.stars")
+                Label("Load Demo Feeds", systemImage: "wand.and.stars")
             }
         }
         .toolbar {
@@ -185,6 +186,7 @@ struct SidebarView: View {
                 }.buttonStyle(NavigationBarButtonStyle())
             }
         }
+        .navigationTitle("Get Started")
     }
 
     private func refreshAll() {
@@ -243,6 +245,7 @@ struct SidebarView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                profileManager.objectWillChange.send()
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }

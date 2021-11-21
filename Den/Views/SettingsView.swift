@@ -172,18 +172,21 @@ struct SettingsView: View {
 
     private var aboutSection: some View {
         Section(header: Text("About").modifier(SectionHeaderModifier())) {
-            HStack(spacing: 16) {
+            HStack(alignment: .bottom, spacing: 8) {
                 Image(uiImage: UIImage(named: "TitleIcon") ?? UIImage())
                     .resizable()
                     .scaledToFit()
                     .frame(width: 48, height: 48)
                     .cornerRadius(8)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Den").font(.headline)
-                    Text("v\(Bundle.main.releaseVersionNumber!)")
-                        .foregroundColor(.secondary)
-                        .font(.callout)
-                }
+                Text("Den ")
+                    .font(.custom("Veronica-Script", size: 36, relativeTo: .largeTitle))
+                Spacer()
+                VStack {
+                    Text("Version \(Bundle.main.releaseVersionNumber!)")
+                    Text("©2021 Garrett Johnson")
+                }.font(.footnote)
+                
+
             }.padding(.vertical, 8)
 
             Button(action: openHomepage) {

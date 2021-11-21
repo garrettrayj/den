@@ -15,13 +15,13 @@ let categories = NSDictionary(contentsOfFile: categoriesPath)
 let symbols = NSMutableDictionary(contentsOfFile: symbolCategoriesPath)!
 
 let outputUrl = URL(fileURLWithPath: "/Users/garrett/Projects/den/Den/Misc/")
-    .appendingPathComponent("page_symbols.plist")
+    .appendingPathComponent("PageSymbols.plist")
 
 let extraLocaleSuffixes = [".ar", ".he", ".hi", ".ja", ".to", ".ko", ".zh"]
 let ignoredCategories = ["indices", "textformatting", "keyboard"]
 
 let excluded = [
-    // Restrictedf
+    // Restricted
     "airpod",
     "airplay",
     "airport",
@@ -69,7 +69,11 @@ let excluded = [
     ".plus",
     ".minus",
     ".xmark",
-    ".inverse"
+    ".inverse",
+    "eyedropper.",
+
+    // Too Wide
+    "person.3.sequence"
 ]
 
 let included = [

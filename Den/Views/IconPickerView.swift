@@ -99,7 +99,7 @@ struct IconPickerView: View {
         _selectedSymbol = selectedSymbol
 
         guard
-            let symbolsPath = Bundle.main.path(forResource: "page_symbols", ofType: "plist"),
+            let symbolsPath = Bundle.main.path(forResource: "PageSymbols", ofType: "plist"),
             let symbolsDict = NSDictionary(contentsOfFile: symbolsPath)
         else {
             preconditionFailure("Missing categories configuration")
