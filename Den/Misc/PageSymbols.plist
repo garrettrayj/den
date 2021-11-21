@@ -1269,16 +1269,6 @@
 		<string>editing</string>
 		<string>objectsandtools</string>
 	</array>
-	<key>eyedropper.full</key>
-	<array>
-		<string>editing</string>
-		<string>objectsandtools</string>
-	</array>
-	<key>eyedropper.halffull</key>
-	<array>
-		<string>editing</string>
-		<string>objectsandtools</string>
-	</array>
 	<key>eyeglasses</key>
 	<array>
 		<string>objectsandtools</string>
@@ -2157,10 +2147,6 @@
 		<string>human</string>
 	</array>
 	<key>person.3</key>
-	<array>
-		<string>human</string>
-	</array>
-	<key>person.3.sequence</key>
 	<array>
 		<string>human</string>
 	</array>

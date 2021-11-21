@@ -99,9 +99,10 @@ final class RefreshPlan {
             feedObjectID: feed.objectID,
             saveMeta: fullUpdate
         )
-        completionOp = BlockOperation { [unowned feed] in
+        completionOp = BlockOperation { [weak feed] in
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .feedRefreshed, object: feed.objectID)
+                guard let objectID = feed?.objectID else { return }
+                NotificationCenter.default.post(name: .feedRefreshed, object: objectID)
             }
         }
     }

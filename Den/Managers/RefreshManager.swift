@@ -40,9 +40,10 @@ final class RefreshManager: ObservableObject {
                 NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
             }
             NotificationCenter.default.post(name: .pageQueued, object: page.objectID)
-            let completionOp = BlockOperation { [unowned page] in
+            let completionOp = BlockOperation { [weak page] in
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
+                    guard let objectID = page?.objectID else { return }
+                    NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
                 }
             }
             pageCompletionOps.forEach { operation in
