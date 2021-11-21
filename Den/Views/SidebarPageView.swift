@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SidebarPageView: View {
     @ObservedObject var page: Page
-
-    @Binding var activeNav: String?
     @State var refreshing: Bool = false
 
     var body: some View {

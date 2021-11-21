@@ -18,9 +18,11 @@ struct SidebarView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var profileManager: ProfileManager
 
-    @State var activeNav: String?
-
     @StateObject var searchViewModel: SearchViewModel
+
+    @State var showingSearch: Bool = false
+    @State var showingHistory: Bool = false
+    @State var showingSettings: Bool = false
 
     /**
      Switch refreshable() on and off depending on environment and page count.
@@ -50,13 +52,13 @@ struct SidebarView: View {
         }
         .background(
             Group {
-                NavigationLink(tag: "search", selection: $activeNav) {
+                NavigationLink(isActive: $showingSearch) {
                     SearchView(viewModel: searchViewModel)
                 } label: {
                     Text("Search")
                 }.hidden()
 
-                NavigationLink(tag: "history", selection: $activeNav) {
+                NavigationLink(isActive: $showingHistory) {
                     HistoryView(viewModel: HistoryViewModel(
                         viewContext: viewContext,
                         crashManager: crashManager
@@ -65,7 +67,7 @@ struct SidebarView: View {
                     Label("History", systemImage: "clock")
                 }.hidden()
 
-                NavigationLink(tag: "settings", selection: $activeNav) {
+                NavigationLink(isActive: $showingSettings) {
                     SettingsView()
                 } label: {
                     Label("Settings", systemImage: "gear")
@@ -79,7 +81,7 @@ struct SidebarView: View {
     private var navigationList: some View {
         List {
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                SidebarPageView(page: page, activeNav: $activeNav)
+                SidebarPageView(page: page)
             }
         }
         .searchable(
@@ -113,7 +115,7 @@ struct SidebarView: View {
 
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    activeNav = "settings"
+                    showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
@@ -121,7 +123,7 @@ struct SidebarView: View {
 
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    activeNav = "history"
+                    showingHistory = true
                 } label: {
                     Label("History", systemImage: "clock")
                 }
@@ -177,7 +179,7 @@ struct SidebarView: View {
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    activeNav = "settings"
+                    showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
                 }.buttonStyle(NavigationBarButtonStyle())
@@ -190,8 +192,8 @@ struct SidebarView: View {
     }
 
     private func showSearch() {
-        if activeNav != "search" {
-            activeNav = "search"
+        if !showingSearch {
+            showingSearch = true
         }
     }
 

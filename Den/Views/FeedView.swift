@@ -47,9 +47,13 @@ struct FeedView: View {
 
                 // Hidden button for iOS keyboard shortcuts
                 #if !targetEnvironment(macCatalyst)
-                Button(action: { refreshManager.refresh(feed: feed) }, label: { Text("Refresh") })
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .hidden()
+                Button {
+                    refreshManager.refresh(feed: feed)
+                } label: {
+                    EmptyView()
+                }
+                .keyboardShortcut("r", modifiers: [.command])
+                .hidden()
                 #endif
             }
         )
