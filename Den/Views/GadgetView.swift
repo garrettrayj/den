@@ -120,15 +120,23 @@ struct GadgetView: View {
     }
 
     private var feedNotFetched: some View {
-        Text("Refresh to fetch content")
+        #if targetEnvironment(macCatalyst)
+        Text("Refresh to load feed")
             .foregroundColor(.secondary)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .multilineTextAlignment(.center)
+        #else
+        Text("Pull to refresh feed")
+            .foregroundColor(.secondary)
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .multilineTextAlignment(.center)
+        #endif
     }
 
     private var feedStatusUnknown: some View {
-        Text("Feed status unavailable")
+        Text("Status unavailable")
             .foregroundColor(.secondary)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)

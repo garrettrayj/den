@@ -11,6 +11,7 @@ import SwiftUI
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var crashManager: CrashManager
 
     @ObservedObject var page: Page
@@ -21,7 +22,7 @@ struct PageSettingsView: View {
     var body: some View {
         Form {
             nameIconSection
-            configurationSection
+            gadgetsSection
 
             if page.feedsArray.count > 0 {
                 feedsSection
@@ -63,7 +64,8 @@ struct PageSettingsView: View {
     private var nameIconSection: some View {
         Section(header: Text("Name and Icon").modifier(SectionHeaderModifier())) {
             HStack {
-                TextField("Untitled", text: $page.wrappedName).lineLimit(1)
+                TextField("Untitled", text: $page.wrappedName)
+                    .modifier(TitleTextFieldModifier())
                 HStack {
                     Image(systemName: page.wrappedSymbol)
                         .foregroundColor(Color.accentColor)
@@ -76,13 +78,14 @@ struct PageSettingsView: View {
                 .onTapGesture { showingIconPicker = true }
                 .sheet(isPresented: $showingIconPicker) {
                     IconPickerView(selectedSymbol: $page.wrappedSymbol)
+                        .environment(\.colorScheme, colorScheme)
                 }
             }.modifier(FormRowModifier())
         }
     }
 
-    private var configurationSection: some View {
-        Section(header: Text("Configuration").modifier(SectionHeaderModifier())) {
+    private var gadgetsSection: some View {
+        Section(header: Text("Gadgets").modifier(SectionHeaderModifier())) {
             Stepper(value: $page.wrappedItemsPerFeed, in: 1...100, step: 1) {
                 Label(
                     "Item Limit: \(page.wrappedItemsPerFeed)",

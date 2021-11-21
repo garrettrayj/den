@@ -20,11 +20,8 @@ struct FeedTitleLabelView: View {
                     .scaleEffect(1 / UIScreen.main.scale)
                     .frame(width: 16, height: 16)
             } else {
-                Image(uiImage: UIImage(named: "RSSIcon")!)
-                    .resizable()
-                    .scaledToFit()
+                Image(systemName: "dot.radiowaves.up.forward")
                     .foregroundColor(Color.secondary)
-                    .frame(width: 14, height: 14, alignment: .center)
             }
         }
     }

@@ -13,6 +13,7 @@ import Grid
 struct FeedView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var linkManager: LinkManager
 
     @ObservedObject var feed: Feed
 
@@ -97,14 +98,17 @@ struct FeedView: View {
     private var feedHeader: some View {
         HStack {
             if feed.feedData?.linkDisplayString != nil {
-                if feed.feedData?.faviconImage != nil {
-                    feed.feedData!.faviconImage!
-                        .scaleEffect(1 / UIScreen.main.scale)
-                        .frame(width: 16, height: 16, alignment: .center)
-                        .clipped()
+                Button {
+                    linkManager.openLink(url: feed.feedData?.link)
+                } label: {
+                    if feed.feedData?.faviconImage != nil {
+                        feed.feedData!.faviconImage!
+                            .scaleEffect(1 / UIScreen.main.scale)
+                            .frame(width: 16, height: 16, alignment: .center)
+                            .clipped()
+                    }
+                    Text(feed.feedData?.linkDisplayString ?? "").font(.callout)
                 }
-
-                Text(feed.feedData?.linkDisplayString ?? "").font(.callout)
             }
 
             Spacer()
@@ -137,13 +141,17 @@ struct FeedView: View {
                 .padding(.bottom, 64)
             } else {
                 if feed.feedData == nil {
-                    Text("Refresh to fetch content").modifier(SimpleMessageModifier())
+                    #if targetEnvironment(macCatalyst)
+                    Text("Refresh to load feed").modifier(SimpleMessageModifier())
+                    #else
+                    Text("Pull to refresh feed").modifier(SimpleMessageModifier())
+                    #endif
                 } else if feed.feedData?.error != nil {
                     Text("Unable to update feed").modifier(SimpleMessageModifier())
                 } else if feed.feedData!.itemsArray.count == 0 {
                     Text("Feed empty").modifier(SimpleMessageModifier())
                 } else {
-                    Text("Feed status unavailable").modifier(SimpleMessageModifier())
+                    Text("Status unavailable").modifier(SimpleMessageModifier())
                 }
             }
         }

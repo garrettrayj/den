@@ -37,18 +37,22 @@ struct SidebarPageView: View {
                     Text(page.displayName).lineLimit(1)
                     Spacer()
                     if refreshing {
-                        ProgressView().progressViewStyle(IconProgressStyle()).padding(.trailing, 4)
+                        ProgressView().progressViewStyle(IconProgressStyle())
                     } else {
                         Text(String(page.unreadCount))
                             .lineLimit(1)
-                            .font(.caption.monospacedDigit().weight(.semibold))
+                            .font(.caption.weight(.medium))
                             .foregroundColor(Color(UIColor.secondaryLabel))
+                            #if targetEnvironment(macCatalyst)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
+                            #else
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            #endif
                             .background(
                                 Capsule().fill(Color(UIColor.secondarySystemFill))
                             )
-                            .padding(.trailing, 4)
                     }
 
                 }
