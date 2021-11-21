@@ -21,7 +21,7 @@ struct PageView: View {
     let columns = [GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)]
 
     var body: some View {
-        VStack(spacing: 0) {
+        Group {
             if page.managedObjectContext == nil {
                 pageRemoved
             } else if page.feedsArray.count == 0 {
@@ -54,7 +54,7 @@ struct PageView: View {
 
                 // Hidden button for iOS keyboard shortcut
                 #if !targetEnvironment(macCatalyst)
-                Button(action: refresh, label: { EmptyView() })
+                Button(action: refresh) { EmptyView() }
                     .keyboardShortcut("r", modifiers: [.command])
                 #endif
             }
