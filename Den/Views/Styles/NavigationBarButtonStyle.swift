@@ -1,5 +1,5 @@
 //
-//  ToolbarButtonStyle.swift
+//  NavigationBarButtonStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/12/21.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ToolbarButtonStyle: ButtonStyle {
+struct NavigationBarButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         ToolbarButton(configuration: configuration)
     }

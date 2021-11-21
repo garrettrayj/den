@@ -8,9 +8,6 @@
 
 import SwiftUI
 
-/**
- Indederminate circular ProgressViewStyle for use in icon positions.
- */
 struct IconProgressStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         let view = ProgressView(configuration).progressViewStyle(CircularProgressViewStyle())

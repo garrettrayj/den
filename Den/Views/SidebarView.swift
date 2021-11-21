@@ -98,7 +98,7 @@ struct SidebarView: View {
                 } label: {
                     Text("Edit").lineLimit(1)
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(NavigationBarButtonStyle())
             }
 
             #if targetEnvironment(macCatalyst)
@@ -106,7 +106,7 @@ struct SidebarView: View {
                 Button(action: refreshAll) {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
             }
             #endif
@@ -133,7 +133,7 @@ struct SidebarView: View {
                 Button(action: refreshAll) {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
                 #endif
             }.hidden()
@@ -154,13 +154,13 @@ struct SidebarView: View {
                     editMode?.wrappedValue = .inactive
                 } label: {
                     Text("Done").lineLimit(1)
-                }.buttonStyle(ToolbarButtonStyle())
+                }.buttonStyle(NavigationBarButtonStyle())
             }
 
             ToolbarItem(placement: .bottomBar) {
                 Button(action: createPage) {
                     Label("New Page", systemImage: "plus.circle").labelStyle(.titleAndIcon)
-                }.buttonStyle(ToolbarButtonStyle())
+                }.buttonStyle(NavigationBarButtonStyle())
             }
         }
     }
@@ -180,7 +180,7 @@ struct SidebarView: View {
                     activeNav = "settings"
                 } label: {
                     Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
-                }.buttonStyle(ToolbarButtonStyle())
+                }.buttonStyle(NavigationBarButtonStyle())
             }
         }
     }

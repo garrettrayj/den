@@ -1,5 +1,5 @@
 //
-//  ToolbarProgressStyle.swift
+//  NavigationBarProgressStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/11/21.
@@ -11,7 +11,7 @@ import SwiftUI
 /**
  Indederminate circular ProgressViewStyle for use in place of toolbar buttons.
  */
-struct ToolbarProgressStyle: ProgressViewStyle {
+struct NavigationBarProgressStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         let view = ProgressView(configuration).progressViewStyle(CircularProgressViewStyle())
 

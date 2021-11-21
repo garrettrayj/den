@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SingleAxisGeometryReader<Content: View>: View {
+struct AxisGeometryReader<Content: View>: View {
     private struct SizeKey: PreferenceKey {
         static var defaultValue: CGFloat { 10 }
         static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
