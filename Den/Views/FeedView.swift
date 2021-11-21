@@ -53,7 +53,6 @@ struct FeedView: View {
                     EmptyView()
                 }
                 .keyboardShortcut("r", modifiers: [.command])
-                .hidden()
                 #endif
             }
         )

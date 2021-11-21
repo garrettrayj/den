@@ -54,8 +54,9 @@ struct PageView: View {
 
                 // Hidden button for iOS keyboard shortcut
                 #if !targetEnvironment(macCatalyst)
-                Button(action: refresh) { EmptyView() }
-                    .keyboardShortcut("r", modifiers: [.command])
+                Button(action: refresh) {
+                    EmptyView()
+                }.keyboardShortcut("r", modifiers: [.command])
                 #endif
             }
         )
@@ -125,10 +126,7 @@ struct PageView: View {
             }
         } label: {
             Label("Page Menu", systemImage: "ellipsis")
-                .frame(height: 44)
-                .padding(.horizontal, 12)
-                .background(Color.clear)
-        }
+        }.buttonStyle(NavigationBarButtonStyle())
     }
 
     private var fullToolbar: some View {
