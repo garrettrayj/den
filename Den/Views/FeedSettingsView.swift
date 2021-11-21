@@ -55,12 +55,16 @@ struct FeedSettingsView: View {
     }
 
     private var titleSection: some View {
-        Section(header: Text("Title").modifier(SectionHeaderModifier())) {
-            TextField("Title", text: $feed.wrappedTitle).lineLimit(1).modifier(FormRowModifier())
+        Section(header: Text("Title and Page").modifier(SectionHeaderModifier())) {
+            TextField("Title", text: $feed.wrappedTitle)
+                .modifier(TitleTextFieldModifier())
+                .modifier(FormRowModifier())
+
+            pagePicker
         }
     }
 
-    private var configurationSection: some View {
+    private var pagePicker: some View {
         let pagePickerSelection = Binding<String?>(
             get: {
                 return feed.page?.id?.uuidString
@@ -78,33 +82,39 @@ struct FeedSettingsView: View {
             }
         )
 
-        return Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Label("Page", systemImage: "square.grid.2x2")
-                Spacer()
-                Picker("", selection: pagePickerSelection) {
-                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                        Text(page.wrappedName).tag(page.id?.uuidString)
-                    }
+        #if targetEnvironment(macCatalyst)
+        return HStack {
+            Label("Page", systemImage: "square.grid.2x2")
+            Spacer()
+            Picker("", selection: pagePickerSelection) {
+                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                    Text(page.wrappedName).tag(page.id?.uuidString)
                 }
-                .frame(maxWidth: 200)
-            }.modifier(FormRowModifier())
+            }
+            .frame(maxWidth: 200)
+        }.modifier(FormRowModifier())
+        #else
+        return Picker(
+            selection: pagePickerSelection,
+            label: Label("Page", systemImage: "square.grid.2x2"),
+            content: {
+                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                    Text(page.wrappedName).tag(page.id?.uuidString)
+                }
+            }
+        )
+        #endif
+    }
+
+    private var configurationSection: some View {
+        Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
+            #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Show Thumbnails", systemImage: "photo")
                 Spacer()
                 Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
             }.modifier(FormRowModifier())
             #else
-            Picker(
-                selection: pagePickerSelection,
-                label: Label("Page", systemImage: "square.grid.2x2"),
-                content: {
-                    ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                        Text(page.wrappedName).tag(page.id?.uuidString)
-                    }
-                }
-            )
             Toggle(isOn: $feed.showThumbnails) {
                 Label("Show Thumbnails", systemImage: "photo")
             }
@@ -118,14 +128,7 @@ struct FeedSettingsView: View {
     private var info: some View {
         Section(header: Text("Info").modifier(SectionHeaderModifier())) {
             HStack {
-                Label {
-                    Text("RSS URL").lineLimit(1)
-                } icon: {
-                    Image(uiImage: UIImage(named: "RSSIcon")!)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 14, height: 14, alignment: .center)
-                }
+                Label("RSS URL", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
                 Spacer()
                 Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                 Button(action: copyUrl) {

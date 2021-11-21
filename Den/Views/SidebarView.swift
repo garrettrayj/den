@@ -83,6 +83,7 @@ struct SidebarView: View {
                 SidebarPageView(page: page)
             }
         }
+        .listStyle(SidebarListStyle())
         .searchable(
             text: $searchViewModel.searchText,
             placement: .navigationBarDrawer(displayMode: .always),

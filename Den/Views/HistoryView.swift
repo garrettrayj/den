@@ -55,11 +55,7 @@ struct HistoryView: View {
     private func resultsSection(resultGroup: [History]) -> some View {
         Section(
             header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.longNone)")
-                .font(.title3)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 4)
-                .padding(.horizontal, 20)
-                .background(Color(UIColor.secondarySystemBackground))
+                .modifier(PinnedSectionHeaderModifier())
         ) {
             VStack(spacing: 0) {
                 ForEach(resultGroup) { result in

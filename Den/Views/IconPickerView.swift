@@ -16,22 +16,22 @@ struct IconPickerView: View {
     var symbols: [String: [String]] =  [:]
 
     let categories: [[String]] = [
-        ["miscellaneous", "square.grid.2x2"],
-        ["communication", "bubble.left"],
-        ["weather", "cloud.sun"],
-        ["objectsandtools", "folder"],
-        ["devices", "desktopcomputer"],
-        ["connectivity", "antenna.radiowaves.left.and.right"],
-        ["transportation", "car"],
-        ["human", "person.crop.circle"],
-        ["nature", "leaf"],
-        ["editing", "slider.horizontal.3"],
-        ["commerce", "cart"],
-        ["time", "timer"],
-        ["health", "heart"],
-        ["shapes", "square.on.circle"],
-        ["arrows", "arrow.right"],
-        ["math", "x.squareroot"]
+        ["uncategorized", "square.grid.2x2", "Uncategorized"],
+        ["communication", "bubble.left", "Communication"],
+        ["weather", "cloud.sun", "Weather"],
+        ["objectsandtools", "folder", "Objects and Tools"],
+        ["devices", "desktopcomputer", "Devices"],
+        ["connectivity", "antenna.radiowaves.left.and.right", "Connectivity"],
+        ["transportation", "car", "Transporation"],
+        ["human", "person.crop.circle", "Human"],
+        ["nature", "leaf", "Nature"],
+        ["editing", "slider.horizontal.3", "Editing"],
+        ["commerce", "cart", "Commerce"],
+        ["time", "timer", "Time"],
+        ["health", "heart", "Health"],
+        ["shapes", "square.on.circle", "Shapes"],
+        ["arrows", "arrow.right", "Arrows"],
+        ["math", "x.squareroot", "Math"]
     ]
 
     let columns = [
@@ -40,12 +40,18 @@ struct IconPickerView: View {
 
     var body: some View {
         NavigationView {
-            Form {
-                ForEach(categories, id: \.self) { category in
-                    Section(header: Text(category[0]).modifier(SectionHeaderModifier())) {
-                        symbolGrid(category: category[0]).listRowInsets(EdgeInsets())
+            ScrollView {
+                LazyVGrid(columns: columns, pinnedViews: .sectionHeaders) {
+                    ForEach(categories, id: \.self) { category in
+                        Section(
+                            header: Label(category[2], systemImage: category[1])
+                                .modifier(PinnedSectionHeaderModifier())
+                        ) {
+                            symbolGrid(category: category[0])
+                        }
                     }
-                }
+                }.padding(.bottom)
+
             }
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .navigationTitle("Select Icon")
@@ -60,36 +66,33 @@ struct IconPickerView: View {
                 }
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
     }
 
     private func symbolGrid(category: String) -> some View {
-        LazyVGrid(columns: columns) {
-            ForEach(symbols.keys.sorted(), id: \.self) { key in
-                if symbols[key]!.contains(category) {
+        ForEach(symbols.keys.sorted(), id: \.self) { key in
+            if symbols[key]!.contains(category) {
 
-                    Image(systemName: key)
-                        .imageScale(.medium)
-                        .foregroundColor(key == selectedSymbol ? .accentColor : .primary)
-                        .frame(width: 32, height: 32, alignment: .center)
-                        .background(
-                            RoundedRectangle(cornerRadius: 4).fill(Color(UIColor.systemBackground))
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 4)
-                                .strokeBorder(
-                                    Color.accentColor,
-                                    lineWidth: key == selectedSymbol ? 2 : 0
-                                )
-                        )
-                        .onTapGesture {
-                            selectedSymbol = key
-                        }
+                Image(systemName: key)
+                    .imageScale(.medium)
+                    .foregroundColor(key == selectedSymbol ? .accentColor : .primary)
+                    .frame(width: 32, height: 32, alignment: .center)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4).fill(Color(UIColor.systemBackground))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .strokeBorder(
+                                Color.accentColor,
+                                lineWidth: key == selectedSymbol ? 2 : 0
+                            )
+                    )
+                    .onTapGesture {
+                        selectedSymbol = key
+                    }
 
-                }
             }
         }
-        .padding(.vertical)
     }
 
     init(selectedSymbol: Binding<String>) {
