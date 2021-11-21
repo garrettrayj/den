@@ -15,8 +15,8 @@ struct PageView: View {
 
     @ObservedObject var page: Page
 
-    @State var showingSettings: Bool = false
     @Binding var refreshing: Bool
+    @State var showingSettings: Bool = false
 
     let columns = [GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)]
 
@@ -49,12 +49,12 @@ struct PageView: View {
                     destination: PageSettingsView(page: page),
                     isActive: $showingSettings
                 ) {
-                    Text("Show Settings")
+                    EmptyView()
                 }
 
                 // Hidden button for iOS keyboard shortcut
                 #if !targetEnvironment(macCatalyst)
-                Button(action: refresh, label: { Text("Refresh") })
+                Button(action: refresh, label: { EmptyView() })
                     .keyboardShortcut("r", modifiers: [.command])
                 #endif
             }
@@ -144,14 +144,14 @@ struct PageView: View {
             #if targetEnvironment(macCatalyst)
             Button(action: refresh) {
                 if refreshing {
-                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                    ProgressView().progressViewStyle(NavigationBarProgressStyle())
                 } else {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
             }.keyboardShortcut("r", modifiers: [.command])
             #endif
         }
-        .buttonStyle(ToolbarButtonStyle())
+        .buttonStyle(NavigationBarButtonStyle())
     }
 
     private func refresh() {

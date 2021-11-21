@@ -16,10 +16,7 @@ struct SidebarPageView: View {
 
     var body: some View {
         if page.id != nil {
-            NavigationLink(
-                tag: page.id!.uuidString,
-                selection: $activeNav
-            ) {
+            NavigationLink {
                 PageView(page: page, refreshing: $refreshing)
             } label: {
                 rowLabel

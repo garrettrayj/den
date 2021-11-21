@@ -38,19 +38,19 @@ struct FeedView: View {
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
         .background(
             Group {
-                // Hidden button for iOS keyboard shortcuts
-                #if !targetEnvironment(macCatalyst)
-                Button(action: { refreshManager.refresh(feed: feed) }, label: { Text("Refresh") })
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .hidden()
-                #endif
-
                 NavigationLink(
                     destination: FeedSettingsView(feed: feed),
                     isActive: $showingSettings
                 ) {
                     EmptyView()
                 }
+
+                // Hidden button for iOS keyboard shortcuts
+                #if !targetEnvironment(macCatalyst)
+                Button(action: { refreshManager.refresh(feed: feed) }, label: { Text("Refresh") })
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .hidden()
+                #endif
             }
         )
         .navigationTitle(feed.wrappedTitle)
@@ -61,7 +61,7 @@ struct FeedView: View {
                 } label: {
                     Label("Feed Settings", systemImage: "wrench")
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(NavigationBarButtonStyle())
                 .disabled(refreshing)
             }
 
@@ -71,12 +71,12 @@ struct FeedView: View {
                     refreshManager.refresh(feed: feed)
                 } label: {
                     if refreshing {
-                        ProgressView().progressViewStyle(ToolbarProgressStyle())
+                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
                     } else {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
                 .disabled(refreshing)
             }

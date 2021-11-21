@@ -18,8 +18,6 @@ struct PageSettingsView: View {
     @State var showingIconPicker: Bool = false
     @State var showingDeleteAlert: Bool = false
 
-    @State var itemsPerFeedStepperValue: Int = 0
-
     var body: some View {
         Form {
             nameIconSection
@@ -38,7 +36,7 @@ struct PageSettingsView: View {
                 } label: {
                     Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(NavigationBarButtonStyle())
                 .alert(
                     "Delete \(page.displayName)?",
                     isPresented: $showingDeleteAlert,
@@ -77,7 +75,7 @@ struct PageSettingsView: View {
                 }
                 .onTapGesture { showingIconPicker = true }
                 .sheet(isPresented: $showingIconPicker) {
-                    IconPickerView(activeIcon: $page.wrappedSymbol)
+                    IconPickerView(selectedSymbol: $page.wrappedSymbol)
                 }
             }.modifier(FormRowModifier())
         }
@@ -85,7 +83,7 @@ struct PageSettingsView: View {
 
     private var configurationSection: some View {
         Section(header: Text("Configuration").modifier(SectionHeaderModifier())) {
-            Stepper(value: $page.wrappedItemsPerFeed, in: 1...Int(Int16.max), step: 1) {
+            Stepper(value: $page.wrappedItemsPerFeed, in: 1...100, step: 1) {
                 Label(
                     "Item Limit: \(page.wrappedItemsPerFeed)",
                     systemImage: "list.bullet.rectangle"

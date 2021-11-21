@@ -72,7 +72,7 @@ struct SecurityCheckView: View {
                     Text("Remedy Insecure URLs")
                     Spacer()
                     if viewModel.remediationInProgress == true {
-                        ActivityRep()
+                        ProgressView().progressViewStyle(IconProgressStyle())
                     }
                 }
             }

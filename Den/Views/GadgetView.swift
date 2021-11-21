@@ -63,7 +63,7 @@ struct GadgetView: View {
                 } label: {
                     FeedTitleLabelView(feed: feed)
                 }
-                .buttonStyle(WidgetHeaderButtonStyle())
+                .buttonStyle(GadgetHeaderButtonStyle())
             }
             Spacer()
             if refreshing {

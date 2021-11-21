@@ -74,7 +74,9 @@ final class SecurityCheckViewModel: ObservableObject {
             if checkOp.feedIsValid {
                 feed.url = secureUrl
             } else {
-                self.failedRemediation.append(feed.id)
+                DispatchQueue.main.async {
+                    self.failedRemediation.append(feed.id)
+                }
             }
         }
 

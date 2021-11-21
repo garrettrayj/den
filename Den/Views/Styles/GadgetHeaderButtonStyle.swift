@@ -1,5 +1,5 @@
 //
-//  WidgetHeaderButtonStyle.swift
+//  GadgetHeaderButtonStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct WidgetHeaderButtonStyle: ButtonStyle {
+struct GadgetHeaderButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        WidgetHeaderButton(configuration: configuration)
+        GadgetHeaderButton(configuration: configuration)
     }
 
-    private struct WidgetHeaderButton: View {
+    private struct GadgetHeaderButton: View {
         let configuration: ButtonStyle.Configuration
 
         @Environment(\.isEnabled) private var isEnabled: Bool

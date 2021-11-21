@@ -39,7 +39,7 @@ struct FeedSettingsView: View {
                 } label: {
                     Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(NavigationBarButtonStyle())
                 .alert(
                     "Delete \(feed.wrappedTitle)?",
                     isPresented: $showingDeleteAlert,
@@ -150,7 +150,7 @@ struct FeedSettingsView: View {
         ToolbarItemGroup {
             HStack(spacing: 0) {
 
-            }.buttonStyle(ToolbarButtonStyle())
+            }.buttonStyle(NavigationBarButtonStyle())
         }
     }
 
