@@ -47,7 +47,6 @@ struct SidebarView: View {
                 } else {
                     getStartedList
                 }
-
             }
         }
         .background(
