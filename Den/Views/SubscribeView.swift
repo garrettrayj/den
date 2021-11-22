@@ -58,16 +58,11 @@ struct SubscribeView: View {
                 viewModel.addSubscription()
             }
         } label: {
-            Label(
-                title: { Text("Add to \(viewModel.destinationPage!.wrappedName)") },
-                icon: {
-                    if viewModel.loading {
-                        ProgressView().progressViewStyle(IconProgressStyle())
-                    } else {
-                        Image(systemName: "plus")
-                    }
-                }
-            )
+            if viewModel.loading {
+                ProgressView().progressViewStyle(IconProgressStyle())
+            } else {
+                Text("Add to \(viewModel.destinationPage!.wrappedName)")
+            }
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))

@@ -179,13 +179,12 @@ struct SettingsView: View {
                     .frame(width: 48, height: 48)
                     .cornerRadius(8)
                 Text("Den ")
-                    .font(.custom("Veronica-Script", size: 36, relativeTo: .largeTitle))
+                    .font(.custom("Veronica-Script", size: 32, relativeTo: .largeTitle))
                 Spacer()
-                VStack {
+                VStack(alignment: .trailing) {
                     Text("Version \(Bundle.main.releaseVersionNumber!)")
                     Text("©2021 Garrett Johnson")
                 }.font(.footnote)
-                
 
             }.padding(.vertical, 8)
 
