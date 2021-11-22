@@ -107,7 +107,7 @@ struct FeedSettingsView: View {
     }
 
     private var configurationSection: some View {
-        Section(header: Text("Settings").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Images").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Show Thumbnails", systemImage: "photo")
@@ -161,6 +161,9 @@ struct FeedSettingsView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                feed.feedData?.itemsArray.forEach { item in
+                    item.objectWillChange.send()
+                }
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }

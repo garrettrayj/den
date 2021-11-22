@@ -13,7 +13,7 @@ struct TitleTextFieldModifier: ViewModifier {
         Label {
             content
                 .lineLimit(1)
-                .font(.body.weight(.semibold))
+                .font(.body.weight(.medium))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 4)
         } icon: {

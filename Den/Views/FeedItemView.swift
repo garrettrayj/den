@@ -36,7 +36,7 @@ struct FeedItemView: View {
             }
             .accessibility(identifier: "Item Link")
 
-            if item.previewUIImage != nil {
+            if item.feedData?.feed?.showThumbnails == true && item.previewUIImage != nil {
                 AxisGeometryReader(axis: .horizontal, alignment: .leading) { width in
                     Group {
                         if item.previewUIImage!.size.width < width {
