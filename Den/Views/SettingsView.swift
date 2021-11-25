@@ -36,7 +36,7 @@ struct SettingsView: View {
         Section(header: Text("Appearance").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Theme", systemImage: "paintbrush")
+                Label("Theme", systemImage: "paintbrush").lineLimit(1)
                 Spacer()
                 Picker("", selection: $selectedTheme) {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
@@ -108,7 +108,7 @@ struct SettingsView: View {
         Section(header: Text("History").modifier(SectionHeaderModifier())) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Keep History", systemImage: "clock")
+                Label("Keep History", systemImage: "clock").lineLimit(1)
                 Spacer()
                 Picker("", selection: $historyRentionDays) {
                     Text("Forever").tag(0 as Int)
@@ -178,13 +178,15 @@ struct SettingsView: View {
                     .scaledToFit()
                     .frame(width: 48, height: 48)
                     .cornerRadius(8)
-                Text("Den ")
-                    .font(.custom("Veronica-Script", size: 32, relativeTo: .largeTitle))
+                VStack(alignment: .leading) {
+                    Text("Den ")
+                        .font(.custom("Veronica-Script", size: 24, relativeTo: .title2))
+                    Text("v\(Bundle.main.releaseVersionNumber!)")
+                        .foregroundColor(.secondary)
+                        .font(.footnote)
+                        .padding(.leading, 4)
+                }
                 Spacer()
-                VStack(alignment: .trailing) {
-                    Text("Version \(Bundle.main.releaseVersionNumber!)")
-                    Text("©2021 Garrett Johnson")
-                }.font(.footnote)
 
             }.padding(.vertical, 8)
 
