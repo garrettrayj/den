@@ -40,7 +40,6 @@ Version 1.7.0 adds a view for browsing feed items, fixes iOS 15 and macOS Monter
 - The tab bar has been removed. Search, history, and app settings are now located in the sidebar/home view.
 - Home, page, and feed views can be refreshed by pulling down on iOS.
 - Home and page views can be refreshed with Command+Shift+R and Command+R keyboard shortcuts.
-- Known issue: Bottom of feed gadgets are not aligned.
 
 ### Den v1.6.1
 
