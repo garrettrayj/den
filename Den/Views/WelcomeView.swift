@@ -15,7 +15,7 @@ struct WelcomeView: View {
         VStack(spacing: 12) {
             Spacer()
             Image("TitleIcon").resizable().scaledToFit().frame(width: 100, height: 100)
-            Text("Welcome").font(.largeTitle)
+            Text("Welcome").font(.largeTitle.weight(.semibold))
 
             Group {
                 if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {

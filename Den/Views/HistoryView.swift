@@ -24,7 +24,7 @@ struct HistoryView: View {
                     resultsList
                 } else {
                     if viewModel.query == "" {
-                        Text("No history").modifier(SimpleMessageModifier())
+                        Text("History is empty").modifier(SimpleMessageModifier())
                     } else {
                         Text("No results found").modifier(SimpleMessageModifier())
                     }
@@ -32,7 +32,6 @@ struct HistoryView: View {
             } else {
                 resultsList
             }
-
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
