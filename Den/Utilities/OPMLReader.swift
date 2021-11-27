@@ -43,11 +43,16 @@ final class OPMLReader {
 
     private func parseDocument(xmlDoc: AEXMLDocument) {
         let folders = xmlDoc.root["body"].allDescendants { element in
-            element.attributes["title"] != nil && element.attributes["xmlUrl"] == nil
+            (element.attributes["title"] != nil || element.attributes["text"] != nil)
+            && element.attributes["xmlUrl"] == nil
         }
 
         folders.forEach { folderElement in
-            var opmlFolder = OPMLFolder(name: folderElement.attributes["title"] ?? "Uncategorized")
+            guard
+                let name = folderElement.attributes["title"] ?? folderElement.attributes["text"]
+            else { return }
+
+            var opmlFolder = OPMLFolder(name: name)
             let feeds = folderElement.allDescendants { element in
                 element.attributes["xmlUrl"] != nil
             }
