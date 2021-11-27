@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6808F4422737A5A600AEEDAC /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 6808F4412737A5A600AEEDAC /* Grid */; };
 		6808F4442737B31E00AEEDAC /* IconProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6808F4432737B31E00AEEDAC /* IconProgressStyle.swift */; };
 		6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */; };
 		6809EFCD24DD49C9007B5CF1 /* ParseFeedDataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCC24DD49C9007B5CF1 /* ParseFeedDataOperation.swift */; };
@@ -331,7 +330,6 @@
 				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
-				6808F4422737A5A600AEEDAC /* Grid in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,8 +611,8 @@
 				687C27962634A84600099FCA /* Modifiers */,
 				68B34A5C2486D2710066B215 /* Representables */,
 				688FD91B24780C800006A2DE /* Styles */,
-				68C41315247263C700D1DC7B /* ContentView.swift */,
 				6838BA12275249F800A929F4 /* StaggeredGridView.swift */,
+				68C41315247263C700D1DC7B /* ContentView.swift */,
 				68ADABC224A21F2500BE41E2 /* WelcomeView.swift */,
 				68C413432472761D00D1DC7B /* SidebarView.swift */,
 				685ECB1026EE611000A3B184 /* SidebarPageView.swift */,
@@ -734,7 +732,6 @@
 				6897D52526B91C0100833DDA /* HTMLEntities */,
 				6897D52B26B91C3C00833DDA /* SwiftSoup */,
 				6897D52E26B91C5800833DDA /* FeedKit */,
-				6808F4412737A5A600AEEDAC /* Grid */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -820,7 +817,6 @@
 				6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */,
 				6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */,
-				6808F4402737A5A600AEEDAC /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1464,14 +1460,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6808F4402737A5A600AEEDAC /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/garrettrayj/swiftui-grid.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
@@ -1507,11 +1495,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6808F4412737A5A600AEEDAC /* Grid */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6808F4402737A5A600AEEDAC /* XCRemoteSwiftPackageReference "swiftui-grid" */;
-			productName = Grid;
-		};
 		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */;
