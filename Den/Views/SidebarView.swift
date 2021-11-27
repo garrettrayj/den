@@ -73,16 +73,16 @@ struct SidebarView: View {
                 }.hidden()
             }
         )
-        .listStyle(SidebarListStyle())
-
     }
 
     private var navigationList: some View {
         List {
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                 SidebarPageView(page: page)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 8))
             }
         }
+        .listStyle(.sidebar)
         .searchable(
             text: $searchViewModel.searchText,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -97,7 +97,7 @@ struct SidebarView: View {
                 Button {
                     editingPages = true
                 } label: {
-                    Text("Edit").lineLimit(1)
+                    Label("Edit", systemImage: "slider.horizontal.3").lineLimit(1)
                 }
                 .buttonStyle(NavigationBarButtonStyle())
             }
@@ -139,17 +139,35 @@ struct SidebarView: View {
                 #endif
             }.hidden()
         )
-        .navigationTitle("Den")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private var editingList: some View {
         List {
-            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                Label(page.displayName, systemImage: page.wrappedSymbol).lineLimit(1)
+            Section(
+                header: HStack {
+                    Text("\(profileManager.activeProfile?.pagesArray.count ?? 0) Pages")
+                    Spacer()
+                    Text("Drag to Reorder")
+                }.modifier(SectionHeaderModifier())
+            ) {
+                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                    Text(page.displayName)
+                        #if targetEnvironment(macCatalyst)
+                        .font(.title3)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 8))
+                        #endif
+                }
+                .onMove(perform: movePage)
+                .onDelete(perform: deletePage)
             }
-            .onMove(perform: movePage)
-            .onDelete(perform: deletePage)
         }
+        #if targetEnvironment(macCatalyst)
+        .listStyle(.grouped)
+        .padding(.top, 10)
+        #else
+        .listStyle(.insetGrouped)
+        #endif
         .environment(\.editMode, .constant(.active))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -170,13 +188,18 @@ struct SidebarView: View {
 
     private var getStartedList: some View {
         List {
-            Button(action: createPage) {
-                Label("Create a New Page", systemImage: "plus")
+            Section {
+                Button(action: createPage) {
+                    Label("Create a New Page", systemImage: "plus")
+                }
+                Button(action: loadDemo) {
+                    Label("Load Demo Feeds", systemImage: "wand.and.stars")
+                }
             }
-            Button(action: loadDemo) {
-                Label("Load Demo Feeds", systemImage: "wand.and.stars")
-            }
+            .listRowInsets(EdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 4))
+            .font(.title3)
         }
+        .listStyle(.inset)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
@@ -186,7 +209,8 @@ struct SidebarView: View {
                 }.buttonStyle(NavigationBarButtonStyle())
             }
         }
-        .navigationTitle("Get Started")
+        .navigationTitle("Start")
+        .navigationBarTitleDisplayMode(.large)
     }
 
     private func refreshAll() {

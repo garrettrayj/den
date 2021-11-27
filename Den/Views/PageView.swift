@@ -61,6 +61,7 @@ struct PageView: View {
             }
         )
         .navigationTitle(page.displayName)
+        .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbar }
         .onAppear {
             subscribeManager.currentPageId = page.id?.uuidString

@@ -34,7 +34,11 @@ struct SidebarPageView: View {
         Label(
             title: {
                 HStack {
-                    Text(page.displayName).lineLimit(1)
+                    Text(page.displayName)
+                        #if targetEnvironment(macCatalyst)
+                        .font(.title3)
+                        .padding(.leading, 4)
+                        #endif
                     Spacer()
                     if refreshing {
                         ProgressView().progressViewStyle(IconProgressStyle())
@@ -61,5 +65,6 @@ struct SidebarPageView: View {
                 Image(systemName: page.wrappedSymbol)
             }
         )
+        .lineLimit(1)
     }
 }
