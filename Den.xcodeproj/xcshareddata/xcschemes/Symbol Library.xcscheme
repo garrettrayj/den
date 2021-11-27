@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6813FD072748DE1100EC88A5"
-               BuildableName = "DenSymbolCollection"
+               BuildableName = "SymbolLibrary"
                BlueprintName = "SymbolLibrary"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6813FD072748DE1100EC88A5"
-            BuildableName = "DenSymbolCollection"
+            BuildableName = "SymbolLibrary"
             BlueprintName = "SymbolLibrary"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6813FD072748DE1100EC88A5"
-            BuildableName = "DenSymbolCollection"
+            BuildableName = "SymbolLibrary"
             BlueprintName = "SymbolLibrary"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
