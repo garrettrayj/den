@@ -18,8 +18,6 @@ struct PageView: View {
     @Binding var refreshing: Bool
     @State var showingSettings: Bool = false
 
-    let columns = [GridItem(.adaptive(minimum: 300, maximum: 400), spacing: 16, alignment: .top)]
-
     var body: some View {
         Group {
             if page.managedObjectContext == nil {
@@ -76,14 +74,9 @@ struct PageView: View {
     }
 
     private var widgetGrid: some View {
-        LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(page.feedsArray) { feed in
-                GadgetView(feed: feed, refreshing: refreshing)
-            }
-        }
-        .padding(.horizontal)
-        .padding(.top, 8)
-        .padding(.bottom, 64)
+        StaggeredGridView(list: page.feedsArray, content: { feed in
+            GadgetView(feed: feed, refreshing: refreshing)
+        })
     }
 
     private var pageEmpty: some View {
