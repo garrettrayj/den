@@ -9,9 +9,27 @@
 import CoreData
 import Combine
 
+class SearchResultGroup: Identifiable, Equatable, Hashable {
+    var id: UUID
+    var items: [Item]
+
+    init(id: UUID, items: [Item]) {
+        self.id = id
+        self.items = items
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: SearchResultGroup, rhs: SearchResultGroup) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 final class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var results: [[Item]] = []
+    @Published var results: [SearchResultGroup] = []
     @Published var queryIsValid: Bool?
     @Published var validationMessage: String?
 
@@ -68,7 +86,7 @@ final class SearchViewModel: ObservableObject {
                 }
             }
 
-            results = Dictionary(grouping: compactedFetchResults) { item in
+            let groupedResults = Dictionary(grouping: compactedFetchResults) { item in
                 item.feedData!
             }.values.sorted { aItem, bItem in
                 guard
@@ -79,6 +97,12 @@ final class SearchViewModel: ObservableObject {
                 }
 
                 return aTitle < bTitle
+            }
+
+            groupedResults.forEach { items in
+                guard let id = items.first?.feedData?.feed?.id else { return }
+
+                results.append(SearchResultGroup(id: id, items: items))
             }
         } catch {
             crashManager.handleCriticalError(error as NSError)

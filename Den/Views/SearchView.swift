@@ -9,8 +9,6 @@
 import CoreData
 import SwiftUI
 
-import Grid
-
 struct SearchView: View {
     @ObservedObject var viewModel: SearchViewModel
 
@@ -21,13 +19,9 @@ struct SearchView: View {
                     .modifier(SimpleMessageModifier())
             } else if viewModel.queryIsValid == true {
                 if viewModel.results.count > 0 {
-                    Grid(viewModel.results, id: \.self) { sectionItems in
-                        SearchResultView(items: sectionItems)
-                    }
-                    .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
-                    .padding(.top, 8)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 64)
+                    StaggeredGridView(list: viewModel.results, content: { resultGroup in
+                        SearchResultView(items: resultGroup.items)
+                    })
                 } else {
                     Text("No results found").modifier(SimpleMessageModifier())
                 }

@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import Grid
-
 struct FeedView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var refreshManager: RefreshManager
@@ -132,13 +130,9 @@ struct FeedView: View {
             if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
                 feedHeader
 
-                Grid(feed.feedData!.itemsArray, id: \.self) { item in
+                StaggeredGridView(list: feed.feedData!.itemsArray, content: { item in
                     FeedItemView(item: item)
-                }
-                .gridStyle(StaggeredGridStyle(.vertical, tracks: Tracks.min(300), spacing: 16))
-                .padding(.top, 8)
-                .padding(.horizontal, 16)
-                .padding(.bottom, 64)
+                })
             } else {
                 if feed.feedData == nil {
                     #if targetEnvironment(macCatalyst)
