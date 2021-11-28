@@ -73,8 +73,8 @@ struct GadgetView: View {
     }
 
     private var feedItems: some View {
-        VStack(spacing: 0) {
-            ForEach(feed.feedData!.itemsArray.prefix(feed.page?.wrappedItemsPerFeed ?? 5)) { item in
+        return VStack(spacing: 0) {
+            ForEach(feed.feedData!.itemsArray.prefix(feed.wrappedPreviewLimit)) { item in
                 Group {
                     Divider()
                     GadgetItemView(

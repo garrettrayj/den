@@ -33,7 +33,7 @@ public class Page: NSManagedObject {
         feedsArray.reduce(0) { (result, feed) -> Int in
             if let feedData = feed.feedData {
                 return result + feedData.itemsArray
-                    .prefix(wrappedItemsPerFeed)
+                    .prefix(feed.wrappedPreviewLimit)
                     .filter { item in item.read == false }.count
             }
 

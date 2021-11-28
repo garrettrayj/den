@@ -54,7 +54,7 @@ final class RefreshPlan {
         }
 
         let itemLimit = 100
-        let imageLimit = feed.page?.wrappedItemsPerFeed ?? 0
+        let imageLimit = feed.wrappedPreviewLimit
 
         let existingItemLinks = feedData.itemsArray.map({ item in
             return item.link!

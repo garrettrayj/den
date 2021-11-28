@@ -36,7 +36,7 @@ struct SidebarPageView: View {
                 HStack {
                     Text(page.displayName)
                         #if targetEnvironment(macCatalyst)
-                        .font(.title3)
+                        .padding(.vertical, 8)
                         .padding(.leading, 4)
                         #endif
                     Spacer()
@@ -47,13 +47,8 @@ struct SidebarPageView: View {
                             .lineLimit(1)
                             .font(.caption.weight(.medium))
                             .foregroundColor(Color(UIColor.secondaryLabel))
-                            #if targetEnvironment(macCatalyst)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            #else
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
-                            #endif
                             .background(
                                 Capsule().fill(Color(UIColor.secondarySystemFill))
                             )
@@ -66,5 +61,9 @@ struct SidebarPageView: View {
             }
         )
         .lineLimit(1)
+        #if targetEnvironment(macCatalyst)
+        .font(.title3)
+        .padding(.horizontal, 8)
+        #endif
     }
 }

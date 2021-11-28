@@ -20,9 +20,9 @@ struct AccentButtonStyle: ButtonStyle {
         var body: some View {
 
             configuration.label
-                .font(.system(size: 16).weight(.medium))
-                .padding(.vertical, 10)
-                .padding(.horizontal, 12)
+                .font(.title3)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
                 .background(
                     configuration.isPressed ?
                         Color.accentColor.brightness(-0.1) :

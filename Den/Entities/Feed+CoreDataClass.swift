@@ -10,6 +10,44 @@ import CoreData
 
 @objc(Feed)
 public class Feed: NSManagedObject {
+    public var wrappedTitle: String {
+        get {title ?? "Untitled"}
+        set {title = newValue}
+    }
+
+    public var wrappedItemLimit: Int {
+        get {
+            if itemLimit == 0 {
+                // Get default from page
+                itemLimit = 20
+            }
+            return Int(itemLimit)
+        }
+        set {
+            itemLimit = Int16(newValue)
+            if previewLimit > itemLimit {
+                previewLimit = itemLimit
+            }
+        }
+    }
+
+    public var wrappedPreviewLimit: Int {
+        get {
+            if previewLimit == 0 {
+                // Get default from page
+                previewLimit = Int16(page?.wrappedItemsPerFeed ?? 6)
+            }
+            return Int(previewLimit)
+        }
+        set {
+            previewLimit = Int16(newValue)
+            if previewLimit >= itemLimit {
+                itemLimit = previewLimit
+            }
+
+        }
+    }
+
     public var feedData: FeedData? {
         let values = value(forKey: "feedData") as? [FeedData]
 
@@ -33,11 +71,6 @@ public class Feed: NSManagedObject {
         return "lock.slash"
     }
 
-    public var wrappedTitle: String {
-        get {title ?? "Untitled"}
-        set {title = newValue}
-    }
-
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         page: Page,
@@ -49,6 +82,8 @@ public class Feed: NSManagedObject {
         feed.page = page
         feed.url = url
         feed.showThumbnails = true
+        feed.itemLimit = 20
+        feed.previewLimit = 6
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1
