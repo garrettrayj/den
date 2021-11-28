@@ -20,12 +20,13 @@ struct StaggeredGridView<Content: View, T: Identifiable>: View where T: Hashable
                     // For Optimized Using LazyStack...
                     LazyVStack(spacing: spacing) {
                         ForEach(columnObjects) { object in
-                            content(object).frame(minWidth: 200, maxWidth: 400)
+                            content(object)
+                                .frame(minWidth: 280, idealWidth: 350, maxWidth: 420)
                         }
                     }
                 }
             }
-            .frame(minWidth: 272)
+            .frame(minWidth: 240)
             .padding(.horizontal)
             .padding(.top, 8)
             .padding(.bottom, 64)
@@ -65,11 +66,11 @@ struct StaggeredGridView<Content: View, T: Identifiable>: View where T: Hashable
             return 4
         }
 
-        if width > 800 {
+        if width > 908 {
             return 3
         }
 
-        if width > 500 {
+        if width > 612 {
             return 2
         }
 

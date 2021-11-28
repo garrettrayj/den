@@ -59,9 +59,10 @@ struct HistoryView: View {
             VStack(spacing: 0) {
                 ForEach(resultGroup) { result in
                     if result.title != nil && result.link != nil {
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading, spacing: 2) {
                             Button { linkManager.openLink(url: result.link) } label: {
                                 Text(result.title!)
+                                    .font(.title3)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(Color(UIColor.systemPurple))
                             }
@@ -71,7 +72,8 @@ struct HistoryView: View {
                                 .lineLimit(1)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(12)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 10)
 
                         if resultGroup.last != result {
                             Divider()
@@ -79,9 +81,8 @@ struct HistoryView: View {
                     }
                 }
             }
-            .background(RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground)))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
+            .background(RoundedRectangle(cornerRadius: 4).fill(Color(.systemBackground)))
+            .padding()
         }
     }
 }

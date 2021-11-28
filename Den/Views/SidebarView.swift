@@ -79,7 +79,9 @@ struct SidebarView: View {
         List {
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                 SidebarPageView(page: page)
-                    .listRowInsets(EdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 8))
+                    #if targetEnvironment(macCatalyst)
+                    .listRowInsets(EdgeInsets())
+                    #endif
             }
         }
         .listStyle(.sidebar)
@@ -153,9 +155,12 @@ struct SidebarView: View {
             ) {
                 ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                     Text(page.displayName)
+                        .lineLimit(1)
                         #if targetEnvironment(macCatalyst)
                         .font(.title3)
-                        .listRowInsets(EdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 8))
+                        .padding(.vertical, 8)
+                        .padding(.leading, 6)
+                        .listRowInsets(EdgeInsets())
                         #endif
                 }
                 .onMove(perform: movePage)

@@ -22,7 +22,6 @@ struct PageSettingsView: View {
     var body: some View {
         Form {
             nameIconSection
-            gadgetsSection
 
             if page.feedsArray.count > 0 {
                 feedsSection
@@ -80,17 +79,6 @@ struct PageSettingsView: View {
                     IconPickerView(selectedSymbol: $page.wrappedSymbol)
                         .environment(\.colorScheme, colorScheme)
                 }
-            }.modifier(FormRowModifier())
-        }
-    }
-
-    private var gadgetsSection: some View {
-        Section(header: Text("Gadgets").modifier(SectionHeaderModifier())) {
-            Stepper(value: $page.wrappedItemsPerFeed, in: 1...100, step: 1) {
-                Label(
-                    "Item Limit: \(page.wrappedItemsPerFeed)",
-                    systemImage: "list.bullet.rectangle"
-                )
             }.modifier(FormRowModifier())
         }
     }

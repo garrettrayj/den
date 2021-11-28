@@ -32,7 +32,7 @@ struct ImportView: View {
     private var pickFileStage: some View {
         VStack(alignment: .center) {
             Button(action: importViewModel.pickFile) {
-                Text("Select OPML File")
+                Label("Select OPML file", systemImage: "filemenu.and.selection")
             }.buttonStyle(AccentButtonStyle())
         }
         .modifier(SimpleMessageModifier())
