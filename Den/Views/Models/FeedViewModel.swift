@@ -13,20 +13,20 @@ final class FeedViewModel: ObservableObject {
     @Published var feed: Feed
     @Published var refreshing: Bool
 
-    var feedQueuedSubscriber: AnyCancellable?
-    var feedRefreshedSubscriber: AnyCancellable?
+    var queuedSubscriber: AnyCancellable?
+    var refreshedSubscriber: AnyCancellable?
 
     init(feed: Feed, refreshing: Bool) {
         self.feed = feed
         self.refreshing = refreshing
 
-        self.feedQueuedSubscriber = NotificationCenter.default
+        self.queuedSubscriber = NotificationCenter.default
             .publisher(for: .feedQueued, object: feed.objectID)
             .receive(on: RunLoop.main)
             .map { _ in true }
             .assign(to: \.refreshing, on: self)
 
-        self.feedRefreshedSubscriber = NotificationCenter.default
+        self.refreshedSubscriber = NotificationCenter.default
             .publisher(for: .feedRefreshed, object: feed.objectID)
             .receive(on: RunLoop.main)
             .map { _ in false }
@@ -34,8 +34,8 @@ final class FeedViewModel: ObservableObject {
     }
 
     deinit {
-        feedQueuedSubscriber?.cancel()
-        feedRefreshedSubscriber?.cancel()
+        queuedSubscriber?.cancel()
+        refreshedSubscriber?.cancel()
     }
 }
 

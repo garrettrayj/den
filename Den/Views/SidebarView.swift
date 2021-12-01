@@ -108,7 +108,11 @@ struct SidebarView: View {
             #if targetEnvironment(macCatalyst)
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: refreshAll) {
-                    Label("Refresh", systemImage: "arrow.clockwise")
+                    if profileViewModel.refreshing {
+                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                    } else {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
                 }
                 .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
@@ -219,9 +223,7 @@ struct SidebarView: View {
     }
 
     private func refreshAll() {
-        refreshManager.refresh(
-            pages: profileViewModel.profile.pagesArray
-        )
+        refreshManager.refresh(profile: profileViewModel.profile)
     }
 
     private func showSearch() {
