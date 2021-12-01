@@ -12,12 +12,10 @@ struct PinnedSectionHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         VStack(spacing: 0) {
             content
-                .font(.title3)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 8)
+                .frame(height: 36)
                 .padding(.horizontal, 20)
                 .background(Color(UIColor.tertiarySystemGroupedBackground))
-
             Divider()
         }
 

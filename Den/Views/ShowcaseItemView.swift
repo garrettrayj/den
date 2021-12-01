@@ -1,14 +1,14 @@
 //
-//  FeedItemView.swift
+//  ShowcaseItemView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/10/21.
+//  Created by Garrett Johnson on 11/28/21.
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct FeedItemView: View {
+struct ShowcaseItemView: View {
     @EnvironmentObject var linkManager: LinkManager
     @ObservedObject var item: Item
 
@@ -28,7 +28,7 @@ struct FeedItemView: View {
                 )
             } label: {
                 Text(item.wrappedTitle)
-                    .font(.title2)
+                    .font(.headline)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -65,7 +65,7 @@ struct FeedItemView: View {
             }
 
             if item.summary != nil {
-                Text(item.summary!).lineLimit(10)
+                Text(item.summary!).lineLimit(4)
             }
         }
         .buttonStyle(ItemButtonStyle(read: item.read))

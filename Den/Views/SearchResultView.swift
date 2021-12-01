@@ -39,7 +39,6 @@ struct SearchResultView: View {
                 .drawingGroup()
             }
         }
-        .background(Color(.systemBackground))
-        .cornerRadius(8)
+        .modifier(GroupBlockModifier())
     }
 }

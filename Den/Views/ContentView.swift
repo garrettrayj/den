@@ -34,14 +34,12 @@ struct ContentView: View {
     private var navigationView: some View {
         NavigationView {
             SidebarView(
-                searchViewModel: SearchViewModel(
-                    viewContext: viewContext,
-                    crashManager: crashManager
-                )
+                profileViewModel: ProfileViewModel(profile: profileManager.activeProfile!),
+                searchViewModel: SearchViewModel(viewContext: viewContext, crashManager: crashManager)
             )
 
             // Default view for detail area
-            WelcomeView()
+            WelcomeView(profileIsEmpty: profileManager.activeProfile?.pagesArray.count ?? 0 == 0)
         }
         .modifier(MacButtonStyleModifier())
         .sheet(isPresented: $subscribeManager.showingAddSubscription) {

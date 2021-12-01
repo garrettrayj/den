@@ -9,23 +9,14 @@
 import SwiftUI
 
 struct SidebarPageView: View {
-    @ObservedObject var page: Page
-    @State var refreshing: Bool = false
+    @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
-        if page.id != nil {
+        if viewModel.page.id != nil {
             NavigationLink {
-                PageView(page: page, refreshing: $refreshing)
+                PageView(viewModel: viewModel)
             } label: {
                 rowLabel
-            }.onReceive(
-                NotificationCenter.default.publisher(for: .pageQueued, object: page.objectID)
-            ) { _ in
-                refreshing = true
-            }.onReceive(
-                NotificationCenter.default.publisher(for: .pageRefreshed, object: page.objectID)
-            ) { _ in
-                refreshing = false
             }
         }
     }
@@ -34,16 +25,16 @@ struct SidebarPageView: View {
         Label(
             title: {
                 HStack {
-                    Text(page.displayName)
+                    Text(viewModel.page.displayName)
                         #if targetEnvironment(macCatalyst)
                         .padding(.vertical, 8)
                         .padding(.leading, 4)
                         #endif
                     Spacer()
-                    if refreshing {
+                    if viewModel.refreshing {
                         ProgressView().progressViewStyle(IconProgressStyle())
                     } else {
-                        Text(String(page.unreadCount))
+                        Text(String(viewModel.page.unreadCount))
                             .lineLimit(1)
                             .font(.caption.weight(.medium))
                             .foregroundColor(Color(UIColor.secondaryLabel))
@@ -57,7 +48,7 @@ struct SidebarPageView: View {
                 }
             },
             icon: {
-                Image(systemName: page.wrappedSymbol)
+                Image(systemName: viewModel.page.wrappedSymbol)
             }
         )
         .lineLimit(1)

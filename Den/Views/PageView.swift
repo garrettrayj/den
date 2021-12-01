@@ -8,43 +8,58 @@
 
 import SwiftUI
 
+enum PageViewMode: Int {
+    case gadgets = 0
+    case showcase = 1
+}
+
 struct PageView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscribeManager: SubscribeManager
 
-    @ObservedObject var page: Page
+    @ObservedObject var viewModel: PageViewModel
 
-    @Binding var refreshing: Bool
     @State var showingSettings: Bool = false
+
+    @AppStorage("pageViewModel_na") var viewMode = PageViewMode.gadgets.rawValue
+
+    init(viewModel: PageViewModel) {
+        self.viewModel = viewModel
+
+        _viewMode = AppStorage(
+            wrappedValue: PageViewMode.gadgets.rawValue,
+            "pageViewModel_\(viewModel.page.id?.uuidString ?? "na")"
+        )
+    }
 
     var body: some View {
         Group {
-            if page.managedObjectContext == nil {
+            if viewModel.page.managedObjectContext == nil {
                 pageRemoved
-            } else if page.feedsArray.count == 0 {
+            } else if viewModel.page.feedsArray.count == 0 {
                 pageEmpty
             } else {
                 #if targetEnvironment(macCatalyst)
-                ScrollView {
-                    widgetGrid
+                ScrollView(.vertical, showsIndicators: false) {
+                    pageContent
                 }
                 #else
                 RefreshableScrollView(
-                    refreshing: $refreshing,
+                    refreshing: $viewModel.refreshing,
                     onRefresh: { _ in
                         refresh()
                     },
-                    content: { widgetGrid }
+                    content: { pageContent }
                 )
                 #endif
             }
         }
-        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             Group {
                 NavigationLink(
-                    destination: PageSettingsView(page: page),
+                    destination: PageSettingsView(page: viewModel.page),
                     isActive: $showingSettings
                 ) {
                     EmptyView()
@@ -58,14 +73,76 @@ struct PageView: View {
                 #endif
             }
         )
-        .navigationTitle(page.displayName)
+        .navigationTitle(viewModel.page.displayName)
         .navigationBarTitleDisplayMode(.large)
-        .toolbar { toolbar }
+        .toolbar {
+            #if targetEnvironment(macCatalyst)
+            ToolbarItem {
+                Picker("View Mode", selection: $viewMode) {
+                    Label("Gadgets", systemImage: "square.grid.2x2")
+                        .tag(PageViewMode.gadgets.rawValue)
+                    Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                        .tag(PageViewMode.showcase.rawValue)
+                }
+                .pickerStyle(.segmented)
+            }
+
+            ToolbarItem {
+                Button(action: showSubscribe) {
+                    Label("Add Subscription", systemImage: "plus.circle")
+                }
+            }
+
+            ToolbarItem {
+                Button(action: showSettings) {
+                    Label("Page Settings", systemImage: "wrench")
+                }
+            }
+
+            ToolbarItem {
+                Button(action: refresh) {
+                    if viewModel.refreshing {
+                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                    } else {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                }.keyboardShortcut("r", modifiers: [.command])
+            }
+            #else
+            ToolbarItem {
+                Menu {
+                    Button(action: showSubscribe) {
+                        Label("Add Subscription", systemImage: "plus.circle")
+                    }
+
+                    Button(action: showSettings) {
+                        Label("Page Settings", systemImage: "wrench")
+                    }
+
+                    if viewMode == PageViewMode.gadgets.rawValue {
+                        Button {
+                            viewMode = PageViewMode.showcase.rawValue
+                        } label: {
+                            Label("Showcase View", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                        }
+                    } else {
+                        Button {
+                            viewMode = PageViewMode.gadgets.rawValue
+                        } label: {
+                            Label("Gadgets View", systemImage: "square.grid.2x2")
+                        }
+                    }
+                } label: {
+                    Label("Page Menu", systemImage: "ellipsis")
+                }.buttonStyle(NavigationBarButtonStyle())
+            }
+            #endif
+        }
         .onAppear {
-            subscribeManager.currentPageId = page.id?.uuidString
+            subscribeManager.currentPageId = viewModel.page.id?.uuidString
         }
         .onReceive(
-            NotificationCenter.default.publisher(for: .pageDeleted, object: page.objectID)
+            NotificationCenter.default.publisher(for: .pageDeleted, object: viewModel.page.objectID)
         ) { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 dismiss()
@@ -73,10 +150,30 @@ struct PageView: View {
         }
     }
 
+    private var pageContent: some View {
+        Group {
+            if viewMode == PageViewMode.gadgets.rawValue {
+                widgetGrid
+            } else {
+                showcaseStack
+            }
+        }
+    }
+
     private var widgetGrid: some View {
-        StaggeredGridView(list: page.feedsArray, content: { feed in
-            GadgetView(feed: feed, refreshing: refreshing)
+        BoardView(list: viewModel.page.feedsArray, content: { feed in
+            GadgetView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))
         })
+        .padding(.horizontal)
+        .padding(.bottom)
+    }
+
+    private var showcaseStack: some View {
+        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+            ForEach(viewModel.page.feedsArray) { feed in
+                ShowcaseSectionView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))
+            }
+        }
     }
 
     private var pageEmpty: some View {
@@ -97,57 +194,8 @@ struct PageView: View {
             .navigationTitle("Page Removed")
     }
 
-    private var toolbar: some ToolbarContent {
-        ToolbarItemGroup {
-            if page.managedObjectContext != nil {
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    compactToolbar.disabled(refreshing)
-                } else {
-                    fullToolbar.disabled(refreshing)
-                }
-            }
-        }
-    }
-
-    private var compactToolbar: some View {
-        Menu {
-            Button(action: showSubscribe) {
-                Label("Add Subscription", systemImage: "plus.circle")
-            }
-
-            Button(action: showSettings) {
-                Label("Page Settings", systemImage: "wrench")
-            }
-        } label: {
-            Label("Page Menu", systemImage: "ellipsis")
-        }.buttonStyle(NavigationBarButtonStyle())
-    }
-
-    private var fullToolbar: some View {
-        Group {
-            Button(action: showSubscribe) {
-                Label("Add Subscription", systemImage: "plus.circle")
-            }
-
-            Button(action: showSettings) {
-                Label("Page Settings", systemImage: "wrench")
-            }
-
-            #if targetEnvironment(macCatalyst)
-            Button(action: refresh) {
-                if refreshing {
-                    ProgressView().progressViewStyle(NavigationBarProgressStyle())
-                } else {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }
-            }.keyboardShortcut("r", modifiers: [.command])
-            #endif
-        }
-        .buttonStyle(NavigationBarButtonStyle())
-    }
-
     private func refresh() {
-        refreshManager.refresh(pages: [page])
+        refreshManager.refresh(pages: [viewModel.page])
     }
 
     private func showSettings() {

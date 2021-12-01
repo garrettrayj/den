@@ -9,44 +9,26 @@
 import SwiftUI
 
 struct GadgetView: View {
-    @ObservedObject var feed: Feed
-
-    @State var refreshing: Bool
+    @ObservedObject var viewModel: FeedViewModel
 
     var body: some View {
         widgetContent
-            .background(
-                RoundedRectangle(cornerRadius: 8).fill(Color(.systemBackground))
-            )
-            .onReceive(
-                NotificationCenter.default.publisher(for: .feedQueued, object: feed.objectID)
-            ) { _ in
-                refreshing = true
-            }.onReceive(
-                NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
-            ) { _ in
-                refreshing = false
-                feed.objectWillChange.send()
-            }.onReceive(
-                NotificationCenter.default.publisher(for: .pageRefreshed, object: feed.page?.objectID)
-            ) { _ in
-                refreshing = false
-            }
+            .modifier(GroupBlockModifier())
     }
 
     private var widgetContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             feedHeader
-            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
+            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                 feedItems
             } else {
                 Divider()
 
-                if feed.feedData == nil {
+                if viewModel.feed.feedData == nil {
                     feedNotFetched
-                } else if feed.feedData?.error != nil {
+                } else if viewModel.feed.feedData?.error != nil {
                     feedError
-                } else if feed.feedData!.itemsArray.count == 0 {
+                } else if viewModel.feed.feedData!.itemsArray.count == 0 {
                     feedEmpty
                 } else {
                     feedStatusUnknown
@@ -57,29 +39,29 @@ struct GadgetView: View {
 
     private var feedHeader: some View {
         HStack {
-            if feed.id != nil {
+            if viewModel.feed.id != nil {
                 NavigationLink {
-                    FeedView(feed: feed, refreshing: $refreshing)
+                    FeedView(viewModel: viewModel)
                 } label: {
-                    FeedTitleLabelView(feed: feed)
+                    FeedTitleLabelView(feed: viewModel.feed)
                 }
                 .buttonStyle(GadgetHeaderButtonStyle())
             }
             Spacer()
-            if refreshing {
-                ProgressView().progressViewStyle(IconProgressStyle()).padding(.trailing, 8)
+            if viewModel.refreshing {
+                ProgressView().progressViewStyle(IconProgressStyle())
             }
-        }
+        }.padding(.horizontal, 12)
     }
 
     private var feedItems: some View {
         return VStack(spacing: 0) {
-            ForEach(feed.feedData!.itemsArray.prefix(feed.wrappedPreviewLimit)) { item in
+            ForEach(viewModel.feed.feedData!.itemsArray.prefix(viewModel.feed.wrappedPreviewLimit)) { item in
                 Group {
                     Divider()
                     GadgetItemView(
                         item: item,
-                        feed: feed
+                        feed: viewModel.feed
                     )
                 }
             }
@@ -94,7 +76,7 @@ struct GadgetView: View {
                     .font(.callout)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(feed.feedData!.error!)
+                Text(viewModel.feed.feedData!.error!)
                     .foregroundColor(.red)
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
