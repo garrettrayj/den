@@ -20,8 +20,7 @@ struct GadgetHeaderButtonStyle: ButtonStyle {
         var body: some View {
 
             configuration.label
-                .font(.headline)
-                .padding(.leading, 12)
+                .font(.headline.weight(.medium))
                 .padding(.vertical, 8)
                 .foregroundColor(
                     isEnabled ? Color.primary : Color.secondary

@@ -15,8 +15,8 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var profileManager: ProfileManager
 
+    @ObservedObject var profileViewModel: ProfileViewModel
     @StateObject var searchViewModel: SearchViewModel
 
     @State var editingPages: Bool = false
@@ -36,7 +36,7 @@ struct SidebarView: View {
             if editingPages {
                 editingList
             } else {
-                if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
+                if profileViewModel.profile.pagesArray.count > 0 {
                     #if targetEnvironment(macCatalyst)
                     navigationList
                     #else
@@ -73,12 +73,13 @@ struct SidebarView: View {
                 }.hidden()
             }
         )
+        .navigationTitle("Den")
     }
 
     private var navigationList: some View {
         List {
-            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                SidebarPageView(page: page)
+            ForEach(profileViewModel.profile.pagesArray) { page in
+                SidebarPageView(viewModel: PageViewModel(page: page, refreshing: profileViewModel.refreshing))
                     #if targetEnvironment(macCatalyst)
                     .listRowInsets(EdgeInsets())
                     #endif
@@ -141,19 +142,18 @@ struct SidebarView: View {
                 #endif
             }.hidden()
         )
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     private var editingList: some View {
         List {
             Section(
                 header: HStack {
-                    Text("\(profileManager.activeProfile?.pagesArray.count ?? 0) Pages")
+                    Text("\(profileViewModel.profile.pagesArray.count) Pages")
                     Spacer()
                     Text("Drag to Reorder")
                 }.modifier(SectionHeaderModifier())
             ) {
-                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                ForEach(profileViewModel.profile.pagesArray) { page in
                     Text(page.displayName)
                         .lineLimit(1)
                         #if targetEnvironment(macCatalyst)
@@ -219,7 +219,9 @@ struct SidebarView: View {
     }
 
     private func refreshAll() {
-        refreshManager.refresh(pages: profileManager.activeProfile?.pagesArray ?? [])
+        refreshManager.refresh(
+            pages: profileViewModel.profile.pagesArray
+        )
     }
 
     private func showSearch() {
@@ -229,21 +231,18 @@ struct SidebarView: View {
     }
 
     private func createPage() {
-        guard let profile = profileManager.activeProfile else { return }
-        _ = Page.create(in: viewContext, profile: profile)
+        _ = Page.create(in: viewContext, profile: profileViewModel.profile)
 
         do {
             try viewContext.save()
-            profileManager.objectWillChange.send()
+            profileViewModel.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
     }
 
     private func movePage( from source: IndexSet, to destination: Int) {
-        guard let profile = profileManager.activeProfile else { return }
-
-        var revisedItems = profile.pagesArray
+        var revisedItems = profileViewModel.profile.pagesArray
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
@@ -265,16 +264,15 @@ struct SidebarView: View {
     }
 
     private func deletePage(indices: IndexSet) {
-        guard let profile = profileManager.activeProfile else { return }
 
         indices.forEach {
-            viewContext.delete(profile.pagesArray[$0])
+            viewContext.delete(profileViewModel.profile.pagesArray[$0])
         }
 
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                profileManager.objectWillChange.send()
+                profileViewModel.objectWillChange.send()
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
@@ -285,8 +283,6 @@ struct SidebarView: View {
         guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
-
-        guard let profile = profileManager.activeProfile else { return }
 
         let symbolMap = [
             "World News": "globe",
@@ -305,7 +301,7 @@ struct SidebarView: View {
 
         var newPages: [Page] = []
         opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, profile: profile)
+            let page = Page.create(in: self.viewContext, profile: profileViewModel.profile)
             page.name = opmlFolder.name
             page.symbol = symbolMap[opmlFolder.name]
             newPages.append(page)
@@ -318,7 +314,7 @@ struct SidebarView: View {
 
         do {
             try viewContext.save()
-            profileManager.objectWillChange.send()
+            profileViewModel.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }

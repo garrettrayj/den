@@ -1,42 +1,36 @@
 //
-//  StaggeredGridView.swift
+//  BoardView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 10/27/21.
-//  Copyright © 2020 Garrett Johnson. All rights reserved.
+//  Created by Garrett Johnson on 11/28/21.
+//  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct StaggeredGridView<Content: View, T: Identifiable>: View where T: Hashable {
+struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     var content: (T) -> Content
     var list: [T]
     var spacing: CGFloat
 
     var body: some View {
         AxisGeometryReader(axis: .horizontal, alignment: .leading) { width in
-            HStack(alignment: .top, spacing: 16) {
+            HStack(alignment: .top, spacing: spacing) {
                 ForEach(generateColumns(width: width), id: \.self) { columnObjects in
-                    // For Optimized Using LazyStack...
                     LazyVStack(spacing: spacing) {
                         ForEach(columnObjects) { object in
                             content(object)
-                                .frame(minWidth: 280, idealWidth: 350, maxWidth: 420)
                         }
                     }
                 }
             }
-            .frame(minWidth: 240)
-            .padding(.horizontal)
-            .padding(.top, 8)
-            .padding(.bottom, 64)
         }
     }
 
     init(spacing: CGFloat = 16, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
-        self.content = content
-        self.list = list
         self.spacing = spacing
+        self.list = list
+        self.content = content
     }
 
     private func generateColumns(width: CGFloat) -> [[T]] {
@@ -58,6 +52,7 @@ struct StaggeredGridView<Content: View, T: Identifiable>: View where T: Hashable
     }
 
     private func dynamicColumnCount(width: CGFloat) -> Int {
+        print(width)
         if width > 1500 {
             return 5
         }
@@ -66,11 +61,11 @@ struct StaggeredGridView<Content: View, T: Identifiable>: View where T: Hashable
             return 4
         }
 
-        if width > 908 {
+        if width > 860 {
             return 3
         }
 
-        if width > 612 {
+        if width > 532 {
             return 2
         }
 

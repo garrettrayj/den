@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @EnvironmentObject var profileManager: ProfileManager
+    var profileIsEmpty: Bool
 
     var body: some View {
         VStack(spacing: 12) {
@@ -18,10 +18,10 @@ struct WelcomeView: View {
             Text("Welcome").font(.largeTitle.weight(.semibold))
 
             Group {
-                if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
-                    Text("Select a page to view feeds")
-                } else {
+                if profileIsEmpty {
                     Text("Add a page to begin")
+                } else {
+                    Text("Select a page to view feeds")
                 }
             }.foregroundColor(.secondary)
 
