@@ -22,12 +22,22 @@ final class RefreshManager: ObservableObject {
         queue.maxConcurrentOperationCount = ProcessInfo.processInfo.processorCount
     }
 
-    public func refresh(pages: [Page]) {
+    public func refresh(profile: Profile) {
         var operations: [Operation] = []
-        pages.forEach { page in
-            var pageOps: [Operation] = []
-            var pageCompletionOps: [Operation] = []
 
+        NotificationCenter.default.post(name: .profileQueued, object: profile.objectID)
+
+        let profileCompletionOp = BlockOperation { [weak profile] in
+            DispatchQueue.main.async {
+                guard let objectID = profile?.objectID else { return }
+                NotificationCenter.default.post(name: .profileRefreshed, object: objectID)
+            }
+        }
+        operations.append(profileCompletionOp)
+
+        profile.pagesArray.forEach { page in
+            var pageOps: [Operation] = []
+            var feedCompletionOps: [Operation] = []
             page.feedsArray.forEach { feed in
                 guard
                     let refreshPlan = createRefreshPlan(feed),
@@ -35,24 +45,55 @@ final class RefreshManager: ObservableObject {
                 else { return }
 
                 pageOps.append(contentsOf: refreshPlan.getOps())
-                pageCompletionOps.append(feedCompletionOp)
+                feedCompletionOps.append(feedCompletionOp)
 
                 NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
             }
             NotificationCenter.default.post(name: .pageQueued, object: page.objectID)
-            let completionOp = BlockOperation { [weak page] in
+            let pageCompletionOp = BlockOperation { [weak page] in
                 DispatchQueue.main.async {
                     guard let objectID = page?.objectID else { return }
                     NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
                 }
             }
-            pageCompletionOps.forEach { operation in
-                completionOp.addDependency(operation)
+            feedCompletionOps.forEach { operation in
+                pageCompletionOp.addDependency(operation)
             }
-            pageOps.append(completionOp)
-
+            pageOps.append(pageCompletionOp)
+            profileCompletionOp.addDependency(pageCompletionOp)
             operations.append(contentsOf: pageOps)
         }
+
+        self.queue.addOperations(operations, waitUntilFinished: false)
+    }
+
+    public func refresh(page: Page) {
+        var operations: [Operation] = []
+        var feedCompletionOps: [Operation] = []
+
+        page.feedsArray.forEach { feed in
+            guard
+                let refreshPlan = createRefreshPlan(feed),
+                let feedCompletionOp = refreshPlan.completionOp
+            else { return }
+
+            operations.append(contentsOf: refreshPlan.getOps())
+            feedCompletionOps.append(feedCompletionOp)
+
+            NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
+        }
+
+        NotificationCenter.default.post(name: .pageQueued, object: page.objectID)
+        let pageCompletionOp = BlockOperation { [weak page] in
+            DispatchQueue.main.async {
+                guard let objectID = page?.objectID else { return }
+                NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
+            }
+        }
+        feedCompletionOps.forEach { operation in
+            pageCompletionOp.addDependency(operation)
+        }
+        operations.append(pageCompletionOp)
 
         self.queue.addOperations(operations, waitUntilFinished: false)
     }

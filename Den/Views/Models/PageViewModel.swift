@@ -13,20 +13,20 @@ class PageViewModel: ObservableObject {
     @Published var page: Page
     @Published var refreshing: Bool
 
-    var pageQueuedSubscriber: AnyCancellable?
-    var pageRefreshedSubscriber: AnyCancellable?
+    var queuedSubscriber: AnyCancellable?
+    var refreshedSubscriber: AnyCancellable?
 
     init(page: Page, refreshing: Bool) {
         self.page = page
         self.refreshing = refreshing
 
-        self.pageQueuedSubscriber = NotificationCenter.default
+        self.queuedSubscriber = NotificationCenter.default
             .publisher(for: .pageQueued, object: page.objectID)
             .receive(on: RunLoop.main)
             .map { _ in true }
             .assign(to: \.refreshing, on: self)
 
-        self.pageRefreshedSubscriber = NotificationCenter.default
+        self.refreshedSubscriber = NotificationCenter.default
             .publisher(for: .pageRefreshed, object: page.objectID)
             .receive(on: RunLoop.main)
             .map { _ in false }
@@ -34,8 +34,8 @@ class PageViewModel: ObservableObject {
     }
 
     deinit {
-        pageQueuedSubscriber?.cancel()
-        pageRefreshedSubscriber?.cancel()
+        queuedSubscriber?.cancel()
+        refreshedSubscriber?.cancel()
     }
 }
 

@@ -86,19 +86,16 @@ struct PageView: View {
                 }
                 .pickerStyle(.segmented)
             }
-
             ToolbarItem {
                 Button(action: showSubscribe) {
                     Label("Add Subscription", systemImage: "plus.circle")
                 }
             }
-
             ToolbarItem {
                 Button(action: showSettings) {
                     Label("Page Settings", systemImage: "wrench")
                 }
             }
-
             ToolbarItem {
                 Button(action: refresh) {
                     if viewModel.refreshing {
@@ -114,11 +111,9 @@ struct PageView: View {
                     Button(action: showSubscribe) {
                         Label("Add Subscription", systemImage: "plus.circle")
                     }
-
                     Button(action: showSettings) {
                         Label("Page Settings", systemImage: "wrench")
                     }
-
                     if viewMode == PageViewMode.gadgets.rawValue {
                         Button {
                             viewMode = PageViewMode.showcase.rawValue
@@ -195,7 +190,7 @@ struct PageView: View {
     }
 
     private func refresh() {
-        refreshManager.refresh(pages: [viewModel.page])
+        refreshManager.refresh(page: viewModel.page)
     }
 
     private func showSettings() {
