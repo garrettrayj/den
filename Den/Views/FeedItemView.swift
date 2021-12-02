@@ -35,33 +35,17 @@ struct FeedItemView: View {
             .accessibility(identifier: "Item Link")
 
             if item.feedData?.feed?.showThumbnails == true && item.previewUIImage != nil {
-                AxisGeometryReader(axis: .horizontal, alignment: .leading) { width in
-                    Group {
-                        if item.previewUIImage!.size.width < width {
-                            Image(uiImage: item.previewUIImage!)
-                                .background(Color(UIColor.tertiarySystemGroupedBackground))
-                                .cornerRadius(8)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-                                )
-                                .accessibility(label: Text("Preview Image"))
-
-                        } else {
-                            Image(uiImage: item.previewUIImage!)
-                                .resizable()
-                                .scaledToFit()
-                                .background(Color(UIColor.tertiarySystemGroupedBackground))
-                                .cornerRadius(4)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-                                )
-                                .accessibility(label: Text("Preview Image"))
-                        }
-                    }
+                Image(uiImage: item.previewUIImage!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .background(Color(UIColor.tertiarySystemGroupedBackground))
+                    .cornerRadius(4)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+                    )
+                    .accessibility(label: Text("Preview Image"))
                     .padding(.vertical, 4)
-                }
             }
 
             if item.summary != nil {

@@ -52,7 +52,6 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     }
 
     private func dynamicColumnCount(width: CGFloat) -> Int {
-        print(width)
         if width > 1500 {
             return 5
         }

@@ -113,7 +113,9 @@ private func filterSymbols() -> NSMutableDictionary {
         }
     }
 
+    // Misc extras
     symbols["square.grid.2x2"] = ["uncategorized"]
+    symbols["globe"] = ["nature"]
 
     return symbols
 }

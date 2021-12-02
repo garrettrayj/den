@@ -12,25 +12,30 @@ struct ShowcaseSectionView: View {
     @ObservedObject var viewModel: FeedViewModel
 
     var body: some View {
-        Section(
-            header: HStack {
-                if viewModel.feed.id != nil {
-                    NavigationLink {
-                        FeedView(viewModel: viewModel)
-                    } label: {
-                        FeedTitleLabelView(feed: viewModel.feed)
-                            .foregroundColor(Color.primary)
-                    }
-                    .buttonStyle(GadgetHeaderButtonStyle())
-                }
-            }.modifier(PinnedSectionHeaderModifier())
-        ) {
+        Section(header: header.modifier(PinnedSectionHeaderModifier())) {
             BoardView(
                 list: viewModel.feed.feedData?.previewItemsArray ?? [],
                 content: { item in
                     ShowcaseItemView(item: item)
                 }
             ).padding()
+        }
+    }
+
+    private var header: some View {
+        HStack {
+            if viewModel.feed.id != nil {
+                NavigationLink {
+                    FeedView(viewModel: viewModel)
+                } label: {
+                    FeedTitleLabelView(feed: viewModel.feed)
+                }
+                .buttonStyle(GadgetHeaderButtonStyle())
+            }
+            Spacer()
+            if viewModel.refreshing {
+                ProgressView().progressViewStyle(IconProgressStyle())
+            }
         }
     }
 }

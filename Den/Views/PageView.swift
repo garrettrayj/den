@@ -41,7 +41,7 @@ struct PageView: View {
                 pageEmpty
             } else {
                 #if targetEnvironment(macCatalyst)
-                ScrollView(.vertical, showsIndicators: false) {
+                ScrollView(.vertical) {
                     pageContent
                 }
                 #else
@@ -84,17 +84,19 @@ struct PageView: View {
                     Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                         .tag(PageViewMode.showcase.rawValue)
                 }
+                .padding(.leading)
+                .padding(.trailing, 4)
                 .pickerStyle(.segmented)
             }
             ToolbarItem {
                 Button(action: showSubscribe) {
                     Label("Add Subscription", systemImage: "plus.circle")
-                }
+                }.buttonStyle(NavigationBarButtonStyle())
             }
             ToolbarItem {
                 Button(action: showSettings) {
                     Label("Page Settings", systemImage: "wrench")
-                }
+                }.buttonStyle(NavigationBarButtonStyle())
             }
             ToolbarItem {
                 Button(action: refresh) {
@@ -103,7 +105,9 @@ struct PageView: View {
                     } else {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
-                }.keyboardShortcut("r", modifiers: [.command])
+                }
+                .buttonStyle(NavigationBarButtonStyle())
+                .keyboardShortcut("r", modifiers: [.command])
             }
             #else
             ToolbarItem {
