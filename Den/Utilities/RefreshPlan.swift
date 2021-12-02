@@ -53,19 +53,16 @@ final class RefreshPlan {
             return
         }
 
-        let itemLimit = 100
-        let imageLimit = feed.wrappedPreviewLimit
-
-        let existingItemLinks = feedData.itemsArray.map({ item in
-            return item.link!
+        let existingItemLinks = feedData.itemsArray.compactMap({ item in
+            return item.link
         })
 
         addStandardProcessingOps(
             feedUrl: feedUrl,
-            itemLimit: itemLimit,
+            itemLimit: feed.wrappedItemLimit,
             existingItemLinks: existingItemLinks,
             downloadImages: feed.showThumbnails,
-            imageLimit: imageLimit
+            imageLimit: feed.wrappedPreviewLimit
         )
         addStandardAdapters(downloadImages: feed.showThumbnails)
         wireStandardDependencies(downloadImages: feed.showThumbnails)

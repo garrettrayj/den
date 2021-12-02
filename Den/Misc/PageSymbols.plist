@@ -1448,6 +1448,10 @@
 	<array>
 		<string>commerce</string>
 	</array>
+	<key>globe</key>
+	<array>
+		<string>nature</string>
+	</array>
 	<key>globe.americas</key>
 	<array>
 		<string>nature</string>

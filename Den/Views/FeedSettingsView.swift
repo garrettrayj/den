@@ -109,17 +109,17 @@ struct FeedSettingsView: View {
 
     private var limitsSection: some View {
         Section(header: Text("Limits").modifier(SectionHeaderModifier())) {
+            Stepper(value: $feed.wrappedPreviewLimit, in: 1...100, step: 1) {
+                Label(
+                    "Preview Items: \(feed.wrappedPreviewLimit)",
+                    systemImage: "text.below.photo"
+                )
+            }.modifier(FormRowModifier())
+
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 Label(
                     "Total Items: \(feed.wrappedItemLimit)",
                     systemImage: "list.bullet.rectangle"
-                )
-            }.modifier(FormRowModifier())
-
-            Stepper(value: $feed.wrappedPreviewLimit, in: 1...100, step: 1) {
-                Label(
-                    "Previews with Images: \(feed.wrappedPreviewLimit)",
-                    systemImage: "text.below.photo"
                 )
             }.modifier(FormRowModifier())
         }

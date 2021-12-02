@@ -100,7 +100,7 @@ struct SidebarView: View {
                 Button {
                     editingPages = true
                 } label: {
-                    Label("Edit", systemImage: "slider.horizontal.3").lineLimit(1)
+                    Text("Edit").lineLimit(1)
                 }
                 .buttonStyle(NavigationBarButtonStyle())
             }

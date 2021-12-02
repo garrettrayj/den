@@ -20,7 +20,7 @@ struct FeedView: View {
     var body: some View {
         Group {
             #if targetEnvironment(macCatalyst)
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical) {
                 feedContent
             }
             #else
