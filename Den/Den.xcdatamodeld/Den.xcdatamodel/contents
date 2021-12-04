@@ -40,8 +40,10 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="imageFile" optional="YES" attributeType="String"/>
+        <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imagePreview" optional="YES" attributeType="String"/>
         <attribute name="imageThumbnail" optional="YES" attributeType="String"/>
+        <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -83,7 +85,7 @@
         <element name="Feed" positionX="288" positionY="333" width="128" height="185"/>
         <element name="FeedData" positionX="270" positionY="216" width="128" height="200"/>
         <element name="History" positionX="270" positionY="315" width="128" height="104"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="215"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="245"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
         <element name="Profile" positionX="270" positionY="324" width="128" height="104"/>
     </elements>

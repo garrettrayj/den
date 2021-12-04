@@ -13,12 +13,18 @@ struct ShowcaseSectionView: View {
 
     var body: some View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-            BoardView(
-                list: viewModel.feed.feedData?.previewItemsArray ?? [],
-                content: { item in
-                    ShowcaseItemView(item: item)
-                }
-            ).padding()
+            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+                BoardView(
+                    list: viewModel.feed.feedData?.previewItemsArray ?? [],
+                    content: { item in
+                        ShowcaseItemView(item: item)
+                    }
+                ).padding()
+            } else {
+                FeedUnavailableView(feed: viewModel.feed)
+                    .padding(.vertical)
+                    .padding(.horizontal, 20)
+            }
         }
     }
 

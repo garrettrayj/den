@@ -130,19 +130,7 @@ struct FeedView: View {
                         FeedItemView(item: item)
                     }).padding()
                 } else {
-                    if viewModel.feed.feedData == nil {
-                        #if targetEnvironment(macCatalyst)
-                        Text("Refresh to load feed").modifier(SimpleMessageModifier())
-                        #else
-                        Text("Pull to refresh feed").modifier(SimpleMessageModifier())
-                        #endif
-                    } else if viewModel.feed.feedData?.error != nil {
-                        Text("Unable to update feed").modifier(SimpleMessageModifier())
-                    } else if viewModel.feed.feedData!.itemsArray.count == 0 {
-                        Text("Feed empty").modifier(SimpleMessageModifier())
-                    } else {
-                        Text("Status unavailable").modifier(SimpleMessageModifier())
-                    }
+                    FeedUnavailableView(feed: viewModel.feed).modifier(SimpleMessageModifier())
                 }
             }
         }

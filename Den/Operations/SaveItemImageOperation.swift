@@ -34,8 +34,10 @@ final class SaveItemImageOperation: Operation {
         else { return }
 
         workingItem?.image = url
+        workingItem?.imageWidth = Int32(originalImage.size.width)
+        workingItem?.imageHeight = Int32(originalImage.size.height)
 
-        let resizedPreviewImage = originalImage.aspectFittedToWidth(800)
+        let resizedPreviewImage = originalImage.aspectFittedToWidth(396)
         if
             let previewsDirectory = FileManager.default.previewsDirectory,
             let imagePreview = saveImage(image: resizedPreviewImage, directory: previewsDirectory)
