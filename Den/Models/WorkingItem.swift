@@ -19,6 +19,8 @@ import FeedKit
 final class WorkingItem {
     var id: UUID?
     var image: URL?
+    var imageWidth: Int32?
+    var imageHeight: Int32?
     var imageFile: String?
     var imagePreview: String?
     var imageThumbnail: String?

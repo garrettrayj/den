@@ -37,6 +37,8 @@ struct ShowcaseItemView: View {
             if item.feedData?.feed?.showThumbnails == true && item.previewUIImage != nil {
                 Image(uiImage: item.previewUIImage!)
                     .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: CGFloat(item.imageWidth), maxHeight: CGFloat(item.imageHeight))
                     .background(Color(UIColor.tertiarySystemGroupedBackground))
                     .cornerRadius(4)
                     .overlay(

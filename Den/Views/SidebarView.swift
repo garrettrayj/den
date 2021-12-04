@@ -102,6 +102,7 @@ struct SidebarView: View {
                 } label: {
                     Text("Edit").lineLimit(1)
                 }
+                .disabled(profileViewModel.refreshing)
                 .buttonStyle(NavigationBarButtonStyle())
             }
 
@@ -114,6 +115,7 @@ struct SidebarView: View {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
+                .disabled(profileViewModel.refreshing)
                 .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
             }

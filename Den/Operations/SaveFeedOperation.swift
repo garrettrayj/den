@@ -79,6 +79,8 @@ final class SaveFeedOperation: Operation {
             item.feedData = feedData
             item.id = workingItem.id
             item.image = workingItem.image
+            item.imageWidth = workingItem.imageWidth ?? 0
+            item.imageHeight = workingItem.imageHeight ?? 0
             item.imageFile = workingItem.imageFile
             item.imagePreview = workingItem.imagePreview
             item.imageThumbnail = workingItem.imageThumbnail
