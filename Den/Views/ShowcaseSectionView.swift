@@ -36,7 +36,7 @@ struct ShowcaseSectionView: View {
                 } label: {
                     FeedTitleLabelView(feed: viewModel.feed)
                 }
-                .buttonStyle(GadgetHeaderButtonStyle())
+                .buttonStyle(FeedTitleButtonStyle())
             }
             Spacer()
             if viewModel.refreshing {

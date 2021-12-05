@@ -13,11 +13,13 @@ struct GadgetView: View {
 
     var body: some View {
         widgetContent
+            .padding(.top, 8)
+            .padding([.horizontal, .bottom], 12)
             .modifier(GroupBlockModifier())
     }
 
     private var widgetContent: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 8) {
             feedHeader
             if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                 feedItems
@@ -36,17 +38,17 @@ struct GadgetView: View {
                 } label: {
                     FeedTitleLabelView(feed: viewModel.feed)
                 }
-                .buttonStyle(GadgetHeaderButtonStyle())
+                .buttonStyle(FeedTitleButtonStyle())
             }
             Spacer()
             if viewModel.refreshing {
                 ProgressView().progressViewStyle(IconProgressStyle())
             }
-        }.padding(.horizontal, 12)
+        }
     }
 
     private var feedItems: some View {
-        return VStack(spacing: 0) {
+        VStack(spacing: 10) {
             ForEach(viewModel.feed.feedData!.itemsArray.prefix(viewModel.feed.wrappedPreviewLimit)) { item in
                 Group {
                     Divider()

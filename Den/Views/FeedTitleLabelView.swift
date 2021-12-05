@@ -17,7 +17,8 @@ struct FeedTitleLabelView: View {
         } icon: {
             if feed.feedData?.faviconImage != nil {
                 feed.feedData!.faviconImage!
-                    .scaleEffect(1 / UIScreen.main.scale)
+                    .resizable()
+                    .scaledToFill()
                     .frame(width: 16, height: 16)
             } else {
                 Image(systemName: "dot.radiowaves.up.forward")

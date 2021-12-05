@@ -9,8 +9,9 @@
 import SwiftUI
 
 enum PageViewMode: Int {
-    case gadgets = 0
+    case gadgets  = 0
     case showcase = 1
+    case heap     = 2
 }
 
 struct PageView: View {
@@ -59,7 +60,7 @@ struct PageView: View {
         .background(
             Group {
                 NavigationLink(
-                    destination: PageSettingsView(page: viewModel.page),
+                    destination: PageSettingsView(viewModel: viewModel),
                     isActive: $showingSettings
                 ) {
                     EmptyView()
@@ -83,6 +84,8 @@ struct PageView: View {
                         .tag(PageViewMode.gadgets.rawValue)
                     Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                         .tag(PageViewMode.showcase.rawValue)
+                    Label("Heap", systemImage: "square.text.square")
+                        .tag(PageViewMode.heap.rawValue)
                 }
                 .padding(.leading)
                 .padding(.trailing, 4)
@@ -151,26 +154,12 @@ struct PageView: View {
 
     private var pageContent: some View {
         Group {
-            if viewMode == PageViewMode.gadgets.rawValue {
-                widgetGrid
+            if viewMode == PageViewMode.heap.rawValue {
+                HeapView(viewModel: viewModel)
+            } else if viewMode == PageViewMode.showcase.rawValue {
+                ShowcaseView(viewModel: viewModel)
             } else {
-                showcaseStack
-            }
-        }
-    }
-
-    private var widgetGrid: some View {
-        BoardView(list: viewModel.page.feedsArray, content: { feed in
-            GadgetView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))
-        })
-        .padding(.horizontal)
-        .padding(.bottom)
-    }
-
-    private var showcaseStack: some View {
-        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-            ForEach(viewModel.page.feedsArray) { feed in
-                ShowcaseSectionView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))
+                GadgetsView(viewModel: viewModel)
             }
         }
     }

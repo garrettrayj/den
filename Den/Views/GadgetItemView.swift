@@ -15,30 +15,29 @@ struct GadgetItemView: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            if item.published != nil {
-                Text("\(item.published!, formatter: DateFormatter.mediumShort)")
-                    .font(.caption)
-                    .foregroundColor(Color(.secondaryLabel))
-            }
-
-            HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 Button(action: openLink) {
                     Text(item.wrappedTitle)
                 }
+                .buttonStyle(ItemButtonStyle(read: item.read))
                 .font(.headline)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .accessibility(identifier: "Item Link")
 
-                if item.feedData?.feed?.showThumbnails == true {
-                    thumbnailImage
+                if item.published != nil {
+                    Text("\(item.published!, formatter: DateFormatter.mediumShort)")
+                        .font(.caption)
+                        .foregroundColor(Color(.secondaryLabel))
                 }
             }
+
+            if item.feedData?.feed?.showThumbnails == true {
+                thumbnailImage
+            }
         }
-        .buttonStyle(ItemButtonStyle(read: item.read))
-        .frame(minWidth: 200, maxWidth: .infinity)
-        .padding(12)
+        .frame(maxWidth: .infinity)
     }
 
     private var thumbnailImage: some View {

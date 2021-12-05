@@ -14,11 +14,6 @@ struct ShowcaseItemView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if item.published != nil {
-                Text("\(item.published!, formatter: DateFormatter.mediumShort)")
-                    .font(.caption)
-                    .foregroundColor(Color(.secondaryLabel))
-            }
 
             Button {
                 linkManager.openLink(
@@ -33,6 +28,12 @@ struct ShowcaseItemView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .accessibility(identifier: "Item Link")
+
+            if item.published != nil {
+                Text("\(item.published!, formatter: DateFormatter.mediumShort)")
+                    .font(.caption)
+                    .foregroundColor(Color(.secondaryLabel))
+            }
 
             if item.feedData?.feed?.showThumbnails == true && item.previewUIImage != nil {
                 Image(uiImage: item.previewUIImage!)
@@ -49,7 +50,7 @@ struct ShowcaseItemView: View {
             }
 
             if item.summary != nil {
-                Text(item.summary!).lineLimit(4)
+                Text(item.summary!).lineLimit(6)
             }
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
