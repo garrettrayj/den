@@ -1,19 +1,30 @@
 //
-//  FeedItemView.swift
+//  HeapItemView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/10/21.
+//  Created by Garrett Johnson on 12/4/21.
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct FeedItemView: View {
+struct HeapItemView: View {
     @EnvironmentObject var linkManager: LinkManager
+
+    @ObservedObject var feedViewModel: FeedViewModel
     @ObservedObject var item: Item
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
+            NavigationLink {
+                FeedView(viewModel: feedViewModel)
+            } label: {
+                FeedTitleLabelView(feed: feedViewModel.feed)
+            }
+            .buttonStyle(FeedTitleButtonStyle())
+
+            Divider()
+
             Button {
                 linkManager.openLink(
                     url: item.link,
@@ -26,6 +37,7 @@ struct FeedItemView: View {
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .buttonStyle(ItemButtonStyle(read: item.read))
             .accessibility(identifier: "Item Link")
 
             if item.published != nil {
@@ -46,15 +58,14 @@ struct FeedItemView: View {
                             .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                     )
                     .accessibility(label: Text("Preview Image"))
-                    .padding(.vertical, 4)
             }
 
             if item.summary != nil {
-                Text(item.summary!).lineLimit(12)
+                Text(item.summary!).lineLimit(6)
             }
         }
-        .buttonStyle(ItemButtonStyle(read: item.read))
-        .padding(12)
+        .padding(.top, 8)
+        .padding([.horizontal, .bottom], 12)
         .modifier(GroupBlockModifier())
     }
 }

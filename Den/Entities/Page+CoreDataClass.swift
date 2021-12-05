@@ -90,6 +90,17 @@ public class Page: NSManagedObject {
         }.first?.feedData?.refreshed
     }
 
+    public var previewItemsArray: [Item] {
+        feedsArray.flatMap { feed in
+            feed.feedData?.itemsArray.prefix(feed.wrappedPreviewLimit) ?? []
+        }.sorted { aItem, bItem in
+            guard let aDate = aItem.published, let bDate = bItem.published else {
+                return false
+            }
+            return aDate > bDate
+        }
+    }
+
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Page {
         do {
             let pages = try managedObjectContext.fetch(Page.fetchRequest())

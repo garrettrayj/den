@@ -1,5 +1,5 @@
 //
-//  GadgetHeaderButtonStyle.swift
+//  FeedTitleButtonStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct GadgetHeaderButtonStyle: ButtonStyle {
+struct FeedTitleButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         GadgetHeaderButton(configuration: configuration)
     }
@@ -20,8 +20,6 @@ struct GadgetHeaderButtonStyle: ButtonStyle {
         var body: some View {
 
             configuration.label
-                .font(.headline.weight(.medium))
-                .padding(.vertical, 8)
                 .foregroundColor(
                     isEnabled ? Color.primary : Color.secondary
                 )
