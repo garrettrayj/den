@@ -11,7 +11,7 @@ import SwiftUI
 struct IconPickerView: View {
     @Environment(\.dismiss) var dismiss
 
-    @Binding var selectedSymbol: String
+    @ObservedObject var page: Page
 
     var symbols: [String: [String]] =  [:]
 
@@ -44,14 +44,41 @@ struct IconPickerView: View {
                 LazyVGrid(columns: columns, pinnedViews: .sectionHeaders) {
                     ForEach(categories, id: \.self) { category in
                         Section(
-                            header: Label(category[2], systemImage: category[1])
-                                .modifier(PinnedSectionHeaderModifier())
+                            header:
+                                VStack(spacing: 0) {
+                                    Label(category[2], systemImage: category[1])
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .frame(height: 28)
+                                        .padding(.horizontal)
+                                        .background(Color(UIColor.tertiarySystemGroupedBackground))
+                                    Divider()
+                                }
                         ) {
-                            symbolGrid(category: category[0])
+                            ForEach(symbols.keys.sorted(), id: \.self) { key in
+                                if symbols[key]!.contains(category[0]) {
+                                    Image(systemName: key)
+                                        .imageScale(.medium)
+                                        .foregroundColor(key == page.wrappedSymbol ? .accentColor : .primary)
+                                        .frame(width: 32, height: 32, alignment: .center)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .fill(Color(UIColor.secondarySystemGroupedBackground))
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .strokeBorder(
+                                                    Color.accentColor,
+                                                    lineWidth: key == page.wrappedSymbol ? 2 : 0
+                                                )
+                                        )
+                                        .onTapGesture {
+                                            page.wrappedSymbol = key
+                                        }
+                                }
+                            }
                         }
                     }
                 }.padding(.bottom)
-
             }
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
             .navigationTitle("Select Icon")
@@ -69,34 +96,8 @@ struct IconPickerView: View {
         .navigationViewStyle(.stack)
     }
 
-    private func symbolGrid(category: String) -> some View {
-        ForEach(symbols.keys.sorted(), id: \.self) { key in
-            if symbols[key]!.contains(category) {
-
-                Image(systemName: key)
-                    .imageScale(.medium)
-                    .foregroundColor(key == selectedSymbol ? .accentColor : .primary)
-                    .frame(width: 32, height: 32, alignment: .center)
-                    .background(
-                        RoundedRectangle(cornerRadius: 4).fill(Color(UIColor.systemBackground))
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .strokeBorder(
-                                Color.accentColor,
-                                lineWidth: key == selectedSymbol ? 2 : 0
-                            )
-                    )
-                    .onTapGesture {
-                        selectedSymbol = key
-                    }
-
-            }
-        }
-    }
-
-    init(selectedSymbol: Binding<String>) {
-        _selectedSymbol = selectedSymbol
+    init(page: Page) {
+        self.page = page
 
         guard
             let symbolsPath = Bundle.main.path(forResource: "PageSymbols", ofType: "plist"),

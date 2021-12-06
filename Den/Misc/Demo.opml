@@ -64,7 +64,6 @@
 			<outline text="9to5Mac" title="9to5Mac" type="rss" xmlUrl="https://9to5mac.com/feed/" />
 			<outline text="AppleInsider News" title="AppleInsider News" type="rss" xmlUrl="https://appleinsider.com/rss/news/" />
 			<outline text="Apple Newsroom" title="Apple Newsroom" type="rss" xmlUrl="https://www.apple.com/newsroom/rss-feed.rss" />
-			<outline text="Macworld" title="Macworld" type="rss" xmlUrl="https://www.macworld.com/index.rss" />
 			<outline text="Cult of Mac" title="Cult of Mac" type="rss" xmlUrl="https://www.cultofmac.com/feed/" />
 			<outline text="Computerworld" title="Computerworld" type="rss" xmlUrl="https://www.computerworld.com/index.rss" />
 			<outline text="Digital Trends" title="Digital Trends" type="rss" xmlUrl="https://www.digitaltrends.com/feed/" />

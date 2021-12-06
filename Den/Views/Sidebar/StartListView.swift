@@ -18,18 +18,30 @@ struct StartListView: View {
             Section(content: {
                 Button(action: viewModel.createPage) {
                     Label("Create a blank page", systemImage: "plus")
+                    #if targetEnvironment(macCatalyst)
+                        .font(.title3)
+                    #endif
                 }.modifier(StartRowModifier())
 
                 Button(action: viewModel.loadDemo) {
                     Label("Load demo feeds", systemImage: "wand.and.stars")
+                    #if targetEnvironment(macCatalyst)
+                        .font(.title3)
+                    #endif
                 }.modifier(StartRowModifier())
             }, header: {
                 Text("Get started")
+                #if targetEnvironment(macCatalyst)
+                    .font(.title2)
+                #endif
             }, footer: {
                 Text("or import feeds in settings")
+                #if targetEnvironment(macCatalyst)
+                    .font(.callout)
+                    .padding(.vertical, 8)
+                #endif
             })
         }
-        .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
@@ -39,5 +51,8 @@ struct StartListView: View {
                 }
             }
         }
+        #if targetEnvironment(macCatalyst)
+        .listStyle(.plain)
+        #endif
     }
 }
