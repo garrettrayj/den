@@ -16,7 +16,7 @@ struct FeedUnavailableView: View {
         VStack(alignment: .leading, spacing: 4) {
             Group {
                 if feed.feedData == nil {
-                    Label("Refresh to load content", systemImage: "exclamationmark.arrow.triangle.2.circlepath")
+                    Label("Refresh to load items", systemImage: "arrow.clockwise")
                 } else if feed.feedData?.error != nil {
                     Label {
                         VStack(alignment: .leading, spacing: 4) {
@@ -33,7 +33,6 @@ struct FeedUnavailableView: View {
                 }
             }
             .imageScale(.medium)
-            .font(.body.weight(.medium))
             .foregroundColor(.secondary)
         }
     }

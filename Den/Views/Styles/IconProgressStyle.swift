@@ -13,7 +13,7 @@ struct IconProgressStyle: ProgressViewStyle {
         let view = ProgressView(configuration).progressViewStyle(CircularProgressViewStyle())
 
         #if targetEnvironment(macCatalyst)
-        return view.scaleEffect(0.5)
+        return view.scaleEffect(0.5, anchor: .center).frame(width: 16, height: 16, alignment: .center)
         #else
         return view
         #endif

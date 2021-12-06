@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+import CoreData
 
 final class ProfileViewModel: ObservableObject {
     @Published var profile: Profile
@@ -16,7 +17,12 @@ final class ProfileViewModel: ObservableObject {
     var queuedSubscriber: AnyCancellable?
     var refreshedSubscriber: AnyCancellable?
 
-    init(profile: Profile) {
+    private var viewContext: NSManagedObjectContext
+    private var crashManager: CrashManager
+
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
+        self.viewContext = viewContext
+        self.crashManager = crashManager
         self.profile = profile
 
         self.queuedSubscriber = NotificationCenter.default
@@ -35,5 +41,94 @@ final class ProfileViewModel: ObservableObject {
     deinit {
         queuedSubscriber?.cancel()
         refreshedSubscriber?.cancel()
+    }
+
+    func createPage() {
+        _ = Page.create(in: viewContext, profile: profile)
+
+        do {
+            try viewContext.save()
+            self.objectWillChange.send()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
+        }
+    }
+
+    func movePage( from source: IndexSet, to destination: Int) {
+        var revisedItems = profile.pagesArray
+
+        // change the order of the items in the array
+        revisedItems.move(fromOffsets: source, toOffset: destination)
+
+        // update the userOrder attribute in revisedItems to
+        // persist the new order. This is done in reverse order
+        // to minimize changes to the indices.
+        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
+            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
+        }
+
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
+            }
+        }
+    }
+
+    func deletePage(indices: IndexSet) {
+        indices.forEach {
+            viewContext.delete(profile.pagesArray[$0])
+        }
+
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                self.objectWillChange.send()
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
+            }
+        }
+    }
+
+    func loadDemo() {
+        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
+            preconditionFailure("Missing demo feeds source file")
+        }
+
+        let symbolMap = [
+            "World News": "globe",
+            "US News": "newspaper",
+            "Technology": "cpu",
+            "Business": "briefcase",
+            "Science": "atom",
+            "Space": "sparkles",
+            "Funnies": "face.smiling",
+            "Curiosity": "person.and.arrow.left.and.arrow.right",
+            "Gaming": "gamecontroller",
+            "Entertainment": "film"
+        ]
+
+        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
+
+        var newPages: [Page] = []
+        opmlReader.outlineFolders.forEach { opmlFolder in
+            let page = Page.create(in: self.viewContext, profile: profile)
+            page.name = opmlFolder.name
+            page.symbol = symbolMap[opmlFolder.name]
+            newPages.append(page)
+
+            opmlFolder.feeds.forEach { opmlFeed in
+                let feed = Feed.create(in: self.viewContext, page: page, url: opmlFeed.url)
+                feed.title = opmlFeed.title
+            }
+        }
+
+        do {
+            try viewContext.save()
+            self.objectWillChange.send()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
+        }
     }
 }
