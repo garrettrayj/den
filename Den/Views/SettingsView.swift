@@ -16,6 +16,8 @@ struct SettingsView: View {
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var themeManager: ThemeManager
 
+    @ObservedObject var viewModel: ProfileViewModel
+
     @State var selectedTheme: UIUserInterfaceStyle = .unspecified
     @State var showingResetAlert = false
     @State var historyRentionDays: Int = 0
@@ -205,16 +207,12 @@ struct SettingsView: View {
     }
 
     private func loadProfile() {
-        guard let profile = profileManager.activeProfile else { return }
-
-        historyRentionDays = profile.wrappedHistoryRetention
+        historyRentionDays = viewModel.profile.wrappedHistoryRetention
     }
 
     private func saveProfile() {
-        guard let profile = profileManager.activeProfile else { return }
-
-        if historyRentionDays != profile.wrappedHistoryRetention {
-            profile.wrappedHistoryRetention = historyRentionDays
+        if historyRentionDays != viewModel.profile.wrappedHistoryRetention {
+            viewModel.profile.wrappedHistoryRetention = historyRentionDays
         }
 
         if self.viewContext.hasChanges {
@@ -228,13 +226,13 @@ struct SettingsView: View {
 
     private func clearCache() {
         cacheManager.resetFeeds()
-        profileManager.activeProfile?.pagesArray.forEach { page in
-            page.objectWillChange.send()
+        viewModel.profile.pagesArray.forEach { page in
+            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
         }
     }
 
     private func clearHistory() {
-        profileManager.activeProfile?.historyArray.forEach { history in
+        viewModel.profile.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
 
@@ -244,7 +242,7 @@ struct SettingsView: View {
             crashManager.handleCriticalError(error)
         }
 
-        profileManager.activeProfile?.pagesArray.forEach({ page in
+        viewModel.profile.pagesArray.forEach({ page in
             page.feedsArray.forEach { feed in
                 feed.objectWillChange.send()
             }

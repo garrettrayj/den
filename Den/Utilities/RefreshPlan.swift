@@ -98,6 +98,7 @@ final class RefreshPlan {
         )
         completionOp = BlockOperation { [weak feed] in
             DispatchQueue.main.async {
+                feed?.objectWillChange.send()
                 guard let objectID = feed?.objectID else { return }
                 NotificationCenter.default.post(name: .feedRefreshed, object: objectID)
             }

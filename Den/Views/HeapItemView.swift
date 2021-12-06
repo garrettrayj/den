@@ -22,6 +22,7 @@ struct HeapItemView: View {
                 FeedTitleLabelView(feed: feedViewModel.feed)
             }
             .buttonStyle(FeedTitleButtonStyle())
+            .disabled(feedViewModel.refreshing)
 
             Divider()
 

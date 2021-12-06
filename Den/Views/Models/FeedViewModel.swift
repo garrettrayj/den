@@ -43,6 +43,7 @@ final class FeedViewModel: ObservableObject {
     deinit {
         queuedSubscriber?.cancel()
         refreshedSubscriber?.cancel()
+        pageRefreshedSubscriber?.cancel()
     }
 }
 

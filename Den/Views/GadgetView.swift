@@ -12,25 +12,22 @@ struct GadgetView: View {
     @ObservedObject var viewModel: FeedViewModel
 
     var body: some View {
-        widgetContent
-            .padding(.top, 8)
-            .padding([.horizontal, .bottom], 12)
-            .modifier(GroupBlockModifier())
-    }
-
-    private var widgetContent: some View {
         VStack(alignment: .leading, spacing: 8) {
-            feedHeader
+            header
+
             if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                 feedItems
             } else {
                 Divider()
-                FeedUnavailableView(feed: viewModel.feed).padding()
+                FeedUnavailableView(feed: viewModel.feed).padding(.vertical, 4).padding(.horizontal, 8)
             }
         }
+        .padding(.top, 8)
+        .padding([.horizontal, .bottom], 12)
+        .modifier(GroupBlockModifier())
     }
 
-    private var feedHeader: some View {
+    private var header: some View {
         HStack {
             if viewModel.feed.id != nil {
                 NavigationLink {
@@ -39,6 +36,7 @@ struct GadgetView: View {
                     FeedTitleLabelView(feed: viewModel.feed)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
+                .disabled(viewModel.refreshing)
             }
             Spacer()
             if viewModel.refreshing {

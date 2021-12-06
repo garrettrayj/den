@@ -118,22 +118,35 @@ struct PageView: View {
                     Button(action: showSubscribe) {
                         Label("Add Subscription", systemImage: "plus.circle")
                     }
+
                     Button(action: showSettings) {
                         Label("Page Settings", systemImage: "wrench")
                     }
-                    if viewMode == PageViewMode.gadgets.rawValue {
-                        Button {
-                            viewMode = PageViewMode.showcase.rawValue
-                        } label: {
-                            Label("Showcase View", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                        }
-                    } else {
+
+                    if viewMode != PageViewMode.gadgets.rawValue {
                         Button {
                             viewMode = PageViewMode.gadgets.rawValue
                         } label: {
                             Label("Gadgets View", systemImage: "square.grid.2x2")
                         }
                     }
+
+                    if viewMode != PageViewMode.showcase.rawValue {
+                        Button {
+                            viewMode = PageViewMode.showcase.rawValue
+                        } label: {
+                            Label("Showcase View", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                        }
+                    }
+
+                    if viewMode != PageViewMode.heap.rawValue {
+                        Button {
+                            viewMode = PageViewMode.heap.rawValue
+                        } label: {
+                            Label("Heap View", systemImage: "square.text.square")
+                        }
+                    }
+
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis")
                 }.buttonStyle(NavigationBarButtonStyle())

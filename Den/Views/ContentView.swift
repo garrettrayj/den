@@ -34,7 +34,11 @@ struct ContentView: View {
     private var navigationView: some View {
         NavigationView {
             SidebarView(
-                profileViewModel: ProfileViewModel(profile: profileManager.activeProfile!),
+                profileViewModel: ProfileViewModel(
+                    viewContext: viewContext,
+                    crashManager: crashManager,
+                    profile: profileManager.activeProfile!
+                ),
                 searchViewModel: SearchViewModel(viewContext: viewContext, crashManager: crashManager)
             )
 

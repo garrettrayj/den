@@ -23,7 +23,7 @@ struct ShowcaseSectionView: View {
             } else {
                 FeedUnavailableView(feed: viewModel.feed)
                     .padding(.vertical)
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 28)
             }
         }
     }
@@ -37,6 +37,7 @@ struct ShowcaseSectionView: View {
                     FeedTitleLabelView(feed: viewModel.feed)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
+                .disabled(viewModel.refreshing)
             }
             Spacer()
             if viewModel.refreshing {
