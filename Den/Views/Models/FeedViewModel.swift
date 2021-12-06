@@ -34,7 +34,7 @@ final class FeedViewModel: ObservableObject {
             .assign(to: \.refreshing, on: self)
 
         self.pageRefreshedSubscriber = NotificationCenter.default
-            .publisher(for: .pageRefreshed, object: feed.page)
+            .publisher(for: .pageRefreshed, object: feed.page?.objectID)
             .receive(on: RunLoop.main)
             .map { _ in false }
             .assign(to: \.refreshing, on: self)

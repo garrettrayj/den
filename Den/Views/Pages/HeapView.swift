@@ -24,7 +24,7 @@ struct HeapView: View {
         } else {
             VStack {
                 Divider()
-                Text("No items").padding(.vertical, 8)
+                Text("Page empty").padding(.vertical, 8)
             }.modifier(SimpleMessageModifier())
 
         }

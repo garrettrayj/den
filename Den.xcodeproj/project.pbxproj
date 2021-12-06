@@ -648,16 +648,7 @@
 				68C41315247263C700D1DC7B /* ContentView.swift */,
 				68ADABC224A21F2500BE41E2 /* WelcomeView.swift */,
 				68FC2566275E07E20073979F /* Sidebar */,
-				68FC2558275C16CB0073979F /* GadgetsView.swift */,
-				68C4134A24727F2B00D1DC7B /* GadgetView.swift */,
-				687D9CB724A9CA2A00EB7F46 /* GadgetItemView.swift */,
-				68FC255C275C172F0073979F /* ShowcaseView.swift */,
-				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
-				6838BA1527539A2400A929F4 /* ShowcaseItemView.swift */,
-				68FC255A275C16F20073979F /* HeapView.swift */,
-				68FC2556275C15E20073979F /* HeapItemView.swift */,
-				688FD917247750350006A2DE /* PageSettingsView.swift */,
-				68D486BD26C9896300AF5B59 /* IconPickerView.swift */,
+				68FC2567275E0D820073979F /* Pages */,
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				68701DE4273BD44B00C6BB69 /* FeedItemView.swift */,
 				688FD930247A34830006A2DE /* FeedSettingsView.swift */,
@@ -726,9 +717,26 @@
 				68FC2560275E00F00073979F /* StartListView.swift */,
 				68FC2562275E07770073979F /* NavigationListView.swift */,
 				68FC2564275E07CC0073979F /* EditingListView.swift */,
-				68C413452472773100D1DC7B /* PageView.swift */,
 			);
 			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		68FC2567275E0D820073979F /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				68C413452472773100D1DC7B /* PageView.swift */,
+				68FC2558275C16CB0073979F /* GadgetsView.swift */,
+				68C4134A24727F2B00D1DC7B /* GadgetView.swift */,
+				687D9CB724A9CA2A00EB7F46 /* GadgetItemView.swift */,
+				68FC255C275C172F0073979F /* ShowcaseView.swift */,
+				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
+				6838BA1527539A2400A929F4 /* ShowcaseItemView.swift */,
+				68FC255A275C16F20073979F /* HeapView.swift */,
+				68FC2556275C15E20073979F /* HeapItemView.swift */,
+				688FD917247750350006A2DE /* PageSettingsView.swift */,
+				68D486BD26C9896300AF5B59 /* IconPickerView.swift */,
+			);
+			path = Pages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

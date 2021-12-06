@@ -76,7 +76,7 @@ struct PageSettingsView: View {
                 }
                 .onTapGesture { showingIconPicker = true }
                 .sheet(isPresented: $showingIconPicker) {
-                    IconPickerView(selectedSymbol: $viewModel.page.wrappedSymbol)
+                    IconPickerView(page: viewModel.page)
                         .environment(\.colorScheme, colorScheme)
                 }
             }.modifier(FormRowModifier())
