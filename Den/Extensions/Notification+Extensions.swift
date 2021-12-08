@@ -9,7 +9,6 @@
 import Foundation
 
 extension Notification.Name {
-    static let feedWillBeDeleted = Notification.Name("feed-will-be-deleted")
     static let feedQueued = Notification.Name("feed-queued")
     static let feedRefreshed = Notification.Name("feed-refreshed")
     static let pageDeleted = Notification.Name("page-deleted")

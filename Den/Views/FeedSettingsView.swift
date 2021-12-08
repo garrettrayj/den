@@ -28,11 +28,6 @@ struct FeedSettingsView: View {
         }
         .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
-        .onReceive(
-            NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: feed.objectID)
-        ) { _ in
-            dismiss()
-        }
         .toolbar {
             ToolbarItem {
                 Button(role: .destructive) {
@@ -190,10 +185,12 @@ struct FeedSettingsView: View {
     }
 
     private func delete() {
-        NotificationCenter.default.post(name: .feedWillBeDeleted, object: feed.objectID)
+        guard let pageObjectID = feed.page?.objectID else { return }
 
         viewContext.delete(feed)
         save()
+
+        NotificationCenter.default.post(name: .pageRefreshed, object: pageObjectID)
     }
 
     private func copyUrl() {

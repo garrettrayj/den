@@ -83,13 +83,6 @@ struct FeedView: View {
             }
             #endif
         }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .feedWillBeDeleted, object: viewModel.feed.objectID)
-        ) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                dismiss()
-            }
-        }
     }
 
     private var feedHeader: some View {
