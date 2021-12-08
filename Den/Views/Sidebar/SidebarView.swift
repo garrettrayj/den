@@ -13,15 +13,13 @@ import SwiftUI
 */
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
 
     @ObservedObject var profileViewModel: ProfileViewModel
+
     @StateObject var searchViewModel: SearchViewModel
 
     @State var editingPages: Bool = false
-    @State var showingSearch: Bool = false
-    @State var showingHistory: Bool = false
     @State var showingSettings: Bool = false
 
     /**

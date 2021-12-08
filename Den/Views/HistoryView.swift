@@ -47,7 +47,6 @@ struct HistoryView: View {
                     }
                 }
             }
-            .padding(.top, 8)
         }
     }
 

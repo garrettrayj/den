@@ -15,9 +15,7 @@ struct SidebarPageView: View {
         if viewModel.page.id != nil {
             NavigationLink {
                 PageView(viewModel: viewModel)
-            } label: {
-                rowLabel
-            }
+            } label: { rowLabel }
         }
     }
 
@@ -44,12 +42,9 @@ struct SidebarPageView: View {
                                 Capsule().fill(Color(UIColor.secondarySystemFill))
                             )
                     }
-
                 }
             },
-            icon: {
-                Image(systemName: viewModel.page.wrappedSymbol)
-            }
+            icon: { Image(systemName: viewModel.page.wrappedSymbol) }
         )
         .lineLimit(1)
         #if targetEnvironment(macCatalyst)

@@ -35,47 +35,45 @@ struct IconPickerView: View {
     ]
 
     let columns = [
-        GridItem(.adaptive(minimum: 32, maximum: 32), spacing: 8, alignment: .top)
+        GridItem(.adaptive(minimum: 32, maximum: 32), spacing: 4, alignment: .top)
     ]
 
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVGrid(columns: columns, pinnedViews: .sectionHeaders) {
+                LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
                     ForEach(categories, id: \.self) { category in
                         Section(
-                            header:
-                                VStack(spacing: 0) {
-                                    Label(category[2], systemImage: category[1])
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .frame(height: 28)
-                                        .padding(.horizontal)
-                                        .background(Color(UIColor.tertiarySystemGroupedBackground))
-                                    Divider()
-                                }
+                            header: Label(category[2], systemImage: category[1])
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(height: 28)
+                                .padding(.horizontal)
+                                .background(Color(UIColor.tertiarySystemGroupedBackground))
                         ) {
-                            ForEach(symbols.keys.sorted(), id: \.self) { key in
-                                if symbols[key]!.contains(category[0]) {
-                                    Image(systemName: key)
-                                        .imageScale(.medium)
-                                        .foregroundColor(key == page.wrappedSymbol ? .accentColor : .primary)
-                                        .frame(width: 32, height: 32, alignment: .center)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .fill(Color(UIColor.secondarySystemGroupedBackground))
-                                        )
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .strokeBorder(
-                                                    Color.accentColor,
-                                                    lineWidth: key == page.wrappedSymbol ? 2 : 0
-                                                )
-                                        )
-                                        .onTapGesture {
-                                            page.wrappedSymbol = key
-                                        }
+                            LazyVGrid(columns: columns, alignment: .leading, spacing: 4) {
+                                ForEach(symbols.keys.sorted(), id: \.self) { key in
+                                    if symbols[key]!.contains(category[0]) {
+                                        Image(systemName: key)
+                                            .imageScale(.medium)
+                                            .foregroundColor(key == page.wrappedSymbol ? .accentColor : .primary)
+                                            .frame(width: 32, height: 32, alignment: .center)
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 4)
+                                                    .fill(Color(UIColor.secondarySystemGroupedBackground))
+                                            )
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 4)
+                                                    .strokeBorder(
+                                                        Color.accentColor,
+                                                        lineWidth: key == page.wrappedSymbol ? 2 : 0
+                                                    )
+                                            )
+                                            .onTapGesture {
+                                                page.wrappedSymbol = key
+                                            }
+                                    }
                                 }
-                            }
+                            }.padding(.horizontal, 8)
                         }
                     }
                 }.padding(.bottom)

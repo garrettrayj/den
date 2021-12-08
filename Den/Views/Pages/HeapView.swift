@@ -20,7 +20,9 @@ struct HeapView: View {
                         item: item
                     )
                 }
-            }.padding()
+            }
+            .padding([.horizontal, .bottom])
+            .padding(.top, 8)
         } else {
             VStack {
                 Divider()
