@@ -17,7 +17,9 @@ struct GadgetItemView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             VStack(alignment: .leading, spacing: 4) {
-                Button(action: openLink) {
+                Button {
+                    linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
+                } label: {
                     Text(item.wrappedTitle)
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
@@ -49,9 +51,5 @@ struct GadgetItemView: View {
                 RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
             )
             .accessibility(label: Text("Thumbnail Image"))
-    }
-
-    private func openLink() {
-        linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
     }
 }

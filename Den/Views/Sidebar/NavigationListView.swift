@@ -60,7 +60,9 @@ struct NavigationListView: View {
 
                 // Add keyboard shorcut for iOS devices
                 #if !targetEnvironment(macCatalyst)
-                Button(action: refreshAll) {
+                Button {
+                    refreshManager.refresh(profile: profileViewModel.profile)
+                } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
                 .buttonStyle(NavigationBarButtonStyle())
@@ -81,7 +83,9 @@ struct NavigationListView: View {
 
             #if targetEnvironment(macCatalyst)
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: refreshAll) {
+                Button {
+                    refreshManager.refresh(profile: profileViewModel.profile)
+                } label: {
                     if profileViewModel.refreshing {
                         ProgressView().progressViewStyle(NavigationBarProgressStyle())
                     } else {
@@ -110,20 +114,5 @@ struct NavigationListView: View {
                 }
             }
         }
-        .background(
-            Group {
-                #if !targetEnvironment(macCatalyst)
-                Button(action: refreshAll) {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }
-                .buttonStyle(NavigationBarButtonStyle())
-                .keyboardShortcut("r", modifiers: [.command, .shift])
-                #endif
-            }.hidden()
-        )
-    }
-
-    private func refreshAll() {
-        refreshManager.refresh(profile: profileViewModel.profile)
     }
 }

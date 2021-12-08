@@ -94,7 +94,10 @@ public class Page: NSManagedObject {
         feedsArray.flatMap { feed in
             feed.feedData?.itemsArray.prefix(feed.wrappedPreviewLimit) ?? []
         }.sorted { aItem, bItem in
-            guard let aDate = aItem.published, let bDate = bItem.published else {
+            guard
+                let aDate = aItem.published ?? aItem.ingested,
+                let bDate = bItem.published  ?? aItem.ingested
+            else {
                 return false
             }
             return aDate > bDate

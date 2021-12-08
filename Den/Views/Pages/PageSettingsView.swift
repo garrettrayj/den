@@ -114,11 +114,11 @@ struct PageSettingsView: View {
     }
 
     private func deletePage() {
-        NotificationCenter.default.post(name: .pageDeleted, object: viewModel.page.objectID)
         viewContext.delete(viewModel.page)
 
         do {
             try viewContext.save()
+            NotificationCenter.default.post(name: .pageDeleted, object: viewModel.page.objectID)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }

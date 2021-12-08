@@ -29,7 +29,10 @@ public class FeedData: NSManagedObject {
     public var itemsArray: [Item] {
         guard
             let items = items?.sortedArray(
-                using: [NSSortDescriptor(key: "published", ascending: false)]
+                using: [
+                    NSSortDescriptor(key: "ingested", ascending: false),
+                    NSSortDescriptor(key: "published", ascending: false)
+                ]
             ) as? [Item]
         else { return [] }
 

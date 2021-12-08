@@ -10,14 +10,10 @@ import SwiftUI
 
 struct PinnedSectionHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
-        VStack(spacing: 0) {
-            content
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 36)
-                .padding(.horizontal, 20)
-                .background(Color(UIColor.tertiarySystemGroupedBackground))
-            Divider()
-        }
-
+        content
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: 36)
+            .padding(.horizontal, 20)
+            .background(Color(UIColor.tertiarySystemGroupedBackground))
     }
 }

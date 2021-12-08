@@ -23,7 +23,7 @@ struct PageView: View {
 
     @State var showingSettings: Bool = false
 
-    @AppStorage("pageViewModel_na") var viewMode = PageViewMode.gadgets.rawValue
+    @AppStorage("pageViewModel_na") var viewMode = 0
 
     init(viewModel: PageViewModel) {
         self.viewModel = viewModel
@@ -92,17 +92,23 @@ struct PageView: View {
                 .pickerStyle(.segmented)
             }
             ToolbarItem {
-                Button(action: showSubscribe) {
+                Button {
+                    subscribeManager.showAddSubscription()
+                } label: {
                     Label("Add Subscription", systemImage: "plus.circle")
                 }.buttonStyle(NavigationBarButtonStyle())
             }
             ToolbarItem {
-                Button(action: showSettings) {
+                Button {
+                    showingSettings = true
+                } label: {
                     Label("Page Settings", systemImage: "wrench")
                 }.buttonStyle(NavigationBarButtonStyle())
             }
             ToolbarItem {
-                Button(action: refresh) {
+                Button {
+                    refreshManager.refresh(page: viewModel.page)
+                } label: {
                     if viewModel.refreshing {
                         ProgressView().progressViewStyle(NavigationBarProgressStyle())
                     } else {
@@ -193,25 +199,5 @@ struct PageView: View {
         Text("This page no longer exists")
             .modifier(SimpleMessageModifier())
             .navigationTitle("Page Removed")
-    }
-
-    private func refresh() {
-        refreshManager.refresh(page: viewModel.page)
-    }
-
-    private func showSettings() {
-        showingSettings = true
-    }
-
-    private func showSubscribe() {
-        subscribeManager.showAddSubscription()
-    }
-
-    private func horizontalInset(_ safeArea: CGFloat) -> CGFloat {
-        if safeArea > 0 {
-            return safeArea
-        }
-
-        return 16
     }
 }
