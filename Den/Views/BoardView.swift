@@ -17,7 +17,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
         AxisGeometryReader(axis: .horizontal, alignment: .leading) { width in
             HStack(alignment: .top, spacing: spacing) {
                 ForEach(generateColumns(width: width), id: \.self) { columnObjects in
-                    LazyVStack(spacing: spacing) {
+                    LazyVStack(alignment: .leading, spacing: spacing) {
                         ForEach(columnObjects) { object in
                             content(object)
                         }

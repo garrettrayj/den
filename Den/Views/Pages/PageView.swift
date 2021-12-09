@@ -162,13 +162,6 @@ struct PageView: View {
         .onAppear {
             subscribeManager.currentPageId = viewModel.page.id?.uuidString
         }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .pageDeleted, object: viewModel.page.objectID)
-        ) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                dismiss()
-            }
-        }
     }
 
     private var pageContent: some View {
@@ -196,8 +189,8 @@ struct PageView: View {
     }
 
     private var pageRemoved: some View {
-        Text("This page no longer exists")
+        Text("Page deleted")
             .modifier(SimpleMessageModifier())
-            .navigationTitle("Page Removed")
+            .navigationBarHidden(true)
     }
 }

@@ -23,6 +23,7 @@ struct FeedSettingsView: View {
             titleSection
             limitsSection
             configurationSection
+            moveSection
             info
             Spacer().listRowBackground(Color.clear)
         }
@@ -51,11 +52,15 @@ struct FeedSettingsView: View {
     }
 
     private var titleSection: some View {
-        Section(header: Text("Title and Page").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Title").modifier(SectionHeaderModifier())) {
             TextField("Title", text: $feed.wrappedTitle)
                 .modifier(TitleTextFieldModifier())
                 .modifier(FormRowModifier())
+        }
+    }
 
+    private var moveSection: some View {
+        Section(header: Text("Move").modifier(SectionHeaderModifier())) {
             pagePicker
         }
     }
