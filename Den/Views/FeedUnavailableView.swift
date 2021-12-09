@@ -24,10 +24,10 @@ struct FeedUnavailableView: View {
                             Text(feed.feedData!.error!).font(.callout).foregroundColor(.red)
                         }
                     } icon: {
-                        Image(systemName: "exclamationmark.circle")
+                        Image(systemName: "exclamationmark.triangle")
                     }
                 } else if feed.feedData!.itemsArray.count == 0 {
-                    Label("Feed empty", systemImage: "square.slash")
+                    Label("Feed empty", systemImage: "questionmark.folder")
                 } else {
                     Label("Unknown status", systemImage: "questionmark.diamond")
                 }

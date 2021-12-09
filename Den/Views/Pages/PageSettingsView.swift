@@ -53,11 +53,6 @@ struct PageSettingsView: View {
             }
         }
         .onDisappear(perform: save)
-        .onReceive(
-            NotificationCenter.default.publisher(for: .pageDeleted, object: viewModel.page.objectID)
-        ) { _ in
-            dismiss()
-        }
     }
 
     private var nameIconSection: some View {
@@ -118,7 +113,7 @@ struct PageSettingsView: View {
 
         do {
             try viewContext.save()
-            NotificationCenter.default.post(name: .pageDeleted, object: viewModel.page.objectID)
+            NotificationCenter.default.post(name: .profileRefreshed, object: viewModel.page.profile?.objectID)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }

@@ -16,29 +16,24 @@ struct SearchResultView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack(alignment: .center) {
-                if feedData.faviconImage != nil {
-                    feedData.faviconImage!.resizable().scaledToFit().frame(width: 16, height: 16)
-                }
-                Text(feedData.feed?.wrappedTitle ?? "Untitled").font(.headline).lineLimit(1)
+            HStack {
+                FeedTitleLabelView(feed: feedData.feed!)
                 Spacer()
-            }.padding(.horizontal, 12).padding(.vertical, 8)
+            }.frame(height: 32)
 
-            VStack(spacing: 0) {
-                VStack(spacing: 0) {
-                    ForEach(items) { item in
-                        Group {
-                            Divider()
-                            GadgetItemView(
-                                item: item,
-                                feed: feedData.feed!
-                            )
-                        }
+            VStack(spacing: 12) {
+                ForEach(items) { item in
+                    Group {
+                        Divider()
+                        GadgetItemView(
+                            item: item,
+                            feed: feedData.feed!
+                        )
                     }
                 }
-                .drawingGroup()
             }
         }
+        .padding([.horizontal, .bottom], 12)
         .modifier(GroupBlockModifier())
     }
 }
