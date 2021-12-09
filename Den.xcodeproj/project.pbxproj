@@ -603,6 +603,10 @@
 				68C4134724727BED00D1DC7B /* Models */,
 				680E57C124D1927600196F6D /* Managers */,
 				687D9CC724B0C43800EB7F46 /* Operations */,
+				68E4273D26D2340A00E496E3 /* ViewModels */,
+				687C27962634A84600099FCA /* Modifiers */,
+				68B34A5C2486D2710066B215 /* Representables */,
+				688FD91B24780C800006A2DE /* Styles */,
 				68C413422472760400D1DC7B /* Views */,
 				68B34A5F2487C4E10066B215 /* Extensions */,
 				68D58E6124922FE5007ED1AC /* Utilities */,
@@ -641,10 +645,6 @@
 		68C413422472760400D1DC7B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				68E4273D26D2340A00E496E3 /* Models */,
-				687C27962634A84600099FCA /* Modifiers */,
-				68B34A5C2486D2710066B215 /* Representables */,
-				688FD91B24780C800006A2DE /* Styles */,
 				68C41315247263C700D1DC7B /* ContentView.swift */,
 				68ADABC224A21F2500BE41E2 /* WelcomeView.swift */,
 				68FC2566275E07E20073979F /* Sidebar */,
@@ -693,7 +693,7 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		68E4273D26D2340A00E496E3 /* Models */ = {
+		68E4273D26D2340A00E496E3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				683041BD275470E300BE7631 /* ProfileViewModel.swift */,
@@ -706,7 +706,7 @@
 				689C736126E569D1009AAD2F /* SubscribeViewModel.swift */,
 				68701DDE273A6DC100C6BB69 /* ExportViewModel.swift */,
 			);
-			path = Models;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		68FC2566275E07E20073979F /* Sidebar */ = {
