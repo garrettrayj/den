@@ -105,12 +105,8 @@ struct FeedView: View {
                 .font(.callout)
                 .foregroundColor(Color.primary)
             }
-
             Spacer()
-
-            lastRefreshedLabel()
-                .foregroundColor(.secondary)
-                .font(.footnote)
+            FeedRefreshedLabelView(refreshed: viewModel.feed.refreshed)
         }
         .lineLimit(1)
     }
@@ -123,17 +119,9 @@ struct FeedView: View {
                         FeedItemView(item: item)
                     }).padding()
                 } else {
-                    FeedUnavailableView(feed: viewModel.feed).modifier(SimpleMessageModifier())
+                    FeedUnavailableView(feedData: viewModel.feed.feedData).modifier(SimpleMessageModifier())
                 }
             }
         }
-    }
-
-    private func lastRefreshedLabel() -> Text {
-        guard let lastRefreshed = viewModel.feed.feedData?.refreshed else {
-            return Text("First refresh")
-        }
-
-        return Text("\(lastRefreshed, formatter: DateFormatter.mediumShort)")
     }
 }

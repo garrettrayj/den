@@ -14,10 +14,10 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     var spacing: CGFloat
 
     var body: some View {
-        AxisGeometryReader(axis: .horizontal, alignment: .leading) { width in
+        AxisGeometryReader(axis: .horizontal, alignment: .center) { width in
             HStack(alignment: .top, spacing: spacing) {
                 ForEach(generateColumns(width: width), id: \.self) { columnObjects in
-                    LazyVStack(alignment: .leading, spacing: spacing) {
+                    LazyVStack(alignment: .center, spacing: spacing) {
                         ForEach(columnObjects) { object in
                             content(object)
                         }

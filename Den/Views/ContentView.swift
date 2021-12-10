@@ -54,7 +54,6 @@ struct ContentView: View {
                 subscribeManager: subscribeManager,
                 urlText: subscribeManager.openedUrlString,
                 destinationPageId: subscribeManager.currentPageId
-
             ))
             .environment(\.colorScheme, colorScheme)
         }

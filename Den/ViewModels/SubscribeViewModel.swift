@@ -67,17 +67,17 @@ final class SubscribeViewModel: ObservableObject {
         urlIsValid = nil
 
         if urlText == "" {
-            self.failValidation(message: "URL cannot be blank")
+            self.failValidation(message: "Address may not be blank")
             return
         }
 
         if self.urlText.contains(" ") {
-            self.failValidation(message: "URL cannot contain spaces")
+            self.failValidation(message: "Address may not contain spaces")
             return
         }
 
         if self.urlText.prefix(7).lowercased() != "http://" && self.urlText.prefix(8).lowercased() != "https://" {
-            self.failValidation(message: "URL must begin with \"http://\" or \"https://\"")
+            self.failValidation(message: "Address must begin with \"http://\" or \"https://\"")
             return
         }
 
@@ -103,5 +103,7 @@ final class SubscribeViewModel: ObservableObject {
         self.loading = true
         newFeed = Feed.create(in: self.viewContext, page: destinationPage, url: url, prepend: true)
         refreshManager.refresh(feed: newFeed!)
+
+        NotificationCenter.default.post(name: .pageRefreshed, object: destinationPage.objectID)
     }
 }

@@ -11,15 +11,18 @@ import SwiftUI
 struct HeapItemView: View {
     @EnvironmentObject var linkManager: LinkManager
 
-    @ObservedObject var feedViewModel: FeedViewModel
-    @ObservedObject var item: Item
+    var feedViewModel: FeedViewModel
+    var item: Item
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             NavigationLink {
                 FeedView(viewModel: feedViewModel)
             } label: {
-                FeedTitleLabelView(feed: feedViewModel.feed)
+                FeedTitleLabelView(
+                    title: feedViewModel.feed.wrappedTitle,
+                    faviconImage: feedViewModel.feed.feedData?.faviconImage
+                )
             }
             .buttonStyle(FeedTitleButtonStyle())
             .disabled(feedViewModel.refreshing)

@@ -84,7 +84,10 @@ struct SecurityCheckView: View {
         Section(header: Text(page.displayName).modifier(SectionHeaderModifier())) {
             ForEach(page.insecureFeeds) { feed in
                 HStack {
-                    FeedTitleLabelView(feed: feed)
+                    FeedTitleLabelView(
+                        title: feed.wrappedTitle,
+                        faviconImage: feed.feedData?.faviconImage
+                    )
                     Spacer()
 
                     HStack(spacing: 4) {

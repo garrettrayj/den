@@ -21,11 +21,14 @@ struct IconPickerView: View {
         ["weather", "cloud.sun", "Weather"],
         ["objectsandtools", "folder", "Objects and Tools"],
         ["devices", "desktopcomputer", "Devices"],
+        ["gaming", "gamecontroller", "Gaming"],
         ["connectivity", "antenna.radiowaves.left.and.right", "Connectivity"],
         ["transportation", "car", "Transporation"],
         ["human", "person.crop.circle", "Human"],
         ["nature", "leaf", "Nature"],
         ["editing", "slider.horizontal.3", "Editing"],
+        ["media", "playpause", "Media"],
+        ["keyboard", "keyboard", "Keyboard"],
         ["commerce", "cart", "Commerce"],
         ["time", "timer", "Time"],
         ["health", "heart", "Health"],
@@ -35,13 +38,13 @@ struct IconPickerView: View {
     ]
 
     let columns = [
-        GridItem(.adaptive(minimum: 32, maximum: 32), spacing: 4, alignment: .top)
+        GridItem(.adaptive(minimum: 40, maximum: 40), spacing: 4, alignment: .top)
     ]
 
     var body: some View {
         NavigationView {
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
+                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
                     ForEach(categories, id: \.self) { category in
                         Section(
                             header: Label(category[2], systemImage: category[1])
@@ -50,13 +53,13 @@ struct IconPickerView: View {
                                 .padding(.horizontal)
                                 .background(Color(UIColor.tertiarySystemGroupedBackground))
                         ) {
-                            LazyVGrid(columns: columns, alignment: .leading, spacing: 4) {
+                            LazyVGrid(columns: columns, alignment: .center, spacing: 4) {
                                 ForEach(symbols.keys.sorted(), id: \.self) { key in
                                     if symbols[key]!.contains(category[0]) {
                                         Image(systemName: key)
-                                            .imageScale(.medium)
+                                            .imageScale(.large)
                                             .foregroundColor(key == page.wrappedSymbol ? .accentColor : .primary)
-                                            .frame(width: 32, height: 32, alignment: .center)
+                                            .frame(width: 40, height: 40, alignment: .center)
                                             .background(
                                                 RoundedRectangle(cornerRadius: 4)
                                                     .fill(Color(UIColor.secondarySystemGroupedBackground))
@@ -73,7 +76,8 @@ struct IconPickerView: View {
                                             }
                                     }
                                 }
-                            }.padding(.horizontal, 8)
+                            }
+                            .padding(.horizontal)
                         }
                     }
                 }.padding(.bottom)

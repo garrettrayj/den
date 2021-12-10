@@ -11,8 +11,8 @@ import SwiftUI
 struct GadgetItemView: View {
     @EnvironmentObject var linkManager: LinkManager
 
-    @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
+    var item: Item
+    var feed: Feed
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
@@ -35,7 +35,7 @@ struct GadgetItemView: View {
                 }
             }
 
-            if item.feedData?.feed?.showThumbnails == true {
+            if feed.showThumbnails == true {
                 thumbnailImage
             }
         }

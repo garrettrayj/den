@@ -21,7 +21,7 @@ struct ShowcaseSectionView: View {
                     }
                 ).padding()
             } else {
-                FeedUnavailableView(feed: viewModel.feed)
+                FeedUnavailableView(feedData: viewModel.feed.feedData)
                     .padding(.vertical)
                     .padding(.horizontal, 28)
             }
@@ -34,7 +34,10 @@ struct ShowcaseSectionView: View {
                 NavigationLink {
                     FeedView(viewModel: viewModel)
                 } label: {
-                    FeedTitleLabelView(feed: viewModel.feed)
+                    FeedTitleLabelView(
+                        title: viewModel.feed.wrappedTitle,
+                        faviconImage: viewModel.feed.feedData?.faviconImage
+                    )
                 }
                 .buttonStyle(FeedTitleButtonStyle())
                 .disabled(viewModel.refreshing)
@@ -42,6 +45,8 @@ struct ShowcaseSectionView: View {
             Spacer()
             if viewModel.refreshing {
                 ProgressView().progressViewStyle(IconProgressStyle())
+            } else if UIDevice.current.userInterfaceIdiom != .phone {
+                FeedRefreshedLabelView(refreshed: viewModel.feed.refreshed)
             }
         }
     }
