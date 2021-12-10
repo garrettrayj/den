@@ -11,7 +11,8 @@ import SwiftUI
 struct GadgetItemView: View {
     @EnvironmentObject var linkManager: LinkManager
 
-    var item: Item
+    @ObservedObject var item: Item
+
     var feed: Feed
 
     var body: some View {

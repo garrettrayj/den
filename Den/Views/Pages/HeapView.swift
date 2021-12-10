@@ -16,8 +16,8 @@ struct HeapView: View {
             BoardView(list: viewModel.page.previewItemsArray) { item in
                 if item.feedData?.feed != nil {
                     HeapItemView(
-                        feedViewModel: FeedViewModel(feed: item.feedData!.feed!, refreshing: viewModel.refreshing),
-                        item: item
+                        item: item,
+                        feedViewModel: FeedViewModel(feed: item.feedData!.feed!, refreshing: viewModel.refreshing)
                     )
                 }
             }
