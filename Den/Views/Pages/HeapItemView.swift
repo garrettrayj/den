@@ -11,8 +11,9 @@ import SwiftUI
 struct HeapItemView: View {
     @EnvironmentObject var linkManager: LinkManager
 
+    @ObservedObject var item: Item
+
     var feedViewModel: FeedViewModel
-    var item: Item
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {

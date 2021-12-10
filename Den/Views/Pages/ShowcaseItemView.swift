@@ -11,7 +11,7 @@ import SwiftUI
 struct ShowcaseItemView: View {
     @EnvironmentObject var linkManager: LinkManager
 
-    var item: Item
+    @ObservedObject var item: Item
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
