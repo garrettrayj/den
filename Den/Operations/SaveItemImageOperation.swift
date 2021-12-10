@@ -18,8 +18,6 @@ final class SaveItemImageOperation: Operation {
 
     private var thumbnailSize = CGSize(width: 96 * 2, height: 64 * 2)
 
-    private let acceptableTypes = ["image/gif", "image/jpeg", "image/png"]
-
     override func main() {
         if isCancelled { return }
 
@@ -27,7 +25,7 @@ final class SaveItemImageOperation: Operation {
             let httpResponse = httpResponse,
             200..<300 ~= httpResponse.statusCode,
             let mimeType = httpResponse.mimeType,
-            self.acceptableTypes.contains(mimeType),
+            MIMETypes.ImageMIMETypes(rawValue: mimeType) != nil,
             let url = httpResponse.url,
             let data = data,
             let originalImage = UIImage(data: data)

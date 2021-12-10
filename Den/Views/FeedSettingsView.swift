@@ -1,5 +1,5 @@
 //
-//  FeedWidgetSettingsView.swift
+//  FeedSettingsView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/23/20.
@@ -10,7 +10,6 @@ import SwiftUI
 
 struct FeedSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var profileManager: ProfileManager
 
@@ -25,7 +24,6 @@ struct FeedSettingsView: View {
             configurationSection
             moveSection
             info
-            Spacer().listRowBackground(Color.clear)
         }
         .onDisappear(perform: save)
         .navigationTitle("Feed Settings")

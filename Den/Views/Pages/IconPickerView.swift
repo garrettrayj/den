@@ -41,6 +41,21 @@ struct IconPickerView: View {
         GridItem(.adaptive(minimum: 40, maximum: 40), spacing: 4, alignment: .top)
     ]
 
+    init(page: Page) {
+        self.page = page
+
+        guard
+            let symbolsPath = Bundle.main.path(forResource: "PageSymbols", ofType: "plist"),
+            let symbolsDict = NSDictionary(contentsOfFile: symbolsPath)
+        else {
+            preconditionFailure("Missing categories configuration")
+        }
+
+        if let symbols = symbolsDict as? [String: [String]] {
+            self.symbols = symbols
+        }
+    }
+
     var body: some View {
         NavigationView {
             ScrollView {
@@ -96,20 +111,5 @@ struct IconPickerView: View {
             }
         }
         .navigationViewStyle(.stack)
-    }
-
-    init(page: Page) {
-        self.page = page
-
-        guard
-            let symbolsPath = Bundle.main.path(forResource: "PageSymbols", ofType: "plist"),
-            let symbolsDict = NSDictionary(contentsOfFile: symbolsPath)
-        else {
-            preconditionFailure("Missing categories configuration")
-        }
-
-        if let symbols = symbolsDict as? [String: [String]] {
-            self.symbols = symbols
-        }
     }
 }

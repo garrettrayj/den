@@ -15,7 +15,6 @@ enum PageViewMode: Int {
 }
 
 struct PageView: View {
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var subscribeManager: SubscribeManager
 
@@ -23,14 +22,14 @@ struct PageView: View {
 
     @State var showingSettings: Bool = false
 
-    @AppStorage("pageViewModel_na") var viewMode = 0
+    @AppStorage("pageViewMode_na") var viewMode = 0
 
     init(viewModel: PageViewModel) {
         self.viewModel = viewModel
 
         _viewMode = AppStorage(
             wrappedValue: PageViewMode.gadgets.rawValue,
-            "pageViewModel_\(viewModel.page.id?.uuidString ?? "na")"
+            "pageViewMode_\(viewModel.page.id?.uuidString ?? "na")"
         )
     }
 

@@ -1,5 +1,5 @@
 //
-//  WorkspaceView.swift
+//  SidebarView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/18/20.

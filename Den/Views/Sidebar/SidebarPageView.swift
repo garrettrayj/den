@@ -1,5 +1,5 @@
 //
-//  PageListRowView.swift
+//  SidebarPageView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.

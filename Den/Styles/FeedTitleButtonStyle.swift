@@ -10,10 +10,10 @@ import SwiftUI
 
 struct FeedTitleButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        GadgetHeaderButton(configuration: configuration)
+        FeedTitleButton(configuration: configuration)
     }
 
-    private struct GadgetHeaderButton: View {
+    private struct FeedTitleButton: View {
         let configuration: ButtonStyle.Configuration
 
         @Environment(\.isEnabled) private var isEnabled: Bool

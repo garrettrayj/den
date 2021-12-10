@@ -183,7 +183,7 @@ struct SettingsView: View {
                 VStack(alignment: .leading) {
                     Text("Den ")
                         .font(.custom("Veronica-Script", size: 24, relativeTo: .title2))
-                    Text("v\(Bundle.main.releaseVersionNumber!)")
+                    Text("v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                         .foregroundColor(.secondary)
                         .font(.footnote)
                         .padding(.leading, 4)

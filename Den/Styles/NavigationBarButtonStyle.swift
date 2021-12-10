@@ -14,9 +14,10 @@ struct NavigationBarButtonStyle: ButtonStyle {
     }
 
     private struct ToolbarButton: View {
+        @Environment(\.isEnabled) private var isEnabled: Bool
+
         let configuration: ButtonStyle.Configuration
 
-        @Environment(\.isEnabled) private var isEnabled: Bool
         var body: some View {
             configuration.label
                 .frame(minHeight: 40, alignment: .center)
