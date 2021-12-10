@@ -13,26 +13,24 @@ struct FeedUnavailableView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Group {
-                if feedData == nil {
-                    Label("Refresh to load items", systemImage: "arrow.clockwise")
-                } else if feedData?.error != nil {
-                    Label {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Unable to update feed")
-                            Text(feedData!.error!).font(.callout).foregroundColor(.red)
-                        }
-                    } icon: {
-                        Image(systemName: "exclamationmark.triangle")
+            if feedData == nil {
+                Label("Refresh to load items", systemImage: "arrow.clockwise")
+            } else if feedData?.error != nil {
+                Label {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Unable to update feed")
+                        Text(feedData!.error!).font(.callout).foregroundColor(.red)
                     }
-                } else if feedData!.itemsArray.count == 0 {
-                    Label("Feed empty", systemImage: "questionmark.folder")
-                } else {
-                    Label("Unknown status", systemImage: "questionmark.diamond")
+                } icon: {
+                    Image(systemName: "exclamationmark.triangle")
                 }
+            } else if feedData!.itemsArray.count == 0 {
+                Label("Feed empty", systemImage: "questionmark.folder")
+            } else {
+                Label("Unknown status", systemImage: "questionmark.diamond")
             }
-            .imageScale(.medium)
-            .foregroundColor(.secondary)
         }
+        .imageScale(.medium)
+        .foregroundColor(.secondary)
     }
 }

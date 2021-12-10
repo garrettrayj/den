@@ -22,14 +22,6 @@ final class SaveFaviconOperation: Operation {
 
     let faviconSize = CGSize(width: 16 * UIScreen.main.scale, height: 16 * UIScreen.main.scale)
 
-    private let acceptableTypes = [
-        "image/x-icon",
-        "image/vnd.microsoft.icon",
-        "image/gif",
-        "image/png",
-        "image/jpeg"
-    ]
-
     override func main() {
         if isCancelled { return }
 
@@ -37,7 +29,7 @@ final class SaveFaviconOperation: Operation {
             let httpResponse = webpageFaviconResponse,
             200..<300 ~= httpResponse.statusCode,
             let mimeType = httpResponse.mimeType,
-            self.acceptableTypes.contains(mimeType),
+            MIMETypes.FaviconMIMETypes(rawValue: mimeType) != nil,
             let faviconUrl = httpResponse.url,
             let faviconData = webpageFaviconData,
             let image = UIImage(data: faviconData),
@@ -50,7 +42,7 @@ final class SaveFaviconOperation: Operation {
             let httpResponse = defaultFaviconResponse,
             200..<300 ~= httpResponse.statusCode,
             let mimeType = httpResponse.mimeType,
-            self.acceptableTypes.contains(mimeType),
+            MIMETypes.FaviconMIMETypes(rawValue: mimeType) != nil,
             let faviconUrl = httpResponse.url,
             let faviconData = defaultFaviconData,
             let image = UIImage(data: faviconData),

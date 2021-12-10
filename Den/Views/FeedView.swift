@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct FeedView: View {
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var linkManager: LinkManager
 

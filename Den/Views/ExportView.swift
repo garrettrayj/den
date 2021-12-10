@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ExportView: View {
-    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var profileManager: ProfileManager
+
     @ObservedObject var viewModel: ExportViewModel
 
     var body: some View {
