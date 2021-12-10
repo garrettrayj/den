@@ -48,7 +48,7 @@ struct PageView: View {
                 RefreshableScrollView(
                     refreshing: $viewModel.refreshing,
                     onRefresh: { _ in
-                        refresh()
+                        refreshManager.refresh(page: viewModel.page)
                     },
                     content: { pageContent }
                 )
@@ -67,7 +67,9 @@ struct PageView: View {
 
                 // Hidden button for iOS keyboard shortcut
                 #if !targetEnvironment(macCatalyst)
-                Button(action: refresh) {
+                Button {
+                    refreshManager.refresh(page: viewModel.page)
+                } label: {
                     EmptyView()
                 }.keyboardShortcut("r", modifiers: [.command])
                 #endif
@@ -120,11 +122,15 @@ struct PageView: View {
             #else
             ToolbarItem {
                 Menu {
-                    Button(action: showSubscribe) {
+                    Button {
+                        subscribeManager.showAddSubscription()
+                    } label: {
                         Label("Add Subscription", systemImage: "plus.circle")
                     }
 
-                    Button(action: showSettings) {
+                    Button {
+                        showingSettings = true
+                    } label: {
                         Label("Page Settings", systemImage: "wrench")
                     }
 
