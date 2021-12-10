@@ -24,9 +24,9 @@ struct FeedView: View {
             }
             #else
             RefreshableScrollView(
-                refreshing: $viewModel.refreshing,
-                onRefresh: { _ in
+                onRefresh: { done in
                     refreshManager.refresh(feed: viewModel.feed)
+                    done()
                 },
                 content: { feedContent }
             )
@@ -41,16 +41,6 @@ struct FeedView: View {
                 ) {
                     EmptyView()
                 }
-
-                // Hidden button for iOS keyboard shortcuts
-                #if !targetEnvironment(macCatalyst)
-                Button {
-                    refreshManager.refresh(feed: viewModel.feed)
-                } label: {
-                    EmptyView()
-                }
-                .keyboardShortcut("r", modifiers: [.command])
-                #endif
             }
         )
         .navigationTitle(viewModel.feed.wrappedTitle)
@@ -65,8 +55,7 @@ struct FeedView: View {
                 .disabled(viewModel.refreshing)
             }
 
-            #if targetEnvironment(macCatalyst)
-            ToolbarItem {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     refreshManager.refresh(feed: viewModel.feed)
                 } label: {
@@ -80,7 +69,6 @@ struct FeedView: View {
                 .keyboardShortcut("r", modifiers: [.command])
                 .disabled(viewModel.refreshing)
             }
-            #endif
         }
     }
 

@@ -81,7 +81,6 @@ struct NavigationListView: View {
                 .buttonStyle(NavigationBarButtonStyle())
             }
 
-            #if targetEnvironment(macCatalyst)
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     refreshManager.refresh(profile: profileViewModel.profile)
@@ -96,7 +95,6 @@ struct NavigationListView: View {
                 .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
             }
-            #endif
 
             ToolbarItem(placement: .bottomBar) {
                 Button {

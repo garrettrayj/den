@@ -21,6 +21,7 @@ struct FeedTitleLabelView: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 16, height: 16)
+                    .clipped()
             } else {
                 Image(systemName: "dot.radiowaves.up.forward")
                     .foregroundColor(Color.secondary)

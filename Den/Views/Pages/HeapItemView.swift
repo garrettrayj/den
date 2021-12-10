@@ -54,7 +54,7 @@ struct HeapItemView: View {
             if item.feedData?.feed?.showThumbnails == true && item.previewUIImage != nil {
                 Image(uiImage: item.previewUIImage!)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(CGFloat(item.imageWidth) / CGFloat(item.imageHeight), contentMode: .fit)
                     .frame(maxWidth: CGFloat(item.imageWidth), maxHeight: CGFloat(item.imageHeight))
                     .background(Color(UIColor.tertiarySystemGroupedBackground))
                     .cornerRadius(4)
@@ -68,9 +68,11 @@ struct HeapItemView: View {
             if item.summary != nil {
                 Text(item.summary!).lineLimit(6)
             }
+
+            Spacer()
         }
         .padding(.top, 8)
-        .padding([.horizontal, .bottom], 12)
+        .padding([.horizontal], 12)
         .modifier(GroupBlockModifier())
     }
 }

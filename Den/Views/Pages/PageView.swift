@@ -46,9 +46,9 @@ struct PageView: View {
                 }
                 #else
                 RefreshableScrollView(
-                    refreshing: $viewModel.refreshing,
-                    onRefresh: { _ in
+                    onRefresh: { done in
                         refreshManager.refresh(page: viewModel.page)
+                        done()
                     },
                     content: { pageContent }
                 )
@@ -64,15 +64,6 @@ struct PageView: View {
                 ) {
                     EmptyView()
                 }
-
-                // Hidden button for iOS keyboard shortcut
-                #if !targetEnvironment(macCatalyst)
-                Button {
-                    refreshManager.refresh(page: viewModel.page)
-                } label: {
-                    EmptyView()
-                }.keyboardShortcut("r", modifiers: [.command])
-                #endif
             }
         )
         .navigationTitle(viewModel.page.displayName)
@@ -157,10 +148,23 @@ struct PageView: View {
                             Label("Heap View", systemImage: "square.text.square")
                         }
                     }
-
                 } label: {
-                    Label("Page Menu", systemImage: "ellipsis")
+                    Label("Page Menu", systemImage: "ellipsis.circle")
                 }.buttonStyle(NavigationBarButtonStyle())
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    refreshManager.refresh(page: viewModel.page)
+                } label: {
+                    if viewModel.refreshing {
+                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                    } else {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                }
+                .buttonStyle(NavigationBarButtonStyle())
+                .keyboardShortcut("r", modifiers: [.command])
             }
             #endif
         }
