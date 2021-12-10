@@ -148,6 +148,7 @@
 		68FC2561275E00F00073979F /* StartListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC2560275E00F00073979F /* StartListView.swift */; };
 		68FC2563275E07770073979F /* NavigationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC2562275E07770073979F /* NavigationListView.swift */; };
 		68FC2565275E07CC0073979F /* EditingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC2564275E07CC0073979F /* EditingListView.swift */; };
+		68FC256B2763626B0073979F /* FeedRefreshedLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC256A2763626B0073979F /* FeedRefreshedLabelView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -337,6 +338,7 @@
 		68FC2560275E00F00073979F /* StartListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartListView.swift; sourceTree = "<group>"; };
 		68FC2562275E07770073979F /* NavigationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationListView.swift; sourceTree = "<group>"; };
 		68FC2564275E07CC0073979F /* EditingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingListView.swift; sourceTree = "<group>"; };
+		68FC256A2763626B0073979F /* FeedRefreshedLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRefreshedLabelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -664,6 +666,7 @@
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				684DFA0424BC39EB0023D6DB /* RefreshableScrollView.swift */,
 				6885C42126D37259002C41B0 /* FeedTitleLabelView.swift */,
+				68FC256A2763626B0073979F /* FeedRefreshedLabelView.swift */,
 				68FC25542758B2250073979F /* FeedUnavailableView.swift */,
 			);
 			path = Views;
@@ -1005,6 +1008,7 @@
 				68D486BE26C9896300AF5B59 /* IconPickerView.swift in Sources */,
 				6809EFD724DE9031007B5CF1 /* Array+Extensions.swift in Sources */,
 				68FC25552758B2250073979F /* FeedUnavailableView.swift in Sources */,
+				68FC256B2763626B0073979F /* FeedRefreshedLabelView.swift in Sources */,
 				6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */,
 				689460842596A7BB00ED4064 /* PersistenceManager.swift in Sources */,
 				689C735E26DC392B009AAD2F /* MacButtonStyleModifier.swift in Sources */,

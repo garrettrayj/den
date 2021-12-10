@@ -10,6 +10,18 @@
 	<array>
 		<string>devices</string>
 	</array>
+	<key>a</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>a.book.closed</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>a.book.closed.th</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>airplane</key>
 	<array>
 		<string>transportation</string>
@@ -28,11 +40,43 @@
 		<string>objectsandtools</string>
 		<string>time</string>
 	</array>
+	<key>align.horizontal.center</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>align.horizontal.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>align.horizontal.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>align.vertical.bottom</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>align.vertical.center</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>align.vertical.top</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>allergens</key>
 	<array>
 		<string>health</string>
 		<string>multicolor</string>
 		<string>nature</string>
+	</array>
+	<key>alt</key>
+	<array>
+		<string>keyboard</string>
+	</array>
+	<key>alternatingcurrent</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>amplifier</key>
 	<array>
@@ -65,6 +109,18 @@
 	<array>
 		<string>multicolor</string>
 	</array>
+	<key>app.dashed</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>app.gift</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>appclip</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>applepencil</key>
 	<array>
 		<string>devices</string>
@@ -93,6 +149,15 @@
 	<key>arrow.backward</key>
 	<array>
 		<string>arrows</string>
+	</array>
+	<key>arrow.backward.to.line</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
+	<key>arrow.branch</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>arrow.clockwise</key>
 	<array>
@@ -146,9 +211,28 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrow.down.to.line</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
+	<key>arrow.down.to.line.alt</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>arrow.down.to.line.compact</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
 	<key>arrow.forward</key>
 	<array>
 		<string>arrows</string>
+	</array>
+	<key>arrow.forward.to.line</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
 	</array>
 	<key>arrow.left</key>
 	<array>
@@ -166,6 +250,24 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrow.left.to.line</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
+	<key>arrow.left.to.line.alt</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>arrow.left.to.line.compact</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
+	<key>arrow.merge</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>arrow.rectanglepath</key>
 	<array>
 		<string>media</string>
@@ -174,9 +276,31 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrow.right.arrow.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>arrow.right.doc.on.clipboard</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>arrow.right.to.line</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
+	<key>arrow.right.to.line.alt</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>arrow.right.to.line.compact</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
+	<key>arrow.swap</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>arrow.triangle.branch</key>
 	<array>
@@ -318,6 +442,28 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrow.up.right.and.arrow.down.left.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>arrow.up.right.diamond</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>arrow.up.to.line</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
+	<key>arrow.up.to.line.alt</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>arrow.up.to.line.compact</key>
+	<array>
+		<string>arrows</string>
+		<string>keyboard</string>
+	</array>
 	<key>arrow.uturn.backward</key>
 	<array>
 		<string>arrows</string>
@@ -418,9 +564,17 @@
 	<array>
 		<string>editing</string>
 	</array>
+	<key>asterisk</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>at</key>
 	<array>
 		<string>multicolor</string>
+	</array>
+	<key>atom</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>backward</key>
 	<array>
@@ -451,6 +605,14 @@
 	<key>banknote</key>
 	<array>
 		<string>commerce</string>
+	</array>
+	<key>barcode</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>barcode.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>barometer</key>
 	<array>
@@ -525,6 +687,10 @@
 	<key>bolt</key>
 	<array>
 		<string>nature</string>
+	</array>
+	<key>bolt.badge.a</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>bolt.batteryblock</key>
 	<array>
@@ -620,6 +786,18 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>building.columns</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>burn</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>burst</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>bus</key>
 	<array>
 		<string>transportation</string>
@@ -680,6 +858,10 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>camera.aperture</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>camera.badge.ellipsis</key>
 	<array>
 		<string>objectsandtools</string>
@@ -689,9 +871,45 @@
 		<string>editing</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>camera.metering.center.weighted</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>camera.metering.center.weighted.average</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>camera.metering.matrix</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>camera.metering.multispot</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>camera.metering.none</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>camera.metering.partial</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>camera.metering.spot</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>camera.metering.unknown</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>camera.on.rectangle</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>camera.rotate</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>camera.shutter.button</key>
 	<array>
@@ -704,6 +922,10 @@
 	<key>candybarphone</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>capslock</key>
+	<array>
+		<string>keyboard</string>
 	</array>
 	<key>capsule</key>
 	<array>
@@ -753,13 +975,45 @@
 	<array>
 		<string>communication</string>
 	</array>
+	<key>chart.bar</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>chart.bar.doc.horizontal</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>chart.bar.xaxis</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>chart.line.uptrend.xyaxis</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>chart.pie</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>chart.xyaxis.line</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>checkerboard.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>checkerboard.shield</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>checklist</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>checklist.rtl</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>checkmark</key>
 	<array>
@@ -768,6 +1022,22 @@
 	<key>checkmark.bubble</key>
 	<array>
 		<string>communication</string>
+	</array>
+	<key>checkmark.diamond</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>checkmark.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>checkmark.rectangle.portrait</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>checkmark.seal</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>checkmark.shield</key>
 	<array>
@@ -817,6 +1087,14 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>chevron.left.forwardslash.chevron.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>chevron.left.slash.chevron.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>chevron.right</key>
 	<array>
 		<string>arrows</string>
@@ -841,13 +1119,70 @@
 	<array>
 		<string>editing</string>
 	</array>
+	<key>circle.bottomthird.split</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>circle.dashed</key>
 	<array>
 		<string>editing</string>
 	</array>
+	<key>circle.dotted</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circle.grid.2x1</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circle.grid.2x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circle.grid.3x3</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>circle.grid.cross</key>
 	<array>
 		<string>gaming</string>
+	</array>
+	<key>circle.grid.hex</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circle.hexagongrid</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circle.hexagonpath</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circle.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circlebadge</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circlebadge.2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circles.hexagongrid</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>circles.hexagonpath</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>clear</key>
+	<array>
+		<string>keyboard</string>
+		<string>multicolor</string>
 	</array>
 	<key>clock</key>
 	<array>
@@ -935,9 +1270,25 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>command</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>computermouse</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>cone</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>contextualmenu.and.cursorarrow</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>control</key>
+	<array>
+		<string>keyboard</string>
 	</array>
 	<key>cpu</key>
 	<array>
@@ -988,9 +1339,81 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>cube.box</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cube.transparent</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>cup.and.saucer</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>curlybraces</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursor.rays</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursorarrow</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursorarrow.click</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursorarrow.click.2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursorarrow.click.badge.clock</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursorarrow.motionlines</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursorarrow.motionlines.click</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cursorarrow.rays</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cylinder</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>cylinder.split.1x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>delete.backward</key>
+	<array>
+		<string>keyboard</string>
+		<string>multicolor</string>
+	</array>
+	<key>delete.forward</key>
+	<array>
+		<string>keyboard</string>
+		<string>multicolor</string>
+	</array>
+	<key>delete.left</key>
+	<array>
+		<string>keyboard</string>
+		<string>multicolor</string>
+	</array>
+	<key>delete.right</key>
+	<array>
+		<string>keyboard</string>
+		<string>multicolor</string>
 	</array>
 	<key>deskclock</key>
 	<array>
@@ -1009,6 +1432,10 @@
 	<array>
 		<string>devices</string>
 		<string>multicolor</string>
+	</array>
+	<key>dial</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>dial.max</key>
 	<array>
@@ -1052,6 +1479,10 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>directcurrent</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>display</key>
 	<array>
 		<string>devices</string>
@@ -1077,6 +1508,14 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>doc.append</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>doc.append.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>doc.badge.ellipsis</key>
 	<array>
 		<string>objectsandtools</string>
@@ -1093,13 +1532,61 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>doc.plaintext</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>doc.richtext</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>doc.richtext.th</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>doc.text</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>doc.text.below.ecg</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>doc.text.below.ecg.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>doc.text.image</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>doc.text.magnifyingglass</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>doc.text.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>doc.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>doc.zipper</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>dock.arrow.down.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>dock.arrow.up.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>dock.rectangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>dot.radiowaves.forward</key>
 	<array>
@@ -1116,6 +1603,10 @@
 	<key>dot.radiowaves.up.forward</key>
 	<array>
 		<string>connectivity</string>
+	</array>
+	<key>dot.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>dpad</key>
 	<array>
@@ -1160,9 +1651,29 @@
 	<array>
 		<string>devices</string>
 	</array>
+	<key>eject</key>
+	<array>
+		<string>keyboard</string>
+	</array>
+	<key>ellipses.bubble</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>ellipsis</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>ellipsis.bubble</key>
 	<array>
 		<string>communication</string>
+	</array>
+	<key>ellipsis.curlybraces</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>ellipsis.rectangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>ellipsis.vertical.bubble</key>
 	<array>
@@ -1187,6 +1698,10 @@
 	<key>equal</key>
 	<array>
 		<string>math</string>
+	</array>
+	<key>escape</key>
+	<array>
+		<string>keyboard</string>
 	</array>
 	<key>esim</key>
 	<array>
@@ -1215,6 +1730,10 @@
 	<key>exclamationmark.shield</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>exclamationmark.triangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>externaldrive</key>
 	<array>
@@ -1277,6 +1796,10 @@
 	<array>
 		<string>human</string>
 	</array>
+	<key>f.cursive</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>face.dashed</key>
 	<array>
 		<string>human</string>
@@ -1302,6 +1825,14 @@
 	<key>ferry</key>
 	<array>
 		<string>transportation</string>
+	</array>
+	<key>fiberchannel</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>fibrechannel</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>figure.roll</key>
 	<array>
@@ -1329,6 +1860,14 @@
 	<array>
 		<string>human</string>
 		<string>transportation</string>
+	</array>
+	<key>filemenu.and.cursorarrow</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>filemenu.and.cursorarrow.rtl</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>filemenu.and.selection</key>
 	<array>
@@ -1359,14 +1898,30 @@
 	<array>
 		<string>nature</string>
 	</array>
+	<key>flip.horizontal</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>flipphone</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>flowchart</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>fn</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>folder</key>
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>folder.badge.gear</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>folder.badge.gearshape</key>
 	<array>
@@ -1412,6 +1967,10 @@
 	<array>
 		<string>math</string>
 	</array>
+	<key>fx</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>gamecontroller</key>
 	<array>
 		<string>devices</string>
@@ -1426,6 +1985,10 @@
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>gear.badge.checkmark</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>gear.badge.questionmark</key>
 	<array>
@@ -1450,7 +2013,7 @@
 	</array>
 	<key>globe</key>
 	<array>
-		<string>nature</string>
+		<string>keyboard</string>
 	</array>
 	<key>globe.americas</key>
 	<array>
@@ -1460,6 +2023,10 @@
 	<array>
 		<string>nature</string>
 	</array>
+	<key>globe.badge.chevron.backward</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>globe.europe.africa</key>
 	<array>
 		<string>nature</string>
@@ -1468,71 +2035,7 @@
 	<array>
 		<string>media</string>
 	</array>
-	<key>gobackward.10</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>gobackward.15</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>gobackward.30</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>gobackward.45</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>gobackward.5</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>gobackward.60</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>gobackward.75</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>gobackward.90</key>
-	<array>
-		<string>media</string>
-	</array>
 	<key>goforward</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.10</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.15</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.30</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.45</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.5</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.60</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.75</key>
-	<array>
-		<string>media</string>
-	</array>
-	<key>goforward.90</key>
 	<array>
 		<string>media</string>
 	</array>
@@ -1547,6 +2050,10 @@
 	<key>greetingcard</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>grid</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>guitars</key>
 	<array>
@@ -1630,6 +2137,10 @@
 		<string>devices</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>hearingaid.ear</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>hearingdevice.ear</key>
 	<array>
 		<string>devices</string>
@@ -1643,6 +2154,14 @@
 	<key>heart.rectangle</key>
 	<array>
 		<string>multicolor</string>
+	</array>
+	<key>heart.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>helm</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>hexagon</key>
 	<array>
@@ -1697,13 +2216,55 @@
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>k</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>key</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>keyboard</key>
+	<array>
+		<string>devices</string>
+		<string>keyboard</string>
+	</array>
+	<key>keyboard.badge.ellipsis</key>
+	<array>
+		<string>devices</string>
+		<string>keyboard</string>
+	</array>
+	<key>keyboard.chevron.compact.down</key>
+	<array>
+		<string>devices</string>
+		<string>keyboard</string>
+	</array>
+	<key>keyboard.chevron.compact.left</key>
+	<array>
+		<string>devices</string>
+		<string>keyboard</string>
+	</array>
+	<key>keyboard.macwindow</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>keyboard.onehanded.left</key>
+	<array>
+		<string>devices</string>
+		<string>keyboard</string>
+	</array>
+	<key>keyboard.onehanded.right</key>
+	<array>
+		<string>devices</string>
+		<string>keyboard</string>
+	</array>
 	<key>l.joystick</key>
 	<array>
 		<string>gaming</string>
+	</array>
+	<key>l.joystick.down</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>l.joystick.press.down</key>
 	<array>
@@ -1741,6 +2302,10 @@
 	<array>
 		<string>nature</string>
 	</array>
+	<key>lanyardcard</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>laptopcomputer</key>
 	<array>
 		<string>devices</string>
@@ -1763,6 +2328,10 @@
 	<array>
 		<string>editing</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>lasso.sparkles</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>latch.2.case</key>
 	<array>
@@ -1789,6 +2358,14 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>light.max</key>
+	<array>
+		<string>keyboard</string>
+	</array>
+	<key>light.min</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>lightbulb</key>
 	<array>
 		<string>objectsandtools</string>
@@ -1797,10 +2374,62 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>line.3.horizontal</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>line.3.horizontal.decrease</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>line.diagonal</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>line.diagonal.arrow</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>line.horizontal.3</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>line.horizontal.3.decrease</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>lines.measurement.horizontal</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>lineweight</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>link</key>
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>list.and.film</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>list.bullet.below.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>list.bullet.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>list.bullet.rectangle.portrait</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>list.dash.header.rectangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>location</key>
 	<array>
@@ -1824,6 +2453,10 @@
 	<key>location.slash</key>
 	<array>
 		<string>arrows</string>
+	</array>
+	<key>location.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>lock</key>
 	<array>
@@ -1907,6 +2540,14 @@
 	<array>
 		<string>multicolor</string>
 	</array>
+	<key>macwindow.on.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>macwindow.on.rectangle.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>magazine</key>
 	<array>
 		<string>objectsandtools</string>
@@ -1922,6 +2563,22 @@
 	<key>magsafe.batterypack</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>mail</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>mail.and.text.magnifyingglass</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>mail.and.text.magnifyingglass.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>mail.stack</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>map</key>
 	<array>
@@ -1949,9 +2606,33 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>memories</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>memorychip</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>menubar.arrow.down.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>menubar.arrow.up.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>menubar.dock.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>menubar.dock.rectangle.badge.record</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>menubar.rectangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>menucard</key>
 	<array>
@@ -2001,6 +2682,18 @@
 	<array>
 		<string>weather</string>
 	</array>
+	<key>moon.zzz</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>mosaic</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>mount</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>mouth</key>
 	<array>
 		<string>human</string>
@@ -2013,13 +2706,33 @@
 	<array>
 		<string>math</string>
 	</array>
+	<key>music.house</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>music.mic</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>music.note</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>music.note.house</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>music.note.list</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>music.note.tv</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>music.quarternote.3</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>mustache</key>
 	<array>
@@ -2037,6 +2750,10 @@
 	<key>nose</key>
 	<array>
 		<string>human</string>
+	</array>
+	<key>nosign</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>note</key>
 	<array>
@@ -2062,6 +2779,10 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>option</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>oval</key>
 	<array>
 		<string>shapes</string>
@@ -2085,6 +2806,10 @@
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>pano</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>paperclip</key>
 	<array>
 		<string>multicolor</string>
@@ -2097,6 +2822,18 @@
 	<key>paperplane</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>paragraph</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>parentheses</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>parkingsign</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>pause</key>
 	<array>
@@ -2115,10 +2852,18 @@
 		<string>devices</string>
 		<string>multicolor</string>
 	</array>
+	<key>peacesign</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>pencil</key>
 	<array>
 		<string>editing</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>pencil.and.ellipsis.rectangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>pencil.and.outline</key>
 	<array>
@@ -2225,6 +2970,22 @@
 		<string>communication</string>
 		<string>multicolor</string>
 	</array>
+	<key>photo</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>photo.artframe</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>photo.on.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>photo.on.rectangle.angled</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>photo.tv</key>
 	<array>
 		<string>devices</string>
@@ -2246,6 +3007,26 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>pip</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>pip.enter</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>pip.exit</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>pip.remove</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>pip.swap</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>play</key>
 	<array>
 		<string>media</string>
@@ -2253,6 +3034,10 @@
 	<key>play.rectangle</key>
 	<array>
 		<string>media</string>
+	</array>
+	<key>play.rectangle.on.rectangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>play.slash</key>
 	<array>
@@ -2271,6 +3056,10 @@
 		<string>gaming</string>
 		<string>math</string>
 		<string>multicolor</string>
+	</array>
+	<key>plus.app</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>plus.bubble</key>
 	<array>
@@ -2293,17 +3082,53 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>plus.rectangle.on.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>plus.rectangle.portrait</key>
 	<array>
 		<string>multicolor</string>
+	</array>
+	<key>plus.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>plusminus</key>
 	<array>
 		<string>math</string>
 	</array>
+	<key>point.3.connected.trianglepath.dotted</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>point.topleft.down.curvedto.point.bottomright.up</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>power</key>
+	<array>
+		<string>keyboard</string>
+	</array>
+	<key>power.dotted</key>
+	<array>
+		<string>keyboard</string>
+	</array>
+	<key>poweroff</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>poweron</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>powerplug</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>powersleep</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>printer</key>
 	<array>
@@ -2315,6 +3140,14 @@
 		<string>devices</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>projective</key>
+	<array>
+		<string>keyboard</string>
+	</array>
+	<key>purchased</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>puzzlepiece</key>
 	<array>
 		<string>objectsandtools</string>
@@ -2323,9 +3156,29 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>pyramid</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>qrcode</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>qrcode.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>questionmark</key>
 	<array>
 		<string>multicolor</string>
+	</array>
+	<key>questionmark.app</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>questionmark.app.dashed</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>questionmark.diamond</key>
 	<array>
@@ -2354,6 +3207,10 @@
 	<key>r.joystick</key>
 	<array>
 		<string>gaming</string>
+	</array>
+	<key>r.joystick.down</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>r.joystick.press.down</key>
 	<array>
@@ -2391,6 +3248,18 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>radiowaves.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>radiowaves.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rays</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>rb.rectangle.roundedbottom</key>
 	<array>
 		<string>gaming</string>
@@ -2403,9 +3272,33 @@
 	<array>
 		<string>shapes</string>
 	</array>
+	<key>rectangle.2.swap</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.3.group</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>rectangle.3.group.bubble.left</key>
 	<array>
 		<string>communication</string>
+	</array>
+	<key>rectangle.3.offgrid</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.3.offgrid.bubble.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.and.arrow.up.right.and.arrow.down.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.and.arrow.up.right.and.arrow.down.left.slash</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>rectangle.and.hand.point.up.left</key>
 	<array>
@@ -2425,6 +3318,22 @@
 		<string>editing</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>rectangle.and.text.magnifyingglass</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.and.text.magnifyingglass.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.arrowtriangle.2.inward</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.arrowtriangle.2.outward</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>rectangle.badge.checkmark</key>
 	<array>
 		<string>multicolor</string>
@@ -2432,6 +3341,14 @@
 	<key>rectangle.badge.person.crop</key>
 	<array>
 		<string>human</string>
+	</array>
+	<key>rectangle.compress.vertical</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.connected.to.line.below</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>rectangle.dashed</key>
 	<array>
@@ -2445,13 +3362,73 @@
 	<array>
 		<string>editing</string>
 	</array>
+	<key>rectangle.dock</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.expand.vertical</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.grid.1x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.grid.2x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.grid.3x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>rectangle.on.rectangle</key>
 	<array>
 		<string>gaming</string>
 	</array>
+	<key>rectangle.on.rectangle.angled</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.on.rectangle.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>rectangle.portrait</key>
 	<array>
 		<string>shapes</string>
+	</array>
+	<key>rectangle.portrait.and.arrow.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.portrait.arrowtriangle.2.inward</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.portrait.arrowtriangle.2.outward</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.portrait.on.rectangle.portrait</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.portrait.on.rectangle.portrait.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.portrait.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.portrait.split.2x1</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.portrait.split.2x1.slash</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>rectangle.roundedbottom</key>
 	<array>
@@ -2463,9 +3440,53 @@
 		<string>gaming</string>
 		<string>shapes</string>
 	</array>
+	<key>rectangle.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.split.1x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.split.2x1</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.split.2x1.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.split.2x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.split.3x1</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.split.3x3</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.stack</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>rectangle.stack.badge.person.crop</key>
 	<array>
 		<string>human</string>
+	</array>
+	<key>rectangle.stack.badge.play</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.stack.person.crop</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>rectangle.topthird.inset</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>repeat</key>
 	<array>
@@ -2474,6 +3495,10 @@
 	<key>repeat.1</key>
 	<array>
 		<string>media</string>
+	</array>
+	<key>restart</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>return</key>
 	<array>
@@ -2542,6 +3567,10 @@
 	<array>
 		<string>transportation</string>
 	</array>
+	<key>scope</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>screwdriver</key>
 	<array>
 		<string>objectsandtools</string>
@@ -2583,9 +3612,17 @@
 		<string>objectsandtools</string>
 		<string>shapes</string>
 	</array>
+	<key>shield.checkerboard</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>shield.slash</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>shift</key>
+	<array>
+		<string>keyboard</string>
 	</array>
 	<key>shippingbox</key>
 	<array>
@@ -2594,6 +3631,30 @@
 	<key>shuffle</key>
 	<array>
 		<string>media</string>
+	</array>
+	<key>sidebar.leading</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>sidebar.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>sidebar.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>sidebar.trailing</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>signpost.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>signpost.right</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>simcard</key>
 	<array>
@@ -2607,6 +3668,10 @@
 	<array>
 		<string>editing</string>
 	</array>
+	<key>sleep</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>slider.horizontal.3</key>
 	<array>
 		<string>editing</string>
@@ -2619,9 +3684,21 @@
 	<array>
 		<string>editing</string>
 	</array>
+	<key>slowmo</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>smiley</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>smoke</key>
 	<array>
 		<string>weather</string>
+	</array>
+	<key>snow</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>snowflake</key>
 	<array>
@@ -2641,6 +3718,10 @@
 		<string>multicolor</string>
 		<string>weather</string>
 	</array>
+	<key>sparkles.rectangle.stack</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>sparkles.tv</key>
 	<array>
 		<string>devices</string>
@@ -2648,6 +3729,18 @@
 	<key>speaker</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>speaker.1</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>speaker.2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>speaker.3</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>speaker.badge.exclamationmark</key>
 	<array>
@@ -2686,13 +3779,37 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>sportscourt</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>square</key>
 	<array>
 		<string>shapes</string>
 	</array>
+	<key>square.2.stack.3d</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.3.stack.3d</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.and.arrow.down</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.and.arrow.up</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>square.and.arrow.up.trianglebadge.exclamationmark</key>
 	<array>
 		<string>multicolor</string>
+	</array>
+	<key>square.and.at.rectangle</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>square.and.pencil</key>
 	<array>
@@ -2707,6 +3824,98 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>square.grid.3x1.below.line.grid.1x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.grid.3x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.grid.3x3</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.split.1x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.split.2x1</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.split.2x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.split.bottomrightquarter</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.split.diagonal</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.split.diagonal.2x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack.3d.down.dottedline</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack.3d.down.forward</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack.3d.down.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack.3d.forward.dottedline</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack.3d.up</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack.3d.up.badge.a</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.stack.3d.up.slash</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>squares.below.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>squareshape</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>squareshape.split.2x2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>squareshape.split.2x2.dotted</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>squareshape.split.3x3</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>star</key>
 	<array>
 		<string>multicolor</string>
@@ -2714,6 +3923,10 @@
 	<key>star.bubble</key>
 	<array>
 		<string>communication</string>
+	</array>
+	<key>star.slash</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>staroflife</key>
 	<array>
@@ -2778,6 +3991,16 @@
 	<array>
 		<string>weather</string>
 	</array>
+	<key>sun.max</key>
+	<array>
+		<string>keyboard</string>
+		<string>weather</string>
+	</array>
+	<key>sun.min</key>
+	<array>
+		<string>keyboard</string>
+		<string>weather</string>
+	</array>
 	<key>sunrise</key>
 	<array>
 		<string>weather</string>
@@ -2785,6 +4008,30 @@
 	<key>sunset</key>
 	<array>
 		<string>weather</string>
+	</array>
+	<key>switch.2</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>t.bubble</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>table</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>table.badge.more</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>tablecells</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>tablecells.badge.ellipsis</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>tag</key>
 	<array>
@@ -2798,10 +4045,22 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>target</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>terminal</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>testtube.2</key>
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>text.and.command.macwindow</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>text.append</key>
 	<array>
@@ -2819,6 +4078,14 @@
 	<array>
 		<string>multicolor</string>
 	</array>
+	<key>text.below.photo</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>text.below.photo.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>text.book.closed</key>
 	<array>
 		<string>objectsandtools</string>
@@ -2831,9 +4098,25 @@
 	<array>
 		<string>communication</string>
 	</array>
+	<key>text.cursor</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>text.cursor.th</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>text.insert</key>
 	<array>
 		<string>media</string>
+	</array>
+	<key>text.justifyleft</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>text.justifyright</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>text.magnifyingglass</key>
 	<array>
@@ -2842,6 +4125,26 @@
 	<key>text.magnifyingglass.rtl</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>text.quote</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>text.quote.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>text.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>textbox</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>textbox.th</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>theatermasks</key>
 	<array>
@@ -2865,6 +4168,10 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>timelapse</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>timeline.selection</key>
 	<array>
 		<string>editing</string>
@@ -2875,6 +4182,10 @@
 		<string>objectsandtools</string>
 		<string>time</string>
 	</array>
+	<key>togglepower</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>tornado</key>
 	<array>
 		<string>multicolor</string>
@@ -2883,6 +4194,10 @@
 	<key>tortoise</key>
 	<array>
 		<string>nature</string>
+	</array>
+	<key>torus</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>train.side.front.car</key>
 	<array>
@@ -2963,9 +4278,33 @@
 	<array>
 		<string>devices</string>
 	</array>
+	<key>tv.music.note</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>uiwindow.split.2x1</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>umbrella</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>view.2d</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>view.3d</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>viewfinder</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>wake</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>wallet.pass</key>
 	<array>
@@ -3014,6 +4353,10 @@
 		<string>communication</string>
 		<string>multicolor</string>
 	</array>
+	<key>waveform.path</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>waveform.path.ecg</key>
 	<array>
 		<string>health</string>
@@ -3059,13 +4402,33 @@
 		<string>gaming</string>
 		<string>multicolor</string>
 	</array>
+	<key>xmark.app</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>xmark.bin</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>xmark.diamond</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>xmark.octagon</key>
 	<array>
 		<string>multicolor</string>
+	</array>
+	<key>xmark.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>xmark.rectangle.portrait</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>xmark.seal</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>xmark.shield</key>
 	<array>
@@ -3078,6 +4441,10 @@
 	<key>zr.rectangle.roundedtop</key>
 	<array>
 		<string>gaming</string>
+	</array>
+	<key>zzz</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 </dict>
 </plist>

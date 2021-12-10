@@ -87,7 +87,10 @@ struct PageSettingsView: View {
             }.modifier(SectionHeaderModifier())
         ) {
             ForEach(viewModel.page.feedsArray) { feed in
-                FeedTitleLabelView(feed: feed).padding(.vertical, 4)
+                FeedTitleLabelView(
+                    title: feed.wrappedTitle,
+                    faviconImage: feed.feedData?.faviconImage
+                ).padding(.vertical, 4)
             }
             .onDelete(perform: deleteFeed)
             .onMove(perform: moveFeed)
@@ -124,6 +127,7 @@ struct PageSettingsView: View {
 
         do {
             try viewContext.save()
+            NotificationCenter.default.post(name: .pageRefreshed, object: viewModel.page.objectID)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }

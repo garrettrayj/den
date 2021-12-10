@@ -8,17 +8,19 @@
 
 import Foundation
 
-let categoriesPath = "/Applications/SF Symbols.app/Contents/Resources/categories.plist"
+let categoriesPath       = "/Applications/SF Symbols.app/Contents/Resources/categories.plist"
+let nameAvailabilityPath = "/Applications/SF Symbols.app/Contents/Resources/name_availability.plist"
 let symbolCategoriesPath = "/Applications/SF Symbols.app/Contents/Resources/symbol_categories.plist"
 
 let categories = NSDictionary(contentsOfFile: categoriesPath)
-let symbols = NSMutableDictionary(contentsOfFile: symbolCategoriesPath)!
+let nameAvailability = NSDictionary(contentsOfFile: nameAvailabilityPath)
+let symbolCategories = NSDictionary(contentsOfFile: symbolCategoriesPath)
 
 let outputUrl = URL(fileURLWithPath: "/Users/garrett/Projects/den/Den/Misc/")
     .appendingPathComponent("PageSymbols.plist")
 
-let extraLocaleSuffixes = [".ar", ".he", ".hi", ".ja", ".to", ".ko", ".zh"]
-let ignoredCategories = ["indices", "textformatting", "keyboard"]
+let extraLocaleSuffixes = [".ar", ".he", ".hi", ".ja", ".to", ".ko", ".zh", ".zh.traditional"]
+let ignoredCategories = ["indices", "textformatting"]
 
 let excluded = [
     // Restricted
@@ -71,6 +73,8 @@ let excluded = [
     ".xmark",
     ".inverse",
     "eyedropper.",
+    "goforward.",
+    "gobackward.",
 
     // Too Wide
     "person.3.sequence"
@@ -81,43 +85,46 @@ let included = [
 ]
 
 public func main() {
-
     let filtered = filterSymbols()
-    filtered.write(to: outputUrl, atomically: true)
-
+    let output = NSMutableDictionary(dictionary: filtered)
+    output.write(to: outputUrl, atomically: true)
     print(outputUrl)
-
-    guard let categories = categories else { return }
-    print(categories)
-
 }
 
-private func filterSymbols() -> NSMutableDictionary {
+private func filterSymbols() -> [String: [String]] {
+    guard
+        let symbols = nameAvailability?["symbols"] as? [String: String]
+    else {
+        preconditionFailure("Symbols not available")
+    }
+
+    var categorizedSymbols: [String: [String]] = [:]
 
     for symbol in symbols {
-        guard
-            let name = symbol.key as? String,
-            let categories = symbol.value as? [String]
-        else {
-            preconditionFailure("Symbol key could not be cast to string!")
-        }
+        let name = symbol.key
+        let categories = symbolCategories?[name] as? [String]
 
         if included.contains(name) {
+            categorizedSymbols[name] = categories ?? ["uncategorized"]
             continue
         }
 
-        if excluded.contains(where: name.contains)
-            || extraLocaleSuffixes.contains(where: name.suffix(3).contains)
-            || ignoredCategories.contains(where: categories.contains) {
-            symbols.removeObject(forKey: symbol.key)
+        if excluded.contains(where: name.contains) {
+            continue
         }
+
+        if extraLocaleSuffixes.contains(where: name.hasSuffix) {
+            continue
+        }
+
+        if categories != nil && ignoredCategories.contains(where: categories!.contains) {
+            continue
+        }
+
+        categorizedSymbols[name] = categories ?? ["uncategorized"]
     }
 
-    // Misc extras
-    symbols["square.grid.2x2"] = ["uncategorized"]
-    symbols["globe"] = ["nature"]
-
-    return symbols
+    return categorizedSymbols
 }
 
 main()

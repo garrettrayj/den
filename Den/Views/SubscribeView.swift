@@ -17,15 +17,18 @@ struct SubscribeView: View {
         NavigationView {
             Form {
                 if viewModel.destinationPage != nil {
-                    Section(header: Text("Enter RSS or Atom feed URL").modifier(SectionHeaderModifier())) {
+                    Section {
                         feedUrlInput
-                    }
-
-                    if viewModel.validationMessage != nil {
-                        Text(viewModel.validationMessage!)
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity)
+                    } header: {
+                        Text("RSS or Atom URL").modifier(SectionHeaderModifier())
+                    } footer: {
+                        if viewModel.validationMessage != nil {
+                            Text(viewModel.validationMessage!)
+                                .foregroundColor(.red)
+                                .multilineTextAlignment(.center)
+                                .padding([.top, .horizontal])
+                                .frame(maxWidth: .infinity)
+                        }
                     }
 
                     submitButtonSection
@@ -34,7 +37,7 @@ struct SubscribeView: View {
                 }
             }
             .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
-            .navigationTitle("Add Feed")
+            .navigationTitle("Add Source")
             .toolbar {
                 ToolbarItem {
                     Button { dismiss() } label: {
@@ -58,14 +61,19 @@ struct SubscribeView: View {
                 viewModel.addSubscription()
             }
         } label: {
-            if viewModel.loading {
-                ProgressView().progressViewStyle(IconProgressStyle())
-            } else {
+            Label {
                 Text("Add to \(viewModel.destinationPage!.wrappedName)")
+            } icon: {
+                if viewModel.loading {
+                    ProgressView().progressViewStyle(IconProgressStyle()).colorInvert()
+                } else {
+                    Image(systemName: "note.text.badge.plus")
+                }
             }
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))
+        .listRowInsets(EdgeInsets())
         .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
         .buttonStyle(AccentButtonStyle())
     }

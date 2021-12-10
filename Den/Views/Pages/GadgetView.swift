@@ -20,7 +20,7 @@ struct GadgetView: View {
                     feedItems
                 } else {
                     Divider()
-                    FeedUnavailableView(feed: viewModel.feed).padding(.vertical, 4).padding(.horizontal, 8)
+                    FeedUnavailableView(feedData: viewModel.feed.feedData).padding(.vertical, 4).padding(.horizontal, 8)
                 }
             }
         }
@@ -34,7 +34,10 @@ struct GadgetView: View {
                 NavigationLink {
                     FeedView(viewModel: viewModel)
                 } label: {
-                    FeedTitleLabelView(feed: viewModel.feed)
+                    FeedTitleLabelView(
+                        title: viewModel.feed.wrappedTitle,
+                        faviconImage: viewModel.feed.feedData?.faviconImage
+                    )
                 }
                 .buttonStyle(FeedTitleButtonStyle())
                 .disabled(viewModel.refreshing)

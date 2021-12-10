@@ -58,6 +58,14 @@ public class Feed: NSManagedObject {
         return nil
     }
 
+    public var refreshed: String? {
+        guard let refreshedDate = feedData?.refreshed else {
+            return nil
+        }
+
+        return DateFormatter.mediumShort.string(from: refreshedDate)
+    }
+
     public var urlString: String {
         get {url?.absoluteString ?? ""}
         set {url = URL(string: newValue)}

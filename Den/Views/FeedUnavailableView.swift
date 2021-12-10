@@ -9,24 +9,23 @@
 import SwiftUI
 
 struct FeedUnavailableView: View {
-    @ObservedObject var feed: Feed
+    var feedData: FeedData?
 
     var body: some View {
-
         VStack(alignment: .leading, spacing: 4) {
             Group {
-                if feed.feedData == nil {
+                if feedData == nil {
                     Label("Refresh to load items", systemImage: "arrow.clockwise")
-                } else if feed.feedData?.error != nil {
+                } else if feedData?.error != nil {
                     Label {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Unable to update feed")
-                            Text(feed.feedData!.error!).font(.callout).foregroundColor(.red)
+                            Text(feedData!.error!).font(.callout).foregroundColor(.red)
                         }
                     } icon: {
                         Image(systemName: "exclamationmark.triangle")
                     }
-                } else if feed.feedData!.itemsArray.count == 0 {
+                } else if feedData!.itemsArray.count == 0 {
                     Label("Feed empty", systemImage: "questionmark.folder")
                 } else {
                     Label("Unknown status", systemImage: "questionmark.diamond")

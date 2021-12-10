@@ -9,14 +9,15 @@
 import SwiftUI
 
 struct FeedTitleLabelView: View {
-    @ObservedObject var feed: Feed
+    var title: String
+    var faviconImage: Image?
 
     var body: some View {
         Label {
-            Text(feed.wrappedTitle).lineLimit(1)
+            Text(title).lineLimit(1)
         } icon: {
-            if feed.feedData?.faviconImage != nil {
-                feed.feedData!.faviconImage!
+            if faviconImage != nil {
+                faviconImage!
                     .resizable()
                     .scaledToFill()
                     .frame(width: 16, height: 16)

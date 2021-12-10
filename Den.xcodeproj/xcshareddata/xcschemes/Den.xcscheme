@@ -104,8 +104,8 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "OS_ACTIVITY_MODE"
-            value = "default"
-            isEnabled = "YES">
+            value = "disable"
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>

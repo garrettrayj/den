@@ -17,7 +17,10 @@ struct SearchResultView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                FeedTitleLabelView(feed: feedData.feed!)
+                FeedTitleLabelView(
+                    title: feedData.feed!.wrappedTitle,
+                    faviconImage: feedData.faviconImage
+                )
                 Spacer()
             }.frame(height: 32)
 
