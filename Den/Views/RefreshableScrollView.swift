@@ -66,23 +66,27 @@ typealias OnRefresh = (@escaping RefreshComplete) -> Void
 // with it to your liking.
 private let THRESHOLD: CGFloat = 64
 
+// Tracks the state of the RefreshableScrollView - it's either:
+// 1. waiting for a scroll to happen
+// 2. has been primed by pulling down beyond THRESHOLD
+// 3. is doing the refreshing.
+private enum RefreshState {
+  case waiting, primed, loading
+}
+
 struct RefreshableScrollView<Content: View>: View {
     let onRefresh: OnRefresh // the refreshing action
     let content: Content // the ScrollView content
 
-    @Binding var refreshing: Bool // the current state
-    @State var primed: Bool = false
+    @State private var state = RefreshState.waiting
 
     // We use a custom constructor to allow for usage of a @ViewBuilder for the content
     init(
-        refreshing: Binding<Bool>,
         onRefresh: @escaping OnRefresh,
         @ViewBuilder content: () -> Content
     ) {
         self.onRefresh = onRefresh
         self.content = content()
-
-        _refreshing = refreshing
     }
 
     var body: some View {
@@ -100,18 +104,21 @@ struct RefreshableScrollView<Content: View>: View {
                 // to keep it below the loading view, hence the alignmentGuide.
                 content
                     .alignmentGuide(.top, computeValue: { _ in
-                        refreshing ? -THRESHOLD : 0
+                        (state != .waiting) ? -THRESHOLD : 0
                     })
 
                 // The loading view. It's offset to the top of the content unless we're loading.
                 ZStack {
                     Rectangle().foregroundColor(.clear).frame(height: THRESHOLD)
-                    if refreshing {
+
+                    if state == .primed {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle())
                             .scaleEffect(1.5)
                     }
-                }.offset(y: refreshing ? 0 : -THRESHOLD)
+
+                }
+                .offset(y: (state != .waiting) ? 0 : -THRESHOLD)
             }
         }
         // Put a fixed PositionIndicator in the background so that we have
@@ -120,7 +127,7 @@ struct RefreshableScrollView<Content: View>: View {
         // Once the scrolling offset changes, we want to see if there should
         // be a state change.
         .onPreferenceChange(PositionPreferenceKey.self) { values in
-            if !refreshing { // If we're already loading, ignore everything
+            if state != .loading { // If we're already loading, ignore everything
                 // Map the preference change action to the UI thread
                 DispatchQueue.main.async {
                     // Compute the offset between the moving and fixed PositionIndicators
@@ -129,20 +136,20 @@ struct RefreshableScrollView<Content: View>: View {
                     let offset = movingY - fixedY
 
                     // If the user pulled down below the threshold, prime the view
-                    if offset > THRESHOLD && !refreshing {
-                        primed = true
+                    if offset > THRESHOLD && state == .waiting {
+                        withAnimation {
+                            self.state = .primed
+                        }
 
                         // If the view is primed and we've crossed the threshold again on the
                         // way back, trigger the refresh
-                    } else if offset < THRESHOLD && primed == true {
-                        primed = false
-                        refreshing = true
-
+                    } else if offset < THRESHOLD && state == .primed {
+                        state = .loading
                         onRefresh { // trigger the refreshing callback
                             // once refreshing is done, smoothly move the loading view
                             // back to the offset position
                             withAnimation {
-                                self.refreshing = false
+                                self.state = .waiting
                             }
                         }
                     }

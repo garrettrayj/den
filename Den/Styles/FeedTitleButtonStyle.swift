@@ -18,7 +18,6 @@ struct FeedTitleButtonStyle: ButtonStyle {
 
         @Environment(\.isEnabled) private var isEnabled: Bool
         var body: some View {
-
             configuration.label
                 .foregroundColor(
                     isEnabled ? Color.primary : Color.secondary

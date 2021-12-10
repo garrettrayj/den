@@ -26,13 +26,11 @@ struct SearchResultView: View {
 
             VStack(spacing: 12) {
                 ForEach(items) { item in
-                    Group {
-                        Divider()
-                        GadgetItemView(
-                            item: item,
-                            feed: feedData.feed!
-                        )
-                    }
+                    Divider()
+                    GadgetItemView(
+                        item: item,
+                        feed: feedData.feed!
+                    )
                 }
             }
         }

@@ -20,11 +20,13 @@ struct GadgetView: View {
                     items
                 } else {
                     Divider()
-                    FeedUnavailableView(feedData: viewModel.feed.feedData).padding(.vertical, 4).padding(.horizontal, 8)
+                    FeedUnavailableView(feedData: viewModel.feed.feedData)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
                 }
             }
+            .padding([.horizontal, .bottom], 12)
         }
-        .padding([.horizontal, .bottom], 12)
         .modifier(GroupBlockModifier())
     }
 
@@ -46,20 +48,18 @@ struct GadgetView: View {
             if viewModel.refreshing {
                 ProgressView().progressViewStyle(IconProgressStyle())
             }
-        }.frame(height: 32)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
     }
 
     private var items: some View {
-        VStack(spacing: 10) {
-            ForEach(viewModel.feed.feedData!.itemsArray.prefix(viewModel.feed.wrappedPreviewLimit)) { item in
-                Group {
-                    Divider()
-                    GadgetItemView(
-                        item: item,
-                        feed: viewModel.feed
-                    )
-                }
-            }
+        ForEach(viewModel.feed.feedData!.itemsArray.prefix(viewModel.feed.wrappedPreviewLimit)) { item in
+            Divider()
+            GadgetItemView(
+                item: item,
+                feed: viewModel.feed
+            )
         }
     }
 }

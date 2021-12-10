@@ -28,7 +28,7 @@ struct NavigationBarButtonStyle: ButtonStyle {
                         Color.secondary
                 )
                 .background(Color.clear)
-                .padding(.leading, 16)
+                .padding(.leading, 12)
         }
     }
 }
