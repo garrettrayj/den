@@ -64,7 +64,7 @@ typealias OnRefresh = (@escaping RefreshComplete) -> Void
 
 // The offset threshold. 50 is a good number, but you can play
 // with it to your liking.
-private let THRESHOLD: CGFloat = 64
+private let THRESHOLD: CGFloat = 152
 
 // Tracks the state of the RefreshableScrollView - it's either:
 // 1. waiting for a scroll to happen
@@ -79,6 +79,10 @@ struct RefreshableScrollView<Content: View>: View {
     let content: Content // the ScrollView content
 
     @State private var state = RefreshState.waiting
+    @State private var primingProgress: CGFloat = 0
+    @State private var triggered: Bool = false
+
+    let showIndicatorThreshold: CGFloat = 0.25
 
     // We use a custom constructor to allow for usage of a @ViewBuilder for the content
     init(
@@ -90,7 +94,6 @@ struct RefreshableScrollView<Content: View>: View {
     }
 
     var body: some View {
-        // The root view is a regular ScrollView
         ScrollView(.vertical, showsIndicators: false) {
             // The ZStack allows us to position the PositionIndicator,
             // the content and the loading view, all on top of each other.
@@ -100,26 +103,11 @@ struct RefreshableScrollView<Content: View>: View {
                 PositionIndicator(type: .moving)
                     .frame(height: 0)
 
-                // Your ScrollView content. If we're loading, we want
-                // to keep it below the loading view, hence the alignmentGuide.
                 content
-                    .alignmentGuide(.top, computeValue: { _ in
-                        (state != .waiting) ? -THRESHOLD : 0
-                    })
-
-                // The loading view. It's offset to the top of the content unless we're loading.
-                ZStack {
-                    Rectangle().foregroundColor(.clear).frame(height: THRESHOLD)
-
-                    if state == .primed {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .scaleEffect(1.5)
-                    }
-
-                }
-                .offset(y: (state != .waiting) ? 0 : -THRESHOLD)
             }
+        }
+        .background(alignment: .top) {
+            indicatorView.edgesIgnoringSafeArea(.all)
         }
         // Put a fixed PositionIndicator in the background so that we have
         // a reference point to compute the scroll offset.
@@ -135,12 +123,16 @@ struct RefreshableScrollView<Content: View>: View {
                     let fixedY = values.first { $0.type == .fixed }?.yActual ?? 0
                     let offset = movingY - fixedY
 
+                    primingProgress = min(offset, THRESHOLD) / THRESHOLD
+
+                    if offset == 0 {
+                        triggered = false
+                    }
+
                     // If the user pulled down below the threshold, prime the view
                     if offset > THRESHOLD && state == .waiting {
-                        withAnimation {
-                            self.state = .primed
-                        }
-
+                        self.state = .primed
+                        triggered = true
                         // If the view is primed and we've crossed the threshold again on the
                         // way back, trigger the refresh
                     } else if offset < THRESHOLD && state == .primed {
@@ -148,13 +140,20 @@ struct RefreshableScrollView<Content: View>: View {
                         onRefresh { // trigger the refreshing callback
                             // once refreshing is done, smoothly move the loading view
                             // back to the offset position
-                            withAnimation {
-                                self.state = .waiting
-                            }
+                            self.state = .waiting
                         }
                     }
                 }
             }
         }
+    }
+
+    private var indicatorView: some View {
+        ZStack {
+            if primingProgress > showIndicatorThreshold {
+                ProgressView(value: primingProgress)
+                    .progressViewStyle(RingProgressStyle(triggered: $triggered))
+            }
+        }.padding(.top, 104)
     }
 }
