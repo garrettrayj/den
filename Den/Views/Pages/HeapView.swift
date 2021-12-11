@@ -15,7 +15,7 @@ struct HeapView: View {
         if viewModel.page.previewItemsArray.count > 0 {
             BoardView(list: viewModel.page.previewItemsArray) { item in
                 if item.feedData?.feed != nil {
-                    HeapItemView(
+                    ItemPreviewView(
                         item: item,
                         feedViewModel: FeedViewModel(feed: item.feedData!.feed!, refreshing: viewModel.refreshing)
                     )

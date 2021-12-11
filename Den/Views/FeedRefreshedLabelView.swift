@@ -16,6 +16,7 @@ struct FeedRefreshedLabelView: View {
             Label(refreshed!, systemImage: "wave.3.backward")
                 .foregroundColor(.secondary)
                 .font(.footnote)
+                .imageScale(.small)
         }
     }
 }

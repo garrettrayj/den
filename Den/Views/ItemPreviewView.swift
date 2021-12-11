@@ -1,20 +1,37 @@
 //
-//  ShowcaseItemView.swift
+//  ItemPreviewView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/28/21.
+//  Created by Garrett Johnson on 12/10/21.
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct ShowcaseItemView: View {
+struct ItemPreviewView: View {
     @EnvironmentObject var linkManager: LinkManager
 
     @ObservedObject var item: Item
 
+    var feedViewModel: FeedViewModel?
+    var summaryLines: Int = 4
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            if feedViewModel != nil {
+                NavigationLink {
+                    FeedView(viewModel: feedViewModel!)
+                } label: {
+                    FeedTitleLabelView(
+                        title: feedViewModel!.feed.wrappedTitle,
+                        faviconImage: feedViewModel!.feed.feedData?.faviconImage
+                    )
+                }
+                .buttonStyle(FeedTitleButtonStyle())
+                .disabled(feedViewModel!.refreshing)
+
+                Divider()
+            }
 
             Button {
                 linkManager.openLink(
@@ -28,6 +45,7 @@ struct ShowcaseItemView: View {
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .buttonStyle(ItemButtonStyle(read: item.read))
             .accessibility(identifier: "Item Link")
 
             if item.published != nil {
@@ -39,7 +57,7 @@ struct ShowcaseItemView: View {
             if item.feedData?.feed?.showThumbnails == true && item.previewUIImage != nil {
                 Image(uiImage: item.previewUIImage!)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(CGFloat(item.imageWidth) / CGFloat(item.imageHeight), contentMode: .fit)
                     .frame(maxWidth: CGFloat(item.imageWidth), maxHeight: CGFloat(item.imageHeight))
                     .background(Color(UIColor.tertiarySystemGroupedBackground))
                     .cornerRadius(4)
@@ -53,9 +71,11 @@ struct ShowcaseItemView: View {
             if item.summary != nil {
                 Text(item.summary!).lineLimit(6)
             }
+
+            Spacer()
         }
-        .buttonStyle(ItemButtonStyle(read: item.read))
-        .padding(12)
+        .padding(.top, feedViewModel != nil ? 8 : 12)
+        .padding([.horizontal], 12)
         .modifier(GroupBlockModifier())
     }
 }
