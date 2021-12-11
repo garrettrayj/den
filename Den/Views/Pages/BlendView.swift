@@ -1,5 +1,5 @@
 //
-//  HeapView.swift
+//  BlendView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/4/21.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct HeapView: View {
+struct BlendView: View {
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {

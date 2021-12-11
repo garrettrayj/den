@@ -11,7 +11,7 @@ import SwiftUI
 enum PageViewMode: Int {
     case gadgets  = 0
     case showcase = 1
-    case heap     = 2
+    case blend     = 2
 }
 
 struct PageView: View {
@@ -76,8 +76,8 @@ struct PageView: View {
                         .tag(PageViewMode.gadgets.rawValue)
                     Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                         .tag(PageViewMode.showcase.rawValue)
-                    Label("Heap", systemImage: "square.text.square")
-                        .tag(PageViewMode.heap.rawValue)
+                    Label("Blend", systemImage: "square.text.square")
+                        .tag(PageViewMode.blend.rawValue)
                 }
                 .padding(.leading)
                 .padding(.trailing, 4)
@@ -141,11 +141,11 @@ struct PageView: View {
                         }
                     }
 
-                    if viewMode != PageViewMode.heap.rawValue {
+                    if viewMode != PageViewMode.blend.rawValue {
                         Button {
-                            viewMode = PageViewMode.heap.rawValue
+                            viewMode = PageViewMode.blend.rawValue
                         } label: {
-                            Label("Heap View", systemImage: "square.text.square")
+                            Label("Blend View", systemImage: "square.text.square")
                         }
                     }
                 } label: {
@@ -175,8 +175,8 @@ struct PageView: View {
 
     private var pageContent: some View {
         Group {
-            if viewMode == PageViewMode.heap.rawValue {
-                HeapView(viewModel: viewModel)
+            if viewMode == PageViewMode.blend.rawValue {
+                BlendView(viewModel: viewModel)
             } else if viewMode == PageViewMode.showcase.rawValue {
                 ShowcaseView(viewModel: viewModel)
             } else {
@@ -186,15 +186,13 @@ struct PageView: View {
     }
 
     private var pageEmpty: some View {
-        Group {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                Text("Tap \(Image(systemName: "ellipsis.circle")) to add a subscription")
-                    .modifier(SimpleMessageModifier())
-            } else {
-                Text("Tap \(Image(systemName: "plus.circle")) to add a subscription")
-                    .modifier(SimpleMessageModifier())
-            }
-        }
+        #if targetEnvironment(macCatalyst)
+        Text("Click \(Image(systemName: "plus.circle")) to add a subscription")
+            .modifier(SimpleMessageModifier())
+        #else
+        Text("Tap \(Image(systemName: "ellipsis.circle")) to add a subscription")
+            .modifier(SimpleMessageModifier())
+        #endif
     }
 
     private var pageRemoved: some View {
