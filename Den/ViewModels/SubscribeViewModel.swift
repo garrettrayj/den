@@ -22,7 +22,7 @@ final class SubscribeViewModel: ObservableObject {
     private var viewContext: NSManagedObjectContext
     private var profileManager: ProfileManager
     private var refreshManager: RefreshManager
-    private var subscribeManager: SubscribeManager
+    private var sourceManager: SourceManager
 
     var destinationPage: Page? {
         guard let activeProfile = profileManager.activeProfile else { return nil }
@@ -42,14 +42,14 @@ final class SubscribeViewModel: ObservableObject {
         viewContext: NSManagedObjectContext,
         profileManager: ProfileManager,
         refreshManager: RefreshManager,
-        subscribeManager: SubscribeManager,
+        sourceManager: SourceManager,
         urlText: String,
         destinationPageId: String?
     ) {
         self.viewContext = viewContext
         self.profileManager = profileManager
         self.refreshManager = refreshManager
-        self.subscribeManager = subscribeManager
+        self.sourceManager = sourceManager
 
         self.urlText = urlText
         self.destinationPageId = destinationPageId

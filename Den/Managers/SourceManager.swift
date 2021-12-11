@@ -1,5 +1,5 @@
 //
-//  SubscribeManager.swift
+//  SourceManager.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-final class SubscribeManager: ObservableObject {
+final class SourceManager: ObservableObject {
     @Published var currentPageId: String?
-    @Published var showingAddSubscription: Bool = false
-    @Published var openedUrlString: String = ""
+    @Published var showingSheet: Bool = false
+    @Published var feedUrlString: String = ""
 
-    func showAddSubscription(to url: URL? = nil) {
+    func showSheet(for url: URL? = nil) {
         if
             let url = url,
             var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
@@ -23,15 +23,15 @@ final class SubscribeManager: ObservableObject {
             }
 
             if let urlString = urlComponents.string {
-                openedUrlString = urlString
+                feedUrlString = urlString
             }
         }
 
-        self.showingAddSubscription = true
+        self.showingSheet = true
     }
 
     func resetSubscribe() {
-        showingAddSubscription = false
-        openedUrlString = ""
+        showingSheet = false
+        feedUrlString = ""
     }
 }

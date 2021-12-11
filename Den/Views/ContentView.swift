@@ -14,7 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscribeManager: SubscribeManager
+    @EnvironmentObject var sourceManager: SourceManager
 
     var body: some View {
         if crashManager.showingCrashMessage == true {
@@ -46,14 +46,14 @@ struct ContentView: View {
             WelcomeView(profileIsEmpty: profileManager.activeProfile?.pagesArray.count ?? 0 == 0)
         }
         .modifier(MacButtonStyleModifier())
-        .sheet(isPresented: $subscribeManager.showingAddSubscription) {
+        .sheet(isPresented: $sourceManager.showingSheet) {
             SubscribeView(viewModel: SubscribeViewModel(
                 viewContext: viewContext,
                 profileManager: profileManager,
                 refreshManager: refreshManager,
-                subscribeManager: subscribeManager,
-                urlText: subscribeManager.openedUrlString,
-                destinationPageId: subscribeManager.currentPageId
+                sourceManager: sourceManager,
+                urlText: sourceManager.feedUrlString,
+                destinationPageId: sourceManager.currentPageId
             ))
             .environment(\.colorScheme, colorScheme)
         }
