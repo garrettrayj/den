@@ -91,17 +91,19 @@ public class Page: NSManagedObject {
     }
 
     public var previewItemsArray: [Item] {
-        feedsArray.flatMap { feed in
-            feed.feedData?.itemsArray.prefix(feed.wrappedPreviewLimit) ?? []
-        }.sorted { aItem, bItem in
-            guard
-                let aDate = aItem.published ?? aItem.ingested,
-                let bDate = bItem.published  ?? aItem.ingested
-            else {
-                return false
-            }
-            return aDate > bDate
+        let items: NSMutableSet = []
+
+        feedsArray.forEach { feed in
+            guard let feedItems = feed.feedData?.items as? Set<AnyHashable> else { return }
+            items.union(feedItems)
         }
+
+        return items.sortedArray(
+            using: [
+                NSSortDescriptor(key: "published", ascending: false),
+                NSSortDescriptor(key: "ingested", ascending: false)
+            ]
+        ) as? [Item] ?? []
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Page {

@@ -16,7 +16,7 @@ enum PageViewMode: Int {
 
 struct PageView: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscribeManager: SubscribeManager
+    @EnvironmentObject var sourceManager: SourceManager
 
     @ObservedObject var viewModel: PageViewModel
 
@@ -85,9 +85,9 @@ struct PageView: View {
             }
             ToolbarItem {
                 Button {
-                    subscribeManager.showAddSubscription()
+                    sourceManager.showSheet()
                 } label: {
-                    Label("Add Subscription", systemImage: "plus.circle")
+                    Label("Add Source", systemImage: "plus.circle")
                 }.buttonStyle(NavigationBarButtonStyle())
             }
             ToolbarItem {
@@ -114,9 +114,9 @@ struct PageView: View {
             ToolbarItem {
                 Menu {
                     Button {
-                        subscribeManager.showAddSubscription()
+                        sourceManager.showSheet()
                     } label: {
-                        Label("Add Subscription", systemImage: "plus.circle")
+                        Label("Add Source", systemImage: "plus.circle")
                     }
 
                     Button {
@@ -169,7 +169,7 @@ struct PageView: View {
             #endif
         }
         .onAppear {
-            subscribeManager.currentPageId = viewModel.page.id?.uuidString
+            sourceManager.currentPageId = viewModel.page.id?.uuidString
         }
     }
 
@@ -187,10 +187,10 @@ struct PageView: View {
 
     private var pageEmpty: some View {
         #if targetEnvironment(macCatalyst)
-        Text("Click \(Image(systemName: "plus.circle")) to add a subscription")
+        Text("Click \(Image(systemName: "plus.circle")) to add a source")
             .modifier(SimpleMessageModifier())
         #else
-        Text("Tap \(Image(systemName: "ellipsis.circle")) to add a subscription")
+        Text("Tap \(Image(systemName: "ellipsis.circle")) to add a source")
             .modifier(SimpleMessageModifier())
         #endif
     }

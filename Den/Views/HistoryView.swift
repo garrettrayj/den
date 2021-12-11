@@ -24,7 +24,7 @@ struct HistoryView: View {
                     resultsList
                 } else {
                     if viewModel.query == "" {
-                        Text("History is empty").modifier(SimpleMessageModifier())
+                        Text("Empty").modifier(SimpleMessageModifier())
                     } else {
                         Text("No results found").modifier(SimpleMessageModifier())
                     }
@@ -34,7 +34,7 @@ struct HistoryView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("History")
     }
 
@@ -52,8 +52,10 @@ struct HistoryView: View {
 
     private func resultsSection(resultGroup: [History]) -> some View {
         Section(
-            header: Text("\(resultGroup.first!.visited!, formatter: DateFormatter.longNone)")
-                .modifier(PinnedSectionHeaderModifier())
+            header:
+                Text("\(resultGroup.first!.visited!, formatter: DateFormatter.fullNone)")
+                    .font(.subheadline)
+                    .modifier(PinnedSectionHeaderModifier())
         ) {
             VStack(spacing: 0) {
                 ForEach(resultGroup) { result in
@@ -80,7 +82,7 @@ struct HistoryView: View {
                     }
                 }
             }
-            .background(RoundedRectangle(cornerRadius: 4).fill(Color(.systemBackground)))
+            .modifier(GroupBlockModifier())
             .padding()
         }
     }

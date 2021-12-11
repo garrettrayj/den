@@ -27,9 +27,9 @@ extension DateFormatter {
         return dateFormatter
     }()
 
-    static let longNone: DateFormatter = {
+    static let fullNone: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .none
         dateFormatter.locale = .autoupdatingCurrent
 

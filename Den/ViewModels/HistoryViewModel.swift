@@ -67,7 +67,7 @@ final class HistoryViewModel: ObservableObject {
 
             let grouping = Dictionary(
                 grouping: compactedFetchResults,
-                by: { DateFormatter.longNone.string(from: $0.visited!) }
+                by: { DateFormatter.fullNone.string(from: $0.visited!) }
             )
 
             results = grouping.values.sorted { aHistory, bHistory in
