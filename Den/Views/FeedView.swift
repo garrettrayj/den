@@ -103,7 +103,7 @@ struct FeedView: View {
             Section(header: feedHeader.modifier(PinnedSectionHeaderModifier())) {
                 if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                     BoardView(list: viewModel.feed.feedData!.itemsArray, content: { item in
-                        FeedItemView(item: item)
+                        ItemPreviewView(item: item, summaryLines: 12)
                     }).padding()
                 } else {
                     FeedUnavailableView(feedData: viewModel.feed.feedData).modifier(SimpleMessageModifier())

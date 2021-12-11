@@ -17,7 +17,7 @@ struct ShowcaseSectionView: View {
                 BoardView(
                     list: viewModel.feed.feedData?.previewItemsArray ?? [],
                     content: { item in
-                        ShowcaseItemView(item: item)
+                        ItemPreviewView(item: item)
                     }
                 ).padding()
             } else {
