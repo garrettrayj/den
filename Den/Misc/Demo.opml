@@ -5,46 +5,46 @@
 	</head>
 	<body>
 		<outline text="World News" title="World News">
-			<outline text="DER SPIEGEL - International" title="DER SPIEGEL - International" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
-			<outline text="Raw Story - World" title="Raw Story - World" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
-			<outline text="BuzzFeed News - World" title="BuzzFeed News - World" type="rss" xmlUrl="https://www.buzzfeed.com/world.xml" />
+			<outline text="DER SPIEGEL" title="DER SPIEGEL" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
+			<outline text="Raw Story" title="Raw Story" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
+			<outline text="BuzzFeed News" title="BuzzFeed News" type="rss" xmlUrl="https://www.buzzfeed.com/world.xml" />
 			<outline text="Foreign Policy" title="Foreign Policy" type="rss" xmlUrl="https://foreignpolicy.com/feed" />
 			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://www.un.org/apps/news/rss/rss_top.asp" />
-			<outline text="Vox -  World" title="Vox -  World" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
-			<outline text="NPR - World" title="NPR - World" type="rss" xmlUrl="https://feeds.npr.org/1004/rss.xml" />
-			<outline text="ABC News - International" title="ABC News - International" type="rss" xmlUrl="https://abcnews.go.com/abcnews/internationalheadlines" />
-			<outline text="The New York Times - World News" title="The New York Times - World News" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/World.xml" />
-			<outline text="The Guardian - World News" title="The Guardian - World News" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
-			<outline text="The Christian Science Monitor - World" title="The Christian Science Monitor - World" type="rss" xmlUrl="https://rss.csmonitor.com/feeds/world" />
+			<outline text="Vox" title="Vox" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
+			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1004/rss.xml" />
+			<outline text="ABC News" title="ABC News" type="rss" xmlUrl="https://abcnews.go.com/abcnews/internationalheadlines" />
+			<outline text="The New York Times" title="The New York Times" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/World.xml" />
+			<outline text="The Guardian" title="The Guardian" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
+			<outline text="The Christian Science Monitor" title="The Christian Science Monitor" type="rss" xmlUrl="https://rss.csmonitor.com/feeds/world" />
 			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
-			<outline text="Sky News - World" title="Sky News - World" type="rss" xmlUrl="https://feeds.skynews.com/feeds/rss/world.xml" />
+			<outline text="Sky News" title="Sky News" type="rss" xmlUrl="https://feeds.skynews.com/feeds/rss/world.xml" />
 			<outline text="ChannelNewsAsia" title="ChannelNewsAsia" type="rss" xmlUrl="https://www.channelnewsasia.com/rssfeeds/8395884" />
-			<outline text="TIME - World" title="TIME - World" type="rss" xmlUrl="https://feeds.feedburner.com/time/world" />
-			<outline text="Deutsche Welle - World" title="Deutsche Welle - World" type="rss" xmlUrl="https://rss.dw.com/rdf/rss-en-world" />
+			<outline text="TIME" title="TIME" type="rss" xmlUrl="https://feeds.feedburner.com/time/world" />
+			<outline text="Deutsche Welle" title="Deutsche Welle" type="rss" xmlUrl="https://rss.dw.com/rdf/rss-en-world" />
 			<outline text="The Diplomat" title="The Diplomat" type="rss" xmlUrl="https://thediplomat.com/feed/" />
-			<outline text="BBC News - World" title="BBC News - World" type="rss" xmlUrl="https://feeds.bbci.co.uk/news/world/rss.xml" />
-			<outline text="CBSNews.com - World" title="CBSNews.com - World" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/world" />
-			<outline text="Al Jazeera English" title="Al Jazeera English" type="rss" xmlUrl="https://www.aljazeera.com/xml/rss/all.xml" />
+			<outline text="BBC News" title="BBC News" type="rss" xmlUrl="https://feeds.bbci.co.uk/news/world/rss.xml" />
+			<outline text="CBSNews.com" title="CBSNews.com" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/world" />
+			<outline text="Al Jazeera" title="Al Jazeera" type="rss" xmlUrl="https://www.aljazeera.com/xml/rss/all.xml" />
 			<outline text="Euronews" title="Euronews" type="rss" xmlUrl="https://www.euronews.com/rss?level=theme&amp;name=news" />
 		</outline>
 		<outline text="US News" title="US News">
 			<outline text="PBS NewsHour " title="PBS NewsHour " type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
-			<outline text="Voice of America - USA" title="Voice of America - USA" type="rss" xmlUrl="https://www.voanews.com/taxonomy/term/32681/feed" />
+			<outline text="Voice of America" title="Voice of America" type="rss" xmlUrl="https://www.voanews.com/taxonomy/term/32681/feed" />
 			<outline text="The Intercept" title="The Intercept" type="rss" xmlUrl="https://theintercept.com/feed/?lang=en" />
-			<outline text="Raw Story - US News" title="Raw Story - US News" type="rss" xmlUrl="https://www.rawstory.com/category/nation/feed/" />
+			<outline text="Raw Story" title="Raw Story" type="rss" xmlUrl="https://www.rawstory.com/category/nation/feed/" />
 			<outline text="msnbc.com" title="msnbc.com" type="rss" xmlUrl="https://www.msnbc.com/feeds/latest" />
-			<outline text="The Christian Science Monitor - USA" title="The Christian Science Monitor - USA" type="rss" xmlUrl="https://rss.csmonitor.com/feeds/usa" />
-			<outline text="NPR - National" title="NPR - National" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
-			<outline text="New York Times - US" title="New York Times - US" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/US.xml" />
+			<outline text="The Christian Science Monitor" title="The Christian Science Monitor" type="rss" xmlUrl="https://rss.csmonitor.com/feeds/usa" />
+			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
+			<outline text="New York Times" title="New York Times" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/US.xml" />
 			<outline text="Axios" title="Axios" type="rss" xmlUrl="https://api.axios.com/feed/" />
-			<outline text="The Guardian - US News" title="The Guardian - US News" type="rss" xmlUrl="https://www.theguardian.com/us/rss" />
+			<outline text="The Guardian" title="The Guardian" type="rss" xmlUrl="https://www.theguardian.com/us/rss" />
 			<outline text="The Denver Post" title="The Denver Post" type="rss" xmlUrl="https://www.denverpost.com/feed/" />
-			<outline text="New Yorker - News" title="New Yorker - News" type="rss" xmlUrl="https://www.newyorker.com/feed/news" />
+			<outline text="New Yorker" title="New Yorker" type="rss" xmlUrl="https://www.newyorker.com/feed/news" />
 			<outline text="Chicago Sun-Times" title="Chicago Sun-Times" type="rss" xmlUrl="https://chicago.suntimes.com/rss/news/index.xml" />
 			<outline text="Times Union" title="Times Union" type="rss" xmlUrl="https://www.timesunion.com/news/feed/Capitol-State-News-210.php" />
 			<outline text="The Texas Tribune" title="The Texas Tribune" type="rss" xmlUrl="https://feeds.texastribune.org/feeds/main/" />
 			<outline text="The Atlantic" title="The Atlantic" type="rss" xmlUrl="https://www.theatlantic.com/feed/best-of/" />
-			<outline text="CBS News - US" title="CBS News - US" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/us" />
+			<outline text="CBS News" title="CBS News" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/us" />
 			<outline text="The Hill" title="The Hill" type="rss" xmlUrl="https://thehill.com/rss/syndicator/19109" />
 			<outline text="ProPublica" title="ProPublica" type="rss" xmlUrl="https://feeds.propublica.org/propublica/main" />
 			<outline text="Mother Jones" title="Mother Jones" type="rss" xmlUrl="https://feeds.feedburner.com/motherjones/feed" />
@@ -69,27 +69,27 @@
 			<outline text="TESLARATI" title="TESLARATI" type="rss" xmlUrl="https://www.teslarati.com/feed/" />
 			<outline text="TechRepublic" title="TechRepublic" type="rss" xmlUrl="https://www.techrepublic.com/rssfeeds/articles/?feedType=rssfeeds&amp;sort=latest" />
 			<outline text="The Register" title="The Register" type="rss" xmlUrl="https://www.theregister.co.uk/headlines.atom" />
-			<outline text="Techdirt." title="Techdirt." type="rss" xmlUrl="https://feeds.feedburner.com/techdirt/feed" />
+			<outline text="Techdirt" title="Techdirt" type="rss" xmlUrl="https://feeds.feedburner.com/techdirt/feed" />
 			<outline text="Hacker News" title="Hacker News" type="rss" xmlUrl="https://news.ycombinator.com/rss" />
 		</outline>
 		<outline text="Business" title="Business">
 			<outline text="Protocol" title="Protocol" type="rss" xmlUrl="https://www.protocol.com/feeds/bulletins.rss" />
-			<outline text="Wired - Business" title="Wired - Business" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
+			<outline text="Wired" title="Wired" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
 			<outline text="Fast Company" title="Fast Company" type="rss" xmlUrl="https://www.fastcompany.com/latest/rss" />
 			<outline text="Crunchbase News" title="Crunchbase News" type="rss" xmlUrl="https://news.crunchbase.com/feed/" />
 			<outline text="Financial Post" title="Financial Post" type="rss" xmlUrl="https://financialpost.com/category/news/feed.xml" />
-			<outline text="Forbes - Money" title="Forbes - Money" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
-			<outline text="Economic Times - Markets" title="Economic Times - Markets" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
-			<outline text="The Financial Express - Markets" title="The Financial Express - Markets" type="rss" xmlUrl="https://www.financialexpress.com/market/feed/" />
+			<outline text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
+			<outline text="Economic Times" title="Economic Times" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
+			<outline text="The Financial Express" title="The Financial Express" type="rss" xmlUrl="https://www.financialexpress.com/market/feed/" />
 			<outline text="Yahoo Finance" title="Yahoo Finance" type="rss" xmlUrl="https://finance.yahoo.com/rss/topstories" />
-			<outline text="New York Times - Business" title="New York Times - Business" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
+			<outline text="New York Times" title="New York Times" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
 			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
 			<outline text="3D Printing Media Network" title="3D Printing Media Network" type="rss" xmlUrl="https://www.3dprintingmedia.network/feed/" />
 			<outline text="Adweek" title="Adweek" type="rss" xmlUrl="https://www.adweek.com/rss" />
 			<outline text="Housing Wire" title="Housing Wire" type="rss" xmlUrl="https://www.housingwire.com/feed/" />
 			<outline text="Entrepreneur" title="Entrepreneur" type="rss" xmlUrl="https://www.entrepreneur.com/latest.rss" />
 			<outline text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
-			<outline text="FXEMPIRE - News" title="FXEMPIRE - News" type="rss" xmlUrl="https://www.fxempire.com/api/v1/en/articles/rss/news" />
+			<outline text="FXEMPIRE" title="FXEMPIRE" type="rss" xmlUrl="https://www.fxempire.com/api/v1/en/articles/rss/news" />
 			<outline text="MarketScreener.com" title="MarketScreener.com" type="rss" xmlUrl="https://www.marketscreener.com/rss/FeedNews.php" />
 			<outline text="Marketplace" title="Marketplace" type="rss" xmlUrl="https://www.marketplace.org/feed/" />
 			<outline text="CNBC" title="CNBC" type="rss" xmlUrl="https://www.cnbc.com/id/19746125/device/rss/rss.xml" />
@@ -196,7 +196,7 @@
 		<outline text="Entertainment" title="Entertainment">
 			<outline text="Variety" title="Variety" type="rss" xmlUrl="https://feeds.feedburner.com/variety/headlines" />
 			<outline text="The A.V. Club" title="The A.V. Club" type="rss" xmlUrl="https://www.avclub.com/rss" />
-			<outline text="Metro - Entertainment" title="Metro - Entertainment" type="rss" xmlUrl="https://metro.co.uk/entertainment/feed/" />
+			<outline text="Metro" title="Metro" type="rss" xmlUrl="https://metro.co.uk/entertainment/feed/" />
 			<outline text="Decider" title="Decider" type="rss" xmlUrl="https://decider.com/feed/" />
 			<outline text="ScreenRant" title="ScreenRant" type="rss" xmlUrl="https://screenrant.com/feed/" />
 			<outline text="UPROXX" title="UPROXX" type="rss" xmlUrl="https://uproxx.com/feed/" />
@@ -208,9 +208,9 @@
 			<outline text="Billboard" title="Billboard" type="rss" xmlUrl="https://www.billboard.com/rss" />
 			<outline text="NME" title="NME" type="rss" xmlUrl="https://www.nme.com/feed" />
 			<outline text="The Source" title="The Source" type="rss" xmlUrl="https://thesource.com/feed/" />
-			<outline text="XXL - Hip-Hop News" title="XXL - Hip-Hop News" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />
+			<outline text="XXL" title="XXL" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />
 			<outline text="American Songwriter" title="American Songwriter" type="rss" xmlUrl="https://americansongwriter.com/feed/" />
-			<outline text="NPR - Music" title="NPR - Music" type="rss" xmlUrl="https://www.npr.org/rss/rss.php?id=1039" />
+			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://www.npr.org/rss/rss.php?id=1039" />
 			<outline text="The Hollywood Reporter" title="The Hollywood Reporter" type="rss" xmlUrl="https://www.hollywoodreporter.com/feed/" />
 		</outline>
 	</body>
