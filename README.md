@@ -32,6 +32,16 @@ See which feeds have insecure URLs and check for HTTPS alternatives to use inste
 
 ## Release Notes
 
+### Den v1.8.0
+
+Version 1.8.0 adds two new views for browsing feeds. The new showcase view groups items by feed, but unlike gadgets, includes larger pictures and summary text. The new blend view shows all items for a page in chronological order. This release also includes improvements aimed at making feed configuration more flexible. Now, two settings, total items and preview items control how many items are downloaded and shown on a per-feed basis.
+
+- New showcase and blend views with larger images, summaries
+- Per-feed settings for controling number of items
+- Flexible staggered grid for all content
+- Enhanced icon selection
+- Various bug fixes, performance and usability improvements
+
 ### Den v1.7.0
 
 Version 1.7.0 adds a view for browsing feed items, fixes iOS 15 and macOS Monterey issues, and includes a number of improvements based on design evangelist feedback. 
