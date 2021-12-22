@@ -14,11 +14,11 @@ struct FeedUnavailableView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if feedData == nil {
-                Label("Refresh to load items", systemImage: "arrow.clockwise")
+                Label("Refresh to load", systemImage: "arrow.clockwise")
             } else if feedData?.error != nil {
                 Label {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Unable to update feed")
+                        Text("Refresh error")
                         Text(feedData!.error!).font(.callout).foregroundColor(.red)
                     }
                 } icon: {
@@ -27,7 +27,7 @@ struct FeedUnavailableView: View {
             } else if feedData!.itemsArray.count == 0 {
                 Label("Feed empty", systemImage: "questionmark.folder")
             } else {
-                Label("Unknown status", systemImage: "questionmark.diamond")
+                Label("Status unknown", systemImage: "questionmark.diamond")
             }
         }
         .imageScale(.medium)

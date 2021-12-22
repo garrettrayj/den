@@ -26,9 +26,8 @@ struct BlendView: View {
         } else {
             VStack {
                 Divider()
-                Text("Page empty").padding(.vertical, 8)
+                Text("Zero items in \(viewModel.page.feedsArray.count) feeds").padding(.vertical)
             }.modifier(SimpleMessageModifier())
-
         }
     }
 }
