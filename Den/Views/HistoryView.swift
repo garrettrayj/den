@@ -82,7 +82,12 @@ struct HistoryView: View {
                     }
                 }
             }
-            .modifier(GroupBlockModifier())
+            .background(Color(UIColor.systemBackground))
+            .cornerRadius(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color(UIColor.secondarySystemGroupedBackground))
+            )
             .padding()
         }
     }
