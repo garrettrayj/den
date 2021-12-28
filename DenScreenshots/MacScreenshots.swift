@@ -14,13 +14,17 @@ class MacScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .mac }
 
     func testScreenshots() {
-        let getStartedLabel = app.staticTexts["GET STARTED"]
+        let getStartedLabel = app.staticTexts["Get started"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "1-GetStarted")
 
-        loadDemoFeeds()
+        // Load demo feeds
+        let loadDemoButton = app.tables.buttons["Load demo feeds"]
+        expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        loadDemoButton.tap()
 
         // Wait for pages to appear
         let pageButtonPredicate = NSPredicate(format: "label CONTAINS 'World News'")
@@ -29,6 +33,8 @@ class MacScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 10, handler: nil)
 
         takeScreenshot(named: "2-PageList")
+
+        // Refresh everything
 
         goToPage("Technology")
         refreshPage("Technology")
@@ -108,14 +114,6 @@ class MacScreenshots: ScreenshotTestCase {
         expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageButton.tap()
-    }
-
-    private func loadDemoFeeds() {
-        // Load demo pages
-        let loadDemoButton = app.tables.buttons["Load Demo Feeds"]
-        expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
-        loadDemoButton.tap()
     }
 
     private func refreshPage(_ pageName: String) {
