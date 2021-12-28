@@ -12,25 +12,21 @@ import SwiftUI
 struct HistoryView: View {
     @EnvironmentObject var linkManager: LinkManager
 
-    @ObservedObject var viewModel: HistoryViewModel
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.visited, order: .reverse)])
+    private var history: FetchedResults<History>
 
     var body: some View {
         VStack(spacing: 0) {
-            if viewModel.queryIsValid == false {
-                Text(viewModel.validationMessage ?? "Invalid search query")
-                    .modifier(SimpleMessageModifier())
-            } else if viewModel.queryIsValid == true {
-                if viewModel.results.count > 0 {
-                    resultsList
-                } else {
-                    if viewModel.query == "" {
-                        Text("Empty").modifier(SimpleMessageModifier())
-                    } else {
-                        Text("No results found").modifier(SimpleMessageModifier())
+            if history.count > 0 {
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                        ForEach(groupedResults, id: \.self) { resultGroup in
+                            resultsSection(resultGroup: resultGroup)
+                        }
                     }
                 }
             } else {
-                resultsList
+                Text("Empty").modifier(SimpleMessageModifier())
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -38,15 +34,18 @@ struct HistoryView: View {
         .navigationTitle("History")
     }
 
-    private var resultsList: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                ForEach(viewModel.results, id: \.self) { resultGroup in
-                    if resultGroup.first?.visited != nil {
-                        resultsSection(resultGroup: resultGroup)
-                    }
-                }
-            }
+    private var groupedResults: [[History]] {
+        let compacted: [History] = history.compactMap { history in
+            history.visited != nil ? history : nil
+        }
+
+        let results = Dictionary(
+            grouping: compacted,
+            by: { DateFormatter.fullNone.string(from: $0.visited!) }
+        )
+
+        return results.values.sorted { aHistory, bHistory in
+            return aHistory[0].visited! > bHistory[0].visited!
         }
     }
 

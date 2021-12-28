@@ -27,10 +27,7 @@ struct SearchResultView: View {
             VStack(spacing: 12) {
                 ForEach(items) { item in
                     Divider()
-                    GadgetItemView(
-                        item: item,
-                        feed: feedData.feed!
-                    )
+                    GadgetItemView(item: item, feed: feedData.feed!)
                 }
             }
         }
