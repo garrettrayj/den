@@ -10,22 +10,24 @@ import SwiftUI
 
 struct NavigationListView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.isSearching) var isSearching
+    @Environment(\.dismissSearch) var dismissSearch
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
 
-    @ObservedObject var profileViewModel: ProfileViewModel
-    @ObservedObject var searchViewModel: SearchViewModel
+    @ObservedObject var viewModel: ProfileViewModel
 
     @Binding var editingPages: Bool
     @Binding var showingSettings: Bool
 
+    @State var searchQuery: String = ""
     @State var showingHistory: Bool = false
     @State var showingSearch: Bool = false
 
     var body: some View {
         List {
-            ForEach(profileViewModel.profile.pagesArray) { page in
-                SidebarPageView(viewModel: PageViewModel(page: page, refreshing: profileViewModel.refreshing))
+            ForEach(viewModel.profile.pagesArray) { page in
+                SidebarPageView(viewModel: PageViewModel(page: page, refreshing: viewModel.refreshing))
                     #if targetEnvironment(macCatalyst)
                     .listRowInsets(EdgeInsets())
                     #endif
@@ -33,18 +35,17 @@ struct NavigationListView: View {
         }
         .listStyle(.sidebar)
         .searchable(
-            text: $searchViewModel.searchText,
+            text: $searchQuery,
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {
             showingSearch = true
-            searchViewModel.performItemSearch()
         }
         .background(
             Group {
                 NavigationLink(isActive: $showingSearch) {
-                    SearchView(viewModel: searchViewModel)
+                    SearchView(query: searchQuery)
                 } label: {
                     Text("Search")
                 }
@@ -74,21 +75,21 @@ struct NavigationListView: View {
                 } label: {
                     Text("Edit").lineLimit(1)
                 }
-                .disabled(profileViewModel.refreshing)
+                .disabled(viewModel.refreshing)
                 .buttonStyle(NavigationBarButtonStyle())
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    refreshManager.refresh(profile: profileViewModel.profile)
+                    refreshManager.refresh(profile: viewModel.profile)
                 } label: {
-                    if profileViewModel.refreshing {
+                    if viewModel.refreshing {
                         ProgressView().progressViewStyle(NavigationBarProgressStyle())
                     } else {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
-                .disabled(profileViewModel.refreshing)
+                .disabled(viewModel.refreshing)
                 .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
             }
