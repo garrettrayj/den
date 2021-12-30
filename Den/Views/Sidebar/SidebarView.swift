@@ -15,9 +15,7 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
 
-    @ObservedObject var profileViewModel: ProfileViewModel
-
-    @StateObject var searchViewModel: SearchViewModel
+    @ObservedObject var viewModel: ProfileViewModel
 
     @State var editingPages: Bool = false
     @State var showingSettings: Bool = false
@@ -32,28 +30,27 @@ struct SidebarView: View {
     var body: some View {
         Group {
             if editingPages {
-                EditingListView(viewModel: profileViewModel, editingPages: $editingPages)
+                EditingListView(viewModel: viewModel, editingPages: $editingPages)
             } else {
-                if profileViewModel.profile.pagesArray.count > 0 {
+                if viewModel.profile.pagesArray.count > 0 {
                     NavigationListView(
-                        profileViewModel: profileViewModel,
-                        searchViewModel: searchViewModel,
+                        viewModel: viewModel,
                         editingPages: $editingPages,
                         showingSettings: $showingSettings
                     )
                     #if !targetEnvironment(macCatalyst)
                     .refreshable {
-                        refreshManager.refresh(profile: profileViewModel.profile)
+                        refreshManager.refresh(profile: viewModel.profile)
                     }
                     #endif
                 } else {
-                    StartListView(viewModel: profileViewModel, showingSettings: $showingSettings)
+                    StartListView(viewModel: viewModel, showingSettings: $showingSettings)
                 }
             }
         }
         .background(
             NavigationLink(isActive: $showingSettings) {
-                SettingsView(viewModel: profileViewModel)
+                SettingsView(viewModel: viewModel)
             } label: {
                 Label("Settings", systemImage: "gear")
             }.hidden()

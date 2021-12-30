@@ -34,12 +34,11 @@ struct ContentView: View {
     private var navigationView: some View {
         NavigationView {
             SidebarView(
-                profileViewModel: ProfileViewModel(
+                viewModel: ProfileViewModel(
                     viewContext: viewContext,
                     crashManager: crashManager,
                     profile: profileManager.activeProfile!
-                ),
-                searchViewModel: SearchViewModel(viewContext: viewContext, crashManager: crashManager)
+                )
             )
 
             // Default view for detail area
