@@ -30,6 +30,7 @@
         </fetchedProperty>
     </entity>
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="category">
+        <attribute name="dateGroup" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="title" optional="YES" attributeType="String"/>
@@ -84,7 +85,7 @@
     <elements>
         <element name="Feed" positionX="288" positionY="333" width="128" height="20"/>
         <element name="FeedData" positionX="270" positionY="216" width="128" height="200"/>
-        <element name="History" positionX="270" positionY="315" width="128" height="104"/>
+        <element name="History" positionX="270" positionY="315" width="128" height="119"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="245"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
         <element name="Profile" positionX="270" positionY="324" width="128" height="104"/>
