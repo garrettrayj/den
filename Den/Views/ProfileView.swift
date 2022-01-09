@@ -17,12 +17,14 @@ struct ProfileView: View {
     @EnvironmentObject var themeManager: ThemeManager
 
     @State var showingIconPicker: Bool = false
+    @State var showingDeleteAlert: Bool = false
 
     @ObservedObject var profile: Profile
 
     var body: some View {
         Form {
-            nameIconSection
+            nameSection
+            deleteSection
         }
         .navigationTitle(profile.wrappedName)
         .toolbar {
@@ -39,24 +41,42 @@ struct ProfileView: View {
         }
     }
 
-    private var nameIconSection: some View {
-        Section(header: Text("Name and Icon")) {
+    private var nameSection: some View {
+        Section(header: Text("Name")) {
             HStack {
-                TextField("Profile Name", text: $profile.wrappedName)
+                TextField("Name", text: $profile.wrappedName)
                     .modifier(TitleTextFieldModifier())
-                HStack {
-                    Image(systemName: profile.wrappedSymbol)
-                        .foregroundColor(Color.accentColor)
-                    Image(systemName: "chevron.down")
-                        .imageScale(.small)
-                        .foregroundColor(.secondary)
-                }
-                .onTapGesture { showingIconPicker = true }
-                .sheet(isPresented: $showingIconPicker) {
-                    IconPickerView(symbol: $profile.wrappedSymbol)
-                        .environment(\.colorScheme, colorScheme)
-                }
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
+    }
+
+    private var deleteSection: some View {
+        Section {
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                Label("Delete Profile", systemImage: "trash")
+                    .symbolRenderingMode(profile == profileManager.activeProfile ? .monochrome : .multicolor)
+            }
+            .disabled(profile == profileManager.activeProfile)
+            .modifier(FormRowModifier())
+        } footer: {
+            if profile == profileManager.activeProfile {
+                Text("Active profile cannot be deleted.").padding(.vertical, 8)
+            }
+        }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
+            Button("Cancel", role: .cancel) { }
+            Button("Delete", role: .destructive) {
+                viewContext.delete(profile)
+                do {
+                    try viewContext.save()
+                    dismiss()
+                } catch let error as NSError {
+                    crashManager.handleCriticalError(error)
+                }
+            }
+        }, message: {
+            Text("Pages, feeds, and history will be removed. This action cannot be undone.")
+        })
     }
 }

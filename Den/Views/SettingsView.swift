@@ -16,14 +16,14 @@ struct SettingsView: View {
     @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var themeManager: ThemeManager
 
-    @ObservedObject var viewModel: ProfileViewModel
+    @ObservedObject var viewModel: SettingsViewModel
 
-    @State var selectedTheme: UIUserInterfaceStyle = .unspecified
-    @State var showingResetAlert = false
-    @State var historyRentionDays: Int = 0
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
+    private var profiles: FetchedResults<Profile>
 
     var body: some View {
         Form {
+            profilesSection
             feedsSection
             historySection
             appearanceSection
@@ -31,7 +31,28 @@ struct SettingsView: View {
             aboutSection
         }
         .navigationTitle("Settings")
-        .onAppear(perform: loadProfile)
+        .onAppear(perform: viewModel.loadProfile)
+    }
+
+    private var profilesSection: some View {
+        Section {
+            ForEach(profiles) { profile in
+                NavigationLink {
+                    ProfileView(profile: profile)
+                } label: {
+                    Label(
+                        profile.wrappedName,
+                        systemImage: profile == profileManager.activeProfile ? "hexagon.fill" : "hexagon"
+                    )
+                }.modifier(FormRowModifier())
+            }
+
+            Button(action: profileManager.addProfile) {
+                Label("Add Profile", systemImage: "plus")
+            }.modifier(FormRowModifier())
+        } header: {
+            Text("Profiles")
+        }.modifier(SectionHeaderModifier())
     }
 
     private var appearanceSection: some View {
@@ -40,7 +61,7 @@ struct SettingsView: View {
             HStack {
                 Label("Theme", systemImage: "paintbrush").lineLimit(1)
                 Spacer()
-                Picker("", selection: $selectedTheme) {
+                Picker("", selection: $viewModel.selectedTheme) {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
                     Text("Light").tag(UIUserInterfaceStyle.light)
                     Text("Dark").tag(UIUserInterfaceStyle.dark)
@@ -61,11 +82,11 @@ struct SettingsView: View {
             #endif
         }
         .modifier(SectionHeaderModifier())
-        .onChange(of: selectedTheme, perform: { value in
+        .onChange(of: viewModel.selectedTheme, perform: { value in
             UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
             themeManager.applyUIStyle()
         }).onAppear {
-            selectedTheme = UIUserInterfaceStyle.init(
+            viewModel.selectedTheme = UIUserInterfaceStyle.init(
                 rawValue: UserDefaults.standard.integer(forKey: "UIStyle")
             )!
         }
@@ -74,33 +95,25 @@ struct SettingsView: View {
     private var feedsSection: some View {
         Section(header: Text("Feeds")) {
             NavigationLink(
-                destination: ImportView(
-                    importViewModel: ImportViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        profileManager: profileManager
-                    )
-                )
+                destination: ImportView(importViewModel: ImportViewModel(
+                    viewContext: viewContext,
+                    crashManager: crashManager,
+                    profileManager: profileManager
+                ))
             ) {
                 Label("Import", systemImage: "arrow.down.doc")
             }.modifier(FormRowModifier())
 
-            NavigationLink(
-                destination: ExportView(
-                    viewModel: ExportViewModel(profileManager: profileManager)
-                )
-            ) {
+            NavigationLink(destination: ExportView(viewModel: ExportViewModel(profileManager: profileManager))) {
                 Label("Export", systemImage: "arrow.up.doc")
             }.modifier(FormRowModifier())
 
             NavigationLink(
-                destination: SecurityCheckView(
-                    viewModel: SecurityCheckViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        profileManager: profileManager
-                    )
-                )
+                destination: SecurityCheckView(viewModel: SecurityCheckViewModel(
+                    viewContext: viewContext,
+                    crashManager: crashManager,
+                    profileManager: profileManager
+                ))
             ) {
                 Label("Security Check", systemImage: "checkmark.shield")
             }.modifier(FormRowModifier())
@@ -113,7 +126,7 @@ struct SettingsView: View {
             HStack {
                 Label("Keep History", systemImage: "clock").lineLimit(1)
                 Spacer()
-                Picker("", selection: $historyRentionDays) {
+                Picker("", selection: $viewModel.historyRentionDays) {
                     Text("Forever").tag(0 as Int)
                     Text("One Year").tag(365 as Int)
                     Text("Six Months").tag(182 as Int)
@@ -121,12 +134,11 @@ struct SettingsView: View {
                     Text("One Month").tag(30 as Int)
                     Text("Two Weeks").tag(14 as Int)
                     Text("One Week").tag(7 as Int)
-                }
-                .frame(maxWidth: 200)
+                }.frame(maxWidth: 200)
             }.modifier(FormRowModifier())
             #else
             Picker(
-                selection: $historyRentionDays,
+                selection: $viewModel.historyRentionDays,
                 label: Label("Keep History", systemImage: "clock"),
                 content: {
                     Text("Forever").tag(0 as Int)
@@ -140,37 +152,37 @@ struct SettingsView: View {
             )
             #endif
 
-            Button(action: clearHistory) {
+            Button(action: viewModel.clearHistory) {
                 Label("Clear History", systemImage: "clear")
             }.modifier(FormRowModifier())
         }
         .modifier(SectionHeaderModifier())
-        .onChange(of: historyRentionDays) { _ in
-            saveProfile()
+        .onChange(of: viewModel.historyRentionDays) { _ in
+            viewModel.saveProfile()
         }
     }
 
     private var dataSection: some View {
         Section(header: Text("Reset")) {
-            Button(action: clearCache) {
+            Button(action: viewModel.clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark")
             }
             .modifier(FormRowModifier())
 
             Button(role: .destructive) {
-                showingResetAlert = true
+                viewModel.showingResetAlert = true
             } label: {
                 Label("Reset", systemImage: "clear").symbolRenderingMode(.multicolor)
             }
             .modifier(FormRowModifier())
-            .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
+            .alert("Reset Everything?", isPresented: $viewModel.showingResetAlert, actions: {
                 Button("Cancel", role: .cancel) { }
                 Button("Reset", role: .destructive) {
-                    resetEverything()
+                    viewModel.resetEverything()
                     dismiss()
                 }
             }, message: {
-                Text("All profiles, pages, feeds, and history will be deleted.")
+                Text("Profiles, pages, feeds, and history will be deleted.")
             })
         }.modifier(SectionHeaderModifier())
     }
@@ -184,8 +196,7 @@ struct SettingsView: View {
                     .frame(width: 48, height: 48)
                     .cornerRadius(8)
                 VStack(alignment: .leading) {
-                    Text("Den ")
-                        .font(.custom("Veronica-Script", size: 24, relativeTo: .title2))
+                    Text("Den ").font(.custom("Veronica-Script", size: 24, relativeTo: .title2))
                     Text("v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                         .foregroundColor(.secondary)
                         .font(.footnote)
@@ -195,93 +206,17 @@ struct SettingsView: View {
 
             }.padding(.vertical, 8)
 
-            Button(action: openHomepage) {
+            Button(action: viewModel.openHomepage) {
                 Label("Homepage", systemImage: "house")
             }.modifier(FormRowModifier())
 
-            Button(action: emailSupport) {
+            Button(action: viewModel.emailSupport) {
                 Label("Email Support", systemImage: "lifepreserver")
             }.modifier(FormRowModifier())
 
-            Button(action: openPrivacyPolicy) {
+            Button(action: viewModel.openPrivacyPolicy) {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
-    }
-
-    private func loadProfile() {
-        historyRentionDays = viewModel.profile.wrappedHistoryRetention
-    }
-
-    private func saveProfile() {
-        if historyRentionDays != viewModel.profile.wrappedHistoryRetention {
-            viewModel.profile.wrappedHistoryRetention = historyRentionDays
-        }
-
-        if self.viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch let error as NSError {
-                crashManager.handleCriticalError(error)
-            }
-        }
-    }
-
-    private func clearCache() {
-        cacheManager.resetFeeds()
-        viewModel.profile.pagesArray.forEach { page in
-            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
-        }
-    }
-
-    private func clearHistory() {
-        viewModel.profile.historyArray.forEach { history in
-            self.viewContext.delete(history)
-        }
-
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
-        }
-
-        viewModel.profile.pagesArray.forEach({ page in
-            page.feedsArray.forEach { feed in
-                feed.objectWillChange.send()
-            }
-        })
-    }
-
-    private func restoreUserDefaults() {
-        // Clear our UserDefaults domain
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
-
-        themeManager.applyUIStyle()
-    }
-
-    private func resetEverything() {
-        restoreUserDefaults()
-        profileManager.resetProfiles()
-    }
-
-    private func openHomepage() {
-        if let url = URL(string: "https://devsci.net") {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    private func emailSupport() {
-        // Note: "mailto:" links do not work in simulator, only on devices
-        if let url = URL(string: "mailto:support@devsci.net") {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    private func openPrivacyPolicy() {
-        if let url = URL(string: "https://devsci.net/privacy-policy.html") {
-            UIApplication.shared.open(url)
-        }
     }
 }

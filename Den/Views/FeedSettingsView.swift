@@ -19,10 +19,9 @@ struct FeedSettingsView: View {
 
     var body: some View {
         Form {
-            titleSection
+            titlePageSection
             limitsSection
             configurationSection
-            moveSection
             info
         }
         .onDisappear(perform: save)
@@ -49,17 +48,19 @@ struct FeedSettingsView: View {
         }
     }
 
-    private var titleSection: some View {
-        Section(header: Text("Title")) {
-            TextField("Title", text: $feed.wrappedTitle)
-                .modifier(TitleTextFieldModifier())
-                .modifier(FormRowModifier())
-        }.modifier(SectionHeaderModifier())
-    }
+    private var titlePageSection: some View {
+        Section(header: Text("Title & Page")) {
 
-    private var moveSection: some View {
-        Section(header: Text("Move")) {
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                TextField("Title", text: $feed.wrappedTitle).modifier(TitleTextFieldModifier())
+                Spacer()
+                pagePicker.frame(maxWidth: 160).labelsHidden()
+            }.modifier(FormRowModifier())
+            #else
+            TextField("Title", text: $feed.wrappedTitle).modifier(TitleTextFieldModifier())
             pagePicker
+            #endif
         }.modifier(SectionHeaderModifier())
     }
 
@@ -81,28 +82,13 @@ struct FeedSettingsView: View {
             }
         )
 
-        #if targetEnvironment(macCatalyst)
-        return HStack {
+        return Picker(selection: pagePickerSelection) {
+            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                Text(page.wrappedName).tag(page.id?.uuidString)
+            }
+        } label: {
             Label("Page", systemImage: "square.grid.2x2")
-            Spacer()
-            Picker("", selection: pagePickerSelection) {
-                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                    Text(page.wrappedName).tag(page.id?.uuidString)
-                }
-            }
-            .frame(maxWidth: 200)
-        }.modifier(FormRowModifier())
-        #else
-        return Picker(
-            selection: pagePickerSelection,
-            label: Label("Page", systemImage: "square.grid.2x2"),
-            content: {
-                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                    Text(page.wrappedName).tag(page.id?.uuidString)
-                }
-            }
-        )
-        #endif
+        }
     }
 
     private var limitsSection: some View {
