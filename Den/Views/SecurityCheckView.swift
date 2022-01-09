@@ -33,7 +33,7 @@ struct SecurityCheckView: View {
     }
 
     private var allClearSummary: some View {
-        Section(header: Text("Summary").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Summary")) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("No Issues").fontWeight(.medium)
@@ -44,11 +44,11 @@ struct SecurityCheckView: View {
                     .imageScale(.large)
                     .foregroundColor(.green)
             }).padding(.vertical, 8)
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var warningSummary: some View {
-        Section(header: Text("Summary").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Summary")) {
             Label(title: {
                 VStack(alignment: .leading, spacing: 4) {
                     if profileManager.activeProfile?.insecureFeedCount ?? 0 > 0 {
@@ -78,11 +78,11 @@ struct SecurityCheckView: View {
                 }
             }
             .padding(.vertical, 4)
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private func pageSection(page: Page) -> some View {
-        Section(header: Text(page.displayName).modifier(SectionHeaderModifier())) {
+        Section(header: Text(page.displayName)) {
             ForEach(page.insecureFeeds) { feed in
                 HStack {
                     FeedTitleLabelView(
@@ -104,6 +104,6 @@ struct SecurityCheckView: View {
                     }
                 }.modifier(FormRowModifier())
             }
-        }
+        }.modifier(SectionHeaderModifier())
     }
 }

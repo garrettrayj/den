@@ -11,7 +11,7 @@ import SwiftUI
 struct IconPickerView: View {
     @Environment(\.dismiss) var dismiss
 
-    @ObservedObject var page: Page
+    @Binding var symbol: String
 
     var symbols: [String: [String]] =  [:]
 
@@ -41,8 +41,8 @@ struct IconPickerView: View {
         GridItem(.adaptive(minimum: 40, maximum: 40), spacing: 4, alignment: .top)
     ]
 
-    init(page: Page) {
-        self.page = page
+    init(symbol: Binding<String>) {
+        _symbol = symbol
 
         guard
             let symbolsPath = Bundle.main.path(forResource: "PageSymbols", ofType: "plist"),
@@ -73,7 +73,7 @@ struct IconPickerView: View {
                                     if symbols[key]!.contains(category[0]) {
                                         Image(systemName: key)
                                             .imageScale(.large)
-                                            .foregroundColor(key == page.wrappedSymbol ? .accentColor : .primary)
+                                            .foregroundColor(key == symbol ? .accentColor : .primary)
                                             .frame(width: 40, height: 40, alignment: .center)
                                             .background(
                                                 RoundedRectangle(cornerRadius: 4)
@@ -83,11 +83,11 @@ struct IconPickerView: View {
                                                 RoundedRectangle(cornerRadius: 4)
                                                     .strokeBorder(
                                                         Color.accentColor,
-                                                        lineWidth: key == page.wrappedSymbol ? 2 : 0
+                                                        lineWidth: key == symbol ? 2 : 0
                                                     )
                                             )
                                             .onTapGesture {
-                                                page.wrappedSymbol = key
+                                                symbol = key
                                             }
                                     }
                                 }

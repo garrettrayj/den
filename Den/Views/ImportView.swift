@@ -40,7 +40,7 @@ struct ImportView: View {
 
     private var folderSelectionStage: some View {
         Form {
-            Section(header: selectionSectionHeader.modifier(SectionHeaderModifier())) {
+            Section(header: selectionSectionHeader) {
                 ForEach(importViewModel.opmlFolders, id: \.name) { folder in
                     Button { self.importViewModel.toggleFolder(folder) } label: {
                         Label(
@@ -62,11 +62,8 @@ struct ImportView: View {
                         )
                     }
                     .modifier(FormRowModifier())
-                    .onAppear {
-                        self.importViewModel.selectedFolders.append(folder)
-                    }
                 }
-            }
+            }.modifier(SectionHeaderModifier())
 
             Section {
                 Button(action: importFeeds) {
@@ -103,13 +100,11 @@ struct ImportView: View {
         HStack {
             Text("Select Folders")
             Spacer()
-            Button(action: importViewModel.selectAll) {
-                Text("All")
-            }.disabled(importViewModel.allSelected)
-            Text("/")
-            Button(action: importViewModel.selectNone) {
-                Text("None")
-            }.disabled(importViewModel.noneSelected)
+            HStack {
+                Button(action: importViewModel.selectAll) { Text("All") }.disabled(importViewModel.allSelected)
+                Text("/")
+                Button(action: importViewModel.selectNone) { Text("None") }.disabled(importViewModel.noneSelected)
+            }.font(.callout)
         }
     }
 

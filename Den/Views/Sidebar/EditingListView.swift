@@ -20,7 +20,7 @@ struct EditingListView: View {
                     Text("\(viewModel.profile.pagesArray.count) Pages")
                     Spacer()
                     Text("Drag to Reorder")
-                }.modifier(SectionHeaderModifier())
+                }
             ) {
                 ForEach(viewModel.profile.pagesArray) { page in
                     Text(page.displayName)
@@ -34,7 +34,7 @@ struct EditingListView: View {
                 }
                 .onMove(perform: viewModel.movePage)
                 .onDelete(perform: viewModel.deletePage)
-            }
+            }.modifier(SectionHeaderModifier())
         }
         #if targetEnvironment(macCatalyst)
         .listStyle(.grouped)
@@ -45,16 +45,16 @@ struct EditingListView: View {
         .environment(\.editMode, .constant(.active))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: viewModel.createPage) {
+                    Label("New Page", systemImage: "plus")
+                }.buttonStyle(NavigationBarButtonStyle())
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     editingPages = false
                 } label: {
                     Text("Done").lineLimit(1)
-                }.buttonStyle(NavigationBarButtonStyle())
-            }
-
-            ToolbarItem(placement: .bottomBar) {
-                Button(action: viewModel.createPage) {
-                    Label("New Page", systemImage: "plus.circle").labelStyle(.titleAndIcon)
                 }.buttonStyle(NavigationBarButtonStyle())
             }
         }

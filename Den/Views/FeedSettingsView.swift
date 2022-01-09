@@ -50,17 +50,17 @@ struct FeedSettingsView: View {
     }
 
     private var titleSection: some View {
-        Section(header: Text("Title").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Title")) {
             TextField("Title", text: $feed.wrappedTitle)
                 .modifier(TitleTextFieldModifier())
                 .modifier(FormRowModifier())
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var moveSection: some View {
-        Section(header: Text("Move").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Move")) {
             pagePicker
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var pagePicker: some View {
@@ -106,7 +106,7 @@ struct FeedSettingsView: View {
     }
 
     private var limitsSection: some View {
-        Section(header: Text("Limits").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Limits")) {
             Stepper(value: $feed.wrappedPreviewLimit, in: 1...100, step: 1) {
                 Label(
                     "Preview Items: \(feed.wrappedPreviewLimit)",
@@ -120,11 +120,11 @@ struct FeedSettingsView: View {
                     systemImage: "list.bullet.rectangle"
                 )
             }.modifier(FormRowModifier())
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var configurationSection: some View {
-        Section(header: Text("Images").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Images")) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Show Thumbnails", systemImage: "photo")
@@ -139,11 +139,11 @@ struct FeedSettingsView: View {
                 Label("Use Reader Mode", systemImage: "doc.plaintext")
             }
             #endif
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var info: some View {
-        Section(header: Text("Info").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Info")) {
             HStack {
                 Label("RSS URL", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
                 Spacer()
@@ -163,7 +163,7 @@ struct FeedSettingsView: View {
                     Text("Never").foregroundColor(.secondary)
                 }
             }.modifier(FormRowModifier())
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var toolbar: some ToolbarContent {

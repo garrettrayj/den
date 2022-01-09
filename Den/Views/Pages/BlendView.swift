@@ -22,7 +22,6 @@ struct BlendView: View {
                 }
             }
             .padding([.horizontal, .bottom])
-            .padding(.top, 8)
         } else {
             VStack {
                 Divider()
