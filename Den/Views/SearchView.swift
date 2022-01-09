@@ -10,11 +10,9 @@ import CoreData
 import SwiftUI
 
 struct SearchView: View {
-    var query: String = ""
-    var pattern: String = ""
-
     @FetchRequest var fetchRequest: FetchedResults<Item>
 
+    var query: String = ""
     var message: String {
         if query.count > 2 {
             return "Results for \"\(query)\""
@@ -72,16 +70,30 @@ struct SearchView: View {
         }
     }
 
-    init(query: String) {
+    init(query: String, profile: Profile) {
         self.query = query
 
-        if query.count > 3 {
-            self.pattern = ".*\\b\(query)\\b.*"
-        }
+        let profilePredicate = NSPredicate(
+            format: "feedData.id IN %@",
+            profile.pagesArray.flatMap({ page in
+                page.feedsArray.compactMap { feed in
+                    feed.feedData?.id
+                }
+            })
+        )
+
+        var pattern = ""
+        if query.count > 3 { pattern = ".*\\b\(query)\\b.*" }
+        let queryPredicate = NSPredicate(format: "title MATCHES %@", pattern)
+
+        let compoundPredicate = NSCompoundPredicate(
+            type: .and,
+            subpredicates: [profilePredicate, queryPredicate]
+        )
 
         _fetchRequest = FetchRequest<Item>(
             sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
-            predicate: NSPredicate(format: "%K MATCHES %@", #keyPath(Item.title), pattern)
+            predicate: compoundPredicate
         )
     }
 }
