@@ -21,7 +21,12 @@ final class ImportViewModel: ObservableObject {
     @Published var feedsImported: [Feed] = []
     @Published var pagesImported: [Page] = []
 
-    var allSelected: Bool { selectedFolders.count == opmlFolders.count }
+    var allSelected: Bool {
+
+        print(selectedFolders.count)
+        print(opmlFolders.count)
+        return selectedFolders.count == opmlFolders.count
+    }
     var noneSelected: Bool { selectedFolders.count == 0 }
 
     private var viewContext: NSManagedObjectContext

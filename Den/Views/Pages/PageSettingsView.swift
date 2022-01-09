@@ -55,7 +55,7 @@ struct PageSettingsView: View {
     }
 
     private var nameIconSection: some View {
-        Section(header: Text("Name and Icon").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Name and Icon")) {
             HStack {
                 TextField("Untitled", text: $viewModel.page.wrappedName)
                     .modifier(TitleTextFieldModifier())
@@ -70,21 +70,15 @@ struct PageSettingsView: View {
                 }
                 .onTapGesture { showingIconPicker = true }
                 .sheet(isPresented: $showingIconPicker) {
-                    IconPickerView(page: viewModel.page)
+                    IconPickerView(symbol: $viewModel.page.wrappedSymbol)
                         .environment(\.colorScheme, colorScheme)
                 }
             }.modifier(FormRowModifier())
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var feedsSection: some View {
-        Section(
-            header: HStack {
-                Text("\(viewModel.page.feedsArray.count) Feeds")
-                Spacer()
-                Text("Drag to Reorder")
-            }.modifier(SectionHeaderModifier())
-        ) {
+        Section(header: Text("Feeds")) {
             ForEach(viewModel.page.feedsArray) { feed in
                 FeedTitleLabelView(
                     title: feed.wrappedTitle,
@@ -93,7 +87,7 @@ struct PageSettingsView: View {
             }
             .onDelete(perform: deleteFeed)
             .onMove(perform: moveFeed)
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private func save() {

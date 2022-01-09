@@ -187,10 +187,10 @@ struct PageView: View {
 
     private var pageEmpty: some View {
         #if targetEnvironment(macCatalyst)
-        Text("Click \(Image(systemName: "plus.circle")) to add a source")
+        Text("Click \(Image(systemName: "plus.circle")) to add a feed")
             .modifier(SimpleMessageModifier())
         #else
-        Text("Tap \(Image(systemName: "ellipsis.circle")) to add a source")
+        Text("Tap \(Image(systemName: "ellipsis.circle")) to add a feed")
             .modifier(SimpleMessageModifier())
         #endif
     }

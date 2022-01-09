@@ -59,7 +59,7 @@ struct NavigationListView: View {
                 // Add keyboard shorcut for iOS devices
                 #if !targetEnvironment(macCatalyst)
                 Button {
-                    refreshManager.refresh(profile: profileViewModel.profile)
+                    refreshManager.refresh(profile: viewModel.profile)
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
@@ -94,20 +94,26 @@ struct NavigationListView: View {
                 .keyboardShortcut("r", modifiers: [.command, .shift])
             }
 
-            ToolbarItem(placement: .bottomBar) {
-                Button {
-                    showingSettings = true
-                } label: {
-                    Label("Settings", systemImage: "gear")
-                }
-            }
-
-            ToolbarItem(placement: .bottomBar) {
-                Button {
-                    showingHistory = true
-                } label: {
-                    Label("History", systemImage: "clock")
-                }
+            ToolbarItemGroup(placement: .bottomBar) {
+                HStack {
+                    NavigationLink {
+                        ProfilesView()
+                    } label: {
+                        Label("Profiles", systemImage: "person.circle")
+                    }
+                    Spacer()
+                    Button {
+                        showingSettings = true
+                    } label: {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    Spacer()
+                    Button {
+                        showingHistory = true
+                    } label: {
+                        Label("History", systemImage: "clock")
+                    }
+                }.imageScale(.large)
             }
         }
     }

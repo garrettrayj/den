@@ -38,6 +38,7 @@ extension ImportDocumentPicker: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         importViewModel.pickedURL = urls.first!
         importViewModel.opmlFolders = OPMLReader(xmlURL: importViewModel.pickedURL!).outlineFolders
+        importViewModel.selectedFolders = importViewModel.opmlFolders
         importViewModel.stage = .folderSelection
     }
 

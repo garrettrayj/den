@@ -20,7 +20,7 @@ struct SubscribeView: View {
                     Section {
                         feedUrlInput
                     } header: {
-                        Text("RSS or Atom URL").modifier(SectionHeaderModifier())
+                        Text("RSS or Atom URL")
                     } footer: {
                         if viewModel.validationMessage != nil {
                             Text(viewModel.validationMessage!)
@@ -29,7 +29,7 @@ struct SubscribeView: View {
                                 .padding([.top, .horizontal])
                                 .frame(maxWidth: .infinity)
                         }
-                    }
+                    }.modifier(SectionHeaderModifier())
 
                     submitButtonSection
                 } else {

@@ -26,6 +26,17 @@ final class ProfileManager: ObservableObject {
         }
     }
 
+    func addProfile() {
+        _ = Profile.create(in: viewContext)
+
+        do {
+            try viewContext.save()
+            self.objectWillChange.send()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
+        }
+    }
+
     func resetProfiles() {
         activeProfile = createDefaultProfile()
 
@@ -62,6 +73,7 @@ final class ProfileManager: ObservableObject {
 
     private func createDefaultProfile(adoptOrphans: Bool = false) -> Profile {
         let defaultProfile = Profile.create(in: viewContext)
+        defaultProfile.wrappedName = "Default"
 
         if adoptOrphans == true {
             // Adopt existing pages and history for profile upgrade

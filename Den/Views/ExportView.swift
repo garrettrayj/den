@@ -41,7 +41,7 @@ struct ExportView: View {
     }
 
     private var pageListSection: some View {
-        Section(header: selectionSectionHeader.modifier(SectionHeaderModifier())) {
+        Section(header: selectionSectionHeader) {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
                 // .editMode doesn't work inside forms, so creating selection buttons manually
                 Button { self.viewModel.togglePage(page) } label: {
@@ -66,20 +66,18 @@ struct ExportView: View {
                 .modifier(FormRowModifier())
                 .onAppear { self.viewModel.selectedPages.append(page) }
             }
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var selectionSectionHeader: some View {
         HStack {
-            Text("SELECT PAGES")
+            Text("Select Pages")
             Spacer()
-            Button(action: viewModel.selectAll) {
-                Text("ALL")
-            }.disabled(viewModel.allSelected)
-            Text("/")
-            Button(action: viewModel.selectNone) {
-                Text("NONE")
-            }.disabled(viewModel.noneSelected)
+            HStack {
+                Button(action: viewModel.selectAll) { Text("All") }.disabled(viewModel.allSelected)
+                Text("/")
+                Button(action: viewModel.selectNone) { Text("None")}.disabled(viewModel.noneSelected)
+            }.font(.callout)
         }
     }
 }

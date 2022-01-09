@@ -24,9 +24,9 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            appearanceSection
             feedsSection
             historySection
+            appearanceSection
             dataSection
             aboutSection
         }
@@ -35,7 +35,7 @@ struct SettingsView: View {
     }
 
     private var appearanceSection: some View {
-        Section(header: Text("Appearance").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Appearance")) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Theme", systemImage: "paintbrush").lineLimit(1)
@@ -60,6 +60,7 @@ struct SettingsView: View {
             )
             #endif
         }
+        .modifier(SectionHeaderModifier())
         .onChange(of: selectedTheme, perform: { value in
             UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
             themeManager.applyUIStyle()
@@ -71,7 +72,7 @@ struct SettingsView: View {
     }
 
     private var feedsSection: some View {
-        Section(header: Text("Feeds").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Feeds")) {
             NavigationLink(
                 destination: ImportView(
                     importViewModel: ImportViewModel(
@@ -103,11 +104,11 @@ struct SettingsView: View {
             ) {
                 Label("Security Check", systemImage: "checkmark.shield")
             }.modifier(FormRowModifier())
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var historySection: some View {
-        Section(header: Text("History").modifier(SectionHeaderModifier())) {
+        Section(header: Text("History")) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Keep History", systemImage: "clock").lineLimit(1)
@@ -142,13 +143,15 @@ struct SettingsView: View {
             Button(action: clearHistory) {
                 Label("Clear History", systemImage: "clear")
             }.modifier(FormRowModifier())
-        }.onChange(of: historyRentionDays) { _ in
+        }
+        .modifier(SectionHeaderModifier())
+        .onChange(of: historyRentionDays) { _ in
             saveProfile()
         }
     }
 
     private var dataSection: some View {
-        Section(header: Text("Reset").modifier(SectionHeaderModifier())) {
+        Section(header: Text("Reset")) {
             Button(action: clearCache) {
                 Label("Empty Caches", systemImage: "bin.xmark")
             }
@@ -167,13 +170,13 @@ struct SettingsView: View {
                     dismiss()
                 }
             }, message: {
-                Text("Settings will to defaults; Pages, feeds, and history will be deleted.")
+                Text("All profiles, pages, feeds, and history will be deleted.")
             })
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private var aboutSection: some View {
-        Section(header: Text("About").modifier(SectionHeaderModifier())) {
+        Section(header: Text("About")) {
             HStack(alignment: .bottom, spacing: 8) {
                 Image(uiImage: UIImage(named: "TitleIcon") ?? UIImage())
                     .resizable()
@@ -203,7 +206,7 @@ struct SettingsView: View {
             Button(action: openPrivacyPolicy) {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
             }.modifier(FormRowModifier())
-        }
+        }.modifier(SectionHeaderModifier())
     }
 
     private func loadProfile() {
