@@ -15,11 +15,6 @@ public class Profile: NSManagedObject {
         set { name = newValue }
     }
 
-    public var wrappedSymbol: String {
-        get { symbol ?? "person.crop.circle" }
-        set { symbol = newValue }
-    }
-
     public var wrappedHistoryRetention: Int {
         get { Int(historyRetention) }
         set { historyRetention = Int16(newValue) }

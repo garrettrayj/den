@@ -71,24 +71,26 @@ struct IconPickerView: View {
                             LazyVGrid(columns: columns, alignment: .center, spacing: 4) {
                                 ForEach(symbols.keys.sorted(), id: \.self) { key in
                                     if symbols[key]!.contains(category[0]) {
-                                        Image(systemName: key)
-                                            .imageScale(.large)
-                                            .foregroundColor(key == symbol ? .accentColor : .primary)
-                                            .frame(width: 40, height: 40, alignment: .center)
-                                            .background(
-                                                RoundedRectangle(cornerRadius: 4)
-                                                    .fill(Color(UIColor.secondarySystemGroupedBackground))
-                                            )
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 4)
-                                                    .strokeBorder(
-                                                        Color.accentColor,
-                                                        lineWidth: key == symbol ? 2 : 0
-                                                    )
-                                            )
-                                            .onTapGesture {
-                                                symbol = key
-                                            }
+                                        Button {
+                                            symbol = key
+                                            dismiss()
+                                        } label: {
+                                            Image(systemName: key)
+                                                .imageScale(.large)
+                                                .foregroundColor(key == symbol ? .accentColor : .primary)
+                                                .frame(width: 40, height: 40, alignment: .center)
+                                                .background(
+                                                    RoundedRectangle(cornerRadius: 4)
+                                                        .fill(Color(UIColor.secondarySystemGroupedBackground))
+                                                )
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 4)
+                                                        .strokeBorder(
+                                                            Color.accentColor,
+                                                            lineWidth: key == symbol ? 2 : 0
+                                                        )
+                                                )
+                                        }
                                     }
                                 }
                             }

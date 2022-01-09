@@ -14,6 +14,10 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var cacheManager: CacheManager
+    @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject var themeManager: ThemeManager
 
     @ObservedObject var viewModel: ProfileViewModel
 
@@ -50,7 +54,13 @@ struct SidebarView: View {
         }
         .background(
             NavigationLink(isActive: $showingSettings) {
-                SettingsView(viewModel: viewModel)
+                SettingsView(viewModel: SettingsViewModel(
+                    viewContext: viewContext,
+                    crashManager: crashManager,
+                    profileManager: profileManager,
+                    cacheManager: cacheManager,
+                    themeManager: themeManager
+                ))
             } label: {
                 Label("Settings", systemImage: "gear")
             }.hidden()

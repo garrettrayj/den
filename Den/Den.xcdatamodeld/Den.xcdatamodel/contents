@@ -68,7 +68,6 @@
         <attribute name="historyRetention" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="symbol" optional="YES" attributeType="String"/>
         <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="History" inverseName="profile" inverseEntity="History"/>
         <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Page" inverseName="profile" inverseEntity="Page"/>
     </entity>
@@ -88,6 +87,6 @@
         <element name="History" positionX="270" positionY="315" width="128" height="104"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="245"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
-        <element name="Profile" positionX="270" positionY="324" width="128" height="119"/>
+        <element name="Profile" positionX="270" positionY="324" width="128" height="104"/>
     </elements>
 </model>
