@@ -10,6 +10,13 @@ import CoreData
 
 @objc(History)
 public class History: NSManagedObject {
+    /** This could be a stored property for better performance */
+    @objc
+    var day: String {
+        guard let visited = visited else { return "NA" }
+        return DateFormatter.fullNone.string(from: visited)
+    }
+
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> History {
         let history = self.init(context: managedObjectContext)
         history.id = UUID()

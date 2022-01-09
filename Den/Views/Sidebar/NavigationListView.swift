@@ -51,7 +51,7 @@ struct NavigationListView: View {
                 }
 
                 NavigationLink(isActive: $showingHistory) {
-                    HistoryView()
+                    HistoryView(profile: viewModel.profile)
                 } label: {
                     Label("History", systemImage: "clock")
                 }
