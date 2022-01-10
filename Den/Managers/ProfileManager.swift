@@ -15,6 +15,14 @@ final class ProfileManager: ObservableObject {
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
 
+    var activeProfileName: String {
+        activeProfile?.wrappedName ?? "Unknown"
+    }
+
+    var activeProfileIsEmpty: Bool {
+        activeProfile?.pagesArray.isEmpty ?? true
+    }
+
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager

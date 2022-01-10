@@ -17,20 +17,20 @@ struct StartListView: View {
         List {
             Section(content: {
                 Button(action: viewModel.createPage) {
-                    Label("Create a blank page", systemImage: "plus")
+                    Label("Create a Blank Page", systemImage: "plus")
                     #if targetEnvironment(macCatalyst)
                         .font(.title3)
                     #endif
                 }.modifier(StartRowModifier())
 
                 Button(action: viewModel.loadDemo) {
-                    Label("Load demo feeds", systemImage: "wand.and.stars")
+                    Label("Load Demo Feeds", systemImage: "wand.and.stars")
                     #if targetEnvironment(macCatalyst)
                         .font(.title3)
                     #endif
                 }.modifier(StartRowModifier())
             }, header: {
-                Text("Get started")
+                Text("Get Started")
                 #if targetEnvironment(macCatalyst)
                     .font(.title2)
                 #endif

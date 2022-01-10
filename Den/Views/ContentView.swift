@@ -42,7 +42,7 @@ struct ContentView: View {
             )
 
             // Default view for detail area
-            WelcomeView(profileIsEmpty: profileManager.activeProfile?.pagesArray.count ?? 0 == 0)
+            WelcomeView()
         }
         .modifier(MacButtonStyleModifier())
         .sheet(isPresented: $sourceManager.showingSheet) {

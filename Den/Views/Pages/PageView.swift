@@ -11,7 +11,7 @@ import SwiftUI
 enum PageViewMode: Int {
     case gadgets  = 0
     case showcase = 1
-    case blend     = 2
+    case blend    = 2
 }
 
 struct PageView: View {
@@ -36,23 +36,17 @@ struct PageView: View {
     var body: some View {
         Group {
             if viewModel.page.managedObjectContext == nil {
-                pageRemoved
+                StatusBoxView(message: "Page Deleted", symbol: "rectangle.slash").navigationBarHidden(true)
             } else if viewModel.page.feedsArray.count == 0 {
-                pageEmpty
+                StatusBoxView(message: "Page Empty", symbol: "questionmark.square.dashed")
             } else {
-                #if targetEnvironment(macCatalyst)
-                ScrollView(.vertical) {
-                    pageContent
+                if viewMode == PageViewMode.blend.rawValue {
+                    BlendView(viewModel: viewModel)
+                } else if viewMode == PageViewMode.showcase.rawValue {
+                    ShowcaseView(viewModel: viewModel)
+                } else {
+                    GadgetsView(viewModel: viewModel)
                 }
-                #else
-                RefreshableScrollView(
-                    onRefresh: { done in
-                        refreshManager.refresh(page: viewModel.page)
-                        done()
-                    },
-                    content: { pageContent }
-                )
-                #endif
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
@@ -171,33 +165,5 @@ struct PageView: View {
         .onAppear {
             sourceManager.currentPageId = viewModel.page.id?.uuidString
         }
-    }
-
-    private var pageContent: some View {
-        Group {
-            if viewMode == PageViewMode.blend.rawValue {
-                BlendView(viewModel: viewModel)
-            } else if viewMode == PageViewMode.showcase.rawValue {
-                ShowcaseView(viewModel: viewModel)
-            } else {
-                GadgetsView(viewModel: viewModel)
-            }
-        }
-    }
-
-    private var pageEmpty: some View {
-        #if targetEnvironment(macCatalyst)
-        Text("Click \(Image(systemName: "plus.circle")) to add a feed")
-            .modifier(SimpleMessageModifier())
-        #else
-        Text("Tap \(Image(systemName: "ellipsis.circle")) to add a feed")
-            .modifier(SimpleMessageModifier())
-        #endif
-    }
-
-    private var pageRemoved: some View {
-        Text("Page deleted")
-            .modifier(SimpleMessageModifier())
-            .navigationBarHidden(true)
     }
 }

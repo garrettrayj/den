@@ -35,7 +35,8 @@ struct ImportView: View {
                 Label("Select OPML file", systemImage: "filemenu.and.selection")
             }.buttonStyle(AccentButtonStyle())
         }
-        .modifier(SimpleMessageModifier())
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .padding()
     }
 
     private var folderSelectionStage: some View {

@@ -13,7 +13,7 @@ public class History: NSManagedObject {
     /** This could be a stored property for better performance */
     @objc
     var day: String {
-        guard let visited = visited else { return "NA" }
+        guard let visited = visited else { return "Unknown" }
         return DateFormatter.fullNone.string(from: visited)
     }
 

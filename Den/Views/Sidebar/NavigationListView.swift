@@ -45,7 +45,7 @@ struct NavigationListView: View {
         .background(
             Group {
                 NavigationLink(isActive: $showingSearch) {
-                    SearchView(query: searchQuery, profile: viewModel.profile)
+                    SearchView(query: searchQuery)
                 } label: {
                     Text("Search")
                 }
