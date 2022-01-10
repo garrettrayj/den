@@ -9,9 +9,29 @@
 import SwiftUI
 
 struct GadgetsView: View {
+    #if !targetEnvironment(macCatalyst)
+    @EnvironmentObject var refreshManager: RefreshManager
+    #endif
+
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
+        #if targetEnvironment(macCatalyst)
+        ScrollView(.vertical) {
+            gadgetsDisplay
+        }
+        #else
+        RefreshableScrollView(
+            onRefresh: { done in
+                refreshManager.refresh(page: viewModel.page)
+                done()
+            },
+            content: { gadgetsDisplay }
+        )
+        #endif
+    }
+
+    var gadgetsDisplay: some View {
         BoardView(list: viewModel.page.feedsArray, content: { feed in
             GadgetView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))
         }).padding([.horizontal, .bottom])

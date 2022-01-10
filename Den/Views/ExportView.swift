@@ -15,7 +15,9 @@ struct ExportView: View {
 
     var body: some View {
         VStack {
-            if profileManager.activeProfile?.pagesArray.count ?? 0 > 0 {
+            if profileManager.activeProfileIsEmpty {
+                StatusBoxView(message: "Profile Empty", symbol: "folder.badge.questionmark")
+            } else {
                 Form {
                     pageListSection
 
@@ -32,8 +34,6 @@ struct ExportView: View {
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets())
                 }
-            } else {
-                Text("No pages available for export").modifier(SimpleMessageModifier())
             }
         }
         .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))

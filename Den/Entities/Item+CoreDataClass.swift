@@ -18,6 +18,12 @@ public class Item: NSManagedObject {
         return !values.isEmpty
     }
 
+    @objc
+    public var feedDataId: String {
+        guard let id = feedData?.id?.uuidString else { return "Unknown" }
+        return id
+    }
+
     public var wrappedTitle: String {
         get {title ?? "Untitled"}
         set {title = newValue}

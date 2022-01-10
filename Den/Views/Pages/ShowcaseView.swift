@@ -9,9 +9,29 @@
 import SwiftUI
 
 struct ShowcaseView: View {
+    #if !targetEnvironment(macCatalyst)
+    @EnvironmentObject var refreshManager: RefreshManager
+    #endif
+
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
+        #if targetEnvironment(macCatalyst)
+        ScrollView(.vertical) {
+            showcaseDisplay
+        }
+        #else
+        RefreshableScrollView(
+            onRefresh: { done in
+                refreshManager.refresh(page: viewModel.page)
+                done()
+            },
+            content: { showcaseDisplay }
+        )
+        #endif
+    }
+
+    var showcaseDisplay: some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
             ForEach(viewModel.page.feedsArray) { feed in
                 ShowcaseSectionView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))

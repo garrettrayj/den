@@ -61,7 +61,7 @@ struct HistoryView: View {
                     }
                 }
             } else {
-                Text("Empty").modifier(SimpleMessageModifier())
+                StatusBoxView(message: "No History to Show", symbol: "clock")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

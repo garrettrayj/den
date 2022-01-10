@@ -106,7 +106,7 @@ struct FeedView: View {
                         ItemPreviewView(item: item, summaryLines: 12)
                     }).padding()
                 } else {
-                    FeedUnavailableView(feedData: viewModel.feed.feedData).modifier(SimpleMessageModifier())
+                    FeedUnavailableView(feedData: viewModel.feed.feedData)
                 }
             }
         }

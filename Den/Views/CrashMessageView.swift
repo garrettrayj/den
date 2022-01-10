@@ -10,9 +10,6 @@ import SwiftUI
 
 struct CrashMessageView: View {
     var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "ladybug").resizable().scaledToFit().frame(width: 48, height: 48)
-            Text("Application Error").font(.title)
-        }.modifier(SimpleMessageModifier())
+        StatusBoxView(message: "Application Error", symbol: "ladybug")
     }
 }

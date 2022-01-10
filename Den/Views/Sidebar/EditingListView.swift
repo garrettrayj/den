@@ -15,13 +15,7 @@ struct EditingListView: View {
 
     var body: some View {
         List {
-            Section(
-                header: HStack {
-                    Text("\(viewModel.profile.pagesArray.count) Pages")
-                    Spacer()
-                    Text("Drag to Reorder")
-                }
-            ) {
+            Section {
                 ForEach(viewModel.profile.pagesArray) { page in
                     Text(page.displayName)
                         .lineLimit(1)
