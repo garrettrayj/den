@@ -73,7 +73,7 @@ struct FeedView: View {
                 }
                 .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
-                .disabled(viewModel.refreshing)
+                .disabled(refreshManager.isRefreshing)
             }
         }
     }
@@ -112,5 +112,8 @@ struct FeedView: View {
                 }).padding()
             }
         }
+        #if targetEnvironment(macCatalyst)
+        .padding(.top, 8)
+        #endif
     }
 }

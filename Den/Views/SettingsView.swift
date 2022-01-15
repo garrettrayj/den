@@ -182,7 +182,7 @@ struct SettingsView: View {
                     dismiss()
                 }
             }, message: {
-                Text("Profiles, pages, feeds, and history will be deleted.")
+                Text("All profiles, pages, feeds, and history will be permanently deleted.")
             })
         }.modifier(SectionHeaderModifier())
     }

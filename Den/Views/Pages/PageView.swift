@@ -102,6 +102,7 @@ struct PageView: View {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
+                .disabled(refreshManager.isRefreshing)
                 .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
             }

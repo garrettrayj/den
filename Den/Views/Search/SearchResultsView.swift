@@ -52,6 +52,9 @@ struct SearchResultsView: View {
                             }
                         }
                     }
+                    #if targetEnvironment(macCatalyst)
+                    .padding(.top, 8)
+                    #endif
                 }
             }
         }

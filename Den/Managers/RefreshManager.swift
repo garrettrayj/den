@@ -125,7 +125,7 @@ final class RefreshManager: ObservableObject {
         isRefreshing = true
         queue.addOperations(operations, waitUntilFinished: false)
         queue.addBarrierBlock {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 self.isRefreshing = false
             }
         }

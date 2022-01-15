@@ -59,9 +59,12 @@ struct HistoryView: View {
                             }
                         }
                     }
+                    #if targetEnvironment(macCatalyst)
+                    .padding(.top, 8)
+                    #endif
                 }
             } else {
-                StatusBoxView(message: "No History to Show", symbol: "clock")
+                StatusBoxView(message: "History is Empty", symbol: "clock")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
