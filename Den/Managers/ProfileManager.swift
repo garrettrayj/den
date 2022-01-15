@@ -15,6 +15,15 @@ final class ProfileManager: ObservableObject {
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
 
+    var defaultProfileIdString: String? {
+        get {
+            UserDefaults.standard.string(forKey: "ActiveProfile")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "ActiveProfile")
+        }
+    }
+
     var activeProfileName: String {
         activeProfile?.wrappedName ?? "Unknown"
     }
@@ -30,7 +39,7 @@ final class ProfileManager: ObservableObject {
         if CommandLine.arguments.contains("--reset") {
             self.resetProfiles()
         } else {
-            self.loadProfiles()
+            self.loadProfile()
         }
     }
 
@@ -45,8 +54,23 @@ final class ProfileManager: ObservableObject {
         }
     }
 
+    func activateProfile(_ profile: Profile) {
+        guard let profileId = profile.id else {
+            crashManager.handleCriticalError(NSError(
+                domain: "profile",
+                code: 2,
+                userInfo: ["message": "Default profile ID unavailable"]
+            ))
+            return
+        }
+
+        defaultProfileIdString = profileId.uuidString
+        activeProfile = profile
+    }
+
     func resetProfiles() {
-        activeProfile = createDefaultProfile()
+        let defaultProfile = createDefaultProfile()
+        activateProfile(defaultProfile)
 
         do {
             let profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
@@ -66,43 +90,40 @@ final class ProfileManager: ObservableObject {
         }
     }
 
-    private func loadProfiles() {
-        do {
-            let profiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
-            if profiles.count == 0 {
-                activeProfile = createDefaultProfile(adoptOrphans: true)
-            } else {
-                activeProfile = profiles.first
+    private func loadProfile() {
+        guard let profileIdString = defaultProfileIdString else {
+            do {
+                let existingProfiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
+                if let profile = existingProfiles.first {
+                    activateProfile(profile)
+                } else {
+                    let profile = createDefaultProfile()
+                    activateProfile(profile)
+                }
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
             }
+            return
+        }
+
+        let fetchRequest = Profile.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", profileIdString)
+        do {
+            let result = try self.viewContext.fetch(fetchRequest) as [Profile]
+            guard let profile = result.first else {
+                let profile = createDefaultProfile()
+                activateProfile(profile)
+                return
+            }
+            activateProfile(profile)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
     }
 
-    private func createDefaultProfile(adoptOrphans: Bool = false) -> Profile {
-        let defaultProfile = Profile.create(in: viewContext)
-        defaultProfile.wrappedName = "Default"
-
-        if adoptOrphans == true {
-            // Adopt existing pages and history for profile upgrade
-            do {
-                let history = try self.viewContext.fetch(History.fetchRequest()) as [History]
-                history.forEach { visit in
-                    defaultProfile.addToHistory(visit)
-                }
-            } catch {
-                crashManager.handleCriticalError(error as NSError)
-            }
-
-            do {
-                let pages = try self.viewContext.fetch(Page.fetchRequest()) as [Page]
-                pages.forEach { page in
-                    defaultProfile.addToPages(page)
-                }
-            } catch {
-                crashManager.handleCriticalError(error as NSError)
-            }
-        }
+    private func createDefaultProfile() -> Profile {
+        let profile = Profile.create(in: viewContext)
+        profile.wrappedName = "Default"
 
         do {
             try viewContext.save()
@@ -110,6 +131,6 @@ final class ProfileManager: ObservableObject {
             crashManager.handleCriticalError(error as NSError)
         }
 
-        return defaultProfile
+        return profile
     }
 }

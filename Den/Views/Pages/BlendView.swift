@@ -21,7 +21,7 @@ struct BlendView: View {
         } else {
             #if targetEnvironment(macCatalyst)
             ScrollView(.vertical) {
-                blendDisplay
+                blendDisplay.padding(.top, 8)
             }
             #else
             RefreshableScrollView(

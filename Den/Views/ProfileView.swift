@@ -30,7 +30,7 @@ struct ProfileView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
-                    profileManager.activeProfile = profile
+                    profileManager.activateProfile(profile)
                     dismiss()
                 } label: {
                     Label("Activate", systemImage: "power.circle")
@@ -62,7 +62,7 @@ struct ProfileView: View {
             .modifier(FormRowModifier())
         } footer: {
             if profile == profileManager.activeProfile {
-                Text("Active profile cannot be deleted.").padding(.vertical, 8)
+                Text("Active profile cannot be deleted").padding(.vertical, 8)
             }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }

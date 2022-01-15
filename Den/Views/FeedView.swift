@@ -18,19 +18,25 @@ struct FeedView: View {
 
     var body: some View {
         Group {
-            #if targetEnvironment(macCatalyst)
-            ScrollView(.vertical) {
-                feedContent
+            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+                #if targetEnvironment(macCatalyst)
+                ScrollView(.vertical) { feedContent }
+                #else
+                RefreshableScrollView(
+                    onRefresh: { done in
+                        refreshManager.refresh(feed: viewModel.feed)
+                        done()
+                    },
+                    content: { feedContent }
+                )
+                #endif
+            } else {
+                FeedUnavailableView(feedData: viewModel.feed.feedData)
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .padding()
             }
-            #else
-            RefreshableScrollView(
-                onRefresh: { done in
-                    refreshManager.refresh(feed: viewModel.feed)
-                    done()
-                },
-                content: { feedContent }
-            )
-            #endif
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
@@ -101,13 +107,9 @@ struct FeedView: View {
     private var feedContent: some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
             Section(header: feedHeader.modifier(PinnedSectionHeaderModifier())) {
-                if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
-                    BoardView(list: viewModel.feed.feedData!.itemsArray, content: { item in
-                        ItemPreviewView(item: item, summaryLines: 12)
-                    }).padding()
-                } else {
-                    FeedUnavailableView(feedData: viewModel.feed.feedData)
-                }
+                BoardView(list: viewModel.feed.feedData!.itemsArray, content: { item in
+                    ItemPreviewView(item: item, summaryLines: 12)
+                }).padding()
             }
         }
     }

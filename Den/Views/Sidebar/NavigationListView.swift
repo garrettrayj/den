@@ -55,17 +55,6 @@ struct NavigationListView: View {
                 } label: {
                     Label("History", systemImage: "clock")
                 }
-
-                // Add keyboard shorcut for iOS devices
-                #if !targetEnvironment(macCatalyst)
-                Button {
-                    refreshManager.refresh(profile: viewModel.profile)
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }
-                .buttonStyle(NavigationBarButtonStyle())
-                .keyboardShortcut("r", modifiers: [.command, .shift])
-                #endif
             }.hidden()
         )
         .toolbar {
@@ -75,7 +64,7 @@ struct NavigationListView: View {
                 } label: {
                     Text("Edit").lineLimit(1)
                 }
-                .disabled(viewModel.refreshing)
+                .disabled(refreshManager.isRefreshing)
                 .buttonStyle(NavigationBarButtonStyle())
             }
 
@@ -89,7 +78,7 @@ struct NavigationListView: View {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
-                .disabled(viewModel.refreshing)
+                .disabled(refreshManager.isRefreshing)
                 .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command, .shift])
             }
@@ -100,6 +89,7 @@ struct NavigationListView: View {
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
+                .disabled(refreshManager.isRefreshing)
             }
 
             ToolbarItem(placement: .bottomBar) {

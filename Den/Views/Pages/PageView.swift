@@ -73,6 +73,7 @@ struct PageView: View {
                     Label("Blend", systemImage: "square.text.square")
                         .tag(PageViewMode.blend.rawValue)
                 }
+                .imageScale(.small)
                 .padding(.leading)
                 .padding(.trailing, 4)
                 .pickerStyle(.segmented)

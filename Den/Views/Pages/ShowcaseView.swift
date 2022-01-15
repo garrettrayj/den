@@ -18,7 +18,7 @@ struct ShowcaseView: View {
     var body: some View {
         #if targetEnvironment(macCatalyst)
         ScrollView(.vertical) {
-            showcaseDisplay
+            showcaseDisplay.padding(.top, 8)
         }
         #else
         RefreshableScrollView(
