@@ -28,7 +28,6 @@ final class RefreshManager: ObservableObject {
         var operations: [Operation] = []
 
         NotificationCenter.default.post(name: .profileQueued, object: profile.objectID)
-
         let profileCompletionOp = BlockOperation { [weak profile] in
             DispatchQueue.main.async {
                 guard let objectID = profile?.objectID else { return }
@@ -48,7 +47,6 @@ final class RefreshManager: ObservableObject {
 
                 pageOps.append(contentsOf: refreshPlan.getOps())
                 feedCompletionOps.append(feedCompletionOp)
-
                 NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
             }
             NotificationCenter.default.post(name: .pageQueued, object: page.objectID)

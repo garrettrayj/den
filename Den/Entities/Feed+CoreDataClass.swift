@@ -90,7 +90,7 @@ public class Feed: NSManagedObject {
         feed.page = page
         feed.url = url
         feed.showThumbnails = true
-        feed.itemLimit = 12
+        feed.itemLimit = 6
         feed.previewLimit = 6
 
         if prepend {

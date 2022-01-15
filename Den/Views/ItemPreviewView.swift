@@ -68,7 +68,7 @@ struct ItemPreviewView: View {
                     .accessibility(label: Text("Preview Image"))
             }
 
-            if item.summary != nil {
+            if item.summary != nil && item.summary != "" {
                 Text(item.summary!).lineLimit(6)
             }
 

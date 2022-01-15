@@ -14,20 +14,20 @@ struct FeedUnavailableView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if feedData == nil {
-                Label("Refresh to load", systemImage: "arrow.clockwise")
+                Label("Refresh to Load Content", systemImage: "arrow.clockwise")
             } else if feedData?.error != nil {
                 Label {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Refresh error")
+                        Text("Refresh Error")
                         Text(feedData!.error!).font(.callout).foregroundColor(.red)
                     }
                 } icon: {
                     Image(systemName: "exclamationmark.triangle")
                 }
             } else if feedData!.itemsArray.count == 0 {
-                Label("Feed empty", systemImage: "questionmark.folder")
+                Label("Feed Empty", systemImage: "questionmark.folder")
             } else {
-                Label("Status unknown", systemImage: "questionmark.diamond")
+                Label("Feed Status Unavailable", systemImage: "questionmark.diamond")
             }
         }
         .imageScale(.medium)
