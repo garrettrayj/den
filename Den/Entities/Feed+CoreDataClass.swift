@@ -18,8 +18,7 @@ public class Feed: NSManagedObject {
     public var wrappedItemLimit: Int {
         get {
             if itemLimit == 0 {
-                // Get default from page
-                itemLimit = 20
+                itemLimit = 12
             }
             return Int(itemLimit)
         }
@@ -90,7 +89,7 @@ public class Feed: NSManagedObject {
         feed.page = page
         feed.url = url
         feed.showThumbnails = true
-        feed.itemLimit = 6
+        feed.itemLimit = 12
         feed.previewLimit = 6
 
         if prepend {
