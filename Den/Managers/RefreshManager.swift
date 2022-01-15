@@ -65,14 +65,7 @@ final class RefreshManager: ObservableObject {
             profileCompletionOp.addDependency(pageCompletionOp)
             operations.append(contentsOf: pageOps)
         }
-
-        isRefreshing = true
-        queue.addOperations(operations, waitUntilFinished: false)
-        queue.addBarrierBlock {
-            DispatchQueue.main.async {
-                self.isRefreshing = false
-            }
-        }
+        executeOperations(operations: operations)
     }
 
     public func refresh(page: Page) {
@@ -102,26 +95,13 @@ final class RefreshManager: ObservableObject {
             pageCompletionOp.addDependency(operation)
         }
         operations.append(pageCompletionOp)
-
-        isRefreshing = true
-        queue.addOperations(operations, waitUntilFinished: false)
-        queue.addBarrierBlock {
-            DispatchQueue.main.async {
-                self.isRefreshing = false
-            }
-        }
+        executeOperations(operations: operations)
     }
 
-    public func refresh(feed: Feed) {
+    func refresh(feed: Feed) {
         guard let operations = self.createRefreshPlan(feed)?.getOps() else { return }
         NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
-        isRefreshing = true
-        queue.addOperations(operations, waitUntilFinished: false)
-        queue.addBarrierBlock {
-            DispatchQueue.main.async {
-                self.isRefreshing = false
-            }
-        }
+        executeOperations(operations: operations)
     }
 
     func createRefreshPlan(_ feed: Feed) -> RefreshPlan? {
@@ -141,6 +121,16 @@ final class RefreshManager: ObservableObject {
         refreshPlan.configureOps()
 
         return refreshPlan
+    }
+
+    private func executeOperations(operations: [Operation]) {
+        isRefreshing = true
+        queue.addOperations(operations, waitUntilFinished: false)
+        queue.addBarrierBlock {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.isRefreshing = false
+            }
+        }
     }
 
     private func checkFeedData(_ feed: Feed) -> FeedData? {

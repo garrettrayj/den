@@ -394,6 +394,16 @@
 			path = SymbolLibrary;
 			sourceTree = "<group>";
 		};
+		6832AF2F278BAF2A00CFC8CA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				68998B842504C87400FDB6EE /* SearchView.swift */,
+				6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */,
+				68998B882504DDEC00FDB6EE /* SearchResultView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		6845BCF924EBE4B60008B296 /* FeedKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,9 +645,7 @@
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				688FD930247A34830006A2DE /* FeedSettingsView.swift */,
 				68C4138124733D7D00D1DC7B /* SubscribeView.swift */,
-				68998B842504C87400FDB6EE /* SearchView.swift */,
-				6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */,
-				68998B882504DDEC00FDB6EE /* SearchResultView.swift */,
+				6832AF2F278BAF2A00CFC8CA /* Search */,
 				68D345942658D0610080783F /* HistoryView.swift */,
 				68C4FA252474927800D2C0D6 /* SettingsView.swift */,
 				6832AF252789419700CFC8CA /* ProfileView.swift */,
