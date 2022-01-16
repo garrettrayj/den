@@ -94,7 +94,6 @@ struct NavigationListView: View {
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
-                .disabled(refreshManager.isRefreshing)
 
                 Spacer()
 

@@ -52,6 +52,7 @@ struct SidebarView: View {
                     viewContext: viewContext,
                     crashManager: crashManager,
                     profileManager: profileManager,
+                    refreshManager: refreshManager,
                     cacheManager: cacheManager,
                     themeManager: themeManager
                 ))

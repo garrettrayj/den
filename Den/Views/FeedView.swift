@@ -58,7 +58,7 @@ struct FeedView: View {
                     Label("Feed Settings", systemImage: "wrench")
                 }
                 .buttonStyle(NavigationBarButtonStyle())
-                .disabled(viewModel.refreshing)
+                .disabled(refreshManager.isRefreshing)
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
