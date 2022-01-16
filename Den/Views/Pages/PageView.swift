@@ -83,14 +83,18 @@ struct PageView: View {
                     subscriptionManager.showSubscribe()
                 } label: {
                     Label("Add Source", systemImage: "plus.circle")
-                }.buttonStyle(NavigationBarButtonStyle())
+                }
+                .buttonStyle(NavigationBarButtonStyle())
+                .disabled(refreshManager.isRefreshing)
             }
             ToolbarItem {
                 Button {
                     showingSettings = true
                 } label: {
                     Label("Page Settings", systemImage: "wrench")
-                }.buttonStyle(NavigationBarButtonStyle())
+                }
+                .buttonStyle(NavigationBarButtonStyle())
+                .disabled(refreshManager.isRefreshing)
             }
             ToolbarItem {
                 Button {
