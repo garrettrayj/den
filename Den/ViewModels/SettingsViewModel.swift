@@ -16,6 +16,7 @@ final class SettingsViewModel: ObservableObject {
     private var viewContext: NSManagedObjectContext
     private var crashManager: CrashManager
     private var profileManager: ProfileManager
+    private var refreshManager: RefreshManager
     private var cacheManager: CacheManager
     private var themeManager: ThemeManager
 
@@ -23,12 +24,14 @@ final class SettingsViewModel: ObservableObject {
         viewContext: NSManagedObjectContext,
         crashManager: CrashManager,
         profileManager: ProfileManager,
+        refreshManager: RefreshManager,
         cacheManager: CacheManager,
         themeManager: ThemeManager
     ) {
         self.viewContext = viewContext
         self.crashManager = crashManager
         self.profileManager = profileManager
+        self.refreshManager = refreshManager
         self.cacheManager = cacheManager
         self.themeManager = themeManager
     }
@@ -55,6 +58,7 @@ final class SettingsViewModel: ObservableObject {
 
     func clearCache() {
         guard let profile = profileManager.activeProfile else { return }
+        refreshManager.cancel()
         cacheManager.resetFeeds()
         profile.pagesArray.forEach { page in
             NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
@@ -90,6 +94,7 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func resetEverything() {
+        refreshManager.cancel()
         restoreUserDefaults()
         profileManager.resetProfiles()
     }
