@@ -16,7 +16,7 @@ enum PageViewMode: Int {
 
 struct PageView: View {
     @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var sourceManager: SourceManager
+    @EnvironmentObject var subscriptionManager: SubscriptionManager
 
     @ObservedObject var viewModel: PageViewModel
 
@@ -80,7 +80,7 @@ struct PageView: View {
             }
             ToolbarItem {
                 Button {
-                    sourceManager.showSheet()
+                    subscriptionManager.showSubscribe()
                 } label: {
                     Label("Add Source", systemImage: "plus.circle")
                 }.buttonStyle(NavigationBarButtonStyle())
@@ -165,7 +165,7 @@ struct PageView: View {
             #endif
         }
         .onAppear {
-            sourceManager.currentPageId = viewModel.page.id?.uuidString
+            subscriptionManager.activePage = viewModel.page
         }
     }
 }
