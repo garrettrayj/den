@@ -41,7 +41,7 @@ struct BlendView: View {
                 ItemPreviewView(
                     item: item,
                     feedViewModel: FeedViewModel(feed: item.feedData!.feed!, refreshing: viewModel.refreshing)
-                )
+                ).disabled(viewModel.refreshing)
             }
         }
         .padding([.horizontal, .bottom])
