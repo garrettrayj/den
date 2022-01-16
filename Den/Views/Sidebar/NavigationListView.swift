@@ -10,14 +10,12 @@ import SwiftUI
 
 struct NavigationListView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.isSearching) var isSearching
-    @Environment(\.dismissSearch) var dismissSearch
+    @Environment(\.editMode) var editMode
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
 
     @ObservedObject var viewModel: ProfileViewModel
 
-    @Binding var editingPages: Bool
     @Binding var showingSettings: Bool
 
     @State var searchQuery: String = ""
@@ -27,11 +25,16 @@ struct NavigationListView: View {
     var body: some View {
         List {
             ForEach(viewModel.profile.pagesArray) { page in
-                SidebarPageView(viewModel: PageViewModel(page: page, refreshing: viewModel.refreshing))
-                    #if targetEnvironment(macCatalyst)
-                    .listRowInsets(EdgeInsets())
-                    #endif
+                SidebarPageView(
+                    viewModel: PageViewModel(
+                        page: page,
+                        refreshing: viewModel.refreshing
+                    )
+                )
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
+            .onMove(perform: viewModel.movePage)
+            .onDelete(perform: viewModel.deletePage)
         }
         .listStyle(.sidebar)
         .searchable(
@@ -58,41 +61,43 @@ struct NavigationListView: View {
             }.hidden()
         )
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    editingPages = true
-                } label: {
-                    Text("Edit").lineLimit(1)
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                if editMode?.wrappedValue == EditMode.active {
+                    Button(action: viewModel.createPage) {
+                        Label("New Page", systemImage: "plus")
+                    }.buttonStyle(NavigationBarButtonStyle())
                 }
-                .disabled(refreshManager.isRefreshing)
-                .buttonStyle(NavigationBarButtonStyle())
-            }
 
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    refreshManager.refresh(profile: viewModel.profile)
-                } label: {
-                    if viewModel.refreshing {
-                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
-                    } else {
-                        Label("Refresh", systemImage: "arrow.clockwise")
+                EditButton()
+                    .disabled(refreshManager.isRefreshing)
+                    .buttonStyle(NavigationBarButtonStyle())
+
+                if editMode?.wrappedValue == .inactive {
+                    Button {
+                        refreshManager.refresh(profile: viewModel.profile)
+                    } label: {
+                        if viewModel.refreshing {
+                            ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                        } else {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }
                     }
+                    .disabled(refreshManager.isRefreshing)
+                    .buttonStyle(NavigationBarButtonStyle())
+                    .keyboardShortcut("r", modifiers: [.command, .shift])
                 }
-                .disabled(refreshManager.isRefreshing)
-                .buttonStyle(NavigationBarButtonStyle())
-                .keyboardShortcut("r", modifiers: [.command, .shift])
             }
 
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .bottomBar) {
                 Button {
                     showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
                 .disabled(refreshManager.isRefreshing)
-            }
 
-            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+
                 Button {
                     showingHistory = true
                 } label: {

@@ -42,6 +42,7 @@ struct StartListView: View {
                 #endif
             })
         }
+        .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
@@ -51,8 +52,5 @@ struct StartListView: View {
                 }
             }
         }
-        #if targetEnvironment(macCatalyst)
-        .listStyle(.plain)
-        #endif
     }
 }

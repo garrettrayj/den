@@ -9,47 +9,45 @@
 import SwiftUI
 
 struct SidebarPageView: View {
+    @Environment(\.editMode) var editMode
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
-        if viewModel.page.id != nil {
-            NavigationLink {
-                PageView(viewModel: viewModel)
-            } label: { rowLabel }
-        }
-    }
-
-    var rowLabel: some View {
         Label(
             title: {
                 HStack {
                     Text(viewModel.page.displayName)
                         #if targetEnvironment(macCatalyst)
-                        .padding(.vertical, 8)
-                        .padding(.leading, 4)
+                        .padding(.vertical, 6)
+                        .padding(.leading, 8)
+                        .font(.title3)
                         #endif
+
                     Spacer()
-                    if viewModel.refreshing {
-                        ProgressView().progressViewStyle(IconProgressStyle())
-                    } else {
-                        Text(String(viewModel.page.unreadCount))
-                            .lineLimit(1)
-                            .font(.caption.weight(.medium))
-                            .foregroundColor(Color(UIColor.secondaryLabel))
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(
-                                Capsule().fill(Color(UIColor.secondarySystemFill))
-                            )
+
+                    if editMode?.wrappedValue == .inactive {
+                        if viewModel.refreshing {
+                            ProgressView().progressViewStyle(IconProgressStyle())
+                        } else {
+                            Text(String(viewModel.page.unreadCount))
+                                .font(.caption.weight(.medium))
+                                .foregroundColor(Color(UIColor.secondaryLabel))
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(
+                                    Capsule().fill(Color(UIColor.secondarySystemFill))
+                                )
+                        }
                     }
-                }
+                }.lineLimit(1)
             },
-            icon: { Image(systemName: viewModel.page.wrappedSymbol) }
+            icon: { Image(systemName: viewModel.page.wrappedSymbol).imageScale(.medium) }
+        ).background(
+            NavigationLink(destination: {
+                PageView(viewModel: viewModel)
+            }, label: {
+                EmptyView()
+            }).opacity(0)
         )
-        .lineLimit(1)
-        #if targetEnvironment(macCatalyst)
-        .font(.title3)
-        .padding(.horizontal, 8)
-        #endif
     }
 }

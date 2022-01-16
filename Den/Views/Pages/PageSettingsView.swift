@@ -11,6 +11,7 @@ import SwiftUI
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var crashManager: CrashManager
 
     @ObservedObject var viewModel: PageViewModel
@@ -21,36 +22,10 @@ struct PageSettingsView: View {
     var body: some View {
         Form {
             nameIconSection
-
-            if viewModel.page.feedsArray.count > 0 {
-                feedsSection
-            }
+            feedsSection
         }
         .navigationTitle("Page Settings")
         .environment(\.editMode, .constant(.active))
-        .toolbar {
-            ToolbarItem {
-                Button(role: .destructive) {
-                    showingDeleteAlert = true
-                } label: {
-                    Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
-                }
-                .buttonStyle(NavigationBarButtonStyle())
-                .alert(
-                    "Delete \(viewModel.page.displayName)?",
-                    isPresented: $showingDeleteAlert,
-                    actions: {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Delete", role: .destructive) {
-                            deletePage()
-                        }
-                    },
-                    message: {
-                        Text("All feeds will be removed.")
-                    }
-                )
-            }
-        }
         .onDisappear(perform: save)
     }
 
@@ -79,14 +54,20 @@ struct PageSettingsView: View {
 
     private var feedsSection: some View {
         Section(header: Text("Feeds")) {
-            ForEach(viewModel.page.feedsArray) { feed in
-                FeedTitleLabelView(
-                    title: feed.wrappedTitle,
-                    faviconImage: feed.feedData?.faviconImage
-                ).padding(.vertical, 4)
+            if viewModel.page.feedsArray.isEmpty {
+                Text("Page Empty").foregroundColor(.secondary)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+            } else {
+                ForEach(viewModel.page.feedsArray) { feed in
+                    FeedTitleLabelView(
+                        title: feed.wrappedTitle,
+                        faviconImage: feed.feedData?.faviconImage
+                    ).padding(.vertical, 4)
+                }
+                .onDelete(perform: deleteFeed)
+                .onMove(perform: moveFeed)
             }
-            .onDelete(perform: deleteFeed)
-            .onMove(perform: moveFeed)
         }.modifier(SectionHeaderModifier())
     }
 
@@ -101,17 +82,6 @@ struct PageSettingsView: View {
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }
-        }
-    }
-
-    private func deletePage() {
-        viewContext.delete(viewModel.page)
-
-        do {
-            try viewContext.save()
-            NotificationCenter.default.post(name: .profileRefreshed, object: viewModel.page.profile?.objectID)
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
         }
     }
 

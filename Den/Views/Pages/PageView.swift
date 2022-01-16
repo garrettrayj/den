@@ -36,9 +36,9 @@ struct PageView: View {
     var body: some View {
         Group {
             if viewModel.page.managedObjectContext == nil {
-                StatusBoxView(message: "Page Deleted", symbol: "rectangle.slash").navigationBarHidden(true)
+                StatusBoxView(message: "Page Deleted", symbol: "slash.circle").navigationBarHidden(true)
             } else if viewModel.page.feedsArray.count == 0 {
-                StatusBoxView(message: "Page Empty", symbol: "questionmark.square.dashed")
+                StatusBoxView(message: "Page Empty")
             } else {
                 if viewMode == PageViewMode.blend.rawValue {
                     BlendView(viewModel: viewModel)
@@ -110,7 +110,7 @@ struct PageView: View {
             ToolbarItem {
                 Menu {
                     Button {
-                        sourceManager.showSheet()
+                        subscriptionManager.showSubscribe()
                     } label: {
                         Label("Add Source", systemImage: "plus.circle")
                     }

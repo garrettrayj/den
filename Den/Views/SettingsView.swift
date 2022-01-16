@@ -18,6 +18,8 @@ struct SettingsView: View {
 
     @ObservedObject var viewModel: SettingsViewModel
 
+    @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
+
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
 
@@ -61,7 +63,7 @@ struct SettingsView: View {
             HStack {
                 Label("Theme", systemImage: "paintbrush").lineLimit(1)
                 Spacer()
-                Picker("", selection: $viewModel.selectedTheme) {
+                Picker("", selection: $uiStyle) {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
                     Text("Light").tag(UIUserInterfaceStyle.light)
                     Text("Dark").tag(UIUserInterfaceStyle.dark)
@@ -71,7 +73,7 @@ struct SettingsView: View {
             }.modifier(FormRowModifier())
             #else
             Picker(
-                selection: $selectedTheme,
+                selection: $uiStyle,
                 label: Label("Theme", systemImage: "paintbrush"),
                 content: {
                     Text("System").tag(UIUserInterfaceStyle.unspecified)
@@ -82,14 +84,9 @@ struct SettingsView: View {
             #endif
         }
         .modifier(SectionHeaderModifier())
-        .onChange(of: viewModel.selectedTheme, perform: { value in
-            UserDefaults.standard.setValue(value.rawValue, forKey: "UIStyle")
+        .onChange(of: uiStyle, perform: { _ in
             themeManager.applyUIStyle()
-        }).onAppear {
-            viewModel.selectedTheme = UIUserInterfaceStyle.init(
-                rawValue: UserDefaults.standard.integer(forKey: "UIStyle")
-            )!
-        }
+        })
     }
 
     private var feedsSection: some View {

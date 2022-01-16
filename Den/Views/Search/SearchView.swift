@@ -18,7 +18,7 @@ struct SearchView: View {
     var body: some View {
         Group {
             if refreshManager.isRefreshing {
-                StatusBoxView(message: "Waiting on Refresh…", symbol: "arrow.clockwise")
+                StatusBoxView(message: "Waiting on Refresh…", symbol: "hourglass")
             } else if query == "" {
                 StatusBoxView(
                     message: "Searching “\(profileManager.activeProfileName)” Profile",
