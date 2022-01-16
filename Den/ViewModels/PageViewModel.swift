@@ -7,7 +7,7 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 class PageViewModel: ObservableObject {
     @Published var page: Page

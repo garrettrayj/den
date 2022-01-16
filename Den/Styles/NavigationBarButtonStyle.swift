@@ -10,10 +10,10 @@ import SwiftUI
 
 struct NavigationBarButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        ToolbarButton(configuration: configuration)
+        NavigationBarButton(configuration: configuration)
     }
 
-    private struct ToolbarButton: View {
+    private struct NavigationBarButton: View {
         @Environment(\.isEnabled) private var isEnabled: Bool
 
         let configuration: ButtonStyle.Configuration

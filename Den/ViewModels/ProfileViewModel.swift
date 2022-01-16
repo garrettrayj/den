@@ -78,16 +78,16 @@ final class ProfileViewModel: ObservableObject {
 
     func deletePage(indices: IndexSet) {
         indices.forEach {
+            let objectID = profile.pagesArray[$0].objectID
             viewContext.delete(profile.pagesArray[$0])
+            NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
         }
 
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-                self.objectWillChange.send()
-            } catch let error as NSError {
-                crashManager.handleCriticalError(error)
-            }
+        do {
+            try viewContext.save()
+            self.objectWillChange.send()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
         }
     }
 

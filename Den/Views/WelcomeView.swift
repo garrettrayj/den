@@ -10,9 +10,15 @@ import SwiftUI
 
 struct WelcomeView: View {
     var body: some View {
-        StatusBoxView(
-            message: "Welcome",
-            symbol: "helm"
-        ).navigationBarHidden(true)
+        VStack(spacing: 24) {
+            Image(systemName: "helm").font(.system(size: 52))
+            Text("Welcome").font(.largeTitle)
+        }
+        .multilineTextAlignment(.center)
+        .foregroundColor(.secondary)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .padding()
+        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+        .navigationBarHidden(true)
     }
 }

@@ -6,10 +6,10 @@
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
-    @Published var selectedTheme: UIUserInterfaceStyle = .unspecified
     @Published var showingResetAlert = false
     @Published var historyRentionDays: Int = 0
 

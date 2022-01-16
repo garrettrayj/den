@@ -21,7 +21,6 @@ struct SidebarView: View {
 
     @ObservedObject var viewModel: ProfileViewModel
 
-    @State var editingPages: Bool = false
     @State var showingSettings: Bool = false
 
     /**
@@ -33,23 +32,18 @@ struct SidebarView: View {
      */
     var body: some View {
         Group {
-            if editingPages {
-                EditingListView(viewModel: viewModel, editingPages: $editingPages)
-            } else {
-                if viewModel.profile.pagesArray.count > 0 {
-                    NavigationListView(
-                        viewModel: viewModel,
-                        editingPages: $editingPages,
-                        showingSettings: $showingSettings
-                    )
-                    #if !targetEnvironment(macCatalyst)
-                    .refreshable {
-                        refreshManager.refresh(profile: viewModel.profile)
-                    }
-                    #endif
-                } else {
-                    StartListView(viewModel: viewModel, showingSettings: $showingSettings)
+            if viewModel.profile.pagesArray.count > 0 {
+                NavigationListView(
+                    viewModel: viewModel,
+                    showingSettings: $showingSettings
+                )
+                #if !targetEnvironment(macCatalyst)
+                .refreshable {
+                    refreshManager.refresh(profile: viewModel.profile)
                 }
+                #endif
+            } else {
+                StartListView(viewModel: viewModel, showingSettings: $showingSettings)
             }
         }
         .background(
