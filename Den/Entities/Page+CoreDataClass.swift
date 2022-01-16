@@ -94,8 +94,8 @@ public class Page: NSManagedObject {
         let items: NSMutableSet = []
 
         feedsArray.forEach { feed in
-            guard let feedItems = feed.feedData?.items as? Set<AnyHashable> else { return }
-            items.union(feedItems)
+            guard let feedData = feed.feedData else { return }
+            items.union(Set(feedData.previewItemsArray))
         }
 
         return items.sortedArray(
