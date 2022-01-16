@@ -20,7 +20,7 @@ struct DenApp: App {
     @StateObject var linkManager: LinkManager
     @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
-    @StateObject var sourceManager: SourceManager
+    @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
 
     var persistenceManager: PersistenceManager
@@ -34,7 +34,7 @@ struct DenApp: App {
                 .environmentObject(linkManager)
                 .environmentObject(profileManager)
                 .environmentObject(refreshManager)
-                .environmentObject(sourceManager)
+                .environmentObject(subscriptionManager)
                 .environmentObject(themeManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
@@ -49,7 +49,7 @@ struct DenApp: App {
                     themeManager.applyUIStyle()
                 }
                 .onOpenURL { url in
-                    sourceManager.showSheet(for: url)
+                    subscriptionManager.showSubscribe(for: url)
                 }
         }
         .onChange(of: scenePhase) { newScenePhase in
@@ -88,7 +88,7 @@ struct DenApp: App {
             persistentContainer: persistenceManager.container,
             crashManager: crashManager
         )
-        let sourceManager = SourceManager()
+        let subscriptionManager = SubscriptionManager()
         let themeManager = ThemeManager()
 
         // StateObject managers
@@ -97,7 +97,7 @@ struct DenApp: App {
         _linkManager = StateObject(wrappedValue: linkManager)
         _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
-        _sourceManager = StateObject(wrappedValue: sourceManager)
+        _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
     }
 }

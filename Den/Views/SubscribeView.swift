@@ -14,55 +14,67 @@ struct SubscribeView: View {
     @ObservedObject var viewModel: SubscribeViewModel
 
     var body: some View {
-        NavigationView {
-            Form {
-                if viewModel.destinationPage != nil {
-                    Section {
-                        feedUrlInput
-                    } header: {
-                        Text("RSS or Atom URL")
-                    } footer: {
-                        if viewModel.validationMessage != nil {
-                            Text(viewModel.validationMessage!)
-                                .foregroundColor(.red)
-                                .multilineTextAlignment(.center)
-                                .padding([.top, .horizontal])
-                                .frame(maxWidth: .infinity)
-                        }
-                    }.modifier(SectionHeaderModifier())
-
-                    submitButtonSection
-                } else {
-                    missingPage
-                }
-            }
-            .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
-            .navigationTitle("Add Source")
-            .toolbar {
-                ToolbarItem {
+        Group {
+            if viewModel.targetPage == nil {
+                VStack(spacing: 24) {
+                    Image(systemName: "questionmark.folder").font(.system(size: 52))
+                    Text("No Pages Available").font(.title2)
                     Button { dismiss() } label: {
-                        Label("Close", systemImage: "xmark.circle")
-                    }.buttonStyle(NavigationBarButtonStyle())
+                        Text("Cancel").font(.title3)
+                    }.buttonStyle(RegularButtonStyle())
                 }
-            }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.newFeed?.objectID)
-            ) { _ in
-                dismiss()
+                .foregroundColor(.secondary)
+            } else {
+                NavigationView {
+                    Form {
+                        Section {
+                            feedUrlInput
+                        } header: {
+                            Text("RSS or Atom URL")
+                        } footer: {
+                            if viewModel.validationMessage != nil {
+                                Text(viewModel.validationMessage!)
+                                    .font(.callout)
+                                    .foregroundColor(.red)
+                                    .multilineTextAlignment(.center)
+                                    .padding([.top, .horizontal])
+                                    .frame(maxWidth: .infinity)
+                            }
+                        }.modifier(SectionHeaderModifier())
+
+                        submitButtonSection
+                    }
+                    .onReceive(
+                        NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.newFeed?.objectID)
+                    ) { _ in
+                        NotificationCenter.default.post(name: .pageRefreshed, object: viewModel.targetPage?.objectID)
+                        dismiss()
+                    }
+                    .navigationTitle("Add Feed")
+                    .toolbar {
+                        ToolbarItem {
+                            Button { dismiss() } label: {
+                                Label("Close", systemImage: "xmark.circle")
+                            }.buttonStyle(NavigationBarButtonStyle())
+                        }
+                    }
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
     }
 
     private var submitButtonSection: some View {
         Button {
             viewModel.validateUrl()
             if viewModel.urlIsValid == true {
-                viewModel.addSubscription()
+                viewModel.addFeed()
             }
         } label: {
             Label {
-                Text("Add to \(viewModel.destinationPage!.wrappedName)")
+                Text("Add to \(viewModel.targetPage!.wrappedName)")
             } icon: {
                 if viewModel.loading {
                     ProgressView().progressViewStyle(IconProgressStyle()).colorInvert()
@@ -98,18 +110,5 @@ struct SubscribeView: View {
         }
         .padding(.vertical, 4)
         .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
-
-    }
-
-    private var missingPage: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "exclamationmark.triangle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 48, height: 48)
-            Text("Create a page before adding subscriptions")
-                .foregroundColor(Color(.secondaryLabel))
-                .multilineTextAlignment(.center)
-        }.frame(maxWidth: .infinity)
     }
 }

@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 final class SubscribeViewModel: ObservableObject {
-    @Published var destinationPageId: String?
+    @Published var page: Page?
     @Published var urlText: String = ""
     @Published var urlIsValid: Bool?
     @Published var validationAttempts: Int = 0
@@ -22,19 +22,21 @@ final class SubscribeViewModel: ObservableObject {
     private var viewContext: NSManagedObjectContext
     private var profileManager: ProfileManager
     private var refreshManager: RefreshManager
-    private var sourceManager: SourceManager
 
-    var destinationPage: Page? {
-        guard let activeProfile = profileManager.activeProfile else { return nil }
+    var targetPage: Page? {
+        guard let profile = profileManager.activeProfile else { return nil }
 
-        if
-            let destinationPageId = destinationPageId,
-            let destinationPage = activeProfile.pagesArray.first(where: { page in
-                page.id != nil && page.id?.uuidString == destinationPageId
-            }) {
-            return destinationPage
+        // Use the currently active page if available
+        if let page = page {
+            return page
         }
 
+        // Fallback to the first page in profile
+        if let page = profile.pagesArray.first {
+            return page
+        }
+
+        // No destination, user will see prompt to create a page
         return nil
     }
 
@@ -42,24 +44,15 @@ final class SubscribeViewModel: ObservableObject {
         viewContext: NSManagedObjectContext,
         profileManager: ProfileManager,
         refreshManager: RefreshManager,
-        sourceManager: SourceManager,
         urlText: String,
-        destinationPageId: String?
+        page: Page?
     ) {
         self.viewContext = viewContext
         self.profileManager = profileManager
         self.refreshManager = refreshManager
-        self.sourceManager = sourceManager
 
         self.urlText = urlText
-        self.destinationPageId = destinationPageId
-    }
-
-    func failValidation(message: String) {
-        urlIsValid = false
-        validationMessage = message
-
-        withAnimation(.default) { validationAttempts += 1 }
+        self.page = page
     }
 
     func validateUrl() {
@@ -77,7 +70,7 @@ final class SubscribeViewModel: ObservableObject {
         }
 
         if self.urlText.prefix(7).lowercased() != "http://" && self.urlText.prefix(8).lowercased() != "https://" {
-            self.failValidation(message: "Address must begin with \"http://\" or \"https://\"")
+            self.failValidation(message: "Address must begin with “http://” or “https://”")
             return
         }
 
@@ -87,23 +80,26 @@ final class SubscribeViewModel: ObservableObject {
         }
 
         if !UIApplication.shared.canOpenURL(url) {
-            self.failValidation(message: "URL is unopenable")
+            self.failValidation(message: "Unopenable URL")
             return
         }
 
         urlIsValid = true
     }
 
-    func addSubscription() {
-        guard
-            let url = URL(string: urlText),
-            let destinationPage = destinationPage
-        else { return }
+    func addFeed() {
+        guard let url = URL(string: urlText), let targetPage = targetPage else { return }
 
         self.loading = true
-        newFeed = Feed.create(in: self.viewContext, page: destinationPage, url: url, prepend: true)
-        refreshManager.refresh(feed: newFeed!)
 
-        NotificationCenter.default.post(name: .pageRefreshed, object: destinationPage.objectID)
+        newFeed = Feed.create(in: self.viewContext, page: targetPage, url: url, prepend: true)
+        refreshManager.refresh(feed: newFeed!)
+    }
+
+    private func failValidation(message: String) {
+        urlIsValid = false
+        validationMessage = message
+
+        withAnimation(.default) { validationAttempts += 1 }
     }
 }

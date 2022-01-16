@@ -8,30 +8,28 @@
 
 import Foundation
 
-final class SourceManager: ObservableObject {
-    @Published var currentPageId: String?
-    @Published var showingSheet: Bool = false
+final class SubscriptionManager: ObservableObject {
+    @Published var activePage: Page?
+    @Published var showingSubscribe: Bool = false
     @Published var feedUrlString: String = ""
 
-    func showSheet(for url: URL? = nil) {
+    func showSubscribe(for url: URL? = nil) {
         if
             let url = url,
             var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
         {
-            if urlComponents.scheme == nil {
-                urlComponents.scheme = "http"
-            }
+            if urlComponents.scheme == nil { urlComponents.scheme = "http" }
 
             if let urlString = urlComponents.string {
                 feedUrlString = urlString
             }
         }
 
-        self.showingSheet = true
+        self.showingSubscribe = true
     }
 
     func resetSubscribe() {
-        showingSheet = false
+        showingSubscribe = false
         feedUrlString = ""
     }
 }
