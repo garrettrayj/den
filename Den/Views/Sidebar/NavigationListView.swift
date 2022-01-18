@@ -31,7 +31,6 @@ struct NavigationListView: View {
                         refreshing: viewModel.refreshing
                     )
                 )
-                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)

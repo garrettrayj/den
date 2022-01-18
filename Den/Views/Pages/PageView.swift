@@ -147,6 +147,7 @@ struct PageView: View {
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis.circle")
                 }
+                .disabled(refreshManager.isRefreshing)
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -159,6 +160,7 @@ struct PageView: View {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
+                .disabled(refreshManager.isRefreshing)
                 .keyboardShortcut("r", modifiers: [.command])
             }
             #endif

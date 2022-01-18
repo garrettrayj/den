@@ -25,20 +25,26 @@ struct SidebarPageView: View {
 
                     Spacer()
 
-                    if editMode?.wrappedValue == .inactive {
-                        if viewModel.refreshing {
-                            ProgressView().progressViewStyle(IconProgressStyle())
-                        } else {
-                            Text(String(viewModel.page.unreadCount))
-                                .font(.caption.weight(.medium))
-                                .foregroundColor(Color(UIColor.secondaryLabel))
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 3)
-                                .background(
-                                    Capsule().fill(Color(UIColor.secondarySystemFill))
-                                )
+                    Group {
+                        if editMode?.wrappedValue == .inactive {
+                            if viewModel.refreshing {
+                                ProgressView().progressViewStyle(IconProgressStyle())
+                            } else {
+                                Text(String(viewModel.page.unreadCount))
+                                    .font(.caption.weight(.medium))
+                                    .foregroundColor(Color(UIColor.secondaryLabel))
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 3)
+                                    .background(
+                                        Capsule().fill(Color(UIColor.secondarySystemFill))
+                                    )
+                            }
                         }
                     }
+                    #if !targetEnvironment(macCatalyst)
+                    .padding(.trailing, 4)
+                    #endif
+
                 }.lineLimit(1)
             },
             icon: { Image(systemName: viewModel.page.wrappedSymbol).imageScale(.medium) }
