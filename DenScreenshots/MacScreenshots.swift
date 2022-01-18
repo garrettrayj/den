@@ -12,22 +12,23 @@ import XCTest
 
 class MacScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .mac }
-
+    
     func testScreenshots() {
-        let getStartedLabel = app.staticTexts["Get started"]
+        let getStartedLabel = app.staticTexts["Get Started"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 
         takeScreenshot(named: "1-GetStarted")
 
         // Load demo feeds
-        let loadDemoButton = app.tables.buttons["Load demo feeds"]
+        let loadDemoButton = app.tables.buttons["Load Demo Feeds"]
         expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
         loadDemoButton.tap()
 
         // Wait for pages to appear
-        let pageButtonPredicate = NSPredicate(format: "label CONTAINS 'World News'")
+
+        let pageButtonPredicate = NSPredicate(format: "label CONTAINS 'World News, 0'")
         let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
         expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
