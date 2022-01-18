@@ -55,7 +55,7 @@ struct SubscribeView: View {
                         ToolbarItem {
                             Button { dismiss() } label: {
                                 Label("Close", systemImage: "xmark.circle")
-                            }.buttonStyle(NavigationBarButtonStyle())
+                            }
                         }
                     }
                 }

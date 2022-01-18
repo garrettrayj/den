@@ -18,7 +18,7 @@
 		6813FCF82746436900EC88A5 /* AxisGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FCF72746436900EC88A5 /* AxisGeometryReader.swift */; };
 		6813FD0B2748DE1100EC88A5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FD0A2748DE1100EC88A5 /* main.swift */; };
 		681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681E6F122741AD8F00C74590 /* FormRowModifier.swift */; };
-		68207F4126EEF7D400B91B31 /* NavigationBarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68207F4026EEF7D400B91B31 /* NavigationBarButtonStyle.swift */; };
+		682C78B327969D1A00004102 /* ToolbarLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C78B227969D1A00004102 /* ToolbarLabelStyle.swift */; };
 		683041B02754199A00BE7631 /* GroupBlockModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041AF2754199A00BE7631 /* GroupBlockModifier.swift */; };
 		683041B227542E2000BE7631 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B127542E2000BE7631 /* BoardView.swift */; };
 		683041B627543CE900BE7631 /* ShowcaseSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSectionView.swift */; };
@@ -58,7 +58,7 @@
 		68701DDF273A6DC100C6BB69 /* ExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DDE273A6DC100C6BB69 /* ExportViewModel.swift */; };
 		68701DE1273BAEB700C6BB69 /* SectionHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DE0273BAEB700C6BB69 /* SectionHeaderModifier.swift */; };
 		68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DE2273BD42D00C6BB69 /* FeedView.swift */; };
-		68701DF1273E471F00C6BB69 /* NavigationBarProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF0273E471F00C6BB69 /* NavigationBarProgressStyle.swift */; };
+		68701DF1273E471F00C6BB69 /* ToolbarProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF0273E471F00C6BB69 /* ToolbarProgressStyle.swift */; };
 		68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */; };
 		68701DF5273E4F2B00C6BB69 /* RefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF4273E4F2B00C6BB69 /* RefreshManager.swift */; };
 		68701DF7273E51AC00C6BB69 /* CrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF6273E51AC00C6BB69 /* CrashManager.swift */; };
@@ -193,7 +193,7 @@
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681E6F122741AD8F00C74590 /* FormRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRowModifier.swift; sourceTree = "<group>"; };
-		68207F4026EEF7D400B91B31 /* NavigationBarButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarButtonStyle.swift; sourceTree = "<group>"; };
+		682C78B227969D1A00004102 /* ToolbarLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarLabelStyle.swift; sourceTree = "<group>"; };
 		683041AF2754199A00BE7631 /* GroupBlockModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBlockModifier.swift; sourceTree = "<group>"; };
 		683041B127542E2000BE7631 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		683041B527543CE900BE7631 /* ShowcaseSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSectionView.swift; sourceTree = "<group>"; };
@@ -234,7 +234,7 @@
 		68701DDE273A6DC100C6BB69 /* ExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewModel.swift; sourceTree = "<group>"; };
 		68701DE0273BAEB700C6BB69 /* SectionHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderModifier.swift; sourceTree = "<group>"; };
 		68701DE2273BD42D00C6BB69 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
-		68701DF0273E471F00C6BB69 /* NavigationBarProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProgressStyle.swift; sourceTree = "<group>"; };
+		68701DF0273E471F00C6BB69 /* ToolbarProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarProgressStyle.swift; sourceTree = "<group>"; };
 		68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleButtonStyle.swift; sourceTree = "<group>"; };
 		68701DF4273E4F2B00C6BB69 /* RefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshManager.swift; sourceTree = "<group>"; };
 		68701DF6273E51AC00C6BB69 /* CrashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashManager.swift; sourceTree = "<group>"; };
@@ -494,10 +494,10 @@
 				689EDBF9269B97E30055811A /* AccentButtonStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
 				6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */,
-				68207F4026EEF7D400B91B31 /* NavigationBarButtonStyle.swift */,
-				68701DF0273E471F00C6BB69 /* NavigationBarProgressStyle.swift */,
 				6808F4432737B31E00AEEDAC /* IconProgressStyle.swift */,
 				68FC25702764B1150073979F /* RingProgressStyle.swift */,
+				68701DF0273E471F00C6BB69 /* ToolbarProgressStyle.swift */,
+				682C78B227969D1A00004102 /* ToolbarLabelStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -973,7 +973,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				68C413442472761D00D1DC7B /* SidebarView.swift in Sources */,
-				68207F4126EEF7D400B91B31 /* NavigationBarButtonStyle.swift in Sources */,
 				685637282793C879000AE604 /* RegularButtonStyle.swift in Sources */,
 				68701DF5273E4F2B00C6BB69 /* RefreshManager.swift in Sources */,
 				68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */,
@@ -1023,6 +1022,7 @@
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				6832AF2C278B889300CFC8CA /* StatusBoxView.swift in Sources */,
+				682C78B327969D1A00004102 /* ToolbarLabelStyle.swift in Sources */,
 				6832AF2A278AAB5A00CFC8CA /* SettingsViewModel.swift in Sources */,
 				6885C42A26D77F77002C41B0 /* UIImage+Extensions.swift in Sources */,
 				68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */,
@@ -1041,7 +1041,7 @@
 				68C41316247263C700D1DC7B /* ContentView.swift in Sources */,
 				687D9CC624AE38BD00EB7F46 /* DataTaskOperation.swift in Sources */,
 				68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */,
-				68701DF1273E471F00C6BB69 /* NavigationBarProgressStyle.swift in Sources */,
+				68701DF1273E471F00C6BB69 /* ToolbarProgressStyle.swift in Sources */,
 				687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */,
 				683041B827543E0400BE7631 /* FeedViewModel.swift in Sources */,
 				687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */,

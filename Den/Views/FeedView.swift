@@ -55,9 +55,8 @@ struct FeedView: View {
                 Button {
                     showingSettings = true
                 } label: {
-                    Label("Feed Settings", systemImage: "wrench")
+                    Label("Feed Settings", systemImage: "wrench").labelStyle(ToolbarLabelStyle())
                 }
-                .buttonStyle(NavigationBarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
             }
 
@@ -66,12 +65,11 @@ struct FeedView: View {
                     refreshManager.refresh(feed: viewModel.feed)
                 } label: {
                     if viewModel.refreshing {
-                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                        ProgressView().progressViewStyle(ToolbarProgressStyle())
                     } else {
-                        Label("Refresh", systemImage: "arrow.clockwise")
+                        Label("Refresh", systemImage: "arrow.clockwise").labelStyle(ToolbarLabelStyle())
                     }
                 }
-                .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
                 .disabled(refreshManager.isRefreshing)
             }

@@ -73,27 +73,24 @@ struct PageView: View {
                     Label("Blend", systemImage: "square.text.square")
                         .tag(PageViewMode.blend.rawValue)
                 }
-                .imageScale(.small)
-                .padding(.leading)
-                .padding(.trailing, 4)
                 .pickerStyle(.segmented)
+                .imageScale(.small)
+                .padding(.horizontal, 8)
             }
             ToolbarItem {
                 Button {
                     subscriptionManager.showSubscribe()
                 } label: {
-                    Label("Add Source", systemImage: "plus.circle")
+                    Label("Add Source", systemImage: "plus.circle").labelStyle(ToolbarLabelStyle())
                 }
-                .buttonStyle(NavigationBarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
             }
             ToolbarItem {
                 Button {
                     showingSettings = true
                 } label: {
-                    Label("Page Settings", systemImage: "wrench")
+                    Label("Page Settings", systemImage: "wrench").labelStyle(ToolbarLabelStyle())
                 }
-                .buttonStyle(NavigationBarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
             }
             ToolbarItem {
@@ -101,13 +98,12 @@ struct PageView: View {
                     refreshManager.refresh(page: viewModel.page)
                 } label: {
                     if viewModel.refreshing {
-                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                        ProgressView().progressViewStyle(ToolbarProgressStyle())
                     } else {
-                        Label("Refresh", systemImage: "arrow.clockwise")
+                        Label("Refresh", systemImage: "arrow.clockwise").labelStyle(ToolbarLabelStyle())
                     }
                 }
                 .disabled(refreshManager.isRefreshing)
-                .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
             }
             #else
@@ -150,7 +146,7 @@ struct PageView: View {
                     }
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis.circle")
-                }.buttonStyle(NavigationBarButtonStyle())
+                }
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -158,12 +154,11 @@ struct PageView: View {
                     refreshManager.refresh(page: viewModel.page)
                 } label: {
                     if viewModel.refreshing {
-                        ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                        ProgressView().progressViewStyle(ToolbarProgressStyle())
                     } else {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                 }
-                .buttonStyle(NavigationBarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
             }
             #endif
