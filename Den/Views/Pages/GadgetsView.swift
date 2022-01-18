@@ -18,7 +18,7 @@ struct GadgetsView: View {
     var body: some View {
         #if targetEnvironment(macCatalyst)
         ScrollView(.vertical) {
-            gadgetsDisplay.padding(.top, 8)
+            gadgetsDisplay
         }
         #else
         RefreshableScrollView(
@@ -34,6 +34,6 @@ struct GadgetsView: View {
     var gadgetsDisplay: some View {
         BoardView(list: viewModel.page.feedsArray, content: { feed in
             GadgetView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))
-        }).padding([.horizontal, .bottom])
+        }).padding([.horizontal, .bottom]).padding(.top, 8)
     }
 }

@@ -35,7 +35,6 @@ struct ProfileView: View {
                 } label: {
                     Label("Activate", systemImage: "power.circle")
                 }
-                .buttonStyle(NavigationBarButtonStyle())
                 .disabled(profile == profileManager.activeProfile)
             }
         }

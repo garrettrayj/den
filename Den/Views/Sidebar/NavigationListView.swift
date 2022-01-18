@@ -64,26 +64,27 @@ struct NavigationListView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 if editMode?.wrappedValue == EditMode.active {
                     Button(action: viewModel.createPage) {
-                        Label("New Page", systemImage: "plus")
-                    }.buttonStyle(NavigationBarButtonStyle())
+                        Label("New Page", systemImage: "plus").labelStyle(ToolbarLabelStyle())
+                    }
                 }
 
                 EditButton()
                     .disabled(refreshManager.isRefreshing)
-                    .buttonStyle(NavigationBarButtonStyle())
+                    #if targetEnvironment(macCatalyst)
+                    .padding(.horizontal, 4)
+                    #endif
 
                 if editMode?.wrappedValue == .inactive {
                     Button {
                         refreshManager.refresh(profile: viewModel.profile)
                     } label: {
                         if viewModel.refreshing {
-                            ProgressView().progressViewStyle(NavigationBarProgressStyle())
+                            ProgressView().progressViewStyle(ToolbarProgressStyle())
                         } else {
-                            Label("Refresh", systemImage: "arrow.clockwise")
+                            Label("Refresh", systemImage: "arrow.clockwise").labelStyle(ToolbarLabelStyle())
                         }
                     }
                     .disabled(refreshManager.isRefreshing)
-                    .buttonStyle(NavigationBarButtonStyle())
                     .keyboardShortcut("r", modifiers: [.command, .shift])
                 }
             }

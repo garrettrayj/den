@@ -33,7 +33,6 @@ struct FeedSettingsView: View {
                 } label: {
                     Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
                 }
-                .buttonStyle(NavigationBarButtonStyle())
                 .alert(
                     "Delete \(feed.wrappedTitle)?",
                     isPresented: $showingDeleteAlert,
@@ -150,14 +149,6 @@ struct FeedSettingsView: View {
                 }
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
-    }
-
-    private var toolbar: some ToolbarContent {
-        ToolbarItemGroup {
-            HStack(spacing: 0) {
-
-            }.buttonStyle(NavigationBarButtonStyle())
-        }
     }
 
     private func save() {

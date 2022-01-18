@@ -21,7 +21,7 @@ final class RefreshManager: ObservableObject {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
 
-        queue.maxConcurrentOperationCount = max(ProcessInfo.processInfo.processorCount - 1, 1)
+        queue.maxConcurrentOperationCount = min(ProcessInfo.processInfo.processorCount, 10)
     }
 
     public func cancel() {
