@@ -47,12 +47,8 @@ struct HistoryView: View {
                                         }
                                     }
                                 }
-                                .background(Color(UIColor.systemBackground))
+                                .background(Color(UIColor.secondarySystemGroupedBackground))
                                 .cornerRadius(8)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .strokeBorder(Color(UIColor.secondarySystemGroupedBackground))
-                                )
                                 .padding()
                             } header: {
                                 Text(section.id).font(.subheadline).modifier(PinnedSectionHeaderModifier())

@@ -32,8 +32,7 @@ public class Page: NSManagedObject {
     public var unreadCount: Int {
         feedsArray.reduce(0) { (result, feed) -> Int in
             if let feedData = feed.feedData {
-                return result + feedData.itemsArray
-                    .prefix(feed.wrappedPreviewLimit)
+                return result + feedData.limitedItemsArray
                     .filter { item in item.read == false }.count
             }
 
@@ -90,12 +89,12 @@ public class Page: NSManagedObject {
         }.first?.feedData?.refreshed
     }
 
-    public var previewItemsArray: [Item] {
+    public var limitedItemsArray: [Item] {
         let items: NSMutableSet = []
 
         feedsArray.forEach { feed in
             guard let feedData = feed.feedData else { return }
-            items.union(Set(feedData.previewItemsArray))
+            items.union(Set(feedData.limitedItemsArray))
         }
 
         return items.sortedArray(

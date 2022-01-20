@@ -17,33 +17,10 @@ public class Feed: NSManagedObject {
 
     public var wrappedItemLimit: Int {
         get {
-            if itemLimit == 0 {
-                itemLimit = 12
-            }
-            return Int(itemLimit)
+            Int(itemLimit)
         }
         set {
             itemLimit = Int16(newValue)
-            if previewLimit > itemLimit {
-                previewLimit = itemLimit
-            }
-        }
-    }
-
-    public var wrappedPreviewLimit: Int {
-        get {
-            if previewLimit == 0 {
-                // Get default from page
-                previewLimit = Int16(page?.wrappedItemsPerFeed ?? 6)
-            }
-            return Int(previewLimit)
-        }
-        set {
-            previewLimit = Int16(newValue)
-            if previewLimit >= itemLimit {
-                itemLimit = previewLimit
-            }
-
         }
     }
 
@@ -89,8 +66,7 @@ public class Feed: NSManagedObject {
         feed.page = page
         feed.url = url
         feed.showThumbnails = true
-        feed.itemLimit = 12
-        feed.previewLimit = 6
+        feed.itemLimit = 6
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1

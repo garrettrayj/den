@@ -12,11 +12,7 @@ struct GroupBlockModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(minWidth: 252, idealWidth: 336, maxWidth: 420)
-            .background(Color(UIColor.systemBackground))
+            .background(Color(UIColor.secondarySystemGroupedBackground))
             .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .strokeBorder(Color(UIColor.secondarySystemGroupedBackground))
-            )
     }
 }

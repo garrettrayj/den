@@ -35,7 +35,7 @@ struct SidebarPageView: View {
                                     .foregroundColor(Color(UIColor.secondaryLabel))
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 3)
-                                    .background(
+                                    .overlay(
                                         Capsule().fill(Color(UIColor.secondarySystemFill))
                                     )
                             }

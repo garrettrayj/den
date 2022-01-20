@@ -34,6 +34,10 @@ struct GadgetsView: View {
     var gadgetsDisplay: some View {
         BoardView(list: viewModel.page.feedsArray, content: { feed in
             GadgetView(viewModel: FeedViewModel(feed: feed, refreshing: viewModel.refreshing))
-        }).padding([.horizontal, .bottom]).padding(.top, 8)
+        })
+        .padding([.horizontal, .bottom])
+        #if targetEnvironment(macCatalyst)
+        .padding(.top, 8)
+        #endif
     }
 }

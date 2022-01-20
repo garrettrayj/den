@@ -15,7 +15,7 @@ struct ShowcaseSectionView: View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
             if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                 BoardView(
-                    list: viewModel.feed.feedData?.previewItemsArray ?? [],
+                    list: viewModel.feed.feedData?.limitedItemsArray ?? [],
                     content: { item in
                         ItemPreviewView(item: item)
                     }

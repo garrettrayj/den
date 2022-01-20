@@ -24,6 +24,16 @@ struct SearchResultsView: View {
             } else {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                        HStack(spacing: 0) {
+                            Text("Showing results for “")
+                            Text(query).foregroundColor(.primary)
+                            Text("”")
+                            Spacer()
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 12)
+                        .foregroundColor(.secondary)
+
                         ForEach(searchResults) { section in
                             Section {
                                 VStack(spacing: 8) {
@@ -37,7 +47,7 @@ struct SearchResultsView: View {
                                     }
                                 }
                                 .padding(12)
-                                .background(Color(UIColor.systemBackground))
+                                .background(Color(UIColor.secondarySystemGroupedBackground))
                                 .cornerRadius(8)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 8)
@@ -58,7 +68,7 @@ struct SearchResultsView: View {
                 }
             }
         }
-        .navigationTitle("Search for “\(query)”")
+        .navigationTitle("Search")
     }
 
     init(query: String, profile: Profile) {

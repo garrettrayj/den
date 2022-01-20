@@ -15,34 +15,27 @@ struct StartListView: View {
 
     var body: some View {
         List {
-            Section(content: {
+            Section {
                 Button(action: viewModel.createPage) {
                     Label("Create a Blank Page", systemImage: "plus")
-                    #if targetEnvironment(macCatalyst)
-                        .font(.title3)
-                    #endif
                 }.modifier(StartRowModifier())
 
                 Button(action: viewModel.loadDemo) {
                     Label("Load Demo Feeds", systemImage: "wand.and.stars")
-                    #if targetEnvironment(macCatalyst)
-                        .font(.title3)
-                    #endif
                 }.modifier(StartRowModifier())
-            }, header: {
+            } header: {
                 Text("Get Started")
-                #if targetEnvironment(macCatalyst)
-                    .font(.title2)
-                #endif
-            }, footer: {
+            } footer: {
                 Text("or import feeds in settings")
                 #if targetEnvironment(macCatalyst)
-                    .font(.callout)
-                    .padding(.vertical, 8)
+                    .listRowInsets(EdgeInsets(top: 12, leading: 8, bottom: 0, trailing: 0))
+                    .font(.system(size: 13))
                 #endif
-            })
+            }
+            .lineLimit(1)
+            .modifier(SectionHeaderModifier())
         }
-        .listStyle(.plain)
+        .listStyle(.insetGrouped)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {

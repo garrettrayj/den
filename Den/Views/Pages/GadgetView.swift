@@ -54,7 +54,7 @@ struct GadgetView: View {
     }
 
     private var items: some View {
-        ForEach(viewModel.feed.feedData!.itemsArray.prefix(viewModel.feed.wrappedPreviewLimit)) { item in
+        ForEach(viewModel.feed.feedData!.limitedItemsArray) { item in
             Divider()
             GadgetItemView(
                 item: item,

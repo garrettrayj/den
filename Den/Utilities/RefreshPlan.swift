@@ -62,7 +62,7 @@ final class RefreshPlan {
             itemLimit: feed.wrappedItemLimit,
             existingItemLinks: existingItemLinks,
             downloadImages: feed.showThumbnails,
-            imageLimit: feed.wrappedPreviewLimit
+            imageLimit: feed.wrappedItemLimit
         )
         addStandardAdapters(downloadImages: feed.showThumbnails)
         wireStandardDependencies(downloadImages: feed.showThumbnails)
