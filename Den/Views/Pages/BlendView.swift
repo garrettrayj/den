@@ -16,7 +16,7 @@ struct BlendView: View {
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
-        if viewModel.page.previewItemsArray.isEmpty {
+        if viewModel.page.limitedItemsArray.isEmpty {
             StatusBoxView(message: "No Items", symbol: "questionmark.square.dashed")
         } else {
             #if targetEnvironment(macCatalyst)
@@ -36,7 +36,7 @@ struct BlendView: View {
     }
 
     var blendDisplay: some View {
-        BoardView(list: viewModel.page.previewItemsArray) { item in
+        BoardView(list: viewModel.page.limitedItemsArray) { item in
             if item.feedData?.feed != nil {
                 ItemPreviewView(
                     item: item,
@@ -45,6 +45,8 @@ struct BlendView: View {
             }
         }
         .padding([.horizontal, .bottom])
+        #if targetEnvironment(macCatalyst)
         .padding(.top, 8)
+        #endif
     }
 }

@@ -36,7 +36,7 @@ struct ExportView: View {
                 }
             }
         }
-        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Export")
     }
 

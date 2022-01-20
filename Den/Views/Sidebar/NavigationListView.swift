@@ -74,17 +74,16 @@ struct NavigationListView: View {
                     #endif
 
                 if editMode?.wrappedValue == .inactive {
-                    Button {
-                        refreshManager.refresh(profile: viewModel.profile)
-                    } label: {
-                        if viewModel.refreshing {
-                            ProgressView().progressViewStyle(ToolbarProgressStyle())
-                        } else {
+                    if refreshManager.isRefreshing {
+                        ProgressView().progressViewStyle(ToolbarProgressStyle())
+                    } else {
+                        Button {
+                            refreshManager.refresh(profile: viewModel.profile)
+                        } label: {
                             Label("Refresh", systemImage: "arrow.clockwise").labelStyle(ToolbarLabelStyle())
                         }
+                        .keyboardShortcut("r", modifiers: [.command, .shift])
                     }
-                    .disabled(refreshManager.isRefreshing)
-                    .keyboardShortcut("r", modifiers: [.command, .shift])
                 }
             }
 

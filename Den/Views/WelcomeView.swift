@@ -18,7 +18,7 @@ struct WelcomeView: View {
         .foregroundColor(.secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .padding()
-        .background(Color(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all))
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationBarHidden(true)
     }
 }

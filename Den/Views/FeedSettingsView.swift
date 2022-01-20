@@ -20,7 +20,6 @@ struct FeedSettingsView: View {
     var body: some View {
         Form {
             titlePageSection
-            limitsSection
             configurationSection
             info
         }
@@ -90,26 +89,15 @@ struct FeedSettingsView: View {
         }
     }
 
-    private var limitsSection: some View {
-        Section(header: Text("Limits")) {
-            Stepper(value: $feed.wrappedPreviewLimit, in: 1...100, step: 1) {
-                Label(
-                    "Preview Items: \(feed.wrappedPreviewLimit)",
-                    systemImage: "text.below.photo"
-                )
-            }.modifier(FormRowModifier())
-
+    private var configurationSection: some View {
+        Section(header: Text("General")) {
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 Label(
-                    "Total Items: \(feed.wrappedItemLimit)",
+                    "Item Limit: \(feed.wrappedItemLimit)",
                     systemImage: "list.bullet.rectangle"
                 )
             }.modifier(FormRowModifier())
-        }.modifier(SectionHeaderModifier())
-    }
 
-    private var configurationSection: some View {
-        Section(header: Text("Images")) {
             #if targetEnvironment(macCatalyst)
             HStack {
                 Label("Show Thumbnails", systemImage: "photo")

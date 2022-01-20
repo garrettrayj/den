@@ -33,56 +33,53 @@ struct SecurityCheckView: View {
     }
 
     private var allClearSummary: some View {
-        Section(header: Text("Summary")) {
+        Section {
             Label(title: {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 6) {
                     Text("No Issues").fontWeight(.medium)
-                    Text("All subscriptions have secure URLs").foregroundColor(.secondary)
+                    Text("All feeds use secure URLs").foregroundColor(.secondary)
                 }
             }, icon: {
                 Image(systemName: "checkmark.shield")
                     .imageScale(.large)
                     .foregroundColor(.green)
             }).padding(.vertical, 8)
+        } header: {
+            Text("Summary")
         }.modifier(SectionHeaderModifier())
     }
 
     private var warningSummary: some View {
-        Section(header: Text("Summary")) {
+        Section {
             Label(title: {
-                VStack(alignment: .leading, spacing: 4) {
-                    if profileManager.activeProfile?.insecureFeedCount ?? 0 > 0 {
-                        Text("\(profileManager.activeProfile?.insecureFeedCount ?? 0) subscriptions have insecure URLs")
-                            .fontWeight(.medium)
-                        Text("Den can look for secure alternatives to use instead").foregroundColor(.secondary)
-                    } else {
-                        Text("One subscription with an insecure URL").fontWeight(.medium)
-                        Text("Den can look for a secure alternative to use instead").foregroundColor(.secondary)
-                    }
-                }
+                Text("\(profileManager.activeProfile?.insecureFeedCount ?? 0) feed(s) use insecure URLs")
+                    .fontWeight(.medium)
             }, icon: {
-                Image(systemName: "exclamationmark.shield")
-                    .imageScale(.large)
-                    .foregroundColor(.orange)
+                Image(systemName: "exclamationmark.shield").foregroundColor(.orange).imageScale(.large)
             }).padding(.vertical, 8)
 
-            Button {
-                viewModel.remedyInsecureUrls()
-            } label: {
-                HStack {
-                    Text("Remedy Insecure URLs")
-                    Spacer()
-                    if viewModel.remediationInProgress == true {
+            Group {
+                if viewModel.remediationInProgress == true {
+                    HStack {
                         ProgressView().progressViewStyle(IconProgressStyle())
+                        Text("Scanning…").foregroundColor(.secondary)
+                    }
+                } else {
+                    Button {
+                        viewModel.remedyInsecureUrls()
+                    } label: {
+                        Text("Scan for HTTPS Alternatives").buttonStyle(RegularButtonStyle())
                     }
                 }
-            }
-            .padding(.vertical, 4)
+            }.padding(.vertical, 4)
+
+        } header: {
+            Text("Summary")
         }.modifier(SectionHeaderModifier())
     }
 
     private func pageSection(page: Page) -> some View {
-        Section(header: Text(page.displayName)) {
+        Section {
             ForEach(page.insecureFeeds) { feed in
                 HStack {
                     FeedTitleLabelView(
@@ -90,20 +87,16 @@ struct SecurityCheckView: View {
                         faviconImage: feed.feedData?.faviconImage
                     )
                     Spacer()
-
-                    HStack(spacing: 4) {
-                        Image(systemName: "lock.open")
-                        Text(feed.urlString)
-                    }
-                    .font(.caption)
-                    .lineLimit(1)
-                    .foregroundColor(.secondary)
-
+                    Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(.secondary)
                     if viewModel.failedRemediation.contains(feed.id) == true {
                         Image(systemName: "shield.slash").foregroundColor(.red)
+                    } else {
+                        Image(systemName: "lock.open").foregroundColor(.secondary)
                     }
                 }.modifier(FormRowModifier())
             }
+        } header: {
+            Text(page.displayName).fontWeight(.light)
         }.modifier(SectionHeaderModifier())
     }
 }
