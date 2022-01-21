@@ -11,8 +11,6 @@ import SwiftUI
 struct StartListView: View {
     @ObservedObject var viewModel: ProfileViewModel
 
-    @Binding var showingSettings: Bool
-
     var body: some View {
         List {
             Section {
@@ -39,7 +37,7 @@ struct StartListView: View {
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    showingSettings = true
+                    viewModel.showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
                 }

@@ -10,24 +10,22 @@ import CoreData
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject var profileManager: ProfileManager
     @EnvironmentObject var refreshManager: RefreshManager
+    @ObservedObject var viewModel: SearchViewModel
 
-    var query: String = ""
+    var profile: Profile
 
     var body: some View {
         Group {
             if refreshManager.isRefreshing {
                 StatusBoxView(message: "Waiting on Refresh…", symbol: "hourglass")
-            } else if query == "" {
+            } else if viewModel.isChangedOrEmpty {
                 StatusBoxView(
-                    message: "Searching “\(profileManager.activeProfileName)” Profile",
+                    message: "Searching “\(profile.wrappedName)” Profile",
                     symbol: "magnifyingglass"
                 )
             } else {
-                if profileManager.activeProfile != nil {
-                    SearchResultsView(query: query, profile: profileManager.activeProfile!)
-                }
+                SearchResultsView(query: viewModel.query, profile: profile)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
