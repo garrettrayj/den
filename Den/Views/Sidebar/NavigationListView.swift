@@ -14,46 +14,42 @@ struct NavigationListView: View {
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var refreshManager: RefreshManager
 
-    @ObservedObject var viewModel: ProfileViewModel
-
-    @Binding var showingSettings: Bool
-
-    @State var searchQuery: String = ""
-    @State var showingHistory: Bool = false
-    @State var showingSearch: Bool = false
+    @ObservedObject var profileViewModel: ProfileViewModel
+    @StateObject var searchViewModel: SearchViewModel = SearchViewModel()
 
     var body: some View {
         List {
-            ForEach(viewModel.profile.pagesArray) { page in
+            ForEach(profileViewModel.profile.pagesArray) { page in
                 SidebarPageView(
                     viewModel: PageViewModel(
                         page: page,
-                        refreshing: viewModel.refreshing
+                        refreshing: profileViewModel.refreshing
                     )
                 )
             }
-            .onMove(perform: viewModel.movePage)
-            .onDelete(perform: viewModel.deletePage)
+            .onMove(perform: profileViewModel.movePage)
+            .onDelete(perform: profileViewModel.deletePage)
         }
         .listStyle(.sidebar)
         .searchable(
-            text: $searchQuery,
+            text: $searchViewModel.input,
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {
-            showingSearch = true
+            searchViewModel.query = searchViewModel.input
+            profileViewModel.showingSearch = true
         }
         .background(
             Group {
-                NavigationLink(isActive: $showingSearch) {
-                    SearchView(query: searchQuery)
+                NavigationLink(isActive: $profileViewModel.showingSearch) {
+                    SearchView(viewModel: searchViewModel, profile: profileViewModel.profile)
                 } label: {
                     Text("Search")
                 }
 
-                NavigationLink(isActive: $showingHistory) {
-                    HistoryView(profile: viewModel.profile)
+                NavigationLink(isActive: $profileViewModel.showingHistory) {
+                    HistoryView(profile: profileViewModel.profile)
                 } label: {
                     Label("History", systemImage: "clock")
                 }
@@ -62,7 +58,7 @@ struct NavigationListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 if editMode?.wrappedValue == EditMode.active {
-                    Button(action: viewModel.createPage) {
+                    Button(action: profileViewModel.createPage) {
                         Label("New Page", systemImage: "plus").labelStyle(ToolbarLabelStyle())
                     }
                 }
@@ -78,7 +74,7 @@ struct NavigationListView: View {
                         ProgressView().progressViewStyle(ToolbarProgressStyle())
                     } else {
                         Button {
-                            refreshManager.refresh(profile: viewModel.profile)
+                            refreshManager.refresh(profile: profileViewModel.profile)
                         } label: {
                             Label("Refresh", systemImage: "arrow.clockwise").labelStyle(ToolbarLabelStyle())
                         }
@@ -89,7 +85,7 @@ struct NavigationListView: View {
 
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {
-                    showingSettings = true
+                    profileViewModel.showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
@@ -97,7 +93,7 @@ struct NavigationListView: View {
                 Spacer()
 
                 Button {
-                    showingHistory = true
+                    profileViewModel.showingHistory = true
                 } label: {
                     Label("History", systemImage: "clock")
                 }

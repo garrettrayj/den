@@ -10,15 +10,13 @@ import CoreData
 import SwiftUI
 
 struct SearchResultsView: View {
-    @EnvironmentObject var profileManager: ProfileManager
-
     @SectionedFetchRequest<String, Item>(sectionIdentifier: \.feedDataId, sortDescriptors: [])
     private var searchResults: SectionedFetchResults<String, Item>
 
-    var query: String = ""
+    var query: String
 
     var body: some View {
-        VStack(spacing: 0) {
+        Group {
             if searchResults.isEmpty {
                 StatusBoxView(message: "No results found for “\(query)”")
             } else {

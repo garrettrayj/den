@@ -9,11 +9,17 @@
 import Combine
 import Foundation
 import CoreData
+import SwiftUI
 
 final class ProfileViewModel: ObservableObject {
     @Published var profile: Profile
     @Published var refreshing: Bool = false
+    @Published var searchQuery: String = ""
+    @Published var showingSearch: Bool = false
+    @Published var showingHistory: Bool = false
+    @Published var showingSettings: Bool = false
 
+    var searchFetchRequest: SectionedFetchRequest<String, Item>?
     var queuedSubscriber: AnyCancellable?
     var refreshedSubscriber: AnyCancellable?
 
