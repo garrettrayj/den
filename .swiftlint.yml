@@ -1,3 +1,6 @@
 identifier_name:
   excluded:
     - id
+    - a
+    - b
+    - el

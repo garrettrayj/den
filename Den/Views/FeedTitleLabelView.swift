@@ -18,13 +18,10 @@ struct FeedTitleLabelView: View {
         } icon: {
             if faviconImage != nil {
                 faviconImage!
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 16, height: 16)
+                    .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
                     .clipped()
             } else {
-                Image(systemName: "dot.radiowaves.up.forward")
-                    .foregroundColor(Color.secondary)
+                Image(systemName: "dot.radiowaves.up.forward").foregroundColor(Color.secondary)
             }
         }
     }

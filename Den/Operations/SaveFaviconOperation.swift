@@ -20,40 +20,41 @@ final class SaveFaviconOperation: Operation {
     var defaultFaviconResponse: HTTPURLResponse?
     var defaultFaviconData: Data?
 
-    let faviconSize = CGSize(width: 16 * UIScreen.main.scale, height: 16 * UIScreen.main.scale)
-
     override func main() {
         if isCancelled { return }
 
         if
             let httpResponse = webpageFaviconResponse,
-            200..<300 ~= httpResponse.statusCode,
-            let mimeType = httpResponse.mimeType,
-            MIMETypes.FaviconMIMETypes(rawValue: mimeType) != nil,
-            let faviconUrl = httpResponse.url,
-            let faviconData = webpageFaviconData,
-            let image = UIImage(data: faviconData),
-            let resizedImage = image.preparingThumbnail(of: faviconSize),
-            let filename = saveFavicon(image: resizedImage)
+            let data = webpageFaviconData,
+            let saveResult = prepareFavicon(httpResponse: httpResponse, data: data)
         {
-            self.workingFeed?.favicon = faviconUrl
-            self.workingFeed?.faviconFile = filename
+            self.workingFeed?.favicon = saveResult.url
+            self.workingFeed?.faviconFile = saveResult.filename
         } else if
             let httpResponse = defaultFaviconResponse,
-            200..<300 ~= httpResponse.statusCode,
-            let mimeType = httpResponse.mimeType,
-            MIMETypes.FaviconMIMETypes(rawValue: mimeType) != nil,
-            let faviconUrl = httpResponse.url,
-            let faviconData = defaultFaviconData,
-            let image = UIImage(data: faviconData),
-            let resizedImage = image.preparingThumbnail(of: faviconSize),
-            let filename = self.saveFavicon(image: resizedImage)
+            let data = defaultFaviconData,
+            let saveResult = prepareFavicon(httpResponse: httpResponse, data: data)
         {
-            self.workingFeed?.favicon = faviconUrl
-            self.workingFeed?.faviconFile = filename
+            self.workingFeed?.favicon = saveResult.url
+            self.workingFeed?.faviconFile = saveResult.filename
         }
 
         return
+    }
+
+    private func prepareFavicon(httpResponse: HTTPURLResponse, data: Data) -> (filename: String, url: URL)? {
+        if
+            200..<300 ~= httpResponse.statusCode,
+            let mimeType = httpResponse.mimeType,
+            FaviconMIMEType(rawValue: mimeType) != nil,
+            let url = httpResponse.url,
+            let image = UIImage(data: data),
+            let filename = saveFavicon(image: image.resizedToFit(size: ImageSize.favicon))
+        {
+            return (filename, url)
+        }
+
+        return nil
     }
 
     private func saveFavicon(image: UIImage) -> String? {
