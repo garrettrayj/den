@@ -38,7 +38,7 @@ public class Item: NSManagedObject {
 
         do {
             let imageData = try Data(contentsOf: filepath)
-            if let uiImage = UIImage(data: imageData) {
+            if let uiImage = UIImage(data: imageData, scale: UIScreen.main.scale) {
                 return uiImage
             }
         } catch {
@@ -65,7 +65,7 @@ public class Item: NSManagedObject {
 
         do {
             let imageData = try Data(contentsOf: filepath)
-            if let uiImage = UIImage(data: imageData) {
+            if let uiImage = UIImage(data: imageData, scale: UIScreen.main.scale) {
                 return Image(uiImage: uiImage)
             }
         } catch {

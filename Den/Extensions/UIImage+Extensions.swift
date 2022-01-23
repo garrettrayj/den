@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import func AVFoundation.AVMakeRect
+
 extension UIImage {
     /**
      Given a required width, returns a rasterised copy of the image, aspect-fitted to that width.
@@ -24,6 +26,35 @@ extension UIImage {
 
         return renderer.image { _ in
             self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+
+    func resizedToFill(size: CGSize) -> UIImage {
+        let scale: CGFloat = max(
+            size.width / self.size.width,
+            size.height / self.size.height
+        )
+        let width: CGFloat = self.size.width * scale
+        let height: CGFloat = self.size.height * scale
+        let boundary = CGRect(
+            x: (size.width - width) / 2.0,
+            y: (size.height - height) / 2.0,
+            width: width,
+            height: height
+        )
+
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { _ in
+            self.draw(in: boundary)
+        }
+    }
+
+    func resizedToFit(size: CGSize) -> UIImage {
+        let boundary = AVMakeRect(aspectRatio: self.size, insideRect: CGRect(origin: .zero, size: size))
+
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { (_) in
+            self.draw(in: boundary)
         }
     }
 }

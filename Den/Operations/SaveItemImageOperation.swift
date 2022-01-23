@@ -25,7 +25,7 @@ final class SaveItemImageOperation: Operation {
             let httpResponse = httpResponse,
             200..<300 ~= httpResponse.statusCode,
             let mimeType = httpResponse.mimeType,
-            MIMETypes.ImageMIMETypes(rawValue: mimeType) != nil,
+            ImageMIMEType(rawValue: mimeType) != nil,
             let url = httpResponse.url,
             let data = data,
             let originalImage = UIImage(data: data)
@@ -35,18 +35,22 @@ final class SaveItemImageOperation: Operation {
         workingItem?.imageWidth = Int32(originalImage.size.width)
         workingItem?.imageHeight = Int32(originalImage.size.height)
 
-        let resizedPreviewImage = originalImage.aspectFittedToWidth(396)
         if
-            let previewsDirectory = FileManager.default.previewsDirectory,
-            let imagePreview = saveImage(image: resizedPreviewImage, directory: previewsDirectory)
+            let directory = FileManager.default.previewsDirectory,
+            let imagePreview = saveImage(
+                image: originalImage.aspectFittedToWidth(ImageSize.preview.width),
+                directory: directory
+            )
         {
             self.workingItem?.imagePreview = imagePreview
         }
 
         if
-            let thumbnailsDirectory = FileManager.default.thumbnailsDirectory,
-            let resizedThumbnailImage = originalImage.preparingThumbnail(of: thumbnailSize),
-            let imageThumbnail = saveImage(image: resizedThumbnailImage, directory: thumbnailsDirectory)
+            let directory = FileManager.default.thumbnailsDirectory,
+            let imageThumbnail = saveImage(
+                image: originalImage.resizedToFill(size: ImageSize.thumbnail),
+                directory: directory
+            )
         {
             self.workingItem?.imageThumbnail = imageThumbnail
         }

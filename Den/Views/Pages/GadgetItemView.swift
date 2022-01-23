@@ -43,13 +43,8 @@ struct GadgetItemView: View {
 
     private var thumbnailImage: some View {
         item.thumbnailImage?
-            .resizable()
-            .scaledToFill()
-            #if targetEnvironment(macCatalyst)
-            .frame(width: 84, height: 56, alignment: .center)
-            #else
-            .frame(width: 102, height: 68, alignment: .center)
-            #endif
+            .imageScale(.small)
+            .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
             .background(Color(UIColor.tertiarySystemGroupedBackground))
                 .cornerRadius(4)
             .overlay(
