@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var crashManager: CrashManager
     @EnvironmentObject var profileManager: ProfileManager
 
@@ -19,9 +20,9 @@ struct FeedSettingsView: View {
 
     var body: some View {
         Form {
-            titlePageSection
-            configurationSection
-            info
+            titleSection
+            generalSection
+            informationSection
         }
         .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
@@ -46,19 +47,9 @@ struct FeedSettingsView: View {
         }
     }
 
-    private var titlePageSection: some View {
-        Section(header: Text("Title & Page")) {
-
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                TextField("Title", text: $feed.wrappedTitle).modifier(TitleTextFieldModifier())
-                Spacer()
-                pagePicker.frame(maxWidth: 160).labelsHidden()
-            }.modifier(FormRowModifier())
-            #else
+    private var titleSection: some View {
+        Section(header: Text("Title")) {
             TextField("Title", text: $feed.wrappedTitle).modifier(TitleTextFieldModifier())
-            pagePicker
-            #endif
         }.modifier(SectionHeaderModifier())
     }
 
@@ -75,8 +66,12 @@ struct FeedSettingsView: View {
                     })
                 else { return }
 
+                NotificationCenter.default.post(name: .pageRefreshed, object: feed.page?.objectID)
+
                 feed.userOrder = page.feedsUserOrderMax + 1
                 feed.page = page
+
+                dismiss()
             }
         )
 
@@ -85,12 +80,17 @@ struct FeedSettingsView: View {
                 Text(page.wrappedName).tag(page.id?.uuidString)
             }
         } label: {
-            Label("Page", systemImage: "square.grid.2x2")
+            HStack {
+                Label("Page", systemImage: "square.grid.2x2")
+                Spacer()
+            }
         }
     }
 
-    private var configurationSection: some View {
+    private var generalSection: some View {
         Section(header: Text("General")) {
+            pagePicker.modifier(FormRowModifier())
+
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 Label(
                     "Item Limit: \(feed.wrappedItemLimit)",
@@ -115,10 +115,10 @@ struct FeedSettingsView: View {
         }.modifier(SectionHeaderModifier())
     }
 
-    private var info: some View {
-        Section(header: Text("Info")) {
+    private var informationSection: some View {
+        Section(header: Text("Information")) {
             HStack {
-                Label("RSS URL", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
+                Label("Feed URL", systemImage: "link").lineLimit(1)
                 Spacer()
                 Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                 Button(action: copyUrl) {

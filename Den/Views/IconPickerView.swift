@@ -11,48 +11,61 @@ import SwiftUI
 struct IconPickerView: View {
     @Environment(\.dismiss) var dismiss
 
-    @Binding var symbol: String
+    @Binding var selectedSymbol: String
 
-    var symbols: [String: [String]] =  [:]
+    struct Category: Identifiable {
+        var id: String
+        var symbol: String
+        var title: String
+    }
 
-    let categories: [[String]] = [
-        ["uncategorized", "square.grid.2x2", "Uncategorized"],
-        ["communication", "bubble.left", "Communication"],
-        ["weather", "cloud.sun", "Weather"],
-        ["objectsandtools", "folder", "Objects and Tools"],
-        ["devices", "desktopcomputer", "Devices"],
-        ["gaming", "gamecontroller", "Gaming"],
-        ["connectivity", "antenna.radiowaves.left.and.right", "Connectivity"],
-        ["transportation", "car", "Transporation"],
-        ["human", "person.crop.circle", "Human"],
-        ["nature", "leaf", "Nature"],
-        ["editing", "slider.horizontal.3", "Editing"],
-        ["media", "playpause", "Media"],
-        ["keyboard", "keyboard", "Keyboard"],
-        ["commerce", "cart", "Commerce"],
-        ["time", "timer", "Time"],
-        ["health", "heart", "Health"],
-        ["shapes", "square.on.circle", "Shapes"],
-        ["arrows", "arrow.right", "Arrows"],
-        ["math", "x.squareroot", "Math"]
+    let categories: [Category] = [
+        Category(id: "uncategorized", symbol: "square.grid.2x2", title: "Uncategorized"),
+        Category(id: "communication", symbol: "bubble.left", title: "Communication"),
+        Category(id: "weather", symbol: "cloud.sun", title: "Weather"),
+        Category(id: "objectsandtools", symbol: "folder", title: "Objects and Tools"),
+        Category(id: "devices", symbol: "desktopcomputer", title: "Devices"),
+        Category(id: "gaming", symbol: "gamecontroller", title: "Gaming"),
+        Category(id: "connectivity", symbol: "antenna.radiowaves.left.and.right", title: "Connectivity"),
+        Category(id: "transportation", symbol: "car", title: "Transporation"),
+        Category(id: "human", symbol: "person.crop.circle", title: "Human"),
+        Category(id: "nature", symbol: "leaf", title: "Nature"),
+        Category(id: "editing", symbol: "slider.horizontal.3", title: "Editing"),
+        Category(id: "media", symbol: "playpause", title: "Media"),
+        Category(id: "keyboard", symbol: "keyboard", title: "Keyboard"),
+        Category(id: "commerce", symbol: "cart", title: "Commerce"),
+        Category(id: "time", symbol: "timer", title: "Time"),
+        Category(id: "health", symbol: "heart", title: "Health"),
+        Category(id: "shapes", symbol: "square.on.circle", title: "Shapes"),
+        Category(id: "arrows", symbol: "arrow.right", title: "Arrows"),
+        Category(id: "math", symbol: "x.squareroot", title: "Math")
     ]
+
+    struct Symbol: Identifiable {
+        var id: String
+        var categories: [String]
+    }
+
+    var symbols: [Symbol] =  []
 
     let columns = [
-        GridItem(.adaptive(minimum: 40, maximum: 40), spacing: 4, alignment: .top)
+        GridItem(.adaptive(minimum: 36, maximum: 36), spacing: 4, alignment: .top)
     ]
 
-    init(symbol: Binding<String>) {
-        _symbol = symbol
+    init(selectedSymbol: Binding<String>) {
+        _selectedSymbol = selectedSymbol
 
         guard
             let symbolsPath = Bundle.main.path(forResource: "PageSymbols", ofType: "plist"),
-            let symbolsDict = NSDictionary(contentsOfFile: symbolsPath)
+            let symbolsPlist = NSDictionary(contentsOfFile: symbolsPath)
         else {
             preconditionFailure("Missing categories configuration")
         }
 
-        if let symbols = symbolsDict as? [String: [String]] {
-            self.symbols = symbols
+        if let symbolsDictionary = symbolsPlist as? [String: [String]] {
+            for item in symbolsDictionary {
+                self.symbols.append(Symbol(id: item.key, categories: item.value))
+            }
         }
     }
 
@@ -60,42 +73,8 @@ struct IconPickerView: View {
         NavigationView {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
-                    ForEach(categories, id: \.self) { category in
-                        Section(
-                            header: Label(category[2], systemImage: category[1])
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .frame(height: 28)
-                                .padding(.horizontal)
-                                .background(Color(UIColor.tertiarySystemGroupedBackground))
-                        ) {
-                            LazyVGrid(columns: columns, alignment: .center, spacing: 4) {
-                                ForEach(symbols.keys.sorted(), id: \.self) { key in
-                                    if symbols[key]!.contains(category[0]) {
-                                        Button {
-                                            symbol = key
-                                            dismiss()
-                                        } label: {
-                                            Image(systemName: key)
-                                                .imageScale(.large)
-                                                .foregroundColor(key == symbol ? .accentColor : .primary)
-                                                .frame(width: 40, height: 40, alignment: .center)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: 4)
-                                                        .fill(Color(UIColor.secondarySystemGroupedBackground))
-                                                )
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 4)
-                                                        .strokeBorder(
-                                                            Color.accentColor,
-                                                            lineWidth: key == symbol ? 2 : 0
-                                                        )
-                                                )
-                                        }
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
+                    ForEach(categories) { category in
+                        categorySection(category: category)
                     }
                 }.padding(.bottom)
             }
@@ -113,5 +92,47 @@ struct IconPickerView: View {
             }
         }
         .navigationViewStyle(.stack)
+    }
+
+    private func categorySection(category: Category) -> some View {
+        Section(
+            header: Label(category.title, systemImage: category.symbol)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(height: 28)
+                .padding(.horizontal)
+                .background(Color(UIColor.tertiarySystemGroupedBackground))
+        ) {
+            LazyVGrid(columns: columns, alignment: .center, spacing: 4) {
+                ForEach(categorySymbols(categoryID: category.id)) { symbol in
+                    Button {
+                        selectedSymbol = symbol.id
+                        dismiss()
+                    } label: {
+                        Image(systemName: symbol.id)
+                            .imageScale(.large)
+                            .foregroundColor(symbol.id == selectedSymbol ? .accentColor : .primary)
+                            .frame(width: 36, height: 36, alignment: .center)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color(UIColor.secondarySystemGroupedBackground))
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .strokeBorder(
+                                        Color.accentColor,
+                                        lineWidth: symbol.id == selectedSymbol ? 2 : 0
+                                    )
+                            )
+                    }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+
+    private func categorySymbols(categoryID: String) -> [Symbol] {
+        return symbols.filter { symbol in
+            symbol.categories.contains(categoryID)
+        }
     }
 }

@@ -30,12 +30,13 @@ struct PageSettingsView: View {
     }
 
     private var nameIconSection: some View {
-        Section(header: Text("Name & Icon")) {
+        Section(header: Text("Name")) {
             HStack {
-                TextField("Untitled", text: $viewModel.page.wrappedName)
-                    .modifier(TitleTextFieldModifier())
+                TextField("Untitled", text: $viewModel.page.wrappedName).modifier(TitleTextFieldModifier())
+
                 HStack {
                     Image(systemName: viewModel.page.wrappedSymbol)
+                        .imageScale(.medium)
                         .foregroundColor(Color.accentColor)
 
                     Image(systemName: "chevron.down")
@@ -45,7 +46,7 @@ struct PageSettingsView: View {
                 }
                 .onTapGesture { showingIconPicker = true }
                 .sheet(isPresented: $showingIconPicker) {
-                    IconPickerView(symbol: $viewModel.page.wrappedSymbol)
+                    IconPickerView(selectedSymbol: $viewModel.page.wrappedSymbol)
                         .environment(\.colorScheme, colorScheme)
                 }
             }.modifier(FormRowModifier())

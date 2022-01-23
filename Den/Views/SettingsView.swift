@@ -119,35 +119,20 @@ struct SettingsView: View {
 
     private var historySection: some View {
         Section(header: Text("History")) {
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Label("Keep History", systemImage: "clock").lineLimit(1)
-                Spacer()
-                Picker("", selection: $viewModel.historyRentionDays) {
-                    Text("Forever").tag(0 as Int)
-                    Text("One Year").tag(365 as Int)
-                    Text("Six Months").tag(182 as Int)
-                    Text("Three Months").tag(90 as Int)
-                    Text("One Month").tag(30 as Int)
-                    Text("Two Weeks").tag(14 as Int)
-                    Text("One Week").tag(7 as Int)
-                }.frame(maxWidth: 200)
-            }.modifier(FormRowModifier())
-            #else
-            Picker(
-                selection: $viewModel.historyRentionDays,
-                label: Label("Keep History", systemImage: "clock"),
-                content: {
-                    Text("Forever").tag(0 as Int)
-                    Text("One Year").tag(365 as Int)
-                    Text("Six Months").tag(182 as Int)
-                    Text("Three Months").tag(90 as Int)
-                    Text("One Month").tag(30 as Int)
-                    Text("Two Weeks").tag(14 as Int)
-                    Text("One Week").tag(7 as Int)
+            Picker(selection: $viewModel.historyRentionDays) {
+                Text("Forever").tag(0 as Int)
+                Text("One Year").tag(365 as Int)
+                Text("Six Months").tag(182 as Int)
+                Text("Three Months").tag(90 as Int)
+                Text("One Month").tag(30 as Int)
+                Text("Two Weeks").tag(14 as Int)
+                Text("One Week").tag(7 as Int)
+            } label: {
+                HStack {
+                    Label("Keep History", systemImage: "clock")
+                    Spacer()
                 }
-            )
-            #endif
+            }
 
             Button(action: viewModel.clearHistory) {
                 Label("Clear History", systemImage: "clear")
