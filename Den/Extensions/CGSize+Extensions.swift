@@ -6,7 +6,7 @@
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 extension CGSize {
     var area: CGFloat {
