@@ -15,7 +15,7 @@ struct GadgetView: View {
         VStack(spacing: 0) {
             header
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 12) {
                 if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                     items
                 } else {

@@ -14,36 +14,29 @@ struct SearchResultView: View {
     var item: Item
 
     var body: some View {
-        VStack(spacing: 8) {
-            HStack(alignment: .top, spacing: 8) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Button {
-                        linkManager.openLink(
-                            url: item.link,
-                            logHistoryItem: item,
-                            readerMode: item.feedData?.feed?.readerMode ?? false
-                        )
-                    } label: {
-                        Text(item.wrappedTitle)
-                    }
-                    .buttonStyle(ItemButtonStyle(read: item.read))
-                    .font(.headline)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    .accessibility(identifier: "Item Link")
-
-                    if item.published != nil {
-                        Text("\(item.published!, formatter: DateFormatter.mediumShort)")
-                            .font(.caption)
-                            .foregroundColor(Color(.secondaryLabel))
-                    }
+        HStack(alignment: .top) {
+            VStack(alignment: .leading, spacing: 4) {
+                Button {
+                    linkManager.openLink(
+                        url: item.link,
+                        logHistoryItem: item,
+                        readerMode: item.feedData?.feed?.readerMode ?? false
+                    )
+                } label: {
+                    Text(item.wrappedTitle)
                 }
+                .buttonStyle(ItemButtonStyle(read: item.read))
 
-                if item.feedData?.feed?.showThumbnails == true {
-                    thumbnailImage
+                if item.published != nil {
+                    Text("\(item.published!, formatter: DateFormatter.mediumShort)")
+                        .font(.caption)
+                        .foregroundColor(Color(.secondaryLabel))
                 }
             }
-            .frame(maxWidth: .infinity)
+            Spacer()
+            if item.feedData?.feed?.showThumbnails == true {
+                thumbnailImage
+            }
         }
     }
 

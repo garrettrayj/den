@@ -19,6 +19,7 @@
         <attribute name="favicon" optional="YES" attributeType="URI"/>
         <attribute name="faviconFile" optional="YES" attributeType="String"/>
         <attribute name="feedId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="feedTitle" optional="YES" attributeType="String"/>
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
@@ -83,7 +84,7 @@
     </configuration>
     <elements>
         <element name="Feed" positionX="288" positionY="333" width="128" height="185"/>
-        <element name="FeedData" positionX="270" positionY="216" width="128" height="200"/>
+        <element name="FeedData" positionX="270" positionY="216" width="128" height="215"/>
         <element name="History" positionX="270" positionY="315" width="128" height="104"/>
         <element name="Item" positionX="279" positionY="297" width="128" height="245"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>

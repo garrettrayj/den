@@ -40,7 +40,11 @@ final class WorkingItem {
         }
 
         if let title = atomEntry.title {
-            self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
+            self.title = title
+                .replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
+                .replacingOccurrences(of: "\u{202F}", with: " ") // NARROW NO-BREAK SPACE
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .htmlUnescape()
         } else {
             self.title = "Untitled"
         }
@@ -130,7 +134,11 @@ final class WorkingItem {
         }
 
         if let title = rssItem.title {
-            self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
+            self.title = title
+                .replacingOccurrences(of: "\u{00A0}", with: " ")
+                .replacingOccurrences(of: "\u{202F}", with: " ")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .htmlUnescape()
         } else {
             self.title = "Untitled"
         }
@@ -221,7 +229,11 @@ final class WorkingItem {
         }
 
         if let title = jsonItem.title {
-            self.title = title.trimmingCharacters(in: .whitespacesAndNewlines).htmlUnescape()
+            self.title = title
+                .replacingOccurrences(of: "\u{00A0}", with: " ")
+                .replacingOccurrences(of: "\u{202F}", with: " ")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .htmlUnescape()
         } else {
             self.title = "Untitled"
         }
@@ -247,7 +259,10 @@ final class WorkingItem {
         }
 
         if let summary = jsonItem.summary {
-            self.summary = HTMLCleaner.stripTags(summary)?.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.summary = HTMLCleaner.stripTags(summary)?
+                .replacingOccurrences(of: "\u{00A0}", with: " ")
+                .replacingOccurrences(of: "\u{202F}", with: " ")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
 }

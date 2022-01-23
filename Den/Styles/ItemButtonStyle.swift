@@ -13,6 +13,9 @@ struct ItemButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
+            .font(.title3)
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundColor(read ? Color(UIColor.systemPurple) : Color(UIColor.link))
     }
 }

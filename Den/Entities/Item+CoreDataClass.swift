@@ -19,9 +19,8 @@ public class Item: NSManagedObject {
     }
 
     @objc
-    public var feedDataId: String {
-        guard let id = feedData?.id?.uuidString else { return "Unknown" }
-        return id
+    public var feedTitle: String {
+        feedData?.feed?.wrappedTitle ?? "Untitled"
     }
 
     public var wrappedTitle: String {

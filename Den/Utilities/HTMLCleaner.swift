@@ -62,7 +62,10 @@ final class HTMLCleaner {
         }
 
         if let plainSummary = try? doc.text() {
-            summary = plainSummary.trimmingCharacters(in: .whitespacesAndNewlines).truncated(limit: 2000)
+            summary = plainSummary
+                .replacingOccurrences(of: "\u{00A0}", with: " ")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .truncated(limit: 2000)
         }
 
         return (summary, image)

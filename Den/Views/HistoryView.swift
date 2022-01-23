@@ -17,7 +17,9 @@ struct HistoryView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            if historySections.count > 0 {
+            if historySections.isEmpty {
+                StatusBoxView(message: "History is Empty", symbol: "clock")
+            } else {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                         ForEach(historySections) { section in
@@ -25,25 +27,10 @@ struct HistoryView: View {
                                 VStack(spacing: 0) {
                                     ForEach(section) { result in
                                         if result.title != nil && result.link != nil {
-                                            VStack(alignment: .leading, spacing: 2) {
-                                                Button { linkManager.openLink(url: result.link) } label: {
-                                                    Text(result.title!)
-                                                        .font(.title3)
-                                                        .multilineTextAlignment(.leading)
-                                                        .foregroundColor(Color(UIColor.systemPurple))
-                                                }
-                                                Text(result.link!.absoluteString)
-                                                    .font(.caption)
-                                                    .foregroundColor(Color.secondary)
-                                                    .lineLimit(1)
-                                            }
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .padding(.horizontal, 12)
-                                            .padding(.vertical, 8)
-
-                                            if section.last != result {
-                                                Divider()
-                                            }
+                                            historyRow(result)
+                                        }
+                                        if section.last != result {
+                                            Divider()
                                         }
                                     }
                                 }
@@ -59,8 +46,6 @@ struct HistoryView: View {
                     .padding(.top, 8)
                     #endif
                 }
-            } else {
-                StatusBoxView(message: "History is Empty", symbol: "clock")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -80,5 +65,22 @@ struct HistoryView: View {
             sortDescriptors: [NSSortDescriptor(keyPath: \History.visited, ascending: true)],
             predicate: profilePredicate
         )
+    }
+
+    private func historyRow(_ history: History) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Button { linkManager.openLink(url: history.link) } label: {
+                Text(history.title!)
+                    .font(.title3)
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(Color(UIColor.systemPurple))
+            }
+            Text(history.link!.absoluteString)
+                .font(.caption)
+                .foregroundColor(Color.secondary)
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
     }
 }
