@@ -41,9 +41,6 @@ struct ItemPreviewView: View {
                 )
             } label: {
                 Text(item.wrappedTitle)
-                    .font(.title2)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .buttonStyle(ItemButtonStyle(read: item.read))
             .accessibility(identifier: "Item Link")

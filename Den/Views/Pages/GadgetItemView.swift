@@ -16,7 +16,7 @@ struct GadgetItemView: View {
     var feed: Feed
 
     var body: some View {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Button {
                     linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
@@ -24,10 +24,8 @@ struct GadgetItemView: View {
                     Text(item.wrappedTitle)
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
-                .font(.headline)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-                .accessibility(identifier: "Item Link")
 
                 if item.published != nil {
                     Text("\(item.published!, formatter: DateFormatter.mediumShort)")
@@ -48,9 +46,9 @@ struct GadgetItemView: View {
             .resizable()
             .scaledToFill()
             #if targetEnvironment(macCatalyst)
-            .frame(width: 72, height: 48, alignment: .center)
+            .frame(width: 84, height: 56, alignment: .center)
             #else
-            .frame(width: 96, height: 64, alignment: .center)
+            .frame(width: 102, height: 68, alignment: .center)
             #endif
             .background(Color(UIColor.tertiarySystemGroupedBackground))
                 .cornerRadius(4)

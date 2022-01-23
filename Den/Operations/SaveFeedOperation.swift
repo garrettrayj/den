@@ -60,6 +60,9 @@ final class SaveFeedOperation: Operation {
             feed.title = workingFeed?.title
         }
 
+        // Feed title is saved in FeedData for sorting search results
+        feedData.feedTitle = feed.title
+
         if saveMeta == true {
             feedData.favicon = self.workingFeed?.favicon
             feedData.faviconFile = self.workingFeed?.faviconFile

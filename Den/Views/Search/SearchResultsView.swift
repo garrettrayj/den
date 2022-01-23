@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct SearchResultsView: View {
-    @SectionedFetchRequest<String, Item>(sectionIdentifier: \.feedDataId, sortDescriptors: [])
+    @SectionedFetchRequest<String, Item>(sectionIdentifier: \.feedTitle, sortDescriptors: [])
     private var searchResults: SectionedFetchResults<String, Item>
 
     var query: String
@@ -22,42 +22,8 @@ struct SearchResultsView: View {
             } else {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                        HStack(spacing: 0) {
-                            Text("Showing results for “")
-                            Text(query).foregroundColor(.primary)
-                            Text("”")
-                            Spacer()
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 12)
-                        .foregroundColor(.secondary)
-
                         ForEach(searchResults) { section in
-                            Section {
-                                VStack(spacing: 8) {
-                                    ForEach(section) { item in
-                                        if item.feedData?.feed != nil {
-                                            SearchResultView(item: item)
-                                            if item != section.last {
-                                                Divider()
-                                            }
-                                        }
-                                    }
-                                }
-                                .padding(12)
-                                .background(Color(UIColor.secondarySystemGroupedBackground))
-                                .cornerRadius(8)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .strokeBorder(Color(UIColor.secondarySystemGroupedBackground))
-                                )
-                                .padding()
-                            } header: {
-                                FeedTitleLabelView(
-                                    title: section.first?.feedData?.feed?.wrappedTitle ?? "Untitled",
-                                    faviconImage: section.first?.feedData?.faviconImage
-                                ).modifier(PinnedSectionHeaderModifier())
-                            }
+                            resultsSection(section)
                         }
                     }
                     #if targetEnvironment(macCatalyst)
@@ -66,7 +32,24 @@ struct SearchResultsView: View {
                 }
             }
         }
-        .navigationTitle("Search")
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                if !searchResults.isEmpty {
+                    HStack(spacing: 0) {
+                        Text("Results for “")
+                        Text(query).foregroundColor(.primary)
+                        Text("”")
+                    }
+                    #if targetEnvironment(macCatalyst)
+                    .font(.system(size: 11))
+                    #else
+                    .font(.system(size: 13))
+                    #endif
+                    .lineLimit(1)
+                    .foregroundColor(.secondary)
+                }
+            }
+        }
     }
 
     init(query: String, profile: Profile) {
@@ -91,12 +74,40 @@ struct SearchResultsView: View {
 
         _searchResults = SectionedFetchRequest<String, Item>(
             entity: Item.entity(),
-            sectionIdentifier: \.feedDataId,
+            sectionIdentifier: \.feedTitle,
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Item.feedData, ascending: true),
+                NSSortDescriptor(keyPath: \Item.feedData?.feedTitle, ascending: true),
                 NSSortDescriptor(keyPath: \Item.published, ascending: false)
             ],
             predicate: compoundPredicate
         )
+    }
+
+    private func resultsSection(_ section: SectionedFetchResults<String, Item>.Element) -> some View {
+        Section {
+            VStack(spacing: 8) {
+                ForEach(section) { item in
+                    if item.feedData?.feed != nil {
+                        SearchResultView(item: item)
+                        if item != section.last {
+                            Divider()
+                        }
+                    }
+                }
+            }
+            .padding(12)
+            .background(Color(UIColor.secondarySystemGroupedBackground))
+            .cornerRadius(8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color(UIColor.secondarySystemGroupedBackground))
+            )
+            .padding()
+        } header: {
+            FeedTitleLabelView(
+                title: section.first?.feedData?.feed?.wrappedTitle ?? "Untitled",
+                faviconImage: section.first?.feedData?.faviconImage
+            ).modifier(PinnedSectionHeaderModifier())
+        }
     }
 }
