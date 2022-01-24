@@ -28,6 +28,7 @@ struct DenApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(themeManager.colorScheme)
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
                 .environmentObject(cacheManager)
                 .environmentObject(crashManager)
@@ -45,8 +46,6 @@ struct DenApp: App {
                     #endif
 
                     linkManager.hostingWindow = window
-                    themeManager.hostingWindow = window
-                    themeManager.applyUIStyle()
                 }
                 .onOpenURL { url in
                     subscriptionManager.showSubscribe(for: url)
