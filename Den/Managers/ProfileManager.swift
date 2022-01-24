@@ -123,7 +123,7 @@ final class ProfileManager: ObservableObject {
 
     private func createDefaultProfile() -> Profile {
         let profile = Profile.create(in: viewContext)
-        profile.wrappedName = "Default"
+        profile.wrappedName = "Den"
 
         do {
             try viewContext.save()

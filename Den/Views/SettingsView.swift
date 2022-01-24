@@ -43,7 +43,7 @@ struct SettingsView: View {
                     ProfileView(profile: profile)
                 } label: {
                     Label(
-                        profile.wrappedName,
+                        profile.displayName,
                         systemImage: profile == profileManager.activeProfile ? "hexagon.fill" : "hexagon"
                     )
                 }.modifier(FormRowModifier())
@@ -171,7 +171,7 @@ struct SettingsView: View {
 
     private var aboutSection: some View {
         Section(header: Text("About")) {
-            HStack(alignment: .bottom, spacing: 8) {
+            HStack(alignment: .bottom, spacing: 12) {
                 Image(uiImage: UIImage(named: "TitleIcon") ?? UIImage())
                     .resizable()
                     .scaledToFit()

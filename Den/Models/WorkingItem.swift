@@ -28,8 +28,6 @@ final class WorkingItem {
     var summary: String?
     var title: String?
 
-    private var images: [WorkingItemImage] = []
-
     public func ingest(_ atomEntry: AtomFeedEntry) {
         let transform = AtomItemTransform(workingItem: self, entry: atomEntry)
         transform.apply()

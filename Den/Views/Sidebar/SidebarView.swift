@@ -55,6 +55,6 @@ struct SidebarView: View {
                 Label("Settings", systemImage: "gear")
             }.hidden()
         )
-        .navigationTitle("Den")
+        .navigationTitle(viewModel.profile.displayName)
     }
 }

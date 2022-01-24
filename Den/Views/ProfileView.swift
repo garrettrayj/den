@@ -26,17 +26,20 @@ struct ProfileView: View {
             nameSection
             deleteSection
         }
-        .navigationTitle(profile.wrappedName)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     profileManager.activateProfile(profile)
                     dismiss()
                 } label: {
-                    Label("Activate", systemImage: "power.circle")
+                    Label("Activate", systemImage: "power.circle").foregroundColor(Color.green)
                 }
                 .disabled(profile == profileManager.activeProfile)
             }
+        }
+        .navigationTitle("Profile Settings")
+        .onDisappear {
+            NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
         }
     }
 
@@ -54,14 +57,14 @@ struct ProfileView: View {
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {
-                Label("Delete Profile", systemImage: "trash")
+                Label("Delete", systemImage: "trash")
                     .symbolRenderingMode(profile == profileManager.activeProfile ? .monochrome : .multicolor)
             }
             .disabled(profile == profileManager.activeProfile)
             .modifier(FormRowModifier())
         } footer: {
             if profile == profileManager.activeProfile {
-                Text("Active profile cannot be deleted").padding(.vertical, 8)
+                Text("Cannot delete active profile").padding(.vertical, 8)
             }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }
