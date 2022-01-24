@@ -36,7 +36,7 @@ struct SearchResultsView: View {
             ToolbarItem(placement: .bottomBar) {
                 if !searchResults.isEmpty {
                     HStack(spacing: 0) {
-                        Text("Results for “")
+                        Text("Showing results for “")
                         Text(query).foregroundColor(.primary)
                         Text("”")
                     }
@@ -45,7 +45,6 @@ struct SearchResultsView: View {
                     #else
                     .font(.system(size: 13))
                     #endif
-                    .lineLimit(1)
                     .foregroundColor(.secondary)
                 }
             }

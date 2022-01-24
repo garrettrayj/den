@@ -15,6 +15,10 @@ public class Profile: NSManagedObject {
         set { name = newValue }
     }
 
+    public var displayName: String {
+        name == nil || name == "" ? "Untitled" : name!
+    }
+
     public var wrappedHistoryRetention: Int {
         get { Int(historyRetention) }
         set { historyRetention = Int16(newValue) }

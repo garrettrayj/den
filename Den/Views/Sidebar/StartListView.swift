@@ -26,8 +26,7 @@ struct StartListView: View {
             } footer: {
                 Text("or import feeds in settings")
                 #if targetEnvironment(macCatalyst)
-                    .listRowInsets(EdgeInsets(top: 12, leading: 8, bottom: 0, trailing: 0))
-                    .font(.system(size: 13))
+                    .font(.system(size: 13)).padding(.vertical, 12)
                 #endif
             }
             .lineLimit(1)
