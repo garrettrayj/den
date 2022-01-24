@@ -85,7 +85,7 @@ struct SettingsView: View {
         }
         .modifier(SectionHeaderModifier())
         .onChange(of: uiStyle, perform: { _ in
-            themeManager.applyUIStyle()
+            themeManager.objectWillChange.send()
         })
     }
 

@@ -90,7 +90,7 @@ final class SettingsViewModel: ObservableObject {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
 
-        themeManager.applyUIStyle()
+        themeManager.objectWillChange.send()
     }
 
     func resetEverything() {
