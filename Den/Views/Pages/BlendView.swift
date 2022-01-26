@@ -17,7 +17,7 @@ struct BlendView: View {
 
     var body: some View {
         if viewModel.page.limitedItemsArray.isEmpty {
-            StatusBoxView(message: "No Items", symbol: "questionmark.square.dashed")
+            StatusBoxView(message: Text("No Items"), symbol: "questionmark.square.dashed")
         } else {
             #if targetEnvironment(macCatalyst)
             ScrollView(.vertical) {

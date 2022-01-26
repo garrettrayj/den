@@ -85,12 +85,13 @@ struct FeedView: View {
                     Label {
                         Text(viewModel.feed.feedData?.linkDisplayString ?? "")
                     } icon: {
-                        if viewModel.feed.feedData?.faviconImage != nil {
-                            viewModel.feed.feedData!.faviconImage!
-                                .scaleEffect(1 / UIScreen.main.scale)
-                                .frame(width: 16, height: 16, alignment: .center)
-                                .clipped()
-                        }
+                        viewModel.feed.feedData?.faviconImage?
+                            .frame(
+                                width: ImageSize.favicon.width,
+                                height: ImageSize.favicon.height,
+                                alignment: .center
+                            )
+                            .clipped()
                     }
                 }
                 .font(.callout)

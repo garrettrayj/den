@@ -147,14 +147,14 @@ struct SettingsView: View {
     private var dataSection: some View {
         Section(header: Text("Reset")) {
             Button(action: viewModel.clearCache) {
-                Label("Empty Caches", systemImage: "bin.xmark")
+                Label("Empty Cache", systemImage: "bin.xmark")
             }
             .modifier(FormRowModifier())
 
             Button(role: .destructive) {
                 viewModel.showingResetAlert = true
             } label: {
-                Label("Reset", systemImage: "clear").symbolRenderingMode(.multicolor)
+                Label("Reset Everything", systemImage: "clear").symbolRenderingMode(.multicolor)
             }
             .modifier(FormRowModifier())
             .alert("Reset Everything?", isPresented: $viewModel.showingResetAlert, actions: {

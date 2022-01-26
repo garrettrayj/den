@@ -10,6 +10,6 @@ import SwiftUI
 
 struct CrashMessageView: View {
     var body: some View {
-        StatusBoxView(message: "Application Error", symbol: "ladybug")
+        StatusBoxView(message: Text("Application Error"), symbol: "ladybug")
     }
 }

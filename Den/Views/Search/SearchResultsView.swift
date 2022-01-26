@@ -18,7 +18,7 @@ struct SearchResultsView: View {
     var body: some View {
         Group {
             if searchResults.isEmpty {
-                StatusBoxView(message: "No results found for “\(query)”")
+                StatusBoxView(message: Text("No results found for “\(query)”"))
             } else {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {

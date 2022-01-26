@@ -53,7 +53,7 @@ struct SidebarPageView: View {
                 PageView(viewModel: viewModel)
             }, label: {
                 EmptyView()
-            }).opacity(0)
+            })
         )
     }
 }

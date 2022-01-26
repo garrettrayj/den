@@ -36,9 +36,15 @@ struct PageView: View {
     var body: some View {
         Group {
             if viewModel.page.managedObjectContext == nil {
-                StatusBoxView(message: "Page Deleted", symbol: "slash.circle").navigationBarHidden(true)
+                StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle").navigationBarHidden(true)
             } else if viewModel.page.feedsArray.count == 0 {
-                StatusBoxView(message: "Page Empty")
+                StatusBoxView(
+                    message: Text("Page Empty"),
+                    caption: Text("""
+                    Feeds may be added by opening RSS links or entering URLs \
+                    \(Image(systemName: "plus.circle"))
+                    """)
+                )
             } else {
                 if viewMode == PageViewMode.blend.rawValue {
                     BlendView(viewModel: viewModel)

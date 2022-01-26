@@ -18,7 +18,7 @@ struct HistoryView: View {
     var body: some View {
         VStack(spacing: 0) {
             if historySections.isEmpty {
-                StatusBoxView(message: "History is Empty", symbol: "clock")
+                StatusBoxView(message: Text("History is Empty"), symbol: "clock")
             } else {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
