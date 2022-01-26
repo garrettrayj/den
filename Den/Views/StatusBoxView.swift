@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct StatusBoxView: View {
-    var message: String
+    var message: Text
+    var caption: Text?
     var symbol: String?
 
     var body: some View {
@@ -17,12 +18,22 @@ struct StatusBoxView: View {
             if symbol != nil {
                 Image(systemName: symbol!).font(.system(size: 52))
             }
-            Text(message)
+            message.font(.title2)
+            caption.font(.title3)
         }
-        .font(.title2)
         .multilineTextAlignment(.center)
         .foregroundColor(.secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .padding()
+    }
+
+    init(
+        message: Text,
+        caption: Text? = nil,
+        symbol: String? = nil
+    ) {
+        self.message = message
+        self.caption = caption
+        self.symbol = symbol
     }
 }

@@ -32,6 +32,15 @@ See which feeds have insecure URLs and check for HTTPS alternatives to use inste
 
 ## Release Notes
 
+### Den v1.9.0
+
+Version 1.9.0 adds Profiles for switching between page collections. For instance, a user may have a Home profile and a Work profile, each with separate pages, feeds, and history.
+
+- Profile management
+- Search stability and performance fixes
+- Minor design and interface enhancements
+- Various bug fixes and performance improvements
+
 ### Den v1.8.0
 
 Version 1.8.0 adds two new views for browsing feeds. The new showcase view groups items by feed, but unlike gadgets, includes larger pictures and summary text. The new blend view shows all items for a page in chronological order. This release also includes improvements aimed at making feed configuration more flexible. Now, two settings, total items and preview items control how many items are downloaded and shown on a per-feed basis.

@@ -67,5 +67,4 @@ final class LinkManager: ObservableObject {
             crashManager.handleCriticalError(error as NSError)
         }
     }
-
 }

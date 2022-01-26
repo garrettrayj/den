@@ -16,7 +16,7 @@ struct ExportView: View {
     var body: some View {
         VStack {
             if profileManager.activeProfileIsEmpty {
-                StatusBoxView(message: "Profile Empty", symbol: "folder.badge.questionmark")
+                StatusBoxView(message: Text("Profile Empty"), symbol: "folder.badge.questionmark")
             } else {
                 Form {
                     pageListSection
