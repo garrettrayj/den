@@ -34,12 +34,13 @@ See which feeds have insecure URLs and check for HTTPS alternatives to use inste
 
 ### Den v1.9.0
 
-Version 1.9.0 adds Profiles for switching between page collections. For instance, a user may have a Home profile and a Work profile, each with separate pages, feeds, and history.
+Version 1.9.0 adds profiles for managing multiple collections or contexts. For example, it's now possible to have separate configurations for home and work. Each profile has its own pages, feeds, history, and settings.
 
-- Profile management
-- Search stability and performance fixes
-- Minor design and interface enhancements
-- Various bug fixes and performance improvements
+- Profile management features
+- Search stability and performance updates
+- Simplified feed item limit setting
+- Minor design updates
+- Various bug fixes
 
 ### Den v1.8.0
 
