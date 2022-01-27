@@ -129,13 +129,13 @@ struct SettingsView: View {
                 Text("One Week").tag(7 as Int)
             } label: {
                 HStack {
-                    Label("Keep History", systemImage: "clock")
+                    Label("Keep History", systemImage: "clock").lineLimit(1)
                     Spacer()
                 }
             }
 
             Button(action: viewModel.clearHistory) {
-                Label("Clear History", systemImage: "clear")
+                Label("Clear History", systemImage: "clear").lineLimit(1)
             }.modifier(FormRowModifier())
         }
         .modifier(SectionHeaderModifier())
