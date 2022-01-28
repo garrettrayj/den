@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ItemPreviewView: View {
+    @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var linkManager: LinkManager
 
     @ObservedObject var item: Item
@@ -28,7 +29,7 @@ struct ItemPreviewView: View {
                     )
                 }
                 .buttonStyle(FeedTitleButtonStyle())
-                .disabled(feedViewModel!.refreshing)
+                .disabled(refreshManager.isRefreshing)
 
                 Divider()
             }

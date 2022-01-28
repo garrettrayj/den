@@ -9,10 +9,7 @@
 import SwiftUI
 
 struct BlendView: View {
-    #if !targetEnvironment(macCatalyst)
     @EnvironmentObject var refreshManager: RefreshManager
-    #endif
-
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
@@ -41,7 +38,7 @@ struct BlendView: View {
                 ItemPreviewView(
                     item: item,
                     feedViewModel: FeedViewModel(feed: item.feedData!.feed!, refreshing: viewModel.refreshing)
-                ).disabled(viewModel.refreshing)
+                )
             }
         }
         .padding([.horizontal, .bottom])

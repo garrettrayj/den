@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct GadgetView: View {
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var viewModel: FeedViewModel
 
     var body: some View {
@@ -42,7 +43,7 @@ struct GadgetView: View {
                     )
                 }
                 .buttonStyle(FeedTitleButtonStyle())
-                .disabled(viewModel.refreshing)
+                .disabled(refreshManager.isRefreshing)
             }
             Spacer()
             if viewModel.refreshing {

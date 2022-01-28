@@ -38,13 +38,7 @@ struct PageView: View {
             if viewModel.page.managedObjectContext == nil {
                 StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle").navigationBarHidden(true)
             } else if viewModel.page.feedsArray.count == 0 {
-                StatusBoxView(
-                    message: Text("Page Empty"),
-                    caption: Text("""
-                    Feeds may be added by opening RSS links or entering URLs \
-                    \(Image(systemName: "plus.circle"))
-                    """)
-                )
+                StatusBoxView(message: Text("Page Empty"))
             } else {
                 if viewMode == PageViewMode.blend.rawValue {
                     BlendView(viewModel: viewModel)
@@ -118,7 +112,7 @@ struct PageView: View {
                     Button {
                         subscriptionManager.showSubscribe()
                     } label: {
-                        Label("Add Source", systemImage: "plus.circle")
+                        Label("Add Feed", systemImage: "plus.circle")
                     }
 
                     Button {

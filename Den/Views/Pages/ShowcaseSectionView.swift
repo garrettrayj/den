@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ShowcaseSectionView: View {
+    @EnvironmentObject var refreshManager: RefreshManager
     @ObservedObject var viewModel: FeedViewModel
 
     var body: some View {
@@ -40,7 +41,7 @@ struct ShowcaseSectionView: View {
                     )
                 }
                 .buttonStyle(FeedTitleButtonStyle())
-                .disabled(viewModel.refreshing)
+                .disabled(refreshManager.isRefreshing)
             }
             Spacer()
             if viewModel.refreshing {
