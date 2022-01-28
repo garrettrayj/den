@@ -32,8 +32,9 @@ struct ProfileView: View {
                     profileManager.activateProfile(profile)
                     dismiss()
                 } label: {
-                    Label("Activate", systemImage: "power.circle").foregroundColor(Color.green)
+                    Label("Activate", systemImage: "power.circle")
                 }
+                .buttonStyle(ActivateButtonStyle())
                 .disabled(profile == profileManager.activeProfile)
             }
         }
