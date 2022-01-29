@@ -17,15 +17,15 @@ struct NavigationListView: View {
     @ObservedObject var profileViewModel: ProfileViewModel
     @StateObject var searchViewModel: SearchViewModel = SearchViewModel()
 
+    @State var showingSearch: Bool = false
+    @State var showingHistory: Bool = false
+
+    @Binding var showingSettings: Bool
+
     var body: some View {
         List {
-            ForEach(profileViewModel.profile.pagesArray) { page in
-                SidebarPageView(
-                    viewModel: PageViewModel(
-                        page: page,
-                        refreshing: profileViewModel.refreshing
-                    )
-                )
+            ForEach(profileViewModel.pageViewModels) { pageViewModel in
+                SidebarPageView(viewModel: pageViewModel)
             }
             .onMove(perform: profileViewModel.movePage)
             .onDelete(perform: profileViewModel.deletePage)
@@ -38,17 +38,17 @@ struct NavigationListView: View {
         )
         .onSubmit(of: .search) {
             searchViewModel.query = searchViewModel.input
-            profileViewModel.showingSearch = true
+            showingSearch = true
         }
         .background(
             Group {
-                NavigationLink(isActive: $profileViewModel.showingSearch) {
+                NavigationLink(isActive: $showingSearch) {
                     SearchView(viewModel: searchViewModel, profile: profileViewModel.profile)
                 } label: {
                     Text("Search")
                 }
 
-                NavigationLink(isActive: $profileViewModel.showingHistory) {
+                NavigationLink(isActive: $showingHistory) {
                     HistoryView(profile: profileViewModel.profile)
                 } label: {
                     Label("History", systemImage: "clock")
@@ -85,7 +85,7 @@ struct NavigationListView: View {
 
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {
-                    profileViewModel.showingSettings = true
+                    showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
@@ -93,7 +93,7 @@ struct NavigationListView: View {
                 Spacer()
 
                 Button {
-                    profileViewModel.showingHistory = true
+                    showingHistory = true
                 } label: {
                     Label("History", systemImage: "clock")
                 }

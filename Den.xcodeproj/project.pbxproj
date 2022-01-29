@@ -18,7 +18,6 @@
 		6813FCF82746436900EC88A5 /* AxisGeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FCF72746436900EC88A5 /* AxisGeometryReader.swift */; };
 		6813FD0B2748DE1100EC88A5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FD0A2748DE1100EC88A5 /* main.swift */; };
 		681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681E6F122741AD8F00C74590 /* FormRowModifier.swift */; };
-		682C78B327969D1A00004102 /* ToolbarLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682C78B227969D1A00004102 /* ToolbarLabelStyle.swift */; };
 		683041B02754199A00BE7631 /* GroupBlockModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041AF2754199A00BE7631 /* GroupBlockModifier.swift */; };
 		683041B227542E2000BE7631 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B127542E2000BE7631 /* BoardView.swift */; };
 		683041B627543CE900BE7631 /* ShowcaseSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSectionView.swift */; };
@@ -82,6 +81,10 @@
 		6880E1E926B4591900A8E3E8 /* ScreenshotTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880E1E826B4591900A8E3E8 /* ScreenshotTestCase.swift */; };
 		6880E1EB26B4615500A8E3E8 /* screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 689EDC1326A3FE940055811A /* screenshots.sh */; };
 		6880EBC127A469CD00B479F4 /* ActivateButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBC027A469CD00B479F4 /* ActivateButtonStyle.swift */; };
+		6880EBC327A46C2200B479F4 /* BlendItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBC227A46C2200B479F4 /* BlendItemView.swift */; };
+		6880EBC527A58D1300B479F4 /* HoverPointingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBC427A58D1300B479F4 /* HoverPointingModifier.swift */; };
+		6880EBC927A5975C00B479F4 /* ToolbarItemHoverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBC827A5975C00B479F4 /* ToolbarItemHoverModifier.swift */; };
+		6880EBCB27A59DE700B479F4 /* ToolbarLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBCA27A59DE700B479F4 /* ToolbarLabelStyle.swift */; };
 		6885C42226D37259002C41B0 /* FeedTitleLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42126D37259002C41B0 /* FeedTitleLabelView.swift */; };
 		6885C42426D4CBB4002C41B0 /* SecurityCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42326D4CBB4002C41B0 /* SecurityCheckViewModel.swift */; };
 		6885C42626D4D385002C41B0 /* FeedCheckOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42526D4D385002C41B0 /* FeedCheckOperation.swift */; };
@@ -202,7 +205,6 @@
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681E6F122741AD8F00C74590 /* FormRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRowModifier.swift; sourceTree = "<group>"; };
-		682C78B227969D1A00004102 /* ToolbarLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarLabelStyle.swift; sourceTree = "<group>"; };
 		683041AF2754199A00BE7631 /* GroupBlockModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBlockModifier.swift; sourceTree = "<group>"; };
 		683041B127542E2000BE7631 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		683041B527543CE900BE7631 /* ShowcaseSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSectionView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,10 @@
 		6880E1E626B450B900A8E3E8 /* MacScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacScreenshots.swift; sourceTree = "<group>"; };
 		6880E1E826B4591900A8E3E8 /* ScreenshotTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTestCase.swift; sourceTree = "<group>"; };
 		6880EBC027A469CD00B479F4 /* ActivateButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateButtonStyle.swift; sourceTree = "<group>"; };
+		6880EBC227A46C2200B479F4 /* BlendItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendItemView.swift; sourceTree = "<group>"; };
+		6880EBC427A58D1300B479F4 /* HoverPointingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverPointingModifier.swift; sourceTree = "<group>"; };
+		6880EBC827A5975C00B479F4 /* ToolbarItemHoverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarItemHoverModifier.swift; sourceTree = "<group>"; };
+		6880EBCA27A59DE700B479F4 /* ToolbarLabelStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarLabelStyle.swift; sourceTree = "<group>"; };
 		6885C42126D37259002C41B0 /* FeedTitleLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleLabelView.swift; sourceTree = "<group>"; };
 		6885C42326D4CBB4002C41B0 /* SecurityCheckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCheckViewModel.swift; sourceTree = "<group>"; };
 		6885C42526D4D385002C41B0 /* FeedCheckOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCheckOperation.swift; sourceTree = "<group>"; };
@@ -485,6 +491,8 @@
 				6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */,
 				683041AF2754199A00BE7631 /* GroupBlockModifier.swift */,
 				68FC255E275DFFCC0073979F /* StartRowModifier.swift */,
+				6880EBC427A58D1300B479F4 /* HoverPointingModifier.swift */,
+				6880EBC827A5975C00B479F4 /* ToolbarItemHoverModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -516,7 +524,7 @@
 				6808F4432737B31E00AEEDAC /* IconProgressStyle.swift */,
 				68FC25702764B1150073979F /* RingProgressStyle.swift */,
 				68701DF0273E471F00C6BB69 /* ToolbarProgressStyle.swift */,
-				682C78B227969D1A00004102 /* ToolbarLabelStyle.swift */,
+				6880EBCA27A59DE700B479F4 /* ToolbarLabelStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -767,6 +775,7 @@
 				68FC255C275C172F0073979F /* ShowcaseView.swift */,
 				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
 				68FC255A275C16F20073979F /* BlendView.swift */,
+				6880EBC227A46C2200B479F4 /* BlendItemView.swift */,
 				688FD917247750350006A2DE /* PageSettingsView.swift */,
 			);
 			path = Pages;
@@ -1021,6 +1030,7 @@
 				68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */,
 				6845BD5024F6A4080008B296 /* SaveFeedOperation.swift in Sources */,
 				6885C42226D37259002C41B0 /* FeedTitleLabelView.swift in Sources */,
+				6880EBC927A5975C00B479F4 /* ToolbarItemHoverModifier.swift in Sources */,
 				684DFA0524BC39EB0023D6DB /* RefreshableScrollView.swift in Sources */,
 				68915AFC2618CF6D00E4C0CB /* WorkingItem.swift in Sources */,
 				6813FCF82746436900EC88A5 /* AxisGeometryReader.swift in Sources */,
@@ -1030,6 +1040,7 @@
 				689C736226E569D1009AAD2F /* SubscribeViewModel.swift in Sources */,
 				687F488E2690819F00EA2498 /* View+Extensions.swift in Sources */,
 				683041BA27543E9800BE7631 /* PageViewModel.swift in Sources */,
+				6880EBC327A46C2200B479F4 /* BlendItemView.swift in Sources */,
 				68E9BDC3279D4E3E003BA111 /* JSONItemTransform.swift in Sources */,
 				6845BD0624EDCB9C0008B296 /* ImportViewModel.swift in Sources */,
 				6885C42626D4D385002C41B0 /* FeedCheckOperation.swift in Sources */,
@@ -1070,7 +1081,6 @@
 				6832AF2C278B889300CFC8CA /* StatusBoxView.swift in Sources */,
 				68E9BDBD279D096A003BA111 /* AtomItemTransform.swift in Sources */,
 				68E9BDB1279A32EC003BA111 /* SearchViewModel.swift in Sources */,
-				682C78B327969D1A00004102 /* ToolbarLabelStyle.swift in Sources */,
 				6832AF2A278AAB5A00CFC8CA /* SettingsViewModel.swift in Sources */,
 				6885C42A26D77F77002C41B0 /* UIImage+Extensions.swift in Sources */,
 				68E9BDB3279CFED7003BA111 /* WorkingItemImage.swift in Sources */,
@@ -1119,6 +1129,7 @@
 				68FC2559275C16CB0073979F /* GadgetsView.swift in Sources */,
 				6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */,
 				68C41310247263C700D1DC7B /* Den.xcdatamodeld in Sources */,
+				6880EBC527A58D1300B479F4 /* HoverPointingModifier.swift in Sources */,
 				68701E03273E76D800C6BB69 /* ThemeManager.swift in Sources */,
 				6885C42426D4CBB4002C41B0 /* SecurityCheckViewModel.swift in Sources */,
 				683041B227542E2000BE7631 /* BoardView.swift in Sources */,
@@ -1130,6 +1141,7 @@
 				68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
 				6809EFDB24DF27E8007B5CF1 /* CacheManager.swift in Sources */,
+				6880EBCB27A59DE700B479F4 /* ToolbarLabelStyle.swift in Sources */,
 				689EDC02269BD6C80055811A /* RefreshPlan.swift in Sources */,
 				684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */,
 				68FC255F275DFFCC0073979F /* StartRowModifier.swift in Sources */,

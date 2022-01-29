@@ -39,17 +39,20 @@ struct GadgetItemView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .padding(.horizontal)
     }
 
     private var thumbnailImage: some View {
         item.thumbnailImage?
-            .imageScale(.small)
             .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
+            .clipped()
             .background(Color(UIColor.tertiarySystemGroupedBackground))
                 .cornerRadius(4)
             .overlay(
                 RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
             )
             .accessibility(label: Text("Thumbnail Image"))
+            .padding(.top, 4)
     }
 }

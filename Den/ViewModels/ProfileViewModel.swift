@@ -14,10 +14,12 @@ import SwiftUI
 final class ProfileViewModel: ObservableObject {
     @Published var profile: Profile
     @Published var refreshing: Bool = false
-    @Published var searchQuery: String = ""
-    @Published var showingSearch: Bool = false
-    @Published var showingHistory: Bool = false
-    @Published var showingSettings: Bool = false
+
+    var pageViewModels: [PageViewModel] {
+        profile.pagesArray.compactMap { page in
+            PageViewModel(page: page, refreshing: refreshing)
+        }
+    }
 
     var searchFetchRequest: SectionedFetchRequest<String, Item>?
     var queuedSubscriber: AnyCancellable?

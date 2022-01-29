@@ -17,5 +17,6 @@ struct ItemButtonStyle: ButtonStyle {
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundColor(read ? Color(UIColor.systemPurple) : Color(UIColor.link))
+            .modifier(HoverPointingModifier())
     }
 }
