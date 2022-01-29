@@ -35,9 +35,11 @@ struct BlendView: View {
     var blendDisplay: some View {
         BoardView(list: viewModel.page.limitedItemsArray) { item in
             if item.feedData?.feed != nil {
-                ItemPreviewView(
+                BlendItemView(
                     item: item,
-                    feedViewModel: FeedViewModel(feed: item.feedData!.feed!, refreshing: viewModel.refreshing)
+                    feedViewModel: viewModel.feedViewModels.first(where: { feedViewModel in
+                        feedViewModel.feed == item.feedData?.feed
+                    })
                 )
             }
         }

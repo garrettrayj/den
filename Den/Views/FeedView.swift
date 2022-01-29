@@ -107,7 +107,9 @@ struct FeedView: View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
             Section(header: feedHeader.modifier(PinnedSectionHeaderModifier())) {
                 BoardView(list: viewModel.feed.feedData!.itemsArray, content: { item in
-                    ItemPreviewView(item: item, summaryLines: 12)
+                    ItemPreviewView(item: item)
+                        .padding(.top)
+                        .modifier(GroupBlockModifier())
                 }).padding()
             }
         }

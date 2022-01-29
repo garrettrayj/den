@@ -22,6 +22,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 .foregroundColor(
                     isEnabled ? Color.primary : Color.secondary
                 )
+                .modifier(HoverPointingModifier())
         }
     }
 }

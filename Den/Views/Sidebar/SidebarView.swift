@@ -21,6 +21,8 @@ struct SidebarView: View {
 
     @ObservedObject var viewModel: ProfileViewModel
 
+    @State var showingSettings: Bool = false
+
     /**
      Switch refreshable() on and off depending on environment and page count.
      
@@ -30,19 +32,19 @@ struct SidebarView: View {
      */
     var body: some View {
         Group {
-            if viewModel.profile.pagesArray.count > 0 {
-                NavigationListView(profileViewModel: viewModel)
+            if viewModel.profile.pagesArray.isEmpty {
+                StartListView(viewModel: viewModel, showingSettings: $showingSettings)
+            } else {
+                NavigationListView(profileViewModel: viewModel, showingSettings: $showingSettings)
                 #if !targetEnvironment(macCatalyst)
                 .refreshable {
                     refreshManager.refresh(profile: viewModel.profile)
                 }
                 #endif
-            } else {
-                StartListView(viewModel: viewModel)
             }
         }
         .background(
-            NavigationLink(isActive: $viewModel.showingSettings) {
+            NavigationLink(isActive: $showingSettings) {
                 SettingsView(viewModel: SettingsViewModel(
                     viewContext: viewContext,
                     crashManager: crashManager,

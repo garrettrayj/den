@@ -13,6 +13,12 @@ class PageViewModel: ObservableObject {
     @Published var page: Page
     @Published var refreshing: Bool
 
+    var feedViewModels: [FeedViewModel] {
+        page.feedsArray.compactMap { feed in
+            FeedViewModel(feed: feed, refreshing: refreshing)
+        }
+    }
+
     var queuedSubscriber: AnyCancellable?
     var refreshedSubscriber: AnyCancellable?
 
@@ -40,6 +46,12 @@ class PageViewModel: ObservableObject {
 }
 
 extension PageViewModel: Identifiable {
+    var id: Page {
+        page
+    }
+}
+
+extension PageViewModel: Equatable {
     static func == (lhs: PageViewModel, rhs: PageViewModel) -> Bool {
         lhs.page == rhs.page
     }

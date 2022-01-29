@@ -17,7 +17,7 @@ struct ActivateButtonStyle: ButtonStyle {
         let configuration: ButtonStyle.Configuration
 
         @Environment(\.isEnabled) private var isEnabled: Bool
-        
+
         var body: some View {
             configuration.label
                 .foregroundColor(

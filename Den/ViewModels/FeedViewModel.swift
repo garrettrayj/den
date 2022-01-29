@@ -15,7 +15,6 @@ final class FeedViewModel: ObservableObject {
 
     var queuedSubscriber: AnyCancellable?
     var refreshedSubscriber: AnyCancellable?
-    var pageRefreshedSubscriber: AnyCancellable?
 
     init(feed: Feed, refreshing: Bool) {
         self.feed = feed
@@ -32,22 +31,21 @@ final class FeedViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { _ in false }
             .assign(to: \.refreshing, on: self)
-
-        self.pageRefreshedSubscriber = NotificationCenter.default
-            .publisher(for: .pageRefreshed, object: feed.page?.objectID)
-            .receive(on: RunLoop.main)
-            .map { _ in false }
-            .assign(to: \.refreshing, on: self)
     }
 
     deinit {
         queuedSubscriber?.cancel()
         refreshedSubscriber?.cancel()
-        pageRefreshedSubscriber?.cancel()
     }
 }
 
 extension FeedViewModel: Identifiable {
+    var id: Feed {
+        feed
+    }
+}
+
+extension FeedViewModel: Equatable {
     static func == (lhs: FeedViewModel, rhs: FeedViewModel) -> Bool {
         lhs.feed == rhs.feed
     }

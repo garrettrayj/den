@@ -13,20 +13,16 @@ struct GadgetView: View {
     @ObservedObject var viewModel: FeedViewModel
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             header
 
-            VStack(alignment: .leading, spacing: 12) {
-                if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
-                    items
-                } else {
-                    Divider()
-                    FeedUnavailableView(feedData: viewModel.feed.feedData)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                }
+            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+                items
+            } else {
+                Divider()
+                FeedUnavailableView(feedData: viewModel.feed.feedData)
+                    .padding()
             }
-            .padding([.horizontal, .bottom], 12)
         }
         .modifier(GroupBlockModifier())
     }
@@ -50,8 +46,8 @@ struct GadgetView: View {
                 ProgressView().progressViewStyle(IconProgressStyle())
             }
         }
+        .frame(height: 32, alignment: .leading)
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
     }
 
     private var items: some View {

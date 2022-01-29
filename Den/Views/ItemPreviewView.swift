@@ -9,31 +9,11 @@
 import SwiftUI
 
 struct ItemPreviewView: View {
-    @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var linkManager: LinkManager
-
     @ObservedObject var item: Item
-
-    var feedViewModel: FeedViewModel?
-    var summaryLines: Int = 4
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if feedViewModel != nil {
-                NavigationLink {
-                    FeedView(viewModel: feedViewModel!)
-                } label: {
-                    FeedTitleLabelView(
-                        title: feedViewModel!.feed.wrappedTitle,
-                        faviconImage: feedViewModel!.feed.feedData?.faviconImage
-                    )
-                }
-                .buttonStyle(FeedTitleButtonStyle())
-                .disabled(refreshManager.isRefreshing)
-
-                Divider()
-            }
-
             Button {
                 linkManager.openLink(
                     url: item.link,
@@ -52,8 +32,8 @@ struct ItemPreviewView: View {
                     .foregroundColor(Color(.secondaryLabel))
             }
 
-            if item.feedData?.feed?.showThumbnails == true && item.previewUIImage != nil {
-                Image(uiImage: item.previewUIImage!)
+            if item.feedData?.feed?.showThumbnails == true {
+                item.previewImage?
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: CGFloat(item.imageWidth), maxHeight: CGFloat(item.imageHeight))
@@ -69,11 +49,7 @@ struct ItemPreviewView: View {
             if item.summary != nil && item.summary != "" {
                 Text(item.summary!).lineLimit(6)
             }
-
-            Spacer()
         }
-        .padding(.top, feedViewModel != nil ? 8 : 12)
-        .padding([.horizontal], 12)
-        .modifier(GroupBlockModifier())
+        .padding([.horizontal, .bottom])
     }
 }
