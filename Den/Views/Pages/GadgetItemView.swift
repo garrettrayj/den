@@ -21,15 +21,18 @@ struct GadgetItemView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.wrappedTitle)
+
                     if item.published != nil {
                         Text("\(item.published!, formatter: DateFormatter.mediumShort)")
                             .font(.caption)
                             .foregroundColor(Color(.secondaryLabel))
+                            .lineLimit(1)
                     }
-                }.multilineTextAlignment(.leading)
+                }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .multilineTextAlignment(.leading)
 
-                if feed.showThumbnails == true && item.thumbnailImage != nil {
-                    Spacer()
+                if feed.showThumbnails == true {
                     item.thumbnailImage?
                         .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
                         .clipped()
@@ -42,13 +45,10 @@ struct GadgetItemView: View {
                         .padding(.top, 4)
                 }
             }
-            .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
             .padding(.horizontal)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
         .fixedSize(horizontal: false, vertical: true)
-        .frame(maxWidth: .infinity, alignment: .topLeading)
-
     }
 }
