@@ -59,15 +59,13 @@ struct NavigationListView: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 if editMode?.wrappedValue == EditMode.active {
                     Button(action: profileViewModel.createPage) {
-                        Label("New Page", systemImage: "plus").labelStyle(ToolbarLabelStyle())
-                    }
+                        Label("New Page", systemImage: "plus")
+                    }.buttonStyle(ToolbarButtonStyle())
                 }
 
                 EditButton()
+                    .buttonStyle(ToolbarButtonStyle())
                     .disabled(refreshManager.isRefreshing)
-                    #if targetEnvironment(macCatalyst)
-                    .padding(.horizontal, 4)
-                    #endif
 
                 if editMode?.wrappedValue == .inactive {
                     if refreshManager.isRefreshing {
@@ -76,8 +74,9 @@ struct NavigationListView: View {
                         Button {
                             refreshManager.refresh(profile: profileViewModel.profile)
                         } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise").labelStyle(ToolbarLabelStyle())
+                            Label("Refresh", systemImage: "arrow.clockwise")
                         }
+                        .buttonStyle(ToolbarButtonStyle())
                         .keyboardShortcut("r", modifiers: [.command, .shift])
                     }
                 }
@@ -88,7 +87,7 @@ struct NavigationListView: View {
                     showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
-                }
+                }.buttonStyle(ToolbarButtonStyle())
 
                 Spacer()
 
@@ -96,7 +95,7 @@ struct NavigationListView: View {
                     showingHistory = true
                 } label: {
                     Label("History", systemImage: "clock")
-                }
+                }.buttonStyle(ToolbarButtonStyle())
             }
         }
     }

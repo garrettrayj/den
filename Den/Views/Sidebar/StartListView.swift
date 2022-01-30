@@ -41,7 +41,7 @@ struct StartListView: View {
                     showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
-                }
+                }.buttonStyle(ToolbarButtonStyle())
             }
         }
     }

@@ -73,38 +73,40 @@ struct PageView: View {
                     Label("Blend", systemImage: "square.text.square")
                         .tag(PageViewMode.blend.rawValue)
                 }
-                .pickerStyle(.segmented)
-                .imageScale(.small)
+                .pickerStyle(.inline)
                 .padding(.horizontal, 8)
             }
             ToolbarItem {
                 Button {
                     subscriptionManager.showSubscribe()
                 } label: {
-                    Label("Add Source", systemImage: "plus.circle").labelStyle(ToolbarLabelStyle())
+                    Label("Add Source", systemImage: "plus.circle")
                 }
+                .buttonStyle(ToolbarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
             }
             ToolbarItem {
                 Button {
                     showingSettings = true
                 } label: {
-                    Label("Page Settings", systemImage: "wrench").labelStyle(ToolbarLabelStyle())
+                    Label("Page Settings", systemImage: "wrench")
                 }
+                .buttonStyle(ToolbarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
             }
             ToolbarItem {
-                Button {
-                    refreshManager.refresh(page: viewModel.page)
-                } label: {
-                    if viewModel.refreshing {
-                        ProgressView().progressViewStyle(ToolbarProgressStyle())
-                    } else {
-                        Label("Refresh", systemImage: "arrow.clockwise").labelStyle(ToolbarLabelStyle())
+                if viewModel.refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        refreshManager.refresh(page: viewModel.page)
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
                     }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .disabled(refreshManager.isRefreshing)
+                    .keyboardShortcut("r", modifiers: [.command])
                 }
-                .disabled(refreshManager.isRefreshing)
-                .keyboardShortcut("r", modifiers: [.command])
             }
             #else
             ToolbarItem {

@@ -18,7 +18,7 @@ struct ShowcaseSectionView: View {
                 BoardView(
                     list: viewModel.feed.feedData?.limitedItemsArray ?? [],
                     content: { item in
-                        ItemPreviewView(item: item).padding(.top).modifier(GroupBlockModifier())
+                        ItemPreviewView(item: item).modifier(GroupBlockModifier())
                     }
                 ).padding()
             } else {
@@ -40,7 +40,7 @@ struct ShowcaseSectionView: View {
                         faviconImage: viewModel.feed.feedData?.faviconImage
                     )
                 }
-                .buttonStyle(FeedTitleButtonStyle())
+                .buttonStyle(FeedTitleButtonStyle(backgroundColor: Color.clear))
                 .disabled(refreshManager.isRefreshing)
             }
             Spacer()

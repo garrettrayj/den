@@ -12,47 +12,43 @@ struct GadgetItemView: View {
     @EnvironmentObject var linkManager: LinkManager
 
     @ObservedObject var item: Item
-
-    var feed: Feed
+    @ObservedObject var feed: Feed
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-                Button {
-                    linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
-                } label: {
+        Button {
+            linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
+        } label: {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
                     Text(item.wrappedTitle)
-                }
-                .buttonStyle(ItemButtonStyle(read: item.read))
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
+                    if item.published != nil {
+                        Text("\(item.published!, formatter: DateFormatter.mediumShort)")
+                            .font(.caption)
+                            .foregroundColor(Color(.secondaryLabel))
+                    }
+                }.multilineTextAlignment(.leading)
 
-                if item.published != nil {
-                    Text("\(item.published!, formatter: DateFormatter.mediumShort)")
-                        .font(.caption)
-                        .foregroundColor(Color(.secondaryLabel))
+                if feed.showThumbnails == true && item.thumbnailImage != nil {
+                    Spacer()
+                    item.thumbnailImage?
+                        .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
+                        .clipped()
+                        .background(Color(UIColor.tertiarySystemGroupedBackground))
+                            .cornerRadius(4)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+                        )
+                        .accessibility(label: Text("Thumbnail Image"))
+                        .padding(.top, 4)
                 }
             }
-
-            if feed.showThumbnails == true {
-                thumbnailImage
-            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 12)
-        .padding(.horizontal)
-    }
+        .buttonStyle(ItemButtonStyle(read: item.read))
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
 
-    private var thumbnailImage: some View {
-        item.thumbnailImage?
-            .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
-            .clipped()
-            .background(Color(UIColor.tertiarySystemGroupedBackground))
-                .cornerRadius(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-            )
-            .accessibility(label: Text("Thumbnail Image"))
-            .padding(.top, 4)
     }
 }
