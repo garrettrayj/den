@@ -42,7 +42,6 @@ struct GadgetItemView: View {
                             RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
                         .accessibility(label: Text("Thumbnail Image"))
-                        .padding(.top, 4)
                 }
             }
             .padding(.vertical, 12)

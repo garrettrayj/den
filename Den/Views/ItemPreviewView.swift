@@ -44,7 +44,11 @@ struct ItemPreviewView: View {
                 }
 
                 if item.summary != nil && item.summary != "" {
-                    Text(item.summary!).font(.body).foregroundColor(.primary).lineLimit(6)
+                    Text(item.summary!)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .lineLimit(6)
+                        .padding(.top, 2)
                 }
             }
             .padding(.top, 12)

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedTitleButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
+    @State private var hovering: Bool = false
 
     var backgroundColor: Color = Color(UIColor.secondarySystemGroupedBackground)
 
@@ -20,6 +21,9 @@ struct FeedTitleButtonStyle: ButtonStyle {
             )
             .frame(height: 32)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(backgroundColor)
+            .background(hovering ? Color(UIColor.quaternarySystemFill) : backgroundColor)
+            .onHover { hovered in
+                hovering = hovered
+            }
     }
 }

@@ -41,7 +41,6 @@ struct DenApp: App {
                     #if targetEnvironment(macCatalyst)
                     if let titlebar = window?.windowScene?.titlebar {
                         titlebar.titleVisibility = .hidden
-                        titlebar.toolbar = nil
                     }
                     #endif
 
