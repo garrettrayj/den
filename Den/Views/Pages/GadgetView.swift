@@ -12,7 +12,7 @@ struct GadgetView: View {
     @EnvironmentObject var refreshManager: RefreshManager
     @EnvironmentObject var linkManager: LinkManager
     @ObservedObject var viewModel: FeedViewModel
-    
+
     var feedData: FeedData? {
         viewModel.feed.feedData
     }
