@@ -9,20 +9,17 @@
 import SwiftUI
 
 struct FeedTitleButtonStyle: ButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
+    var backgroundColor: Color = Color(UIColor.secondarySystemGroupedBackground)
+
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        FeedTitleButton(configuration: configuration)
-    }
-
-    private struct FeedTitleButton: View {
-        let configuration: ButtonStyle.Configuration
-
-        @Environment(\.isEnabled) private var isEnabled: Bool
-        var body: some View {
-            configuration.label
-                .foregroundColor(
-                    isEnabled ? Color.primary : Color.secondary
-                )
-                .modifier(HoverPointingModifier())
-        }
+        configuration.label
+            .foregroundColor(
+                isEnabled ? .primary : .secondary
+            )
+            .frame(height: 32)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(backgroundColor)
     }
 }

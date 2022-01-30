@@ -13,12 +13,15 @@ import SwiftUI
  */
 struct ToolbarProgressStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
-        let view = ProgressView(configuration).progressViewStyle(CircularProgressViewStyle())
+        ProgressView(configuration).progressViewStyle(CircularProgressViewStyle())
 
         #if targetEnvironment(macCatalyst)
-        return view.scaleEffect(0.6).frame(width: 17, alignment: .trailing).padding(.leading, 8)
+            .scaleEffect(0.6)
+            .frame(width: 17, alignment: .trailing)
+            .padding(.horizontal, 6)
         #else
-        return view.scaleEffect(1.25).frame(width: 23, alignment: .trailing)
+            .scaleEffect(1.25)
+            .frame(width: 23, alignment: .trailing)
         #endif
     }
 }

@@ -10,18 +10,22 @@ import SwiftUI
 
 struct GadgetView: View {
     @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject var linkManager: LinkManager
     @ObservedObject var viewModel: FeedViewModel
+    
+    var feedData: FeedData? {
+        viewModel.feed.feedData
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
 
-            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+            if feedData != nil && !feedData!.itemsArray.isEmpty {
                 items
             } else {
                 Divider()
-                FeedUnavailableView(feedData: viewModel.feed.feedData)
-                    .padding()
+                FeedUnavailableView(feedData: feedData).padding()
             }
         }
         .modifier(GroupBlockModifier())
@@ -29,29 +33,34 @@ struct GadgetView: View {
 
     private var header: some View {
         HStack {
-            if viewModel.feed.id != nil {
-                NavigationLink {
-                    FeedView(viewModel: viewModel)
-                } label: {
+            if viewModel.refreshing {
+                HStack {
                     FeedTitleLabelView(
                         title: viewModel.feed.wrappedTitle,
                         faviconImage: viewModel.feed.feedData?.faviconImage
                     )
+                    Spacer()
+                    ProgressView().progressViewStyle(IconProgressStyle())
+                }.padding(.horizontal, 12)
+            } else {
+                if viewModel.feed.id != nil {
+                    NavigationLink {
+                        FeedView(viewModel: viewModel)
+                    } label: {
+                        FeedTitleLabelView(
+                            title: viewModel.feed.wrappedTitle,
+                            faviconImage: feedData?.faviconImage
+                        ).padding(.horizontal, 12)
+                    }
+                    .buttonStyle(FeedTitleButtonStyle())
+                    .disabled(refreshManager.isRefreshing)
                 }
-                .buttonStyle(FeedTitleButtonStyle())
-                .disabled(refreshManager.isRefreshing)
             }
-            Spacer()
-            if viewModel.refreshing {
-                ProgressView().progressViewStyle(IconProgressStyle())
-            }
-        }
-        .frame(height: 32, alignment: .leading)
-        .padding(.horizontal, 12)
+        }.frame(height: 32, alignment: .leading)
     }
 
     private var items: some View {
-        ForEach(viewModel.feed.feedData!.limitedItemsArray) { item in
+        ForEach(feedData!.limitedItemsArray) { item in
             Divider()
             GadgetItemView(
                 item: item,

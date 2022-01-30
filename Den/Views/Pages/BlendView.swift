@@ -44,8 +44,6 @@ struct BlendView: View {
             }
         }
         .padding([.horizontal, .bottom])
-        #if targetEnvironment(macCatalyst)
         .padding(.top, 8)
-        #endif
     }
 }

@@ -25,16 +25,15 @@ struct BlendItemView: View {
                     FeedTitleLabelView(
                         title: feedViewModel!.feed.wrappedTitle,
                         faviconImage: feedViewModel!.feed.feedData?.faviconImage
-                    )
+                    ).padding(.horizontal, 12)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
                 .disabled(refreshManager.isRefreshing)
                 .frame(height: 32, alignment: .leading)
-                .padding(.horizontal, 12)
 
                 Divider()
 
-                ItemPreviewView(item: item).padding(.top, 12)
+                ItemPreviewView(item: item)
             }
             .modifier(GroupBlockModifier())
         }

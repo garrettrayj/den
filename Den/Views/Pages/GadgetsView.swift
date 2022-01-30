@@ -36,8 +36,6 @@ struct GadgetsView: View {
             GadgetView(viewModel: feedViewModel)
         })
         .padding([.horizontal, .bottom])
-        #if targetEnvironment(macCatalyst)
         .padding(.top, 8)
-        #endif
     }
 }
