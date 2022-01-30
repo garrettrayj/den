@@ -38,7 +38,10 @@ struct HistoryView: View {
                                 .cornerRadius(8)
                                 .padding()
                             } header: {
-                                Text(section.id).font(.subheadline).modifier(PinnedSectionHeaderModifier())
+                                Text(section.id)
+                                    .font(.subheadline)
+                                    .padding(.horizontal, 28)
+                                    .modifier(PinnedSectionHeaderModifier())
                             }
                         }
                     }

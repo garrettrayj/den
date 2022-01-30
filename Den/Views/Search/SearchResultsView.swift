@@ -84,7 +84,7 @@ struct SearchResultsView: View {
 
     private func resultsSection(_ section: SectionedFetchResults<String, Item>.Element) -> some View {
         Section {
-            VStack(spacing: 8) {
+            VStack(spacing: 0) {
                 ForEach(section) { item in
                     if item.feedData?.feed != nil {
                         SearchResultView(item: item)
@@ -94,19 +94,16 @@ struct SearchResultsView: View {
                     }
                 }
             }
-            .padding(12)
             .background(Color(UIColor.secondarySystemGroupedBackground))
             .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .strokeBorder(Color(UIColor.secondarySystemGroupedBackground))
-            )
             .padding()
         } header: {
             FeedTitleLabelView(
                 title: section.first?.feedData?.feed?.wrappedTitle ?? "Untitled",
                 faviconImage: section.first?.feedData?.faviconImage
-            ).modifier(PinnedSectionHeaderModifier())
+            )
+            .padding(.horizontal, 28)
+            .modifier(PinnedSectionHeaderModifier())
         }
     }
 }

@@ -16,9 +16,13 @@ struct FeedView: View {
 
     @State var showingSettings: Bool = false
 
+    var feedData: FeedData? {
+        viewModel.feed.feedData
+    }
+
     var body: some View {
         Group {
-            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+            if feedData != nil && feedData!.itemsArray.count > 0 {
                 #if targetEnvironment(macCatalyst)
                 ScrollView(.vertical) { feedContent }
                 #else
@@ -31,7 +35,7 @@ struct FeedView: View {
                 )
                 #endif
             } else {
-                FeedUnavailableView(feedData: viewModel.feed.feedData)
+                FeedUnavailableView(feedData: feedData)
                     .font(.title2)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -80,14 +84,14 @@ struct FeedView: View {
 
     private var feedHeader: some View {
         HStack {
-            if viewModel.feed.feedData?.linkDisplayString != nil {
+            if feedData?.linkDisplayString != nil {
                 Button {
-                    linkManager.openLink(url: viewModel.feed.feedData?.link)
+                    linkManager.openLink(url: feedData?.link)
                 } label: {
                     Label {
-                        Text(viewModel.feed.feedData?.linkDisplayString ?? "")
+                        Text(feedData?.linkDisplayString ?? "")
                     } icon: {
-                        viewModel.feed.feedData?.faviconImage?
+                        feedData?.faviconImage?
                             .frame(
                                 width: ImageSize.favicon.width,
                                 height: ImageSize.favicon.height,
@@ -95,12 +99,19 @@ struct FeedView: View {
                             )
                             .clipped()
                     }
+                    .padding(.leading, 28)
+                    .padding(.trailing, 8)
                 }
+                .buttonStyle(
+                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
+                )
                 .font(.callout)
                 .foregroundColor(Color.primary)
             }
             Spacer()
             FeedRefreshedLabelView(refreshed: viewModel.feed.refreshed)
+                .padding(.leading, 8)
+                .padding(.trailing, 28)
         }
         .lineLimit(1)
     }
@@ -108,9 +119,8 @@ struct FeedView: View {
     private var feedContent: some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
             Section(header: feedHeader.modifier(PinnedSectionHeaderModifier())) {
-                BoardView(list: viewModel.feed.feedData!.itemsArray, content: { item in
+                BoardView(list: feedData!.itemsArray, content: { item in
                     ItemPreviewView(item: item)
-                        .padding(.top)
                         .modifier(GroupBlockModifier())
                 }).padding()
             }

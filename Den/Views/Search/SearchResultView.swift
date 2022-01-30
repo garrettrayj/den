@@ -14,30 +14,33 @@ struct SearchResultView: View {
     var item: Item
 
     var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 4) {
-                Button {
-                    linkManager.openLink(
-                        url: item.link,
-                        logHistoryItem: item,
-                        readerMode: item.feedData?.feed?.readerMode ?? false
-                    )
-                } label: {
+        Button {
+            linkManager.openLink(
+                url: item.link,
+                logHistoryItem: item,
+                readerMode: item.feedData?.feed?.readerMode ?? false
+            )
+        } label: {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
                     Text(item.wrappedTitle)
-                }
-                .buttonStyle(ItemButtonStyle(read: item.read))
 
-                if item.published != nil {
-                    Text("\(item.published!, formatter: DateFormatter.mediumShort)")
-                        .font(.caption)
-                        .foregroundColor(Color(.secondaryLabel))
+                    if item.published != nil {
+                        Text("\(item.published!, formatter: DateFormatter.mediumShort)")
+                            .font(.caption)
+                            .foregroundColor(Color(.secondaryLabel))
+                    }
+                }
+                Spacer()
+                if item.feedData?.feed?.showThumbnails == true {
+                    thumbnailImage
                 }
             }
-            Spacer()
-            if item.feedData?.feed?.showThumbnails == true {
-                thumbnailImage
-            }
+            .padding(.vertical, 8)
+            .padding(.horizontal)
         }
+        .buttonStyle(ItemButtonStyle(read: item.read))
+
     }
 
     private var thumbnailImage: some View {
