@@ -53,6 +53,7 @@ struct ItemPreviewView: View {
             }
             .padding(.top, 12)
             .padding([.horizontal, .bottom])
+            .fixedSize(horizontal: false, vertical: true)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
         .accessibility(identifier: "Item Link")
