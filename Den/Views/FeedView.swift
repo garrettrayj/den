@@ -82,7 +82,7 @@ struct FeedView: View {
         }
     }
 
-    private var feedHeader: some View {
+    private var header: some View {
         HStack {
             if feedData?.linkDisplayString != nil {
                 Button {
@@ -91,13 +91,17 @@ struct FeedView: View {
                     Label {
                         Text(feedData?.linkDisplayString ?? "")
                     } icon: {
-                        feedData?.faviconImage?
-                            .frame(
-                                width: ImageSize.favicon.width,
-                                height: ImageSize.favicon.height,
-                                alignment: .center
-                            )
-                            .clipped()
+                        if feedData?.faviconImage != nil {
+                            feedData!.faviconImage!
+                                .frame(
+                                    width: ImageSize.favicon.width,
+                                    height: ImageSize.favicon.height,
+                                    alignment: .center
+                                )
+                                .clipped()
+                        } else {
+                            Image(systemName: "link")
+                        }
                     }
                     .padding(.leading, 28)
                     .padding(.trailing, 8)
@@ -118,7 +122,7 @@ struct FeedView: View {
 
     private var feedContent: some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-            Section(header: feedHeader.modifier(PinnedSectionHeaderModifier())) {
+            Section(header: header.modifier(PinnedSectionHeaderModifier())) {
                 BoardView(list: feedData!.itemsArray, content: { item in
                     ItemPreviewView(item: item)
                         .modifier(GroupBlockModifier())

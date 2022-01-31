@@ -82,13 +82,20 @@ final class WorkingItemSummary {
                 continue
             }
 
-            if let width = try? Int(el.attr("width")), let height = try? Int(el.attr("height")) {
-                images.append(WorkingItemImage(
-                    url: url,
-                    rank: width * height,
-                    width: width,
-                    height: height
-                ))
+            if
+                let width = try? Int(el.attr("width")),
+                let height = try? Int(el.attr("height"))
+            {
+                if CGFloat(width) >= ImageSize.thumbnail.width
+                    && CGFloat(height) >= ImageSize.thumbnail.height {
+
+                    images.append(WorkingItemImage(
+                        url: url,
+                        rank: width * height,
+                        width: width,
+                        height: height
+                    ))
+                }
             } else {
                 images.append(WorkingItemImage(url: url))
             }
