@@ -18,10 +18,22 @@ struct FeedTitleLabelView: View {
         } icon: {
             if faviconImage != nil {
                 faviconImage!
-                    .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                    .frame(
+                        width: ImageSize.favicon.width,
+                        height: ImageSize.favicon.height,
+                        alignment: .center
+                    )
                     .clipped()
             } else {
-                Image(systemName: "dot.radiowaves.up.forward").foregroundColor(Color.secondary)
+                Image(systemName: "dot.radiowaves.up.forward")
+                    .foregroundColor(Color.secondary)
+                    .font(.system(size: 14).weight(.semibold))
+                    .frame(
+                        width: ImageSize.favicon.width,
+                        height: ImageSize.favicon.height,
+                        alignment: .center
+                    )
+                    .clipped()
             }
         }
     }

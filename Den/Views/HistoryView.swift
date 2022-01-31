@@ -38,7 +38,7 @@ struct HistoryView: View {
                                 .cornerRadius(8)
                                 .padding()
                             } header: {
-                                Text(section.id)
+                                Label(section.id, systemImage: "calendar")
                                     .font(.subheadline)
                                     .padding(.horizontal, 28)
                                     .modifier(PinnedSectionHeaderModifier())
@@ -65,25 +65,29 @@ struct HistoryView: View {
         _historySections = SectionedFetchRequest<String, History>(
             entity: History.entity(),
             sectionIdentifier: \.day,
-            sortDescriptors: [NSSortDescriptor(keyPath: \History.visited, ascending: true)],
+            sortDescriptors: [NSSortDescriptor(keyPath: \History.visited, ascending: false)],
             predicate: profilePredicate
         )
     }
 
     private func historyRow(_ history: History) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Button { linkManager.openLink(url: history.link) } label: {
+        Button { linkManager.openLink(url: history.link) } label: {
+            VStack(alignment: .leading, spacing: 2) {
                 Text(history.title!)
                     .font(.title3)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(Color(UIColor.systemPurple))
+
+                Text(history.link!.absoluteString)
+                    .font(.caption)
+                    .foregroundColor(Color.secondary)
+                    .lineLimit(1)
             }
-            Text(history.link!.absoluteString)
-                .font(.caption)
-                .foregroundColor(Color.secondary)
-                .lineLimit(1)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 12)
+            .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(12)
+        .buttonStyle(ItemButtonStyle(read: true))
+
     }
 }
