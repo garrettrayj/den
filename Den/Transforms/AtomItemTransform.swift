@@ -10,7 +10,7 @@ import Foundation
 import FeedKit
 
 final class AtomItemTransform: ItemTransform {
-    var entry: AtomFeedEntry
+    let entry: AtomFeedEntry
 
     init(workingItem: WorkingItem, entry: AtomFeedEntry) {
         self.entry = entry
@@ -53,9 +53,9 @@ final class AtomItemTransform: ItemTransform {
     private func populateSummary() {
         // Extract plain text from summary or content
         if let source = entry.summary?.value?.htmlUnescape() {
-            workingItem.summary = WorkingItemSummary(source).plainText()
+            workingItem.summary = SummaryHTML(source).plainText()
         } else if let source = entry.content?.value?.htmlUnescape() {
-            workingItem.summary = WorkingItemSummary(source).plainText()
+            workingItem.summary = SummaryHTML(source).plainText()
         }
     }
 
@@ -69,7 +69,7 @@ final class AtomItemTransform: ItemTransform {
             let mimeType = link.attributes?.type,
             ImageMIMEType(rawValue: mimeType) != nil {
             self.images.append(
-                WorkingItemImage(
+                RankedImage(
                     url: url,
                     rank: Int(ImageSize.thumbnail.area) + 3
                 )
@@ -90,14 +90,14 @@ final class AtomItemTransform: ItemTransform {
                         let width = media.attributes?.width,
                         let height = media.attributes?.height
                     {
-                        images.append(WorkingItemImage(
+                        images.append(RankedImage(
                             url: url,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(WorkingItemImage(url: url))
+                        images.append(RankedImage(url: url))
                     }
                 }
             }
@@ -113,14 +113,14 @@ final class AtomItemTransform: ItemTransform {
                         let width = Int(thumbnail.attributes?.width ?? ""),
                         let height = Int(thumbnail.attributes?.height ?? "")
                     {
-                        images.append(WorkingItemImage(
+                        images.append(RankedImage(
                             url: url,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(WorkingItemImage(url: url))
+                        images.append(RankedImage(url: url))
                     }
                 }
             }
@@ -129,7 +129,7 @@ final class AtomItemTransform: ItemTransform {
 
     private func findContentImages() {
         if let source = entry.content?.value?.htmlUnescape() {
-            if let allowedImages = WorkingItemSummary(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages() {
                 images.append(contentsOf: allowedImages)
             }
         }
@@ -137,7 +137,7 @@ final class AtomItemTransform: ItemTransform {
 
     private func findSummaryImages() {
         if let source = entry.summary?.value?.htmlUnescape() {
-            if let allowedImages = WorkingItemSummary(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages() {
                 images.append(contentsOf: allowedImages)
             }
         }

@@ -24,7 +24,6 @@ final class ParseFeedDataOperation: Operation {
     var workingFeed: WorkingFeedData = WorkingFeedData()
     var workingItems: [WorkingItem] = []
 
-    private var parser: FeedParser!
     private var feedUrl: URL
     private var itemLimit: Int
     private var existingItemLinks: [URL]
@@ -54,6 +53,7 @@ final class ParseFeedDataOperation: Operation {
             return
         }
 
+        workingFeed.id = self.feedId
         workingFeed.httpStatus = Int(httpResponse.statusCode)
 
         if !(200...299).contains(workingFeed.httpStatus!) {
@@ -65,38 +65,49 @@ final class ParseFeedDataOperation: Operation {
             return
         }
 
-        parser = FeedParser(data: fetchedData)
-        let parserResult = parser.parse()
+        let parserResult = FeedParser(data: fetchedData).parse()
 
         switch parserResult {
         case .success(let feed):
             switch feed {
-            case let .atom(content):
-                self.handleAtomContent(content: content)
-            case let .rss(content):
-                self.handleRssContent(content: content)
-            case let .json(content):
-                self.handleJsonContent(content: content)
+            case let .atom(feed):
+                self.handleFeed(feed)
+            case let .rss(feed):
+                self.handleFeed(feed)
+            case let .json(feed):
+                self.handleFeed(feed)
             }
         case .failure(let error):
             self.workingFeed.error = error.localizedDescription
         }
     }
 
-    private func handleAtomContent(content: AtomFeed) {
-        guard let atomEntries = content.entries, atomEntries.count > 0 else {
+    private func handleFeed(_ feed: AtomFeed) {
+        self.workingFeed.ingest(content: feed)
+        handleItems(feed.entries)
+    }
+
+    private func handleFeed(_ feed: RSSFeed) {
+        workingFeed.ingest(content: feed)
+        handleItems(feed.items)
+    }
+
+    private func handleFeed(_ feed: JSONFeed) {
+        workingFeed.ingest(content: feed)
+        handleItems(feed.items)
+    }
+
+    private func handleItems(_ items: [ParsedFeedItem]?) {
+        guard let items = items, !items.isEmpty else {
             self.workingFeed.error = "Feed empty"
-            Logger.ingest.notice("Atom feed has no items \(self.feedUrl)")
+            Logger.ingest.notice("Feed empty: \(self.feedUrl)")
             return
         }
 
-        self.workingFeed.ingest(content: content)
-        self.workingFeed.id = self.feedId
-
-        atomEntries.prefix(self.itemLimit).forEach { atomEntry in
+        items.prefix(self.itemLimit).forEach { item in
             // Continue if link is missing
-            guard let itemLink = atomEntry.linkURL else {
-                Logger.ingest.notice("Missing link for Atom entry: \(atomEntry.title ?? "Untitled")")
+            guard let itemLink = item.linkURL else {
+                Logger.ingest.notice("Missing link for item.")
                 return
             }
 
@@ -105,66 +116,21 @@ final class ParseFeedDataOperation: Operation {
                 return
             }
 
-            let item = WorkingItem()
-            item.id = UUID()
-            item.ingest(atomEntry)
-            self.workingItems.append(item)
-        }
-    }
+            let workingItem = WorkingItem()
+            workingItem.id = UUID()
 
-    private func handleRssContent(content: RSSFeed) {
-        guard let rssItems = content.items, rssItems.count > 0 else {
-            self.workingFeed.error = "Feed empty"
-            Logger.ingest.notice("Atom feed has no items \(self.feedUrl)")
-            return
-        }
-
-        self.workingFeed.ingest(content: content)
-        self.workingFeed.id = self.feedId
-
-        rssItems.prefix(self.itemLimit).forEach { (rssItem: RSSFeedItem) in
-            guard let itemLink = rssItem.linkURL else {
-                Logger.ingest.notice("Missing link for RSS item: \(rssItem.title ?? "Untitled")")
-                return
+            switch type(of: item) {
+            case is AtomFeedEntry.Type:
+                workingItem.ingest(item as? AtomFeedEntry)
+            case is RSSFeedItem.Type:
+                workingItem.ingest(item as? RSSFeedItem)
+            case is JSONFeedItem.Type:
+                workingItem.ingest(item as? JSONFeedItem)
+            default:
+                assertionFailure("Unknown feed format")
             }
 
-            // Continue if item already exists
-            if (self.existingItemLinks.contains(where: { existingItemLink in existingItemLink == itemLink })) {
-                return
-            }
-
-            let item = WorkingItem()
-            item.id = UUID()
-            item.ingest(rssItem)
-            self.workingItems.append(item)
-        }
-    }
-
-    private func handleJsonContent(content: JSONFeed) {
-        guard let jsonItems = content.items, jsonItems.count > 0 else {
-            self.workingFeed.error = "Feed empty"
-            Logger.ingest.notice("Atom feed has no items \(self.feedUrl)")
-            return
-        }
-
-        self.workingFeed.ingest(content: content)
-        self.workingFeed.id = self.feedId
-
-        jsonItems.prefix(self.itemLimit).forEach { (rssItem: JSONFeedItem) in
-            guard let itemLink = rssItem.linkURL else {
-                Logger.ingest.notice("Missing link for RSS item: \(rssItem.title ?? "Untitled")")
-                return
-            }
-
-            // Continue if item already exists
-            if (self.existingItemLinks.contains(where: { existingItemLink in existingItemLink == itemLink })) {
-                return
-            }
-
-            let item = WorkingItem()
-            item.ingest(rssItem)
-            item.id = UUID()
-            self.workingItems.append(item)
+            self.workingItems.append(workingItem)
         }
     }
 }

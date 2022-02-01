@@ -10,7 +10,7 @@ import Foundation
 
 import FeedKit
 
-extension AtomFeedEntry {
+extension AtomFeedEntry: ParsedFeedItem {
     var linkURL: URL? {
         guard
             let linkString = self.links?.first(where: { atomLink in

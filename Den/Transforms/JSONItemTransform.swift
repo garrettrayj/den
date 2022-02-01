@@ -10,7 +10,7 @@ import Foundation
 import FeedKit
 
 final class JSONItemTransform: ItemTransform {
-    var jsonItem: JSONFeedItem
+    let jsonItem: JSONFeedItem
 
     init(workingItem: WorkingItem, jsonItem: JSONFeedItem) {
         self.jsonItem = jsonItem
@@ -50,7 +50,7 @@ final class JSONItemTransform: ItemTransform {
 
     private func populateSummary() {
         if let summary = jsonItem.summary {
-            workingItem.summary = WorkingItemSummary(summary).plainText()
+            workingItem.summary = SummaryHTML(summary).plainText()
         }
     }
 
@@ -68,7 +68,7 @@ final class JSONItemTransform: ItemTransform {
 
             for attachment in imageAttachments {
                 if let urlString = attachment.url, let url = URL(string: urlString) {
-                    images.append(WorkingItemImage(url: url))
+                    images.append(RankedImage(url: url))
                 }
             }
         }
@@ -76,7 +76,7 @@ final class JSONItemTransform: ItemTransform {
 
     private func findSummaryImages() {
         if let source = jsonItem.summary {
-            if let allowedImages = WorkingItemSummary(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages() {
                 images.append(contentsOf: allowedImages)
             }
         }

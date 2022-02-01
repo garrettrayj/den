@@ -28,18 +28,21 @@ final class WorkingItem {
     var summary: String?
     var title: String?
 
-    public func ingest(_ atomEntry: AtomFeedEntry) {
-        let transform = AtomItemTransform(workingItem: self, entry: atomEntry)
+    public func ingest(_ item: AtomFeedEntry?) {
+        guard let item = item else { return }
+        let transform = AtomItemTransform(workingItem: self, entry: item)
         transform.apply()
     }
 
-    public func ingest(_ rssItem: RSSFeedItem) {
-        let transform = RSSItemTransform(workingItem: self, rssItem: rssItem)
+    public func ingest(_ item: RSSFeedItem?) {
+        guard let item = item else { return }
+        let transform = RSSItemTransform(workingItem: self, rssItem: item)
         transform.apply()
     }
 
-    public func ingest(_ jsonItem: JSONFeedItem) {
-        let transform = JSONItemTransform(workingItem: self, jsonItem: jsonItem)
+    public func ingest(_ item: JSONFeedItem?) {
+        guard let item = item else { return }
+        let transform = JSONItemTransform(workingItem: self, jsonItem: item)
         transform.apply()
     }
 }

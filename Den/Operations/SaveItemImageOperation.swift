@@ -16,8 +16,6 @@ final class SaveItemImageOperation: Operation {
     var data: Data?
     var workingItem: WorkingItem?
 
-    private var thumbnailSize = CGSize(width: 96 * 2, height: 64 * 2)
-
     override func main() {
         if isCancelled { return }
 

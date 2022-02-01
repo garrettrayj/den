@@ -10,10 +10,9 @@ import SwiftUI
 
 import SwiftSoup
 
-final class WorkingItemSummary {
-    let imageSourceBlockList = ["feedburner", "npr-rss-pixel", "google-analytics"]
-
-    private var source: String
+final class SummaryHTML {
+    let imageSrcBlockList = ["feedburner", "npr-rss-pixel", "google-analytics"]
+    let source: String
 
     init(_ source: String) {
         self.source = source
@@ -54,12 +53,12 @@ final class WorkingItemSummary {
         return elements
     }
 
-    func allowedImages() -> [WorkingItemImage]? {
+    func allowedImages() -> [RankedImage]? {
         guard let elements = imageElements(), !elements.isEmpty() else {
             return nil
         }
 
-        var images: [WorkingItemImage] = []
+        var images: [RankedImage] = []
         for el in elements {
             // Requirement image atrributes
             guard
@@ -70,7 +69,7 @@ final class WorkingItemSummary {
             }
 
             // Check blocklist
-            if imageSourceBlockList.contains(where: src.contains) {
+            if imageSrcBlockList.contains(where: src.contains) {
                 continue
             }
 
@@ -90,7 +89,7 @@ final class WorkingItemSummary {
                 if CGFloat(width) >= ImageSize.thumbnail.width
                     && CGFloat(height) >= ImageSize.thumbnail.height {
 
-                    images.append(WorkingItemImage(
+                    images.append(RankedImage(
                         url: url,
                         rank: width * height,
                         width: width,
@@ -98,7 +97,7 @@ final class WorkingItemSummary {
                     ))
                 }
             } else {
-                images.append(WorkingItemImage(url: url))
+                images.append(RankedImage(url: url))
             }
         }
 
