@@ -21,7 +21,7 @@ struct SidebarView: View {
 
     @ObservedObject var viewModel: ProfileViewModel
 
-    @State var showingSettings: Bool = false
+    @State private var showingSettings: Bool = false
 
     /**
      Switch refreshable() on and off depending on environment and page count.

@@ -17,8 +17,8 @@ struct NavigationListView: View {
     @ObservedObject var profileViewModel: ProfileViewModel
     @StateObject var searchViewModel: SearchViewModel = SearchViewModel()
 
-    @State var showingSearch: Bool = false
-    @State var showingHistory: Bool = false
+    @State private var showingSearch: Bool = false
+    @State private var showingHistory: Bool = false
 
     @Binding var showingSettings: Bool
 

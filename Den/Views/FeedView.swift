@@ -14,7 +14,7 @@ struct FeedView: View {
 
     @ObservedObject var viewModel: FeedViewModel
 
-    @State var showingSettings: Bool = false
+    @State private var showingSettings: Bool = false
 
     var feedData: FeedData? {
         viewModel.feed.feedData
