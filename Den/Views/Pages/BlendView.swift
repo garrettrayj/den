@@ -12,21 +12,17 @@ struct BlendView: View {
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
-        if viewModel.page.limitedItemsArray.isEmpty {
-            StatusBoxView(message: Text("No Items"), symbol: "questionmark.square.dashed")
-        } else {
-            BoardView(list: viewModel.page.limitedItemsArray) { item in
-                if item.feedData?.feed != nil {
-                    BlendItemView(
-                        item: item,
-                        feedViewModel: viewModel.feedViewModels.first(where: { feedViewModel in
-                            feedViewModel.feed == item.feedData?.feed
-                        })
-                    )
-                }
+        BoardView(list: viewModel.page.limitedItemsArray) { item in
+            if item.feedData?.feed != nil {
+                BlendItemView(
+                    item: item,
+                    feedViewModel: viewModel.feedViewModels.first(where: { feedViewModel in
+                        feedViewModel.feed == item.feedData?.feed
+                    })
+                )
             }
-            .padding([.horizontal, .bottom])
-            .padding(.top, 8)
         }
+        .padding([.horizontal, .bottom])
+        .padding(.top, 8)
     }
 }

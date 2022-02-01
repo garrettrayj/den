@@ -35,11 +35,17 @@ struct FeedView: View {
                 )
                 #endif
             } else {
-                FeedUnavailableView(feedData: feedData)
-                    .font(.title2)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .padding()
+                VStack {
+                    Spacer()
+                    FeedUnavailableView(feedData: feedData)
+                        .font(.title2)
+                        .frame(maxWidth: 360)
+                    Spacer()
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))

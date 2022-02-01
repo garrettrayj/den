@@ -15,11 +15,14 @@ struct StatusBoxView: View {
 
     var body: some View {
         VStack(spacing: 24) {
+            Spacer()
             if symbol != nil {
                 Image(systemName: symbol!).font(.system(size: 52))
             }
             message.font(.title2)
-            caption.font(.title3)
+            caption.font(.title3).imageScale(.small).frame(maxWidth: 360)
+            Spacer()
+            Spacer()
         }
         .multilineTextAlignment(.center)
         .foregroundColor(.secondary)
