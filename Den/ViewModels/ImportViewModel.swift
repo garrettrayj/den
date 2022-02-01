@@ -15,8 +15,8 @@ final class ImportViewModel: ObservableObject {
     }
 
     @Published var stage: ImportStage = .pickFile
-    @Published var opmlFolders: [OPMLFolder] = []
-    @Published var selectedFolders: [OPMLFolder] = []
+    @Published var opmlFolders: [OPMLReader.Folder] = []
+    @Published var selectedFolders: [OPMLReader.Folder] = []
     @Published var pickedURL: URL?
     @Published var feedsImported: [Feed] = []
     @Published var pagesImported: [Page] = []
@@ -49,7 +49,7 @@ final class ImportViewModel: ObservableObject {
         pagesImported = []
     }
 
-    func toggleFolder(_ folder: OPMLFolder) {
+    func toggleFolder(_ folder: OPMLReader.Folder) {
         if selectedFolders.contains(folder) {
             selectedFolders.removeAll { $0 == folder }
         } else {
@@ -79,7 +79,7 @@ final class ImportViewModel: ObservableObject {
         self.importFolders(opmlFolders: foldersToImport)
     }
 
-    func importFolders(opmlFolders: [OPMLFolder]) {
+    func importFolders(opmlFolders: [OPMLReader.Folder]) {
         guard let profile = profileManager.activeProfile else { return }
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profile)

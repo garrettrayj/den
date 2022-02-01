@@ -10,7 +10,7 @@ import Foundation
 import FeedKit
 
 final class RSSItemTransform: ItemTransform {
-    var rssItem: RSSFeedItem
+    let rssItem: RSSFeedItem
 
     init(workingItem: WorkingItem, rssItem: RSSFeedItem) {
         self.rssItem = rssItem
@@ -58,9 +58,9 @@ final class RSSItemTransform: ItemTransform {
     private func populateSummary() {
         // Extract plain text from summary or content
         if let source = rssItem.description?.htmlUnescape() {
-            workingItem.summary = WorkingItemSummary(source).plainText()
+            workingItem.summary = SummaryHTML(source).plainText()
         } else if let source = rssItem.content?.contentEncoded {
-            workingItem.summary = WorkingItemSummary(source).plainText()
+            workingItem.summary = SummaryHTML(source).plainText()
         }
     }
 
@@ -72,7 +72,7 @@ final class RSSItemTransform: ItemTransform {
             let mimeType = enclosure.attributes?.type,
             ImageMIMEType(rawValue: mimeType) != nil
         {
-            self.images.append(WorkingItemImage(url: url))
+            self.images.append(RankedImage(url: url))
         }
     }
 
@@ -89,14 +89,14 @@ final class RSSItemTransform: ItemTransform {
                         let width = media.attributes?.width,
                         let height = media.attributes?.height
                     {
-                        images.append(WorkingItemImage(
+                        images.append(RankedImage(
                             url: url,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(WorkingItemImage(
+                        images.append(RankedImage(
                             url: url,
                             rank: Int(ImageSize.thumbnail.area) + 2)
                         )
@@ -118,14 +118,14 @@ final class RSSItemTransform: ItemTransform {
                         let width = media.attributes?.width,
                         let height = media.attributes?.height
                     {
-                        images.append(WorkingItemImage(
+                        images.append(RankedImage(
                             url: url,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(WorkingItemImage(url: url))
+                        images.append(RankedImage(url: url))
                     }
                 }
             }
@@ -140,14 +140,14 @@ final class RSSItemTransform: ItemTransform {
                         let width = Int(thumbnail.attributes?.width ?? ""),
                         let height = Int(thumbnail.attributes?.height ?? "")
                     {
-                        images.append(WorkingItemImage(
+                        images.append(RankedImage(
                             url: url,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(WorkingItemImage(url: url))
+                        images.append(RankedImage(url: url))
                     }
                 }
             }
@@ -156,7 +156,7 @@ final class RSSItemTransform: ItemTransform {
 
     private func findContentImages() {
         if let source = rssItem.content?.contentEncoded {
-            if let allowedImages = WorkingItemSummary(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages() {
                 images.append(contentsOf: allowedImages)
             }
         }
@@ -164,7 +164,7 @@ final class RSSItemTransform: ItemTransform {
 
     private func findDescriptionImages() {
         if let source = rssItem.description?.htmlUnescape() {
-            if let allowedImages = WorkingItemSummary(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages() {
                 images.append(contentsOf: allowedImages)
             }
         }

@@ -41,6 +41,7 @@ final class WorkingFeedData {
             let homepageURL = atomLink.attributes?.href {
             self.link = URL(string: homepageURL)
         }
+
     }
 
     /**

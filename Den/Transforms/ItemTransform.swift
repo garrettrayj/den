@@ -9,8 +9,8 @@
 import Foundation
 
 class ItemTransform {
-    var workingItem: WorkingItem
-    var images: [WorkingItemImage] = []
+    let workingItem: WorkingItem
+    var images: [RankedImage] = []
 
     init(workingItem: WorkingItem) {
         self.workingItem = workingItem

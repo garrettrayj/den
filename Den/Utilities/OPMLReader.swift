@@ -11,21 +11,21 @@ import SwiftUI
 
 import AEXML
 
-struct OPMLFolder: Hashable {
-    var name: String
-    var feeds: [OPMLFeed] = []
-}
-
-struct OPMLFeed: Hashable {
-    var title: String
-    var url: URL
-}
-
 final class OPMLReader {
-    private var xmlURL: URL
-    private var data: Data?
+    struct Folder: Hashable {
+        var name: String
+        var feeds: [Feed] = []
+    }
 
-    var outlineFolders: [OPMLFolder] = []
+    struct Feed: Hashable {
+        var title: String
+        var url: URL
+    }
+
+    let xmlURL: URL
+    let data: Data?
+
+    var outlineFolders: [Folder] = []
 
     init(xmlURL: URL) {
         self.xmlURL = xmlURL
@@ -52,7 +52,7 @@ final class OPMLReader {
                 let name = folderElement.attributes["title"] ?? folderElement.attributes["text"]
             else { return }
 
-            var opmlFolder = OPMLFolder(name: name)
+            var opmlFolder = Folder(name: name)
             let feeds = folderElement.allDescendants { element in
                 element.attributes["xmlUrl"] != nil
             }
@@ -66,7 +66,7 @@ final class OPMLReader {
                     return
                 }
 
-                let feed = OPMLFeed(title: title, url: xmlURL)
+                let feed = Feed(title: title, url: xmlURL)
                 opmlFolder.feeds.append(feed)
             })
 
