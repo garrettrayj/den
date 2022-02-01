@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct NavigationListView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.editMode) var editMode
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.editMode) private var editMode
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
 

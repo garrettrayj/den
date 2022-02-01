@@ -12,7 +12,7 @@ import SwiftUI
  Master navigation list with links to page views.
 */
 struct SidebarView: View {
-    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var cacheManager: CacheManager
     @EnvironmentObject private var crashManager: CrashManager

@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.colorScheme) var colorScheme
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var themeManager: ThemeManager
