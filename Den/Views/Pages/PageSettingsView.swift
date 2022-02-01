@@ -14,7 +14,7 @@ struct PageSettingsView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var crashManager: CrashManager
 
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var page: Page
 
     @State var showingIconPicker: Bool = false
     @State var showingDeleteAlert: Bool = false
@@ -27,15 +27,22 @@ struct PageSettingsView: View {
         .navigationTitle("Page Settings")
         .environment(\.editMode, .constant(.active))
         .onDisappear(perform: save)
+        .background(
+            NavigationLink(isActive: $showingIconPicker, destination: {
+                IconPickerView(selectedSymbol: $page.wrappedSymbol)
+            }, label: {
+                EmptyView()
+            })
+        )
     }
 
     private var nameIconSection: some View {
         Section(header: Text("Name")) {
             HStack {
-                TextField("Untitled", text: $viewModel.page.wrappedName).modifier(TitleTextFieldModifier())
+                TextField("Untitled", text: $page.wrappedName).modifier(TitleTextFieldModifier())
 
                 HStack {
-                    Image(systemName: viewModel.page.wrappedSymbol)
+                    Image(systemName: page.wrappedSymbol)
                         .imageScale(.medium)
                         .foregroundColor(Color.accentColor)
 
@@ -45,22 +52,18 @@ struct PageSettingsView: View {
 
                 }
                 .onTapGesture { showingIconPicker = true }
-                .sheet(isPresented: $showingIconPicker) {
-                    IconPickerView(selectedSymbol: $viewModel.page.wrappedSymbol)
-                        .environment(\.colorScheme, colorScheme)
-                }
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
     }
 
     private var feedsSection: some View {
         Section(header: Text("Feeds")) {
-            if viewModel.page.feedsArray.isEmpty {
+            if page.feedsArray.isEmpty {
                 Text("Page Empty").foregroundColor(.secondary)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
             } else {
-                ForEach(viewModel.page.feedsArray) { feed in
+                ForEach(page.feedsArray) { feed in
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
                         faviconImage: feed.feedData?.faviconImage
@@ -76,10 +79,7 @@ struct PageSettingsView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                viewModel.objectWillChange.send()
-                viewModel.page.feedsArray.forEach { feed in
-                    feed.objectWillChange.send()
-                }
+                page.objectWillChange.send()
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }
@@ -87,11 +87,11 @@ struct PageSettingsView: View {
     }
 
     private func deleteFeed(indices: IndexSet) {
-        indices.forEach { viewContext.delete(viewModel.page.feedsArray[$0]) }
+        indices.forEach { viewContext.delete(page.feedsArray[$0]) }
 
         do {
             try viewContext.save()
-            NotificationCenter.default.post(name: .pageRefreshed, object: viewModel.page.objectID)
+            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
@@ -99,7 +99,7 @@ struct PageSettingsView: View {
 
     private func moveFeed( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
-        var revisedItems: [Feed] = viewModel.page.feedsArray.map { $0 }
+        var revisedItems: [Feed] = page.feedsArray.map { $0 }
 
         // change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
