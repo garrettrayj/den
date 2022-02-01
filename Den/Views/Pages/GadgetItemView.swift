@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct GadgetItemView: View {
-    @EnvironmentObject var linkManager: LinkManager
+    @EnvironmentObject private var linkManager: LinkManager
 
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed

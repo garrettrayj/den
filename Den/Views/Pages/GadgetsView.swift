@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GadgetsView: View {
     #if !targetEnvironment(macCatalyst)
-    @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject private var refreshManager: RefreshManager
     #endif
 
     @ObservedObject var viewModel: PageViewModel

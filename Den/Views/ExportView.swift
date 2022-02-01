@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ExportView: View {
-    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var viewModel: ExportViewModel
 

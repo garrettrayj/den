@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ShowcaseSectionView: View {
-    @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject private var refreshManager: RefreshManager
     @ObservedObject var viewModel: FeedViewModel
 
     var body: some View {

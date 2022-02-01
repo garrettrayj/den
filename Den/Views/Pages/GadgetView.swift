@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct GadgetView: View {
-    @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var linkManager: LinkManager
+    @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var linkManager: LinkManager
     @ObservedObject var viewModel: FeedViewModel
 
     var feedData: FeedData? {

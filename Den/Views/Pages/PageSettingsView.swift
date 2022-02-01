@@ -12,7 +12,7 @@ struct PageSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var crashManager: CrashManager
+    @EnvironmentObject private var crashManager: CrashManager
 
     @ObservedObject var page: Page
 

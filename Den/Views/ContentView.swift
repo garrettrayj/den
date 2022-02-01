@@ -11,10 +11,10 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var profileManager: ProfileManager
-    @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
+    @EnvironmentObject private var crashManager: CrashManager
+    @EnvironmentObject private var profileManager: ProfileManager
+    @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     var body: some View {
         if crashManager.showingCrashMessage == true {

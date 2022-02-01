@@ -12,9 +12,9 @@ struct ProfileView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var profileManager: ProfileManager
-    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject private var crashManager: CrashManager
+    @EnvironmentObject private var profileManager: ProfileManager
+    @EnvironmentObject private var themeManager: ThemeManager
 
     @State var showingIconPicker: Bool = false
     @State var showingDeleteAlert: Bool = false

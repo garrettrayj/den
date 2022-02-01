@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct HistoryView: View {
-    @EnvironmentObject var linkManager: LinkManager
+    @EnvironmentObject private var linkManager: LinkManager
 
     @SectionedFetchRequest<String, History>(sectionIdentifier: \.day, sortDescriptors: [])
     private var historySections: SectionedFetchResults<String, History>
