@@ -6,7 +6,8 @@
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+
 import SwiftSoup
 
 final class WorkingItemSummary {
