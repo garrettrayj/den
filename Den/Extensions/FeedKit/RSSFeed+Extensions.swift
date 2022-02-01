@@ -10,7 +10,7 @@ import Foundation
 
 import FeedKit
 
-extension FeedKit.RSSFeed {
+extension RSSFeed {
     var webpage: URL? {
         if
             let urlString = self.link?.trimmingCharacters(in: .whitespacesAndNewlines),

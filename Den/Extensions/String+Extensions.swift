@@ -26,7 +26,6 @@ extension String {
             return leader + self.suffix(limit)
         case .middle:
             let headCharactersCount = Int(ceil(Float(limit - leader.count) / 2.0))
-
             let tailCharactersCount = Int(floor(Float(limit - leader.count) / 2.0))
 
             return "\(self.prefix(headCharactersCount))\(leader)\(self.suffix(tailCharactersCount))"
@@ -34,11 +33,16 @@ extension String {
             return self.prefix(limit) + leader
         }
     }
-}
 
-extension String {
+    func preparingTitle() -> String {
+        self.replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
+            .replacingOccurrences(of: "\u{202F}", with: " ") // NARROW NO-BREAK SPACE
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .htmlUnescape()
+    }
+
     func sanitizedForFileName() -> String {
-        // see for ressoning on charachrer sets https://superuser.com/a/358861
+        // For ressoning on character sets see https://superuser.com/a/358861
         let invalidCharacters = CharacterSet(charactersIn: "\\/:*?\"<>|")
             .union(.newlines)
             .union(.illegalCharacters)

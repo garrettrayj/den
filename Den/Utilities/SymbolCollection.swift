@@ -10,14 +10,14 @@ import Foundation
 
 class SymbolCollection {
     struct Category: Identifiable {
-        var id: String
-        var symbol: String
-        var title: String
+        let id: String
+        let symbol: String
+        let title: String
     }
 
     struct Symbol: Identifiable {
-        var id: String
-        var categories: [String]
+        let id: String
+        let categories: [String]
     }
 
     static let shared = SymbolCollection()

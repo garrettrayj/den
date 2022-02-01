@@ -15,7 +15,7 @@ import SwiftUI
  Adapted from https://stackoverflow.com/a/62225520/400468
  */
 final class ImportDocumentPicker: NSObject {
-    @ObservedObject var importViewModel: ImportViewModel
+    let importViewModel: ImportViewModel
 
     init(importViewModel: ImportViewModel) {
         self.importViewModel = importViewModel

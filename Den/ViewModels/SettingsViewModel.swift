@@ -10,15 +10,15 @@ import CoreData
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
+    let profileManager: ProfileManager
+    let refreshManager: RefreshManager
+    let cacheManager: CacheManager
+    let themeManager: ThemeManager
+
     @Published var showingResetAlert = false
     @Published var historyRentionDays: Int = 0
-
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
-    private var profileManager: ProfileManager
-    private var refreshManager: RefreshManager
-    private var cacheManager: CacheManager
-    private var themeManager: ThemeManager
 
     init(
         viewContext: NSManagedObjectContext,

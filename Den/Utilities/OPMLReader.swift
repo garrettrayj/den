@@ -22,17 +22,10 @@ final class OPMLReader {
         var url: URL
     }
 
-    let xmlURL: URL
-    let data: Data?
-
     var outlineFolders: [Folder] = []
 
     init(xmlURL: URL) {
-        self.xmlURL = xmlURL
-        self.data = try? Data(contentsOf: xmlURL)
-
-        // Populate outline with XML data
-        guard let data = data else { return }
+        guard let data = try? Data(contentsOf: xmlURL) else { return }
         do {
             let xmlDoc = try AEXMLDocument(xml: data)
             parseDocument(xmlDoc: xmlDoc)

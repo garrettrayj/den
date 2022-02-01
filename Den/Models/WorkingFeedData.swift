@@ -30,46 +30,29 @@ final class WorkingFeedData {
      Atom feed handler responsible for populating application data model from FeedKit AtomFeed result.
      */
     func ingest(content: AtomFeed) {
-        if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
+        if let feedTitle = content.title?.preparingTitle() {
             self.title = feedTitle
         }
-
-        if
-            let atomLink = content.links?.first(where: { atomLink in
-                atomLink.attributes?.rel == "alternate" || atomLink.attributes?.rel == nil
-            }),
-            let homepageURL = atomLink.attributes?.href {
-            self.link = URL(string: homepageURL)
-        }
-
+        self.link = content.webpage
     }
 
     /**
      RSS feed handler responsible for populating application data model from FeedKit RSSFeed result.
      */
     func ingest(content: RSSFeed) {
-        if let feedTitle = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
+        if let feedTitle = content.title?.preparingTitle() {
             self.title = feedTitle
         }
-
-        if
-            let homepage = content.link?.trimmingCharacters(in: .whitespacesAndNewlines),
-            let homepageURL = URL(string: homepage)
-        {
-            self.link = homepageURL
-        }
+        self.link = content.webpage
     }
 
     /**
      JSON feed handler responsible for populating application data model from FeedKit JSONFeed result.
      */
     func ingest(content: JSONFeed) {
-        if let title = content.title?.trimmingCharacters(in: .whitespacesAndNewlines) {
+        if let title = content.title?.preparingTitle() {
             self.title = title
         }
-
-        if let link = content.webpage {
-            self.link = link
-        }
+        self.link = content.webpage
     }
 }

@@ -10,8 +10,8 @@ import Foundation
 
 import FeedKit
 
-extension FeedKit.AtomFeed {
-    public var webpage: URL? {
+extension AtomFeed {
+    var webpage: URL? {
         guard
             let urlString = self.links?.first(where: { atomLink in
                 atomLink.attributes?.rel == "alternate" || atomLink.attributes?.rel == nil

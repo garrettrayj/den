@@ -42,12 +42,8 @@ final class RSSItemTransform: ItemTransform {
             }
         }
 
-        if let title = rssItem.title {
+        if let title = rssItem.title?.preparingTitle() {
             workingItem.title = title
-                .replacingOccurrences(of: "\u{00A0}", with: " ")
-                .replacingOccurrences(of: "\u{202F}", with: " ")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-                .htmlUnescape()
         } else {
             workingItem.title = "Untitled"
         }

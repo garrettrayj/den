@@ -10,6 +10,9 @@ import Combine
 import SwiftUI
 
 class PageViewModel: ObservableObject {
+    private var queuedSubscriber: AnyCancellable?
+    private var refreshedSubscriber: AnyCancellable?
+
     @Published var page: Page
     @Published var refreshing: Bool
 
@@ -18,9 +21,6 @@ class PageViewModel: ObservableObject {
             FeedViewModel(feed: feed, refreshing: refreshing)
         }
     }
-
-    var queuedSubscriber: AnyCancellable?
-    var refreshedSubscriber: AnyCancellable?
 
     init(page: Page, refreshing: Bool) {
         self.page = page

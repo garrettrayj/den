@@ -31,12 +31,8 @@ final class JSONItemTransform: ItemTransform {
             workingItem.published = published
         }
 
-        if let title = jsonItem.title {
+        if let title = jsonItem.title?.preparingTitle() {
             workingItem.title = title
-                .replacingOccurrences(of: "\u{00A0}", with: " ")
-                .replacingOccurrences(of: "\u{202F}", with: " ")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-                .htmlUnescape()
         } else {
             workingItem.title = "Untitled"
         }

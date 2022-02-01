@@ -23,8 +23,6 @@ final class FeedCheckOperation: Operation {
     // Operation outputs
     var feedIsValid: Bool = false
 
-    private var parser: FeedParser!
-
     override func main() {
         guard
             httpTransportError == nil,
@@ -36,14 +34,13 @@ final class FeedCheckOperation: Operation {
             return
         }
 
-        parser = FeedParser(data: fetchedData)
-        let parserResult = parser.parse()
+        let parserResult = FeedParser(data: fetchedData).parse()
 
         switch parserResult {
         case .success:
             feedIsValid = true
         case .failure:
-            return
+            break
         }
     }
 }
