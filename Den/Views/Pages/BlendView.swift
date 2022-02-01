@@ -15,34 +15,18 @@ struct BlendView: View {
         if viewModel.page.limitedItemsArray.isEmpty {
             StatusBoxView(message: Text("No Items"), symbol: "questionmark.square.dashed")
         } else {
-            #if targetEnvironment(macCatalyst)
-            ScrollView(.vertical) {
-                blendDisplay
+            BoardView(list: viewModel.page.limitedItemsArray) { item in
+                if item.feedData?.feed != nil {
+                    BlendItemView(
+                        item: item,
+                        feedViewModel: viewModel.feedViewModels.first(where: { feedViewModel in
+                            feedViewModel.feed == item.feedData?.feed
+                        })
+                    )
+                }
             }
-            #else
-            RefreshableScrollView(
-                onRefresh: { done in
-                    refreshManager.refresh(page: viewModel.page)
-                    done()
-                },
-                content: { blendDisplay }
-            )
-            #endif
+            .padding([.horizontal, .bottom])
+            .padding(.top, 8)
         }
-    }
-
-    var blendDisplay: some View {
-        BoardView(list: viewModel.page.limitedItemsArray) { item in
-            if item.feedData?.feed != nil {
-                BlendItemView(
-                    item: item,
-                    feedViewModel: viewModel.feedViewModels.first(where: { feedViewModel in
-                        feedViewModel.feed == item.feedData?.feed
-                    })
-                )
-            }
-        }
-        .padding([.horizontal, .bottom])
-        .padding(.top, 8)
     }
 }

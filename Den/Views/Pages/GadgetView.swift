@@ -32,28 +32,22 @@ struct GadgetView: View {
 
     private var header: some View {
         HStack {
-            if viewModel.refreshing {
-                HStack {
+            if viewModel.feed.id != nil {
+                NavigationLink {
+                    FeedView(viewModel: viewModel)
+                } label: {
                     FeedTitleLabelView(
                         title: viewModel.feed.wrappedTitle,
-                        faviconImage: viewModel.feed.feedData?.faviconImage
-                    )
-                    Spacer()
-                    ProgressView().progressViewStyle(IconProgressStyle())
-                }.padding(.horizontal, 12)
-            } else {
-                if viewModel.feed.id != nil {
-                    NavigationLink {
-                        FeedView(viewModel: viewModel)
-                    } label: {
-                        FeedTitleLabelView(
-                            title: viewModel.feed.wrappedTitle,
-                            faviconImage: feedData?.faviconImage
-                        ).padding(.horizontal, 12)
-                    }
-                    .buttonStyle(FeedTitleButtonStyle())
-                    .disabled(refreshManager.isRefreshing)
+                        faviconImage: feedData?.faviconImage
+                    ).padding(.horizontal, 12)
                 }
+                .buttonStyle(FeedTitleButtonStyle())
+                .disabled(refreshManager.isRefreshing)
+            }
+
+            if viewModel.refreshing {
+                Spacer()
+                ProgressView().progressViewStyle(IconProgressStyle()).padding(.trailing, 12)
             }
         }.frame(height: 32, alignment: .leading)
     }
