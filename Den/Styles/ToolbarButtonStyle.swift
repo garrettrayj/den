@@ -9,18 +9,26 @@
 import SwiftUI
 
 struct ToolbarButtonStyle: ButtonStyle {
-    @Environment(\.isEnabled) private var isEnabled: Bool
-
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        configuration.label
-            .frame(height: 32)
-            .padding(.horizontal, 6)
-            .foregroundColor(
-                isEnabled ?
-                    configuration.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor
-                    :
-                    Color.secondary
-            )
-            .cornerRadius(6)
+        ToolbarButton(configuration: configuration)
+    }
+
+    private struct ToolbarButton: View {
+        @Environment(\.isEnabled) private var isEnabled: Bool
+
+        let configuration: ButtonStyle.Configuration
+
+        var body: some View {
+            configuration.label
+                .frame(height: 32)
+                .padding(.horizontal, 6)
+                .foregroundColor(
+                    isEnabled ?
+                        configuration.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor
+                        :
+                        Color.secondary
+                )
+                .cornerRadius(6)
+        }
     }
 }
