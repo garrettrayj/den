@@ -66,18 +66,18 @@ struct FeedView: View {
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    refreshManager.refresh(feed: viewModel.feed)
-                } label: {
-                    if viewModel.refreshing {
-                        ProgressView().progressViewStyle(ToolbarProgressStyle())
-                    } else {
+                if viewModel.refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        refreshManager.refresh(feed: viewModel.feed)
+                    } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .disabled(refreshManager.isRefreshing)
                 }
-                .buttonStyle(ToolbarButtonStyle())
-                .keyboardShortcut("r", modifiers: [.command])
-                .disabled(refreshManager.isRefreshing)
             }
         }
     }
