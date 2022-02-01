@@ -16,8 +16,8 @@ struct PageSettingsView: View {
 
     @ObservedObject var page: Page
 
-    @State var showingIconPicker: Bool = false
-    @State var showingDeleteAlert: Bool = false
+    @State private var showingIconPicker: Bool = false
+    @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
         Form {

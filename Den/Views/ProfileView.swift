@@ -16,8 +16,8 @@ struct ProfileView: View {
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var themeManager: ThemeManager
 
-    @State var showingIconPicker: Bool = false
-    @State var showingDeleteAlert: Bool = false
+    @State private var showingIconPicker: Bool = false
+    @State private var showingDeleteAlert: Bool = false
 
     @ObservedObject var profile: Profile
 

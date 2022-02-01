@@ -20,7 +20,7 @@ struct PageView: View {
 
     @ObservedObject var viewModel: PageViewModel
 
-    @State var showingSettings: Bool = false
+    @State private var showingSettings: Bool = false
 
     @AppStorage("pageViewMode_na") var viewMode = 0
 
