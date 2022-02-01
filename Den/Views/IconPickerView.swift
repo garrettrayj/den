@@ -18,43 +18,30 @@ struct IconPickerView: View {
     ]
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
-                    ForEach(SymbolCollection.shared.categories) { category in
-                        categorySection(category: category)
-                    }
-                }.padding(.bottom)
-            }
-            .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-            .navigationTitle("Select Icon")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label("Close", systemImage: "xmark.circle")
-                    }
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
+                ForEach(SymbolCollection.shared.categories) { category in
+                    categorySection(category: category)
                 }
-            }
+            }.padding(.bottom)
         }
-        .navigationViewStyle(.stack)
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .navigationTitle("Select Icon")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private func categorySection(category: SymbolCollection.Category) -> some View {
         Section(
             header: Label(category.title, systemImage: category.symbol)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 28)
-                .padding(.horizontal)
+                .frame(height: 32)
+                .padding(.horizontal, 28)
                 .background(Color(UIColor.tertiarySystemGroupedBackground))
         ) {
             LazyVGrid(columns: columns, alignment: .center, spacing: 4) {
                 ForEach(SymbolCollection.shared.categorySymbols(categoryID: category.id)) { symbol in
                     Button {
                         selectedSymbol = symbol.id
-                        dismiss()
                     } label: {
                         Image(systemName: symbol.id)
                             .foregroundColor(symbol.id == selectedSymbol ? .accentColor : .primary)
