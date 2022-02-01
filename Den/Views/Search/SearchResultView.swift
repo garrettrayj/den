@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SearchResultView: View {
-    @EnvironmentObject var linkManager: LinkManager
+    @EnvironmentObject private var linkManager: LinkManager
 
     var item: Item
 

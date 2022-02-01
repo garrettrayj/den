@@ -11,8 +11,8 @@ import SwiftUI
 struct NavigationListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.editMode) var editMode
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var refreshManager: RefreshManager
+    @EnvironmentObject private var crashManager: CrashManager
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profileViewModel: ProfileViewModel
     @StateObject var searchViewModel: SearchViewModel = SearchViewModel()

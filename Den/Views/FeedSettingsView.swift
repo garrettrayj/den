@@ -11,8 +11,8 @@ import SwiftUI
 struct FeedSettingsView: View {
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject private var crashManager: CrashManager
+    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var feed: Feed
 

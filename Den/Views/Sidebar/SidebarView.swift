@@ -13,11 +13,11 @@ import SwiftUI
 */
 struct SidebarView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var cacheManager: CacheManager
-    @EnvironmentObject var crashManager: CrashManager
-    @EnvironmentObject var profileManager: ProfileManager
-    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var cacheManager: CacheManager
+    @EnvironmentObject private var crashManager: CrashManager
+    @EnvironmentObject private var profileManager: ProfileManager
+    @EnvironmentObject private var themeManager: ThemeManager
 
     @ObservedObject var viewModel: ProfileViewModel
 

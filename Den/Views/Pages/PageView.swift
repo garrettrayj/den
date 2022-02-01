@@ -15,8 +15,8 @@ enum PageViewMode: Int {
 }
 
 struct PageView: View {
-    @EnvironmentObject var refreshManager: RefreshManager
-    @EnvironmentObject var subscriptionManager: SubscriptionManager
+    @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @ObservedObject var viewModel: PageViewModel
 

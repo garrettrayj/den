@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SecurityCheckView: View {
-    @EnvironmentObject var profileManager: ProfileManager
+    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var viewModel: SecurityCheckViewModel
 
