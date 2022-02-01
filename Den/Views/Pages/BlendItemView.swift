@@ -10,7 +10,6 @@ import SwiftUI
 
 struct BlendItemView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var linkManager: LinkManager
 
     @ObservedObject var item: Item
 

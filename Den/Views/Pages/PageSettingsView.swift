@@ -10,8 +10,6 @@ import SwiftUI
 
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
 
     @ObservedObject var page: Page

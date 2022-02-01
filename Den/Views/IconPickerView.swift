@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct IconPickerView: View {
-    @Environment(\.dismiss) private var dismiss
-
     @Binding var selectedSymbol: String
 
     let columns = [

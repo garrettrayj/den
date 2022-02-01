@@ -9,13 +9,11 @@
 import SwiftUI
 
 struct NavigationListView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.editMode) private var editMode
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profileViewModel: ProfileViewModel
-    @StateObject var searchViewModel: SearchViewModel = SearchViewModel()
+    @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()
 
     @State private var showingSearch: Bool = false
     @State private var showingHistory: Bool = false

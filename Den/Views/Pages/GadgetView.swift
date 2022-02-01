@@ -10,7 +10,6 @@ import SwiftUI
 
 struct GadgetView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var linkManager: LinkManager
     @ObservedObject var viewModel: FeedViewModel
 
     var feedData: FeedData? {
