@@ -10,11 +10,9 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
-    @EnvironmentObject private var themeManager: ThemeManager
 
     @State private var showingIconPicker: Bool = false
     @State private var showingDeleteAlert: Bool = false

@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct BlendView: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
