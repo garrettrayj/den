@@ -33,14 +33,36 @@ struct PageView: View {
         )
     }
 
+    #if targetEnvironment(macCatalyst)
+    let emptyCaption = Text("""
+    Add feeds by opening RSS links in your browser \
+    or click \(Image(systemName: "plus.circle")) to manually enter an address
+    """)
+    #else
+    let emptyCaption = Text("""
+    Add feeds by opening RSS links in Safari \
+    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
+    to manually enter an address
+    """)
+    #endif
+
     var body: some View {
         Group {
             if viewModel.page.managedObjectContext == nil {
                 StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle").navigationBarHidden(true)
-            } else if viewModel.page.feedsArray.count == 0 {
-                StatusBoxView(message: Text("Page Empty"))
+            } else if viewModel.page.feedsArray.isEmpty {
+                StatusBoxView(
+                    message: Text("Page Empty"),
+                    caption: emptyCaption,
+                    symbol: "questionmark.square.dashed"
+                )
+            } else if viewModel.page.limitedItemsArray.isEmpty && viewMode == PageViewMode.blend.rawValue {
+                StatusBoxView(
+                    message: Text("No Items"),
+                    caption: Text("Tap \(Image(systemName: "arrow.clockwise")) to refresh"),
+                    symbol: "questionmark.square.dashed"
+                )
             } else {
-
                 #if targetEnvironment(macCatalyst)
                 ScrollView(.vertical) {
                     if viewMode == PageViewMode.blend.rawValue {

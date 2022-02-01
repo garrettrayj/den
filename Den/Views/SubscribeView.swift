@@ -28,18 +28,22 @@ struct SubscribeView: View {
                 NavigationView {
                     Form {
                         Section {
-                            feedUrlInput
+                            feedUrlInput.modifier(FormRowModifier())
                         } header: {
-                            Text("RSS or Atom URL")
+                            Text("Add Feed").frame(maxWidth: .infinity, alignment: .center)
                         } footer: {
-                            if viewModel.validationMessage != nil {
-                                Text(viewModel.validationMessage!)
-                                    .font(.callout)
-                                    .foregroundColor(.red)
-                                    .multilineTextAlignment(.center)
-                                    .padding([.top, .horizontal])
-                                    .frame(maxWidth: .infinity)
+                            Group {
+                                if viewModel.validationMessage != nil {
+                                    Text(viewModel.validationMessage!).foregroundColor(.red)
+                                } else {
+                                    Text("RSS, Atom, and JSONFeed formats accepted")
+                                }
                             }
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .padding([.top, .horizontal])
+                            .frame(maxWidth: .infinity)
+
                         }.modifier(SectionHeaderModifier())
 
                         submitButtonSection
@@ -50,7 +54,6 @@ struct SubscribeView: View {
                         NotificationCenter.default.post(name: .pageRefreshed, object: viewModel.targetPage?.objectID)
                         dismiss()
                     }
-                    .navigationTitle("Add Feed")
                     .toolbar {
                         ToolbarItem {
                             Button { dismiss() } label: {
@@ -94,7 +97,9 @@ struct SubscribeView: View {
         HStack {
             TextField("https://example.com/feed.xml", text: $viewModel.urlText)
                 .lineLimit(1)
+                .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
+                .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
 
             if viewModel.urlIsValid != nil {
                 if viewModel.urlIsValid == true {
@@ -108,7 +113,5 @@ struct SubscribeView: View {
                 }
             }
         }
-        .padding(.vertical, 4)
-        .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
     }
 }

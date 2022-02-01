@@ -11,26 +11,52 @@ import SwiftUI
 struct FeedUnavailableView: View {
     var feedData: FeedData?
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            if feedData == nil {
-                Label("Refresh to Load Content", systemImage: "arrow.clockwise")
-            } else if feedData?.error != nil {
-                Label {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Refresh Error")
-                        Text(feedData!.error!).font(.callout).foregroundColor(.red)
-                    }
-                } icon: {
-                    Image(systemName: "exclamationmark.triangle")
+    private struct StatusMessageView: View {
+        let symbol: String
+        let title: String
+        var caption: String = ""
+        var symbolColor: Color = Color.secondary
+
+        var body: some View {
+            HStack(alignment: .top) {
+                Image(systemName: symbol)
+                    .foregroundColor(symbolColor)
+                    .frame(minWidth: 24, alignment: .trailing)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                    Text(caption).font(.callout).foregroundColor(.secondary)
                 }
-            } else if feedData!.itemsArray.count == 0 {
-                Label("Feed Empty", systemImage: "questionmark.folder")
-            } else {
-                Label("Feed Status Unavailable", systemImage: "questionmark.diamond")
             }
         }
-        .imageScale(.medium)
-        .foregroundColor(.secondary)
+    }
+
+    var body: some View {
+        HStack(alignment: .top) {
+            if feedData == nil {
+                StatusMessageView(
+                    symbol: "arrow.clockwise",
+                    title: "Feed Empty",
+                    caption: "Refresh to load"
+                )
+            } else if feedData?.error != nil {
+                StatusMessageView(
+                    symbol: "exclamationmark.triangle",
+                    title: "Refresh Error",
+                    caption: feedData!.error!,
+                    symbolColor: .red
+                )
+            } else if feedData!.itemsArray.count == 0 {
+                StatusMessageView(
+                    symbol: "questionmark.folder",
+                    title: "Feed Empty",
+                    caption: "No items available"
+                )
+            } else {
+                StatusMessageView(
+                    symbol: "questionmark.diamond",
+                    title: "Status Unavailable"
+                )
+            }
+        }
     }
 }
