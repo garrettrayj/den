@@ -40,13 +40,34 @@ struct PageView: View {
             } else if viewModel.page.feedsArray.count == 0 {
                 StatusBoxView(message: Text("Page Empty"))
             } else {
-                if viewMode == PageViewMode.blend.rawValue {
-                    BlendView(viewModel: viewModel)
-                } else if viewMode == PageViewMode.showcase.rawValue {
-                    ShowcaseView(viewModel: viewModel)
-                } else {
-                    GadgetsView(viewModel: viewModel)
+
+                #if targetEnvironment(macCatalyst)
+                ScrollView(.vertical) {
+                    if viewMode == PageViewMode.blend.rawValue {
+                        BlendView(viewModel: viewModel)
+                    } else if viewMode == PageViewMode.showcase.rawValue {
+                        ShowcaseView(viewModel: viewModel)
+                    } else {
+                        GadgetsView(viewModel: viewModel)
+                    }
                 }
+                #else
+                RefreshableScrollView(
+                    onRefresh: { done in
+                        refreshManager.refresh(page: viewModel.page)
+                        done()
+                    },
+                    content: {
+                        if viewMode == PageViewMode.blend.rawValue {
+                            BlendView(viewModel: viewModel)
+                        } else if viewMode == PageViewMode.showcase.rawValue {
+                            ShowcaseView(viewModel: viewModel)
+                        } else {
+                            GadgetsView(viewModel: viewModel)
+                        }
+                    }
+                )
+                #endif
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))

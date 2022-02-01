@@ -9,29 +9,9 @@
 import SwiftUI
 
 struct GadgetsView: View {
-    #if !targetEnvironment(macCatalyst)
-    @EnvironmentObject private var refreshManager: RefreshManager
-    #endif
-
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
-        #if targetEnvironment(macCatalyst)
-        ScrollView(.vertical) {
-            gadgetsDisplay
-        }
-        #else
-        RefreshableScrollView(
-            onRefresh: { done in
-                refreshManager.refresh(page: viewModel.page)
-                done()
-            },
-            content: { gadgetsDisplay }
-        )
-        #endif
-    }
-
-    var gadgetsDisplay: some View {
         BoardView(list: viewModel.feedViewModels, content: { feedViewModel in
             GadgetView(viewModel: feedViewModel)
         })
