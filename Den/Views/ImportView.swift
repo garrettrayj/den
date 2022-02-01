@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ImportView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var importViewModel: ImportViewModel
 
     var body: some View {

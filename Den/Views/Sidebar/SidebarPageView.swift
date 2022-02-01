@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SidebarPageView: View {
-    @Environment(\.editMode) var editMode
+    @Environment(\.editMode) private var editMode
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
