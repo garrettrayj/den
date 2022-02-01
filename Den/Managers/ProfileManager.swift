@@ -12,8 +12,8 @@ import CoreData
 final class ProfileManager: ObservableObject {
     @Published var activeProfile: Profile?
 
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
 
     var defaultProfileIdString: String? {
         get {

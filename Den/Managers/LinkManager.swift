@@ -14,9 +14,9 @@ final class LinkManager: ObservableObject {
     // Hosting window set in app lifecycle
     public var hostingWindow: UIWindow?
 
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
-    private var profileManager: ProfileManager
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
+    let profileManager: ProfileManager
 
     init(
         viewContext: NSManagedObjectContext,

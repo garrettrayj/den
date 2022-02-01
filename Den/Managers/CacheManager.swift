@@ -10,8 +10,9 @@ import CoreData
 import OSLog
 
 final class CacheManager: ObservableObject {
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
+
     private var lastBackgroundCleanup: Date?
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
