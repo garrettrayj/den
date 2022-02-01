@@ -9,14 +9,13 @@
 import CoreData
 
 final class SecurityCheckViewModel: ObservableObject {
-    @Published var remediationInProgress: Bool = false
-    @Published var failedRemediation: [UUID?] = []
-
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
+    let profileManager: ProfileManager
     let queue = OperationQueue()
 
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
-    private var profileManager: ProfileManager
+    @Published var remediationInProgress: Bool = false
+    @Published var failedRemediation: [UUID?] = []
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profileManager: ProfileManager) {
         self.viewContext = viewContext

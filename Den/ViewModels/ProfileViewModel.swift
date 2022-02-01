@@ -12,6 +12,12 @@ import CoreData
 import SwiftUI
 
 final class ProfileViewModel: ObservableObject {
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
+
+    private var queuedSubscriber: AnyCancellable?
+    private var refreshedSubscriber: AnyCancellable?
+
     @Published var profile: Profile
     @Published var refreshing: Bool = false
 
@@ -20,13 +26,6 @@ final class ProfileViewModel: ObservableObject {
             PageViewModel(page: page, refreshing: refreshing)
         }
     }
-
-    var searchFetchRequest: SectionedFetchRequest<String, Item>?
-    var queuedSubscriber: AnyCancellable?
-    var refreshedSubscriber: AnyCancellable?
-
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
         self.viewContext = viewContext
@@ -44,11 +43,6 @@ final class ProfileViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .map { _ in false }
             .assign(to: \.refreshing, on: self)
-    }
-
-    deinit {
-        queuedSubscriber?.cancel()
-        refreshedSubscriber?.cancel()
     }
 
     func createPage() {
@@ -138,5 +132,10 @@ final class ProfileViewModel: ObservableObject {
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
+    }
+
+    deinit {
+        queuedSubscriber?.cancel()
+        refreshedSubscriber?.cancel()
     }
 }

@@ -13,13 +13,11 @@ final class DownloadItemImagesOperation: Operation {
     var inputWorkingItems: [WorkingItem] = []
     var outputWorkingItems: [WorkingItem] = []
 
-    var queue = OperationQueue()
-
-    private var itemLimit: Int
+    let queue = OperationQueue()
+    let itemLimit: Int
 
     init(itemLimit: Int) {
         self.itemLimit = itemLimit
-
         queue.maxConcurrentOperationCount = 1
     }
 

@@ -39,12 +39,8 @@ final class AtomItemTransform: ItemTransform {
             workingItem.published = published
         }
 
-        if let title = entry.title {
+        if let title = entry.title?.preparingTitle() {
             workingItem.title = title
-                .replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
-                .replacingOccurrences(of: "\u{202F}", with: " ") // NARROW NO-BREAK SPACE
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-                .htmlUnescape()
         } else {
             workingItem.title = "Untitled"
         }

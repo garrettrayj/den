@@ -14,6 +14,12 @@ final class ImportViewModel: ObservableObject {
         case pickFile, folderSelection, error, importing
     }
 
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
+    let profileManager: ProfileManager
+
+    private var documentPicker: ImportDocumentPicker?
+
     @Published var stage: ImportStage = .pickFile
     @Published var opmlFolders: [OPMLReader.Folder] = []
     @Published var selectedFolders: [OPMLReader.Folder] = []
@@ -22,17 +28,9 @@ final class ImportViewModel: ObservableObject {
     @Published var pagesImported: [Page] = []
 
     var allSelected: Bool {
-
-        print(selectedFolders.count)
-        print(opmlFolders.count)
         return selectedFolders.count == opmlFolders.count
     }
-    var noneSelected: Bool { selectedFolders.count == 0 }
-
-    private var viewContext: NSManagedObjectContext
-    private var crashManager: CrashManager
-    private var profileManager: ProfileManager
-    private var documentPicker: ImportDocumentPicker?
+    var noneSelected: Bool { selectedFolders.isEmpty }
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profileManager: ProfileManager) {
         self.viewContext = viewContext

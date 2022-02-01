@@ -10,7 +10,7 @@ import Foundation
 
 import FeedKit
 
-extension FeedKit.JSONFeed {
+extension JSONFeed {
     var webpage: URL? {
         if
             let urlString = self.homePageURL?.trimmingCharacters(in: .whitespacesAndNewlines),

@@ -51,7 +51,6 @@ struct ImportView: View {
                                     Spacer()
                                     Text("\(folder.feeds.count) feeds").foregroundColor(.secondary)
                                 }
-
                             },
                             icon: {
                                 if self.importViewModel.selectedFolders.contains(folder) {

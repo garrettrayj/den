@@ -10,11 +10,11 @@ import Combine
 import Foundation
 
 final class FeedViewModel: ObservableObject {
+    private var queuedSubscriber: AnyCancellable?
+    private var refreshedSubscriber: AnyCancellable?
+
     @Published var feed: Feed
     @Published var refreshing: Bool
-
-    var queuedSubscriber: AnyCancellable?
-    var refreshedSubscriber: AnyCancellable?
 
     init(feed: Feed, refreshing: Bool) {
         self.feed = feed

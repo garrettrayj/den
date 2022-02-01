@@ -9,9 +9,10 @@
 import SwiftUI
 
 final class ExportViewModel: ObservableObject {
+    let profileManager: ProfileManager
+
     @Published var selectedPages: [Page] = []
     @Published var isFilePickerShown = false
-    @Published var picker: ExportDocumentPicker?
 
     var allSelected: Bool {
         selectedPages.count == profileManager.activeProfile?.pagesArray.count ?? 0
@@ -20,8 +21,6 @@ final class ExportViewModel: ObservableObject {
     var noneSelected: Bool {
         selectedPages.count == 0
     }
-
-    private var profileManager: ProfileManager
 
     init(profileManager: ProfileManager) {
         self.profileManager = profileManager

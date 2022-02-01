@@ -10,6 +10,10 @@ import CoreData
 import SwiftUI
 
 final class SubscribeViewModel: ObservableObject {
+    let viewContext: NSManagedObjectContext
+    let profileManager: ProfileManager
+    let refreshManager: RefreshManager
+
     @Published var page: Page?
     @Published var urlText: String = ""
     @Published var urlIsValid: Bool?
@@ -18,10 +22,6 @@ final class SubscribeViewModel: ObservableObject {
     @Published var loading: Bool = false
 
     var newFeed: Feed?
-
-    private var viewContext: NSManagedObjectContext
-    private var profileManager: ProfileManager
-    private var refreshManager: RefreshManager
 
     var targetPage: Page? {
         guard let profile = profileManager.activeProfile else { return nil }

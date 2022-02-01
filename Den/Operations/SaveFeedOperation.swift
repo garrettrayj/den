@@ -14,9 +14,9 @@ final class SaveFeedOperation: Operation {
     var workingFeed: WorkingFeedData?
     var workingFeedItems: [WorkingItem] = []
 
-    private var feedObjectID: NSManagedObjectID
-    private var persistentContainer: NSPersistentContainer
-    private var saveMeta: Bool
+    let feedObjectID: NSManagedObjectID
+    let persistentContainer: NSPersistentContainer
+    let saveMeta: Bool
 
     init(
         persistentContainer: NSPersistentContainer,
@@ -41,12 +41,10 @@ final class SaveFeedOperation: Operation {
 
             updateFeedItems(feedData: feedData, context: context)
 
-            if context.hasChanges {
-                do {
-                    try context.save()
-                } catch {
-                    self.cancel()
-                }
+            do {
+                try context.save()
+            } catch {
+                self.cancel()
             }
         }
     }

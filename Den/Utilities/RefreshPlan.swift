@@ -9,13 +9,9 @@
 import CoreData
 
 final class RefreshPlan {
-    public var fullUpdate: Bool = false
-    public var completionOp: BlockOperation?
-
-    private var feed: Feed
-    private var feedData: FeedData
-    private var persistentContainer: NSPersistentContainer
-    private var progress: Progress?
+    let feed: Feed
+    let feedData: FeedData
+    let persistentContainer: NSPersistentContainer
 
     // Feed processing operations
     private var fetchOp: DataTaskOperation?
@@ -38,6 +34,9 @@ final class RefreshPlan {
     private var parseDownloadThumbnailsAdapter: BlockOperation?
     private var saveFeedAdapter: BlockOperation?
 
+    public var fullUpdate: Bool = false
+    public var completionOp: BlockOperation?
+
     init(
         feed: Feed,
         feedData: FeedData,
@@ -48,7 +47,7 @@ final class RefreshPlan {
         self.persistentContainer = persistentContainer
     }
 
-    public func configureOps() {
+    func configureOps() {
         guard let feedUrl = feed.url else {
             return
         }
