@@ -9,21 +9,30 @@
 import SwiftUI
 
 struct ItemButtonStyle: ButtonStyle {
-    @State private var hovering: Bool = false
-
-    var read: Bool
+    let read: Bool
 
     func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .font(.title3)
-            .foregroundColor(read ? Color(UIColor.systemPurple) : Color(UIColor.link))
-            .frame(maxWidth: .infinity)
-            .background(
-                hovering ?
-                    Color(UIColor.quaternarySystemFill) :
-                    Color(UIColor.secondarySystemGroupedBackground))
-            .onHover { hovered in
-                hovering = hovered
-            }
+        ItemButton(configuration: configuration, read: read)
+    }
+
+    private struct ItemButton: View {
+        let configuration: ButtonStyle.Configuration
+        let read: Bool
+
+        @State private var hovering: Bool = false
+
+        var body: some View {
+            configuration.label
+                .font(.title3)
+                .foregroundColor(read ? Color(UIColor.systemPurple) : Color(UIColor.link))
+                .frame(maxWidth: .infinity)
+                .background(
+                    hovering ?
+                        Color(UIColor.quaternarySystemFill) :
+                        Color(UIColor.secondarySystemGroupedBackground))
+                .onHover { hovered in
+                    hovering = hovered
+                }
+        }
     }
 }

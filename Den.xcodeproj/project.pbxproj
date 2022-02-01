@@ -517,10 +517,10 @@
 				689EDBF9269B97E30055811A /* AccentButtonStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
 				6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */,
+				6880EBCC27A5A38300B479F4 /* ToolbarButtonStyle.swift */,
 				6808F4432737B31E00AEEDAC /* IconProgressStyle.swift */,
 				68FC25702764B1150073979F /* RingProgressStyle.swift */,
 				68701DF0273E471F00C6BB69 /* ToolbarProgressStyle.swift */,
-				6880EBCC27A5A38300B479F4 /* ToolbarButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
