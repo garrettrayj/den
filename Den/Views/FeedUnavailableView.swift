@@ -10,22 +10,19 @@ import SwiftUI
 
 struct FeedUnavailableView: View {
     var feedData: FeedData?
+    var alignment: HorizontalAlignment = .leading
 
     private struct StatusMessageView: View {
         let symbol: String
         let title: String
+        var alignment: HorizontalAlignment
         var caption: String = ""
         var symbolColor: Color = Color.secondary
 
         var body: some View {
-            HStack(alignment: .top) {
-                Image(systemName: symbol)
-                    .foregroundColor(symbolColor)
-                    .frame(minWidth: 24, alignment: .trailing)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(title)
-                    Text(caption).font(.callout).foregroundColor(.secondary)
-                }
+            VStack(alignment: alignment, spacing: 8) {
+                Label(title, systemImage: symbol)
+                Text(caption).foregroundColor(.secondary)
             }
         }
     }
@@ -34,14 +31,16 @@ struct FeedUnavailableView: View {
         HStack(alignment: .top) {
             if feedData == nil {
                 StatusMessageView(
-                    symbol: "arrow.clockwise",
-                    title: "Feed Empty",
-                    caption: "Refresh to load"
+                    symbol: "questionmark.folder",
+                    title: "No Data",
+                    alignment: alignment,
+                    caption: "Refresh to load content"
                 )
             } else if feedData?.error != nil {
                 StatusMessageView(
                     symbol: "exclamationmark.triangle",
                     title: "Refresh Error",
+                    alignment: alignment,
                     caption: feedData!.error!,
                     symbolColor: .red
                 )
@@ -49,12 +48,14 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "Feed Empty",
+                    alignment: alignment,
                     caption: "No items available"
                 )
             } else {
                 StatusMessageView(
                     symbol: "questionmark.diamond",
-                    title: "Status Unavailable"
+                    title: "Status Unavailable",
+                    alignment: alignment
                 )
             }
         }

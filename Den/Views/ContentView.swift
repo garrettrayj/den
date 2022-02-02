@@ -42,6 +42,7 @@ struct ContentView: View {
                     page: subscriptionManager.activePage
                 ))
                 .environment(\.colorScheme, colorScheme)
+                .environmentObject(profileManager)
             }
         }
     }

@@ -10,12 +10,13 @@ import SwiftUI
 
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var viewModel: SubscribeViewModel
 
     var body: some View {
         Group {
-            if viewModel.targetPage == nil {
+            if viewModel.page == nil {
                 VStack(spacing: 24) {
                     Image(systemName: "questionmark.folder").font(.system(size: 52))
                     Text("No Pages Available").font(.title2)
@@ -30,34 +31,51 @@ struct SubscribeView: View {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
                         } header: {
-                            Text("Add Feed").frame(maxWidth: .infinity, alignment: .center)
+                            Text("Web Address").frame(maxWidth: .infinity, alignment: .center)
                         } footer: {
                             Group {
                                 if viewModel.validationMessage != nil {
                                     Text(viewModel.validationMessage!).foregroundColor(.red)
                                 } else {
-                                    Text("RSS, Atom, and JSONFeed formats accepted")
+                                    Text("RSS, Atom, and JSON Feed formats accepted")
                                 }
                             }
                             .font(.callout)
                             .multilineTextAlignment(.center)
-                            .padding([.top, .horizontal])
+                            #if targetEnvironment(macCatalyst)
+                            .padding(.top, 12)
+                            #else
+                            .padding(.top, 4)
+                            #endif
                             .frame(maxWidth: .infinity)
+                        }.headerProminence(.increased)
 
-                        }.modifier(SectionHeaderModifier())
+                        Section {
+                            Picker(selection: $viewModel.page) {
+                                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                                    Text(page.wrappedName).tag(page as Page?)
+                                }
+                                .navigationTitle("")
+                            } label: {
+                                HStack {
+                                    Label("Page", systemImage: "target")
+                                    Spacer()
+                                }
+                            }.modifier(FormRowModifier())
+                        }
 
                         submitButtonSection
                     }
                     .onReceive(
                         NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.newFeed?.objectID)
                     ) { _ in
-                        NotificationCenter.default.post(name: .pageRefreshed, object: viewModel.targetPage?.objectID)
+                        NotificationCenter.default.post(name: .pageRefreshed, object: viewModel.page?.objectID)
                         dismiss()
                     }
                     .toolbar {
                         ToolbarItem {
                             Button { dismiss() } label: {
-                                Label("Close", systemImage: "xmark.circle")
+                                Label("Cancel", systemImage: "xmark.circle")
                             }
                         }
                     }
@@ -77,7 +95,7 @@ struct SubscribeView: View {
             }
         } label: {
             Label {
-                Text("Add to \(viewModel.targetPage!.wrappedName)")
+                Text("Add to \(viewModel.page!.wrappedName)")
             } icon: {
                 if viewModel.loading {
                     ProgressView().progressViewStyle(IconProgressStyle()).colorInvert()
@@ -88,7 +106,11 @@ struct SubscribeView: View {
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))
-        .listRowInsets(EdgeInsets())
+        #if targetEnvironment(macCatalyst)
+        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
+        #else
+        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 16, trailing: 16))
+        #endif
         .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
         .buttonStyle(AccentButtonStyle())
     }

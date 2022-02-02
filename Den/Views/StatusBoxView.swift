@@ -14,13 +14,18 @@ struct StatusBoxView: View {
     var symbol: String?
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 8) {
             Spacer()
             if symbol != nil {
-                Image(systemName: symbol!).font(.system(size: 52))
+                Image(systemName: symbol!)
+                    .font(.system(size: 52))
+                    .padding(.bottom, 8)
             }
             message.font(.title2)
-            caption.font(.title3).imageScale(.small).frame(maxWidth: 360)
+            caption
+                .font(.title3)
+                .frame(maxWidth: 300)
+                .padding(.horizontal)
             Spacer()
             Spacer()
         }

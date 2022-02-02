@@ -23,21 +23,21 @@ final class SubscribeViewModel: ObservableObject {
 
     var newFeed: Feed?
 
-    var targetPage: Page? {
-        guard let profile = profileManager.activeProfile else { return nil }
-
+    func checkTargetPage() {
         // Use the currently active page if available
-        if let page = page {
-            return page
+        if page != nil {
+            return
         }
 
         // Fallback to the first page in profile
-        if let page = profile.pagesArray.first {
-            return page
+        if
+            let profile = profileManager.activeProfile,
+            let page = profile.pagesArray.first
+        {
+            self.page = page
         }
 
         // No destination, user will see prompt to create a page
-        return nil
     }
 
     init(
@@ -53,6 +53,8 @@ final class SubscribeViewModel: ObservableObject {
 
         self.urlText = urlText
         self.page = page
+
+        checkTargetPage()
     }
 
     func validateUrl() {
@@ -60,12 +62,12 @@ final class SubscribeViewModel: ObservableObject {
         urlIsValid = nil
 
         if urlText == "" {
-            self.failValidation(message: "Address may not be blank")
+            self.failValidation(message: "Address can not be blank")
             return
         }
 
         if self.urlText.contains(" ") {
-            self.failValidation(message: "Address may not contain spaces")
+            self.failValidation(message: "Address can not contain spaces")
             return
         }
 
@@ -75,12 +77,12 @@ final class SubscribeViewModel: ObservableObject {
         }
 
         guard let url = URL(string: self.urlText) else {
-            self.failValidation(message: "Unable to parse URL")
+            self.failValidation(message: "Unable to parse address")
             return
         }
 
         if !UIApplication.shared.canOpenURL(url) {
-            self.failValidation(message: "Unopenable URL")
+            self.failValidation(message: "Unopenable address")
             return
         }
 
@@ -88,11 +90,11 @@ final class SubscribeViewModel: ObservableObject {
     }
 
     func addFeed() {
-        guard let url = URL(string: urlText), let targetPage = targetPage else { return }
+        guard let url = URL(string: urlText), let page = page else { return }
 
         self.loading = true
 
-        newFeed = Feed.create(in: self.viewContext, page: targetPage, url: url, prepend: true)
+        newFeed = Feed.create(in: self.viewContext, page: page, url: url, prepend: true)
         refreshManager.refresh(feed: newFeed!)
     }
 
