@@ -35,14 +35,14 @@ struct PageView: View {
 
     #if targetEnvironment(macCatalyst)
     let emptyCaption = Text("""
-    Use feed links \
-    or click \(Image(systemName: "plus.circle")) to add feeds
+    Add feeds by opening syndication links \
+    or click \(Image(systemName: "plus.circle")) to add by web address
     """)
     #else
     let emptyCaption = Text("""
-    Use feed links \
-    or tap \(Image(systemName: "ellipsis.circle")) then “Add Feed \(Image(systemName: "plus.circle"))” \
-    to add feeds
+    Add feeds by opening syndication links \
+    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
+    to add by web address
     """)
     #endif
 
@@ -92,6 +92,9 @@ struct PageView: View {
                 #endif
             }
         }
+        .onAppear {
+            subscriptionManager.activePage = viewModel.page
+        }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             Group {
@@ -121,7 +124,7 @@ struct PageView: View {
             }
             ToolbarItem {
                 Button {
-                    subscriptionManager.showSubscribe(for: viewModel.page)
+                    subscriptionManager.showSubscribe()
                 } label: {
                     Label("Add Feed", systemImage: "plus.circle")
                 }
@@ -155,7 +158,7 @@ struct PageView: View {
             ToolbarItem {
                 Menu {
                     Button {
-                        subscriptionManager.showSubscribe(for: viewModel.page)
+                        subscriptionManager.showSubscribe()
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }

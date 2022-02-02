@@ -29,11 +29,6 @@ final class SubscriptionManager: ObservableObject {
         self.showingSubscribe = true
     }
 
-    func showSubscribe(for page: Page) {
-        activePage = page
-        self.showingSubscribe = true
-    }
-
     func resetSubscribe() {
         showingSubscribe = false
         feedUrlString = ""
