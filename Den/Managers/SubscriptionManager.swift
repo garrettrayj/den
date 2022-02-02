@@ -9,9 +9,10 @@
 import Foundation
 
 final class SubscriptionManager: ObservableObject {
-    @Published var activePage: Page?
     @Published var showingSubscribe: Bool = false
-    @Published var feedUrlString: String = ""
+
+    var feedUrlString: String = ""
+    var activePage: Page?
 
     func showSubscribe(for url: URL? = nil) {
         if
@@ -25,6 +26,11 @@ final class SubscriptionManager: ObservableObject {
             }
         }
 
+        self.showingSubscribe = true
+    }
+
+    func showSubscribe(for page: Page) {
+        activePage = page
         self.showingSubscribe = true
     }
 

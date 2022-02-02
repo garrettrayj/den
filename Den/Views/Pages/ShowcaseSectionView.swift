@@ -24,7 +24,7 @@ struct ShowcaseSectionView: View {
             } else {
                 FeedUnavailableView(feedData: viewModel.feed.feedData)
                     .padding(.vertical)
-                    .padding(.horizontal, 28)
+                    .padding(.horizontal, 32)
             }
         }
     }

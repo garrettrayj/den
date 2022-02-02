@@ -13,6 +13,10 @@ import XCTest
 class MacScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .mac }
 
+    func testCap() {
+
+    }
+
     func testScreenshots() {
         let getStartedLabel = app.staticTexts["Get Started"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)

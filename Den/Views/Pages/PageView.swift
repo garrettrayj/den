@@ -35,14 +35,14 @@ struct PageView: View {
 
     #if targetEnvironment(macCatalyst)
     let emptyCaption = Text("""
-    Add feeds by opening RSS links in your browser \
-    or click \(Image(systemName: "plus.circle")) to manually enter an address
+    Use feed links \
+    or click \(Image(systemName: "plus.circle")) to add feeds
     """)
     #else
     let emptyCaption = Text("""
-    Add feeds by opening RSS links in Safari \
-    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
-    to manually enter an address
+    Use feed links \
+    or tap \(Image(systemName: "ellipsis.circle")) then “Add Feed \(Image(systemName: "plus.circle"))” \
+    to add feeds
     """)
     #endif
 
@@ -109,7 +109,7 @@ struct PageView: View {
             #if targetEnvironment(macCatalyst)
             ToolbarItem {
                 Picker("View Mode", selection: $viewMode) {
-                    Label("Gadgets", systemImage: "square.grid.2x2")
+                    Label("Gadgets", systemImage: "rectangle.grid.3x2")
                         .tag(PageViewMode.gadgets.rawValue)
                     Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                         .tag(PageViewMode.showcase.rawValue)
@@ -121,9 +121,9 @@ struct PageView: View {
             }
             ToolbarItem {
                 Button {
-                    subscriptionManager.showSubscribe()
+                    subscriptionManager.showSubscribe(for: viewModel.page)
                 } label: {
-                    Label("Add Source", systemImage: "plus.circle")
+                    Label("Add Feed", systemImage: "plus.circle")
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
@@ -155,7 +155,7 @@ struct PageView: View {
             ToolbarItem {
                 Menu {
                     Button {
-                        subscriptionManager.showSubscribe()
+                        subscriptionManager.showSubscribe(for: viewModel.page)
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }
@@ -170,7 +170,7 @@ struct PageView: View {
                         Button {
                             viewMode = PageViewMode.gadgets.rawValue
                         } label: {
-                            Label("Gadgets View", systemImage: "square.grid.2x2")
+                            Label("Gadgets View", systemImage: "rectangle.grid.3x2")
                         }
                     }
 
@@ -209,9 +209,6 @@ struct PageView: View {
                 .keyboardShortcut("r", modifiers: [.command])
             }
             #endif
-        }
-        .onAppear {
-            subscriptionManager.activePage = viewModel.page
         }
     }
 }

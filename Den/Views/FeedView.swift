@@ -37,7 +37,7 @@ struct FeedView: View {
             } else {
                 VStack {
                     Spacer()
-                    FeedUnavailableView(feedData: feedData)
+                    FeedUnavailableView(feedData: feedData, alignment: .center)
                         .font(.title2)
                         .frame(maxWidth: 360)
                     Spacer()
