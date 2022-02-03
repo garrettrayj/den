@@ -29,7 +29,7 @@ struct ExportView: View {
                         }
                         .buttonStyle(AccentButtonStyle())
                         .disabled(viewModel.selectedPages.count == 0)
-                        .accessibilityIdentifier("export-button")
+                        .accessibilityIdentifier("export-opml-button")
                     }
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color.clear)

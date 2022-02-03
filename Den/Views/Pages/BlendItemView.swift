@@ -35,6 +35,7 @@ struct BlendItemView: View {
                 ItemPreviewView(item: item)
             }
             .modifier(GroupBlockModifier())
+            .accessibilityIdentifier("blend-item-feed-button")
         }
     }
 }

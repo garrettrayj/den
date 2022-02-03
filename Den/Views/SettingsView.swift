@@ -45,7 +45,9 @@ struct SettingsView: View {
                         profile.displayName,
                         systemImage: profile == profileManager.activeProfile ? "hexagon.fill" : "hexagon"
                     )
-                }.modifier(FormRowModifier())
+                }
+                .modifier(FormRowModifier())
+                .accessibilityIdentifier("profile-button")
             }
 
             Button(action: profileManager.addProfile) {
@@ -100,11 +102,15 @@ struct SettingsView: View {
                 ))
             ) {
                 Label("Import", systemImage: "arrow.down.doc")
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("import-button")
 
             NavigationLink(destination: ExportView(viewModel: ExportViewModel(profileManager: profileManager))) {
                 Label("Export", systemImage: "arrow.up.doc")
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("export-button")
 
             NavigationLink(
                 destination: SecurityCheckView(viewModel: SecurityCheckViewModel(
@@ -114,7 +120,9 @@ struct SettingsView: View {
                 ))
             ) {
                 Label("Security Check", systemImage: "checkmark.shield")
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("security-check-button")
         }.modifier(SectionHeaderModifier())
     }
 

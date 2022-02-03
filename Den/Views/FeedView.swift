@@ -50,13 +50,11 @@ struct FeedView: View {
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
-            Group {
-                NavigationLink(
-                    destination: FeedSettingsView(feed: viewModel.feed),
-                    isActive: $showingSettings
-                ) {
-                    EmptyView()
-                }
+            NavigationLink(
+                destination: FeedSettingsView(feed: viewModel.feed),
+                isActive: $showingSettings
+            ) {
+                EmptyView()
             }
         )
         .navigationTitle(viewModel.feed.wrappedTitle)
