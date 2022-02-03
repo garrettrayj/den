@@ -51,6 +51,7 @@ struct SidebarPageView: View {
             } icon: {
                 Image(systemName: viewModel.page.wrappedSymbol)
             }
-        }.accessibilityIdentifier("page-button")
+        }
+        .accessibilityIdentifier("page-button")
     }
 }

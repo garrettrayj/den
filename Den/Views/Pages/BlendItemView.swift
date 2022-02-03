@@ -29,13 +29,13 @@ struct BlendItemView: View {
                 .buttonStyle(FeedTitleButtonStyle())
                 .disabled(refreshManager.isRefreshing)
                 .frame(height: 32, alignment: .leading)
+                .accessibilityIdentifier("item-feed-button")
 
                 Divider()
 
                 ItemPreviewView(item: item)
             }
             .modifier(GroupBlockModifier())
-            .accessibilityIdentifier("blend-item-feed-button")
         }
     }
 }

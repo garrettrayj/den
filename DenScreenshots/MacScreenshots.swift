@@ -6,122 +6,74 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-// swiftlint:disable function_body_length
-
 import XCTest
 
 class MacScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .mac }
 
-    func testCap() {
-
-        app.tables.buttons["Load Demo Feeds"].tap()
-
-        goToPage(1)
-    }
-
     func testScreenshots() {
-        let getStartedLabel = app.staticTexts["Get Started"]
-        expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        // Page list
+        app.buttons.matching(identifier: "load-demo-button").firstMatch.tap()
+        // Refresh all pages
+        /*
+        let profileRefreshButton = app.buttons.matching(identifier: "profile-refresh-button").firstMatch
+        profileRefreshButton.tap()
+        expectation(for: existsPredicate, evaluatedWith: profileRefreshButton, handler: nil)
+        waitForExpectations(timeout: 120, handler: nil)
+         */
+        takeScreenshot(named: "01-PageList")
 
-        takeScreenshot(named: "01-GetStarted")
-
-        // Load demo feeds
-        let loadDemoButton = app.tables.buttons["Load Demo Feeds"]
-        expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
-        loadDemoButton.tap()
-
-        // Wait for pages to appear
-
-        let pageButtonPredicate = NSPredicate(format: "label CONTAINS 'World News, 0'")
-        let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
-
-        takeScreenshot(named: "2-PageList")
-
-        // Refresh everything
-
-        goToPage("Technology")
-        refreshPage("Technology")
-
+        // Page view
+        goToPage(2)
+        let pageRefreshButton = app.buttons.matching(identifier: "page-refresh-button").firstMatch
+        pageRefreshButton.tap()
+        expectation(for: existsPredicate, evaluatedWith: pageRefreshButton, handler: nil)
+        waitForExpectations(timeout: 60, handler: nil)
         goToLink(1)
         goToLink(3)
-        goToLink(6)
-        goToLink(8)
+        takeScreenshot(named: "02-GadgetsView")
+        app.buttons.matching(identifier: "showcase-view-button").firstMatch.tap()
+        takeScreenshot(named: "03-ShowcaseView")
+        app.buttons.matching(identifier: "blend-view-button").firstMatch.tap()
+        takeScreenshot(named: "04-BlendView")
 
-        let predicate = NSPredicate(format: "label CONTAINS 'Ars Technica'")
-        let feedHeader = app.staticTexts.containing(predicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: feedHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        // Page settings
+        app.buttons.matching(identifier: "page-settings-button").firstMatch.tap()
+        takeScreenshot(named: "05-PageSettings")
+        app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        takeScreenshot(named: "3-PageView")
+        // Feed view
+        app.buttons.matching(identifier: "item-feed-button").firstMatch.tap()
+        takeScreenshot(named: "06-FeedView")
 
-        let pageSettingsButton = app.windows["SceneWindow"].windows
-            .navigationBars["Technology"]
-            .buttons["Page Settings"]
-        expectation(for: existsPredicate, evaluatedWith: pageSettingsButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageSettingsButton.tap()
+        // Feed settings
+        app.buttons.matching(identifier: "feed-settings-button").firstMatch.tap()
+        takeScreenshot(named: "07-FeedSettings")
+        app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        let backButton = app.navigationBars["Page Settings"].buttons["Technology"]
-        expectation(for: existsPredicate, evaluatedWith: backButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-
-        takeScreenshot(named: "4-PageSettings")
-        backButton.tap()
-
-        let feedSettingsButton = app.buttons.matching(identifier: "Feed Settings").firstMatch
-        expectation(for: existsPredicate, evaluatedWith: feedSettingsButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        feedSettingsButton.tap()
-
-        let closeButton = app.windows["SceneWindow"].sheets.windows.navigationBars["Feed Settings"]
-            .buttons["close"]
-        expectation(for: existsPredicate, evaluatedWith: closeButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-
-        takeScreenshot(named: "5-FeedSettings")
-        closeButton.tap()
-
-        app.tabBars["Tab Bar"].buttons["Search"].tap()
-
-        let searchTextField = app.textFields["Search…"]
-        searchTextField.tap()
-        searchTextField.typeText("Apple")
-        searchTextField.typeText("\n")
-
+        // Search
+        let searchField = app.searchFields["Search"]
+        searchField.tap()
+        searchField.typeText("Apple")
+        searchField.typeText("\n")
         let searchGroupHeader = app.scrollViews.otherElements.staticTexts["Apple Newsroom"]
         expectation(for: existsPredicate, evaluatedWith: searchGroupHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
+        takeScreenshot(named: "08-Search")
 
-        takeScreenshot(named: "6-Search")
-
-        app.tabBars["Tab Bar"].buttons["History"].tap()
-
+        // History
+        app.buttons.matching(identifier: "history-button").firstMatch.tap()
         let historyHeader = app.navigationBars["History"]
         expectation(for: existsPredicate, evaluatedWith: historyHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
+        takeScreenshot(named: "09-History")
 
-        takeScreenshot(named: "7-History")
-
-        app.tabBars["Tab Bar"].buttons["Settings"].tap()
-
+        // Settings
+        app.buttons.matching(identifier: "settings-button").firstMatch.tap()
         let settingsHeader = app.navigationBars["Settings"]
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-
-        takeScreenshot(named: "8-Settings")
-    }
-
-    private func goToPage(_ pageName: String) {
-        let pageButtonPredicate = NSPredicate(format: "label CONTAINS '\(pageName)'")
-        let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageButton.tap()
+        takeScreenshot(named: "10-Settings")
     }
 
     private func goToPage(_ elementIndex: Int) {
@@ -131,29 +83,13 @@ class MacScreenshots: ScreenshotTestCase {
             .tap()
     }
 
-    private func refreshPage(_ pageName: String) {
-        let refreshButton = app.windows["SceneWindow"].windows
-            .navigationBars[pageName]
-            .buttons["Refresh"]
-        expectation(for: existsPredicate, evaluatedWith: refreshButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        refreshButton.tap()
-
-        let refreshLabel = app.staticTexts["Refresh to Fetch Content"]
-        expectation(for: notExistsPredicate, evaluatedWith: refreshLabel, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
-
-        let emptyLabel = app.staticTexts["Feed Empty"]
-        expectation(for: notExistsPredicate, evaluatedWith: emptyLabel, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
-    }
-
     private func goToLink(_ elementIndex: Int) {
-        app.windows["Den"].buttons
-            .matching(identifier: "Item Link")
+        app.buttons
+            .matching(identifier: "gadget-item-button")
             .element(boundBy: elementIndex)
             .tap()
 
+        sleep(1)
         app.activate()
     }
 }

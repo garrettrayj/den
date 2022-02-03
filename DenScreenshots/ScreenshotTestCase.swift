@@ -31,6 +31,7 @@ class ScreenshotTestCase: XCTestCase {
     ]
     let existsPredicate = NSPredicate(format: "exists == 1")
     let notExistsPredicate = NSPredicate(format: "exists == 0")
+    let hittablePredicate = NSPredicate(format: "hittable == 1")
 
     override func setUpWithError() throws {
         // In UI tests it is usually best to stop immediately when a failure occurs.
