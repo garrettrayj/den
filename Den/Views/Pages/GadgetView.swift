@@ -43,6 +43,7 @@ struct GadgetView: View {
                 }
                 .buttonStyle(FeedTitleButtonStyle())
                 .disabled(refreshManager.isRefreshing)
+                .accessibilityIdentifier("gadget-feed-button")
             }
 
             if viewModel.refreshing {

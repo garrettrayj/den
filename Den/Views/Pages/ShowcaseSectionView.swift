@@ -46,6 +46,7 @@ struct ShowcaseSectionView: View {
                     FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
                 )
                 .disabled(refreshManager.isRefreshing)
+                .accessibilityIdentifier("showcase-section-feed-button")
             }
             Spacer()
             Group {
