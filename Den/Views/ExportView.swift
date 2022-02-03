@@ -29,6 +29,7 @@ struct ExportView: View {
                         }
                         .buttonStyle(AccentButtonStyle())
                         .disabled(viewModel.selectedPages.count == 0)
+                        .accessibilityIdentifier("export-button")
                     }
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color.clear)
@@ -65,6 +66,7 @@ struct ExportView: View {
                 }
                 .modifier(FormRowModifier())
                 .onAppear { self.viewModel.selectedPages.append(page) }
+                .accessibilityIdentifier("export-toggle-page-button")
             }
         }.modifier(SectionHeaderModifier())
     }

@@ -34,6 +34,7 @@ struct ProfileView: View {
                 }
                 .buttonStyle(ActivateButtonStyle())
                 .disabled(profile == profileManager.activeProfile)
+                .accessibilityIdentifier("activate-profile-button")
             }
         }
         .navigationTitle("Profile Settings")
@@ -61,12 +62,13 @@ struct ProfileView: View {
             }
             .disabled(profile == profileManager.activeProfile)
             .modifier(FormRowModifier())
+            .accessibilityIdentifier("delete-profile-button")
         } footer: {
             if profile == profileManager.activeProfile {
                 Text("Cannot delete active profile").padding(.vertical, 8)
             }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
             Button("Delete", role: .destructive) {
                 viewContext.delete(profile)
                 do {
@@ -75,7 +77,7 @@ struct ProfileView: View {
                 } catch let error as NSError {
                     crashManager.handleCriticalError(error)
                 }
-            }
+            }.accessibilityIdentifier("delete-profile-confirm-button")
         }, message: {
             Text("Pages, feeds, and history will be removed. This action cannot be undone.")
         })

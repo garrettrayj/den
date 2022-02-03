@@ -38,11 +38,13 @@ struct FeedSettingsView: View {
                     isPresented: $showingDeleteAlert,
                     actions: {
                         Button("Cancel", role: .cancel) { }
+                            .accessibilityIdentifier("feed-delete-cancel-button")
                         Button("Delete", role: .destructive) {
                             delete()
-                        }
+                        }.accessibilityIdentifier("feed-delete-confirm-button")
                     }
                 )
+                .accessibilityIdentifier("feed-delete-button")
             }
         }
     }
@@ -123,7 +125,7 @@ struct FeedSettingsView: View {
                 Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                 Button(action: copyUrl) {
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
-                }
+                }.accessibilityIdentifier("feed-copy-url-button")
             }.modifier(FormRowModifier())
 
             HStack {

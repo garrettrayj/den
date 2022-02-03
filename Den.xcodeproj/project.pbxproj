@@ -512,6 +512,27 @@
 			path = Operations;
 			sourceTree = "<group>";
 		};
+		6880EBE427ABEDB600B479F4 /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				68E4273D26D2340A00E496E3 /* ViewModels */,
+				687C27962634A84600099FCA /* Modifiers */,
+				68B34A5C2486D2710066B215 /* Representables */,
+				688FD91B24780C800006A2DE /* Styles */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		6880EBE527ABEE7900B479F4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				68C4134724727BED00D1DC7B /* Models */,
+				68E9BDBB279D0953003BA111 /* Transforms */,
+				687D9CC724B0C43800EB7F46 /* Operations */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		688FD91B24780C800006A2DE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,14 +642,9 @@
 				68C4131F247263C700D1DC7B /* Info.plist */,
 				68C4130E247263C700D1DC7B /* Den.xcdatamodeld */,
 				68915AEE2618CD9C00E4C0CB /* Entities */,
-				68C4134724727BED00D1DC7B /* Models */,
-				68E9BDBB279D0953003BA111 /* Transforms */,
+				6880EBE527ABEE7900B479F4 /* Data */,
 				680E57C124D1927600196F6D /* Managers */,
-				687D9CC724B0C43800EB7F46 /* Operations */,
-				68E4273D26D2340A00E496E3 /* ViewModels */,
-				687C27962634A84600099FCA /* Modifiers */,
-				68B34A5C2486D2710066B215 /* Representables */,
-				688FD91B24780C800006A2DE /* Styles */,
+				6880EBE427ABEDB600B479F4 /* UserInterface */,
 				68C413422472760400D1DC7B /* Views */,
 				68B34A5F2487C4E10066B215 /* Extensions */,
 				68E9BDB6279CFF90003BA111 /* Constants */,

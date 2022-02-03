@@ -13,8 +13,10 @@ struct SidebarPageView: View {
     @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
-        Label(
-            title: {
+        NavigationLink {
+            PageView(viewModel: viewModel)
+        } label: {
+            Label {
                 HStack {
                     Text(viewModel.page.displayName)
                         #if targetEnvironment(macCatalyst)
@@ -46,14 +48,9 @@ struct SidebarPageView: View {
                     #endif
 
                 }.lineLimit(1)
-            },
-            icon: { Image(systemName: viewModel.page.wrappedSymbol).imageScale(.medium) }
-        ).background(
-            NavigationLink(destination: {
-                PageView(viewModel: viewModel)
-            }, label: {
-                EmptyView()
-            })
-        )
+            } icon: {
+                Image(systemName: viewModel.page.wrappedSymbol)
+            }
+        }.accessibilityIdentifier("page-navlink")
     }
 }

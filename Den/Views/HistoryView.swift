@@ -88,6 +88,6 @@ struct HistoryView: View {
             .padding(.horizontal)
         }
         .buttonStyle(ItemButtonStyle(read: true))
-
+        .accessibilityIdentifier("history-row-button")
     }
 }

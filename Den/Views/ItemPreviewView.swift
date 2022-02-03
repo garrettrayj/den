@@ -56,6 +56,6 @@ struct ItemPreviewView: View {
             .fixedSize(horizontal: false, vertical: true)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
-        .accessibility(identifier: "Item Link")
+        .accessibilityIdentifier("item-preview-button")
     }
 }

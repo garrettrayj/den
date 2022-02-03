@@ -70,6 +70,7 @@ struct SecurityCheckView: View {
                     } label: {
                         Text("Scan for HTTPS Alternatives").buttonStyle(RegularButtonStyle())
                     }
+                    .accessibilityIdentifier("remedy-button")
                 }
             }.padding(.vertical, 4)
 
