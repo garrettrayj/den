@@ -130,6 +130,7 @@ struct PageView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
+                .accessibilityIdentifier("add-feed-button")
             }
             ToolbarItem {
                 Button {
@@ -139,6 +140,7 @@ struct PageView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
+                .accessibilityIdentifier("page-settings-button")
             }
             ToolbarItem {
                 if viewModel.refreshing {
@@ -152,6 +154,7 @@ struct PageView: View {
                     .buttonStyle(ToolbarButtonStyle())
                     .disabled(refreshManager.isRefreshing)
                     .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("page-refresh-button")
                 }
             }
             #else
@@ -161,20 +164,20 @@ struct PageView: View {
                         subscriptionManager.showSubscribe()
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
-                    }
+                    }.accessibilityIdentifier("add-feed-button")
 
                     Button {
                         showingSettings = true
                     } label: {
                         Label("Page Settings", systemImage: "wrench")
-                    }
+                    }.accessibilityIdentifier("page-settings-button")
 
                     if viewMode != PageViewMode.gadgets.rawValue {
                         Button {
                             viewMode = PageViewMode.gadgets.rawValue
                         } label: {
                             Label("Gadgets View", systemImage: "rectangle.grid.3x2")
-                        }
+                        }.accessibilityIdentifier("gadgets-view-button")
                     }
 
                     if viewMode != PageViewMode.showcase.rawValue {
@@ -182,7 +185,7 @@ struct PageView: View {
                             viewMode = PageViewMode.showcase.rawValue
                         } label: {
                             Label("Showcase View", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                        }
+                        }.accessibilityIdentifier("showcase-view-button")
                     }
 
                     if viewMode != PageViewMode.blend.rawValue {
@@ -190,12 +193,13 @@ struct PageView: View {
                             viewMode = PageViewMode.blend.rawValue
                         } label: {
                             Label("Blend View", systemImage: "square.text.square")
-                        }
+                        }.accessibilityIdentifier("blend-view-button")
                     }
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis.circle")
                 }
                 .disabled(refreshManager.isRefreshing)
+                .accessibilityIdentifier("page-menu")
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -210,6 +214,7 @@ struct PageView: View {
                 }
                 .disabled(refreshManager.isRefreshing)
                 .keyboardShortcut("r", modifiers: [.command])
+                .accessibilityIdentifier("page-refresh-button")
             }
             #endif
         }

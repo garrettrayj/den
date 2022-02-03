@@ -69,6 +69,7 @@ struct FeedView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .disabled(refreshManager.isRefreshing)
+                .accessibilityIdentifier("feed-settings-button")
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -83,6 +84,7 @@ struct FeedView: View {
                     .buttonStyle(ToolbarButtonStyle())
                     .keyboardShortcut("r", modifiers: [.command])
                     .disabled(refreshManager.isRefreshing)
+                    .accessibilityIdentifier("feed-refresh-button")
                 }
             }
         }

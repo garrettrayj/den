@@ -15,6 +15,9 @@ class MacScreenshots: ScreenshotTestCase {
 
     func testCap() {
 
+        app.tables.buttons["Load Demo Feeds"].tap()
+
+        goToPage(1)
     }
 
     func testScreenshots() {
@@ -22,7 +25,7 @@ class MacScreenshots: ScreenshotTestCase {
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
 
-        takeScreenshot(named: "1-GetStarted")
+        takeScreenshot(named: "01-GetStarted")
 
         // Load demo feeds
         let loadDemoButton = app.tables.buttons["Load Demo Feeds"]
@@ -119,6 +122,13 @@ class MacScreenshots: ScreenshotTestCase {
         expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageButton.tap()
+    }
+
+    private func goToPage(_ elementIndex: Int) {
+        app.tables.buttons
+            .matching(identifier: "page-button")
+            .element(boundBy: elementIndex)
+            .tap()
     }
 
     private func refreshPage(_ pageName: String) {

@@ -49,5 +49,6 @@ struct GadgetItemView: View {
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
         .fixedSize(horizontal: false, vertical: true)
+        .accessibilityIdentifier("gadget-item-button")
     }
 }

@@ -33,7 +33,9 @@ struct ImportView: View {
         VStack(alignment: .center) {
             Button(action: importViewModel.pickFile) {
                 Label("Select OPML file", systemImage: "filemenu.and.selection")
-            }.buttonStyle(AccentButtonStyle())
+            }
+            .buttonStyle(AccentButtonStyle())
+            .accessibilityIdentifier("import-pick-file-button")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .padding()
@@ -62,6 +64,7 @@ struct ImportView: View {
                         )
                     }
                     .modifier(FormRowModifier())
+                    .accessibilityIdentifier("import-toggle-folder-button")
                 }
             }.modifier(SectionHeaderModifier())
 
@@ -71,6 +74,7 @@ struct ImportView: View {
                 }
                 .buttonStyle(AccentButtonStyle())
                 .disabled(!(importViewModel.selectedFolders.count > 0))
+                .accessibilityIdentifier("import-submit-button")
             }
             .frame(maxWidth: .infinity)
             .listRowBackground(Color.clear)

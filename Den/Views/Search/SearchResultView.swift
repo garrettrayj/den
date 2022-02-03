@@ -40,7 +40,7 @@ struct SearchResultView: View {
             .padding(.horizontal)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
-
+        .accessibilityIdentifier("search-result-button")
     }
 
     private var thumbnailImage: some View {

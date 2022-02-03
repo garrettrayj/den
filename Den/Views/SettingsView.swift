@@ -50,7 +50,9 @@ struct SettingsView: View {
 
             Button(action: profileManager.addProfile) {
                 Label("Add Profile", systemImage: "plus")
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("add-profile-button")
         } header: {
             Text("Profiles")
         }.modifier(SectionHeaderModifier())
@@ -135,7 +137,9 @@ struct SettingsView: View {
 
             Button(action: viewModel.clearHistory) {
                 Label("Clear History", systemImage: "clear").lineLimit(1)
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("clear-history-button")
         }
         .modifier(SectionHeaderModifier())
         .onChange(of: viewModel.historyRentionDays) { _ in
@@ -146,9 +150,10 @@ struct SettingsView: View {
     private var dataSection: some View {
         Section(header: Text("Reset")) {
             Button(action: viewModel.clearCache) {
-                Label("Empty Cache", systemImage: "bin.xmark")
+                Label("Clear Cache", systemImage: "bin.xmark")
             }
             .modifier(FormRowModifier())
+            .accessibilityIdentifier("clear-cache-button")
 
             Button(role: .destructive) {
                 viewModel.showingResetAlert = true
@@ -157,14 +162,15 @@ struct SettingsView: View {
             }
             .modifier(FormRowModifier())
             .alert("Reset Everything?", isPresented: $viewModel.showingResetAlert, actions: {
-                Button("Cancel", role: .cancel) { }
+                Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
                 Button("Reset", role: .destructive) {
                     viewModel.resetEverything()
                     dismiss()
-                }
+                }.accessibilityIdentifier("reset-confirm-button")
             }, message: {
                 Text("All profiles, pages, feeds, and history will be permanently deleted.")
             })
+            .accessibilityIdentifier("reset-button")
         }.modifier(SectionHeaderModifier())
     }
 
@@ -188,16 +194,22 @@ struct SettingsView: View {
             }.padding(.vertical, 8)
 
             Button(action: viewModel.openHomepage) {
-                Label("Homepage", systemImage: "house")
-            }.modifier(FormRowModifier())
+                Label("Website", systemImage: "house")
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("website-button")
 
             Button(action: viewModel.emailSupport) {
                 Label("Email Support", systemImage: "lifepreserver")
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("email-support-button")
 
             Button(action: viewModel.openPrivacyPolicy) {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("privacy-policy-button")
         }.modifier(SectionHeaderModifier())
     }
 }

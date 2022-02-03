@@ -18,11 +18,15 @@ struct StartListView: View {
             Section {
                 Button(action: viewModel.createPage) {
                     Label("Create a Blank Page", systemImage: "plus")
-                }.modifier(StartRowModifier())
+                }
+                .modifier(StartRowModifier())
+                .accessibilityIdentifier("start-blank-page-button")
 
                 Button(action: viewModel.loadDemo) {
                     Label("Load Demo Feeds", systemImage: "wand.and.stars")
-                }.modifier(StartRowModifier())
+                }
+                .modifier(StartRowModifier())
+                .accessibilityIdentifier("load-demo-button")
             } header: {
                 Text("Get Started")
             } footer: {
@@ -41,7 +45,9 @@ struct StartListView: View {
                     showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
-                }.buttonStyle(ToolbarButtonStyle())
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("start-settings-button")
             }
         }
     }

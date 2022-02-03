@@ -58,12 +58,15 @@ struct NavigationListView: View {
                 if editMode?.wrappedValue == EditMode.active {
                     Button(action: profileViewModel.createPage) {
                         Label("New Page", systemImage: "plus")
-                    }.buttonStyle(ToolbarButtonStyle())
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .accessibilityIdentifier("new-page-button")
                 }
 
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
                     .disabled(refreshManager.isRefreshing)
+                    .accessibilityIdentifier("page-list-edit-button")
 
                 if editMode?.wrappedValue == .inactive {
                     if refreshManager.isRefreshing {
@@ -76,6 +79,7 @@ struct NavigationListView: View {
                         }
                         .buttonStyle(ToolbarButtonStyle())
                         .keyboardShortcut("r", modifiers: [.command, .shift])
+                        .accessibilityIdentifier("profile-refresh-button")
                     }
                 }
             }
@@ -85,7 +89,9 @@ struct NavigationListView: View {
                     showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
-                }.buttonStyle(ToolbarButtonStyle())
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("settings-button")
 
                 Spacer()
 
@@ -93,7 +99,9 @@ struct NavigationListView: View {
                     showingHistory = true
                 } label: {
                     Label("History", systemImage: "clock")
-                }.buttonStyle(ToolbarButtonStyle())
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("history-button")
             }
         }
     }

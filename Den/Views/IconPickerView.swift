@@ -56,6 +56,7 @@ struct IconPickerView: View {
                                     )
                             )
                     }
+                    .accessibilityIdentifier("select-icon-button")
                 }
             }
             .padding(.horizontal)

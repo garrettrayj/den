@@ -22,7 +22,9 @@ struct SubscribeView: View {
                     Text("No Pages Available").font(.title2)
                     Button { dismiss() } label: {
                         Text("Cancel").font(.title3)
-                    }.buttonStyle(RegularButtonStyle())
+                    }
+                    .buttonStyle(RegularButtonStyle())
+                    .accessibilityIdentifier("subscribe-cancel-button")
                 }
                 .foregroundColor(.secondary)
             } else {
@@ -77,6 +79,7 @@ struct SubscribeView: View {
                             Button { dismiss() } label: {
                                 Label("Cancel", systemImage: "xmark.circle")
                             }
+                            .accessibilityIdentifier("subscribe-cancel-button")
                         }
                     }
                 }
@@ -113,6 +116,7 @@ struct SubscribeView: View {
         #endif
         .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
         .buttonStyle(AccentButtonStyle())
+        .accessibilityIdentifier("subscribe-submit-button")
     }
 
     private var feedUrlInput: some View {
