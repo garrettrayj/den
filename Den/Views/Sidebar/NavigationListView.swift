@@ -66,7 +66,7 @@ struct NavigationListView: View {
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
                     .disabled(refreshManager.isRefreshing)
-                    .accessibilityIdentifier("page-list-edit-button")
+                    .accessibilityIdentifier("edit-page-list-button")
 
                 if editMode?.wrappedValue == .inactive {
                     if refreshManager.isRefreshing {

@@ -114,10 +114,13 @@ struct PageView: View {
                 Picker("View Mode", selection: $viewMode) {
                     Label("Gadgets", systemImage: "rectangle.grid.3x2")
                         .tag(PageViewMode.gadgets.rawValue)
+                        .accessibilityIdentifier("gadgets-view-button")
                     Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                         .tag(PageViewMode.showcase.rawValue)
+                        .accessibilityIdentifier("showcase-view-button")
                     Label("Blend", systemImage: "square.text.square")
                         .tag(PageViewMode.blend.rawValue)
+                        .accessibilityIdentifier("blend-view-button")
                 }
                 .pickerStyle(.inline)
                 .padding(.horizontal, 8)

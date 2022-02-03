@@ -21,7 +21,13 @@ struct GadgetView: View {
             header
 
             if feedData != nil && !feedData!.itemsArray.isEmpty {
-                items
+                ForEach(feedData!.limitedItemsArray) { item in
+                    Divider()
+                    GadgetItemView(
+                        item: item,
+                        feed: viewModel.feed
+                    ).accessibilityElement(children: .combine)
+                }
             } else {
                 Divider()
                 FeedUnavailableView(feedData: feedData).padding()
@@ -51,15 +57,5 @@ struct GadgetView: View {
                 ProgressView().progressViewStyle(IconProgressStyle()).padding(.trailing, 12)
             }
         }.frame(height: 32, alignment: .leading)
-    }
-
-    private var items: some View {
-        ForEach(feedData!.limitedItemsArray) { item in
-            Divider()
-            GadgetItemView(
-                item: item,
-                feed: viewModel.feed
-            )
-        }
     }
 }
