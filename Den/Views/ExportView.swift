@@ -76,9 +76,13 @@ struct ExportView: View {
             Text("Select Pages")
             Spacer()
             HStack {
-                Button(action: viewModel.selectAll) { Text("All") }.disabled(viewModel.allSelected)
+                Button(action: viewModel.selectAll) { Text("All") }
+                    .disabled(viewModel.allSelected)
+                    .accessibilityIdentifier("export-select-all-button")
                 Text("/")
-                Button(action: viewModel.selectNone) { Text("None")}.disabled(viewModel.noneSelected)
+                Button(action: viewModel.selectNone) { Text("None")}
+                    .disabled(viewModel.noneSelected)
+                    .accessibilityIdentifier("export-select-none-button")
             }.font(.callout)
         }
     }

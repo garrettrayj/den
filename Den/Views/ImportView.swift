@@ -105,9 +105,13 @@ struct ImportView: View {
             Text("Select Folders")
             Spacer()
             HStack {
-                Button(action: importViewModel.selectAll) { Text("All") }.disabled(importViewModel.allSelected)
+                Button(action: importViewModel.selectAll) { Text("All") }
+                    .disabled(importViewModel.allSelected)
+                    .accessibilityIdentifier("import-select-all-button")
                 Text("/")
-                Button(action: importViewModel.selectNone) { Text("None") }.disabled(importViewModel.noneSelected)
+                Button(action: importViewModel.selectNone) { Text("None") }
+                    .disabled(importViewModel.noneSelected)
+                    .accessibilityIdentifier("import-select-none-button")
             }.font(.callout)
         }
     }
