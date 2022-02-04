@@ -34,6 +34,8 @@ class ScreenshotTestCase: XCTestCase {
     let hittablePredicate = NSPredicate(format: "hittable == 1")
 
     override func setUpWithError() throws {
+        super.setUp()
+
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
 
@@ -53,6 +55,7 @@ class ScreenshotTestCase: XCTestCase {
         app = XCUIApplication()
         app.launchArguments.append("--reset")
         app.launch()
+        sleep(1)
 
         #if !targetEnvironment(macCatalyst)
         if targetIdiom == .pad {

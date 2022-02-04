@@ -203,21 +203,22 @@ struct PageView: View {
                 }
                 .disabled(refreshManager.isRefreshing)
                 .accessibilityIdentifier("page-menu")
+                .accessibilityElement(children: .contain)
             }
 
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    refreshManager.refresh(page: viewModel.page)
-                } label: {
-                    if viewModel.refreshing {
-                        ProgressView().progressViewStyle(ToolbarProgressStyle())
-                    } else {
+                if viewModel.refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        refreshManager.refresh(page: viewModel.page)
+                    } label: {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
+                    .disabled(refreshManager.isRefreshing)
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("page-refresh-button")
                 }
-                .disabled(refreshManager.isRefreshing)
-                .keyboardShortcut("r", modifiers: [.command])
-                .accessibilityIdentifier("page-refresh-button")
             }
             #endif
         }
