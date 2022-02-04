@@ -19,8 +19,8 @@ testBundle="DenScreenshots"
 # All the simulators we want to screenshot
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
-    "iPhone 12 Pro Max"
-    "iPhone 8 Plus"
+    #"iPhone 12 Pro Max"
+    #"iPhone 8 Plus"
     "iPad Pro (12.9-inch) (5th generation)"
     "iPad Pro (12.9-inch) (2nd generation)"
 )
@@ -40,26 +40,26 @@ appearances=(
 targetFolder="$PWD/Documents/Screenshots"
 
 # Capture macOS screenshots
-# for language in "${languages[@]}"
-# do
-#     for appearance in "${appearances[@]}"
-#     do
-#         rm -rf /tmp/DenDerivedData/Logs/Test
-#
-#         xcodebuild \
-#             -testLanguage $language \
-#             -scheme $schemeName \
-#             -project $projectName \
-#             -derivedDataPath '/tmp/DenDerivedData/' \
-#             -only-testing:$testBundle \
-#             build test
-#
-#         echo "🖼  Collecting macOS results..."
-#         mkdir -p "$targetFolder/macOS/$language/$appearance"
-#         find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/macOS/$language/$appearance" \;
-#     done
-# done
-# echo "✅  Mac Screenshots Done"
+for language in "${languages[@]}"
+do
+    for appearance in "${appearances[@]}"
+    do
+        rm -rf /tmp/DenDerivedData/Logs/Test
+
+        xcodebuild \
+            -testLanguage $language \
+            -scheme $schemeName \
+            -project $projectName \
+            -derivedDataPath '/tmp/DenDerivedData/' \
+            -only-testing:$testBundle \
+            build test
+
+        echo "🖼  Collecting macOS results..."
+        mkdir -p "$targetFolder/macOS/$language/$appearance"
+        find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/macOS/$language/$appearance" \;
+    done
+done
+echo "✅  Mac Screenshots Done"
 
 
 # Capture iOS screenshots

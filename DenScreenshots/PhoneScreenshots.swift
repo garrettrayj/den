@@ -14,130 +14,92 @@ class PhoneScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .phone }
 
     func testScreenshots() {
-        let getStartedLabel = app.staticTexts["GET STARTED"]
+        let getStartedLabel = app.staticTexts["Get Started"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
-
-        takeScreenshot(named: "1-GetStarted")
-
-        loadDemo()
-
-        takeScreenshot(named: "2-PageList")
-
-        goToPage("Technology")
-
-        let predicate = NSPredicate(format: "label CONTAINS 'Ars Technica'")
-        let feedHeader = app.staticTexts.containing(predicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: feedHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
+        app.buttons["load-demo-button"].tap()
+        takeScreenshot(named: "01-PageList")
 
-        takeScreenshot(named: "3-PageView")
+        // Page views
+        goToPage(2)
 
-        goToLink(8)
-        goToLink(6)
-        goToLink(3)
+        let pageRefreshButton = app.buttons["page-refresh-button"]
+        pageRefreshButton.tap()
+        expectation(for: existsPredicate, evaluatedWith: pageRefreshButton, handler: nil)
+        waitForExpectations(timeout: 60, handler: nil)
+
         goToLink(1)
 
-        let pageMenuButton = app.navigationBars["Technology"].buttons["Page Menu"]
+        takeScreenshot(named: "02-GadgetsView")
+
+        let pageMenuButton = app.buttons["page-menu"]
         expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         pageMenuButton.tap()
 
-        let pageSettingsButton = app.collectionViews.buttons["Page Settings"]
-        expectation(for: existsPredicate, evaluatedWith: pageSettingsButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageSettingsButton.tap()
+        app.buttons["showcase-view-button"].tap()
+        takeScreenshot(named: "03-ShowcaseView")
+        app.navigationBars.buttons["page-menu"].forceTap()
+        app.buttons["blend-view-button"].tap()
+        takeScreenshot(named: "04-BlendView")
 
-        let backButton = app.navigationBars["Page Settings"].buttons["Technology"]
-        expectation(for: existsPredicate, evaluatedWith: backButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        // Page settings
+        app.navigationBars.buttons["page-menu"].forceTap()
+        app.buttons["page-settings-button"].tap()
+        takeScreenshot(named: "04-PageSettings")
+        app.navigationBars.element(boundBy: 1).buttons.element(boundBy: 0).tap()
 
-        takeScreenshot(named: "4-PageSettings")
-        backButton.tap()
+        // Feed view
+        app.buttons.matching(identifier: "item-feed-button").firstMatch.forceTap()
+        takeScreenshot(named: "05-FeedView")
 
-        app.scrollViews
-            .children(matching: .other)
-            .element(boundBy: 0)
-            .children(matching: .other)
-            .element
-            .children(matching: .button)
-            .matching(identifier: "Feed Settings")
-            .element(boundBy: 0)
-            .tap()
+        // Feed settings
+        app.buttons["feed-settings-button"].forceTap()
+        takeScreenshot(named: "06-FeedSettings")
 
-        let closeButton = app.navigationBars["Feed Settings"].buttons["close"]
-        expectation(for: existsPredicate, evaluatedWith: closeButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
-
-        takeScreenshot(named: "5-FeedSettings")
-        closeButton.tap()
-
-        app.tabBars["Tab Bar"].buttons["Search"].tap()
-
-        let searchTextField = app.textFields["Search"]
-        searchTextField.tap()
-        searchTextField.typeText("Apple")
-        searchTextField.typeText("\n")
-
+        // Search
+        let searchField = app.searchFields["Search"]
+        searchField.tap()
+        searchField.typeText("Apple")
+        searchField.typeText("\n")
         let searchGroupHeader = app.scrollViews.otherElements.staticTexts["Apple Newsroom"]
         expectation(for: existsPredicate, evaluatedWith: searchGroupHeader, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        takeScreenshot(named: "07-Search")
 
-        takeScreenshot(named: "6-Search")
-
-        app.tabBars["Tab Bar"].buttons["History"].tap()
-
+        // History
+        app.buttons["history-button"].forceTap()
         let historyHeader = app.navigationBars["History"]
         expectation(for: existsPredicate, evaluatedWith: historyHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
+        takeScreenshot(named: "08-History")
 
-        takeScreenshot(named: "7-History")
-
-        app.tabBars["Tab Bar"].buttons["Settings"].tap()
-
+        // Settings
+        app.buttons["settings-button"].forceTap()
         let settingsHeader = app.navigationBars["Settings"]
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-
-        takeScreenshot(named: "8-Settings")
+        takeScreenshot(named: "09-Settings")
     }
 
-    private func loadDemo() {
-        // Load demo pages
-        let loadDemoButton = app.tables.buttons["Load Demo"]
-        expectation(for: existsPredicate, evaluatedWith: loadDemoButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
-        loadDemoButton.tap()
-
-        app.navigationBars["Den"].buttons["Refresh All"].tap()
-
-        let lastPageUnreadCount = app.tables.cells["Entertainment, 76"]
-        expectation(for: existsPredicate, evaluatedWith: lastPageUnreadCount, handler: nil)
-        waitForExpectations(timeout: 120, handler: nil)
-
-        sleep(10)
-    }
-
-    private func goToPage(_ pageName: String) {
-        let pageButtonPredicate = NSPredicate(format: "label CONTAINS '\(pageName)'")
-        let pageButton = app.tables.buttons.containing(pageButtonPredicate).firstMatch
-        expectation(for: existsPredicate, evaluatedWith: pageButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageButton.tap()
+    private func goToPage(_ elementIndex: Int) {
+        app.tables.buttons
+            .matching(identifier: "page-button")
+            .element(boundBy: elementIndex)
+            .tap()
     }
 
     private func goToLink(_ elementIndex: Int) {
-        let elementsQuery = app.scrollViews.otherElements
-
-        elementsQuery
-            .buttons
-            .matching(identifier: "Item Link")
+        app.buttons
+            .matching(identifier: "gadget-item-button")
             .element(boundBy: elementIndex)
-            .tap()
+            .firstMatch
+            .forceTap()
 
         let doneButton = app.buttons["Done"]
         expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
         doneButton.tap()
+        sleep(1)
     }
 }

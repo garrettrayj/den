@@ -13,7 +13,7 @@ class MacScreenshots: ScreenshotTestCase {
 
     func testScreenshots() {
         // Page list
-        app.buttons.matching(identifier: "load-demo-button").firstMatch.tap()
+        app.buttons["load-demo-button"].tap()
         // Refresh all pages
         /*
         let profileRefreshButton = app.buttons.matching(identifier: "profile-refresh-button").firstMatch
@@ -21,34 +21,33 @@ class MacScreenshots: ScreenshotTestCase {
         expectation(for: existsPredicate, evaluatedWith: profileRefreshButton, handler: nil)
         waitForExpectations(timeout: 120, handler: nil)
          */
-        takeScreenshot(named: "01-PageList")
 
         // Page view
         goToPage(2)
-        let pageRefreshButton = app.buttons.matching(identifier: "page-refresh-button").firstMatch
+        let pageRefreshButton = app.buttons["page-refresh-button"]
         pageRefreshButton.tap()
         expectation(for: existsPredicate, evaluatedWith: pageRefreshButton, handler: nil)
         waitForExpectations(timeout: 60, handler: nil)
         goToLink(1)
         goToLink(3)
-        takeScreenshot(named: "02-GadgetsView")
-        app.buttons.matching(identifier: "showcase-view-button").firstMatch.tap()
-        takeScreenshot(named: "03-ShowcaseView")
-        app.buttons.matching(identifier: "blend-view-button").firstMatch.tap()
-        takeScreenshot(named: "04-BlendView")
+        takeScreenshot(named: "01-GadgetsView")
+        app.buttons["showcase-view-button"].tap()
+        takeScreenshot(named: "02-ShowcaseView")
+        app.buttons["blend-view-button"].tap()
+        takeScreenshot(named: "03-BlendView")
 
         // Page settings
-        app.buttons.matching(identifier: "page-settings-button").firstMatch.tap()
-        takeScreenshot(named: "05-PageSettings")
+        app.buttons["page-settings-button"].tap()
+        takeScreenshot(named: "04-PageSettings")
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
         // Feed view
-        app.buttons.matching(identifier: "item-feed-button").firstMatch.tap()
-        takeScreenshot(named: "06-FeedView")
+        app.buttons["item-feed-button"].tap()
+        takeScreenshot(named: "05-FeedView")
 
         // Feed settings
-        app.buttons.matching(identifier: "feed-settings-button").firstMatch.tap()
-        takeScreenshot(named: "07-FeedSettings")
+        app.buttons["feed-settings-button"].tap()
+        takeScreenshot(named: "06-FeedSettings")
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
         // Search
@@ -59,21 +58,21 @@ class MacScreenshots: ScreenshotTestCase {
         let searchGroupHeader = app.scrollViews.otherElements.staticTexts["Apple Newsroom"]
         expectation(for: existsPredicate, evaluatedWith: searchGroupHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "08-Search")
+        takeScreenshot(named: "07-Search")
 
         // History
-        app.buttons.matching(identifier: "history-button").firstMatch.tap()
+        app.buttons["history-button"].tap()
         let historyHeader = app.navigationBars["History"]
         expectation(for: existsPredicate, evaluatedWith: historyHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "09-History")
+        takeScreenshot(named: "08-History")
 
         // Settings
-        app.buttons.matching(identifier: "settings-button").firstMatch.tap()
+        app.buttons["settings-button"].tap()
         let settingsHeader = app.navigationBars["Settings"]
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "10-Settings")
+        takeScreenshot(named: "09-Settings")
     }
 
     private func goToPage(_ elementIndex: Int) {
