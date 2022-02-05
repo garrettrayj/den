@@ -19,7 +19,7 @@ struct AccentButtonStyle: ButtonStyle {
         @Environment(\.isEnabled) private var isEnabled: Bool
         var body: some View {
             configuration.label
-                .font(.title3)
+                .font(.title3.weight(.medium))
                 .padding(.vertical, 12)
                 .padding(.horizontal)
                 .background(
