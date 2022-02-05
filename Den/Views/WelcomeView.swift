@@ -10,13 +10,16 @@ import SwiftUI
 
 struct WelcomeView: View {
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 16) {
+            Spacer()
             Image(systemName: "helm").font(.system(size: 52))
             Text("Welcome").font(.largeTitle)
+            Spacer()
+            Spacer()
         }
         .multilineTextAlignment(.center)
         .foregroundColor(.secondary)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .frame(maxWidth: .infinity)
         .padding()
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
 

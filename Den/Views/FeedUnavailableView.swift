@@ -21,7 +21,11 @@ struct FeedUnavailableView: View {
 
         var body: some View {
             VStack(alignment: alignment, spacing: 8) {
-                Label(title, systemImage: symbol)
+                Label {
+                    Text(title)
+                } icon: {
+                    Image(systemName: symbol).foregroundColor(symbolColor)
+                }
                 Text(caption).foregroundColor(.secondary)
             }
         }

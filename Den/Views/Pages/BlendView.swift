@@ -22,7 +22,5 @@ struct BlendView: View {
                 )
             }
         }
-        .padding([.horizontal, .bottom])
-        .padding(.top, 8)
     }
 }

@@ -51,7 +51,7 @@ struct FeedView: View {
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             NavigationLink(
-                destination: FeedSettingsView(feed: viewModel.feed),
+                destination: FeedSettingsView(viewModel: viewModel),
                 isActive: $showingSettings
             ) {
                 EmptyView()
@@ -135,8 +135,7 @@ struct FeedView: View {
                 }).padding()
             }
         }
-        #if targetEnvironment(macCatalyst)
         .padding(.top, 8)
-        #endif
+        .padding(.bottom, 32)
     }
 }

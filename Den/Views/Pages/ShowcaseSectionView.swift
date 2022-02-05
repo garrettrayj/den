@@ -35,10 +35,14 @@ struct ShowcaseSectionView: View {
                 NavigationLink {
                     FeedView(viewModel: viewModel)
                 } label: {
-                    FeedTitleLabelView(
-                        title: viewModel.feed.wrappedTitle,
-                        faviconImage: viewModel.feed.feedData?.faviconImage
-                    )
+                    HStack {
+                        FeedTitleLabelView(
+                            title: viewModel.feed.wrappedTitle,
+                            faviconImage: viewModel.feed.feedData?.faviconImage
+                        )
+                        NavChevronView()
+                        Spacer()
+                    }
                     .padding(.leading, 28)
                     .padding(.trailing, 8)
                 }

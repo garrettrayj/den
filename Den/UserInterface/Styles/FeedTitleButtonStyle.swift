@@ -27,7 +27,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 .foregroundColor(
                     isEnabled ? .primary : .secondary
                 )
-                .frame(height: 32)
+                .frame(height: 36)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(hovering ? Color(UIColor.quaternarySystemFill) : backgroundColor)
                 .onHover { hovered in

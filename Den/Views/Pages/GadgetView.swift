@@ -42,20 +42,24 @@ struct GadgetView: View {
                 NavigationLink {
                     FeedView(viewModel: viewModel)
                 } label: {
-                    FeedTitleLabelView(
-                        title: viewModel.feed.wrappedTitle,
-                        faviconImage: feedData?.faviconImage
-                    ).padding(.horizontal, 12)
+                    HStack {
+                        FeedTitleLabelView(
+                            title: viewModel.feed.wrappedTitle,
+                            faviconImage: feedData?.faviconImage
+                        )
+                        Spacer()
+                        if viewModel.refreshing {
+                            ProgressView().progressViewStyle(IconProgressStyle())
+                        } else {
+                            NavChevronView()
+                        }
+                    }.padding(.horizontal, 12)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
                 .disabled(refreshManager.isRefreshing)
                 .accessibilityIdentifier("gadget-feed-button")
             }
 
-            if viewModel.refreshing {
-                Spacer()
-                ProgressView().progressViewStyle(IconProgressStyle()).padding(.trailing, 12)
-            }
-        }.frame(height: 32, alignment: .leading)
+        }
     }
 }

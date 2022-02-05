@@ -16,6 +16,6 @@ struct ShowcaseView: View {
             ForEach(viewModel.feedViewModels) { feedViewModel in
                 ShowcaseSectionView(viewModel: feedViewModel)
             }
-        }.padding(.top, 8)
+        }
     }
 }

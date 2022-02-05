@@ -24,7 +24,8 @@ struct SearchView: View {
                 )
             } else if viewModel.isChangedOrEmpty {
                 StatusBoxView(
-                    message: Text("Searching “\(profile.wrappedName)” Profile"),
+                    message: Text("Searching Current Items"),
+                    caption: Text("for words in titles"),
                     symbol: "magnifyingglass"
                 )
             } else {
