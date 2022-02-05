@@ -12,7 +12,7 @@ import SafariServices
 
 final class LinkManager: ObservableObject {
     // Hosting window set in app lifecycle
-    public var hostingWindow: UIWindow?
+    var window: UIWindow?
 
     let viewContext: NSManagedObjectContext
     let crashManager: CrashManager
@@ -40,7 +40,7 @@ final class LinkManager: ObservableObject {
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
 
-        guard let rootViewController = hostingWindow?.rootViewController else { return }
+        guard let rootViewController = window?.rootViewController else { return }
         rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)
     }
