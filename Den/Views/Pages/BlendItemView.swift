@@ -21,14 +21,17 @@ struct BlendItemView: View {
                 NavigationLink {
                     FeedView(viewModel: feedViewModel!)
                 } label: {
-                    FeedTitleLabelView(
-                        title: feedViewModel!.feed.wrappedTitle,
-                        faviconImage: feedViewModel!.feed.feedData?.faviconImage
-                    ).padding(.horizontal, 12)
+                    HStack {
+                        FeedTitleLabelView(
+                            title: feedViewModel!.feed.wrappedTitle,
+                            faviconImage: feedViewModel!.feed.feedData?.faviconImage
+                        )
+                        Spacer()
+                        NavChevronView()
+                    }.padding(.horizontal, 12)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
                 .disabled(refreshManager.isRefreshing)
-                .frame(height: 32, alignment: .leading)
                 .accessibilityIdentifier("item-feed-button")
 
                 Divider()

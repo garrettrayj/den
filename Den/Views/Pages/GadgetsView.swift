@@ -15,7 +15,5 @@ struct GadgetsView: View {
         BoardView(list: viewModel.feedViewModels, content: { feedViewModel in
             GadgetView(viewModel: feedViewModel)
         })
-        .padding([.horizontal, .bottom])
-        .padding(.top, 8)
     }
 }

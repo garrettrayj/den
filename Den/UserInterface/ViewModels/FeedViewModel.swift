@@ -7,16 +7,22 @@
 //
 
 import Combine
-import Foundation
+import CoreData
+import SwiftUI
 
 final class FeedViewModel: ObservableObject {
+    let viewContext: NSManagedObjectContext
+    let crashManager: CrashManager
+
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
 
     @Published var feed: Feed
     @Published var refreshing: Bool
 
-    init(feed: Feed, refreshing: Bool) {
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, feed: Feed, refreshing: Bool) {
+        self.viewContext = viewContext
+        self.crashManager = crashManager
         self.feed = feed
         self.refreshing = refreshing
 
@@ -36,6 +42,34 @@ final class FeedViewModel: ObservableObject {
     deinit {
         queuedSubscriber?.cancel()
         refreshedSubscriber?.cancel()
+    }
+
+    func save() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                feed.feedData?.itemsArray.forEach { item in
+                    item.objectWillChange.send()
+                }
+                NotificationCenter.default.post(name: .feedRefreshed, object: feed.objectID)
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
+            }
+        }
+    }
+
+    func delete() {
+        guard let pageObjectID = feed.page?.objectID else { return }
+
+        viewContext.delete(feed)
+        save()
+
+        NotificationCenter.default.post(name: .pageRefreshed, object: pageObjectID)
+    }
+
+    func copyUrl() {
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = feed.url!.absoluteString
     }
 }
 

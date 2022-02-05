@@ -21,7 +21,7 @@ struct ItemPreviewView: View {
             )
         } label: {
             VStack(alignment: .leading, spacing: 8) {
-                Text(item.wrappedTitle)
+                Text(item.wrappedTitle).frame(maxWidth: .infinity, alignment: .topLeading)
 
                 if item.published != nil {
                     Text("\(item.published!, formatter: DateFormatter.mediumShort)")
@@ -51,6 +51,7 @@ struct ItemPreviewView: View {
                         .padding(.top, 2)
                 }
             }
+            .multilineTextAlignment(.leading)
             .padding(.top, 12)
             .padding([.horizontal, .bottom])
             .fixedSize(horizontal: false, vertical: true)

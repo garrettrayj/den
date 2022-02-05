@@ -20,8 +20,8 @@ struct SidebarPageView: View {
                 HStack {
                     Text(viewModel.page.displayName)
                         #if targetEnvironment(macCatalyst)
-                        .padding(.vertical, 6)
-                        .padding(.leading, 8)
+                        .frame(height: 32)
+                        .padding(.leading, 6)
                         .font(.title3)
                         #endif
 
@@ -50,6 +50,9 @@ struct SidebarPageView: View {
                 }.lineLimit(1)
             } icon: {
                 Image(systemName: viewModel.page.wrappedSymbol)
+                    #if targetEnvironment(macCatalyst)
+                    .imageScale(.large)
+                    #endif
             }
         }
         .accessibilityIdentifier("page-button")
