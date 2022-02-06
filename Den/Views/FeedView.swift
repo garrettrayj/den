@@ -37,9 +37,7 @@ struct FeedView: View {
             } else {
                 VStack {
                     Spacer()
-                    FeedUnavailableView(feedData: feedData, alignment: .center)
-                        .font(.title2)
-                        .frame(maxWidth: 360)
+                    FeedUnavailableView(feedData: feedData, useStatusBox: true)
                     Spacer()
                     Spacer()
                 }
@@ -130,12 +128,11 @@ struct FeedView: View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
             Section(header: header.modifier(PinnedSectionHeaderModifier())) {
                 BoardView(list: feedData!.itemsArray, content: { item in
-                    ItemPreviewView(item: item)
-                        .modifier(GroupBlockModifier())
+                    ItemPreviewView(item: item).modifier(GroupBlockModifier())
                 }).padding()
             }
         }
         .padding(.top, 8)
-        .padding(.bottom, 32)
+        .padding(.bottom, 22)
     }
 }

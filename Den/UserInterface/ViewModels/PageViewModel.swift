@@ -59,6 +59,7 @@ class PageViewModel: ObservableObject {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                self.objectWillChange.send()
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }

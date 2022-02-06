@@ -10,23 +10,27 @@ import SwiftUI
 
 struct FeedUnavailableView: View {
     var feedData: FeedData?
-    var alignment: HorizontalAlignment = .leading
+    var useStatusBox: Bool = false
 
     private struct StatusMessageView: View {
         let symbol: String
         let title: String
-        var alignment: HorizontalAlignment
         var caption: String = ""
         var symbolColor: Color = Color.secondary
+        var useStatusBox: Bool = false
 
         var body: some View {
-            VStack(alignment: alignment, spacing: 8) {
-                Label {
-                    Text(title)
-                } icon: {
-                    Image(systemName: symbol).foregroundColor(symbolColor)
+            if useStatusBox {
+                StatusBoxView(message: Text(title), caption: Text(caption), symbol: symbol)
+            } else {
+                VStack(alignment: .leading, spacing: 8) {
+                    Label {
+                        Text(title)
+                    } icon: {
+                        Image(systemName: symbol).foregroundColor(symbolColor)
+                    }
+                    Text(caption).foregroundColor(.secondary)
                 }
-                Text(caption).foregroundColor(.secondary)
             }
         }
     }
@@ -37,29 +41,29 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "No Data",
-                    alignment: alignment,
-                    caption: "Refresh to load content"
+                    caption: "Refresh to load content",
+                    useStatusBox: useStatusBox
                 )
             } else if feedData?.error != nil {
                 StatusMessageView(
                     symbol: "exclamationmark.triangle",
                     title: "Refresh Error",
-                    alignment: alignment,
                     caption: feedData!.error!,
-                    symbolColor: .red
+                    symbolColor: .red,
+                    useStatusBox: useStatusBox
                 )
-            } else if feedData!.itemsArray.count == 0 {
+            } else if feedData!.itemsArray.isEmpty {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "Feed Empty",
-                    alignment: alignment,
-                    caption: "No items available"
+                    caption: "No items to show",
+                    useStatusBox: useStatusBox
                 )
             } else {
                 StatusMessageView(
                     symbol: "questionmark.diamond",
                     title: "Status Unavailable",
-                    alignment: alignment
+                    useStatusBox: useStatusBox
                 )
             }
         }
