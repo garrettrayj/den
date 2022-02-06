@@ -154,6 +154,6 @@ struct RefreshableScrollView<Content: View>: View {
                 ProgressView(value: primingProgress)
                     .progressViewStyle(RingProgressStyle(triggered: $triggered))
             }
-        }.padding(.top, 104)
+        }.padding(.top, 86)
     }
 }

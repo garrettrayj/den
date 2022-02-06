@@ -56,13 +56,13 @@ struct PageView: View {
                     message: Text("Page Empty"),
                     caption: emptyCaption,
                     symbol: "questionmark.square.dashed"
-                )
+                ).toolbar { toolbarContent }
             } else if viewModel.page.limitedItemsArray.isEmpty && viewMode == PageViewMode.blend.rawValue {
                 StatusBoxView(
                     message: Text("No Items"),
                     caption: Text("Tap \(Image(systemName: "arrow.clockwise")) to refresh"),
                     symbol: "questionmark.square.dashed"
-                )
+                ).toolbar { toolbarContent }
             } else {
                 #if targetEnvironment(macCatalyst)
                 ScrollView(.vertical) {
@@ -95,7 +95,6 @@ struct PageView: View {
         )
         .navigationTitle(viewModel.page.displayName)
         .navigationBarTitleDisplayMode(.large)
-
     }
 
     @ViewBuilder
@@ -104,16 +103,16 @@ struct PageView: View {
             BlendView(viewModel: viewModel)
                 .padding(.horizontal)
                 .padding(.top, 8)
-                .padding(.bottom, 48)
+                .padding(.bottom, 38)
         } else if viewMode == PageViewMode.showcase.rawValue {
             ShowcaseView(viewModel: viewModel)
                 .padding(.top, 8)
-                .padding(.bottom, 32)
+                .padding(.bottom, 22)
         } else {
             GadgetsView(viewModel: viewModel)
                 .padding(.horizontal)
                 .padding(.top, 8)
-                .padding(.bottom, 48)
+                .padding(.bottom, 38)
         }
     }
 
@@ -173,6 +172,18 @@ struct PageView: View {
         #else
         ToolbarItem {
             Menu {
+                Picker("View Mode", selection: $viewMode) {
+                    Label("Gadgets", systemImage: "rectangle.grid.3x2")
+                        .tag(PageViewMode.gadgets.rawValue)
+                        .accessibilityIdentifier("gadgets-view-button")
+                    Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                        .tag(PageViewMode.showcase.rawValue)
+                        .accessibilityIdentifier("showcase-view-button")
+                    Label("Blend", systemImage: "square.text.square")
+                        .tag(PageViewMode.blend.rawValue)
+                        .accessibilityIdentifier("blend-view-button")
+                }
+
                 Button {
                     subscriptionManager.showSubscribe()
                 } label: {
@@ -184,30 +195,6 @@ struct PageView: View {
                 } label: {
                     Label("Page Settings", systemImage: "wrench")
                 }.accessibilityIdentifier("page-settings-button")
-
-                if viewMode != PageViewMode.gadgets.rawValue {
-                    Button {
-                        viewMode = PageViewMode.gadgets.rawValue
-                    } label: {
-                        Label("Gadgets View", systemImage: "rectangle.grid.3x2")
-                    }.accessibilityIdentifier("gadgets-view-button")
-                }
-
-                if viewMode != PageViewMode.showcase.rawValue {
-                    Button {
-                        viewMode = PageViewMode.showcase.rawValue
-                    } label: {
-                        Label("Showcase View", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                    }.accessibilityIdentifier("showcase-view-button")
-                }
-
-                if viewMode != PageViewMode.blend.rawValue {
-                    Button {
-                        viewMode = PageViewMode.blend.rawValue
-                    } label: {
-                        Label("Blend View", systemImage: "square.text.square")
-                    }.accessibilityIdentifier("blend-view-button")
-                }
             } label: {
                 Label("Page Menu", systemImage: "ellipsis.circle")
             }

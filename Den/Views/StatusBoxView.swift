@@ -21,7 +21,9 @@ struct StatusBoxView: View {
                     .font(.system(size: 52))
                     .padding(.bottom, 8)
             }
-            message.font(.title2)
+            message
+                .font(.title2)
+                .foregroundColor(.primary)
             caption
                 .font(.title3)
                 .frame(maxWidth: 360)

@@ -16,7 +16,10 @@ struct RingProgressStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         ZStack {
             if triggered {
-                ProgressView().progressViewStyle(.circular).scaleEffect(1.5)
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .scaleEffect(1.45)
+                    .rotationEffect(Angle(degrees: 18))
             } else {
                 Group {
                     Circle()

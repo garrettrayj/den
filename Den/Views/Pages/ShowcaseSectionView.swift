@@ -23,8 +23,13 @@ struct ShowcaseSectionView: View {
                 ).padding()
             } else {
                 FeedUnavailableView(feedData: viewModel.feed.feedData)
-                    .padding(.vertical)
-                    .padding(.horizontal, 32)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 16)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .cornerRadius(8)
+                    .padding()
+
             }
         }
     }
