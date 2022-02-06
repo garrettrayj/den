@@ -79,7 +79,6 @@
 		6880E1E526B4508A00A8E3E8 /* PadScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880E1E426B4508A00A8E3E8 /* PadScreenshots.swift */; };
 		6880E1E726B450B900A8E3E8 /* MacScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880E1E626B450B900A8E3E8 /* MacScreenshots.swift */; };
 		6880E1E926B4591900A8E3E8 /* ScreenshotTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880E1E826B4591900A8E3E8 /* ScreenshotTestCase.swift */; };
-		6880E1EB26B4615500A8E3E8 /* screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 689EDC1326A3FE940055811A /* screenshots.sh */; };
 		6880EBC127A469CD00B479F4 /* ActivateButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBC027A469CD00B479F4 /* ActivateButtonStyle.swift */; };
 		6880EBC327A46C2200B479F4 /* BlendItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBC227A46C2200B479F4 /* BlendItemView.swift */; };
 		6880EBCD27A5A38300B479F4 /* ToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBCC27A5A38300B479F4 /* ToolbarButtonStyle.swift */; };
@@ -88,6 +87,7 @@
 		6880EBE327A8F63E00B479F4 /* ParsedFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE227A8F63E00B479F4 /* ParsedFeedItem.swift */; };
 		6880EBE927AC45FE00B479F4 /* XCUIElement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE827AC45FE00B479F4 /* XCUIElement+Extensions.swift */; };
 		6880EBEB27AEF12000B479F4 /* NavChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBEA27AEF12000B479F4 /* NavChevronView.swift */; };
+		6880EBF027AFCAC100B479F4 /* screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 689EDC1326A3FE940055811A /* screenshots.sh */; };
 		6885C42226D37259002C41B0 /* FeedTitleLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42126D37259002C41B0 /* FeedTitleLabelView.swift */; };
 		6885C42426D4CBB4002C41B0 /* SecurityCheckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42326D4CBB4002C41B0 /* SecurityCheckViewModel.swift */; };
 		6885C42626D4D385002C41B0 /* FeedCheckOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42526D4D385002C41B0 /* FeedCheckOperation.swift */; };
@@ -569,11 +569,12 @@
 		689EDC0A26A3F46A0055811A /* DenScreenshots */ = {
 			isa = PBXGroup;
 			children = (
+				689EDC0D26A3F46A0055811A /* Info.plist */,
+				689EDC1326A3FE940055811A /* screenshots.sh */,
 				6880E1E826B4591900A8E3E8 /* ScreenshotTestCase.swift */,
 				6880E1E626B450B900A8E3E8 /* MacScreenshots.swift */,
 				6880E1E426B4508A00A8E3E8 /* PadScreenshots.swift */,
 				689EDC0B26A3F46A0055811A /* PhoneScreenshots.swift */,
-				689EDC0D26A3F46A0055811A /* Info.plist */,
 				6880EBE827AC45FE00B479F4 /* XCUIElement+Extensions.swift */,
 			);
 			path = DenScreenshots;
@@ -612,7 +613,6 @@
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
-				689EDC1326A3FE940055811A /* screenshots.sh */,
 				68C4137F2473305600D1DC7B /* Documents */,
 				68C4130B247263C700D1DC7B /* Den */,
 				68C41327247263C700D1DC7B /* DenTests */,
@@ -964,6 +964,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6880EBF027AFCAC100B479F4 /* screenshots.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,7 +974,6 @@
 			files = (
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
 				6865453E274ACD1500BAE03E /* VeronicaScript.otf in Resources */,
-				6880E1EB26B4615500A8E3E8 /* screenshots.sh in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
