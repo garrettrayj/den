@@ -326,7 +326,7 @@
 		68C413432472761D00D1DC7B /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		68C413452472773100D1DC7B /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		68C4134A24727F2B00D1DC7B /* GadgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GadgetView.swift; sourceTree = "<group>"; };
-		68C4137F2473305600D1DC7B /* Documents */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documents; sourceTree = "<group>"; };
+		68C4137F2473305600D1DC7B /* Marketing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Marketing; sourceTree = "<group>"; };
 		68C4138124733D7D00D1DC7B /* SubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeView.swift; sourceTree = "<group>"; };
 		68C4FA252474927800D2C0D6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		68D345942658D0610080783F /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
@@ -615,7 +615,7 @@
 				689EDBF8269188580055811A /* .swiftlint.yml */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
 				6880EBF127AFCC1100B479F4 /* LICENSE.txt */,
-				68C4137F2473305600D1DC7B /* Documents */,
+				68C4137F2473305600D1DC7B /* Marketing */,
 				68C4130B247263C700D1DC7B /* Den */,
 				68C41327247263C700D1DC7B /* DenTests */,
 				68C41332247263C700D1DC7B /* DenUITests */,
