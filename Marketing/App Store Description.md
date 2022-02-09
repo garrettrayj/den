@@ -1,10 +1,10 @@
 # Den for RSS
 
-## Simple Syndication Dashboards
+## Simple Feed Dashboards
 
-A minimalist syndication app for quickly scanning news feeds.
+Den is a minimalist app for quickly scanning news feeds.
 
-Inspired by personalized start pages, Den is a canvas for organizing and following sources that matter to you. The standout feature is broadsheet views made for skimming headlines. The design is focused on  browsing without extra distractions.
+Inspired by personalized start pages, it is a canvas for organizing and following sources that matter to you. The standout feature is broadsheet views made for skimming headlines. The design is focused on  browsing without extra distractions.
 
 FEATURES
 
@@ -21,10 +21,10 @@ Opens articles in Safari or your default browser depending on device.
 Works with popular formats so the library of compatible feeds is limitless.
 
 + OPML Import and Export
-Add feeds from other apps and share feeds from Den with common, time-tested, OPML files.
+Add feeds from other apps and share with common OPML files.
 
 + Article Search
-Quickly get the latest on a particular topic by searching the titles of current items.
+Quickly get the latest on a topic by searching the titles of current items.
 
 + History View
 Remember previous reads by looking back at the history of visited articles.
