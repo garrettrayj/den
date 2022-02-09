@@ -9,7 +9,7 @@ A modern take on the feed powered personalized start page.
 
 ## Installation
 
-Purchase [Den on the App Store] to get both iOS and Mac versions with automatic updates.
+Purchase [Den on the App Store](https://apps.apple.com/us/app/den-for-rss/id1528917651) to get both iOS and Mac versions with automatic updates.
 
 Or for Mac only, the [latest release](https://github.com/garrettrayj/den/releases/latest) is available for free download.
 
