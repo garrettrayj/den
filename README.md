@@ -7,6 +7,12 @@ A modern take on the feed powered personalized start page.
 - RSS, Atom, and JSON Feed format support
 - OPML import and export
 
+## Installation
+
+Purchase [Den on the App Store] to get both iOS and Mac versions with automatic updates.
+
+Or for Mac only, the [latest release](https://github.com/garrettrayj/den/releases/latest) is available for free download.
+
 ## Development Requirements
 
 1. Xcode with Command Line Tools
