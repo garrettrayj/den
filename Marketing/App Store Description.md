@@ -2,14 +2,14 @@
 
 ## Simple Feed Dashboards
 
-A minimalist app for quickly scanning news feeds.
+A minimalist iOS and Mac app for quickly scanning news feeds.
 
 Inspired by personalized start pages, Den is a canvas for organizing and following sources that matter to you. The standout feature is broadsheet views made for skimming headlines. The design is focused on  browsing without extra distractions.
 
 FEATURES
 
 + Made for iPhone, iPad, and Mac
-Developed from the start for phones, tablets, laptops, and desktops.
+Made from the start for phones, tablets, laptops, and desktops.
 
 + iCloud Sync
 Subscriptions and history on all your devices without signing up for yet another account. 
