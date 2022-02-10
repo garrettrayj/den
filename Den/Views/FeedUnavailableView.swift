@@ -23,13 +23,13 @@ struct FeedUnavailableView: View {
             if useStatusBox {
                 StatusBoxView(message: Text(title), caption: Text(caption), symbol: symbol)
             } else {
-                VStack(alignment: .leading, spacing: 8) {
-                    Label {
+                Label {
+                    VStack(alignment: .leading, spacing: 8) {
                         Text(title)
-                    } icon: {
-                        Image(systemName: symbol).foregroundColor(symbolColor)
+                        Text(caption).foregroundColor(.secondary)
                     }
-                    Text(caption).foregroundColor(.secondary)
+                } icon: {
+                    Image(systemName: symbol).foregroundColor(symbolColor)
                 }
             }
         }
@@ -41,7 +41,7 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "No Data",
-                    caption: "Refresh to load content",
+                    caption: "Refresh to load",
                     useStatusBox: useStatusBox
                 )
             } else if feedData?.error != nil {

@@ -33,8 +33,6 @@ struct ImportView: View {
     private var pickFileStage: some View {
         VStack(spacing: 20) {
             Spacer()
-            Text("Add Feeds from Other Apps or Previous Exports")
-                .font(.title2)
             Button(action: importViewModel.pickFile) {
                 Label("Select OPML File", systemImage: "filemenu.and.cursorarrow")
             }
