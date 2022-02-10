@@ -34,7 +34,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     }
 
     private func generateColumns(width: CGFloat) -> [[T]] {
-        let columns: Int = dynamicColumnCount(width: width)
+        let columns: Int = max(1, Int(width / 300))
         var gridArray: [[T]] = Array(repeating: [], count: columns)
         var currentIndex: Int = 0
 
@@ -49,25 +49,5 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
         }
 
         return gridArray
-    }
-
-    private func dynamicColumnCount(width: CGFloat) -> Int {
-        if width > 1500 {
-            return 5
-        }
-
-        if width > 1200 {
-            return 4
-        }
-
-        if width > 860 {
-            return 3
-        }
-
-        if width > 532 {
-            return 2
-        }
-
-        return 1
     }
 }
