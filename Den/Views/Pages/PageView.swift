@@ -64,19 +64,24 @@ struct PageView: View {
                     symbol: "questionmark.square.dashed"
                 ).toolbar { toolbarContent }
             } else {
-                #if targetEnvironment(macCatalyst)
-                ScrollView(.vertical) {
-                    displayContent
-                }.toolbar { toolbarContent }
-                #else
-                RefreshableScrollView(
-                    onRefresh: { done in
-                        refreshManager.refresh(page: viewModel.page)
-                        done()
-                    },
-                    content: { displayContent }
-                ).toolbar { toolbarContent }
-                #endif
+                GeometryReader { geometry in
+                    #if targetEnvironment(macCatalyst)
+                    ScrollView(.vertical) {
+                        PageModeView(viewModel: viewModel, viewMode: $viewMode, frameSize: geometry.size)
+                    }
+                    .toolbar { toolbarContent }
+                    #else
+                    RefreshableScrollView(
+                        onRefresh: { done in
+                            refreshManager.refresh(page: viewModel.page)
+                            done()
+                        },
+                        content: {
+                            PageModeView(viewModel: viewModel, viewMode: $viewMode, frameSize: geometry.size)
+                        }
+                    ).toolbar { toolbarContent }
+                    #endif
+                }
             }
         }
         .onAppear {
@@ -95,25 +100,6 @@ struct PageView: View {
         )
         .navigationTitle(viewModel.page.displayName)
         .navigationBarTitleDisplayMode(.large)
-    }
-
-    @ViewBuilder
-    private var displayContent: some View {
-        if viewMode == PageViewMode.blend.rawValue {
-            BlendView(viewModel: viewModel)
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 38)
-        } else if viewMode == PageViewMode.showcase.rawValue {
-            ShowcaseView(viewModel: viewModel)
-                .padding(.top, 8)
-                .padding(.bottom, 22)
-        } else {
-            GadgetsView(viewModel: viewModel)
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 38)
-        }
     }
 
     @ToolbarContentBuilder

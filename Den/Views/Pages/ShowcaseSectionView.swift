@@ -11,11 +11,13 @@ import SwiftUI
 struct ShowcaseSectionView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @ObservedObject var viewModel: FeedViewModel
+    var width: CGFloat
 
     var body: some View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
             if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
                 BoardView(
+                    width: width,
                     list: viewModel.feed.feedData?.limitedItemsArray ?? [],
                     content: { item in
                         ItemPreviewView(item: item).modifier(GroupBlockModifier())
