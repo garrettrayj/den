@@ -23,17 +23,20 @@ struct FeedView: View {
     var body: some View {
         Group {
             if feedData != nil && feedData!.itemsArray.count > 0 {
-                #if targetEnvironment(macCatalyst)
-                ScrollView(.vertical) { feedContent }
-                #else
-                RefreshableScrollView(
-                    onRefresh: { done in
-                        refreshManager.refresh(feed: viewModel.feed)
-                        done()
-                    },
-                    content: { feedContent }
-                )
-                #endif
+                GeometryReader { geometry in
+                    #if targetEnvironment(macCatalyst)
+                    ScrollView(.vertical) { feedContent(width: geometry.size.width) }
+                    #else
+                    RefreshableScrollView(
+                        onRefresh: { done in
+                            refreshManager.refresh(feed: viewModel.feed)
+                            done()
+                        },
+                        content: { feedContent(width: geometry.size.width) }
+                    )
+                    #endif
+                }
+
             } else {
                 VStack {
                     Spacer()
@@ -124,10 +127,10 @@ struct FeedView: View {
         .lineLimit(1)
     }
 
-    private var feedContent: some View {
+    private func feedContent(width: CGFloat) -> some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
             Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-                BoardView(list: feedData!.itemsArray, content: { item in
+                BoardView(width: width, list: feedData!.limitedItemsArray, content: { item in
                     ItemPreviewView(item: item).modifier(GroupBlockModifier())
                 }).padding()
             }

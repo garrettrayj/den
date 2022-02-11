@@ -12,28 +12,28 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     var content: (T) -> Content
     var list: [T]
     var spacing: CGFloat
+    var width: CGFloat
 
     var body: some View {
-        AxisGeometryReader(axis: .horizontal, alignment: .center) { width in
-            HStack(alignment: .top, spacing: spacing) {
-                ForEach(generateColumns(width: width), id: \.self) { columnObjects in
-                    LazyVStack(alignment: .center, spacing: spacing) {
-                        ForEach(columnObjects) { object in
-                            content(object)
-                        }
+        HStack(alignment: .top, spacing: spacing) {
+            ForEach(columnData, id: \.self) { columnObjects in
+                LazyVStack(alignment: .center, spacing: spacing) {
+                    ForEach(columnObjects) { object in
+                        content(object)
                     }
                 }
             }
         }
     }
 
-    init(spacing: CGFloat = 16, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
+    init(spacing: CGFloat = 16, width: CGFloat, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
         self.spacing = spacing
+        self.width = width
         self.list = list
         self.content = content
     }
 
-    private func generateColumns(width: CGFloat) -> [[T]] {
+    private var columnData: [[T]] {
         let columns: Int = max(1, Int(width / 300))
         var gridArray: [[T]] = Array(repeating: [], count: columns)
         var currentIndex: Int = 0

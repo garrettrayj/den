@@ -9,22 +9,27 @@
 import SwiftUI
 
 struct BlendItemView: View {
+    @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @ObservedObject var item: Item
-
-    var feedViewModel: FeedViewModel?
+    var item: Item
 
     var body: some View {
-        if feedViewModel != nil {
+        if item.feedData?.feed != nil {
             VStack(alignment: .leading, spacing: 0) {
                 NavigationLink {
-                    FeedView(viewModel: feedViewModel!)
+                    FeedView(viewModel: FeedViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager,
+                        feed: item.feedData!.feed!,
+                        refreshing: false
+                    ))
                 } label: {
                     HStack {
                         FeedTitleLabelView(
-                            title: feedViewModel!.feed.wrappedTitle,
-                            faviconImage: feedViewModel!.feed.feedData?.faviconImage
+                            title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
+                            faviconImage: item.feedData?.faviconImage
                         )
                         Spacer()
                         NavChevronView()
