@@ -22,31 +22,18 @@ struct FeedView: View {
 
     var body: some View {
         Group {
-            if feedData != nil && feedData!.itemsArray.count > 0 {
-                GeometryReader { geometry in
-                    #if targetEnvironment(macCatalyst)
-                    ScrollView(.vertical) { feedContent(width: geometry.size.width) }
-                    #else
-                    RefreshableScrollView(
-                        onRefresh: { done in
-                            refreshManager.refresh(feed: viewModel.feed)
-                            done()
-                        },
-                        content: { feedContent(width: geometry.size.width) }
-                    )
-                    #endif
-                }
-
-            } else {
-                VStack {
-                    Spacer()
-                    FeedUnavailableView(feedData: feedData, useStatusBox: true)
-                    Spacer()
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-                .padding()
-
+            GeometryReader { geometry in
+                #if targetEnvironment(macCatalyst)
+                ScrollView(.vertical) { feedContent(frameSize: geometry.size) }
+                #else
+                RefreshableScrollView(
+                    onRefresh: { done in
+                        refreshManager.refresh(feed: viewModel.feed)
+                        done()
+                    },
+                    content: { feedContent(width: geometry.size.width) }
+                )
+                #endif
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
@@ -127,15 +114,31 @@ struct FeedView: View {
         .lineLimit(1)
     }
 
-    private func feedContent(width: CGFloat) -> some View {
-        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-            Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-                BoardView(width: width, list: feedData!.limitedItemsArray, content: { item in
-                    ItemPreviewView(item: item).modifier(GroupBlockModifier())
-                }).padding()
+    @ViewBuilder
+    private func feedContent(frameSize: CGSize) -> some View {
+        if feedData != nil && feedData!.itemsArray.count > 0 {
+            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                Section(header: header.modifier(PinnedSectionHeaderModifier())) {
+                    BoardView(
+                        width: frameSize.width,
+                        list: feedData!.limitedItemsArray
+                    ) { item in
+                        ItemPreviewView(item: item).modifier(GroupBlockModifier())
+                    }.padding()
+                }
             }
+            .padding(.top, 8)
+            .padding(.bottom, 22)
+        } else {
+            VStack {
+                Spacer()
+                FeedUnavailableView(feedData: feedData, useStatusBox: true)
+                Spacer()
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: frameSize.height - 28)
+            .padding()
         }
-        .padding(.top, 8)
-        .padding(.bottom, 22)
     }
 }

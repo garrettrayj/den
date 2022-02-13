@@ -11,7 +11,7 @@ import SwiftUI
 struct GroupBlockModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .frame(minWidth: 252, idealWidth: 336, maxWidth: 420)
+            .frame(minWidth: 252, maxWidth: 424)
             .background(Color(UIColor.secondarySystemGroupedBackground))
             .cornerRadius(8)
     }

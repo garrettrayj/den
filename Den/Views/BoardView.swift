@@ -34,7 +34,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     }
 
     private var columnData: [[T]] {
-        let columns: Int = max(1, Int(width / 300))
+        let columns: Int = max(1, Int((width / log2(width)) / 30))
         var gridArray: [[T]] = Array(repeating: [], count: columns)
         var currentIndex: Int = 0
 

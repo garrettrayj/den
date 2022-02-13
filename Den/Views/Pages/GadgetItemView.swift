@@ -20,7 +20,7 @@ struct GadgetItemView: View {
         } label: {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(item.wrappedTitle)
+                    Text(item.wrappedTitle).lineLimit(10)
 
                     if item.published != nil {
                         Text("\(item.published!, formatter: DateFormatter.mediumShort)")
@@ -48,7 +48,6 @@ struct GadgetItemView: View {
             .padding(.horizontal)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
-        .fixedSize(horizontal: false, vertical: true)
         .accessibilityIdentifier("gadget-item-button")
     }
 }

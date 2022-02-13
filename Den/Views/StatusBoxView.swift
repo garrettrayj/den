@@ -14,7 +14,7 @@ struct StatusBoxView: View {
     var symbol: String?
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 16) {
             Spacer()
             if symbol != nil {
                 Image(systemName: symbol!)
@@ -22,7 +22,7 @@ struct StatusBoxView: View {
                     .padding(.bottom, 8)
             }
             message
-                .font(.title2)
+                .font(.title)
             caption
                 .font(.title3)
                 .frame(maxWidth: 360)

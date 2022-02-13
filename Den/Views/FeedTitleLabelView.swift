@@ -16,8 +16,10 @@ struct FeedTitleLabelView: View {
         Label {
             Text(title).lineLimit(1)
         } icon: {
-            if faviconImage != nil {
-                faviconImage!
+            if faviconImage == nil {
+                Image(systemName: "dot.radiowaves.up.forward")
+                    .foregroundColor(Color.secondary)
+                    .font(.system(size: 14).weight(.semibold))
                     .frame(
                         width: ImageSize.favicon.width,
                         height: ImageSize.favicon.height,
@@ -25,9 +27,7 @@ struct FeedTitleLabelView: View {
                     )
                     .clipped()
             } else {
-                Image(systemName: "dot.radiowaves.up.forward")
-                    .foregroundColor(Color.secondary)
-                    .font(.system(size: 14).weight(.semibold))
+                faviconImage
                     .frame(
                         width: ImageSize.favicon.width,
                         height: ImageSize.favicon.height,
