@@ -23,16 +23,15 @@ struct GadgetView: View {
             if feedData != nil && !feedData!.itemsArray.isEmpty {
                 ForEach(feedData!.limitedItemsArray) { item in
                     Divider()
-                    GadgetItemView(
-                        item: item,
-                        feed: viewModel.feed
-                    ).accessibilityElement(children: .combine)
+                    GadgetItemView(item: item, feed: viewModel.feed)
+                        .accessibilityElement(children: .combine)
                 }
             } else {
                 Divider()
                 FeedUnavailableView(feedData: feedData).padding()
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
         .modifier(GroupBlockModifier())
     }
 
@@ -59,7 +58,6 @@ struct GadgetView: View {
                 .disabled(refreshManager.isRefreshing)
                 .accessibilityIdentifier("gadget-feed-button")
             }
-
         }
     }
 }

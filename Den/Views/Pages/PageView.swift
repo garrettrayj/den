@@ -57,31 +57,16 @@ struct PageView: View {
                     caption: emptyCaption,
                     symbol: "questionmark.square.dashed"
                 ).toolbar { toolbarContent }
-            } else if viewModel.page.limitedItemsArray.isEmpty && viewMode == PageViewMode.blend.rawValue {
-                StatusBoxView(
-                    message: Text("No Items"),
-                    caption: Text("Tap \(Image(systemName: "arrow.clockwise")) to refresh"),
-                    symbol: "questionmark.square.dashed"
-                ).toolbar { toolbarContent }
             } else {
                 GeometryReader { geometry in
-                    #if targetEnvironment(macCatalyst)
-                    ScrollView(.vertical) {
-                        PageModeView(viewModel: viewModel, viewMode: $viewMode, frameSize: geometry.size)
+                    if viewMode == PageViewMode.blend.rawValue {
+                        BlendView(viewModel: viewModel, frameSize: geometry.size)
+                    } else if viewMode == PageViewMode.showcase.rawValue {
+                        ShowcaseView(viewModel: viewModel, frameSize: geometry.size)
+                    } else {
+                        GadgetsView(viewModel: viewModel, frameSize: geometry.size)
                     }
-                    .toolbar { toolbarContent }
-                    #else
-                    RefreshableScrollView(
-                        onRefresh: { done in
-                            refreshManager.refresh(page: viewModel.page)
-                            done()
-                        },
-                        content: {
-                            PageModeView(viewModel: viewModel, viewMode: $viewMode, frameSize: geometry.size)
-                        }
-                    ).toolbar { toolbarContent }
-                    #endif
-                }
+                }.toolbar { toolbarContent }
             }
         }
         .onAppear {

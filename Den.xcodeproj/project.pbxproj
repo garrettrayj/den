@@ -15,7 +15,9 @@
 		680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */; };
 		680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
-		6811B08527B6409200C6C40A /* PageModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6811B08427B6409200C6C40A /* PageModeView.swift */; };
+		6811B08727B75C9600C6C40A /* GadgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6811B08627B75C9600C6C40A /* GadgetsView.swift */; };
+		6811B08927B75CA200C6C40A /* BlendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6811B08827B75CA200C6C40A /* BlendView.swift */; };
+		6811B08B27B75CAF00C6C40A /* ShowcaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6811B08A27B75CAF00C6C40A /* ShowcaseView.swift */; };
 		6813FD0B2748DE1100EC88A5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FD0A2748DE1100EC88A5 /* main.swift */; };
 		681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681E6F122741AD8F00C74590 /* FormRowModifier.swift */; };
 		683041B02754199A00BE7631 /* GroupBlockModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041AF2754199A00BE7631 /* GroupBlockModifier.swift */; };
@@ -200,7 +202,9 @@
 		680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Page+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
-		6811B08427B6409200C6C40A /* PageModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageModeView.swift; sourceTree = "<group>"; };
+		6811B08627B75C9600C6C40A /* GadgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GadgetsView.swift; sourceTree = "<group>"; };
+		6811B08827B75CA200C6C40A /* BlendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendView.swift; sourceTree = "<group>"; };
+		6811B08A27B75CAF00C6C40A /* ShowcaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseView.swift; sourceTree = "<group>"; };
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681E6F122741AD8F00C74590 /* FormRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRowModifier.swift; sourceTree = "<group>"; };
@@ -786,10 +790,12 @@
 			isa = PBXGroup;
 			children = (
 				68C413452472773100D1DC7B /* PageView.swift */,
-				6811B08427B6409200C6C40A /* PageModeView.swift */,
+				6811B08627B75C9600C6C40A /* GadgetsView.swift */,
 				68C4134A24727F2B00D1DC7B /* GadgetView.swift */,
 				687D9CB724A9CA2A00EB7F46 /* GadgetItemView.swift */,
+				6811B08A27B75CAF00C6C40A /* ShowcaseView.swift */,
 				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
+				6811B08827B75CA200C6C40A /* BlendView.swift */,
 				6880EBC227A46C2200B479F4 /* BlendItemView.swift */,
 				688FD917247750350006A2DE /* PageSettingsView.swift */,
 			);
@@ -1041,6 +1047,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68C413442472761D00D1DC7B /* SidebarView.swift in Sources */,
+				6811B08B27B75CAF00C6C40A /* ShowcaseView.swift in Sources */,
 				6880EBDF27A8B5DE00B479F4 /* SymbolCollection.swift in Sources */,
 				685637282793C879000AE604 /* RegularButtonStyle.swift in Sources */,
 				68701DF5273E4F2B00C6BB69 /* RefreshManager.swift in Sources */,
@@ -1106,12 +1113,12 @@
 				689EDBFA269B97E30055811A /* AccentButtonStyle.swift in Sources */,
 				687D9CB824A9CA2A00EB7F46 /* GadgetItemView.swift in Sources */,
 				68915B232623273600E4C0CB /* DownloadItemImagesOperation.swift in Sources */,
-				6811B08527B6409200C6C40A /* PageModeView.swift in Sources */,
 				68FC256F27640AA00073979F /* ItemPreviewView.swift in Sources */,
 				68E9BDB5279CFF3D003BA111 /* SummaryHTML.swift in Sources */,
 				684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */,
 				68998B892504DDEC00FDB6EE /* SearchResultView.swift in Sources */,
 				6832AF262789419700CFC8CA /* ProfileView.swift in Sources */,
+				6811B08727B75C9600C6C40A /* GadgetsView.swift in Sources */,
 				68915B1E261C253E00E4C0CB /* SaveItemImageOperation.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
 				68C41316247263C700D1DC7B /* ContentView.swift in Sources */,
@@ -1119,6 +1126,7 @@
 				68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */,
 				68701DF1273E471F00C6BB69 /* ToolbarProgressStyle.swift in Sources */,
 				687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */,
+				6811B08927B75CA200C6C40A /* BlendView.swift in Sources */,
 				683041B827543E0400BE7631 /* FeedViewModel.swift in Sources */,
 				6880EBCD27A5A38300B479F4 /* ToolbarButtonStyle.swift in Sources */,
 				687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */,
