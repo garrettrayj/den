@@ -31,7 +31,7 @@ struct FeedView: View {
                         refreshManager.refresh(feed: viewModel.feed)
                         done()
                     },
-                    content: { feedContent(width: geometry.size.width) }
+                    content: { feedContent(frameSize: geometry.size) }
                 )
                 #endif
             }
