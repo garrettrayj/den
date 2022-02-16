@@ -23,7 +23,7 @@ struct SearchResultView: View {
         } label: {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(item.wrappedTitle)
+                    Text(item.wrappedTitle).font(.headline)
 
                     if item.published != nil {
                         Text("\(item.published!, formatter: DateFormatter.mediumShort)")
@@ -36,8 +36,7 @@ struct SearchResultView: View {
                     thumbnailImage
                 }
             }
-            .padding(.vertical, 8)
-            .padding(.horizontal)
+            .padding(12)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
         .accessibilityIdentifier("search-result-button")

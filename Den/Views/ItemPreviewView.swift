@@ -24,10 +24,7 @@ struct ItemPreviewView: View {
                 Text(item.wrappedTitle).frame(maxWidth: .infinity, alignment: .topLeading)
 
                 if item.published != nil {
-                    Text("\(item.published!, formatter: DateFormatter.mediumShort)")
-                        .font(.caption)
-                        .lineLimit(1)
-                        .foregroundColor(Color(UIColor.secondaryLabel))
+                    ItemDateView(date: item.published!, read: item.read)
                 }
 
                 if item.feedData?.feed?.showThumbnails == true {
@@ -41,7 +38,7 @@ struct ItemPreviewView: View {
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
-                        .opacity(item.read ? 0.5 : 1.0)
+                        .opacity(item.read ? 0.65 : 1.0)
                 }
 
                 if item.summary != nil && item.summary != "" {

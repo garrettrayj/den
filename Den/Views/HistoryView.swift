@@ -73,8 +73,8 @@ struct HistoryView: View {
     private func historyRow(_ history: History) -> some View {
         Button { linkManager.openLink(url: history.link) } label: {
             VStack(alignment: .leading, spacing: 2) {
-                Text(history.title!)
-                    .font(.title3)
+                Text(history.title ?? "Untitled")
+                    .font(.headline)
                     .multilineTextAlignment(.leading)
 
                 Text(history.link!.absoluteString)
@@ -83,8 +83,7 @@ struct HistoryView: View {
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 12)
-            .padding(.horizontal)
+            .padding(12)
         }
         .buttonStyle(ItemButtonStyle(read: false))
         .accessibilityIdentifier("history-row-button")

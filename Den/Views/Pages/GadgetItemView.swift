@@ -23,10 +23,7 @@ struct GadgetItemView: View {
                     Text(item.wrappedTitle).lineLimit(10)
 
                     if item.published != nil {
-                        Text("\(item.published!, formatter: DateFormatter.mediumShort)")
-                            .font(.caption)
-                            .lineLimit(1)
-                            .foregroundColor(Color(UIColor.secondaryLabel))
+                        ItemDateView(date: item.published!, read: item.read)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -42,7 +39,7 @@ struct GadgetItemView: View {
                             RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
                         .accessibility(label: Text("Thumbnail Image"))
-                        .opacity(item.read ? 0.5 : 1.0)
+                        .opacity(item.read ? 0.65 : 1.0)
                 }
             }
             .padding(12)
