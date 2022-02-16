@@ -38,7 +38,7 @@ struct ImportView: View {
             }
             .buttonStyle(AccentButtonStyle())
             .accessibilityIdentifier("import-pick-file-button")
-            Text("You will be able to choose which folders to import in the next step")
+            Text("You will be able to choose pages to import in the next step")
                 .font(.title3)
                 .foregroundColor(.secondary)
             Spacer()
@@ -78,7 +78,7 @@ struct ImportView: View {
 
             Section {
                 Button(action: importFeeds) {
-                    Label("Import Feeds", systemImage: "arrow.down.doc")
+                    Label("Import Pages", systemImage: "arrow.down.doc")
                 }
                 .buttonStyle(AccentButtonStyle())
                 .disabled(!(importViewModel.selectedFolders.count > 0))
@@ -110,17 +110,18 @@ struct ImportView: View {
 
     private var selectionSectionHeader: some View {
         HStack {
-            Text("Select Folders")
+            Text("Select")
             Spacer()
             HStack {
                 Button(action: importViewModel.selectAll) { Text("All") }
                     .disabled(importViewModel.allSelected)
                     .accessibilityIdentifier("import-select-all-button")
-                Text("/")
+                Text("/").foregroundColor(.secondary)
                 Button(action: importViewModel.selectNone) { Text("None") }
                     .disabled(importViewModel.noneSelected)
                     .accessibilityIdentifier("import-select-none-button")
-            }.font(.callout)
+            }
+            .font(.system(size: 12))
         }
     }
 

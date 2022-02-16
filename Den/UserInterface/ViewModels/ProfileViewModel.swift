@@ -22,7 +22,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var refreshing: Bool = false
 
     var pageViewModels: [PageViewModel] {
-        profile.pagesArray.compactMap { page in
+        profile.pagesArray.map { page in
             PageViewModel(
                 viewContext: viewContext,
                 crashManager: crashManager,

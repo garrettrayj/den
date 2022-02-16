@@ -41,7 +41,7 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "No Data",
-                    caption: "Refresh to load",
+                    caption: "Refresh to load content",
                     useStatusBox: useStatusBox
                 )
             } else if feedData?.error != nil {

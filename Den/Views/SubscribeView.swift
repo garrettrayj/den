@@ -71,7 +71,7 @@ struct SubscribeView: View {
                     .onReceive(
                         NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.newFeed?.objectID)
                     ) { _ in
-                        NotificationCenter.default.post(name: .pageRefreshed, object: viewModel.page?.objectID)
+                        viewModel.page?.objectWillChange.send()
                         dismiss()
                     }
                     .toolbar {

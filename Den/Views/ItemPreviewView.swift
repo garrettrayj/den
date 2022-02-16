@@ -26,7 +26,8 @@ struct ItemPreviewView: View {
                 if item.published != nil {
                     Text("\(item.published!, formatter: DateFormatter.mediumShort)")
                         .font(.caption)
-                        .foregroundColor(Color(.secondaryLabel))
+                        .lineLimit(1)
+                        .foregroundColor(Color(UIColor.secondaryLabel))
                 }
 
                 if item.feedData?.feed?.showThumbnails == true {
@@ -40,20 +41,19 @@ struct ItemPreviewView: View {
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
-                        .accessibility(label: Text("Preview Image"))
+                        .opacity(item.read ? 0.5 : 1.0)
                 }
 
                 if item.summary != nil && item.summary != "" {
                     Text(item.summary!)
                         .font(.body)
-                        .foregroundColor(.primary)
                         .lineLimit(6)
                         .padding(.top, 2)
                 }
             }
             .multilineTextAlignment(.leading)
-            .padding(.top, 12)
-            .padding([.horizontal, .bottom])
+            .padding([.horizontal, .top], 12)
+            .padding(.bottom, 16)
             .fixedSize(horizontal: false, vertical: true)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))

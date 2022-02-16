@@ -24,6 +24,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
+                .font(.headline.weight(.medium))
                 .foregroundColor(
                     isEnabled ? .primary : .secondary
                 )

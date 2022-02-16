@@ -24,7 +24,7 @@ struct ItemButtonStyle: ButtonStyle {
         var body: some View {
             configuration.label
                 .font(.title3)
-                .foregroundColor(read ? Color(UIColor.systemPurple) : Color(UIColor.link))
+                .foregroundColor(read ? .secondary : .primary)
                 .frame(maxWidth: .infinity)
                 .background(
                     hovering ?

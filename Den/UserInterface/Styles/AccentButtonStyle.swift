@@ -19,7 +19,6 @@ struct AccentButtonStyle: ButtonStyle {
         @Environment(\.isEnabled) private var isEnabled: Bool
         var body: some View {
             configuration.label
-                .font(.title3.weight(.medium))
                 .padding(.vertical, 12)
                 .padding(.horizontal)
                 .background(
@@ -34,6 +33,9 @@ struct AccentButtonStyle: ButtonStyle {
                         :
                         Color.white.opacity(0.6)
                 )
+                #if targetEnvironment(macCatalyst)
+                .font(.system(size: 14))
+                #endif
         }
     }
 }

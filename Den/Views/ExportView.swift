@@ -25,10 +25,10 @@ struct ExportView: View {
                         Button {
                             viewModel.exportOpml()
                         } label: {
-                            Label("Export OPML", systemImage: "arrow.up.doc")
+                            Label("Save OPML File", systemImage: "arrow.up.doc")
                         }
                         .buttonStyle(AccentButtonStyle())
-                        .disabled(viewModel.selectedPages.count == 0)
+                        .disabled(viewModel.selectedPages.isEmpty)
                         .accessibilityIdentifier("export-opml-button")
                     }
                     .frame(maxWidth: .infinity)
@@ -73,17 +73,18 @@ struct ExportView: View {
 
     private var selectionSectionHeader: some View {
         HStack {
-            Text("Select Pages")
+            Text("Select")
             Spacer()
             HStack {
                 Button(action: viewModel.selectAll) { Text("All") }
                     .disabled(viewModel.allSelected)
                     .accessibilityIdentifier("export-select-all-button")
-                Text("/")
+                Text("/").foregroundColor(.secondary)
                 Button(action: viewModel.selectNone) { Text("None")}
                     .disabled(viewModel.noneSelected)
                     .accessibilityIdentifier("export-select-none-button")
-            }.font(.callout)
+            }
+            .font(.system(size: 12))
         }
     }
 }

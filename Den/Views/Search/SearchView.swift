@@ -19,13 +19,12 @@ struct SearchView: View {
         Group {
             if refreshManager.isRefreshing {
                 StatusBoxView(
-                    message: Text("Waiting for refresh to complete…"),
+                    message: Text("Waiting for Refresh…"),
                     symbol: "hourglass"
                 )
             } else if viewModel.isChangedOrEmpty {
                 StatusBoxView(
-                    message: Text("Searching Current Items"),
-                    caption: Text("for words in titles"),
+                    message: Text("Searching \(profile.wrappedName)"),
                     symbol: "magnifyingglass"
                 )
             } else {
