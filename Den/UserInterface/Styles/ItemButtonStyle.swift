@@ -23,7 +23,7 @@ struct ItemButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
-                .font(.title3)
+                .font(.headline)
                 .foregroundColor(read ? .secondary : .primary)
                 .frame(maxWidth: .infinity)
                 .background(
