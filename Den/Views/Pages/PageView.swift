@@ -103,7 +103,8 @@ struct PageView: View {
                     .accessibilityIdentifier("blend-view-button")
             }
             .pickerStyle(.inline)
-            .padding(.horizontal, 8)
+            .padding(.leading, 16)
+            .padding(.trailing, 8)
         }
         ToolbarItem {
             Button {
@@ -167,28 +168,30 @@ struct PageView: View {
                     Label("Page Settings", systemImage: "wrench")
                 }.accessibilityIdentifier("page-settings-button")
             } label: {
-                Label("Page Menu", systemImage: "ellipsis.circle")
+                Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
             }
-            .buttonStyle(ToolbarButtonStyle())
             .disabled(refreshManager.isRefreshing)
             .accessibilityIdentifier("page-menu")
             .accessibilityElement(children: .contain)
         }
 
         ToolbarItem(placement: .navigationBarTrailing) {
-            if viewModel.refreshing {
-                ProgressView().progressViewStyle(ToolbarProgressStyle())
-            } else {
-                Button {
-                    refreshManager.refresh(page: viewModel.page)
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
+            Group {
+                if viewModel.refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        refreshManager.refresh(page: viewModel.page)
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .disabled(refreshManager.isRefreshing)
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("page-refresh-button")
+
                 }
-                .buttonStyle(ToolbarButtonStyle())
-                .disabled(refreshManager.isRefreshing)
-                .keyboardShortcut("r", modifiers: [.command])
-                .accessibilityIdentifier("page-refresh-button")
-            }
+            }.padding(.trailing, 8)
         }
         #endif
     }

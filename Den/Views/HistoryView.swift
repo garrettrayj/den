@@ -76,18 +76,17 @@ struct HistoryView: View {
                 Text(history.title!)
                     .font(.title3)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(Color(UIColor.systemPurple))
 
                 Text(history.link!.absoluteString)
                     .font(.caption)
-                    .foregroundColor(Color.secondary)
+                    .foregroundColor(Color(UIColor.link))
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
             .padding(.horizontal)
         }
-        .buttonStyle(ItemButtonStyle(read: true))
+        .buttonStyle(ItemButtonStyle(read: false))
         .accessibilityIdentifier("history-row-button")
     }
 }

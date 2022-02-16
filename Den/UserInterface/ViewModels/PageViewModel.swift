@@ -21,7 +21,7 @@ class PageViewModel: ObservableObject {
     @Published var refreshing: Bool
 
     var feedViewModels: [FeedViewModel] {
-        page.feedsArray.compactMap { feed in
+        page.feedsArray.map { feed in
             FeedViewModel(
                 viewContext: viewContext,
                 crashManager: crashManager,

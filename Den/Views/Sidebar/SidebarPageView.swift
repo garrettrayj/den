@@ -22,7 +22,7 @@ struct SidebarPageView: View {
                         #if targetEnvironment(macCatalyst)
                         .frame(height: 32)
                         .padding(.leading, 6)
-                        .font(.title3)
+                        .font(.system(size: 14))
                         #endif
 
                     Spacer()

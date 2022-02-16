@@ -25,8 +25,8 @@ struct GadgetItemView: View {
                     if item.published != nil {
                         Text("\(item.published!, formatter: DateFormatter.mediumShort)")
                             .font(.caption)
-                            .foregroundColor(Color(.secondaryLabel))
                             .lineLimit(1)
+                            .foregroundColor(Color(UIColor.secondaryLabel))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -42,10 +42,10 @@ struct GadgetItemView: View {
                             RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
                         .accessibility(label: Text("Thumbnail Image"))
+                        .opacity(item.read ? 0.5 : 1.0)
                 }
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal)
+            .padding(12)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
         .accessibilityIdentifier("gadget-item-button")

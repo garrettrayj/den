@@ -20,8 +20,9 @@ struct ToolbarButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
+                .font(.body.weight(.medium))
                 .frame(height: 32)
-                .padding(.horizontal, 6)
+                .padding(.horizontal, 4)
                 .foregroundColor(
                     isEnabled ?
                         configuration.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor

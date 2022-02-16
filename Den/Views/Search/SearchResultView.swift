@@ -11,7 +11,7 @@ import SwiftUI
 struct SearchResultView: View {
     @EnvironmentObject private var linkManager: LinkManager
 
-    var item: Item
+    @ObservedObject var item: Item
 
     var body: some View {
         Button {

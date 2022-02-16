@@ -21,6 +21,6 @@ struct ToolbarProgressStyle: ProgressViewStyle {
             .scaleEffect(1.25)
             .frame(width: 23, alignment: .trailing)
             #endif
-            .padding(.horizontal, 6)
+            .padding(.horizontal, 4)
     }
 }

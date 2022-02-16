@@ -13,9 +13,13 @@ struct SecurityCheckView: View {
 
     @ObservedObject var viewModel: SecurityCheckViewModel
 
+    var insecureFeedCount: Int {
+        profileManager.activeProfile?.insecureFeedCount ?? 0
+    }
+
     var body: some View {
         List {
-            if profileManager.activeProfile?.insecureFeedCount == 0 {
+            if insecureFeedCount == 0 {
                 allClearSummary
             } else {
                 warningSummary
@@ -52,7 +56,7 @@ struct SecurityCheckView: View {
     private var warningSummary: some View {
         Section {
             Label(title: {
-                Text("\(profileManager.activeProfile?.insecureFeedCount ?? 0) feed(s) use insecure URLs")
+                Text("\(insecureFeedCount) insecure URL\(insecureFeedCount > 1 ? "s" : "")")
                     .fontWeight(.medium)
             }, icon: {
                 Image(systemName: "exclamationmark.shield").foregroundColor(.orange).imageScale(.large)
@@ -97,7 +101,10 @@ struct SecurityCheckView: View {
                 }.modifier(FormRowModifier())
             }
         } header: {
-            Text(page.displayName).fontWeight(.light)
+            Label(page.displayName, systemImage: page.wrappedSymbol)
+                #if targetEnvironment(macCatalyst)
+                .font(.headline)
+                #endif
         }.modifier(SectionHeaderModifier())
     }
 }

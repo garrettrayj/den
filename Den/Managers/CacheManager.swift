@@ -46,10 +46,9 @@ final class CacheManager: ObservableObject {
     }
 
     func performBackgroundCleanup() {
-        if
-            let cleanupDate = lastBackgroundCleanup,
-                cleanupDate > Date(timeIntervalSinceNow: -60 * 60)
-        { return }
+        // Only perform background cleanup every hour
+        if let cleanupDate = lastBackgroundCleanup,
+                cleanupDate > Date(timeIntervalSinceNow: -60 * 60) { return }
 
         cleanupHistory(context: viewContext)
         cleanupFeedsAndImages(context: viewContext)
@@ -79,7 +78,7 @@ final class CacheManager: ObservableObject {
                     continue
                 }
 
-                let itemLimit = 100
+                let itemLimit = feedData.feed?.wrappedItemLimit ?? 0
                 if feedData.itemsArray.count > itemLimit {
                     let oldItems = feedData.itemsArray.suffix(from: itemLimit)
                     oldItems.forEach { context.delete($0) }
