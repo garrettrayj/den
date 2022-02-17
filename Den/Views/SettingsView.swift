@@ -141,7 +141,7 @@ struct SettingsView: View {
                     Label("Keep History", systemImage: "clock").lineLimit(1)
                     Spacer()
                 }
-            }
+            }.modifier(FormRowModifier())
 
             Button(action: viewModel.clearHistory) {
                 Label("Clear History", systemImage: "clear").lineLimit(1)
@@ -184,18 +184,17 @@ struct SettingsView: View {
 
     private var aboutSection: some View {
         Section(header: Text("About")) {
-            HStack(alignment: .bottom, spacing: 12) {
+            HStack(alignment: .bottom, spacing: 16) {
                 Image(uiImage: UIImage(named: "TitleIcon") ?? UIImage())
                     .resizable()
                     .scaledToFit()
                     .frame(width: 48, height: 48)
                     .cornerRadius(8)
                 VStack(alignment: .leading) {
-                    Text("Den ").font(.custom("Veronica-Script", size: 24, relativeTo: .title2))
-                    Text("v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                    Text("Den").font(.system(size: 24).weight(.bold))
+                    Text("v\(Bundle.main.releaseVersionNumber)")
                         .foregroundColor(.secondary)
-                        .font(.footnote)
-                        .padding(.leading, 4)
+                        .font(.caption)
                 }
                 Spacer()
 

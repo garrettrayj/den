@@ -1,22 +1,21 @@
 //
-//  PageViewModel.swift
+//  SidebarPageViewModel.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/28/21.
-//  Copyright © 2021 Garrett Johnson. All rights reserved.
+//  Created by Garrett Johnson on 2/17/22.
+//  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import Combine
 import CoreData
 import SwiftUI
 
-class PageViewModel: ObservableObject {
+class SidebarPageViewModel: ObservableObject {
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
 
     @Published var page: Page
     @Published var refreshing: Bool
-    @Published var showingSettings: Bool = false
 
     init(page: Page, refreshing: Bool) {
         self.page = page
