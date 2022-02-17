@@ -19,9 +19,7 @@ struct SidebarView: View {
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var themeManager: ThemeManager
 
-    @ObservedObject var viewModel: ProfileViewModel
-
-    @State private var showingSettings: Bool = false
+    @ObservedObject var viewModel: SidebarViewModel
 
     /**
      Switch refreshable() on and off depending on environment and page count.
@@ -33,9 +31,9 @@ struct SidebarView: View {
     var body: some View {
         Group {
             if viewModel.profile.pagesArray.isEmpty {
-                StartListView(viewModel: viewModel, showingSettings: $showingSettings)
+                StartListView(viewModel: viewModel)
             } else {
-                NavigationListView(profileViewModel: viewModel, showingSettings: $showingSettings)
+                NavigationListView(viewModel: viewModel)
                 #if !targetEnvironment(macCatalyst)
                 .refreshable {
                     refreshManager.refresh(profile: viewModel.profile)
@@ -44,7 +42,7 @@ struct SidebarView: View {
             }
         }
         .background(
-            NavigationLink(isActive: $showingSettings) {
+            NavigationLink(isActive: $viewModel.showingSettings) {
                 SettingsView(viewModel: SettingsViewModel(
                     viewContext: viewContext,
                     crashManager: crashManager,
