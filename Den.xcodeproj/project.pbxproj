@@ -55,9 +55,6 @@
 		6865452C274A288A00BAE03E /* PinnedSectionHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */; };
 		6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
-		6865453E274ACD1500BAE03E /* VeronicaScript.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6865453A274ACD1500BAE03E /* VeronicaScript.otf */; };
-		6865453F274ACD1500BAE03E /* Monotype Font Software End User License Agreement.html in Resources */ = {isa = PBXBuildFile; fileRef = 6865453C274ACD1500BAE03E /* Monotype Font Software End User License Agreement.html */; };
-		68654540274ACD1500BAE03E /* FONT SOFTWARE FOR MOBILE APPLICATIONS END USER LICENSE AGREEMENT.html in Resources */ = {isa = PBXBuildFile; fileRef = 6865453D274ACD1500BAE03E /* FONT SOFTWARE FOR MOBILE APPLICATIONS END USER LICENSE AGREEMENT.html */; };
 		686C384227405FA900662D84 /* Notification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C384127405FA900662D84 /* Notification+Extensions.swift */; };
 		68701DDF273A6DC100C6BB69 /* ExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DDE273A6DC100C6BB69 /* ExportViewModel.swift */; };
 		68701DE1273BAEB700C6BB69 /* SectionHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DE0273BAEB700C6BB69 /* SectionHeaderModifier.swift */; };
@@ -246,9 +243,6 @@
 		6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedSectionHeaderModifier.swift; sourceTree = "<group>"; };
 		6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldModifier.swift; sourceTree = "<group>"; };
 		6865452F274AC3B600BAE03E /* PageSymbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSymbols.plist; sourceTree = "<group>"; };
-		6865453A274ACD1500BAE03E /* VeronicaScript.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = VeronicaScript.otf; sourceTree = "<group>"; };
-		6865453C274ACD1500BAE03E /* Monotype Font Software End User License Agreement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "Monotype Font Software End User License Agreement.html"; sourceTree = "<group>"; };
-		6865453D274ACD1500BAE03E /* FONT SOFTWARE FOR MOBILE APPLICATIONS END USER LICENSE AGREEMENT.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "FONT SOFTWARE FOR MOBILE APPLICATIONS END USER LICENSE AGREEMENT.html"; sourceTree = "<group>"; };
 		686C384127405FA900662D84 /* Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extensions.swift"; sourceTree = "<group>"; };
 		68701DDE273A6DC100C6BB69 /* ExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewModel.swift; sourceTree = "<group>"; };
 		68701DE0273BAEB700C6BB69 /* SectionHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderModifier.swift; sourceTree = "<group>"; };
@@ -463,7 +457,6 @@
 		6845BCFC24EC004B0008B296 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				68654539274ACD1500BAE03E /* VeronicaScript */,
 				6865452F274AC3B600BAE03E /* PageSymbols.plist */,
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
 				68D58E6A2498481A007ED1AC /* OPMLIcon.png */,
@@ -478,24 +471,6 @@
 				6845BD4D24F6824C0008B296 /* CloudKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		68654539274ACD1500BAE03E /* VeronicaScript */ = {
-			isa = PBXGroup;
-			children = (
-				6865453A274ACD1500BAE03E /* VeronicaScript.otf */,
-				6865453B274ACD1500BAE03E /* Licenses */,
-			);
-			path = VeronicaScript;
-			sourceTree = "<group>";
-		};
-		6865453B274ACD1500BAE03E /* Licenses */ = {
-			isa = PBXGroup;
-			children = (
-				6865453C274ACD1500BAE03E /* Monotype Font Software End User License Agreement.html */,
-				6865453D274ACD1500BAE03E /* FONT SOFTWARE FOR MOBILE APPLICATIONS END USER LICENSE AGREEMENT.html */,
-			);
-			path = Licenses;
 			sourceTree = "<group>";
 		};
 		687C27962634A84600099FCA /* Modifiers */ = {
@@ -986,14 +961,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
-				6865453E274ACD1500BAE03E /* VeronicaScript.otf in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
 				6845BD1124EFB8AD0008B296 /* Demo.opml in Resources */,
-				6865453F274ACD1500BAE03E /* Monotype Font Software End User License Agreement.html in Resources */,
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
-				68654540274ACD1500BAE03E /* FONT SOFTWARE FOR MOBILE APPLICATIONS END USER LICENSE AGREEMENT.html in Resources */,
 				6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
 			);
