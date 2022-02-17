@@ -12,9 +12,7 @@ struct FeedSettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var profileManager: ProfileManager
 
-    @ObservedObject var viewModel: FeedViewModel
-
-    @State private var showingDeleteAlert = false
+    @ObservedObject var viewModel: FeedSettingsViewModel
 
     var body: some View {
         Form {
@@ -23,13 +21,13 @@ struct FeedSettingsView: View {
             informationSection
 
             Button(role: .destructive) {
-                showingDeleteAlert = true
+                viewModel.showingDeleteAlert = true
             } label: {
                 Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
             }
             .alert(
                 "Delete \(viewModel.feed.wrappedTitle)?",
-                isPresented: $showingDeleteAlert,
+                isPresented: $viewModel.showingDeleteAlert,
                 actions: {
                     Button("Cancel", role: .cancel) { }
                         .accessibilityIdentifier("feed-delete-cancel-button")

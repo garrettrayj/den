@@ -40,7 +40,7 @@ struct BlendView: View {
             .frame(height: frameSize.height)
         } else {
             BoardView(width: frameSize.width, list: viewModel.page.limitedItemsArray) { item in
-                BlendItemView(item: item)
+                BlendItemView(item: item, refreshing: $viewModel.refreshing)
             }
             .padding(.horizontal)
             .padding(.top, 8)

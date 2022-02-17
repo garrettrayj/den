@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ShowcaseSectionView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
-    @ObservedObject var viewModel: FeedViewModel
+    @ObservedObject var viewModel: FeedDisplayViewModel
     var width: CGFloat
 
     var body: some View {
@@ -40,7 +40,10 @@ struct ShowcaseSectionView: View {
         HStack {
             if viewModel.feed.id != nil {
                 NavigationLink {
-                    FeedView(viewModel: viewModel)
+                    FeedView(viewModel: FeedViewModel(
+                        feed: viewModel.feed,
+                        refreshing: viewModel.refreshing
+                    ))
                 } label: {
                     HStack {
                         FeedTitleLabelView(

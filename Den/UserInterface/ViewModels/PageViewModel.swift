@@ -11,8 +11,6 @@ import CoreData
 import SwiftUI
 
 class PageViewModel: ObservableObject {
-    let viewContext: NSManagedObjectContext
-    let crashManager: CrashManager
 
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
@@ -20,20 +18,7 @@ class PageViewModel: ObservableObject {
     @Published var page: Page
     @Published var refreshing: Bool
 
-    var feedViewModels: [FeedViewModel] {
-        page.feedsArray.map { feed in
-            FeedViewModel(
-                viewContext: viewContext,
-                crashManager: crashManager,
-                feed: feed,
-                refreshing: refreshing
-            )
-        }
-    }
-
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, page: Page, refreshing: Bool) {
-        self.viewContext = viewContext
-        self.crashManager = crashManager
+    init(page: Page, refreshing: Bool) {
         self.page = page
         self.refreshing = refreshing
 
@@ -53,43 +38,6 @@ class PageViewModel: ObservableObject {
     deinit {
         queuedSubscriber?.cancel()
         refreshedSubscriber?.cancel()
-    }
-
-    func save() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-                self.objectWillChange.send()
-            } catch {
-                crashManager.handleCriticalError(error as NSError)
-            }
-        }
-    }
-
-    func deleteFeed(indices: IndexSet) {
-        indices.forEach { viewContext.delete(page.feedsArray[$0]) }
-
-        do {
-            try viewContext.save()
-            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
-        }
-    }
-
-    func moveFeed( from source: IndexSet, to destination: Int) {
-        // Make an array of items from fetched results
-        var revisedItems: [Feed] = page.feedsArray.map { $0 }
-
-        // change the order of the items in the array
-        revisedItems.move(fromOffsets: source, toOffset: destination)
-
-        // update the userOrder attribute in revisedItems to
-        // persist the new order. This is done in reverse order
-        // to minimize changes to the indices.
-        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
-            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
-        }
     }
 }
 

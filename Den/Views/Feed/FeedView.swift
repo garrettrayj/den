@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct FeedView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var viewModel: FeedViewModel
-
-    @State private var showingSettings: Bool = false
 
     var body: some View {
         Group {
@@ -34,8 +34,10 @@ struct FeedView: View {
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             NavigationLink(
-                destination: FeedSettingsView(viewModel: viewModel),
-                isActive: $showingSettings
+                destination: FeedSettingsView(viewModel: FeedSettingsViewModel(
+                    viewContext: viewContext, crashManager: crashManager, feed: viewModel.feed
+                )),
+                isActive: $viewModel.showingSettings
             ) {
                 EmptyView()
             }
@@ -44,7 +46,7 @@ struct FeedView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    showingSettings = true
+                    viewModel.showingSettings = true
                 } label: {
                     Label("Feed Settings", systemImage: "wrench")
                 }
