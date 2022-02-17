@@ -13,6 +13,7 @@ struct NavigationListView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var viewModel: SidebarViewModel
+    @Binding var showingSettings: Bool
 
     @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()
 
@@ -85,7 +86,7 @@ struct NavigationListView: View {
 
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {
-                    viewModel.showingSettings = true
+                    showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
