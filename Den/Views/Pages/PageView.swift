@@ -167,7 +167,7 @@ struct PageView: View {
                 }.accessibilityIdentifier("add-feed-button")
 
                 Button {
-                    showingSettings = true
+                    viewModel.showingSettings = true
                 } label: {
                     Label("Page Settings", systemImage: "wrench")
                 }.accessibilityIdentifier("page-settings-button")

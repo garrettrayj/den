@@ -10,11 +10,11 @@ import SwiftUI
 
 struct SidebarPageView: View {
     @Environment(\.editMode) private var editMode
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var viewModel: SidebarPageViewModel
 
     var body: some View {
         NavigationLink {
-            PageView(viewModel: viewModel)
+            PageView(viewModel: PageViewModel(page: viewModel.page, refreshing: viewModel.refreshing))
         } label: {
             Label {
                 HStack {

@@ -19,7 +19,7 @@ struct NavigationListView: View {
     var body: some View {
         List {
             ForEach(viewModel.profile.pagesArray) { page in
-                SidebarPageView(viewModel: PageViewModel(
+                SidebarPageView(viewModel: SidebarPageViewModel(
                     page: page,
                     refreshing: viewModel.refreshing
                 ))
