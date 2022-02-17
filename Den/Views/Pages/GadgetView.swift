@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct GadgetView: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
     @ObservedObject var viewModel: FeedDisplayViewModel
 
     var feedData: FeedData? {
@@ -58,7 +57,7 @@ struct GadgetView: View {
                     }.padding(.horizontal, 12)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
-                .disabled(refreshManager.isRefreshing)
+                .disabled(viewModel.refreshing)
                 .accessibilityIdentifier("gadget-feed-button")
             }
         }

@@ -51,7 +51,7 @@ struct FeedView: View {
                     Label("Feed Settings", systemImage: "wrench")
                 }
                 .buttonStyle(ToolbarButtonStyle())
-                .disabled(refreshManager.isRefreshing)
+                .disabled(viewModel.refreshing)
                 .accessibilityIdentifier("feed-settings-button")
             }
 
@@ -67,7 +67,7 @@ struct FeedView: View {
                         }
                         .buttonStyle(ToolbarButtonStyle())
                         .keyboardShortcut("r", modifiers: [.command])
-                        .disabled(refreshManager.isRefreshing)
+                        .disabled(viewModel.refreshing)
                         .accessibilityIdentifier("feed-refresh-button")
                     }
                 }.padding(.trailing, 8)

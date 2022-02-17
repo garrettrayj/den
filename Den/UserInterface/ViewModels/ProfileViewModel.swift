@@ -21,15 +21,6 @@ final class ProfileViewModel: ObservableObject {
     @Published var profile: Profile
     @Published var refreshing: Bool = false
 
-    var pageViewModels: [PageViewModel] {
-        profile.pagesArray.map { page in
-            PageViewModel(
-                page: page,
-                refreshing: refreshing
-            )
-        }
-    }
-
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
         self.viewContext = viewContext
         self.crashManager = crashManager
