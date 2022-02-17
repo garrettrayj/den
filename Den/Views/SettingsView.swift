@@ -13,7 +13,6 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
-    @EnvironmentObject private var themeManager: ThemeManager
 
     @ObservedObject var viewModel: SettingsViewModel
 
@@ -88,7 +87,7 @@ struct SettingsView: View {
         }
         .modifier(SectionHeaderModifier())
         .onChange(of: uiStyle, perform: { _ in
-            themeManager.applyStyle()
+            viewModel.applyStyle()
         })
     }
 

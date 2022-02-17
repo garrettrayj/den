@@ -30,7 +30,7 @@ struct NavigationListView: View {
         .listStyle(.sidebar)
         .searchable(
             text: $searchViewModel.input,
-            placement: .sidebar,
+            placement: .navigationBarDrawer(displayMode: .always),
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {

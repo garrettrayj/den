@@ -56,6 +56,10 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
+    func applyStyle() {
+        themeManager.applyStyle()
+    }
+
     func clearCache() {
         guard let profile = profileManager.activeProfile else { return }
         refreshManager.cancel()
