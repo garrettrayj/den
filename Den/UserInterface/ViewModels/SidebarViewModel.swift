@@ -20,7 +20,6 @@ final class SidebarViewModel: ObservableObject {
 
     @Published var profile: Profile
     @Published var refreshing: Bool = false
-    @Published var showingSettings: Bool = false
     @Published var showingSearch: Bool = false
     @Published var showingHistory: Bool = false
 
