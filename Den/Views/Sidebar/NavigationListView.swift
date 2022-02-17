@@ -12,24 +12,20 @@ struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @ObservedObject var profileViewModel: ProfileViewModel
+    @ObservedObject var viewModel: SidebarViewModel
+
     @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()
-
-    @State private var showingSearch: Bool = false
-    @State private var showingHistory: Bool = false
-
-    @Binding var showingSettings: Bool
 
     var body: some View {
         List {
-            ForEach(profileViewModel.profile.pagesArray) { page in
+            ForEach(viewModel.profile.pagesArray) { page in
                 SidebarPageView(viewModel: PageViewModel(
                     page: page,
-                    refreshing: profileViewModel.refreshing
+                    refreshing: viewModel.refreshing
                 ))
             }
-            .onMove(perform: profileViewModel.movePage)
-            .onDelete(perform: profileViewModel.deletePage)
+            .onMove(perform: viewModel.movePage)
+            .onDelete(perform: viewModel.deletePage)
         }
         .listStyle(.sidebar)
         .searchable(
@@ -39,18 +35,18 @@ struct NavigationListView: View {
         )
         .onSubmit(of: .search) {
             searchViewModel.query = searchViewModel.input
-            showingSearch = true
+            viewModel.showingSearch = true
         }
         .background(
             Group {
-                NavigationLink(isActive: $showingSearch) {
-                    SearchView(viewModel: searchViewModel, profile: profileViewModel.profile)
+                NavigationLink(isActive: $viewModel.showingSearch) {
+                    SearchView(viewModel: searchViewModel, profile: viewModel.profile)
                 } label: {
                     Text("Search")
                 }
 
-                NavigationLink(isActive: $showingHistory) {
-                    HistoryView(profile: profileViewModel.profile)
+                NavigationLink(isActive: $viewModel.showingHistory) {
+                    HistoryView(profile: viewModel.profile)
                 } label: {
                     Label("History", systemImage: "clock")
                 }
@@ -59,7 +55,7 @@ struct NavigationListView: View {
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 if editMode?.wrappedValue == EditMode.active {
-                    Button(action: profileViewModel.createPage) {
+                    Button(action: viewModel.createPage) {
                         Label("New Page", systemImage: "plus")
                     }
                     .buttonStyle(ToolbarButtonStyle())
@@ -68,15 +64,15 @@ struct NavigationListView: View {
 
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
-                    .disabled(profileViewModel.refreshing)
+                    .disabled(viewModel.refreshing)
                     .accessibilityIdentifier("edit-page-list-button")
 
                 if editMode?.wrappedValue == .inactive {
-                    if profileViewModel.refreshing {
+                    if viewModel.refreshing {
                         ProgressView().progressViewStyle(ToolbarProgressStyle())
                     } else {
                         Button {
-                            refreshManager.refresh(profile: profileViewModel.profile)
+                            refreshManager.refresh(profile: viewModel.profile)
                         } label: {
                             Label("Refresh", systemImage: "arrow.clockwise")
                         }
@@ -89,7 +85,7 @@ struct NavigationListView: View {
 
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {
-                    showingSettings = true
+                    viewModel.showingSettings = true
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
@@ -99,7 +95,7 @@ struct NavigationListView: View {
                 Spacer()
 
                 Button {
-                    showingHistory = true
+                    viewModel.showingHistory = true
                 } label: {
                     Label("History", systemImage: "clock")
                 }

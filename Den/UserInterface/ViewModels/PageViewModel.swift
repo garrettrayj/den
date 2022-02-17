@@ -11,12 +11,12 @@ import CoreData
 import SwiftUI
 
 class PageViewModel: ObservableObject {
-
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
 
     @Published var page: Page
     @Published var refreshing: Bool
+    @Published var showingSettings: Bool = false
 
     init(page: Page, refreshing: Bool) {
         self.page = page

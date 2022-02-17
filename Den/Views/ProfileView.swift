@@ -14,7 +14,6 @@ struct ProfileView: View {
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
 
-    @State private var showingIconPicker: Bool = false
     @State private var showingDeleteAlert: Bool = false
 
     @ObservedObject var profile: Profile

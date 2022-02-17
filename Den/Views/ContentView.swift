@@ -22,7 +22,7 @@ struct ContentView: View {
         } else {
             NavigationView {
                 SidebarView(
-                    viewModel: ProfileViewModel(
+                    viewModel: SidebarViewModel(
                         viewContext: viewContext,
                         crashManager: crashManager,
                         profile: profileManager.activeProfile!

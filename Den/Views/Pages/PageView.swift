@@ -22,8 +22,6 @@ struct PageView: View {
 
     @ObservedObject var viewModel: PageViewModel
 
-    @State private var showingSettings: Bool = false
-
     @AppStorage("pageViewMode_na") var viewMode = 0
 
     init(viewModel: PageViewModel) {
@@ -83,7 +81,7 @@ struct PageView: View {
                         crashManager: crashManager,
                         page: viewModel.page
                     )),
-                    isActive: $showingSettings
+                    isActive: $viewModel.showingSettings
                 ) {
                     EmptyView()
                 }
@@ -124,7 +122,7 @@ struct PageView: View {
         }
         ToolbarItem {
             Button {
-                showingSettings = true
+                viewModel.showingSettings = true
             } label: {
                 Label("Page Settings", systemImage: "wrench")
             }
