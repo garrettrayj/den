@@ -15,6 +15,15 @@ final class ProfileManager: ObservableObject {
     let viewContext: NSManagedObjectContext
     let crashManager: CrashManager
 
+    var profiles: [Profile] {
+        do {
+            return try viewContext.fetch(Profile.fetchRequest()) as [Profile]
+        } catch {
+            crashManager.handleCriticalError(error as NSError)
+            return []
+        }
+    }
+
     var defaultProfileIdString: String? {
         get {
             UserDefaults.standard.string(forKey: "ActiveProfile")
@@ -91,33 +100,23 @@ final class ProfileManager: ObservableObject {
     }
 
     private func loadProfile() {
-        guard let profileIdString = defaultProfileIdString else {
-            do {
-                let existingProfiles = try self.viewContext.fetch(Profile.fetchRequest()) as [Profile]
-                if let profile = existingProfiles.first {
-                    activateProfile(profile)
-                } else {
-                    let profile = createDefaultProfile()
-                    activateProfile(profile)
-                }
-            } catch {
-                crashManager.handleCriticalError(error as NSError)
-            }
+        if profiles.isEmpty {
+            let profile = createDefaultProfile()
+            activateProfile(profile)
             return
         }
 
-        let fetchRequest = Profile.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", profileIdString)
-        do {
-            let result = try self.viewContext.fetch(fetchRequest) as [Profile]
-            guard let profile = result.first else {
-                let profile = createDefaultProfile()
-                activateProfile(profile)
+        if let profileIdString = defaultProfileIdString {
+            if let profileToRestore = profiles.first(where: { profile in
+                profile.id?.uuidString == profileIdString
+            }) {
+                activateProfile(profileToRestore)
                 return
             }
-            activateProfile(profile)
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
+        }
+
+        if let firstProfile = profiles.first {
+            activateProfile(firstProfile)
         }
     }
 

@@ -101,7 +101,6 @@ final class CacheManager: ObservableObject {
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
-
     }
 
     private func cleanupItemImages(_ items: [Item]) {
