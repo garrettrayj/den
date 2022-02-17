@@ -22,8 +22,11 @@ struct NavigationListView: View {
 
     var body: some View {
         List {
-            ForEach(profileViewModel.pageViewModels) { pageViewModel in
-                SidebarPageView(viewModel: pageViewModel)
+            ForEach(profileViewModel.profile.pagesArray) { page in
+                SidebarPageView(viewModel: PageViewModel(
+                    page: page,
+                    refreshing: profileViewModel.refreshing
+                ))
             }
             .onMove(perform: profileViewModel.movePage)
             .onDelete(perform: profileViewModel.deletePage)
@@ -31,6 +34,7 @@ struct NavigationListView: View {
         .listStyle(.sidebar)
         .searchable(
             text: $searchViewModel.input,
+            placement: .sidebar,
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {
@@ -64,11 +68,11 @@ struct NavigationListView: View {
 
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
-                    .disabled(refreshManager.isRefreshing)
+                    .disabled(profileViewModel.refreshing)
                     .accessibilityIdentifier("edit-page-list-button")
 
                 if editMode?.wrappedValue == .inactive {
-                    if refreshManager.isRefreshing {
+                    if profileViewModel.refreshing {
                         ProgressView().progressViewStyle(ToolbarProgressStyle())
                     } else {
                         Button {

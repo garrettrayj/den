@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct BlendItemView: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
-
     @ObservedObject var item: Item
     @Binding var refreshing: Bool
 
@@ -33,7 +31,7 @@ struct BlendItemView: View {
                     }.padding(.horizontal, 12)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
-                .disabled(refreshManager.isRefreshing)
+                .disabled(refreshing)
                 .accessibilityIdentifier("item-feed-button")
 
                 Divider()

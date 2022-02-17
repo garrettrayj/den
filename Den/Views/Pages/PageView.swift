@@ -119,7 +119,7 @@ struct PageView: View {
                 Label("Add Feed", systemImage: "plus.circle")
             }
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(refreshManager.isRefreshing)
+            .disabled(viewModel.refreshing)
             .accessibilityIdentifier("add-feed-button")
         }
         ToolbarItem {
@@ -129,7 +129,7 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(refreshManager.isRefreshing)
+            .disabled(viewModel.refreshing)
             .accessibilityIdentifier("page-settings-button")
         }
         ToolbarItem {
@@ -142,7 +142,7 @@ struct PageView: View {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
                 .buttonStyle(ToolbarButtonStyle())
-                .disabled(refreshManager.isRefreshing)
+                .disabled(viewModel.refreshing)
                 .keyboardShortcut("r", modifiers: [.command])
                 .accessibilityIdentifier("page-refresh-button")
             }
@@ -176,7 +176,7 @@ struct PageView: View {
             } label: {
                 Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
             }
-            .disabled(refreshManager.isRefreshing)
+            .disabled(viewModel.refreshing)
             .accessibilityIdentifier("page-menu")
             .accessibilityElement(children: .contain)
         }
@@ -192,10 +192,9 @@ struct PageView: View {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                     .buttonStyle(ToolbarButtonStyle())
-                    .disabled(refreshManager.isRefreshing)
+                    .disabled(viewModel.refreshing)
                     .keyboardShortcut("r", modifiers: [.command])
                     .accessibilityIdentifier("page-refresh-button")
-
                 }
             }.padding(.trailing, 8)
         }

@@ -10,8 +10,6 @@ import Foundation
 import CoreData
 
 final class RefreshManager: ObservableObject {
-    @Published var isRefreshing: Bool = false
-
     let queue = OperationQueue()
     let persistentContainer: NSPersistentContainer
     let crashManager: CrashManager
@@ -26,12 +24,9 @@ final class RefreshManager: ObservableObject {
 
     public func cancel() {
         queue.cancelAllOperations()
-        self.isRefreshing = false
     }
 
     public func refresh(profile: Profile) {
-        if isRefreshing { return }
-
         var operations: [Operation] = []
 
         NotificationCenter.default.post(name: .profileQueued, object: profile.objectID)
@@ -74,8 +69,6 @@ final class RefreshManager: ObservableObject {
     }
 
     public func refresh(page: Page) {
-        if isRefreshing { return }
-
         var operations: [Operation] = []
         var feedCompletionOps: [Operation] = []
 
@@ -106,8 +99,6 @@ final class RefreshManager: ObservableObject {
     }
 
     func refresh(feed: Feed) {
-        if isRefreshing { return }
-
         guard let operations = self.createRefreshPlan(feed)?.getOps() else { return }
         NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
         executeOperations(operations: operations)
@@ -133,13 +124,7 @@ final class RefreshManager: ObservableObject {
     }
 
     private func executeOperations(operations: [Operation]) {
-        isRefreshing = true
         queue.addOperations(operations, waitUntilFinished: false)
-        queue.addBarrierBlock {
-            DispatchQueue.main.async {
-                self.isRefreshing = false
-            }
-        }
     }
 
     private func checkFeedData(_ feed: Feed) -> FeedData? {
