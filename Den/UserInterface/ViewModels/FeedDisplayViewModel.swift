@@ -1,22 +1,21 @@
 //
-//  FeedViewModel.swift
+//  FeedDisplayViewModel.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/28/21.
-//  Copyright © 2021 Garrett Johnson. All rights reserved.
+//  Created by Garrett Johnson on 2/16/22.
+//  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import Combine
 import CoreData
 import SwiftUI
 
-final class FeedViewModel: ObservableObject {
+final class FeedDisplayViewModel: ObservableObject {
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
 
     @Published var feed: Feed
     @Published var refreshing: Bool
-    @Published var showingSettings: Bool = false
 
     init(feed: Feed, refreshing: Bool) {
         self.feed = feed
@@ -38,5 +37,23 @@ final class FeedViewModel: ObservableObject {
     deinit {
         queuedSubscriber?.cancel()
         refreshedSubscriber?.cancel()
+    }
+}
+
+extension FeedDisplayViewModel: Identifiable {
+    var id: Feed {
+        feed
+    }
+}
+
+extension FeedDisplayViewModel: Equatable {
+    static func == (lhs: FeedDisplayViewModel, rhs: FeedDisplayViewModel) -> Bool {
+        lhs.feed == rhs.feed
+    }
+}
+
+extension FeedDisplayViewModel: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(feed)
     }
 }

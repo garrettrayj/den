@@ -31,8 +31,11 @@ struct ShowcaseView: View {
 
     var content: some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-            ForEach(viewModel.feedViewModels) { feedViewModel in
-                ShowcaseSectionView(viewModel: feedViewModel, width: frameSize.width)
+            ForEach(viewModel.page.feedsArray) { feed in
+                ShowcaseSectionView(
+                    viewModel: FeedDisplayViewModel(feed: feed, refreshing: viewModel.refreshing),
+                    width: frameSize.width
+                )
             }
         }
         .padding(.top, 8)

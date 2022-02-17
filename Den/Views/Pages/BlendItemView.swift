@@ -9,21 +9,18 @@
 import SwiftUI
 
 struct BlendItemView: View {
-    @Environment(\.managedObjectContext) var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    var item: Item
+    @ObservedObject var item: Item
+    @Binding var refreshing: Bool
 
     var body: some View {
         if item.feedData?.feed != nil {
             VStack(alignment: .leading, spacing: 0) {
                 NavigationLink {
                     FeedView(viewModel: FeedViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
                         feed: item.feedData!.feed!,
-                        refreshing: false
+                        refreshing: refreshing
                     ))
                 } label: {
                     HStack {

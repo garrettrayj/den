@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GadgetView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
-    @ObservedObject var viewModel: FeedViewModel
+    @ObservedObject var viewModel: FeedDisplayViewModel
 
     var feedData: FeedData? {
         viewModel.feed.feedData
@@ -39,7 +39,10 @@ struct GadgetView: View {
         HStack {
             if viewModel.feed.id != nil {
                 NavigationLink {
-                    FeedView(viewModel: viewModel)
+                    FeedView(viewModel: FeedViewModel(
+                        feed: viewModel.feed,
+                        refreshing: viewModel.refreshing
+                    ))
                 } label: {
                     HStack {
                         FeedTitleLabelView(

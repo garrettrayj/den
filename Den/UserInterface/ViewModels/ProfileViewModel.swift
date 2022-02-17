@@ -24,8 +24,6 @@ final class ProfileViewModel: ObservableObject {
     var pageViewModels: [PageViewModel] {
         profile.pagesArray.map { page in
             PageViewModel(
-                viewContext: viewContext,
-                crashManager: crashManager,
                 page: page,
                 refreshing: refreshing
             )

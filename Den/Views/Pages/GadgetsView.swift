@@ -30,8 +30,8 @@ struct GadgetsView: View {
     }
 
     var content: some View {
-        BoardView(width: frameSize.width, list: viewModel.feedViewModels) { feedViewModel in
-            GadgetView(viewModel: feedViewModel)
+        BoardView(width: frameSize.width, list: viewModel.page.feedsArray) { feed in
+            GadgetView(viewModel: FeedDisplayViewModel(feed: feed, refreshing: viewModel.refreshing))
         }
         .padding(.horizontal)
         .padding(.top, 8)

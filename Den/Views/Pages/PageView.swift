@@ -15,6 +15,8 @@ enum PageViewMode: Int {
 }
 
 struct PageView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
@@ -76,7 +78,11 @@ struct PageView: View {
         .background(
             Group {
                 NavigationLink(
-                    destination: PageSettingsView(viewModel: viewModel),
+                    destination: PageSettingsView(viewModel: PageSettingsViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager,
+                        page: viewModel.page
+                    )),
                     isActive: $showingSettings
                 ) {
                     EmptyView()
