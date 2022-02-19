@@ -17,13 +17,22 @@ struct NavigationListView: View {
 
     @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()
 
+    @State private var showingSearch: Bool = false
+    @State private var showingHistory: Bool = false
+
     var body: some View {
         List {
             ForEach(viewModel.profile.pagesArray) { page in
-                SidebarPageView(viewModel: SidebarPageViewModel(
-                    page: page,
-                    refreshing: viewModel.refreshing
-                ))
+                NavigationLink {
+                    PageView(viewModel: PageViewModel(page: page, refreshing: viewModel.refreshing))
+                } label: {
+                    SidebarPageView(viewModel: SidebarPageViewModel(
+                        page: page,
+                        refreshing: viewModel.refreshing
+                    ))
+                }
+                .accessibilityIdentifier("page-button")
+
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)
@@ -36,17 +45,17 @@ struct NavigationListView: View {
         )
         .onSubmit(of: .search) {
             searchViewModel.query = searchViewModel.input
-            viewModel.showingSearch = true
+            showingSearch = true
         }
         .background(
             Group {
-                NavigationLink(isActive: $viewModel.showingSearch) {
+                NavigationLink(isActive: $showingSearch) {
                     SearchView(viewModel: searchViewModel, profile: viewModel.profile)
                 } label: {
                     Text("Search")
                 }
 
-                NavigationLink(isActive: $viewModel.showingHistory) {
+                NavigationLink(isActive: $showingHistory) {
                     HistoryView(profile: viewModel.profile)
                 } label: {
                     Label("History", systemImage: "clock")
@@ -96,7 +105,7 @@ struct NavigationListView: View {
                 Spacer()
 
                 Button {
-                    viewModel.showingHistory = true
+                    showingHistory = true
                 } label: {
                     Label("History", systemImage: "clock")
                 }
