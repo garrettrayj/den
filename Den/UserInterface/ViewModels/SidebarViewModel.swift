@@ -20,8 +20,6 @@ final class SidebarViewModel: ObservableObject {
 
     @Published var profile: Profile
     @Published var refreshing: Bool = false
-    @Published var showingSearch: Bool = false
-    @Published var showingHistory: Bool = false
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
         self.viewContext = viewContext
