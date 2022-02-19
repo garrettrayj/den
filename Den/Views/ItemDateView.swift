@@ -16,7 +16,7 @@ struct ItemDateView: View {
 
     var body: some View {
         Text("\(date, formatter: DateFormatter.mediumShort)")
-            .font(.caption.weight(.medium))
+            .font(.subheadline)
             .lineLimit(1)
             .foregroundColor(read ? Color(UIColor.tertiaryLabel) : .secondary)
     }
