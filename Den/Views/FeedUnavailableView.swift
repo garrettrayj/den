@@ -24,12 +24,12 @@ struct FeedUnavailableView: View {
                 StatusBoxView(message: Text(title), caption: Text(caption), symbol: symbol)
             } else {
                 Label {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(title)
-                        Text(caption).foregroundColor(.secondary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(title).font(.headline)
+                        Text(caption).font(.subheadline).foregroundColor(.secondary)
                     }
                 } icon: {
-                    Image(systemName: symbol).foregroundColor(symbolColor)
+                    Image(systemName: symbol).foregroundColor(symbolColor).padding(.trailing, 4)
                 }
             }
         }

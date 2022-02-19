@@ -40,7 +40,6 @@ class PageSettingsViewModel: ObservableObject {
 
         do {
             try viewContext.save()
-            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }

@@ -18,11 +18,11 @@ struct StatusBoxView: View {
             Spacer()
             if symbol != nil {
                 Image(systemName: symbol!)
-                    .font(.system(size: 52))
+                    .font(.system(size: 48))
                     .padding(.bottom, 8)
             }
             message
-                .font(.title)
+                .font(.title2.weight(.semibold))
             caption
                 .font(.title3)
                 .frame(maxWidth: 360)

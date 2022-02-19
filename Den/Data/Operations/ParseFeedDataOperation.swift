@@ -77,8 +77,8 @@ final class ParseFeedDataOperation: Operation {
             case let .json(feed):
                 self.handleFeed(feed)
             }
-        case .failure(let error):
-            self.workingFeed.error = error.localizedDescription
+        case .failure:
+            self.workingFeed.error = "Unable to parse feed content"
         }
     }
 
