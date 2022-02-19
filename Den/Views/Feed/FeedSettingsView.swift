@@ -33,6 +33,7 @@ struct FeedSettingsView: View {
                         .accessibilityIdentifier("feed-delete-cancel-button")
                     Button("Delete", role: .destructive) {
                         viewModel.delete()
+                        dismiss()
                     }.accessibilityIdentifier("feed-delete-confirm-button")
                 }
             )

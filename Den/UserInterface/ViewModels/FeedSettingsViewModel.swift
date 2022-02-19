@@ -38,12 +38,7 @@ final class FeedSettingsViewModel: ObservableObject {
     }
 
     func delete() {
-        guard let pageObjectID = feed.page?.objectID else { return }
-
         viewContext.delete(feed)
-        save()
-
-        NotificationCenter.default.post(name: .pageRefreshed, object: pageObjectID)
     }
 
     func copyUrl() {
