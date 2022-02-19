@@ -14,7 +14,8 @@ class SidebarPageViewModel: ObservableObject {
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
 
-    @Published var page: Page
+    var page: Page
+
     @Published var refreshing: Bool
 
     init(page: Page, refreshing: Bool) {

@@ -26,10 +26,7 @@ struct NavigationListView: View {
                 NavigationLink {
                     PageView(viewModel: PageViewModel(page: page, refreshing: viewModel.refreshing))
                 } label: {
-                    SidebarPageView(viewModel: SidebarPageViewModel(
-                        page: page,
-                        refreshing: viewModel.refreshing
-                    ))
+                    SidebarPageView(page: page)
                 }
                 .accessibilityIdentifier("page-button")
 

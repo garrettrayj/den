@@ -10,12 +10,12 @@ import SwiftUI
 
 struct SidebarPageView: View {
     @Environment(\.editMode) private var editMode
-    @ObservedObject var viewModel: SidebarPageViewModel
+    @ObservedObject var page: Page
 
     var body: some View {
         Label {
             HStack {
-                Text(viewModel.page.displayName)
+                Text(page.displayName)
                     #if targetEnvironment(macCatalyst)
                     .frame(height: 32)
                     .padding(.leading, 6)
@@ -26,11 +26,14 @@ struct SidebarPageView: View {
 
                 Group {
                     if editMode?.wrappedValue == .inactive {
-                        if viewModel.refreshing {
-                            ProgressView().progressViewStyle(IconProgressStyle())
-                        } else {
-                            UnreadCountView(page: viewModel.page)
-                        }
+                        Text(String(page.unreadCount))
+                            .font(.caption.weight(.medium))
+                            .foregroundColor(Color(UIColor.secondaryLabel))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .overlay(
+                                Capsule().fill(Color(UIColor.secondarySystemFill))
+                            )
                     }
                 }
                 #if !targetEnvironment(macCatalyst)
@@ -39,7 +42,7 @@ struct SidebarPageView: View {
 
             }.lineLimit(1)
         } icon: {
-            Image(systemName: viewModel.page.wrappedSymbol)
+            Image(systemName: page.wrappedSymbol)
                 #if targetEnvironment(macCatalyst)
                 .imageScale(.large)
                 #endif
