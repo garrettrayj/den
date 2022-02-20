@@ -15,8 +15,6 @@ class PageSettingsViewModel: ObservableObject {
     let crashManager: CrashManager
 
     @Published var page: Page
-    @Published var showingIconPicker: Bool = false
-    @Published var showingDeleteAlert: Bool = false
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, page: Page) {
         self.viewContext = viewContext

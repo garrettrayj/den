@@ -11,6 +11,8 @@ import SwiftUI
 struct PageSettingsView: View {
     @ObservedObject var viewModel: PageSettingsViewModel
 
+    @State private var showingIconPicker: Bool = false
+
     var body: some View {
         Form {
             nameIconSection
@@ -20,7 +22,7 @@ struct PageSettingsView: View {
         .environment(\.editMode, .constant(.active))
         .onDisappear(perform: viewModel.save)
         .background(
-            NavigationLink(isActive: $viewModel.showingIconPicker, destination: {
+            NavigationLink(isActive: $showingIconPicker, destination: {
                 IconPickerView(selectedSymbol: $viewModel.page.wrappedSymbol)
             }, label: {
                 EmptyView()
@@ -44,7 +46,7 @@ struct PageSettingsView: View {
                         .foregroundColor(.secondary)
 
                 }
-                .onTapGesture { viewModel.showingIconPicker = true }
+                .onTapGesture { showingIconPicker = true }
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
     }
@@ -67,5 +69,4 @@ struct PageSettingsView: View {
             }
         }.modifier(SectionHeaderModifier())
     }
-
 }

@@ -22,6 +22,8 @@ struct PageView: View {
 
     @ObservedObject var viewModel: PageViewModel
 
+    @State private var showingSettings: Bool = false
+
     @AppStorage("pageViewMode_na") var viewMode = 0
 
     init(viewModel: PageViewModel) {
@@ -82,7 +84,7 @@ struct PageView: View {
                         crashManager: crashManager,
                         page: viewModel.page
                     )),
-                    isActive: $viewModel.showingSettings
+                    isActive: $showingSettings
                 ) {
                     EmptyView()
                 }
@@ -122,7 +124,7 @@ struct PageView: View {
         }
         ToolbarItem {
             Button {
-                viewModel.showingSettings = true
+                showingSettings = true
             } label: {
                 Label("Page Settings", systemImage: "wrench")
             }
@@ -167,7 +169,7 @@ struct PageView: View {
                 }.accessibilityIdentifier("add-feed-button")
 
                 Button {
-                    viewModel.showingSettings = true
+                    showingSettings = true
                 } label: {
                     Label("Page Settings", systemImage: "wrench")
                 }.accessibilityIdentifier("page-settings-button")
