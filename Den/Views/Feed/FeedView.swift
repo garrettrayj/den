@@ -31,6 +31,7 @@ struct FeedView: View {
                 #endif
             }
         }
+        .disabled(viewModel.refreshing)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             NavigationLink(
@@ -67,11 +68,9 @@ struct FeedView: View {
                         }
                         .buttonStyle(ToolbarButtonStyle())
                         .keyboardShortcut("r", modifiers: [.command])
-                        .disabled(viewModel.refreshing)
                         .accessibilityIdentifier("feed-refresh-button")
                     }
-                }.padding(.trailing, 8)
-
+                }.modifier(TrailingToolbarItemModifier())
             }
         }
     }

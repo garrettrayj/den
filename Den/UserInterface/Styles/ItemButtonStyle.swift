@@ -16,6 +16,8 @@ struct ItemButtonStyle: ButtonStyle {
     }
 
     private struct ItemButton: View {
+        @Environment(\.isEnabled) private var isEnabled: Bool
+
         let configuration: ButtonStyle.Configuration
         let read: Bool
 
@@ -24,12 +26,19 @@ struct ItemButtonStyle: ButtonStyle {
         var body: some View {
             configuration.label
                 .font(.headline)
-                .foregroundColor(read ? .secondary : .primary)
+                .foregroundColor(
+                    isEnabled ?
+                        read ? .secondary : .primary
+                    : Color.secondary
+                )
                 .frame(maxWidth: .infinity)
                 .background(
-                    hovering ?
-                        Color(UIColor.quaternarySystemFill) :
-                        Color(UIColor.secondarySystemGroupedBackground))
+                    isEnabled ?
+                        hovering ?
+                            Color(UIColor.quaternarySystemFill) :
+                            Color(UIColor.secondarySystemGroupedBackground)
+                    : Color.clear
+                )
                 .onHover { hovered in
                     hovering = hovered
                 }
