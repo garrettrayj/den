@@ -60,15 +60,16 @@ struct PageView: View {
             } else {
                 GeometryReader { geometry in
                     if viewMode == PageViewMode.blend.rawValue {
-                        BlendView(viewModel: viewModel, frameSize: geometry.size)
+                        BlendView(page: viewModel.page, frameSize: geometry.size)
                     } else if viewMode == PageViewMode.showcase.rawValue {
-                        ShowcaseView(viewModel: viewModel, frameSize: geometry.size)
+                        ShowcaseView(page: viewModel.page, frameSize: geometry.size)
                     } else {
-                        GadgetsView(viewModel: viewModel, frameSize: geometry.size)
+                        GadgetsView(page: viewModel.page, frameSize: geometry.size)
                     }
                 }.toolbar { toolbarContent }
             }
         }
+        .disabled(viewModel.refreshing)
         .onAppear {
             subscriptionManager.activePage = viewModel.page
         }

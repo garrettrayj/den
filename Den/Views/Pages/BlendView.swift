@@ -11,7 +11,7 @@ import SwiftUI
 struct BlendView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var page: Page
 
     var frameSize: CGSize
 
@@ -21,7 +21,7 @@ struct BlendView: View {
         #else
         RefreshableScrollView(
             onRefresh: { done in
-                refreshManager.refresh(page: viewModel.page)
+                refreshManager.refresh(page: page)
                 done()
             },
             content: { content }
@@ -31,7 +31,7 @@ struct BlendView: View {
 
     @ViewBuilder
     var content: some View {
-        if viewModel.page.limitedItemsArray.isEmpty {
+        if page.limitedItemsArray.isEmpty {
             StatusBoxView(
                 message: Text("No Items"),
                 caption: Text("Tap \(Image(systemName: "arrow.clockwise")) to refresh"),
@@ -39,8 +39,8 @@ struct BlendView: View {
             )
             .frame(height: frameSize.height)
         } else {
-            BoardView(width: frameSize.width, list: viewModel.page.limitedItemsArray) { item in
-                BlendItemView(item: item, refreshing: $viewModel.refreshing)
+            BoardView(width: frameSize.width, list: page.limitedItemsArray) { item in
+                BlendItemView(item: item)
             }
             .padding(.horizontal)
             .padding(.top, 8)

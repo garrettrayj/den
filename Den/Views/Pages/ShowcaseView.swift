@@ -11,7 +11,7 @@ import SwiftUI
 struct ShowcaseView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var page: Page
 
     var frameSize: CGSize
 
@@ -21,7 +21,7 @@ struct ShowcaseView: View {
         #else
         RefreshableScrollView(
             onRefresh: { done in
-                refreshManager.refresh(page: viewModel.page)
+                refreshManager.refresh(page: page)
                 done()
             },
             content: { content }
@@ -31,9 +31,9 @@ struct ShowcaseView: View {
 
     var content: some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-            ForEach(viewModel.page.feedsArray) { feed in
+            ForEach(page.feedsArray) { feed in
                 ShowcaseSectionView(
-                    viewModel: FeedDisplayViewModel(feed: feed, refreshing: viewModel.refreshing),
+                    feed: feed,
                     width: frameSize.width
                 )
             }

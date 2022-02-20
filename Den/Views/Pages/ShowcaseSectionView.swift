@@ -10,21 +10,21 @@ import SwiftUI
 
 struct ShowcaseSectionView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
-    @ObservedObject var viewModel: FeedDisplayViewModel
+    @ObservedObject var feed: Feed
     var width: CGFloat
 
     var body: some View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-            if viewModel.feed.feedData != nil && viewModel.feed.feedData!.itemsArray.count > 0 {
+            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
                 BoardView(
                     width: width,
-                    list: viewModel.feed.feedData?.limitedItemsArray ?? [],
+                    list: feed.feedData?.limitedItemsArray ?? [],
                     content: { item in
                         ItemPreviewView(item: item).modifier(GroupBlockModifier())
                     }
                 ).padding()
             } else {
-                FeedUnavailableView(feedData: viewModel.feed.feedData)
+                FeedUnavailableView(feedData: feed.feedData)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 12)
                     .padding(.horizontal, 16)
@@ -38,17 +38,17 @@ struct ShowcaseSectionView: View {
 
     private var header: some View {
         HStack {
-            if viewModel.feed.id != nil {
+            if feed.id != nil {
                 NavigationLink {
                     FeedView(viewModel: FeedViewModel(
-                        feed: viewModel.feed,
-                        refreshing: viewModel.refreshing
+                        feed: feed,
+                        refreshing: false
                     ))
                 } label: {
                     HStack {
                         FeedTitleLabelView(
-                            title: viewModel.feed.wrappedTitle,
-                            faviconImage: viewModel.feed.feedData?.faviconImage
+                            title: feed.wrappedTitle,
+                            faviconImage: feed.feedData?.faviconImage
                         )
                         NavChevronView()
                         Spacer()
@@ -59,15 +59,12 @@ struct ShowcaseSectionView: View {
                 .buttonStyle(
                     FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
                 )
-                .disabled(viewModel.refreshing)
                 .accessibilityIdentifier("showcase-section-feed-button")
             }
             Spacer()
             Group {
-                if viewModel.refreshing {
-                    ProgressView().progressViewStyle(IconProgressStyle())
-                } else if UIDevice.current.userInterfaceIdiom != .phone {
-                    FeedRefreshedLabelView(refreshed: viewModel.feed.refreshed)
+                if UIDevice.current.userInterfaceIdiom != .phone {
+                    FeedRefreshedLabelView(refreshed: feed.refreshed)
                 }
             }
             .padding(.leading, 8)
