@@ -10,7 +10,6 @@ import SwiftUI
 
 struct BlendItemView: View {
     @ObservedObject var item: Item
-    @Binding var refreshing: Bool
 
     var body: some View {
         if item.feedData?.feed != nil {
@@ -18,7 +17,7 @@ struct BlendItemView: View {
                 NavigationLink {
                     FeedView(viewModel: FeedViewModel(
                         feed: item.feedData!.feed!,
-                        refreshing: refreshing
+                        refreshing: false
                     ))
                 } label: {
                     HStack {
@@ -31,7 +30,6 @@ struct BlendItemView: View {
                     }.padding(.horizontal, 12)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
-                .disabled(refreshing)
                 .accessibilityIdentifier("item-feed-button")
 
                 Divider()

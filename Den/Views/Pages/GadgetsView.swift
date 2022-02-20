@@ -11,7 +11,7 @@ import SwiftUI
 struct GadgetsView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var page: Page
 
     var frameSize: CGSize
 
@@ -21,7 +21,7 @@ struct GadgetsView: View {
         #else
         RefreshableScrollView(
             onRefresh: { done in
-                refreshManager.refresh(page: viewModel.page)
+                refreshManager.refresh(page: page)
                 done()
             },
             content: { content }
@@ -30,8 +30,8 @@ struct GadgetsView: View {
     }
 
     var content: some View {
-        BoardView(width: frameSize.width, list: viewModel.page.feedsArray) { feed in
-            GadgetView(viewModel: FeedDisplayViewModel(feed: feed, refreshing: viewModel.refreshing))
+        BoardView(width: frameSize.width, list: page.feedsArray) { feed in
+            GadgetView(feed: feed)
         }
         .padding(.horizontal)
         .padding(.top, 8)

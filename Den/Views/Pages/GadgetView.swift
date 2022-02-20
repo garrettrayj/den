@@ -9,25 +9,21 @@
 import SwiftUI
 
 struct GadgetView: View {
-    @ObservedObject var viewModel: FeedDisplayViewModel
-
-    var feedData: FeedData? {
-        viewModel.feed.feedData
-    }
+    @ObservedObject var feed: Feed
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
 
-            if feedData != nil && !feedData!.itemsArray.isEmpty {
-                ForEach(feedData!.limitedItemsArray) { item in
+            if feed.feedData != nil && !feed.feedData!.itemsArray.isEmpty {
+                ForEach(feed.feedData!.limitedItemsArray) { item in
                     Divider()
-                    GadgetItemView(item: item, feed: viewModel.feed)
+                    GadgetItemView(item: item, feed: feed)
                         .accessibilityElement(children: .combine)
                 }
             } else {
                 Divider()
-                FeedUnavailableView(feedData: feedData).padding()
+                FeedUnavailableView(feedData: feed.feedData).padding()
             }
         }
         .fixedSize(horizontal: false, vertical: true)
@@ -36,28 +32,23 @@ struct GadgetView: View {
 
     private var header: some View {
         HStack {
-            if viewModel.feed.id != nil {
+            if feed.id != nil {
                 NavigationLink {
                     FeedView(viewModel: FeedViewModel(
-                        feed: viewModel.feed,
-                        refreshing: viewModel.refreshing
+                        feed: feed,
+                        refreshing: false
                     ))
                 } label: {
                     HStack {
                         FeedTitleLabelView(
-                            title: viewModel.feed.wrappedTitle,
-                            faviconImage: feedData?.faviconImage
+                            title: feed.wrappedTitle,
+                            faviconImage: feed.feedData?.faviconImage
                         )
                         Spacer()
-                        if viewModel.refreshing {
-                            ProgressView().progressViewStyle(IconProgressStyle())
-                        } else {
-                            NavChevronView()
-                        }
+                        NavChevronView()
                     }.padding(.horizontal, 12)
                 }
                 .buttonStyle(FeedTitleButtonStyle())
-                .disabled(viewModel.refreshing)
                 .accessibilityIdentifier("gadget-feed-button")
             }
         }
