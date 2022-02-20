@@ -26,7 +26,7 @@ struct FeedItemsView: View {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
                     BoardView(
                         width: frameSize.width,
-                        list: feedData!.limitedItemsArray
+                        list: Array(feedData!.limitedItemsArray)
                     ) { item in
                         ItemPreviewView(item: item).modifier(GroupBlockModifier())
                     }.padding()
