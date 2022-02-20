@@ -18,7 +18,7 @@ struct ShowcaseSectionView: View {
             if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
                 BoardView(
                     width: width,
-                    list: feed.feedData?.limitedItemsArray ?? [],
+                    list: Array(feed.feedData?.limitedItemsArray ?? []),
                     content: { item in
                         ItemPreviewView(item: item).modifier(GroupBlockModifier())
                     }

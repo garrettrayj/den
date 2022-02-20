@@ -39,8 +39,8 @@ public class FeedData: NSManagedObject {
         return items
     }
 
-    public var limitedItemsArray: [Item] {
-        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? 6))
+    public var limitedItemsArray: ArraySlice<Item> {
+        itemsArray.prefix(feed?.wrappedItemLimit ?? 6)
     }
 
     public var itemsWithImageCount: Int {

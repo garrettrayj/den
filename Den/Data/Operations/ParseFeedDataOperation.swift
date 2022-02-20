@@ -112,7 +112,11 @@ final class ParseFeedDataOperation: Operation {
             }
 
             // Continue if item already exists
-            if (self.existingItemLinks.contains(where: { existingItemLink in existingItemLink == itemLink })) {
+            if (
+                self.existingItemLinks.contains(where: { existingItemLink in
+                    existingItemLink == itemLink
+                })
+            ) {
                 return
             }
 
