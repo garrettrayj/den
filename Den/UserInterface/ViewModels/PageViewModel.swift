@@ -16,7 +16,6 @@ class PageViewModel: ObservableObject {
 
     @Published var page: Page
     @Published var refreshing: Bool
-    @Published var showingSettings: Bool = false
 
     init(page: Page, refreshing: Bool) {
         self.page = page

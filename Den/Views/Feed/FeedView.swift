@@ -15,6 +15,8 @@ struct FeedView: View {
 
     @ObservedObject var viewModel: FeedViewModel
 
+    @State var showingSettings: Bool = false
+
     var body: some View {
         Group {
             GeometryReader { geometry in
@@ -38,7 +40,7 @@ struct FeedView: View {
                 destination: FeedSettingsView(viewModel: FeedSettingsViewModel(
                     viewContext: viewContext, crashManager: crashManager, feed: viewModel.feed
                 )),
-                isActive: $viewModel.showingSettings
+                isActive: $showingSettings
             ) {
                 EmptyView()
             }
@@ -47,7 +49,7 @@ struct FeedView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    viewModel.showingSettings = true
+                    showingSettings = true
                 } label: {
                     Label("Feed Settings", systemImage: "wrench")
                 }

@@ -16,7 +16,6 @@ final class FeedViewModel: ObservableObject {
 
     @Published var feed: Feed
     @Published var refreshing: Bool
-    @Published var showingSettings: Bool = false
 
     init(feed: Feed, refreshing: Bool) {
         self.feed = feed
