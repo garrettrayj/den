@@ -118,7 +118,6 @@ struct PageView: View {
                 Label("Add Feed", systemImage: "plus.circle")
             }
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(viewModel.refreshing)
             .accessibilityIdentifier("add-feed-button")
         }
         ToolbarItem {
@@ -128,23 +127,23 @@ struct PageView: View {
                 Label("Page Settings", systemImage: "wrench")
             }
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(viewModel.refreshing)
             .accessibilityIdentifier("page-settings-button")
         }
         ToolbarItem {
-            if viewModel.refreshing {
-                ProgressView().progressViewStyle(ToolbarProgressStyle())
-            } else {
-                Button {
-                    refreshManager.refresh(page: viewModel.page)
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
+            Group {
+                if viewModel.refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        refreshManager.refresh(page: viewModel.page)
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("page-refresh-button")
                 }
-                .buttonStyle(ToolbarButtonStyle())
-                .disabled(viewModel.refreshing)
-                .keyboardShortcut("r", modifiers: [.command])
-                .accessibilityIdentifier("page-refresh-button")
-            }
+            }.modifier(TrailingToolbarItemModifier())
         }
         #else
         ToolbarItem {
@@ -175,7 +174,6 @@ struct PageView: View {
             } label: {
                 Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
             }
-            .disabled(viewModel.refreshing)
             .accessibilityIdentifier("page-menu")
             .accessibilityElement(children: .contain)
         }
@@ -191,11 +189,10 @@ struct PageView: View {
                         Label("Refresh", systemImage: "arrow.clockwise")
                     }
                     .buttonStyle(ToolbarButtonStyle())
-                    .disabled(viewModel.refreshing)
                     .keyboardShortcut("r", modifiers: [.command])
                     .accessibilityIdentifier("page-refresh-button")
                 }
-            }.padding(.trailing, 8)
+            }.modifier(TrailingToolbarItemModifier())
         }
         #endif
     }
