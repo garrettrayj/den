@@ -19,18 +19,52 @@ struct FeedView: View {
 
     var body: some View {
         Group {
-            GeometryReader { geometry in
-                #if targetEnvironment(macCatalyst)
-                ScrollView(.vertical) { FeedItemsView(viewModel: viewModel, frameSize: geometry.size) }
-                #else
-                RefreshableScrollView(
-                    onRefresh: { done in
-                        refreshManager.refresh(feed: viewModel.feed)
-                        done()
-                    },
-                    content: { FeedItemsView(viewModel: viewModel, frameSize: geometry.size) }
-                )
-                #endif
+            if viewModel.feed.managedObjectContext == nil {
+                StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
+                    .navigationTitle("")
+            } else {
+                GeometryReader { geometry in
+                    #if targetEnvironment(macCatalyst)
+                    ScrollView(.vertical) { FeedItemsView(feed: viewModel.feed, frameSize: geometry.size) }
+                    #else
+                    RefreshableScrollView(
+                        onRefresh: { done in
+                            refreshManager.refresh(feed: viewModel.feed)
+                            done()
+                        },
+                        content: { FeedItemsView(feed: viewModel.feed, frameSize: geometry.size) }
+                    )
+                    #endif
+                }
+                .toolbar {
+                    ToolbarItem {
+                        Button {
+                            showingSettings = true
+                        } label: {
+                            Label("Feed Settings", systemImage: "wrench")
+                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .disabled(viewModel.refreshing)
+                        .accessibilityIdentifier("feed-settings-button")
+                    }
+
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Group {
+                            if viewModel.refreshing {
+                                ProgressView().progressViewStyle(ToolbarProgressStyle())
+                            } else {
+                                Button {
+                                    refreshManager.refresh(feed: viewModel.feed)
+                                } label: {
+                                    Label("Refresh", systemImage: "arrow.clockwise")
+                                }
+                                .buttonStyle(ToolbarButtonStyle())
+                                .keyboardShortcut("r", modifiers: [.command])
+                                .accessibilityIdentifier("feed-refresh-button")
+                            }
+                        }.modifier(TrailingToolbarItemModifier())
+                    }
+                }
             }
         }
         .disabled(viewModel.refreshing)
@@ -46,34 +80,6 @@ struct FeedView: View {
             }
         )
         .navigationTitle(viewModel.feed.wrappedTitle)
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    showingSettings = true
-                } label: {
-                    Label("Feed Settings", systemImage: "wrench")
-                }
-                .buttonStyle(ToolbarButtonStyle())
-                .disabled(viewModel.refreshing)
-                .accessibilityIdentifier("feed-settings-button")
-            }
 
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Group {
-                    if viewModel.refreshing {
-                        ProgressView().progressViewStyle(ToolbarProgressStyle())
-                    } else {
-                        Button {
-                            refreshManager.refresh(feed: viewModel.feed)
-                        } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .keyboardShortcut("r", modifiers: [.command])
-                        .accessibilityIdentifier("feed-refresh-button")
-                    }
-                }.modifier(TrailingToolbarItemModifier())
-            }
-        }
     }
 }
