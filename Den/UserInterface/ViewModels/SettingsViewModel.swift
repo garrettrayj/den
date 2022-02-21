@@ -64,8 +64,9 @@ final class SettingsViewModel: ObservableObject {
         guard let profile = profileManager.activeProfile else { return }
         refreshManager.cancel()
         cacheManager.resetFeeds()
+
         profile.pagesArray.forEach { page in
-            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
+            page.objectWillChange.send()
         }
     }
 
