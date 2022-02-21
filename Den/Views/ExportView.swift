@@ -46,23 +46,21 @@ struct ExportView: View {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
                 // .editMode doesn't work inside forms, so creating selection buttons manually
                 Button { self.viewModel.togglePage(page) } label: {
-                    Label(
-                        title: {
-                            HStack {
-                                Text(page.wrappedName).foregroundColor(.primary)
-                                Spacer()
-                                Text("\(page.feeds!.count) feeds").foregroundColor(.secondary)
-                            }
-
-                        },
-                        icon: {
-                            if self.viewModel.selectedPages.contains(page) {
-                                Image(systemName: "checkmark.circle.fill")
-                            } else {
-                                Image(systemName: "circle")
-                            }
+                    Label {
+                        HStack {
+                            Text(page.wrappedName).foregroundColor(.primary)
+                            Spacer()
+                            Text("\(page.feeds?.count ?? 0) feeds")
+                                .foregroundColor(.secondary)
+                                .font(.footnote)
                         }
-                    )
+                    } icon: {
+                        if self.viewModel.selectedPages.contains(page) {
+                            Image(systemName: "checkmark.circle.fill")
+                        } else {
+                            Image(systemName: "circle")
+                        }
+                    }.lineLimit(1)
                 }
                 .modifier(FormRowModifier())
                 .onAppear { self.viewModel.selectedPages.append(page) }

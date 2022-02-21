@@ -49,34 +49,42 @@ struct FeedItemsView: View {
 
     private var header: some View {
         HStack {
-            if feedData?.linkDisplayString != nil {
-                Button {
-                    linkManager.openLink(url: feedData?.link)
-                } label: {
-                    Label {
-                        Text(feedData?.linkDisplayString ?? "")
-                    } icon: {
-                        if feedData?.faviconImage != nil {
-                            feedData!.faviconImage!
-                                .frame(
-                                    width: ImageSize.favicon.width,
-                                    height: ImageSize.favicon.height,
-                                    alignment: .center
-                                )
-                                .clipped()
-                        } else {
-                            Image(systemName: "link")
+            Group {
+                if feedData?.linkDisplayString != nil {
+                    Button {
+                        linkManager.openLink(url: feedData?.link)
+                    } label: {
+                        Label {
+                            Text(feedData?.linkDisplayString ?? "")
+                        } icon: {
+                            if feedData?.faviconImage != nil {
+                                feedData!.faviconImage!
+                                    .frame(
+                                        width: ImageSize.favicon.width,
+                                        height: ImageSize.favicon.height,
+                                        alignment: .center
+                                    )
+                                    .clipped()
+                            } else {
+                                Image(systemName: "link")
+                            }
                         }
+
                     }
-                    .padding(.leading, 28)
-                    .padding(.trailing, 8)
+                    .buttonStyle(
+                        FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
+                    )
+                } else {
+                    Label {
+                        Text("Website Unknown").font(.caption)
+                    } icon: {
+                        Image(systemName: "questionmark.square")
+                    }.foregroundColor(.secondary)
                 }
-                .buttonStyle(
-                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
-                )
-                .font(.callout)
-                .foregroundColor(Color.primary)
             }
+            .padding(.leading, 28)
+            .padding(.trailing, 8)
+
             Spacer()
             FeedRefreshedLabelView(refreshed: viewModel.feed.refreshed)
                 .padding(.leading, 8)

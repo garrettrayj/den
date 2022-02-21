@@ -54,22 +54,21 @@ struct ImportView: View {
             Section(header: selectionSectionHeader) {
                 ForEach(importViewModel.opmlFolders, id: \.name) { folder in
                     Button { self.importViewModel.toggleFolder(folder) } label: {
-                        Label(
-                            title: {
-                                HStack {
-                                    Text(folder.name).foregroundColor(.primary)
-                                    Spacer()
-                                    Text("\(folder.feeds.count) feeds").foregroundColor(.secondary)
-                                }
-                            },
-                            icon: {
-                                if self.importViewModel.selectedFolders.contains(folder) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                } else {
-                                    Image(systemName: "circle")
-                                }
+                        Label {
+                            HStack {
+                                Text(folder.name).foregroundColor(.primary)
+                                Spacer()
+                                Text("\(folder.feeds.count) feeds")
+                                    .foregroundColor(.secondary)
+                                    .font(.footnote)
                             }
-                        )
+                        } icon: {
+                            if self.importViewModel.selectedFolders.contains(folder) {
+                                Image(systemName: "checkmark.circle.fill")
+                            } else {
+                                Image(systemName: "circle")
+                            }
+                        }.lineLimit(1)
                     }
                     .modifier(FormRowModifier())
                     .accessibilityIdentifier("import-toggle-folder-button")
