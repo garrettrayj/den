@@ -24,22 +24,19 @@ struct SidebarPageView: View {
 
                 Spacer()
 
-                Group {
-                    if editMode?.wrappedValue == .inactive {
-                        Text(String(page.unreadCount))
-                            .font(.caption.weight(.medium))
-                            .foregroundColor(Color(UIColor.secondaryLabel))
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 3)
-                            .overlay(
-                                Capsule().fill(Color(UIColor.secondarySystemFill))
-                            )
-                    }
+                if editMode?.wrappedValue == .inactive {
+                    Text(String(page.unreadCount))
+                        .font(.caption.weight(.medium))
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .overlay(
+                            Capsule().fill(Color(UIColor.secondarySystemFill))
+                        )
+                        #if !targetEnvironment(macCatalyst)
+                        .padding(.trailing, 4)
+                        #endif
                 }
-                #if !targetEnvironment(macCatalyst)
-                .padding(.trailing, 4)
-                #endif
-
             }.lineLimit(1)
         } icon: {
             Image(systemName: page.wrappedSymbol)

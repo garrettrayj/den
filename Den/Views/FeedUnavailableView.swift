@@ -26,8 +26,8 @@ struct FeedUnavailableView: View {
                 Label {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(title).font(.headline)
-                        Text(caption).font(.subheadline).foregroundColor(.secondary)
-                    }
+                        Text(caption).font(.subheadline)
+                    }.foregroundColor(.secondary)
                 } icon: {
                     Image(systemName: symbol).foregroundColor(symbolColor).padding(.trailing, 4)
                 }
@@ -41,7 +41,7 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "No Data",
-                    caption: "Refresh to load content",
+                    caption: "Refresh to load feed",
                     useStatusBox: useStatusBox
                 )
             } else if feedData?.error != nil {
