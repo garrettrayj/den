@@ -30,6 +30,7 @@ final class FeedSettingsViewModel: ObservableObject {
                 feed.feedData?.itemsArray.forEach { item in
                     item.objectWillChange.send()
                 }
+                NotificationCenter.default.post(name: .feedRefreshed, object: feed.objectID)
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }

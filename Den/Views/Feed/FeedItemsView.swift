@@ -12,21 +12,17 @@ struct FeedItemsView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var linkManager: LinkManager
 
-    @ObservedObject var viewModel: FeedViewModel
+    @ObservedObject var feed: Feed
 
     var frameSize: CGSize
 
-    var feedData: FeedData? {
-        viewModel.feed.feedData
-    }
-
     var body: some View {
-        if feedData != nil && feedData!.itemsArray.count > 0 {
+        if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
                     BoardView(
                         width: frameSize.width,
-                        list: Array(feedData!.limitedItemsArray)
+                        list: Array(feed.feedData!.limitedItemsArray)
                     ) { item in
                         ItemPreviewView(item: item).modifier(GroupBlockModifier())
                     }.padding()
@@ -37,7 +33,7 @@ struct FeedItemsView: View {
         } else {
             VStack {
                 Spacer()
-                FeedUnavailableView(feedData: feedData, useStatusBox: true)
+                FeedUnavailableView(feedData: feed.feedData, useStatusBox: true)
                 Spacer()
                 Spacer()
             }
@@ -50,15 +46,15 @@ struct FeedItemsView: View {
     private var header: some View {
         HStack {
             Group {
-                if feedData?.linkDisplayString != nil {
+                if feed.feedData?.linkDisplayString != nil {
                     Button {
-                        linkManager.openLink(url: feedData?.link)
+                        linkManager.openLink(url: feed.feedData?.link)
                     } label: {
                         Label {
-                            Text(feedData?.linkDisplayString ?? "")
+                            Text(feed.feedData?.linkDisplayString ?? "")
                         } icon: {
-                            if feedData?.faviconImage != nil {
-                                feedData!.faviconImage!
+                            if feed.feedData?.faviconImage != nil {
+                                feed.feedData!.faviconImage!
                                     .frame(
                                         width: ImageSize.favicon.width,
                                         height: ImageSize.favicon.height,
@@ -86,7 +82,7 @@ struct FeedItemsView: View {
             .padding(.trailing, 8)
 
             Spacer()
-            FeedRefreshedLabelView(refreshed: viewModel.feed.refreshed)
+            FeedRefreshedLabelView(refreshed: feed.refreshed)
                 .padding(.leading, 8)
                 .padding(.trailing, 28)
         }
