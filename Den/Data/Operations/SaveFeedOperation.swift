@@ -95,7 +95,7 @@ final class SaveFeedOperation: Operation {
         // Cleanup items beyond feed itemLimit
         guard let itemLimit = feedData.feed?.wrappedItemLimit else { return }
         if feedData.itemsArray.count > itemLimit {
-            feedData.itemsArray.suffix(from: itemLimit - 1).forEach { item in
+            feedData.itemsArray.suffix(from: itemLimit).forEach { item in
                 context.delete(item)
             }
         }
