@@ -125,6 +125,7 @@ struct SubscribeView: View {
                 .lineLimit(1)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
+                .textInputAutocapitalization(.never)
                 .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
 
             if viewModel.urlIsValid != nil {
