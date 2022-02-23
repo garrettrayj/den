@@ -78,7 +78,7 @@ final class ParseFeedDataOperation: Operation {
                 self.handleFeed(feed)
             }
         case .failure:
-            self.workingFeed.error = "Unable to parse feed content"
+            self.workingFeed.error = "Unable to parse feed"
         }
     }
 
