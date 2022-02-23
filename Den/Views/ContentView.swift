@@ -21,13 +21,7 @@ struct ContentView: View {
             CrashMessageView()
         } else {
             NavigationView {
-                SidebarView(
-                    viewModel: SidebarViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        profile: profileManager.activeProfile!
-                    )
-                )
+                SidebarView(profile: profileManager.activeProfile!)
 
                 // Default view for detail area
                 WelcomeView()
