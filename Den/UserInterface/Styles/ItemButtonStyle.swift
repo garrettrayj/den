@@ -29,7 +29,8 @@ struct ItemButtonStyle: ButtonStyle {
                 .foregroundColor(
                     isEnabled ?
                         read ? .secondary : .primary
-                    : Color.secondary
+                    :
+                        read ? Color(UIColor.tertiaryLabel) : .secondary
                 )
                 .frame(maxWidth: .infinity)
                 .background(
