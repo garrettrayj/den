@@ -11,6 +11,8 @@ import Foundation
 import SwiftUI
 
 struct ItemDateView: View {
+    @Environment(\.isEnabled) private var isEnabled
+
     var date: Date
     var read: Bool
 
@@ -18,6 +20,11 @@ struct ItemDateView: View {
         Text("\(date, formatter: DateFormatter.mediumShort)")
             .font(.subheadline)
             .lineLimit(1)
-            .foregroundColor(read ? Color(UIColor.tertiaryLabel) : .secondary)
+            .foregroundColor(
+                isEnabled ?
+                    read ? Color(UIColor.tertiaryLabel) : .secondary
+                :
+                    read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
+            )
     }
 }
