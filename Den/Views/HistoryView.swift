@@ -74,7 +74,7 @@ struct HistoryView: View {
         Button { linkManager.openLink(url: history.link) } label: {
             VStack(alignment: .leading, spacing: 2) {
                 Text(history.title ?? "Untitled")
-                    .font(.headline)
+                    .font(.headline.weight(.semibold))
                     .multilineTextAlignment(.leading)
 
                 Text(history.link!.absoluteString)

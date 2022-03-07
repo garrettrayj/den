@@ -25,7 +25,7 @@ struct ItemButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
-                .font(.headline)
+                .font(.headline.weight(.semibold))
                 .foregroundColor(
                     isEnabled ?
                         read ? .secondary : .primary

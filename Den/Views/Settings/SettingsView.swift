@@ -191,7 +191,7 @@ struct SettingsView: View {
                     .cornerRadius(8)
                 VStack(alignment: .leading) {
                     Text("Den").font(.system(size: 24).weight(.bold))
-                    Text("v\(Bundle.main.releaseVersionNumber)")
+                    Text("v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                         .foregroundColor(.secondary)
                         .font(.caption)
                 }
