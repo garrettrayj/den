@@ -21,20 +21,7 @@ struct ProfileView: View {
     var body: some View {
         Form {
             nameSection
-            deleteSection
-        }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    profileManager.activateProfile(profile)
-                    dismiss()
-                } label: {
-                    Label("Activate", systemImage: "power.circle")
-                }
-                .buttonStyle(ActivateButtonStyle())
-                .disabled(profile == profileManager.activeProfile)
-                .accessibilityIdentifier("activate-profile-button")
-            }
+            activateDeleteSection
         }
         .navigationTitle("Profile Settings")
         .onDisappear {
@@ -51,8 +38,18 @@ struct ProfileView: View {
         }.modifier(SectionHeaderModifier())
     }
 
-    private var deleteSection: some View {
+    private var activateDeleteSection: some View {
         Section {
+            Button {
+                profileManager.activateProfile(profile)
+                dismiss()
+            } label: {
+                Label("Switch", systemImage: "power.circle")
+            }
+            .disabled(profile == profileManager.activeProfile)
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("activate-profile-button")
+
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {
@@ -64,7 +61,7 @@ struct ProfileView: View {
             .accessibilityIdentifier("delete-profile-button")
         } footer: {
             if profile == profileManager.activeProfile {
-                Text("Cannot delete active profile").padding(.vertical, 8)
+                Text("Active profile cannot be deleted").padding(.vertical, 8)
             }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")

@@ -23,7 +23,7 @@ struct SearchResultView: View {
         } label: {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(item.wrappedTitle).font(.headline)
+                    Text(item.wrappedTitle).font(.headline.weight(.semibold))
 
                     if item.published != nil {
                         Text("\(item.published!, formatter: DateFormatter.mediumShort)")

@@ -451,6 +451,18 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		683B285327D54141009C0302 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				68C4FA252474927800D2C0D6 /* SettingsView.swift */,
+				6832AF252789419700CFC8CA /* ProfileView.swift */,
+				68B34A5D2486D2AD0066B215 /* ImportView.swift */,
+				68B34A662487ED870066B215 /* ExportView.swift */,
+				68E4274226D2C2BB00E496E3 /* SecurityCheckView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		6845BCF924EBE4B60008B296 /* FeedKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,11 +711,7 @@
 				68C4138124733D7D00D1DC7B /* SubscribeView.swift */,
 				6832AF2F278BAF2A00CFC8CA /* Search */,
 				68D345942658D0610080783F /* HistoryView.swift */,
-				68C4FA252474927800D2C0D6 /* SettingsView.swift */,
-				6832AF252789419700CFC8CA /* ProfileView.swift */,
-				68B34A5D2486D2AD0066B215 /* ImportView.swift */,
-				68B34A662487ED870066B215 /* ExportView.swift */,
-				68E4274226D2C2BB00E496E3 /* SecurityCheckView.swift */,
+				683B285327D54141009C0302 /* Settings */,
 				687F488F269165EE00EA2498 /* CrashMessageView.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				684DFA0424BC39EB0023D6DB /* RefreshableScrollView.swift */,
@@ -1428,7 +1436,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1438,7 +1446,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1456,7 +1464,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1466,7 +1474,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9.0;
+				MARKETING_VERSION = 1.9.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;

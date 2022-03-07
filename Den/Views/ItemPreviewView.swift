@@ -20,7 +20,7 @@ struct ItemPreviewView: View {
                 readerMode: item.feedData?.feed?.readerMode ?? false
             )
         } label: {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(item.wrappedTitle).frame(maxWidth: .infinity, alignment: .topLeading)
 
                 if item.published != nil {
@@ -39,18 +39,20 @@ struct ItemPreviewView: View {
                                 .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
                         .opacity(item.read ? 0.65 : 1.0)
+                        .padding(.top, 4)
+                        .padding(.bottom, item.summary != nil && item.summary != "" ? 2 : 0)
                 }
 
                 if item.summary != nil && item.summary != "" {
                     Text(item.summary!)
-                        .font(.body)
+                        .font(.callout)
                         .lineLimit(6)
-                        .padding(.top, 2)
+                        .padding(.top, 4)
                 }
             }
             .multilineTextAlignment(.leading)
             .padding([.horizontal, .top], 12)
-            .padding(.bottom, 16)
+            .padding(.bottom, 12)
             .fixedSize(horizontal: false, vertical: true)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
