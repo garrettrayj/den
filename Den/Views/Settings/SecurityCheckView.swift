@@ -89,7 +89,7 @@ struct SecurityCheckView: View {
                 HStack {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
-                        faviconImage: feed.feedData?.faviconImage
+                        favicon: feed.feedData?.favicon
                     )
                     Spacer()
                     Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(.secondary)

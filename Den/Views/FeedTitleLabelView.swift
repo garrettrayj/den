@@ -8,33 +8,24 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct FeedTitleLabelView: View {
     var title: String
-    var faviconImage: Image?
+    var favicon: URL?
 
     var body: some View {
         Label {
             Text(title).lineLimit(1)
         } icon: {
-            if faviconImage == nil {
-                Image(systemName: "dot.radiowaves.up.forward")
-                    .foregroundColor(Color.secondary)
-                    .font(.system(size: 14).weight(.semibold))
-                    .frame(
-                        width: ImageSize.favicon.width,
-                        height: ImageSize.favicon.height,
-                        alignment: .center
-                    )
-                    .clipped()
-            } else {
-                faviconImage
-                    .frame(
-                        width: ImageSize.favicon.width,
-                        height: ImageSize.favicon.height,
-                        alignment: .center
-                    )
-                    .clipped()
-            }
+            KFImage(favicon)
+                .placeholder({ _ in
+                    Image(systemName: "dot.radiowaves.up.forward")
+                })
+                .resizable()
+                .resizing(referenceSize: ImageReferenceSize.favicon, mode: .aspectFit)
+                .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                .clipped()
         }
     }
 }

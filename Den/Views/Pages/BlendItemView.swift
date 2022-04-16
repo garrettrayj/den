@@ -23,7 +23,7 @@ struct BlendItemView: View {
                     HStack {
                         FeedTitleLabelView(
                             title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                            faviconImage: item.feedData?.faviconImage
+                            favicon: item.feedData?.favicon
                         )
                         Spacer()
                         NavChevronView()

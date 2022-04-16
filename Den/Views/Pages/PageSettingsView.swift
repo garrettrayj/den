@@ -61,7 +61,7 @@ struct PageSettingsView: View {
                 ForEach(viewModel.page.feedsArray) { feed in
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
-                        faviconImage: feed.feedData?.faviconImage
+                        favicon: feed.feedData?.favicon
                     ).padding(.vertical, 4)
                 }
                 .onDelete(perform: viewModel.deleteFeed)

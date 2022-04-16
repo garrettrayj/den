@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct ItemPreviewView: View {
     @EnvironmentObject private var linkManager: LinkManager
     @ObservedObject var item: Item
@@ -27,20 +29,20 @@ struct ItemPreviewView: View {
                     ItemDateView(date: item.published!, read: item.read)
                 }
 
-                if item.feedData?.feed?.showThumbnails == true {
-                    item.previewImage?
+                if item.feedData?.feed?.showThumbnails == true && item.image != nil {
+                    KFImage(item.image)
+                        .cacheOriginalImage()
                         .resizable()
-                        .scaledToFit()
+                        .resizing(referenceSize: ImageReferenceSize.preview, mode: .aspectFit)
+                        .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: CGFloat(item.imageWidth), maxHeight: CGFloat(item.imageHeight))
                         .background(Color(UIColor.tertiarySystemGroupedBackground))
                         .cornerRadius(4)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
+                        .accessibility(label: Text("Preview Image"))
                         .opacity(item.read ? 0.65 : 1.0)
-                        .padding(.top, 4)
-                        .padding(.bottom, item.summary != nil && item.summary != "" ? 2 : 0)
                 }
 
                 if item.summary != nil && item.summary != "" {

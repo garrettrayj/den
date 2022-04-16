@@ -100,7 +100,7 @@ struct SearchResultsView: View {
         } header: {
             FeedTitleLabelView(
                 title: section.first?.feedData?.feed?.wrappedTitle ?? "Untitled",
-                faviconImage: section.first?.feedData?.faviconImage
+                favicon: section.first?.feedData?.favicon
             )
             .padding(.horizontal, 28)
             .modifier(PinnedSectionHeaderModifier())

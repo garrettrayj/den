@@ -42,7 +42,7 @@ struct GadgetView: View {
                     HStack {
                         FeedTitleLabelView(
                             title: feed.wrappedTitle,
-                            faviconImage: feed.feedData?.faviconImage
+                            favicon: feed.feedData?.favicon
                         )
                         Spacer()
                         NavChevronView()

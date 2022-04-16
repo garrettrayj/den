@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct GadgetItemView: View {
     @EnvironmentObject private var linkManager: LinkManager
@@ -29,12 +30,14 @@ struct GadgetItemView: View {
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .multilineTextAlignment(.leading)
 
-                if feed.showThumbnails == true {
-                    item.thumbnailImage?
+                if feed.showThumbnails == true && item.image != nil {
+                    KFImage(item.image)
+                        .resizable()
+                        .resizing(referenceSize: ImageReferenceSize.thumbnail, mode: .aspectFill)
                         .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
                         .clipped()
                         .background(Color(UIColor.tertiarySystemGroupedBackground))
-                            .cornerRadius(4)
+                        .cornerRadius(4)
                         .overlay(
                             RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
                         )
