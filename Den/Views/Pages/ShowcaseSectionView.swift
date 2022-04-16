@@ -48,7 +48,7 @@ struct ShowcaseSectionView: View {
                     HStack {
                         FeedTitleLabelView(
                             title: feed.wrappedTitle,
-                            faviconImage: feed.feedData?.faviconImage
+                            favicon: feed.feedData?.favicon
                         )
                         NavChevronView()
                         Spacer()
