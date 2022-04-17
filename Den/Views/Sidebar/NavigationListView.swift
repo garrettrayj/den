@@ -84,28 +84,29 @@ struct NavigationListView: View {
 
                 if editMode?.wrappedValue == .inactive {
                     Button {
-                        refreshManager.refresh(
-                            viewModel: viewModel,
-                            activePage: subscriptionManager.activePage
-                        )
+                        showingSettings = true
                     } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
+                        Label("Settings", systemImage: "gear")
                     }
                     .buttonStyle(ToolbarButtonStyle())
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .accessibilityIdentifier("profile-refresh-button")
+                    .accessibilityIdentifier("settings-button")
                     .disabled(viewModel.refreshing)
                 }
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {
-                    showingSettings = true
+                    refreshManager.refresh(
+                        viewModel: viewModel,
+                        activePage: subscriptionManager.activePage
+                    )
                 } label: {
-                    Label("Settings", systemImage: "gear")
+                    Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("settings-button")
+                .buttonStyle(ToolbarButtonStyle(inBottomBar: true))
+                .keyboardShortcut("r", modifiers: [.command])
+                .accessibilityIdentifier("profile-refresh-button")
+                .disabled(viewModel.refreshing)
 
                 Spacer()
 
@@ -129,8 +130,10 @@ struct NavigationListView: View {
                 } label: {
                     Label("History", systemImage: "clock")
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(ToolbarButtonStyle(inBottomBar: true))
                 .accessibilityIdentifier("history-button")
+                .disabled(viewModel.refreshing)
+
             }
         }
     }

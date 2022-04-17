@@ -27,6 +27,7 @@ struct ProfileView: View {
         .onDisappear {
             NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
         }
+        .modifier(BackNavigationModifier(title: "Settings"))
     }
 
     private var nameSection: some View {

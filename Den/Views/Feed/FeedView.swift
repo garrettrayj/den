@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
 
@@ -26,12 +27,22 @@ struct FeedView: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) { FeedItemsView(feed: viewModel.feed, frameSize: geometry.size) }
                 }
+                .navigationBarBackButtonHidden(true)
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button { dismiss() } label: {
+                            Label(viewModel.feed.page?.displayName ?? "Back", systemImage: "chevron.backward")
+                                .labelStyle(.titleAndIcon)
+                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .modifier(ToolbarItemOffsetModifier(alignment: .leading))
+                    }
+
                     ToolbarItem {
                         if viewModel.refreshing {
                             ProgressView()
                                 .progressViewStyle(ToolbarProgressStyle())
-                                .modifier(TrailingToolbarItemModifier())
+                                .modifier(ToolbarItemOffsetModifier())
                         } else {
                             Button {
                                 showingSettings = true
@@ -41,7 +52,7 @@ struct FeedView: View {
                             .buttonStyle(ToolbarButtonStyle())
                             .disabled(viewModel.refreshing)
                             .accessibilityIdentifier("feed-settings-button")
-                            .modifier(TrailingToolbarItemModifier())
+                            .modifier(ToolbarItemOffsetModifier())
                         }
                     }
                 }

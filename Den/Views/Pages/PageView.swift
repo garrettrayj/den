@@ -109,8 +109,12 @@ struct PageView: View {
                     .accessibilityIdentifier("blend-view-button")
             }
             .pickerStyle(.inline)
+            .onChange(of: viewMode, perform: { _ in
+                viewModel.objectWillChange.send()
+            })
             .padding(.leading, 16)
             .padding(.trailing, 8)
+            .padding(.top, -4)
             .disabled(viewModel.refreshing)
         }
         ToolbarItem {
@@ -127,7 +131,7 @@ struct PageView: View {
             if viewModel.refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
-                    .modifier(TrailingToolbarItemModifier())
+                    .modifier(ToolbarItemOffsetModifier())
             } else {
                 Button {
                     showingSettings = true
@@ -136,7 +140,7 @@ struct PageView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("page-settings-button")
-                .modifier(TrailingToolbarItemModifier())
+                .modifier(ToolbarItemOffsetModifier())
                 .disabled(viewModel.refreshing)
             }
         }

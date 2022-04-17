@@ -42,6 +42,7 @@ struct FeedSettingsView: View {
         }
         .onDisappear(perform: viewModel.save)
         .navigationTitle("Feed Settings")
+        .modifier(BackNavigationModifier(title: viewModel.feed.wrappedTitle))
     }
 
     private var titleSection: some View {
