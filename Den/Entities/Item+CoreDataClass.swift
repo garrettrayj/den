@@ -28,53 +28,6 @@ public class Item: NSManagedObject {
         set {title = newValue}
     }
 
-    public var previewUIImage: UIImage? {
-        guard
-            let previewsDirectory = FileManager.default.previewsDirectory,
-            let filename = self.imagePreview
-        else { return nil }
-
-        let filepath = previewsDirectory.appendingPathComponent(filename)
-
-        do {
-            let imageData = try Data(contentsOf: filepath)
-            if let uiImage = UIImage(data: imageData, scale: UIScreen.main.scale) {
-                return uiImage
-            }
-        } catch {
-            Logger.main.notice("Error loading thumbnail image: \(error.localizedDescription)")
-        }
-
-        return nil
-    }
-
-    public var previewImage: Image? {
-        if let previewUIImage = previewUIImage {
-            return Image(uiImage: previewUIImage)
-        }
-        return nil
-    }
-
-    public var thumbnailImage: Image? {
-        guard
-            let thumbnailsDirectory = FileManager.default.thumbnailsDirectory,
-            let filename = self.imageThumbnail
-        else { return nil }
-
-        let filepath = thumbnailsDirectory.appendingPathComponent(filename)
-
-        do {
-            let imageData = try Data(contentsOf: filepath)
-            if let uiImage = UIImage(data: imageData, scale: UIScreen.main.scale) {
-                return Image(uiImage: uiImage)
-            }
-        } catch {
-            Logger.main.notice("Error loading thumbnail image: \(error.localizedDescription)")
-        }
-
-        return nil
-    }
-
     static func create(moc managedObjectContext: NSManagedObjectContext, feedData: FeedData) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()

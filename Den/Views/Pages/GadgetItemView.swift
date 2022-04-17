@@ -31,19 +31,7 @@ struct GadgetItemView: View {
                 .multilineTextAlignment(.leading)
 
                 if feed.showThumbnails == true && item.image != nil {
-                    KFImage(item.image)
-                        .cacheOriginalImage()
-                        .downsampling(size: ImageReferenceSize.thumbnail)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
-                        .background(Color(UIColor.tertiarySystemGroupedBackground))
-                        .cornerRadius(4)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-                        )
-                        .accessibility(label: Text("Thumbnail Image"))
-                        .opacity(item.read ? 0.65 : 1.0)
+                    ItemThumbnailView(item: item)
                 }
             }
             .padding(12)
