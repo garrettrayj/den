@@ -71,7 +71,6 @@ struct PageView: View {
                 }.toolbar { toolbarContent }
             }
         }
-        .disabled(viewModel.refreshing)
         .onAppear {
             subscriptionManager.activePage = viewModel.page
         }
@@ -112,6 +111,7 @@ struct PageView: View {
             .pickerStyle(.inline)
             .padding(.leading, 16)
             .padding(.trailing, 8)
+            .disabled(viewModel.refreshing)
         }
         ToolbarItem {
             Button {
@@ -121,80 +121,61 @@ struct PageView: View {
             }
             .buttonStyle(ToolbarButtonStyle())
             .accessibilityIdentifier("add-feed-button")
+            .disabled(viewModel.refreshing)
         }
         ToolbarItem {
-            Button {
-                showingSettings = true
-            } label: {
-                Label("Page Settings", systemImage: "wrench")
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("page-settings-button")
-        }
-        ToolbarItem {
-            Group {
-                if viewModel.refreshing {
-                    ProgressView().progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Button {
-                        refreshManager.refresh(page: viewModel.page)
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .accessibilityIdentifier("page-refresh-button")
-                }
-            }.modifier(TrailingToolbarItemModifier())
-        }
-        #else
-        ToolbarItem {
-            Menu {
-                Picker("View Mode", selection: $viewMode) {
-                    Label("Gadgets", systemImage: "rectangle.grid.3x2")
-                        .tag(PageViewMode.gadgets.rawValue)
-                        .accessibilityIdentifier("gadgets-view-button")
-                    Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                        .tag(PageViewMode.showcase.rawValue)
-                        .accessibilityIdentifier("showcase-view-button")
-                    Label("Blend", systemImage: "square.text.square")
-                        .tag(PageViewMode.blend.rawValue)
-                        .accessibilityIdentifier("blend-view-button")
-                }
-
-                Button {
-                    subscriptionManager.showSubscribe()
-                } label: {
-                    Label("Add Feed", systemImage: "plus.circle")
-                }.accessibilityIdentifier("add-feed-button")
-
+            if viewModel.refreshing {
+                ProgressView()
+                    .progressViewStyle(ToolbarProgressStyle())
+                    .modifier(TrailingToolbarItemModifier())
+            } else {
                 Button {
                     showingSettings = true
                 } label: {
                     Label("Page Settings", systemImage: "wrench")
-                }.accessibilityIdentifier("page-settings-button")
-            } label: {
-                Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
-            }
-            .accessibilityIdentifier("page-menu")
-            .accessibilityElement(children: .contain)
-        }
-
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Group {
-                if viewModel.refreshing {
-                    ProgressView().progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Button {
-                        refreshManager.refresh(page: viewModel.page)
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .accessibilityIdentifier("page-refresh-button")
                 }
-            }.modifier(TrailingToolbarItemModifier())
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("page-settings-button")
+                .modifier(TrailingToolbarItemModifier())
+                .disabled(viewModel.refreshing)
+            }
+        }
+        #else
+        ToolbarItem {
+            if viewModel.refreshing {
+                ProgressView()
+                    .progressViewStyle(ToolbarProgressStyle())
+                    .modifier(TrailingToolbarItemModifier())
+            } else {
+                Menu {
+                    Picker("View Mode", selection: $viewMode) {
+                        Label("Gadgets", systemImage: "rectangle.grid.3x2")
+                            .tag(PageViewMode.gadgets.rawValue)
+                            .accessibilityIdentifier("gadgets-view-button")
+                        Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                            .tag(PageViewMode.showcase.rawValue)
+                            .accessibilityIdentifier("showcase-view-button")
+                        Label("Blend", systemImage: "square.text.square")
+                            .tag(PageViewMode.blend.rawValue)
+                            .accessibilityIdentifier("blend-view-button")
+                    }
+
+                    Button {
+                        subscriptionManager.showSubscribe()
+                    } label: {
+                        Label("Add Feed", systemImage: "plus.circle")
+                    }.accessibilityIdentifier("add-feed-button")
+
+                    Button {
+                        showingSettings = true
+                    } label: {
+                        Label("Page Settings", systemImage: "wrench")
+                    }.accessibilityIdentifier("page-settings-button")
+                } label: {
+                    Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
+                }
+                .accessibilityIdentifier("page-menu")
+            }
         }
         #endif
     }

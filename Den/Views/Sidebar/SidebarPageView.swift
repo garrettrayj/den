@@ -10,12 +10,12 @@ import SwiftUI
 
 struct SidebarPageView: View {
     @Environment(\.editMode) private var editMode
-    @ObservedObject var page: Page
+    @ObservedObject var viewModel: PageViewModel
 
     var body: some View {
         Label {
             HStack {
-                Text(page.displayName)
+                Text(viewModel.page.displayName)
                     #if targetEnvironment(macCatalyst)
                     .frame(height: 32)
                     .padding(.leading, 6)
@@ -25,21 +25,25 @@ struct SidebarPageView: View {
                 Spacer()
 
                 if editMode?.wrappedValue == .inactive {
-                    Text(String(page.unreadCount))
-                        .font(.caption.weight(.medium))
-                        .foregroundColor(Color(UIColor.secondaryLabel))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .overlay(
-                            Capsule().fill(Color(UIColor.secondarySystemFill))
-                        )
-                        #if !targetEnvironment(macCatalyst)
-                        .padding(.trailing, 4)
-                        #endif
+                    if viewModel.refreshing {
+                        ProgressView().progressViewStyle(IconProgressStyle())
+                    } else {
+                        Text(String(viewModel.page.unreadCount))
+                            .font(.caption.weight(.medium))
+                            .foregroundColor(Color(UIColor.secondaryLabel))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .overlay(
+                                Capsule().fill(Color(UIColor.secondarySystemFill))
+                            )
+                            #if !targetEnvironment(macCatalyst)
+                            .padding(.trailing, 4)
+                            #endif
+                    }
                 }
             }.lineLimit(1)
         } icon: {
-            Image(systemName: page.wrappedSymbol)
+            Image(systemName: viewModel.page.wrappedSymbol)
                 #if targetEnvironment(macCatalyst)
                 .imageScale(.large)
                 #endif

@@ -36,7 +36,7 @@ struct SidebarView: View {
                 MissingProfileView(showingSettings: $showingSettings)
             } else if profile.pagesArray.isEmpty {
                 StartListView(
-                    viewModel: SidebarViewModel(
+                    viewModel: ProfileViewModel(
                         viewContext: viewContext,
                         crashManager: crashManager,
                         profile: profile
@@ -45,7 +45,7 @@ struct SidebarView: View {
                 )
             } else {
                 NavigationListView(
-                    viewModel: SidebarViewModel(
+                    viewModel: ProfileViewModel(
                         viewContext: viewContext,
                         crashManager: crashManager,
                         profile: profile

@@ -16,17 +16,7 @@ struct BlendView: View {
     var frameSize: CGSize
 
     var body: some View {
-        #if targetEnvironment(macCatalyst)
         ScrollView(.vertical) { content }
-        #else
-        RefreshableScrollView(
-            onRefresh: { done in
-                refreshManager.refresh(page: page)
-                done()
-            },
-            content: { content }
-        )
-        #endif
     }
 
     @ViewBuilder

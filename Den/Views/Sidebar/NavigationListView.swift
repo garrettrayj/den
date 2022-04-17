@@ -11,8 +11,9 @@ import SwiftUI
 struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
-    @ObservedObject var viewModel: SidebarViewModel
+    @ObservedObject var viewModel: ProfileViewModel
     @Binding var showingSettings: Bool
 
     @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()
@@ -23,10 +24,12 @@ struct NavigationListView: View {
     var body: some View {
         List {
             ForEach(viewModel.profile.pagesArray) { page in
+                let pageViewModel = PageViewModel(page: page, refreshing: viewModel.refreshing)
+
                 NavigationLink {
-                    PageView(viewModel: PageViewModel(page: page, refreshing: viewModel.refreshing))
+                    PageView(viewModel: pageViewModel)
                 } label: {
-                    SidebarPageView(page: page).environment(\.editMode, editMode)
+                    SidebarPageView(viewModel: pageViewModel).environment(\.editMode, editMode)
                 }
                 .accessibilityIdentifier("page-button")
 
@@ -59,6 +62,11 @@ struct NavigationListView: View {
                 }
             }.hidden()
         )
+        #if !targetEnvironment(macCatalyst)
+        .refreshable {
+            refreshManager.refresh(viewModel: viewModel)
+        }
+        #endif
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 if editMode?.wrappedValue == EditMode.active {
@@ -75,18 +83,18 @@ struct NavigationListView: View {
                     .accessibilityIdentifier("edit-page-list-button")
 
                 if editMode?.wrappedValue == .inactive {
-                    if viewModel.refreshing {
-                        ProgressView().progressViewStyle(ToolbarProgressStyle())
-                    } else {
-                        Button {
-                            refreshManager.refresh(profile: viewModel.profile)
-                        } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .keyboardShortcut("r", modifiers: [.command, .shift])
-                        .accessibilityIdentifier("profile-refresh-button")
+                    Button {
+                        refreshManager.refresh(
+                            viewModel: viewModel,
+                            activePage: subscriptionManager.activePage
+                        )
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
                     }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("profile-refresh-button")
+                    .disabled(viewModel.refreshing)
                 }
             }
 
@@ -98,6 +106,21 @@ struct NavigationListView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("settings-button")
+
+                Spacer()
+
+                VStack {
+                    if viewModel.refreshing {
+                        ProgressView(viewModel.refreshProgress).progressViewStyle(BottomBarProgressStyle())
+                    } else {
+                        if viewModel.profile.minimumRefreshedDate != nil {
+                            Text("Refreshed \(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                                .lineLimit(1)
+                        }
+                    }
+                }.padding(.horizontal)
 
                 Spacer()
 

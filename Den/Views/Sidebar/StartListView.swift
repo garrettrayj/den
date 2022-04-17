@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StartListView: View {
-    @ObservedObject var viewModel: SidebarViewModel
+    @ObservedObject var viewModel: ProfileViewModel
 
     @Binding var showingSettings: Bool
 

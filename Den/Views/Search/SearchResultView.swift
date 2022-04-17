@@ -26,7 +26,7 @@ struct SearchResultView: View {
                     Text(item.wrappedTitle).font(.headline.weight(.semibold))
 
                     if item.published != nil {
-                        Text("\(item.published!, formatter: DateFormatter.mediumShort)")
+                        Text("\(item.published!.mediumShortDisplay())")
                             .font(.caption)
                             .foregroundColor(Color(.secondaryLabel))
                     }

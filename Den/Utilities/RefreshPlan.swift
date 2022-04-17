@@ -21,7 +21,6 @@ final class RefreshPlan {
     private var defaultFaviconDataOp: DataTaskOperation?
     private var webpageFaviconDataOp: DataTaskOperation?
     private var saveFaviconOp: SaveFaviconOperation?
-    private var saveFeedOp: SaveFeedOperation?
 
     // Adapter operations pass data between processing operations in a concurrency-friendly way
     private var fetchParseAdapter: BlockOperation?
@@ -34,7 +33,9 @@ final class RefreshPlan {
     private var saveFeedAdapter: BlockOperation?
 
     public var fullUpdate: Bool = false
-    public var completionOp: BlockOperation?
+
+    // Save operation is public so it may be added as a dependency for feed completion op
+    public var saveFeedOp: SaveFeedOperation?
 
     init(
         feed: Feed,
@@ -90,14 +91,6 @@ final class RefreshPlan {
             feedObjectID: feed.objectID,
             saveMeta: fullUpdate
         )
-        completionOp = BlockOperation { [weak feed] in
-            DispatchQueue.main.async {
-                feed?.objectWillChange.send()
-                feed?.page?.objectWillChange.send()
-                guard let objectID = feed?.objectID else { return }
-                NotificationCenter.default.post(name: .feedRefreshed, object: objectID)
-            }
-        }
     }
 
     private func addMetaProcessingOps() {
@@ -115,7 +108,6 @@ final class RefreshPlan {
             parseOp?.data = fetchOp?.data
         }
 
-        // swiftlint:disable closure_parameter_position
         saveFeedAdapter =
             BlockOperation {[
                 unowned saveFeedOp,
@@ -166,8 +158,7 @@ final class RefreshPlan {
             let fetchParseAdapter = fetchParseAdapter,
             let parseOp = parseOp,
             let saveFeedAdapter = saveFeedAdapter,
-            let saveFeedOp = saveFeedOp,
-            let completionOp = completionOp
+            let saveFeedOp = saveFeedOp
         else {
             preconditionFailure("Cannot wire standard dependencies due to operations not being configured.")
         }
@@ -176,7 +167,6 @@ final class RefreshPlan {
         parseOp.addDependency(fetchParseAdapter)
         saveFeedAdapter.addDependency(parseOp)
         saveFeedOp.addDependency(saveFeedAdapter)
-        completionOp.addDependency(saveFeedOp)
     }
 
     private func wireMetaDependencies() {
@@ -228,8 +218,7 @@ final class RefreshPlan {
             saveFaviconOp,
             parseDownloadThumbnailsAdapter,
             saveFeedAdapter,
-            saveFeedOp,
-            completionOp
+            saveFeedOp
         ].compactMap { $0 }
     }
 }

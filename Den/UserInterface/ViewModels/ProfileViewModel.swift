@@ -1,5 +1,5 @@
 //
-//  SidebarViewModel.swift
+//  ProfileViewModel.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/28/21.
@@ -11,32 +11,19 @@ import Foundation
 import CoreData
 import SwiftUI
 
-final class SidebarViewModel: ObservableObject {
+final class ProfileViewModel: ObservableObject {
     let viewContext: NSManagedObjectContext
     let crashManager: CrashManager
 
-    private var queuedSubscriber: AnyCancellable?
-    private var refreshedSubscriber: AnyCancellable?
-
     @Published var profile: Profile
     @Published var refreshing: Bool = false
+
+    var refreshProgress: Progress = Progress()
 
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
         self.viewContext = viewContext
         self.crashManager = crashManager
         self.profile = profile
-
-        self.queuedSubscriber = NotificationCenter.default
-            .publisher(for: .profileQueued, object: profile.objectID)
-            .receive(on: RunLoop.main)
-            .map { _ in true }
-            .assign(to: \.refreshing, on: self)
-
-        self.refreshedSubscriber = NotificationCenter.default
-            .publisher(for: .profileRefreshed, object: profile.objectID)
-            .receive(on: RunLoop.main)
-            .map { _ in false }
-            .assign(to: \.refreshing, on: self)
     }
 
     func createPage() {
@@ -126,10 +113,5 @@ final class SidebarViewModel: ObservableObject {
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
-    }
-
-    deinit {
-        queuedSubscriber?.cancel()
-        refreshedSubscriber?.cancel()
     }
 }

@@ -9,24 +9,12 @@
 import SwiftUI
 
 struct GadgetsView: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
-
     @ObservedObject var page: Page
 
     var frameSize: CGSize
 
     var body: some View {
-        #if targetEnvironment(macCatalyst)
         ScrollView(.vertical) { content }
-        #else
-        RefreshableScrollView(
-            onRefresh: { done in
-                refreshManager.refresh(page: page)
-                done()
-            },
-            content: { content }
-        )
-        #endif
     }
 
     var content: some View {
