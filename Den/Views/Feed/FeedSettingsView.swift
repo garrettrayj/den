@@ -130,7 +130,7 @@ struct FeedSettingsView: View {
                 Label("Refreshed", systemImage: "arrow.clockwise")
                 Spacer()
                 if viewModel.feed.feedData?.refreshed != nil {
-                    Text("\(viewModel.feed.feedData!.refreshed!, formatter: DateFormatter.mediumShort)")
+                    Text("\(viewModel.feed.feedData!.refreshed!.mediumShortDisplay())")
                         .foregroundColor(.secondary)
                 } else {
                     Text("Never").foregroundColor(.secondary)

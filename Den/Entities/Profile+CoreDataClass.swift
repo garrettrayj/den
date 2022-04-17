@@ -30,6 +30,12 @@ public class Profile: NSManagedObject {
         }
     }
 
+    public var feedCount: Int {
+        pagesArray.reduce(0) { partialResult, page in
+            partialResult + page.feedsArray.count
+        }
+    }
+
     public var insecureFeeds: [Feed] {
         pagesArray.flatMap { page in
             return page.insecureFeeds
@@ -38,6 +44,16 @@ public class Profile: NSManagedObject {
 
     public var insecureFeedCount: Int {
         insecureFeeds.count
+    }
+
+    public var minimumRefreshedDate: Date? {
+        pagesArray.sorted { aPage, bPage in
+            if let aRefreshed = aPage.minimumRefreshedDate,
+               let bRefreshed = bPage.minimumRefreshedDate {
+                return aRefreshed < bRefreshed
+            }
+            return false
+        }.first?.minimumRefreshedDate
     }
 
     public var historyArray: [History] {

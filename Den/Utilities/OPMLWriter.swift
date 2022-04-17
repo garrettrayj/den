@@ -41,7 +41,7 @@ final class OPMLWriter {
             }
         }
 
-        let fileDate = DateFormatter.shortNone.string(from: Date()).sanitizedForFileName()
+        let fileDate = Date().shortNoneDisplay().sanitizedForFileName()
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         let temporaryFilename = ("Den Export " + fileDate)
         let temporaryFileUrl = temporaryDirectoryURL

@@ -39,7 +39,7 @@ public class Feed: NSManagedObject {
             return nil
         }
 
-        return DateFormatter.mediumShort.string(from: refreshedDate)
+        return refreshedDate.mediumShortDisplay()
     }
 
     public var urlString: String {

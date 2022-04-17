@@ -17,7 +17,7 @@ struct ItemDateView: View {
     var read: Bool
 
     var body: some View {
-        Text("\(date, formatter: DateFormatter.mediumShort)")
+        Text("\(date.mediumShortDisplay())")
             .font(.subheadline)
             .lineLimit(1)
             .foregroundColor(

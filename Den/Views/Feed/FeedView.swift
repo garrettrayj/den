@@ -24,50 +24,29 @@ struct FeedView: View {
                     .navigationTitle("")
             } else {
                 GeometryReader { geometry in
-                    #if targetEnvironment(macCatalyst)
                     ScrollView(.vertical) { FeedItemsView(feed: viewModel.feed, frameSize: geometry.size) }
-                    #else
-                    RefreshableScrollView(
-                        onRefresh: { done in
-                            refreshManager.refresh(feed: viewModel.feed)
-                            done()
-                        },
-                        content: { FeedItemsView(feed: viewModel.feed, frameSize: geometry.size) }
-                    )
-                    #endif
                 }
                 .toolbar {
                     ToolbarItem {
-                        Button {
-                            showingSettings = true
-                        } label: {
-                            Label("Feed Settings", systemImage: "wrench")
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .disabled(viewModel.refreshing)
-                        .accessibilityIdentifier("feed-settings-button")
-                    }
-
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Group {
-                            if viewModel.refreshing {
-                                ProgressView().progressViewStyle(ToolbarProgressStyle())
-                            } else {
-                                Button {
-                                    refreshManager.refresh(feed: viewModel.feed)
-                                } label: {
-                                    Label("Refresh", systemImage: "arrow.clockwise")
-                                }
-                                .buttonStyle(ToolbarButtonStyle())
-                                .keyboardShortcut("r", modifiers: [.command])
-                                .accessibilityIdentifier("feed-refresh-button")
+                        if viewModel.refreshing {
+                            ProgressView()
+                                .progressViewStyle(ToolbarProgressStyle())
+                                .modifier(TrailingToolbarItemModifier())
+                        } else {
+                            Button {
+                                showingSettings = true
+                            } label: {
+                                Label("Feed Settings", systemImage: "wrench")
                             }
-                        }.modifier(TrailingToolbarItemModifier())
+                            .buttonStyle(ToolbarButtonStyle())
+                            .disabled(viewModel.refreshing)
+                            .accessibilityIdentifier("feed-settings-button")
+                            .modifier(TrailingToolbarItemModifier())
+                        }
                     }
                 }
             }
         }
-        .disabled(viewModel.refreshing)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             NavigationLink(

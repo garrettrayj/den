@@ -24,11 +24,11 @@ struct FeedTitleButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
-                .font(.headline.weight(.medium))
+                .font(.title3)
                 .foregroundColor(
                     isEnabled ? .primary : .secondary
                 )
-                .frame(height: 36)
+                .frame(height: 40)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(
                     isEnabled ?
