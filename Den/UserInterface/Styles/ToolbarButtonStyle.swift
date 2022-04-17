@@ -9,18 +9,24 @@
 import SwiftUI
 
 struct ToolbarButtonStyle: ButtonStyle {
+    var inBottomBar = false
+    var isBackButton = false
+
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        ToolbarButton(configuration: configuration)
+        ToolbarButton(
+            configuration: configuration,
+            inBottomBar: inBottomBar
+        )
     }
 
     private struct ToolbarButton: View {
         @Environment(\.isEnabled) private var isEnabled: Bool
 
         let configuration: ButtonStyle.Configuration
+        let inBottomBar: Bool
 
         var body: some View {
             configuration.label
-                .font(.body.weight(.medium))
                 .frame(height: 32)
                 .padding(.horizontal, 4)
                 .foregroundColor(
@@ -30,6 +36,9 @@ struct ToolbarButtonStyle: ButtonStyle {
                         Color.secondary
                 )
                 .cornerRadius(6)
+                #if targetEnvironment(macCatalyst)
+                .padding(.top, inBottomBar ? 0 : -4)
+                #endif
         }
     }
 }

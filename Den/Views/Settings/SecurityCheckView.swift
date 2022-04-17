@@ -34,6 +34,7 @@ struct SecurityCheckView: View {
             viewModel.reset()
         }
         .navigationTitle("Security Check")
+        .modifier(BackNavigationModifier(title: "Settings"))
     }
 
     private var allClearSummary: some View {
