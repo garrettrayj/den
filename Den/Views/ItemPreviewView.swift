@@ -32,10 +32,10 @@ struct ItemPreviewView: View {
                 if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                     KFImage(item.image)
                         .cacheOriginalImage()
+                        .downsampling(size: ImageReferenceSize.preview)
                         .resizable()
-                        .resizing(referenceSize: ImageReferenceSize.preview, mode: .aspectFit)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: CGFloat(item.imageWidth), maxHeight: CGFloat(item.imageHeight))
+                        .scaledToFill()
+                        .frame(maxHeight: 400, alignment: .top)
                         .background(Color(UIColor.tertiarySystemGroupedBackground))
                         .cornerRadius(4)
                         .overlay(

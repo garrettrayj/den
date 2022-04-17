@@ -32,10 +32,11 @@ struct GadgetItemView: View {
 
                 if feed.showThumbnails == true && item.image != nil {
                     KFImage(item.image)
+                        .cacheOriginalImage()
+                        .downsampling(size: ImageReferenceSize.thumbnail)
                         .resizable()
-                        .resizing(referenceSize: ImageReferenceSize.thumbnail, mode: .aspectFill)
+                        .scaledToFill()
                         .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
-                        .clipped()
                         .background(Color(UIColor.tertiarySystemGroupedBackground))
                         .cornerRadius(4)
                         .overlay(
