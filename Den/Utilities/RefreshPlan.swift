@@ -21,7 +21,6 @@ final class RefreshPlan {
     private var defaultFaviconDataOp: DataTaskOperation?
     private var webpageFaviconDataOp: DataTaskOperation?
     private var saveFaviconOp: SaveFaviconOperation?
-    private var downloadItemImagesOp: DownloadItemImagesOperation?
     private var saveFeedOp: SaveFeedOperation?
 
     // Adapter operations pass data between processing operations in a concurrency-friendly way
@@ -60,7 +59,6 @@ final class RefreshPlan {
             feedUrl: feedUrl,
             itemLimit: feed.wrappedItemLimit,
             existingItemLinks: existingItemLinks,
-            downloadImages: feed.showThumbnails,
             imageLimit: feed.wrappedItemLimit
         )
         addStandardAdapters(downloadImages: feed.showThumbnails)
@@ -77,7 +75,6 @@ final class RefreshPlan {
         feedUrl: URL,
         itemLimit: Int,
         existingItemLinks: [URL],
-        downloadImages: Bool,
         imageLimit: Int
     ) {
         fetchOp = DataTaskOperation(feedUrl)
@@ -87,8 +84,6 @@ final class RefreshPlan {
             existingItemLinks: existingItemLinks,
             feedId: feed.id!
         )
-
-        if downloadImages { downloadItemImagesOp = DownloadItemImagesOperation(itemLimit: imageLimit) }
 
         saveFeedOp = SaveFeedOperation(
             persistentContainer: persistentContainer,
@@ -120,34 +115,16 @@ final class RefreshPlan {
             parseOp?.data = fetchOp?.data
         }
 
-        if downloadImages {
-            parseDownloadThumbnailsAdapter = BlockOperation { [unowned parseOp, unowned downloadItemImagesOp] in
-                downloadItemImagesOp?.inputWorkingItems = parseOp?.workingItems ?? []
+        // swiftlint:disable closure_parameter_position
+        saveFeedAdapter =
+            BlockOperation {[
+                unowned saveFeedOp,
+                unowned parseOp,
+                unowned saveFaviconOp
+            ] in
+                saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
+                saveFeedOp?.workingFeedItems = parseOp?.workingItems ?? []
             }
-
-            // swiftlint:disable closure_parameter_position
-            saveFeedAdapter =
-                BlockOperation {[
-                    unowned saveFeedOp,
-                    unowned downloadItemImagesOp,
-                    unowned parseOp,
-                    unowned saveFaviconOp
-                ] in
-                    saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
-                    saveFeedOp?.workingFeedItems = downloadItemImagesOp?.outputWorkingItems ?? []
-                }
-        } else {
-            // swiftlint:disable closure_parameter_position
-            saveFeedAdapter =
-                BlockOperation {[
-                    unowned saveFeedOp,
-                    unowned parseOp,
-                    unowned saveFaviconOp
-                ] in
-                    saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
-                    saveFeedOp?.workingFeedItems = parseOp?.workingItems ?? []
-                }
-        }
     }
 
     private func addMetaAdapters() {
@@ -195,26 +172,9 @@ final class RefreshPlan {
             preconditionFailure("Cannot wire standard dependencies due to operations not being configured.")
         }
 
-        // Initial common dependencies
         fetchParseAdapter.addDependency(fetchOp)
         parseOp.addDependency(fetchParseAdapter)
-
-        // Conditional dependencies
-        if downloadImages {
-            guard
-                let parseDownloadThumbnailsAdapter = parseDownloadThumbnailsAdapter,
-                let downloadItemImagesOp = downloadItemImagesOp
-            else {
-                preconditionFailure("Cannot wire image download dependencies, missing download operation.")
-            }
-            parseDownloadThumbnailsAdapter.addDependency(parseOp)
-            downloadItemImagesOp.addDependency(parseDownloadThumbnailsAdapter)
-            saveFeedAdapter.addDependency(downloadItemImagesOp)
-        } else {
-            saveFeedAdapter.addDependency(parseOp)
-        }
-
-        // Final common dependencies
+        saveFeedAdapter.addDependency(parseOp)
         saveFeedOp.addDependency(saveFeedAdapter)
         completionOp.addDependency(saveFeedOp)
     }
@@ -267,7 +227,6 @@ final class RefreshPlan {
             saveFaviconAdapter,
             saveFaviconOp,
             parseDownloadThumbnailsAdapter,
-            downloadItemImagesOp,
             saveFeedAdapter,
             saveFeedOp,
             completionOp

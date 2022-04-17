@@ -9,6 +9,8 @@
 import CoreData
 import SwiftUI
 
+import Kingfisher
+
 final class SettingsViewModel: ObservableObject {
     let viewContext: NSManagedObjectContext
     let crashManager: CrashManager
@@ -64,6 +66,8 @@ final class SettingsViewModel: ObservableObject {
         guard let profile = profileManager.activeProfile else { return }
         refreshManager.cancel()
         cacheManager.resetFeeds()
+
+        ImageCache.default.clearCache()
 
         profile.pagesArray.forEach { page in
             page.objectWillChange.send()

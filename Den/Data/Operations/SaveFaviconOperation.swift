@@ -10,6 +10,7 @@ import CoreData
 import OSLog
 import UIKit
 
+import Kingfisher
 import func AVFoundation.AVMakeRect
 
 final class SaveFaviconOperation: Operation {
@@ -26,49 +27,30 @@ final class SaveFaviconOperation: Operation {
         if
             let httpResponse = webpageFaviconResponse,
             let data = webpageFaviconData,
-            let saveResult = prepareFavicon(httpResponse: httpResponse, data: data)
+            let url = prepareFavicon(httpResponse: httpResponse, data: data)
         {
-            self.workingFeed?.favicon = saveResult.url
-            self.workingFeed?.faviconFile = saveResult.filename
+            self.workingFeed?.favicon = url
         } else if
             let httpResponse = defaultFaviconResponse,
             let data = defaultFaviconData,
-            let saveResult = prepareFavicon(httpResponse: httpResponse, data: data)
+            let url = prepareFavicon(httpResponse: httpResponse, data: data)
         {
-            self.workingFeed?.favicon = saveResult.url
-            self.workingFeed?.faviconFile = saveResult.filename
+            self.workingFeed?.favicon = url
         }
 
         return
     }
 
-    private func prepareFavicon(httpResponse: HTTPURLResponse, data: Data) -> (filename: String, url: URL)? {
+    private func prepareFavicon(httpResponse: HTTPURLResponse, data: Data) -> URL? {
         if
             200..<300 ~= httpResponse.statusCode,
             let mimeType = httpResponse.mimeType,
             FaviconMIMEType(rawValue: mimeType) != nil,
-            let url = httpResponse.url,
-            let image = UIImage(data: data),
-            let filename = saveFavicon(image: image.resizedToFit(size: ImageSize.favicon))
+            let url = httpResponse.url
         {
-            return (filename, url)
+            return url
         }
 
         return nil
-    }
-
-    private func saveFavicon(image: UIImage) -> String? {
-        guard let faviconDirectory = FileManager.default.faviconsDirectory else { return nil }
-
-        let filename = UUID().uuidString.appending(".png")
-        let filepath = faviconDirectory.appendingPathComponent(filename)
-
-        do {
-            try image.pngData()?.write(to: filepath, options: .atomic)
-            return filename
-        } catch {
-            Logger.ingest.error("Unable to save local favicon image: \(error as NSError)")
-            return nil
-        }
     }
 }

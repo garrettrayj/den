@@ -19,11 +19,13 @@ struct FeedTitleLabelView: View {
             Text(title).lineLimit(1)
         } icon: {
             KFImage(favicon)
+                .cacheOriginalImage()
                 .placeholder({ _ in
                     Image(systemName: "dot.radiowaves.up.forward")
                 })
+                .downsampling(size: ImageReferenceSize.favicon)
                 .resizable()
-                .resizing(referenceSize: ImageReferenceSize.favicon, mode: .aspectFit)
+                .scaledToFit()
                 .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
                 .clipped()
         }
