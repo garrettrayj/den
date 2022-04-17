@@ -33,29 +33,12 @@ struct SearchResultView: View {
                 }
                 Spacer()
                 if item.feedData?.feed?.showThumbnails == true {
-                    thumbnailImage
+                    ItemThumbnailView(item: item)
                 }
             }
             .padding(12)
         }
         .buttonStyle(ItemButtonStyle(read: item.read))
         .accessibilityIdentifier("search-result-button")
-    }
-
-    private var thumbnailImage: some View {
-        item.thumbnailImage?
-            .resizable()
-            .scaledToFill()
-            #if targetEnvironment(macCatalyst)
-            .frame(width: 72, height: 48, alignment: .center)
-            #else
-            .frame(width: 96, height: 64, alignment: .center)
-            #endif
-            .background(Color(UIColor.tertiarySystemGroupedBackground))
-                .cornerRadius(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-            )
-            .accessibility(label: Text("Thumbnail Image"))
     }
 }
