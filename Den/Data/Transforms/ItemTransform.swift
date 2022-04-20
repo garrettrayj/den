@@ -21,9 +21,15 @@ class ItemTransform {
     }
 
     func chooseBestPreviewImage() {
-        workingItem.image = images.sorted { a, b in
+        if let best = images.sorted(by: { a, b in
             a.rank > b.rank
-        }.first?.url
+        }).first {
+            workingItem.image = best.url
+            if let width = best.width, let height = best.height {
+                workingItem.imageWidth = Int32(width)
+                workingItem.imageHeight = Int32(height)
+            }
+        }
     }
 
     func mediaIsImage(mimeType: String?, medium: String?) -> Bool {
