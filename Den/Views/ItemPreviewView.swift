@@ -31,11 +31,21 @@ struct ItemPreviewView: View {
 
                 if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                     KFImage(item.image)
+                        .placeholder({ _ in
+                            Image(systemName: "photo")
+                                .foregroundColor(Color(UIColor.tertiaryLabel))
+                                .imageScale(.large)
+                        })
+                        .resizing(referenceSize: ImageReferenceSize.preview, mode: .aspectFill)
+                        .scaleFactor(UIScreen.main.scale)
                         .cacheOriginalImage()
-                        .downsampling(size: ImageReferenceSize.preview)
                         .resizable()
-                        .scaledToFill()
-                        .frame(maxHeight: 400, alignment: .top)
+                        .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                        .frame(
+                            maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
+                            maxHeight: item.imageHeight > 0 ? min(CGFloat(item.imageHeight), 400) : nil,
+                            alignment: .top
+                        )
                         .background(Color(UIColor.tertiarySystemGroupedBackground))
                         .cornerRadius(4)
                         .overlay(

@@ -28,6 +28,11 @@ public class Item: NSManagedObject {
         set {title = newValue}
     }
 
+    public var imageAspectRatio: CGFloat? {
+        guard imageWidth > 0, imageHeight > 0 else { return nil }
+        return CGFloat(imageWidth) / CGFloat(imageHeight)
+    }
+
     static func create(moc managedObjectContext: NSManagedObjectContext, feedData: FeedData) -> Item {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()

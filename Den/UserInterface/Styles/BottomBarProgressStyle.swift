@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct BottomBarProgressStyle: ProgressViewStyle {
-    let height: CGFloat = 6
+    let height: CGFloat = 5
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: 4) {

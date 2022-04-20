@@ -15,10 +15,13 @@ struct ItemThumbnailView: View {
 
     var body: some View {
         KFImage(item.image)
+            .placeholder({ _ in
+                Image(systemName: "photo")
+                    .foregroundColor(Color(UIColor.tertiaryLabel))
+            })
+            .resizing(referenceSize: ImageSize.thumbnail, mode: .aspectFill)
+            .scaleFactor(UIScreen.main.scale)
             .cacheOriginalImage()
-            .downsampling(size: ImageReferenceSize.thumbnail)
-            .resizable()
-            .scaledToFill()
             .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
             .background(Color(UIColor.tertiarySystemGroupedBackground))
             .cornerRadius(4)
