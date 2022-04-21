@@ -17,50 +17,60 @@ extension FileManager {
                 .appendingPathComponent("Den")
                 .standardizedFileURL
         } catch let error as NSError {
-            Logger.main.error("Could not find favicon directory: \(error)")
+            Logger.main.error("Could not find app support directory: \(error)")
             return nil
         }
     }
 
+    /**
+     @available(*, deprecated, message: "Kingfisher now used for image handling")
+     */
     public var faviconsDirectory: URL? {
         guard let appSupportDirectory = self.appSupportDirectory else { return nil }
 
         return appSupportDirectory.appendingPathComponent("Favicons/")
     }
 
+    /**
+     @available(*, deprecated, message: "Kingfisher now used for image handling")
+     */
     public var previewsDirectory: URL? {
         guard let appSupportDirectory = self.appSupportDirectory else { return nil }
 
         return appSupportDirectory.appendingPathComponent("Previews/")
     }
 
+    /**
+     @available(*, deprecated, message: "Kingfisher now used for image handling")
+     */
     public var thumbnailsDirectory: URL? {
         guard let appSupportDirectory = self.appSupportDirectory else { return nil }
 
         return appSupportDirectory.appendingPathComponent("Thumbnails/")
     }
 
-    public func initAppDirectories() {
+    public func cleanupAppDirectories() {
+        // Remove old image cache directories
         guard
             let faviconsDirectory = self.faviconsDirectory,
             let previewsDirectory = self.previewsDirectory,
             let thumbnailsDirectory = self.thumbnailsDirectory
         else { return }
 
-        createDirectoryIfMissing(faviconsDirectory)
-        createDirectoryIfMissing(previewsDirectory)
-        createDirectoryIfMissing(thumbnailsDirectory)
+        deleteDirectoryIfExists(faviconsDirectory)
+        deleteDirectoryIfExists(previewsDirectory)
+        deleteDirectoryIfExists(thumbnailsDirectory)
     }
 
-    public func createDirectoryIfMissing(_ directory: URL) {
+    public func deleteDirectoryIfExists(_ directory: URL) {
         var isDirectory: ObjCBool = true
         let directoryExists = self.fileExists(atPath: directory.path, isDirectory: &isDirectory)
 
-        if !directoryExists {
+        if directoryExists {
             do {
-                try self.createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
+                try self.removeItem(at: directory)
             } catch let error {
-                Logger.main.error("Error creating directory: \(error as NSError)")
+                Logger.main.error("Error removing directory: \(error as NSError)")
             }
         }
     }
