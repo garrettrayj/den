@@ -30,9 +30,9 @@ struct NavigationListView: View {
                     PageView(viewModel: pageViewModel)
                 } label: {
                     SidebarPageView(viewModel: pageViewModel).environment(\.editMode, editMode)
+                        .accessibilityIdentifier("page-button")
+                        .accessibilityElement()
                 }
-                .accessibilityIdentifier("page-button")
-
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)
@@ -64,7 +64,7 @@ struct NavigationListView: View {
         )
         #if !targetEnvironment(macCatalyst)
         .refreshable {
-            refreshManager.refresh(viewModel: viewModel)
+            refreshManager.refresh(viewModel: viewModel, activePage: subscriptionManager.activePage)
         }
         #endif
         .toolbar {
@@ -106,6 +106,7 @@ struct NavigationListView: View {
                 .buttonStyle(ToolbarButtonStyle(inBottomBar: true))
                 .keyboardShortcut("r", modifiers: [.command])
                 .accessibilityIdentifier("profile-refresh-button")
+                .accessibilityElement()
                 .disabled(viewModel.refreshing)
 
                 Spacer()

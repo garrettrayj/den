@@ -52,11 +52,6 @@ struct SidebarView: View {
                     ),
                     showingSettings: $showingSettings
                 )
-                #if !targetEnvironment(macCatalyst)
-                .refreshable {
-                    refreshManager.refresh(profile: profile)
-                }
-                #endif
             }
         }
         .background(

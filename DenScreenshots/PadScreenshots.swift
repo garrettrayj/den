@@ -19,12 +19,11 @@ class PadScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         app.buttons["load-demo-button"].tap()
 
+        // Refresh all pages
+        app.buttons["profile-refresh-button"].tap()
+
         // Page views
         goToPage(2)
-        let pageRefreshButton = app.buttons["page-refresh-button"]
-        pageRefreshButton.tap()
-        expectation(for: existsPredicate, evaluatedWith: pageRefreshButton, handler: nil)
-        waitForExpectations(timeout: 60, handler: nil)
 
         goToLink(1)
         goToLink(3)
