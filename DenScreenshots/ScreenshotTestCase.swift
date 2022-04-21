@@ -32,6 +32,7 @@ class ScreenshotTestCase: XCTestCase {
     let existsPredicate = NSPredicate(format: "exists == 1")
     let notExistsPredicate = NSPredicate(format: "exists == 0")
     let hittablePredicate = NSPredicate(format: "hittable == 1")
+    let enabledPredicate = NSPredicate(format: "enabled == 1")
 
     override func setUpWithError() throws {
         super.setUp()
@@ -55,7 +56,6 @@ class ScreenshotTestCase: XCTestCase {
         app = XCUIApplication()
         app.launchArguments.append("--reset")
         app.launch()
-        sleep(1)
 
         #if !targetEnvironment(macCatalyst)
         if targetIdiom == .pad {

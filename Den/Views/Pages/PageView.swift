@@ -74,6 +74,9 @@ struct PageView: View {
         .onAppear {
             subscriptionManager.activePage = viewModel.page
         }
+        .onChange(of: viewMode, perform: { _ in
+            viewModel.objectWillChange.send()
+        })
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             Group {
@@ -109,9 +112,6 @@ struct PageView: View {
                     .accessibilityIdentifier("blend-view-button")
             }
             .pickerStyle(.inline)
-            .onChange(of: viewMode, perform: { _ in
-                viewModel.objectWillChange.send()
-            })
             .padding(.leading, 16)
             .padding(.trailing, 8)
             .padding(.top, -4)
@@ -149,7 +149,7 @@ struct PageView: View {
             if viewModel.refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
-                    .modifier(TrailingToolbarItemModifier())
+                    .modifier(ToolbarItemOffsetModifier())
             } else {
                 Menu {
                     Picker("View Mode", selection: $viewMode) {
