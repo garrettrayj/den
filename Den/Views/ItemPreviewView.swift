@@ -38,7 +38,6 @@ struct ItemPreviewView: View {
                         })
                         .resizing(referenceSize: ImageReferenceSize.preview, mode: .aspectFill)
                         .scaleFactor(UIScreen.main.scale)
-                        .cacheOriginalImage()
                         .resizable()
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .frame(

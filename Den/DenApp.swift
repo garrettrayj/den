@@ -6,6 +6,9 @@
 
 import SwiftUI
 
+import Kingfisher
+import KingfisherWebP
+
 @main
 
 struct DenApp: App {
@@ -67,7 +70,7 @@ struct DenApp: App {
     }
 
     init() {
-        FileManager.default.initAppDirectories()
+        FileManager.default.cleanupAppDirectories()
         persistenceManager = PersistenceManager()
 
         let crashManager = CrashManager()
@@ -99,5 +102,21 @@ struct DenApp: App {
         _refreshManager = StateObject(wrappedValue: refreshManager)
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
+
+        initImageHandling()
+    }
+
+    private func initImageHandling() {
+        let modifier = AnyModifier { request in
+            var req = request
+            req.addValue("image/webp */*", forHTTPHeaderField: "Accept")
+            return req
+        }
+
+        KingfisherManager.shared.defaultOptions += [
+            .requestModifier(modifier),
+            .processor(WebPProcessor.default),
+            .cacheSerializer(WebPSerializer.default)
+        ]
     }
 }

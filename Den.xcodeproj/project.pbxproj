@@ -61,6 +61,7 @@
 		686067D1280C4A86000068DE /* BottomBarProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686067D0280C4A86000068DE /* BottomBarProgressStyle.swift */; };
 		686067D5280C9613000068DE /* BackNavigationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686067D4280C9613000068DE /* BackNavigationModifier.swift */; };
 		686067D9280CAF29000068DE /* ItemThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686067D8280CAF29000068DE /* ItemThumbnailView.swift */; };
+		686067DE28111157000068DE /* KingfisherWebP in Frameworks */ = {isa = PBXBuildFile; productRef = 686067DD28111157000068DE /* KingfisherWebP */; };
 		6865452C274A288A00BAE03E /* PinnedSectionHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */; };
 		6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
@@ -385,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68987FA8280B2BA9005F0CC6 /* Kingfisher in Frameworks */,
+				686067DE28111157000068DE /* KingfisherWebP in Frameworks */,
 				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
 				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
@@ -877,6 +879,7 @@
 				6897D52B26B91C3C00833DDA /* SwiftSoup */,
 				6897D52E26B91C5800833DDA /* FeedKit */,
 				68987FA7280B2BA9005F0CC6 /* Kingfisher */,
+				686067DD28111157000068DE /* KingfisherWebP */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -963,6 +966,7 @@
 				6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */,
 				68987FA6280B2BA9005F0CC6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				686067DC28111157000068DE /* XCRemoteSwiftPackageReference "KingfisherWebP" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1634,6 +1638,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		686067DC28111157000068DE /* XCRemoteSwiftPackageReference "KingfisherWebP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yeatse/KingfisherWebP";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kitura/swift-html-entities.git";
@@ -1677,6 +1689,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		686067DD28111157000068DE /* KingfisherWebP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 686067DC28111157000068DE /* XCRemoteSwiftPackageReference "KingfisherWebP" */;
+			productName = KingfisherWebP;
+		};
 		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */;

@@ -21,7 +21,6 @@ struct ItemThumbnailView: View {
             })
             .resizing(referenceSize: ImageSize.thumbnail, mode: .aspectFill)
             .scaleFactor(UIScreen.main.scale)
-            .cacheOriginalImage()
             .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
             .background(Color(UIColor.tertiarySystemGroupedBackground))
             .cornerRadius(4)

@@ -20,6 +20,7 @@ enum ImageMIMEType: String, CaseIterable {
     case png = "image/png"
     case jpeg = "image/jpeg"
     case gif = "image/gif"
+    case webp = "image/webp"
     // Cover incorrect JPEG MIME type usage,
     // e.g. images in Raw Story feeds (https://www.rawstory.com/category/world/feed/)
     case jpg = "image/jpg"

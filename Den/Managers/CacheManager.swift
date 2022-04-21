@@ -51,7 +51,7 @@ final class CacheManager: ObservableObject {
                 cleanupDate > Date(timeIntervalSinceNow: -60 * 60) { return }
 
         cleanupHistory(context: viewContext)
-        cleanupFeedsAndImages(context: viewContext)
+        cleanupFeeds(context: viewContext)
 
         if viewContext.hasChanges {
             do {
@@ -65,10 +65,7 @@ final class CacheManager: ObservableObject {
         Logger.main.info("Background cleanup finished")
     }
 
-    private func cleanupFeedsAndImages(context: NSManagedObjectContext) {
-        guard let faviconsDirectory = FileManager.default.faviconsDirectory else { return }
-        var cleanFeedDatas: [FeedData] = []
-
+    private func cleanupFeeds(context: NSManagedObjectContext) {
         do {
             let feedDatas = try context.fetch(FeedData.fetchRequest()) as [FeedData]
 
@@ -83,47 +80,10 @@ final class CacheManager: ObservableObject {
                     let oldItems = feedData.itemsArray.suffix(from: itemLimit)
                     oldItems.forEach { context.delete($0) }
                 }
-
-                cleanFeedDatas.append(feedData)
             }
-
-            let activeFavicons: [URL] = cleanFeedDatas.compactMap { feedData in
-                if let filename = feedData.faviconFile {
-                    return faviconsDirectory.appendingPathComponent(filename).absoluteURL
-                }
-                return nil
-            }
-            self.cleanupCacheDirectory(cacheDirectory: faviconsDirectory, activeFileList: activeFavicons)
-
-            let items: [Item] = cleanFeedDatas.flatMap { $0.itemsArray }
-
-            cleanupItemImages(items)
         } catch {
             crashManager.handleCriticalError(error as NSError)
         }
-    }
-
-    private func cleanupItemImages(_ items: [Item]) {
-        guard
-            let previewsDirectory = FileManager.default.previewsDirectory,
-            let thumbnailsDirectory = FileManager.default.thumbnailsDirectory
-        else { return }
-
-        let activePreviews: [URL] = items.compactMap { item in
-            if let filename = item.imagePreview {
-                return previewsDirectory.appendingPathComponent(filename).absoluteURL
-            }
-            return nil
-        }
-        self.cleanupCacheDirectory(cacheDirectory: previewsDirectory, activeFileList: activePreviews)
-
-        let activeThumbnails: [URL] = items.compactMap { item in
-            if let filename = item.imageThumbnail {
-                return thumbnailsDirectory.appendingPathComponent(filename).absoluteURL
-            }
-            return nil
-        }
-        self.cleanupCacheDirectory(cacheDirectory: thumbnailsDirectory, activeFileList: activeThumbnails)
     }
 
     private func cleanupHistory(context: NSManagedObjectContext) {
@@ -149,28 +109,6 @@ final class CacheManager: ObservableObject {
             }
         } catch {
             crashManager.handleCriticalError(error as NSError)
-        }
-    }
-
-    private func cleanupCacheDirectory(cacheDirectory: URL, activeFileList: [URL]) {
-        let resourceKeys: [URLResourceKey] = [.creationDateKey, .isDirectoryKey]
-
-        do {
-            let cacheContents = try FileManager.default.contentsOfDirectory(
-                at: cacheDirectory,
-                includingPropertiesForKeys: resourceKeys
-            )
-            cacheContents.forEach { cachedFile in
-                if !activeFileList.contains(cachedFile.standardizedFileURL) {
-                    do {
-                        try FileManager.default.removeItem(at: cachedFile)
-                    } catch {
-                        Logger.main.error("Unable to remove file: \(error as NSError)")
-                    }
-                }
-            }
-        } catch {
-            Logger.main.error("Unable to read cache directory contents: \(error as NSError)")
         }
     }
 }
