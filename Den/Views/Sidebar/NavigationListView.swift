@@ -84,29 +84,29 @@ struct NavigationListView: View {
 
                 if editMode?.wrappedValue == .inactive {
                     Button {
-                        showingSettings = true
+                        refreshManager.refresh(
+                            profile: viewModel.profile,
+                            activePage: subscriptionManager.activePage
+                        )
                     } label: {
-                        Label("Settings", systemImage: "gear")
+                        Label("Refresh", systemImage: "arrow.clockwise")
                     }
                     .buttonStyle(ToolbarButtonStyle())
-                    .accessibilityIdentifier("settings-button")
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("profile-refresh-button")
+                    .accessibilityElement()
                     .disabled(viewModel.refreshing)
                 }
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {
-                    refreshManager.refresh(
-                        viewModel: viewModel,
-                        activePage: subscriptionManager.activePage
-                    )
+                    showingSettings = true
                 } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
+                    Label("Settings", systemImage: "gear")
                 }
                 .buttonStyle(ToolbarButtonStyle(inBottomBar: true))
-                .keyboardShortcut("r", modifiers: [.command])
-                .accessibilityIdentifier("profile-refresh-button")
-                .accessibilityElement()
+                .accessibilityIdentifier("settings-button")
                 .disabled(viewModel.refreshing)
 
                 Spacer()
