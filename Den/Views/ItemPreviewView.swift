@@ -36,8 +36,9 @@ struct ItemPreviewView: View {
                                 .foregroundColor(Color(UIColor.tertiaryLabel))
                                 .imageScale(.large)
                         })
-                        .resizing(referenceSize: ImageReferenceSize.preview, mode: .aspectFill)
+                        .resizing(referenceSize: ImageSize.preview, mode: .aspectFill)
                         .scaleFactor(UIScreen.main.scale)
+                        .fade(duration: 0.3)
                         .resizable()
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .frame(

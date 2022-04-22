@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct FeedItemsView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var linkManager: LinkManager
@@ -45,46 +47,38 @@ struct FeedItemsView: View {
 
     private var header: some View {
         HStack {
-            Group {
-                if feed.feedData?.linkDisplayString != nil {
-                    Button {
-                        linkManager.openLink(url: feed.feedData?.link)
-                    } label: {
-                        Label {
-                            Text(feed.feedData?.linkDisplayString ?? "")
-                        } icon: {
-                            if feed.feedData?.faviconImage != nil {
-                                feed.feedData!.faviconImage!
-                                    .frame(
-                                        width: ImageSize.favicon.width,
-                                        height: ImageSize.favicon.height,
-                                        alignment: .center
-                                    )
-                                    .clipped()
-                            } else {
-                                Image(systemName: "link")
-                            }
-                        }
-
-                    }
-                    .buttonStyle(
-                        FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
-                    )
-                } else {
+            if feed.feedData?.linkDisplayString != nil {
+                Button {
+                    linkManager.openLink(url: feed.feedData?.link)
+                } label: {
                     Label {
-                        Text("Website Unknown").font(.caption)
+                        Text(feed.feedData?.linkDisplayString ?? "")
+                        Image(systemName: "link").imageScale(.small).foregroundColor(.secondary)
                     } icon: {
-                        Image(systemName: "questionmark.square")
-                    }.foregroundColor(.secondary)
+                        KFImage(feed.feedData?.favicon)
+                            .placeholder({ _ in
+                                Image(systemName: "globe")
+                            })
+                            .resizing(referenceSize: ImageSize.favicon)
+                            .scaleFactor(UIScreen.main.scale)
+                            .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                    }
+                    .padding(.leading, 28)
+                    .padding(.trailing, 8)
                 }
+                .buttonStyle(
+                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
+                )
+            } else {
+                Label {
+                    Text("Website Unknown").font(.caption)
+                } icon: {
+                    Image(systemName: "questionmark.square")
+                }
+                .foregroundColor(.secondary)
+                .padding(.leading, 28)
+                .padding(.trailing, 8)
             }
-            .padding(.leading, 28)
-            .padding(.trailing, 8)
-
-            Spacer()
-            FeedRefreshedLabelView(refreshed: feed.refreshed)
-                .padding(.leading, 8)
-                .padding(.trailing, 28)
         }
         .lineLimit(1)
     }

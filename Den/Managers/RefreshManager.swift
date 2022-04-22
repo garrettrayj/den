@@ -26,21 +26,14 @@ final class RefreshManager: ObservableObject {
         queue.cancelAllOperations()
     }
 
-    public func refresh(viewModel: ProfileViewModel, activePage: Page?) {
-        let profile = viewModel.profile
+    public func refresh(profile: Profile, activePage: Page?) {
         var operations: [Operation] = []
 
-        if viewModel.refreshing {
-            return
-        }
+        NotificationCenter.default.post(name: .profileQueued, object: profile.objectID)
 
-        viewModel.refreshing = true
-        viewModel.refreshProgress.totalUnitCount = Int64(profile.feedCount)
-        viewModel.refreshProgress.completedUnitCount = 0
-
-        let profileCompletionOp = BlockOperation { [weak viewModel] in
+        let profileCompletionOp = BlockOperation { [weak profile] in
             DispatchQueue.main.async {
-                viewModel?.refreshing = false
+                NotificationCenter.default.post(name: .profileRefreshed, object: profile?.objectID)
             }
         }
         operations.append(profileCompletionOp)
@@ -49,7 +42,6 @@ final class RefreshManager: ObservableObject {
             operations.append(contentsOf:
                 createPageOps(
                     page: activePage,
-                    profileViewModel: viewModel,
                     profileCompletionOp: profileCompletionOp
                 )
             )
@@ -60,7 +52,6 @@ final class RefreshManager: ObservableObject {
 
             let pageOps = createPageOps(
                 page: page,
-                profileViewModel: viewModel,
                 profileCompletionOp: profileCompletionOp
             )
             operations.append(contentsOf: pageOps)
@@ -71,7 +62,6 @@ final class RefreshManager: ObservableObject {
 
     private func createPageOps(
         page: Page,
-        profileViewModel: ProfileViewModel,
         profileCompletionOp: Operation
     ) -> [Operation] {
         var pageOps: [Operation] = []
@@ -85,7 +75,6 @@ final class RefreshManager: ObservableObject {
             // Feed progress and notifications
             let feedCompletionOp = BlockOperation { [weak feed] in
                 DispatchQueue.main.async {
-                    profileViewModel.refreshProgress.completedUnitCount += 1
                     feed?.objectWillChange.send()
                     feed?.page?.objectWillChange.send()
                     guard let objectID = feed?.objectID else { return }

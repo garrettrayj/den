@@ -69,9 +69,7 @@ final class SettingsViewModel: ObservableObject {
 
         ImageCache.default.clearCache()
 
-        profile.pagesArray.forEach { page in
-            page.objectWillChange.send()
-        }
+        NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
     }
 
     func clearHistory() {

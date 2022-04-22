@@ -61,14 +61,6 @@ struct ShowcaseSectionView: View {
                 )
                 .accessibilityIdentifier("showcase-section-feed-button")
             }
-            Spacer()
-            Group {
-                if UIDevice.current.userInterfaceIdiom != .phone {
-                    FeedRefreshedLabelView(refreshed: feed.refreshed)
-                }
-            }
-            .padding(.leading, 8)
-            .padding(.trailing, 28)
         }
     }
 }

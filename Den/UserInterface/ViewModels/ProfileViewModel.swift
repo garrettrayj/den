@@ -20,10 +20,38 @@ final class ProfileViewModel: ObservableObject {
 
     var refreshProgress: Progress = Progress()
 
+    private var queuedSubscriber: AnyCancellable?
+    private var refreshedSubscriber: AnyCancellable?
+    private var feedRefreshedSubscriber: AnyCancellable?
+
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
         self.viewContext = viewContext
         self.crashManager = crashManager
         self.profile = profile
+
+        self.queuedSubscriber = NotificationCenter.default
+            .publisher(for: .profileQueued, object: profile.objectID)
+            .receive(on: RunLoop.main)
+            .map { _ in
+                self.refreshProgress.totalUnitCount = Int64(profile.feedCount)
+                self.refreshProgress.completedUnitCount = 0
+
+                return true
+            }
+            .assign(to: \.refreshing, on: self)
+
+        self.refreshedSubscriber = NotificationCenter.default
+            .publisher(for: .profileRefreshed, object: profile.objectID)
+            .receive(on: RunLoop.main)
+            .map { _ in false }
+            .assign(to: \.refreshing, on: self)
+
+        self.feedRefreshedSubscriber = NotificationCenter.default
+            .publisher(for: .feedRefreshed)
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.refreshProgress.completedUnitCount += 1
+            }
     }
 
     func createPage() {
@@ -113,5 +141,10 @@ final class ProfileViewModel: ObservableObject {
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
+    }
+
+    deinit {
+        queuedSubscriber?.cancel()
+        refreshedSubscriber?.cancel()
     }
 }
