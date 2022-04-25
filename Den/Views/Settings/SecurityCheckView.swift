@@ -73,7 +73,7 @@ struct SecurityCheckView: View {
                     Button {
                         viewModel.remedyInsecureUrls()
                     } label: {
-                        Text("Scan for HTTPS Alternatives").buttonStyle(RegularButtonStyle())
+                        Text("Scan for HTTPS Alternatives")
                     }
                     .accessibilityIdentifier("remedy-button")
                 }

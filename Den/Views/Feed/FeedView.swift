@@ -12,7 +12,6 @@ struct FeedView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var viewModel: FeedViewModel
 
@@ -62,6 +61,5 @@ struct FeedView: View {
             }
         )
         .navigationTitle(viewModel.feed.wrappedTitle)
-
     }
 }

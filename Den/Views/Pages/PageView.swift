@@ -17,7 +17,6 @@ enum PageViewMode: Int {
 struct PageView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var crashManager: CrashManager
-    @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @ObservedObject var viewModel: PageViewModel

@@ -15,10 +15,11 @@ struct ProminentButtonModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-        #if targetEnvironment(macCatalyst)
+            .labelStyle(.titleAndIcon)
+            #if targetEnvironment(macCatalyst)
             .buttonStyle(AccentButtonStyle())
-        #else
+            #else
             .buttonStyle(BorderedProminentButtonStyle())
-        #endif
+            #endif
     }
 }
