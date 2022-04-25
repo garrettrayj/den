@@ -30,19 +30,13 @@ struct FeedView: View {
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button { dismiss() } label: {
-                            Label(viewModel.feed.page?.displayName ?? "Back", systemImage: "chevron.backward")
-                                .labelStyle(.titleAndIcon)
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .modifier(ToolbarItemOffsetModifier(alignment: .leading))
+                        BackButtonView(title: viewModel.feed.page?.displayName ?? "Back")
                     }
 
-                    ToolbarItem {
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         if viewModel.refreshing {
                             ProgressView()
                                 .progressViewStyle(ToolbarProgressStyle())
-                                .modifier(ToolbarItemOffsetModifier())
                         } else {
                             Button {
                                 showingSettings = true
@@ -52,7 +46,6 @@ struct FeedView: View {
                             .buttonStyle(ToolbarButtonStyle())
                             .disabled(viewModel.refreshing)
                             .accessibilityIdentifier("feed-settings-button")
-                            .modifier(ToolbarItemOffsetModifier())
                         }
                     }
                 }

@@ -27,15 +27,12 @@ struct ToolbarButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
-                .frame(height: 32)
-                .padding(.horizontal, 4)
                 .foregroundColor(
                     isEnabled ?
                         configuration.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor
                         :
                         Color.secondary
                 )
-                .cornerRadius(6)
                 #if targetEnvironment(macCatalyst)
                 .padding(.top, inBottomBar ? 0 : -4)
                 #endif
