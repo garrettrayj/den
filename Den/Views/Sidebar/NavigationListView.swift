@@ -20,6 +20,7 @@ struct NavigationListView: View {
 
     @State private var showingSearch: Bool = false
     @State private var showingHistory: Bool = false
+    @State private var searchInput: String = ""
 
     var body: some View {
         List {
@@ -36,35 +37,28 @@ struct NavigationListView: View {
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)
+
+            NavigationLink(isActive: $showingSearch) {
+                SearchView(viewModel: searchViewModel, profile: viewModel.profile)
+            } label: {
+                Text("Search")
+            }.hidden()
         }
         .listStyle(.sidebar)
         .searchable(
-            text: $searchViewModel.input,
+            text: $searchInput,
             placement: .navigationBarDrawer(displayMode: .always),
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {
-            searchViewModel.query = searchViewModel.input
+            searchViewModel.query = searchInput
             showingSearch = true
         }
-        .background(
-            Group {
-                NavigationLink(isActive: $showingSearch) {
-                    SearchView(viewModel: searchViewModel, profile: viewModel.profile)
-                } label: {
-                    Text("Search")
-                }
-
-                NavigationLink(isActive: $showingHistory) {
-                    HistoryView(profile: viewModel.profile)
-                } label: {
-                    Label("History", systemImage: "clock")
-                }
-            }.hidden()
-        )
         #if !targetEnvironment(macCatalyst)
         .refreshable {
-            refreshManager.refresh(profile: viewModel.profile, activePage: subscriptionManager.activePage)
+            if !viewModel.refreshing {
+                refreshManager.refresh(profile: viewModel.profile, activePage: subscriptionManager.activePage)
+            }
         }
         #endif
         .toolbar {
@@ -74,30 +68,12 @@ struct NavigationListView: View {
                         Button(action: viewModel.createPage) {
                             Label("New Page", systemImage: "plus")
                         }
-                        .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("new-page-button")
                     }
 
                     EditButton()
-                        .buttonStyle(ToolbarButtonStyle())
                         .disabled(viewModel.refreshing)
                         .accessibilityIdentifier("edit-page-list-button")
-
-                    if editMode?.wrappedValue == .inactive {
-                        Button {
-                            refreshManager.refresh(
-                                profile: viewModel.profile,
-                                activePage: subscriptionManager.activePage
-                            )
-                        } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .keyboardShortcut("r", modifiers: [.command])
-                        .accessibilityIdentifier("profile-refresh-button")
-                        .accessibilityElement()
-                        .disabled(viewModel.refreshing)
-                    }
                 }.padding(.trailing, -8)
             }
 
@@ -107,7 +83,6 @@ struct NavigationListView: View {
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
-                .buttonStyle(ToolbarButtonStyle(inBottomBar: true))
                 .accessibilityIdentifier("settings-button")
                 .disabled(viewModel.refreshing)
 
@@ -129,14 +104,17 @@ struct NavigationListView: View {
                 Spacer()
 
                 Button {
-                    showingHistory = true
+                    refreshManager.refresh(
+                        profile: viewModel.profile,
+                        activePage: subscriptionManager.activePage
+                    )
                 } label: {
-                    Label("History", systemImage: "clock")
+                    Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .buttonStyle(ToolbarButtonStyle(inBottomBar: true))
-                .accessibilityIdentifier("history-button")
+                .keyboardShortcut("r", modifiers: [.command])
+                .accessibilityIdentifier("profile-refresh-button")
+                .accessibilityElement()
                 .disabled(viewModel.refreshing)
-
             }
         }
     }

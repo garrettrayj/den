@@ -43,7 +43,6 @@ struct FeedView: View {
                             } label: {
                                 Label("Feed Settings", systemImage: "wrench")
                             }
-                            .buttonStyle(ToolbarButtonStyle())
                             .disabled(viewModel.refreshing)
                             .accessibilityIdentifier("feed-settings-button")
                         }

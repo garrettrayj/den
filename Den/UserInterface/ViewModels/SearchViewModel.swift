@@ -9,10 +9,9 @@
 import SwiftUI
 
 final class SearchViewModel: ObservableObject {
-    @Published var input: String = ""
     @Published var query: String = ""
 
-    var isChangedOrEmpty: Bool {
-        input != query || input == ""
+    var isEmpty: Bool {
+        query == ""
     }
 }

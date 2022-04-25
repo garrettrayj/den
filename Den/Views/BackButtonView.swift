@@ -20,7 +20,6 @@ struct BackButtonView: View {
                 Text(title)
             }
         }
-        .buttonStyle(ToolbarButtonStyle())
         .padding(.leading, -8)
     }
 }

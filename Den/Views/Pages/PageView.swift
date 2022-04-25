@@ -113,7 +113,6 @@ struct PageView: View {
                         .accessibilityIdentifier("blend-view-button")
                 }
                 .pickerStyle(.inline)
-                .padding(.top, -4)
                 .disabled(viewModel.refreshing)
 
                 Button {
@@ -121,7 +120,6 @@ struct PageView: View {
                 } label: {
                     Label("Add Feed", systemImage: "plus.circle")
                 }
-                .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("add-feed-button")
                 .disabled(viewModel.refreshing)
 
@@ -134,7 +132,6 @@ struct PageView: View {
                     } label: {
                         Label("Page Settings", systemImage: "wrench")
                     }
-                    .buttonStyle(ToolbarButtonStyle())
                     .accessibilityIdentifier("page-settings-button")
                     .disabled(viewModel.refreshing)
                 }
