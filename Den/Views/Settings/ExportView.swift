@@ -25,9 +25,9 @@ struct ExportView: View {
                         Button {
                             viewModel.exportOpml()
                         } label: {
-                            Label("Save OPML File", systemImage: "arrow.up.doc")
+                            Label("Save OPML File", systemImage: "arrow.up.doc").labelStyle(.titleAndIcon)
                         }
-                        .buttonStyle(AccentButtonStyle())
+                        .modifier(ProminentButtonModifier())
                         .disabled(viewModel.selectedPages.isEmpty)
                         .accessibilityIdentifier("export-opml-button")
                     }

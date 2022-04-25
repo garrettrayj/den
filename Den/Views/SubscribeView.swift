@@ -115,7 +115,7 @@ struct SubscribeView: View {
         .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 16, trailing: 16))
         #endif
         .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
-        .buttonStyle(AccentButtonStyle())
+        .modifier(ProminentButtonModifier())
         .accessibilityIdentifier("subscribe-submit-button")
     }
 
