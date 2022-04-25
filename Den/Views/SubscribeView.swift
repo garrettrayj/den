@@ -23,7 +23,6 @@ struct SubscribeView: View {
                     Button { dismiss() } label: {
                         Text("Cancel").font(.title3)
                     }
-                    .buttonStyle(RegularButtonStyle())
                     .accessibilityIdentifier("subscribe-cancel-button")
                 }
                 .foregroundColor(.secondary)

@@ -37,13 +37,14 @@ struct NavigationListView: View {
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)
-
+        }
+        .background(
             NavigationLink(isActive: $showingSearch) {
                 SearchView(viewModel: searchViewModel, profile: viewModel.profile)
             } label: {
                 Text("Search")
             }.hidden()
-        }
+        )
         .listStyle(.sidebar)
         .searchable(
             text: $searchInput,
