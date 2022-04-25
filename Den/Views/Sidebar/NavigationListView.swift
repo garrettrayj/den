@@ -69,34 +69,36 @@ struct NavigationListView: View {
         #endif
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                if editMode?.wrappedValue == EditMode.active {
-                    Button(action: viewModel.createPage) {
-                        Label("New Page", systemImage: "plus")
+                HStack(spacing: 16) {
+                    if editMode?.wrappedValue == EditMode.active {
+                        Button(action: viewModel.createPage) {
+                            Label("New Page", systemImage: "plus")
+                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .accessibilityIdentifier("new-page-button")
                     }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .accessibilityIdentifier("new-page-button")
-                }
 
-                EditButton()
-                    .buttonStyle(ToolbarButtonStyle())
-                    .disabled(viewModel.refreshing)
-                    .accessibilityIdentifier("edit-page-list-button")
+                    EditButton()
+                        .buttonStyle(ToolbarButtonStyle())
+                        .disabled(viewModel.refreshing)
+                        .accessibilityIdentifier("edit-page-list-button")
 
-                if editMode?.wrappedValue == .inactive {
-                    Button {
-                        refreshManager.refresh(
-                            profile: viewModel.profile,
-                            activePage: subscriptionManager.activePage
-                        )
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
+                    if editMode?.wrappedValue == .inactive {
+                        Button {
+                            refreshManager.refresh(
+                                profile: viewModel.profile,
+                                activePage: subscriptionManager.activePage
+                            )
+                        } label: {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .keyboardShortcut("r", modifiers: [.command])
+                        .accessibilityIdentifier("profile-refresh-button")
+                        .accessibilityElement()
+                        .disabled(viewModel.refreshing)
                     }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .accessibilityIdentifier("profile-refresh-button")
-                    .accessibilityElement()
-                    .disabled(viewModel.refreshing)
-                }
+                }.padding(.trailing, -8)
             }
 
             ToolbarItemGroup(placement: .bottomBar) {

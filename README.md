@@ -18,6 +18,13 @@ Or for Mac only, the [latest release](https://github.com/garrettrayj/den/release
 1. Xcode with Command Line Tools
 2. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results `brew install chargepoint/xcparse/xcparse`
 
+## Dev Notes
+
+### Feed Issues
+
+- https://chicago.suntimes.com/rss/news/index.xml broken images
+- https://lithub.com/feed/ unable to parse
+
 ---
 
 Copyright 2020 Garrett Johnson. All Rights Reserved.

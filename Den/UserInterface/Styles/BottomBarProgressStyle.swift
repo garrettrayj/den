@@ -12,11 +12,13 @@ struct BottomBarProgressStyle: ProgressViewStyle {
     let height: CGFloat = 5
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(spacing: 4) {
+        VStack(alignment: .center, spacing: 6) {
             HStack(spacing: 4) {
                 Text("Refreshing")
                 configuration.currentValueLabel
-            }.font(.footnote).foregroundColor(.secondary)
+            }
+            .font(.footnote)
+            .foregroundColor(.secondary)
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
@@ -33,7 +35,6 @@ struct BottomBarProgressStyle: ProgressViewStyle {
                 }
             }
         }
-        .frame(idealWidth: 120)
         .padding(.bottom, 8)
     }
 }

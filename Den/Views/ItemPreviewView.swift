@@ -53,10 +53,11 @@ struct ItemPreviewView: View {
                         )
                         .accessibility(label: Text("Preview Image"))
                         .opacity(item.read ? 0.65 : 1.0)
+                        .padding(.top, 2)
                 }
 
                 if item.summary != nil && item.summary != "" {
-                    Text(item.summary!)
+                    Text("  \(item.summary!)")
                         .font(.callout)
                         .lineLimit(6)
                         .padding(.top, 4)

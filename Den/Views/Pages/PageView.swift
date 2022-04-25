@@ -99,49 +99,45 @@ struct PageView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         #if targetEnvironment(macCatalyst)
-        ToolbarItem {
-            Picker("View Mode", selection: $viewMode) {
-                Label("Gadgets", systemImage: "rectangle.grid.3x2")
-                    .tag(PageViewMode.gadgets.rawValue)
-                    .accessibilityIdentifier("gadgets-view-button")
-                Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                    .tag(PageViewMode.showcase.rawValue)
-                    .accessibilityIdentifier("showcase-view-button")
-                Label("Blend", systemImage: "square.text.square")
-                    .tag(PageViewMode.blend.rawValue)
-                    .accessibilityIdentifier("blend-view-button")
-            }
-            .pickerStyle(.inline)
-            .padding(.leading, 16)
-            .padding(.trailing, 8)
-            .padding(.top, -4)
-            .disabled(viewModel.refreshing)
-        }
-        ToolbarItem {
-            Button {
-                subscriptionManager.showSubscribe()
-            } label: {
-                Label("Add Feed", systemImage: "plus.circle")
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("add-feed-button")
-            .disabled(viewModel.refreshing)
-        }
-        ToolbarItem {
-            if viewModel.refreshing {
-                ProgressView()
-                    .progressViewStyle(ToolbarProgressStyle())
-                    .modifier(ToolbarItemOffsetModifier())
-            } else {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
+            HStack(spacing: 16) {
+                Picker("View Mode", selection: $viewMode) {
+                    Label("Gadgets", systemImage: "rectangle.grid.3x2")
+                        .tag(PageViewMode.gadgets.rawValue)
+                        .accessibilityIdentifier("gadgets-view-button")
+                    Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                        .tag(PageViewMode.showcase.rawValue)
+                        .accessibilityIdentifier("showcase-view-button")
+                    Label("Blend", systemImage: "square.text.square")
+                        .tag(PageViewMode.blend.rawValue)
+                        .accessibilityIdentifier("blend-view-button")
+                }
+                .pickerStyle(.inline)
+                .padding(.top, -4)
+                .disabled(viewModel.refreshing)
+
                 Button {
-                    showingSettings = true
+                    subscriptionManager.showSubscribe()
                 } label: {
-                    Label("Page Settings", systemImage: "wrench")
+                    Label("Add Feed", systemImage: "plus.circle")
                 }
                 .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("page-settings-button")
-                .modifier(ToolbarItemOffsetModifier())
+                .accessibilityIdentifier("add-feed-button")
                 .disabled(viewModel.refreshing)
+
+                if viewModel.refreshing {
+                    ProgressView()
+                        .progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        showingSettings = true
+                    } label: {
+                        Label("Page Settings", systemImage: "wrench")
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .accessibilityIdentifier("page-settings-button")
+                    .disabled(viewModel.refreshing)
+                }
             }
         }
         #else
@@ -149,7 +145,6 @@ struct PageView: View {
             if viewModel.refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
-                    .modifier(ToolbarItemOffsetModifier())
             } else {
                 Menu {
                     Picker("View Mode", selection: $viewMode) {

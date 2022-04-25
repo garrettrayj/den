@@ -18,11 +18,7 @@ struct BackNavigationModifier: ViewModifier {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button { dismiss() } label: {
-                        Label(title, systemImage: "chevron.backward").labelStyle(.titleAndIcon)
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .modifier(ToolbarItemOffsetModifier(alignment: .leading))
+                    BackButtonView(title: title)
                 }
             }
     }

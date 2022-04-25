@@ -92,6 +92,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-UIFocusLoggingEnabled YES"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "--reset"
             isEnabled = "NO">
          </CommandLineArgument>

@@ -36,9 +36,6 @@ struct SidebarPageView: View {
                             .overlay(
                                 Capsule().fill(Color(UIColor.secondarySystemFill))
                             )
-                            #if !targetEnvironment(macCatalyst)
-                            .padding(.trailing, 4)
-                            #endif
                     }
                 }
             }.lineLimit(1)

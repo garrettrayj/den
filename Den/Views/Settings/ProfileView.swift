@@ -23,7 +23,7 @@ struct ProfileView: View {
             nameSection
             activateDeleteSection
         }
-        .navigationTitle("Profile Settings")
+        .navigationTitle("Profile")
         .onDisappear {
             NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
         }
