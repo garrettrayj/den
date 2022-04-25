@@ -17,7 +17,7 @@ struct SearchView: View {
 
     var body: some View {
         Group {
-            if viewModel.isChangedOrEmpty {
+            if viewModel.isEmpty {
                 StatusBoxView(
                     message: Text("Searching \(profile.wrappedName)"),
                     symbol: "magnifyingglass"

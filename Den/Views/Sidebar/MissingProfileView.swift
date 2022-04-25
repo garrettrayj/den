@@ -24,7 +24,6 @@ struct MissingProfileView: View {
                 } label: {
                     Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
                 }
-                .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("start-settings-button")
             }
         }
