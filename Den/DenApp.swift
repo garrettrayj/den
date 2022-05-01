@@ -109,7 +109,13 @@ struct DenApp: App {
     private func initImageHandling() {
         let modifier = AnyModifier { request in
             var req = request
-            req.addValue("image/webp */*", forHTTPHeaderField: "Accept")
+
+            var accept: [String] = []
+            for type in ImageMIMEType.allCases {
+                accept.append(type.rawValue)
+            }
+
+            req.addValue(accept.joined(separator: " "), forHTTPHeaderField: "Accept")
             return req
         }
 

@@ -26,14 +26,12 @@ final class SaveFaviconOperation: Operation {
 
         if
             let httpResponse = webpageFaviconResponse,
-            let data = webpageFaviconData,
-            let url = prepareFavicon(httpResponse: httpResponse, data: data)
+            let url = prepareFavicon(httpResponse: httpResponse)
         {
             self.workingFeed?.favicon = url
         } else if
             let httpResponse = defaultFaviconResponse,
-            let data = defaultFaviconData,
-            let url = prepareFavicon(httpResponse: httpResponse, data: data)
+            let url = prepareFavicon(httpResponse: httpResponse)
         {
             self.workingFeed?.favicon = url
         }
@@ -41,11 +39,9 @@ final class SaveFaviconOperation: Operation {
         return
     }
 
-    private func prepareFavicon(httpResponse: HTTPURLResponse, data: Data) -> URL? {
+    private func prepareFavicon(httpResponse: HTTPURLResponse) -> URL? {
         if
             200..<300 ~= httpResponse.statusCode,
-            let mimeType = httpResponse.mimeType,
-            FaviconMIMEType(rawValue: mimeType) != nil,
             let url = httpResponse.url
         {
             return url

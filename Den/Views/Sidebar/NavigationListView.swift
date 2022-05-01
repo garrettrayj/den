@@ -93,14 +93,11 @@ struct NavigationListView: View {
                     if viewModel.refreshing {
                         ProgressView(viewModel.refreshProgress).progressViewStyle(BottomBarProgressStyle())
                     } else {
-                        if viewModel.profile.minimumRefreshedDate != nil {
-                            Text("Refreshed \(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())")
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
-                                .lineLimit(1)
-                        }
+                        refreshedLabel
                     }
-                }.padding(.horizontal)
+                }
+                .font(.footnote)
+                .padding(.horizontal)
 
                 Spacer()
 
@@ -118,5 +115,21 @@ struct NavigationListView: View {
                 .disabled(viewModel.refreshing)
             }
         }
+    }
+
+    var refreshedLabel: some View {
+        VStack(alignment: .center, spacing: 0) {
+            if viewModel.profile.minimumRefreshedDate != nil {
+                Text("Refreshed").lineLimit(1)
+                Text("\(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())").lineLimit(1)
+            } else {
+                #if targetEnvironment(macCatalyst)
+                Text("Press \(Image(systemName: "command")) + R to refresh feeds").imageScale(.small)
+                #else
+                Text("Pull to refresh feeds")
+                #endif
+            }
+        }
+        .foregroundColor(.secondary)
     }
 }
