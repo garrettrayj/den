@@ -19,9 +19,6 @@ final class SettingsViewModel: ObservableObject {
     let cacheManager: CacheManager
     let themeManager: ThemeManager
 
-    @Published var showingResetAlert = false
-    @Published var historyRentionDays: Int = 0
-
     init(
         viewContext: NSManagedObjectContext,
         crashManager: CrashManager,
@@ -38,17 +35,7 @@ final class SettingsViewModel: ObservableObject {
         self.themeManager = themeManager
     }
 
-    func loadProfile() {
-        guard let profile = profileManager.activeProfile else { return }
-        historyRentionDays = profile.wrappedHistoryRetention
-    }
-
     func saveProfile() {
-        guard let profile = profileManager.activeProfile else { return }
-        if historyRentionDays != profile.wrappedHistoryRetention {
-            profile.wrappedHistoryRetention = historyRentionDays
-        }
-
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()

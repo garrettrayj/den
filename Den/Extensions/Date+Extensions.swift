@@ -40,10 +40,4 @@ extension Date {
 
         return dateFormatter.string(from: self)
     }
-
-    func timeAgoDisplay() -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .full
-        return formatter.localizedString(for: self, relativeTo: Date())
-    }
 }

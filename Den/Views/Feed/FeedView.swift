@@ -34,8 +34,7 @@ struct FeedView: View {
 
                     ToolbarItem(placement: .navigationBarTrailing) {
                         if viewModel.refreshing {
-                            ProgressView()
-                                .progressViewStyle(ToolbarProgressStyle())
+                            ProgressView().progressViewStyle(ToolbarProgressStyle())
                         } else {
                             Button {
                                 showingSettings = true

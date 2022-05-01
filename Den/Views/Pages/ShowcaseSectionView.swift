@@ -50,11 +50,11 @@ struct ShowcaseSectionView: View {
                             title: feed.wrappedTitle,
                             favicon: feed.feedData?.favicon
                         )
-                        NavChevronView()
                         Spacer()
+                        NavChevronView()
                     }
                     .padding(.leading, 28)
-                    .padding(.trailing, 8)
+                    .padding(.trailing, 28)
                 }
                 .buttonStyle(
                     FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))

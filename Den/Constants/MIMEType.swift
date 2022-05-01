@@ -8,15 +8,9 @@
 
 import Foundation
 
-enum FaviconMIMEType: String, CaseIterable {
+enum ImageMIMEType: String, CaseIterable {
     case icon = "image/x-icon"
     case msicon = "image/vnd.microsoft.icon"
-    case png = "image/png"
-    case jpeg = "image/jpeg"
-    case gif = "image/gif"
-}
-
-enum ImageMIMEType: String, CaseIterable {
     case png = "image/png"
     case jpeg = "image/jpeg"
     case gif = "image/gif"
@@ -24,4 +18,5 @@ enum ImageMIMEType: String, CaseIterable {
     // Cover incorrect JPEG MIME type usage,
     // e.g. images in Raw Story feeds (https://www.rawstory.com/category/world/feed/)
     case jpg = "image/jpg"
+    case all = "*/*"
 }

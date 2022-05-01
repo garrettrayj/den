@@ -21,6 +21,9 @@ struct SettingsView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
 
+    @State var showingResetAlert = false
+    @State var historyRentionDays: Int = 0
+
     var body: some View {
         Form {
             profilesSection
@@ -31,7 +34,6 @@ struct SettingsView: View {
             aboutSection
         }
         .navigationTitle("Settings")
-        .onAppear(perform: viewModel.loadProfile)
     }
 
     private var profilesSection: some View {
@@ -127,7 +129,15 @@ struct SettingsView: View {
 
     private var historySection: some View {
         Section(header: Text("History")) {
-            Picker(selection: $viewModel.historyRentionDays) {
+            NavigationLink(
+                destination: HistoryView(profile: profileManager.activeProfile!)
+            ) {
+                Label("Visited Items", systemImage: "clock")
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("view-history-button")
+
+            Picker(selection: $historyRentionDays) {
                 Text("Forever").tag(0 as Int)
                 Text("One Year").tag(365 as Int)
                 Text("Six Months").tag(182 as Int)
@@ -137,19 +147,20 @@ struct SettingsView: View {
                 Text("One Week").tag(7 as Int)
             } label: {
                 HStack {
-                    Label("Keep History", systemImage: "clock").lineLimit(1)
+                    Label("Retain", systemImage: "clock.arrow.2.circlepath").lineLimit(1)
                     Spacer()
                 }
             }.modifier(FormRowModifier())
 
             Button(action: viewModel.clearHistory) {
-                Label("Clear History", systemImage: "clear").lineLimit(1)
+                Label("Erase History", systemImage: "hourglass.bottomhalf.filled").lineLimit(1)
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-history-button")
         }
         .modifier(SectionHeaderModifier())
-        .onChange(of: viewModel.historyRentionDays) { _ in
+        .onChange(of: historyRentionDays) { _ in
+            profileManager.activeProfile?.wrappedHistoryRetention = historyRentionDays
             viewModel.saveProfile()
         }
     }
@@ -163,12 +174,12 @@ struct SettingsView: View {
             .accessibilityIdentifier("clear-cache-button")
 
             Button(role: .destructive) {
-                viewModel.showingResetAlert = true
+                showingResetAlert = true
             } label: {
                 Label("Reset Everything", systemImage: "clear").symbolRenderingMode(.multicolor)
             }
             .modifier(FormRowModifier())
-            .alert("Reset Everything?", isPresented: $viewModel.showingResetAlert, actions: {
+            .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
                 Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
                 Button("Reset", role: .destructive) {
                     viewModel.resetEverything()

@@ -459,6 +459,7 @@
 				68B34A5D2486D2AD0066B215 /* ImportView.swift */,
 				68B34A662487ED870066B215 /* ExportView.swift */,
 				68E4274226D2C2BB00E496E3 /* SecurityCheckView.swift */,
+				68D345942658D0610080783F /* HistoryView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -706,7 +707,6 @@
 				68014D5C27BC5CAB0017E2CB /* Feed */,
 				68C4138124733D7D00D1DC7B /* SubscribeView.swift */,
 				6832AF2F278BAF2A00CFC8CA /* Search */,
-				68D345942658D0610080783F /* HistoryView.swift */,
 				683B285327D54141009C0302 /* Settings */,
 				687F488F269165EE00EA2498 /* CrashMessageView.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,

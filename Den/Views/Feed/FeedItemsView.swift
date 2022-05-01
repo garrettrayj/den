@@ -51,20 +51,26 @@ struct FeedItemsView: View {
                 Button {
                     linkManager.openLink(url: feed.feedData?.link)
                 } label: {
-                    Label {
-                        Text(feed.feedData?.linkDisplayString ?? "")
-                        Image(systemName: "link").imageScale(.small).foregroundColor(.secondary)
-                    } icon: {
-                        KFImage(feed.feedData?.favicon)
-                            .placeholder({ _ in
-                                Image(systemName: "globe")
-                            })
-                            .resizing(referenceSize: ImageSize.favicon)
-                            .scaleFactor(UIScreen.main.scale)
-                            .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                    HStack {
+                        Label {
+                            Text(feed.feedData!.linkDisplayString!)
+                        } icon: {
+                            KFImage(feed.feedData?.favicon)
+                                .placeholder({ _ in
+                                    Image(systemName: "globe")
+                                })
+                                .resizing(referenceSize: ImageSize.favicon)
+                                .scaleFactor(UIScreen.main.scale)
+                                .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                        }
+                        Spacer()
+                        Image(systemName: "link")
+                            .foregroundColor(Color(UIColor.tertiaryLabel))
+                            .imageScale(.small)
+                            .font(.body.weight(.semibold))
+
                     }
-                    .padding(.leading, 28)
-                    .padding(.trailing, 8)
+                    .padding(.horizontal, 28)
                 }
                 .buttonStyle(
                     FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))

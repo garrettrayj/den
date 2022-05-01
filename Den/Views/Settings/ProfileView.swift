@@ -13,6 +13,7 @@ struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
+    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @State private var showingDeleteAlert: Bool = false
 
@@ -43,6 +44,8 @@ struct ProfileView: View {
         Section {
             Button {
                 profileManager.activateProfile(profile)
+                // Forget the active page so refresh manager doesn't pick it up
+                subscriptionManager.activePage = nil
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "power.circle")
