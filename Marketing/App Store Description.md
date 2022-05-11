@@ -1,33 +1,32 @@
 # Den for RSS
 
-## Simple Feed Dashboards
+## Comfy News Browsing
 
-A minimalist iOS and Mac app for quickly scanning news feeds.
+A minimal iOS and Mac app for getting the news without all the extras.
 
-Den is a canvas for organizing and following sources that matter to you. The design is focused on showing more content with fewer distractions. Flexible, multi-column layouts offer unique landscape views of whatever you're into.
+Den is a canvas for creating landscape views of what's going on. Just add feeds to build refreshable, content focused, dashboards to keep up with any topic. It's made for folks who want to be informed, but would prefer to skip being targeted, analyzed, subscribed, notified, probed, etc.
+
+If you're nostalgic for simple blocks of headlines that you can organize yourself, then this is the app for you. Den draws inspiration from internet start pages past, but modernizes the concepts using the latest tech. Flexible, multi-column layouts make it ideal for quickly scanning articles and comparing publishers. Native app features and performance deliver a crisp wire surfing experience.
 
 FEATURES
 
 + Made for iPhone, iPad, and Mac
 Developed from the start for phones, tablets, laptops, and desktops.
 
-+ iCloud Sync
++ Cloud Sync
 Profiles, feeds, history, etc. on all your devices without signing up for yet another account.
 
-+ Read with Your Regular Browser
-Opens articles in Safari or your default browser depending on device.
++ Read in Your Regular Browser
+Items open in a built-in Safari view, reading mode optional, on phones and tablets. Items open in the default browser on computers.
 
 + RSS, Atom, and JSON Feed
 Works with popular formats so the library of compatible feeds is limitless.
 
 + OPML Import and Export
-Add feeds from other apps and share with common OPML files.
+Backup, restore, or share feeds with common OPML files.
 
-+ Article Search
++ Item Search
 Quickly get the latest on a topic by searching the titles of current items.
-
-+ History View
-Remember previous reads by looking back at the history of visited articles.
 
 + Security Check
 See which feeds have insecure URLs and check for HTTPS alternatives to use instead.
