@@ -12,7 +12,7 @@ struct IconPickerView: View {
     @Binding var selectedSymbol: String
 
     let columns = [
-        GridItem(.adaptive(minimum: 36, maximum: 36), spacing: 4, alignment: .top)
+        GridItem(.adaptive(minimum: 40, maximum: 40), spacing: 4, alignment: .top)
     ]
 
     var body: some View {
@@ -42,8 +42,9 @@ struct IconPickerView: View {
                         selectedSymbol = symbol.id
                     } label: {
                         Image(systemName: symbol.id)
+                            .imageScale(.large)
                             .foregroundColor(symbol.id == selectedSymbol ? .accentColor : .primary)
-                            .frame(width: 36, height: 36, alignment: .center)
+                            .frame(width: 40, height: 40, alignment: .center)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(Color(UIColor.secondarySystemGroupedBackground))

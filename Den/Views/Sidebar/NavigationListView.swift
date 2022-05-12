@@ -96,7 +96,7 @@ struct NavigationListView: View {
                         refreshedLabel
                     }
                 }
-                .font(.footnote)
+                .font(.caption.weight(.light))
                 .padding(.horizontal)
 
                 Spacer()
@@ -121,7 +121,9 @@ struct NavigationListView: View {
         VStack(alignment: .center, spacing: 0) {
             if viewModel.profile.minimumRefreshedDate != nil {
                 Text("Refreshed").lineLimit(1)
-                Text("\(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())").lineLimit(1)
+                Text("\(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())")
+                    .lineLimit(1)
+                    .foregroundColor(.secondary)
             } else {
                 #if targetEnvironment(macCatalyst)
                 Text("Press \(Image(systemName: "command")) + R to refresh feeds").imageScale(.small)
@@ -130,6 +132,5 @@ struct NavigationListView: View {
                 #endif
             }
         }
-        .foregroundColor(.secondary)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SecurityCheckView.swift
+//  SecurityView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/22/21.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SecurityCheckView: View {
+struct SecurityView: View {
     @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var viewModel: SecurityCheckViewModel
@@ -33,7 +33,7 @@ struct SecurityCheckView: View {
         .onDisappear {
             viewModel.reset()
         }
-        .navigationTitle("Security Check")
+        .navigationTitle("Security")
         .modifier(BackNavigationModifier(title: "Settings"))
     }
 
