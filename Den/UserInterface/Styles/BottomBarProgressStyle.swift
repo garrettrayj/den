@@ -9,30 +9,28 @@
 import SwiftUI
 
 struct BottomBarProgressStyle: ProgressViewStyle {
-    let height: CGFloat = 5
+    let height: CGFloat = 4
+    let width: CGFloat = 128
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(alignment: .center, spacing: 4) {
-            HStack(spacing: 4) {
-                Text("Refreshing")
-                configuration.currentValueLabel
+        VStack(alignment: .center, spacing: 6) {
+            HStack(spacing: 0) {
+                Text("Checking ")
+                configuration.currentValueLabel.font(.caption.weight(.light).monospacedDigit())
+                Text("…")
             }
-            .foregroundColor(.secondary)
-            .padding(.horizontal, 8)
 
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: height / 2)
-                        .frame(width: geometry.size.width, height: height)
-                        .foregroundColor(Color(UIColor.tertiarySystemFill))
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: height / 2)
+                    .frame(width: width, height: height)
+                    .foregroundColor(Color(UIColor.tertiarySystemFill))
 
-                    RoundedRectangle(cornerRadius: height / 2)
-                        .frame(
-                            width: CGFloat(configuration.fractionCompleted ?? 0) * geometry.size.width,
-                            height: height
-                        )
-                        .foregroundColor(.accentColor)
-                }
+                RoundedRectangle(cornerRadius: height / 2)
+                    .frame(
+                        width: CGFloat(configuration.fractionCompleted ?? 0) * width,
+                        height: height
+                    )
+                    .foregroundColor(.accentColor)
             }
         }
     }

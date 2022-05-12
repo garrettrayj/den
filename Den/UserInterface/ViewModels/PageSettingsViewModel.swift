@@ -23,11 +23,10 @@ class PageSettingsViewModel: ObservableObject {
     }
 
     func save() {
-        page.objectWillChange.send()
-
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }

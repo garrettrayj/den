@@ -114,13 +114,13 @@ struct SettingsView: View {
             .accessibilityIdentifier("export-button")
 
             NavigationLink(
-                destination: SecurityCheckView(viewModel: SecurityCheckViewModel(
+                destination: SecurityView(viewModel: SecurityCheckViewModel(
                     viewContext: viewContext,
                     crashManager: crashManager,
                     profileManager: profileManager
                 ))
             ) {
-                Label("Security Check", systemImage: "checkmark.shield")
+                Label("Security", systemImage: "shield.lefthalf.filled")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("security-check-button")

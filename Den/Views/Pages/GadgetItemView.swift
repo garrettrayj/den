@@ -21,7 +21,7 @@ struct GadgetItemView: View {
         } label: {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(item.wrappedTitle).lineLimit(10)
+                    Text(item.wrappedTitle).lineLimit(6)
 
                     if item.published != nil {
                         ItemDateView(date: item.published!, read: item.read)
