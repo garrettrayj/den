@@ -115,7 +115,6 @@
 		</outline>
 		<outline text="Space" title="Space">
 			<outline text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed" />
-			<outline text="Space.com" title="Space.com" type="rss" xmlUrl="https://www.space.com/feeds/all" />
 			<outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
 			<outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed" />
 			<outline text="Space Explored" title="Space Explored" type="rss" xmlUrl="https://spaceexplored.com/feed/" />
