@@ -53,7 +53,7 @@ final class SummaryHTML {
         return elements
     }
 
-    func allowedImages() -> [RankedImage]? {
+    func allowedImages(itemLink: URL?) -> [RankedImage]? {
         guard let elements = imageElements(), !elements.isEmpty() else {
             return nil
         }
@@ -63,7 +63,7 @@ final class SummaryHTML {
             // Requirement image atrributes
             guard
                 let src = try? el.attr("src"),
-                let url = URL(string: src)
+                let url = URL(string: src, relativeTo: itemLink)
             else {
                 continue
             }
@@ -90,14 +90,14 @@ final class SummaryHTML {
                     && CGFloat(height) >= ImageSize.thumbnail.height {
 
                     images.append(RankedImage(
-                        url: url,
+                        url: url.absoluteURL,
                         rank: width * height,
                         width: width,
                         height: height
                     ))
                 }
             } else {
-                images.append(RankedImage(url: url))
+                images.append(RankedImage(url: url.absoluteURL))
             }
         }
 

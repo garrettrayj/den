@@ -64,11 +64,11 @@ final class RSSItemTransform: ItemTransform {
         if
             let enclosure = rssItem.enclosure,
             let urlString = enclosure.attributes?.url,
-            let url = URL(string: urlString),
+            let url = URL(string: urlString, relativeTo: workingItem.link),
             let mimeType = enclosure.attributes?.type,
             ImageMIMEType(rawValue: mimeType) != nil
         {
-            self.images.append(RankedImage(url: url))
+            self.images.append(RankedImage(url: url.absoluteURL))
         }
     }
 
@@ -78,7 +78,7 @@ final class RSSItemTransform: ItemTransform {
             for media in mediaContents {
                 if
                     let urlString = media.attributes?.url,
-                    let url = URL(string: urlString),
+                    let url = URL(string: urlString, relativeTo: workingItem.link),
                     mediaIsImage(mimeType: media.attributes?.type, medium: media.attributes?.medium)
                 {
                     if
@@ -86,14 +86,14 @@ final class RSSItemTransform: ItemTransform {
                         let height = media.attributes?.height
                     {
                         images.append(RankedImage(
-                            url: url,
+                            url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
                         images.append(RankedImage(
-                            url: url,
+                            url: url.absoluteURL,
                             rank: Int(ImageSize.thumbnail.area) + 2)
                         )
                     }
@@ -107,7 +107,7 @@ final class RSSItemTransform: ItemTransform {
             for media in mediaGroupContents {
                 if
                     let urlString = media.attributes?.url,
-                    let url = URL(string: urlString),
+                    let url = URL(string: urlString, relativeTo: workingItem.link),
                     mediaIsImage(mimeType: media.attributes?.type, medium: media.attributes?.medium)
                 {
                     if
@@ -115,13 +115,13 @@ final class RSSItemTransform: ItemTransform {
                         let height = media.attributes?.height
                     {
                         images.append(RankedImage(
-                            url: url,
+                            url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(url: url))
+                        images.append(RankedImage(url: url.absoluteURL))
                     }
                 }
             }
@@ -131,19 +131,22 @@ final class RSSItemTransform: ItemTransform {
     private func findMediaThumbnailsImages() {
         if let thumbnails = rssItem.media?.mediaThumbnails {
             for thumbnail in thumbnails {
-                if let urlString = thumbnail.attributes?.url, let url = URL(string: urlString) {
+                if
+                    let urlString = thumbnail.attributes?.url,
+                    let url = URL(string: urlString, relativeTo: workingItem.link)
+                {
                     if
                         let width = Int(thumbnail.attributes?.width ?? ""),
                         let height = Int(thumbnail.attributes?.height ?? "")
                     {
                         images.append(RankedImage(
-                            url: url,
+                            url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(url: url))
+                        images.append(RankedImage(url: url.absoluteURL))
                     }
                 }
             }
@@ -152,7 +155,7 @@ final class RSSItemTransform: ItemTransform {
 
     private func findContentImages() {
         if let source = rssItem.content?.contentEncoded {
-            if let allowedImages = SummaryHTML(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
                 images.append(contentsOf: allowedImages)
             }
         }
@@ -160,7 +163,7 @@ final class RSSItemTransform: ItemTransform {
 
     private func findDescriptionImages() {
         if let source = rssItem.description?.htmlUnescape() {
-            if let allowedImages = SummaryHTML(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
                 images.append(contentsOf: allowedImages)
             }
         }
