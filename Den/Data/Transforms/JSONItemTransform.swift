@@ -63,8 +63,11 @@ final class JSONItemTransform: ItemTransform {
             }) {
 
             for attachment in imageAttachments {
-                if let urlString = attachment.url, let url = URL(string: urlString) {
-                    images.append(RankedImage(url: url))
+                if
+                    let urlString = attachment.url,
+                    let url = URL(string: urlString, relativeTo: workingItem.link)
+                {
+                    images.append(RankedImage(url: url.absoluteURL))
                 }
             }
         }
@@ -72,7 +75,7 @@ final class JSONItemTransform: ItemTransform {
 
     private func findSummaryImages() {
         if let source = jsonItem.summary {
-            if let allowedImages = SummaryHTML(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
                 images.append(contentsOf: allowedImages)
             }
         }

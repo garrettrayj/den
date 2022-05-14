@@ -61,12 +61,12 @@ final class AtomItemTransform: ItemTransform {
                 link.attributes?.rel == "enclosure"
             }),
             let urlString = link.attributes?.href,
-            let url = URL(string: urlString),
+            let url = URL(string: urlString, relativeTo: workingItem.link),
             let mimeType = link.attributes?.type,
             ImageMIMEType(rawValue: mimeType) != nil {
             self.images.append(
                 RankedImage(
-                    url: url,
+                    url: url.absoluteURL,
                     rank: Int(ImageSize.thumbnail.area) + 3
                 )
             )
@@ -79,7 +79,7 @@ final class AtomItemTransform: ItemTransform {
             for media in mediaContents {
                 if
                     let urlString = media.attributes?.url,
-                    let url = URL(string: urlString),
+                    let url = URL(string: urlString, relativeTo: workingItem.link),
                     mediaIsImage(mimeType: media.attributes?.type, medium: media.attributes?.medium)
                 {
                     if
@@ -87,7 +87,7 @@ final class AtomItemTransform: ItemTransform {
                         let height = media.attributes?.height
                     {
                         images.append(RankedImage(
-                            url: url,
+                            url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
@@ -104,19 +104,22 @@ final class AtomItemTransform: ItemTransform {
         // Extract images from <media:thumbnails>
         if let thumbnails = entry.media?.mediaThumbnails {
             for thumbnail in thumbnails {
-                if let urlString = thumbnail.attributes?.url, let url = URL(string: urlString) {
+                if
+                    let urlString = thumbnail.attributes?.url,
+                    let url = URL(string: urlString, relativeTo: workingItem.link)
+                {
                     if
                         let width = Int(thumbnail.attributes?.width ?? ""),
                         let height = Int(thumbnail.attributes?.height ?? "")
                     {
                         images.append(RankedImage(
-                            url: url,
+                            url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(url: url))
+                        images.append(RankedImage(url: url.absoluteURL))
                     }
                 }
             }
@@ -125,7 +128,7 @@ final class AtomItemTransform: ItemTransform {
 
     private func findContentImages() {
         if let source = entry.content?.value?.htmlUnescape() {
-            if let allowedImages = SummaryHTML(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
                 images.append(contentsOf: allowedImages)
             }
         }
@@ -133,7 +136,7 @@ final class AtomItemTransform: ItemTransform {
 
     private func findSummaryImages() {
         if let source = entry.summary?.value?.htmlUnescape() {
-            if let allowedImages = SummaryHTML(source).allowedImages() {
+            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
                 images.append(contentsOf: allowedImages)
             }
         }
