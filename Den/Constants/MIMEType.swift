@@ -12,11 +12,14 @@ enum ImageMIMEType: String, CaseIterable {
     case icon = "image/x-icon"
     case msicon = "image/vnd.microsoft.icon"
     case png = "image/png"
+    case apng = "image/apng"
     case jpeg = "image/jpeg"
     case gif = "image/gif"
     case webp = "image/webp"
+    case svg = "image/svg+xml"
     // Cover incorrect JPEG MIME type usage,
     // e.g. images in Raw Story feeds (https://www.rawstory.com/category/world/feed/)
     case jpg = "image/jpg"
-    case all = "*/*"
+    case generic = "image/*"
+    case all = "*/*;q=0.8"
 }
