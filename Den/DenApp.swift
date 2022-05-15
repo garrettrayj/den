@@ -6,8 +6,9 @@
 
 import SwiftUI
 
-import Kingfisher
-import KingfisherWebP
+import SDWebImageSwiftUI
+import SDWebImageSVGCoder
+import SDWebImageWebPCoder
 
 @main
 
@@ -107,22 +108,15 @@ struct DenApp: App {
     }
 
     private func initImageHandling() {
-        let modifier = AnyModifier { request in
-            var req = request
+        // Add WebP/SVG/PDF support
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
 
-            var accept: [String] = []
-            for type in ImageMIMEType.allCases {
-                accept.append(type.rawValue)
-            }
+        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
+            mimeType.rawValue
+        }).joined(separator: ",")
 
-            req.addValue(accept.joined(separator: " "), forHTTPHeaderField: "Accept")
-            return req
-        }
-
-        KingfisherManager.shared.defaultOptions += [
-            .requestModifier(modifier),
-            .processor(WebPProcessor.default),
-            .cacheSerializer(WebPSerializer.default)
-        ]
+        // Add default HTTP header
+        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
     }
 }

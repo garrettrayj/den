@@ -9,7 +9,7 @@
 import CoreData
 import SwiftUI
 
-import Kingfisher
+import SDWebImageSwiftUI
 
 final class SettingsViewModel: ObservableObject {
     let viewContext: NSManagedObjectContext
@@ -54,7 +54,8 @@ final class SettingsViewModel: ObservableObject {
         refreshManager.cancel()
         cacheManager.resetFeeds()
 
-        ImageCache.default.clearCache()
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
 
         NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
     }

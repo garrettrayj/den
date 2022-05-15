@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-import Kingfisher
+import SDWebImageSwiftUI
 
 struct FeedTitleLabelView: View {
     var title: String
@@ -18,12 +18,11 @@ struct FeedTitleLabelView: View {
         Label {
             Text(title).lineLimit(1)
         } icon: {
-            KFImage(favicon)
-                .placeholder({ _ in
+            WebImage(url: favicon)
+                .resizable()
+                .placeholder {
                     Image(systemName: "dot.radiowaves.up.forward")
-                })
-                .resizing(referenceSize: ImageSize.favicon)
-                .scaleFactor(UIScreen.main.scale)
+                }
                 .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
         }
     }

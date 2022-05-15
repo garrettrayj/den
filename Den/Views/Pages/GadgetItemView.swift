@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct GadgetItemView: View {
     @EnvironmentObject private var linkManager: LinkManager

@@ -8,20 +8,21 @@
 
 import SwiftUI
 
-import Kingfisher
+import SDWebImageSwiftUI
 
 struct ItemThumbnailView: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        KFImage(item.image)
-            .placeholder({ _ in
+        WebImage(url: item.image)
+            .resizable()
+            .placeholder {
                 Image(systemName: "photo")
                     .foregroundColor(Color(UIColor.tertiaryLabel))
-            })
-            .resizing(referenceSize: ImageSize.thumbnail, mode: .aspectFill)
-            .scaleFactor(UIScreen.main.scale)
-            .fade(duration: 0.3)
+            }
+            .playbackRate(0)
+            .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+            .transition(.fade(duration: 0.3))
             .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
             .background(Color(UIColor.tertiarySystemGroupedBackground))
             .cornerRadius(4)

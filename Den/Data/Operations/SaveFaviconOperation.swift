@@ -10,9 +10,6 @@ import CoreData
 import OSLog
 import UIKit
 
-import Kingfisher
-import func AVFoundation.AVMakeRect
-
 final class SaveFaviconOperation: Operation {
     // Operation inputs
     var workingFeed: WorkingFeedData?

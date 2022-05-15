@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-import Kingfisher
+import SDWebImageSwiftUI
 
 struct FeedItemsView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
@@ -55,12 +55,11 @@ struct FeedItemsView: View {
                         Label {
                             Text(feed.feedData!.linkDisplayString!)
                         } icon: {
-                            KFImage(feed.feedData?.favicon)
-                                .placeholder({ _ in
+                            WebImage(url: feed.feedData?.favicon)
+                                .resizable()
+                                .placeholder {
                                     Image(systemName: "globe")
-                                })
-                                .resizing(referenceSize: ImageSize.favicon)
-                                .scaleFactor(UIScreen.main.scale)
+                                }
                                 .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
                         }
                         Spacer()

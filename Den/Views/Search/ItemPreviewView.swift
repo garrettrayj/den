@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-import Kingfisher
+import SDWebImageSwiftUI
 
 struct ItemPreviewView: View {
     @EnvironmentObject private var linkManager: LinkManager
@@ -30,16 +30,14 @@ struct ItemPreviewView: View {
                 }
 
                 if item.feedData?.feed?.showThumbnails == true && item.image != nil {
-                    KFImage(item.image)
-                        .placeholder({ _ in
+                    WebImage(url: item.image)
+                        .resizable()
+                        .placeholder {
                             Image(systemName: "photo")
                                 .foregroundColor(Color(UIColor.tertiaryLabel))
                                 .imageScale(.large)
-                        })
-                        .resizing(referenceSize: ImageSize.preview, mode: .aspectFill)
-                        .scaleFactor(UIScreen.main.scale)
-                        .fade(duration: 0.3)
-                        .resizable()
+                        }
+                        .transition(.fade(duration: 0.3))
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .frame(
                             maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
