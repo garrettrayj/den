@@ -64,6 +64,16 @@
 		686067EB283032F5000068DE /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 686067EA283032F5000068DE /* SDWebImageSwiftUI */; };
 		686067F128303E59000068DE /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 686067F028303E59000068DE /* SDWebImageSVGCoder */; };
 		686067F42830448C000068DE /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 686067F32830448C000068DE /* SDWebImageWebPCoder */; };
+		6860692B2831501B000068DE /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686068E32831501B000068DE /* SafariWebExtensionHandler.swift */; };
+		6860692D2831501B000068DE /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 686068E52831501B000068DE /* _locales */; };
+		6860692F2831501B000068DE /* images in Resources */ = {isa = PBXBuildFile; fileRef = 686068E62831501B000068DE /* images */; };
+		686069312831501B000068DE /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 686068E72831501B000068DE /* manifest.json */; };
+		686069332831501B000068DE /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 686068E82831501B000068DE /* background.js */; };
+		686069352831501B000068DE /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 686068E92831501B000068DE /* content.js */; };
+		686069372831501B000068DE /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 686068EA2831501B000068DE /* popup.html */; };
+		686069392831501B000068DE /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 686068EB2831501B000068DE /* popup.css */; };
+		6860693B2831501B000068DE /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 686068EC2831501B000068DE /* popup.js */; };
+		6860694C2831533E000068DE /* Den Helper.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Den Helper.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6865452C274A288A00BAE03E /* PinnedSectionHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */; };
 		6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
@@ -164,6 +174,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		6860694D2831533E000068DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 68C41301247263C700D1DC7B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6860690D2831501B000068DE;
+			remoteInfo = SafariExtension;
+		};
 		689EDC0E26A3F46A0055811A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 68C41301247263C700D1DC7B /* Project object */;
@@ -196,6 +213,17 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		6860694F2831533E000068DE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6860694C2831533E000068DE /* Den Helper.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -256,6 +284,18 @@
 		686067E32815B969000068DE /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		686067E528163E76000068DE /* ProminentButtonLabelModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProminentButtonLabelModifier.swift; sourceTree = "<group>"; };
 		686067E728164765000068DE /* AccentButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccentButtonStyle.swift; path = ../../../../../.Trash/AccentButtonStyle.swift; sourceTree = "<group>"; };
+		686068E32831501B000068DE /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		686068E52831501B000068DE /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
+		686068E62831501B000068DE /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		686068E72831501B000068DE /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		686068E82831501B000068DE /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		686068E92831501B000068DE /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		686068EA2831501B000068DE /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
+		686068EB2831501B000068DE /* popup.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
+		686068EC2831501B000068DE /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
+		6860690E2831501B000068DE /* Den Helper.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Den Helper.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		686069132831501B000068DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6860694B28315247000068DE /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
 		6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedSectionHeaderModifier.swift; sourceTree = "<group>"; };
 		6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldModifier.swift; sourceTree = "<group>"; };
 		6865452F274AC3B600BAE03E /* PageSymbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSymbols.plist; sourceTree = "<group>"; };
@@ -364,6 +404,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		6813FD052748DE1100EC88A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6860690B2831501B000068DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -500,6 +547,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		686068E42831501B000068DE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				686068E52831501B000068DE /* _locales */,
+				686068E62831501B000068DE /* images */,
+				686068E72831501B000068DE /* manifest.json */,
+				686068E82831501B000068DE /* background.js */,
+				686068E92831501B000068DE /* content.js */,
+				686068EA2831501B000068DE /* popup.html */,
+				686068EB2831501B000068DE /* popup.css */,
+				686068EC2831501B000068DE /* popup.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		686069122831501B000068DE /* SafariExtension */ = {
+			isa = PBXGroup;
+			children = (
+				686068E32831501B000068DE /* SafariWebExtensionHandler.swift */,
+				686068E42831501B000068DE /* Resources */,
+				686069132831501B000068DE /* Info.plist */,
+				6860694B28315247000068DE /* SafariExtension.entitlements */,
+			);
+			path = SafariExtension;
+			sourceTree = "<group>";
+		};
 		687C27962634A84600099FCA /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,6 +704,7 @@
 				68C41332247263C700D1DC7B /* DenUITests */,
 				689EDC0A26A3F46A0055811A /* DenScreenshots */,
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,
+				686069122831501B000068DE /* SafariExtension */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
 			);
@@ -644,6 +718,7 @@
 				68C4132F247263C700D1DC7B /* DenUITests.xctest */,
 				689EDC0926A3F46A0055811A /* DenScreenshots.xctest */,
 				6813FD082748DE1100EC88A5 /* SymbolLibrary */,
+				6860690E2831501B000068DE /* Den Helper.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -835,6 +910,23 @@
 			productReference = 6813FD082748DE1100EC88A5 /* SymbolLibrary */;
 			productType = "com.apple.product-type.tool";
 		};
+		6860690D2831501B000068DE /* SafariExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 686069472831501B000068DE /* Build configuration list for PBXNativeTarget "SafariExtension" */;
+			buildPhases = (
+				6860690A2831501B000068DE /* Sources */,
+				6860690B2831501B000068DE /* Frameworks */,
+				6860690C2831501B000068DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SafariExtension;
+			productName = "SafariExtension Extension (iOS)";
+			productReference = 6860690E2831501B000068DE /* Den Helper.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		689EDC0826A3F46A0055811A /* DenScreenshots */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 689EDC1026A3F46A0055811A /* Build configuration list for PBXNativeTarget "DenScreenshots" */;
@@ -861,10 +953,12 @@
 				68C41306247263C700D1DC7B /* Frameworks */,
 				68C41307247263C700D1DC7B /* Resources */,
 				689EDC00269BD4680055811A /* ShellScript */,
+				6860694F2831533E000068DE /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6860694E2831533E000068DE /* PBXTargetDependency */,
 			);
 			name = Den;
 			packageProductDependencies = (
@@ -922,12 +1016,15 @@
 		68C41301247263C700D1DC7B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Garrett Johnson";
 				TargetAttributes = {
 					6813FD072748DE1100EC88A5 = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					6860690D2831501B000068DE = {
+						CreatedOnToolsVersion = 13.3.1;
 					};
 					689EDC0826A3F46A0055811A = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -973,11 +1070,27 @@
 				68C4132E247263C700D1DC7B /* DenUITests */,
 				689EDC0826A3F46A0055811A /* DenScreenshots */,
 				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
+				6860690D2831501B000068DE /* SafariExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6860690C2831501B000068DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				686069332831501B000068DE /* background.js in Resources */,
+				686069392831501B000068DE /* popup.css in Resources */,
+				686069372831501B000068DE /* popup.html in Resources */,
+				6860692F2831501B000068DE /* images in Resources */,
+				686069312831501B000068DE /* manifest.json in Resources */,
+				6860692D2831501B000068DE /* _locales in Resources */,
+				686069352831501B000068DE /* content.js in Resources */,
+				6860693B2831501B000068DE /* popup.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		689EDC0726A3F46A0055811A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1043,6 +1156,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6813FD0B2748DE1100EC88A5 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6860690A2831501B000068DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6860692B2831501B000068DE /* SafariWebExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1213,6 +1334,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		6860694E2831533E000068DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6860690D2831501B000068DE /* SafariExtension */;
+			targetProxy = 6860694D2831533E000068DE /* PBXContainerItemProxy */;
+		};
 		689EDC0F26A3F46A0055811A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 68C41308247263C700D1DC7B /* Den */;
@@ -1271,6 +1397,72 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		686069432831501B000068DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = N7TC759VWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SafariExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Den Helper";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.9.2;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.safari-extension";
+				PRODUCT_NAME = "Den Helper";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Debug;
+		};
+		686069442831501B000068DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = N7TC759VWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SafariExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Den Helper";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.9.2;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.safari-extension";
+				PRODUCT_NAME = "Den Helper";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};
@@ -1582,6 +1774,15 @@
 			buildConfigurations = (
 				6813FD0D2748DE1100EC88A5 /* Debug */,
 				6813FD0E2748DE1100EC88A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		686069472831501B000068DE /* Build configuration list for PBXNativeTarget "SafariExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				686069432831501B000068DE /* Debug */,
+				686069442831501B000068DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

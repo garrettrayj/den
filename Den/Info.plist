@@ -24,12 +24,22 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLIconFile</key>
-			<string>FeedIcon</string>
+			<string></string>
 			<key>CFBundleURLName</key>
 			<string>net.devsci.den.feed</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>feed</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>net.devsci.den.open</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>den</string>
 			</array>
 		</dict>
 	</array>

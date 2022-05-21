@@ -1,5 +1,5 @@
 //
-//  SourceManager.swift
+//  SubscriptionManager.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -15,14 +15,16 @@ final class SubscriptionManager: ObservableObject {
     var activePage: Page?
 
     func showSubscribe(for url: URL? = nil) {
-        if
-            let url = url,
-            var urlComponents = URLComponents(string: url.absoluteString.replacingOccurrences(of: "feed:", with: ""))
-        {
-            if urlComponents.scheme == nil { urlComponents.scheme = "http" }
+        if let url = url {
+            let urlString = url.absoluteString
+                .replacingOccurrences(of: "feed:", with: "")
+                .replacingOccurrences(of: "den:", with: "")
 
-            if let urlString = urlComponents.string {
-                feedUrlString = urlString
+            if var urlComponents = URLComponents(string: urlString) {
+                if urlComponents.scheme == nil { urlComponents.scheme = "http" }
+                if let urlString = urlComponents.string {
+                    feedUrlString = urlString
+                }
             }
         }
 
