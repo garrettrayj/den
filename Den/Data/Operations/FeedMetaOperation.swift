@@ -1,5 +1,5 @@
 //
-//  FaviconResultOperation.swift
+//  FeedMetaOperation.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/7/20.
@@ -10,33 +10,38 @@ import CoreData
 import OSLog
 import UIKit
 
-final class SaveFaviconOperation: Operation {
+final class FeedMetaOperation: Operation {
     // Operation inputs
     var workingFeed: WorkingFeedData?
-    var webpageFaviconResponse: HTTPURLResponse?
-    var webpageFaviconData: Data?
     var defaultFaviconResponse: HTTPURLResponse?
     var defaultFaviconData: Data?
+    var webpageFaviconResponse: HTTPURLResponse?
+    var webpageFaviconData: Data?
+    var webpageImages: [RankedImage]?
 
     override func main() {
         if isCancelled { return }
 
         if
             let httpResponse = webpageFaviconResponse,
-            let url = prepareFavicon(httpResponse: httpResponse)
+            let url = checkFavicon(httpResponse: httpResponse)
         {
             self.workingFeed?.favicon = url
         } else if
             let httpResponse = defaultFaviconResponse,
-            let url = prepareFavicon(httpResponse: httpResponse)
+            let url = checkFavicon(httpResponse: httpResponse)
         {
             self.workingFeed?.favicon = url
+        }
+
+        if let webpageImages = webpageImages {
+            self.workingFeed?.imagePool.append(contentsOf: webpageImages)
         }
 
         return
     }
 
-    private func prepareFavicon(httpResponse: HTTPURLResponse) -> URL? {
+    private func checkFavicon(httpResponse: HTTPURLResponse) -> URL? {
         if
             200..<300 ~= httpResponse.statusCode,
             let url = httpResponse.url

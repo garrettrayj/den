@@ -27,7 +27,7 @@ final class RSSItemTransform: ItemTransform {
         findContentImages()
         findDescriptionImages()
 
-        chooseBestPreviewImage()
+        workingItem.selectImage()
     }
 
     private func populateGeneralProperties() {
@@ -42,7 +42,7 @@ final class RSSItemTransform: ItemTransform {
             }
         }
 
-        if let title = rssItem.title?.preparingTitle() {
+        if let title = rssItem.title?.strippingTags().preparingTitle() {
             workingItem.title = title
         } else {
             workingItem.title = "Untitled"
@@ -68,7 +68,7 @@ final class RSSItemTransform: ItemTransform {
             let mimeType = enclosure.attributes?.type,
             ImageMIMEType(rawValue: mimeType) != nil
         {
-            self.images.append(RankedImage(url: url.absoluteURL))
+            self.workingItem.imagePool.append(RankedImage(url: url.absoluteURL))
         }
     }
 
@@ -85,14 +85,14 @@ final class RSSItemTransform: ItemTransform {
                         let width = media.attributes?.width,
                         let height = media.attributes?.height
                     {
-                        images.append(RankedImage(
+                        workingItem.imagePool.append(RankedImage(
                             url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(
+                        workingItem.imagePool.append(RankedImage(
                             url: url.absoluteURL,
                             rank: Int(ImageSize.thumbnail.area) + 2)
                         )
@@ -114,14 +114,14 @@ final class RSSItemTransform: ItemTransform {
                         let width = media.attributes?.width,
                         let height = media.attributes?.height
                     {
-                        images.append(RankedImage(
+                        workingItem.imagePool.append(RankedImage(
                             url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(url: url.absoluteURL))
+                        workingItem.imagePool.append(RankedImage(url: url.absoluteURL))
                     }
                 }
             }
@@ -139,14 +139,14 @@ final class RSSItemTransform: ItemTransform {
                         let width = Int(thumbnail.attributes?.width ?? ""),
                         let height = Int(thumbnail.attributes?.height ?? "")
                     {
-                        images.append(RankedImage(
+                        workingItem.imagePool.append(RankedImage(
                             url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(url: url.absoluteURL))
+                        workingItem.imagePool.append(RankedImage(url: url.absoluteURL))
                     }
                 }
             }
@@ -156,7 +156,7 @@ final class RSSItemTransform: ItemTransform {
     private func findContentImages() {
         if let source = rssItem.content?.contentEncoded {
             if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
-                images.append(contentsOf: allowedImages)
+                workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }
     }
@@ -164,7 +164,7 @@ final class RSSItemTransform: ItemTransform {
     private func findDescriptionImages() {
         if let source = rssItem.description?.htmlUnescape() {
             if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
-                images.append(contentsOf: allowedImages)
+                workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }
     }

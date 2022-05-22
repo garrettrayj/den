@@ -17,10 +17,10 @@ final class RefreshPlan {
     private var fetchOp: DataTaskOperation?
     private var parseOp: ParseFeedDataOperation?
     private var webpageDataOp: DataTaskOperation?
-    private var metadataOp: MetadataOperation?
+    private var webMetaOp: WebMetaOperation?
     private var defaultFaviconDataOp: DataTaskOperation?
     private var webpageFaviconDataOp: DataTaskOperation?
-    private var saveFaviconOp: SaveFaviconOperation?
+    private var feedMetaOp: FeedMetaOperation?
 
     // Adapter operations pass data between processing operations in a concurrency-friendly way
     private var fetchParseAdapter: BlockOperation?
@@ -95,10 +95,10 @@ final class RefreshPlan {
 
     private func addMetaProcessingOps() {
         webpageDataOp = DataTaskOperation()
-        metadataOp = MetadataOperation()
+        webMetaOp = WebMetaOperation()
         defaultFaviconDataOp = DataTaskOperation()
         webpageFaviconDataOp = DataTaskOperation()
-        saveFaviconOp = SaveFaviconOperation()
+        feedMetaOp = FeedMetaOperation()
     }
 
     private func addStandardAdapters(downloadImages: Bool) {
@@ -112,9 +112,9 @@ final class RefreshPlan {
             BlockOperation {[
                 unowned saveFeedOp,
                 unowned parseOp,
-                unowned saveFaviconOp
+                unowned feedMetaOp
             ] in
-                saveFeedOp?.workingFeed = saveFaviconOp?.workingFeed ?? parseOp?.workingFeed
+                saveFeedOp?.workingFeed = feedMetaOp?.workingFeed ?? parseOp?.workingFeed
                 saveFeedOp?.workingFeedItems = parseOp?.workingItems ?? []
             }
     }
@@ -124,31 +124,31 @@ final class RefreshPlan {
             webpageDataOp?.url = parseOp?.workingFeed.link
         }
 
-        webpageMetadataAdapter = BlockOperation { [unowned metadataOp, unowned webpageDataOp] in
-            metadataOp?.webpageUrl = webpageDataOp?.url
-            metadataOp?.webpageData = webpageDataOp?.data
+        webpageMetadataAdapter = BlockOperation { [unowned webMetaOp, unowned webpageDataOp] in
+            webMetaOp?.webpageUrl = webpageDataOp?.url
+            webMetaOp?.webpageData = webpageDataOp?.data
         }
 
-        metadataDefaultFaviconDataAdapter = BlockOperation { [unowned metadataOp, unowned defaultFaviconDataOp] in
-            defaultFaviconDataOp?.url = metadataOp?.defaultFavicon
+        metadataDefaultFaviconDataAdapter = BlockOperation { [unowned webMetaOp, unowned defaultFaviconDataOp] in
+            defaultFaviconDataOp?.url = webMetaOp?.defaultFavicon
         }
 
-        metadataWebpageFaviconDataAdapter = BlockOperation { [unowned metadataOp, unowned webpageFaviconDataOp] in
-            webpageFaviconDataOp?.url = metadataOp?.webpageFavicon
+        metadataWebpageFaviconDataAdapter = BlockOperation { [unowned webMetaOp, unowned webpageFaviconDataOp] in
+            webpageFaviconDataOp?.url = webMetaOp?.webpageFavicon
         }
 
         saveFaviconAdapter =
             BlockOperation {[
                 unowned defaultFaviconDataOp,
                 unowned webpageFaviconDataOp,
-                unowned saveFaviconOp,
+                unowned feedMetaOp,
                 unowned parseOp
             ] in
-                saveFaviconOp?.workingFeed = parseOp?.workingFeed
-                saveFaviconOp?.defaultFaviconData = defaultFaviconDataOp?.data
-                saveFaviconOp?.defaultFaviconResponse = defaultFaviconDataOp?.response
-                saveFaviconOp?.webpageFaviconData = webpageFaviconDataOp?.data
-                saveFaviconOp?.webpageFaviconResponse = webpageFaviconDataOp?.response
+                feedMetaOp?.workingFeed = parseOp?.workingFeed
+                feedMetaOp?.defaultFaviconData = defaultFaviconDataOp?.data
+                feedMetaOp?.defaultFaviconResponse = defaultFaviconDataOp?.response
+                feedMetaOp?.webpageFaviconData = webpageFaviconDataOp?.data
+                feedMetaOp?.webpageFaviconResponse = webpageFaviconDataOp?.response
             }
     }
 
@@ -176,13 +176,13 @@ final class RefreshPlan {
             let parseWebpageAdapter = parseWebpageAdapter,
             let webpageDataOp = webpageDataOp,
             let webpageMetadataAdapter = webpageMetadataAdapter,
-            let metadataOp = metadataOp,
+            let webMetaOp = webMetaOp,
             let metadataDefaultFaviconDataAdapter = metadataDefaultFaviconDataAdapter,
             let defaultFaviconDataOp = defaultFaviconDataOp,
             let metadataWebpageFaviconDataAdapter = metadataWebpageFaviconDataAdapter,
             let webpageFaviconDataOp = webpageFaviconDataOp,
             let saveFaviconAdapter = saveFaviconAdapter,
-            let saveFaviconOp = saveFaviconOp
+            let feedMetaOp = feedMetaOp
         else {
             preconditionFailure("Cannot wire standard dependencies due to operations not being configured.")
         }
@@ -190,15 +190,15 @@ final class RefreshPlan {
         parseWebpageAdapter.addDependency(parseOp)
         webpageDataOp.addDependency(parseWebpageAdapter)
         webpageMetadataAdapter.addDependency(webpageDataOp)
-        metadataOp.addDependency(webpageMetadataAdapter)
-        metadataDefaultFaviconDataAdapter.addDependency(metadataOp)
-        metadataWebpageFaviconDataAdapter.addDependency(metadataOp)
+        webMetaOp.addDependency(webpageMetadataAdapter)
+        metadataDefaultFaviconDataAdapter.addDependency(webMetaOp)
+        metadataWebpageFaviconDataAdapter.addDependency(webMetaOp)
         defaultFaviconDataOp.addDependency(metadataDefaultFaviconDataAdapter)
         webpageFaviconDataOp.addDependency(metadataWebpageFaviconDataAdapter)
         saveFaviconAdapter.addDependency(defaultFaviconDataOp)
         saveFaviconAdapter.addDependency(webpageFaviconDataOp)
-        saveFaviconOp.addDependency(saveFaviconAdapter)
-        saveFeedAdapter.addDependency(saveFaviconOp)
+        feedMetaOp.addDependency(saveFaviconAdapter)
+        saveFeedAdapter.addDependency(feedMetaOp)
     }
 
     func getOps() -> [Operation] {
@@ -209,13 +209,13 @@ final class RefreshPlan {
             parseWebpageAdapter,
             webpageDataOp,
             webpageMetadataAdapter,
-            metadataOp,
+            webMetaOp,
             metadataDefaultFaviconDataAdapter,
             defaultFaviconDataOp,
             metadataWebpageFaviconDataAdapter,
             webpageFaviconDataOp,
             saveFaviconAdapter,
-            saveFaviconOp,
+            feedMetaOp,
             parseDownloadThumbnailsAdapter,
             saveFeedAdapter,
             saveFeedOp

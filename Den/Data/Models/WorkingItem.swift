@@ -14,14 +14,8 @@ import FeedKit
 /**
  Item entity representation for working with data outside of NSManagedObjectContext (e.g. feed ingest operations)
  */
-final class WorkingItem {
+final class WorkingItem: ImageSelection {
     var id: UUID?
-    var image: URL?
-    var imageWidth: Int32?
-    var imageHeight: Int32?
-    var imageFile: String?
-    var imagePreview: String?
-    var imageThumbnail: String?
     var ingested: Date?
     var link: URL?
     var published: Date?

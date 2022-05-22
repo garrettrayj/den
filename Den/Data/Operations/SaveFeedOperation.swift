@@ -62,13 +62,16 @@ final class SaveFeedOperation: Operation {
         feedData.feedTitle = feed.title
 
         if saveMeta == true {
-            feedData.favicon = self.workingFeed?.favicon
-            feedData.faviconFile = self.workingFeed?.faviconFile
             feedData.metaFetched = Date()
+
+            feedData.favicon = workingFeed?.favicon
+
+            workingFeed?.selectImage()
+            feedData.image = workingFeed?.image
         }
 
-        feedData.link = self.workingFeed?.link
-        feedData.error = self.workingFeed?.error
+        feedData.link = workingFeed?.link
+        feedData.error = workingFeed?.error
         feedData.refreshed = Date()
 
         return feedData
@@ -82,9 +85,6 @@ final class SaveFeedOperation: Operation {
             item.image = workingItem.image
             item.imageWidth = workingItem.imageWidth ?? 0
             item.imageHeight = workingItem.imageHeight ?? 0
-            item.imageFile = workingItem.imageFile
-            item.imagePreview = workingItem.imagePreview
-            item.imageThumbnail = workingItem.imageThumbnail
             item.ingested = workingItem.ingested
             item.link = workingItem.link
             item.published = workingItem.published

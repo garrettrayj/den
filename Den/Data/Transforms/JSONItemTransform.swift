@@ -23,7 +23,7 @@ final class JSONItemTransform: ItemTransform {
         findAttachedImages()
         findSummaryImages()
 
-        chooseBestPreviewImage()
+        workingItem.selectImage()
     }
 
     private func populateGeneralProperties() {
@@ -31,7 +31,7 @@ final class JSONItemTransform: ItemTransform {
             workingItem.published = published
         }
 
-        if let title = jsonItem.title?.preparingTitle() {
+        if let title = jsonItem.title?.strippingTags().preparingTitle() {
             workingItem.title = title
         } else {
             workingItem.title = "Untitled"
@@ -67,7 +67,7 @@ final class JSONItemTransform: ItemTransform {
                     let urlString = attachment.url,
                     let url = URL(string: urlString, relativeTo: workingItem.link)
                 {
-                    images.append(RankedImage(url: url.absoluteURL))
+                    workingItem.imagePool.append(RankedImage(url: url.absoluteURL))
                 }
             }
         }
@@ -76,7 +76,7 @@ final class JSONItemTransform: ItemTransform {
     private func findSummaryImages() {
         if let source = jsonItem.summary {
             if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
-                images.append(contentsOf: allowedImages)
+                workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }
     }
