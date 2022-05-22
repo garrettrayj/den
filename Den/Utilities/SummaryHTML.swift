@@ -18,13 +18,6 @@ final class SummaryHTML {
         self.source = source
     }
 
-    func strippingTags() -> String? {
-        guard let doc: Document = try? SwiftSoup.parseBodyFragment(source) else { return nil }
-        guard let txt = try? doc.text() else { return nil }
-
-        return txt
-    }
-
     func plainText() -> String? {
         guard
             let doc: Document = try? SwiftSoup.parseBodyFragment(source),

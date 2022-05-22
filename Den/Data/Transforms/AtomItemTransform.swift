@@ -27,7 +27,7 @@ final class AtomItemTransform: ItemTransform {
         findContentImages()
         findSummaryImages()
 
-        chooseBestPreviewImage()
+        workingItem.selectImage()
     }
 
     private func populateGeneralProperties() {
@@ -39,7 +39,7 @@ final class AtomItemTransform: ItemTransform {
             workingItem.published = published
         }
 
-        if let title = entry.title?.preparingTitle() {
+        if let title = entry.title?.strippingTags().preparingTitle() {
             workingItem.title = title
         } else {
             workingItem.title = "Untitled"
@@ -64,7 +64,7 @@ final class AtomItemTransform: ItemTransform {
             let url = URL(string: urlString, relativeTo: workingItem.link),
             let mimeType = link.attributes?.type,
             ImageMIMEType(rawValue: mimeType) != nil {
-            self.images.append(
+            self.workingItem.imagePool.append(
                 RankedImage(
                     url: url.absoluteURL,
                     rank: Int(ImageSize.thumbnail.area) + 3
@@ -86,14 +86,14 @@ final class AtomItemTransform: ItemTransform {
                         let width = media.attributes?.width,
                         let height = media.attributes?.height
                     {
-                        images.append(RankedImage(
+                        workingItem.imagePool.append(RankedImage(
                             url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(url: url))
+                        workingItem.imagePool.append(RankedImage(url: url))
                     }
                 }
             }
@@ -112,14 +112,14 @@ final class AtomItemTransform: ItemTransform {
                         let width = Int(thumbnail.attributes?.width ?? ""),
                         let height = Int(thumbnail.attributes?.height ?? "")
                     {
-                        images.append(RankedImage(
+                        workingItem.imagePool.append(RankedImage(
                             url: url.absoluteURL,
                             rank: width * height,
                             width: width,
                             height: height
                         ))
                     } else {
-                        images.append(RankedImage(url: url.absoluteURL))
+                        workingItem.imagePool.append(RankedImage(url: url.absoluteURL))
                     }
                 }
             }
@@ -129,7 +129,7 @@ final class AtomItemTransform: ItemTransform {
     private func findContentImages() {
         if let source = entry.content?.value?.htmlUnescape() {
             if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
-                images.append(contentsOf: allowedImages)
+                workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }
     }
@@ -137,7 +137,7 @@ final class AtomItemTransform: ItemTransform {
     private func findSummaryImages() {
         if let source = entry.summary?.value?.htmlUnescape() {
             if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
-                images.append(contentsOf: allowedImages)
+                workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }
     }

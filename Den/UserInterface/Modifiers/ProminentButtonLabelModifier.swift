@@ -9,10 +9,6 @@
 import SwiftUI
 
 struct ProminentButtonModifier: ViewModifier {
-    @Environment(\.dismiss) var dismiss
-
-    var title: String = "Back"
-
     func body(content: Content) -> some View {
         content
             .labelStyle(.titleAndIcon)

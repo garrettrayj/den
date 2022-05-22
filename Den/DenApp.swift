@@ -8,7 +8,6 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 import SDWebImageSVGCoder
-import SDWebImageWebPCoder
 
 @main
 
@@ -109,8 +108,9 @@ struct DenApp: App {
 
     private func initImageHandling() {
         // Add WebP/SVG/PDF support
-        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageAWebPCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageHEICCoder.shared)
 
         let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
             mimeType.rawValue

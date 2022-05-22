@@ -18,7 +18,7 @@ struct GadgetItemView: View {
         Button {
             linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
         } label: {
-            HStack(alignment: .top) {
+            HStack(alignment: .top, spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.wrappedTitle).lineLimit(6)
 
@@ -29,7 +29,7 @@ struct GadgetItemView: View {
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .multilineTextAlignment(.leading)
 
-                if feed.showThumbnails == true && item.image != nil {
+                if feed.showThumbnails == true {
                     ItemThumbnailView(item: item)
                 }
             }

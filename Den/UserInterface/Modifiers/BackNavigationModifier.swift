@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct BackNavigationModifier: ViewModifier {
-    @Environment(\.dismiss) var dismiss
-
     var title: String = "Back"
 
     func body(content: Content) -> some View {

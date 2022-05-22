@@ -30,8 +30,9 @@ struct ItemPreviewView: View {
                 }
 
                 if item.feedData?.feed?.showThumbnails == true && item.image != nil {
-                    WebImage(url: item.image)
+                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
                         .resizable()
+                        .purgeable(true)
                         .placeholder {
                             Image(systemName: "photo")
                                 .foregroundColor(Color(UIColor.tertiaryLabel))

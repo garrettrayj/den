@@ -8,6 +8,8 @@
 
 import Foundation
 
+import SwiftSoup
+
 /**
  Adapted from https://gist.github.com/budidino/8585eecd55fd4284afaaef762450f98e#gistcomment-2270476
  */
@@ -32,6 +34,17 @@ extension String {
         case .tail:
             return self.prefix(limit) + leader
         }
+    }
+
+    func strippingTags() -> String {
+        guard
+            let doc: Document = try? SwiftSoup.parseBodyFragment(self),
+            let txt = try? doc.text()
+        else {
+            return self
+        }
+
+        return txt
     }
 
     func preparingTitle() -> String {

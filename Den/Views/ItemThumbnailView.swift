@@ -14,22 +14,31 @@ struct ItemThumbnailView: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        WebImage(url: item.image)
-            .resizable()
-            .placeholder {
-                Image(systemName: "photo")
-                    .foregroundColor(Color(UIColor.tertiaryLabel))
-            }
-            .playbackRate(0)
-            .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-            .transition(.fade(duration: 0.3))
-            .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
-            .background(Color(UIColor.tertiarySystemGroupedBackground))
-            .cornerRadius(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
-            )
-            .accessibility(label: Text("Thumbnail Image"))
-            .opacity(item.read ? 0.65 : 1.0)
+        if item.image != nil {
+            WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
+                .resizable()
+                .purgeable(true)
+                .placeholder {
+                    Image(systemName: "photo")
+                        .foregroundColor(Color(UIColor.tertiaryLabel))
+                }
+                .playbackRate(0)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .opacity(item.read ? 0.65 : 1.0)
+                .modifier(ThumbnailModifier())
+        } else if item.feedData?.image != nil {
+            WebImage(url: item.feedData?.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
+                .resizable()
+                .purgeable(true)
+                .placeholder {
+                    Image(systemName: "photo")
+                        .foregroundColor(Color(UIColor.tertiaryLabel))
+                }
+                .playbackRate(0)
+                .scaledToFit()
+                .opacity(item.read ? 0.65 : 1.0)
+                .padding(6)
+                .modifier(ThumbnailModifier())
+        }
     }
 }
