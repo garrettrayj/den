@@ -38,7 +38,6 @@ struct ItemPreviewView: View {
                                 .foregroundColor(Color(UIColor.tertiaryLabel))
                                 .imageScale(.large)
                         }
-                        .transition(.fade(duration: 0.3))
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .frame(
                             maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
