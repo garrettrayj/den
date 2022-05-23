@@ -39,14 +39,14 @@ final class WorkingFeedData: ImageSelection {
             let urlString = content.icon,
             let url = URL(string: urlString, relativeTo: link)
         {
-            favicon = url
+            imagePool.append(RankedImage(url: url.absoluteURL, rank: 3))
         }
 
         if
             let urlString = content.logo,
             let url = URL(string: urlString, relativeTo: link)
         {
-            imagePool.append(RankedImage(url: url, rank: 2))
+            imagePool.append(RankedImage(url: url.absoluteURL, rank: 1))
         }
     }
 
@@ -65,10 +65,8 @@ final class WorkingFeedData: ImageSelection {
             let url = URL(string: urlString, relativeTo: link)
         {
             imagePool.append(RankedImage(
-                url: url,
-                rank: 2,
-                width: content.image?.width,
-                height: content.image?.height
+                url: url.absoluteURL,
+                rank: 1
             ))
         }
     }
@@ -87,17 +85,15 @@ final class WorkingFeedData: ImageSelection {
             let urlString = content.favicon,
             let url = URL(string: urlString, relativeTo: link)
         {
-            favicon = url
+            favicon = url.absoluteURL
+            imagePool.append(RankedImage(url: url.absoluteURL, rank: 1))
         }
 
         if
             let urlString = content.icon,
             let url = URL(string: urlString, relativeTo: link)
         {
-            imagePool.append(RankedImage(
-                url: url,
-                rank: 2
-            ))
+            imagePool.append(RankedImage(url: url.absoluteURL, rank: 3))
         }
     }
 }

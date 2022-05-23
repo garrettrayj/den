@@ -22,16 +22,20 @@ final class FeedMetaOperation: Operation {
     override func main() {
         if isCancelled { return }
 
-        if
-            let httpResponse = webpageFaviconResponse,
-            let url = checkFavicon(httpResponse: httpResponse)
-        {
-            self.workingFeed?.favicon = url
-        } else if
-            let httpResponse = defaultFaviconResponse,
-            let url = checkFavicon(httpResponse: httpResponse)
-        {
-            self.workingFeed?.favicon = url
+        // Prefer favicon specified in the feed...
+        if workingFeed?.favicon == nil {
+            // But fallback to webpage options
+            if
+                let httpResponse = webpageFaviconResponse,
+                let url = checkFavicon(httpResponse: httpResponse)
+            {
+                self.workingFeed?.favicon = url
+            } else if
+                let httpResponse = defaultFaviconResponse,
+                let url = checkFavicon(httpResponse: httpResponse)
+            {
+                self.workingFeed?.favicon = url
+            }
         }
 
         if let webpageImages = webpageImages {

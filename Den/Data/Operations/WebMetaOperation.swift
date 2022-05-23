@@ -75,7 +75,7 @@ final class WebMetaOperation: Operation {
             return nil
         }
 
-        return RankedImage(url: url, rank: 1)
+        return RankedImage(url: url.absoluteURL, rank: 2)
     }
 
     private func getMetaImage(document: Document, url: URL, property: String) -> RankedImage? {
@@ -87,7 +87,7 @@ final class WebMetaOperation: Operation {
             return nil
         }
 
-        return RankedImage(url: url, rank: 1)
+        return RankedImage(url: url, rank: 2)
     }
 
     private func getWebpageImages(url: URL, data: Data?) -> [RankedImage] {
