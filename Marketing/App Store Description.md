@@ -10,14 +10,14 @@ If you're nostalgic for simple blocks of headlines that you can organize yoursel
 
 FEATURES
 
-+ Made for phones, tables, and computers
-Developed from the start to work great on screens of all sizes.
++ Designed For All Screens
+Enjoy a consistent experience on phones, tablets, and computers.
 
 + Cloud Sync
-Profiles, feeds, history, etc. on all your devices without signing up for yet another account.
+Profiles, feeds, history, and more on all your devices without signing up for yet another account.
 
 + Read in Your Regular Browser
-Items open in a built-in Safari view, reading mode optional, on phones and tablets. Items open in the default browser on computers.
+Items open in a built-in web view, reading mode optional, on phones and tablets. Items open in the default browser on computers.
 
 + RSS, Atom, and JSON Feed
 Works with popular formats so the library of compatible feeds is limitless.
