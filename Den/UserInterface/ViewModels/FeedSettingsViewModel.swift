@@ -17,6 +17,33 @@ final class FeedSettingsViewModel: ObservableObject {
     @Published var feed: Feed
     @Published var showingDeleteAlert = false
 
+    var pageSelection: Binding<Page?> {
+        Binding<Page?>(
+            get: {
+                return self.feed.page
+            },
+            set: { target in
+                guard let target = target else { return }
+                let source = self.feed.page
+
+                self.feed.userOrder = target.feedsUserOrderMax + 1
+                self.feed.page = target
+
+                // Update sidebar item counts
+                NotificationCenter.default.post(
+                    name: .pageRefreshed,
+                    object: source?.objectID
+                )
+                NotificationCenter.default.post(
+                    name: .pageRefreshed,
+                    object: target.objectID
+                )
+
+                self.objectWillChange.send()
+            }
+        )
+    }
+
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, feed: Feed) {
         self.viewContext = viewContext
         self.crashManager = crashManager

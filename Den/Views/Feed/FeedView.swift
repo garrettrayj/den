@@ -26,12 +26,7 @@ struct FeedView: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) { FeedItemsView(feed: viewModel.feed, frameSize: geometry.size) }
                 }
-                .navigationBarBackButtonHidden(true)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        BackButtonView(title: viewModel.feed.page?.displayName ?? "Back")
-                    }
-
                     ToolbarItem(placement: .navigationBarTrailing) {
                         if viewModel.refreshing {
                             ProgressView().progressViewStyle(ToolbarProgressStyle())
@@ -51,14 +46,21 @@ struct FeedView: View {
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             NavigationLink(
-                destination: FeedSettingsView(viewModel: FeedSettingsViewModel(
-                    viewContext: viewContext, crashManager: crashManager, feed: viewModel.feed
-                )),
+                destination: FeedSettingsView(
+                    viewModel: FeedSettingsViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager,
+                        feed: viewModel.feed
+                    )
+                ),
                 isActive: $showingSettings
             ) {
                 EmptyView()
             }
         )
+        .onChange(of: viewModel.feed.page) { _ in
+            dismiss()
+        }
         .navigationTitle(viewModel.feed.wrappedTitle)
     }
 }
