@@ -95,7 +95,13 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func openHomepage() {
-        if let url = URL(string: "https://devsci.net") {
+        if let url = URL(string: "https://garrettjohnson.com/apps/") {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    func openCommunity() {
+        if let url = URL(string: "https://discord.gg/NS9hMrYrnt") {
             UIApplication.shared.open(url)
         }
     }
@@ -108,9 +114,8 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func openPrivacyPolicy() {
-        if let url = URL(string: "https://devsci.net/privacy-policy.html") {
+        if let url = URL(string: "https://garrettjohnson.com/privacy/") {
             UIApplication.shared.open(url)
         }
     }
-
 }

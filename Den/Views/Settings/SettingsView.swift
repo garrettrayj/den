@@ -65,27 +65,17 @@ struct SettingsView: View {
         Section(header: Text("Appearance")) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Theme", systemImage: "paintbrush").lineLimit(1)
+                themeSelectionLabel
                 Spacer()
-                Picker("", selection: $uiStyle) {
-                    Text("System").tag(UIUserInterfaceStyle.unspecified)
-                    Text("Light").tag(UIUserInterfaceStyle.light)
-                    Text("Dark").tag(UIUserInterfaceStyle.dark)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .frame(width: 200)
-            }.modifier(FormRowModifier())
+                themeSelectionPicker
+                    .pickerStyle(SegmentedPickerStyle())
+                    .frame(width: 200)
+                    .modifier(FormRowModifier())
+            }
             #else
-            Picker(
-                selection: $uiStyle,
-                label: Label("Theme", systemImage: "paintbrush"),
-                content: {
-                    Text("System").tag(UIUserInterfaceStyle.unspecified)
-                    Text("Light").tag(UIUserInterfaceStyle.light)
-                    Text("Dark").tag(UIUserInterfaceStyle.dark)
-                }
-            )
+            themeSelectionPicker.modifier(FormRowModifier())
             #endif
+
         }
         .modifier(SectionHeaderModifier())
         .onChange(of: uiStyle, perform: { _ in
@@ -137,20 +127,16 @@ struct SettingsView: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("view-history-button")
 
-            Picker(selection: $historyRentionDays) {
-                Text("Forever").tag(0 as Int)
-                Text("One Year").tag(365 as Int)
-                Text("Six Months").tag(182 as Int)
-                Text("Three Months").tag(90 as Int)
-                Text("One Month").tag(30 as Int)
-                Text("Two Weeks").tag(14 as Int)
-                Text("One Week").tag(7 as Int)
-            } label: {
-                HStack {
-                    Label("Retain", systemImage: "clock.arrow.2.circlepath").lineLimit(1)
-                    Spacer()
-                }
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                historyRetentionLabel
+                Spacer()
+                historyRetentionPicker
+                    .frame(width: 200)
             }.modifier(FormRowModifier())
+            #else
+            historyRetentionPicker.modifier(FormRowModifier())
+            #endif
 
             Button(action: viewModel.clearHistory) {
                 Label("Erase History", systemImage: "hourglass.bottomhalf.filled").lineLimit(1)
@@ -210,8 +196,8 @@ struct SettingsView: View {
 
             }.padding(.vertical, 8)
 
-            Button(action: viewModel.openHomepage) {
-                Label("Website", systemImage: "house")
+            Button(action: viewModel.openCommunity) {
+                Label("Discord Community", systemImage: "person.2.wave.2")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
@@ -222,11 +208,49 @@ struct SettingsView: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("email-support-button")
 
+            Button(action: viewModel.openHomepage) {
+                Label("Developer Website", systemImage: "house")
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("website-button")
+
             Button(action: viewModel.openPrivacyPolicy) {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("privacy-policy-button")
         }.modifier(SectionHeaderModifier())
+    }
+
+    private var themeSelectionLabel: some View {
+        Label("Theme", systemImage: "paintbrush").lineLimit(1)
+    }
+
+    private var themeSelectionPicker: some View {
+        Picker(selection: $uiStyle) {
+            Text("System").tag(UIUserInterfaceStyle.unspecified)
+            Text("Light").tag(UIUserInterfaceStyle.light)
+            Text("Dark").tag(UIUserInterfaceStyle.dark)
+        } label: {
+            themeSelectionLabel
+        }
+    }
+
+    private var historyRetentionLabel: some View {
+        Label("Keep History", systemImage: "clock.arrow.2.circlepath").lineLimit(1)
+    }
+
+    private var historyRetentionPicker: some View {
+        Picker(selection: $historyRentionDays) {
+            Text("Forever").tag(0 as Int)
+            Text("One Year").tag(365 as Int)
+            Text("Six Months").tag(182 as Int)
+            Text("Three Months").tag(90 as Int)
+            Text("One Month").tag(30 as Int)
+            Text("Two Weeks").tag(14 as Int)
+            Text("One Week").tag(7 as Int)
+        } label: {
+            historyRetentionLabel
+        }
     }
 }
