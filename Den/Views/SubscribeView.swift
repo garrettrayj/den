@@ -52,17 +52,15 @@ struct SubscribeView: View {
                         }.headerProminence(.increased)
 
                         Section {
-                            Picker(selection: $viewModel.page) {
-                                ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                                    Text(page.wrappedName).tag(page as Page?)
-                                }
-                                .navigationTitle("")
-                            } label: {
-                                HStack {
-                                    Label("Page", systemImage: "target")
-                                    Spacer()
-                                }
+                            #if targetEnvironment(macCatalyst)
+                            HStack {
+                                pagePickerLabel
+                                Spacer()
+                                pagePicker.frame(width: 200)
                             }.modifier(FormRowModifier())
+                            #else
+                            pagePicker.modifier(FormRowModifier())
+                            #endif
                         }
 
                         submitButtonSection
@@ -104,18 +102,14 @@ struct SubscribeView: View {
                 } else {
                     Image(systemName: "note.text.badge.plus")
                 }
-            }
+            }.padding(.leading, 4)
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))
-        #if targetEnvironment(macCatalyst)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 16, trailing: 16))
-        #else
-        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 16, trailing: 16))
-        #endif
         .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
         .modifier(ProminentButtonModifier())
         .accessibilityIdentifier("subscribe-submit-button")
+
     }
 
     private var feedUrlInput: some View {
@@ -138,6 +132,21 @@ struct SubscribeView: View {
                         .imageScale(.large)
                 }
             }
+        }
+    }
+
+    private var pagePickerLabel: some View {
+        Label("Page", systemImage: "target")
+    }
+
+    private var pagePicker: some View {
+        Picker(selection: $viewModel.page) {
+            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+                Text(page.wrappedName).tag(page as Page?)
+            }
+            .navigationTitle("")
+        } label: {
+            pagePickerLabel
         }
     }
 }
