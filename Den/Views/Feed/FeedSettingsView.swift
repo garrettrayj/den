@@ -51,46 +51,34 @@ struct FeedSettingsView: View {
         }.modifier(SectionHeaderModifier())
     }
 
+    private var pagePickerLabel: some View {
+        Label("Page", systemImage: "square.grid.2x2")
+    }
+
     private var pagePicker: some View {
-        let pagePickerSelection = Binding<String?>(
-            get: {
-                return viewModel.feed.page?.id?.uuidString
-            },
-            set: {
-                guard
-                    let pageIdString = $0,
-                    let page = profileManager.activeProfile?.pagesArray.first(where: { page in
-                        return page.id?.uuidString == pageIdString
-                    })
-                else { return }
-
-                NotificationCenter.default.post(
-                    name: .pageRefreshed,
-                    object: viewModel.feed.page?.objectID
-                )
-
-                viewModel.feed.userOrder = page.feedsUserOrderMax + 1
-                viewModel.feed.page = page
-
-                dismiss()
-            }
-        )
-
-        return Picker(selection: pagePickerSelection) {
+        Picker(selection: viewModel.pageSelection) {
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
-                Text(page.wrappedName).tag(page.id?.uuidString)
+                Text(page.wrappedName).tag(page as Page?)
             }
         } label: {
-            HStack {
-                Label("Page", systemImage: "square.grid.2x2")
-                Spacer()
-            }
+            pagePickerLabel
+        }
+        .onChange(of: viewModel.feed.page) { _ in
+            dismiss()
         }
     }
 
     private var generalSection: some View {
         Section(header: Text("General")) {
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                pagePickerLabel
+                Spacer()
+                pagePicker.frame(width: 200)
+            }.modifier(FormRowModifier())
+            #else
             pagePicker.modifier(FormRowModifier())
+            #endif
 
             Stepper(value: $viewModel.feed.wrappedItemLimit, in: 1...100, step: 1) {
                 Label(
