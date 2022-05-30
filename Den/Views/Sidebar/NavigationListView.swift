@@ -96,7 +96,7 @@ struct NavigationListView: View {
                         refreshedLabel
                     }
                 }
-                .font(.caption.weight(.light))
+                .font(.caption)
                 .padding(.horizontal)
 
                 Spacer()
@@ -120,10 +120,8 @@ struct NavigationListView: View {
     var refreshedLabel: some View {
         VStack(alignment: .center, spacing: 0) {
             if viewModel.profile.minimumRefreshedDate != nil {
-                Text("Refreshed").lineLimit(1)
                 Text("\(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())")
                     .lineLimit(1)
-                    .foregroundColor(.secondary)
             } else {
                 #if targetEnvironment(macCatalyst)
                 Text("Press \(Image(systemName: "command")) + R to refresh feeds").imageScale(.small)

@@ -10,28 +10,37 @@ import SwiftUI
 
 struct ShowcaseSectionView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var profileManager: ProfileManager
     @ObservedObject var feed: Feed
     var width: CGFloat
 
     var body: some View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-            if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
-                BoardView(
-                    width: width,
-                    list: Array(feed.feedData?.limitedItemsArray ?? []),
-                    content: { item in
-                        ItemPreviewView(item: item).modifier(GroupBlockModifier())
-                    }
-                ).padding()
+            if feed.hasContent {
+                if visibleItems.isEmpty {
+                    Label("No unread items", systemImage: "checkmark")
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(12)
+                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                        .cornerRadius(8)
+                        .padding()
+                } else {
+                    BoardView(
+                        width: width,
+                        list: visibleItems,
+                        content: { item in
+                            ItemPreviewView(item: item).modifier(GroupBlockModifier())
+                        }
+                    ).padding()
+                }
             } else {
                 FeedUnavailableView(feedData: feed.feedData)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
+                    .padding(12)
                     .background(Color(UIColor.secondarySystemGroupedBackground))
                     .cornerRadius(8)
                     .padding()
-
             }
         }
     }
@@ -61,6 +70,12 @@ struct ShowcaseSectionView: View {
                 )
                 .accessibilityIdentifier("showcase-section-feed-button")
             }
+        }
+    }
+
+    private var visibleItems: [Item] {
+        feed.feedData!.limitedItemsArray.filter { item in
+            profileManager.activeProfile?.hideReadItems == true ? item.read == false : true
         }
     }
 }

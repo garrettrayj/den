@@ -32,7 +32,10 @@ final class LinkManager: ObservableObject {
         guard let url = url else { return }
 
         if let historyItem = logHistoryItem {
-            logHistory(item: historyItem)
+            // True reads are logged with a visited date
+            logHistory(item: historyItem, visisted: Date())
+            sendItemChanges(item: historyItem)
+            saveContext()
         }
 
         let config = SFSafariViewController.Configuration()
@@ -45,26 +48,72 @@ final class LinkManager: ObservableObject {
         rootViewController.present(safariViewController, animated: true)
     }
 
-    private func logHistory(item: Item) {
+    public func toggleItemRead(item: Item) {
+        if item.read {
+            markItemUnread(item: item)
+        } else {
+            markItemRead(item: item)
+        }
+    }
+
+    public func markItemRead(item: Item) {
+        logHistory(item: item)
+        sendItemChanges(item: item)
+        saveContext()
+    }
+
+    public func markItemUnread(item: Item) {
+        item.history?.forEach { history in
+            viewContext.delete(history)
+        }
+
+        sendItemChanges(item: item)
+        saveContext()
+    }
+
+    public func markAllRead(page: Page) {
+        page.unreadItems.forEach { item in
+            logHistory(item: item)
+        }
+
+        saveContext()
+
+        // Update item read state
+        page.feedsArray.forEach { feed in
+            feed.objectWillChange.send()
+        }
+
+        // Update unread count in page navigation
+        page.objectWillChange.send()
+    }
+
+    private func sendItemChanges(item: Item) {
+        item.objectWillChange.send()
+        item.feedData?.feed?.objectWillChange.send()
+        item.feedData?.feed?.page?.objectWillChange.send()
+    }
+
+    private func logHistory(item: Item, visisted: Date? = nil) {
         guard let activeProfile = profileManager.activeProfile else {
             return
         }
 
-        let history = History.create(in: viewContext, profile: activeProfile)
+        let history = item.history?.first ?? History.create(in: viewContext, profile: activeProfile)
         history.link = item.link
         history.title = item.title
-        history.visited = Date()
 
-        do {
-            try viewContext.save()
+        if visisted != nil {
+            history.visited = visisted
+        }
+    }
 
-            // Update link color
-            item.objectWillChange.send()
-
-            // Update unread count in page navigation
-            item.feedData?.feed?.page?.objectWillChange.send()
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
+    private func saveContext() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
+            }
         }
     }
 }

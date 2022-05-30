@@ -13,9 +13,13 @@ import OSLog
 
 @objc(Item)
 public class Item: NSManagedObject {
+    public var history: [History]? {
+        value(forKey: "history") as? [History]
+    }
+
     public var read: Bool {
-        guard let values = value(forKey: "history") as? [History] else { return false }
-        return !values.isEmpty
+        guard let history = history else { return false }
+        return !history.isEmpty
     }
 
     @objc

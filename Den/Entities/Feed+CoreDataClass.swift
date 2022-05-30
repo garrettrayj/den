@@ -55,6 +55,10 @@ public class Feed: NSManagedObject {
         return "lock.slash"
     }
 
+    public var hasContent: Bool {
+        self.feedData != nil && self.feedData!.itemsArray.count > 0 && self.feedData!.error == nil
+    }
+
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         page: Page,

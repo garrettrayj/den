@@ -18,6 +18,8 @@ struct PageView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
+    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var viewModel: PageViewModel
 
@@ -52,12 +54,15 @@ struct PageView: View {
             if viewModel.page.managedObjectContext == nil {
                 StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
                     .navigationTitle("")
+                    .toolbar {
+                        EmptyView()
+                    }
             } else if viewModel.page.feedsArray.isEmpty {
                 StatusBoxView(
                     message: Text("Page Empty"),
                     caption: emptyCaption,
                     symbol: "questionmark.square.dashed"
-                ).toolbar { toolbarContent }
+                )
             } else {
                 GeometryReader { geometry in
                     if viewMode == PageViewMode.blend.rawValue {
@@ -67,7 +72,7 @@ struct PageView: View {
                     } else {
                         GadgetsView(page: viewModel.page, frameSize: geometry.size)
                     }
-                }.toolbar { toolbarContent }
+                }
             }
         }
         .onAppear {
@@ -91,6 +96,7 @@ struct PageView: View {
                 }
             }
         )
+        .toolbar { toolbarContent }
         .navigationTitle(viewModel.page.displayName)
         .navigationBarTitleDisplayMode(.large)
     }
@@ -111,7 +117,17 @@ struct PageView: View {
                         .tag(PageViewMode.blend.rawValue)
                         .accessibilityIdentifier("blend-view-button")
                 }
+                .padding(.trailing, 4)
                 .pickerStyle(.inline)
+                .disabled(viewModel.refreshing)
+
+                Button {
+                    linkManager.markAllRead(page: viewModel.page)
+                    viewModel.objectWillChange.send()
+                } label: {
+                    Label("Mark All Read", systemImage: "checkmark.circle")
+                }
+                .accessibilityIdentifier("mark-all-read-button")
                 .disabled(viewModel.refreshing)
 
                 Button {
@@ -129,7 +145,7 @@ struct PageView: View {
                     Button {
                         showingSettings = true
                     } label: {
-                        Label("Page Settings", systemImage: "wrench")
+                        Label("Page Settings", systemImage: "gearshape")
                     }
                     .accessibilityIdentifier("page-settings-button")
                     .disabled(viewModel.refreshing)
@@ -173,5 +189,15 @@ struct PageView: View {
             }
         }
         #endif
+
+        ToolbarItemGroup(placement: .bottomBar) {
+            HStack {
+                Spacer()
+                VStack {
+                    Text("\(viewModel.page.unreadItems.count) Unread").font(.caption)
+                }
+                Spacer()
+            }
+        }
     }
 }

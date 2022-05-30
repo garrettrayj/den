@@ -43,6 +43,12 @@ public class FeedData: NSManagedObject {
         itemsArray.prefix(feed?.wrappedItemLimit ?? 6)
     }
 
+    public var unreadItems: [Item] {
+        limitedItemsArray.filter { item in
+            item.read == false
+        }
+    }
+
     public var itemsWithImageCount: Int {
         itemsArray.filter({ item in
             item.image != nil

@@ -62,12 +62,19 @@ struct HistoryView: View {
             format: "profile.id == %@",
             profile.id?.uuidString ?? ""
         )
+        let visistedPredicate = NSPredicate(
+            format: "visited != nil"
+        )
+        let compoundPredicate = NSCompoundPredicate(
+            type: .and,
+            subpredicates: [profilePredicate, visistedPredicate]
+        )
 
         _historySections = SectionedFetchRequest<String, History>(
             entity: History.entity(),
             sectionIdentifier: \.day,
             sortDescriptors: [NSSortDescriptor(keyPath: \History.visited, ascending: false)],
-            predicate: profilePredicate
+            predicate: compoundPredicate
         )
     }
 

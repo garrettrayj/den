@@ -31,7 +31,7 @@ final class JSONItemTransform: ItemTransform {
             workingItem.published = published
         }
 
-        if let title = jsonItem.title?.strippingTags().preparingTitle() {
+        if let title = jsonItem.title?.preparingTitle() {
             workingItem.title = title
         } else {
             workingItem.title = "Untitled"

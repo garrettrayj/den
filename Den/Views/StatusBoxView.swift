@@ -27,11 +27,11 @@ struct StatusBoxView: View {
                 .font(.title3)
                 .frame(maxWidth: 360)
                 .padding(.horizontal)
+                .foregroundColor(.secondary)
             Spacer()
             Spacer()
         }
         .multilineTextAlignment(.center)
-        .foregroundColor(.secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .padding()
     }

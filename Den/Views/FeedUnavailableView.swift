@@ -25,11 +25,13 @@ struct FeedUnavailableView: View {
             } else {
                 Label {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(title).font(.headline)
-                        Text(caption).font(.subheadline)
-                    }.foregroundColor(.secondary)
+                        Text(title).font(.headline.weight(.regular))
+                        Text(caption).font(.subheadline).foregroundColor(.secondary)
+                    }
                 } icon: {
-                    Image(systemName: symbol).foregroundColor(symbolColor).padding(.trailing, 4)
+                    Image(systemName: symbol)
+                        .foregroundColor(symbolColor)
+                        .padding(.trailing, 4)
                 }
             }
         }
