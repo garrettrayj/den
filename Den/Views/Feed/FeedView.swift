@@ -34,10 +34,20 @@ struct FeedView: View {
                             Button {
                                 showingSettings = true
                             } label: {
-                                Label("Feed Settings", systemImage: "wrench")
+                                Label("Feed Settings", systemImage: "gearshape")
                             }
                             .disabled(viewModel.refreshing)
                             .accessibilityIdentifier("feed-settings-button")
+                        }
+                    }
+
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        HStack {
+                            Spacer()
+                            VStack {
+                                Text("\(viewModel.feed.feedData?.unreadItems.count ?? 0) Unread").font(.caption)
+                            }
+                            Spacer()
                         }
                     }
                 }

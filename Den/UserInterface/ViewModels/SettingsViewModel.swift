@@ -19,6 +19,17 @@ final class SettingsViewModel: ObservableObject {
     let cacheManager: CacheManager
     let themeManager: ThemeManager
 
+    var hideReadItems: Binding<Bool> {
+        Binding<Bool>(
+            get: {
+                return self.profileManager.activeProfile?.hideReadItems ?? false
+            },
+            set: { isOn in
+                self.profileManager.activeProfile?.hideReadItems = isOn
+            }
+        )
+    }
+
     init(
         viewContext: NSManagedObjectContext,
         crashManager: CrashManager,

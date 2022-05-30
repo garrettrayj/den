@@ -29,15 +29,35 @@ public class Page: NSManagedObject {
         set { itemsPerFeed = Int16(newValue) }
     }
 
-    public var unreadCount: Int {
+    public var itemsCount: Int {
         feedsArray.reduce(0) { (result, feed) -> Int in
             if let feedData = feed.feedData {
-                return result + feedData.limitedItemsArray
-                    .filter { item in item.read == false }.count
+                return result + feedData.limitedItemsArray.count
             }
 
-            return result + 0
+            return result
         }
+    }
+
+    public var items: [Item] {
+        feedsArray.flatMap { (feed) -> [Item] in
+            if let feedData = feed.feedData {
+                return Array(feedData.limitedItemsArray)
+            }
+            return []
+        }
+    }
+
+    public var readItems: [Item] {
+        items.filter { item in item.read == true }
+    }
+
+    public var unreadItems: [Item] {
+        items.filter { item in item.read == false }
+    }
+
+    public var unreadCount: Int {
+        unreadItems.count
     }
 
     public var feedsArray: [Feed] {

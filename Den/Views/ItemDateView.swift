@@ -18,7 +18,7 @@ struct ItemDateView: View {
 
     var body: some View {
         Text("\(date.mediumShortDisplay())")
-            .font(.caption)
+            .font(.subheadline)
             .lineLimit(1)
             .foregroundColor(
                 isEnabled ?

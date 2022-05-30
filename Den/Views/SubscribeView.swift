@@ -38,7 +38,7 @@ struct SubscribeView: View {
                                 if viewModel.validationMessage != nil {
                                     Text(viewModel.validationMessage!).foregroundColor(.red)
                                 } else {
-                                    Text("RSS, Atom, and JSON Feed formats accepted")
+                                    Text("RSS, Atom, or JSON Feed")
                                 }
                             }
                             .font(.callout)

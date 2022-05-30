@@ -22,6 +22,7 @@ struct SettingsView: View {
     private var profiles: FetchedResults<Profile>
 
     @State var showingResetAlert = false
+    @State var showingClearHistoryAlert = false
     @State var historyRentionDays: Int = 0
 
     var body: some View {
@@ -63,6 +64,16 @@ struct SettingsView: View {
 
     private var appearanceSection: some View {
         Section(header: Text("Appearance")) {
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                hideReadItemsLabel
+                Spacer()
+                hideReadItemsToggle.labelsHidden()
+            }.modifier(FormRowModifier())
+            #else
+            hideReadItemsToggle.modifier(FormRowModifier())
+            #endif
+
             #if targetEnvironment(macCatalyst)
             HStack {
                 themeSelectionLabel
@@ -122,7 +133,7 @@ struct SettingsView: View {
             NavigationLink(
                 destination: HistoryView(profile: profileManager.activeProfile!)
             ) {
-                Label("Visited Items", systemImage: "clock")
+                Label("Viewed Items", systemImage: "clock")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("view-history-button")
@@ -138,10 +149,23 @@ struct SettingsView: View {
             historyRetentionPicker.modifier(FormRowModifier())
             #endif
 
-            Button(action: viewModel.clearHistory) {
-                Label("Erase History", systemImage: "hourglass.bottomhalf.filled").lineLimit(1)
+            Button(role: .destructive) {
+                showingClearHistoryAlert = true
+            } label: {
+                Label("Erase History", systemImage: "hourglass.bottomhalf.filled")
+                    .lineLimit(1)
+                    .foregroundColor(.red)
             }
             .modifier(FormRowModifier())
+            .alert("Erase History?", isPresented: $showingClearHistoryAlert, actions: {
+                Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
+                Button("Reset", role: .destructive) {
+                    viewModel.clearHistory()
+                    dismiss()
+                }.accessibilityIdentifier("reset-confirm-button")
+            }, message: {
+                Text("Memory of items viewed or marked read will be cleared.")
+            })
             .accessibilityIdentifier("clear-history-button")
         }
         .modifier(SectionHeaderModifier())
@@ -162,7 +186,9 @@ struct SettingsView: View {
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
-                Label("Reset Everything", systemImage: "clear").symbolRenderingMode(.multicolor)
+                Label("Reset Everything", systemImage: "clear")
+                    .lineLimit(1)
+                    .foregroundColor(.red)
             }
             .modifier(FormRowModifier())
             .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
@@ -252,5 +278,15 @@ struct SettingsView: View {
         } label: {
             historyRetentionLabel
         }
+    }
+
+    private var hideReadItemsLabel: some View {
+        Label("Hide Read Items", systemImage: "eye.slash")
+    }
+
+    private var hideReadItemsToggle: some View {
+        Toggle(isOn: viewModel.hideReadItems) {
+            hideReadItemsLabel
+        }.accessibilityIdentifier("hide-read-items-toggle")
     }
 }

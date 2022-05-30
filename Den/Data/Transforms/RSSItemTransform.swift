@@ -42,7 +42,7 @@ final class RSSItemTransform: ItemTransform {
             }
         }
 
-        if let title = rssItem.title?.strippingTags().preparingTitle() {
+        if let title = rssItem.title?.preparingTitle() {
             workingItem.title = title
         } else {
             workingItem.title = "Untitled"

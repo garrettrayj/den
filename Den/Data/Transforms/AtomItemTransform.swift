@@ -39,7 +39,7 @@ final class AtomItemTransform: ItemTransform {
             workingItem.published = published
         }
 
-        if let title = entry.title?.strippingTags().preparingTitle() {
+        if let title = entry.title?.preparingTitle() {
             workingItem.title = title
         } else {
             workingItem.title = "Untitled"
