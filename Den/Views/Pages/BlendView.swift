@@ -14,6 +14,8 @@ struct BlendView: View {
 
     @ObservedObject var page: Page
 
+    @Binding var hideRead: Bool
+
     var frameSize: CGSize
 
     var body: some View {
@@ -48,7 +50,7 @@ struct BlendView: View {
 
     private var visibleItems: [Item] {
         page.limitedItemsArray.filter { item in
-            profileManager.activeProfile?.hideReadItems == true ? item.read == false : true
+            hideRead ? item.read == false : true
         }
     }
 }

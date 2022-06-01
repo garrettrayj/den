@@ -11,6 +11,8 @@ import SwiftUI
 struct GadgetsView: View {
     @ObservedObject var page: Page
 
+    @Binding var hideRead: Bool
+
     var frameSize: CGSize
 
     var body: some View {
@@ -19,7 +21,7 @@ struct GadgetsView: View {
 
     var content: some View {
         BoardView(width: frameSize.width, list: page.feedsArray) { feed in
-            GadgetView(feed: feed)
+            GadgetView(feed: feed, hideRead: $hideRead)
         }
         .padding(.horizontal)
         .padding(.top, 8)

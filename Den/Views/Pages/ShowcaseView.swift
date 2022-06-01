@@ -11,6 +11,8 @@ import SwiftUI
 struct ShowcaseView: View {
     @ObservedObject var page: Page
 
+    @Binding var hideRead: Bool
+
     var frameSize: CGSize
 
     var body: some View {
@@ -22,6 +24,7 @@ struct ShowcaseView: View {
             ForEach(page.feedsArray) { feed in
                 ShowcaseSectionView(
                     feed: feed,
+                    hideRead: $hideRead,
                     width: frameSize.width
                 )
             }
