@@ -34,7 +34,6 @@ final class LinkManager: ObservableObject {
         if let historyItem = logHistoryItem {
             // True reads are logged with a visited date
             logHistory(item: historyItem, visisted: Date())
-            sendItemChanges(item: historyItem)
             saveContext()
         }
 
@@ -58,7 +57,6 @@ final class LinkManager: ObservableObject {
 
     public func markItemRead(item: Item) {
         logHistory(item: item)
-        sendItemChanges(item: item)
         saveContext()
     }
 
@@ -66,8 +64,6 @@ final class LinkManager: ObservableObject {
         item.history?.forEach { history in
             viewContext.delete(history)
         }
-
-        sendItemChanges(item: item)
         saveContext()
     }
 
@@ -77,20 +73,16 @@ final class LinkManager: ObservableObject {
         }
 
         saveContext()
-
-        // Update item read state
-        page.feedsArray.forEach { feed in
-            feed.objectWillChange.send()
-        }
-
-        // Update unread count in page navigation
-        page.objectWillChange.send()
     }
 
-    private func sendItemChanges(item: Item) {
-        item.objectWillChange.send()
-        item.feedData?.feed?.objectWillChange.send()
-        item.feedData?.feed?.page?.objectWillChange.send()
+    public func markAllUnread(page: Page) {
+        page.readItems.forEach { item in
+            item.history?.forEach { history in
+                viewContext.delete(history)
+            }
+        }
+
+        saveContext()
     }
 
     private func logHistory(item: Item, visisted: Date? = nil) {

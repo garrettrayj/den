@@ -10,28 +10,25 @@ import SwiftUI
 
 struct GadgetView: View {
     @ObservedObject var feed: Feed
-    @EnvironmentObject var profileManager: ProfileManager
+    @Binding var hideRead: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
 
-            if feed.hasContent {
-                if visibleItems.isEmpty {
-                    Divider()
-                    Label("No unread items", systemImage: "checkmark")
-                        .foregroundColor(.secondary)
-                        .padding(12)
-                } else {
-                    ForEach(visibleItems) { item in
-                        GadgetItemView(item: item, feed: feed)
+            VStack(spacing: 0) {
+                if feed.hasContent {
+                    ForEach(feed.feedData!.limitedItemsArray) { item in
+                        GadgetItemView(item: item, feed: feed, hideRead: $hideRead)
                     }
+                } else {
+                    Divider()
+                    FeedUnavailableView(feedData: feed.feedData)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                 }
-            } else {
-                Divider()
-                FeedUnavailableView(feedData: feed.feedData).padding()
             }
-
+            .clipped()
         }
         .fixedSize(horizontal: false, vertical: true)
         .modifier(GroupBlockModifier())
@@ -58,12 +55,6 @@ struct GadgetView: View {
                 .buttonStyle(FeedTitleButtonStyle())
                 .accessibilityIdentifier("gadget-feed-button")
             }
-        }
-    }
-
-    private var visibleItems: [Item] {
-        feed.feedData!.limitedItemsArray.filter { item in
-            profileManager.activeProfile?.hideReadItems == true ? item.read == false : true
         }
     }
 }

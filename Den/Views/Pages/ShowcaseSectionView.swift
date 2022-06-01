@@ -12,6 +12,7 @@ struct ShowcaseSectionView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var profileManager: ProfileManager
     @ObservedObject var feed: Feed
+    @Binding var hideRead: Bool
     var width: CGFloat
 
     var body: some View {
@@ -30,7 +31,7 @@ struct ShowcaseSectionView: View {
                         width: width,
                         list: visibleItems,
                         content: { item in
-                            ItemPreviewView(item: item).modifier(GroupBlockModifier())
+                            ShowcaseItemView(item: item)
                         }
                     ).padding()
                 }
@@ -75,7 +76,7 @@ struct ShowcaseSectionView: View {
 
     private var visibleItems: [Item] {
         feed.feedData!.limitedItemsArray.filter { item in
-            profileManager.activeProfile?.hideReadItems == true ? item.read == false : true
+            hideRead ? item.read == false : true
         }
     }
 }

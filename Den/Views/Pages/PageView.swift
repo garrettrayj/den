@@ -26,6 +26,7 @@ struct PageView: View {
     @State private var showingSettings: Bool = false
 
     @AppStorage("pageViewMode_na") var viewMode = 0
+    @AppStorage("pageHideRead_na") var hideRead = false
 
     init(viewModel: PageViewModel) {
         self.viewModel = viewModel
@@ -33,6 +34,11 @@ struct PageView: View {
         _viewMode = AppStorage(
             wrappedValue: PageViewMode.gadgets.rawValue,
             "pageViewMode_\(viewModel.page.id?.uuidString ?? "na")"
+        )
+
+        _hideRead = AppStorage(
+            wrappedValue: false,
+            "pageHideRead_\(viewModel.page.id?.uuidString ?? "na")"
         )
     }
 
@@ -66,11 +72,11 @@ struct PageView: View {
             } else {
                 GeometryReader { geometry in
                     if viewMode == PageViewMode.blend.rawValue {
-                        BlendView(page: viewModel.page, frameSize: geometry.size)
+                        BlendView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                     } else if viewMode == PageViewMode.showcase.rawValue {
-                        ShowcaseView(page: viewModel.page, frameSize: geometry.size)
+                        ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                     } else {
-                        GadgetsView(page: viewModel.page, frameSize: geometry.size)
+                        GadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                     }
                 }
             }
@@ -81,7 +87,7 @@ struct PageView: View {
         .onChange(of: viewMode, perform: { _ in
             viewModel.objectWillChange.send()
         })
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .background(Color(UIColor.systemGroupedBackground))
         .background(
             Group {
                 NavigationLink(
@@ -119,15 +125,6 @@ struct PageView: View {
                 }
                 .padding(.trailing, 4)
                 .pickerStyle(.inline)
-                .disabled(viewModel.refreshing)
-
-                Button {
-                    linkManager.markAllRead(page: viewModel.page)
-                    viewModel.objectWillChange.send()
-                } label: {
-                    Label("Mark All Read", systemImage: "checkmark.circle")
-                }
-                .accessibilityIdentifier("mark-all-read-button")
                 .disabled(viewModel.refreshing)
 
                 Button {
@@ -192,11 +189,39 @@ struct PageView: View {
 
         ToolbarItemGroup(placement: .bottomBar) {
             HStack {
+                Button {
+                    withAnimation {
+                        hideRead.toggle()
+                    }
+                } label: {
+                    Label(
+                        "Filter Read",
+                        systemImage: hideRead ?
+                            "line.3.horizontal.decrease.circle.fill"
+                            : "line.3.horizontal.decrease.circle"
+                    )
+                }
                 Spacer()
                 VStack {
                     Text("\(viewModel.page.unreadItems.count) Unread").font(.caption)
                 }
                 Spacer()
+                Button {
+                    // Toggle all read/unread
+                    if viewModel.page.unreadItems.isEmpty {
+                        linkManager.markAllUnread(page: viewModel.page)
+                    } else {
+                        linkManager.markAllRead(page: viewModel.page)
+                    }
+                } label: {
+                    Label(
+                        "Mark All Read",
+                        systemImage: viewModel.page.unreadItems.isEmpty ?
+                            "checkmark.circle.fill" : "checkmark.circle"
+                    )
+                }
+                .accessibilityIdentifier("mark-all-read-button")
+                .disabled(viewModel.refreshing)
             }
         }
     }
