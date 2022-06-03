@@ -11,6 +11,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ItemPreviewView: View {
+    @Environment(\.isEnabled) private var isEnabled
     @EnvironmentObject private var linkManager: LinkManager
 
     @ObservedObject var item: Item
@@ -50,7 +51,10 @@ struct ItemPreviewView: View {
         .multilineTextAlignment(.leading)
         .fixedSize(horizontal: false, vertical: true)
         .foregroundColor(
-            item.read ? Color(UIColor.secondaryLabel) : .primary
+            isEnabled ?
+                item.read ? .secondary : .primary
+            :
+                item.read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
         )
         .frame(maxWidth: .infinity)
     }

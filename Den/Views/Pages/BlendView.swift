@@ -43,8 +43,7 @@ struct BlendView: View {
                 BlendItemView(item: item)
             }
             .padding(.horizontal)
-            .padding(.top, 8)
-            .padding(.bottom, 38)
+            .padding(.bottom)
         }
     }
 
