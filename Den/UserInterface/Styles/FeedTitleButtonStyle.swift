@@ -28,7 +28,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 .foregroundColor(
                     isEnabled ? .primary : .secondary
                 )
-                .frame(height: 36)
+                .frame(height: 40)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(
                     isEnabled ?

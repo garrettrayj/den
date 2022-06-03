@@ -12,7 +12,7 @@ struct FormRowModifier: ViewModifier {
     func body(content: Content) -> some View {
         #if targetEnvironment(macCatalyst)
         content
-            .frame(minHeight: 20)
+            .frame(minHeight: 24)
             .listRowSeparator(.visible)
             .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
         #else

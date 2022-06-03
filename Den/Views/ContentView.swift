@@ -20,24 +20,33 @@ struct ContentView: View {
         if crashManager.showingCrashMessage == true {
             CrashMessageView()
         } else {
-            NavigationView {
-                SidebarView(profile: profileManager.activeProfile!)
-
-                // Default view for detail area
-                WelcomeView()
-            }
-            .modifier(MacButtonStyleModifier())
-            .sheet(isPresented: $subscriptionManager.showingSubscribe) {
-                SubscribeView(viewModel: SubscribeViewModel(
-                    viewContext: viewContext,
-                    profileManager: profileManager,
-                    refreshManager: refreshManager,
-                    urlText: subscriptionManager.feedUrlString,
-                    page: subscriptionManager.activePage
-                ))
-                .environment(\.colorScheme, colorScheme)
-                .environmentObject(profileManager)
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                navigationView.navigationViewStyle(.stack)
+            } else {
+                navigationView
             }
         }
     }
+
+    var navigationView: some View {
+        NavigationView {
+            SidebarView(profile: profileManager.activeProfile!)
+
+            // Default view for detail area
+            WelcomeView()
+        }
+        .modifier(MacButtonStyleModifier())
+        .sheet(isPresented: $subscriptionManager.showingSubscribe) {
+            SubscribeView(viewModel: SubscribeViewModel(
+                viewContext: viewContext,
+                profileManager: profileManager,
+                refreshManager: refreshManager,
+                urlText: subscriptionManager.feedUrlString,
+                page: subscriptionManager.activePage
+            ))
+            .environment(\.colorScheme, colorScheme)
+            .environmentObject(profileManager)
+        }
+    }
+
 }

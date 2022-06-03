@@ -16,10 +16,6 @@ struct ShowcaseView: View {
     var frameSize: CGSize
 
     var body: some View {
-        ScrollView(.vertical) { content }
-    }
-
-    var content: some View {
         LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
             ForEach(page.feedsArray) { feed in
                 ShowcaseSectionView(
@@ -29,7 +25,5 @@ struct ShowcaseView: View {
                 )
             }
         }
-        .padding(.top, 8)
-        .padding(.bottom, 22)
     }
 }

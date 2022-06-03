@@ -28,9 +28,9 @@ struct ItemButtonStyle: ButtonStyle {
                 .font(.headline.weight(.semibold))
                 .foregroundColor(
                     isEnabled ?
-                        read ? Color(UIColor.tertiaryLabel) : .primary
+                        read ? .secondary : .primary
                     :
-                        read ? Color(UIColor.quaternaryLabel) : .secondary
+                        read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
                 )
                 .frame(maxWidth: .infinity)
                 .background(

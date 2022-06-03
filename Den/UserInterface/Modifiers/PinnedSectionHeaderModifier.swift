@@ -12,7 +12,7 @@ struct PinnedSectionHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 36)
+            .frame(height: 40)
             .background(Color(UIColor.tertiarySystemGroupedBackground))
     }
 }

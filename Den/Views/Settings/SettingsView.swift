@@ -66,16 +66,6 @@ struct SettingsView: View {
         Section(header: Text("Appearance")) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                hideReadItemsLabel
-                Spacer()
-                hideReadItemsToggle.labelsHidden()
-            }.modifier(FormRowModifier())
-            #else
-            hideReadItemsToggle.modifier(FormRowModifier())
-            #endif
-
-            #if targetEnvironment(macCatalyst)
-            HStack {
                 themeSelectionLabel
                 Spacer()
                 themeSelectionPicker
@@ -278,15 +268,5 @@ struct SettingsView: View {
         } label: {
             historyRetentionLabel
         }
-    }
-
-    private var hideReadItemsLabel: some View {
-        Label("Hide Read Items", systemImage: "eye.slash")
-    }
-
-    private var hideReadItemsToggle: some View {
-        Toggle(isOn: viewModel.hideReadItems) {
-            hideReadItemsLabel
-        }.accessibilityIdentifier("hide-read-items-toggle")
     }
 }

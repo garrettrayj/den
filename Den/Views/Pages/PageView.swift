@@ -56,7 +56,7 @@ struct PageView: View {
     #endif
 
     var body: some View {
-        Group {
+        VStack {
             if viewModel.page.managedObjectContext == nil {
                 StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
                     .navigationTitle("")
@@ -71,12 +71,16 @@ struct PageView: View {
                 )
             } else {
                 GeometryReader { geometry in
-                    if viewMode == PageViewMode.blend.rawValue {
-                        BlendView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
-                    } else if viewMode == PageViewMode.showcase.rawValue {
-                        ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
-                    } else {
-                        GadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                    ScrollView(.vertical) {
+                        Group {
+                            if viewMode == PageViewMode.blend.rawValue {
+                                BlendView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            } else if viewMode == PageViewMode.showcase.rawValue {
+                                ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            } else {
+                                GadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            }
+                        }.padding(.top, 8)
                     }
                 }
             }
@@ -102,9 +106,9 @@ struct PageView: View {
                 }
             }
         )
-        .toolbar { toolbarContent }
         .navigationTitle(viewModel.page.displayName)
         .navigationBarTitleDisplayMode(.large)
+        .toolbar { toolbarContent }
     }
 
     @ToolbarContentBuilder
