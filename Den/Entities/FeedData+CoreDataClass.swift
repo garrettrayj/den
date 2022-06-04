@@ -49,6 +49,12 @@ public class FeedData: NSManagedObject {
         }
     }
 
+    public var readItems: [Item] {
+        limitedItemsArray.filter { item in
+            item.read == true
+        }
+    }
+
     public var itemsWithImageCount: Int {
         itemsArray.filter({ item in
             item.image != nil

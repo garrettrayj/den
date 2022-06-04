@@ -13,7 +13,7 @@ struct BottomBarProgressStyle: ProgressViewStyle {
     let width: CGFloat = 136
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(alignment: .center, spacing: 4) {
+        VStack(alignment: .center, spacing: 6) {
             HStack(spacing: 0) {
                 Text("Checking ")
                 configuration.currentValueLabel.font(.caption.weight(.light).monospacedDigit())

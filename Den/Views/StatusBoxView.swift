@@ -29,7 +29,6 @@ struct StatusBoxView: View {
                 .padding(.horizontal)
                 .foregroundColor(.secondary)
             Spacer()
-            Spacer()
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

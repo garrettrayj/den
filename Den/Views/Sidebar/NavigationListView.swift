@@ -45,7 +45,6 @@ struct NavigationListView: View {
                 Text("Search")
             }.hidden()
         )
-        .listStyle(.sidebar)
         .searchable(
             text: $searchInput,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -75,7 +74,7 @@ struct NavigationListView: View {
                     EditButton()
                         .disabled(viewModel.refreshing)
                         .accessibilityIdentifier("edit-page-list-button")
-                }.padding(.trailing, -8)
+                }
             }
 
             ToolbarItemGroup(placement: .bottomBar) {

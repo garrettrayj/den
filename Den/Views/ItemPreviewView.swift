@@ -89,5 +89,6 @@ struct ItemPreviewView: View {
             logHistoryItem: item,
             readerMode: item.feedData?.feed?.readerMode ?? false
         )
+        item.objectWillChange.send()
     }
 }

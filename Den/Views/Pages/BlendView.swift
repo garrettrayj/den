@@ -30,14 +30,14 @@ struct BlendView: View {
                 caption: Text("Tap \(Image(systemName: "arrow.clockwise")) to refresh"),
                 symbol: "questionmark.square.dashed"
             )
-            .frame(height: frameSize.height)
+            .frame(height: frameSize.height - 60)
         } else if visibleItems.isEmpty {
             StatusBoxView(
                 message: Text("No Unread Items"),
-                caption: Text("You're all caught up"),
+                caption: nil,
                 symbol: "checkmark.circle"
             )
-            .frame(height: frameSize.height)
+            .frame(height: frameSize.height - 60)
         } else {
             BoardView(width: frameSize.width, list: visibleItems) { item in
                 BlendItemView(item: item)

@@ -20,6 +20,7 @@ struct ShowcaseSectionView: View {
             if feed.hasContent {
                 if visibleItems.isEmpty {
                     Label("No unread items", systemImage: "checkmark")
+                        .imageScale(.small)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(12)

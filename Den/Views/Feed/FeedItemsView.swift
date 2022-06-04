@@ -16,22 +16,35 @@ struct FeedItemsView: View {
 
     @ObservedObject var feed: Feed
 
+    @Binding var hideRead: Bool
+
     var frameSize: CGSize
 
     var body: some View {
-        if feed.feedData != nil && feed.feedData!.itemsArray.count > 0 {
+        if feed.hasContent {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-                    BoardView(
-                        width: frameSize.width,
-                        list: Array(feed.feedData!.limitedItemsArray)
-                    ) { item in
-                        ItemPreviewView(item: item).modifier(GroupBlockModifier())
-                    }.padding()
+                    if hideRead == true && feed.feedData!.unreadItems.isEmpty {
+                        Label("No unread items", systemImage: "checkmark")
+                            .imageScale(.small)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(12)
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                            .cornerRadius(8)
+                            .padding()
+                    } else {
+                        BoardView(
+                            width: frameSize.width,
+                            list: visibleItems
+                        ) { item in
+                            ItemPreviewView(item: item).modifier(GroupBlockModifier())
+                        }.padding()
+                    }
                 }
             }
             .padding(.top, 8)
-            .padding(.bottom, 22)
+            .padding(.bottom)
         } else {
             VStack {
                 Spacer()
@@ -40,7 +53,7 @@ struct FeedItemsView: View {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            .frame(height: frameSize.height - 28)
+            .frame(height: frameSize.height - 24)
             .padding()
         }
     }
@@ -86,5 +99,13 @@ struct FeedItemsView: View {
             }
         }
         .lineLimit(1)
+    }
+
+    private var visibleItems: [Item] {
+        guard let feedData = feed.feedData else { return [] }
+
+        return feedData.limitedItemsArray.filter { item in
+            hideRead ? item.read == false : true
+        }
     }
 }

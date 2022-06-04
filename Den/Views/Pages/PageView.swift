@@ -146,7 +146,7 @@ struct PageView: View {
                     Button {
                         showingSettings = true
                     } label: {
-                        Label("Page Settings", systemImage: "gearshape")
+                        Label("Page Settings", systemImage: "wrench")
                     }
                     .accessibilityIdentifier("page-settings-button")
                     .disabled(viewModel.refreshing)
@@ -192,41 +192,45 @@ struct PageView: View {
         #endif
 
         ToolbarItemGroup(placement: .bottomBar) {
-            HStack {
-                Button {
-                    withAnimation {
-                        hideRead.toggle()
-                    }
-                } label: {
-                    Label(
-                        "Filter Read",
-                        systemImage: hideRead ?
-                            "line.3.horizontal.decrease.circle.fill"
-                            : "line.3.horizontal.decrease.circle"
-                    )
+            Button {
+                withAnimation {
+                    hideRead.toggle()
                 }
-                Spacer()
-                VStack {
-                    Text("\(viewModel.page.unreadItems.count) Unread").font(.caption)
-                }
-                Spacer()
-                Button {
-                    // Toggle all read/unread
-                    if viewModel.page.unreadItems.isEmpty {
-                        linkManager.markAllUnread(page: viewModel.page)
-                    } else {
-                        linkManager.markAllRead(page: viewModel.page)
-                    }
-                } label: {
-                    Label(
-                        "Mark All Read",
-                        systemImage: viewModel.page.unreadItems.isEmpty ?
-                            "checkmark.circle.fill" : "checkmark.circle"
-                    )
-                }
-                .accessibilityIdentifier("mark-all-read-button")
-                .disabled(viewModel.refreshing)
+            } label: {
+                Label(
+                    "Filter Read",
+                    systemImage: hideRead ?
+                        "line.3.horizontal.decrease.circle.fill"
+                        : "line.3.horizontal.decrease.circle"
+                )
             }
+            Spacer()
+            VStack {
+                Text("\(viewModel.page.unreadItems.count) Unread").font(.caption)
+            }
+            Spacer()
+            Button {
+                // Toggle all read/unread
+                if viewModel.page.unreadItems.isEmpty {
+                    linkManager.markAllUnread(page: viewModel.page)
+                    viewModel.page.limitedItemsArray.forEach { item in
+                        item.objectWillChange.send()
+                    }
+                } else {
+                    linkManager.markAllRead(page: viewModel.page)
+                    viewModel.page.limitedItemsArray.forEach { item in
+                        item.objectWillChange.send()
+                    }
+                }
+            } label: {
+                Label(
+                    "Mark All Read",
+                    systemImage: viewModel.page.unreadItems.isEmpty ?
+                        "checkmark.circle.fill" : "checkmark.circle"
+                )
+            }
+            .accessibilityIdentifier("mark-all-read-button")
+            .disabled(viewModel.refreshing)
         }
     }
 }

@@ -75,8 +75,26 @@ final class LinkManager: ObservableObject {
         saveContext()
     }
 
+    public func markAllRead(feed: Feed) {
+        feed.feedData?.unreadItems.forEach { item in
+            logHistory(item: item)
+        }
+
+        saveContext()
+    }
+
     public func markAllUnread(page: Page) {
         page.readItems.forEach { item in
+            item.history?.forEach { history in
+                viewContext.delete(history)
+            }
+        }
+
+        saveContext()
+    }
+
+    public func markAllUnread(feed: Feed) {
+        feed.feedData?.readItems.forEach { item in
             item.history?.forEach { history in
                 viewContext.delete(history)
             }

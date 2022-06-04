@@ -40,10 +40,7 @@ struct SidebarPageView: View {
                 }
             }.lineLimit(1)
         } icon: {
-            Image(systemName: viewModel.page.wrappedSymbol)
-                #if targetEnvironment(macCatalyst)
-                .imageScale(.large)
-                #endif
+            Image(systemName: viewModel.page.wrappedSymbol).imageScale(.large)
         }
     }
 }
