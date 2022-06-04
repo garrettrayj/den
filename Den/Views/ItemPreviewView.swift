@@ -12,7 +12,6 @@ import SDWebImageSwiftUI
 
 struct ItemPreviewView: View {
     @Environment(\.isEnabled) private var isEnabled
-    @EnvironmentObject private var linkManager: LinkManager
 
     @ObservedObject var item: Item
 
@@ -44,7 +43,6 @@ struct ItemPreviewView: View {
                 Color(UIColor.quaternarySystemFill) :
                 Color(UIColor.secondarySystemGroupedBackground)
         )
-        .onTapGesture(perform: openItem)
         .onHover { hovered in
             hovering = hovered
         }
@@ -81,14 +79,5 @@ struct ItemPreviewView: View {
             )
             .accessibility(label: Text("Preview Image"))
             .opacity(item.read ? 0.65 : 1.0)
-    }
-
-    private func openItem() {
-        linkManager.openLink(
-            url: item.link,
-            logHistoryItem: item,
-            readerMode: item.feedData?.feed?.readerMode ?? false
-        )
-        item.objectWillChange.send()
     }
 }
