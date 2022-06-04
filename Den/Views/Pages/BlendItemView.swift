@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct BlendItemView: View {
+    @EnvironmentObject private var linkManager: LinkManager
+
     @ObservedObject var item: Item
 
     var body: some View {
@@ -34,8 +36,18 @@ struct BlendItemView: View {
             Divider()
 
             ItemPreviewView(item: item)
+                .onTapGesture(perform: openItem)
         }
         .modifier(GroupBlockModifier())
         .transition(.move(edge: .top))
+    }
+
+    private func openItem() {
+        linkManager.openLink(
+            url: item.link,
+            logHistoryItem: item,
+            readerMode: item.feedData?.feed?.readerMode ?? false
+        )
+        item.objectWillChange.send()
     }
 }

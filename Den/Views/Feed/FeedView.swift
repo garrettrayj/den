@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import SDWebImageSwiftUI
+
 struct FeedView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -37,7 +39,7 @@ struct FeedView: View {
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
-                        FeedItemsView(feed: viewModel.feed, hideRead: $hideRead, frameSize: geometry.size)
+                        feedItems(frameSize: geometry.size)
                     }
                 }
                 .toolbar { toolbar }
@@ -62,6 +64,100 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(viewModel.feed.wrappedTitle)
+    }
+
+    private var visibleItems: [Item] {
+        guard let feedData = viewModel.feed.feedData else { return [] }
+
+        return feedData.limitedItemsArray.filter { item in
+            hideRead ? item.read == false : true
+        }
+    }
+
+    @ViewBuilder
+    private func feedItems(frameSize: CGSize) -> some View {
+        if viewModel.feed.hasContent {
+            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                Section(header: header.modifier(PinnedSectionHeaderModifier())) {
+                    if hideRead == true && viewModel.feed.feedData!.unreadItems.isEmpty {
+                        Label("No unread items", systemImage: "checkmark")
+                            .imageScale(.small)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(12)
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                            .cornerRadius(8)
+                            .padding()
+                    } else {
+                        BoardView(
+                            width: frameSize.width,
+                            list: visibleItems
+                        ) { item in
+                            ItemPreviewView(item: item)
+                                .modifier(GroupBlockModifier())
+                                .onTapGesture {
+                                    openItem(item: item)
+                                }
+                        }.padding()
+                    }
+                }
+            }
+            .padding(.top, 8)
+            .padding(.bottom)
+        } else {
+            VStack {
+                Spacer()
+                FeedUnavailableView(feedData: viewModel.feed.feedData, useStatusBox: true)
+                Spacer()
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: frameSize.height - 24)
+            .padding()
+        }
+    }
+
+    private var header: some View {
+        HStack {
+            if viewModel.feed.feedData?.linkDisplayString != nil {
+                Button {
+                    linkManager.openLink(url: viewModel.feed.feedData?.link)
+                } label: {
+                    HStack {
+                        Label {
+                            Text(viewModel.feed.feedData!.linkDisplayString!)
+                        } icon: {
+                            WebImage(url: viewModel.feed.feedData?.favicon)
+                                .resizable()
+                                .placeholder {
+                                    Image(systemName: "globe")
+                                }
+                                .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                        }
+                        Spacer()
+                        Image(systemName: "link")
+                            .foregroundColor(Color(UIColor.tertiaryLabel))
+                            .imageScale(.small)
+                            .font(.body.weight(.semibold))
+
+                    }
+                    .padding(.horizontal, 28)
+                }
+                .buttonStyle(
+                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
+                )
+            } else {
+                Label {
+                    Text("Website Unknown").font(.caption)
+                } icon: {
+                    Image(systemName: "questionmark.square")
+                }
+                .foregroundColor(.secondary)
+                .padding(.leading, 28)
+                .padding(.trailing, 8)
+            }
+        }
+        .lineLimit(1)
     }
 
     @ToolbarContentBuilder
@@ -121,6 +217,14 @@ struct FeedView: View {
             .accessibilityIdentifier("mark-all-read-button")
             .disabled(viewModel.refreshing)
         }
+    }
 
+    private func openItem(item: Item) {
+        linkManager.openLink(
+            url: item.link,
+            logHistoryItem: item,
+            readerMode: item.feedData?.feed?.readerMode ?? false
+        )
+        item.objectWillChange.send()
     }
 }

@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ShowcaseSectionView: View {
+    @EnvironmentObject private var linkManager: LinkManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var profileManager: ProfileManager
     @ObservedObject var feed: Feed
@@ -32,7 +33,12 @@ struct ShowcaseSectionView: View {
                         width: width,
                         list: visibleItems,
                         content: { item in
-                            ShowcaseItemView(item: item)
+                            ItemPreviewView(item: item)
+                                .modifier(GroupBlockModifier())
+                                .transition(.move(edge: .top))
+                                .onTapGesture {
+                                    openItem(item: item)
+                                }
                         }
                     ).padding()
                 }
@@ -79,5 +85,14 @@ struct ShowcaseSectionView: View {
         feed.feedData!.limitedItemsArray.filter { item in
             hideRead ? item.read == false : true
         }
+    }
+
+    private func openItem(item: Item) {
+        linkManager.openLink(
+            url: item.link,
+            logHistoryItem: item,
+            readerMode: item.feedData?.feed?.readerMode ?? false
+        )
+        item.objectWillChange.send()
     }
 }
