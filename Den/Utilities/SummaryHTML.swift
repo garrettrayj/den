@@ -79,16 +79,12 @@ final class SummaryHTML {
                 let width = try? Int(el.attr("width")),
                 let height = try? Int(el.attr("height"))
             {
-                if CGFloat(width) >= ImageSize.thumbnail.width
-                    && CGFloat(height) >= ImageSize.thumbnail.height {
-
-                    images.append(RankedImage(
-                        url: url.absoluteURL,
-                        rank: width * height,
-                        width: width,
-                        height: height
-                    ))
-                }
+                images.append(RankedImage(
+                    url: url.absoluteURL,
+                    rank: width * height,
+                    width: width,
+                    height: height
+                ))
             } else {
                 images.append(RankedImage(url: url.absoluteURL))
             }

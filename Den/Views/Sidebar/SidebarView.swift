@@ -19,7 +19,7 @@ struct SidebarView: View {
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var themeManager: ThemeManager
 
-    @ObservedObject var profile: Profile
+    @ObservedObject var viewModel: ProfileViewModel
 
     @State private var showingSettings: Bool = false
 
@@ -32,24 +32,16 @@ struct SidebarView: View {
      */
     var body: some View {
         Group {
-            if profile.id == nil {
+            if viewModel.profile.id == nil {
                 MissingProfileView(showingSettings: $showingSettings)
-            } else if profile.pagesArray.isEmpty {
+            } else if viewModel.profile.pagesArray.isEmpty {
                 StartListView(
-                    viewModel: ProfileViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        profile: profile
-                    ),
+                    viewModel: viewModel,
                     showingSettings: $showingSettings
                 )
             } else {
                 NavigationListView(
-                    viewModel: ProfileViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        profile: profile
-                    ),
+                    viewModel: viewModel,
                     showingSettings: $showingSettings
                 )
             }
@@ -68,6 +60,6 @@ struct SidebarView: View {
                 Label("Settings", systemImage: "gear")
             }.hidden()
         )
-        .navigationTitle(profile.displayName)
+        .navigationTitle(viewModel.profile.displayName)
     }
 }

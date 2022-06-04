@@ -130,6 +130,7 @@
 		689EDC02269BD6C80055811A /* RefreshPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDC01269BD6C80055811A /* RefreshPlan.swift */; };
 		689EDC0C26A3F46A0055811A /* PhoneScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDC0B26A3F46A0055811A /* PhoneScreenshots.swift */; };
 		68A6FF962849C0BB0071D567 /* NavListModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A6FF952849C0BB0071D567 /* NavListModifier.swift */; };
+		68A6FF9C284BCD030071D567 /* ProfileSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A6FF9B284BCD030071D567 /* ProfileSettingsViewModel.swift */; };
 		68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADABC224A21F2500BE41E2 /* WelcomeView.swift */; };
 		68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A5D2486D2AD0066B215 /* ImportView.swift */; };
 		68B34A612487C50A0066B215 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A602487C50A0066B215 /* Date+Extensions.swift */; };
@@ -354,6 +355,7 @@
 		689EDC0D26A3F46A0055811A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689EDC1326A3FE940055811A /* screenshots.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = screenshots.sh; sourceTree = "<group>"; };
 		68A6FF952849C0BB0071D567 /* NavListModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavListModifier.swift; sourceTree = "<group>"; };
+		68A6FF9B284BCD030071D567 /* ProfileSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewModel.swift; sourceTree = "<group>"; };
 		68ADABC224A21F2500BE41E2 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		68B34A5D2486D2AD0066B215 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		68B34A602487C50A0066B215 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 				6885C42326D4CBB4002C41B0 /* SecurityCheckViewModel.swift */,
 				6832AF29278AAB5A00CFC8CA /* SettingsViewModel.swift */,
 				68E9BDB0279A32EC003BA111 /* SearchViewModel.swift */,
+				68A6FF9B284BCD030071D567 /* ProfileSettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1264,6 +1267,7 @@
 				6811B08727B75C9600C6C40A /* GadgetsView.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
 				68C41316247263C700D1DC7B /* ContentView.swift in Sources */,
+				68A6FF9C284BCD030071D567 /* ProfileSettingsViewModel.swift in Sources */,
 				687D9CC624AE38BD00EB7F46 /* DataTaskOperation.swift in Sources */,
 				68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */,
 				68701DF1273E471F00C6BB69 /* ToolbarProgressStyle.swift in Sources */,
@@ -1641,7 +1645,7 @@
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Den/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1669,7 +1673,7 @@
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Den/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

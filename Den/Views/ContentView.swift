@@ -30,7 +30,13 @@ struct ContentView: View {
 
     var navigationView: some View {
         NavigationView {
-            SidebarView(profile: profileManager.activeProfile!)
+            SidebarView(
+                viewModel: ProfileViewModel(
+                    viewContext: viewContext,
+                    crashManager: crashManager,
+                    profile: profileManager.activeProfile!
+                )
+            )
 
             // Default view for detail area
             WelcomeView()

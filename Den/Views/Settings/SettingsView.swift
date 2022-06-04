@@ -41,7 +41,11 @@ struct SettingsView: View {
         Section {
             ForEach(profiles) { profile in
                 NavigationLink {
-                    ProfileView(profile: profile)
+                    ProfileView(viewModel: ProfileSettingsViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager,
+                        profile: profile
+                    ))
                 } label: {
                     Label(
                         profile.displayName,
