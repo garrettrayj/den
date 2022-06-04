@@ -17,7 +17,7 @@ struct ProfileView: View {
 
     @State private var showingDeleteAlert: Bool = false
 
-    @ObservedObject var profile: Profile
+    @ObservedObject var viewModel: ProfileSettingsViewModel
 
     var body: some View {
         Form {
@@ -26,7 +26,7 @@ struct ProfileView: View {
         }
         .navigationTitle("Profile")
         .onDisappear {
-            NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
+            viewModel.save()
         }
         .modifier(BackNavigationModifier(title: "Settings"))
     }
@@ -34,7 +34,7 @@ struct ProfileView: View {
     private var nameSection: some View {
         Section(header: Text("Name")) {
             HStack {
-                TextField("Name", text: $profile.wrappedName)
+                TextField("Name", text: $viewModel.profile.wrappedName)
                     .modifier(TitleTextFieldModifier())
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
@@ -43,14 +43,14 @@ struct ProfileView: View {
     private var activateDeleteSection: some View {
         Section {
             Button {
-                profileManager.activateProfile(profile)
+                profileManager.activateProfile(viewModel.profile)
                 // Forget the active page so refresh manager doesn't pick it up
                 subscriptionManager.activePage = nil
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "power.circle")
             }
-            .disabled(profile == profileManager.activeProfile)
+            .disabled(viewModel.profile == profileManager.activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("activate-profile-button")
 
@@ -58,19 +58,19 @@ struct ProfileView: View {
                 showingDeleteAlert = true
             } label: {
                 Label("Delete", systemImage: "trash")
-                    .symbolRenderingMode(profile == profileManager.activeProfile ? .monochrome : .multicolor)
+                    .symbolRenderingMode(viewModel.profile == profileManager.activeProfile ? .monochrome : .multicolor)
             }
-            .disabled(profile == profileManager.activeProfile)
+            .disabled(viewModel.profile == profileManager.activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("delete-profile-button")
         } footer: {
-            if profile == profileManager.activeProfile {
+            if viewModel.profile == profileManager.activeProfile {
                 Text("Active profile cannot be deleted").padding(.vertical, 8)
             }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
             Button("Delete", role: .destructive) {
-                viewContext.delete(profile)
+                viewContext.delete(viewModel.profile)
                 do {
                     try viewContext.save()
                     dismiss()

@@ -25,8 +25,7 @@ struct DenApp: App {
     @StateObject var refreshManager: RefreshManager
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
-
-    var persistenceManager: PersistenceManager
+    @StateObject var persistenceManager: PersistenceManager
 
     var body: some Scene {
         WindowGroup {
@@ -71,8 +70,7 @@ struct DenApp: App {
 
     init() {
         FileManager.default.cleanupAppDirectories()
-        persistenceManager = PersistenceManager()
-
+        let persistenceManager = PersistenceManager()
         let crashManager = CrashManager()
         let cacheManager = CacheManager(
             viewContext: persistenceManager.container.viewContext,
@@ -95,6 +93,7 @@ struct DenApp: App {
         let themeManager = ThemeManager()
 
         // StateObject managers
+        _persistenceManager = StateObject(wrappedValue: persistenceManager)
         _cacheManager = StateObject(wrappedValue: cacheManager)
         _crashManager = StateObject(wrappedValue: crashManager)
         _linkManager = StateObject(wrappedValue: linkManager)
@@ -110,7 +109,6 @@ struct DenApp: App {
         // Add WebP/SVG/PDF support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
         SDImageCodersManager.shared.addCoder(SDImageAWebPCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageHEICCoder.shared)
 
         let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
             mimeType.rawValue
