@@ -18,8 +18,17 @@ struct GadgetView: View {
 
             VStack(spacing: 0) {
                 if feed.hasContent {
-                    ForEach(feed.feedData!.limitedItemsArray) { item in
-                        GadgetItemView(item: item, feed: feed, hideRead: $hideRead)
+                    if hideRead == true && feed.feedData!.unreadItems.isEmpty {
+                        Divider()
+                        Label("No unread items", systemImage: "checkmark")
+                            .imageScale(.small)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundColor(.secondary)
+                            .padding(12)
+                    } else {
+                        ForEach(feed.feedData!.limitedItemsArray) { item in
+                            GadgetItemView(item: item, feed: feed, hideRead: $hideRead)
+                        }
                     }
                 } else {
                     Divider()
