@@ -41,7 +41,6 @@ struct ContentView: View {
             // Default view for detail area
             WelcomeView()
         }
-        .modifier(MacButtonStyleModifier())
         .sheet(isPresented: $subscriptionManager.showingSubscribe) {
             SubscribeView(viewModel: SubscribeViewModel(
                 viewContext: viewContext,

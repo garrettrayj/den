@@ -201,11 +201,13 @@ struct FeedView: View {
                     viewModel.feed.feedData?.limitedItemsArray.forEach { item in
                         item.objectWillChange.send()
                     }
+                    viewModel.objectWillChange.send()
                 } else {
                     linkManager.markAllRead(feed: viewModel.feed)
                     viewModel.feed.feedData?.limitedItemsArray.forEach { item in
                         item.objectWillChange.send()
                     }
+                    viewModel.objectWillChange.send()
                 }
             } label: {
                 Label(

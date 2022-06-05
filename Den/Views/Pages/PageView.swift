@@ -114,43 +114,45 @@ struct PageView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         #if targetEnvironment(macCatalyst)
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            HStack(spacing: 16) {
-                Picker("View Mode", selection: $viewMode) {
-                    Label("Gadgets", systemImage: "rectangle.grid.3x2")
-                        .tag(PageViewMode.gadgets.rawValue)
-                        .accessibilityIdentifier("gadgets-view-button")
-                    Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                        .tag(PageViewMode.showcase.rawValue)
-                        .accessibilityIdentifier("showcase-view-button")
-                    Label("Blend", systemImage: "square.text.square")
-                        .tag(PageViewMode.blend.rawValue)
-                        .accessibilityIdentifier("blend-view-button")
-                }
-                .padding(.trailing, 4)
-                .pickerStyle(.inline)
-                .disabled(viewModel.refreshing)
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Picker("View Mode", selection: $viewMode) {
+                Label("Gadgets", systemImage: "rectangle.grid.3x2")
+                    .tag(PageViewMode.gadgets.rawValue)
+                    .accessibilityIdentifier("gadgets-view-button")
+                Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                    .tag(PageViewMode.showcase.rawValue)
+                    .accessibilityIdentifier("showcase-view-button")
+                Label("Blend", systemImage: "square.text.square")
+                    .tag(PageViewMode.blend.rawValue)
+                    .accessibilityIdentifier("blend-view-button")
+            }
+            .padding(.trailing, 8)
+            .pickerStyle(.inline)
+            .disabled(viewModel.refreshing)
+        }
 
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                subscriptionManager.showSubscribe()
+            } label: {
+                Label("Add Feed", systemImage: "plus.circle")
+            }
+            .accessibilityIdentifier("add-feed-button")
+            .disabled(viewModel.refreshing)
+        }
+
+        ToolbarItem(placement: .navigationBarTrailing) {
+            if viewModel.refreshing {
+                ProgressView()
+                    .progressViewStyle(ToolbarProgressStyle())
+            } else {
                 Button {
-                    subscriptionManager.showSubscribe()
+                    showingSettings = true
                 } label: {
-                    Label("Add Feed", systemImage: "plus.circle")
+                    Label("Page Settings", systemImage: "wrench")
                 }
-                .accessibilityIdentifier("add-feed-button")
+                .accessibilityIdentifier("page-settings-button")
                 .disabled(viewModel.refreshing)
-
-                if viewModel.refreshing {
-                    ProgressView()
-                        .progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Button {
-                        showingSettings = true
-                    } label: {
-                        Label("Page Settings", systemImage: "wrench")
-                    }
-                    .accessibilityIdentifier("page-settings-button")
-                    .disabled(viewModel.refreshing)
-                }
             }
         }
         #else
@@ -216,11 +218,13 @@ struct PageView: View {
                     viewModel.page.limitedItemsArray.forEach { item in
                         item.objectWillChange.send()
                     }
+                    viewModel.objectWillChange.send()
                 } else {
                     linkManager.markAllRead(page: viewModel.page)
                     viewModel.page.limitedItemsArray.forEach { item in
                         item.objectWillChange.send()
                     }
+                    viewModel.objectWillChange.send()
                 }
             } label: {
                 Label(

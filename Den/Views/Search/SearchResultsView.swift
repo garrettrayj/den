@@ -102,6 +102,7 @@ struct SearchResultsView: View {
                 title: section.first?.feedData?.feed?.wrappedTitle ?? "Untitled",
                 favicon: section.first?.feedData?.favicon
             )
+            .font(.title3)
             .padding(.horizontal, 28)
             .modifier(PinnedSectionHeaderModifier())
         }

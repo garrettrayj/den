@@ -54,15 +54,21 @@ final class ProfileViewModel: ObservableObject {
             }
     }
 
+    func save() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                self.objectWillChange.send()
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
+            }
+        }
+    }
+
     func createPage() {
         _ = Page.create(in: viewContext, profile: profile)
 
-        do {
-            try viewContext.save()
-            self.objectWillChange.send()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
-        }
+        save()
     }
 
     func movePage( from source: IndexSet, to destination: Int) {
@@ -78,13 +84,8 @@ final class ProfileViewModel: ObservableObject {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
 
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch let error as NSError {
-                crashManager.handleCriticalError(error)
-            }
-        }
+        // Move may be called without tapping the edit button, so the result is saved immediately
+        save()
     }
 
     func deletePage(indices: IndexSet) {
@@ -94,12 +95,8 @@ final class ProfileViewModel: ObservableObject {
             NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
         }
 
-        do {
-            try viewContext.save()
-            self.objectWillChange.send()
-        } catch let error as NSError {
-            crashManager.handleCriticalError(error)
-        }
+        // Delete may be called without tapping the edit button, so the result is saved immediately
+        save()
     }
 
     func loadDemo() {
