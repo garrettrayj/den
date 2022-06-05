@@ -30,9 +30,8 @@ struct GadgetItemView: View {
             VStack(spacing: 0) {
                 Divider()
                 Button {
-                    withAnimation {
-                        linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
-                    }
+                    linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
+                    item.objectWillChange.send()
                 } label: {
                     HStack(alignment: .top, spacing: 12) {
                         VStack(alignment: .leading, spacing: 4) {

@@ -21,7 +21,7 @@ struct IconPickerView: View {
                 ForEach(SymbolCollection.shared.categories) { category in
                     categorySection(category: category)
                 }
-            }.padding(.bottom)
+            }.padding(.bottom, 40)
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Select Icon")
@@ -57,6 +57,7 @@ struct IconPickerView: View {
                                     )
                             )
                     }
+                    .buttonStyle(.plain)
                     .accessibilityIdentifier("select-icon-button")
                 }
             }

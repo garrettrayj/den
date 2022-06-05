@@ -79,12 +79,18 @@ final class SummaryHTML {
                 let width = try? Int(el.attr("width")),
                 let height = try? Int(el.attr("height"))
             {
-                images.append(RankedImage(
-                    url: url.absoluteURL,
-                    rank: width * height,
-                    width: width,
-                    height: height
-                ))
+                // Width and height must be greater than thumbnail size if specified
+                // to help filter hidden images
+                if CGFloat(width) >= ImageSize.thumbnail.width
+                    && CGFloat(height) >= ImageSize.thumbnail.height {
+
+                    images.append(RankedImage(
+                        url: url.absoluteURL,
+                        rank: width * height,
+                        width: width,
+                        height: height
+                    ))
+                }
             } else {
                 images.append(RankedImage(url: url.absoluteURL))
             }

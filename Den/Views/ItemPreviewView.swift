@@ -62,9 +62,23 @@ struct ItemPreviewView: View {
             .resizable()
             .purgeable(true)
             .placeholder {
-                Image(systemName: "photo")
-                    .foregroundColor(Color(UIColor.tertiaryLabel))
-                    .imageScale(.large)
+                HStack {
+                    Image(systemName: "photo").imageScale(.large)
+                    Text(item.image?.absoluteString ?? "Unknown address").lineLimit(1).frame(maxWidth: 156)
+                    Spacer()
+                    Button {
+                        UIPasteboard.general.string = item.image?.absoluteString
+                    } label: {
+                        Label("Copy Image URL", systemImage: "doc.on.doc")
+                            .imageScale(.small)
+                            .labelStyle(.iconOnly)
+                    }
+                    .accessibilityIdentifier("image-copy-url-button")
+                }
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.secondary)
+                .padding()
+
             }
             .aspectRatio(item.imageAspectRatio, contentMode: .fill)
             .frame(

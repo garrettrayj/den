@@ -76,9 +76,9 @@ struct SettingsView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .frame(width: 200)
                     .modifier(FormRowModifier())
-            }
+            }.modifier(FormRowModifier())
             #else
-            themeSelectionPicker.modifier(FormRowModifier())
+            themeSelectionPicker
             #endif
 
         }
@@ -140,7 +140,7 @@ struct SettingsView: View {
                     .frame(width: 200)
             }.modifier(FormRowModifier())
             #else
-            historyRetentionPicker.modifier(FormRowModifier())
+            historyRetentionPicker
             #endif
 
             Button(role: .destructive) {
