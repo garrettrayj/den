@@ -61,7 +61,9 @@ final class ParseFeedDataOperation: Operation {
                 forStatusCode: httpResponse.statusCode
             ).capitalized(with: .autoupdatingCurrent)
 
-            Logger.ingest.notice("Invalid HTTP response")
+            Logger.ingest.notice("""
+                Invalid HTTP response: \(httpResponse.statusCode) \(httpResponse.url?.absoluteString ?? "")
+            """)
             return
         }
 
