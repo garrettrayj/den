@@ -4,7 +4,7 @@
 
 Create landscape views of what's happening with syndication powered dashboards. 
 
-Den is for folks who want to be informed, but would prefer to avoid being targeted, analyzed, abducted, or probed. If you're nostalgic for simple blocks of headlines that you can organize yourself, then this is the app for you. Den draws inspiration from internet start pages past, but modernizes the concepts using the latest tech. Flexible, multi-column layouts make it ideal for quickly scanning articles. Native app features and performance deliver a crisp wire surfing experience.
+If you're nostalgic for simple blocks of headlines that you can organize yourself, then this is the app for you. Den draws inspiration from internet start pages past, but modernizes the ideas with the latest tech. Flexible, multi-column layouts make it ideal for quickly scanning content. Native app performance and features provide a crisp wire surfing experience.
 
 FEATURES
 
