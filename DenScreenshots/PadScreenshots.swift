@@ -6,8 +6,6 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-// swiftlint:disable function_body_length
-
 import XCTest
 
 class PadScreenshots: ScreenshotTestCase {
@@ -20,7 +18,10 @@ class PadScreenshots: ScreenshotTestCase {
         app.buttons["load-demo-button"].tap()
 
         // Refresh all pages
-        app.buttons["profile-refresh-button"].tap()
+        let profileRefreshButton = app.buttons.matching(identifier: "profile-refresh-button").firstMatch
+        profileRefreshButton.tap()
+        expectation(for: enabledPredicate, evaluatedWith: profileRefreshButton, handler: nil)
+        waitForExpectations(timeout: 120, handler: nil)
 
         // Page views
         goToPage(2)
@@ -31,8 +32,11 @@ class PadScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "01-GadgetsView")
         app.navigationBars.buttons["page-menu"].forceTap()
         app.buttons["showcase-view-button"].tap()
-        takeScreenshot(named: "02-ShowcaseView")
+        
+        // Show page menu in next screenshot
         app.navigationBars.buttons["page-menu"].forceTap()
+        takeScreenshot(named: "02-ShowcaseView")
+        
         app.buttons["blend-view-button"].tap()
         takeScreenshot(named: "03-BlendView")
 
@@ -60,13 +64,6 @@ class PadScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         takeScreenshot(named: "07-Search")
 
-        // History
-        app.buttons["history-button"].forceTap()
-        let historyHeader = app.navigationBars["History"]
-        expectation(for: existsPredicate, evaluatedWith: historyHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "08-History")
-
         // Settings
         app.buttons["settings-button"].forceTap()
         let settingsHeader = app.navigationBars["Settings"]
@@ -83,11 +80,14 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     private func goToLink(_ elementIndex: Int) {
-        app.buttons
+        let itemButton = app.buttons
             .matching(identifier: "gadget-item-button")
             .element(boundBy: elementIndex)
             .firstMatch
-            .forceTap()
+
+        expectation(for: existsPredicate, evaluatedWith: itemButton, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        itemButton.forceTap()
 
         let doneButton = app.buttons["Done"]
         expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)
