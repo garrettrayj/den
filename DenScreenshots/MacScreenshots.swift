@@ -17,7 +17,7 @@ class MacScreenshots: ScreenshotTestCase {
 
         // Refresh all pages
         let profileRefreshButton = app.buttons.matching(identifier: "profile-refresh-button").firstMatch
-        profileRefreshButton.tap()
+        profileRefreshButton.forceTap()
         expectation(for: enabledPredicate, evaluatedWith: profileRefreshButton, handler: nil)
         waitForExpectations(timeout: 120, handler: nil)
 
