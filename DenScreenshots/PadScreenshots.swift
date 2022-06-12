@@ -32,11 +32,11 @@ class PadScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "01-GadgetsView")
         app.navigationBars.buttons["page-menu"].forceTap()
         app.buttons["showcase-view-button"].tap()
-        
+
         // Show page menu in next screenshot
         app.navigationBars.buttons["page-menu"].forceTap()
         takeScreenshot(named: "02-ShowcaseView")
-        
+
         app.buttons["blend-view-button"].tap()
         takeScreenshot(named: "03-BlendView")
 
@@ -69,7 +69,7 @@ class PadScreenshots: ScreenshotTestCase {
         let settingsHeader = app.navigationBars["Settings"]
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "09-Settings")
+        takeScreenshot(named: "08-Settings")
     }
 
     private func goToPage(_ elementIndex: Int) {

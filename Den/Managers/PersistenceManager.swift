@@ -7,18 +7,29 @@
 
 import CoreData
 
+enum StorageType {
+  case persistent, inMemory
+}
+
 final class PersistenceManager: ObservableObject {
     let container: NSPersistentCloudKitContainer
 
-    init() {
+    init(_ storageType: StorageType = .persistent) {
         self.container = NSPersistentCloudKitContainer(name: "Den")
 
         guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
             return
         }
 
+        var cloudStoreLocation = appSupportDirectory.appendingPathComponent("Den.sqlite")
+        var localStoreLocation = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
+
+        if storageType == .inMemory {
+            cloudStoreLocation = URL(fileURLWithPath: "/dev/null/1")
+            localStoreLocation = URL(fileURLWithPath: "/dev/null/2")
+        }
+
         // Create a store description for a CloudKit-backed store
-        let cloudStoreLocation = appSupportDirectory.appendingPathComponent("Den.sqlite")
         let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreLocation)
         cloudStoreDescription.configuration = "Cloud"
         cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
@@ -26,7 +37,6 @@ final class PersistenceManager: ObservableObject {
         )
 
         // Create a store description for a local store
-        let localStoreLocation = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
         let localStoreDescription = NSPersistentStoreDescription(url: localStoreLocation)
         localStoreDescription.configuration = "Local"
 
