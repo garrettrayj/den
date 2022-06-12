@@ -70,7 +70,13 @@ struct DenApp: App {
 
     init() {
         FileManager.default.cleanupAppDirectories()
-        let persistenceManager = PersistenceManager()
+
+        var dbStorageType: StorageType = .persistent
+        if CommandLine.arguments.contains("--reset") {
+            dbStorageType = .inMemory
+        }
+
+        let persistenceManager = PersistenceManager(dbStorageType)
         let crashManager = CrashManager()
         let cacheManager = CacheManager(
             viewContext: persistenceManager.container.viewContext,

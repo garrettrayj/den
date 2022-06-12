@@ -58,19 +58,12 @@ class MacScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 5, handler: nil)
         takeScreenshot(named: "07-Search")
 
-        // History
-        app.buttons["history-button"].tap()
-        let historyHeader = app.navigationBars["History"]
-        expectation(for: existsPredicate, evaluatedWith: historyHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "08-History")
-
         // Settings
         app.buttons["settings-button"].tap()
         let settingsHeader = app.navigationBars["Settings"]
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "09-Settings")
+        takeScreenshot(named: "08-Settings")
     }
 
     private func goToPage(_ elementIndex: Int) {

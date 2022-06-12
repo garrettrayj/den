@@ -45,11 +45,7 @@ final class ProfileManager: ObservableObject {
         self.viewContext = viewContext
         self.crashManager = crashManager
 
-        if CommandLine.arguments.contains("--reset") {
-            self.resetProfiles()
-        } else {
-            self.loadProfile()
-        }
+        self.loadProfile()
     }
 
     func addProfile() {
