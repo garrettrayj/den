@@ -44,7 +44,7 @@ class PadScreenshots: ScreenshotTestCase {
         app.navigationBars.buttons["page-menu"].forceTap()
         app.buttons["page-settings-button"].tap()
         takeScreenshot(named: "04-PageSettings")
-        app.navigationBars.element(boundBy: 1).buttons.element(boundBy: 0).tap()
+        goBack()
 
         // Feed view
         app.buttons.matching(identifier: "item-feed-button").firstMatch.forceTap()
@@ -70,6 +70,10 @@ class PadScreenshots: ScreenshotTestCase {
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         takeScreenshot(named: "08-Settings")
+    }
+
+    private func goBack() {
+        app.navigationBars.element(boundBy: 1).buttons.element(boundBy: 0).tap()
     }
 
     private func goToPage(_ elementIndex: Int) {

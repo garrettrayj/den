@@ -31,9 +31,8 @@ struct NavigationListView: View {
                     PageView(viewModel: pageViewModel)
                 } label: {
                     SidebarPageView(viewModel: pageViewModel).environment(\.editMode, editMode)
-                        .accessibilityIdentifier("page-button")
-                        .accessibilityElement()
                 }
+                .accessibilityIdentifier("page-button")
             }
             .onMove(perform: viewModel.movePage)
             .onDelete(perform: viewModel.deletePage)
