@@ -36,7 +36,7 @@ class MacScreenshots: ScreenshotTestCase {
         // Page settings
         app.buttons["page-settings-button"].tap()
         takeScreenshot(named: "04-PageSettings")
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        goBack()
 
         // Feed view
         app.buttons["gadgets-view-button"].tap()
@@ -46,7 +46,7 @@ class MacScreenshots: ScreenshotTestCase {
         // Feed settings
         app.buttons["feed-settings-button"].tap()
         takeScreenshot(named: "06-FeedSettings")
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        goBack()
 
         // Search
         let searchField = app.searchFields["Search"]
@@ -81,5 +81,9 @@ class MacScreenshots: ScreenshotTestCase {
 
         sleep(1)
         app.activate()
+    }
+
+    private func goBack() {
+        app.navigationBars.buttons.element(boundBy: 0).tap()
     }
 }
