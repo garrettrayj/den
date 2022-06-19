@@ -1,6 +1,6 @@
 # Den for RSS
 
-## Comfy Feed Browsing
+## Comfy News Browsing
 
 Create landscape views of what's happening with syndication powered dashboards. 
 
