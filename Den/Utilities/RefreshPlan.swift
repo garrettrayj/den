@@ -58,9 +58,8 @@ final class RefreshPlan {
 
         addStandardProcessingOps(
             feedUrl: feedUrl,
-            itemLimit: feed.wrappedItemLimit,
-            existingItemLinks: existingItemLinks,
-            imageLimit: feed.wrappedItemLimit
+            itemLimit: 100,
+            existingItemLinks: existingItemLinks
         )
         addStandardAdapters(downloadImages: feed.showThumbnails)
         wireStandardDependencies(downloadImages: feed.showThumbnails)
@@ -75,8 +74,7 @@ final class RefreshPlan {
     private func addStandardProcessingOps(
         feedUrl: URL,
         itemLimit: Int,
-        existingItemLinks: [URL],
-        imageLimit: Int
+        existingItemLinks: [URL]
     ) {
         fetchOp = DataTaskOperation(feedUrl)
         parseOp = ParseFeedDataOperation(

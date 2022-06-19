@@ -79,8 +79,7 @@ final class SaveFeedOperation: Operation {
 
     private func updateFeedItems(feedData: FeedData, context: NSManagedObjectContext) {
         self.workingFeedItems.forEach { workingItem in
-            let item = Item.init(context: context)
-            item.feedData = feedData
+            let item = Item.create(moc: context, feedData: feedData)
             item.id = workingItem.id
             item.image = workingItem.image
             item.imageWidth = workingItem.imageWidth ?? 0
@@ -92,8 +91,8 @@ final class SaveFeedOperation: Operation {
             item.title = workingItem.title
         }
 
-        // Cleanup items beyond feed itemLimit
-        guard let itemLimit = feedData.feed?.wrappedItemLimit else { return }
+        // Cleanup items
+        guard let itemLimit = workingFeed?.itemCount else { return }
         if feedData.itemsArray.count > itemLimit {
             feedData.itemsArray.suffix(from: itemLimit).forEach { item in
                 context.delete(item)

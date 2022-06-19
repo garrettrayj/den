@@ -51,7 +51,6 @@ final class CacheManager: ObservableObject {
                 cleanupDate > Date(timeIntervalSinceNow: -60 * 60) { return }
 
         cleanupHistory(context: viewContext)
-        cleanupFeeds(context: viewContext)
 
         if viewContext.hasChanges {
             do {
@@ -63,27 +62,6 @@ final class CacheManager: ObservableObject {
 
         lastBackgroundCleanup = Date()
         Logger.main.info("Background cleanup finished")
-    }
-
-    private func cleanupFeeds(context: NSManagedObjectContext) {
-        do {
-            let feedDatas = try context.fetch(FeedData.fetchRequest()) as [FeedData]
-
-            for feedData in feedDatas {
-                if feedData.feed == nil {
-                    context.delete(feedData)
-                    continue
-                }
-
-                let itemLimit = feedData.feed?.wrappedItemLimit ?? 0
-                if feedData.itemsArray.count > itemLimit {
-                    let oldItems = feedData.itemsArray.suffix(from: itemLimit)
-                    oldItems.forEach { context.delete($0) }
-                }
-            }
-        } catch {
-            crashManager.handleCriticalError(error as NSError)
-        }
     }
 
     private func cleanupHistory(context: NSManagedObjectContext) {

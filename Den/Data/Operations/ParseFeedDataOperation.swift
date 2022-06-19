@@ -102,11 +102,14 @@ final class ParseFeedDataOperation: Operation {
     private func handleItems(_ items: [ParsedFeedItem]?) {
         guard let items = items, !items.isEmpty else {
             self.workingFeed.error = "Feed empty"
+            self.workingFeed.itemCount = 0
             Logger.ingest.notice("Feed empty: \(self.feedUrl)")
             return
         }
 
-        items.prefix(self.itemLimit).forEach { item in
+        self.workingFeed.itemCount = items.count
+
+        items.forEach { item in
             // Continue if link is missing
             guard let itemLink = item.linkURL else {
                 Logger.ingest.notice("Missing link for item.")
