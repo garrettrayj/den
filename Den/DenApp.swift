@@ -54,18 +54,6 @@ struct DenApp: App {
                     subscriptionManager.showSubscribe(for: url)
                 }
         }
-        .onChange(of: scenePhase) { newScenePhase in
-                switch newScenePhase {
-                case .background:
-                    cacheManager.performBackgroundCleanup()
-                case .inactive:
-                    break
-                case .active:
-                    break
-                @unknown default:
-                    break
-                }
-            }
     }
 
     init() {
