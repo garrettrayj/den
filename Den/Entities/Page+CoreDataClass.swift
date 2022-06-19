@@ -42,7 +42,7 @@ public class Page: NSManagedObject {
     public var items: [Item] {
         feedsArray.flatMap { (feed) -> [Item] in
             if let feedData = feed.feedData {
-                return Array(feedData.limitedItemsArray)
+                return feedData.limitedItemsArray
             }
             return []
         }

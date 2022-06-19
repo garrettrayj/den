@@ -39,18 +39,18 @@ public class FeedData: NSManagedObject {
         return items
     }
 
-    public var limitedItemsArray: ArraySlice<Item> {
-        itemsArray.prefix(feed?.wrappedItemLimit ?? 6)
+    public var limitedItemsArray: [Item] {
+        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? 6))
     }
 
     public var unreadItems: [Item] {
-        limitedItemsArray.filter { item in
+        itemsArray.filter { item in
             item.read == false
         }
     }
 
     public var readItems: [Item] {
-        limitedItemsArray.filter { item in
+        itemsArray.filter { item in
             item.read == true
         }
     }

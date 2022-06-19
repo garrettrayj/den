@@ -69,7 +69,7 @@ struct FeedView: View {
     private var visibleItems: [Item] {
         guard let feedData = viewModel.feed.feedData else { return [] }
 
-        return feedData.limitedItemsArray.filter { item in
+        return feedData.itemsArray.filter { item in
             hideRead ? item.read == false : true
         }
     }
@@ -198,13 +198,13 @@ struct FeedView: View {
                 // Toggle all read/unread
                 if viewModel.feed.feedData?.unreadItems.isEmpty == true {
                     linkManager.markAllUnread(feed: viewModel.feed)
-                    viewModel.feed.feedData?.limitedItemsArray.forEach { item in
+                    viewModel.feed.feedData?.itemsArray.forEach { item in
                         item.objectWillChange.send()
                     }
                     viewModel.objectWillChange.send()
                 } else {
                     linkManager.markAllRead(feed: viewModel.feed)
-                    viewModel.feed.feedData?.limitedItemsArray.forEach { item in
+                    viewModel.feed.feedData?.itemsArray.forEach { item in
                         item.objectWillChange.send()
                     }
                     viewModel.objectWillChange.send()

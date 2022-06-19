@@ -19,6 +19,7 @@ final class WorkingFeedData: ImageSelection {
     var favicon: URL?
     var httpStatus: Int?
     var id: UUID?
+    var itemCount: Int?
     var link: URL?
     var metaFetched: Date?
     var refreshed: Date?
