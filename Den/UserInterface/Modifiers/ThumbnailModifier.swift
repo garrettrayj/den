@@ -13,9 +13,9 @@ struct ThumbnailModifier: ViewModifier {
         content
             .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
             .background(Color(UIColor.systemFill))
-            .cornerRadius(4)
+            .cornerRadius(6)
             .overlay(
-                RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
             )
             .accessibility(label: Text("Thumbnail"))
     }

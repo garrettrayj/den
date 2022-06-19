@@ -87,9 +87,9 @@ struct ItemPreviewView: View {
                 alignment: .top
             )
             .background(Color(UIColor.tertiarySystemGroupedBackground))
-            .cornerRadius(4)
+            .cornerRadius(6)
             .overlay(
-                RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.opaqueSeparator), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
             )
             .accessibility(label: Text("Preview Image"))
             .opacity(item.read ? 0.65 : 1.0)

@@ -18,6 +18,9 @@ final class CacheManager: ObservableObject {
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager
+
+        // Perform cleanup on application startup
+        performBackgroundCleanup()
     }
 
     func resetFeeds() {
