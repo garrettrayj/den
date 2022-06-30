@@ -23,6 +23,14 @@ public class Profile: NSManagedObject {
         get { Int(historyRetention) }
         set { historyRetention = Int16(newValue) }
     }
+    
+    public var feedDataIDs: [UUID] {
+        pagesArray.flatMap({ page in
+            page.feedsArray.compactMap { feed in
+                feed.feedData?.id
+            }
+        })
+    }
 
     public var pagesWithInsecureFeeds: [Page] {
         pagesArray.filter { page in
