@@ -62,23 +62,7 @@ struct ItemPreviewView: View {
             .resizable()
             .purgeable(true)
             .placeholder {
-                HStack {
-                    Image(systemName: "photo").imageScale(.large)
-                    Text(item.image?.absoluteString ?? "Unknown address").lineLimit(1).frame(maxWidth: 156)
-                    Spacer()
-                    Button {
-                        UIPasteboard.general.string = item.image?.absoluteString
-                    } label: {
-                        Label("Copy Image URL", systemImage: "doc.on.doc")
-                            .imageScale(.small)
-                            .labelStyle(.iconOnly)
-                    }
-                    .accessibilityIdentifier("image-copy-url-button")
-                }
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.secondary)
-                .padding()
-
+                imagePlaceholder
             }
             .aspectRatio(item.imageAspectRatio, contentMode: .fill)
             .frame(
@@ -93,5 +77,29 @@ struct ItemPreviewView: View {
             )
             .accessibility(label: Text("Preview Image"))
             .opacity(item.read ? 0.65 : 1.0)
+    }
+
+    private var imagePlaceholder: some View {
+        HStack {
+            Image(systemName: "photo").imageScale(.large)
+            Text(item.image?.absoluteString ?? "Unknown address").lineLimit(1).frame(maxWidth: 156)
+            Spacer()
+            Button {
+                UIPasteboard.general.string = item.image?.absoluteString
+            } label: {
+                Label("Copy Image URL", systemImage: "doc.on.doc")
+                    .imageScale(.small)
+                    .labelStyle(.iconOnly)
+            }
+            .accessibilityIdentifier("image-copy-url-button")
+        }
+        .foregroundColor(.secondary)
+        .padding()
+        .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+        .frame(
+            maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
+            maxHeight: item.imageHeight > 0 ? min(CGFloat(item.imageHeight), 400) : nil,
+            alignment: .top
+        )
     }
 }

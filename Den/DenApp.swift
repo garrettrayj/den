@@ -4,6 +4,7 @@
 //  Created by Garrett Johnson on 12/25/20.
 //
 
+import OSLog
 import SwiftUI
 
 import SDWebImageSwiftUI
@@ -53,6 +54,19 @@ struct DenApp: App {
                 .onOpenURL { url in
                     subscriptionManager.showSubscribe(for: url)
                 }
+        }
+        .onChange(of: scenePhase) { phase in
+            switch phase {
+            case .active:
+                Logger.main.debug("app.phase.active")
+            case .inactive:
+                Logger.main.debug("app.phase.inactive")
+            case .background:
+                Logger.main.debug("app.phase.background")
+                saveContext()
+            @unknown default:
+                Logger.main.debug("app.phase.unknown")
+            }
         }
     }
 
@@ -110,5 +124,17 @@ struct DenApp: App {
 
         // Add default HTTP header
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
+    }
+
+    private func saveContext() {
+        let context = persistenceManager.container.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                crashManager.handleCriticalError(nserror)
+            }
+        }
     }
 }

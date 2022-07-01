@@ -39,18 +39,34 @@ public class FeedData: NSManagedObject {
         return items
     }
 
-    public var limitedItemsArray: [Item] {
-        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? 6))
+    public var limitedItems: [Item] {
+        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? Int(ContentLimits.itemLimitDefault)))
     }
 
     public var unreadItems: [Item] {
-        itemsArray.filter { item in
+        limitedItems.filter { item in
             item.read == false
         }
     }
 
     public var readItems: [Item] {
-        itemsArray.filter { item in
+        limitedItems.filter { item in
+            item.read == true
+        }
+    }
+
+    public var previewItems: [Item] {
+        Array(itemsArray.prefix(feed?.wrappedPreviewLimit ?? Int(ContentLimits.previewLimitDefault)))
+    }
+
+    public var unreadPreviewItems: [Item] {
+        previewItems.filter { item in
+            item.read == false
+        }
+    }
+
+    public var readPreviewItems: [Item] {
+        previewItems.filter { item in
             item.read == true
         }
     }

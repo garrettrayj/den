@@ -82,7 +82,7 @@ struct ShowcaseSectionView: View {
     }
 
     private var visibleItems: [Item] {
-        feed.feedData!.limitedItemsArray.filter { item in
+        feed.feedData!.previewItems.filter { item in
             hideRead ? item.read == false : true
         }
     }

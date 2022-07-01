@@ -58,7 +58,7 @@ final class RefreshPlan {
 
         addStandardProcessingOps(
             feedUrl: feedUrl,
-            itemLimit: 100,
+            itemLimit: feed.wrappedItemLimit,
             existingItemLinks: existingItemLinks
         )
         addStandardAdapters(downloadImages: feed.showThumbnails)

@@ -80,11 +80,16 @@ struct FeedSettingsView: View {
             pagePicker.modifier(FormRowModifier())
             #endif
 
-            Stepper(value: $viewModel.feed.wrappedItemLimit, in: 1...100, step: 1) {
-                Label(
-                    "Item Limit: \(viewModel.feed.wrappedItemLimit)",
-                    systemImage: "list.bullet.rectangle"
-                )
+            Stepper(value: $viewModel.feed.wrappedPreviewLimit, in: 1...100, step: 1) {
+                HStack {
+                    Label {
+                        Text("Preview Items")
+                    } icon: {
+                        Image(systemName: "text.below.photo")
+                    }
+                    Spacer()
+                    Text("\(viewModel.feed.wrappedPreviewLimit)")
+                }
             }.modifier(FormRowModifier())
 
             #if targetEnvironment(macCatalyst)

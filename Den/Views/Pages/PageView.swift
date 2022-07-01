@@ -208,33 +208,36 @@ struct PageView: View {
             }
             Spacer()
             VStack {
-                Text("\(viewModel.page.unreadItems.count) Unread").font(.caption)
+                Text("\(viewModel.page.unreadPreviewItems.count) Unread").font(.caption)
             }
             Spacer()
             Button {
                 // Toggle all read/unread
-                if viewModel.page.unreadItems.isEmpty {
+                if viewModel.page.unreadPreviewItems.isEmpty {
                     linkManager.markAllUnread(page: viewModel.page)
-                    viewModel.page.limitedItemsArray.forEach { item in
-                        item.objectWillChange.send()
-                    }
-                    viewModel.objectWillChange.send()
+                    dispatchItemChanges()
                 } else {
                     linkManager.markAllRead(page: viewModel.page)
-                    viewModel.page.limitedItemsArray.forEach { item in
-                        item.objectWillChange.send()
-                    }
-                    viewModel.objectWillChange.send()
+                    dispatchItemChanges()
                 }
             } label: {
                 Label(
                     "Mark All Read",
-                    systemImage: viewModel.page.unreadItems.isEmpty ?
+                    systemImage: viewModel.page.unreadPreviewItems.isEmpty ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
             }
             .accessibilityIdentifier("mark-all-read-button")
             .disabled(viewModel.refreshing)
+        }
+    }
+
+    private func dispatchItemChanges() {
+        DispatchQueue.main.async {
+            viewModel.page.previewItems.forEach { item in
+                item.objectWillChange.send()
+            }
+            viewModel.objectWillChange.send()
         }
     }
 }

@@ -34,7 +34,6 @@ final class LinkManager: ObservableObject {
         if let historyItem = logHistoryItem {
             // True reads are logged with a visited date
             logHistory(item: historyItem, visisted: Date())
-            saveContext()
         }
 
         let config = SFSafariViewController.Configuration()
@@ -57,40 +56,32 @@ final class LinkManager: ObservableObject {
 
     public func markItemRead(item: Item) {
         logHistory(item: item)
-        saveContext()
     }
 
     public func markItemUnread(item: Item) {
         item.history?.forEach { history in
             viewContext.delete(history)
         }
-        saveContext()
     }
 
     public func markAllRead(page: Page) {
-        page.unreadItems.forEach { item in
+        page.unreadPreviewItems.forEach { item in
             logHistory(item: item)
         }
+    }
 
-        saveContext()
+    public func markAllUnread(page: Page) {
+        page.readPreviewItems.forEach { item in
+            item.history?.forEach { history in
+                viewContext.delete(history)
+            }
+        }
     }
 
     public func markAllRead(feed: Feed) {
         feed.feedData?.unreadItems.forEach { item in
             logHistory(item: item)
         }
-
-        saveContext()
-    }
-
-    public func markAllUnread(page: Page) {
-        page.readItems.forEach { item in
-            item.history?.forEach { history in
-                viewContext.delete(history)
-            }
-        }
-
-        saveContext()
     }
 
     public func markAllUnread(feed: Feed) {
@@ -99,8 +90,6 @@ final class LinkManager: ObservableObject {
                 viewContext.delete(history)
             }
         }
-
-        saveContext()
     }
 
     private func logHistory(item: Item, visisted: Date? = nil) {
@@ -114,16 +103,6 @@ final class LinkManager: ObservableObject {
 
         if visisted != nil {
             history.visited = visisted
-        }
-    }
-
-    private func saveContext() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                crashManager.handleCriticalError(error as NSError)
-            }
         }
     }
 }
