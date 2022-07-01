@@ -69,7 +69,7 @@ struct FeedView: View {
     private var visibleItems: [Item] {
         guard let feedData = viewModel.feed.feedData else { return [] }
 
-        return feedData.itemsArray.filter { item in
+        return feedData.limitedItems.filter { item in
             hideRead ? item.read == false : true
         }
     }
@@ -212,7 +212,7 @@ struct FeedView: View {
             } label: {
                 Label(
                     "Mark All Read",
-                    systemImage: viewModel.feed.feedData?.unreadItems.isEmpty ?? false ?
+                    systemImage: viewModel.feed.feedData?.unreadPreviewItems.isEmpty ?? false ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
             }

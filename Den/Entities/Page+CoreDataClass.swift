@@ -29,35 +29,21 @@ public class Page: NSManagedObject {
         set { itemsPerFeed = Int16(newValue) }
     }
 
-    public var itemsCount: Int {
-        feedsArray.reduce(0) { (result, feed) -> Int in
-            if let feedData = feed.feedData {
-                return result + feedData.limitedItemsArray.count
-            }
-
-            return result
-        }
-    }
-
-    public var items: [Item] {
+    public var previewItems: [Item] {
         feedsArray.flatMap { (feed) -> [Item] in
             if let feedData = feed.feedData {
-                return feedData.limitedItemsArray
+                return feedData.previewItems
             }
             return []
         }
     }
 
-    public var readItems: [Item] {
-        items.filter { item in item.read == true }
+    public var readPreviewItems: [Item] {
+        previewItems.filter { item in item.read == true }
     }
 
-    public var unreadItems: [Item] {
-        items.filter { item in item.read == false }
-    }
-
-    public var unreadCount: Int {
-        unreadItems.count
+    public var unreadPreviewItems: [Item] {
+        previewItems.filter { item in item.read == false }
     }
 
     public var feedsArray: [Feed] {
@@ -114,7 +100,7 @@ public class Page: NSManagedObject {
 
         feedsArray.forEach { feed in
             guard let feedData = feed.feedData else { return }
-            items.union(Set(feedData.limitedItemsArray))
+            items.union(Set(feedData.previewItems))
         }
 
         return items.sortedArray(
