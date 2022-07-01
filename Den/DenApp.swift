@@ -63,7 +63,7 @@ struct DenApp: App {
                 Logger.main.debug("app.phase.inactive")
             case .background:
                 Logger.main.debug("app.phase.background")
-                saveContext()
+                cacheManager.cleanup()
             @unknown default:
                 Logger.main.debug("app.phase.unknown")
             }
@@ -80,9 +80,14 @@ struct DenApp: App {
 
         let persistenceManager = PersistenceManager(dbStorageType)
         let crashManager = CrashManager()
+        let refreshManager = RefreshManager(
+            persistentContainer: persistenceManager.container,
+            crashManager: crashManager
+        )
         let cacheManager = CacheManager(
             viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager
+            crashManager: crashManager,
+            refreshManager: refreshManager
         )
         let profileManager = ProfileManager(
             viewContext: persistenceManager.container.viewContext,
@@ -92,10 +97,6 @@ struct DenApp: App {
             viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager,
             profileManager: profileManager
-        )
-        let refreshManager = RefreshManager(
-            persistentContainer: persistenceManager.container,
-            crashManager: crashManager
         )
         let subscriptionManager = SubscriptionManager()
         let themeManager = ThemeManager()
@@ -124,17 +125,5 @@ struct DenApp: App {
 
         // Add default HTTP header
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
-    }
-
-    private func saveContext() {
-        let context = persistenceManager.container.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                crashManager.handleCriticalError(nserror)
-            }
-        }
     }
 }

@@ -212,7 +212,7 @@ struct FeedView: View {
             } label: {
                 Label(
                     "Mark All Read",
-                    systemImage: viewModel.feed.feedData?.unreadPreviewItems.isEmpty ?? false ?
+                    systemImage: viewModel.feed.feedData?.unreadItems.isEmpty ?? false ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
             }
