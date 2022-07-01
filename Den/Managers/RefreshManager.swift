@@ -14,6 +14,8 @@ final class RefreshManager: ObservableObject {
     let persistentContainer: NSPersistentContainer
     let crashManager: CrashManager
 
+    var refreshing: Bool = false
+
     init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
@@ -29,10 +31,12 @@ final class RefreshManager: ObservableObject {
     public func refresh(profile: Profile, activePage: Page?) {
         var operations: [Operation] = []
 
+        refreshing = true
         NotificationCenter.default.post(name: .profileQueued, object: profile.objectID)
 
         let profileCompletionOp = BlockOperation { [weak profile] in
             DispatchQueue.main.async {
+                self.refreshing = false
                 NotificationCenter.default.post(name: .profileRefreshed, object: profile?.objectID)
             }
         }

@@ -12,15 +12,14 @@ import OSLog
 final class CacheManager: ObservableObject {
     let viewContext: NSManagedObjectContext
     let crashManager: CrashManager
+    let refreshManager: RefreshManager
 
     private var lastBackgroundCleanup: Date?
 
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, refreshManager: RefreshManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager
-
-        // Perform cleanup on application startup
-        performBackgroundCleanup()
+        self.refreshManager = refreshManager
     }
 
     func resetFeeds() {
@@ -48,8 +47,11 @@ final class CacheManager: ObservableObject {
         }
     }
 
-    func performBackgroundCleanup() {
-        // Only perform background cleanup every hour
+    func cleanup() {
+        // Only perform cleanup if not refreshing
+        if refreshManager.refreshing { return }
+
+        // Only perform cleanup once every hour
         if let cleanupDate = lastBackgroundCleanup,
                 cleanupDate > Date(timeIntervalSinceNow: -60 * 60) { return }
 
@@ -64,7 +66,7 @@ final class CacheManager: ObservableObject {
         }
 
         lastBackgroundCleanup = Date()
-        Logger.main.info("Background cleanup finished")
+        Logger.main.info("cache.cleanup.finished")
     }
 
     private func cleanupHistory(context: NSManagedObjectContext) {
