@@ -99,6 +99,20 @@ final class LinkManager: ObservableObject {
         saveContext()
     }
 
+    public func toggleRead(trend: Trend) {
+        if trend.items.unread().isEmpty {
+            trend.items.forEach { item in
+                clearHistory(item: item)
+            }
+        } else {
+            trend.items.unread().forEach { item in
+                logHistory(item: item)
+            }
+        }
+
+        saveContext()
+    }
+
     private func logHistory(item: Item, visisted: Date? = nil) {
         guard let activeProfile = profileManager.activeProfile else {
             return
@@ -110,6 +124,12 @@ final class LinkManager: ObservableObject {
 
         if visisted != nil {
             history.visited = visisted
+        }
+    }
+
+    private func clearHistory(item: Item) {
+        item.history?.forEach { history in
+            viewContext.delete(history)
         }
     }
 

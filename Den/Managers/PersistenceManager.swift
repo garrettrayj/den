@@ -12,9 +12,11 @@ enum StorageType {
 }
 
 final class PersistenceManager: ObservableObject {
+    let crashManager: CrashManager
     let container: NSPersistentCloudKitContainer
 
-    init(_ storageType: StorageType = .persistent) {
+    init(crashManager: CrashManager, storageType: StorageType = .persistent) {
+        self.crashManager = crashManager
         self.container = NSPersistentCloudKitContainer(name: "Den")
 
         guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
@@ -64,6 +66,30 @@ final class PersistenceManager: ObservableObject {
             self.container.viewContext.automaticallyMergesChangesFromParent = true
             self.container.viewContext.undoManager = nil
             self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        }
+    }
+
+    func migrateItemLimits() {
+        do {
+            let feeds = try container.viewContext.fetch(Feed.fetchRequest()) as [Feed]
+            feeds.forEach { feed in
+                if feed.itemLimit != ContentLimits.itemLimitDefault {
+                    feed.previewLimit = feed.itemLimit
+                    feed.itemLimit = Int16(ContentLimits.itemLimitDefault)
+                }
+            }
+
+            if container.viewContext.hasChanges {
+                do {
+                    try container.viewContext.save()
+                } catch {
+                    DispatchQueue.main.async {
+                        self.crashManager.handleCriticalError(error as NSError)
+                    }
+                }
+            }
+        } catch {
+            self.crashManager.handleCriticalError(error as NSError)
         }
     }
 }
