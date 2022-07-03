@@ -1,5 +1,5 @@
 //
-//  BlendItemView.swift
+//  FeedItemPreviewView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/28/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BlendItemView: View {
+struct FeedItemPreviewView: View {
     @EnvironmentObject private var linkManager: LinkManager
 
     @ObservedObject var item: Item
