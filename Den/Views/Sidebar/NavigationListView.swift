@@ -10,6 +10,8 @@ import SwiftUI
 
 struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
@@ -24,18 +26,39 @@ struct NavigationListView: View {
 
     var body: some View {
         List {
-            ForEach(viewModel.profile.pagesArray) { page in
-                let pageViewModel = PageViewModel(page: page, refreshing: viewModel.refreshing)
-
-                NavigationLink {
-                    PageView(viewModel: pageViewModel)
-                } label: {
-                    SidebarPageView(viewModel: pageViewModel).environment(\.editMode, editMode)
+            NavigationLink {
+                TrendsView(
+                    viewModel: TrendsViewModel(
+                        viewContext: viewContext,
+                        crashManager: crashManager,
+                        profile: viewModel.profile
+                    )
+                )
+            } label: {
+                Label {
+                    Text("Trends").modifier(SidebarItemLabelTextModifier())
+                } icon: {
+                    Image(systemName: "chart.line.uptrend.xyaxis").imageScale(.large)
                 }
-                .accessibilityIdentifier("page-button")
             }
-            .onMove(perform: viewModel.movePage)
-            .onDelete(perform: viewModel.deletePage)
+            .accessibilityIdentifier("trends-button")
+
+            Section {
+                ForEach(viewModel.profile.pagesArray) { page in
+                    let pageViewModel = PageViewModel(page: page, refreshing: viewModel.refreshing)
+
+                    NavigationLink {
+                        PageView(viewModel: pageViewModel)
+                    } label: {
+                        SidebarPageView(viewModel: pageViewModel).environment(\.editMode, editMode)
+                    }
+                    .accessibilityIdentifier("page-button")
+                }
+                .onMove(perform: viewModel.movePage)
+                .onDelete(perform: viewModel.deletePage)
+            } header: {
+                Text("Pages").font(.body.weight(.medium))
+            }
         }
         .background(
             NavigationLink(isActive: $showingSearch) {

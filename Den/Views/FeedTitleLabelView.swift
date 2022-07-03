@@ -18,13 +18,7 @@ struct FeedTitleLabelView: View {
         Label {
             Text(title).lineLimit(1)
         } icon: {
-            WebImage(url: favicon, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])
-                .resizable()
-                .purgeable(true)
-                .placeholder {
-                    Image(systemName: "dot.radiowaves.up.forward")
-                }
-                .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+            FeedFaviconView(url: favicon)
         }
     }
 }

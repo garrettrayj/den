@@ -40,7 +40,7 @@ struct BlendView: View {
             .frame(height: frameSize.height - 60)
         } else {
             BoardView(width: frameSize.width, list: visibleItems) { item in
-                BlendItemView(item: item)
+                FeedItemPreviewView(item: item)
             }
             .padding(.horizontal)
             .padding(.bottom)

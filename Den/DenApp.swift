@@ -28,6 +28,8 @@ struct DenApp: App {
     @StateObject var themeManager: ThemeManager
     @StateObject var persistenceManager: PersistenceManager
 
+    @AppStorage("dataRevision") var dataRevision = 0
+
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -78,8 +80,11 @@ struct DenApp: App {
             dbStorageType = .inMemory
         }
 
-        let persistenceManager = PersistenceManager(dbStorageType)
         let crashManager = CrashManager()
+        let persistenceManager = PersistenceManager(
+            crashManager: crashManager,
+            storageType: dbStorageType
+        )
         let refreshManager = RefreshManager(
             persistentContainer: persistenceManager.container,
             crashManager: crashManager
@@ -112,6 +117,8 @@ struct DenApp: App {
         _themeManager = StateObject(wrappedValue: themeManager)
 
         initImageHandling()
+
+        persistenceManager.migrateItemLimits()
     }
 
     private func initImageHandling() {

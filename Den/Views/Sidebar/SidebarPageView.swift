@@ -15,12 +15,7 @@ struct SidebarPageView: View {
     var body: some View {
         Label {
             HStack {
-                Text(viewModel.page.displayName)
-                    #if targetEnvironment(macCatalyst)
-                    .frame(height: 32)
-                    .padding(.leading, 6)
-                    .font(.system(size: 14))
-                    #endif
+                Text(viewModel.page.displayName).modifier(SidebarItemLabelTextModifier())
 
                 Spacer()
 

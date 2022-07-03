@@ -45,3 +45,17 @@ public class Item: NSManagedObject {
         return item
     }
 }
+
+extension Array where Element == Item {
+    func read() -> [Item] {
+        self.filter { item in
+            item.read == true
+        }
+    }
+
+    func unread() -> [Item] {
+        self.filter { item in
+            item.read == false
+        }
+    }
+}
