@@ -26,7 +26,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
         }
     }
 
-    init(spacing: CGFloat = 16, width: CGFloat, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
+    init(spacing: CGFloat = 12, width: CGFloat, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
         self.spacing = spacing
         self.width = width
         self.list = list

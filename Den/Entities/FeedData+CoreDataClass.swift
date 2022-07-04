@@ -29,46 +29,15 @@ public class FeedData: NSManagedObject {
     public var itemsArray: [Item] {
         guard
             let items = items?.sortedArray(
-                using: [
-                    NSSortDescriptor(key: "published", ascending: false),
-                    NSSortDescriptor(key: "ingested", ascending: false)
-                ]
+                using: [NSSortDescriptor(key: "published", ascending: false)]
             ) as? [Item]
         else { return [] }
 
         return items
     }
 
-    public var limitedItems: [Item] {
-        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? Int(ContentLimits.itemLimitDefault)))
-    }
-
-    public var unreadItems: [Item] {
-        limitedItems.filter { item in
-            item.read == false
-        }
-    }
-
-    public var readItems: [Item] {
-        limitedItems.filter { item in
-            item.read == true
-        }
-    }
-
     public var previewItems: [Item] {
-        Array(itemsArray.prefix(feed?.wrappedPreviewLimit ?? Int(ContentLimits.previewLimitDefault)))
-    }
-
-    public var unreadPreviewItems: [Item] {
-        previewItems.filter { item in
-            item.read == false
-        }
-    }
-
-    public var readPreviewItems: [Item] {
-        previewItems.filter { item in
-            item.read == true
-        }
+        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? Int(ContentLimits.itemLimitDefault)))
     }
 
     public var itemsWithImageCount: Int {

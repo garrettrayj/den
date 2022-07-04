@@ -69,7 +69,7 @@ struct FeedView: View {
     private var visibleItems: [Item] {
         guard let feedData = viewModel.feed.feedData else { return [] }
 
-        return feedData.limitedItems.filter { item in
+        return feedData.previewItems.filter { item in
             hideRead ? item.read == false : true
         }
     }
@@ -79,7 +79,7 @@ struct FeedView: View {
         if viewModel.feed.hasContent {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-                    if hideRead == true && viewModel.feed.feedData!.unreadItems.isEmpty {
+                    if hideRead == true && viewModel.feed.feedData!.itemsArray.unread().isEmpty {
                         Label("No unread items", systemImage: "checkmark")
                             .imageScale(.small)
                             .foregroundColor(.secondary)
@@ -191,12 +191,12 @@ struct FeedView: View {
             }
             Spacer()
             VStack {
-                Text("\(viewModel.feed.feedData?.unreadItems.count ?? 0) Unread").font(.caption)
+                Text("\(viewModel.feed.feedData?.itemsArray.unread().count ?? 0) Unread").font(.caption)
             }
             Spacer()
             Button {
                 // Toggle all read/unread
-                if viewModel.feed.feedData?.unreadItems.isEmpty == true {
+                if viewModel.feed.feedData?.itemsArray.unread().isEmpty == true {
                     linkManager.markAllUnread(feed: viewModel.feed)
                     viewModel.feed.feedData?.itemsArray.forEach { item in
                         item.objectWillChange.send()
@@ -212,7 +212,7 @@ struct FeedView: View {
             } label: {
                 Label(
                     "Mark All Read",
-                    systemImage: viewModel.feed.feedData?.unreadItems.isEmpty ?? false ?
+                    systemImage: viewModel.feed.feedData?.itemsArray.unread().isEmpty ?? false ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
             }

@@ -27,6 +27,17 @@ struct NavigationListView: View {
     var body: some View {
         List {
             NavigationLink {
+                TimelineView(profile: viewModel.profile)
+            } label: {
+                Label {
+                    Text("Timeline").modifier(SidebarItemLabelTextModifier())
+                } icon: {
+                    Image(systemName: "calendar.day.timeline.leading").imageScale(.large)
+                }
+            }
+            .accessibilityIdentifier("timeline-button")
+
+            NavigationLink {
                 TrendsView(
                     viewModel: TrendsViewModel(
                         viewContext: viewContext,
@@ -57,7 +68,7 @@ struct NavigationListView: View {
                 .onMove(perform: viewModel.movePage)
                 .onDelete(perform: viewModel.deletePage)
             } header: {
-                Text("Pages").font(.body.weight(.medium))
+                Text("Pages").font(.callout)
             }
         }
         .background(

@@ -35,15 +35,14 @@ class TrendsViewModel: ObservableObject {
     }
 
     private func getTrends() -> Set<Trend> {
-        let profilePredicate = NSPredicate(
-            format: "feedData.id IN %@",
-            profile.feedDataIDs
-        )
-
-        let fetchRequest = Item.fetchRequest()
-        fetchRequest.predicate = profilePredicate
-
-        guard let items = try? viewContext.fetch(fetchRequest) as [Item] else { return [] }
+        var items: [Item] = []
+        profile.pagesArray.forEach { page in
+            page.feedsArray.forEach { feed in
+                if let feedItems = feed.feedData?.previewItems {
+                    items.append(contentsOf: feedItems)
+                }
+            }
+        }
 
         var trends: Set<Trend> = []
 

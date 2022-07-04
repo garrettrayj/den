@@ -18,7 +18,7 @@ struct GadgetView: View {
 
             VStack(spacing: 0) {
                 if feed.hasContent {
-                    if hideRead == true && feed.feedData!.unreadPreviewItems.isEmpty {
+                    if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
                         Divider()
                         Label("No unread items", systemImage: "checkmark")
                             .imageScale(.small)

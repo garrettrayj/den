@@ -80,15 +80,15 @@ struct FeedSettingsView: View {
             pagePicker.modifier(FormRowModifier())
             #endif
 
-            Stepper(value: $viewModel.feed.wrappedPreviewLimit, in: 1...100, step: 1) {
+            Stepper(value: $viewModel.feed.wrappedItemLimit, in: 1...100, step: 1) {
                 HStack {
                     Label {
-                        Text("Preview Items")
+                        Text("Item Limit")
                     } icon: {
-                        Image(systemName: "text.below.photo")
+                        Image(systemName: "speedometer")
                     }
                     Spacer()
-                    Text("\(viewModel.feed.wrappedPreviewLimit)")
+                    Text("\(viewModel.feed.wrappedItemLimit)")
                 }
             }.modifier(FormRowModifier())
 
