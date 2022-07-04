@@ -7,9 +7,11 @@
 //
 
 import CoreData
-import HTMLEntities
 import SwiftUI
 import OSLog
+import NaturalLanguage
+
+import HTMLEntities
 
 @objc(Item)
 public class Item: NSManagedObject {
@@ -48,6 +50,34 @@ public class Item: NSManagedObject {
         item.feedData = feedData
 
         return item
+    }
+
+    public func subjects() -> [(String, String)] {
+        guard let text = title else { return [] }
+
+        let tagger = NLTagger(tagSchemes: [.nameTypeOrLexicalClass])
+        tagger.string = text
+
+        let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
+        let tags: [NLTag] = [.personalName, .placeName, .organizationName]
+
+        var subjects: [(String, String)] = []
+
+        tagger.enumerateTags(
+            in: text.startIndex..<text.endIndex,
+            unit: .word,
+            scheme: .nameTypeOrLexicalClass,
+            options: options
+        ) { tag, tokenRange in
+            // Get the most likely tag, and print it if it's a named entity.
+            if let tag = tag, tags.contains(tag) {
+                subjects.append((String(text[tokenRange]), tag.rawValue))
+            }
+
+            return true
+        }
+
+        return subjects
     }
 }
 

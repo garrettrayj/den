@@ -38,13 +38,7 @@ struct NavigationListView: View {
             .accessibilityIdentifier("timeline-button")
 
             NavigationLink {
-                TrendsView(
-                    viewModel: TrendsViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        profile: viewModel.profile
-                    )
-                )
+                TrendsView(profile: viewModel.profile)
             } label: {
                 Label {
                     Text("Trends").modifier(SidebarItemLabelTextModifier())
@@ -68,8 +62,11 @@ struct NavigationListView: View {
                 .onMove(perform: viewModel.movePage)
                 .onDelete(perform: viewModel.deletePage)
             } header: {
-                Text("Pages").font(.callout)
-            }
+                Text("Pages")
+                    #if targetEnvironment(macCatalyst)
+                    .font(.callout)
+                    #endif
+            }.headerProminence(.standard)
         }
         .background(
             NavigationLink(isActive: $showingSearch) {

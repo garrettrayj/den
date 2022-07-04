@@ -1,20 +1,18 @@
 //
-//  BlendView.swift
+//  PageTrendsView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 2/11/22.
+//  Created by Garrett Johnson on 7/4/22.
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct BlendView: View {
+struct PageTrendsView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var page: Page
-
-    @Binding var hideRead: Bool
 
     var frameSize: CGSize
 
@@ -24,32 +22,19 @@ struct BlendView: View {
 
     @ViewBuilder
     var content: some View {
-        if page.limitedItemsArray.isEmpty {
+        if page.trends().isEmpty {
             StatusBoxView(
                 message: Text("No Items"),
                 caption: Text("Tap \(Image(systemName: "arrow.clockwise")) to refresh"),
                 symbol: "questionmark.square.dashed"
             )
             .frame(height: frameSize.height - 60)
-        } else if visibleItems.isEmpty {
-            StatusBoxView(
-                message: Text("No Unread Items"),
-                caption: nil,
-                symbol: "checkmark.circle"
-            )
-            .frame(height: frameSize.height - 60)
         } else {
-            BoardView(width: frameSize.width, list: visibleItems) { item in
-                FeedItemPreviewView(item: item)
+            BoardView(width: frameSize.width, list: page.trends()) { trend in
+                TrendView(trend: trend)
             }
             .padding(.horizontal)
             .padding(.bottom)
-        }
-    }
-
-    private var visibleItems: [Item] {
-        page.limitedItemsArray.filter { item in
-            hideRead ? item.read == false : true
         }
     }
 }
