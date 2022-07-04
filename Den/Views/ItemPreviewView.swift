@@ -60,7 +60,6 @@ struct ItemPreviewView: View {
     private var previewImage: some View {
         WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
             .resizable()
-            .purgeable(true)
             .placeholder {
                 imagePlaceholder
             }

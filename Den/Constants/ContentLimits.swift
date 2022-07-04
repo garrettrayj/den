@@ -9,6 +9,5 @@
 import Foundation
 
 struct ContentLimits {
-    static let itemLimitDefault: Int = 100
-    static let previewLimitDefault: Int = 4
+    static let itemLimitDefault: Int = 6
 }

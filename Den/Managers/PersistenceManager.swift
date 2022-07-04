@@ -68,28 +68,4 @@ final class PersistenceManager: ObservableObject {
             self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         }
     }
-
-    func migrateItemLimits() {
-        do {
-            let feeds = try container.viewContext.fetch(Feed.fetchRequest()) as [Feed]
-            feeds.forEach { feed in
-                if feed.itemLimit != ContentLimits.itemLimitDefault {
-                    feed.previewLimit = feed.itemLimit
-                    feed.itemLimit = Int16(ContentLimits.itemLimitDefault)
-                }
-            }
-
-            if container.viewContext.hasChanges {
-                do {
-                    try container.viewContext.save()
-                } catch {
-                    DispatchQueue.main.async {
-                        self.crashManager.handleCriticalError(error as NSError)
-                    }
-                }
-            }
-        } catch {
-            self.crashManager.handleCriticalError(error as NSError)
-        }
-    }
 }

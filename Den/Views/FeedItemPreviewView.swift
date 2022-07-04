@@ -14,32 +14,35 @@ struct FeedItemPreviewView: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            NavigationLink {
-                FeedView(viewModel: FeedViewModel(
-                    feed: item.feedData!.feed!,
-                    refreshing: false
-                ))
-            } label: {
-                HStack {
-                    FeedTitleLabelView(
-                        title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                        favicon: item.feedData?.favicon
-                    )
-                    Spacer()
-                    NavChevronView()
-                }.padding(.horizontal, 12)
+        if item.feedData?.feed != nil {
+            VStack(alignment: .leading, spacing: 0) {
+                NavigationLink {
+                    FeedView(viewModel: FeedViewModel(
+                        feed: item.feedData!.feed!,
+                        refreshing: false
+                    ))
+
+                } label: {
+                    HStack {
+                        FeedTitleLabelView(
+                            title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
+                            favicon: item.feedData?.favicon
+                        )
+                        Spacer()
+                        NavChevronView()
+                    }.padding(.horizontal, 12)
+                }
+                .buttonStyle(FeedTitleButtonStyle())
+                .accessibilityIdentifier("item-feed-button")
+
+                Divider()
+
+                ItemPreviewView(item: item)
+                    .onTapGesture(perform: openItem)
             }
-            .buttonStyle(FeedTitleButtonStyle())
-            .accessibilityIdentifier("item-feed-button")
-
-            Divider()
-
-            ItemPreviewView(item: item)
-                .onTapGesture(perform: openItem)
+            .modifier(GroupBlockModifier())
+            .transition(.move(edge: .top))
         }
-        .modifier(GroupBlockModifier())
-        .transition(.move(edge: .top))
     }
 
     private func openItem() {

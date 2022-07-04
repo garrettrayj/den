@@ -117,8 +117,6 @@ struct DenApp: App {
         _themeManager = StateObject(wrappedValue: themeManager)
 
         initImageHandling()
-
-        persistenceManager.migrateItemLimits()
     }
 
     private func initImageHandling() {

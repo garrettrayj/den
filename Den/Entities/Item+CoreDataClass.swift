@@ -27,6 +27,11 @@ public class Item: NSManagedObject {
         feedData?.feed?.wrappedTitle ?? "Untitled"
     }
 
+    @objc
+    public var day: String {
+        published?.fullNoneDisplay() ?? "N/A"
+    }
+
     public var wrappedTitle: String {
         get {title ?? "Untitled"}
         set {title = newValue}
