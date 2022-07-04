@@ -104,11 +104,45 @@ public class Page: NSManagedObject {
         }
 
         return items.sortedArray(
-            using: [
-                NSSortDescriptor(key: "published", ascending: false),
-                NSSortDescriptor(key: "ingested", ascending: false)
-            ]
+            using: [NSSortDescriptor(key: "published", ascending: false)]
         ) as? [Item] ?? []
+    }
+
+    func trends() -> [Trend] {
+        var trends: Set<Trend> = []
+
+        limitedItemsArray.forEach { item in
+            item.subjects().forEach { (text, _) in
+                var (inserted, trend) = trends.insert(
+                    Trend(id: text.localizedLowercase, text: text, items: [item])
+                )
+
+                if !inserted {
+                    trend.items.append(item)
+                    trends.update(with: trend)
+                }
+            }
+        }
+
+        typealias AreInIncreasingOrder = (Trend, Trend) -> Bool
+
+        let trendsArray = trends.filter { trend in
+            trend.items.count > 1 && trend.feeds.count > 1
+        }.sorted { lhs, rhs in
+            let predicates: [AreInIncreasingOrder] = [ { $0.items.count > $1.items.count }, { $0.text < $1.text }
+            ]
+
+            for predicate in predicates {
+                if !predicate(lhs, rhs) && !predicate(rhs, lhs) { // <4>
+                    continue
+                }
+                return predicate(lhs, rhs)
+            }
+
+            return false
+        }
+
+        return trendsArray
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Page {

@@ -21,18 +21,8 @@ struct Trend: Identifiable {
             }
         }
 
-        return Array(feeds)
-    }
-
-    var feedsWithFavicons: [Feed] {
-        feeds.filter { feed in
-            feed.feedData?.favicon != nil
-        }
-    }
-
-    var feedsWithoutFavicons: [Feed] {
-        feeds.filter { feed in
-            feed.feedData?.favicon == nil
+        return feeds.sorted { lhs, rhs in
+            lhs.wrappedTitle < rhs.wrappedTitle
         }
     }
 }

@@ -11,7 +11,8 @@ import SwiftUI
 enum PageViewMode: Int {
     case gadgets  = 0
     case showcase = 1
-    case blend    = 2
+    case timeline = 2
+    case trends   = 3
 }
 
 struct PageView: View {
@@ -73,8 +74,10 @@ struct PageView: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         Group {
-                            if viewMode == PageViewMode.blend.rawValue {
-                                BlendView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            if viewMode == PageViewMode.trends.rawValue {
+                                PageTrendsView(page: viewModel.page, frameSize: geometry.size)
+                            } else if viewMode == PageViewMode.timeline.rawValue {
+                                PageTimelineView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                             } else if viewMode == PageViewMode.showcase.rawValue {
                                 ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                             } else {
@@ -122,9 +125,12 @@ struct PageView: View {
                 Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                     .tag(PageViewMode.showcase.rawValue)
                     .accessibilityIdentifier("showcase-view-button")
-                Label("Blend", systemImage: "square.text.square")
-                    .tag(PageViewMode.blend.rawValue)
-                    .accessibilityIdentifier("blend-view-button")
+                Label("Timeline", systemImage: "calendar.day.timeline.leading")
+                    .tag(PageViewMode.timeline.rawValue)
+                    .accessibilityIdentifier("page-timeline-view-button")
+                Label("Trends", systemImage: "chart.line.uptrend.xyaxis")
+                    .tag(PageViewMode.trends.rawValue)
+                    .accessibilityIdentifier("page-trends-view-button")
             }
             .padding(.trailing, 8)
             .pickerStyle(.inline)
@@ -165,13 +171,16 @@ struct PageView: View {
                     Picker("View Mode", selection: $viewMode) {
                         Label("Gadgets", systemImage: "rectangle.grid.3x2")
                             .tag(PageViewMode.gadgets.rawValue)
-                            .accessibilityIdentifier("gadgets-view-button")
+                            .accessibilityIdentifier("page-gadgets-view-button")
                         Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                             .tag(PageViewMode.showcase.rawValue)
-                            .accessibilityIdentifier("showcase-view-button")
-                        Label("Blend", systemImage: "square.text.square")
-                            .tag(PageViewMode.blend.rawValue)
-                            .accessibilityIdentifier("blend-view-button")
+                            .accessibilityIdentifier("page-showcase-view-button")
+                        Label("Timeline", systemImage: "calendar.day.timeline.leading")
+                            .tag(PageViewMode.timeline.rawValue)
+                            .accessibilityIdentifier("page-timeline-view-button")
+                        Label("Trends", systemImage: "chart.line.uptrend.xyaxis")
+                            .tag(PageViewMode.trends.rawValue)
+                            .accessibilityIdentifier("page-trends-view-button")
                     }
 
                     Button {
