@@ -17,11 +17,6 @@ struct PageTrendsView: View {
     var frameSize: CGSize
 
     var body: some View {
-        ScrollView(.vertical) { content }
-    }
-
-    @ViewBuilder
-    var content: some View {
         if page.trends().isEmpty {
             StatusBoxView(
                 message: Text("No Items"),
@@ -31,7 +26,7 @@ struct PageTrendsView: View {
             .frame(height: frameSize.height - 60)
         } else {
             BoardView(width: frameSize.width, list: page.trends()) { trend in
-                TrendView(trend: trend)
+                TrendBlockView(trend: trend)
             }
             .padding(.horizontal)
             .padding(.bottom)

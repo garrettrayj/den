@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  RootView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/18/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @EnvironmentObject private var crashManager: CrashManager

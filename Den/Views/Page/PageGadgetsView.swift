@@ -1,5 +1,5 @@
 //
-//  GadgetsView.swift
+//  PageGadgetsView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/11/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct GadgetsView: View {
+struct PageGadgetsView: View {
     @ObservedObject var page: Page
     @EnvironmentObject var linkManager: LinkManager
 

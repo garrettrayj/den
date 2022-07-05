@@ -112,6 +112,19 @@ public class Profile: NSManagedObject {
         }
     }
 
+    public var feedsArray: [Feed] {
+        pagesArray.flatMap { $0.feedsArray }
+    }
+
+    public var previewItems: [Item] {
+        feedsArray.flatMap { (feed) -> [Item] in
+            if let feedData = feed.feedData {
+                return feedData.previewItems
+            }
+            return []
+        }.sorted { $0.date > $1.date }
+    }
+
     func trends() -> [Trend] {
         var items: [Item] = []
         pagesArray.forEach { page in
@@ -126,8 +139,12 @@ public class Profile: NSManagedObject {
 
         items.forEach { item in
             item.subjects().forEach { (text, _) in
+                let id = text
+                    .localizedLowercase
+                    .removingCharacters(in: .punctuationCharacters)
+
                 var (inserted, trend) = trends.insert(
-                    Trend(id: text.localizedLowercase, text: text, items: [item])
+                    Trend(id: id, text: text, items: [item])
                 )
 
                 if !inserted {

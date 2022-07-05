@@ -196,19 +196,11 @@ struct FeedView: View {
             Spacer()
             Button {
                 // Toggle all read/unread
-                if viewModel.feed.feedData?.itemsArray.unread().isEmpty == true {
-                    linkManager.markAllUnread(feed: viewModel.feed)
-                    viewModel.feed.feedData?.itemsArray.forEach { item in
-                        item.objectWillChange.send()
-                    }
-                    viewModel.objectWillChange.send()
-                } else {
-                    linkManager.markAllRead(feed: viewModel.feed)
-                    viewModel.feed.feedData?.itemsArray.forEach { item in
-                        item.objectWillChange.send()
-                    }
-                    viewModel.objectWillChange.send()
+                linkManager.toggleReadUnread(feed: viewModel.feed)
+                viewModel.feed.feedData?.itemsArray.forEach { item in
+                    item.objectWillChange.send()
                 }
+                viewModel.objectWillChange.send()
             } label: {
                 Label(
                     "Mark All Read",

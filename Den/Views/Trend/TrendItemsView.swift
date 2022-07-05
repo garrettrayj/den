@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TrendDetailView: View {
+struct TrendItemsView: View {
     @EnvironmentObject private var linkManager: LinkManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @AppStorage("trendsHideUnread") var hideRead = false
