@@ -16,7 +16,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
 
     var body: some View {
         HStack(alignment: .top, spacing: spacing) {
-            ForEach(columnData, id: \.self) { columnObjects in
+            ForEach(columnData, id: \.0) { _, columnObjects in
                 LazyVStack(alignment: .center, spacing: spacing) {
                     ForEach(columnObjects) { object in
                         content(object)
@@ -33,13 +33,19 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
         self.content = content
     }
 
-    private var columnData: [[T]] {
+    private var columnData: [(Int, [T])] {
         let columns: Int = max(1, Int((width / log2(width)) / 30))
-        var gridArray: [[T]] = Array(repeating: [], count: columns)
-        var currentIndex: Int = 0
+        var gridArray: [(Int, [T])] = []
 
+        var currentCol: Int = 0
+        while currentCol < columns {
+            gridArray.append((currentCol, []))
+            currentCol += 1
+        }
+
+        var currentIndex: Int = 0
         for object in list {
-            gridArray[currentIndex].append(object)
+            gridArray[currentIndex].1.append(object)
 
             if currentIndex == (columns - 1) {
                 currentIndex = 0

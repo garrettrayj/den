@@ -32,7 +32,7 @@ struct DenApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
                 .environmentObject(cacheManager)
                 .environmentObject(crashManager)

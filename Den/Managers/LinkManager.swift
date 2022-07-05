@@ -67,33 +67,49 @@ final class LinkManager: ObservableObject {
         saveContext()
     }
 
-    public func markAllRead(page: Page) {
-        page.unreadPreviewItems.forEach { item in
-            logHistory(item: item)
-        }
-        saveContext()
-    }
-
-    public func markAllUnread(page: Page) {
-        page.readPreviewItems.forEach { item in
-            item.history?.forEach { history in
-                viewContext.delete(history)
+    public func toggleReadUnread(feed: Feed) {
+        let allItemsRead: Bool = feed.feedData?.previewItems.unread().isEmpty == true
+        if allItemsRead {
+            feed.feedData?.previewItems.read().forEach { item in
+                item.history?.forEach { history in
+                    viewContext.delete(history)
+                }
+            }
+        } else {
+            feed.feedData?.previewItems.unread().forEach { item in
+                logHistory(item: item)
             }
         }
         saveContext()
     }
 
-    public func markAllRead(feed: Feed) {
-        feed.feedData?.itemsArray.unread().forEach { item in
-            logHistory(item: item)
+    public func toggleReadUnread(page: Page) {
+        let allItemsRead: Bool = page.previewItems.unread().isEmpty == true
+        if allItemsRead {
+            page.previewItems.read().forEach { item in
+                item.history?.forEach { history in
+                    viewContext.delete(history)
+                }
+            }
+        } else {
+            page.previewItems.unread().forEach { item in
+                logHistory(item: item)
+            }
         }
         saveContext()
     }
 
-    public func markAllUnread(feed: Feed) {
-        feed.feedData?.itemsArray.read().forEach { item in
-            item.history?.forEach { history in
-                viewContext.delete(history)
+    public func toggleReadUnread(profile: Profile) {
+        let allItemsRead: Bool = profile.previewItems.unread().isEmpty == true
+        if allItemsRead {
+            profile.previewItems.read().forEach { item in
+                item.history?.forEach { history in
+                    viewContext.delete(history)
+                }
+            }
+        } else {
+            profile.previewItems.unread().forEach { item in
+                logHistory(item: item)
             }
         }
         saveContext()

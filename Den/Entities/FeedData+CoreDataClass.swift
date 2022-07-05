@@ -40,12 +40,6 @@ public class FeedData: NSManagedObject {
         Array(itemsArray.prefix(feed?.wrappedItemLimit ?? Int(ContentLimits.itemLimitDefault)))
     }
 
-    public var itemsWithImageCount: Int {
-        itemsArray.filter({ item in
-            item.image != nil
-        }).count
-    }
-
     public var linkDisplayString: String? {
         guard let link = link else { return nil }
 

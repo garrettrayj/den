@@ -41,7 +41,6 @@ struct FeedItemPreviewView: View {
                     .onTapGesture(perform: openItem)
             }
             .modifier(GroupBlockModifier())
-            .transition(.move(edge: .top))
         }
     }
 

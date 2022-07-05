@@ -27,26 +27,20 @@ struct NavigationListView: View {
     var body: some View {
         List {
             NavigationLink {
-                TimelineView(profile: viewModel.profile)
+                GlobalView(
+                    viewModel: GlobalViewModel(
+                        profile: viewModel.profile,
+                        refreshing: viewModel.refreshing
+                    )
+                )
             } label: {
                 Label {
-                    Text("Timeline").modifier(SidebarItemLabelTextModifier())
+                    Text("All Feeds").modifier(SidebarItemLabelTextModifier())
                 } icon: {
-                    Image(systemName: "calendar.day.timeline.leading").imageScale(.large)
+                    Image(systemName: "helm").imageScale(.large)
                 }
             }
-            .accessibilityIdentifier("timeline-button")
-
-            NavigationLink {
-                TrendsView(profile: viewModel.profile)
-            } label: {
-                Label {
-                    Text("Trends").modifier(SidebarItemLabelTextModifier())
-                } icon: {
-                    Image(systemName: "chart.line.uptrend.xyaxis").imageScale(.large)
-                }
-            }
-            .accessibilityIdentifier("trends-button")
+            .accessibilityIdentifier("all-feeds-button")
 
             Section {
                 ForEach(viewModel.profile.pagesArray) { page in

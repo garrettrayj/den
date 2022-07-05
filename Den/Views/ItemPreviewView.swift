@@ -47,7 +47,6 @@ struct ItemPreviewView: View {
             hovering = hovered
         }
         .multilineTextAlignment(.leading)
-        .fixedSize(horizontal: false, vertical: true)
         .foregroundColor(
             isEnabled ?
                 item.read ? .secondary : .primary
@@ -66,7 +65,7 @@ struct ItemPreviewView: View {
             .aspectRatio(item.imageAspectRatio, contentMode: .fill)
             .frame(
                 maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
-                maxHeight: item.imageHeight > 0 ? min(CGFloat(item.imageHeight), 400) : nil,
+                maxHeight: item.imageHeight > 0 ? min(CGFloat(item.imageHeight), 360) : nil,
                 alignment: .top
             )
             .background(Color(UIColor.tertiarySystemGroupedBackground))
@@ -94,11 +93,5 @@ struct ItemPreviewView: View {
         }
         .foregroundColor(.secondary)
         .padding()
-        .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-        .frame(
-            maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
-            maxHeight: item.imageHeight > 0 ? min(CGFloat(item.imageHeight), 400) : nil,
-            alignment: .top
-        )
     }
 }

@@ -31,7 +31,11 @@ public class Item: NSManagedObject {
 
     @objc
     public var day: String {
-        published?.fullNoneDisplay() ?? "N/A"
+        date.fullNoneDisplay()
+    }
+
+    public var date: Date {
+        published ?? Date(timeIntervalSince1970: 0)
     }
 
     public var wrappedTitle: String {

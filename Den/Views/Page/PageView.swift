@@ -8,13 +8,6 @@
 
 import SwiftUI
 
-enum PageViewMode: Int {
-    case gadgets  = 0
-    case showcase = 1
-    case timeline = 2
-    case trends   = 3
-}
-
 struct PageView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var crashManager: CrashManager
@@ -33,7 +26,7 @@ struct PageView: View {
         self.viewModel = viewModel
 
         _viewMode = AppStorage(
-            wrappedValue: PageViewMode.gadgets.rawValue,
+            wrappedValue: ContentViewMode.gadgets.rawValue,
             "pageViewMode_\(viewModel.page.id?.uuidString ?? "na")"
         )
 
@@ -74,14 +67,14 @@ struct PageView: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         Group {
-                            if viewMode == PageViewMode.trends.rawValue {
+                            if viewMode == ContentViewMode.trends.rawValue {
                                 PageTrendsView(page: viewModel.page, frameSize: geometry.size)
-                            } else if viewMode == PageViewMode.timeline.rawValue {
+                            } else if viewMode == ContentViewMode.timeline.rawValue {
                                 PageTimelineView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
-                            } else if viewMode == PageViewMode.showcase.rawValue {
-                                ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            } else if viewMode == ContentViewMode.showcase.rawValue {
+                                PageShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                             } else {
-                                GadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                                PageGadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                             }
                         }.padding(.top, 8)
                     }
@@ -120,16 +113,16 @@ struct PageView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
             Picker("View Mode", selection: $viewMode) {
                 Label("Gadgets", systemImage: "rectangle.grid.3x2")
-                    .tag(PageViewMode.gadgets.rawValue)
+                    .tag(ContentViewMode.gadgets.rawValue)
                     .accessibilityIdentifier("gadgets-view-button")
                 Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                    .tag(PageViewMode.showcase.rawValue)
+                    .tag(ContentViewMode.showcase.rawValue)
                     .accessibilityIdentifier("showcase-view-button")
                 Label("Timeline", systemImage: "calendar.day.timeline.leading")
-                    .tag(PageViewMode.timeline.rawValue)
+                    .tag(ContentViewMode.timeline.rawValue)
                     .accessibilityIdentifier("page-timeline-view-button")
                 Label("Trends", systemImage: "chart.line.uptrend.xyaxis")
-                    .tag(PageViewMode.trends.rawValue)
+                    .tag(ContentViewMode.trends.rawValue)
                     .accessibilityIdentifier("page-trends-view-button")
             }
             .padding(.trailing, 8)
@@ -217,22 +210,16 @@ struct PageView: View {
             }
             Spacer()
             VStack {
-                Text("\(viewModel.page.unreadPreviewItems.count) Unread").font(.caption)
+                Text("\(viewModel.page.previewItems.unread().count) Unread").font(.caption)
             }
             Spacer()
             Button {
-                // Toggle all read/unread
-                if viewModel.page.unreadPreviewItems.isEmpty {
-                    linkManager.markAllUnread(page: viewModel.page)
-                    dispatchItemChanges()
-                } else {
-                    linkManager.markAllRead(page: viewModel.page)
-                    dispatchItemChanges()
-                }
+                linkManager.toggleReadUnread(page: viewModel.page)
+                dispatchItemChanges()
             } label: {
                 Label(
                     "Mark All Read",
-                    systemImage: viewModel.page.unreadPreviewItems.isEmpty ?
+                    systemImage: viewModel.page.previewItems.unread().isEmpty ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
             }

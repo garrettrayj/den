@@ -1,5 +1,5 @@
 //
-//  TrendView.swift
+//  TrendBlockView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/2/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TrendView: View {
+struct TrendBlockView: View {
     var trend: Trend
 
     let columns = [
@@ -17,23 +17,21 @@ struct TrendView: View {
 
     var body: some View {
         NavigationLink {
-            TrendDetailView(trend: trend)
+            TrendItemsView(trend: trend)
         } label: {
             VStack(alignment: .leading, spacing: 8) {
-                Text(trend.text).font(.title).padding(.horizontal, 12)
+                Text(trend.text).font(.title)
 
                 Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
-                    .padding(.horizontal, 12)
 
-                LazyVGrid(columns: columns, spacing: 8) {
+                LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
                     ForEach(trend.feeds) { feed in
                         FeedFaviconView(url: feed.feedData?.favicon)
                     }
-                }.padding(.horizontal, 4)
+                }
             }
-            .padding(.vertical, 12)
+            .padding(12)
         }
-        .fixedSize(horizontal: false, vertical: true)
         .modifier(GroupBlockModifier())
         .buttonStyle(HoverShadowButtonStyle())
     }

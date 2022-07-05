@@ -65,4 +65,17 @@ extension String {
             .components(separatedBy: invalidCharacters)
             .joined(separator: "-")
     }
+
+    func removingCharacters(in charactersSet: CharacterSet) -> String {
+        var filteredString = self
+        while true {
+            if let forbiddenCharRange = filteredString.rangeOfCharacter(from: charactersSet) {
+                filteredString.removeSubrange(forbiddenCharRange)
+            } else {
+                break
+            }
+        }
+
+        return filteredString
+    }
 }

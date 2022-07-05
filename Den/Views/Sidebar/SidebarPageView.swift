@@ -23,7 +23,7 @@ struct SidebarPageView: View {
                     if viewModel.refreshing {
                         ProgressView().progressViewStyle(IconProgressStyle())
                     } else {
-                        Text(String(viewModel.page.unreadPreviewItems.count))
+                        Text(String(viewModel.page.previewItems.unread().count))
                             .font(.caption.weight(.medium))
                             .foregroundColor(Color(UIColor.secondaryLabel))
                             .padding(.horizontal, 8)

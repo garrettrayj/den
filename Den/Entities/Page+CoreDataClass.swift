@@ -35,15 +35,7 @@ public class Page: NSManagedObject {
                 return feedData.previewItems
             }
             return []
-        }
-    }
-
-    public var readPreviewItems: [Item] {
-        previewItems.filter { item in item.read == true }
-    }
-
-    public var unreadPreviewItems: [Item] {
-        previewItems.filter { item in item.read == false }
+        }.sorted { $0.date > $1.date }
     }
 
     public var feedsArray: [Feed] {
@@ -113,8 +105,12 @@ public class Page: NSManagedObject {
 
         limitedItemsArray.forEach { item in
             item.subjects().forEach { (text, _) in
+                let id = text
+                    .localizedLowercase
+                    .removingCharacters(in: .punctuationCharacters)
+
                 var (inserted, trend) = trends.insert(
-                    Trend(id: text.localizedLowercase, text: text, items: [item])
+                    Trend(id: id, text: text, items: [item])
                 )
 
                 if !inserted {
