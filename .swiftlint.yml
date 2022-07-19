@@ -4,3 +4,5 @@ identifier_name:
     - a
     - b
     - el
+disabled_rules:
+   - inclusive_language

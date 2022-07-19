@@ -33,7 +33,7 @@ struct ItemPreviewView: View {
 
             if item.summary != nil && item.summary != "" {
                 Text("  \(item.summary!)")
-                    .font(.callout)
+                    .font(.body)
                     .lineLimit(6)
             }
         }

@@ -102,8 +102,22 @@ struct FeedSettingsView: View {
             Toggle(isOn: $viewModel.feed.showThumbnails) {
                 Label("Show Thumbnails", systemImage: "photo")
             }
-            Toggle(isOn: $viewModel.feed.readerMode) {
-                Label("Use Reader Mode", systemImage: "doc.plaintext")
+            #endif
+
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                Label("Open Items in Browser", systemImage: "macwindow")
+                Spacer()
+                Toggle("Open Items in Browser", isOn: $viewModel.feed.browserView).labelsHidden()
+            }.modifier(FormRowModifier())
+            #else
+            Toggle(isOn: $viewModel.feed.browserView) {
+                Label("Open in Browser", systemImage: "safari")
+            }
+            if viewModel.feed.browserView {
+                Toggle(isOn: $viewModel.feed.readerMode) {
+                    Label("Use Reader Mode", systemImage: "doc.plaintext")
+                }
             }
             #endif
         }.modifier(SectionHeaderModifier())

@@ -1,0 +1,149 @@
+/**
+ Den Web View Styles
+ 
+ See https://github.com/WebKit/webkit/blob/main/Source/WebCore/css/CSSValueKeywords.in
+ for Apple specific CSS values
+ */
+
+
+:root {
+    color-scheme: light dark;
+    font: -apple-system-tall-body;
+}
+
+
+body {
+    margin: 0;
+}
+
+body > :first-child {
+    margin-top: 0;
+}
+
+/* Embeds */
+
+iframe,
+object,
+video {
+    border: 0;
+    display: block;
+    height: auto;
+    margin: 1em 0;
+    max-width: 100%;
+}
+
+img {
+    border: 1px solid -apple-system-separator;
+    border-radius: 0.75em;
+    box-sizing: border-box;
+    display: block;
+    height: auto;
+    margin: 1em 0;
+    max-width: 100%;
+}
+
+/* Typography */
+
+h1 {
+    font: -apple-system-title0;
+}
+
+h2 {
+    font: -apple-system-title1;
+}
+
+h3 {
+    font: -apple-system-title2;
+}
+
+h4 {
+    font: -apple-system-title3;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+}
+
+hr {
+    border-top: 1px solid -apple-system-separator;
+}
+
+blockquote {
+    background: -apple-system-secondary-background;
+    border-radius: 0.75em;
+    overflow: hidden;
+    padding: 0 1em;
+}
+
+/* Content Sectioning */
+
+figure {
+    background: -apple-system-secondary-background;
+    border-radius: 0.75em;
+    display: table;
+    font: -apple-system-caption1;
+    margin: 1em 0;
+    overflow: hidden;
+    padding: 0 1em 1em;
+}
+
+figure > :last-child {
+    margin-bottom: 0;
+}
+
+figure > :not(:first-child):not(figcaption) {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    background: -apple-system-grouped-background;
+    margin-top: -1em;
+    padding: 0 1.5em 1em;
+}
+
+figure img {
+    border-radius: 0.5em;
+}
+
+
+/* Links */
+
+a {
+    color: -apple-system-blue;
+}
+
+a:visited {
+    color: -apple-system-purple;
+}
+
+/* Remove Extra Space */
+
+img + br,
+p + br {
+  display: none;
+}
+
+br:first-child {
+    display: none;
+}
+
+/* Tables */
+
+table {
+    font: -apple-system-body;
+}
+
+table, th, td {
+    border: 1px solid -apple-system-separator;
+}
+
+td, th {
+    padding: 0.375em;
+}
+
+th {
+    font-weight: 600;
+}

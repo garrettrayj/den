@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct GadgetItemView: View {
-    @EnvironmentObject private var linkManager: LinkManager
-    @EnvironmentObject private var profileManager: ProfileManager
-
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
 
@@ -29,10 +26,7 @@ struct GadgetItemView: View {
         if showItem {
             VStack(spacing: 0) {
                 Divider()
-                Button {
-                    linkManager.openLink(url: item.link, logHistoryItem: item, readerMode: feed.readerMode)
-                    item.objectWillChange.send()
-                } label: {
+                ItemActionView(item: item) {
                     HStack(alignment: .top, spacing: 12) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(item.wrappedTitle).lineLimit(6)
@@ -50,7 +44,6 @@ struct GadgetItemView: View {
                     }
                     .padding(12)
                 }
-                .buttonStyle(ItemButtonStyle(read: item.read))
                 .accessibilityIdentifier("gadget-item-button")
             }
             .transition(.move(edge: .top))

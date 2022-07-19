@@ -88,13 +88,15 @@ final class SaveFeedOperation: Operation {
             item.link = workingItem.link
             item.published = workingItem.published
             item.summary = workingItem.summary
+            item.body = workingItem.body
             item.title = workingItem.title
         }
 
         // Cleanup items
+        guard let workingFeedItemCount = workingFeed?.itemCount else { return }
 
         let maxItems = min(
-            workingFeed!.itemCount!,
+            workingFeedItemCount,
             feedData.feed?.wrappedItemLimit ?? ContentLimits.itemLimitDefault
         )
 

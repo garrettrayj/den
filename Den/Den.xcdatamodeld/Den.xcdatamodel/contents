@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
+        <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="itemLimit" optional="YES" attributeType="Integer 16" defaultValueString="100" usesScalarValueType="YES"/>
         <attribute name="previewLimit" optional="YES" attributeType="Integer 16" defaultValueString="4" usesScalarValueType="YES"/>
@@ -39,6 +40,7 @@
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="history" inverseEntity="Profile"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
+        <attribute name="body" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="imageFile" optional="YES" attributeType="String"/>
@@ -84,10 +86,10 @@
         <memberEntity name="FeedData"/>
     </configuration>
     <elements>
-        <element name="Feed" positionX="288" positionY="333" width="128" height="185"/>
+        <element name="Feed" positionX="288" positionY="333" width="128" height="200"/>
         <element name="FeedData" positionX="270" positionY="216" width="128" height="230"/>
         <element name="History" positionX="270" positionY="315" width="128" height="104"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="245"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="260"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
         <element name="Profile" positionX="270" positionY="324" width="128" height="104"/>
     </elements>

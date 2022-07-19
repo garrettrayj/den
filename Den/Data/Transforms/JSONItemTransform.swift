@@ -20,6 +20,7 @@ final class JSONItemTransform: ItemTransform {
     override func apply() {
         populateGeneralProperties()
         populateSummary()
+        populateBody()
         findAttachedImages()
         findSummaryImages()
 
@@ -46,7 +47,15 @@ final class JSONItemTransform: ItemTransform {
 
     private func populateSummary() {
         if let summary = jsonItem.summary {
-            workingItem.summary = SummaryHTML(summary).plainText()
+            workingItem.summary = HTMLContent(summary).plainText()
+        }
+    }
+
+    private func populateBody() {
+        if let source = jsonItem.contentHtml {
+            workingItem.body = source
+        } else if let source = jsonItem.contentText {
+            workingItem.body = source
         }
     }
 
@@ -75,7 +84,7 @@ final class JSONItemTransform: ItemTransform {
 
     private func findSummaryImages() {
         if let source = jsonItem.summary {
-            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
+            if let allowedImages = HTMLContent(source).allowedImages(itemLink: workingItem.link) {
                 workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }

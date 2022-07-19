@@ -21,6 +21,7 @@ final class AtomItemTransform: ItemTransform {
     override func apply() {
         populateGeneralProperties()
         populateSummary()
+        populateBody()
         findLinkImages()
         findMediaContentImages()
         findMediaThumbnailsImages()
@@ -49,9 +50,15 @@ final class AtomItemTransform: ItemTransform {
     private func populateSummary() {
         // Extract plain text from summary or content
         if let source = entry.summary?.value?.htmlUnescape() {
-            workingItem.summary = SummaryHTML(source).plainText()
+            workingItem.summary = HTMLContent(source).plainText()
         } else if let source = entry.content?.value?.htmlUnescape() {
-            workingItem.summary = SummaryHTML(source).plainText()
+            workingItem.summary = HTMLContent(source).plainText()
+        }
+    }
+
+    private func populateBody() {
+        if let source = entry.content?.value {
+            workingItem.body = HTMLContent(source).sanitized()
         }
     }
 
@@ -128,7 +135,7 @@ final class AtomItemTransform: ItemTransform {
 
     private func findContentImages() {
         if let source = entry.content?.value?.htmlUnescape() {
-            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
+            if let allowedImages = HTMLContent(source).allowedImages(itemLink: workingItem.link) {
                 workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }
@@ -136,7 +143,7 @@ final class AtomItemTransform: ItemTransform {
 
     private func findSummaryImages() {
         if let source = entry.summary?.value?.htmlUnescape() {
-            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
+            if let allowedImages = HTMLContent(source).allowedImages(itemLink: workingItem.link) {
                 workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }

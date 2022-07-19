@@ -20,6 +20,7 @@ final class WorkingItem: ImageSelection {
     var link: URL?
     var published: Date?
     var summary: String?
+    var body: String?
     var title: String?
 
     public func ingest(_ item: AtomFeedEntry?) {

@@ -15,7 +15,7 @@ struct NavigationListView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
-    @ObservedObject var viewModel: ProfileViewModel
+    @ObservedObject var viewModel: SidebarViewModel
     @Binding var showingSettings: Bool
 
     @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()

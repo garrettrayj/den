@@ -1,5 +1,5 @@
 //
-//  ProfileViewModel.swift
+//  SidebarViewModel.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/28/21.
@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 import SwiftUI
 
-final class ProfileViewModel: ObservableObject {
+final class SidebarViewModel: ObservableObject {
     let viewContext: NSManagedObjectContext
     let crashManager: CrashManager
 

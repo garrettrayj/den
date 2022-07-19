@@ -19,7 +19,7 @@ struct SidebarView: View {
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var themeManager: ThemeManager
 
-    @ObservedObject var viewModel: ProfileViewModel
+    @ObservedObject var viewModel: SidebarViewModel
 
     @State private var showingSettings: Bool = false
 
