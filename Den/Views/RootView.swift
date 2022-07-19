@@ -31,7 +31,7 @@ struct RootView: View {
     var navigationView: some View {
         NavigationView {
             SidebarView(
-                viewModel: ProfileViewModel(
+                viewModel: SidebarViewModel(
                     viewContext: viewContext,
                     crashManager: crashManager,
                     profile: profileManager.activeProfile!

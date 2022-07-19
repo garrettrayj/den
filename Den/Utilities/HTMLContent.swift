@@ -10,7 +10,7 @@ import SwiftUI
 
 import SwiftSoup
 
-final class SummaryHTML {
+final class HTMLContent {
     let imageSrcBlockList = ["feedburner", "npr-rss-pixel", "google-analytics"]
     let source: String
 
@@ -30,7 +30,6 @@ final class SummaryHTML {
             .replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
             .replacingOccurrences(of: "\u{202F}", with: " ") // NARROW NO-BREAK SPACE
             .trimmingCharacters(in: .whitespacesAndNewlines)
-            .truncated(limit: 2000)
 
         return trimmedString == "" ? nil : trimmedString
     }
@@ -97,5 +96,53 @@ final class SummaryHTML {
         }
 
         return images.isEmpty ? nil : images
+    }
+
+    func sanitized() -> String? {
+        guard
+            let dirty: Document = try? SwiftSoup.parseBodyFragment(source),
+            let doc: Document = try? Cleaner(customWhitelist()).clean(dirty)
+        else {
+            return nil
+        }
+
+        do {
+            for element in try doc.getElementsByTag("iframe") {
+                let width: String? = try? element.attr("width")
+                let height: String? = try? element.attr("height")
+                try element.attr("style", "aspect-ratio: \(width ?? "16") / \(height ?? "9");")
+            }
+        } catch {
+            print(error)
+        }
+
+        return try? doc.body()?.html()
+    }
+
+    func customWhitelist() throws -> Whitelist {
+        let whitelist: Whitelist = try .relaxed()
+
+        try whitelist
+            .addTags("figure", "figcaption", "hr")
+
+            // Media
+            .addTags("picture", "source")
+            .addAttributes("source", "srcset", "media", "src", "type")
+
+            // Embeds
+            .addTags("iframe", "object", "video", "audio")
+            .addAttributes("iframe", "height", "src", "srcdoc", "width", "allow")
+            .addAttributes("object", "data", "height", "name", "type", "width")
+            .addAttributes("video", "controls", "src", "height", "width")
+            .addAttributes("audio", "controls", "src")
+
+            // Scripts
+            .addTags("script")
+            .addAttributes("script", "src", "type", "charset", "async")
+
+            // Misc
+            .addAttributes(":all", "class", "id")
+
+        return whitelist
     }
 }

@@ -93,11 +93,10 @@ struct FeedView: View {
                             width: frameSize.width,
                             list: visibleItems
                         ) { item in
-                            ItemPreviewView(item: item)
-                                .modifier(GroupBlockModifier())
-                                .onTapGesture {
-                                    openItem(item: item)
-                                }
+                            ItemActionView(item: item) {
+                                ItemPreviewView(item: item)
+                                    .modifier(GroupBlockModifier())
+                            }
                         }.padding()
                     }
                 }
@@ -211,14 +210,5 @@ struct FeedView: View {
             .accessibilityIdentifier("mark-all-read-button")
             .disabled(viewModel.refreshing)
         }
-    }
-
-    private func openItem(item: Item) {
-        linkManager.openLink(
-            url: item.link,
-            logHistoryItem: item,
-            readerMode: item.feedData?.feed?.readerMode ?? false
-        )
-        item.objectWillChange.send()
     }
 }

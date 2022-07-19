@@ -20,6 +20,7 @@ final class RSSItemTransform: ItemTransform {
     override func apply() {
         populateGeneralProperties()
         populateSummary()
+        populateBody()
         findEnclosureImage()
         findMediaContentImages()
         findMediaGroupImages()
@@ -54,9 +55,15 @@ final class RSSItemTransform: ItemTransform {
     private func populateSummary() {
         // Extract plain text from summary or content
         if let source = rssItem.description?.htmlUnescape() {
-            workingItem.summary = SummaryHTML(source).plainText()
+            workingItem.summary = HTMLContent(source).plainText()
         } else if let source = rssItem.content?.contentEncoded {
-            workingItem.summary = SummaryHTML(source).plainText()
+            workingItem.summary = HTMLContent(source).plainText()
+        }
+    }
+
+    private func populateBody() {
+        if let source = rssItem.content?.contentEncoded {
+            workingItem.body = HTMLContent(source).sanitized()
         }
     }
 
@@ -155,7 +162,7 @@ final class RSSItemTransform: ItemTransform {
 
     private func findContentImages() {
         if let source = rssItem.content?.contentEncoded {
-            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
+            if let allowedImages = HTMLContent(source).allowedImages(itemLink: workingItem.link) {
                 workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }
@@ -163,7 +170,7 @@ final class RSSItemTransform: ItemTransform {
 
     private func findDescriptionImages() {
         if let source = rssItem.description?.htmlUnescape() {
-            if let allowedImages = SummaryHTML(source).allowedImages(itemLink: workingItem.link) {
+            if let allowedImages = HTMLContent(source).allowedImages(itemLink: workingItem.link) {
                 workingItem.imagePool.append(contentsOf: allowedImages)
             }
         }

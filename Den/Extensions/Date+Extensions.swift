@@ -40,4 +40,12 @@ extension Date {
 
         return dateFormatter.string(from: self)
     }
+
+    func fullLongDisplay() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .long
+
+        return dateFormatter.string(from: self)
+    }
 }

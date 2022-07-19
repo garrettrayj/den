@@ -37,19 +37,11 @@ struct FeedItemPreviewView: View {
 
                 Divider()
 
-                ItemPreviewView(item: item)
-                    .onTapGesture(perform: openItem)
+                ItemActionView(item: item) {
+                    ItemPreviewView(item: item)
+                }
             }
             .modifier(GroupBlockModifier())
         }
-    }
-
-    private func openItem() {
-        linkManager.openLink(
-            url: item.link,
-            logHistoryItem: item,
-            readerMode: item.feedData?.feed?.readerMode ?? false
-        )
-        item.objectWillChange.send()
     }
 }
