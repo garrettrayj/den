@@ -90,7 +90,6 @@ struct ItemView: View {
 
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
-
         ToolbarItemGroup(placement: .bottomBar) {
             Spacer()
             Button {
@@ -112,6 +111,11 @@ struct ItemView: View {
                 imagePlaceholder
             }
             .aspectRatio(viewModel.item.imageAspectRatio, contentMode: .fit)
+            .frame(
+                maxWidth: viewModel.item.imageWidth > 0 ? CGFloat(viewModel.item.imageWidth) : nil,
+                maxHeight: viewModel.item.imageHeight > 0 ? CGFloat(viewModel.item.imageHeight) : nil,
+                alignment: .top
+            )
             .background(Color(UIColor.tertiarySystemGroupedBackground))
             .cornerRadius(6)
             .overlay(

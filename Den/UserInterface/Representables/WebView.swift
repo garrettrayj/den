@@ -82,7 +82,9 @@ struct WebView: UIViewRepresentable {
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             webView.evaluateJavaScript("document.readyState", completionHandler: { (_, _) in
-                webView.invalidateIntrinsicContentSize()
+                DispatchQueue.main.async {
+                    webView.invalidateIntrinsicContentSize()
+                }
             })
         }
 

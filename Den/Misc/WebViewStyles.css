@@ -42,6 +42,10 @@ img {
     max-width: 100%;
 }
 
+audio {
+    margin: 1em 0;
+}
+
 /* Typography */
 
 h1 {
@@ -71,8 +75,9 @@ hr {
 blockquote {
     background: -apple-system-secondary-background;
     border-radius: 0.75em;
+    margin: 1em 2em;
     overflow: hidden;
-    padding: 0 1em;
+    padding: 0 1.25em;
 }
 
 /* Content Sectioning */
@@ -122,7 +127,9 @@ a:visited {
 /* Remove Extra Space */
 
 img + br,
-p + br {
+p + br,
+hr + br,
+br + br {
   display: none;
 }
 
