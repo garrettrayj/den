@@ -33,6 +33,7 @@ struct ItemActionView<Content: View>: View {
                     ItemView(viewModel: ItemViewModel(item: item))
                         .onAppear {
                             linkManager.markItemRead(item: item)
+                            item.objectWillChange.send()
                         }
                 } label: {
                     content

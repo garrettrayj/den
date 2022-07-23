@@ -12,54 +12,26 @@ import SwiftUI
 struct GlobalTimelineView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @SectionedFetchRequest<String, Item>(sectionIdentifier: \.day, sortDescriptors: [])
-    private var itemSections: SectionedFetchResults<String, Item>
+    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
     var frameSize: CGSize
 
     var body: some View {
-        if itemSections.isEmpty {
+        if profile.previewItems.isEmpty {
             StatusBoxView(message: Text("Timeline Empty"), symbol: "clock")
         } else {
-            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                ForEach(itemSections) { section in
-                    Section {
-                        BoardView(width: frameSize.width, list: Array(section)) { item in
-                            FeedItemPreviewView(item: item)
-                        }
-                        .padding()
-                    } header: {
-                        Label(section.id, systemImage: "calendar")
-                            .font(.subheadline)
-                            .padding(.horizontal, 28)
-                            .modifier(PinnedSectionHeaderModifier())
-                    }
-                }
+            BoardView(width: frameSize.width, list: visibleItems) { item in
+                FeedItemPreviewView(item: item)
             }
+            .padding()
         }
     }
 
-    init(profile: Profile, hideRead: Binding<Bool>, frameSize: CGSize) {
-        self.frameSize = frameSize
-
-        _hideRead = hideRead
-
-        let profilePredicate = NSPredicate(
-            format: "feedData.id IN %@",
-            profile.pagesArray.flatMap({ page in
-                page.feedsArray.compactMap { feed in
-                    feed.feedData?.id
-                }
-            })
-        )
-
-        _itemSections = SectionedFetchRequest<String, Item>(
-            entity: Item.entity(),
-            sectionIdentifier: \.day,
-            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
-            predicate: profilePredicate
-        )
+    private var visibleItems: [Item] {
+        profile.previewItems.filter { item in
+            hideRead ? item.read == false : true
+        }
     }
 }
