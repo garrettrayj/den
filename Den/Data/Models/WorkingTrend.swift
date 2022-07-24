@@ -1,5 +1,5 @@
 //
-//  Trend.swift
+//  WorkingTrend.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/2/22.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Trend: Identifiable {
+struct WorkingTrend: Identifiable {
     var id: String
     var text: String
     var items: [Item]
@@ -27,13 +27,13 @@ struct Trend: Identifiable {
     }
 }
 
-extension Trend: Equatable {
-  static func == (lhs: Trend, rhs: Trend) -> Bool {
+extension WorkingTrend: Equatable {
+  static func == (lhs: WorkingTrend, rhs: WorkingTrend) -> Bool {
       return lhs.id == rhs.id
   }
 }
 
-extension Trend: Hashable {
+extension WorkingTrend: Hashable {
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }

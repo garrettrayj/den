@@ -20,7 +20,7 @@ struct TrendBlockView: View {
             TrendItemsView(trend: trend)
         } label: {
             VStack(alignment: .leading, spacing: 8) {
-                Text(trend.text).font(.title)
+                Text(trend.wrappedTitle).font(.title)
 
                 Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
 

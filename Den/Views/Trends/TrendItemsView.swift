@@ -62,6 +62,6 @@ struct TrendItemsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-        .navigationTitle(trend.text)
+        .navigationTitle(trend.wrappedTitle)
     }
 }

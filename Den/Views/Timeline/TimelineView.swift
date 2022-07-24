@@ -1,5 +1,5 @@
 //
-//  GlobalView.swift
+//  TimelineView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/4/22.
@@ -8,19 +8,16 @@
 
 import SwiftUI
 
-struct GlobalView: View {
+struct TimelineView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @EnvironmentObject private var linkManager: LinkManager
     @EnvironmentObject private var profileManager: ProfileManager
 
-    @ObservedObject var viewModel: GlobalViewModel
+    @ObservedObject var viewModel: TimelineViewModel
 
-    @State private var showingSettings: Bool = false
-
-    @AppStorage("globalViewMode") var viewMode = 0
-    @AppStorage("globalHideRead") var hideRead = false
+    @AppStorage("timelineHideRead") var hideRead = false
 
     #if targetEnvironment(macCatalyst)
     let emptyCaption = Text("""
@@ -47,50 +44,34 @@ struct GlobalView: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         Group {
-                            if viewMode == ContentViewMode.trends.rawValue {
-                                GlobalTrendsView(profile: viewModel.profile, frameSize: geometry.size)
-                            } else if viewMode == ContentViewMode.timeline.rawValue {
-                                GlobalTimelineView(
-                                    profile: viewModel.profile,
-                                    hideRead: $hideRead,
-                                    frameSize: geometry.size
-                                )
-                            } else if viewMode == ContentViewMode.showcase.rawValue {
-                                GlobalShowcaseView(
-                                    profile: viewModel.profile,
-                                    hideRead: $hideRead,
-                                    frameSize: geometry.size
-                                )
+                            if viewModel.profile.previewItems.isEmpty {
+                                StatusBoxView(message: Text("Timeline Empty"), symbol: "clock")
                             } else {
-                                GlobalGadgetsView(
-                                    profile: viewModel.profile,
-                                    hideRead: $hideRead,
-                                    frameSize: geometry.size
-                                )
+                                BoardView(width: geometry.size.width, list: visibleItems) { item in
+                                    FeedItemPreviewView(item: item)
+                                }
+                                .padding()
                             }
                         }.padding(.top, 8)
                     }
                 }
             }
         }
-        .onChange(of: viewMode, perform: { _ in
-            viewModel.objectWillChange.send()
-        })
         .background(Color(UIColor.systemGroupedBackground))
-        .navigationTitle("All Feeds")
+        .navigationTitle("Timeline")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
+    }
+
+    private var visibleItems: [Item] {
+        viewModel.profile.previewItems.filter { item in
+            hideRead ? item.read == false : true
+        }
     }
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         #if targetEnvironment(macCatalyst)
-        ToolbarItem(placement: .navigationBarTrailing) {
-            ContentModePickerView(viewMode: $viewMode)
-                .padding(.trailing, 8)
-                .pickerStyle(.inline)
-        }
-
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
                 subscriptionManager.showSubscribe()
@@ -107,23 +88,15 @@ struct GlobalView: View {
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
                 Menu {
-                    ContentModePickerView()
-
                     Button {
                         subscriptionManager.showSubscribe()
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }.accessibilityIdentifier("add-feed-button")
-
-                    Button {
-                        showingSettings = true
-                    } label: {
-                        Label("Page Settings", systemImage: "wrench")
-                    }.accessibilityIdentifier("page-settings-button")
                 } label: {
-                    Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
+                    Label("Timeline Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
                 }
-                .accessibilityIdentifier("page-menu")
+                .accessibilityIdentifier("timeline-menu")
             }
         }
         #endif

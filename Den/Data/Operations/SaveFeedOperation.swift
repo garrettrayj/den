@@ -34,12 +34,13 @@ final class SaveFeedOperation: Operation {
 
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
-        context.automaticallyMergesChangesFromParent = false
-        context.performAndWait {
-            guard let feed = context.object(with: feedObjectID) as? Feed else { return }
-            guard let feedData = updateFeed(feed: feed, context: context) else { return }
+        context.automaticallyMergesChangesFromParent = true
 
-            updateFeedItems(feedData: feedData, context: context)
+        context.performAndWait {
+            guard let feed = context.object(with: self.feedObjectID) as? Feed else { return }
+            guard let feedData = self.updateFeed(feed: feed, context: context) else { return }
+
+            self.updateFeedItems(feedData: feedData, context: context)
 
             do {
                 try context.save()
