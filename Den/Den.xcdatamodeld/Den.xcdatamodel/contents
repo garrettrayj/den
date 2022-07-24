@@ -54,6 +54,7 @@
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="feedData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedData" inverseName="items" inverseEntity="FeedData"/>
+        <relationship name="trendItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrendItem" inverseName="item" inverseEntity="TrendItem"/>
         <fetchedProperty name="history" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="History" predicateString="link = $FETCH_SOURCE.link"/>
         </fetchedProperty>
@@ -74,6 +75,24 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="History" inverseName="profile" inverseEntity="History"/>
         <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Page" inverseName="profile" inverseEntity="Page"/>
+        <fetchedProperty name="trends" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Trend" predicateString="profileId = $FETCH_SOURCE.id"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="Trend" representedClassName="Trend" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="profileId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="slug" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="trendItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrendItem" inverseName="trend" inverseEntity="TrendItem"/>
+        <fetchedProperty name="profile" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Profile" predicateString="id = $FETCH_SOURCE.profileId"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="TrendItem" representedClassName="TrendItem" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="trendItems" inverseEntity="Item"/>
+        <relationship name="trend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trend" inverseName="trendItems" inverseEntity="Trend"/>
     </entity>
     <configuration name="Cloud" usedWithCloudKit="YES">
         <memberEntity name="History"/>
@@ -84,13 +103,17 @@
     <configuration name="Local">
         <memberEntity name="Item"/>
         <memberEntity name="FeedData"/>
+        <memberEntity name="Trend"/>
+        <memberEntity name="TrendItem"/>
     </configuration>
     <elements>
         <element name="Feed" positionX="288" positionY="333" width="128" height="200"/>
         <element name="FeedData" positionX="270" positionY="216" width="128" height="230"/>
         <element name="History" positionX="270" positionY="315" width="128" height="104"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="260"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="275"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
-        <element name="Profile" positionX="270" positionY="324" width="128" height="104"/>
+        <element name="Profile" positionX="270" positionY="324" width="128" height="125"/>
+        <element name="Trend" positionX="279" positionY="351" width="128" height="125"/>
+        <element name="TrendItem" positionX="288" positionY="360" width="128" height="74"/>
     </elements>
 </model>

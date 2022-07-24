@@ -67,9 +67,7 @@ struct PageView: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         Group {
-                            if viewMode == ContentViewMode.trends.rawValue {
-                                PageTrendsView(page: viewModel.page, frameSize: geometry.size)
-                            } else if viewMode == ContentViewMode.timeline.rawValue {
+                            if viewMode == ContentViewMode.timeline.rawValue {
                                 PageTimelineView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                             } else if viewMode == ContentViewMode.showcase.rawValue {
                                 PageShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
@@ -121,9 +119,6 @@ struct PageView: View {
                 Label("Timeline", systemImage: "calendar.day.timeline.leading")
                     .tag(ContentViewMode.timeline.rawValue)
                     .accessibilityIdentifier("page-timeline-view-button")
-                Label("Trends", systemImage: "chart.line.uptrend.xyaxis")
-                    .tag(ContentViewMode.trends.rawValue)
-                    .accessibilityIdentifier("page-trends-view-button")
             }
             .padding(.trailing, 8)
             .pickerStyle(.inline)
@@ -171,9 +166,6 @@ struct PageView: View {
                         Label("Timeline", systemImage: "calendar.day.timeline.leading")
                             .tag(PageViewMode.timeline.rawValue)
                             .accessibilityIdentifier("page-timeline-view-button")
-                        Label("Trends", systemImage: "chart.line.uptrend.xyaxis")
-                            .tag(PageViewMode.trends.rawValue)
-                            .accessibilityIdentifier("page-trends-view-button")
                     }
 
                     Button {

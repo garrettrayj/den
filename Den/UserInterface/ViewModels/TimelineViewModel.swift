@@ -1,5 +1,5 @@
 //
-//  GlobalViewModel.swift
+//  TimelineViewModel.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/4/22.
@@ -10,7 +10,7 @@ import Combine
 import CoreData
 import SwiftUI
 
-class GlobalViewModel: ObservableObject {
+class TimelineViewModel: ObservableObject {
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
 

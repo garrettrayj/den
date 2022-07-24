@@ -6,21 +6,37 @@
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 import OSLog
 import NaturalLanguage
 
 class TrendsViewModel: ObservableObject {
-    let viewContext: NSManagedObjectContext
-    let crashManager: CrashManager
-    let profile: Profile
+    private var queuedSubscriber: AnyCancellable?
+    private var refreshedSubscriber: AnyCancellable?
 
-    @Published var analyzing: Bool = true
-    @Published var trends: [Trend] = []
+    @Published var profile: Profile
+    @Published var refreshing: Bool
 
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
-        self.viewContext = viewContext
-        self.crashManager = crashManager
+    init(profile: Profile, refreshing: Bool) {
         self.profile = profile
+        self.refreshing = refreshing
+
+        self.queuedSubscriber = NotificationCenter.default
+            .publisher(for: .profileQueued, object: profile.objectID)
+            .receive(on: RunLoop.main)
+            .map { _ in true }
+            .assign(to: \.refreshing, on: self)
+
+        self.refreshedSubscriber = NotificationCenter.default
+            .publisher(for: .profileRefreshed, object: profile.objectID)
+            .receive(on: RunLoop.main)
+            .map { _ in false }
+            .assign(to: \.refreshing, on: self)
+    }
+
+    deinit {
+        queuedSubscriber?.cancel()
+        refreshedSubscriber?.cancel()
     }
 }

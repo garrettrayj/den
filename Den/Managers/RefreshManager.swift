@@ -42,32 +42,33 @@ final class RefreshManager: ObservableObject {
         }
         operations.append(profileCompletionOp)
 
-        if let activePage = activePage {
-            operations.append(contentsOf:
-                createPageOps(
-                    page: activePage,
-                    profileCompletionOp: profileCompletionOp
-                )
-            )
+        let pagesCompletedOp = BlockOperation { [weak persistentContainer] in
+
         }
+        operations.append(pagesCompletedOp)
 
-        profile.pagesArray.forEach { page in
-            if page == activePage { return }
+        // Trends analysis
+        let trendsOp = TrendsOperation(
+            persistentContainer: self.persistentContainer,
+            profileObjectID: profile.objectID
+        )
+        operations.append(trendsOp)
+        trendsOp.addDependency(pagesCompletedOp)
+        profileCompletionOp.addDependency(trendsOp)
 
-            let pageOps = createPageOps(
-                page: page,
-                profileCompletionOp: profileCompletionOp
-            )
+        // Page refresh operations
+        profile.pagesArray.sorted(by: { lhs, _ in
+            lhs === activePage
+        }).forEach { page in
+            let (pageOps, pageCompletionOp) = createPageOps(page: page)
             operations.append(contentsOf: pageOps)
+            pagesCompletedOp.addDependency(pageCompletionOp)
         }
 
         queue.addOperations(operations, waitUntilFinished: false)
     }
 
-    private func createPageOps(
-        page: Page,
-        profileCompletionOp: Operation
-    ) -> [Operation] {
+    private func createPageOps(page: Page) -> ([Operation], Operation) {
         var pageOps: [Operation] = []
         var feedCompletionOps: [Operation] = []
 
@@ -104,9 +105,8 @@ final class RefreshManager: ObservableObject {
             pageCompletionOp.addDependency(operation)
         }
         pageOps.append(pageCompletionOp)
-        profileCompletionOp.addDependency(pageCompletionOp)
 
-        return pageOps
+        return (pageOps, pageCompletionOp)
     }
 
     private func createRefreshPlan(_ feed: Feed) -> RefreshPlan? {

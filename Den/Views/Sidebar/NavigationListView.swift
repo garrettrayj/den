@@ -27,20 +27,36 @@ struct NavigationListView: View {
     var body: some View {
         List {
             NavigationLink {
-                GlobalView(
-                    viewModel: GlobalViewModel(
+                TimelineView(
+                    viewModel: TimelineViewModel(
                         profile: viewModel.profile,
                         refreshing: viewModel.refreshing
                     )
                 )
             } label: {
                 Label {
-                    Text("All Feeds").modifier(SidebarItemLabelTextModifier())
+                    Text("Timeline").modifier(SidebarItemLabelTextModifier())
                 } icon: {
-                    Image(systemName: "helm").imageScale(.large)
+                    Image(systemName: "calendar.day.timeline.leading").imageScale(.large)
                 }
             }
-            .accessibilityIdentifier("all-feeds-button")
+            .accessibilityIdentifier("global-timeline-button")
+
+            NavigationLink {
+                TrendsView(
+                    viewModel: TrendsViewModel(
+                        profile: viewModel.profile,
+                        refreshing: viewModel.refreshing
+                    )
+                )
+            } label: {
+                Label {
+                    Text("Trends").modifier(SidebarItemLabelTextModifier())
+                } icon: {
+                    Image(systemName: "chart.line.uptrend.xyaxis").imageScale(.large)
+                }
+            }
+            .accessibilityIdentifier("global-trends-button")
 
             Section {
                 ForEach(viewModel.profile.pagesArray) { page in
@@ -58,9 +74,9 @@ struct NavigationListView: View {
             } header: {
                 Text("Pages")
                     #if targetEnvironment(macCatalyst)
-                    .font(.callout)
+                    .font(.subheadline)
                     #endif
-            }.headerProminence(.standard)
+            }
         }
         .background(
             NavigationLink(isActive: $showingSearch) {

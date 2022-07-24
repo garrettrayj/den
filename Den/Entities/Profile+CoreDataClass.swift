@@ -79,6 +79,28 @@ public class Profile: NSManagedObject {
         }
     }
 
+    public var trends: [Trend] {
+        guard
+            let values = value(forKey: "trends") as? [Trend]
+        else { return [] }
+
+        typealias AreInIncreasingOrder = (Trend, Trend) -> Bool
+
+        return values.sorted { lhs, rhs in
+            let predicates: [AreInIncreasingOrder] = [ { $0.items.count > $1.items.count }, { $0.wrappedTitle < $1.wrappedTitle }
+            ]
+
+            for predicate in predicates {
+                if !predicate(lhs, rhs) && !predicate(rhs, lhs) { // <4>
+                    continue
+                }
+                return predicate(lhs, rhs)
+            }
+
+            return false
+        }
+    }
+
     public var pagesArray: [Page] {
         get {
             guard
@@ -123,56 +145,6 @@ public class Profile: NSManagedObject {
             }
             return []
         }.sorted { $0.date > $1.date }
-    }
-
-    func trends() -> [Trend] {
-        var items: [Item] = []
-        pagesArray.forEach { page in
-            page.feedsArray.forEach { feed in
-                if let feedItems = feed.feedData?.previewItems {
-                    items.append(contentsOf: feedItems)
-                }
-            }
-        }
-
-        var trends: Set<Trend> = []
-
-        items.forEach { item in
-            item.subjects().forEach { (text, _) in
-                let id = text
-                    .localizedLowercase
-                    .removingCharacters(in: .punctuationCharacters)
-
-                var (inserted, trend) = trends.insert(
-                    Trend(id: id, text: text, items: [item])
-                )
-
-                if !inserted {
-                    trend.items.append(item)
-                    trends.update(with: trend)
-                }
-            }
-        }
-
-        typealias AreInIncreasingOrder = (Trend, Trend) -> Bool
-
-        let trendsArray = trends.filter { trend in
-            trend.items.count > 1 && trend.feeds.count > 1
-        }.sorted { lhs, rhs in
-            let predicates: [AreInIncreasingOrder] = [ { $0.items.count > $1.items.count }, { $0.text < $1.text }
-            ]
-
-            for predicate in predicates {
-                if !predicate(lhs, rhs) && !predicate(rhs, lhs) { // <4>
-                    continue
-                }
-                return predicate(lhs, rhs)
-            }
-
-            return false
-        }
-
-        return trendsArray
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {
