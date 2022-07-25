@@ -35,12 +35,10 @@ final class RSSItemTransform: ItemTransform {
         // Prefer RSS pubDate element for published date
         if let published = rssItem.pubDate {
             workingItem.published = published
-        } else {
+        } else if let published = rssItem.dublinCore?.dcDate {
             // Fallback to Dublin Core metadata for published date
             // (ex. http://feeds.feedburner.com/oatmealfeed does not have pubDate)
-            if let published = rssItem.dublinCore?.dcDate {
-                workingItem.published = published
-            }
+            workingItem.published = published
         }
 
         if let title = rssItem.title?.preparingTitle() {

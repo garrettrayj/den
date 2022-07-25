@@ -140,9 +140,6 @@ final class ParseFeedDataOperation: Operation {
             }
 
             workingItem.ingested = Date.now
-            if workingItem.published == nil || workingItem.published! > Date.now {
-                workingItem.published = Date.now
-            }
 
             self.workingItems.append(workingItem)
         }

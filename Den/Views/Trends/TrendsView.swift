@@ -18,47 +18,27 @@ struct TrendsView: View {
 
     @ObservedObject var viewModel: TrendsViewModel
 
-    #if targetEnvironment(macCatalyst)
-    let emptyCaption = Text("""
-    Add feeds by opening syndication links \
-    or click \(Image(systemName: "plus.circle")) to add by web address
-    """)
-    #else
-    let emptyCaption = Text("""
-    Add feeds by opening syndication links \
-    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
-    to add by web address
-    """)
-    #endif
-
     var body: some View {
-        VStack {
+        GeometryReader { geometry in
             if viewModel.profile.feedsArray.isEmpty {
+                NoFeedsView()
+            } else if viewModel.profile.previewItems.isEmpty {
+                NoItemsView()
+            } else if viewModel.profile.trends.isEmpty {
                 StatusBoxView(
-                    message: Text("Page Empty"),
-                    caption: emptyCaption,
-                    symbol: "questionmark.square.dashed"
+                    message: Text("Nothing Here"),
+                    caption: Text("No common subjects were found"),
+                    symbol: "questionmark.folder"
                 )
+                .frame(height: geometry.size.height - 60)
             } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        Group {
-                            if viewModel.profile.trends.isEmpty {
-                                StatusBoxView(
-                                    message: Text("No Items"),
-                                    caption: Text("Tap \(Image(systemName: "arrow.clockwise")) to refresh"),
-                                    symbol: "questionmark.square.dashed"
-                                )
-                                .frame(height: geometry.size.height - 60)
-                            } else {
-                                BoardView(width: geometry.size.width, list: viewModel.profile.trends) { trend in
-                                    TrendBlockView(trend: trend)
-                                }
-                                .padding(.horizontal)
-                                .padding(.bottom)
-                            }
-                        }.padding(.top, 8)
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: viewModel.profile.trends) { trend in
+                        TrendBlockView(trend: trend)
                     }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .padding(.top, 8)
                 }
             }
         }

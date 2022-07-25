@@ -23,16 +23,14 @@ struct ItemPreviewView: View {
                 .font(.headline.weight(.semibold))
                 .frame(maxWidth: .infinity, alignment: .topLeading)
 
-            if item.published != nil {
-                ItemDateView(date: item.published!, read: item.read)
-            }
+            ItemDateView(date: item.date, read: item.read)
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                 previewImage
             }
 
             if item.summary != nil && item.summary != "" {
-                Text("  \(item.summary!)")
+                Text(item.summary!)
                     .font(.body)
                     .lineLimit(6)
             }
@@ -62,11 +60,10 @@ struct ItemPreviewView: View {
             .placeholder {
                 imagePlaceholder
             }
-            .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+            .aspectRatio(item.imageAspectRatio, contentMode: .fit)
             .frame(
                 maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
-                maxHeight: item.imageHeight > 0 ? min(CGFloat(item.imageHeight), 360) : nil,
-                alignment: .top
+                maxHeight: item.imageHeight > 0 ? CGFloat(item.imageHeight) : nil
             )
             .background(Color(UIColor.tertiarySystemGroupedBackground))
             .cornerRadius(6)
@@ -78,20 +75,28 @@ struct ItemPreviewView: View {
     }
 
     private var imagePlaceholder: some View {
-        HStack {
-            Image(systemName: "photo").imageScale(.large)
-            Text(item.image?.absoluteString ?? "Unknown address").lineLimit(1).frame(maxWidth: 156)
-            Spacer()
-            Button {
-                UIPasteboard.general.string = item.image?.absoluteString
-            } label: {
-                Label("Copy Image URL", systemImage: "doc.on.doc")
-                    .imageScale(.small)
-                    .labelStyle(.iconOnly)
+        ZStack(alignment: .topLeading) {
+            Image(systemName: "photo")
+                .resizable()
+                .aspectRatio(item.imageAspectRatio ?? 3/2, contentMode: .fit)
+                .foregroundColor(.clear)
+
+            HStack {
+                Image(systemName: "photo").imageScale(.large)
+                Text(item.image?.absoluteString ?? "Unknown address").lineLimit(1)
+                Spacer()
+                Button {
+                    UIPasteboard.general.string = item.image?.absoluteString
+                } label: {
+                    Label("Copy Image URL", systemImage: "doc.on.doc")
+                        .imageScale(.small)
+                        .labelStyle(.iconOnly)
+                }
+                .accessibilityIdentifier("image-copy-url-button")
             }
-            .accessibilityIdentifier("image-copy-url-button")
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .padding()
         }
-        .foregroundColor(.secondary)
-        .padding()
     }
 }

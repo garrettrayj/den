@@ -36,21 +36,14 @@ struct PageView: View {
         )
     }
 
-    #if targetEnvironment(macCatalyst)
-    let emptyCaption = Text("""
-    Add feeds by opening syndication links \
-    or click \(Image(systemName: "plus.circle")) to add by web address
-    """)
-    #else
-    let emptyCaption = Text("""
-    Add feeds by opening syndication links \
-    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
-    to add by web address
-    """)
-    #endif
+    private var visibleItems: [Item] {
+        viewModel.page.limitedItemsArray.filter { item in
+            hideRead ? item.read == false : true
+        }
+    }
 
     var body: some View {
-        VStack {
+        GeometryReader { geometry in
             if viewModel.page.managedObjectContext == nil {
                 StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
                     .navigationTitle("")
@@ -58,24 +51,22 @@ struct PageView: View {
                         EmptyView()
                     }
             } else if viewModel.page.feedsArray.isEmpty {
-                StatusBoxView(
-                    message: Text("Page Empty"),
-                    caption: emptyCaption,
-                    symbol: "questionmark.square.dashed"
-                )
+                NoFeedsView()
+            } else if viewModel.page.previewItems.isEmpty  && viewMode == ContentViewMode.blend.rawValue {
+                NoItemsView()
+            } else if visibleItems.isEmpty && viewMode == ContentViewMode.blend.rawValue {
+                AllReadView(hiddenItemCount: viewModel.page.previewItems.read().count)
             } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        Group {
-                            if viewMode == ContentViewMode.timeline.rawValue {
-                                PageTimelineView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
-                            } else if viewMode == ContentViewMode.showcase.rawValue {
-                                PageShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
-                            } else {
-                                PageGadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
-                            }
-                        }.padding(.top, 8)
-                    }
+                ScrollView(.vertical) {
+                    Group {
+                        if viewMode == ContentViewMode.blend.rawValue {
+                            BlendView(page: viewModel.page, visibleItems: visibleItems, frameSize: geometry.size)
+                        } else if viewMode == ContentViewMode.showcase.rawValue {
+                            ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                        } else {
+                            GadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                        }
+                    }.padding(.top, 8)
                 }
             }
         }
@@ -117,7 +108,7 @@ struct PageView: View {
                     .tag(ContentViewMode.showcase.rawValue)
                     .accessibilityIdentifier("showcase-view-button")
                 Label("Timeline", systemImage: "calendar.day.timeline.leading")
-                    .tag(ContentViewMode.timeline.rawValue)
+                    .tag(ContentViewMode.blend.rawValue)
                     .accessibilityIdentifier("page-timeline-view-button")
             }
             .padding(.trailing, 8)

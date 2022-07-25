@@ -38,12 +38,6 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var feedCount: Int {
-        pagesArray.reduce(0) { partialResult, page in
-            partialResult + page.feedsArray.count
-        }
-    }
-
     public var insecureFeeds: [Feed] {
         pagesArray.flatMap { page in
             return page.insecureFeeds

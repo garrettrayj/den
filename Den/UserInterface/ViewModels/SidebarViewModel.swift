@@ -24,6 +24,11 @@ final class SidebarViewModel: ObservableObject {
     private var refreshedSubscriber: AnyCancellable?
     private var feedRefreshedSubscriber: AnyCancellable?
 
+    private var refreshUnits: Int64 {
+        // Number
+        Int64(profile.feedsArray.count) + 1
+    }
+
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager, profile: Profile) {
         self.viewContext = viewContext
         self.crashManager = crashManager
@@ -32,20 +37,18 @@ final class SidebarViewModel: ObservableObject {
         self.queuedSubscriber = NotificationCenter.default
             .publisher(for: .profileQueued, object: profile.objectID)
             .receive(on: RunLoop.main)
-            .map { _ in
-                self.refreshProgress.totalUnitCount = Int64(profile.feedCount)
+            .sink { _ in
+                self.refreshProgress.totalUnitCount = self.refreshUnits
                 self.refreshProgress.completedUnitCount = 0
-
-                return true
+                self.refreshing = true
             }
-            .assign(to: \.refreshing, on: self)
-
         self.refreshedSubscriber = NotificationCenter.default
             .publisher(for: .profileRefreshed, object: profile.objectID)
             .receive(on: RunLoop.main)
-            .map { _ in false }
-            .assign(to: \.refreshing, on: self)
-
+            .sink { _ in
+                self.refreshProgress.completedUnitCount += 1
+                self.refreshing = false
+            }
         self.feedRefreshedSubscriber = NotificationCenter.default
             .publisher(for: .feedRefreshed)
             .receive(on: RunLoop.main)

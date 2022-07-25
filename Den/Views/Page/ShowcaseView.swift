@@ -1,5 +1,5 @@
 //
-//  PageShowcaseView.swift
+//  ShowcaseView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/11/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PageShowcaseView: View {
+struct ShowcaseView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool

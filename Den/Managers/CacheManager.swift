@@ -33,6 +33,11 @@ final class CacheManager: ObservableObject {
                 }
             }
 
+            let trends = try viewContext.fetch(Trend.fetchRequest()) as [Trend]
+            trends.forEach { trend in
+                viewContext.delete(trend)
+            }
+
             if viewContext.hasChanges {
                 do {
                     try viewContext.save()

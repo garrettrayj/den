@@ -11,14 +11,21 @@ import SwiftUI
 struct BottomBarProgressStyle: ProgressViewStyle {
     let height: CGFloat = 4
     let width: CGFloat = 136
+    let progress: Progress
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .center, spacing: 6) {
             HStack(spacing: 0) {
-                Text("Checking ")
-                configuration.currentValueLabel.font(.caption.weight(.light).monospacedDigit())
-                Text("…")
+                if progress.completedUnitCount < progress.totalUnitCount - 1 {
+                    // Updating feeds
+                    Text("Updating \(progress.completedUnitCount) of \(progress.totalUnitCount - 1)…")
+                } else {
+                    // Performing analysis
+                    Text("Analyzing…")
+                }
             }
+            .lineLimit(1)
+            .monospacedDigit()
 
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: height / 2)

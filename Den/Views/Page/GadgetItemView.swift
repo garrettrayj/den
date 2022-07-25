@@ -30,10 +30,7 @@ struct GadgetItemView: View {
                     HStack(alignment: .top, spacing: 12) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(item.wrappedTitle).lineLimit(6)
-
-                            if item.published != nil {
-                                ItemDateView(date: item.published!, read: item.read)
-                            }
+                            ItemDateView(date: item.date, read: item.read)
                         }
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                         .multilineTextAlignment(.leading)
