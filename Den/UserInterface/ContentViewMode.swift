@@ -11,6 +11,5 @@ import Foundation
 enum ContentViewMode: Int {
     case gadgets  = 0
     case showcase = 1
-    case timeline = 2
-    case trends   = 3
+    case blend = 2
 }

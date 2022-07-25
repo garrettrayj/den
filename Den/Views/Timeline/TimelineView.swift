@@ -19,41 +19,22 @@ struct TimelineView: View {
 
     @AppStorage("timelineHideRead") var hideRead = false
 
-    #if targetEnvironment(macCatalyst)
-    let emptyCaption = Text("""
-    Add feeds by opening syndication links \
-    or click \(Image(systemName: "plus.circle")) to add by web address
-    """)
-    #else
-    let emptyCaption = Text("""
-    Add feeds by opening syndication links \
-    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
-    to add by web address
-    """)
-    #endif
-
     var body: some View {
-        VStack {
+        GeometryReader { geometry in
             if viewModel.profile.feedsArray.isEmpty {
-                StatusBoxView(
-                    message: Text("Page Empty"),
-                    caption: emptyCaption,
-                    symbol: "questionmark.square.dashed"
-                )
+                NoFeedsView()
+            } else if viewModel.profile.previewItems.isEmpty {
+                NoItemsView()
+            } else if visibleItems.isEmpty {
+                AllReadView(hiddenItemCount: viewModel.profile.previewItems.read().count)
             } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        Group {
-                            if viewModel.profile.previewItems.isEmpty {
-                                StatusBoxView(message: Text("Timeline Empty"), symbol: "clock")
-                            } else {
-                                BoardView(width: geometry.size.width, list: visibleItems) { item in
-                                    FeedItemPreviewView(item: item)
-                                }
-                                .padding()
-                            }
-                        }.padding(.top, 8)
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: visibleItems) { item in
+                        FeedItemPreviewView(item: item)
                     }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .padding(.top, 8)
                 }
             }
         }

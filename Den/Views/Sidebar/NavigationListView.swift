@@ -130,7 +130,8 @@ struct NavigationListView: View {
 
                 VStack {
                     if viewModel.refreshing {
-                        ProgressView(viewModel.refreshProgress).progressViewStyle(BottomBarProgressStyle())
+                        ProgressView(viewModel.refreshProgress)
+                            .progressViewStyle(BottomBarProgressStyle(progress: viewModel.refreshProgress))
                     } else {
                         refreshedLabel
                     }
@@ -159,8 +160,7 @@ struct NavigationListView: View {
     var refreshedLabel: some View {
         VStack(alignment: .center, spacing: 0) {
             if viewModel.profile.minimumRefreshedDate != nil {
-                Text("\(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())")
-                    .lineLimit(1)
+                Text("Updated \(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())")
             } else {
                 #if targetEnvironment(macCatalyst)
                 Text("Press \(Image(systemName: "command")) + R to refresh feeds").imageScale(.small)
@@ -168,6 +168,6 @@ struct NavigationListView: View {
                 Text("Pull to refresh feeds")
                 #endif
             }
-        }
+        }.lineLimit(1)
     }
 }

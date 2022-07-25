@@ -35,7 +35,7 @@ public class Item: NSManagedObject {
     }
 
     public var date: Date {
-        published ?? Date(timeIntervalSince1970: 0)
+        published ?? ingested ?? Date(timeIntervalSince1970: 0)
     }
 
     public var wrappedTitle: String {

@@ -24,12 +24,7 @@ struct SearchResultView: View {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.wrappedTitle).font(.headline.weight(.semibold))
-
-                    if item.published != nil {
-                        Text("\(item.published!.mediumShortDisplay())")
-                            .font(.caption)
-                            .foregroundColor(Color(.secondaryLabel))
-                    }
+                    ItemDateView(date: item.date, read: item.read)
                 }
                 Spacer()
                 if item.feedData?.feed?.showThumbnails == true {

@@ -42,7 +42,7 @@ final class RefreshManager: ObservableObject {
         }
         operations.append(profileCompletionOp)
 
-        let pagesCompletedOp = BlockOperation { [weak persistentContainer] in
+        let pagesCompletedOp = BlockOperation {
 
         }
         operations.append(pagesCompletedOp)
