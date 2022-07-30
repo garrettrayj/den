@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct FeedItemPreviewView: View {
-    @EnvironmentObject private var linkManager: LinkManager
-
     @ObservedObject var item: Item
 
     var body: some View {

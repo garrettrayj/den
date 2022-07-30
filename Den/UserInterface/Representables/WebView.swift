@@ -94,9 +94,7 @@ struct WebView: UIViewRepresentable {
             decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
         ) {
             let browserActions: Set<WKNavigationType> = [
-                .linkActivated,
-                .formSubmitted,
-                .formResubmitted
+                .linkActivated
             ]
 
             if let url = navigationAction.request.url, browserActions.contains(navigationAction.navigationType) {

@@ -61,7 +61,7 @@ struct ItemPreviewView: View {
                 RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
             )
             .accessibility(label: Text("Preview Image"))
-            .opacity(item.read ? 0.65 : 1.0)
+            .opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
     }
 
     private var imagePlaceholder: some View {

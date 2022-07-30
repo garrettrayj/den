@@ -13,7 +13,6 @@ struct PageView: View {
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @EnvironmentObject private var linkManager: LinkManager
-    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var viewModel: PageViewModel
 

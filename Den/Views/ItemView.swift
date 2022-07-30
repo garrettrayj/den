@@ -11,9 +11,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ItemView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var linkManager: LinkManager
 
     @ObservedObject var viewModel: ItemViewModel
