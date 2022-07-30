@@ -95,8 +95,9 @@ struct FeedView: View {
                         ) { item in
                             ItemActionView(item: item) {
                                 ItemPreviewView(item: item)
-                                    .modifier(GroupBlockModifier())
                             }
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                            .cornerRadius(8)
                         }.padding()
                     }
                 }
@@ -108,11 +109,10 @@ struct FeedView: View {
                 Spacer()
                 FeedUnavailableView(feedData: viewModel.feed.feedData, useStatusBox: true)
                 Spacer()
-                Spacer()
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: frameSize.height - 24)
             .padding()
+            .frame(maxWidth: .infinity)
+            .frame(height: frameSize.height - 36)
         }
     }
 

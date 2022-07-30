@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct NoFeedsView: View {
+    let message: String = "Page Empty"
+
     var body: some View {
         #if targetEnvironment(macCatalyst)
         StatusBoxView(
-            message: Text("No Feeds"),
+            message: Text(message),
             caption: Text("""
             Add feeds by opening syndication links \
             or click \(Image(systemName: "plus.circle")) to add by web address
@@ -21,7 +23,7 @@ struct NoFeedsView: View {
         )
         #else
         StatusBoxView(
-            message: Text("No Feeds"),
+            message: Text(message),
             caption: Text("""
             Add feeds by opening syndication links \
             or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \

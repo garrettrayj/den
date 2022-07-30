@@ -32,10 +32,10 @@ struct ShowcaseSectionView: View {
                         content: { item in
                             ItemActionView(item: item) {
                                 ItemPreviewView(item: item)
-                                    .modifier(GroupBlockModifier())
                                     .transition(.move(edge: .top))
-                            }
 
+                            }
+                            .cornerRadius(8)
                         }
                     ).padding()
                 }

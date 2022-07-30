@@ -20,7 +20,7 @@ struct PageView: View {
     @State private var showingSettings: Bool = false
 
     @AppStorage("pageViewMode_na") var viewMode = 0
-    @AppStorage("pageHideRead_na") var hideRead = false
+    @AppStorage("hideRead") var hideRead = false
 
     init(viewModel: PageViewModel) {
         self.viewModel = viewModel
@@ -28,11 +28,6 @@ struct PageView: View {
         _viewMode = AppStorage(
             wrappedValue: ContentViewMode.gadgets.rawValue,
             "pageViewMode_\(viewModel.page.id?.uuidString ?? "na")"
-        )
-
-        _hideRead = AppStorage(
-            wrappedValue: false,
-            "pageHideRead_\(viewModel.page.id?.uuidString ?? "na")"
         )
     }
 
@@ -54,13 +49,11 @@ struct PageView: View {
                 NoFeedsView()
             } else if viewModel.page.previewItems.isEmpty  && viewMode == ContentViewMode.blend.rawValue {
                 NoItemsView()
-            } else if visibleItems.isEmpty && viewMode == ContentViewMode.blend.rawValue {
-                AllReadView(hiddenItemCount: viewModel.page.previewItems.read().count)
             } else {
                 ScrollView(.vertical) {
                     Group {
                         if viewMode == ContentViewMode.blend.rawValue {
-                            BlendView(page: viewModel.page, visibleItems: visibleItems, frameSize: geometry.size)
+                            BlendView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                         } else if viewMode == ContentViewMode.showcase.rawValue {
                             ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
                         } else {
@@ -71,6 +64,7 @@ struct PageView: View {
             }
         }
         .onAppear {
+            viewModel.objectWillChange.send()
             subscriptionManager.activePage = viewModel.page
         }
         .onChange(of: viewMode, perform: { _ in
@@ -178,36 +172,17 @@ struct PageView: View {
         }
         #endif
 
-        ToolbarItemGroup(placement: .bottomBar) {
-            Button {
-                withAnimation {
-                    hideRead.toggle()
-                }
-            } label: {
-                Label(
-                    "Filter Read",
-                    systemImage: hideRead ?
-                        "line.3.horizontal.decrease.circle.fill"
-                        : "line.3.horizontal.decrease.circle"
-                )
+        ReadingToolbarContent(
+            items: viewModel.page.previewItems,
+            disabled: viewModel.refreshing,
+            hideRead: $hideRead
+        ) {
+            linkManager.toggleReadUnread(page: viewModel.page)
+            dispatchItemChanges()
+        } filterAction: {
+            withAnimation {
+                hideRead.toggle()
             }
-            Spacer()
-            VStack {
-                Text("\(viewModel.page.previewItems.unread().count) Unread").font(.caption)
-            }
-            Spacer()
-            Button {
-                linkManager.toggleReadUnread(page: viewModel.page)
-                dispatchItemChanges()
-            } label: {
-                Label(
-                    "Mark All Read",
-                    systemImage: viewModel.page.previewItems.unread().isEmpty ?
-                        "checkmark.circle.fill" : "checkmark.circle"
-                )
-            }
-            .accessibilityIdentifier("mark-all-read-button")
-            .disabled(viewModel.refreshing)
         }
     }
 

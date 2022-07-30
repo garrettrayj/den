@@ -15,8 +15,6 @@ struct ItemPreviewView: View {
 
     @ObservedObject var item: Item
 
-    @State private var hovering: Bool = false
-
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(item.wrappedTitle)
@@ -36,14 +34,6 @@ struct ItemPreviewView: View {
             }
         }
         .padding(12)
-        .background(
-            hovering ?
-                Color(UIColor.quaternarySystemFill) :
-                Color(UIColor.secondarySystemGroupedBackground)
-        )
-        .onHover { hovered in
-            hovering = hovered
-        }
         .multilineTextAlignment(.leading)
         .foregroundColor(
             isEnabled ?

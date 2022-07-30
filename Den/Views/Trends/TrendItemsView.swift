@@ -10,58 +10,52 @@ import SwiftUI
 
 struct TrendItemsView: View {
     @EnvironmentObject private var linkManager: LinkManager
-    @EnvironmentObject private var refreshManager: RefreshManager
-    @AppStorage("trendsHideUnread") var hideRead = false
 
-    var trend: Trend
+    @AppStorage("hideRead") var hideRead = false
+
+    @ObservedObject var trend: Trend
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical) {
-                BoardView(width: geometry.size.width, list: trend.items) { item in
-                    FeedItemPreviewView(item: item)
-                }
-                .padding(.top, 8)
-                .padding(.horizontal)
-                .padding(.bottom)
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-                Button {
-                    withAnimation {
-                        hideRead.toggle()
+            if trend.items.isEmpty {
+                NoItemsView()
+            } else if visibleItems.isEmpty {
+                AllReadView(hiddenItemCount: trend.items.read().count)
+            } else {
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: visibleItems) { item in
+                        FeedItemPreviewView(item: item)
                     }
-                } label: {
-                    Label(
-                        "Filter Read",
-                        systemImage: hideRead ?
-                            "line.3.horizontal.decrease.circle.fill"
-                            : "line.3.horizontal.decrease.circle"
-                    )
+                    .padding(.top, 8)
+                    .padding(.horizontal)
+                    .padding(.bottom)
                 }
-                Spacer()
-                VStack {
-                    Text("\(trend.items.unread().count) Unread").font(.caption)
-                }
-                Spacer()
-
-                Button {
-                    // Toggle all read/unread
-                    linkManager.toggleRead(trend: trend)
-                } label: {
-                    Label(
-                        trend.items.unread().isEmpty ? "Mark All Unread": "Mark All Read",
-                        systemImage: trend.items.unread().isEmpty ?
-                            "checkmark.circle.fill" : "checkmark.circle"
-                    )
-                }
-                .accessibilityIdentifier("mark-all-read-button")
-                .disabled(refreshManager.refreshing)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle(trend.wrappedTitle)
+        .toolbar {
+            ReadingToolbarContent(
+                items: trend.items,
+                disabled: false,
+                hideRead: $hideRead
+            ) {
+                linkManager.toggleReadUnread(trend: trend)
+                trend.items.forEach { $0.objectWillChange.send() }
+                trend.objectWillChange.send()
+            } filterAction: {
+                withAnimation {
+                    hideRead.toggle()
+                    trend.objectWillChange.send()
+                }
+            }
+        }
+    }
+
+    private var visibleItems: [Item] {
+        trend.items.filter { item in
+            hideRead ? item.read == false : true
+        }
     }
 }
