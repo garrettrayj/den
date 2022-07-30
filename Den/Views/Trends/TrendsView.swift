@@ -20,14 +20,10 @@ struct TrendsView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            if viewModel.profile.feedsArray.isEmpty {
-                NoFeedsView()
-            } else if viewModel.profile.previewItems.isEmpty {
-                NoItemsView()
-            } else if viewModel.profile.trends.isEmpty {
+            if viewModel.profile.trends.isEmpty {
                 StatusBoxView(
-                    message: Text("Nothing Here"),
-                    caption: Text("No common subjects were found"),
+                    message: Text("Trends Empty"),
+                    caption: Text("Item titles do not share any common subjects"),
                     symbol: "questionmark.folder"
                 )
                 .frame(height: geometry.size.height - 60)
@@ -45,5 +41,10 @@ struct TrendsView: View {
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle("Trends")
         .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Text("\(viewModel.profile.trends.count) trends").font(.caption)
+            }
+        }
     }
 }

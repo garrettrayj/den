@@ -12,38 +12,26 @@ struct GadgetItemView: View {
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
 
-    @Binding var hideRead: Bool
-
-    var showItem: Bool {
-        if item.read && hideRead == true {
-            return false
-        }
-
-        return true
-    }
-
     var body: some View {
-        if showItem {
-            VStack(spacing: 0) {
-                Divider()
-                ItemActionView(item: item) {
-                    HStack(alignment: .top, spacing: 12) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(item.wrappedTitle).lineLimit(6)
-                            ItemDateView(date: item.date, read: item.read)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                        .multilineTextAlignment(.leading)
-
-                        if feed.showThumbnails == true {
-                            ItemThumbnailView(item: item)
-                        }
+        VStack(spacing: 0) {
+            Divider()
+            ItemActionView(item: item) {
+                HStack(alignment: .top, spacing: 12) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(item.wrappedTitle).lineLimit(6)
+                        ItemDateView(date: item.date, read: item.read)
                     }
-                    .padding(12)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .multilineTextAlignment(.leading)
+
+                    if feed.showThumbnails == true {
+                        ItemThumbnailView(item: item)
+                    }
                 }
-                .accessibilityIdentifier("gadget-item-button")
+                .padding(12)
             }
-            .transition(.move(edge: .top))
+            .accessibilityIdentifier("gadget-item-button")
         }
+        .transition(.move(edge: .top))
     }
 }

@@ -16,23 +16,26 @@ struct TrendBlockView: View {
     ]
 
     var body: some View {
-        NavigationLink {
-            TrendItemsView(trend: trend)
-        } label: {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(trend.wrappedTitle).font(.title)
+        VStack {
+            NavigationLink {
+                TrendItemsView(trend: trend)
+            } label: {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(trend.wrappedTitle).font(.title)
 
-                Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
+                    Text("\(trend.items.count) items in \(trend.feeds.count) feeds").font(.subheadline)
 
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
-                    ForEach(trend.feeds) { feed in
-                        FeedFaviconView(url: feed.feedData?.favicon)
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+                        ForEach(trend.feeds) { feed in
+                            FeedFaviconView(url: feed.feedData?.favicon)
+                        }
                     }
                 }
+                .padding(12)
             }
-            .padding(12)
+            .buttonStyle(HoverShadowButtonStyle())
         }
-        .modifier(GroupBlockModifier())
-        .buttonStyle(HoverShadowButtonStyle())
+        .background(Color(UIColor.secondarySystemGroupedBackground))
+        .cornerRadius(8)
     }
 }

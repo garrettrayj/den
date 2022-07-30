@@ -115,7 +115,7 @@ final class LinkManager: ObservableObject {
         saveContext()
     }
 
-    public func toggleRead(trend: Trend) {
+    public func toggleReadUnread(trend: Trend) {
         if trend.items.unread().isEmpty {
             trend.items.forEach { item in
                 clearHistory(item: item)

@@ -42,6 +42,7 @@ struct FeedItemPreviewView: View {
                 }
             }
             .modifier(GroupBlockModifier())
+            .cornerRadius(8)
         }
     }
 }

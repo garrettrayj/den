@@ -26,8 +26,8 @@ struct GadgetView: View {
                             .foregroundColor(.secondary)
                             .padding(12)
                     } else {
-                        ForEach(feed.feedData!.previewItems) { item in
-                            GadgetItemView(item: item, feed: feed, hideRead: $hideRead)
+                        ForEach(visibleItems) { item in
+                            GadgetItemView(item: item, feed: feed)
                         }
                     }
                 } else {
@@ -40,7 +40,8 @@ struct GadgetView: View {
             .clipped()
         }
         .fixedSize(horizontal: false, vertical: true)
-        .modifier(GroupBlockModifier())
+        .background(Color(UIColor.secondarySystemGroupedBackground))
+        .cornerRadius(8)
     }
 
     private var header: some View {
@@ -64,6 +65,12 @@ struct GadgetView: View {
                 .buttonStyle(FeedTitleButtonStyle())
                 .accessibilityIdentifier("gadget-feed-button")
             }
+        }
+    }
+
+    private var visibleItems: [Item] {
+        feed.feedData!.previewItems.filter { item in
+            hideRead ? item.read == false : true
         }
     }
 }

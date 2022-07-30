@@ -74,7 +74,6 @@
 			<outline text="Crunchbase News" title="Crunchbase News" type="rss" xmlUrl="https://news.crunchbase.com/feed/" />
 			<outline text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
 			<outline text="Economic Times" title="Economic Times" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
-			<outline text="The Financial Express" title="The Financial Express" type="rss" xmlUrl="https://www.financialexpress.com/market/feed/" />
 			<outline text="New York Times" title="New York Times" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
 			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
 			<outline text="3D Printing Media Network" title="3D Printing Media Network" type="rss" xmlUrl="https://www.3dprintingmedia.network/feed/" />
@@ -85,12 +84,9 @@
 			<outline text="Housing Wire" title="Housing Wire" type="rss" xmlUrl="https://www.housingwire.com/feed/" />
 			<outline text="Yahoo Finance" title="Yahoo Finance" type="rss" xmlUrl="https://finance.yahoo.com/rss/topstories" />
 			<outline text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
-			<outline text="FXEMPIRE" title="FXEMPIRE" type="rss" xmlUrl="https://www.fxempire.com/api/v1/en/articles/rss/news" />
-			<outline text="MarketScreener.com" title="MarketScreener.com" type="rss" xmlUrl="https://www.marketscreener.com/rss/FeedNews.php" />
 			<outline text="Marketplace" title="Marketplace" type="rss" xmlUrl="https://www.marketplace.org/feed/" />
 			<outline text="CNBC" title="CNBC" type="rss" xmlUrl="https://www.cnbc.com/id/19746125/device/rss/rss.xml" />
 			<outline text="Nasdaq" title="Nasdaq" type="rss" xmlUrl="https://www.nasdaq.com/feed/nasdaq-original/rss.xml" />
-			<outline text="Oil &amp; Gas Journal" title="Oil &amp; Gas Journal" type="rss" xmlUrl="https://www.ogj.com/rss/home.xml" />
 			<outline text="GreenBiz.com" title="GreenBiz.com" type="rss" xmlUrl="https://www.greenbiz.com/rss.xml" />
 		</outline>
 		<outline text="Science" title="Science">

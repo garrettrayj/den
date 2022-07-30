@@ -141,6 +141,11 @@ final class ParseFeedDataOperation: Operation {
 
             workingItem.ingested = Date.now
 
+            // Skip future dated items
+            if let published = workingItem.published, published > Date.now {
+                return
+            }
+
             self.workingItems.append(workingItem)
         }
     }

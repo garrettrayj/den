@@ -17,7 +17,7 @@ struct TimelineView: View {
 
     @ObservedObject var viewModel: TimelineViewModel
 
-    @AppStorage("timelineHideRead") var hideRead = false
+    @AppStorage("hideRead") var hideRead = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -25,16 +25,9 @@ struct TimelineView: View {
                 NoFeedsView()
             } else if viewModel.profile.previewItems.isEmpty {
                 NoItemsView()
-            } else if visibleItems.isEmpty {
-                AllReadView(hiddenItemCount: viewModel.profile.previewItems.read().count)
             } else {
                 ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: visibleItems) { item in
-                        FeedItemPreviewView(item: item)
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom)
-                    .padding(.top, 8)
+                    TimelineItemsView(profile: viewModel.profile, hideRead: $hideRead, frameSize: geometry.size)
                 }
             }
         }
@@ -42,12 +35,7 @@ struct TimelineView: View {
         .navigationTitle("Timeline")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
-    }
-
-    private var visibleItems: [Item] {
-        viewModel.profile.previewItems.filter { item in
-            hideRead ? item.read == false : true
-        }
+        .onAppear { viewModel.objectWillChange.send() }
     }
 
     @ToolbarContentBuilder
@@ -82,36 +70,17 @@ struct TimelineView: View {
         }
         #endif
 
-        ToolbarItemGroup(placement: .bottomBar) {
-            Button {
-                withAnimation {
-                    hideRead.toggle()
-                }
-            } label: {
-                Label(
-                    "Filter Read",
-                    systemImage: hideRead ?
-                        "line.3.horizontal.decrease.circle.fill"
-                        : "line.3.horizontal.decrease.circle"
-                )
+        ReadingToolbarContent(
+            items: viewModel.profile.previewItems,
+            disabled: viewModel.refreshing,
+            hideRead: $hideRead
+        ) {
+            linkManager.toggleReadUnread(profile: viewModel.profile)
+            dispatchItemChanges()
+        } filterAction: {
+            withAnimation {
+                hideRead.toggle()
             }
-            Spacer()
-            VStack {
-                Text("\(viewModel.profile.previewItems.unread().count) Unread").font(.caption)
-            }
-            Spacer()
-            Button {
-                linkManager.toggleReadUnread(profile: viewModel.profile)
-                dispatchItemChanges()
-            } label: {
-                Label(
-                    "Mark All Read",
-                    systemImage: viewModel.profile.previewItems.unread().isEmpty ?
-                        "checkmark.circle.fill" : "checkmark.circle"
-                )
-            }
-            .accessibilityIdentifier("mark-all-read-button")
-            .disabled(viewModel.refreshing)
         }
     }
 
