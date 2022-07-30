@@ -11,10 +11,6 @@ import SwiftUI
 
 struct TrendsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
-    @EnvironmentObject private var subscriptionManager: SubscriptionManager
-    @EnvironmentObject private var linkManager: LinkManager
-    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var viewModel: TrendsViewModel
 

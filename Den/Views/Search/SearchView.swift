@@ -10,7 +10,6 @@ import CoreData
 import SwiftUI
 
 struct SearchView: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
     @ObservedObject var viewModel: SearchViewModel
 
     var profile: Profile

@@ -10,7 +10,6 @@ import SwiftUI
 
 struct GadgetsView: View {
     @ObservedObject var page: Page
-    @EnvironmentObject var linkManager: LinkManager
 
     @Binding var hideRead: Bool
 

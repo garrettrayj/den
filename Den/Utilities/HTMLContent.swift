@@ -106,6 +106,7 @@ final class HTMLContent {
             return nil
         }
 
+        // Apply <iframe> scaling fix
         do {
             for element in try doc.getElementsByTag("iframe") {
                 let width: String? = try? element.attr("width")
