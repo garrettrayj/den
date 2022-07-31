@@ -24,17 +24,13 @@ struct ItemActionView<Content: View>: View {
                         logHistoryItem: item,
                         readerMode: item.feedData?.feed?.readerMode ?? false
                     )
-                    item.objectWillChange.send()
                 } label: {
                     content
                 }
             } else {
                 NavigationLink {
                     ItemView(viewModel: ItemViewModel(item: item))
-                        .onAppear {
-                            linkManager.markItemRead(item: item)
-                            item.objectWillChange.send()
-                        }
+                        .onDisappear() { linkManager.markItemRead(item: item) }
                 } label: {
                     content
                 }

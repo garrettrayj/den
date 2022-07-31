@@ -30,19 +30,13 @@ struct NavigationListView: View {
 
     var body: some View {
         List {
-            TimelineNavView(viewModel: TimelineViewModel(
-                profile: profile,
-                refreshing: refreshing
-            ))
+            TimelineNavView(profile: profile, refreshing: $refreshing)
 
-            TrendsNavView(viewModel: TrendsViewModel(
-                profile: profile,
-                refreshing: refreshing
-            ))
+            TrendsNavView(profile: profile, refreshing: $refreshing)
 
             Section {
                 ForEach(profile.pagesArray) { page in
-                    PageNavView(viewModel: PageViewModel(page: page, refreshing: refreshing))
+                    PageNavView(page: page, refreshing: $refreshing)
                 }
                 .onMove(perform: movePage)
                 .onDelete(perform: deletePage)

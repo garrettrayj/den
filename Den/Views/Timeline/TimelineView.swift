@@ -13,19 +13,21 @@ struct TimelineView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @EnvironmentObject private var linkManager: LinkManager
 
-    @ObservedObject var viewModel: TimelineViewModel
+    @ObservedObject var profile: Profile
+
+    @Binding var refreshing: Bool
 
     @AppStorage("hideRead") var hideRead = false
 
     var body: some View {
         GeometryReader { geometry in
-            if viewModel.profile.feedsArray.isEmpty {
+            if profile.feedsArray.isEmpty {
                 NoFeedsView()
-            } else if viewModel.profile.previewItems.isEmpty {
+            } else if profile.previewItems.isEmpty {
                 NoItemsView()
             } else {
                 ScrollView(.vertical) {
-                    TimelineItemsView(profile: viewModel.profile, hideRead: $hideRead, frameSize: geometry.size)
+                    TimelineItemsView(profile: profile, hideRead: $hideRead, frameSize: geometry.size)
                 }
             }
         }
@@ -33,7 +35,6 @@ struct TimelineView: View {
         .navigationTitle("Timeline")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
-        .onAppear { viewModel.objectWillChange.send() }
     }
 
     @ToolbarContentBuilder
@@ -50,7 +51,7 @@ struct TimelineView: View {
 
         #else
         ToolbarItem {
-            if viewModel.refreshing {
+            if refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
@@ -69,11 +70,11 @@ struct TimelineView: View {
         #endif
 
         ReadingToolbarContent(
-            items: viewModel.profile.previewItems,
-            disabled: viewModel.refreshing,
+            items: profile.previewItems,
+            disabled: refreshing,
             hideRead: $hideRead
         ) {
-            linkManager.toggleReadUnread(profile: viewModel.profile)
+            linkManager.toggleReadUnread(profile: profile)
         }
     }
 }

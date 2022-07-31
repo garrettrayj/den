@@ -10,23 +10,24 @@ import SwiftUI
 
 struct TimelineNavView: View {
     @Environment(\.editMode) private var editMode
-    @ObservedObject var viewModel: TimelineViewModel
+
+    @ObservedObject var profile: Profile
+
+    @Binding var refreshing: Bool
 
     var body: some View {
         NavigationLink {
-            TimelineView(
-                viewModel: viewModel
-            )
+            TimelineView(profile: profile, refreshing: $refreshing)
         } label: {
             Label {
                 HStack {
                     Text("Timeline").modifier(SidebarItemLabelTextModifier())
                     Spacer()
                     if editMode?.wrappedValue == .inactive {
-                        if viewModel.refreshing {
+                        if refreshing {
                             ProgressView().progressViewStyle(IconProgressStyle())
                         } else {
-                            Text(String(viewModel.unread))
+                            Text(String(profile.previewItems.unread().count))
                                 .modifier(CapsuleModifier())
                         }
                     }

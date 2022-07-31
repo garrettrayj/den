@@ -14,60 +14,61 @@ struct PageView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @EnvironmentObject private var linkManager: LinkManager
 
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var page: Page
+
+    @Binding var refreshing: Bool
 
     @State private var showingSettings: Bool = false
 
     @AppStorage("pageViewMode_na") var viewMode = 0
     @AppStorage("hideRead") var hideRead = false
 
-    init(viewModel: PageViewModel) {
-        self.viewModel = viewModel
+    init(page: Page, refreshing: Binding<Bool>) {
+        self.page = page
+
+        _refreshing = refreshing
 
         _viewMode = AppStorage(
             wrappedValue: ContentViewMode.gadgets.rawValue,
-            "pageViewMode_\(viewModel.page.id?.uuidString ?? "na")"
+            "pageViewMode_\(page.id?.uuidString ?? "na")"
         )
     }
 
     private var visibleItems: [Item] {
-        viewModel.page.limitedItemsArray.filter { item in
+        page.limitedItemsArray.filter { item in
             hideRead ? item.read == false : true
         }
     }
 
     var body: some View {
         GeometryReader { geometry in
-            if viewModel.page.managedObjectContext == nil {
+            if page.managedObjectContext == nil {
                 StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
                     .navigationTitle("")
                     .toolbar {
                         EmptyView()
                     }
-            } else if viewModel.page.feedsArray.isEmpty {
+            } else if page.feedsArray.isEmpty {
                 NoFeedsView()
-            } else if viewModel.page.previewItems.isEmpty  && viewMode == ContentViewMode.blend.rawValue {
+            } else if page.previewItems.isEmpty  && viewMode == ContentViewMode.blend.rawValue {
                 NoItemsView()
             } else {
                 ScrollView(.vertical) {
                     Group {
                         if viewMode == ContentViewMode.blend.rawValue {
-                            BlendView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
                         } else if viewMode == ContentViewMode.showcase.rawValue {
-                            ShowcaseView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
                         } else {
-                            GadgetsView(page: viewModel.page, hideRead: $hideRead, frameSize: geometry.size)
+                            GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
                         }
                     }.padding(.top, 8)
                 }
             }
         }
         .onAppear {
-            subscriptionManager.activePage = viewModel.page
+            subscriptionManager.activePage = page
         }
-        .onChange(of: viewMode, perform: { _ in
-            viewModel.objectWillChange.send()
-        })
         .background(Color(UIColor.systemGroupedBackground))
         .background(
             Group {
@@ -75,7 +76,7 @@ struct PageView: View {
                     destination: PageSettingsView(viewModel: PageSettingsViewModel(
                         viewContext: viewContext,
                         crashManager: crashManager,
-                        page: viewModel.page
+                        page: page
                     )),
                     isActive: $showingSettings
                 ) {
@@ -83,7 +84,7 @@ struct PageView: View {
                 }
             }
         )
-        .navigationTitle(viewModel.page.displayName)
+        .navigationTitle(page.displayName)
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
     }
@@ -105,7 +106,7 @@ struct PageView: View {
             }
             .padding(.trailing, 8)
             .pickerStyle(.inline)
-            .disabled(viewModel.refreshing)
+            .disabled(refreshing)
         }
 
         ToolbarItem(placement: .navigationBarTrailing) {
@@ -115,11 +116,11 @@ struct PageView: View {
                 Label("Add Feed", systemImage: "plus.circle")
             }
             .accessibilityIdentifier("add-feed-button")
-            .disabled(viewModel.refreshing)
+            .disabled(refreshing)
         }
 
         ToolbarItem(placement: .navigationBarTrailing) {
-            if viewModel.refreshing {
+            if refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
@@ -129,12 +130,12 @@ struct PageView: View {
                     Label("Page Settings", systemImage: "wrench")
                 }
                 .accessibilityIdentifier("page-settings-button")
-                .disabled(viewModel.refreshing)
+                .disabled(refreshing)
             }
         }
         #else
         ToolbarItem {
-            if viewModel.refreshing {
+            if refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
@@ -171,12 +172,12 @@ struct PageView: View {
         #endif
 
         ReadingToolbarContent(
-            items: viewModel.page.previewItems,
-            disabled: viewModel.refreshing,
+            items: page.previewItems,
+            disabled: refreshing,
             hideRead: $hideRead
         ) {
-            linkManager.toggleReadUnread(page: viewModel.page)
-            viewModel.objectWillChange.send()
+            linkManager.toggleReadUnread(page: page)
+            page.objectWillChange.send()
         }
     }
 }

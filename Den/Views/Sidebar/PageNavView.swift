@@ -10,29 +10,30 @@ import SwiftUI
 
 struct PageNavView: View {
     @Environment(\.editMode) private var editMode
-    @ObservedObject var viewModel: PageViewModel
+    @ObservedObject var page: Page
+    @Binding var refreshing: Bool
 
     var body: some View {
         NavigationLink {
-            PageView(viewModel: viewModel)
+            PageView(page: page, refreshing: $refreshing)
         } label: {
             Label {
                 HStack {
-                    Text(viewModel.page.displayName).modifier(SidebarItemLabelTextModifier())
+                    Text(page.displayName).modifier(SidebarItemLabelTextModifier())
 
                     Spacer()
 
                     if editMode?.wrappedValue == .inactive {
-                        if viewModel.refreshing {
+                        if refreshing {
                             ProgressView().progressViewStyle(IconProgressStyle())
                         } else {
-                            Text(String(viewModel.page.previewItems.unread().count))
+                            Text(String(page.previewItems.unread().count))
                                 .modifier(CapsuleModifier())
                         }
                     }
                 }.lineLimit(1)
             } icon: {
-                Image(systemName: viewModel.page.wrappedSymbol).imageScale(.large)
+                Image(systemName: page.wrappedSymbol).imageScale(.large)
             }
         }
         .accessibilityIdentifier("page-button")
