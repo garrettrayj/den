@@ -11,65 +11,41 @@ import SwiftUI
 struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
-    @ObservedObject var viewModel: SidebarViewModel
+    @ObservedObject var profile: Profile
+
     @Binding var showingSettings: Bool
 
     @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()
 
+    @State private var refreshing: Bool = false
     @State private var showingSearch: Bool = false
     @State private var showingHistory: Bool = false
     @State private var searchInput: String = ""
 
+    var refreshProgress: Progress = Progress()
+
     var body: some View {
         List {
-            NavigationLink {
-                TimelineView(
-                    viewModel: TimelineViewModel(
-                        profile: viewModel.profile,
-                        refreshing: viewModel.refreshing
-                    )
-                )
-            } label: {
-                Label {
-                    Text("Timeline").modifier(SidebarItemLabelTextModifier())
-                } icon: {
-                    Image(systemName: "calendar.day.timeline.leading").imageScale(.large)
-                }
-            }
-            .accessibilityIdentifier("global-timeline-button")
+            TimelineNavView(viewModel: TimelineViewModel(
+                profile: profile,
+                refreshing: refreshing
+            ))
 
-            NavigationLink {
-                TrendsView(
-                    viewModel: TrendsViewModel(
-                        profile: viewModel.profile,
-                        refreshing: viewModel.refreshing
-                    )
-                )
-            } label: {
-                Label {
-                    Text("Trends").modifier(SidebarItemLabelTextModifier())
-                } icon: {
-                    Image(systemName: "chart.line.uptrend.xyaxis").imageScale(.large)
-                }
-            }
-            .accessibilityIdentifier("global-trends-button")
+            TrendsNavView(viewModel: TrendsViewModel(
+                profile: profile,
+                refreshing: refreshing
+            ))
 
             Section {
-                ForEach(viewModel.profile.pagesArray) { page in
-                    let pageViewModel = PageViewModel(page: page, refreshing: viewModel.refreshing)
-
-                    NavigationLink {
-                        PageView(viewModel: pageViewModel)
-                    } label: {
-                        SidebarPageView(viewModel: pageViewModel).environment(\.editMode, editMode)
-                    }
-                    .accessibilityIdentifier("page-button")
+                ForEach(profile.pagesArray) { page in
+                    PageNavView(viewModel: PageViewModel(page: page, refreshing: refreshing))
                 }
-                .onMove(perform: viewModel.movePage)
-                .onDelete(perform: viewModel.deletePage)
+                .onMove(perform: movePage)
+                .onDelete(perform: deletePage)
             } header: {
                 Text("Pages")
                     #if targetEnvironment(macCatalyst)
@@ -79,7 +55,7 @@ struct NavigationListView: View {
         }
         .background(
             NavigationLink(isActive: $showingSearch) {
-                SearchView(viewModel: searchViewModel, profile: viewModel.profile)
+                SearchView(viewModel: searchViewModel, profile: profile)
             } label: {
                 Text("Search")
             }.hidden()
@@ -100,18 +76,29 @@ struct NavigationListView: View {
             }
         }
         #endif
+        .onReceive(NotificationCenter.default.publisher(for: .profileQueued, object: profile.objectID)) { _ in
+            self.refreshProgress.totalUnitCount = self.refreshUnits
+            self.refreshProgress.completedUnitCount = 0
+            self.refreshing = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .profileRefreshed, object: profile.objectID)) { _ in
+            self.refreshing = false
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+            self.refreshProgress.completedUnitCount += 1
+        }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 HStack(spacing: 16) {
                     if editMode?.wrappedValue == EditMode.active {
-                        Button(action: viewModel.createPage) {
+                        Button(action: createPage) {
                             Label("New Page", systemImage: "plus")
                         }
                         .accessibilityIdentifier("new-page-button")
                     }
 
                     EditButton()
-                        .disabled(viewModel.refreshing)
+                        .disabled(refreshing)
                         .accessibilityIdentifier("edit-page-list-button")
                 }
             }
@@ -123,14 +110,14 @@ struct NavigationListView: View {
                     Label("Settings", systemImage: "gear")
                 }
                 .accessibilityIdentifier("settings-button")
-                .disabled(viewModel.refreshing)
+                .disabled(refreshing)
 
                 Spacer()
 
                 VStack {
-                    if viewModel.refreshing {
-                        ProgressView(viewModel.refreshProgress)
-                            .progressViewStyle(BottomBarProgressStyle(progress: viewModel.refreshProgress))
+                    if refreshing {
+                        ProgressView(refreshProgress)
+                            .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
                     } else {
                         refreshedLabel
                     }
@@ -142,7 +129,7 @@ struct NavigationListView: View {
 
                 Button {
                     refreshManager.refresh(
-                        profile: viewModel.profile,
+                        profile: profile,
                         activePage: subscriptionManager.activePage
                     )
                 } label: {
@@ -151,15 +138,15 @@ struct NavigationListView: View {
                 .keyboardShortcut("r", modifiers: [.command])
                 .accessibilityIdentifier("profile-refresh-button")
                 .accessibilityElement()
-                .disabled(viewModel.refreshing)
+                .disabled(refreshing)
             }
         }
     }
 
     var refreshedLabel: some View {
         VStack(alignment: .center, spacing: 0) {
-            if viewModel.profile.minimumRefreshedDate != nil {
-                Text("Updated \(viewModel.profile.minimumRefreshedDate!.shortShortDisplay())")
+            if profile.minimumRefreshedDate != nil {
+                Text("Updated \(profile.minimumRefreshedDate!.shortShortDisplay())")
             } else {
                 #if targetEnvironment(macCatalyst)
                 Text("Press \(Image(systemName: "command")) + R to refresh feeds").imageScale(.small)
@@ -169,4 +156,54 @@ struct NavigationListView: View {
             }
         }.lineLimit(1)
     }
+
+    private var refreshUnits: Int64 {
+        // Number
+        Int64(profile.feedsArray.count) + 1
+    }
+
+    func save() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
+            }
+        }
+    }
+
+    func createPage() {
+        _ = Page.create(in: viewContext, profile: profile)
+
+        save()
+    }
+
+    func movePage( from source: IndexSet, to destination: Int) {
+        var revisedItems = profile.pagesArray
+
+        // change the order of the items in the array
+        revisedItems.move(fromOffsets: source, toOffset: destination)
+
+        // update the userOrder attribute in revisedItems to
+        // persist the new order. This is done in reverse order
+        // to minimize changes to the indices.
+        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
+            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
+        }
+
+        // Move may be called without tapping the edit button, so the result is saved immediately
+        save()
+    }
+
+    func deletePage(indices: IndexSet) {
+        indices.forEach {
+            let objectID = profile.pagesArray[$0].objectID
+            viewContext.delete(profile.pagesArray[$0])
+            NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
+        }
+
+        // Delete may be called without tapping the edit button, so the result is saved immediately
+        save()
+    }
+
 }

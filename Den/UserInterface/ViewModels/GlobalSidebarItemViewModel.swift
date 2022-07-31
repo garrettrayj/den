@@ -1,35 +1,34 @@
 //
-//  SidebarPageViewModel.swift
+//  SidebarProfileMenuItemView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 2/17/22.
+//  Created by Garrett Johnson on 7/30/22.
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import Combine
-import CoreData
-import SwiftUI
+import Foundation
 
-class SidebarPageViewModel: ObservableObject {
+class GlobalSidebarItemViewModel: ObservableObject {
     private var queuedSubscriber: AnyCancellable?
     private var refreshedSubscriber: AnyCancellable?
 
-    var page: Page
+    var profile: Profile
 
     @Published var refreshing: Bool
 
-    init(page: Page, refreshing: Bool) {
-        self.page = page
+    init(profile: Profile, refreshing: Bool) {
+        self.profile = profile
         self.refreshing = refreshing
 
         self.queuedSubscriber = NotificationCenter.default
-            .publisher(for: .pageQueued, object: page.objectID)
+            .publisher(for: .profileQueued, object: profile.objectID)
             .receive(on: RunLoop.main)
             .map { _ in true }
             .assign(to: \.refreshing, on: self)
 
         self.refreshedSubscriber = NotificationCenter.default
-            .publisher(for: .pageRefreshed, object: page.objectID)
+            .publisher(for: .profileRefreshed, object: profile.objectID)
             .receive(on: RunLoop.main)
             .map { _ in false }
             .assign(to: \.refreshing, on: self)

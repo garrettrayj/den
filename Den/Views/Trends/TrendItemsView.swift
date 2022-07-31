@@ -44,11 +44,6 @@ struct TrendItemsView: View {
                 linkManager.toggleReadUnread(trend: trend)
                 trend.items.forEach { $0.objectWillChange.send() }
                 trend.objectWillChange.send()
-            } filterAction: {
-                withAnimation {
-                    hideRead.toggle()
-                    trend.objectWillChange.send()
-                }
             }
         }
     }

@@ -74,20 +74,6 @@ struct TimelineView: View {
             hideRead: $hideRead
         ) {
             linkManager.toggleReadUnread(profile: viewModel.profile)
-            dispatchItemChanges()
-        } filterAction: {
-            withAnimation {
-                hideRead.toggle()
-            }
-        }
-    }
-
-    private func dispatchItemChanges() {
-        DispatchQueue.main.async {
-            viewModel.profile.previewItems.forEach { item in
-                item.objectWillChange.send()
-            }
-            viewModel.objectWillChange.send()
         }
     }
 }

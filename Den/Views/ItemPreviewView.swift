@@ -47,9 +47,7 @@ struct ItemPreviewView: View {
     private var previewImage: some View {
         WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
             .resizable()
-            .placeholder {
-                imagePlaceholder
-            }
+            .placeholder { ItemImagePlaceholderView(imageURL: item.image, aspectRatio: item.imageAspectRatio) }
             .aspectRatio(item.imageAspectRatio, contentMode: .fit)
             .frame(
                 maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
@@ -62,31 +60,5 @@ struct ItemPreviewView: View {
             )
             .accessibility(label: Text("Preview Image"))
             .opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
-    }
-
-    private var imagePlaceholder: some View {
-        ZStack(alignment: .topLeading) {
-            Image(systemName: "photo")
-                .resizable()
-                .aspectRatio(item.imageAspectRatio ?? 3/2, contentMode: .fit)
-                .foregroundColor(.clear)
-
-            HStack {
-                Image(systemName: "photo").imageScale(.large)
-                Text(item.image?.absoluteString ?? "Unknown address").lineLimit(1)
-                Spacer()
-                Button {
-                    UIPasteboard.general.string = item.image?.absoluteString
-                } label: {
-                    Label("Copy Image URL", systemImage: "doc.on.doc")
-                        .imageScale(.small)
-                        .labelStyle(.iconOnly)
-                }
-                .accessibilityIdentifier("image-copy-url-button")
-            }
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .padding()
-        }
     }
 }

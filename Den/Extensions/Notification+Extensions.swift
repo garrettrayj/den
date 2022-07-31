@@ -15,4 +15,7 @@ extension Notification.Name {
     static let pageRefreshed = Notification.Name("page-refreshed")
     static let profileQueued = Notification.Name("profile-queued")
     static let profileRefreshed = Notification.Name("profile-refreshed")
+
+    static let itemRead = Notification.Name("item-read")
+    static let itemUnread = Notification.Name("item-unread")
 }
