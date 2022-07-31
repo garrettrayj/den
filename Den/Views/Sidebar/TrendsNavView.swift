@@ -10,21 +10,24 @@ import SwiftUI
 
 struct TrendsNavView: View {
     @Environment(\.editMode) private var editMode
-    @ObservedObject var viewModel: TrendsViewModel
+
+    @ObservedObject var profile: Profile
+
+    @Binding var refreshing: Bool
 
     var body: some View {
         NavigationLink {
-            TrendsView(viewModel: viewModel)
+            TrendsView(profile: profile, refreshing: $refreshing)
         } label: {
             Label {
                 HStack {
                     Text("Trends").modifier(SidebarItemLabelTextModifier())
                     Spacer()
                     if editMode?.wrappedValue == .inactive {
-                        if viewModel.refreshing {
+                        if refreshing {
                             ProgressView().progressViewStyle(IconProgressStyle())
                         } else {
-                            Text(String(viewModel.profile.previewItems.unread().count))
+                            Text(String(profile.previewItems.unread().count))
                                 .modifier(CapsuleModifier())
                         }
                     }

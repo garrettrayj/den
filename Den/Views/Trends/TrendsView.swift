@@ -12,11 +12,13 @@ import SwiftUI
 struct TrendsView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var viewModel: TrendsViewModel
+    @ObservedObject var profile: Profile
+
+    @Binding var refreshing: Bool
 
     var body: some View {
         GeometryReader { geometry in
-            if viewModel.profile.trends.isEmpty {
+            if profile.trends.isEmpty {
                 StatusBoxView(
                     message: Text("Trends Empty"),
                     caption: Text("Item titles do not share any common subjects"),
@@ -25,7 +27,7 @@ struct TrendsView: View {
                 .frame(height: geometry.size.height - 60)
             } else {
                 ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: viewModel.profile.trends) { trend in
+                    BoardView(width: geometry.size.width, list: profile.trends) { trend in
                         TrendBlockView(trend: trend)
                     }
                     .padding(.horizontal)
@@ -39,7 +41,7 @@ struct TrendsView: View {
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                Text("\(viewModel.profile.trends.count) trends").font(.caption)
+                Text("\(profile.trends.count) trends").font(.caption)
             }
         }
     }
