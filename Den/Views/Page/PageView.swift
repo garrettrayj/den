@@ -63,7 +63,6 @@ struct PageView: View {
             }
         }
         .onAppear {
-            viewModel.objectWillChange.send()
             subscriptionManager.activePage = viewModel.page
         }
         .onChange(of: viewMode, perform: { _ in
@@ -177,19 +176,6 @@ struct PageView: View {
             hideRead: $hideRead
         ) {
             linkManager.toggleReadUnread(page: viewModel.page)
-            dispatchItemChanges()
-        } filterAction: {
-            withAnimation {
-                hideRead.toggle()
-            }
-        }
-    }
-
-    private func dispatchItemChanges() {
-        DispatchQueue.main.async {
-            viewModel.page.previewItems.forEach { item in
-                item.objectWillChange.send()
-            }
             viewModel.objectWillChange.send()
         }
     }

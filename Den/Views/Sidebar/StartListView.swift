@@ -9,20 +9,23 @@
 import SwiftUI
 
 struct StartListView: View {
-    @ObservedObject var viewModel: SidebarViewModel
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
+
+    @ObservedObject var profile: Profile
 
     @Binding var showingSettings: Bool
 
     var body: some View {
         List {
             Section {
-                Button(action: viewModel.createPage) {
+                Button(action: createPage) {
                     Label("Create a Blank Page", systemImage: "plus")
                 }
                 .modifier(StartRowModifier())
                 .accessibilityIdentifier("start-blank-page-button")
 
-                Button(action: viewModel.loadDemo) {
+                Button(action: loadDemo) {
                     Label("Load Demo Feeds", systemImage: "wand.and.stars")
                 }
                 .modifier(StartRowModifier())
@@ -49,5 +52,62 @@ struct StartListView: View {
                 .accessibilityIdentifier("start-settings-button")
             }
         }
+    }
+
+    func loadDemo() {
+        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
+            preconditionFailure("Missing demo feeds source file")
+        }
+
+        let symbolMap = [
+            "World News": "globe",
+            "US News": "newspaper",
+            "Technology": "cpu",
+            "Business": "briefcase",
+            "Science": "atom",
+            "Space": "sparkles",
+            "Funnies": "face.smiling",
+            "Curiosity": "person.and.arrow.left.and.arrow.right",
+            "Gaming": "gamecontroller",
+            "Entertainment": "film"
+        ]
+
+        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
+
+        var newPages: [Page] = []
+        opmlReader.outlineFolders.forEach { opmlFolder in
+            let page = Page.create(in: self.viewContext, profile: profile)
+            page.name = opmlFolder.name
+            page.symbol = symbolMap[opmlFolder.name]
+            newPages.append(page)
+
+            opmlFolder.feeds.forEach { opmlFeed in
+                let feed = Feed.create(in: self.viewContext, page: page, url: opmlFeed.url)
+                feed.title = opmlFeed.title
+            }
+        }
+
+        do {
+            try viewContext.save()
+            profile.objectWillChange.send()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
+        }
+    }
+
+    func save() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
+            }
+        }
+    }
+
+    func createPage() {
+        _ = Page.create(in: viewContext, profile: profile)
+
+        save()
     }
 }

@@ -71,9 +71,7 @@ final class LinkManager: ObservableObject {
         let allItemsRead: Bool = feed.feedData?.previewItems.unread().isEmpty == true
         if allItemsRead {
             feed.feedData?.previewItems.read().forEach { item in
-                item.history?.forEach { history in
-                    viewContext.delete(history)
-                }
+                clearHistory(item: item)
             }
         } else {
             feed.feedData?.previewItems.unread().forEach { item in
@@ -84,12 +82,9 @@ final class LinkManager: ObservableObject {
     }
 
     public func toggleReadUnread(page: Page) {
-        let allItemsRead: Bool = page.previewItems.unread().isEmpty == true
-        if allItemsRead {
+        if page.previewItems.unread().isEmpty == true {
             page.previewItems.read().forEach { item in
-                item.history?.forEach { history in
-                    viewContext.delete(history)
-                }
+                clearHistory(item: item)
             }
         } else {
             page.previewItems.unread().forEach { item in
@@ -103,9 +98,7 @@ final class LinkManager: ObservableObject {
         let allItemsRead: Bool = profile.previewItems.unread().isEmpty == true
         if allItemsRead {
             profile.previewItems.read().forEach { item in
-                item.history?.forEach { history in
-                    viewContext.delete(history)
-                }
+                clearHistory(item: item)
             }
         } else {
             profile.previewItems.unread().forEach { item in
@@ -125,7 +118,6 @@ final class LinkManager: ObservableObject {
                 logHistory(item: item)
             }
         }
-
         saveContext()
     }
 
@@ -141,12 +133,16 @@ final class LinkManager: ObservableObject {
         if visisted != nil {
             history.visited = visisted
         }
+        item.objectWillChange.send()
+        NotificationCenter.default.post(name: .itemRead, object: item.feedData?.feed?.page?.objectID)
     }
 
     private func clearHistory(item: Item) {
         item.history?.forEach { history in
             viewContext.delete(history)
         }
+        item.objectWillChange.send()
+        NotificationCenter.default.post(name: .itemUnread, object: item.feedData?.feed?.page?.objectID)
     }
 
     private func saveContext() {

@@ -30,13 +30,7 @@ struct RootView: View {
 
     var navigationView: some View {
         NavigationView {
-            SidebarView(
-                viewModel: SidebarViewModel(
-                    viewContext: viewContext,
-                    crashManager: crashManager,
-                    profile: profileManager.activeProfile!
-                )
-            )
+            SidebarView(profile: profileManager.activeProfile!)
 
             // Default view for detail area
             WelcomeView()

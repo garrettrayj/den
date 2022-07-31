@@ -15,11 +15,14 @@ struct ReadingToolbarContent: ToolbarContent {
     @Binding var hideRead: Bool
 
     let toggleAll: () -> Void
-    let filterAction: () -> Void
 
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .bottomBar) {
-            Button(action: filterAction) {
+            Button {
+                withAnimation {
+                    hideRead.toggle()
+                }
+            } label: {
                 Label(
                     "Filter Read",
                     systemImage: hideRead ?

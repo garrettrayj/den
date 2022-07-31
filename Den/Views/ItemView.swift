@@ -26,10 +26,48 @@ struct ItemView: View {
                 StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
                     .navigationTitle("")
             } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        itemDetail(frameSize: geometry.size)
-                    }
+                ScrollView(.vertical) {
+                    VStack {
+                        VStack(alignment: .leading, spacing: 0) {
+                            FeedTitleLabelView(
+                                title: viewModel.item.feedTitle,
+                                favicon: viewModel.item.feedData?.favicon
+                            )
+                            .font(.title3)
+                            .padding(.top, 12)
+                            .padding(.horizontal, 12)
+
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text(viewModel.item.wrappedTitle).font(.largeTitle)
+
+                                Text("\(viewModel.item.date.fullLongDisplay())")
+                                    .font(.subheadline)
+                                    .lineLimit(1)
+
+                                if viewModel.item.body != nil {
+                                    WebView(
+                                        dynamicHeight: $webViewHeight,
+                                        html: viewModel.item.body!,
+                                        title: viewModel.item.wrappedTitle,
+                                        baseURL: viewModel.item.link
+                                    )
+                                } else if viewModel.item.summary != nil {
+                                    if viewModel.item.image != nil {
+                                        heroImage
+                                    }
+                                    Text(viewModel.item.summary!).lineSpacing(2)
+                                }
+                            }
+                            .dynamicTypeSize(.large)
+                            .padding([.top, .horizontal], 12)
+                            .padding(.bottom, 36)
+                        }
+                        .frame(maxWidth: maxContentWidth)
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+                        .padding(.bottom, 36)
+
+                    }.frame(maxWidth: .infinity)
                 }
                 .toolbar { toolbar }
             }
@@ -38,52 +76,6 @@ struct ItemView: View {
         .onChange(of: viewModel.item.feedData?.feed?.page) { _ in
             dismiss()
         }
-    }
-
-    @ViewBuilder
-    private func itemDetail(frameSize: CGSize) -> some View {
-        VStack {
-            VStack(alignment: .leading, spacing: 0) {
-                FeedTitleLabelView(
-                    title: viewModel.item.feedTitle,
-                    favicon: viewModel.item.feedData?.favicon
-                )
-                .font(.title3)
-                .padding(.top, 12)
-                .padding(.horizontal, 12)
-
-                VStack(alignment: .leading, spacing: 16) {
-                    Text(viewModel.item.wrappedTitle).font(.largeTitle)
-
-                    Text("\(viewModel.item.date.fullLongDisplay())")
-                        .font(.subheadline)
-                        .lineLimit(1)
-
-                    if viewModel.item.body != nil {
-                        WebView(
-                            dynamicHeight: $webViewHeight,
-                            html: viewModel.item.body!,
-                            title: viewModel.item.wrappedTitle,
-                            baseURL: viewModel.item.link
-                        )
-                    } else if viewModel.item.summary != nil {
-                        if viewModel.item.image != nil {
-                            heroImage(frameSize: frameSize)
-                        }
-
-                        Text(viewModel.item.summary!).lineSpacing(2)
-                    }
-                }
-                .dynamicTypeSize(.large)
-                .padding(12)
-            }
-            .frame(maxWidth: maxContentWidth)
-            .padding(.horizontal)
-            .padding(.top, 8)
-            .padding(.bottom, 36)
-
-        }.frame(maxWidth: .infinity)
-
     }
 
     @ToolbarContentBuilder
@@ -102,13 +94,16 @@ struct ItemView: View {
         }
     }
 
-    private func heroImage(frameSize: CGSize) -> some View {
+    private var heroImage: some View {
         WebImage(url: viewModel.item.image)
             .resizable()
             .placeholder {
-                imagePlaceholder
+                ItemImagePlaceholderView(
+                    imageURL: viewModel.item.image,
+                    aspectRatio: viewModel.item.imageAspectRatio
+                )
             }
-            .aspectRatio(viewModel.item.imageAspectRatio, contentMode: .fit)
+            .aspectRatio(nil, contentMode: .fit)
             .frame(
                 maxWidth: viewModel.item.imageWidth > 0 ? CGFloat(viewModel.item.imageWidth) : nil,
                 maxHeight: viewModel.item.imageHeight > 0 ? CGFloat(viewModel.item.imageHeight) : nil,
@@ -120,24 +115,5 @@ struct ItemView: View {
                 RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
             )
             .accessibility(label: Text("Hero Image"))
-
-    }
-
-    private var imagePlaceholder: some View {
-        HStack {
-            Image(systemName: "photo").imageScale(.large)
-            Text(viewModel.item.image?.absoluteString ?? "Unknown address").lineLimit(1).frame(maxWidth: 156)
-            Spacer()
-            Button {
-                UIPasteboard.general.string = viewModel.item.image?.absoluteString
-            } label: {
-                Label("Copy Image URL", systemImage: "doc.on.doc")
-                    .imageScale(.small)
-                    .labelStyle(.iconOnly)
-            }
-            .accessibilityIdentifier("image-copy-url-button")
-        }
-        .foregroundColor(.secondary)
-        .padding()
     }
 }
