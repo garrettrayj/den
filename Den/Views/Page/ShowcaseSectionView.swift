@@ -54,10 +54,7 @@ struct ShowcaseSectionView: View {
         HStack {
             if feed.id != nil {
                 NavigationLink {
-                    FeedView(viewModel: FeedViewModel(
-                        feed: feed,
-                        refreshing: false
-                    ))
+                    FeedView(feed: feed)
                 } label: {
                     HStack {
                         FeedTitleLabelView(

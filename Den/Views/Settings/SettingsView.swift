@@ -8,13 +8,16 @@
 
 import SwiftUI
 
+import SDWebImageSwiftUI
+
 struct SettingsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
-
-    @ObservedObject var viewModel: SettingsViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var cacheManager: CacheManager
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
@@ -41,11 +44,7 @@ struct SettingsView: View {
         Section {
             ForEach(profiles) { profile in
                 NavigationLink {
-                    ProfileView(viewModel: ProfileSettingsViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        profile: profile
-                    ))
+                    ProfileView(profile: profile)
                 } label: {
                     Label(
                         profile.displayName,
@@ -84,37 +83,27 @@ struct SettingsView: View {
         }
         .modifier(SectionHeaderModifier())
         .onChange(of: uiStyle, perform: { _ in
-            viewModel.applyStyle()
+            applyStyle()
         })
     }
 
     private var feedsSection: some View {
         Section(header: Text("Feeds")) {
             NavigationLink(
-                destination: ImportView(importViewModel: ImportViewModel(
-                    viewContext: viewContext,
-                    crashManager: crashManager,
-                    profileManager: profileManager
-                ))
+                destination: ImportView()
             ) {
                 Label("Import", systemImage: "arrow.down.doc")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
-            NavigationLink(destination: ExportView(viewModel: ExportViewModel(profileManager: profileManager))) {
+            NavigationLink(destination: ExportView()) {
                 Label("Export", systemImage: "arrow.up.doc")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
-            NavigationLink(
-                destination: SecurityView(viewModel: SecurityCheckViewModel(
-                    viewContext: viewContext,
-                    crashManager: crashManager,
-                    profileManager: profileManager
-                ))
-            ) {
+            NavigationLink(destination: SecurityView()) {
                 Label("Security", systemImage: "shield.lefthalf.filled")
             }
             .modifier(FormRowModifier())
@@ -154,7 +143,7 @@ struct SettingsView: View {
             .alert("Erase History?", isPresented: $showingClearHistoryAlert, actions: {
                 Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
                 Button("Reset", role: .destructive) {
-                    viewModel.clearHistory()
+                    clearHistory()
                     dismiss()
                 }.accessibilityIdentifier("reset-confirm-button")
             }, message: {
@@ -165,13 +154,13 @@ struct SettingsView: View {
         .modifier(SectionHeaderModifier())
         .onChange(of: historyRentionDays) { _ in
             profileManager.activeProfile?.wrappedHistoryRetention = historyRentionDays
-            viewModel.saveProfile()
+            saveProfile()
         }
     }
 
     private var dataSection: some View {
         Section(header: Text("Reset")) {
-            Button(action: viewModel.clearCache) {
+            Button(action: clearCache) {
                 Label("Clear Cache", systemImage: "bin.xmark")
             }
             .modifier(FormRowModifier())
@@ -188,7 +177,7 @@ struct SettingsView: View {
             .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
                 Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
                 Button("Reset", role: .destructive) {
-                    viewModel.resetEverything()
+                    resetEverything()
                     dismiss()
                 }.accessibilityIdentifier("reset-confirm-button")
             }, message: {
@@ -216,25 +205,25 @@ struct SettingsView: View {
 
             }.padding(.vertical, 8)
 
-            Button(action: viewModel.openCommunity) {
+            Button(action: openCommunity) {
                 Label("Discord Community", systemImage: "person.2.wave.2")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
 
-            Button(action: viewModel.emailSupport) {
+            Button(action: emailSupport) {
                 Label("Email Support", systemImage: "lifepreserver")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("email-support-button")
 
-            Button(action: viewModel.openHomepage) {
+            Button(action: openHomepage) {
                 Label("Developer Website", systemImage: "house")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
 
-            Button(action: viewModel.openPrivacyPolicy) {
+            Button(action: openPrivacyPolicy) {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
             }
             .modifier(FormRowModifier())
@@ -271,6 +260,90 @@ struct SettingsView: View {
             Text("One Week").tag(7 as Int)
         } label: {
             historyRetentionLabel
+        }
+    }
+
+    func saveProfile() {
+        if self.viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
+            }
+        }
+    }
+
+    func applyStyle() {
+        themeManager.applyStyle()
+    }
+
+    func clearCache() {
+        guard let profile = profileManager.activeProfile else { return }
+        refreshManager.cancel()
+        cacheManager.resetFeeds()
+
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk()
+
+        NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
+    }
+
+    func clearHistory() {
+        guard let profile = profileManager.activeProfile else { return }
+        profile.historyArray.forEach { history in
+            self.viewContext.delete(history)
+        }
+
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
+        }
+
+        profile.pagesArray.forEach({ page in
+            page.feedsArray.forEach { feed in
+                feed.objectWillChange.send()
+            }
+        })
+    }
+
+    func restoreUserDefaults() {
+        // Clear our UserDefaults domain
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+
+        themeManager.objectWillChange.send()
+    }
+
+    func resetEverything() {
+        refreshManager.cancel()
+        restoreUserDefaults()
+        profileManager.resetProfiles()
+    }
+
+    func openHomepage() {
+        if let url = URL(string: "https://garrettjohnson.com/apps/") {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    func openCommunity() {
+        if let url = URL(string: "https://discord.gg/NS9hMrYrnt") {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    func emailSupport() {
+        // Note: "mailto:" links do not work in simulator, only on devices
+        if let url = URL(string: "mailto:support@devsci.net") {
+            UIApplication.shared.open(url)
+        }
+    }
+
+    func openPrivacyPolicy() {
+        if let url = URL(string: "https://garrettjohnson.com/privacy/") {
+            UIApplication.shared.open(url)
         }
     }
 }

@@ -9,9 +9,14 @@
 import SwiftUI
 
 struct SecurityView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
 
-    @ObservedObject var viewModel: SecurityCheckViewModel
+    let queue = OperationQueue()
+
+    @State var remediationInProgress: Bool = false
+    @State var failedRemediation: [UUID?] = []
 
     var insecureFeedCount: Int {
         profileManager.activeProfile?.insecureFeedCount ?? 0
@@ -31,7 +36,7 @@ struct SecurityView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .onDisappear {
-            viewModel.reset()
+            reset()
         }
         .navigationTitle("Security")
         .modifier(BackNavigationModifier(title: "Settings"))
@@ -64,14 +69,14 @@ struct SecurityView: View {
             }).padding(.vertical, 8)
 
             Group {
-                if viewModel.remediationInProgress == true {
+                if remediationInProgress == true {
                     HStack {
                         ProgressView().progressViewStyle(IconProgressStyle())
                         Text("Scanning…").foregroundColor(.secondary)
                     }
                 } else {
                     Button {
-                        viewModel.remedyInsecureUrls()
+                        remedyInsecureUrls()
                     } label: {
                         Text("Scan for HTTPS Alternatives")
                     }
@@ -94,7 +99,7 @@ struct SecurityView: View {
                     )
                     Spacer()
                     Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(.secondary)
-                    if viewModel.failedRemediation.contains(feed.id) == true {
+                    if failedRemediation.contains(feed.id) == true {
                         Image(systemName: "shield.slash").foregroundColor(.red)
                     } else {
                         Image(systemName: "lock.open").foregroundColor(.secondary)
@@ -107,5 +112,66 @@ struct SecurityView: View {
                 .font(.headline)
                 #endif
         }.modifier(SectionHeaderModifier())
+    }
+
+    func reset() {
+        queue.cancelAllOperations()
+        remediationInProgress = false
+        failedRemediation = []
+    }
+
+    func remedyInsecureUrls() {
+        guard let activeProfile = profileManager.activeProfile else { return }
+
+        var operations: [Operation] = []
+
+        activeProfile.insecureFeeds.forEach { feed in
+            operations.append(contentsOf: createRemedyOps(feed: feed))
+        }
+
+        remediationInProgress = true
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.queue.addOperations(operations, waitUntilFinished: true)
+            DispatchQueue.main.async {
+                self.remediationInProgress = false
+                if self.viewContext.hasChanges {
+                    do {
+                        try self.viewContext.save()
+                    } catch {
+                        self.crashManager.handleCriticalError(error as NSError)
+                    }
+                }
+            }
+        }
+    }
+
+    private func createRemedyOps(feed: Feed) -> [Operation] {
+        guard let feedUrl = feed.url else { return [] }
+        var components = URLComponents(url: feedUrl, resolvingAgainstBaseURL: true)
+        components?.scheme = "https"
+        guard let secureUrl = components?.url else { return [] }
+
+        let fetchOp = DataTaskOperation(secureUrl)
+        let checkOp = FeedCheckOperation()
+        let fetchCheckAdapter = BlockOperation { [unowned fetchOp, unowned checkOp] in
+            checkOp.httpResponse = fetchOp.response
+            checkOp.httpTransportError = fetchOp.error
+            checkOp.data = fetchOp.data
+        }
+        let completionOp = BlockOperation { [unowned checkOp] in
+            if checkOp.feedIsValid {
+                feed.url = secureUrl
+            } else {
+                DispatchQueue.main.async {
+                    self.failedRemediation.append(feed.id)
+                }
+            }
+        }
+
+        fetchCheckAdapter.addDependency(fetchOp)
+        checkOp.addDependency(fetchCheckAdapter)
+        completionOp.addDependency(checkOp)
+
+        return [fetchOp, checkOp, fetchCheckAdapter, completionOp]
     }
 }

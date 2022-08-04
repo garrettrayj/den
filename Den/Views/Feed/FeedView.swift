@@ -16,24 +16,15 @@ struct FeedView: View {
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var linkManager: LinkManager
 
-    @ObservedObject var viewModel: FeedViewModel
+    @ObservedObject var feed: Feed
 
     @State var showingSettings: Bool = false
 
-    @AppStorage("feedHideRead_na") var hideRead = false
-
-    init(viewModel: FeedViewModel) {
-        self.viewModel = viewModel
-
-        _hideRead = AppStorage(
-            wrappedValue: false,
-            "feedHideRead_\(viewModel.feed.id?.uuidString ?? "na")"
-        )
-    }
+    @AppStorage("hideRead") var hideRead = false
 
     var body: some View {
         Group {
-            if viewModel.feed.managedObjectContext == nil {
+            if feed.managedObjectContext == nil {
                 StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
                     .navigationTitle("")
             } else {
@@ -48,26 +39,20 @@ struct FeedView: View {
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .background(
             NavigationLink(
-                destination: FeedSettingsView(
-                    viewModel: FeedSettingsViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        feed: viewModel.feed
-                    )
-                ),
+                destination: FeedSettingsView(feed: feed),
                 isActive: $showingSettings
             ) {
                 EmptyView()
             }
         )
-        .onChange(of: viewModel.feed.page) { _ in
+        .onChange(of: feed.page) { _ in
             dismiss()
         }
-        .navigationTitle(viewModel.feed.wrappedTitle)
+        .navigationTitle(feed.wrappedTitle)
     }
 
     private var visibleItems: [Item] {
-        guard let feedData = viewModel.feed.feedData else { return [] }
+        guard let feedData = feed.feedData else { return [] }
 
         return feedData.previewItems.filter { item in
             hideRead ? item.read == false : true
@@ -76,10 +61,10 @@ struct FeedView: View {
 
     @ViewBuilder
     private func feedItems(frameSize: CGSize) -> some View {
-        if viewModel.feed.hasContent {
+        if feed.hasContent {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-                    if hideRead == true && viewModel.feed.feedData!.itemsArray.unread().isEmpty {
+                    if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
                         Label("No unread items", systemImage: "checkmark")
                             .imageScale(.small)
                             .foregroundColor(.secondary)
@@ -107,7 +92,7 @@ struct FeedView: View {
         } else {
             VStack {
                 Spacer()
-                FeedUnavailableView(feedData: viewModel.feed.feedData, useStatusBox: true)
+                FeedUnavailableView(feedData: feed.feedData, useStatusBox: true)
                 Spacer()
             }
             .padding()
@@ -118,15 +103,15 @@ struct FeedView: View {
 
     private var header: some View {
         HStack {
-            if viewModel.feed.feedData?.linkDisplayString != nil {
+            if feed.feedData?.linkDisplayString != nil {
                 Button {
-                    linkManager.openLink(url: viewModel.feed.feedData?.link)
+                    linkManager.openLink(url: feed.feedData?.link)
                 } label: {
                     HStack {
                         Label {
-                            Text(viewModel.feed.feedData!.linkDisplayString!)
+                            Text(feed.feedData!.linkDisplayString!)
                         } icon: {
-                            WebImage(url: viewModel.feed.feedData?.favicon)
+                            WebImage(url: feed.feedData?.favicon)
                                 .resizable()
                                 .placeholder {
                                     Image(systemName: "globe")
@@ -162,17 +147,12 @@ struct FeedView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            if viewModel.refreshing {
-                ProgressView().progressViewStyle(ToolbarProgressStyle())
-            } else {
-                Button {
-                    showingSettings = true
-                } label: {
-                    Label("Feed Settings", systemImage: "wrench")
-                }
-                .disabled(viewModel.refreshing)
-                .accessibilityIdentifier("feed-settings-button")
+            Button {
+                showingSettings = true
+            } label: {
+                Label("Feed Settings", systemImage: "wrench")
             }
+            .accessibilityIdentifier("feed-settings-button")
         }
 
         ToolbarItemGroup(placement: .bottomBar) {
@@ -190,25 +170,19 @@ struct FeedView: View {
             }
             Spacer()
             VStack {
-                Text("\(viewModel.feed.feedData?.itemsArray.unread().count ?? 0) Unread").font(.caption)
+                Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread").font(.caption)
             }
             Spacer()
             Button {
-                // Toggle all read/unread
-                linkManager.toggleReadUnread(feed: viewModel.feed)
-                viewModel.feed.feedData?.itemsArray.forEach { item in
-                    item.objectWillChange.send()
-                }
-                viewModel.objectWillChange.send()
+                linkManager.toggleReadUnread(feed: feed)
             } label: {
                 Label(
                     "Mark All Read",
-                    systemImage: viewModel.feed.feedData?.itemsArray.unread().isEmpty ?? false ?
+                    systemImage: feed.feedData?.itemsArray.unread().isEmpty ?? false ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
             }
             .accessibilityIdentifier("mark-all-read-button")
-            .disabled(viewModel.refreshing)
         }
     }
 }

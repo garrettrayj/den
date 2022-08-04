@@ -36,16 +36,12 @@ struct RootView: View {
             WelcomeView()
         }
         .sheet(isPresented: $subscriptionManager.showingSubscribe) {
-            SubscribeView(viewModel: SubscribeViewModel(
-                viewContext: viewContext,
-                profileManager: profileManager,
-                refreshManager: refreshManager,
-                urlText: subscriptionManager.feedUrlString,
-                page: subscriptionManager.activePage
-            ))
-            .environment(\.colorScheme, colorScheme)
-            .environmentObject(profileManager)
+            SubscribeView()
+                .environment(\.colorScheme, colorScheme)
+                .environmentObject(profileManager)
+                .environmentObject(crashManager)
+                .environmentObject(subscriptionManager)
+                .environmentObject(refreshManager)
         }
     }
-
 }

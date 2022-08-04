@@ -73,11 +73,7 @@ struct PageView: View {
         .background(
             Group {
                 NavigationLink(
-                    destination: PageSettingsView(viewModel: PageSettingsViewModel(
-                        viewContext: viewContext,
-                        crashManager: crashManager,
-                        page: page
-                    )),
+                    destination: PageSettingsView(page: page),
                     isActive: $showingSettings
                 ) {
                     EmptyView()

@@ -11,7 +11,8 @@ import SwiftUI
 struct ExportView: View {
     @EnvironmentObject private var profileManager: ProfileManager
 
-    @ObservedObject var viewModel: ExportViewModel
+    @State private var selectedPages: [Page] = []
+    @State private var isFilePickerShown = false
 
     var body: some View {
         VStack {
@@ -23,12 +24,12 @@ struct ExportView: View {
 
                     Section {
                         Button {
-                            viewModel.exportOpml()
+                            exportOpml()
                         } label: {
                             Label("Save OPML File", systemImage: "arrow.up.doc")
                         }
                         .modifier(ProminentButtonModifier())
-                        .disabled(viewModel.selectedPages.isEmpty)
+                        .disabled(selectedPages.isEmpty)
                         .accessibilityIdentifier("export-opml-button")
                     }
                     .frame(maxWidth: .infinity)
@@ -46,7 +47,7 @@ struct ExportView: View {
         Section(header: selectionSectionHeader) {
             ForEach(profileManager.activeProfile!.pagesArray) { page in
                 // .editMode doesn't work inside forms, so creating selection buttons manually
-                Button { self.viewModel.togglePage(page) } label: {
+                Button { self.togglePage(page) } label: {
                     Label {
                         HStack {
                             Text(page.wrappedName).foregroundColor(.primary)
@@ -56,7 +57,7 @@ struct ExportView: View {
                                 .font(.footnote)
                         }
                     } icon: {
-                        if self.viewModel.selectedPages.contains(page) {
+                        if self.selectedPages.contains(page) {
                             Image(systemName: "checkmark.circle.fill")
                         } else {
                             Image(systemName: "circle")
@@ -64,7 +65,7 @@ struct ExportView: View {
                     }.lineLimit(1)
                 }
                 .modifier(FormRowModifier())
-                .onAppear { self.viewModel.selectedPages.append(page) }
+                .onAppear { self.selectedPages.append(page) }
                 .accessibilityIdentifier("export-toggle-page-button")
             }
         }.modifier(SectionHeaderModifier())
@@ -75,15 +76,68 @@ struct ExportView: View {
             Text("Select")
             Spacer()
             HStack {
-                Button(action: viewModel.selectAll) { Text("All") }
-                    .disabled(viewModel.allSelected)
+                Button(action: selectAll) { Text("All") }
+                    .disabled(allSelected)
                     .accessibilityIdentifier("export-select-all-button")
                 Text("/").foregroundColor(.secondary)
-                Button(action: viewModel.selectNone) { Text("None")}
-                    .disabled(viewModel.noneSelected)
+                Button(action: selectNone) { Text("None")}
+                    .disabled(noneSelected)
                     .accessibilityIdentifier("export-select-none-button")
             }
             .font(.system(size: 12))
+        }
+    }
+
+    var allSelected: Bool {
+        selectedPages.count == profileManager.activeProfile?.pagesArray.count ?? 0
+    }
+
+    var noneSelected: Bool {
+        selectedPages.count == 0
+    }
+
+    func togglePage(_ page: Page) {
+        if selectedPages.contains(page) {
+            selectedPages.removeAll { $0 == page }
+        } else {
+            selectedPages.append(page)
+        }
+    }
+
+    func selectAll() {
+        profileManager.activeProfile?.pagesArray.forEach { page in
+            if !selectedPages.contains(page) {
+                selectedPages.append(page)
+            }
+        }
+    }
+
+    func selectNone() {
+        selectedPages.removeAll()
+    }
+
+    func exportOpml() {
+        guard let activeProfile = profileManager.activeProfile else { return }
+
+        let exportPages: [Page] = activeProfile.pagesArray.compactMap { page in
+            if selectedPages.contains(page) {
+                return page
+            }
+
+            return nil
+        }
+
+        let opmlWriter = OPMLWriter(pages: exportPages)
+        let temporaryFileURL = opmlWriter.writeToFile()
+        let picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
+
+        let scenes = UIApplication.shared.connectedScenes
+        if
+            let windowScene = scenes.first as? UIWindowScene,
+            let window = windowScene.windows.first,
+            let rootViewController = window.rootViewController
+        {
+            rootViewController.present(picker.viewController, animated: true)
         }
     }
 }

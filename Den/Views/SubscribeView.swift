@@ -10,13 +10,24 @@ import SwiftUI
 
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
+    @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
-    @ObservedObject var viewModel: SubscribeViewModel
+    @State var targetPage: Page?
+    @State var urlText: String = ""
+    @State var urlIsValid: Bool?
+    @State var validationAttempts: Int = 0
+    @State var validationMessage: String?
+    @State var loading: Bool = false
+
+    @State var newFeed: Feed?
 
     var body: some View {
         Group {
-            if viewModel.page == nil {
+            if targetPage == nil {
                 VStack(spacing: 24) {
                     Image(systemName: "questionmark.folder").font(.system(size: 52))
                     Text("No Pages Available").font(.title2)
@@ -35,8 +46,8 @@ struct SubscribeView: View {
                             Text("Web Address").frame(maxWidth: .infinity, alignment: .center)
                         } footer: {
                             Group {
-                                if viewModel.validationMessage != nil {
-                                    Text(viewModel.validationMessage!).foregroundColor(.red)
+                                if validationMessage != nil {
+                                    Text(validationMessage!).foregroundColor(.red)
                                 } else {
                                     Text("RSS, Atom, or JSON Feed")
                                 }
@@ -66,9 +77,9 @@ struct SubscribeView: View {
                         submitButtonSection
                     }
                     .onReceive(
-                        NotificationCenter.default.publisher(for: .feedRefreshed, object: viewModel.newFeed?.objectID)
+                        NotificationCenter.default.publisher(for: .feedRefreshed, object: newFeed?.objectID)
                     ) { _ in
-                        viewModel.page?.objectWillChange.send()
+                        targetPage?.objectWillChange.send()
                         dismiss()
                     }
                     .toolbar {
@@ -85,19 +96,22 @@ struct SubscribeView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .onAppear {
+            checkTargetPage()
+        }
     }
 
     private var submitButtonSection: some View {
         Button {
-            viewModel.validateUrl()
-            if viewModel.urlIsValid == true {
-                viewModel.addFeed()
+            validateUrl()
+            if urlIsValid == true {
+                addFeed()
             }
         } label: {
             Label {
-                Text("Add to \(viewModel.page!.wrappedName)")
+                Text("Add to \(targetPage!.wrappedName)")
             } icon: {
-                if viewModel.loading {
+                if loading {
                     ProgressView().progressViewStyle(IconProgressStyle()).colorInvert()
                 } else {
                     Image(systemName: "note.text.badge.plus")
@@ -106,23 +120,22 @@ struct SubscribeView: View {
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))
-        .disabled(!(viewModel.urlText.count > 0) || viewModel.loading)
+        .disabled(!(urlText.count > 0) || loading)
         .modifier(ProminentButtonModifier())
         .accessibilityIdentifier("subscribe-submit-button")
-
     }
 
     private var feedUrlInput: some View {
         HStack {
-            TextField("https://example.com/feed.xml", text: $viewModel.urlText)
+            TextField("https://example.com/feed.xml", text: $urlText)
                 .lineLimit(1)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
                 .textInputAutocapitalization(.never)
-                .modifier(ShakeModifier(animatableData: CGFloat(viewModel.validationAttempts)))
+                .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
 
-            if viewModel.urlIsValid != nil {
-                if viewModel.urlIsValid == true {
+            if urlIsValid != nil {
+                if urlIsValid == true {
                     Image(systemName: "checkmark.circle")
                         .foregroundColor(Color(UIColor.systemGreen))
                         .imageScale(.large)
@@ -140,7 +153,7 @@ struct SubscribeView: View {
     }
 
     private var pagePicker: some View {
-        Picker(selection: $viewModel.page) {
+        Picker(selection: $targetPage) {
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                 Text(page.wrappedName).tag(page as Page?)
             }
@@ -148,5 +161,65 @@ struct SubscribeView: View {
         } label: {
             pagePickerLabel
         }
+    }
+
+    private func checkTargetPage() {
+        // Use the currently active page if available
+        if let activePage = subscriptionManager.activePage {
+            targetPage = activePage
+        } else if
+            let profile = profileManager.activeProfile,
+            let firstPage = profile.pagesArray.first
+        {
+            targetPage = firstPage
+        }
+    }
+
+    func validateUrl() {
+        validationMessage = nil
+        urlIsValid = nil
+
+        if urlText == "" {
+            self.failValidation(message: "Address can not be blank")
+            return
+        }
+
+        if self.urlText.contains(" ") {
+            self.failValidation(message: "Address can not contain spaces")
+            return
+        }
+
+        if self.urlText.prefix(7).lowercased() != "http://" && self.urlText.prefix(8).lowercased() != "https://" {
+            self.failValidation(message: "Address must begin with “http://” or “https://”")
+            return
+        }
+
+        guard let url = URL(string: self.urlText) else {
+            self.failValidation(message: "Unable to parse address")
+            return
+        }
+
+        if !UIApplication.shared.canOpenURL(url) {
+            self.failValidation(message: "Unopenable address")
+            return
+        }
+
+        urlIsValid = true
+    }
+
+    func addFeed() {
+        guard let url = URL(string: urlText), let page = targetPage else { return }
+
+        self.loading = true
+
+        newFeed = Feed.create(in: self.viewContext, page: page, url: url, prepend: true)
+        refreshManager.refresh(feed: newFeed!)
+    }
+
+    private func failValidation(message: String) {
+        urlIsValid = false
+        validationMessage = message
+
+        withAnimation(.default) { validationAttempts += 1 }
     }
 }

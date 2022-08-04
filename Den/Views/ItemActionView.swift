@@ -29,7 +29,7 @@ struct ItemActionView<Content: View>: View {
                 }
             } else {
                 NavigationLink {
-                    ItemView(viewModel: ItemViewModel(item: item))
+                    ItemView(item: item)
                         .onDisappear() { linkManager.markItemRead(item: item) }
                 } label: {
                     content

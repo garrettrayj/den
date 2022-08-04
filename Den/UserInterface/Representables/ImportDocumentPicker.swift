@@ -15,10 +15,12 @@ import SwiftUI
  Adapted from https://stackoverflow.com/a/62225520/400468
  */
 final class ImportDocumentPicker: NSObject {
-    let importViewModel: ImportViewModel
+    var view: ImportView
 
-    init(importViewModel: ImportViewModel) {
-        self.importViewModel = importViewModel
+    init(
+        view: ImportView
+    ) {
+        self.view = view
         super.init()
     }
 
@@ -36,10 +38,10 @@ final class ImportDocumentPicker: NSObject {
 
 extension ImportDocumentPicker: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        importViewModel.pickedURL = urls.first!
-        importViewModel.opmlFolders = OPMLReader(xmlURL: importViewModel.pickedURL!).outlineFolders
-        importViewModel.selectedFolders = importViewModel.opmlFolders
-        importViewModel.stage = .folderSelection
+        view.pickedURL = urls.first!
+        view.opmlFolders = OPMLReader(xmlURL: view.pickedURL!).outlineFolders
+        view.selectedFolders = view.opmlFolders
+        view.stage = .folderSelection
     }
 
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {

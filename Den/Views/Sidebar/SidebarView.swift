@@ -12,13 +12,6 @@ import SwiftUI
  Master navigation list with links to page views.
 */
 struct SidebarView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var cacheManager: CacheManager
-    @EnvironmentObject private var crashManager: CrashManager
-    @EnvironmentObject private var profileManager: ProfileManager
-    @EnvironmentObject private var themeManager: ThemeManager
-
     @ObservedObject var profile: Profile
 
     @State private var showingSettings: Bool = false
@@ -48,14 +41,7 @@ struct SidebarView: View {
         }
         .background(
             NavigationLink(isActive: $showingSettings) {
-                SettingsView(viewModel: SettingsViewModel(
-                    viewContext: viewContext,
-                    crashManager: crashManager,
-                    profileManager: profileManager,
-                    refreshManager: refreshManager,
-                    cacheManager: cacheManager,
-                    themeManager: themeManager
-                ))
+                SettingsView()
             } label: {
                 Label("Settings", systemImage: "gear")
             }.hidden()
