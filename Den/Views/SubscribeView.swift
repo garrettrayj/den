@@ -11,7 +11,6 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
@@ -75,12 +74,6 @@ struct SubscribeView: View {
                         }
 
                         submitButtonSection
-                    }
-                    .onReceive(
-                        NotificationCenter.default.publisher(for: .feedRefreshed, object: newFeed?.objectID)
-                    ) { _ in
-                        targetPage?.objectWillChange.send()
-                        dismiss()
                     }
                     .toolbar {
                         ToolbarItem {
@@ -175,7 +168,7 @@ struct SubscribeView: View {
         }
     }
 
-    func validateUrl() {
+    private func validateUrl() {
         validationMessage = nil
         urlIsValid = nil
 
@@ -207,7 +200,7 @@ struct SubscribeView: View {
         urlIsValid = true
     }
 
-    func addFeed() {
+    private func addFeed() {
         guard let url = URL(string: urlText), let page = targetPage else { return }
 
         self.loading = true

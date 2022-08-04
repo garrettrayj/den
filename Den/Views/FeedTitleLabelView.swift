@@ -11,8 +11,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedTitleLabelView: View {
-    var title: String
-    var favicon: URL?
+    let title: String
+    let favicon: URL?
 
     var body: some View {
         Label {

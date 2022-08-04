@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct FeedRefreshedLabelView: View {
-    var refreshed: String?
+    let refreshed: String?
 
     var body: some View {
         if refreshed != nil {

@@ -138,13 +138,13 @@ struct ImportView: View {
         }
     }
 
-    var allSelected: Bool {
+    private var allSelected: Bool {
         return selectedFolders.count == opmlFolders.count
     }
 
-    var noneSelected: Bool { selectedFolders.isEmpty }
+    private var noneSelected: Bool { selectedFolders.isEmpty }
 
-    func reset() {
+    private func reset() {
         stage = .pickFile
         opmlFolders = []
         selectedFolders = []
@@ -153,7 +153,7 @@ struct ImportView: View {
         pagesImported = []
     }
 
-    func toggleFolder(_ folder: OPMLReader.Folder) {
+    private func toggleFolder(_ folder: OPMLReader.Folder) {
         if selectedFolders.contains(folder) {
             selectedFolders.removeAll { $0 == folder }
         } else {
@@ -161,7 +161,7 @@ struct ImportView: View {
         }
     }
 
-    func selectAll() {
+    private func selectAll() {
         opmlFolders.forEach { folder in
             if !selectedFolders.contains(folder) {
                 selectedFolders.append(folder)
@@ -169,11 +169,11 @@ struct ImportView: View {
         }
     }
 
-    func selectNone() {
+    private func selectNone() {
         selectedFolders.removeAll()
     }
 
-    func importSelected() {
+    private func importSelected() {
         stage = .importing
 
         let foldersToImport = opmlFolders.filter { opmlFolder in
@@ -183,7 +183,7 @@ struct ImportView: View {
         self.importFolders(opmlFolders: foldersToImport)
     }
 
-    func importFolders(opmlFolders: [OPMLReader.Folder]) {
+    private func importFolders(opmlFolders: [OPMLReader.Folder]) {
         guard let profile = profileManager.activeProfile else { return }
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profile)
@@ -210,7 +210,7 @@ struct ImportView: View {
      This is required on Catalyst but works on iOS and iPadOS too,
      so we do it this way instead of in a UIViewControllerRepresentable
      */
-    func pickFile() {
+    private func pickFile() {
         self.documentPicker = ImportDocumentPicker(view: self)
 
         let scenes = UIApplication.shared.connectedScenes

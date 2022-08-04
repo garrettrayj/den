@@ -32,12 +32,12 @@ final class RefreshManager: ObservableObject {
         var operations: [Operation] = []
 
         refreshing = true
-        NotificationCenter.default.post(name: .profileQueued, object: profile.objectID)
+        NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
 
         let profileCompletionOp = BlockOperation { [weak profile] in
             DispatchQueue.main.async {
                 self.refreshing = false
-                NotificationCenter.default.post(name: .profileRefreshed, object: profile?.objectID)
+                NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
             }
         }
         operations.append(profileCompletionOp)
@@ -81,24 +81,19 @@ final class RefreshManager: ObservableObject {
             let feedCompletionOp = BlockOperation { [weak feed] in
                 DispatchQueue.main.async {
                     feed?.objectWillChange.send()
-                    feed?.page?.objectWillChange.send()
-                    guard let objectID = feed?.objectID else { return }
-                    NotificationCenter.default.post(name: .feedRefreshed, object: objectID)
+                    NotificationCenter.default.post(name: .feedUpdated, object: feed?.objectID)
                 }
             }
             feedCompletionOp.addDependency(refreshPlan.saveFeedOp!)
             pageOps.append(contentsOf: refreshPlan.getOps())
             pageOps.append(feedCompletionOp)
             feedCompletionOps.append(feedCompletionOp)
-            NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
         }
 
         // Page progress and notifications
-        NotificationCenter.default.post(name: .pageQueued, object: page.objectID)
         let pageCompletionOp = BlockOperation { [weak page] in
             DispatchQueue.main.async {
-                guard let objectID = page?.objectID else { return }
-                NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
+                page?.objectWillChange.send()
             }
         }
         feedCompletionOps.forEach { operation in
@@ -135,9 +130,7 @@ final class RefreshManager: ObservableObject {
         let feedCompletionOp = BlockOperation { [weak feed] in
             DispatchQueue.main.async {
                 feed?.objectWillChange.send()
-                feed?.page?.objectWillChange.send()
-                guard let objectID = feed?.objectID else { return }
-                NotificationCenter.default.post(name: .feedRefreshed, object: objectID)
+                NotificationCenter.default.post(name: .feedUpdated, object: feed?.objectID)
             }
         }
         feedCompletionOp.addDependency(refreshPlan.saveFeedOp!)
@@ -145,7 +138,6 @@ final class RefreshManager: ObservableObject {
         var operations = refreshPlan.getOps()
         operations.append(feedCompletionOp)
 
-        NotificationCenter.default.post(name: .feedQueued, object: feed.objectID)
         queue.addOperations(operations, waitUntilFinished: false)
     }
 

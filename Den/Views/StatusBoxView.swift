@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StatusBoxView: View {
-    var message: Text
+    let message: Text
     var caption: Text?
     var symbol: String?
 
@@ -33,15 +33,5 @@ struct StatusBoxView: View {
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .padding()
-    }
-
-    init(
-        message: Text,
-        caption: Text? = nil,
-        symbol: String? = nil
-    ) {
-        self.message = message
-        self.caption = caption
-        self.symbol = symbol
     }
 }

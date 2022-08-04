@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct FeedUnavailableView: View {
-    var feedData: FeedData?
+    let feedData: FeedData?
     var useStatusBox: Bool = false
 
     private struct StatusMessageView: View {

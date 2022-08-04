@@ -83,11 +83,11 @@ struct ProfileView: View {
         })
     }
 
-    func save() {
+    private func save() {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
+                profile.objectWillChange.send()
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }

@@ -13,8 +13,8 @@ import SwiftUI
 struct ItemDateView: View {
     @Environment(\.isEnabled) private var isEnabled
 
-    var date: Date
-    var read: Bool
+    let date: Date
+    let read: Bool
 
     var body: some View {
         Text("\(date.mediumShortDisplay())")

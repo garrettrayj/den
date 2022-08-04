@@ -25,20 +25,11 @@ struct FeedSettingsView: View {
             },
             set: { target in
                 guard let target = target else { return }
-                let source = self.feed.page
 
                 self.feed.userOrder = target.feedsUserOrderMax + 1
                 self.feed.page = target
 
-                // Update sidebar item counts
-                NotificationCenter.default.post(
-                    name: .pageRefreshed,
-                    object: source?.objectID
-                )
-                NotificationCenter.default.post(
-                    name: .pageRefreshed,
-                    object: target.objectID
-                )
+                self.feed.page?.objectWillChange.send()
             }
         )
     }
@@ -176,25 +167,25 @@ struct FeedSettingsView: View {
         }.modifier(SectionHeaderModifier())
     }
 
-    func save() {
+    private func save() {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
                 feed.feedData?.itemsArray.forEach { item in
                     item.objectWillChange.send()
                 }
-                NotificationCenter.default.post(name: .feedRefreshed, object: feed.objectID)
+                feed.objectWillChange.send()
             } catch let error as NSError {
                 crashManager.handleCriticalError(error)
             }
         }
     }
 
-    func delete() {
+    private func delete() {
         viewContext.delete(feed)
     }
 
-    func copyUrl() {
+    private func copyUrl() {
         let pasteboard = UIPasteboard.general
         pasteboard.string = feed.url!.absoluteString
     }

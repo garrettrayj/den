@@ -9,13 +9,9 @@
 import Foundation
 
 extension Notification.Name {
-    static let feedQueued = Notification.Name("feed-queued")
-    static let feedRefreshed = Notification.Name("feed-refreshed")
-    static let pageQueued = Notification.Name("page-queued")
-    static let pageRefreshed = Notification.Name("page-refreshed")
-    static let profileQueued = Notification.Name("profile-queued")
-    static let profileRefreshed = Notification.Name("profile-refreshed")
-
-    static let itemRead = Notification.Name("item-read")
+    static let refreshStarted = Notification.Name("refresh-started")
+    static let refreshFinished = Notification.Name("refresh-finished")
+    static let feedUpdated = Notification.Name("feed-updated")
     static let itemUnread = Notification.Name("item-unread")
+    static let itemRead = Notification.Name("item-read")
 }

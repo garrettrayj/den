@@ -74,18 +74,18 @@ struct PageSettingsView: View {
         }.modifier(SectionHeaderModifier())
     }
 
-    func save() {
+    private func save() {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
+                page.objectWillChange.send()
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }
         }
     }
 
-    func deleteFeed(indices: IndexSet) {
+    private func deleteFeed(indices: IndexSet) {
         indices.forEach { viewContext.delete(page.feedsArray[$0]) }
 
         do {
@@ -95,7 +95,7 @@ struct PageSettingsView: View {
         }
     }
 
-    func moveFeed( from source: IndexSet, to destination: Int) {
+    private func moveFeed( from source: IndexSet, to destination: Int) {
         // Make an array of items from fetched results
         var revisedItems: [Feed] = page.feedsArray.map { $0 }
 
