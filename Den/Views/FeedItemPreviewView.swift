@@ -15,10 +15,7 @@ struct FeedItemPreviewView: View {
         if item.feedData?.feed != nil {
             VStack(alignment: .leading, spacing: 0) {
                 NavigationLink {
-                    FeedView(viewModel: FeedViewModel(
-                        feed: item.feedData!.feed!,
-                        refreshing: false
-                    ))
+                    FeedView(feed: item.feedData!.feed!)
 
                 } label: {
                     HStack {

@@ -10,9 +10,38 @@ import SwiftUI
 
 struct FeedSettingsView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
 
-    @ObservedObject var viewModel: FeedSettingsViewModel
+    @ObservedObject var feed: Feed
+
+    @State var showingDeleteAlert: Bool = false
+
+    var pageSelection: Binding<Page?> {
+        Binding<Page?>(
+            get: {
+                return self.feed.page
+            },
+            set: { target in
+                guard let target = target else { return }
+                let source = self.feed.page
+
+                self.feed.userOrder = target.feedsUserOrderMax + 1
+                self.feed.page = target
+
+                // Update sidebar item counts
+                NotificationCenter.default.post(
+                    name: .pageRefreshed,
+                    object: source?.objectID
+                )
+                NotificationCenter.default.post(
+                    name: .pageRefreshed,
+                    object: target.objectID
+                )
+            }
+        )
+    }
 
     var body: some View {
         Form {
@@ -21,18 +50,18 @@ struct FeedSettingsView: View {
             informationSection
 
             Button(role: .destructive) {
-                viewModel.showingDeleteAlert = true
+                showingDeleteAlert = true
             } label: {
                 Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
             }
             .alert(
-                "Delete \(viewModel.feed.wrappedTitle)?",
-                isPresented: $viewModel.showingDeleteAlert,
+                "Delete \(feed.wrappedTitle)?",
+                isPresented: $showingDeleteAlert,
                 actions: {
                     Button("Cancel", role: .cancel) { }
                         .accessibilityIdentifier("feed-delete-cancel-button")
                     Button("Delete", role: .destructive) {
-                        viewModel.delete()
+                        delete()
                         dismiss()
                     }.accessibilityIdentifier("feed-delete-confirm-button")
                 }
@@ -40,14 +69,14 @@ struct FeedSettingsView: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("feed-delete-button")
         }
-        .onDisappear(perform: viewModel.save)
+        .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
-        .modifier(BackNavigationModifier(title: viewModel.feed.wrappedTitle))
+        .modifier(BackNavigationModifier(title: feed.wrappedTitle))
     }
 
     private var titleSection: some View {
         Section(header: Text("Title")) {
-            TextField("Title", text: $viewModel.feed.wrappedTitle).modifier(TitleTextFieldModifier())
+            TextField("Title", text: $feed.wrappedTitle).modifier(TitleTextFieldModifier())
         }.modifier(SectionHeaderModifier())
     }
 
@@ -56,14 +85,14 @@ struct FeedSettingsView: View {
     }
 
     private var pagePicker: some View {
-        Picker(selection: viewModel.pageSelection) {
+        Picker(selection: pageSelection) {
             ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
                 Text(page.wrappedName).tag(page as Page?)
             }
         } label: {
             pagePickerLabel
         }
-        .onChange(of: viewModel.feed.page) { _ in
+        .onChange(of: feed.page) { _ in
             dismiss()
         }
     }
@@ -80,7 +109,7 @@ struct FeedSettingsView: View {
             pagePicker.modifier(FormRowModifier())
             #endif
 
-            Stepper(value: $viewModel.feed.wrappedItemLimit, in: 1...100, step: 1) {
+            Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 HStack {
                     Label {
                         Text("Item Limit")
@@ -88,7 +117,7 @@ struct FeedSettingsView: View {
                         Image(systemName: "speedometer")
                     }
                     Spacer()
-                    Text("\(viewModel.feed.wrappedItemLimit)")
+                    Text("\(feed.wrappedItemLimit)")
                 }
             }.modifier(FormRowModifier())
 
@@ -96,10 +125,10 @@ struct FeedSettingsView: View {
             HStack {
                 Label("Show Thumbnails", systemImage: "photo")
                 Spacer()
-                Toggle("Show Thumbnails", isOn: $viewModel.feed.showThumbnails).labelsHidden()
+                Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
             }.modifier(FormRowModifier())
             #else
-            Toggle(isOn: $viewModel.feed.showThumbnails) {
+            Toggle(isOn: $feed.showThumbnails) {
                 Label("Show Thumbnails", systemImage: "photo")
             }
             #endif
@@ -108,14 +137,14 @@ struct FeedSettingsView: View {
             HStack {
                 Label("Open Items in Browser", systemImage: "macwindow")
                 Spacer()
-                Toggle("Open Items in Browser", isOn: $viewModel.feed.browserView).labelsHidden()
+                Toggle("Open Items in Browser", isOn: $feed.browserView).labelsHidden()
             }.modifier(FormRowModifier())
             #else
-            Toggle(isOn: $viewModel.feed.browserView) {
+            Toggle(isOn: $feed.browserView) {
                 Label("Open in Browser", systemImage: "safari")
             }
-            if viewModel.feed.browserView {
-                Toggle(isOn: $viewModel.feed.readerMode) {
+            if feed.browserView {
+                Toggle(isOn: $feed.readerMode) {
                     Label("Use Reader Mode", systemImage: "doc.plaintext")
                 }
             }
@@ -128,8 +157,8 @@ struct FeedSettingsView: View {
             HStack {
                 Label("Feed URL", systemImage: "link").lineLimit(1)
                 Spacer()
-                Text(viewModel.feed.urlString).lineLimit(1).foregroundColor(.secondary)
-                Button(action: viewModel.copyUrl) {
+                Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
+                Button(action: copyUrl) {
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
                 }.accessibilityIdentifier("feed-copy-url-button")
             }.modifier(FormRowModifier())
@@ -137,13 +166,36 @@ struct FeedSettingsView: View {
             HStack {
                 Label("Refreshed", systemImage: "arrow.clockwise")
                 Spacer()
-                if viewModel.feed.feedData?.refreshed != nil {
-                    Text("\(viewModel.feed.feedData!.refreshed!.mediumShortDisplay())")
+                if feed.feedData?.refreshed != nil {
+                    Text("\(feed.feedData!.refreshed!.mediumShortDisplay())")
                         .foregroundColor(.secondary)
                 } else {
                     Text("Never").foregroundColor(.secondary)
                 }
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
+    }
+
+    func save() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                feed.feedData?.itemsArray.forEach { item in
+                    item.objectWillChange.send()
+                }
+                NotificationCenter.default.post(name: .feedRefreshed, object: feed.objectID)
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
+            }
+        }
+    }
+
+    func delete() {
+        viewContext.delete(feed)
+    }
+
+    func copyUrl() {
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = feed.url!.absoluteString
     }
 }

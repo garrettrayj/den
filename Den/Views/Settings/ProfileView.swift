@@ -15,9 +15,9 @@ struct ProfileView: View {
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
-    @State private var showingDeleteAlert: Bool = false
+    @ObservedObject var profile: Profile
 
-    @ObservedObject var viewModel: ProfileSettingsViewModel
+    @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
         Form {
@@ -26,7 +26,7 @@ struct ProfileView: View {
         }
         .navigationTitle("Profile")
         .onDisappear {
-            viewModel.save()
+            save()
         }
         .modifier(BackNavigationModifier(title: "Settings"))
     }
@@ -34,7 +34,7 @@ struct ProfileView: View {
     private var nameSection: some View {
         Section(header: Text("Name")) {
             HStack {
-                TextField("Name", text: $viewModel.profile.wrappedName)
+                TextField("Name", text: $profile.wrappedName)
                     .modifier(TitleTextFieldModifier())
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
@@ -43,14 +43,14 @@ struct ProfileView: View {
     private var activateDeleteSection: some View {
         Section {
             Button {
-                profileManager.activateProfile(viewModel.profile)
+                profileManager.activateProfile(profile)
                 // Forget the active page so refresh manager doesn't pick it up
                 subscriptionManager.activePage = nil
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "power.circle")
             }
-            .disabled(viewModel.profile == profileManager.activeProfile)
+            .disabled(profile == profileManager.activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("activate-profile-button")
 
@@ -58,19 +58,19 @@ struct ProfileView: View {
                 showingDeleteAlert = true
             } label: {
                 Label("Delete", systemImage: "trash")
-                    .symbolRenderingMode(viewModel.profile == profileManager.activeProfile ? .monochrome : .multicolor)
+                    .symbolRenderingMode(profile == profileManager.activeProfile ? .monochrome : .multicolor)
             }
-            .disabled(viewModel.profile == profileManager.activeProfile)
+            .disabled(profile == profileManager.activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("delete-profile-button")
         } footer: {
-            if viewModel.profile == profileManager.activeProfile {
+            if profile == profileManager.activeProfile {
                 Text("Active profile cannot be deleted").padding(.vertical, 8)
             }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
             Button("Delete", role: .destructive) {
-                viewContext.delete(viewModel.profile)
+                viewContext.delete(profile)
                 do {
                     try viewContext.save()
                     dismiss()
@@ -81,5 +81,16 @@ struct ProfileView: View {
         }, message: {
             Text("Pages, feeds, and history will be removed. This action cannot be undone.")
         })
+    }
+
+    func save() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
+            } catch {
+                crashManager.handleCriticalError(error as NSError)
+            }
+        }
     }
 }

@@ -19,12 +19,11 @@ struct NavigationListView: View {
 
     @Binding var showingSettings: Bool
 
-    @StateObject private var searchViewModel: SearchViewModel = SearchViewModel()
-
     @State private var refreshing: Bool = false
     @State private var showingSearch: Bool = false
     @State private var showingHistory: Bool = false
     @State private var searchInput: String = ""
+    @State private var query: String = ""
 
     var refreshProgress: Progress = Progress()
 
@@ -49,7 +48,7 @@ struct NavigationListView: View {
         }
         .background(
             NavigationLink(isActive: $showingSearch) {
-                SearchView(viewModel: searchViewModel, profile: profile)
+                SearchView(profile: profile, query: $query)
             } label: {
                 Text("Search")
             }.hidden()
@@ -60,7 +59,7 @@ struct NavigationListView: View {
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {
-            searchViewModel.query = searchInput
+            query = searchInput
             showingSearch = true
         }
         #if !targetEnvironment(macCatalyst)
