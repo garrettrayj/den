@@ -25,7 +25,7 @@ struct GadgetItemView: View {
                     .multilineTextAlignment(.leading)
 
                     if feed.showThumbnails == true {
-                        ItemThumbnailView(item: item)
+                        ItemThumbnailView(item: item).opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
                     }
                 }
                 .padding(12)

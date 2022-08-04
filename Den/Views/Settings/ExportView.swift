@@ -88,15 +88,15 @@ struct ExportView: View {
         }
     }
 
-    var allSelected: Bool {
+    private var allSelected: Bool {
         selectedPages.count == profileManager.activeProfile?.pagesArray.count ?? 0
     }
 
-    var noneSelected: Bool {
+    private var noneSelected: Bool {
         selectedPages.count == 0
     }
 
-    func togglePage(_ page: Page) {
+    private func togglePage(_ page: Page) {
         if selectedPages.contains(page) {
             selectedPages.removeAll { $0 == page }
         } else {
@@ -104,7 +104,7 @@ struct ExportView: View {
         }
     }
 
-    func selectAll() {
+    private func selectAll() {
         profileManager.activeProfile?.pagesArray.forEach { page in
             if !selectedPages.contains(page) {
                 selectedPages.append(page)
@@ -112,11 +112,11 @@ struct ExportView: View {
         }
     }
 
-    func selectNone() {
+    private func selectNone() {
         selectedPages.removeAll()
     }
 
-    func exportOpml() {
+    private func exportOpml() {
         guard let activeProfile = profileManager.activeProfile else { return }
 
         let exportPages: [Page] = activeProfile.pagesArray.compactMap { page in

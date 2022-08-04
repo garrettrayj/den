@@ -205,25 +205,33 @@ struct SettingsView: View {
 
             }.padding(.vertical, 8)
 
-            Button(action: openCommunity) {
+            Button {
+                openWebsite("https://discord.gg/NS9hMrYrnt")
+            } label: {
                 Label("Discord Community", systemImage: "person.2.wave.2")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
 
-            Button(action: emailSupport) {
+            Button {
+                openWebsite("mailto:support@devsci.net")
+            } label: {
                 Label("Email Support", systemImage: "lifepreserver")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("email-support-button")
 
-            Button(action: openHomepage) {
+            Button {
+                openWebsite("https://garrettjohnson.com/apps/")
+            } label: {
                 Label("Developer Website", systemImage: "house")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
 
-            Button(action: openPrivacyPolicy) {
+            Button {
+                openWebsite("https://garrettjohnson.com/privacy/")
+            } label: {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
             }
             .modifier(FormRowModifier())
@@ -263,7 +271,7 @@ struct SettingsView: View {
         }
     }
 
-    func saveProfile() {
+    private func saveProfile() {
         if self.viewContext.hasChanges {
             do {
                 try viewContext.save()
@@ -273,11 +281,11 @@ struct SettingsView: View {
         }
     }
 
-    func applyStyle() {
+    private func applyStyle() {
         themeManager.applyStyle()
     }
 
-    func clearCache() {
+    private func clearCache() {
         guard let profile = profileManager.activeProfile else { return }
         refreshManager.cancel()
         cacheManager.resetFeeds()
@@ -285,10 +293,10 @@ struct SettingsView: View {
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk()
 
-        NotificationCenter.default.post(name: .profileRefreshed, object: profile.objectID)
+        profile.objectWillChange.send()
     }
 
-    func clearHistory() {
+    private func clearHistory() {
         guard let profile = profileManager.activeProfile else { return }
         profile.historyArray.forEach { history in
             self.viewContext.delete(history)
@@ -307,7 +315,7 @@ struct SettingsView: View {
         })
     }
 
-    func restoreUserDefaults() {
+    private func restoreUserDefaults() {
         // Clear our UserDefaults domain
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
@@ -316,33 +324,14 @@ struct SettingsView: View {
         themeManager.objectWillChange.send()
     }
 
-    func resetEverything() {
+    private func resetEverything() {
         refreshManager.cancel()
         restoreUserDefaults()
         profileManager.resetProfiles()
     }
 
-    func openHomepage() {
-        if let url = URL(string: "https://garrettjohnson.com/apps/") {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    func openCommunity() {
-        if let url = URL(string: "https://discord.gg/NS9hMrYrnt") {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    func emailSupport() {
-        // Note: "mailto:" links do not work in simulator, only on devices
-        if let url = URL(string: "mailto:support@devsci.net") {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    func openPrivacyPolicy() {
-        if let url = URL(string: "https://garrettjohnson.com/privacy/") {
+    private func openWebsite(_ address: String) {
+        if let url = URL(string: address) {
             UIApplication.shared.open(url)
         }
     }

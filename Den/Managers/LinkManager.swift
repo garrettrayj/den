@@ -61,62 +61,16 @@ final class LinkManager: ObservableObject {
     }
 
     public func markItemUnread(item: Item) {
-        item.history?.forEach { history in
-            viewContext.delete(history)
-        }
+        clearHistory(item: item)
         saveContext()
     }
 
-    public func toggleReadUnread(feed: Feed) {
-        let allItemsRead: Bool = feed.feedData?.previewItems.unread().isEmpty == true
+    public func toggleReadUnread(items: [Item]) {
+        let allItemsRead: Bool = items.unread().isEmpty == true
         if allItemsRead {
-            feed.feedData?.previewItems.read().forEach { item in
-                clearHistory(item: item)
-            }
+            items.read().forEach { clearHistory(item: $0)}
         } else {
-            feed.feedData?.previewItems.unread().forEach { item in
-                logHistory(item: item)
-            }
-        }
-        saveContext()
-    }
-
-    public func toggleReadUnread(page: Page) {
-        if page.previewItems.unread().isEmpty == true {
-            page.previewItems.read().forEach { item in
-                clearHistory(item: item)
-            }
-        } else {
-            page.previewItems.unread().forEach { item in
-                logHistory(item: item)
-            }
-        }
-        saveContext()
-    }
-
-    public func toggleReadUnread(profile: Profile) {
-        let allItemsRead: Bool = profile.previewItems.unread().isEmpty == true
-        if allItemsRead {
-            profile.previewItems.read().forEach { item in
-                clearHistory(item: item)
-            }
-        } else {
-            profile.previewItems.unread().forEach { item in
-                logHistory(item: item)
-            }
-        }
-        saveContext()
-    }
-
-    public func toggleReadUnread(trend: Trend) {
-        if trend.items.unread().isEmpty {
-            trend.items.forEach { item in
-                clearHistory(item: item)
-            }
-        } else {
-            trend.items.unread().forEach { item in
-                logHistory(item: item)
-            }
+            items.unread().forEach { logHistory(item: $0) }
         }
         saveContext()
     }
@@ -133,16 +87,14 @@ final class LinkManager: ObservableObject {
         if visisted != nil {
             history.visited = visisted
         }
-        item.objectWillChange.send()
-        NotificationCenter.default.post(name: .itemRead, object: item.feedData?.feed?.page?.objectID)
+        NotificationCenter.default.post(name: .itemRead, object: item.objectID)
     }
 
     private func clearHistory(item: Item) {
         item.history?.forEach { history in
             viewContext.delete(history)
         }
-        item.objectWillChange.send()
-        NotificationCenter.default.post(name: .itemUnread, object: item.feedData?.feed?.page?.objectID)
+        NotificationCenter.default.post(name: .itemUnread, object: item.objectID)
     }
 
     private func saveContext() {

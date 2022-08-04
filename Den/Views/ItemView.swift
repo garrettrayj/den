@@ -14,7 +14,7 @@ struct ItemView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var linkManager: LinkManager
 
-    @ObservedObject var item: Item
+    let item: Item
 
     @State private var webViewHeight: CGFloat = .zero
 

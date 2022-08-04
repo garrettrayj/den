@@ -11,7 +11,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ItemThumbnailView: View {
-    @ObservedObject var item: Item
+    let item: Item
 
     var body: some View {
         if item.image != nil {
@@ -24,7 +24,6 @@ struct ItemThumbnailView: View {
                 }
                 .playbackRate(0)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                .opacity(item.read ? 0.5 : 1.0)
                 .modifier(ThumbnailModifier())
         } else if item.feedData?.image != nil {
             WebImage(url: item.feedData?.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
@@ -36,7 +35,6 @@ struct ItemThumbnailView: View {
                 }
                 .playbackRate(0)
                 .scaledToFit()
-                .opacity(item.read ? 0.65 : 1.0)
                 .padding(6)
                 .modifier(ThumbnailModifier())
         }

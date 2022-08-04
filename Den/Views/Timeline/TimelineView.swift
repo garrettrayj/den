@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct TimelineView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @EnvironmentObject private var linkManager: LinkManager
 
@@ -25,9 +24,16 @@ struct TimelineView: View {
                 NoFeedsView()
             } else if profile.previewItems.isEmpty {
                 NoItemsView()
+            } else if profile.previewItems.unread().isEmpty && hideRead == true {
+                AllReadView(hiddenItemCount: profile.previewItems.read().count)
             } else {
                 ScrollView(.vertical) {
-                    TimelineItemsView(profile: profile, hideRead: $hideRead, frameSize: geometry.size)
+                    BoardView(width: geometry.size.width, list: visibleItems) { item in
+                        FeedItemPreviewView(item: item)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .padding(.top, 8)
                 }
             }
         }
@@ -74,7 +80,13 @@ struct TimelineView: View {
             disabled: refreshing,
             hideRead: $hideRead
         ) {
-            linkManager.toggleReadUnread(profile: profile)
+            linkManager.toggleReadUnread(items: profile.previewItems)
+        }
+    }
+
+    private var visibleItems: [Item] {
+        profile.previewItems.filter { item in
+            hideRead ? item.read == false : true
         }
     }
 }

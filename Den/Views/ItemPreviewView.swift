@@ -24,7 +24,7 @@ struct ItemPreviewView: View {
             ItemDateView(date: item.date, read: item.read)
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
-                previewImage
+                PreviewImageView(item: item).opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
             }
 
             if item.summary != nil && item.summary != "" {
@@ -42,23 +42,5 @@ struct ItemPreviewView: View {
                 item.read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
         )
         .frame(maxWidth: .infinity)
-    }
-
-    private var previewImage: some View {
-        WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
-            .resizable()
-            .placeholder { ItemImagePlaceholderView(imageURL: item.image, aspectRatio: item.imageAspectRatio) }
-            .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-            .frame(
-                maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
-                maxHeight: item.imageHeight > 0 ? CGFloat(item.imageHeight) : nil
-            )
-            .background(Color(UIColor.tertiarySystemGroupedBackground))
-            .cornerRadius(6)
-            .overlay(
-                RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
-            )
-            .accessibility(label: Text("Preview Image"))
-            .opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
     }
 }

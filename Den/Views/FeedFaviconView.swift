@@ -11,7 +11,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedFaviconView: View {
-    var url: URL?
+    let url: URL?
 
     var body: some View {
         WebImage(url: url, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])

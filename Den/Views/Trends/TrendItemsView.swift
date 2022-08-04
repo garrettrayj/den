@@ -41,7 +41,7 @@ struct TrendItemsView: View {
                 disabled: false,
                 hideRead: $hideRead
             ) {
-                linkManager.toggleReadUnread(trend: trend)
+                linkManager.toggleReadUnread(items: trend.items)
                 trend.items.forEach { $0.objectWillChange.send() }
                 trend.objectWillChange.send()
             }

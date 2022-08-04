@@ -69,15 +69,15 @@ struct NavigationListView: View {
             }
         }
         #endif
-        .onReceive(NotificationCenter.default.publisher(for: .profileQueued, object: profile.objectID)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
             self.refreshProgress.totalUnitCount = self.refreshUnits
             self.refreshProgress.completedUnitCount = 0
             self.refreshing = true
         }
-        .onReceive(NotificationCenter.default.publisher(for: .profileRefreshed, object: profile.objectID)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
             self.refreshing = false
         }
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .feedUpdated)) { _ in
             self.refreshProgress.completedUnitCount += 1
         }
         .toolbar {
@@ -190,9 +190,8 @@ struct NavigationListView: View {
 
     func deletePage(indices: IndexSet) {
         indices.forEach {
-            let objectID = profile.pagesArray[$0].objectID
             viewContext.delete(profile.pagesArray[$0])
-            NotificationCenter.default.post(name: .pageRefreshed, object: objectID)
+            profile.objectWillChange.send()
         }
 
         // Delete may be called without tapping the edit button, so the result is saved immediately

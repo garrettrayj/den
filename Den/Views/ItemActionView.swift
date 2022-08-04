@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @EnvironmentObject var linkManager: LinkManager
+    @EnvironmentObject private var linkManager: LinkManager
 
     @ObservedObject var item: Item
 

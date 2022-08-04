@@ -114,13 +114,13 @@ struct SecurityView: View {
         }.modifier(SectionHeaderModifier())
     }
 
-    func reset() {
+    private func reset() {
         queue.cancelAllOperations()
         remediationInProgress = false
         failedRemediation = []
     }
 
-    func remedyInsecureUrls() {
+    private func remedyInsecureUrls() {
         guard let activeProfile = profileManager.activeProfile else { return }
 
         var operations: [Operation] = []

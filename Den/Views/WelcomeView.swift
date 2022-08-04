@@ -22,6 +22,5 @@ struct WelcomeView: View {
         .frame(maxWidth: .infinity)
         .padding()
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-
     }
 }

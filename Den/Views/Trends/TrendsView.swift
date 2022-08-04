@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct TrendsView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
     @ObservedObject var profile: Profile
 
     @Binding var refreshing: Bool
