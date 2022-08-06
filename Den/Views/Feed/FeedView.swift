@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 
 struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var feed: Feed
 
@@ -103,7 +103,7 @@ struct FeedView: View {
         HStack {
             if feed.feedData?.linkDisplayString != nil {
                 Button {
-                    linkManager.openLink(url: feed.feedData?.link)
+                    syncManager.openLink(url: feed.feedData?.link)
                 } label: {
                     HStack {
                         Label {
@@ -172,7 +172,7 @@ struct FeedView: View {
             }
             Spacer()
             Button {
-                linkManager.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
+                syncManager.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
             } label: {
                 Label(
                     "Mark All Read",

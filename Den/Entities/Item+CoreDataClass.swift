@@ -19,11 +19,6 @@ public class Item: NSManagedObject {
         value(forKey: "history") as? [History]
     }
 
-    public var read: Bool {
-        guard let history = history else { return false }
-        return !history.isEmpty
-    }
-
     @objc
     public var feedTitle: String {
         feedData?.feed?.wrappedTitle ?? "Untitled"

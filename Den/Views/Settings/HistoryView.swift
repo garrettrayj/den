@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct HistoryView: View {
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
     @SectionedFetchRequest<String, History>(sectionIdentifier: \.day, sortDescriptors: [])
     private var historySections: SectionedFetchResults<String, History>
@@ -79,7 +79,7 @@ struct HistoryView: View {
     }
 
     private func historyRow(_ history: History) -> some View {
-        Button { linkManager.openLink(url: history.link) } label: {
+        Button { syncManager.openLink(url: history.link) } label: {
             VStack(alignment: .leading, spacing: 2) {
                 Text(history.title ?? "Untitled")
                     .font(.headline.weight(.semibold))

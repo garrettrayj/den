@@ -11,10 +11,9 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ItemView: View {
-    @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
-    let item: Item
+    @ObservedObject var item: Item
 
     @State private var webViewHeight: CGFloat = .zero
 
@@ -67,15 +66,13 @@ struct ItemView: View {
                         .padding(.top, 8)
                         .padding(.bottom, 36)
 
-                    }.frame(maxWidth: .infinity)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
                 .toolbar { toolbar }
             }
         }
         .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
-        .onChange(of: item.feedData?.feed?.page) { _ in
-            dismiss()
-        }
     }
 
     @ToolbarContentBuilder
@@ -83,7 +80,7 @@ struct ItemView: View {
         ToolbarItemGroup(placement: .bottomBar) {
             Spacer()
             Button {
-                linkManager.openLink(
+                syncManager.openLink(
                     url: item.link,
                     readerMode: item.feedData?.feed?.readerMode ?? false
                 )

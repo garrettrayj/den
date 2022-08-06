@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PageView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var page: Page
 
@@ -170,7 +170,7 @@ struct PageView: View {
             disabled: refreshing,
             hideRead: $hideRead
         ) {
-            linkManager.toggleReadUnread(items: page.previewItems)
+            syncManager.toggleReadUnread(items: page.previewItems)
             page.objectWillChange.send()
         }
     }

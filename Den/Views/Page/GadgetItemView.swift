@@ -10,7 +10,6 @@ import SwiftUI
 
 struct GadgetItemView: View {
     @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
 
     var body: some View {
         VStack(spacing: 0) {
@@ -24,7 +23,7 @@ struct GadgetItemView: View {
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     .multilineTextAlignment(.leading)
 
-                    if feed.showThumbnails == true {
+                    if item.feedData?.feed?.showThumbnails == true {
                         ItemThumbnailView(item: item).opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
                     }
                 }
