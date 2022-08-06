@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TimelineView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var profile: Profile
 
@@ -80,7 +80,7 @@ struct TimelineView: View {
             disabled: refreshing,
             hideRead: $hideRead
         ) {
-            linkManager.toggleReadUnread(items: profile.previewItems)
+            syncManager.toggleReadUnread(items: profile.previewItems)
         }
     }
 

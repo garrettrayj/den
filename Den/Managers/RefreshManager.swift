@@ -10,9 +10,9 @@ import Foundation
 import CoreData
 
 final class RefreshManager: ObservableObject {
-    let queue = OperationQueue()
-    let persistentContainer: NSPersistentContainer
-    let crashManager: CrashManager
+    private let persistentContainer: NSPersistentContainer
+    private let crashManager: CrashManager
+    private let queue = OperationQueue()
 
     var refreshing: Bool = false
 

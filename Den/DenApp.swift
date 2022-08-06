@@ -9,6 +9,7 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 import SDWebImageSVGCoder
+import SDWebImageWebPCoder
 
 @main
 
@@ -21,7 +22,7 @@ struct DenApp: App {
 
     @StateObject var cacheManager: CacheManager
     @StateObject var crashManager: CrashManager
-    @StateObject var linkManager: LinkManager
+    @StateObject var syncManager: SyncManager
     @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
     @StateObject var subscriptionManager: SubscriptionManager
@@ -36,7 +37,7 @@ struct DenApp: App {
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
                 .environmentObject(cacheManager)
                 .environmentObject(crashManager)
-                .environmentObject(linkManager)
+                .environmentObject(syncManager)
                 .environmentObject(profileManager)
                 .environmentObject(refreshManager)
                 .environmentObject(subscriptionManager)
@@ -51,7 +52,7 @@ struct DenApp: App {
                     themeManager.window = window
                     themeManager.applyStyle()
 
-                    linkManager.window = window
+                    syncManager.window = window
                 }
                 .onOpenURL { url in
                     subscriptionManager.showSubscribe(for: url)
@@ -60,14 +61,19 @@ struct DenApp: App {
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
-                Logger.main.debug("app.phase.active")
+                Logger.main.debug("Scene Phase: Active")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    syncManager.syncHistory()
+                }
             case .inactive:
-                Logger.main.debug("app.phase.inactive")
+                Logger.main.debug("Scene Phase: Inactive")
+                syncManager.saveContext()
             case .background:
-                Logger.main.debug("app.phase.background")
-                cacheManager.cleanup()
+                Logger.main.debug("Scene Phase: Background")
+                syncManager.cleanupData()
+                syncManager.cleanupHistory()
             @unknown default:
-                Logger.main.debug("app.phase.unknown")
+                Logger.main.debug("Scene Phase: Unknown")
             }
         }
     }
@@ -98,8 +104,8 @@ struct DenApp: App {
             viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager
         )
-        let linkManager = LinkManager(
-            viewContext: persistenceManager.container.viewContext,
+        let syncManager = SyncManager(
+            persistentContainer: persistenceManager.container,
             crashManager: crashManager,
             profileManager: profileManager
         )
@@ -110,7 +116,7 @@ struct DenApp: App {
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
         _cacheManager = StateObject(wrappedValue: cacheManager)
         _crashManager = StateObject(wrappedValue: crashManager)
-        _linkManager = StateObject(wrappedValue: linkManager)
+        _syncManager = StateObject(wrappedValue: syncManager)
         _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
         _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
@@ -122,7 +128,7 @@ struct DenApp: App {
     private func initImageHandling() {
         // Add WebP/SVG/PDF support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageAWebPCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
 
         let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
             mimeType.rawValue

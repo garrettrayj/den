@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TrendItemsView: View {
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
     @AppStorage("hideRead") var hideRead = false
 
@@ -41,7 +41,7 @@ struct TrendItemsView: View {
                 disabled: false,
                 hideRead: $hideRead
             ) {
-                linkManager.toggleReadUnread(items: trend.items)
+                syncManager.toggleReadUnread(items: trend.items)
                 trend.items.forEach { $0.objectWillChange.send() }
                 trend.objectWillChange.send()
             }

@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct SearchResultView: View {
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var item: Item
 
     var body: some View {
         Button {
-            linkManager.openLink(
+            syncManager.openLink(
                 url: item.link,
                 logHistoryItem: item,
                 readerMode: item.feedData?.feed?.readerMode ?? false

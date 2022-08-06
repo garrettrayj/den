@@ -9,32 +9,42 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @EnvironmentObject private var linkManager: LinkManager
+    @EnvironmentObject private var syncManager: SyncManager
 
-    @ObservedObject var item: Item
+    let item: Item
 
     @ViewBuilder var content: Content
+
+    @State var showingItemView: Bool = false
 
     var body: some View {
         VStack {
             if item.feedData?.feed?.browserView == true {
                 Button {
-                    linkManager.openLink(
+                    syncManager.openLink(
                         url: item.link,
                         logHistoryItem: item,
                         readerMode: item.feedData?.feed?.readerMode ?? false
                     )
                 } label: {
                     content
-                }
+                }.buttonStyle(ItemButtonStyle(read: item.read))
             } else {
-                NavigationLink {
-                    ItemView(item: item)
-                        .onDisappear() { linkManager.markItemRead(item: item) }
+                Button {
+                    showingItemView = true
+                    syncManager.markItemRead(item: item)
                 } label: {
                     content
                 }
+                .buttonStyle(ItemButtonStyle(read: item.read))
+                .background(
+                    NavigationLink(isActive: $showingItemView, destination: {
+                        ItemView(item: item)
+                    }, label: {
+                        EmptyView()
+                    })
+                )
             }
-        }.buttonStyle(ItemButtonStyle(read: item.read))
+        }
     }
 }

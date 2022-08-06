@@ -27,7 +27,7 @@ struct GadgetView: View {
                             .padding(12)
                     } else {
                         ForEach(visibleItems) { item in
-                            GadgetItemView(item: item, feed: feed)
+                            GadgetItemView(item: item)
                         }
                     }
                 } else {
