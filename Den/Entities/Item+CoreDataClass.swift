@@ -15,8 +15,8 @@ import HTMLEntities
 
 @objc(Item)
 public class Item: NSManagedObject {
-    public var history: [History]? {
-        value(forKey: "history") as? [History]
+    public var history: [History] {
+        value(forKey: "history") as? [History] ?? []
     }
 
     @objc

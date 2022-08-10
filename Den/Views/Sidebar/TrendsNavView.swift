@@ -10,9 +10,7 @@ import SwiftUI
 
 struct TrendsNavView: View {
     @Environment(\.editMode) private var editMode
-
     @ObservedObject var profile: Profile
-
     @Binding var refreshing: Bool
 
     var body: some View {
@@ -23,14 +21,8 @@ struct TrendsNavView: View {
                 HStack {
                     Text("Trends").modifier(SidebarItemLabelTextModifier())
                     Spacer()
-                    if editMode?.wrappedValue == .inactive {
-                        if refreshing {
-                            ProgressView().progressViewStyle(IconProgressStyle())
-                        } else {
-                            Text(String(profile.previewItems.unread().count))
-                                .modifier(CapsuleModifier())
-                        }
-                    }
+                    Text(String(profile.trends.count))
+                        .modifier(CapsuleModifier())
                 }.lineLimit(1)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis").imageScale(.large)

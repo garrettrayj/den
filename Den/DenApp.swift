@@ -20,7 +20,6 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var cacheManager: CacheManager
     @StateObject var crashManager: CrashManager
     @StateObject var syncManager: SyncManager
     @StateObject var profileManager: ProfileManager
@@ -35,7 +34,6 @@ struct DenApp: App {
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
-                .environmentObject(cacheManager)
                 .environmentObject(crashManager)
                 .environmentObject(syncManager)
                 .environmentObject(profileManager)
@@ -61,19 +59,16 @@ struct DenApp: App {
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
-                Logger.main.debug("Scene Phase: Active")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    syncManager.syncHistory()
-                }
+                Logger.main.debug("Scene phase: active")
+                syncManager.syncHistory()
             case .inactive:
-                Logger.main.debug("Scene Phase: Inactive")
-                syncManager.saveContext()
+                Logger.main.debug("Scene phase: inactive")
             case .background:
-                Logger.main.debug("Scene Phase: Background")
+                Logger.main.debug("Scene phase: background")
                 syncManager.cleanupData()
                 syncManager.cleanupHistory()
             @unknown default:
-                Logger.main.debug("Scene Phase: Unknown")
+                Logger.main.debug("Scene phase: unknown")
             }
         }
     }
@@ -95,11 +90,6 @@ struct DenApp: App {
             persistentContainer: persistenceManager.container,
             crashManager: crashManager
         )
-        let cacheManager = CacheManager(
-            viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager,
-            refreshManager: refreshManager
-        )
         let profileManager = ProfileManager(
             viewContext: persistenceManager.container.viewContext,
             crashManager: crashManager
@@ -114,7 +104,6 @@ struct DenApp: App {
 
         // StateObject managers
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
-        _cacheManager = StateObject(wrappedValue: cacheManager)
         _crashManager = StateObject(wrappedValue: crashManager)
         _syncManager = StateObject(wrappedValue: syncManager)
         _profileManager = StateObject(wrappedValue: profileManager)

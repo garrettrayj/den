@@ -14,15 +14,17 @@ struct PageView: View {
 
     @ObservedObject var page: Page
 
-    @Binding var refreshing: Bool
-
+    @State private var unreadCount: Int
     @State private var showingSettings: Bool = false
+
+    @Binding var refreshing: Bool
 
     @AppStorage("pageViewMode_na") var viewMode = 0
     @AppStorage("hideRead") var hideRead = false
 
-    init(page: Page, refreshing: Binding<Bool>) {
+    init(page: Page, unreadCount: Int, refreshing: Binding<Bool>) {
         self.page = page
+        self.unreadCount = unreadCount
 
         _refreshing = refreshing
 
@@ -66,6 +68,17 @@ struct PageView: View {
         }
         .onAppear {
             subscriptionManager.activePage = page
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .pageItemStatus, object: page.objectID)
+        ) { notification in
+            guard let read = notification.userInfo?["read"] as? Bool else { return }
+            unreadCount += read ? -1 : 1
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .pageRefreshed, object: page.objectID)
+        ) { _ in
+            unreadCount = page.previewItems.unread().count
         }
         .background(Color(UIColor.systemGroupedBackground))
         .background(
@@ -166,8 +179,7 @@ struct PageView: View {
         #endif
 
         ReadingToolbarContent(
-            items: page.previewItems,
-            disabled: refreshing,
+            unreadCount: $unreadCount,
             hideRead: $hideRead
         ) {
             syncManager.toggleReadUnread(items: page.previewItems)

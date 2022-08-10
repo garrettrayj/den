@@ -14,6 +14,8 @@ struct TimelineView: View {
 
     @ObservedObject var profile: Profile
 
+    @State var unreadCount: Int
+
     @Binding var refreshing: Bool
 
     @AppStorage("hideRead") var hideRead = false
@@ -38,6 +40,12 @@ struct TimelineView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
+        .onReceive(
+            NotificationCenter.default.publisher(for: .profileItemStatus, object: profile.objectID)
+        ) { notification in
+            guard let read = notification.userInfo?["read"] as? Bool else { return }
+            unreadCount += read ? -1 : 1
+        }
         .navigationTitle("Timeline")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
@@ -76,8 +84,7 @@ struct TimelineView: View {
         #endif
 
         ReadingToolbarContent(
-            items: profile.previewItems,
-            disabled: refreshing,
+            unreadCount: $unreadCount,
             hideRead: $hideRead
         ) {
             syncManager.toggleReadUnread(items: profile.previewItems)

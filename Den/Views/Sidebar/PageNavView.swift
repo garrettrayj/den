@@ -11,11 +11,13 @@ import SwiftUI
 struct PageNavView: View {
     @Environment(\.editMode) private var editMode
     @ObservedObject var page: Page
+
+    @State var unreadCount: Int
     @Binding var refreshing: Bool
 
     var body: some View {
         NavigationLink {
-            PageView(page: page, refreshing: $refreshing)
+            PageView(page: page, unreadCount: unreadCount, refreshing: $refreshing)
         } label: {
             Label {
                 HStack {
@@ -24,17 +26,23 @@ struct PageNavView: View {
                     Spacer()
 
                     if editMode?.wrappedValue == .inactive {
-                        if refreshing {
-                            ProgressView().progressViewStyle(IconProgressStyle())
-                        } else {
-                            Text(String(page.previewItems.unread().count))
-                                .modifier(CapsuleModifier())
-                        }
+                        Text(String(unreadCount)).modifier(CapsuleModifier())
                     }
                 }.lineLimit(1)
             } icon: {
                 Image(systemName: page.wrappedSymbol).imageScale(.large)
             }
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .pageItemStatus, object: page.objectID)
+        ) { notification in
+            guard let read = notification.userInfo?["read"] as? Bool else { return }
+            unreadCount += read ? -1 : 1
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .pageRefreshed, object: page.objectID)
+        ) { _ in
+            unreadCount = page.previewItems.unread().count
         }
         .accessibilityIdentifier("page-button")
     }

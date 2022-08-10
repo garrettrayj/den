@@ -21,7 +21,7 @@ final class ParseFeedDataOperation: Operation {
     var data: Data?
 
     // Operation outputs
-    var workingFeed: WorkingFeedData = WorkingFeedData()
+    var workingFeedData: WorkingFeedData = WorkingFeedData()
     var workingItems: [WorkingItem] = []
 
     private var feedUrl: URL
@@ -42,22 +42,22 @@ final class ParseFeedDataOperation: Operation {
         }
 
         if let transportError = self.httpTransportError {
-            self.workingFeed.error = transportError.localizedDescription
+            self.workingFeedData.error = transportError.localizedDescription
             Logger.ingest.notice("Transport error")
             return
         }
 
         guard let httpResponse = self.httpResponse else {
-            self.workingFeed.error = "Server did not respond"
+            self.workingFeedData.error = "Server did not respond"
             Logger.ingest.notice("Server did not respond to request")
             return
         }
 
-        workingFeed.id = self.feedId
-        workingFeed.httpStatus = Int(httpResponse.statusCode)
+        workingFeedData.id = self.feedId
+        workingFeedData.httpStatus = Int(httpResponse.statusCode)
 
-        if !(200...299).contains(workingFeed.httpStatus!) {
-            self.workingFeed.error = HTTPURLResponse.localizedString(
+        if !(200...299).contains(workingFeedData.httpStatus!) {
+            self.workingFeedData.error = HTTPURLResponse.localizedString(
                 forStatusCode: httpResponse.statusCode
             ).capitalized(with: .autoupdatingCurrent)
 
@@ -80,36 +80,36 @@ final class ParseFeedDataOperation: Operation {
                 self.handleFeed(feed)
             }
         case .failure:
-            self.workingFeed.error = "Unable to parse feed"
+            self.workingFeedData.error = "Unable to parse feed"
         }
     }
 
     private func handleFeed(_ feed: AtomFeed) {
-        self.workingFeed.ingest(content: feed)
+        self.workingFeedData.ingest(content: feed)
         handleItems(feed.entries)
     }
 
     private func handleFeed(_ feed: RSSFeed) {
-        workingFeed.ingest(content: feed)
+        workingFeedData.ingest(content: feed)
         handleItems(feed.items)
     }
 
     private func handleFeed(_ feed: JSONFeed) {
-        workingFeed.ingest(content: feed)
+        workingFeedData.ingest(content: feed)
         handleItems(feed.items)
     }
 
     private func handleItems(_ items: [ParsedFeedItem]?) {
         guard let items = items, !items.isEmpty else {
-            self.workingFeed.error = "Feed empty"
-            self.workingFeed.itemCount = 0
+            self.workingFeedData.error = "Feed empty"
+            self.workingFeedData.itemCount = 0
             Logger.ingest.notice("Feed empty: \(self.feedUrl)")
             return
         }
 
-        self.workingFeed.itemCount = items.count
+        self.workingFeedData.itemCount = items.count
 
-        items.forEach { item in
+        items.prefix(itemLimit).forEach { item in
             // Continue if link is missing
             guard let itemLink = item.linkURL else {
                 Logger.ingest.notice("Missing link for item.")

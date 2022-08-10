@@ -13,29 +13,40 @@ struct TimelineNavView: View {
 
     @ObservedObject var profile: Profile
 
+    @State var unreadCount: Int
+
     @Binding var refreshing: Bool
 
     var body: some View {
         NavigationLink {
-            TimelineView(profile: profile, refreshing: $refreshing)
+            TimelineView(
+                profile: profile,
+                unreadCount: profile.previewItems.unread().count,
+                refreshing: $refreshing
+            )
         } label: {
             Label {
                 HStack {
                     Text("Timeline").modifier(SidebarItemLabelTextModifier())
                     Spacer()
-                    if editMode?.wrappedValue == .inactive {
-                        if refreshing {
-                            ProgressView().progressViewStyle(IconProgressStyle())
-                        } else {
-                            Text(String(profile.previewItems.unread().count))
-                                .modifier(CapsuleModifier())
-                        }
-                    }
+                    Text(String(profile.previewItems.unread().count))
+                        .modifier(CapsuleModifier())
                 }.lineLimit(1)
             } icon: {
                 Image(systemName: "calendar.day.timeline.leading").imageScale(.large)
             }
         }
         .accessibilityIdentifier("timeline-button")
+        .onReceive(
+            NotificationCenter.default.publisher(for: .profileItemStatus, object: profile.objectID)
+        ) { notification in
+            guard let read = notification.userInfo?["read"] as? Bool else { return }
+            unreadCount += read ? -1 : 1
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .profileRefreshed, object: profile.objectID)
+        ) { _ in
+            unreadCount = profile.previewItems.unread().count
+        }
     }
 }
