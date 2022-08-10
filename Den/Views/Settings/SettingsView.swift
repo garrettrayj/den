@@ -17,7 +17,6 @@ struct SettingsView: View {
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var cacheManager: CacheManager
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
@@ -288,12 +287,13 @@ struct SettingsView: View {
     private func clearCache() {
         guard let profile = profileManager.activeProfile else { return }
         refreshManager.cancel()
-        cacheManager.resetFeeds()
+        resetFeeds()
 
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk()
 
         profile.objectWillChange.send()
+        profile.pagesArray.forEach { $0.objectWillChange.send() }
     }
 
     private func clearHistory() {
@@ -322,6 +322,37 @@ struct SettingsView: View {
         UserDefaults.standard.synchronize()
 
         themeManager.objectWillChange.send()
+    }
+
+    private func resetFeeds() {
+        do {
+            let pages = try viewContext.fetch(Page.fetchRequest()) as [Page]
+            pages.forEach { page in
+                page.feedsArray.forEach { feed in
+                    if let feedData = feed.feedData {
+                        viewContext.delete(feedData)
+                    }
+                }
+            }
+
+            let trends = try viewContext.fetch(Trend.fetchRequest()) as [Trend]
+            trends.forEach { trend in
+                viewContext.delete(trend)
+            }
+
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                    profileManager.activeProfile?.objectWillChange.send()
+                } catch {
+                    DispatchQueue.main.async {
+                        self.crashManager.handleCriticalError(error as NSError)
+                    }
+                }
+            }
+        } catch {
+            self.crashManager.handleCriticalError(error as NSError)
+        }
     }
 
     private func resetEverything() {

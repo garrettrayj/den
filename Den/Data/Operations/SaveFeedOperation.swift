@@ -37,12 +37,13 @@ final class SaveFeedOperation: Operation {
         context.automaticallyMergesChangesFromParent = true
 
         context.performAndWait {
-            guard let feed = context.object(with: self.feedObjectID) as? Feed else { return }
-            guard let feedData = self.updateFeed(feed: feed, context: context) else { return }
-
-            self.updateFeedItems(feedData: feedData, context: context)
+            guard
+                let feed = context.object(with: self.feedObjectID) as? Feed,
+                let feedData = self.updateFeed(feed: feed, context: context)
+            else { return }
 
             do {
+                self.updateFeedItems(feed: feed, feedData: feedData, context: context)
                 try context.save()
             } catch {
                 self.cancel()
@@ -78,7 +79,7 @@ final class SaveFeedOperation: Operation {
         return feedData
     }
 
-    private func updateFeedItems(feedData: FeedData, context: NSManagedObjectContext) {
+    private func updateFeedItems(feed: Feed, feedData: FeedData, context: NSManagedObjectContext) {
         self.workingFeedItems.forEach { workingItem in
             let item = Item.create(moc: context, feedData: feedData)
             item.id = workingItem.id
@@ -91,6 +92,7 @@ final class SaveFeedOperation: Operation {
             item.summary = workingItem.summary
             item.body = workingItem.body
             item.title = workingItem.title
+            item.read = item.history.isEmpty == false
         }
 
         // Cleanup items

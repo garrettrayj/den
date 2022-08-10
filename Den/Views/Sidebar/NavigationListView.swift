@@ -29,13 +29,18 @@ struct NavigationListView: View {
 
     var body: some View {
         List {
-            TimelineNavView(profile: profile, refreshing: $refreshing)
-
-            TrendsNavView(profile: profile, refreshing: $refreshing)
+            if editMode?.wrappedValue == .inactive {
+                TimelineNavView(
+                    profile: profile,
+                    unreadCount: profile.previewItems.unread().count,
+                    refreshing: $refreshing
+                )
+                TrendsNavView(profile: profile, refreshing: $refreshing)
+            }
 
             Section {
                 ForEach(profile.pagesArray) { page in
-                    PageNavView(page: page, refreshing: $refreshing)
+                    PageNavView(page: page, unreadCount: page.previewItems.unread().count, refreshing: $refreshing)
                 }
                 .onMove(perform: movePage)
                 .onDelete(perform: deletePage)
@@ -77,7 +82,7 @@ struct NavigationListView: View {
         .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
             self.refreshing = false
         }
-        .onReceive(NotificationCenter.default.publisher(for: .feedUpdated)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
             self.refreshProgress.completedUnitCount += 1
         }
         .toolbar {

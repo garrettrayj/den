@@ -112,14 +112,14 @@ final class RefreshPlan {
                 unowned parseOp,
                 unowned feedMetaOp
             ] in
-                saveFeedOp?.workingFeed = feedMetaOp?.workingFeed ?? parseOp?.workingFeed
+                saveFeedOp?.workingFeed = feedMetaOp?.workingFeed ?? parseOp?.workingFeedData
                 saveFeedOp?.workingFeedItems = parseOp?.workingItems ?? []
             }
     }
 
     private func addMetaAdapters() {
         parseWebpageAdapter = BlockOperation { [unowned parseOp, unowned webpageDataOp] in
-            webpageDataOp?.url = parseOp?.workingFeed.link
+            webpageDataOp?.url = parseOp?.workingFeedData.link
         }
 
         webpageMetadataAdapter = BlockOperation { [unowned webMetaOp, unowned webpageDataOp] in
@@ -142,7 +142,7 @@ final class RefreshPlan {
                 unowned feedMetaOp,
                 unowned parseOp
             ] in
-                feedMetaOp?.workingFeed = parseOp?.workingFeed
+                feedMetaOp?.workingFeed = parseOp?.workingFeedData
                 feedMetaOp?.defaultFaviconData = defaultFaviconDataOp?.data
                 feedMetaOp?.defaultFaviconResponse = defaultFaviconDataOp?.response
                 feedMetaOp?.webpageFaviconData = webpageFaviconDataOp?.data

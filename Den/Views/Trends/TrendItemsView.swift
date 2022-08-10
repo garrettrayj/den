@@ -35,6 +35,7 @@ struct TrendItemsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle(trend.wrappedTitle)
+        /*
         .toolbar {
             ReadingToolbarContent(
                 items: trend.items,
@@ -46,6 +47,7 @@ struct TrendItemsView: View {
                 trend.objectWillChange.send()
             }
         }
+         */
     }
 
     private var visibleItems: [Item] {

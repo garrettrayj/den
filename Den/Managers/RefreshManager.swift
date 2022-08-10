@@ -38,12 +38,15 @@ final class RefreshManager: ObservableObject {
             DispatchQueue.main.async {
                 self.refreshing = false
                 NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
+
             }
         }
         operations.append(profileCompletionOp)
 
-        let pagesCompletedOp = BlockOperation {
-
+        let pagesCompletedOp = BlockOperation { [weak profile] in
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .profileRefreshed, object: profile?.objectID)
+            }
         }
         operations.append(pagesCompletedOp)
 
@@ -81,7 +84,7 @@ final class RefreshManager: ObservableObject {
             let feedCompletionOp = BlockOperation { [weak feed] in
                 DispatchQueue.main.async {
                     feed?.objectWillChange.send()
-                    NotificationCenter.default.post(name: .feedUpdated, object: feed?.objectID)
+                    NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
                 }
             }
             feedCompletionOp.addDependency(refreshPlan.saveFeedOp!)
@@ -94,6 +97,7 @@ final class RefreshManager: ObservableObject {
         let pageCompletionOp = BlockOperation { [weak page] in
             DispatchQueue.main.async {
                 page?.objectWillChange.send()
+                NotificationCenter.default.post(name: .pageRefreshed, object: page?.objectID)
             }
         }
         feedCompletionOps.forEach { operation in
@@ -130,7 +134,7 @@ final class RefreshManager: ObservableObject {
         let feedCompletionOp = BlockOperation { [weak feed] in
             DispatchQueue.main.async {
                 feed?.objectWillChange.send()
-                NotificationCenter.default.post(name: .feedUpdated, object: feed?.objectID)
+                NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
             }
         }
         feedCompletionOp.addDependency(refreshPlan.saveFeedOp!)

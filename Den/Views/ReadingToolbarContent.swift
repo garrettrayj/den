@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct ReadingToolbarContent: ToolbarContent {
-    let items: [Item]
-    let disabled: Bool
-
+    @Binding var unreadCount: Int
     @Binding var hideRead: Bool
 
     let toggleAll: () -> Void
@@ -32,13 +30,13 @@ struct ReadingToolbarContent: ToolbarContent {
             }
             Spacer()
             VStack {
-                Text("\(items.unread().count) Unread").font(.caption)
+                Text("\(unreadCount) Unread").font(.caption)
             }
             Spacer()
             Button(action: toggleAll) {
                 Label(
                     "Mark All Read",
-                    systemImage: items.unread().isEmpty ?
+                    systemImage: unreadCount == 0 ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
             }.accessibilityIdentifier("mark-all-read-button")
