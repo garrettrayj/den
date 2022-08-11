@@ -34,6 +34,28 @@ final class HTMLContent {
         return trimmedString == "" ? nil : trimmedString
     }
 
+    func sanitizedHTML() -> String? {
+        guard
+            let dirty: Document = try? SwiftSoup.parseBodyFragment(source),
+            let doc: Document = try? Cleaner(customWhitelist()).clean(dirty)
+        else {
+            return nil
+        }
+
+        // Apply <iframe> scaling fix
+        do {
+            for element in try doc.getElementsByTag("iframe") {
+                let width: String? = try? element.attr("width")
+                let height: String? = try? element.attr("height")
+                try element.attr("style", "aspect-ratio: \(width ?? "16") / \(height ?? "9");")
+            }
+        } catch {
+            print(error)
+        }
+
+        return try? doc.body()?.html()
+    }
+
     func imageElements() -> Elements? {
         guard
             let doc: Document = try? SwiftSoup.parseBodyFragment(source),
@@ -96,28 +118,6 @@ final class HTMLContent {
         }
 
         return images.isEmpty ? nil : images
-    }
-
-    func sanitized() -> String? {
-        guard
-            let dirty: Document = try? SwiftSoup.parseBodyFragment(source),
-            let doc: Document = try? Cleaner(customWhitelist()).clean(dirty)
-        else {
-            return nil
-        }
-
-        // Apply <iframe> scaling fix
-        do {
-            for element in try doc.getElementsByTag("iframe") {
-                let width: String? = try? element.attr("width")
-                let height: String? = try? element.attr("height")
-                try element.attr("style", "aspect-ratio: \(width ?? "16") / \(height ?? "9");")
-            }
-        } catch {
-            print(error)
-        }
-
-        return try? doc.body()?.html()
     }
 
     func customWhitelist() throws -> Whitelist {

@@ -56,6 +56,7 @@
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
+        <attribute name="teaser" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="feedData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedData" inverseName="items" inverseEntity="FeedData"/>
         <relationship name="trendItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrendItem" inverseName="item" inverseEntity="TrendItem"/>
@@ -114,7 +115,7 @@
         <element name="Feed" positionX="288" positionY="333" width="128" height="200"/>
         <element name="FeedData" positionX="270" positionY="216" width="128" height="230"/>
         <element name="History" positionX="270" positionY="315" width="128" height="125"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="290"/>
+        <element name="Item" positionX="279" positionY="297" width="128" height="305"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
         <element name="Profile" positionX="270" positionY="324" width="128" height="125"/>
         <element name="Trend" positionX="279" positionY="351" width="128" height="125"/>

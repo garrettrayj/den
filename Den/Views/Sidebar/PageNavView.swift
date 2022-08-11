@@ -34,9 +34,15 @@ struct PageNavView: View {
             }
         }
         .onReceive(
-            NotificationCenter.default.publisher(for: .pageItemStatus, object: page.objectID)
+            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in
-            guard let read = notification.userInfo?["read"] as? Bool else { return }
+            guard
+                let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
+                pageObjectID == page.objectID,
+                let read = notification.userInfo?["read"] as? Bool
+            else {
+                return
+            }
             unreadCount += read ? -1 : 1
         }
         .onReceive(

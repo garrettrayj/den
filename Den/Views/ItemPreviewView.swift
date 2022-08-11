@@ -27,10 +27,9 @@ struct ItemPreviewView: View {
                 PreviewImageView(item: item).opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
             }
 
-            if item.summary != nil && item.summary != "" {
-                Text(item.summary!)
-                    .font(.body)
-                    .lineLimit(6)
+            if item.teaser != nil && item.teaser != "" {
+                Text(item.teaser!).font(.body).lineLimit(6)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(12)

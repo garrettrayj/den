@@ -43,21 +43,22 @@ struct ItemView: View {
                                     .font(.subheadline)
                                     .lineLimit(1)
 
-                                if item.body != nil {
-                                    WebView(
-                                        dynamicHeight: $webViewHeight,
-                                        html: item.body!,
-                                        title: item.wrappedTitle,
-                                        baseURL: item.link
-                                    )
-                                } else if item.summary != nil {
-                                    if item.image != nil {
-                                        heroImage
-                                    }
-                                    Text(item.summary!).lineSpacing(2)
+                                if
+                                    item.image != nil &&
+                                    !(item.summary?.contains("<img") ?? false) &&
+                                    !(item.body?.contains("<img") ?? false)
+                                {
+                                    heroImage
                                 }
+
+                                WebView(
+                                    dynamicHeight: $webViewHeight,
+                                    html: item.body ?? item.summary ?? "No Content",
+                                    title: item.wrappedTitle,
+                                    baseURL: item.link
+                                )
                             }
-                            .dynamicTypeSize(.large)
+                            .frame(maxWidth: .infinity)
                             .padding([.top, .horizontal], 12)
                             .padding(.bottom, 36)
                         }
@@ -94,18 +95,8 @@ struct ItemView: View {
     private var heroImage: some View {
         WebImage(url: item.image)
             .resizable()
-            .placeholder {
-                ItemImagePlaceholderView(
-                    imageURL: item.image,
-                    aspectRatio: item.imageAspectRatio
-                )
-            }
-            .aspectRatio(nil, contentMode: .fit)
-            .frame(
-                maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
-                maxHeight: item.imageHeight > 0 ? CGFloat(item.imageHeight) : nil,
-                alignment: .top
-            )
+            .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+            .frame(maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil)
             .background(Color(UIColor.tertiarySystemGroupedBackground))
             .cornerRadius(6)
             .overlay(

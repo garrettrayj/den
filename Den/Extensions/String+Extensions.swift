@@ -78,4 +78,12 @@ extension String {
 
         return filteredString
     }
+
+    var htmlAttributedString: NSAttributedString? {
+        Data(utf8).htmlAttributedString
+    }
+
+    var htmlString: String {
+        htmlAttributedString?.string ?? ""
+    }
 }

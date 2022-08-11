@@ -16,14 +16,17 @@ struct BlendView: View {
     var frameSize: CGSize
 
     var body: some View {
-        if visibleItems.isEmpty {
-            AllReadView(hiddenItemCount: page.previewItems.read().count).frame(height: frameSize.height - 8)
-        } else {
-            BoardView(width: frameSize.width, list: visibleItems) { item in
-                FeedItemPreviewView(item: item)
+        ScrollView(.vertical) {
+            if visibleItems.isEmpty {
+                AllReadView(hiddenItemCount: page.previewItems.read().count).frame(height: frameSize.height - 8)
+            } else {
+                BoardView(width: frameSize.width, list: visibleItems) { item in
+                    FeedItemPreviewView(item: item)
+                }
+                .padding(.horizontal)
+                .padding(.bottom)
+                .padding(.top, 8)
             }
-            .padding(.horizontal)
-            .padding(.bottom)
         }
     }
 

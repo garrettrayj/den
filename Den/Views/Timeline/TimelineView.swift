@@ -15,6 +15,7 @@ struct TimelineView: View {
     @ObservedObject var profile: Profile
 
     @State var unreadCount: Int
+    @State private var phony: Bool = false // For triggering redraw
 
     @Binding var refreshing: Bool
 
@@ -40,10 +41,17 @@ struct TimelineView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
-        .onReceive(
-            NotificationCenter.default.publisher(for: .profileItemStatus, object: profile.objectID)
-        ) { notification in
-            guard let read = notification.userInfo?["read"] as? Bool else { return }
+        .onChange(of: hideRead, perform: { _ in
+            phony.toggle()
+        })
+        .onReceive(NotificationCenter.default.publisher(for: .itemStatus)) { notification in
+            guard
+                let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
+                profileObjectID == profile.objectID,
+                let read = notification.userInfo?["read"] as? Bool
+            else {
+                return
+            }
             unreadCount += read ? -1 : 1
         }
         .navigationTitle("Timeline")
@@ -53,36 +61,6 @@ struct TimelineView: View {
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        #if targetEnvironment(macCatalyst)
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                subscriptionManager.showSubscribe()
-            } label: {
-                Label("Add Feed", systemImage: "plus.circle")
-            }
-            .accessibilityIdentifier("add-feed-button")
-        }
-
-        #else
-        ToolbarItem {
-            if refreshing {
-                ProgressView()
-                    .progressViewStyle(ToolbarProgressStyle())
-            } else {
-                Menu {
-                    Button {
-                        subscriptionManager.showSubscribe()
-                    } label: {
-                        Label("Add Feed", systemImage: "plus.circle")
-                    }.accessibilityIdentifier("add-feed-button")
-                } label: {
-                    Label("Timeline Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
-                }
-                .accessibilityIdentifier("timeline-menu")
-            }
-        }
-        #endif
-
         ReadingToolbarContent(
             unreadCount: $unreadCount,
             hideRead: $hideRead

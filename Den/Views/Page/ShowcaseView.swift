@@ -16,14 +16,17 @@ struct ShowcaseView: View {
     var frameSize: CGSize
 
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-            ForEach(page.feedsArray) { feed in
-                ShowcaseSectionView(
-                    feed: feed,
-                    hideRead: $hideRead,
-                    width: frameSize.width
-                )
+        ScrollView(.vertical) {
+            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                ForEach(page.feedsArray) { feed in
+                    ShowcaseSectionView(
+                        feed: feed,
+                        hideRead: $hideRead,
+                        width: frameSize.width
+                    )
+                }
             }
+            .padding(.top, 8)
         }
     }
 }

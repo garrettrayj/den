@@ -59,6 +59,7 @@ final class SyncManager: ObservableObject {
         saveContext()
         NotificationCenter.default.postItemStatus(
             read: true,
+            itemObjectID: item.objectID,
             feedObjectID: item.feedData?.feed?.objectID,
             pageObjectID: item.feedData?.feed?.page?.objectID,
             profileObjectID: item.feedData?.feed?.page?.profile?.objectID
@@ -72,6 +73,7 @@ final class SyncManager: ObservableObject {
 
         NotificationCenter.default.postItemStatus(
             read: false,
+            itemObjectID: item.objectID,
             feedObjectID: item.feedData?.feed?.objectID,
             pageObjectID: item.feedData?.feed?.page?.objectID,
             profileObjectID: item.feedData?.feed?.page?.profile?.objectID
@@ -87,6 +89,7 @@ final class SyncManager: ObservableObject {
                 item.read = false
                 NotificationCenter.default.postItemStatus(
                     read: false,
+                    itemObjectID: item.objectID,
                     feedObjectID: item.feedData?.feed?.objectID,
                     pageObjectID: item.feedData?.feed?.page?.objectID,
                     profileObjectID: item.feedData?.feed?.page?.profile?.objectID
@@ -100,6 +103,7 @@ final class SyncManager: ObservableObject {
                 item.read = true
                 NotificationCenter.default.postItemStatus(
                     read: true,
+                    itemObjectID: item.objectID,
                     feedObjectID: item.feedData?.feed?.objectID,
                     pageObjectID: item.feedData?.feed?.page?.objectID,
                     profileObjectID: item.feedData?.feed?.page?.profile?.objectID
@@ -151,7 +155,7 @@ final class SyncManager: ObservableObject {
     }
 
     public func syncHistory() {
-        if historySynced != nil && historySynced! > Date.now - 60 * 1 {
+        if historySynced != nil && historySynced! > Date.now - 60 * 5 {
             Logger.main.debug("Skipping history synchronization")
             return
         }
@@ -172,7 +176,7 @@ final class SyncManager: ObservableObject {
     }
 
     public func cleanupHistory() {
-        if historyCleaned != nil && historyCleaned! > Date.now - 60 * 2 {
+        if historyCleaned != nil && historyCleaned! > Date.now - 60 * 60 * 24 {
             Logger.main.debug("Skipping history cleanup")
             return
         }
@@ -211,7 +215,7 @@ final class SyncManager: ObservableObject {
      Remove abandoned FeedData entities. Related Item entities will also be removed via cascade.
      */
     public func cleanupData() {
-        if dataCleaned != nil && dataCleaned! > Date.now - 60 * 2 {
+        if dataCleaned != nil && dataCleaned! > Date.now - 60 * 60 * 24 {
             Logger.main.debug("Skipping data cleanup")
             return
         }

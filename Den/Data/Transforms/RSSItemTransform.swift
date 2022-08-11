@@ -19,8 +19,7 @@ final class RSSItemTransform: ItemTransform {
 
     override func apply() {
         populateGeneralProperties()
-        populateSummary()
-        populateBody()
+        populateText()
         findEnclosureImage()
         findMediaContentImages()
         findMediaGroupImages()
@@ -50,18 +49,20 @@ final class RSSItemTransform: ItemTransform {
         workingItem.link = rssItem.linkURL
     }
 
-    private func populateSummary() {
+    private func populateText() {
         // Extract plain text from summary or content
-        if let source = rssItem.description?.htmlUnescape() {
-            workingItem.summary = HTMLContent(source).plainText()
-        } else if let source = rssItem.content?.contentEncoded {
-            workingItem.summary = HTMLContent(source).plainText()
+        if let description = rssItem.description?.htmlUnescape() {
+            workingItem.summary = HTMLContent(description).sanitizedHTML()
+        } else if let contentEncoded = rssItem.content?.contentEncoded {
+            workingItem.summary = HTMLContent(contentEncoded).sanitizedHTML()
         }
-    }
 
-    private func populateBody() {
+        if let teaser = workingItem.summary {
+            workingItem.teaser = HTMLContent(teaser).plainText()?.truncated(limit: 1000)
+        }
+
         if let source = rssItem.content?.contentEncoded {
-            workingItem.body = HTMLContent(source).sanitized()
+            workingItem.body = HTMLContent(source).sanitizedHTML()
         }
     }
 

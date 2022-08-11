@@ -22,6 +22,12 @@ struct PageView: View {
     @AppStorage("pageViewMode_na") var viewMode = 0
     @AppStorage("hideRead") var hideRead = false
 
+    enum ContentViewMode: Int {
+        case gadgets  = 0
+        case showcase = 1
+        case blend = 2
+    }
+
     init(page: Page, unreadCount: Int, refreshing: Binding<Bool>) {
         self.page = page
         self.unreadCount = unreadCount
@@ -53,26 +59,29 @@ struct PageView: View {
             } else if page.previewItems.isEmpty  && viewMode == ContentViewMode.blend.rawValue {
                 NoItemsView()
             } else {
-                ScrollView(.vertical) {
-                    Group {
-                        if viewMode == ContentViewMode.blend.rawValue {
-                            BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
-                        } else if viewMode == ContentViewMode.showcase.rawValue {
-                            ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
-                        } else {
-                            GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
-                        }
-                    }.padding(.top, 8)
+                if viewMode == ContentViewMode.blend.rawValue {
+                    BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                } else if viewMode == ContentViewMode.showcase.rawValue {
+                    ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                } else {
+                    GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
                 }
             }
         }
-        .onAppear {
-            subscriptionManager.activePage = page
-        }
+        .onChange(of: viewMode, perform: { _ in
+            self.page.objectWillChange.send()
+        })
+        .onAppear { subscriptionManager.activePage = page }
         .onReceive(
-            NotificationCenter.default.publisher(for: .pageItemStatus, object: page.objectID)
+            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in
-            guard let read = notification.userInfo?["read"] as? Bool else { return }
+            guard
+                let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
+                pageObjectID == page.objectID,
+                let read = notification.userInfo?["read"] as? Bool
+            else {
+                return
+            }
             unreadCount += read ? -1 : 1
         }
         .onReceive(
@@ -100,22 +109,11 @@ struct PageView: View {
     private var toolbarContent: some ToolbarContent {
         #if targetEnvironment(macCatalyst)
         ToolbarItem(placement: .navigationBarTrailing) {
-            Picker("View Mode", selection: $viewMode) {
-                Label("Gadgets", systemImage: "rectangle.grid.3x2")
-                    .tag(ContentViewMode.gadgets.rawValue)
-                    .accessibilityIdentifier("gadgets-view-button")
-                Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                    .tag(ContentViewMode.showcase.rawValue)
-                    .accessibilityIdentifier("showcase-view-button")
-                Label("Timeline", systemImage: "calendar.day.timeline.leading")
-                    .tag(ContentViewMode.blend.rawValue)
-                    .accessibilityIdentifier("page-timeline-view-button")
-            }
-            .padding(.trailing, 8)
-            .pickerStyle(.inline)
-            .disabled(refreshing)
+            viewModePicker
+                .padding(.trailing, 8)
+                .pickerStyle(.inline)
+                .disabled(refreshing)
         }
-
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
                 subscriptionManager.showSubscribe()
@@ -125,7 +123,6 @@ struct PageView: View {
             .accessibilityIdentifier("add-feed-button")
             .disabled(refreshing)
         }
-
         ToolbarItem(placement: .navigationBarTrailing) {
             if refreshing {
                 ProgressView()
@@ -147,17 +144,7 @@ struct PageView: View {
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
                 Menu {
-                    Picker("View Mode", selection: $viewMode) {
-                        Label("Gadgets", systemImage: "rectangle.grid.3x2")
-                            .tag(PageViewMode.gadgets.rawValue)
-                            .accessibilityIdentifier("page-gadgets-view-button")
-                        Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                            .tag(PageViewMode.showcase.rawValue)
-                            .accessibilityIdentifier("page-showcase-view-button")
-                        Label("Timeline", systemImage: "calendar.day.timeline.leading")
-                            .tag(PageViewMode.timeline.rawValue)
-                            .accessibilityIdentifier("page-timeline-view-button")
-                    }
+                    viewModePicker
 
                     Button {
                         subscriptionManager.showSubscribe()
@@ -184,6 +171,20 @@ struct PageView: View {
         ) {
             syncManager.toggleReadUnread(items: page.previewItems)
             page.objectWillChange.send()
+        }
+    }
+
+    private var viewModePicker: some View {
+        Picker("View Mode", selection: $viewMode) {
+            Label("Gadgets", systemImage: "rectangle.grid.3x2")
+                .tag(ContentViewMode.gadgets.rawValue)
+                .accessibilityIdentifier("gadgets-view-button")
+            Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
+                .tag(ContentViewMode.showcase.rawValue)
+                .accessibilityIdentifier("showcase-view-button")
+            Label("Blend", systemImage: "square.text.square")
+                .tag(ContentViewMode.blend.rawValue)
+                .accessibilityIdentifier("page-timeline-view-button")
         }
     }
 }

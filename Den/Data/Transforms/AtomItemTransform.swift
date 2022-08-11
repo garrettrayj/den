@@ -20,8 +20,7 @@ final class AtomItemTransform: ItemTransform {
 
     override func apply() {
         populateGeneralProperties()
-        populateSummary()
-        populateBody()
+        populateText()
         findLinkImages()
         findMediaContentImages()
         findMediaThumbnailsImages()
@@ -47,18 +46,19 @@ final class AtomItemTransform: ItemTransform {
         }
     }
 
-    private func populateSummary() {
-        // Extract plain text from summary or content
-        if let source = entry.summary?.value?.htmlUnescape() {
-            workingItem.summary = HTMLContent(source).plainText()
-        } else if let source = entry.content?.value?.htmlUnescape() {
-            workingItem.summary = HTMLContent(source).plainText()
+    private func populateText() {
+        if let summary = entry.summary?.value?.htmlUnescape() {
+            workingItem.summary = HTMLContent(summary).sanitizedHTML()
+        } else if let summary = entry.content?.value?.htmlUnescape() {
+            workingItem.summary = HTMLContent(summary).sanitizedHTML()
         }
-    }
 
-    private func populateBody() {
-        if let source = entry.content?.value {
-            workingItem.body = HTMLContent(source).sanitized()
+        if let teaser = workingItem.summary {
+            workingItem.teaser = HTMLContent(teaser).plainText()?.truncated(limit: 1000)
+        }
+
+        if let body = entry.content?.value {
+            workingItem.body = HTMLContent(body).sanitizedHTML()
         }
     }
 
