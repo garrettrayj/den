@@ -75,6 +75,12 @@ struct SubscribeView: View {
 
                         submitButtonSection
                     }
+                    .onReceive(
+                        NotificationCenter.default.publisher(for: .feedRefreshed, object: newFeed?.objectID)
+                    ) { _ in
+                        targetPage?.objectWillChange.send()
+                        dismiss()
+                    }
                     .toolbar {
                         ToolbarItem {
                             Button { dismiss() } label: {

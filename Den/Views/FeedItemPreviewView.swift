@@ -16,7 +16,6 @@ struct FeedItemPreviewView: View {
             VStack(alignment: .leading, spacing: 0) {
                 NavigationLink {
                     FeedView(feed: item.feedData!.feed!)
-
                 } label: {
                     HStack {
                         FeedTitleLabelView(

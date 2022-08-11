@@ -16,10 +16,13 @@ struct GadgetsView: View {
     var frameSize: CGSize
 
     var body: some View {
-        BoardView(width: frameSize.width, list: page.feedsArray) { feed in
-            GadgetView(feed: feed, hideRead: $hideRead)
+        ScrollView(.vertical) {
+            BoardView(width: frameSize.width, list: page.feedsArray) { feed in
+                GadgetView(feed: feed, hideRead: $hideRead)
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+            .padding(.top, 8)
         }
-        .padding(.horizontal)
-        .padding(.bottom)
     }
 }

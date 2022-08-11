@@ -38,9 +38,15 @@ struct TimelineNavView: View {
         }
         .accessibilityIdentifier("timeline-button")
         .onReceive(
-            NotificationCenter.default.publisher(for: .profileItemStatus, object: profile.objectID)
+            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in
-            guard let read = notification.userInfo?["read"] as? Bool else { return }
+            guard
+                let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
+                profileObjectID == profile.objectID,
+                let read = notification.userInfo?["read"] as? Bool
+            else {
+                return
+            }
             unreadCount += read ? -1 : 1
         }
         .onReceive(

@@ -90,6 +90,7 @@ final class SaveFeedOperation: Operation {
             item.link = workingItem.link
             item.published = workingItem.published
             item.summary = workingItem.summary
+            item.teaser = workingItem.teaser
             item.body = workingItem.body
             item.title = workingItem.title
             item.read = item.history.isEmpty == false

@@ -9,7 +9,7 @@
 import SwiftUI
 import WebKit
 
-class ArticleWebView: WKWebView {
+class CustomWebView: WKWebView {
     init(frame: CGRect) {
         let configuration = WKWebViewConfiguration()
 
@@ -17,7 +17,6 @@ class ArticleWebView: WKWebView {
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             let cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
         {
-
             let source = """
             var style = document.createElement('style');
             style.innerHTML = '\(cssString)';
@@ -26,7 +25,6 @@ class ArticleWebView: WKWebView {
             let userScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
             let userContentController = WKUserContentController()
             userContentController.addUserScript(userScript)
-
             configuration.userContentController = userContentController
         }
 
@@ -49,7 +47,7 @@ struct WebView: UIViewRepresentable {
     var title: String?
     var baseURL: URL?
 
-    var webView: WKWebView = ArticleWebView(
+    var webView: WKWebView = CustomWebView(
         frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
     )
 
@@ -72,7 +70,8 @@ struct WebView: UIViewRepresentable {
         return webView
     }
 
-    func updateUIView(_ uiView: WKWebView, context: Context) {
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        webView.invalidateIntrinsicContentSize()
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
@@ -83,11 +82,9 @@ struct WebView: UIViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.evaluateJavaScript("document.readyState", completionHandler: { (_, _) in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    webView.invalidateIntrinsicContentSize()
-                }
-            })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                webView.invalidateIntrinsicContentSize()
+            }
         }
 
         func webView(

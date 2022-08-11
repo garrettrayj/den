@@ -22,6 +22,7 @@ final class WorkingItem: ImageSelection {
     var summary: String?
     var body: String?
     var title: String?
+    var teaser: String?
 
     public func ingest(_ item: AtomFeedEntry?) {
         guard let item = item else { return }
