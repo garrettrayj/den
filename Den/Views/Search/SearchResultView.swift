@@ -14,13 +14,7 @@ struct SearchResultView: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        Button {
-            syncManager.openLink(
-                url: item.link,
-                logHistoryItem: item,
-                readerMode: item.feedData?.feed?.readerMode ?? false
-            )
-        } label: {
+        ItemActionView(item: item) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.wrappedTitle).font(.headline.weight(.semibold))
@@ -33,7 +27,5 @@ struct SearchResultView: View {
             }
             .padding(12)
         }
-        .buttonStyle(ItemButtonStyle(read: item.read))
-        .accessibilityIdentifier("search-result-button")
     }
 }

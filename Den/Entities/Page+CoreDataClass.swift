@@ -31,10 +31,8 @@ public class Page: NSManagedObject {
 
     public var previewItems: [Item] {
         feedsArray.flatMap { (feed) -> [Item] in
-            if let feedData = feed.feedData {
-                return feedData.previewItems
-            }
-            return []
+            guard let feedData = feed.feedData else { return [] }
+            return feedData.previewItems
         }.sorted { $0.date > $1.date }
     }
 

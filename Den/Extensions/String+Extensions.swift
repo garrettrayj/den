@@ -10,9 +10,6 @@ import Foundation
 
 import SwiftSoup
 
-/**
- Adapted from https://gist.github.com/budidino/8585eecd55fd4284afaaef762450f98e#gistcomment-2270476
- */
 extension String {
     enum TruncationPosition {
         case head
@@ -20,6 +17,9 @@ extension String {
         case tail
     }
 
+    /**
+     Adapted from https://gist.github.com/budidino/8585eecd55fd4284afaaef762450f98e#gistcomment-2270476
+     */
     func truncated(limit: Int, position: TruncationPosition = .tail, leader: String = "…") -> String {
         guard self.count > limit else { return self }
 
@@ -55,7 +55,7 @@ extension String {
     }
 
     func sanitizedForFileName() -> String {
-        // For ressoning on character sets see https://superuser.com/a/358861
+        // For reasoning on character sets see https://superuser.com/a/358861
         let invalidCharacters = CharacterSet(charactersIn: "\\/:*?\"<>|")
             .union(.newlines)
             .union(.illegalCharacters)
@@ -77,13 +77,5 @@ extension String {
         }
 
         return filteredString
-    }
-
-    var htmlAttributedString: NSAttributedString? {
-        Data(utf8).htmlAttributedString
-    }
-
-    var htmlString: String {
-        htmlAttributedString?.string ?? ""
     }
 }

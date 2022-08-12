@@ -80,8 +80,9 @@ public class Profile: NSManagedObject {
 
         typealias AreInIncreasingOrder = (Trend, Trend) -> Bool
 
-        let predicates: [AreInIncreasingOrder] = [ { $0.items.count > $1.items.count }, { $0.wrappedTitle < $1.wrappedTitle }
-        ]
+        var predicates: [AreInIncreasingOrder] = []
+        predicates.append({ $0.items.count > $1.items.count })
+        predicates.append({ $0.wrappedTitle < $1.wrappedTitle })
 
         return values.sorted { lhs, rhs in
             for predicate in predicates {

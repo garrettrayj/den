@@ -28,7 +28,6 @@ struct ProfileView: View {
         .onDisappear {
             save()
         }
-        .modifier(BackNavigationModifier(title: "Settings"))
     }
 
     private var nameSection: some View {

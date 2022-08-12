@@ -62,7 +62,6 @@ struct FeedSettingsView: View {
         }
         .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
-        .modifier(BackNavigationModifier(title: feed.wrappedTitle))
     }
 
     private var titleSection: some View {
@@ -126,7 +125,7 @@ struct FeedSettingsView: View {
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Open Items in Browser", systemImage: "macwindow")
+                Label("Open Items in Browser", systemImage: "macwindow.on.rectangle")
                 Spacer()
                 Toggle("Open Items in Browser", isOn: $feed.browserView).labelsHidden()
             }.modifier(FormRowModifier())

@@ -39,7 +39,6 @@ struct SecurityView: View {
             reset()
         }
         .navigationTitle("Security")
-        .modifier(BackNavigationModifier(title: "Settings"))
     }
 
     private var allClearSummary: some View {

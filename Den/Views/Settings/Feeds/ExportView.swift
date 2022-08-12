@@ -40,7 +40,6 @@ struct ExportView: View {
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Export")
-        .modifier(BackNavigationModifier(title: "Settings"))
     }
 
     private var pageListSection: some View {
