@@ -9,8 +9,6 @@
 import Foundation
 
 final class SubscriptionManager: ObservableObject {
-    @Published var showingSubscribe: Bool = false
-
     var feedUrlString: String = ""
     var activePage: Page?
 
@@ -28,11 +26,6 @@ final class SubscriptionManager: ObservableObject {
             }
         }
 
-        self.showingSubscribe = true
-    }
-
-    func resetSubscribe() {
-        showingSubscribe = false
-        feedUrlString = ""
+        NotificationCenter.default.post(name: .showSubscribe, object: nil)
     }
 }

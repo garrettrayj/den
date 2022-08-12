@@ -16,6 +16,8 @@ struct RootView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
+    @State private var showingSubscribe = false
+
     var body: some View {
         if crashManager.showingCrashMessage == true {
             CrashMessageView()
@@ -33,7 +35,10 @@ struct RootView: View {
             SidebarView(profile: profileManager.activeProfile!)
             WelcomeView()
         }
-        .sheet(isPresented: $subscriptionManager.showingSubscribe) {
+        .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { _ in
+            showingSubscribe = true
+        }
+        .sheet(isPresented: $showingSubscribe) {
             SubscribeView()
                 .environment(\.colorScheme, colorScheme)
                 .environmentObject(profileManager)
