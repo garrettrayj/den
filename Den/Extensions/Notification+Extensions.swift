@@ -18,6 +18,8 @@ extension Notification.Name {
     static let profileRefreshed = Notification.Name("profile-refreshed")
 
     static let itemStatus = Notification.Name("item-status")
+
+    static let showSubscribe = Notification.Name("show-subscribe")
 }
 
 extension NotificationCenter {
