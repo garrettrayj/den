@@ -41,7 +41,6 @@ struct ImportView: View {
         .onDisappear(perform: reset)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Import")
-        .modifier(BackNavigationModifier(title: "Settings"))
     }
 
     private var pickFileStage: some View {

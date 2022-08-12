@@ -21,7 +21,7 @@ struct BottomBarProgressStyle: ProgressViewStyle {
                     Text("Updating \(progress.completedUnitCount) of \(progress.totalUnitCount - 1)…")
                 } else {
                     // Performing analysis
-                    Text("Analyzing trends…")
+                    Text("Analyzing…")
                 }
             }
             .lineLimit(1)

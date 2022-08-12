@@ -147,9 +147,9 @@ struct NavigationListView: View {
                 Text("Updated \(profile.minimumRefreshedDate!.shortShortDisplay())")
             } else {
                 #if targetEnvironment(macCatalyst)
-                Text("Press \(Image(systemName: "command")) + R to refresh feeds").imageScale(.small)
+                Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)
                 #else
-                Text("Pull to refresh feeds")
+                Text("Pull to refresh")
                 #endif
             }
         }.lineLimit(1)

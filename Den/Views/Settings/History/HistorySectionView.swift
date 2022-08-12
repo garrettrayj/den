@@ -1,0 +1,112 @@
+//
+//  HistorySectionView.swift
+//  Den
+//
+//  Created by Garrett Johnson on 8/11/22.
+//  Copyright © 2022 Garrett Johnson. All rights reserved.
+//
+
+import SwiftUI
+
+struct HistorySectionView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var crashManager: CrashManager
+    @EnvironmentObject private var profileManager: ProfileManager
+
+    @State var historyRentionDays: Int = 0
+    @State var showingClearHistoryAlert = false
+
+    var body: some View {
+        Section(header: Text("History")) {
+            NavigationLink(
+                destination: HistoryView(profile: profileManager.activeProfile!)
+            ) {
+                Label("Viewed Items", systemImage: "clock")
+            }
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("view-history-button")
+
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                historyRetentionLabel
+                Spacer()
+                historyRetentionPicker
+                    .frame(width: 200)
+            }.modifier(FormRowModifier())
+            #else
+            historyRetentionPicker
+            #endif
+
+            Button(role: .destructive) {
+                showingClearHistoryAlert = true
+            } label: {
+                Label("Erase History", systemImage: "hourglass.bottomhalf.filled")
+                    .lineLimit(1)
+                    .foregroundColor(.red)
+            }
+            .modifier(FormRowModifier())
+            .alert("Erase History?", isPresented: $showingClearHistoryAlert, actions: {
+                Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
+                Button("Reset", role: .destructive) {
+                    clearHistory()
+                }.accessibilityIdentifier("reset-confirm-button")
+            }, message: {
+                Text("Memory of items viewed or marked read will be cleared.")
+            })
+            .accessibilityIdentifier("clear-history-button")
+        }
+        .modifier(SectionHeaderModifier())
+        .onChange(of: historyRentionDays) { _ in
+            profileManager.activeProfile?.wrappedHistoryRetention = historyRentionDays
+            saveProfile()
+        }
+    }
+
+    private var historyRetentionLabel: some View {
+        Label("Keep History", systemImage: "clock.arrow.2.circlepath").lineLimit(1)
+    }
+
+    private var historyRetentionPicker: some View {
+        Picker(selection: $historyRentionDays) {
+            Text("Forever").tag(0 as Int)
+            Text("One Year").tag(365 as Int)
+            Text("Six Months").tag(182 as Int)
+            Text("Three Months").tag(90 as Int)
+            Text("One Month").tag(30 as Int)
+            Text("Two Weeks").tag(14 as Int)
+            Text("One Week").tag(7 as Int)
+        } label: {
+            historyRetentionLabel
+        }
+    }
+
+    private func clearHistory() {
+        guard let profile = profileManager.activeProfile else { return }
+        profile.historyArray.forEach { history in
+            self.viewContext.delete(history)
+        }
+
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            crashManager.handleCriticalError(error)
+        }
+
+        profile.pagesArray.forEach({ page in
+            page.feedsArray.forEach { feed in
+                feed.objectWillChange.send()
+            }
+        })
+    }
+
+    private func saveProfile() {
+        if self.viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch let error as NSError {
+                crashManager.handleCriticalError(error)
+            }
+        }
+    }
+}

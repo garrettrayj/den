@@ -15,19 +15,13 @@ public class Trend: NSManagedObject {
     }
 
     var trendItemsArray: [TrendItem] {
-        guard
-            let items = trendItems?.sortedArray(
-                using: [NSSortDescriptor(key: "id", ascending: false)]
-            ) as? [TrendItem]
-        else { return [] }
-
-        return items
+        trendItems?.allObjects as? [TrendItem] ?? []
     }
 
     var items: [Item] {
-        trendItemsArray.compactMap { trendItem in
-            return trendItem.item
-        }
+        trendItemsArray
+            .compactMap { $0.item }
+            .sorted { $0.date > $1.date }
     }
 
     var feeds: [Feed] {
@@ -38,9 +32,7 @@ public class Trend: NSManagedObject {
             }
         }
 
-        return feeds.sorted { lhs, rhs in
-            lhs.wrappedTitle < rhs.wrappedTitle
-        }
+        return feeds.sorted { $0.wrappedTitle < $1.wrappedTitle }
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Trend {

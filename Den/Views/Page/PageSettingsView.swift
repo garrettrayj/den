@@ -31,7 +31,6 @@ struct PageSettingsView: View {
                 EmptyView()
             })
         )
-        .modifier(BackNavigationModifier(title: page.displayName))
     }
 
     private var nameIconSection: some View {

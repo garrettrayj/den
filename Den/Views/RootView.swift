@@ -31,8 +31,6 @@ struct RootView: View {
     var navigationView: some View {
         NavigationView {
             SidebarView(profile: profileManager.activeProfile!)
-
-            // Default view for detail area
             WelcomeView()
         }
         .sheet(isPresented: $subscriptionManager.showingSubscribe) {

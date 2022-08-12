@@ -54,7 +54,6 @@ struct HistoryView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("History")
-        .modifier(BackNavigationModifier(title: "Settings"))
     }
 
     init(profile: Profile) {
