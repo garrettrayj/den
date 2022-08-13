@@ -49,7 +49,7 @@ public class Profile: NSManagedObject {
     }
 
     public var minimumRefreshedDate: Date? {
-        pagesArray.sorted { aPage, bPage in
+        pagesArray.filter({ $0.minimumRefreshedDate != nil }).sorted { aPage, bPage in
             if let aRefreshed = aPage.minimumRefreshedDate,
                let bRefreshed = bPage.minimumRefreshedDate {
                 return aRefreshed < bRefreshed

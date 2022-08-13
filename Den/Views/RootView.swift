@@ -21,6 +21,7 @@ struct RootView: View {
 
     var body: some View {
         ZStack {
+            // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
             if UIDevice.current.userInterfaceIdiom == .phone {
                 NavigationView {
                     SidebarView(profile: profileManager.activeProfile!)

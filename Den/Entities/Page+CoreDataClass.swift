@@ -98,11 +98,17 @@ public class Page: NSManagedObject {
         ) as? [Item] ?? []
     }
 
-    static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Page {
+    static func create(
+        in managedObjectContext: NSManagedObjectContext,
+        profile: Profile,
+        prepend: Bool = false
+    ) -> Page {
         let newPage = self.init(context: managedObjectContext)
         newPage.id = UUID()
         newPage.profile = profile
-        newPage.userOrder = Int16(profile.pagesUserOrderMax + 1)
+        newPage.userOrder = prepend ?
+            Int16(profile.pagesUserOrderMin - 1)
+            : Int16(profile.pagesUserOrderMax + 1)
         newPage.name = "New Page"
         newPage.itemsPerFeed = Int16(4)
 

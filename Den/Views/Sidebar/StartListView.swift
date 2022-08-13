@@ -20,7 +20,7 @@ struct StartListView: View {
         List {
             Section {
                 Button(action: createPage) {
-                    Label("Create a Blank Page", systemImage: "plus")
+                    Label("Create Blank Page", systemImage: "plus.rectangle.on.folder")
                 }
                 .modifier(StartRowModifier())
                 .accessibilityIdentifier("start-blank-page-button")

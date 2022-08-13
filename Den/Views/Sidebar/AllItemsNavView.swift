@@ -9,7 +9,7 @@
 import CoreData
 import SwiftUI
 
-struct TimelineNavView: View {
+struct AllItemsNavView: View {
     @Environment(\.editMode) private var editMode
 
     @ObservedObject var profile: Profile
@@ -20,7 +20,7 @@ struct TimelineNavView: View {
 
     var body: some View {
         NavigationLink {
-            TimelineView(
+            AllItemsView(
                 profile: profile,
                 unreadCount: profile.previewItems.unread().count,
                 refreshing: $refreshing
@@ -28,13 +28,13 @@ struct TimelineNavView: View {
         } label: {
             Label {
                 HStack {
-                    Text("Timeline").modifier(SidebarItemLabelTextModifier())
+                    Text("All Items").modifier(SidebarItemLabelTextModifier())
                     Spacer()
                     Text(String(profile.previewItems.unread().count))
                         .modifier(CapsuleModifier())
                 }.lineLimit(1)
             } icon: {
-                Image(systemName: "calendar.day.timeline.leading").imageScale(.large)
+                Image(systemName: unreadCount > 0 ? "tray.full": "tray").imageScale(.large)
             }
         }
         .accessibilityIdentifier("timeline-button")

@@ -41,12 +41,6 @@ struct PageView: View {
         )
     }
 
-    private var visibleItems: [Item] {
-        page.limitedItemsArray.filter { item in
-            hideRead ? item.read == false : true
-        }
-    }
-
     var body: some View {
         GeometryReader { geometry in
             if page.managedObjectContext == nil {
@@ -168,7 +162,8 @@ struct PageView: View {
 
         ReadingToolbarContent(
             unreadCount: $unreadCount,
-            hideRead: $hideRead
+            hideRead: $hideRead,
+            refreshing: $refreshing
         ) {
             syncManager.toggleReadUnread(items: page.previewItems)
             page.objectWillChange.send()

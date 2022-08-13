@@ -1,5 +1,5 @@
 //
-//  TimelineView.swift
+//  AllItemsView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/4/22.
@@ -9,7 +9,7 @@
 import CoreData
 import SwiftUI
 
-struct TimelineView: View {
+struct AllItemsView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @EnvironmentObject private var syncManager: SyncManager
 
@@ -55,17 +55,14 @@ struct TimelineView: View {
             }
             unreadCount += read ? -1 : 1
         }
-        .navigationTitle("Timeline")
+        .navigationTitle("All Items")
         .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
     }
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
-        ReadingToolbarContent(
-            unreadCount: $unreadCount,
-            hideRead: $hideRead
-        ) {
+        ReadingToolbarContent(unreadCount: $unreadCount, hideRead: $hideRead, refreshing: $refreshing) {
             syncManager.toggleReadUnread(items: profile.previewItems)
         }
     }

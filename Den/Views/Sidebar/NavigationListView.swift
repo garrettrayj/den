@@ -29,27 +29,20 @@ struct NavigationListView: View {
 
     var body: some View {
         List {
-            if editMode?.wrappedValue == .inactive {
-                TimelineNavView(
-                    profile: profile,
-                    unreadCount: profile.previewItems.unread().count,
-                    refreshing: $refreshing
-                )
-                TrendsNavView(profile: profile, refreshing: $refreshing)
-            }
+            AllItemsNavView(
+                profile: profile,
+                unreadCount: profile.previewItems.unread().count,
+                refreshing: $refreshing
+            )
+            TrendsNavView(profile: profile, refreshing: $refreshing)
 
-            Section {
-                ForEach(profile.pagesArray) { page in
-                    PageNavView(page: page, unreadCount: page.previewItems.unread().count, refreshing: $refreshing)
-                }
-                .onMove(perform: movePage)
-                .onDelete(perform: deletePage)
-            } header: {
-                Text("Pages")
-                    #if targetEnvironment(macCatalyst)
-                    .font(.subheadline)
-                    #endif
+            Divider()
+
+            ForEach(profile.pagesArray) { page in
+                PageNavView(page: page, unreadCount: page.previewItems.unread().count, refreshing: $refreshing)
             }
+            .onMove(perform: movePage)
+            .onDelete(perform: deletePage)
         }
         .background(
             NavigationLink(isActive: $showingSearch) {
@@ -86,19 +79,23 @@ struct NavigationListView: View {
             self.refreshProgress.completedUnitCount += 1
         }
         .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                HStack(spacing: 16) {
-                    if editMode?.wrappedValue == EditMode.active {
-                        Button(action: createPage) {
-                            Label("New Page", systemImage: "plus")
-                        }
-                        .accessibilityIdentifier("new-page-button")
-                    }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+                    .disabled(refreshing)
+                    .accessibilityIdentifier("edit-page-list-button")
+            }
 
-                    EditButton()
-                        .disabled(refreshing)
-                        .accessibilityIdentifier("edit-page-list-button")
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    withAnimation {
+                        _ = Page.create(in: viewContext, profile: profile, prepend: true)
+                        save()
+                    }
+                } label: {
+                    Label("New Page", systemImage: "plus.rectangle.on.folder")
                 }
+                .disabled(refreshing)
+                .accessibilityIdentifier("new-page-button")
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
@@ -160,7 +157,7 @@ struct NavigationListView: View {
         Int64(profile.feedsArray.count) + 1
     }
 
-    func save() {
+    private func save() {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
@@ -170,13 +167,7 @@ struct NavigationListView: View {
         }
     }
 
-    func createPage() {
-        _ = Page.create(in: viewContext, profile: profile)
-
-        save()
-    }
-
-    func movePage( from source: IndexSet, to destination: Int) {
+    private func movePage( from source: IndexSet, to destination: Int) {
         var revisedItems = profile.pagesArray
 
         // change the order of the items in the array
@@ -188,19 +179,14 @@ struct NavigationListView: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-
-        // Move may be called without tapping the edit button, so the result is saved immediately
         save()
     }
 
-    func deletePage(indices: IndexSet) {
+    private func deletePage(indices: IndexSet) {
         indices.forEach {
             viewContext.delete(profile.pagesArray[$0])
             profile.objectWillChange.send()
         }
-
-        // Delete may be called without tapping the edit button, so the result is saved immediately
         save()
     }
-
 }
