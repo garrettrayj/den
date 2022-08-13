@@ -75,8 +75,10 @@
 			<outline text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
 			<outline text="Economic Times" title="Economic Times" type="rss" xmlUrl="https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms" />
 			<outline text="New York Times" title="New York Times" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
-			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
+			<outline text="WWD Business" title="WWD Business" type="rss" xmlUrl="https://wwd.com/business-news/feed/" />
 			<outline text="3D Printing Media Network" title="3D Printing Media Network" type="rss" xmlUrl="https://www.3dprintingmedia.network/feed/" />
+			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
+			<outline text="Nieman Lab" title="Nieman Lab" type="rss" xmlUrl="https://feeds.feedburner.com/NiemanJournalismLab" />
 			<outline text="Adweek" title="Adweek" type="rss" xmlUrl="https://www.adweek.com/rss" />
 			<outline text="TheStreet" title="TheStreet" type="rss" xmlUrl="https://www.thestreet.com/.rss/full/" />
 			<outline text="MetalMiner" title="MetalMiner" type="rss" xmlUrl="https://feeds.feedburner.com/agmetalminer" />
@@ -85,6 +87,7 @@
 			<outline text="Yahoo Finance" title="Yahoo Finance" type="rss" xmlUrl="https://finance.yahoo.com/rss/topstories" />
 			<outline text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
 			<outline text="Marketplace" title="Marketplace" type="rss" xmlUrl="https://www.marketplace.org/feed/" />
+			<outline text="MoneyWeek" title="MoneyWeek" type="rss" xmlUrl="https://moneyweek.com/feed/all" />
 			<outline text="CNBC" title="CNBC" type="rss" xmlUrl="https://www.cnbc.com/id/19746125/device/rss/rss.xml" />
 			<outline text="Nasdaq" title="Nasdaq" type="rss" xmlUrl="https://www.nasdaq.com/feed/nasdaq-original/rss.xml" />
 			<outline text="GreenBiz.com" title="GreenBiz.com" type="rss" xmlUrl="https://www.greenbiz.com/rss.xml" />
@@ -108,6 +111,7 @@
 			<outline text="LabRoots" title="LabRoots" type="rss" xmlUrl="https://www.labroots.com/rss/trending" />
 		</outline>
 		<outline text="Space" title="Space">
+			<outline text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed" />
 			<outline text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed" />
 			<outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
 			<outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed" />
@@ -197,7 +201,7 @@
 			<outline text="The Source" title="The Source" type="rss" xmlUrl="https://thesource.com/feed/" />
 			<outline text="XXL" title="XXL" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />
 			<outline text="American Songwriter" title="American Songwriter" type="rss" xmlUrl="https://americansongwriter.com/feed/" />
-			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://www.npr.org/rss/rss.php?id=1039" />
+			<outline text="NPR Music" title="NPR Music" type="rss" xmlUrl="https://www.npr.org/rss/rss.php?id=1039" />
 			<outline text="The Hollywood Reporter" title="The Hollywood Reporter" type="rss" xmlUrl="https://www.hollywoodreporter.com/feed/" />
 		</outline>
 	</body>

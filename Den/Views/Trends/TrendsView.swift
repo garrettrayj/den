@@ -19,7 +19,7 @@ struct TrendsView: View {
             if profile.trends.isEmpty {
                 StatusBoxView(
                     message: Text("Trends Empty"),
-                    caption: Text("Item titles do not share any common subjects"),
+                    caption: Text("Titles do not share any common subjects"),
                     symbol: "questionmark.folder"
                 )
                 .frame(height: geometry.size.height - 60)

@@ -20,6 +20,7 @@ extension Notification.Name {
     static let itemStatus = Notification.Name("item-status")
 
     static let showSubscribe = Notification.Name("show-subscribe")
+    static let showCrashMessage = Notification.Name("show-crash-message")
 }
 
 extension NotificationCenter {

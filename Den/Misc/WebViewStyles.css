@@ -8,11 +8,12 @@
 
 :root {
     color-scheme: light dark;
-    font: -apple-system-tall-body;
+    font: -apple-system-body;
 }
 
 
 body {
+    hyphens: auto;
     margin: 0;
 }
 
@@ -34,7 +35,7 @@ video {
 
 img {
     border: 1px solid -apple-system-separator;
-    border-radius: 0.75em;
+    border-radius: 0.375em;
     box-sizing: border-box;
     display: block;
     height: auto;
@@ -76,8 +77,8 @@ hr {
 
 blockquote {
     background: -apple-system-secondary-background;
-    border-radius: 0.75em;
-    margin: 1em 2em;
+    border-radius: 0.5em;
+    margin: 1em;
     overflow: hidden;
     padding: 1em;
 }
@@ -92,7 +93,7 @@ blockquote > :last-child {
 
 figure {
     background: -apple-system-secondary-background;
-    border-radius: 0.75em;
+    border-radius: 0.5em;
     display: table;
     font: -apple-system-caption1;
     margin: 1em 0;
@@ -116,13 +117,9 @@ figure > :not(:first-child):not(figcaption) {
 figcaption {
     display: table-caption;
     caption-side: bottom;
-    background: -apple-system-grouped-background;
+    background: -apple-system-secondary-background;
     margin-top: -1em;
-    padding: 0 1.5em 1em;
-}
-
-figure img {
-    border-radius: 0.5em;
+    padding: 0 1em 1em;
 }
 
 

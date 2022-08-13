@@ -33,15 +33,15 @@ struct ItemView: View {
                                 favicon: item.feedData?.favicon
                             )
                             .font(.title3)
-                            .padding(.top, 12)
+                            .padding(.top, 8)
                             .padding(.horizontal, 12)
 
                             VStack(alignment: .leading, spacing: 16) {
-                                Text(item.wrappedTitle).font(.largeTitle)
+                                Text(item.wrappedTitle)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .font(.largeTitle)
 
-                                Text("\(item.date.fullLongDisplay())")
-                                    .font(.subheadline)
-                                    .lineLimit(1)
+                                Text("\(item.date.fullShortDisplay())").font(.subheadline).lineLimit(1)
 
                                 if
                                     item.image != nil &&
@@ -81,10 +81,7 @@ struct ItemView: View {
         ToolbarItemGroup(placement: .bottomBar) {
             Spacer()
             Button {
-                syncManager.openLink(
-                    url: item.link,
-                    readerMode: item.feedData?.feed?.readerMode ?? false
-                )
+                UIApplication.shared.openOptional(item.link)
             } label: {
                 Label("Open in Browser", systemImage: "safari")
             }
@@ -95,7 +92,7 @@ struct ItemView: View {
     private var heroImage: some View {
         WebImage(url: item.image)
             .resizable()
-            .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+            .aspectRatio(item.imageAspectRatio, contentMode: .fill)
             .frame(maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil)
             .background(Color(UIColor.tertiarySystemGroupedBackground))
             .cornerRadius(6)

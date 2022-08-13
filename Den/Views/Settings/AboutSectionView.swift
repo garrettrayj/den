@@ -28,7 +28,7 @@ struct AboutSectionView: View {
             }.padding(.vertical, 8)
 
             Button {
-                openWebsite("https://discord.gg/NS9hMrYrnt")
+                UIApplication.shared.openAddress("https://discord.gg/NS9hMrYrnt")
             } label: {
                 Label("Discord Community", systemImage: "person.2.wave.2")
             }
@@ -36,7 +36,7 @@ struct AboutSectionView: View {
             .accessibilityIdentifier("website-button")
 
             Button {
-                openWebsite("mailto:support@devsci.net")
+                UIApplication.shared.openAddress("mailto:support@devsci.net")
             } label: {
                 Label("Email Support", systemImage: "lifepreserver")
             }
@@ -44,7 +44,7 @@ struct AboutSectionView: View {
             .accessibilityIdentifier("email-support-button")
 
             Button {
-                openWebsite("https://garrettjohnson.com/apps/")
+                UIApplication.shared.openAddress("https://garrettjohnson.com/apps/")
             } label: {
                 Label("Developer Website", systemImage: "house")
             }
@@ -52,18 +52,12 @@ struct AboutSectionView: View {
             .accessibilityIdentifier("website-button")
 
             Button {
-                openWebsite("https://garrettjohnson.com/privacy/")
+                UIApplication.shared.openAddress("https://garrettjohnson.com/privacy/")
             } label: {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("privacy-policy-button")
         }.modifier(SectionHeaderModifier())
-    }
-
-    private func openWebsite(_ address: String) {
-        if let url = URL(string: address) {
-            UIApplication.shared.open(url)
-        }
     }
 }

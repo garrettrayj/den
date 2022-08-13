@@ -17,7 +17,7 @@ struct DenApp: App {
     /**
      Main application setup. In the past similar functionality was contained in `SceneDelegate`.
      */
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
     @StateObject var crashManager: CrashManager
@@ -27,8 +27,6 @@ struct DenApp: App {
     @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
     @StateObject var persistenceManager: PersistenceManager
-
-    @AppStorage("dataRevision") var dataRevision = 0
 
     var body: some Scene {
         WindowGroup {

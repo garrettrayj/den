@@ -12,7 +12,7 @@ struct TrendBlockView: View {
     @ObservedObject var trend: Trend
 
     let columns = [
-        GridItem(.adaptive(minimum: 16, maximum: 16), spacing: 8, alignment: .top)
+        GridItem(.adaptive(minimum: 16, maximum: 16), spacing: 12, alignment: .top)
     ]
 
     var body: some View {
@@ -20,10 +20,10 @@ struct TrendBlockView: View {
             NavigationLink {
                 TrendView(trend: trend, unreadCount: trend.items.unread().count)
             } label: {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 12) {
                     Text(trend.wrappedTitle).font(.title)
                     Text("\(trend.items.count) items in \(trend.feeds.count) feeds").font(.subheadline)
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
                         ForEach(trend.feeds) { feed in
                             FeedFaviconView(url: feed.feedData?.favicon)
                                 .opacity(trend.items.unread().isEmpty ? UIConstants.dimmedImageOpacity : 1.0)
