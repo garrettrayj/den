@@ -69,8 +69,8 @@ struct NavigationListView: View {
         }
         #if !targetEnvironment(macCatalyst)
         .refreshable {
-            if !viewModel.refreshing {
-                refreshManager.refresh(profile: viewModel.profile, activePage: subscriptionManager.activePage)
+            if !refreshing {
+                refreshManager.refresh(profile: profile, activePage: subscriptionManager.activePage)
             }
         }
         #endif

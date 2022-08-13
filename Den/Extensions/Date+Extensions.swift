@@ -41,10 +41,10 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 
-    func fullLongDisplay() -> String {
+    func fullShortDisplay() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .long
+        dateFormatter.timeStyle = .short
 
         return dateFormatter.string(from: self)
     }

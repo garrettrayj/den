@@ -59,7 +59,7 @@ struct WebView: UIViewRepresentable {
         let htmlStart = """
         <HTML><HEAD>\
         <title>\(title ?? "Untitled")</title>\
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no\">\
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no\">\
         </HEAD><BODY>
         """
         let htmlEnd = "</BODY></HTML>"
@@ -92,10 +92,7 @@ struct WebView: UIViewRepresentable {
             decidePolicyFor navigationAction: WKNavigationAction,
             decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
         ) {
-            let browserActions: Set<WKNavigationType> = [
-                .linkActivated
-            ]
-
+            let browserActions: Set<WKNavigationType> = [.linkActivated]
             if let url = navigationAction.request.url, browserActions.contains(navigationAction.navigationType) {
                 decisionHandler(.cancel)
                 UIApplication.shared.open(url)
@@ -108,5 +105,4 @@ struct WebView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-
 }

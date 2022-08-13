@@ -11,7 +11,7 @@ import SwiftUI
 struct ItemActionView<Content: View>: View {
     @EnvironmentObject private var syncManager: SyncManager
 
-    let item: Item
+    @ObservedObject var item: Item
 
     @ViewBuilder var content: Content
 

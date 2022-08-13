@@ -9,7 +9,13 @@
 import SwiftUI
 
 struct CrashMessageView: View {
+    let message: String
+
     var body: some View {
-        StatusBoxView(message: Text("Application Error"), symbol: "ladybug")
+        StatusBoxView(
+            message: Text("Critical Error"),
+            caption: Text("Restart to try again"),
+            symbol: "xmark.octagon"
+        ).background(Color(UIColor.systemBackground))
     }
 }

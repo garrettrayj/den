@@ -11,11 +11,10 @@ import OSLog
 import SwiftUI
 
 final class CrashManager: ObservableObject {
-    @Published var showingCrashMessage = false
-
     public func handleCriticalError(_ anError: NSError) {
-        Logger.main.critical("\(self.formatErrorMessage(anError))")
-        showingCrashMessage = true
+        let formatted = self.formatErrorMessage(anError)
+        Logger.main.critical("\(formatted)")
+        NotificationCenter.default.post(name: .showCrashMessage, object: nil)
     }
 
     private func formatErrorMessage(_ anError: NSError?) -> String {

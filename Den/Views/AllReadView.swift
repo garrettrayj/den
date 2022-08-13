@@ -14,7 +14,7 @@ struct AllReadView: View {
     var body: some View {
         StatusBoxView(
             message: Text("All Read"),
-            caption: Text("\(hiddenItemCount) items hidden"),
+            caption: Text("\(hiddenItemCount) hidden"),
             symbol: "checkmark"
         )
     }

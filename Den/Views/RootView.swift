@@ -9,36 +9,40 @@
 import SwiftUI
 
 struct RootView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
-    @State private var showingSubscribe = false
+    @State private var showSubscribe = false
+    @State private var showCrashMessage = false
+    @State private var crashMessage: String = ""
 
     var body: some View {
-        if crashManager.showingCrashMessage == true {
-            CrashMessageView()
-        } else {
+        ZStack {
             if UIDevice.current.userInterfaceIdiom == .phone {
-                navigationView.navigationViewStyle(.stack)
+                NavigationView {
+                    SidebarView(profile: profileManager.activeProfile!)
+                    WelcomeView()
+                }.navigationViewStyle(.stack)
             } else {
-                navigationView
+                NavigationView {
+                    SidebarView(profile: profileManager.activeProfile!)
+                    WelcomeView()
+                }
+            }
+            if showCrashMessage {
+                CrashMessageView(message: crashMessage)
             }
         }
-    }
-
-    var navigationView: some View {
-        NavigationView {
-            SidebarView(profile: profileManager.activeProfile!)
-            WelcomeView()
-        }
         .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { _ in
-            showingSubscribe = true
+            showSubscribe = true
         }
-        .sheet(isPresented: $showingSubscribe) {
+        .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
+            showCrashMessage = true
+        }
+        .sheet(isPresented: $showSubscribe) {
             SubscribeView()
                 .environment(\.colorScheme, colorScheme)
                 .environmentObject(profileManager)

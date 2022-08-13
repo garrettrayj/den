@@ -15,14 +15,14 @@ struct SubscribeView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
-    @State var targetPage: Page?
-    @State var urlText: String = ""
-    @State var urlIsValid: Bool?
-    @State var validationAttempts: Int = 0
-    @State var validationMessage: String?
-    @State var loading: Bool = false
+    @State private var targetPage: Page?
+    @State private var urlText: String = ""
+    @State private var urlIsValid: Bool?
+    @State private var validationAttempts: Int = 0
+    @State private var validationMessage: String?
+    @State private var loading: Bool = false
 
-    @State var newFeed: Feed?
+    @State private var newFeed: Feed?
 
     var body: some View {
         Group {
