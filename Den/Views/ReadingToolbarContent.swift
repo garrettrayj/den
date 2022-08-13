@@ -11,6 +11,7 @@ import SwiftUI
 struct ReadingToolbarContent: ToolbarContent {
     @Binding var unreadCount: Int
     @Binding var hideRead: Bool
+    @Binding var refreshing: Bool
 
     let toggleAll: () -> Void
 
@@ -28,6 +29,8 @@ struct ReadingToolbarContent: ToolbarContent {
                         : "line.3.horizontal.decrease.circle"
                 )
             }
+            .disabled(refreshing)
+            .accessibilityIdentifier("filter-read-button")
             Spacer()
             VStack {
                 Text("\(unreadCount) Unread").font(.caption)
@@ -39,7 +42,9 @@ struct ReadingToolbarContent: ToolbarContent {
                     systemImage: unreadCount == 0 ?
                         "checkmark.circle.fill" : "checkmark.circle"
                 )
-            }.accessibilityIdentifier("mark-all-read-button")
+            }
+            .disabled(refreshing)
+            .accessibilityIdentifier("mark-all-read-button")
         }
     }
 }

@@ -55,7 +55,7 @@ struct TrendView: View {
         }
         .navigationTitle(trend.wrappedTitle)
         .toolbar {
-            ReadingToolbarContent(unreadCount: $unreadCount, hideRead: $hideRead) {
+            ReadingToolbarContent(unreadCount: $unreadCount, hideRead: $hideRead, refreshing: .constant(false)) {
                 syncManager.toggleReadUnread(items: trend.items)
                 trend.objectWillChange.send()
             }

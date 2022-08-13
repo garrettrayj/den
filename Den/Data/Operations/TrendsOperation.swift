@@ -41,6 +41,12 @@ final class TrendsOperation: Operation {
                 context.delete(trend)
             }
 
+            do {
+                try context.save()
+            } catch {
+                self.cancel()
+            }
+
             let workingTrends = self.analyzeTrends(profile: profile, context: context)
 
             workingTrends.forEach { workingTrend in
