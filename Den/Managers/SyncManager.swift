@@ -70,7 +70,6 @@ final class SyncManager: ObservableObject {
         item.read = false
         clearHistory(items: [item])
         saveContext()
-
         NotificationCenter.default.postItemStatus(
             read: false,
             itemObjectID: item.objectID,
