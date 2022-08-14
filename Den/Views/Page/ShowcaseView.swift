@@ -20,15 +20,12 @@ struct ShowcaseView: View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 ForEach(page.feedsArray) { feed in
-                    if feed.feedData != nil {
-                        ShowcaseSectionView(
-                            feed: feed,
-                            feedData: feed.feedData!,
-                            hideRead: $hideRead,
-                            refreshing: $refreshing,
-                            width: frameSize.width
-                        )
-                    }
+                    ShowcaseSectionView(
+                        feed: feed,
+                        hideRead: $hideRead,
+                        refreshing: $refreshing,
+                        width: frameSize.width
+                    )
                 }
             }
             .padding(.top, 8)
