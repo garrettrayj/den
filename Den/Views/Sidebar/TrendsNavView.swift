@@ -15,13 +15,17 @@ struct TrendsNavView: View {
 
     var body: some View {
         NavigationLink {
-            TrendsView(profile: profile, refreshing: $refreshing)
+            TrendsView(
+                profile: profile,
+                unreadCount: profile.trends.unread().count,
+                refreshing: $refreshing
+            )
         } label: {
             Label {
                 HStack {
                     Text("Trends").modifier(SidebarItemLabelTextModifier())
                     Spacer()
-                    Text(String(profile.trends.count))
+                    Text(String(profile.trends.unread().count))
                         .modifier(CapsuleModifier())
                 }.lineLimit(1)
             } icon: {

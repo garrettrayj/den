@@ -53,9 +53,9 @@ final class SyncManager: ObservableObject {
     }
 
     public func markItemRead(item: Item) {
-        guard let profileObjectID = profileManager.activeProfile?.objectID else { return }
+        guard let profile = profileManager.activeProfile else { return }
         item.read = true
-        logHistory(profileObjectID: profileObjectID, itemObjectIDs: [item.objectID])
+        logHistory(profile: profile, items: [item])
         saveContext()
         NotificationCenter.default.postItemStatus(
             read: true,
@@ -68,7 +68,7 @@ final class SyncManager: ObservableObject {
 
     public func markItemUnread(item: Item) {
         item.read = false
-        clearHistory(itemObjectIDs: [item.objectID])
+        clearHistory(items: [item])
         saveContext()
 
         NotificationCenter.default.postItemStatus(
@@ -81,12 +81,14 @@ final class SyncManager: ObservableObject {
     }
 
     public func toggleReadUnread(items: [Item]) {
-        let allItemsRead: Bool = items.unread().isEmpty == true
-        if allItemsRead {
+        if items.unread().isEmpty == true {
             let readItems = items.read()
-            clearHistory(itemObjectIDs: readItems.map { $0.objectID })
+            clearHistory(items: readItems)
             readItems.forEach { item in
                 item.read = false
+            }
+            saveContext()
+            readItems.forEach { item in
                 NotificationCenter.default.postItemStatus(
                     read: false,
                     itemObjectID: item.objectID,
@@ -96,11 +98,14 @@ final class SyncManager: ObservableObject {
                 )
             }
         } else {
-            guard let profileObjectID = profileManager.activeProfile?.objectID else { return }
+            guard let profile = profileManager.activeProfile else { return }
             let unreadItems = items.unread()
-            logHistory(profileObjectID: profileObjectID, itemObjectIDs: unreadItems.map { $0.objectID })
+            logHistory(profile: profile, items: unreadItems)
             unreadItems.forEach { item in
                 item.read = true
+            }
+            saveContext()
+            unreadItems.forEach { item in
                 NotificationCenter.default.postItemStatus(
                     read: true,
                     itemObjectID: item.objectID,
@@ -110,20 +115,13 @@ final class SyncManager: ObservableObject {
                 )
             }
         }
-        saveContext()
     }
 
     private func logHistory(
-        profileObjectID: NSManagedObjectID,
-        itemObjectIDs: [NSManagedObjectID]
+        profile: Profile,
+        items: [Item]
     ) {
-        guard let profile = viewContext.object(with: profileObjectID) as? Profile else { return }
-
-        for itemObjectID in itemObjectIDs {
-            guard
-                let item = viewContext.object(with: itemObjectID) as? Item
-            else { continue }
-
+        for item in items {
             let history = item.history.first ?? History.create(in: viewContext, profile: profile)
             history.link = item.link
             history.title = item.title
@@ -131,12 +129,8 @@ final class SyncManager: ObservableObject {
         }
     }
 
-    private func clearHistory(itemObjectIDs: [NSManagedObjectID]) {
-        for itemObjectID in itemObjectIDs {
-            guard
-                let item = viewContext.object(with: itemObjectID) as? Item
-            else { continue }
-
+    private func clearHistory(items: [Item]) {
+        for item in items {
             item.history.forEach { history in
                 viewContext.delete(history)
             }
@@ -154,12 +148,7 @@ final class SyncManager: ObservableObject {
         }
     }
 
-    public func syncHistory() {
-        if historySynced != nil && historySynced! > Date.now - 60 * 5 {
-            Logger.main.debug("Skipping history synchronization")
-            return
-        }
-
+    func updateLocalHistory() {
         do {
             let items = try viewContext.fetch(Item.fetchRequest()) as [Item]
             items.forEach { item in
@@ -173,6 +162,15 @@ final class SyncManager: ObservableObject {
         } catch {
             self.crashManager.handleCriticalError(error as NSError)
         }
+    }
+
+    public func syncHistory() {
+        if historySynced != nil && historySynced! > Date.now - 60 * 5 {
+            Logger.main.debug("Skipping history synchronization")
+            return
+        }
+
+        updateLocalHistory()
     }
 
     public func cleanupHistory() {

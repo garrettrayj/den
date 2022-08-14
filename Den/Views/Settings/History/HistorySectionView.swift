@@ -13,6 +13,7 @@ struct HistorySectionView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
+    @EnvironmentObject private var syncManager: SyncManager
 
     @State var historyRentionDays: Int = 0
     @State var showingClearHistoryAlert = false
@@ -48,8 +49,8 @@ struct HistorySectionView: View {
             .modifier(FormRowModifier())
             .alert("Erase History?", isPresented: $showingClearHistoryAlert, actions: {
                 Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
-                Button("Reset", role: .destructive) {
-                    clearHistory()
+                Button("Erase", role: .destructive) {
+                    eraseHistory()
                 }.accessibilityIdentifier("reset-confirm-button")
             }, message: {
                 Text("Memory of items viewed or marked read will be cleared.")
@@ -81,23 +82,24 @@ struct HistorySectionView: View {
         }
     }
 
-    private func clearHistory() {
+    private func eraseHistory() {
         guard let profile = profileManager.activeProfile else { return }
         profile.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
-
         do {
             try viewContext.save()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
+            return
         }
 
-        profile.pagesArray.forEach({ page in
-            page.feedsArray.forEach { feed in
-                feed.objectWillChange.send()
-            }
-        })
+        syncManager.updateLocalHistory()
+
+        profile.objectWillChange.send()
+        profile.pagesArray.forEach { page in
+            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
+        }
     }
 
     private func saveProfile() {

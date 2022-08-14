@@ -31,6 +31,6 @@ struct GadgetItemView: View {
             }
             .accessibilityIdentifier("gadget-item-button")
         }
-        .transition(.move(edge: .top))
+        .transition(.moveTopAndFade)
     }
 }

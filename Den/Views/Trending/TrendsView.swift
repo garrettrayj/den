@@ -1,15 +1,15 @@
 //
-//  AllItemsView.swift
+//  TrendsView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 7/4/22.
+//  Created by Garrett Johnson on 7/1/22.
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import CoreData
 import SwiftUI
 
-struct AllItemsView: View {
+struct TrendsView: View {
     @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var profile: Profile
@@ -22,14 +22,15 @@ struct AllItemsView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            if profile.feedsArray.isEmpty {
-                NoFeedsView()
-            } else if profile.previewItems.isEmpty {
-                NoItemsView()
-            } else if profile.previewItems.unread().isEmpty && hideRead == true {
-                AllReadView(hiddenItemCount: profile.previewItems.read().count)
+            if profile.trends.isEmpty {
+                StatusBoxView(
+                    message: Text("Trends Empty"),
+                    caption: Text("Titles do not share any common subjects"),
+                    symbol: "questionmark.folder"
+                )
+                .frame(height: geometry.size.height - 60)
             } else {
-                AllItemsLayoutView(
+                TrendsLayoutView(
                     profile: profile,
                     hideRead: $hideRead,
                     refreshing: $refreshing,
@@ -38,24 +39,28 @@ struct AllItemsView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
-        .onReceive(NotificationCenter.default.publisher(for: .itemStatus)) { notification in
+        .onReceive(
+            NotificationCenter.default
+                .publisher(for: .itemStatus)
+                .throttle(for: 1.0, scheduler: RunLoop.main, latest: true)
+        ) { notification in
             guard
                 let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                profileObjectID == profile.objectID,
-                let read = notification.userInfo?["read"] as? Bool
+                profileObjectID == profile.objectID
             else {
                 return
             }
-            unreadCount += read ? -1 : 1
+            unreadCount = profile.trends.unread().count
+            profile.trends.forEach { $0.objectWillChange.send() }
         }
-        .navigationTitle("All Items")
+        .navigationTitle("Trends")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ReadingToolbarContent(
                 unreadCount: $unreadCount,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) Unread")
+                centerLabel: Text("\(unreadCount) Trends with Unread")
             ) {
                 withAnimation {
                     syncManager.toggleReadUnread(items: profile.previewItems)

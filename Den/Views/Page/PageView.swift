@@ -55,11 +55,11 @@ struct PageView: View {
                 NoItemsView()
             } else {
                 if viewMode == ContentViewMode.blend.rawValue {
-                    BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    BlendView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
                 } else if viewMode == ContentViewMode.showcase.rawValue {
-                    ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    ShowcaseView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
                 } else {
-                    GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    GadgetsView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
                 }
             }
         }
@@ -163,10 +163,13 @@ struct PageView: View {
         ReadingToolbarContent(
             unreadCount: $unreadCount,
             hideRead: $hideRead,
-            refreshing: $refreshing
+            refreshing: $refreshing,
+            centerLabel: Text("\(unreadCount) Unread")
         ) {
-            syncManager.toggleReadUnread(items: page.previewItems)
-            page.objectWillChange.send()
+            withAnimation {
+                syncManager.toggleReadUnread(items: page.previewItems)
+                page.objectWillChange.send()
+            }
         }
     }
 

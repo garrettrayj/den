@@ -8,12 +8,11 @@
 
 :root {
     color-scheme: light dark;
-    font: -apple-system-body;
+    font: -apple-system-tall-body;
 }
 
 
 body {
-    hyphens: auto;
     margin: 0;
 }
 

@@ -13,6 +13,7 @@ struct ReadingToolbarContent: ToolbarContent {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
+    let centerLabel: Text
     let toggleAll: () -> Void
 
     var body: some ToolbarContent {
@@ -33,7 +34,7 @@ struct ReadingToolbarContent: ToolbarContent {
             .accessibilityIdentifier("filter-read-button")
             Spacer()
             VStack {
-                Text("\(unreadCount) Unread").font(.caption)
+                centerLabel.font(.caption)
             }
             Spacer()
             Button(action: toggleAll) {
