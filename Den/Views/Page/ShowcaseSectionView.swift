@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ShowcaseSectionView: View {
     @ObservedObject var feed: Feed
-    @ObservedObject var feedData: FeedData
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
     var width: CGFloat
@@ -56,14 +55,14 @@ struct ShowcaseSectionView: View {
                 NavigationLink {
                     FeedView(
                         feed: feed,
-                        unreadCount: feedData.previewItems.unread().count,
+                        unreadCount: feed.feedData!.previewItems.unread().count,
                         refreshing: $refreshing
                     )
                 } label: {
                     HStack {
                         FeedTitleLabelView(
                             title: feed.wrappedTitle,
-                            favicon: feedData.favicon
+                            favicon: feed.feedData!.favicon
                         )
                         Spacer()
                         NavChevronView()
@@ -80,7 +79,7 @@ struct ShowcaseSectionView: View {
     }
 
     private var visibleItems: [Item] {
-        feedData.previewItems.filter { item in
+        feed.feedData!.previewItems.filter { item in
             hideRead ? item.read == false : true
         }
     }
