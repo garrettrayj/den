@@ -11,6 +11,7 @@ import SwiftUI
 struct GadgetView: View {
     @ObservedObject var feed: Feed
     @Binding var hideRead: Bool
+    @Binding var refreshing: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -18,6 +19,10 @@ struct GadgetView: View {
 
             VStack(spacing: 0) {
                 if feed.hasContent {
+                    ForEach(visibleItems) { item in
+                        GadgetItemView(item: item)
+                    }
+
                     if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
                         Divider()
                         Label("No unread items", systemImage: "checkmark")
@@ -25,10 +30,6 @@ struct GadgetView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundColor(.secondary)
                             .padding(12)
-                    } else {
-                        ForEach(visibleItems) { item in
-                            GadgetItemView(item: item)
-                        }
                     }
                 } else {
                     Divider()
@@ -48,7 +49,11 @@ struct GadgetView: View {
         HStack {
             if feed.id != nil {
                 NavigationLink {
-                    FeedView(feed: feed)
+                    FeedView(
+                        feed: feed,
+                        unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
+                        refreshing: $refreshing
+                    )
                 } label: {
                     HStack {
                         FeedTitleLabelView(

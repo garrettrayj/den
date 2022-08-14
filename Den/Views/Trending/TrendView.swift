@@ -17,7 +17,7 @@ struct TrendView: View {
     @ObservedObject var trend: Trend
 
     @State var unreadCount: Int
-    @State private var phony: Bool = false
+    @Binding var refreshing: Bool
 
     var body: some View {
         GeometryReader { geometry in
@@ -28,7 +28,7 @@ struct TrendView: View {
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: visibleItems) { item in
-                        FeedItemPreviewView(item: item)
+                        FeedItemPreviewView(item: item, refreshing: $refreshing)
                     }
                     .padding(.top, 8)
                     .padding(.horizontal)
@@ -38,9 +38,6 @@ struct TrendView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-        .onChange(of: hideRead, perform: { _ in
-            phony.toggle()
-        })
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in
@@ -55,7 +52,12 @@ struct TrendView: View {
         }
         .navigationTitle(trend.wrappedTitle)
         .toolbar {
-            ReadingToolbarContent(unreadCount: $unreadCount, hideRead: $hideRead, refreshing: .constant(false)) {
+            ReadingToolbarContent(
+                unreadCount: $unreadCount,
+                hideRead: $hideRead,
+                refreshing: .constant(false),
+                centerLabel: Text("\(unreadCount) Unread")
+            ) {
                 syncManager.toggleReadUnread(items: trend.items)
                 trend.objectWillChange.send()
             }

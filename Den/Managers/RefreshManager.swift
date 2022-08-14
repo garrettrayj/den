@@ -34,8 +34,18 @@ final class RefreshManager: ObservableObject {
         refreshing = true
         NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
 
-        let profileCompletionOp = BlockOperation { [weak profile] in
+        let profileCompletionOp = BlockOperation { [
+            weak profile,
+            weak persistentContainer,
+            weak crashManager
+        ] in
             DispatchQueue.main.async {
+                do {
+                    try persistentContainer?.viewContext.save()
+                } catch {
+                    crashManager?.handleCriticalError(error as NSError)
+                }
+
                 self.refreshing = false
                 NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
 

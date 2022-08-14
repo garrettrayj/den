@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TrendBlockView: View {
     @ObservedObject var trend: Trend
+    @Binding var refreshing: Bool
 
     let columns = [
         GridItem(.adaptive(minimum: 16, maximum: 16), spacing: 12, alignment: .top)
@@ -18,7 +19,7 @@ struct TrendBlockView: View {
     var body: some View {
         VStack {
             NavigationLink {
-                TrendView(trend: trend, unreadCount: trend.items.unread().count)
+                TrendView(trend: trend, unreadCount: trend.items.unread().count, refreshing: $refreshing)
             } label: {
                 VStack(alignment: .leading, spacing: 12) {
                     Text(trend.wrappedTitle).font(.title)
@@ -37,5 +38,6 @@ struct TrendBlockView: View {
         }
         .background(Color(UIColor.secondarySystemGroupedBackground))
         .cornerRadius(8)
+        .transition(.moveTopAndFade)
     }
 }

@@ -36,13 +36,22 @@ struct NavigationListView: View {
             )
             TrendsNavView(profile: profile, refreshing: $refreshing)
 
-            Divider()
-
-            ForEach(profile.pagesArray) { page in
-                PageNavView(page: page, unreadCount: page.previewItems.unread().count, refreshing: $refreshing)
+            Section {
+                ForEach(profile.pagesArray) { page in
+                    PageNavView(
+                        page: page,
+                        unreadCount: page.previewItems.unread().count,
+                        refreshing: $refreshing
+                    )
+                }
+                .onMove(perform: movePage)
+                .onDelete(perform: deletePage)
+            } header: {
+                Text("Pages")
+                #if targetEnvironment(macCatalyst)
+                    .font(.callout).padding(.top, 4)
+                #endif
             }
-            .onMove(perform: movePage)
-            .onDelete(perform: deletePage)
         }
         .background(
             NavigationLink(isActive: $showingSearch) {
@@ -92,7 +101,7 @@ struct NavigationListView: View {
                         save()
                     }
                 } label: {
-                    Label("New Page", systemImage: "plus.rectangle.on.folder")
+                    Label("New Page", systemImage: "plus")
                 }
                 .disabled(refreshing)
                 .accessibilityIdentifier("new-page-button")

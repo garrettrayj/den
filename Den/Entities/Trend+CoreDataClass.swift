@@ -43,3 +43,17 @@ public class Trend: NSManagedObject {
         return trend
     }
 }
+
+extension Array where Element == Trend {
+    func read() -> [Trend] {
+        self.filter { trend in
+            trend.items.unread().isEmpty == true
+        }
+    }
+
+    func unread() -> [Trend] {
+        self.filter { trend in
+            trend.items.unread().isEmpty == false
+        }
+    }
+}

@@ -83,7 +83,11 @@ struct ItemView: View {
             Button {
                 UIApplication.shared.openOptional(item.link)
             } label: {
+                #if targetEnvironment(macCatalyst)
+                Label("Open in Browser", systemImage: "link.circle")
+                #else
                 Label("Open in Browser", systemImage: "safari")
+                #endif
             }
             .accessibilityIdentifier("item-open-button")
         }

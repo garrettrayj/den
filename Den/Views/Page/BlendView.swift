@@ -12,20 +12,22 @@ struct BlendView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
+    @Binding var refreshing: Bool
 
     var frameSize: CGSize
 
     var body: some View {
-        ScrollView(.vertical) {
-            if visibleItems.isEmpty {
-                AllReadView(hiddenItemCount: page.previewItems.read().count).frame(height: frameSize.height - 8)
-            } else {
+        if visibleItems.isEmpty {
+            AllReadView(hiddenItemCount: page.previewItems.read().count).frame(height: frameSize.height - 8)
+        } else {
+            ScrollView(.vertical) {
                 BoardView(width: frameSize.width, list: visibleItems) { item in
-                    FeedItemPreviewView(item: item)
+                    FeedItemPreviewView(item: item, refreshing: $refreshing)
                 }
                 .padding(.horizontal)
                 .padding(.bottom)
                 .padding(.top, 8)
+                .clipped()
             }
         }
     }

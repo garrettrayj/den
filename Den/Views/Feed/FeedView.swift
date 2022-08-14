@@ -6,6 +6,7 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 import SDWebImageSwiftUI
@@ -17,6 +18,10 @@ struct FeedView: View {
     @ObservedObject var feed: Feed
 
     @State var showingSettings: Bool = false
+
+    @State var unreadCount: Int
+
+    @Binding var refreshing: Bool
 
     @AppStorage("hideRead") var hideRead = false
 
@@ -45,6 +50,23 @@ struct FeedView: View {
         )
         .onChange(of: feed.page) { _ in
             dismiss()
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
+        ) { notification in
+            guard
+                let feedObjectID = notification.userInfo?["feedObjectID"] as? NSManagedObjectID,
+                feedObjectID == feed.objectID,
+                let read = notification.userInfo?["read"] as? Bool
+            else {
+                return
+            }
+            unreadCount += read ? -1 : 1
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
+        ) { _ in
+            unreadCount = feed.feedData?.previewItems.count ?? 0
         }
         .navigationTitle(feed.wrappedTitle)
     }
@@ -150,37 +172,19 @@ struct FeedView: View {
             } label: {
                 Label("Feed Settings", systemImage: "wrench")
             }
+            .disabled(refreshing)
             .accessibilityIdentifier("feed-settings-button")
         }
 
-        ToolbarItemGroup(placement: .bottomBar) {
-            Button {
-                withAnimation {
-                    hideRead.toggle()
-                }
-            } label: {
-                Label(
-                    "Filter Read",
-                    systemImage: hideRead ?
-                        "line.3.horizontal.decrease.circle.fill"
-                        : "line.3.horizontal.decrease.circle"
-                )
-            }
-            Spacer()
-            VStack {
-                Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread").font(.caption)
-            }
-            Spacer()
-            Button {
+        ReadingToolbarContent(
+            unreadCount: $unreadCount,
+            hideRead: $hideRead,
+            refreshing: $refreshing,
+            centerLabel: Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread")
+        ) {
+            withAnimation {
                 syncManager.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
-            } label: {
-                Label(
-                    "Mark All Read",
-                    systemImage: feed.feedData?.itemsArray.unread().isEmpty ?? false ?
-                        "checkmark.circle.fill" : "checkmark.circle"
-                )
             }
-            .accessibilityIdentifier("mark-all-read-button")
         }
     }
 }
