@@ -81,7 +81,7 @@ struct ItemView: View {
         ToolbarItemGroup(placement: .bottomBar) {
             Spacer()
             Button {
-                UIApplication.shared.openOptional(item.link)
+                syncManager.openLink(url: item.link)
             } label: {
                 #if targetEnvironment(macCatalyst)
                 Label("Open in Browser", systemImage: "link.circle")
