@@ -53,7 +53,11 @@ final class SyncManager: ObservableObject {
     }
 
     public func markItemRead(item: Item) {
-        guard let profile = profileManager.activeProfile else { return }
+        guard
+            let profile = profileManager.activeProfile,
+            item.read != true
+        else { return }
+
         item.read = true
         logHistory(profile: profile, items: [item])
         saveContext()
@@ -67,6 +71,7 @@ final class SyncManager: ObservableObject {
     }
 
     public func markItemUnread(item: Item) {
+        guard item.read != false else { return }
         item.read = false
         clearHistory(items: [item])
         saveContext()
