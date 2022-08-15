@@ -18,8 +18,10 @@ struct ShowcaseSectionView: View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
             if feed.hasContent {
                 if visibleItems.isEmpty {
-                    Label("No unread items", systemImage: "checkmark")
-                        .imageScale(.small)
+                    Label(
+                        "All read, \(feed.feedData!.previewItems.read().count) hidden",
+                        systemImage: "checkmark"
+                    )
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(12)

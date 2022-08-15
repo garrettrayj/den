@@ -85,8 +85,10 @@ struct FeedView: View {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
                     if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
-                        Label("No unread items", systemImage: "checkmark")
-                            .imageScale(.small)
+                        Label(
+                            "All read, \(feed.feedData!.itemsArray.read().count) hidden",
+                            systemImage: "checkmark"
+                        )
                             .foregroundColor(.secondary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(12)
