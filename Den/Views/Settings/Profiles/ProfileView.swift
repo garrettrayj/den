@@ -43,8 +43,6 @@ struct ProfileView: View {
         Section {
             Button {
                 profileManager.activateProfile(profile)
-                // Forget the active page so refresh manager doesn't pick it up
-                subscriptionManager.activePage = nil
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "power.circle")

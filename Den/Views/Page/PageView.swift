@@ -50,9 +50,31 @@ struct PageView: View {
                         EmptyView()
                     }
             } else if page.feedsArray.isEmpty {
-                NoFeedsView()
+                #if targetEnvironment(macCatalyst)
+                StatusBoxView(
+                    message: Text("Page Empty"),
+                    caption: Text("""
+                    Add feeds by opening syndication links \
+                    or click \(Image(systemName: "plus.circle")) to add by web address
+                    """),
+                    symbol: "square.dashed"
+                )
+                #else
+                StatusBoxView(
+                    message: Text("Page Empty"),
+                    caption: Text("""
+                    Add feeds by opening syndication links \
+                    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
+                    to add by web address
+                    """),
+                    symbol: "square.dashed"
+                )
+                #endif
             } else if page.previewItems.isEmpty  && viewMode == ContentViewMode.blend.rawValue {
-                NoItemsView()
+                StatusBoxView(
+                    message: Text("Page Empty"),
+                    symbol: "tray"
+                )
             } else {
                 if viewMode == ContentViewMode.blend.rawValue {
                     BlendView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
