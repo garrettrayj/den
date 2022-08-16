@@ -11,6 +11,7 @@ import SwiftUI
 
 struct AllItemsView: View {
     @EnvironmentObject private var syncManager: SyncManager
+    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @ObservedObject var profile: Profile
 
@@ -23,9 +24,31 @@ struct AllItemsView: View {
     var body: some View {
         GeometryReader { geometry in
             if profile.feedsArray.isEmpty {
-                NoFeedsView()
+                #if targetEnvironment(macCatalyst)
+                StatusBoxView(
+                    message: Text("Nothing Here"),
+                    caption: Text("""
+                    Add feeds by opening syndication links \
+                    or click \(Image(systemName: "plus.circle")) to add by web address
+                    """),
+                    symbol: "tray"
+                )
+                #else
+                StatusBoxView(
+                    message: Text("Nothing Here"),
+                    caption: Text("""
+                    Add feeds by opening syndication links \
+                    or tap \(Image(systemName: "plus.circle")) \
+                    to add by web address
+                    """),
+                    symbol: "tray"
+                )
+                #endif
             } else if profile.previewItems.isEmpty {
-                NoItemsView()
+                StatusBoxView(
+                    message: Text("Nothing Here"),
+                    symbol: "tray"
+                )
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
                 AllReadView(hiddenItemCount: profile.previewItems.read().count)
             } else {
@@ -51,6 +74,14 @@ struct AllItemsView: View {
         .navigationTitle("All Items")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    subscriptionManager.showSubscribe()
+                } label: {
+                    Label("Add Feed", systemImage: "plus.circle")
+                }.accessibilityIdentifier("add-feed-button")
+            }
+
             ReadingToolbarContent(
                 unreadCount: $unreadCount,
                 hideRead: $hideRead,

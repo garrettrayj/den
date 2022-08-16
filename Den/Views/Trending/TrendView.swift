@@ -22,7 +22,10 @@ struct TrendView: View {
     var body: some View {
         GeometryReader { geometry in
             if trend.items.isEmpty {
-                NoItemsView()
+                StatusBoxView(
+                    message: Text("Nothing Here"),
+                    symbol: "tray"
+                )
             } else if visibleItems.isEmpty {
                 AllReadView(hiddenItemCount: trend.items.read().count)
             } else {

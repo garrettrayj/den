@@ -132,10 +132,7 @@ struct NavigationListView: View {
                 Spacer()
 
                 Button {
-                    refreshManager.refresh(
-                        profile: profile,
-                        activePage: subscriptionManager.activePage
-                    )
+                    refreshManager.refresh(profile: profile)
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }

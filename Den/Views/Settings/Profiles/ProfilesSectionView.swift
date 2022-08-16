@@ -28,8 +28,11 @@ struct ProfilesSectionView: View {
                 .modifier(FormRowModifier())
                 .accessibilityIdentifier("profile-button")
             }
-
-            Button(action: profileManager.addProfile) {
+            Button {
+                withAnimation {
+                    profileManager.addProfile()
+                }
+            } label: {
                 Label("Add Profile", systemImage: "plus")
             }
             .modifier(FormRowModifier())

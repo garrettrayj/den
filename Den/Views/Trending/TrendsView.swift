@@ -24,11 +24,10 @@ struct TrendsView: View {
         GeometryReader { geometry in
             if profile.trends.isEmpty {
                 StatusBoxView(
-                    message: Text("Trends Empty"),
+                    message: Text("Nothing Here"),
                     caption: Text("Titles do not share any common subjects"),
-                    symbol: "questionmark.folder"
+                    symbol: "tray"
                 )
-                .frame(height: geometry.size.height - 60)
             } else {
                 TrendsLayoutView(
                     profile: profile,
@@ -60,7 +59,7 @@ struct TrendsView: View {
                 unreadCount: $unreadCount,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) Trends with Unread")
+                centerLabel: Text("\(unreadCount) with Unread")
             ) {
                 withAnimation {
                     syncManager.toggleReadUnread(items: profile.previewItems)

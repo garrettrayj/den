@@ -28,7 +28,7 @@ final class RefreshManager: ObservableObject {
         queue.cancelAllOperations()
     }
 
-    public func refresh(profile: Profile, activePage: Page?) {
+    public func refresh(profile: Profile) {
         var operations: [Operation] = []
 
         refreshing = true
@@ -70,9 +70,7 @@ final class RefreshManager: ObservableObject {
         profileCompletionOp.addDependency(trendsOp)
 
         // Page refresh operations
-        profile.pagesArray.sorted(by: { lhs, _ in
-            lhs === activePage
-        }).forEach { page in
+        profile.pagesArray.forEach { page in
             let (pageOps, pageCompletionOp) = createPageOps(page: page)
             operations.append(contentsOf: pageOps)
             pagesCompletedOp.addDependency(pageCompletionOp)
