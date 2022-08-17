@@ -53,13 +53,9 @@ final class SyncManager: ObservableObject {
     }
 
     public func markItemRead(item: Item) {
-        guard
-            let profile = profileManager.activeProfile,
-            item.read != true
-        else { return }
-
+        guard item.read != true else { return }
         item.read = true
-        logHistory(profile: profile, items: [item])
+        logHistory(items: [item])
         saveContext()
         NotificationCenter.default.postItemStatus(
             read: true,
@@ -102,9 +98,8 @@ final class SyncManager: ObservableObject {
                 )
             }
         } else {
-            guard let profile = profileManager.activeProfile else { return }
             let unreadItems = items.unread()
-            logHistory(profile: profile, items: unreadItems)
+            logHistory(items: unreadItems)
             unreadItems.forEach { item in
                 item.read = true
             }
@@ -121,10 +116,9 @@ final class SyncManager: ObservableObject {
         }
     }
 
-    private func logHistory(
-        profile: Profile,
-        items: [Item]
-    ) {
+    private func logHistory(items: [Item]) {
+        guard let profile = profileManager.activeProfile else { return }
+
         for item in items {
             let history = item.history.first ?? History.create(in: viewContext, profile: profile)
             history.link = item.link

@@ -29,9 +29,6 @@ struct ItemActionView<Content: View>: View {
         } else {
             NavigationLink {
                 ItemView(item: item)
-                    .onDisappear() {
-                        syncManager.markItemRead(item: item)
-                    }
             } label: {
                 content
             }.buttonStyle(ItemButtonStyle(read: item.read))
