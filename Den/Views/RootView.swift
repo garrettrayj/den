@@ -20,36 +20,37 @@ struct RootView: View {
     @State private var crashMessage: String = ""
 
     var body: some View {
-        ZStack {
-            // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                NavigationView {
-                    SidebarView(profile: profileManager.activeProfile!)
-                    WelcomeView()
-                }.navigationViewStyle(.stack)
-            } else {
-                NavigationView {
-                    SidebarView(profile: profileManager.activeProfile!)
-                    WelcomeView()
+        if showCrashMessage {
+            CrashMessageView(message: crashMessage)
+        } else {
+            Group {
+                // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    NavigationView {
+                        SidebarView(profile: profileManager.activeProfile!)
+                        WelcomeView()
+                    }.navigationViewStyle(.stack)
+                } else {
+                    NavigationView {
+                        SidebarView(profile: profileManager.activeProfile!)
+                        WelcomeView()
+                    }
                 }
             }
-            if showCrashMessage {
-                CrashMessageView(message: crashMessage)
+            .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { _ in
+                showSubscribe = true
             }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { _ in
-            showSubscribe = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
-            showCrashMessage = true
-        }
-        .sheet(isPresented: $showSubscribe) {
-            SubscribeView()
-                .environment(\.colorScheme, colorScheme)
-                .environmentObject(profileManager)
-                .environmentObject(crashManager)
-                .environmentObject(subscriptionManager)
-                .environmentObject(refreshManager)
+            .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
+                showCrashMessage = true
+            }
+            .sheet(isPresented: $showSubscribe) {
+                SubscribeView()
+                    .environment(\.colorScheme, colorScheme)
+                    .environmentObject(profileManager)
+                    .environmentObject(crashManager)
+                    .environmentObject(subscriptionManager)
+                    .environmentObject(refreshManager)
+            }
         }
     }
 }

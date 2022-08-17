@@ -72,7 +72,7 @@ struct NavigationListView: View {
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {
-                refreshManager.refresh(profile: profile, activePage: subscriptionManager.activePage)
+                refreshManager.refresh(profile: profile)
             }
         }
         #endif

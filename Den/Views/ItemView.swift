@@ -39,7 +39,7 @@ struct ItemView: View {
                             VStack(alignment: .leading, spacing: 16) {
                                 Text(item.wrappedTitle)
                                     .fixedSize(horizontal: false, vertical: true)
-                                    .font(.largeTitle)
+                                    .font(.title)
 
                                 Text("\(item.date.fullShortDisplay())").font(.subheadline).lineLimit(1)
 
@@ -74,6 +74,9 @@ struct ItemView: View {
             }
         }
         .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
+        .onDisappear() {
+            syncManager.markItemRead(item: item)
+        }
     }
 
     @ToolbarContentBuilder
