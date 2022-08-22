@@ -88,7 +88,6 @@ struct PageView: View {
         .onChange(of: viewMode, perform: { _ in
             self.page.objectWillChange.send()
         })
-        .onAppear { subscriptionManager.activePage = page }
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in
@@ -133,7 +132,7 @@ struct PageView: View {
         }
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                subscriptionManager.showSubscribe()
+                subscriptionManager.showSubscribe(page: page)
             } label: {
                 Label("Add Feed", systemImage: "plus.circle")
             }
@@ -164,7 +163,7 @@ struct PageView: View {
                     viewModePicker
 
                     Button {
-                        subscriptionManager.showSubscribe()
+                        subscriptionManager.showSubscribe(page: page)
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }.accessibilityIdentifier("add-feed-button")

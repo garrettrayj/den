@@ -6,6 +6,7 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 struct RootView: View {
@@ -16,6 +17,8 @@ struct RootView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @State private var showSubscribe = false
+    @State private var subscribeURLString: String = ""
+    @State private var subscribePageObjectID: NSManagedObjectID?
     @State private var showCrashMessage = false
     @State private var crashMessage: String = ""
 

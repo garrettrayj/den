@@ -51,12 +51,14 @@ struct ItemView: View {
                                     heroImage
                                 }
 
-                                WebView(
-                                    dynamicHeight: $webViewHeight,
-                                    html: item.body ?? item.summary ?? "No Content",
-                                    title: item.wrappedTitle,
-                                    baseURL: item.link
-                                )
+                                if item.body != nil || item.summary != nil {
+                                    WebView(
+                                        dynamicHeight: $webViewHeight,
+                                        html: item.body ?? item.summary!,
+                                        title: item.wrappedTitle,
+                                        baseURL: item.link
+                                    )
+                                }
                             }
                             .frame(maxWidth: .infinity)
                             .padding([.top, .horizontal], 12)
