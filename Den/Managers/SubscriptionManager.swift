@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import CoreData
 
 final class SubscriptionManager: ObservableObject {
-    var feedUrlString: String = ""
-    var activePage: Page?
+    var initialURLString = ""
+    var initialPageObjectID: NSManagedObjectID?
 
-    func showSubscribe(for url: URL? = nil) {
+    func showSubscribe(for url: URL? = nil, page: Page? = nil) {
         if let url = url {
             let urlString = url.absoluteString
                 .replacingOccurrences(of: "feed:", with: "")
@@ -21,11 +22,12 @@ final class SubscriptionManager: ObservableObject {
             if var urlComponents = URLComponents(string: urlString) {
                 if urlComponents.scheme == nil { urlComponents.scheme = "http" }
                 if let urlString = urlComponents.string {
-                    feedUrlString = urlString
+                    initialURLString = urlString
                 }
             }
         }
 
+        initialPageObjectID = page?.objectID
         NotificationCenter.default.post(name: .showSubscribe, object: nil)
     }
 }

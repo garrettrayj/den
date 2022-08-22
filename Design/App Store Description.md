@@ -2,20 +2,17 @@
 
 ## Comfy News Browsing
 
-Create landscape views of what's happening with syndication powered dashboards. 
+Create landscape views of what's happening with the sources that matter to you.
 
-If you're nostalgic for simple blocks of headlines that you can organize yourself, then this is the app for you. Den draws inspiration from internet start pages past, but modernizes the ideas with the latest tech. Flexible, multi-column layouts make it ideal for quickly scanning content. Native app performance and features provide a crisp wire surfing experience.
+Den is a modern take on personalized start pages made for following many publishers and being your own editor. Simple yet powerful features for browsing, reading, and organizing feeds make it easy tailor media dashboards for whatever you're into. 
 
 FEATURES
 
-+ Designed For All Screens
-Enjoy a consistent experience on phones, tablets, and computers.
++ One App for All Your Devices
+Designed for phones, tablets, and computers.
 
 + Cloud Sync
 Profiles, feeds, history, and more on all your devices without signing up for yet another account.
-
-+ Read in Your Regular Browser
-Items open in a built-in web view, reading mode optional, on phones and tablets. Items open in the default browser on computers.
 
 + RSS, Atom, and JSON Feed
 Works with popular formats so the library of compatible feeds is limitless.

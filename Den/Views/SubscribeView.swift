@@ -6,6 +6,7 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 struct SubscribeView: View {
@@ -15,8 +16,8 @@ struct SubscribeView: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
+    @State private var urlString: String = ""
     @State private var targetPage: Page?
-    @State private var urlText: String = ""
     @State private var urlIsValid: Bool?
     @State private var validationAttempts: Int = 0
     @State private var validationMessage: String?
@@ -33,6 +34,7 @@ struct SubscribeView: View {
                     Button { dismiss() } label: {
                         Text("Cancel").font(.title3)
                     }
+                    .buttonStyle(.bordered)
                     .accessibilityIdentifier("subscribe-cancel-button")
                 }
                 .foregroundColor(.secondary)
@@ -90,12 +92,13 @@ struct SubscribeView: View {
                         }
                     }
                 }
-                .navigationViewStyle(StackNavigationViewStyle())
+                .navigationViewStyle(.stack)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
+            urlString = subscriptionManager.initialURLString
             checkTargetPage()
         }
     }
@@ -108,7 +111,7 @@ struct SubscribeView: View {
             }
         } label: {
             Label {
-                Text("Add to \(targetPage!.wrappedName)")
+                Text("Add to \(targetPage?.wrappedName ?? "...")")
             } icon: {
                 if loading {
                     ProgressView().progressViewStyle(IconProgressStyle()).colorInvert()
@@ -119,14 +122,14 @@ struct SubscribeView: View {
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))
-        .disabled(!(urlText.count > 0) || loading)
+        .disabled(!(urlString.count > 0) || loading)
         .modifier(ProminentButtonModifier())
         .accessibilityIdentifier("subscribe-submit-button")
     }
 
     private var feedUrlInput: some View {
         HStack {
-            TextField("https://example.com/feed.xml", text: $urlText)
+            TextField("https://example.com/feed.xml", text: $urlString)
                 .lineLimit(1)
                 .multilineTextAlignment(.center)
                 .disableAutocorrection(true)
@@ -163,9 +166,12 @@ struct SubscribeView: View {
     }
 
     private func checkTargetPage() {
-        // Use the currently active page if available
-        if let activePage = subscriptionManager.activePage {
-            targetPage = activePage
+        if
+            let pageObjectID = subscriptionManager.initialPageObjectID,
+            let destinationPage = profileManager.activeProfile?.pagesArray.first(where: { page in
+                page.objectID == pageObjectID
+            }) {
+           targetPage = destinationPage
         } else if
             let profile = profileManager.activeProfile,
             let firstPage = profile.pagesArray.first
@@ -178,22 +184,22 @@ struct SubscribeView: View {
         validationMessage = nil
         urlIsValid = nil
 
-        if urlText == "" {
+        if urlString == "" {
             self.failValidation(message: "Address can not be blank")
             return
         }
 
-        if self.urlText.contains(" ") {
+        if self.urlString.contains(" ") {
             self.failValidation(message: "Address can not contain spaces")
             return
         }
 
-        if self.urlText.prefix(7).lowercased() != "http://" && self.urlText.prefix(8).lowercased() != "https://" {
+        if self.urlString.prefix(7).lowercased() != "http://" && self.urlString.prefix(8).lowercased() != "https://" {
             self.failValidation(message: "Address must begin with “http://” or “https://”")
             return
         }
 
-        guard let url = URL(string: self.urlText) else {
+        guard let url = URL(string: self.urlString) else {
             self.failValidation(message: "Unable to parse address")
             return
         }
@@ -207,7 +213,7 @@ struct SubscribeView: View {
     }
 
     private func addFeed() {
-        guard let url = URL(string: urlText), let page = targetPage else { return }
+        guard let url = URL(string: urlString), let page = targetPage else { return }
 
         self.loading = true
 

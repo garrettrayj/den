@@ -32,6 +32,10 @@ video {
     max-width: 100%;
 }
 
+audio {
+    margin: 1em 0;
+}
+
 img {
     border: 1px solid -apple-system-separator;
     border-radius: 0.375em;
@@ -42,8 +46,12 @@ img {
     max-width: 100%;
 }
 
-audio {
-    margin: 1em 0;
+img[align="right"] {
+    margin: 0 0 1em 1em;
+}
+
+img[align="left"] {
+    margin: 0 1em 1em 0;
 }
 
 /* Typography */

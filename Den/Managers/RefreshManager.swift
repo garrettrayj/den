@@ -21,7 +21,7 @@ final class RefreshManager: ObservableObject {
         self.crashManager = crashManager
 
         queue.qualityOfService = .userInitiated
-        queue.maxConcurrentOperationCount = 20
+        queue.maxConcurrentOperationCount = 12
     }
 
     public func cancel() {
