@@ -9,23 +9,25 @@
 import SwiftUI
 
 struct FeedsSectionView: View {
+    let profile: Profile
+
     var body: some View {
         Section(header: Text("Feeds")) {
             NavigationLink(
-                destination: ImportView()
+                destination: ImportView(profile: profile)
             ) {
                 Label("Import", systemImage: "arrow.down.doc")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
-            NavigationLink(destination: ExportView()) {
+            NavigationLink(destination: ExportView(profile: profile)) {
                 Label("Export", systemImage: "arrow.up.doc")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
-            NavigationLink(destination: SecurityView()) {
+            NavigationLink(destination: SecurityView(profile: profile)) {
                 Label("Security", systemImage: "shield.lefthalf.filled")
             }
             .modifier(FormRowModifier())

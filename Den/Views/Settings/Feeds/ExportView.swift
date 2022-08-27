@@ -9,14 +9,14 @@
 import SwiftUI
 
 struct ExportView: View {
-    @EnvironmentObject private var profileManager: ProfileManager
+    let profile: Profile
 
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
 
     var body: some View {
         VStack {
-            if profileManager.activeProfileIsEmpty {
+            if profile.feedsArray.isEmpty {
                 StatusBoxView(message: Text("Profile Empty"), symbol: "folder.badge.questionmark")
             } else {
                 Form {
@@ -44,7 +44,7 @@ struct ExportView: View {
 
     private var pageListSection: some View {
         Section(header: selectionSectionHeader) {
-            ForEach(profileManager.activeProfile!.pagesArray) { page in
+            ForEach(profile.pagesArray) { page in
                 // .editMode doesn't work inside forms, so creating selection buttons manually
                 Button { self.togglePage(page) } label: {
                     Label {
@@ -88,7 +88,7 @@ struct ExportView: View {
     }
 
     private var allSelected: Bool {
-        selectedPages.count == profileManager.activeProfile?.pagesArray.count ?? 0
+        selectedPages.count == profile.pagesArray.count
     }
 
     private var noneSelected: Bool {
@@ -104,7 +104,7 @@ struct ExportView: View {
     }
 
     private func selectAll() {
-        profileManager.activeProfile?.pagesArray.forEach { page in
+        profile.pagesArray.forEach { page in
             if !selectedPages.contains(page) {
                 selectedPages.append(page)
             }
@@ -116,9 +116,7 @@ struct ExportView: View {
     }
 
     private func exportOpml() {
-        guard let activeProfile = profileManager.activeProfile else { return }
-
-        let exportPages: [Page] = activeProfile.pagesArray.compactMap { page in
+        let exportPages: [Page] = profile.pagesArray.compactMap { page in
             if selectedPages.contains(page) {
                 return page
             }

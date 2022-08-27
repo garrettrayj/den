@@ -21,16 +21,16 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     @StateObject var syncManager: SyncManager
-    @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
     @StateObject var themeManager: ThemeManager
 
+    @State private var activeProfile: Profile?
+
     var body: some Scene {
         WindowGroup {
-            RootView()
+            RootView(activeProfile: $activeProfile)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .environmentObject(syncManager)
-                .environmentObject(profileManager)
                 .environmentObject(refreshManager)
                 .environmentObject(themeManager)
                 .withHostingWindow { window in
@@ -41,8 +41,6 @@ struct DenApp: App {
                     #endif
 
                     themeManager.window = window
-                    themeManager.applyStyle()
-
                     syncManager.window = window
                 }
                 .onOpenURL { url in
@@ -53,7 +51,9 @@ struct DenApp: App {
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                profileManager.loadProfile()
+                if activeProfile?.id == nil {
+                    activeProfile = ProfileManager.loadProfile(context: persistentContainer.viewContext)
+                }
                 syncManager.syncHistory()
             case .inactive:
                 Logger.main.debug("Scene phase: inactive")
@@ -125,35 +125,23 @@ struct DenApp: App {
     }()
 
     init() {
-        FileManager.default.cleanupAppDirectories()
+        // Add additional image format support
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
+        // Explicit list of accepted image types so servers may decide what to respond with
+        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
+            mimeType.rawValue
+        }).joined(separator: ",")
+        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
         let refreshManager = RefreshManager(persistentContainer: persistentContainer)
-        let profileManager = ProfileManager(viewContext: persistentContainer.viewContext)
-        let syncManager = SyncManager(
-            persistentContainer: persistentContainer,
-            profileManager: profileManager
-        )
+        let syncManager = SyncManager(viewContext: persistentContainer.viewContext)
         let themeManager = ThemeManager()
 
         // StateObject managers
         _syncManager = StateObject(wrappedValue: syncManager)
-        _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
         _themeManager = StateObject(wrappedValue: themeManager)
-
-        initImageHandling()
     }
 
-    private func initImageHandling() {
-        // Add WebP/SVG/PDF support
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
-
-        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
-            mimeType.rawValue
-        }).joined(separator: ",")
-
-        // Add default HTTP header
-        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
-    }
 }

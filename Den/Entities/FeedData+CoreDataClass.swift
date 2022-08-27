@@ -49,26 +49,6 @@ public class FeedData: NSManagedObject {
             .trimmingCharacters(in: .init(charactersIn: "/"))
     }
 
-    public var faviconImage: Image? {
-        guard
-            let faviconsDirectory = FileManager.default.faviconsDirectory,
-            let filename = self.faviconFile
-        else { return nil }
-
-        let filepath = faviconsDirectory.appendingPathComponent(filename)
-
-        do {
-            let imageData = try Data(contentsOf: filepath)
-            if let uiImage = UIImage(data: imageData, scale: UIScreen.main.scale) {
-                return Image(uiImage: uiImage)
-            }
-        } catch {
-            Logger.main.notice("Error loading favicon image: \(error.localizedDescription)")
-        }
-
-        return nil
-    }
-
     static func create(in managedObjectContext: NSManagedObjectContext, feedId: UUID) -> FeedData {
         let newFeed = self.init(context: managedObjectContext)
         newFeed.id = UUID()

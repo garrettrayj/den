@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct ProfilesSectionView: View {
-    @EnvironmentObject private var profileManager: ProfileManager
+    @Environment(\.managedObjectContext) private var viewContext
+    @Binding var activeProfile: Profile?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -18,11 +19,11 @@ struct ProfilesSectionView: View {
         Section {
             ForEach(profiles) { profile in
                 NavigationLink {
-                    ProfileView(profile: profile)
+                    ProfileView(activeProfile: $activeProfile, profile: profile)
                 } label: {
                     Label(
                         profile.displayName,
-                        systemImage: profile == profileManager.activeProfile ? "hexagon.fill" : "hexagon"
+                        systemImage: profile == activeProfile ? "hexagon.fill" : "hexagon"
                     )
                 }
                 .modifier(FormRowModifier())
@@ -30,7 +31,7 @@ struct ProfilesSectionView: View {
             }
             Button {
                 withAnimation {
-                    profileManager.addProfile()
+                    _ = Profile.create(in: viewContext)
                 }
             } label: {
                 Label("Add Profile", systemImage: "plus")

@@ -9,13 +9,17 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Binding var activeProfile: Profile?
+
     var body: some View {
         Form {
-            ProfilesSectionView()
-            FeedsSectionView()
-            HistorySectionView()
-            AppearanceSectionView()
-            ResetSectionView()
+            ProfilesSectionView(activeProfile: $activeProfile)
+            if activeProfile != nil {
+                FeedsSectionView(profile: activeProfile!)
+                HistorySectionView(profile: activeProfile!)
+                AppearanceSectionView()
+                ResetSectionView(activeProfile: $activeProfile)
+            }
             AboutSectionView()
         }
         .navigationTitle("Settings")

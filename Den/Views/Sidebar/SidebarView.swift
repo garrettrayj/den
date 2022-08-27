@@ -12,8 +12,8 @@ import SwiftUI
  Master navigation list with links to page views.
 */
 struct SidebarView: View {
-    @EnvironmentObject private var profileManager: ProfileManager
-
+    @Binding var activeProfile: Profile?
+    @ObservedObject var profile: Profile
     @State private var showingSettings: Bool = false
 
     /**
@@ -25,27 +25,25 @@ struct SidebarView: View {
      */
     var body: some View {
         Group {
-            if profileManager.activeProfile?.id == nil {
-                ProfileNotAvailableView(showingSettings: $showingSettings)
-            } else if profileManager.activeProfile!.pagesArray.isEmpty {
+            if profile.pagesArray.isEmpty {
                 StartListView(
-                    profile: profileManager.activeProfile!,
+                    profile: activeProfile!,
                     showingSettings: $showingSettings
                 )
             } else {
                 NavigationListView(
-                    profile: profileManager.activeProfile!,
+                    profile: activeProfile!,
                     showingSettings: $showingSettings
                 )
             }
         }
         .background(
             NavigationLink(isActive: $showingSettings) {
-                SettingsView()
+                SettingsView(activeProfile: $activeProfile)
             } label: {
                 Label("Settings", systemImage: "gear")
             }.hidden()
         )
-        .navigationTitle(profileManager.activeProfile?.displayName ?? "")
+        .navigationTitle(profile.displayName)
     }
 }

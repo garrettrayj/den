@@ -12,11 +12,11 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
 
     let initialPageObjectID: NSManagedObjectID?
     let initialURLString: String
+    let profile: Profile?
 
     @State private var urlString: String = ""
     @State private var targetPage: Page?
@@ -29,7 +29,7 @@ struct SubscribeView: View {
 
     var body: some View {
         Group {
-            if targetPage == nil {
+            if targetPage == nil || profile == nil {
                 VStack(spacing: 24) {
                     Image(systemName: "questionmark.folder").font(.system(size: 52))
                     Text("No Pages Available").font(.title2)
@@ -158,7 +158,7 @@ struct SubscribeView: View {
 
     private var pagePicker: some View {
         Picker(selection: $targetPage) {
-            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+            ForEach(profile!.pagesArray) { page in
                 Text(page.wrappedName).tag(page as Page?)
             }
             .navigationTitle("")
@@ -170,13 +170,12 @@ struct SubscribeView: View {
     private func checkTargetPage() {
         if
             let pageObjectID = initialPageObjectID,
-            let destinationPage = profileManager.activeProfile?.pagesArray.first(where: { page in
+            let destinationPage = profile!.pagesArray.first(where: { page in
                 page.objectID == pageObjectID
             }) {
            targetPage = destinationPage
         } else if
-            let profile = profileManager.activeProfile,
-            let firstPage = profile.pagesArray.first
+            let firstPage = profile!.pagesArray.first
         {
             targetPage = firstPage
         }

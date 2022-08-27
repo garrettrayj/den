@@ -51,8 +51,9 @@ final class TrendsOperation: Operation {
 
             workingTrends.forEach { workingTrend in
                 let trend = Trend.create(in: context, profile: profile)
-                trend.title = workingTrend.text
-                trend.slug = workingTrend.id
+                trend.title = workingTrend.title
+                trend.slug = workingTrend.slug
+                trend.tag = workingTrend.tag.rawValue
 
                 workingTrend.items.forEach { item in
                     _ = TrendItem.create(in: context, trend: trend, item: item)
@@ -71,13 +72,11 @@ final class TrendsOperation: Operation {
         var workingTrends: Set<WorkingTrend> = []
 
         profile.previewItems.forEach { item in
-            item.subjects().forEach { subject in
-                let id = subject.removingCharacters(in: .punctuationCharacters)
-
+            item.subjects().forEach { (tokenText, tag) in
+                let slug = tokenText.removingCharacters(in: .punctuationCharacters).lowercased()
                 var (inserted, workingTrend) = workingTrends.insert(
-                    WorkingTrend(id: id, text: subject, items: [item])
+                    WorkingTrend(slug: slug, tag: tag, title: tokenText, items: [item])
                 )
-
                 if !inserted {
                     workingTrend.items.append(item)
                     workingTrends.update(with: workingTrend)

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import NaturalLanguage
 
 struct TrendBlockView: View {
     @ObservedObject var trend: Trend
@@ -24,6 +25,16 @@ struct TrendBlockView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     HStack {
                         Text(trend.wrappedTitle).font(.title).lineLimit(1)
+                        Group {
+                            if trend.tag == NLTag.personalName.rawValue {
+                                Image(systemName: "person")
+                            } else if trend.tag == NLTag.organizationName.rawValue {
+                                Image(systemName: "building")
+                            } else if trend.tag == NLTag.placeName.rawValue {
+                                Image(systemName: "mappin.and.ellipse")
+                            }
+                        }.foregroundColor(.secondary)
+                        Spacer()
                         Text("\(trend.items.unread().count)").modifier(CapsuleModifier())
                     }
 

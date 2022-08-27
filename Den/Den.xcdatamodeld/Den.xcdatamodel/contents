@@ -88,6 +88,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="profileId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="slug" optional="YES" attributeType="String"/>
+        <attribute name="tag" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="trendItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrendItem" inverseName="trend" inverseEntity="TrendItem"/>
         <fetchedProperty name="profile" optional="YES">
@@ -118,7 +119,7 @@
         <element name="Item" positionX="279" positionY="297" width="128" height="305"/>
         <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
         <element name="Profile" positionX="270" positionY="324" width="128" height="125"/>
-        <element name="Trend" positionX="279" positionY="351" width="128" height="125"/>
+        <element name="Trend" positionX="279" positionY="351" width="128" height="140"/>
         <element name="TrendItem" positionX="288" positionY="360" width="128" height="74"/>
     </elements>
 </model>
