@@ -24,12 +24,11 @@ struct DenApp: App {
     @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
     @StateObject var themeManager: ThemeManager
-    @StateObject var persistenceManager: PersistenceManager
 
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(\.managedObjectContext, persistenceManager.container.viewContext)
+                .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .environmentObject(syncManager)
                 .environmentObject(profileManager)
                 .environmentObject(refreshManager)
@@ -68,37 +67,79 @@ struct DenApp: App {
         }
     }
 
+    var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentCloudKitContainer(name: "Den")
+
+        var storageType: StorageType = .persistent
+        if CommandLine.arguments.contains("--reset") {
+            storageType = .inMemory
+        }
+
+        guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
+            preconditionFailure("Storage directory not available")
+        }
+
+        var cloudStoreLocation = appSupportDirectory.appendingPathComponent("Den.sqlite")
+        var localStoreLocation = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
+
+        if storageType == .inMemory {
+            cloudStoreLocation = URL(fileURLWithPath: "/dev/null/1")
+            localStoreLocation = URL(fileURLWithPath: "/dev/null/2")
+        }
+
+        // Create a store description for a CloudKit-backed store
+        let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreLocation)
+        cloudStoreDescription.configuration = "Cloud"
+        cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
+            containerIdentifier: "iCloud.net.devsci.den"
+        )
+
+        // Create a store description for a local store
+        let localStoreDescription = NSPersistentStoreDescription(url: localStoreLocation)
+        localStoreDescription.configuration = "Local"
+
+        // Create container
+        container.persistentStoreDescriptions = [
+            cloudStoreDescription,
+            localStoreDescription
+        ]
+
+        // Load both stores
+        container.loadPersistentStores { _, error in
+            guard error == nil else {
+                /*
+                Typical reasons for an error here include:
+                 
+                - The parent directory does not exist, cannot be created, or disallows writing.
+                - The persistent store is not accessible, due to permissions or data protection
+                  when the device is locked.
+                - The device is out of space.
+                - The store could not be migrated to the current model version.
+                */
+                CrashManager.handleCriticalError(error! as NSError)
+                return
+            }
+
+            container.viewContext.automaticallyMergesChangesFromParent = true
+            container.viewContext.undoManager = nil
+            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        }
+
+        return container
+    }()
+
     init() {
         FileManager.default.cleanupAppDirectories()
 
-        var dbStorageType: StorageType = .persistent
-        if CommandLine.arguments.contains("--reset") {
-            dbStorageType = .inMemory
-        }
-
-        let crashManager = CrashManager()
-        let persistenceManager = PersistenceManager(
-            crashManager: crashManager,
-            storageType: dbStorageType
-        )
-        let refreshManager = RefreshManager(
-            persistentContainer: persistenceManager.container,
-            crashManager: crashManager
-        )
-        let profileManager = ProfileManager(
-            viewContext: persistenceManager.container.viewContext,
-            crashManager: crashManager
-        )
+        let refreshManager = RefreshManager(persistentContainer: persistentContainer)
+        let profileManager = ProfileManager(viewContext: persistentContainer.viewContext)
         let syncManager = SyncManager(
-            persistentContainer: persistenceManager.container,
-            crashManager: crashManager,
+            persistentContainer: persistentContainer,
             profileManager: profileManager
         )
-        let subscriptionManager = SubscriptionManager()
         let themeManager = ThemeManager()
 
         // StateObject managers
-        _persistenceManager = StateObject(wrappedValue: persistenceManager)
         _syncManager = StateObject(wrappedValue: syncManager)
         _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)

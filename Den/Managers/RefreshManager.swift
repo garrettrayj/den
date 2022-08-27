@@ -11,14 +11,12 @@ import CoreData
 
 final class RefreshManager: ObservableObject {
     private let persistentContainer: NSPersistentContainer
-    private let crashManager: CrashManager
     private let queue = OperationQueue()
 
     var refreshing: Bool = false
 
-    init(persistentContainer: NSPersistentContainer, crashManager: CrashManager) {
+    init(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
-        self.crashManager = crashManager
 
         queue.maxConcurrentOperationCount = 12
     }
