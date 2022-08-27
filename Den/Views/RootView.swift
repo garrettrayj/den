@@ -30,12 +30,12 @@ struct RootView: View {
                 // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
                 if UIDevice.current.userInterfaceIdiom == .phone {
                     NavigationView {
-                        SidebarView(profile: profileManager.activeProfile!)
+                        SidebarView()
                         WelcomeView()
                     }.navigationViewStyle(.stack)
                 } else {
                     NavigationView {
-                        SidebarView(profile: profileManager.activeProfile!)
+                        SidebarView()
                         WelcomeView()
                     }
                 }
