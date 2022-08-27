@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import OSLog
 
 final class ProfileManager: ObservableObject {
     @Published var activeProfile: Profile?
@@ -44,8 +45,6 @@ final class ProfileManager: ObservableObject {
     init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
         self.viewContext = viewContext
         self.crashManager = crashManager
-
-        self.loadProfile()
     }
 
     func addProfile() {
@@ -86,7 +85,6 @@ final class ProfileManager: ObservableObject {
             }
             do {
                 try viewContext.save()
-                self.objectWillChange.send()
             } catch {
                 crashManager.handleCriticalError(error as NSError)
             }
@@ -95,8 +93,14 @@ final class ProfileManager: ObservableObject {
         }
     }
 
-    private func loadProfile() {
+    func loadProfile() {
+        guard activeProfile == nil else {
+            Logger.main.debug("Active profile: \(self.activeProfile!.wrappedName)")
+            return
+        }
+
         if profiles.isEmpty {
+            Logger.main.debug("No profiles available. Creating default")
             let profile = createDefaultProfile()
             activateProfile(profile)
             return
@@ -106,12 +110,14 @@ final class ProfileManager: ObservableObject {
             if let profileToRestore = profiles.first(where: { profile in
                 profile.id?.uuidString == profileIdString
             }) {
+                Logger.main.debug("Activating last used profile: \(profileToRestore.wrappedName)")
                 activateProfile(profileToRestore)
                 return
             }
         }
 
         if let firstProfile = profiles.first {
+            Logger.main.debug("Activating first profile found: \(firstProfile.wrappedName)")
             activateProfile(firstProfile)
         }
     }

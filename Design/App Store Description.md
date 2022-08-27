@@ -4,7 +4,7 @@
 
 Create landscape views of what's happening with the sources that matter to you.
 
-Den is a modern take on personalized start pages made for following many publishers and being your own editor. Simple yet powerful features for browsing, reading, and organizing feeds make it easy tailor media dashboards for whatever you're into. 
+Den is a modern take on the personalized start page made for following many publishers and being your own editor. Simple yet powerful features for browsing, reading, and organizing news feeds make it easy build up media dashboards around whatever you're into.
 
 FEATURES
 

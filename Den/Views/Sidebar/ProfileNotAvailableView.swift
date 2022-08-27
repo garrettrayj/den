@@ -1,5 +1,5 @@
 //
-//  MissingProfileView.swift
+//  ProfileNotAvailableView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/22/22.
@@ -8,13 +8,14 @@
 
 import SwiftUI
 
-struct MissingProfileView: View {
+struct ProfileNotAvailableView: View {
     @Binding var showingSettings: Bool
 
     var body: some View {
         StatusBoxView(
-            message: Text("Profile Missing"),
-            caption: Text("Select another in settings")
+            message: Text("Profile Not Available"),
+            caption: Text("Select or create a profile in settings"),
+            symbol: "hexagon"
         )
         .navigationTitle("")
         .toolbar {

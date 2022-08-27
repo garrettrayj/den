@@ -58,6 +58,7 @@ struct DenApp: App {
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
+                profileManager.loadProfile()
                 syncManager.syncHistory()
             case .inactive:
                 Logger.main.debug("Scene phase: inactive")

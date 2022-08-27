@@ -59,7 +59,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "689EDC0826A3F46A0055811A"
-               BuildableName = "Screenshots.xctest"
+               BuildableName = "DenScreenshots.xctest"
                BlueprintName = "DenScreenshots"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>

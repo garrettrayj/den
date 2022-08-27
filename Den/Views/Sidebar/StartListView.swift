@@ -11,6 +11,7 @@ import SwiftUI
 struct StartListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var crashManager: CrashManager
+    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var profile: Profile
 
@@ -89,7 +90,7 @@ struct StartListView: View {
 
         do {
             try viewContext.save()
-            profile.objectWillChange.send()
+            profileManager.objectWillChange.send()
         } catch let error as NSError {
             crashManager.handleCriticalError(error)
         }
@@ -107,7 +108,7 @@ struct StartListView: View {
 
     func createPage() {
         _ = Page.create(in: viewContext, profile: profile)
-
         save()
+        profileManager.objectWillChange.send()
     }
 }

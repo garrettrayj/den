@@ -60,6 +60,7 @@ final class PersistenceManager: ObservableObject {
                 - The device is out of space.
                 - The store could not be migrated to the current model version.
                 */
+                crashManager.handleCriticalError(error! as NSError)
                 return
             }
 

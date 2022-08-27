@@ -72,7 +72,7 @@ final class TrendsOperation: Operation {
 
         profile.previewItems.forEach { item in
             item.subjects().forEach { subject in
-                let id = subject.removingCharacters(in: .punctuationCharacters).lowercased()
+                let id = subject.removingCharacters(in: .punctuationCharacters)
 
                 var (inserted, workingTrend) = workingTrends.insert(
                     WorkingTrend(id: id, text: subject, items: [item])
