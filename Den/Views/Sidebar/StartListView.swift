@@ -10,7 +10,6 @@ import SwiftUI
 
 struct StartListView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var profile: Profile
@@ -92,7 +91,7 @@ struct StartListView: View {
             try viewContext.save()
             profileManager.objectWillChange.send()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.handleCriticalError(error)
         }
     }
 
@@ -101,7 +100,7 @@ struct StartListView: View {
             do {
                 try viewContext.save()
             } catch {
-                crashManager.handleCriticalError(error as NSError)
+                CrashManager.handleCriticalError(error as NSError)
             }
         }
     }

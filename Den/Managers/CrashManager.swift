@@ -10,14 +10,14 @@ import CoreData
 import OSLog
 import SwiftUI
 
-final class CrashManager: ObservableObject {
-    public func handleCriticalError(_ anError: NSError) {
+struct CrashManager {
+    static func handleCriticalError(_ anError: NSError) {
         let formatted = self.formatErrorMessage(anError)
         Logger.main.critical("\(formatted)")
         NotificationCenter.default.post(name: .showCrashMessage, object: nil)
     }
 
-    private func formatErrorMessage(_ anError: NSError?) -> String {
+    static func formatErrorMessage(_ anError: NSError?) -> String {
         guard let anError = anError else { return "Unknown error" }
 
         guard anError.domain.compare("NSCocoaErrorDomain") == .orderedSame else {

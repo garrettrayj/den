@@ -11,7 +11,6 @@ import SwiftUI
 struct ImportView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
 
     enum ImportStage {
@@ -200,7 +199,7 @@ struct ImportView: View {
             try viewContext.save()
             profileManager.objectWillChange.send()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.handleCriticalError(error)
         }
     }
 

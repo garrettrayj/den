@@ -11,7 +11,6 @@ import SwiftUI
 struct FeedSettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var feed: Feed
@@ -175,7 +174,7 @@ struct FeedSettingsView: View {
                 }
                 feed.objectWillChange.send()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                CrashManager.handleCriticalError(error)
             }
         }
     }

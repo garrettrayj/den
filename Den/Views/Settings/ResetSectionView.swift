@@ -13,7 +13,6 @@ import SDWebImageSwiftUI
 struct ResetSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var themeManager: ThemeManager
@@ -92,12 +91,12 @@ struct ResetSectionView: View {
                     profileManager.activeProfile?.objectWillChange.send()
                 } catch {
                     DispatchQueue.main.async {
-                        self.crashManager.handleCriticalError(error as NSError)
+                        CrashManager.handleCriticalError(error as NSError)
                     }
                 }
             }
         } catch {
-            self.crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 

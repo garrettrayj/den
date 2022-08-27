@@ -20,7 +20,6 @@ final class RefreshManager: ObservableObject {
         self.persistentContainer = persistentContainer
         self.crashManager = crashManager
 
-        queue.qualityOfService = .userInitiated
         queue.maxConcurrentOperationCount = 12
     }
 
@@ -36,19 +35,16 @@ final class RefreshManager: ObservableObject {
 
         let profileCompletionOp = BlockOperation { [
             weak profile,
-            weak persistentContainer,
-            weak crashManager
+            weak persistentContainer
         ] in
             DispatchQueue.main.async {
                 do {
                     try persistentContainer?.viewContext.save()
                 } catch {
-                    crashManager?.handleCriticalError(error as NSError)
+                    CrashManager.handleCriticalError(error as NSError)
                 }
-
                 self.refreshing = false
                 NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
-
             }
         }
         operations.append(profileCompletionOp)
@@ -164,7 +160,7 @@ final class RefreshManager: ObservableObject {
         do {
             try persistentContainer.viewContext.save()
         } catch {
-            self.crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
 
         return feedData

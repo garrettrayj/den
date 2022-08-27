@@ -11,7 +11,6 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
@@ -72,7 +71,7 @@ struct ProfileView: View {
                     try viewContext.save()
                     dismiss()
                 } catch let error as NSError {
-                    crashManager.handleCriticalError(error)
+                    CrashManager.handleCriticalError(error)
                 }
             }.accessibilityIdentifier("delete-profile-confirm-button")
         }, message: {
@@ -86,7 +85,7 @@ struct ProfileView: View {
                 try viewContext.save()
                 profile.objectWillChange.send()
             } catch {
-                crashManager.handleCriticalError(error as NSError)
+                CrashManager.handleCriticalError(error as NSError)
             }
         }
     }
