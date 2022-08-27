@@ -70,11 +70,6 @@ struct DenApp: App {
     var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: "Den")
 
-        var storageType: StorageType = .persistent
-        if CommandLine.arguments.contains("--reset") {
-            storageType = .inMemory
-        }
-
         guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
             preconditionFailure("Storage directory not available")
         }
@@ -82,7 +77,8 @@ struct DenApp: App {
         var cloudStoreLocation = appSupportDirectory.appendingPathComponent("Den.sqlite")
         var localStoreLocation = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
 
-        if storageType == .inMemory {
+        if CommandLine.arguments.contains("--reset") {
+            // Use in memory storage
             cloudStoreLocation = URL(fileURLWithPath: "/dev/null/1")
             localStoreLocation = URL(fileURLWithPath: "/dev/null/2")
         }
