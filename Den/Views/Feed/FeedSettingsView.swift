@@ -11,7 +11,6 @@ import SwiftUI
 struct FeedSettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var profileManager: ProfileManager
 
     @ObservedObject var feed: Feed
 
@@ -75,7 +74,7 @@ struct FeedSettingsView: View {
 
     private var pagePicker: some View {
         Picker(selection: pageSelection) {
-            ForEach(profileManager.activeProfile?.pagesArray ?? []) { page in
+            ForEach(feed.page?.profile?.pagesArray ?? []) { page in
                 Text(page.wrappedName).tag(page as Page?)
             }
         } label: {

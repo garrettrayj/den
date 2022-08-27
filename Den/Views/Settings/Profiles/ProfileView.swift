@@ -11,7 +11,8 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var profileManager: ProfileManager
+
+    @Binding var activeProfile: Profile?
 
     @ObservedObject var profile: Profile
 
@@ -40,12 +41,12 @@ struct ProfileView: View {
     private var activateDeleteSection: some View {
         Section {
             Button {
-                profileManager.activateProfile(profile)
+                activeProfile = ProfileManager.activateProfile(profile)
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "power.circle")
             }
-            .disabled(profile == profileManager.activeProfile)
+            .disabled(profile == activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("activate-profile-button")
 
@@ -53,14 +54,14 @@ struct ProfileView: View {
                 showingDeleteAlert = true
             } label: {
                 Label("Delete", systemImage: "trash")
-                    .symbolRenderingMode(profile == profileManager.activeProfile ? .monochrome : .multicolor)
+                    .symbolRenderingMode(profile == activeProfile ? .monochrome : .multicolor)
             }
-            .disabled(profile == profileManager.activeProfile)
+            .disabled(profile == activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("delete-profile-button")
         } footer: {
-            if profile == profileManager.activeProfile {
-                Text("Active profile cannot be deleted").padding(.vertical, 8)
+            if profile == activeProfile {
+                Text("Active profile may not be deleted").padding(.vertical, 8)
             }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")

@@ -7,10 +7,15 @@
 //
 
 import Foundation
+import NaturalLanguage
 
 struct WorkingTrend: Identifiable {
-    var id: String
-    var text: String
+    var id: String {
+        "\(slug)-\(tag.rawValue)"
+    }
+    var slug: String
+    var tag: NLTag
+    var title: String
     var items: [Item]
 
     var feeds: [Feed] {

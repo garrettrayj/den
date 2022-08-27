@@ -16,13 +16,9 @@ struct FeedView: View {
     @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var feed: Feed
-
     @State var showingSettings: Bool = false
-
     @State var unreadCount: Int
-
     @Binding var refreshing: Bool
-
     @AppStorage("hideRead") var hideRead = false
 
     var body: some View {

@@ -13,9 +13,10 @@ import SDWebImageSwiftUI
 struct ResetSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var themeManager: ThemeManager
+
+    @Binding var activeProfile: Profile?
 
     @State var showingResetAlert = false
 
@@ -49,15 +50,14 @@ struct ResetSectionView: View {
     }
 
     private func clearCache() {
-        guard let profile = profileManager.activeProfile else { return }
         refreshManager.cancel()
         resetFeeds()
 
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk()
 
-        profile.objectWillChange.send()
-        profile.pagesArray.forEach { $0.objectWillChange.send() }
+        activeProfile?.objectWillChange.send()
+        activeProfile?.pagesArray.forEach { $0.objectWillChange.send() }
     }
 
     private func restoreUserDefaults() {
@@ -88,7 +88,7 @@ struct ResetSectionView: View {
             if viewContext.hasChanges {
                 do {
                     try viewContext.save()
-                    profileManager.activeProfile?.objectWillChange.send()
+                    activeProfile?.objectWillChange.send()
                 } catch {
                     DispatchQueue.main.async {
                         CrashManager.handleCriticalError(error as NSError)
@@ -103,6 +103,6 @@ struct ResetSectionView: View {
     private func resetEverything() {
         refreshManager.cancel()
         restoreUserDefaults()
-        profileManager.resetProfiles()
+        activeProfile = ProfileManager.resetProfiles(context: viewContext)
     }
 }

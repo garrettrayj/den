@@ -12,9 +12,7 @@ import SafariServices
 import OSLog
 
 final class SyncManager: ObservableObject {
-    private let persistentContainer: NSPersistentContainer
     private let viewContext: NSManagedObjectContext
-    private let profileManager: ProfileManager
     private var historySynced: Date?
     private var historyCleaned: Date?
     private var dataCleaned: Date?
@@ -22,14 +20,8 @@ final class SyncManager: ObservableObject {
     // Hosting window set in app lifecycle
     public var window: UIWindow?
 
-    init(
-        persistentContainer: NSPersistentContainer,
-        profileManager: ProfileManager
-    ) {
-        self.persistentContainer = persistentContainer
-        self.profileManager = profileManager
-
-        viewContext = persistentContainer.viewContext
+    init(viewContext: NSManagedObjectContext) {
+        self.viewContext = viewContext
     }
 
     public func openLink(url: URL?, logHistoryItem: Item? = nil, readerMode: Bool = false) {
@@ -114,8 +106,7 @@ final class SyncManager: ObservableObject {
     }
 
     private func logHistory(items: [Item]) {
-        guard let profile = profileManager.activeProfile else { return }
-
+        guard let profile = items.first?.feedData?.feed?.page?.profile else { return }
         for item in items {
             let history = item.history.first ?? History.create(in: viewContext, profile: profile)
             history.link = item.link

@@ -11,8 +11,10 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @EnvironmentObject private var profileManager: ProfileManager
+
     @EnvironmentObject private var refreshManager: RefreshManager
+
+    @Binding var activeProfile: Profile?
 
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
@@ -25,16 +27,20 @@ struct RootView: View {
             CrashMessageView(message: crashMessage)
         } else {
             Group {
-                // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    NavigationView {
-                        SidebarView()
-                        WelcomeView()
-                    }.navigationViewStyle(.stack)
+                if activeProfile?.id == nil {
+                    ProfileNotAvailableView()
                 } else {
-                    NavigationView {
-                        SidebarView()
-                        WelcomeView()
+                    // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        NavigationView {
+                            SidebarView(activeProfile: $activeProfile, profile: activeProfile!)
+                            WelcomeView()
+                        }.navigationViewStyle(.stack)
+                    } else {
+                        NavigationView {
+                            SidebarView(activeProfile: $activeProfile, profile: activeProfile!)
+                            WelcomeView()
+                        }
                     }
                 }
             }
@@ -53,10 +59,10 @@ struct RootView: View {
             .sheet(isPresented: $showSubscribe) {
                 SubscribeView(
                     initialPageObjectID: subscribePageObjectID,
-                    initialURLString: subscribeURLString
+                    initialURLString: subscribeURLString,
+                    profile: activeProfile
                 )
                     .environment(\.colorScheme, colorScheme)
-                    .environmentObject(profileManager)
                     .environmentObject(refreshManager)
             }
         }

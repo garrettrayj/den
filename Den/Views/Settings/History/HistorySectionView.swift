@@ -11,8 +11,9 @@ import SwiftUI
 struct HistorySectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var syncManager: SyncManager
+
+    let profile: Profile
 
     @State var historyRentionDays: Int = 0
     @State var showingClearHistoryAlert = false
@@ -20,7 +21,7 @@ struct HistorySectionView: View {
     var body: some View {
         Section(header: Text("History")) {
             NavigationLink(
-                destination: HistoryView(profile: profileManager.activeProfile!)
+                destination: HistoryView(profile: profile)
             ) {
                 Label("Viewed Items", systemImage: "clock")
             }
@@ -58,7 +59,7 @@ struct HistorySectionView: View {
         }
         .modifier(SectionHeaderModifier())
         .onChange(of: historyRentionDays) { _ in
-            profileManager.activeProfile?.wrappedHistoryRetention = historyRentionDays
+            profile.wrappedHistoryRetention = historyRentionDays
             saveProfile()
         }
     }
@@ -82,7 +83,6 @@ struct HistorySectionView: View {
     }
 
     private func eraseHistory() {
-        guard let profile = profileManager.activeProfile else { return }
         profile.historyArray.forEach { history in
             self.viewContext.delete(history)
         }

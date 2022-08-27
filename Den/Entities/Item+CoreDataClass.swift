@@ -51,7 +51,7 @@ public class Item: NSManagedObject {
         return item
     }
 
-    public func subjects() -> [String] {
+    public func subjects() -> [(String, NLTag)] {
         guard let text = title else { return [] }
 
         let tagger = NLTagger(tagSchemes: [.nameType])
@@ -60,7 +60,7 @@ public class Item: NSManagedObject {
         let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
         let tags: [NLTag] = [.personalName, .placeName, .organizationName]
 
-        var subjects: [String] = []
+        var subjects: [(String, NLTag)] = []
 
         tagger.enumerateTags(
             in: text.startIndex..<text.endIndex,
@@ -68,9 +68,8 @@ public class Item: NSManagedObject {
             scheme: .nameType,
             options: options
         ) { tag, tokenRange in
-            // Get the most likely tag, and print it if it's a named entity.
             if let tag = tag, tags.contains(tag) {
-                subjects.append(String(text[tokenRange]))
+                subjects.append((String(text[tokenRange]), tag))
             }
 
             return true

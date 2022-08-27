@@ -119,6 +119,7 @@
 		689EDC0C26A3F46A0055811A /* PhoneScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689EDC0B26A3F46A0055811A /* PhoneScreenshots.swift */; };
 		68A6FF962849C0BB0071D567 /* NavListModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A6FF952849C0BB0071D567 /* NavListModifier.swift */; };
 		68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADABC224A21F2500BE41E2 /* WelcomeView.swift */; };
+		68B0AECD28BA97E90079793D /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 68B0AECC28BA97E90079793D /* SDWebImageWebPCoder */; };
 		68B18958289B633E0002A7FE /* AccentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B18957289B633E0002A7FE /* AccentButtonStyle.swift */; };
 		68B1895A289B7B320002A7FE /* PreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B18959289B7B320002A7FE /* PreviewImageView.swift */; };
 		68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A5D2486D2AD0066B215 /* ImportView.swift */; };
@@ -143,7 +144,6 @@
 		68D486BE26C9896300AF5B59 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D486BD26C9896300AF5B59 /* IconPickerView.swift */; };
 		68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E6824955321007ED1AC /* OPMLReader.swift */; };
 		68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68D58E6A2498481A007ED1AC /* OPMLIcon.png */; };
-		68D9BA8E289E4BA600F1A3AD /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 68D9BA8D289E4BA600F1A3AD /* SDWebImageWebPCoder */; };
 		68D9BA9628A6085A00F1A3AD /* HistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D9BA9528A6085A00F1A3AD /* HistorySectionView.swift */; };
 		68D9BA9828A6099600F1A3AD /* ProfilesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D9BA9728A6099600F1A3AD /* ProfilesSectionView.swift */; };
 		68D9BA9A28A60A5200F1A3AD /* AppearanceSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D9BA9928A60A5200F1A3AD /* AppearanceSectionView.swift */; };
@@ -468,7 +468,7 @@
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
-				68D9BA8E289E4BA600F1A3AD /* SDWebImageWebPCoder in Frameworks */,
+				68B0AECD28BA97E90079793D /* SDWebImageWebPCoder in Frameworks */,
 				686067F128303E59000068DE /* SDWebImageSVGCoder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1051,7 +1051,7 @@
 				6897D52E26B91C5800833DDA /* FeedKit */,
 				686067EA283032F5000068DE /* SDWebImageSwiftUI */,
 				686067F028303E59000068DE /* SDWebImageSVGCoder */,
-				68D9BA8D289E4BA600F1A3AD /* SDWebImageWebPCoder */,
+				68B0AECC28BA97E90079793D /* SDWebImageWebPCoder */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -1142,7 +1142,7 @@
 				6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */,
 				686067E9283032F5000068DE /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				686067EF28303E59000068DE /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
-				68D9BA8C289E4BA600F1A3AD /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
+				68B0AECB28BA97E90079793D /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1975,20 +1975,20 @@
 				minimumVersion = 9.1.2;
 			};
 		};
+		68B0AECB28BA97E90079793D /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
 		68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tadija/AEXML.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.5.0;
-			};
-		};
-		68D9BA8C289E4BA600F1A3AD /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageWebPCoder";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2019,15 +2019,15 @@
 			package = 6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */;
 			productName = FeedKit;
 		};
+		68B0AECC28BA97E90079793D /* SDWebImageWebPCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68B0AECB28BA97E90079793D /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
+			productName = SDWebImageWebPCoder;
+		};
 		68B34A6B24880ADE0066B215 /* AEXML */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */;
 			productName = AEXML;
-		};
-		68D9BA8D289E4BA600F1A3AD /* SDWebImageWebPCoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 68D9BA8C289E4BA600F1A3AD /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
-			productName = SDWebImageWebPCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

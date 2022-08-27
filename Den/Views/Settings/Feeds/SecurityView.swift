@@ -10,15 +10,15 @@ import SwiftUI
 
 struct SecurityView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var profileManager: ProfileManager
 
+    let profile: Profile
     let queue = OperationQueue()
 
     @State var remediationInProgress: Bool = false
     @State var failedRemediation: [UUID?] = []
 
     var insecureFeedCount: Int {
-        profileManager.activeProfile?.insecureFeedCount ?? 0
+        profile.insecureFeedCount
     }
 
     var body: some View {
@@ -27,7 +27,7 @@ struct SecurityView: View {
                 allClearSummary
             } else {
                 warningSummary
-                ForEach(profileManager.activeProfile!.pagesWithInsecureFeeds) { page in
+                ForEach(profile.pagesWithInsecureFeeds) { page in
                     pageSection(page: page)
                 }
 
@@ -119,11 +119,9 @@ struct SecurityView: View {
     }
 
     private func remedyInsecureUrls() {
-        guard let activeProfile = profileManager.activeProfile else { return }
-
         var operations: [Operation] = []
 
-        activeProfile.insecureFeeds.forEach { feed in
+        profile.insecureFeeds.forEach { feed in
             operations.append(contentsOf: createRemedyOps(feed: feed))
         }
 

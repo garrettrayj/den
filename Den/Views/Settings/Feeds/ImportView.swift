@@ -11,7 +11,8 @@ import SwiftUI
 struct ImportView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var profileManager: ProfileManager
+
+    let profile: Profile
 
     enum ImportStage {
         case pickFile, folderSelection, error, importing
@@ -182,7 +183,6 @@ struct ImportView: View {
     }
 
     private func importFolders(opmlFolders: [OPMLReader.Folder]) {
-        guard let profile = profileManager.activeProfile else { return }
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profile)
             page.name = opmlFolder.name
@@ -197,7 +197,6 @@ struct ImportView: View {
 
         do {
             try viewContext.save()
-            profileManager.objectWillChange.send()
         } catch let error as NSError {
             CrashManager.handleCriticalError(error)
         }
