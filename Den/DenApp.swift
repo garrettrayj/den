@@ -20,7 +20,6 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var crashManager: CrashManager
     @StateObject var syncManager: SyncManager
     @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
@@ -32,7 +31,6 @@ struct DenApp: App {
         WindowGroup {
             RootView()
                 .environment(\.managedObjectContext, persistenceManager.container.viewContext)
-                .environmentObject(crashManager)
                 .environmentObject(syncManager)
                 .environmentObject(profileManager)
                 .environmentObject(refreshManager)
@@ -103,7 +101,6 @@ struct DenApp: App {
 
         // StateObject managers
         _persistenceManager = StateObject(wrappedValue: persistenceManager)
-        _crashManager = StateObject(wrappedValue: crashManager)
         _syncManager = StateObject(wrappedValue: syncManager)
         _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)

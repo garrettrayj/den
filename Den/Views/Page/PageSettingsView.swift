@@ -10,8 +10,6 @@ import SwiftUI
 
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
-
     @ObservedObject var page: Page
 
     @State private var showingIconPicker: Bool = false
@@ -79,7 +77,7 @@ struct PageSettingsView: View {
                 try viewContext.save()
                 page.objectWillChange.send()
             } catch {
-                crashManager.handleCriticalError(error as NSError)
+                CrashManager.handleCriticalError(error as NSError)
             }
         }
     }
@@ -90,7 +88,7 @@ struct PageSettingsView: View {
         do {
             try viewContext.save()
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 

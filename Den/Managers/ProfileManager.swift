@@ -20,7 +20,7 @@ final class ProfileManager: ObservableObject {
         do {
             return try viewContext.fetch(Profile.fetchRequest()) as [Profile]
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
             return []
         }
     }
@@ -54,13 +54,13 @@ final class ProfileManager: ObservableObject {
             try viewContext.save()
             self.objectWillChange.send()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.handleCriticalError(error)
         }
     }
 
     func activateProfile(_ profile: Profile) {
         guard let profileId = profile.id else {
-            crashManager.handleCriticalError(NSError(
+            CrashManager.handleCriticalError(NSError(
                 domain: "profile",
                 code: 2,
                 userInfo: ["message": "Default profile ID unavailable"]
@@ -86,10 +86,10 @@ final class ProfileManager: ObservableObject {
             do {
                 try viewContext.save()
             } catch {
-                crashManager.handleCriticalError(error as NSError)
+                CrashManager.handleCriticalError(error as NSError)
             }
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 
@@ -129,7 +129,7 @@ final class ProfileManager: ObservableObject {
         do {
             try viewContext.save()
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
 
         return profile

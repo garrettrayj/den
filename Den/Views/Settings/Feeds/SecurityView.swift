@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SecurityView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
 
     let queue = OperationQueue()
@@ -137,7 +136,7 @@ struct SecurityView: View {
                     do {
                         try self.viewContext.save()
                     } catch {
-                        self.crashManager.handleCriticalError(error as NSError)
+                        CrashManager.handleCriticalError(error as NSError)
                     }
                 }
             }

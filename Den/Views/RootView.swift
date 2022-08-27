@@ -11,7 +11,6 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
@@ -50,7 +49,6 @@ struct RootView: View {
                 SubscribeView()
                     .environment(\.colorScheme, colorScheme)
                     .environmentObject(profileManager)
-                    .environmentObject(crashManager)
                     .environmentObject(subscriptionManager)
                     .environmentObject(refreshManager)
             }

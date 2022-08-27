@@ -11,7 +11,6 @@ import SwiftUI
 struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
@@ -168,7 +167,7 @@ struct NavigationListView: View {
             do {
                 try viewContext.save()
             } catch {
-                crashManager.handleCriticalError(error as NSError)
+                CrashManager.handleCriticalError(error as NSError)
             }
         }
     }

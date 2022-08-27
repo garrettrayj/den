@@ -11,7 +11,6 @@ import SwiftUI
 struct HistorySectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var crashManager: CrashManager
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var syncManager: SyncManager
 
@@ -90,7 +89,7 @@ struct HistorySectionView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            crashManager.handleCriticalError(error)
+            CrashManager.handleCriticalError(error)
             return
         }
 
@@ -107,7 +106,7 @@ struct HistorySectionView: View {
             do {
                 try viewContext.save()
             } catch let error as NSError {
-                crashManager.handleCriticalError(error)
+                CrashManager.handleCriticalError(error)
             }
         }
     }

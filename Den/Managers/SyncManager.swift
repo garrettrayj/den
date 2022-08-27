@@ -142,7 +142,7 @@ final class SyncManager: ObservableObject {
                 try viewContext.save()
             }
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 
@@ -158,7 +158,7 @@ final class SyncManager: ObservableObject {
             historySynced = Date.now
             Logger.main.info("History synchronized for \(items.count) items")
         } catch {
-            self.crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 
@@ -203,7 +203,7 @@ final class SyncManager: ObservableObject {
             historyCleaned = Date.now
             Logger.main.info("History cleanup finished. \(itemsRemoved) entries removed")
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 
@@ -232,7 +232,7 @@ final class SyncManager: ObservableObject {
             }
             dataCleaned = Date.now
         } catch {
-            crashManager.handleCriticalError(error as NSError)
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 }
