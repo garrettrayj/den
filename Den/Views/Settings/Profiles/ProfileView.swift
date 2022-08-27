@@ -12,7 +12,6 @@ struct ProfileView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var profileManager: ProfileManager
-    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @ObservedObject var profile: Profile
 

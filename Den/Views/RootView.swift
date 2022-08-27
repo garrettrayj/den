@@ -13,7 +13,6 @@ struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
@@ -39,17 +38,25 @@ struct RootView: View {
                     }
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { _ in
+            .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
+                if let urlString = notification.userInfo?["urlString"] as? String {
+                    subscribeURLString = urlString
+                }
+                if let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
+                    subscribePageObjectID = pageObjectID
+                }
                 showSubscribe = true
             }
             .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
                 showCrashMessage = true
             }
             .sheet(isPresented: $showSubscribe) {
-                SubscribeView()
+                SubscribeView(
+                    initialPageObjectID: subscribePageObjectID,
+                    initialURLString: subscribeURLString
+                )
                     .environment(\.colorScheme, colorScheme)
                     .environmentObject(profileManager)
-                    .environmentObject(subscriptionManager)
                     .environmentObject(refreshManager)
             }
         }

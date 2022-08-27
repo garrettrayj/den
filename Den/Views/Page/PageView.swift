@@ -10,7 +10,6 @@ import CoreData
 import SwiftUI
 
 struct PageView: View {
-    @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var page: Page
@@ -132,7 +131,7 @@ struct PageView: View {
         }
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-                subscriptionManager.showSubscribe(page: page)
+                SubscriptionManager.showSubscribe(page: page)
             } label: {
                 Label("Add Feed", systemImage: "plus.circle")
             }

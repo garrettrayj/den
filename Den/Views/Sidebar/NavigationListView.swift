@@ -12,7 +12,6 @@ struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @ObservedObject var profile: Profile
 
