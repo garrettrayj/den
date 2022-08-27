@@ -23,7 +23,6 @@ struct DenApp: App {
     @StateObject var syncManager: SyncManager
     @StateObject var profileManager: ProfileManager
     @StateObject var refreshManager: RefreshManager
-    @StateObject var subscriptionManager: SubscriptionManager
     @StateObject var themeManager: ThemeManager
     @StateObject var persistenceManager: PersistenceManager
 
@@ -34,7 +33,6 @@ struct DenApp: App {
                 .environmentObject(syncManager)
                 .environmentObject(profileManager)
                 .environmentObject(refreshManager)
-                .environmentObject(subscriptionManager)
                 .environmentObject(themeManager)
                 .withHostingWindow { window in
                     #if targetEnvironment(macCatalyst)
@@ -49,7 +47,7 @@ struct DenApp: App {
                     syncManager.window = window
                 }
                 .onOpenURL { url in
-                    subscriptionManager.showSubscribe(for: url)
+                    SubscriptionManager.showSubscribe(for: url)
                 }
         }
         .onChange(of: scenePhase) { phase in
@@ -104,7 +102,6 @@ struct DenApp: App {
         _syncManager = StateObject(wrappedValue: syncManager)
         _profileManager = StateObject(wrappedValue: profileManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
-        _subscriptionManager = StateObject(wrappedValue: subscriptionManager)
         _themeManager = StateObject(wrappedValue: themeManager)
 
         initImageHandling()

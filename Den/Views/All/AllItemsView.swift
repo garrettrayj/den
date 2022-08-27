@@ -11,7 +11,6 @@ import SwiftUI
 
 struct AllItemsView: View {
     @EnvironmentObject private var syncManager: SyncManager
-    @EnvironmentObject private var subscriptionManager: SubscriptionManager
 
     @ObservedObject var profile: Profile
 
@@ -76,7 +75,7 @@ struct AllItemsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    subscriptionManager.showSubscribe()
+                    SubscriptionManager.showSubscribe()
                 } label: {
                     Label("Add Feed", systemImage: "plus.circle")
                 }.accessibilityIdentifier("add-feed-button")

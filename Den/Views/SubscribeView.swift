@@ -14,7 +14,9 @@ struct SubscribeView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var profileManager: ProfileManager
     @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var subscriptionManager: SubscriptionManager
+
+    let initialPageObjectID: NSManagedObjectID?
+    let initialURLString: String
 
     @State private var urlString: String = ""
     @State private var targetPage: Page?
@@ -98,7 +100,7 @@ struct SubscribeView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
-            urlString = subscriptionManager.initialURLString
+            urlString = initialURLString
             checkTargetPage()
         }
     }
@@ -167,7 +169,7 @@ struct SubscribeView: View {
 
     private func checkTargetPage() {
         if
-            let pageObjectID = subscriptionManager.initialPageObjectID,
+            let pageObjectID = initialPageObjectID,
             let destinationPage = profileManager.activeProfile?.pagesArray.first(where: { page in
                 page.objectID == pageObjectID
             }) {
