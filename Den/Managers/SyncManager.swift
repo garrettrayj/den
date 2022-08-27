@@ -14,7 +14,6 @@ import OSLog
 final class SyncManager: ObservableObject {
     private let persistentContainer: NSPersistentContainer
     private let viewContext: NSManagedObjectContext
-    private let crashManager: CrashManager
     private let profileManager: ProfileManager
     private var historySynced: Date?
     private var historyCleaned: Date?
@@ -25,11 +24,9 @@ final class SyncManager: ObservableObject {
 
     init(
         persistentContainer: NSPersistentContainer,
-        crashManager: CrashManager,
         profileManager: ProfileManager
     ) {
         self.persistentContainer = persistentContainer
-        self.crashManager = crashManager
         self.profileManager = profileManager
 
         viewContext = persistentContainer.viewContext

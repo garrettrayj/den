@@ -14,7 +14,6 @@ final class ProfileManager: ObservableObject {
     @Published var activeProfile: Profile?
 
     let viewContext: NSManagedObjectContext
-    let crashManager: CrashManager
 
     var profiles: [Profile] {
         do {
@@ -42,9 +41,8 @@ final class ProfileManager: ObservableObject {
         activeProfile?.pagesArray.isEmpty ?? true
     }
 
-    init(viewContext: NSManagedObjectContext, crashManager: CrashManager) {
+    init(viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext
-        self.crashManager = crashManager
     }
 
     func addProfile() {
