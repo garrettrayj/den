@@ -12,9 +12,9 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
 
-    @EnvironmentObject private var refreshManager: RefreshManager
-
     @Binding var activeProfile: Profile?
+
+    let persistentContainer: NSPersistentContainer
 
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
@@ -33,12 +33,20 @@ struct RootView: View {
                     // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
                     if UIDevice.current.userInterfaceIdiom == .phone {
                         NavigationView {
-                            SidebarView(activeProfile: $activeProfile, profile: activeProfile!)
+                            SidebarView(
+                                activeProfile: $activeProfile,
+                                profile: activeProfile!,
+                                persistentContainer: persistentContainer
+                            )
                             WelcomeView()
                         }.navigationViewStyle(.stack)
                     } else {
                         NavigationView {
-                            SidebarView(activeProfile: $activeProfile, profile: activeProfile!)
+                            SidebarView(
+                                activeProfile: $activeProfile,
+                                profile: activeProfile!,
+                                persistentContainer: persistentContainer
+                            )
                             WelcomeView()
                         }
                     }
@@ -60,10 +68,9 @@ struct RootView: View {
                 SubscribeView(
                     initialPageObjectID: subscribePageObjectID,
                     initialURLString: subscribeURLString,
-                    profile: activeProfile
-                )
-                    .environment(\.colorScheme, colorScheme)
-                    .environmentObject(refreshManager)
+                    profile: activeProfile,
+                    persistentContainer: persistentContainer
+                ).environment(\.colorScheme, colorScheme)
             }
         }
     }

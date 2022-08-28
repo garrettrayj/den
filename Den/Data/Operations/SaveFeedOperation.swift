@@ -34,7 +34,7 @@ final class SaveFeedOperation: Operation {
 
         let context: NSManagedObjectContext = self.persistentContainer.newBackgroundContext()
         context.undoManager = nil
-        context.automaticallyMergesChangesFromParent = true
+        context.automaticallyMergesChangesFromParent = false
 
         context.performAndWait {
             guard

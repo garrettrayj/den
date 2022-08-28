@@ -21,17 +21,14 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var refreshManager: RefreshManager
-
     @State private var activeProfile: Profile?
     @State private var historySynced: Date?
     @State private var lastCleanup: Date?
 
     var body: some Scene {
         WindowGroup {
-            RootView(activeProfile: $activeProfile)
+            RootView(activeProfile: $activeProfile, persistentContainer: persistentContainer)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .environmentObject(refreshManager)
                 .onOpenURL { url in
                     SubscriptionManager.showSubscribe(for: url)
                 }
@@ -141,10 +138,5 @@ struct DenApp: App {
             mimeType.rawValue
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
-
-        let refreshManager = RefreshManager(persistentContainer: persistentContainer)
-
-        // StateObject managers
-        _refreshManager = StateObject(wrappedValue: refreshManager)
     }
 }

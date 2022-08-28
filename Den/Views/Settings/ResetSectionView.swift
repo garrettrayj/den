@@ -13,7 +13,6 @@ import SDWebImageSwiftUI
 struct ResetSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var activeProfile: Profile?
 
@@ -49,7 +48,7 @@ struct ResetSectionView: View {
     }
 
     private func clearCache() {
-        refreshManager.cancel()
+        RefreshManager.cancel()
         resetFeeds()
 
         SDImageCache.shared.clearMemory()
@@ -100,7 +99,7 @@ struct ResetSectionView: View {
     }
 
     private func resetEverything() {
-        refreshManager.cancel()
+        RefreshManager.cancel()
         restoreUserDefaults()
         activeProfile = ProfileManager.resetProfiles(context: viewContext)
     }
