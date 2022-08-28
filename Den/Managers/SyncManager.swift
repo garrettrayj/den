@@ -17,27 +17,26 @@ final class SyncManager: ObservableObject {
     private var historyCleaned: Date?
     private var dataCleaned: Date?
 
-    let window: UIWindow? = WindowFinder.current()
-
     init(viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext
     }
 
     public func openLink(url: URL?, logHistoryItem: Item? = nil, readerMode: Bool = false) {
         guard let url = url else { return }
-
-        if let historyItem = logHistoryItem {
-            markItemRead(item: historyItem)
-        }
-
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = readerMode
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
 
-        guard let rootViewController = window?.rootViewController else { return }
+        guard
+            let window = WindowFinder.current(),
+            let rootViewController = window.rootViewController else { return }
         rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)
+
+        if let historyItem = logHistoryItem {
+            markItemRead(item: historyItem)
+        }
     }
 
     public func markItemRead(item: Item) {

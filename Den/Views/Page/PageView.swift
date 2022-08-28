@@ -162,7 +162,7 @@ struct PageView: View {
                     viewModePicker
 
                     Button {
-                        subscriptionManager.showSubscribe(page: page)
+                        SubscriptionManager.showSubscribe(page: page)
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }.accessibilityIdentifier("add-feed-button")

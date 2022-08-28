@@ -4,6 +4,7 @@
 //  Created by Garrett Johnson on 12/25/20.
 //
 
+import CoreData
 import OSLog
 import SwiftUI
 
