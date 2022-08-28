@@ -22,7 +22,6 @@ struct DenApp: App {
 
     @StateObject var syncManager: SyncManager
     @StateObject var refreshManager: RefreshManager
-    @StateObject var themeManager: ThemeManager
 
     @State private var activeProfile: Profile?
 
@@ -32,17 +31,6 @@ struct DenApp: App {
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .environmentObject(syncManager)
                 .environmentObject(refreshManager)
-                .environmentObject(themeManager)
-                .withHostingWindow { window in
-                    #if targetEnvironment(macCatalyst)
-                    if let titlebar = window?.windowScene?.titlebar {
-                        titlebar.titleVisibility = .hidden
-                    }
-                    #endif
-
-                    themeManager.window = window
-                    syncManager.window = window
-                }
                 .onOpenURL { url in
                     SubscriptionManager.showSubscribe(for: url)
                 }
@@ -52,6 +40,12 @@ struct DenApp: App {
             case .active:
                 Logger.main.debug("Scene phase: active")
                 if activeProfile?.id == nil {
+                    #if targetEnvironment(macCatalyst)
+                    if let titlebar = WindowFinder.current()?.windowScene?.titlebar {
+                        titlebar.titleVisibility = .hidden
+                    }
+                    #endif
+                    ThemeManager.applyStyle()
                     activeProfile = ProfileManager.loadProfile(context: persistentContainer.viewContext)
                 }
                 syncManager.syncHistory()
@@ -136,12 +130,9 @@ struct DenApp: App {
 
         let refreshManager = RefreshManager(persistentContainer: persistentContainer)
         let syncManager = SyncManager(viewContext: persistentContainer.viewContext)
-        let themeManager = ThemeManager()
 
         // StateObject managers
         _syncManager = StateObject(wrappedValue: syncManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
-        _themeManager = StateObject(wrappedValue: themeManager)
     }
-
 }

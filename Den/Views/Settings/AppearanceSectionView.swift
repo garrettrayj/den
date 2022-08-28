@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct AppearanceSectionView: View {
-    @EnvironmentObject private var themeManager: ThemeManager
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
     var body: some View {
@@ -30,7 +29,7 @@ struct AppearanceSectionView: View {
         }
         .modifier(SectionHeaderModifier())
         .onChange(of: uiStyle, perform: { _ in
-            themeManager.applyStyle()
+            ThemeManager.applyStyle()
         })
     }
 

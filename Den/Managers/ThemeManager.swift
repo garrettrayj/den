@@ -8,11 +8,8 @@
 
 import SwiftUI
 
-final class ThemeManager: ObservableObject {
-    // Hosting window set in app lifecycle
-    var window: UIWindow?
-
-    var defaultStyle: Int {
+struct ThemeManager {
+    static var defaultStyle: Int {
         get {
             UserDefaults.standard.integer(forKey: "UIStyle")
         }
@@ -21,11 +18,12 @@ final class ThemeManager: ObservableObject {
         }
     }
 
-    var userInterfaceStyle: UIUserInterfaceStyle {
+    static var userInterfaceStyle: UIUserInterfaceStyle {
         UIUserInterfaceStyle.init(rawValue: defaultStyle)!
     }
 
-    func applyStyle() {
+    static func applyStyle() {
+        let window: UIWindow? = WindowFinder.current()
         window?.overrideUserInterfaceStyle = userInterfaceStyle
     }
 }
