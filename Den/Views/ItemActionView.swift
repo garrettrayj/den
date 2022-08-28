@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @EnvironmentObject private var syncManager: SyncManager
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
 
@@ -18,7 +18,8 @@ struct ItemActionView<Content: View>: View {
     var body: some View {
         if item.feedData?.feed?.browserView == true {
             Button {
-                syncManager.openLink(
+                SyncManager.openLink(
+                    context: viewContext,
                     url: item.link,
                     logHistoryItem: item,
                     readerMode: item.feedData?.feed?.readerMode ?? false

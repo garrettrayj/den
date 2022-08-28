@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct SearchResultView: View {
-    @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var item: Item
 

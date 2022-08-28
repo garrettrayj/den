@@ -11,17 +11,13 @@ import SwiftUI
 import SafariServices
 import OSLog
 
-final class SyncManager: ObservableObject {
-    private let viewContext: NSManagedObjectContext
-    private var historySynced: Date?
-    private var historyCleaned: Date?
-    private var dataCleaned: Date?
-
-    init(viewContext: NSManagedObjectContext) {
-        self.viewContext = viewContext
-    }
-
-    public func openLink(url: URL?, logHistoryItem: Item? = nil, readerMode: Bool = false) {
+struct SyncManager {
+    static func openLink(
+        context: NSManagedObjectContext,
+        url: URL?,
+        logHistoryItem: Item? = nil,
+        readerMode: Bool = false
+    ) {
         guard let url = url else { return }
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = readerMode
@@ -35,15 +31,15 @@ final class SyncManager: ObservableObject {
         rootViewController.present(safariViewController, animated: true)
 
         if let historyItem = logHistoryItem {
-            markItemRead(item: historyItem)
+            markItemRead(context: context, item: historyItem)
         }
     }
 
-    public func markItemRead(item: Item) {
+    static func markItemRead(context: NSManagedObjectContext, item: Item) {
         guard item.read != true else { return }
         item.read = true
-        logHistory(items: [item])
-        saveContext()
+        logHistory(context: context, items: [item])
+        try? context.save()
         NotificationCenter.default.postItemStatus(
             read: true,
             itemObjectID: item.objectID,
@@ -53,11 +49,11 @@ final class SyncManager: ObservableObject {
         )
     }
 
-    public func markItemUnread(item: Item) {
+    static func markItemUnread(context: NSManagedObjectContext, item: Item) {
         guard item.read != false else { return }
         item.read = false
-        clearHistory(items: [item])
-        saveContext()
+        clearHistory(context: context, items: [item])
+        saveContext(context: context)
         NotificationCenter.default.postItemStatus(
             read: false,
             itemObjectID: item.objectID,
@@ -67,14 +63,14 @@ final class SyncManager: ObservableObject {
         )
     }
 
-    public func toggleReadUnread(items: [Item]) {
+    static func toggleReadUnread(context: NSManagedObjectContext, items: [Item]) {
         if items.unread().isEmpty == true {
             let readItems = items.read()
-            clearHistory(items: readItems)
+            clearHistory(context: context, items: readItems)
             readItems.forEach { item in
                 item.read = false
             }
-            saveContext()
+            saveContext(context: context)
             readItems.forEach { item in
                 NotificationCenter.default.postItemStatus(
                     read: false,
@@ -86,11 +82,11 @@ final class SyncManager: ObservableObject {
             }
         } else {
             let unreadItems = items.unread()
-            logHistory(items: unreadItems)
+            logHistory(context: context, items: unreadItems)
             unreadItems.forEach { item in
                 item.read = true
             }
-            saveContext()
+            saveContext(context: context)
             unreadItems.forEach { item in
                 NotificationCenter.default.postItemStatus(
                     read: true,
@@ -103,69 +99,54 @@ final class SyncManager: ObservableObject {
         }
     }
 
-    private func logHistory(items: [Item]) {
+    static func logHistory(context: NSManagedObjectContext, items: [Item]) {
         guard let profile = items.first?.feedData?.feed?.page?.profile else { return }
         for item in items {
-            let history = item.history.first ?? History.create(in: viewContext, profile: profile)
+            let history = item.history.first ?? History.create(in: context, profile: profile)
             history.link = item.link
             history.title = item.title
             history.visited = .now
         }
     }
 
-    private func clearHistory(items: [Item]) {
+    static func clearHistory(context: NSManagedObjectContext, items: [Item]) {
         for item in items {
             item.history.forEach { history in
-                viewContext.delete(history)
+                context.delete(history)
             }
         }
     }
 
-    private func saveContext() {
+    static func saveContext(context: NSManagedObjectContext) {
         do {
-            if viewContext.hasChanges {
-                Logger.main.info("Saving sync manager context changes")
-                try viewContext.save()
+            if context.hasChanges {
+                Logger.main.debug("Saving sync manager context changes")
+                try context.save()
             }
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }
     }
 
-    func updateLocalHistory() {
+    static func syncHistory(context: NSManagedObjectContext) {
         do {
-            let items = try viewContext.fetch(Item.fetchRequest()) as [Item]
+            let items = try context.fetch(Item.fetchRequest()) as [Item]
             items.forEach { item in
                 item.read = item.history.isEmpty == false
             }
-            if viewContext.hasChanges {
-                try viewContext.save()
+            if context.hasChanges {
+                try context.save()
             }
-            historySynced = Date.now
             Logger.main.info("History synchronized for \(items.count) items")
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }
     }
 
-    public func syncHistory() {
-        if historySynced != nil && historySynced! > Date.now - 60 * 5 {
-            Logger.main.debug("Skipping history synchronization")
-            return
-        }
-
-        updateLocalHistory()
-    }
-
-    public func cleanupHistory() {
-        if historyCleaned != nil && historyCleaned! > Date.now - 60 * 60 * 24 {
-            Logger.main.debug("Skipping history cleanup")
-            return
-        }
-
+    static func cleanupHistory(context: NSManagedObjectContext) {
         do {
             var itemsRemoved: Int = 0
-            let profiles = try viewContext.fetch(Profile.fetchRequest()) as [Profile]
+            let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
             try profiles.forEach { profile in
                 if profile.historyRetention == 0 { return }
                 let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
@@ -177,16 +158,13 @@ final class SyncManager: ObservableObject {
                 )
                 fetchRequest.sortDescriptors = []
 
-                let fetchResults = try viewContext.fetch(fetchRequest) as? [History]
-                fetchResults?.forEach { viewContext.delete($0) }
+                let fetchResults = try context.fetch(fetchRequest) as? [History]
+                fetchResults?.forEach { context.delete($0) }
                 itemsRemoved += fetchResults?.count ?? 0
             }
-
-            if viewContext.hasChanges {
-                try viewContext.save()
+            if context.hasChanges {
+                try context.save()
             }
-
-            historyCleaned = Date.now
             Logger.main.info("History cleanup finished. \(itemsRemoved) entries removed")
         } catch {
             CrashManager.handleCriticalError(error as NSError)
@@ -196,27 +174,21 @@ final class SyncManager: ObservableObject {
     /**
      Remove abandoned FeedData entities. Related Item entities will also be removed via cascade.
      */
-    public func cleanupData() {
-        if dataCleaned != nil && dataCleaned! > Date.now - 60 * 60 * 24 {
-            Logger.main.debug("Skipping data cleanup")
-            return
-        }
-
+    static func cleanupData(context: NSManagedObjectContext) {
         do {
-            let feedDatas = try viewContext.fetch(FeedData.fetchRequest()) as [FeedData]
+            let feedDatas = try context.fetch(FeedData.fetchRequest()) as [FeedData]
             let orphanedFeedDatas = feedDatas.filter { $0.feed == nil }
             if orphanedFeedDatas.isEmpty {
                 Logger.main.info("Skipping feed data cleanup. No orphans found")
                 return
             }
             for feedData in orphanedFeedDatas where feedData.feed == nil {
-                viewContext.delete(feedData)
+                context.delete(feedData)
             }
-            if viewContext.hasChanges {
-                try viewContext.save()
+            if context.hasChanges {
+                try context.save()
                 Logger.main.info("Purged \(orphanedFeedDatas.count) orphan feed data cache(s)")
             }
-            dataCleaned = Date.now
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }
