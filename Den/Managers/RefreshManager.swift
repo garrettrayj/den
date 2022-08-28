@@ -9,39 +9,29 @@
 import Foundation
 import CoreData
 
-final class RefreshManager: ObservableObject {
-    private let persistentContainer: NSPersistentContainer
-    private let queue = OperationQueue()
+struct RefreshManager {
+    static var queue = OperationQueue()
 
-    var refreshing: Bool = false
-
-    init(persistentContainer: NSPersistentContainer) {
-        self.persistentContainer = persistentContainer
-
-        queue.maxConcurrentOperationCount = 12
-    }
-
-    public func cancel() {
+    static func cancel() {
         queue.cancelAllOperations()
     }
 
-    public func refresh(profile: Profile) {
+    static func refresh(container: NSPersistentContainer, profile: Profile) {
+        queue.maxConcurrentOperationCount = 12
         var operations: [Operation] = []
 
-        refreshing = true
         NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
 
         let profileCompletionOp = BlockOperation { [
             weak profile,
-            weak persistentContainer
+            weak container
         ] in
             DispatchQueue.main.async {
                 do {
-                    try persistentContainer?.viewContext.save()
+                    try container?.viewContext.save()
                 } catch {
                     CrashManager.handleCriticalError(error as NSError)
                 }
-                self.refreshing = false
                 NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
             }
         }
@@ -56,7 +46,7 @@ final class RefreshManager: ObservableObject {
 
         // Trends analysis
         let trendsOp = TrendsOperation(
-            persistentContainer: self.persistentContainer,
+            persistentContainer: container,
             profileObjectID: profile.objectID
         )
         operations.append(trendsOp)
@@ -65,7 +55,7 @@ final class RefreshManager: ObservableObject {
 
         // Page refresh operations
         profile.pagesArray.forEach { page in
-            let (pageOps, pageCompletionOp) = createPageOps(page: page)
+            let (pageOps, pageCompletionOp) = createPageOps(container: container, page: page)
             operations.append(contentsOf: pageOps)
             pagesCompletedOp.addDependency(pageCompletionOp)
         }
@@ -73,13 +63,16 @@ final class RefreshManager: ObservableObject {
         queue.addOperations(operations, waitUntilFinished: false)
     }
 
-    private func createPageOps(page: Page) -> ([Operation], Operation) {
+    static func createPageOps(
+        container: NSPersistentContainer,
+        page: Page
+    ) -> ([Operation], Operation) {
         var pageOps: [Operation] = []
         var feedCompletionOps: [Operation] = []
 
         page.feedsArray.forEach { feed in
             guard
-                let refreshPlan = createRefreshPlan(feed)
+                let refreshPlan = createRefreshPlan(container: container, feed: feed)
             else { return }
 
             // Feed progress and notifications
@@ -110,13 +103,16 @@ final class RefreshManager: ObservableObject {
         return (pageOps, pageCompletionOp)
     }
 
-    private func createRefreshPlan(_ feed: Feed) -> RefreshPlan? {
-        guard let feedData = checkFeedData(feed) else { return nil }
+    static func createRefreshPlan(container: NSPersistentContainer, feed: Feed) -> RefreshPlan? {
+        guard let feedData = checkFeedData(
+            context: container.viewContext,
+            feed: feed
+        ) else { return nil }
 
         let refreshPlan = RefreshPlan(
             feed: feed,
             feedData: feedData,
-            persistentContainer: persistentContainer
+            persistentContainer: container
         )
 
         // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally
@@ -129,8 +125,12 @@ final class RefreshManager: ObservableObject {
         return refreshPlan
     }
 
-    func refresh(feed: Feed) {
-        guard let refreshPlan = self.createRefreshPlan(feed) else { return }
+    static func refresh(container: NSPersistentContainer, feed: Feed) {
+        queue.maxConcurrentOperationCount = 2
+        guard let refreshPlan = self.createRefreshPlan(
+            container: container,
+            feed: feed
+        ) else { return }
 
         // Feed progress and notifications
         let feedCompletionOp = BlockOperation { [weak feed] in
@@ -147,16 +147,16 @@ final class RefreshManager: ObservableObject {
         queue.addOperations(operations, waitUntilFinished: false)
     }
 
-    private func checkFeedData(_ feed: Feed) -> FeedData? {
+    static func checkFeedData(context: NSManagedObjectContext, feed: Feed) -> FeedData? {
         if let feedData = feed.feedData {
             return feedData
         }
 
         guard let feedId = feed.id else { return nil }
 
-        let feedData = FeedData.create(in: persistentContainer.viewContext, feedId: feedId)
+        let feedData = FeedData.create(in: context, feedId: feedId)
         do {
-            try persistentContainer.viewContext.save()
+            try context.save()
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }

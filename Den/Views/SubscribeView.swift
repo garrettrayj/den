@@ -12,11 +12,11 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     let initialPageObjectID: NSManagedObjectID?
     let initialURLString: String
     let profile: Profile?
+    let persistentContainer: NSPersistentContainer
 
     @State private var urlString: String = ""
     @State private var targetPage: Page?
@@ -175,7 +175,7 @@ struct SubscribeView: View {
             }) {
            targetPage = destinationPage
         } else if
-            let firstPage = profile!.pagesArray.first
+            let firstPage = profile?.pagesArray.first
         {
             targetPage = firstPage
         }
@@ -219,7 +219,7 @@ struct SubscribeView: View {
         self.loading = true
 
         newFeed = Feed.create(in: self.viewContext, page: page, url: url, prepend: true)
-        refreshManager.refresh(feed: newFeed!)
+        RefreshManager.refresh(container: persistentContainer, feed: newFeed!)
     }
 
     private func failValidation(message: String) {

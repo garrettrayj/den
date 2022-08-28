@@ -6,6 +6,7 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 /**
@@ -14,6 +15,9 @@ import SwiftUI
 struct SidebarView: View {
     @Binding var activeProfile: Profile?
     @ObservedObject var profile: Profile
+
+    let persistentContainer: NSPersistentContainer
+
     @State private var showingSettings: Bool = false
 
     /**
@@ -33,7 +37,8 @@ struct SidebarView: View {
             } else {
                 NavigationListView(
                     profile: activeProfile!,
-                    showingSettings: $showingSettings
+                    showingSettings: $showingSettings,
+                    persistentContainer: persistentContainer
                 )
             }
         }

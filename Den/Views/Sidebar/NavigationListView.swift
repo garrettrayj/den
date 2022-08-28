@@ -11,11 +11,12 @@ import SwiftUI
 struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
     @Binding var showingSettings: Bool
+
+    let persistentContainer: NSPersistentContainer
 
     @State private var refreshing: Bool = false
     @State private var showingSearch: Bool = false
@@ -130,7 +131,7 @@ struct NavigationListView: View {
                 Spacer()
 
                 Button {
-                    refreshManager.refresh(profile: profile)
+                    RefreshManager.refresh(container: persistentContainer, profile: profile)
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
