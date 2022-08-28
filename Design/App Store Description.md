@@ -8,7 +8,7 @@ Den is a modern take on the personalized start page made for following many publ
 
 FEATURES
 
-+ One App for All Your Devices
++ One App
 Designed for phones, tablets, and computers.
 
 + Cloud Sync
