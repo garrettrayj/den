@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct TrendView: View {
-    @EnvironmentObject private var syncManager: SyncManager
+    @Environment(\.managedObjectContext) private var viewContext
 
     @AppStorage("hideRead") var hideRead = false
 
@@ -61,7 +61,7 @@ struct TrendView: View {
                 refreshing: .constant(false),
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
-                syncManager.toggleReadUnread(items: trend.items)
+                SyncManager.toggleReadUnread(context: viewContext, items: trend.items)
                 trend.objectWillChange.send()
             }
         }

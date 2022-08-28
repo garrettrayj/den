@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct PageView: View {
-    @EnvironmentObject private var syncManager: SyncManager
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
 
@@ -187,7 +187,7 @@ struct PageView: View {
             centerLabel: Text("\(unreadCount) Unread")
         ) {
             withAnimation {
-                syncManager.toggleReadUnread(items: page.previewItems)
+                SyncManager.toggleReadUnread(context: viewContext, items: page.previewItems)
                 page.objectWillChange.send()
             }
         }

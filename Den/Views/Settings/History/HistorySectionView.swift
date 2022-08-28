@@ -11,7 +11,6 @@ import SwiftUI
 struct HistorySectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var syncManager: SyncManager
 
     let profile: Profile
 
@@ -93,7 +92,7 @@ struct HistorySectionView: View {
             return
         }
 
-        syncManager.updateLocalHistory()
+        SyncManager.syncHistory(context: viewContext)
 
         profile.objectWillChange.send()
         profile.pagesArray.forEach { page in

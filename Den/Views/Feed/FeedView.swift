@@ -12,8 +12,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var syncManager: SyncManager
 
     @ObservedObject var feed: Feed
     @State var showingSettings: Bool = false
@@ -123,7 +123,7 @@ struct FeedView: View {
         HStack {
             if feed.feedData?.linkDisplayString != nil {
                 Button {
-                    syncManager.openLink(url: feed.feedData?.link)
+                    SyncManager.openLink(context: viewContext, url: feed.feedData?.link)
                 } label: {
                     HStack {
                         Label {
@@ -181,7 +181,7 @@ struct FeedView: View {
             centerLabel: Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread")
         ) {
             withAnimation {
-                syncManager.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
+                SyncManager.toggleReadUnread(context: viewContext, items: feed.feedData?.previewItems ?? [])
             }
         }
     }

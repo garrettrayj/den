@@ -21,16 +21,16 @@ struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject var syncManager: SyncManager
     @StateObject var refreshManager: RefreshManager
 
     @State private var activeProfile: Profile?
+    @State private var historySynced: Date?
+    @State private var lastCleanup: Date?
 
     var body: some Scene {
         WindowGroup {
             RootView(activeProfile: $activeProfile)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
-                .environmentObject(syncManager)
                 .environmentObject(refreshManager)
                 .onOpenURL { url in
                     SubscriptionManager.showSubscribe(for: url)
@@ -49,13 +49,26 @@ struct DenApp: App {
                     ThemeManager.applyStyle()
                     activeProfile = ProfileManager.loadProfile(context: persistentContainer.viewContext)
                 }
-                syncManager.syncHistory()
+
+                if historySynced != nil && historySynced! > Date.now - 60 * 5 {
+                    Logger.main.debug("Skipping history synchronization")
+                    return
+                } else {
+                    SyncManager.syncHistory(context: persistentContainer.viewContext)
+                    historySynced = Date.now
+                }
             case .inactive:
                 Logger.main.debug("Scene phase: inactive")
             case .background:
                 Logger.main.debug("Scene phase: background")
-                syncManager.cleanupData()
-                syncManager.cleanupHistory()
+
+                if lastCleanup != nil && lastCleanup! > Date.now - 60 * 60 * 24 {
+                    Logger.main.debug("Skipping data and history cleanup")
+                    return
+                } else {
+                    SyncManager.cleanupData(context: persistentContainer.viewContext)
+                    SyncManager.cleanupHistory(context: persistentContainer.viewContext)
+                }
             @unknown default:
                 Logger.main.debug("Scene phase: unknown")
             }
@@ -130,10 +143,8 @@ struct DenApp: App {
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
         let refreshManager = RefreshManager(persistentContainer: persistentContainer)
-        let syncManager = SyncManager(viewContext: persistentContainer.viewContext)
 
         // StateObject managers
-        _syncManager = StateObject(wrappedValue: syncManager)
         _refreshManager = StateObject(wrappedValue: refreshManager)
     }
 }

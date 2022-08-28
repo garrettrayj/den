@@ -11,7 +11,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ItemView: View {
-    @EnvironmentObject private var syncManager: SyncManager
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
 
@@ -77,7 +77,7 @@ struct ItemView: View {
         }
         .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
         .onDisappear() {
-            syncManager.markItemRead(item: item)
+            SyncManager.markItemRead(context: viewContext, item: item)
         }
     }
 
@@ -86,7 +86,7 @@ struct ItemView: View {
         ToolbarItemGroup(placement: .bottomBar) {
             Spacer()
             Button {
-                syncManager.openLink(url: item.link)
+                SyncManager.openLink(context: viewContext, url: item.link)
             } label: {
                 #if targetEnvironment(macCatalyst)
                 Label("Open in Browser", systemImage: "link.circle")
