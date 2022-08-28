@@ -16,6 +16,7 @@ struct PreviewImageView: View {
     var body: some View {
         WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
             .resizable()
+            .purgeable(true)
             .placeholder { ItemImagePlaceholderView(imageURL: item.image, aspectRatio: item.imageAspectRatio) }
             .aspectRatio(item.imageAspectRatio, contentMode: .fit)
             .frame(

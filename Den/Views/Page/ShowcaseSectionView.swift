@@ -57,14 +57,14 @@ struct ShowcaseSectionView: View {
                 NavigationLink {
                     FeedView(
                         feed: feed,
-                        unreadCount: feed.feedData!.previewItems.unread().count,
+                        unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
                         refreshing: $refreshing
                     )
                 } label: {
                     HStack {
                         FeedTitleLabelView(
                             title: feed.wrappedTitle,
-                            favicon: feed.feedData!.favicon
+                            favicon: feed.feedData?.favicon
                         )
                         Spacer()
                         NavChevronView()

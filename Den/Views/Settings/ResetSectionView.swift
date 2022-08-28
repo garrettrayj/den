@@ -56,7 +56,9 @@ struct ResetSectionView: View {
         SDImageCache.shared.clearDisk()
 
         activeProfile?.objectWillChange.send()
-        activeProfile?.pagesArray.forEach { $0.objectWillChange.send() }
+        activeProfile?.pagesArray.forEach {
+            NotificationCenter.default.post(name: .pageRefreshed, object: $0.objectID)
+        }
     }
 
     private func restoreUserDefaults() {
