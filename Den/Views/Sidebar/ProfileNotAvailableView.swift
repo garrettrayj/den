@@ -11,8 +11,8 @@ import SwiftUI
 struct ProfileNotAvailableView: View {
     var body: some View {
         StatusBoxView(
-            message: Text("Profile Not Available"),
-            symbol: "hexagon"
+            message: Text("Loading…"),
+            symbol: "hexagon.bottomhalf.filled"
         )
         .navigationTitle("")
     }
