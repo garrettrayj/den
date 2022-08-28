@@ -17,7 +17,7 @@ struct RefreshManager {
     }
 
     static func refresh(container: NSPersistentContainer, profile: Profile) {
-        queue.maxConcurrentOperationCount = 12
+        queue.maxConcurrentOperationCount = 8
         var operations: [Operation] = []
 
         NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
