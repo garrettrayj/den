@@ -17,8 +17,7 @@ final class SyncManager: ObservableObject {
     private var historyCleaned: Date?
     private var dataCleaned: Date?
 
-    // Hosting window set in app lifecycle
-    public var window: UIWindow?
+    let window: UIWindow? = WindowFinder.current()
 
     init(viewContext: NSManagedObjectContext) {
         self.viewContext = viewContext

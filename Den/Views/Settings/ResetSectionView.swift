@@ -14,7 +14,6 @@ struct ResetSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var refreshManager: RefreshManager
-    @EnvironmentObject private var themeManager: ThemeManager
 
     @Binding var activeProfile: Profile?
 
@@ -65,8 +64,6 @@ struct ResetSectionView: View {
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
-
-        themeManager.objectWillChange.send()
     }
 
     private func resetFeeds() {
