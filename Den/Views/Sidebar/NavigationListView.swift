@@ -6,6 +6,7 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
+import CoreData
 import SwiftUI
 
 struct NavigationListView: View {
@@ -71,7 +72,7 @@ struct NavigationListView: View {
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {
-                refreshManager.refresh(profile: profile)
+                RefreshManager.refresh(container: persistentContainer, profile: profile)
             }
         }
         #endif

@@ -111,17 +111,18 @@
 			<outline text="LabRoots" title="LabRoots" type="rss" xmlUrl="https://www.labroots.com/rss/trending" />
 		</outline>
 		<outline text="Space" title="Space">
-			<outline text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed" />
 			<outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
 			<outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed" />
 			<outline text="Space Explored" title="Space Explored" type="rss" xmlUrl="https://spaceexplored.com/feed/" />
 			<outline text="EarthSky" title="EarthSky" type="rss" xmlUrl="https://earthsky.org/feed" />
+			<outline text="Astronomy Now" title="Astronomy Now" type="rss" xmlUrl="https://astronomynow.com/feed/" />
 			<outline text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
 			<outline text="Solar System and Beyond" title="Solar System and Beyond" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/solar_system.rss" />
 			<outline text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="https://www.esa.int/rssfeed/TopNews" />
 			<outline text="SatNews" title="SatNews" type="rss" xmlUrl="https://news.satnews.com/feed/" />
 			<outline text="Spaceflight Now" title="Spaceflight Now" type="rss" xmlUrl="https://spaceflightnow.com/feed/" />
 			<outline text="BBC Sky at Night Magazine" title="BBC Sky at Night Magazine" type="rss" xmlUrl="https://www.skyatnightmagazine.com/feed/atom/" />
+			<outline text="SkyNews" title="SkyNews" type="rss" xmlUrl="https://skynews.ca/feed/" />
 			<outline text="NASA&apos;s Mars Exploration Program" title="NASA&apos;s Mars Exploration Program" type="rss" xmlUrl="https://mars.nasa.gov/rss/api/?feed=news&amp;category=mep&amp;feedtype=rss" />
 			<outline text="Planetary Society Blog" title="Planetary Society Blog" type="rss" xmlUrl="https://www.planetary.org/rss/articles" />
 			<outline text="Sky &amp; Telescope" title="Sky &amp; Telescope" type="rss" xmlUrl="https://www.skyandtelescope.com/feed/" />
