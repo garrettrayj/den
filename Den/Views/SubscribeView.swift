@@ -13,8 +13,9 @@ struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
-    let initialPageObjectID: NSManagedObjectID?
-    let initialURLString: String
+    @Binding var initialPageObjectID: NSManagedObjectID?
+    @Binding var initialURLString: String
+
     let profile: Profile?
     let persistentContainer: NSPersistentContainer
 

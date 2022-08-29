@@ -66,8 +66,8 @@ struct RootView: View {
             }
             .sheet(isPresented: $showSubscribe) {
                 SubscribeView(
-                    initialPageObjectID: subscribePageObjectID,
-                    initialURLString: subscribeURLString,
+                    initialPageObjectID: $subscribePageObjectID,
+                    initialURLString: $subscribeURLString,
                     profile: activeProfile,
                     persistentContainer: persistentContainer
                 ).environment(\.colorScheme, colorScheme)
