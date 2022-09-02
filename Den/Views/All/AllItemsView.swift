@@ -14,7 +14,7 @@ struct AllItemsView: View {
 
     @ObservedObject var profile: Profile
 
-    @State var unreadCount: Int
+    @State var unreadCount: Int = 0
 
     @Binding var refreshing: Bool
 
