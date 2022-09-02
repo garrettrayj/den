@@ -15,6 +15,12 @@ struct RootView: View {
     @Binding var activeProfile: Profile?
 
     let persistentContainer: NSPersistentContainer
+    let refreshProgress: Progress = Progress()
+
+    @State private var selection: Panel? = Panel.welcome
+    @State private var path = NavigationPath()
+    @State private var refreshing: Bool = false
+    @State private var searchInput: String = ""
 
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
@@ -25,32 +31,35 @@ struct RootView: View {
     var body: some View {
         if showCrashMessage {
             CrashMessageView(message: crashMessage)
-        } else {
-            Group {
-                if activeProfile?.id == nil {
-                    ProfileNotAvailableView()
-                } else {
-                    // Enforce stack navigation on phones to workaround dissapearing bottom toolbar
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        NavigationView {
-                            SidebarView(
-                                activeProfile: $activeProfile,
-                                profile: activeProfile!,
-                                persistentContainer: persistentContainer
-                            )
-                            WelcomeView()
-                        }.navigationViewStyle(.stack)
-                    } else {
-                        NavigationView {
-                            SidebarView(
-                                activeProfile: $activeProfile,
-                                profile: activeProfile!,
-                                persistentContainer: persistentContainer
-                            )
-                            WelcomeView()
-                        }
-                    }
-                }
+        } else if let profile = activeProfile {
+            NavigationSplitView {
+                SidebarView(
+                    profile: profile,
+                    selection: $selection,
+                    refreshing: $refreshing,
+                    searchInput: $searchInput,
+                    persistentContainer: persistentContainer,
+                    refreshProgress: refreshProgress
+                )
+            } detail: {
+                DetailColumn(
+                    refreshing: $refreshing,
+                    searchInput: $searchInput,
+                    selection: $selection,
+                    activeProfile: $activeProfile,
+                    profile: profile
+                )
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+                self.refreshProgress.totalUnitCount = self.refreshUnits
+                self.refreshProgress.completedUnitCount = 0
+                self.refreshing = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+                self.refreshing = false
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+                self.refreshProgress.completedUnitCount += 1
             }
             .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
                 if let urlString = notification.userInfo?["urlString"] as? String {
@@ -72,6 +81,13 @@ struct RootView: View {
                     persistentContainer: persistentContainer
                 ).environment(\.colorScheme, colorScheme)
             }
+        } else {
+            ProfileNotAvailableView()
         }
+    }
+
+    private var refreshUnits: Int64 {
+        // Number
+        Int64(activeProfile?.feedsArray.count ?? -1) + 1
     }
 }

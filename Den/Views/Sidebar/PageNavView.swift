@@ -15,11 +15,10 @@ struct PageNavView: View {
 
     @State var unreadCount: Int
     @Binding var refreshing: Bool
+    @Binding var selection: Panel?
 
     var body: some View {
-        NavigationLink {
-            PageView(page: page, unreadCount: unreadCount, refreshing: $refreshing)
-        } label: {
+        NavigationLink(value: Panel.page(page.id)) {
             Label {
                 HStack {
                     Text(page.displayName).modifier(SidebarItemLabelTextModifier())

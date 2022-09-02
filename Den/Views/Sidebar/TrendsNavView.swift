@@ -14,19 +14,12 @@ struct TrendsNavView: View {
     @Binding var refreshing: Bool
 
     var body: some View {
-        NavigationLink {
-            TrendsView(
-                profile: profile,
-                unreadCount: profile.trends.unread().count,
-                refreshing: $refreshing
-            )
-        } label: {
+        NavigationLink(value: Panel.trends) {
             Label {
                 HStack {
                     Text("Trends").modifier(SidebarItemLabelTextModifier())
                     Spacer()
-                    Text(String(profile.trends.unread().count))
-                        .modifier(CapsuleModifier())
+                    Text(String(profile.trends.unread().count)).modifier(CapsuleModifier())
                 }.lineLimit(1)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis").imageScale(.large)

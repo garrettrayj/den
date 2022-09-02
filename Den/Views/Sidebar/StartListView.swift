@@ -13,7 +13,7 @@ struct StartListView: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var showingSettings: Bool
+    @Binding var selection: Panel?
 
     var body: some View {
         List {
@@ -43,9 +43,7 @@ struct StartListView: View {
         .listStyle(.insetGrouped)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                Button {
-                    showingSettings = true
-                } label: {
+                NavigationLink(value: Panel.settings) {
                     Label("Settings", systemImage: "gear").labelStyle(.titleAndIcon)
                 }
                 .accessibilityIdentifier("start-settings-button")

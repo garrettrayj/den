@@ -19,13 +19,7 @@ struct AllItemsNavView: View {
     @Binding var refreshing: Bool
 
     var body: some View {
-        NavigationLink {
-            AllItemsView(
-                profile: profile,
-                unreadCount: profile.previewItems.unread().count,
-                refreshing: $refreshing
-            )
-        } label: {
+        NavigationLink(value: Panel.allItems) {
             Label {
                 HStack {
                     Text("All Items").modifier(SidebarItemLabelTextModifier())
