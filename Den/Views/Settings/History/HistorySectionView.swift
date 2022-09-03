@@ -19,9 +19,7 @@ struct HistorySectionView: View {
 
     var body: some View {
         Section(header: Text("History")) {
-            NavigationLink(
-                destination: HistoryView(profile: profile)
-            ) {
+            NavigationLink(value: DetailPanel.history) {
                 Label("Viewed Items", systemImage: "clock")
             }
             .modifier(FormRowModifier())

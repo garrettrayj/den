@@ -13,21 +13,19 @@ struct FeedsSectionView: View {
 
     var body: some View {
         Section(header: Text("Feeds")) {
-            NavigationLink(
-                destination: ImportView(profile: profile)
-            ) {
+            NavigationLink(value: DetailPanel.importFeeds) {
                 Label("Import", systemImage: "arrow.down.doc")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
-            NavigationLink(destination: ExportView(profile: profile)) {
+            NavigationLink(value: DetailPanel.exportFeeds) {
                 Label("Export", systemImage: "arrow.up.doc")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
-            NavigationLink(destination: SecurityView(profile: profile)) {
+            NavigationLink(value: DetailPanel.security) {
                 Label("Security", systemImage: "shield.lefthalf.filled")
             }
             .modifier(FormRowModifier())

@@ -50,13 +50,7 @@ struct GadgetView: View {
     private var header: some View {
         HStack {
             if feed.id != nil {
-                NavigationLink {
-                    FeedView(
-                        feed: feed,
-                        unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
-                        refreshing: $refreshing
-                    )
-                } label: {
+                NavigationLink(value: DetailPanel.feed(feed.id)) {
                     HStack {
                         FeedTitleLabelView(
                             title: feed.wrappedTitle,

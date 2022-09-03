@@ -71,7 +71,6 @@ struct AllItemsView: View {
             unreadCount += read ? -1 : 1
         }
         .navigationTitle("All Items")
-        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {

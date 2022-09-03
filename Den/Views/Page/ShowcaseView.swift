@@ -28,7 +28,6 @@ struct ShowcaseView: View {
                     )
                 }
             }
-            .padding(.top, 8)
         }
     }
 }

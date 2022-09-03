@@ -24,9 +24,7 @@ struct BlendView: View {
                 BoardView(width: frameSize.width, list: visibleItems) { item in
                     FeedItemPreviewView(item: item, refreshing: $refreshing)
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
-                .padding(.top, 8)
+                .padding()
                 .clipped()
             }
         }

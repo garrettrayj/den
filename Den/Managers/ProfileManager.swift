@@ -35,9 +35,7 @@ struct ProfileManager {
         return profile
     }
 
-    static func loadProfile(context: NSManagedObjectContext) -> Profile {
-        let profiles: [Profile] = (try? context.fetch(Profile.fetchRequest()) as [Profile]) ?? []
-
+    static func loadProfile(context: NSManagedObjectContext, profiles: [Profile]) -> Profile {
         if let profileIdString = defaultProfileIdString {
             if let profileToRestore = profiles.first(where: { profile in
                 profile.id?.uuidString == profileIdString

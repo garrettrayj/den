@@ -19,9 +19,7 @@ struct TrendBlockView: View {
 
     var body: some View {
         VStack {
-            NavigationLink {
-                TrendView(trend: trend, unreadCount: trend.items.unread().count, refreshing: $refreshing)
-            } label: {
+            NavigationLink(value: DetailPanel.trend(trend.id)) {
                 VStack(alignment: .leading, spacing: 12) {
                     HStack(spacing: 8) {
                         Text(trend.wrappedTitle).font(.title).lineLimit(1)
