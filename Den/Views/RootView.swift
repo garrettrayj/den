@@ -11,6 +11,10 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
+    private var profiles: FetchedResults<Profile>
 
     @Binding var activeProfile: Profile?
 
@@ -29,61 +33,78 @@ struct RootView: View {
     @State private var crashMessage: String = ""
 
     var body: some View {
-        if showCrashMessage {
-            CrashMessageView(message: crashMessage)
-        } else if let profile = activeProfile {
-            NavigationSplitView {
-                SidebarView(
-                    profile: profile,
-                    selection: $selection,
-                    refreshing: $refreshing,
-                    searchInput: $searchInput,
-                    persistentContainer: persistentContainer,
-                    refreshProgress: refreshProgress
-                )
-            } detail: {
-                DetailColumn(
-                    refreshing: $refreshing,
-                    searchInput: $searchInput,
-                    selection: $selection,
-                    activeProfile: $activeProfile,
-                    profile: profile
-                )
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-                self.refreshProgress.totalUnitCount = self.refreshUnits
-                self.refreshProgress.completedUnitCount = 0
-                self.refreshing = true
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-                self.refreshing = false
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-                self.refreshProgress.completedUnitCount += 1
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
-                if let urlString = notification.userInfo?["urlString"] as? String {
-                    subscribeURLString = urlString
+        Group {
+            if showCrashMessage {
+                CrashMessageView(message: crashMessage)
+            } else if let profile = activeProfile {
+                NavigationSplitView {
+                    SidebarView(
+                        profile: profile,
+                        selection: $selection,
+                        refreshing: $refreshing,
+                        searchInput: $searchInput,
+                        persistentContainer: persistentContainer,
+                        refreshProgress: refreshProgress
+                    )
+                } detail: {
+                    DetailColumn(
+                        path: $path,
+                        refreshing: $refreshing,
+                        searchInput: $searchInput,
+                        selection: $selection,
+                        activeProfile: $activeProfile,
+                        profile: profile,
+                        profiles: profiles
+                    )
                 }
-                if let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
-                    subscribePageObjectID = pageObjectID
+                .onChange(of: selection) { _ in
+                    path.removeLast(path.count)
                 }
-                showSubscribe = true
+                .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+                    self.refreshProgress.totalUnitCount = self.refreshUnits
+                    self.refreshProgress.completedUnitCount = 0
+                    self.refreshing = true
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+                    self.refreshing = false
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+                    self.refreshProgress.completedUnitCount += 1
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
+                    if let urlString = notification.userInfo?["urlString"] as? String {
+                        subscribeURLString = urlString
+                    }
+                    if let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
+                        subscribePageObjectID = pageObjectID
+                    }
+                    showSubscribe = true
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
+                    showCrashMessage = true
+                }
+                .sheet(isPresented: $showSubscribe) {
+                    SubscribeView(
+                        initialPageObjectID: $subscribePageObjectID,
+                        initialURLString: $subscribeURLString,
+                        profile: activeProfile,
+                        persistentContainer: persistentContainer
+                    ).environment(\.colorScheme, colorScheme)
+                }
+            } else {
+                ProfileNotAvailableView()
             }
-            .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
-                showCrashMessage = true
-            }
-            .sheet(isPresented: $showSubscribe) {
-                SubscribeView(
-                    initialPageObjectID: $subscribePageObjectID,
-                    initialURLString: $subscribeURLString,
-                    profile: activeProfile,
-                    persistentContainer: persistentContainer
-                ).environment(\.colorScheme, colorScheme)
-            }
-        } else {
-            ProfileNotAvailableView()
         }
+        .onAppear {
+            if activeProfile == nil {
+                ThemeManager.applyStyle()
+                activeProfile = ProfileManager.loadProfile(
+                    context: viewContext,
+                    profiles: profiles.map { $0 }
+                )
+            }
+        }
+
     }
 
     private var refreshUnits: Int64 {

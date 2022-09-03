@@ -33,9 +33,7 @@ struct TrendView: View {
                     BoardView(width: geometry.size.width, list: visibleItems) { item in
                         FeedItemPreviewView(item: item, refreshing: $refreshing)
                     }
-                    .padding(.top, 8)
-                    .padding(.horizontal)
-                    .padding(.bottom)
+                    .padding()
                 }
             }
         }

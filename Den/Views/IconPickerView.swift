@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct IconPickerView: View {
-    @Binding var selectedSymbol: String
+    @ObservedObject var page: Page
 
     let columns = [
         GridItem(.adaptive(minimum: 40, maximum: 40), spacing: 4, alignment: .top)
@@ -39,11 +39,11 @@ struct IconPickerView: View {
             LazyVGrid(columns: columns, alignment: .center, spacing: 4) {
                 ForEach(SymbolCollection.shared.categorySymbols(categoryID: category.id)) { symbol in
                     Button {
-                        selectedSymbol = symbol.id
+                        page.wrappedSymbol = symbol.id
                     } label: {
                         Image(systemName: symbol.id)
                             .imageScale(.large)
-                            .foregroundColor(symbol.id == selectedSymbol ? .accentColor : .primary)
+                            .foregroundColor(symbol.id == page.wrappedSymbol ? .accentColor : .primary)
                             .frame(width: 40, height: 40, alignment: .center)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
@@ -53,7 +53,7 @@ struct IconPickerView: View {
                                 RoundedRectangle(cornerRadius: 4)
                                     .strokeBorder(
                                         Color.accentColor,
-                                        lineWidth: symbol.id == selectedSymbol ? 2 : 0
+                                        lineWidth: symbol.id == page.wrappedSymbol ? 2 : 0
                                     )
                             )
                     }

@@ -37,16 +37,6 @@ struct DenApp: App {
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                if activeProfile?.id == nil {
-                    #if targetEnvironment(macCatalyst)
-                    if let titlebar = WindowFinder.current()?.windowScene?.titlebar {
-                        titlebar.titleVisibility = .hidden
-                    }
-                    #endif
-                    ThemeManager.applyStyle()
-                    activeProfile = ProfileManager.loadProfile(context: persistentContainer.viewContext)
-                }
-
                 if historySynced != nil && historySynced! > Date.now - 60 * 5 {
                     Logger.main.debug("Skipping history synchronization")
                     return

@@ -53,7 +53,6 @@ struct TrendsView: View {
             profile.trends.forEach { $0.objectWillChange.send() }
         }
         .navigationTitle("Trends")
-        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ReadingToolbarContent(
                 unreadCount: $unreadCount,

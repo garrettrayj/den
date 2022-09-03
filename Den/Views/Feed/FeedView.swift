@@ -36,14 +36,6 @@ struct FeedView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-        .background(
-            NavigationLink(
-                destination: FeedSettingsView(feed: feed),
-                isActive: $showingSettings
-            ) {
-                EmptyView()
-            }
-        )
         .onChange(of: feed.page) { _ in
             dismiss()
         }
@@ -165,9 +157,7 @@ struct FeedView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                showingSettings = true
-            } label: {
+            NavigationLink(value: DetailPanel.feedSettings(feed.id)) {
                 Label("Feed Settings", systemImage: "wrench")
             }
             .disabled(refreshing)

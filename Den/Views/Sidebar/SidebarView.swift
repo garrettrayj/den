@@ -33,30 +33,62 @@ struct SidebarView: View {
 
     var body: some View {
         List(selection: $selection) {
-            AllItemsNavView(
-                profile: profile,
-                unreadCount: profile.previewItems.unread().count,
-                refreshing: $refreshing
-            )
-            TrendsNavView(profile: profile, refreshing: $refreshing)
+            if profile.pagesArray.isEmpty {
+                Section {
+                    Button {
+                        withAnimation {
+                            _ = Page.create(in: viewContext, profile: profile, prepend: true)
+                            save()
+                        }
+                    } label: {
+                        Label("Create Blank Page", systemImage: "plus")
+                    }
+                    .modifier(StartRowModifier())
+                    .accessibilityIdentifier("start-blank-page-button")
 
-            Section {
-                ForEach(profile.pagesArray) { page in
-                    PageNavView(
-                        page: page,
-                        unreadCount: page.previewItems.unread().count,
-                        refreshing: $refreshing,
-                        selection: $selection
-                    )
+                    Button(action: loadDemo) {
+                        Label("Load Demo Feeds", systemImage: "wand.and.stars")
+                    }
+                    .modifier(StartRowModifier())
+                    .accessibilityIdentifier("load-demo-button")
+                } header: {
+                    Text("Get Started")
+                } footer: {
+                    Text("or import feeds in settings")
+                    #if targetEnvironment(macCatalyst)
+                        .font(.system(size: 13)).padding(.vertical, 12)
+                    #endif
                 }
-                .onMove(perform: movePage)
-                .onDelete(perform: deletePage)
-            } header: {
-                Text("Pages")
-                #if targetEnvironment(macCatalyst)
-                    .font(.callout).padding(.top, 4)
-                #endif
+                .lineLimit(1)
+                .modifier(SectionHeaderModifier())
+            } else {
+                AllItemsNavView(
+                    profile: profile,
+                    unreadCount: profile.previewItems.unread().count,
+                    refreshing: $refreshing
+                )
+                TrendsNavView(profile: profile, refreshing: $refreshing)
+
+                Section {
+                    ForEach(profile.pagesArray) { page in
+                        PageNavView(
+                            page: page,
+                            unreadCount: page.previewItems.unread().count,
+                            refreshing: $refreshing,
+                            selection: $selection
+                        )
+                    }
+                    .onMove(perform: movePage)
+                    .onDelete(perform: deletePage)
+                } header: {
+                    Text("Pages")
+                    #if targetEnvironment(macCatalyst)
+                        .font(.callout).padding(.top, 4)
+                    #endif
+                }
+
             }
+
         }
 
         .searchable(
@@ -76,12 +108,6 @@ struct SidebarView: View {
         #endif
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-                    .disabled(refreshing)
-                    .accessibilityIdentifier("edit-page-list-button")
-            }
-
-            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     withAnimation {
                         _ = Page.create(in: viewContext, profile: profile, prepend: true)
@@ -92,6 +118,12 @@ struct SidebarView: View {
                 }
                 .disabled(refreshing)
                 .accessibilityIdentifier("new-page-button")
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+                    .disabled(refreshing)
+                    .accessibilityIdentifier("edit-page-list-button")
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
@@ -125,7 +157,6 @@ struct SidebarView: View {
                 }
                 .keyboardShortcut("r", modifiers: [.command])
                 .accessibilityIdentifier("profile-refresh-button")
-                .accessibilityElement()
                 .disabled(refreshing)
             }
         }
@@ -176,5 +207,48 @@ struct SidebarView: View {
             profile.objectWillChange.send()
         }
         save()
+    }
+
+    private func loadDemo() {
+        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
+            preconditionFailure("Missing demo feeds source file")
+        }
+
+        let symbolMap = [
+            "World News": "globe",
+            "US News": "newspaper",
+            "Technology": "cpu",
+            "Business": "briefcase",
+            "Science": "atom",
+            "Space": "sparkles",
+            "Funnies": "face.smiling",
+            "Curiosity": "person.and.arrow.left.and.arrow.right",
+            "Gaming": "gamecontroller",
+            "Entertainment": "film"
+        ]
+
+        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
+
+        var newPages: [Page] = []
+        opmlReader.outlineFolders.forEach { opmlFolder in
+            let page = Page.create(in: self.viewContext, profile: profile)
+            page.name = opmlFolder.name
+            page.symbol = symbolMap[opmlFolder.name]
+            newPages.append(page)
+
+            opmlFolder.feeds.forEach { opmlFeed in
+                let feed = Feed.create(in: self.viewContext, page: page, url: opmlFeed.url)
+                feed.title = opmlFeed.title
+            }
+        }
+
+        do {
+            try viewContext.save()
+            profile.objectWillChange.send()
+        } catch let error as NSError {
+            DispatchQueue.main.async {
+                CrashManager.handleCriticalError(error)
+            }
+        }
     }
 }

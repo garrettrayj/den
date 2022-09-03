@@ -24,9 +24,7 @@ struct TrendsLayoutView: View {
                 BoardView(width: frameSize.width, list: visibleTrends) { trend in
                     TrendBlockView(trend: trend, refreshing: $refreshing)
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
-                .padding(.top, 8)
+                .padding()
             }
         }
     }

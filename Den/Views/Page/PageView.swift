@@ -105,30 +105,14 @@ struct PageView: View {
             unreadCount = page.previewItems.unread().count
         }
         .background(Color(UIColor.systemGroupedBackground))
-        .background(
-            Group {
-                NavigationLink(
-                    destination: PageSettingsView(page: page),
-                    isActive: $showingSettings
-                ) {
-                    EmptyView()
-                }
-            }
-        )
         .navigationTitle(page.displayName)
-        .navigationBarTitleDisplayMode(.large)
         .toolbar { toolbarContent }
     }
 
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         #if targetEnvironment(macCatalyst)
-        ToolbarItem(placement: .navigationBarTrailing) {
-            viewModePicker
-                .padding(.trailing, 8)
-                .pickerStyle(.inline)
-                .disabled(refreshing)
-        }
+
         ToolbarItem(placement: .navigationBarTrailing) {
             Button {
                 SubscriptionManager.showSubscribe(page: page)
@@ -138,19 +122,25 @@ struct PageView: View {
             .accessibilityIdentifier("add-feed-button")
             .disabled(refreshing)
         }
+
         ToolbarItem(placement: .navigationBarTrailing) {
             if refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
-                Button {
-                    showingSettings = true
-                } label: {
+                NavigationLink(value: DetailPanel.pageSettings(page.id)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
                 .accessibilityIdentifier("page-settings-button")
                 .disabled(refreshing)
             }
+        }
+
+        ToolbarItem(placement: .navigationBarTrailing) {
+            viewModePicker
+                .padding(.trailing, 8)
+                .pickerStyle(.inline)
+                .disabled(refreshing)
         }
         #else
         ToolbarItem {

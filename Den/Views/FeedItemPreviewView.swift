@@ -15,13 +15,7 @@ struct FeedItemPreviewView: View {
     var body: some View {
         if item.feedData?.feed != nil {
             VStack(alignment: .leading, spacing: 0) {
-                NavigationLink {
-                    FeedView(
-                        feed: item.feedData!.feed!,
-                        unreadCount: item.feedData!.previewItems.unread().count,
-                        refreshing: $refreshing
-                    )
-                } label: {
+                NavigationLink(value: DetailPanel.feed(item.feedData?.feed?.id)) {
                     HStack {
                         FeedTitleLabelView(
                             title: item.feedData?.feed?.wrappedTitle ?? "Untitled",

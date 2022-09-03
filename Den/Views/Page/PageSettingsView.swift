@@ -12,8 +12,6 @@ struct PageSettingsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var page: Page
 
-    @State private var showingIconPicker: Bool = false
-
     var body: some View {
         Form {
             nameIconSection
@@ -22,13 +20,6 @@ struct PageSettingsView: View {
         .navigationTitle("Page Settings")
         .environment(\.editMode, .constant(.active))
         .onDisappear(perform: save)
-        .background(
-            NavigationLink(isActive: $showingIconPicker, destination: {
-                IconPickerView(selectedSymbol: $page.wrappedSymbol)
-            }, label: {
-                EmptyView()
-            })
-        )
     }
 
     private var nameIconSection: some View {
@@ -37,17 +28,14 @@ struct PageSettingsView: View {
                 TextField("Untitled", text: $page.wrappedName)
                     .modifier(TitleTextFieldModifier())
 
-                HStack {
-                    Image(systemName: page.wrappedSymbol)
-                        .imageScale(.medium)
-                        .foregroundColor(Color.accentColor)
+            }.modifier(FormRowModifier())
 
-                    Image(systemName: "chevron.down")
-                        .imageScale(.small)
-                        .foregroundColor(.secondary)
-
+            HStack {
+                NavigationLink(value: DetailPanel.iconPicker(page.id)) {
+                    Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
+                    Text("Select icon")
+                    Image(systemName: "chevron").foregroundColor(.secondary)
                 }
-                .onTapGesture { showingIconPicker = true }
             }.modifier(FormRowModifier())
         }.modifier(SectionHeaderModifier())
     }
