@@ -58,6 +58,6 @@ struct AboutSectionView: View {
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("privacy-policy-button")
-        }.modifier(SectionHeaderModifier())
+        }
     }
 }

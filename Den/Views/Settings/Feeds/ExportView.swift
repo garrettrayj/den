@@ -67,24 +67,16 @@ struct ExportView: View {
                 .onAppear { self.selectedPages.append(page) }
                 .accessibilityIdentifier("export-toggle-page-button")
             }
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private var selectionSectionHeader: some View {
-        HStack {
-            Text("Select")
-            Spacer()
-            HStack {
-                Button(action: selectAll) { Text("All") }
-                    .disabled(allSelected)
-                    .accessibilityIdentifier("export-select-all-button")
-                Text("/").foregroundColor(.secondary)
-                Button(action: selectNone) { Text("None")}
-                    .disabled(noneSelected)
-                    .accessibilityIdentifier("export-select-none-button")
-            }
-            .font(.system(size: 12))
-        }
+        PageSelectionView(
+            allSelected: allSelected,
+            noneSelected: noneSelected,
+            selectAll: selectAll,
+            selectNone: selectNone
+        )
     }
 
     private var allSelected: Bool {

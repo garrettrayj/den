@@ -30,6 +30,6 @@ struct FeedsSectionView: View {
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("security-check-button")
-        }.modifier(SectionHeaderModifier())
+        }
     }
 }

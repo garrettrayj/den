@@ -86,7 +86,7 @@ struct ImportView: View {
                     .modifier(FormRowModifier())
                     .accessibilityIdentifier("import-toggle-folder-button")
                 }
-            }.modifier(SectionHeaderModifier())
+            }
 
             Section {
                 Button(action: importSelected) {
@@ -121,20 +121,12 @@ struct ImportView: View {
     }
 
     private var selectionSectionHeader: some View {
-        HStack {
-            Text("Select")
-            Spacer()
-            HStack {
-                Button(action: selectAll) { Text("All") }
-                    .disabled(allSelected)
-                    .accessibilityIdentifier("import-select-all-button")
-                Text("/").foregroundColor(.secondary)
-                Button(action: selectNone) { Text("None") }
-                    .disabled(noneSelected)
-                    .accessibilityIdentifier("import-select-none-button")
-            }
-            .font(.system(size: 12))
-        }
+        PageSelectionView(
+            allSelected: allSelected,
+            noneSelected: noneSelected,
+            selectAll: selectAll,
+            selectNone: selectNone
+        )
     }
 
     private var allSelected: Bool {

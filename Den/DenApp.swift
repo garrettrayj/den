@@ -119,6 +119,7 @@ struct DenApp: App {
         return container
     }()
 
+    /*
     init() {
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
@@ -131,5 +132,5 @@ struct DenApp: App {
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
         SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 128 // 128 MB
-    }
+    }*/
 }

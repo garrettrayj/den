@@ -44,7 +44,7 @@ struct ResetSectionView: View {
                 Text("All profiles, pages, feeds, and history will be permanently deleted.")
             })
             .accessibilityIdentifier("reset-button")
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private func clearCache() {
