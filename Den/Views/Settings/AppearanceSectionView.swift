@@ -27,7 +27,6 @@ struct AppearanceSectionView: View {
             #endif
 
         }
-        .modifier(SectionHeaderModifier())
         .onChange(of: uiStyle, perform: { _ in
             ThemeManager.applyStyle()
         })

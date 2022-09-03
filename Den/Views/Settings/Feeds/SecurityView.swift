@@ -53,8 +53,8 @@ struct SecurityView: View {
                     .foregroundColor(.green)
             }).padding(.vertical, 8)
         } header: {
-            Text("Summary")
-        }.modifier(SectionHeaderModifier())
+            Text("\nSummary")
+        }
     }
 
     private var warningSummary: some View {
@@ -83,8 +83,8 @@ struct SecurityView: View {
             }.padding(.vertical, 4)
 
         } header: {
-            Text("Summary")
-        }.modifier(SectionHeaderModifier())
+            Text("\nSummary")
+        }
     }
 
     private func pageSection(page: Page) -> some View {
@@ -109,7 +109,7 @@ struct SecurityView: View {
                 #if targetEnvironment(macCatalyst)
                 .font(.headline)
                 #endif
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private func reset() {

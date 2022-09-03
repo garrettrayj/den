@@ -63,9 +63,9 @@ struct FeedSettingsView: View {
     }
 
     private var titleSection: some View {
-        Section(header: Text("Title")) {
+        Section(header: Text("\nTitle")) {
             TextField("Title", text: $feed.wrappedTitle).modifier(TitleTextFieldModifier())
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private var pagePickerLabel: some View {
@@ -87,15 +87,7 @@ struct FeedSettingsView: View {
 
     private var generalSection: some View {
         Section(header: Text("General")) {
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                pagePickerLabel
-                Spacer()
-                pagePicker.frame(width: 200)
-            }.modifier(FormRowModifier())
-            #else
             pagePicker.modifier(FormRowModifier())
-            #endif
 
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 HStack {
@@ -137,7 +129,7 @@ struct FeedSettingsView: View {
                 }
             }
             #endif
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private var informationSection: some View {
@@ -161,7 +153,7 @@ struct FeedSettingsView: View {
                     Text("Never").foregroundColor(.secondary)
                 }
             }.modifier(FormRowModifier())
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private func save() {

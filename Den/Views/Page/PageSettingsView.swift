@@ -23,21 +23,26 @@ struct PageSettingsView: View {
     }
 
     private var nameIconSection: some View {
-        Section(header: Text("Name")) {
+        Section(header: Text("\nName & Icon")) {
             HStack {
                 TextField("Untitled", text: $page.wrappedName)
                     .modifier(TitleTextFieldModifier())
 
             }.modifier(FormRowModifier())
 
-            HStack {
-                NavigationLink(value: DetailPanel.iconPicker(page.id)) {
-                    Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
-                    Text("Select icon")
-                    Image(systemName: "chevron").foregroundColor(.secondary)
+            NavigationLink(value: DetailPanel.iconPicker(page.id)) {
+                Label {
+                    HStack {
+                        Text("Select Icon")
+                        Spacer()
+                        Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
+                    }
+
+                } icon: {
+                    Image(systemName: "square.grid.3x3.topleft.filled")
                 }
             }.modifier(FormRowModifier())
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private var feedsSection: some View {
@@ -51,12 +56,13 @@ struct PageSettingsView: View {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
                         favicon: feed.feedData?.favicon
-                    ).padding(.vertical, 4)
+                    )
                 }
+                .modifier(FormRowModifier())
                 .onDelete(perform: deleteFeed)
                 .onMove(perform: moveFeed)
             }
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private func save() {

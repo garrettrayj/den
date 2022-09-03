@@ -97,8 +97,6 @@ struct FeedView: View {
                     }
                 }
             }
-            .padding(.top, 8)
-            .padding(.bottom)
         } else {
             VStack {
                 Spacer()

@@ -60,7 +60,6 @@ struct SidebarView: View {
                     #endif
                 }
                 .lineLimit(1)
-                .modifier(SectionHeaderModifier())
             } else {
                 AllItemsNavView(
                     profile: profile,

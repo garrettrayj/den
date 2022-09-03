@@ -25,16 +25,7 @@ struct HistorySectionView: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("view-history-button")
 
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                historyRetentionLabel
-                Spacer()
-                historyRetentionPicker
-                    .frame(width: 200)
-            }.modifier(FormRowModifier())
-            #else
-            historyRetentionPicker
-            #endif
+            historyRetentionPicker.modifier(FormRowModifier())
 
             Button(role: .destructive) {
                 showingClearHistoryAlert = true
@@ -54,7 +45,6 @@ struct HistorySectionView: View {
             })
             .accessibilityIdentifier("clear-history-button")
         }
-        .modifier(SectionHeaderModifier())
         .onChange(of: historyRentionDays) { _ in
             profile.wrappedHistoryRetention = historyRentionDays
             saveProfile()

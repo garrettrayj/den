@@ -47,7 +47,7 @@ struct SubscribeView: View {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
                         } header: {
-                            Text("Web Address").frame(maxWidth: .infinity, alignment: .center)
+                            Text("\nWeb Address")
                         } footer: {
                             Group {
                                 if validationMessage != nil {
@@ -57,25 +57,11 @@ struct SubscribeView: View {
                                 }
                             }
                             .font(.callout)
-                            .multilineTextAlignment(.center)
-                            #if targetEnvironment(macCatalyst)
-                            .padding(.top, 12)
-                            #else
                             .padding(.top, 4)
-                            #endif
-                            .frame(maxWidth: .infinity)
                         }.headerProminence(.increased)
 
                         Section {
-                            #if targetEnvironment(macCatalyst)
-                            HStack {
-                                pagePickerLabel
-                                Spacer()
-                                pagePicker.frame(width: 200)
-                            }.modifier(FormRowModifier())
-                            #else
                             pagePicker.modifier(FormRowModifier())
-                            #endif
                         }
 
                         submitButtonSection
@@ -86,6 +72,7 @@ struct SubscribeView: View {
                         targetPage?.objectWillChange.send()
                         dismiss()
                     }
+                    .navigationTitle("Add Feed")
                     .toolbar {
                         ToolbarItem {
                             Button { dismiss() } label: {

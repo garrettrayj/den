@@ -35,7 +35,7 @@ struct ProfileView: View {
                 TextField("Name", text: $profile.wrappedName)
                     .modifier(TitleTextFieldModifier())
             }.modifier(FormRowModifier())
-        }.modifier(SectionHeaderModifier())
+        }
     }
 
     private var activateDeleteSection: some View {
