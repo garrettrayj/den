@@ -88,6 +88,9 @@ struct SidebarView: View {
             }
         }
         .navigationTitle(profile.displayName)
+        #if targetEnvironment(macCatalyst)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
         .searchable(
             text: $searchInput,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -146,7 +149,6 @@ struct SidebarView: View {
                         }
                     }
                     .font(.caption)
-                    .padding(.horizontal)
 
                     Spacer()
 
@@ -180,11 +182,13 @@ struct SidebarView: View {
     }
 
     private func save() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                CrashManager.handleCriticalError(error as NSError)
+        DispatchQueue.main.async {
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashManager.handleCriticalError(error as NSError)
+                }
             }
         }
     }

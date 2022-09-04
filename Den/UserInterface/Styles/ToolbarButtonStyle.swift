@@ -21,6 +21,7 @@ struct ToolbarButtonStyle: ButtonStyle {
         @State private var hovering: Bool = false
 
         @Environment(\.isEnabled) private var isEnabled: Bool
+
         var body: some View {
             configuration.label
                 .font(.system(size: 13).weight(.semibold))

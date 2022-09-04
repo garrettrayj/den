@@ -39,7 +39,7 @@ struct SyncManager {
         guard item.read != true else { return }
         item.read = true
         logHistory(context: context, items: [item])
-        try? context.save()
+        saveContext(context: context)
         NotificationCenter.default.postItemStatus(
             read: true,
             itemObjectID: item.objectID,
