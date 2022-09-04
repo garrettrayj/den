@@ -22,6 +22,10 @@ struct ThemeManager {
         UIUserInterfaceStyle.init(rawValue: defaultStyle)!
     }
 
+    static var colorScheme: ColorScheme? {
+        ColorScheme(userInterfaceStyle)
+    }
+
     static func applyStyle() {
         let window: UIWindow? = WindowFinder.current()
         window?.overrideUserInterfaceStyle = userInterfaceStyle

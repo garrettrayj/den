@@ -40,12 +40,24 @@ struct DetailColumn: View {
             case .search:
                 SearchView(profile: profile, query: $searchInput)
             case .allItems:
-                AllItemsView(profile: profile, refreshing: $refreshing)
+                AllItemsView(
+                    profile: profile,
+                    unreadCount: profile.previewItems.unread().count,
+                    refreshing: $refreshing
+                )
             case .trends:
-                TrendsView(profile: profile, refreshing: $refreshing)
+                TrendsView(
+                    profile: profile,
+                    unreadCount: profile.trends.unread().count,
+                    refreshing: $refreshing
+                )
             case .page(let id):
                 if let page = profile.pagesArray.first(where: {$0.id == id}) {
-                    PageView(page: page, unreadCount: page.previewItems.unread().count, refreshing: $refreshing)
+                    PageView(
+                        page: page,
+                        unreadCount: page.previewItems.unread().count,
+                        refreshing: $refreshing
+                    ).id(id)
                 }
             case .settings:
                 SettingsView(activeProfile: $activeProfile)
@@ -60,7 +72,7 @@ struct DetailColumn: View {
                         trend: trend,
                         unreadCount: trend.items.unread().count,
                         refreshing: $refreshing
-                    )
+                    ).id(id)
                 }
             case .feed(let id):
                 if let feed = profile.feedsArray.first(where: {$0.id == id}) {
@@ -68,27 +80,27 @@ struct DetailColumn: View {
                         feed: feed,
                         unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
                         refreshing: $refreshing
-                    )
+                    ).id(id)
                 }
             case .pageSettings(let id):
                 if let page = profile.pagesArray.first(where: {$0.id == id}) {
-                    PageSettingsView(page: page)
+                    PageSettingsView(page: page).id(id)
                 }
             case .iconPicker(let id):
                 if let page = profile.pagesArray.first(where: {$0.id == id}) {
-                    IconPickerView(page: page)
+                    IconPickerView(page: page).id(id)
                 }
             case .feedSettings(let id):
                 if let feed = profile.feedsArray.first(where: {$0.id == id}) {
-                    FeedSettingsView(feed: feed)
+                    FeedSettingsView(feed: feed).id(id)
                 }
             case .item(let id):
                 if let item = profile.previewItems.first(where: {$0.id == id}) {
-                    ItemView(item: item)
+                    ItemView(item: item).id(id)
                 }
             case .profile(let id):
                 if let profile = profiles.first(where: {$0.id == id}) {
-                    ProfileView(activeProfile: $activeProfile, profile: profile)
+                    ProfileView(activeProfile: $activeProfile, profile: profile).id(id)
                 }
             case .importFeeds:
                 ImportView(profile: profile)

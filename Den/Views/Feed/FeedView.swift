@@ -156,8 +156,9 @@ struct FeedView: View {
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             NavigationLink(value: DetailPanel.feedSettings(feed.id)) {
-                Label("Feed Settings", systemImage: "wrench")
+                Label("Feed Settings", systemImage: "info.circle")
             }
+            .modifier(ToolbarButtonModifier())
             .disabled(refreshing)
             .accessibilityIdentifier("feed-settings-button")
         }

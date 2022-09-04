@@ -42,7 +42,7 @@ struct SubscribeView: View {
                 }
                 .foregroundColor(.secondary)
             } else {
-                NavigationView {
+                NavigationStack {
                     Form {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
@@ -78,11 +78,11 @@ struct SubscribeView: View {
                             Button { dismiss() } label: {
                                 Label("Cancel", systemImage: "xmark.circle")
                             }
+                            .modifier(ToolbarButtonModifier())
                             .accessibilityIdentifier("subscribe-cancel-button")
                         }
                     }
                 }
-                .navigationViewStyle(.stack)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

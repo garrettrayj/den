@@ -14,7 +14,7 @@ struct TrendsView: View {
 
     @ObservedObject var profile: Profile
 
-    @State var unreadCount: Int = 0
+    @State var unreadCount: Int
 
     @Binding var refreshing: Bool
 
