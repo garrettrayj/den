@@ -85,11 +85,9 @@ struct SidebarView: View {
                         .font(.callout).padding(.top, 4)
                     #endif
                 }
-
             }
-
         }
-
+        .navigationTitle(profile.displayName)
         .searchable(
             text: $searchInput,
             placement: .navigationBarDrawer(displayMode: .always),
@@ -115,6 +113,7 @@ struct SidebarView: View {
                 } label: {
                     Label("New Page", systemImage: "plus")
                 }
+                .modifier(ToolbarButtonModifier())
                 .disabled(refreshing)
                 .accessibilityIdentifier("new-page-button")
             }
@@ -125,38 +124,43 @@ struct SidebarView: View {
                     .accessibilityIdentifier("edit-page-list-button")
             }
 
-            ToolbarItemGroup(placement: .bottomBar) {
-                Button {
-                    selection = .settings
-                } label: {
-                    Label("Settings", systemImage: "gear")
-                }
-                .accessibilityIdentifier("settings-button")
-                .disabled(refreshing)
-
-                Spacer()
-
-                VStack {
-                    if refreshing {
-                        ProgressView(refreshProgress)
-                            .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
-                    } else {
-                        refreshedLabel
+            ToolbarItem(placement: .bottomBar) {
+                HStack {
+                    Button {
+                        selection = .settings
+                    } label: {
+                        Label("Settings", systemImage: "gear")
                     }
-                }
-                .font(.caption)
-                .padding(.horizontal)
+                    .modifier(ToolbarButtonModifier())
+                    .accessibilityIdentifier("settings-button")
+                    .disabled(refreshing)
 
-                Spacer()
+                    Spacer()
 
-                Button {
-                    RefreshManager.refresh(container: persistentContainer, profile: profile)
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
+                    VStack {
+                        if refreshing {
+                            ProgressView(refreshProgress)
+                                .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
+                        } else {
+                            refreshedLabel
+                        }
+                    }
+                    .font(.caption)
+                    .padding(.horizontal)
+
+                    Spacer()
+
+                    Button {
+                        RefreshManager.refresh(container: persistentContainer, profile: profile)
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                    .modifier(ToolbarButtonModifier())
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("profile-refresh-button")
+                    .disabled(refreshing)
                 }
-                .keyboardShortcut("r", modifiers: [.command])
-                .accessibilityIdentifier("profile-refresh-button")
-                .disabled(refreshing)
+                .padding(.horizontal, -8)
             }
         }
     }

@@ -20,57 +20,47 @@ struct ItemView: View {
     let maxContentWidth: CGFloat = 720
 
     var body: some View {
-        Group {
+        VStack {
             if item.managedObjectContext == nil {
                 StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
                     .navigationTitle("")
             } else {
                 ScrollView(.vertical) {
                     VStack {
-                        VStack(alignment: .leading, spacing: 0) {
+                        VStack(alignment: .leading, spacing: 16) {
                             FeedTitleLabelView(
                                 title: item.feedTitle,
                                 favicon: item.feedData?.favicon
                             )
                             .font(.title3)
-                            .padding(.top, 8)
-                            .padding(.horizontal, 12)
 
-                            VStack(alignment: .leading, spacing: 16) {
-                                Text(item.wrappedTitle)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .font(.title)
+                            Text(item.wrappedTitle)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .font(.title)
 
-                                Text("\(item.date.fullShortDisplay())").font(.subheadline).lineLimit(1)
+                            Text("\(item.date.fullShortDisplay())").font(.subheadline).lineLimit(1)
 
-                                if
-                                    item.image != nil &&
-                                    !(item.summary?.contains("<img") ?? false) &&
-                                    !(item.body?.contains("<img") ?? false)
-                                {
-                                    heroImage
-                                }
-
-                                if item.body != nil || item.summary != nil {
-                                    WebView(
-                                        dynamicHeight: $webViewHeight,
-                                        html: item.body ?? item.summary!,
-                                        title: item.wrappedTitle,
-                                        baseURL: item.link
-                                    )
-                                }
+                            if
+                                item.image != nil &&
+                                !(item.summary?.contains("<img") ?? false) &&
+                                !(item.body?.contains("<img") ?? false)
+                            {
+                                heroImage
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding([.top, .horizontal], 12)
-                            .padding(.bottom, 36)
-                        }
-                        .frame(maxWidth: maxContentWidth)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                        .padding(.bottom, 36)
 
-                    }
-                    .frame(maxWidth: .infinity)
+                            if item.body != nil || item.summary != nil {
+                                WebView(
+                                    dynamicHeight: $webViewHeight,
+                                    html: item.body ?? item.summary!,
+                                    title: item.wrappedTitle,
+                                    baseURL: item.link
+                                )
+                            }
+
+                        }
+                        .padding(28)
+                        .frame(maxWidth: maxContentWidth)
+                    }.frame(maxWidth: .infinity)
                 }
                 .toolbar { toolbar }
             }
@@ -94,6 +84,7 @@ struct ItemView: View {
                 Label("Open in Browser", systemImage: "safari")
                 #endif
             }
+            .modifier(ToolbarButtonModifier())
             .accessibilityIdentifier("item-open-button")
         }
     }

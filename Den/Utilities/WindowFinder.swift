@@ -15,6 +15,7 @@ struct WindowFinder {
               let window = windowSceneDelegate.window else {
             return nil
         }
+
         return window
     }
 }

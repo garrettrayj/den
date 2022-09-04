@@ -21,7 +21,7 @@ struct RootView: View {
     let persistentContainer: NSPersistentContainer
     let refreshProgress: Progress = Progress()
 
-    @State private var selection: Panel? = Panel.welcome
+    @State private var selection: Panel?
     @State private var path = NavigationPath()
     @State private var refreshing: Bool = false
     @State private var searchInput: String = ""
@@ -97,7 +97,6 @@ struct RootView: View {
         }
         .onAppear {
             if activeProfile == nil {
-                ThemeManager.applyStyle()
                 activeProfile = ProfileManager.loadProfile(
                     context: viewContext,
                     profiles: profiles.map { $0 }
