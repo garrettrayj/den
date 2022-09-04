@@ -66,13 +66,21 @@ struct ItemView: View {
             }
         }
         .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
-        .onDisappear() {
-            SyncManager.markItemRead(context: viewContext, item: item)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                SyncManager.markItemRead(context: viewContext, item: item)
+            }
         }
     }
 
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
+        if let link = item.link {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ShareLink(item: link).modifier(ToolbarButtonModifier())
+            }
+        }
+
         ToolbarItemGroup(placement: .bottomBar) {
             Spacer()
             Button {
