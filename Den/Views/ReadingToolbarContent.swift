@@ -17,7 +17,7 @@ struct ReadingToolbarContent: ToolbarContent {
     let toggleAll: () -> Void
 
     var body: some ToolbarContent {
-        ToolbarItem(placement: .bottomBar) {
+        ToolbarItemGroup(placement: .bottomBar) {
             HStack {
                 Button {
                     withAnimation {
@@ -50,6 +50,7 @@ struct ReadingToolbarContent: ToolbarContent {
                 .disabled(refreshing)
                 .accessibilityIdentifier("mark-all-read-button")
             }
+            .frame(maxWidth: .infinity)
             .padding(.horizontal, -8)
         }
     }
