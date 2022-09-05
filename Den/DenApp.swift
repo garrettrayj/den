@@ -8,10 +8,6 @@ import CoreData
 import OSLog
 import SwiftUI
 
-import SDWebImageSwiftUI
-import SDWebImageSVGCoder
-import SDWebImageWebPCoder
-
 @main
 
 struct DenApp: App {
@@ -119,19 +115,4 @@ struct DenApp: App {
 
         return container
     }()
-
-    /*
-    init() {
-        // Add additional image format support
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
-
-        // Explicit list of accepted image types so servers may decide what to respond with
-        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
-            mimeType.rawValue
-        }).joined(separator: ",")
-        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
-
-        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 128 // 128 MB
-    }*/
 }

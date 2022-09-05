@@ -36,7 +36,11 @@ struct DetailColumn: View {
         NavigationStack {
             switch selection ?? .welcome {
             case .welcome:
-                WelcomeView()
+                WelcomeView().toolbar {
+                    ToolbarItem(placement: .bottomBar) {
+                        Text("\(profile.displayName)").font(.caption)
+                    }
+                }
             case .search:
                 SearchView(profile: profile, query: $searchInput)
             case .allItems:
