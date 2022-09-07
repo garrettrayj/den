@@ -73,13 +73,7 @@ struct FeedView: View {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
                     if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
-                        Label(
-                            "All read, \(feed.feedData!.itemsArray.read().count) hidden",
-                            systemImage: "checkmark"
-                        )
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(12)
+                        AllReadCompactView(numHidden: feed.feedData!.previewItems.read().count)
                             .background(Color(UIColor.secondarySystemGroupedBackground))
                             .cornerRadius(8)
                             .padding()
@@ -125,6 +119,7 @@ struct FeedView: View {
                                     Image(systemName: "globe")
                                 }
                                 .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                                .id(UUID()) // Fix for favicon not loading initially
                         }
                         Spacer()
                         Image(systemName: "link")

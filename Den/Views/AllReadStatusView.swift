@@ -1,5 +1,5 @@
 //
-//  AllReadView.swift
+//  AllReadStatusView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/24/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AllReadView: View {
+struct AllReadStatusView: View {
     let hiddenItemCount: Int
 
     var body: some View {

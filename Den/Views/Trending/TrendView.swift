@@ -27,7 +27,7 @@ struct TrendView: View {
                     symbol: "tray"
                 )
             } else if visibleItems.isEmpty {
-                AllReadView(hiddenItemCount: trend.items.read().count)
+                AllReadStatusView(hiddenItemCount: trend.items.read().count)
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: visibleItems) { item in

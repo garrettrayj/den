@@ -55,10 +55,6 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoadsForMedia</key>
-		<true/>
-		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<true/>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>

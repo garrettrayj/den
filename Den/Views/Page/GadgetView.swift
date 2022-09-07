@@ -25,13 +25,7 @@ struct GadgetView: View {
 
                     if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
                         Divider()
-                        Label(
-                            "All read, \(feed.feedData!.previewItems.read().count) hidden",
-                            systemImage: "checkmark"
-                        )
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundColor(.secondary)
-                            .padding(12)
+                        AllReadCompactView(numHidden: feed.feedData!.previewItems.read().count)
                     }
                 } else {
                     Divider()

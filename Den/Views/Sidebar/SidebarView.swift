@@ -108,6 +108,13 @@ struct SidebarView: View {
         #endif
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+                    .modifier(ToolbarButtonModifier())
+                    .disabled(refreshing)
+                    .accessibilityIdentifier("edit-page-list-button")
+            }
+
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     withAnimation {
                         _ = Page.create(in: viewContext, profile: profile, prepend: true)
@@ -121,48 +128,39 @@ struct SidebarView: View {
                 .accessibilityIdentifier("new-page-button")
             }
 
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-                    .disabled(refreshing)
-                    .accessibilityIdentifier("edit-page-list-button")
-            }
-
-            ToolbarItem(placement: .bottomBar) {
-                HStack {
-                    Button {
-                        selection = .settings
-                    } label: {
-                        Label("Settings", systemImage: "gear")
-                    }
-                    .modifier(ToolbarButtonModifier())
-                    .accessibilityIdentifier("settings-button")
-                    .disabled(refreshing)
-
-                    Spacer()
-
-                    VStack {
-                        if refreshing {
-                            ProgressView(refreshProgress)
-                                .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
-                        } else {
-                            refreshedLabel
-                        }
-                    }
-                    .font(.caption)
-
-                    Spacer()
-
-                    Button {
-                        RefreshManager.refresh(container: persistentContainer, profile: profile)
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                    .modifier(ToolbarButtonModifier())
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .accessibilityIdentifier("profile-refresh-button")
-                    .disabled(refreshing)
+            ToolbarItemGroup(placement: .bottomBar) {
+                Button {
+                    selection = .settings
+                } label: {
+                    Label("Settings", systemImage: "gear")
                 }
-                .padding(.horizontal, -8)
+                .modifier(ToolbarButtonModifier())
+                .accessibilityIdentifier("settings-button")
+                .disabled(refreshing)
+
+                Spacer()
+
+                VStack {
+                    if refreshing {
+                        ProgressView(refreshProgress)
+                            .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
+                    } else {
+                        refreshedLabel
+                    }
+                }
+                .font(.caption)
+
+                Spacer()
+
+                Button {
+                    RefreshManager.refresh(container: persistentContainer, profile: profile)
+                } label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }
+                .modifier(ToolbarButtonModifier())
+                .keyboardShortcut("r", modifiers: [.command])
+                .accessibilityIdentifier("profile-refresh-button")
+                .disabled(refreshing)
             }
         }
     }
@@ -211,7 +209,6 @@ struct SidebarView: View {
     private func deletePage(indices: IndexSet) {
         indices.forEach {
             viewContext.delete(profile.pagesArray[$0])
-            profile.objectWillChange.send()
         }
         save()
     }

@@ -9,7 +9,6 @@ import OSLog
 import SwiftUI
 
 @main
-
 struct DenApp: App {
     /**
      Main application setup. In the past similar functionality was contained in `SceneDelegate`.

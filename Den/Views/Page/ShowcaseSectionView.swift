@@ -18,13 +18,7 @@ struct ShowcaseSectionView: View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
             if feed.hasContent {
                 if visibleItems.isEmpty {
-                    Label(
-                        "All read, \(feed.feedData!.previewItems.read().count) hidden",
-                        systemImage: "checkmark"
-                    )
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(12)
+                    AllReadCompactView(numHidden: feed.feedData!.previewItems.read().count)
                         .background(Color(UIColor.secondarySystemGroupedBackground))
                         .cornerRadius(8)
                         .padding()

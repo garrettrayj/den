@@ -36,11 +36,7 @@ struct DetailColumn: View {
         NavigationStack {
             switch selection ?? .welcome {
             case .welcome:
-                WelcomeView().toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        Text("\(profile.displayName)").font(.caption)
-                    }
-                }
+                WelcomeView(profile: profile)
             case .search:
                 SearchView(profile: profile, query: $searchInput)
             case .allItems:
@@ -67,7 +63,9 @@ struct DetailColumn: View {
                 SettingsView(activeProfile: $activeProfile)
             }
         }
+        #if targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .navigationDestination(for: DetailPanel.self) { detailPanel in
             switch detailPanel {
             case .trend(let id):
