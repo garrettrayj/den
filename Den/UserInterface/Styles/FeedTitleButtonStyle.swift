@@ -38,6 +38,9 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 .onHover { hovered in
                     hovering = hovered
                 }
+                .onDisappear {
+                    hovering = false
+                }
         }
     }
 }

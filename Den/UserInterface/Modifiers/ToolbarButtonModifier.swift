@@ -13,6 +13,8 @@ struct ToolbarButtonModifier: ViewModifier {
         content
             #if targetEnvironment(macCatalyst)
             .buttonStyle(ToolbarButtonStyle())
+            #else
+            .fontWeight(.medium)
             #endif
     }
 }

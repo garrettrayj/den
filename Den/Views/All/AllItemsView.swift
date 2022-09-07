@@ -49,7 +49,7 @@ struct AllItemsView: View {
                     symbol: "tray"
                 )
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
-                AllReadView(hiddenItemCount: profile.previewItems.read().count)
+                AllReadStatusView(hiddenItemCount: profile.previewItems.read().count)
             } else {
                 AllItemsLayoutView(
                     profile: profile,

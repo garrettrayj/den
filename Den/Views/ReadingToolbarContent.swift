@@ -18,40 +18,36 @@ struct ReadingToolbarContent: ToolbarContent {
 
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .bottomBar) {
-            HStack {
-                Button {
-                    withAnimation {
-                        hideRead.toggle()
-                    }
-                } label: {
-                    Label(
-                        "Filter Read",
-                        systemImage: hideRead ?
-                            "line.3.horizontal.decrease.circle.fill"
-                            : "line.3.horizontal.decrease.circle"
-                    )
+            Button {
+                withAnimation {
+                    hideRead.toggle()
                 }
-                .modifier(ToolbarButtonModifier())
-                .disabled(refreshing)
-                .accessibilityIdentifier("filter-read-button")
-                Spacer()
-                VStack {
-                    centerLabel.font(.caption)
-                }
-                Spacer()
-                Button(action: toggleAll) {
-                    Label(
-                        "Mark All Read",
-                        systemImage: unreadCount == 0 ?
-                            "checkmark.circle.fill" : "checkmark.circle"
-                    )
-                }
-                .modifier(ToolbarButtonModifier())
-                .disabled(refreshing)
-                .accessibilityIdentifier("mark-all-read-button")
+            } label: {
+                Label(
+                    "Filter Read",
+                    systemImage: hideRead ?
+                        "line.3.horizontal.decrease.circle.fill"
+                        : "line.3.horizontal.decrease.circle"
+                )
             }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, -8)
+            .modifier(ToolbarButtonModifier())
+            .disabled(refreshing)
+            .accessibilityIdentifier("filter-read-button")
+            Spacer()
+            VStack {
+                centerLabel.font(.caption)
+            }
+            Spacer()
+            Button(action: toggleAll) {
+                Label(
+                    "Mark All Read",
+                    systemImage: unreadCount == 0 ?
+                        "checkmark.circle.fill" : "checkmark.circle"
+                )
+            }
+            .modifier(ToolbarButtonModifier())
+            .disabled(refreshing)
+            .accessibilityIdentifier("mark-all-read-button")
         }
     }
 }

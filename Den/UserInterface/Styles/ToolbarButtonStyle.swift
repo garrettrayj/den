@@ -9,22 +9,19 @@
 import SwiftUI
 
 struct ToolbarButtonStyle: ButtonStyle {
-    var bottomBar: Bool = false
-
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
-        ToolbarButton(configuration: configuration, bottomBar: bottomBar)
+        ToolbarButton(configuration: configuration)
     }
 
     private struct ToolbarButton: View {
         let configuration: ButtonStyle.Configuration
-        let bottomBar: Bool
         @State private var hovering: Bool = false
 
         @Environment(\.isEnabled) private var isEnabled: Bool
 
         var body: some View {
             configuration.label
-                .font(.system(size: 13).weight(.semibold))
+                .fontWeight(.medium)
                 .foregroundColor(
                     isEnabled ?
                     configuration.isPressed ? Color.primary : Color.secondary

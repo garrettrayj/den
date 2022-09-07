@@ -43,6 +43,9 @@ struct ItemButtonStyle: ButtonStyle {
                 .onHover { hovered in
                     hovering = hovered
                 }
+                .onDisappear {
+                    hovering = false
+                }
         }
     }
 }

@@ -18,7 +18,7 @@ struct TrendsLayoutView: View {
 
     var body: some View {
         if visibleTrends.isEmpty {
-            AllReadView(hiddenItemCount: readTrends.count)
+            AllReadStatusView(hiddenItemCount: readTrends.count)
         } else {
             ScrollView(.vertical) {
                 BoardView(width: frameSize.width, list: visibleTrends) { trend in

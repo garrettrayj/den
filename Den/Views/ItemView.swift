@@ -63,6 +63,7 @@ struct ItemView: View {
                     }.frame(maxWidth: .infinity)
                 }
                 .toolbar { toolbar }
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
         .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
