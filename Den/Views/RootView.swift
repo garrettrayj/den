@@ -24,12 +24,11 @@ struct RootView: View {
 
     let persistentContainer: NSPersistentContainer
     let refreshProgress: Progress = Progress()
+    let searchModel = SearchModel()
 
     @State private var selection: Panel?
     @State private var path = NavigationPath()
     @State private var refreshing: Bool = false
-    @State private var searchInput: String = ""
-
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
@@ -44,20 +43,20 @@ struct RootView: View {
                 NavigationSplitView {
                     SidebarView(
                         profile: profile,
+                        searchModel: searchModel,
                         selection: $selection,
                         refreshing: $refreshing,
-                        searchInput: $searchInput,
                         persistentContainer: persistentContainer,
                         refreshProgress: refreshProgress
                     )
                 } detail: {
-                    DetailColumn(
+                    DetailView(
                         path: $path,
                         refreshing: $refreshing,
-                        searchInput: $searchInput,
                         selection: $selection,
                         activeProfile: $activeProfile,
                         profile: profile,
+                        searchModel: searchModel,
                         profiles: profiles
                     )
                 }
@@ -96,7 +95,17 @@ struct RootView: View {
                     ).environment(\.colorScheme, colorScheme)
                 }
             } else {
-                ProfileNotAvailableView()
+                VStack(spacing: 16) {
+                    Spacer()
+                    ProgressView()
+                    Text("Opening profile…")
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(UIColor.systemGroupedBackground))
+                .foregroundColor(Color.secondary)
+                .navigationTitle("")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
         .onAppear {

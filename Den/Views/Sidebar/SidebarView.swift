@@ -9,24 +9,17 @@
 import CoreData
 import SwiftUI
 
-enum Panel: Hashable {
-    case welcome
-    case search
-    case allItems
-    case trends
-    case page(Page.ID)
-    case settings
-}
-
 struct SidebarView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
+    var searchModel: SearchModel
 
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
-    @Binding var searchInput: String
+
+    @State private var searchInput: String = ""
 
     let persistentContainer: NSPersistentContainer
     let refreshProgress: Progress
@@ -72,7 +65,7 @@ struct SidebarView: View {
 
                 Section {
                     ForEach($profile.pagesArray) { $page in
-                        PageNavView(page: $page.wrappedValue)
+                        PageNavView(page: $page)
                     }
                     .onMove(perform: movePage)
                     .onDelete(perform: deletePage)
@@ -95,6 +88,7 @@ struct SidebarView: View {
             prompt: Text("Search")
         )
         .onSubmit(of: .search) {
+            searchModel.query = searchInput
             selection = .search
         }
         #if !targetEnvironment(macCatalyst)
@@ -147,6 +141,7 @@ struct SidebarView: View {
                     }
                 }
                 .font(.caption)
+                .fixedSize()
 
                 Spacer()
 

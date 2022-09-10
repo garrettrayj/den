@@ -24,9 +24,9 @@ struct TrendsView: View {
         GeometryReader { geometry in
             if profile.trends.isEmpty {
                 StatusBoxView(
-                    message: Text("Nothing Here"),
-                    caption: Text("Titles do not share any common subjects"),
-                    symbol: "tray"
+                    message: Text("No Trends Available"),
+                    caption: Text("Could not find any common organizations, people, or places in titles"),
+                    symbol: "questionmark.folder"
                 )
             } else {
                 TrendsLayoutView(

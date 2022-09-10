@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TrendsLayoutView: View {
-    @ObservedObject var profile: Profile
+    let profile: Profile
 
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct GadgetsView: View {
-    @ObservedObject var page: Page
+    let page: Page
 
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool

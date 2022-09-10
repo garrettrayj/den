@@ -11,18 +11,17 @@ import SwiftUI
 
 struct SearchView: View {
     @ObservedObject var profile: Profile
-
-    @Binding var query: String
+    @ObservedObject var searchModel: SearchModel
 
     var body: some View {
         Group {
-            if query == "" {
+            if searchModel.query == "" {
                 StatusBoxView(
                     message: Text("Searching \(profile.wrappedName)"),
                     symbol: "magnifyingglass"
                 )
             } else {
-                SearchResultsView(query: query, profile: profile)
+                SearchResultsView(searchModel: searchModel, profile: profile)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
