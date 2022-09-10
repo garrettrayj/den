@@ -19,9 +19,7 @@ struct ReadingToolbarContent: ToolbarContent {
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .bottomBar) {
             Button {
-                withAnimation {
-                    hideRead.toggle()
-                }
+                hideRead.toggle()
             } label: {
                 Label(
                     "Filter Read",
@@ -39,11 +37,17 @@ struct ReadingToolbarContent: ToolbarContent {
             }
             Spacer()
             Button(action: toggleAll) {
-                Label(
-                    "Mark All Read",
-                    systemImage: unreadCount == 0 ?
-                        "checkmark.circle.fill" : "checkmark.circle"
-                )
+                if unreadCount == 0 {
+                    Label(
+                        "Mark All Unread",
+                        systemImage: "checkmark.circle.fill"
+                    )
+                } else {
+                    Label(
+                        "Mark All Read",
+                        systemImage: "checkmark.circle"
+                    )
+                }
             }
             .modifier(ToolbarButtonModifier())
             .disabled(refreshing)

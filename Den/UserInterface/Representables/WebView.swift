@@ -47,7 +47,7 @@ struct WebView: UIViewRepresentable {
     var title: String?
     var baseURL: URL?
 
-    var webView: WKWebView = CustomWebView(
+    let webView: WKWebView = CustomWebView(
         frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
     )
 

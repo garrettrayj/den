@@ -10,12 +10,9 @@ import CoreData
 import SwiftUI
 
 struct PageNavView: View {
-    @Environment(\.editMode) private var editMode
-    @ObservedObject var page: Page
+    @Binding var page: Page
 
     @State var unreadCount: Int
-    @Binding var refreshing: Bool
-    @Binding var selection: Panel?
 
     var body: some View {
         NavigationLink(value: Panel.page(page.id)) {
@@ -25,9 +22,7 @@ struct PageNavView: View {
 
                     Spacer()
 
-                    if editMode?.wrappedValue == .inactive {
-                        Text(String(unreadCount)).modifier(CapsuleModifier())
-                    }
+                    Text(String(unreadCount)).modifier(CapsuleModifier())
                 }.lineLimit(1)
             } icon: {
                 Image(systemName: page.wrappedSymbol).imageScale(.large)

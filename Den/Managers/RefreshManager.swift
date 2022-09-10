@@ -78,7 +78,6 @@ struct RefreshManager {
             // Feed progress and notifications
             let feedCompletionOp = BlockOperation { [weak feed] in
                 DispatchQueue.main.async {
-                    feed?.objectWillChange.send()
                     NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
                 }
             }
@@ -91,7 +90,6 @@ struct RefreshManager {
         // Page progress and notifications
         let pageCompletionOp = BlockOperation { [weak page] in
             DispatchQueue.main.async {
-                page?.objectWillChange.send()
                 NotificationCenter.default.post(name: .pageRefreshed, object: page?.objectID)
             }
         }
@@ -135,7 +133,6 @@ struct RefreshManager {
         // Feed progress and notifications
         let feedCompletionOp = BlockOperation { [weak feed] in
             DispatchQueue.main.async {
-                feed?.objectWillChange.send()
                 NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
             }
         }
