@@ -10,11 +10,11 @@ import SwiftUI
 
 struct BottomBarProgressStyle: ProgressViewStyle {
     let height: CGFloat = 4
-    let width: CGFloat = 136
+    let width: CGFloat = 144
     let progress: Progress
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(alignment: .center, spacing: 6) {
+        VStack(alignment: .center, spacing: 8) {
             HStack(spacing: 0) {
                 if progress.completedUnitCount < progress.totalUnitCount - 1 {
                     // Updating feeds

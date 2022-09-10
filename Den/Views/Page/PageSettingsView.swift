@@ -30,7 +30,7 @@ struct PageSettingsView: View {
 
             }.modifier(FormRowModifier())
 
-            NavigationLink(value: DetailPanel.iconPicker(page.id)) {
+            NavigationLink(value: DetailPanel.iconPicker(page)) {
                 Label {
                     HStack {
                         Text("Select Icon")
@@ -69,6 +69,7 @@ struct PageSettingsView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
+                page.objectWillChange.send()
             } catch {
                 CrashManager.handleCriticalError(error as NSError)
             }

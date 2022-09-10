@@ -14,25 +14,24 @@ struct PageView: View {
 
     @ObservedObject var page: Page
 
-    @State private var unreadCount: Int
+    @State private var unreadCount: Int = 0
 
     @Binding var refreshing: Bool
 
     @AppStorage("pageViewMode_na") var viewMode = 0
     @AppStorage("hideRead") var hideRead = false
 
-    enum ContentViewMode: Int {
+    enum PageViewMode: Int {
         case gadgets  = 0
         case showcase = 1
         case blend = 2
     }
 
-    init(page: Page, unreadCount: Int, refreshing: Binding<Bool>) {
-        _page = ObservedObject(initialValue: page)
-        _unreadCount = State(initialValue: unreadCount)
+    init(page: Page, refreshing: Binding<Bool>) {
+        self.page = page
         _refreshing = refreshing
         _viewMode = AppStorage(
-            wrappedValue: ContentViewMode.gadgets.rawValue,
+            wrappedValue: PageViewMode.gadgets.rawValue,
             "pageViewMode_\(page.id?.uuidString ?? "na")"
         )
     }
@@ -53,7 +52,7 @@ struct PageView: View {
                     Add feeds by opening syndication links \
                     or click \(Image(systemName: "plus.circle")) to add by web address
                     """),
-                    symbol: "square.dashed"
+                    symbol: "questionmark.folder"
                 )
                 #else
                 StatusBoxView(
@@ -63,26 +62,29 @@ struct PageView: View {
                     or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
                     to add by web address
                     """),
-                    symbol: "square.dashed"
+                    symbol: "questionmark.folder"
                 )
                 #endif
-            } else if page.previewItems.isEmpty  && viewMode == ContentViewMode.blend.rawValue {
+            } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend.rawValue {
                 StatusBoxView(
-                    message: Text("Page Empty"),
-                    symbol: "tray"
+                    message: Text("No Items"),
+                    symbol: "questionmark.folder"
                 )
             } else {
-                if viewMode == ContentViewMode.blend.rawValue {
+                if viewMode == PageViewMode.blend.rawValue {
                     BlendView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
-                } else if viewMode == ContentViewMode.showcase.rawValue {
+                } else if viewMode == PageViewMode.showcase.rawValue {
                     ShowcaseView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
                 } else {
                     GadgetsView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
                 }
             }
         }
+        .onAppear {
+            unreadCount = page.previewItems.unread().count
+        }
         .onChange(of: viewMode, perform: { _ in
-            self.page.objectWillChange.send()
+            page.objectWillChange.send()
         })
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)
@@ -130,7 +132,7 @@ struct PageView: View {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
-                NavigationLink(value: DetailPanel.pageSettings(page.id)) {
+                NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "info.circle")
                 }
                 .modifier(ToolbarButtonModifier())
@@ -154,7 +156,7 @@ struct PageView: View {
                     }
                     .accessibilityIdentifier("add-feed-button")
 
-                    NavigationLink(value: DetailPanel.pageSettings(page.id)) {
+                    NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "info.circle")
                     }
                     .accessibilityIdentifier("page-settings-button")
@@ -181,13 +183,13 @@ struct PageView: View {
     private var viewModePicker: some View {
         Picker("View Mode", selection: $viewMode) {
             Label("Gadgets", systemImage: "rectangle.grid.3x2")
-                .tag(ContentViewMode.gadgets.rawValue)
+                .tag(PageViewMode.gadgets.rawValue)
                 .accessibilityIdentifier("gadgets-view-button")
             Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                .tag(ContentViewMode.showcase.rawValue)
+                .tag(PageViewMode.showcase.rawValue)
                 .accessibilityIdentifier("showcase-view-button")
             Label("Blend", systemImage: "square.text.square")
-                .tag(ContentViewMode.blend.rawValue)
+                .tag(PageViewMode.blend.rawValue)
                 .accessibilityIdentifier("page-timeline-view-button")
         }
     }

@@ -32,9 +32,7 @@ struct ReadingToolbarContent: ToolbarContent {
             .disabled(refreshing)
             .accessibilityIdentifier("filter-read-button")
             Spacer()
-            VStack {
-                centerLabel.font(.caption)
-            }
+            centerLabel.font(.caption).fixedSize()
             Spacer()
             Button(action: toggleAll) {
                 if unreadCount == 0 {

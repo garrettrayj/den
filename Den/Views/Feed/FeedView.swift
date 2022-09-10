@@ -98,7 +98,7 @@ struct FeedView: View {
             }
             .padding()
             .frame(maxWidth: .infinity)
-            .frame(height: frameSize.height - 36)
+            .frame(height: frameSize.height)
         }
     }
 
@@ -148,7 +148,7 @@ struct FeedView: View {
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationLink(value: DetailPanel.feedSettings(feed.id)) {
+            NavigationLink(value: DetailPanel.feedSettings(feed)) {
                 Label("Feed Settings", systemImage: "info.circle")
             }
             .modifier(ToolbarButtonModifier())

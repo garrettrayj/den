@@ -11,10 +11,9 @@ import SwiftUI
 struct CapsuleModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.caption.weight(.medium).monospacedDigit())
-            .foregroundColor(Color(UIColor.secondaryLabel))
+            .font(.caption.monospacedDigit())
             .padding(.horizontal, 8)
-            .padding(.vertical, 3)
+            .padding(.vertical, 2)
             .overlay(Capsule().fill(Color(UIColor.secondarySystemFill)))
     }
 }

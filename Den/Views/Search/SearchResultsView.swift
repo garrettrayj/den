@@ -26,9 +26,6 @@ struct SearchResultsView: View {
                             resultsSection(section)
                         }
                     }
-                    #if targetEnvironment(macCatalyst)
-                    .padding(.top, 8)
-                    #endif
                 }
             }
         }
@@ -51,8 +48,8 @@ struct SearchResultsView: View {
         }
     }
 
-    init(query: String, profile: Profile) {
-        self.query = query
+    init(searchModel: SearchModel, profile: Profile) {
+        self.query = searchModel.query
 
         let profilePredicate = NSPredicate(
             format: "feedData.id IN %@",

@@ -25,28 +25,28 @@ struct AllItemsView: View {
             if profile.feedsArray.isEmpty {
                 #if targetEnvironment(macCatalyst)
                 StatusBoxView(
-                    message: Text("Nothing Here"),
+                    message: Text("No Feeds"),
                     caption: Text("""
                     Add feeds by opening syndication links \
                     or click \(Image(systemName: "plus.circle")) to add by web address
                     """),
-                    symbol: "tray"
+                    symbol: "questionmark.folder"
                 )
                 #else
                 StatusBoxView(
-                    message: Text("Nothing Here"),
+                    message: Text("No Feeds"),
                     caption: Text("""
                     Add feeds by opening syndication links \
                     or tap \(Image(systemName: "plus.circle")) \
                     to add by web address
                     """),
-                    symbol: "tray"
+                    symbol: "questionmark.folder"
                 )
                 #endif
             } else if profile.previewItems.isEmpty {
                 StatusBoxView(
-                    message: Text("Nothing Here"),
-                    symbol: "tray"
+                    message: Text("No Items Available"),
+                    symbol: "questionmark.folder"
                 )
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
                 AllReadStatusView(hiddenItemCount: profile.previewItems.read().count)

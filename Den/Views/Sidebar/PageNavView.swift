@@ -10,11 +10,11 @@ import CoreData
 import SwiftUI
 
 struct PageNavView: View {
-    @ObservedObject var page: Page
+    @Binding var page: Page
     @State var unreadCount: Int = 0
 
     var body: some View {
-        NavigationLink(value: Panel.page(page.id)) {
+        NavigationLink(value: Panel.page(page)) {
             Label {
                 HStack {
                     Text(page.displayName).modifier(SidebarItemLabelTextModifier())

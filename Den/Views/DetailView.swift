@@ -8,28 +8,15 @@
 
 import SwiftUI
 
-enum DetailPanel: Hashable {
-    case trend(Trend.ID)
-    case feed(Feed.ID)
-    case pageSettings(Page.ID)
-    case iconPicker(Page.ID)
-    case feedSettings(Feed.ID)
-    case item(Item.ID)
-    case profile(Profile.ID)
-    case importFeeds
-    case exportFeeds
-    case security
-    case history
-}
-
-struct DetailColumn: View {
+struct DetailView: View {
     @Binding var path: NavigationPath
     @Binding var refreshing: Bool
-    @Binding var searchInput: String
     @Binding var selection: Panel?
     @Binding var activeProfile: Profile?
+
     @ObservedObject var profile: Profile
 
+    let searchModel: SearchModel
     let profiles: FetchedResults<Profile>
 
     var body: some View {
@@ -38,7 +25,7 @@ struct DetailColumn: View {
             case .welcome:
                 WelcomeView(profile: profile)
             case .search:
-                SearchView(profile: profile, query: $searchInput)
+                SearchView(profile: profile, searchModel: searchModel)
             case .allItems:
                 AllItemsView(
                     profile: profile,
@@ -51,14 +38,11 @@ struct DetailColumn: View {
                     unreadCount: profile.trends.unread().count,
                     refreshing: $refreshing
                 )
-            case .page(let id):
-                if let page = profile.pagesArray.first(where: {$0.id == id}) {
-                    PageView(
-                        page: page,
-                        unreadCount: page.previewItems.unread().count,
-                        refreshing: $refreshing
-                    ).id(id)
-                }
+            case .page(let page):
+                PageView(
+                    page: page,
+                    refreshing: $refreshing
+                ).id(page.id)
             case .settings:
                 SettingsView(activeProfile: $activeProfile)
             }
@@ -68,42 +52,30 @@ struct DetailColumn: View {
         #endif
         .navigationDestination(for: DetailPanel.self) { detailPanel in
             switch detailPanel {
-            case .trend(let id):
-                if let trend = profile.trends.first(where: {$0.id == id}) {
-                    TrendView(
-                        trend: trend,
-                        unreadCount: trend.items.unread().count,
-                        refreshing: $refreshing
-                    ).id(id)
-                }
-            case .feed(let id):
-                if let feed = profile.feedsArray.first(where: {$0.id == id}) {
+            case .trend(let trend):
+                TrendView(
+                    trend: trend,
+                    unreadCount: trend.items.unread().count,
+                    refreshing: $refreshing
+                ).id(trend.id)
+            case .feed(let feed):
+                if let feed = feed {
                     FeedView(
                         feed: feed,
                         unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
                         refreshing: $refreshing
-                    ).id(id)
+                    ).id(feed.id)
                 }
-            case .pageSettings(let id):
-                if let page = profile.pagesArray.first(where: {$0.id == id}) {
-                    PageSettingsView(page: page).id(id)
-                }
-            case .iconPicker(let id):
-                if let page = profile.pagesArray.first(where: {$0.id == id}) {
-                    IconPickerView(page: page).id(id)
-                }
-            case .feedSettings(let id):
-                if let feed = profile.feedsArray.first(where: {$0.id == id}) {
-                    FeedSettingsView(feed: feed).id(id)
-                }
-            case .item(let id):
-                if let item = profile.previewItems.first(where: {$0.id == id}) {
-                    ItemView(item: item).id(id)
-                }
-            case .profile(let id):
-                if let profile = profiles.first(where: {$0.id == id}) {
-                    ProfileView(activeProfile: $activeProfile, profile: profile).id(id)
-                }
+            case .pageSettings(let page):
+                PageSettingsView(page: page).id(page.id)
+            case .iconPicker(let page):
+                IconPickerView(page: page).id(page.id)
+            case .feedSettings(let feed):
+                FeedSettingsView(feed: feed).id(feed.id)
+            case .item(let item):
+                ItemView(item: item).id(item.id)
+            case .profile(let profile):
+                ProfileView(activeProfile: $activeProfile, profile: profile).id(profile.id)
             case .importFeeds:
                 ImportView(profile: profile)
             case .exportFeeds:
