@@ -119,7 +119,6 @@ struct FeedView: View {
                                     Image(systemName: "globe")
                                 }
                                 .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
-                                .id(UUID()) // Fix for favicon not loading initially
                         }
                         Spacer()
                         Image(systemName: "link")
@@ -166,6 +165,7 @@ struct FeedView: View {
         ) {
             withAnimation {
                 SyncManager.toggleReadUnread(context: viewContext, items: feed.feedData?.previewItems ?? [])
+                feed.objectWillChange.send()
             }
         }
     }

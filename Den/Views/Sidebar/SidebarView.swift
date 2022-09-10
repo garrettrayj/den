@@ -46,7 +46,9 @@ struct SidebarView: View {
                     .modifier(StartRowModifier())
                     .accessibilityIdentifier("start-blank-page-button")
 
-                    Button(action: loadDemo) {
+                    Button {
+                        loadDemo()
+                    } label: {
                         Label("Load Demo Feeds", systemImage: "wand.and.stars")
                     }
                     .modifier(StartRowModifier())
@@ -69,12 +71,10 @@ struct SidebarView: View {
                 TrendsNavView(profile: profile, refreshing: $refreshing)
 
                 Section {
-                    ForEach(profile.pagesArray) { page in
+                    ForEach($profile.pagesArray) { $page in
                         PageNavView(
-                            page: page,
-                            unreadCount: page.previewItems.unread().count,
-                            refreshing: $refreshing,
-                            selection: $selection
+                            page: $page,
+                            unreadCount: $page.wrappedValue.previewItems.unread().count
                         )
                     }
                     .onMove(perform: movePage)
@@ -87,6 +87,7 @@ struct SidebarView: View {
                 }
             }
         }
+        .listStyle(.sidebar)
         .navigationTitle(profile.displayName)
         #if targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
@@ -180,14 +181,10 @@ struct SidebarView: View {
     }
 
     private func save() {
-        DispatchQueue.main.async {
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashManager.handleCriticalError(error as NSError)
-                }
-            }
+        do {
+            try viewContext.save()
+        } catch {
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 
@@ -248,7 +245,6 @@ struct SidebarView: View {
 
         do {
             try viewContext.save()
-            profile.objectWillChange.send()
         } catch let error as NSError {
             DispatchQueue.main.async {
                 CrashManager.handleCriticalError(error)

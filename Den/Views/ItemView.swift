@@ -54,7 +54,9 @@ struct ItemView: View {
                                     html: item.body ?? item.summary!,
                                     title: item.wrappedTitle,
                                     baseURL: item.link
-                                )
+                                ).background {
+                                    Color.red
+                                }
                             }
 
                         }

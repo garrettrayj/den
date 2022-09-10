@@ -66,12 +66,9 @@ struct SyncManager {
     static func toggleReadUnread(context: NSManagedObjectContext, items: [Item]) {
         if items.unread().isEmpty == true {
             let readItems = items.read()
-            clearHistory(context: context, items: readItems)
-            readItems.forEach { item in
+
+            for item in readItems {
                 item.read = false
-            }
-            saveContext(context: context)
-            readItems.forEach { item in
                 NotificationCenter.default.postItemStatus(
                     read: false,
                     itemObjectID: item.objectID,
@@ -80,6 +77,7 @@ struct SyncManager {
                     profileObjectID: item.feedData?.feed?.page?.profile?.objectID
                 )
             }
+            saveContext(context: context)
         } else {
             let unreadItems = items.unread()
             logHistory(context: context, items: unreadItems)

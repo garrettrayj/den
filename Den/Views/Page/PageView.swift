@@ -15,7 +15,6 @@ struct PageView: View {
     @ObservedObject var page: Page
 
     @State private var unreadCount: Int
-    @State private var showingSettings: Bool = false
 
     @Binding var refreshing: Bool
 
@@ -111,6 +110,22 @@ struct PageView: View {
     private var toolbarContent: some ToolbarContent {
         #if targetEnvironment(macCatalyst)
         ToolbarItem(placement: .navigationBarTrailing) {
+            viewModePicker
+                .padding(.trailing, 8)
+                .pickerStyle(.inline)
+                .disabled(refreshing)
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                SubscriptionManager.showSubscribe(page: page)
+            } label: {
+                Label("Add Feed", systemImage: "plus.circle")
+            }
+            .modifier(ToolbarButtonModifier())
+            .accessibilityIdentifier("add-feed-button")
+            .disabled(refreshing)
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
             if refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
@@ -122,24 +137,6 @@ struct PageView: View {
                 .accessibilityIdentifier("page-settings-button")
                 .disabled(refreshing)
             }
-        }
-
-        ToolbarItem(placement: .navigationBarTrailing) {
-            Button {
-                SubscriptionManager.showSubscribe(page: page)
-            } label: {
-                Label("Add Feed", systemImage: "plus.circle")
-            }
-            .modifier(ToolbarButtonModifier())
-            .accessibilityIdentifier("add-feed-button")
-            .disabled(refreshing)
-        }
-
-        ToolbarItem(placement: .navigationBarTrailing) {
-            viewModePicker
-                .padding(.trailing, 8)
-                .pickerStyle(.inline)
-                .disabled(refreshing)
         }
         #else
         ToolbarItem {
@@ -157,11 +154,10 @@ struct PageView: View {
                     }
                     .accessibilityIdentifier("add-feed-button")
 
-                    Button {
-                        showingSettings = true
-                    } label: {
+                    NavigationLink(value: DetailPanel.pageSettings(page.id)) {
                         Label("Page Settings", systemImage: "info.circle")
-                    }.accessibilityIdentifier("page-settings-button")
+                    }
+                    .accessibilityIdentifier("page-settings-button")
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
                 }
