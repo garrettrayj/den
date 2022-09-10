@@ -16,22 +16,6 @@ struct FeedSettingsView: View {
 
     @State var showingDeleteAlert: Bool = false
 
-    var pageSelection: Binding<Page?> {
-        Binding<Page?>(
-            get: {
-                return self.feed.page
-            },
-            set: { target in
-                guard let target = target else { return }
-
-                self.feed.userOrder = target.feedsUserOrderMax + 1
-                self.feed.page = target
-
-                self.feed.page?.objectWillChange.send()
-            }
-        )
-    }
-
     var body: some View {
         Form {
             titleSection
@@ -73,14 +57,17 @@ struct FeedSettingsView: View {
     }
 
     private var pagePicker: some View {
-        Picker(selection: pageSelection) {
+        Picker(selection: $feed.page) {
             ForEach(feed.page?.profile?.pagesArray ?? []) { page in
                 Text(page.wrappedName).tag(page as Page?)
             }
         } label: {
             pagePickerLabel
         }
-        .onChange(of: feed.page) { _ in
+        .onChange(of: feed.page) { [oldPage = feed.page] newPage in
+            self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
+            NotificationCenter.default.post(name: .pageRefreshed, object: oldPage?.objectID)
+            NotificationCenter.default.post(name: .pageRefreshed, object: newPage?.objectID)
             dismiss()
         }
     }

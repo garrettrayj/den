@@ -174,7 +174,6 @@ struct PageView: View {
         ) {
             withAnimation {
                 SyncManager.toggleReadUnread(context: viewContext, items: page.previewItems)
-                page.objectWillChange.send()
             }
         }
     }

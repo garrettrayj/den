@@ -69,7 +69,6 @@ struct PageSettingsView: View {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-                page.objectWillChange.send()
             } catch {
                 CrashManager.handleCriticalError(error as NSError)
             }

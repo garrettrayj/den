@@ -60,7 +60,6 @@ struct TrendView: View {
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
                 SyncManager.toggleReadUnread(context: viewContext, items: trend.items)
-                trend.objectWillChange.send()
             }
         }
     }

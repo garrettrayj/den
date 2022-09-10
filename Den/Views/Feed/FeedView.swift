@@ -16,7 +16,6 @@ struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var feed: Feed
-    @State var showingSettings: Bool = false
     @State var unreadCount: Int
     @Binding var refreshing: Bool
     @AppStorage("hideRead") var hideRead = false
