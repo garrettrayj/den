@@ -10,9 +10,8 @@ import CoreData
 import SwiftUI
 
 struct PageNavView: View {
-    @Binding var page: Page
-
-    @State var unreadCount: Int
+    @ObservedObject var page: Page
+    @State var unreadCount: Int = 0
 
     var body: some View {
         NavigationLink(value: Panel.page(page.id)) {
@@ -27,6 +26,9 @@ struct PageNavView: View {
             } icon: {
                 Image(systemName: page.wrappedSymbol).imageScale(.large)
             }
+        }
+        .onAppear {
+            unreadCount = page.previewItems.unread().count
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)

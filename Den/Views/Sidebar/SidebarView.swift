@@ -72,10 +72,7 @@ struct SidebarView: View {
 
                 Section {
                     ForEach($profile.pagesArray) { $page in
-                        PageNavView(
-                            page: $page,
-                            unreadCount: $page.wrappedValue.previewItems.unread().count
-                        )
+                        PageNavView(page: $page.wrappedValue)
                     }
                     .onMove(perform: movePage)
                     .onDelete(perform: deletePage)
