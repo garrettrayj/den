@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21277" systemVersion="22A5342f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -39,7 +39,7 @@
         <attribute name="visited" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="history" inverseEntity="Profile"/>
         <fetchedProperty name="items" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Item" predicateString="link = $FETCH_SOURCE.link"/>
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Item" predicateString="link = $FETCH_SOURCE.link AND profileId = $FETCH_SOURCE.profile.id"/>
         </fetchedProperty>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
@@ -53,6 +53,7 @@
         <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="profileId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
@@ -61,7 +62,7 @@
         <relationship name="feedData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedData" inverseName="items" inverseEntity="FeedData"/>
         <relationship name="trendItems" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TrendItem" inverseName="item" inverseEntity="TrendItem"/>
         <fetchedProperty name="history" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="History" predicateString="link = $FETCH_SOURCE.link"/>
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="History" predicateString="link = $FETCH_SOURCE.link AND profile.id = $FETCH_SOURCE.profileId"/>
         </fetchedProperty>
     </entity>
     <entity name="Page" representedClassName="Page" codeGenerationType="category">
@@ -112,14 +113,4 @@
         <memberEntity name="Trend"/>
         <memberEntity name="TrendItem"/>
     </configuration>
-    <elements>
-        <element name="Feed" positionX="288" positionY="333" width="128" height="200"/>
-        <element name="FeedData" positionX="270" positionY="216" width="128" height="230"/>
-        <element name="History" positionX="270" positionY="315" width="128" height="125"/>
-        <element name="Item" positionX="279" positionY="297" width="128" height="305"/>
-        <element name="Page" positionX="261" positionY="189" width="128" height="134"/>
-        <element name="Profile" positionX="270" positionY="324" width="128" height="125"/>
-        <element name="Trend" positionX="279" positionY="351" width="128" height="140"/>
-        <element name="TrendItem" positionX="288" positionY="360" width="128" height="74"/>
-    </elements>
 </model>

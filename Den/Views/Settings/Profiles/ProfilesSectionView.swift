@@ -29,7 +29,7 @@ struct ProfilesSectionView: View {
             }
             Button {
                 withAnimation {
-                    _ = Profile.create(in: viewContext)
+                    addProfile()
                 }
             } label: {
                 Label("Add Profile", systemImage: "plus")
@@ -40,4 +40,23 @@ struct ProfilesSectionView: View {
             Text("\nProfiles")
         }
     }
+
+    func addProfile() {
+        var profileName = "Untitled"
+        var suffix = 2
+        while profiles.contains(where: { $0.name == profileName }) {
+            profileName = "Untitled \(suffix)"
+            suffix += 1
+        }
+
+        let profile = Profile.create(in: viewContext)
+        profile.name = profileName
+
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            CrashManager.handleCriticalError(error)
+        }
+    }
+
 }

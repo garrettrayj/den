@@ -29,10 +29,11 @@ struct RefreshManager {
             DispatchQueue.main.async {
                 do {
                     try container?.viewContext.save()
+                    profile?.objectWillChange.send()
+                    NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
                 } catch {
                     CrashManager.handleCriticalError(error as NSError)
                 }
-                NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
             }
         }
         operations.append(profileCompletionOp)
@@ -131,9 +132,15 @@ struct RefreshManager {
         ) else { return }
 
         // Feed progress and notifications
-        let feedCompletionOp = BlockOperation { [weak feed] in
+        let feedCompletionOp = BlockOperation { [weak feed, weak container] in
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
+                do {
+                    try container?.viewContext.save()
+                    NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
+                    NotificationCenter.default.post(name: .pageRefreshed, object: feed?.page?.objectID)
+                } catch {
+                    CrashManager.handleCriticalError(error as NSError)
+                }
             }
         }
         feedCompletionOp.addDependency(refreshPlan.saveFeedOp!)

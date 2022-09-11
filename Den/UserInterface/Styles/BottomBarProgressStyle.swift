@@ -14,7 +14,7 @@ struct BottomBarProgressStyle: ProgressViewStyle {
     let progress: Progress
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(alignment: .center, spacing: 8) {
+        VStack(alignment: .center, spacing: 4) {
             HStack(spacing: 0) {
                 if progress.completedUnitCount < progress.totalUnitCount - 1 {
                     // Updating feeds

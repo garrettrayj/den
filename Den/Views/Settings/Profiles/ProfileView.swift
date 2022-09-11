@@ -30,7 +30,7 @@ struct ProfileView: View {
     }
 
     private var nameSection: some View {
-        Section(header: Text("Name")) {
+        Section(header: Text("\nName")) {
             HStack {
                 TextField("Name", text: $profile.wrappedName)
                     .modifier(TitleTextFieldModifier())

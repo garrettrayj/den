@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AppearanceSectionView: View {
-    @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
+    @Binding var uiStyle: UIUserInterfaceStyle
 
     var body: some View {
         Section(header: Text("Appearance")) {
@@ -25,11 +25,7 @@ struct AppearanceSectionView: View {
             #else
             themeSelectionPicker
             #endif
-
         }
-        .onChange(of: uiStyle, perform: { _ in
-            ThemeManager.applyStyle()
-        })
     }
 
     private var themeSelectionLabel: some View {

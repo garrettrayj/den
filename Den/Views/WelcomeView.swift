@@ -12,21 +12,17 @@ struct WelcomeView: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            Image(systemName: "helm").font(.system(size: 52))
-            Text("Welcome").font(.largeTitle)
-            Spacer()
-        }
-        .multilineTextAlignment(.center)
-        .foregroundColor(.secondary)
-        .frame(maxWidth: .infinity)
-        .padding()
+        StatusBoxView(
+            message: Text(profile.displayName),
+            caption: Text("Profile Active"),
+            symbol: "helm"
+        )
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                Text("Active Profile: \(profile.displayName)").font(.caption)
+                Text("\(profile.feedsArray.count) feeds").font(.caption)
             }
         }
+        .navigationTitle("Den")
     }
 }

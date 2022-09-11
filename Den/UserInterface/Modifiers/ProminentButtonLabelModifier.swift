@@ -15,7 +15,7 @@ struct ProminentButtonModifier: ViewModifier {
             #if targetEnvironment(macCatalyst)
             .buttonStyle(AccentButtonStyle())
             #else
-            .buttonStyle(BorderedProminentButtonStyle())
+            .buttonStyle(.borderedProminent)
             #endif
     }
 }

@@ -13,6 +13,7 @@ struct DetailView: View {
     @Binding var refreshing: Bool
     @Binding var selection: Panel?
     @Binding var activeProfile: Profile?
+    @Binding var uiStyle: UIUserInterfaceStyle
 
     @ObservedObject var profile: Profile
 
@@ -44,7 +45,7 @@ struct DetailView: View {
                     refreshing: $refreshing
                 ).id(page.id)
             case .settings:
-                SettingsView(activeProfile: $activeProfile)
+                SettingsView(activeProfile: $activeProfile, uiStyle: $uiStyle)
             }
         }
         #if targetEnvironment(macCatalyst)
