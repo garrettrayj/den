@@ -145,7 +145,6 @@ public class Profile: NSManagedObject {
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {
         let newProfile = self.init(context: managedObjectContext)
         newProfile.id = UUID()
-        newProfile.name = "New Profile"
 
         return newProfile
     }

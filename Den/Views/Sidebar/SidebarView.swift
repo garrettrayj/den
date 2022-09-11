@@ -27,34 +27,44 @@ struct SidebarView: View {
     var body: some View {
         List(selection: $selection) {
             if profile.pagesArray.isEmpty {
-                Section {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Get Started").font(.title2.weight(.semibold))
                     Button {
                         withAnimation {
                             _ = Page.create(in: viewContext, profile: profile, prepend: true)
                             save()
                         }
                     } label: {
-                        Label("Create Blank Page", systemImage: "plus")
+                        Label("Create a blank page", systemImage: "plus")
                     }
+                    .buttonStyle(.borderless)
                     .modifier(StartRowModifier())
                     .accessibilityIdentifier("start-blank-page-button")
 
                     Button {
                         loadDemo()
                     } label: {
-                        Label("Load Demo Feeds", systemImage: "wand.and.stars")
+                        Label("Load demo feeds", systemImage: "wand.and.stars")
                     }
+                    .buttonStyle(.borderless)
                     .modifier(StartRowModifier())
                     .accessibilityIdentifier("load-demo-button")
-                } header: {
-                    Text("Get Started")
-                } footer: {
-                    Text("or import feeds in settings")
-                    #if targetEnvironment(macCatalyst)
-                        .font(.system(size: 13)).padding(.vertical, 12)
-                    #endif
+
+                    Text("or import feeds in settings \(Image(systemName: "gear"))").imageScale(.small)
                 }
                 .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8).fill(Color(UIColor.systemGroupedBackground))
+                        RoundedRectangle(cornerRadius: 8)
+                            .strokeBorder(Color(UIColor.quaternarySystemFill), lineWidth: 4)
+                    }
+
+                )
+                .cornerRadius(8)
+                .padding(.vertical)
             } else {
                 AllItemsNavView(
                     profile: profile,

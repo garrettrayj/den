@@ -23,6 +23,7 @@ struct TrendBlockView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     HStack(spacing: 8) {
                         Text(trend.wrappedTitle).font(.title).lineLimit(1)
+                        Spacer()
                         Group {
                             if trend.tag == NLTag.personalName.rawValue {
                                 Image(systemName: "person")
@@ -32,8 +33,8 @@ struct TrendBlockView: View {
                                 Image(systemName: "mappin.and.ellipse")
                             }
                         }
+                        .imageScale(.small)
                         .foregroundColor(.secondary)
-                        Spacer()
                         Text("\(trend.items.unread().count)").modifier(CapsuleModifier())
                     }
 

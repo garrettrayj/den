@@ -20,16 +20,6 @@ struct ProfileManager {
         }
     }
 
-    static func addProfile(context: NSManagedObjectContext) {
-        _ = Profile.create(in: context)
-
-        do {
-            try context.save()
-        } catch let error as NSError {
-            CrashManager.handleCriticalError(error)
-        }
-    }
-
     static func activateProfile(_ profile: Profile) -> Profile {
         defaultProfileIdString = profile.id?.uuidString
         return profile

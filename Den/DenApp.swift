@@ -27,7 +27,6 @@ struct DenApp: App {
                 .onOpenURL { url in
                     SubscriptionManager.showSubscribe(for: url)
                 }
-                .preferredColorScheme(ThemeManager.colorScheme)
         }
         .onChange(of: scenePhase) { phase in
             switch phase {

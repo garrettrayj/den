@@ -48,15 +48,12 @@ struct PageSettingsView: View {
     private var feedsSection: some View {
         Section(header: Text("Feeds")) {
             if page.feedsArray.isEmpty {
-                Text("Page Empty").foregroundColor(.secondary)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
+                Label("Page empty", systemImage: "questionmark.folder")
+                    .foregroundColor(.secondary)
+                    .modifier(FormRowModifier())
             } else {
                 ForEach(page.feedsArray) { feed in
-                    FeedTitleLabelView(
-                        title: feed.wrappedTitle,
-                        favicon: feed.feedData?.favicon
-                    )
+                    FeedTitleLabelView(title: feed.wrappedTitle, favicon: feed.feedData?.favicon)
                 }
                 .modifier(FormRowModifier())
                 .onDelete(perform: deleteFeed)

@@ -133,7 +133,7 @@ struct PageView: View {
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
-                    Label("Page Settings", systemImage: "info.circle")
+                    Label("Page Settings", systemImage: "wrench")
                 }
                 .modifier(ToolbarButtonModifier())
                 .accessibilityIdentifier("page-settings-button")
@@ -157,7 +157,7 @@ struct PageView: View {
                     .accessibilityIdentifier("add-feed-button")
 
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
-                        Label("Page Settings", systemImage: "info.circle")
+                        Label("Page Settings", systemImage: "wrench")
                     }
                     .accessibilityIdentifier("page-settings-button")
                 } label: {

@@ -35,6 +35,8 @@ struct RootView: View {
     @State private var showCrashMessage = false
     @State private var crashMessage: String = ""
 
+    @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
+
     var body: some View {
         Group {
             if showCrashMessage {
@@ -55,6 +57,7 @@ struct RootView: View {
                         refreshing: $refreshing,
                         selection: $selection,
                         activeProfile: $activeProfile,
+                        uiStyle: $uiStyle,
                         profile: profile,
                         searchModel: searchModel,
                         profiles: profiles
@@ -118,7 +121,9 @@ struct RootView: View {
                 )
             }
         }
-
+        .preferredColorScheme(
+            ColorScheme(uiStyle)
+        )
     }
 
     private var refreshUnits: Int64 {

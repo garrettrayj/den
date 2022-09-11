@@ -47,6 +47,7 @@ public class Item: NSManagedObject {
         let item = Item.init(context: managedObjectContext)
         item.id = UUID()
         item.feedData = feedData
+        item.profileId = feedData.feed?.page?.profile?.id
 
         return item
     }

@@ -104,11 +104,11 @@ struct SubscribeView: View {
                 Text("Add to \(targetPage?.wrappedName ?? "...")")
             } icon: {
                 if loading {
-                    ProgressView().progressViewStyle(IconProgressStyle()).colorInvert()
+                    ProgressView().progressViewStyle(.circular).colorInvert().padding(.trailing, 4)
                 } else {
                     Image(systemName: "note.text.badge.plus")
                 }
-            }.padding(.leading, 4)
+            }
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))
