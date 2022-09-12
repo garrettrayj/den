@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import SDWebImageSwiftUI
-
 struct ItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -45,7 +43,7 @@ struct ItemView: View {
                                 !(item.summary?.contains("<img") ?? false) &&
                                 !(item.body?.contains("<img") ?? false)
                             {
-                                heroImage
+                                HeroImageView(item: item)
                             }
 
                             if item.body != nil || item.summary != nil {
@@ -98,18 +96,5 @@ struct ItemView: View {
             .modifier(ToolbarButtonModifier())
             .accessibilityIdentifier("item-open-button")
         }
-    }
-
-    private var heroImage: some View {
-        WebImage(url: item.image)
-            .resizable()
-            .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-            .frame(maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil)
-            .background(Color(UIColor.tertiarySystemGroupedBackground))
-            .cornerRadius(6)
-            .overlay(
-                RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
-            )
-            .accessibility(label: Text("Hero Image"))
     }
 }

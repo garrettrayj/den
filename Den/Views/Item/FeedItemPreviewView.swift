@@ -36,7 +36,6 @@ struct FeedItemPreviewView: View {
             }
             .modifier(GroupBlockModifier())
             .cornerRadius(8)
-            .transition(.moveTopAndFade)
         }
     }
 }

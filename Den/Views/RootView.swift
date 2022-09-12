@@ -9,10 +9,6 @@
 import CoreData
 import SwiftUI
 
-import SDWebImageSwiftUI
-import SDWebImageSVGCoder
-import SDWebImageWebPCoder
-
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(\.managedObjectContext) private var viewContext
@@ -113,35 +109,17 @@ struct RootView: View {
         }
         .onAppear {
             if activeProfile == nil {
-                bootstrapImageHandling()
-
                 activeProfile = ProfileManager.loadProfile(
                     context: viewContext,
                     profiles: profiles.map { $0 }
                 )
             }
         }
-        .preferredColorScheme(
-            ColorScheme(uiStyle)
-        )
+        .preferredColorScheme(ColorScheme(uiStyle))
     }
 
     private var refreshUnits: Int64 {
         // Number
         Int64(activeProfile?.feedsArray.count ?? -1) + 1
-    }
-
-    private func bootstrapImageHandling() {
-        // Add additional image format support
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
-
-        // Explicit list of accepted image types so servers may decide what to respond with
-        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
-            mimeType.rawValue
-        }).joined(separator: ",")
-        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
-
-        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 128 // 128 MB
     }
 }

@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import SDWebImageSwiftUI
-
 struct FeedTitleLabelView: View {
     let title: String
     let favicon: URL?

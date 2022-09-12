@@ -16,8 +16,8 @@ struct GadgetItemView: View {
             Divider()
             ItemActionView(item: item) {
                 HStack(alignment: .top, spacing: 12) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(item.wrappedTitle).lineLimit(6)
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(item.wrappedTitle).lineLimit(6).font(.headline)
                         ItemDateView(date: item.date, read: item.read)
                     }
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -31,6 +31,5 @@ struct GadgetItemView: View {
             }
             .accessibilityIdentifier("gadget-item-button")
         }
-        .transition(.moveTopAndFade)
     }
 }

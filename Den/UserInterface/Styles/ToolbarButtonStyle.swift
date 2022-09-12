@@ -21,7 +21,7 @@ struct ToolbarButtonStyle: ButtonStyle {
 
         var body: some View {
             configuration.label
-                .fontWeight(.medium)
+                .fontWeight(.semibold)
                 .foregroundColor(
                     isEnabled ?
                     configuration.isPressed ? Color.primary : Color.secondary

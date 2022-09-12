@@ -20,7 +20,7 @@ struct HistorySectionView: View {
     var body: some View {
         Section(header: Text("History")) {
             NavigationLink(value: DetailPanel.history) {
-                Label("Viewed Items", systemImage: "clock")
+                Label("Read Items", systemImage: "clock")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("view-history-button")
@@ -58,12 +58,12 @@ struct HistorySectionView: View {
     private var historyRetentionPicker: some View {
         Picker(selection: $historyRentionDays) {
             Text("Forever").tag(0 as Int)
-            Text("One Year").tag(365 as Int)
-            Text("Six Months").tag(182 as Int)
-            Text("Three Months").tag(90 as Int)
-            Text("One Month").tag(30 as Int)
-            Text("Two Weeks").tag(14 as Int)
-            Text("One Week").tag(7 as Int)
+            Text("One year").tag(365 as Int)
+            Text("Six months").tag(182 as Int)
+            Text("Three months").tag(90 as Int)
+            Text("One month").tag(30 as Int)
+            Text("Two weeks").tag(14 as Int)
+            Text("One week").tag(7 as Int)
         } label: {
             historyRetentionLabel
         }

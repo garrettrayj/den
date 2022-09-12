@@ -51,6 +51,11 @@ struct HistoryView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("History")
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Text("\(historySections.reduce(0, { $0 + $1.count })) entries").font(.caption)
+            }
+        }
     }
 
     init(profile: Profile) {
