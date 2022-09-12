@@ -9,8 +9,6 @@
 import CoreData
 import SwiftUI
 
-import SDWebImageSwiftUI
-
 struct FeedView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -112,12 +110,7 @@ struct FeedView: View {
                         Label {
                             Text(feed.feedData!.linkDisplayString!)
                         } icon: {
-                            WebImage(url: feed.feedData?.favicon)
-                                .resizable()
-                                .placeholder {
-                                    Image(systemName: "globe")
-                                }
-                                .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+                            FeedFaviconView(url: feed.feedData?.favicon, placeholderSymbol: "globe")
                         }
                         Spacer()
                         Image(systemName: "link")

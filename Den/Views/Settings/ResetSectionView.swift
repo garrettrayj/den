@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import SDWebImageSwiftUI
-
 struct ResetSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -50,9 +48,6 @@ struct ResetSectionView: View {
     private func clearCache() {
         RefreshManager.cancel()
         resetFeeds()
-
-        SDImageCache.shared.clearMemory()
-        SDImageCache.shared.clearDisk()
 
         activeProfile?.objectWillChange.send()
         activeProfile?.pagesArray.forEach {

@@ -38,7 +38,7 @@ struct SyncManager {
     static func markItemRead(context: NSManagedObjectContext, item: Item) {
         guard item.read != true else { return }
         item.read = true
-        logHistory(context: context, items: [item])
+        logHistory(context: context, items: [item], visited: .now)
         saveContext(context: context)
         NotificationCenter.default.postItemStatus(
             read: true,
@@ -66,7 +66,7 @@ struct SyncManager {
     static func toggleReadUnread(context: NSManagedObjectContext, items: [Item]) {
         if items.unread().isEmpty == true {
             let readItems = items.read()
-
+            clearHistory(context: context, items: readItems)
             for item in readItems {
                 item.read = false
                 NotificationCenter.default.postItemStatus(
@@ -97,22 +97,66 @@ struct SyncManager {
         }
     }
 
-    static func logHistory(context: NSManagedObjectContext, items: [Item]) {
+    static func logHistory(context: NSManagedObjectContext, items: [Item], visited: Date? = nil) {
         guard let profile = items.first?.feedData?.feed?.page?.profile else { return }
         for item in items {
             let history = item.history.first ?? History.create(in: context, profile: profile)
             history.link = item.link
             history.title = item.title
-            history.visited = .now
+            history.visited = visited
         }
     }
 
     static func clearHistory(context: NSManagedObjectContext, items: [Item]) {
-        for item in items {
-            item.history.forEach { history in
-                context.delete(history)
-            }
-        }
+        guard let profile = items.first?.feedData?.feed?.page?.profile else { return }
+
+        let profilePredicate = NSPredicate(
+            format: "profile.id == %@",
+            profile.id?.uuidString ?? ""
+        )
+        let linkPredicate = NSPredicate(
+            format: "link IN %@",
+            items.map { $0.link }
+        )
+        let compoundPredicate = NSCompoundPredicate(
+            type: .and,
+            subpredicates: [profilePredicate, linkPredicate]
+        )
+
+        // Specify a batch to delete with a fetch request
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult>
+        fetchRequest = NSFetchRequest(entityName: "History")
+        fetchRequest.predicate = compoundPredicate
+
+        // Create a batch delete request for the
+        // fetch request
+        let deleteRequest = NSBatchDeleteRequest(
+            fetchRequest: fetchRequest
+        )
+
+        // Specify the result of the NSBatchDeleteRequest
+        // should be the NSManagedObject IDs for the
+        // deleted objects
+        deleteRequest.resultType = .resultTypeObjectIDs
+
+        // Perform the batch delete
+        let batchDelete = try? context.execute(deleteRequest)
+            as? NSBatchDeleteResult
+
+        guard let deleteResult = batchDelete?.result
+            as? [NSManagedObjectID]
+            else { return }
+
+        let deletedObjects: [AnyHashable: Any] = [
+            NSDeletedObjectsKey: deleteResult
+        ]
+
+        // Merge the delete changes into the managed
+        // object context
+        NSManagedObjectContext.mergeChanges(
+            fromRemoteContextSave: deletedObjects,
+            into: [context]
+        )
     }
 
     static func saveContext(context: NSManagedObjectContext) {

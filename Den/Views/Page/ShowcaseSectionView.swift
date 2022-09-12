@@ -28,7 +28,7 @@ struct ShowcaseSectionView: View {
                         list: visibleItems,
                         content: { item in
                             ItemActionView(item: item) {
-                                ItemPreviewView(item: item).transition(.moveTopAndFade)
+                                ItemPreviewView(item: item)
                             }
                             .cornerRadius(8)
                         }

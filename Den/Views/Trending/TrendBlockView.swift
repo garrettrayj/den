@@ -58,6 +58,5 @@ struct TrendBlockView: View {
         }
         .background(Color(UIColor.secondarySystemGroupedBackground))
         .cornerRadius(8)
-        .transition(.moveTopAndFade)
     }
 }
