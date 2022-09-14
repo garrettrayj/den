@@ -13,8 +13,6 @@ struct ItemView: View {
 
     @ObservedObject var item: Item
 
-    @State private var webViewHeight: CGFloat = .zero
-
     let maxContentWidth: CGFloat = 720
 
     var body: some View {
@@ -48,13 +46,10 @@ struct ItemView: View {
 
                             if item.body != nil || item.summary != nil {
                                 WebView(
-                                    dynamicHeight: $webViewHeight,
                                     html: item.body ?? item.summary!,
                                     title: item.wrappedTitle,
                                     baseURL: item.link
-                                ).background {
-                                    Color.red
-                                }
+                                )
                             }
 
                         }

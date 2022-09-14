@@ -15,8 +15,8 @@ struct FeedView: View {
 
     @ObservedObject var feed: Feed
     @State var unreadCount: Int
+    @Binding var hideRead: Bool
     @Binding var refreshing: Bool
-    @AppStorage("hideRead") var hideRead = false
 
     var body: some View {
         Group {

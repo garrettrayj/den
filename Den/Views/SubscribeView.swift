@@ -56,7 +56,7 @@ struct SubscribeView: View {
                                     Text("RSS, Atom, or JSON Feed")
                                 }
                             }
-                            .font(.callout)
+                            .font(.caption)
                             .padding(.top, 4)
                         }.headerProminence(.increased)
 
@@ -121,21 +121,21 @@ struct SubscribeView: View {
         HStack {
             TextField("https://example.com/feed.xml", text: $urlString)
                 .lineLimit(1)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
                 .disableAutocorrection(true)
                 .textInputAutocapitalization(.never)
                 .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
 
             if urlIsValid != nil {
-                if urlIsValid == true {
-                    Image(systemName: "checkmark.circle")
-                        .foregroundColor(Color(UIColor.systemGreen))
-                        .imageScale(.large)
-                } else {
-                    Image(systemName: "slash.circle")
-                        .foregroundColor(Color(UIColor.systemRed))
-                        .imageScale(.large)
+                Group {
+                    if urlIsValid == true {
+                        Image(systemName: "checkmark.circle").foregroundColor(Color(UIColor.systemGreen))
+                    } else {
+                        Image(systemName: "slash.circle").foregroundColor(Color(UIColor.systemRed))
+                    }
                 }
+                .imageScale(.large)
+                .fontWeight(.semibold)
             }
         }
     }

@@ -131,39 +131,42 @@ struct SidebarView: View {
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
-                Button {
-                    selection = .settings
-                } label: {
-                    Label("Settings", systemImage: "gear")
-                }
-                .modifier(ToolbarButtonModifier())
-                .accessibilityIdentifier("settings-button")
-                .disabled(refreshing)
-
-                Spacer()
-
-                VStack {
-                    if refreshing {
-                        ProgressView(refreshProgress)
-                            .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
-                    } else {
-                        refreshedLabel
+                HStack(spacing: 0) {
+                    Button {
+                        selection = .settings
+                    } label: {
+                        Label("Settings", systemImage: "gear")
                     }
-                }
-                .font(.caption)
-                .fixedSize()
+                    .modifier(ToolbarButtonModifier())
+                    .accessibilityIdentifier("settings-button")
+                    .disabled(refreshing)
 
-                Spacer()
+                    VStack {
+                        if refreshing {
+                            GeometryReader { geometry in
+                                ProgressView(refreshProgress)
+                                    .progressViewStyle(BottomBarProgressStyle(
+                                        progress: refreshProgress,
+                                        width: max(geometry.size.width - 32, 80)
+                                    ))
+                            }.frame(maxWidth: 200)
+                        } else {
+                            refreshedLabel
+                        }
+                    }
+                    .font(.caption)
+                    .frame(maxWidth: .infinity)
 
-                Button {
-                    RefreshManager.refresh(container: persistentContainer, profile: profile)
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
+                    Button {
+                        RefreshManager.refresh(container: persistentContainer, profile: profile)
+                    } label: {
+                        Label("Refresh", systemImage: "arrow.clockwise")
+                    }
+                    .modifier(ToolbarButtonModifier())
+                    .keyboardShortcut("r", modifiers: [.command])
+                    .accessibilityIdentifier("profile-refresh-button")
+                    .disabled(refreshing)
                 }
-                .modifier(ToolbarButtonModifier())
-                .keyboardShortcut("r", modifiers: [.command])
-                .accessibilityIdentifier("profile-refresh-button")
-                .disabled(refreshing)
             }
         }
     }
@@ -179,7 +182,8 @@ struct SidebarView: View {
                 Text("Pull to refresh")
                 #endif
             }
-        }.lineLimit(1)
+        }
+        .lineLimit(1)
     }
 
     private func save() {

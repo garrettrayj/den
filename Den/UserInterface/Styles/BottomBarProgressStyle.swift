@@ -10,18 +10,18 @@ import SwiftUI
 
 struct BottomBarProgressStyle: ProgressViewStyle {
     let height: CGFloat = 4
-    let width: CGFloat = 144
     let progress: Progress
+    let width: CGFloat
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .center, spacing: 6) {
             HStack(spacing: 0) {
                 if progress.completedUnitCount < progress.totalUnitCount - 1 {
                     // Updating feeds
-                    Text("Updating \(progress.completedUnitCount) of \(progress.totalUnitCount - 1)…")
+                    Text("Updating \(progress.completedUnitCount) of \(progress.totalUnitCount - 1)")
                 } else {
                     // Performing analysis
-                    Text("Analyzing…")
+                    Text("Analyzing")
                 }
             }
             .lineLimit(1)
@@ -40,5 +40,6 @@ struct BottomBarProgressStyle: ProgressViewStyle {
                     .foregroundColor(.accentColor)
             }
         }
+        .frame(maxWidth: .infinity)
     }
 }

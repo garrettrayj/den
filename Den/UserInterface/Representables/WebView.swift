@@ -41,13 +41,11 @@ class CustomWebView: WKWebView {
 }
 
 struct WebView: UIViewRepresentable {
-    @Binding var dynamicHeight: CGFloat
-
     var html: String
     var title: String?
     var baseURL: URL?
 
-    let webView: WKWebView = CustomWebView(
+    @State var webView: CustomWebView = CustomWebView(
         frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
     )
 
@@ -75,14 +73,8 @@ struct WebView: UIViewRepresentable {
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
-        var parent: WebView
-
-        init(_ parent: WebView) {
-            self.parent = parent
-        }
-
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 webView.invalidateIntrinsicContentSize()
             }
         }
@@ -103,6 +95,6 @@ struct WebView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator()
     }
 }

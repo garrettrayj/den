@@ -12,11 +12,11 @@ import SwiftUI
 struct TrendView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @AppStorage("hideRead") var hideRead = false
-
     @ObservedObject var trend: Trend
 
     @State var unreadCount: Int
+
+    @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
     var body: some View {

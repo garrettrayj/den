@@ -126,7 +126,11 @@ figcaption {
     caption-side: bottom;
     background: -apple-system-secondary-background;
     margin-top: -1em;
-    padding: 0 1em 1em;
+    padding: 1em;
+}
+
+figure img {
+    margin: 0;
 }
 
 

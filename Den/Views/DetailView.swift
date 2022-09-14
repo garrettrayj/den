@@ -20,6 +20,8 @@ struct DetailView: View {
     let searchModel: SearchModel
     let profiles: FetchedResults<Profile>
 
+    @AppStorage("hideRead") var hideRead = false
+
     var body: some View {
         NavigationStack {
             switch selection ?? .welcome {
@@ -37,11 +39,13 @@ struct DetailView: View {
                 TrendsView(
                     profile: profile,
                     unreadCount: profile.trends.unread().count,
+                    hideRead: $hideRead,
                     refreshing: $refreshing
                 )
             case .page(let page):
                 PageView(
                     page: page,
+                    hideRead: $hideRead,
                     refreshing: $refreshing
                 ).id(page.id)
             case .settings:
@@ -57,6 +61,7 @@ struct DetailView: View {
                 TrendView(
                     trend: trend,
                     unreadCount: trend.items.unread().count,
+                    hideRead: $hideRead,
                     refreshing: $refreshing
                 ).id(trend.id)
             case .feed(let feed):
@@ -64,6 +69,7 @@ struct DetailView: View {
                     FeedView(
                         feed: feed,
                         unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
+                        hideRead: $hideRead,
                         refreshing: $refreshing
                     ).id(feed.id)
                 }
