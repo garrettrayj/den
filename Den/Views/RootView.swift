@@ -47,6 +47,7 @@ struct RootView: View {
                         persistentContainer: persistentContainer,
                         refreshProgress: refreshProgress
                     )
+                    .navigationSplitViewColumnWidth(300)
                 } detail: {
                     DetailView(
                         path: $path,

@@ -16,9 +16,8 @@ struct TrendsView: View {
 
     @State var unreadCount: Int
 
+    @Binding var hideRead: Bool
     @Binding var refreshing: Bool
-
-    @AppStorage("hideRead") var hideRead = false
 
     var body: some View {
         GeometryReader { geometry in

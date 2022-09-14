@@ -16,10 +16,10 @@ struct PageView: View {
 
     @State private var unreadCount: Int = 0
 
+    @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
     @AppStorage("pageViewMode_na") var viewMode = 0
-    @AppStorage("hideRead") var hideRead = false
 
     enum PageViewMode: Int {
         case gadgets  = 0
@@ -27,8 +27,9 @@ struct PageView: View {
         case blend = 2
     }
 
-    init(page: Page, refreshing: Binding<Bool>) {
+    init(page: Page, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
         self.page = page
+        _hideRead = hideRead
         _refreshing = refreshing
         _viewMode = AppStorage(
             wrappedValue: PageViewMode.gadgets.rawValue,

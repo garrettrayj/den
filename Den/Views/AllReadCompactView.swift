@@ -13,11 +13,7 @@ struct AllReadCompactView: View {
 
     var body: some View {
         Label {
-            HStack {
-                Text("All read")
-                Spacer()
-                Text("\(numHidden) hidden").font(.caption)
-            }
+            Text("All read")
         } icon: {
             Image(systemName: "checkmark")
         }
