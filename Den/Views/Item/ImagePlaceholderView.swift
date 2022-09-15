@@ -11,6 +11,7 @@ import SwiftUI
 struct ItemImagePlaceholderView: View {
     let imageURL: URL?
     let aspectRatio: CGFloat?
+    var padding: CGFloat = .zero
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -34,7 +35,7 @@ struct ItemImagePlaceholderView: View {
             }
             .font(.footnote)
             .foregroundColor(.secondary)
-            .padding()
+            .padding(padding)
         }
     }
 }
