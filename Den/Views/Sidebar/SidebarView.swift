@@ -27,7 +27,7 @@ struct SidebarView: View {
     var body: some View {
         List(selection: $selection) {
             if profile.pagesArray.isEmpty {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 16) {
                     Text("Get Started").font(.title2.weight(.semibold))
                     Button {
                         withAnimation {
@@ -56,11 +56,7 @@ struct SidebarView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .background(
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 8).fill(Color(UIColor.systemGroupedBackground))
-                        RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(Color(UIColor.quaternarySystemFill), lineWidth: 4)
-                    }
+                    RoundedRectangle(cornerRadius: 8).strokeBorder(Color(UIColor.separator), lineWidth: 2)
 
                 )
                 .cornerRadius(8)

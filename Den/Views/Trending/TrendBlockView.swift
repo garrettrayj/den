@@ -17,25 +17,30 @@ struct TrendBlockView: View {
         GridItem(.adaptive(minimum: 16, maximum: 16), spacing: 12, alignment: .top)
     ]
 
+    var symbol: String? {
+        if trend.tag == NLTag.personalName.rawValue {
+            return "person"
+        } else if trend.tag == NLTag.organizationName.rawValue {
+            return "building"
+        } else if trend.tag == NLTag.placeName.rawValue {
+            return "mappin.and.ellipse"
+        }
+        return nil
+    }
+
     var body: some View {
         VStack {
             NavigationLink(value: DetailPanel.trend(trend)) {
                 VStack(alignment: .leading, spacing: 12) {
-                    HStack(spacing: 8) {
+                    HStack(alignment: .top, spacing: 8) {
                         Text(trend.wrappedTitle).font(.title).lineLimit(1)
                         Spacer()
-                        Group {
-                            if trend.tag == NLTag.personalName.rawValue {
-                                Image(systemName: "person")
-                            } else if trend.tag == NLTag.organizationName.rawValue {
-                                Image(systemName: "building")
-                            } else if trend.tag == NLTag.placeName.rawValue {
-                                Image(systemName: "mappin.and.ellipse")
+                        HStack {
+                            if let symbol = symbol {
+                                Image(systemName: symbol).imageScale(.small).foregroundColor(.secondary)
                             }
+                            Text("\(trend.items.unread().count)").modifier(CapsuleModifier())
                         }
-                        .imageScale(.small)
-                        .foregroundColor(.secondary)
-                        Text("\(trend.items.unread().count)").modifier(CapsuleModifier())
                     }
 
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
