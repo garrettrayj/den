@@ -33,6 +33,7 @@ struct DetailView: View {
                 AllItemsView(
                     profile: profile,
                     unreadCount: profile.previewItems.unread().count,
+                    hideRead: $hideRead,
                     refreshing: $refreshing
                 )
             case .trends:

@@ -12,11 +12,11 @@ struct WelcomeView: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        StatusBoxView(
-            message: Text(profile.displayName),
-            caption: Text("Profile Active"),
-            symbol: "helm"
-        )
+        VStack(spacing: 8) {
+            Text("Active profile:").foregroundColor(.secondary)
+            Text(profile.displayName).font(.largeTitle.weight(.semibold))
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
