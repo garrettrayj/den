@@ -132,7 +132,6 @@
 			<outline text="The Babylon Bee" title="The Babylon Bee" type="rss" xmlUrl="https://babylonbee.com/feed" />
 			<outline text="New Yorker" title="New Yorker" type="rss" xmlUrl="https://www.newyorker.com/feed/humor" />
 			<outline text="The Beaverton" title="The Beaverton" type="rss" xmlUrl="https://www.thebeaverton.com/feed/" />
-			<outline text="Reaction GIFS" title="Reaction GIFS" type="rss" xmlUrl="https://www.reddit.com/r/reactiongifs/.rss" />
 			<outline text="ClickHole" title="ClickHole" type="rss" xmlUrl="https://www.clickhole.com/rss" />
 			<outline text="xkcd.com" title="xkcd.com" type="rss" xmlUrl="https://xkcd.com/rss.xml" />
 			<outline text="they can talk" title="they can talk" type="rss" xmlUrl="https://theycantalk.com/rss" />

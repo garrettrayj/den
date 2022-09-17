@@ -159,6 +159,7 @@ struct FeedSettingsView: View {
 
     private func delete() {
         viewContext.delete(feed)
+        feed.page?.profile?.objectWillChange.send()
     }
 
     private func copyUrl() {

@@ -69,7 +69,7 @@ struct SubscribeView: View {
                     .onReceive(
                         NotificationCenter.default.publisher(for: .feedRefreshed, object: newFeed?.objectID)
                     ) { _ in
-                        targetPage?.objectWillChange.send()
+                        profile?.objectWillChange.send()
                         dismiss()
                     }
                     .navigationTitle("Add Feed")

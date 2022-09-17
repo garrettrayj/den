@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ShowcaseView: View {
-    let page: Page
+    @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool

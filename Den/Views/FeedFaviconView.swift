@@ -8,17 +8,20 @@
 
 import SwiftUI
 
+import SDWebImageSwiftUI
+
 struct FeedFaviconView: View {
     let url: URL?
 
     var placeholderSymbol: String = "dot.radiowaves.up.forward"
 
     var body: some View {
-        AsyncImage(url: url) { image in
-            image.resizable()
-        } placeholder: {
-            Image(systemName: placeholderSymbol).imageScale(.medium)
-        }
-        .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+        WebImage(url: url, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])
+            .resizable()
+            .purgeable(true)
+            .placeholder {
+                Image(systemName: "dot.radiowaves.up.forward")
+            }
+            .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
     }
 }
