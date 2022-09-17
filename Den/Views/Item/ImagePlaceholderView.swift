@@ -14,28 +14,24 @@ struct ItemImagePlaceholderView: View {
     var padding: CGFloat = .zero
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
+        HStack {
             Image(systemName: "photo")
-                .resizable()
-                .aspectRatio(aspectRatio, contentMode: .fit)
-                .foregroundColor(.clear)
-
-            HStack {
-                Image(systemName: "photo").imageScale(.large)
-                Text(imageURL?.absoluteString ?? "Unknown address").lineLimit(1)
-                Spacer()
-                Button {
-                    UIPasteboard.general.string = imageURL?.absoluteString
-                } label: {
-                    Label("Copy Image URL", systemImage: "doc.on.doc")
-                        .imageScale(.small)
-                        .labelStyle(.iconOnly)
-                }
-                .accessibilityIdentifier("image-copy-url-button")
+            Text(imageURL?.absoluteString ?? "Unknown address").lineLimit(1).font(.caption)
+            Spacer()
+            Button {
+                UIPasteboard.general.string = imageURL?.absoluteString
+            } label: {
+                Label {
+                    Text("Copy Image URL")
+                } icon: {
+                    Image(systemName: "doc.on.doc").imageScale(.small)
+                }.labelStyle(.iconOnly)
             }
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .padding(padding)
+            .accessibilityIdentifier("image-copy-url-button")
         }
+        .foregroundColor(.secondary)
+        .padding(padding)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .aspectRatio(aspectRatio, contentMode: .fill)
     }
 }

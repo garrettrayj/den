@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PageSettingsView: View {
     @Environment(\.managedObjectContext) private var viewContext
+
     @ObservedObject var page: Page
 
     var body: some View {

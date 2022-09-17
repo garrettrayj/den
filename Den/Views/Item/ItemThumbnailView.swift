@@ -8,25 +8,33 @@
 
 import SwiftUI
 
+import SDWebImageSwiftUI
+
 struct ItemThumbnailView: View {
     let item: Item
 
     var body: some View {
         if item.image != nil {
-            AsyncImage(url: item.image) { image in
-                image.resizable().aspectRatio(item.imageAspectRatio, contentMode: .fill)
-            } placeholder: {
-                placeholder
-            }
-            .modifier(ThumbnailModifier())
+            WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
+                .resizable()
+                .purgeable(true)
+                .placeholder {
+                    placeholder
+                }
+                .playbackRate(0)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .modifier(ThumbnailModifier())
         } else if item.feedData?.image != nil {
-            AsyncImage(url: item.feedData?.image) { image in
-                image.resizable().aspectRatio(item.imageAspectRatio, contentMode: .fit)
-            } placeholder: {
-                placeholder
-            }
-            .padding(6)
-            .modifier(ThumbnailModifier())
+            WebImage(url: item.feedData?.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
+                .resizable()
+                .purgeable(true)
+                .placeholder {
+                    placeholder
+                }
+                .playbackRate(0)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                .padding(6)
+                .modifier(ThumbnailModifier())
         }
     }
 

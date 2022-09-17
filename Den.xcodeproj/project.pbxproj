@@ -164,6 +164,7 @@
 		68E9BDC1279D49F8003BA111 /* RSSItemTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDC0279D49F8003BA111 /* RSSItemTransform.swift */; };
 		68E9BDC3279D4E3E003BA111 /* JSONItemTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDC2279D4E3E003BA111 /* JSONItemTransform.swift */; };
 		68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */; };
+		68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */; };
 		68F56B34285F8B71006EC915 /* TrendsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B33285F8B71006EC915 /* TrendsOperation.swift */; };
 		68F56B38286DA23E006EC915 /* ContentLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B37286DA23E006EC915 /* ContentLimits.swift */; };
 		68F56B3D286F5C20006EC915 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B3C286F5C20006EC915 /* TrendsView.swift */; };
@@ -469,6 +470,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */,
 				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
 				6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */,
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
@@ -1066,6 +1068,7 @@
 				6897D52526B91C0100833DDA /* HTMLEntities */,
 				6897D52B26B91C3C00833DDA /* SwiftSoup */,
 				6897D52E26B91C5800833DDA /* FeedKit */,
+				68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -1154,6 +1157,7 @@
 				6897D52426B91C0100833DDA /* XCRemoteSwiftPackageReference "swift-html-entities" */,
 				6897D52A26B91C3C00833DDA /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				6897D52D26B91C5800833DDA /* XCRemoteSwiftPackageReference "FeedKit" */,
+				68EE91E928D54C66000C00D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 68C4130A247263C700D1DC7B /* Products */;
 			projectDirPath = "";
@@ -1755,6 +1759,8 @@
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Den/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Den;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1783,6 +1789,8 @@
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Den/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Den;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1985,6 +1993,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		68EE91E928D54C66000C00D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2007,6 +2023,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 68B34A6A24880ADE0066B215 /* XCRemoteSwiftPackageReference "AEXML" */;
 			productName = AEXML;
+		};
+		68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68EE91E928D54C66000C00D2 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

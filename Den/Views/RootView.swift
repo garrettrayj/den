@@ -64,15 +64,18 @@ struct RootView: View {
                     path.removeLast(path.count)
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-                    self.refreshProgress.totalUnitCount = self.refreshUnits
+                    self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? -1) + 1
                     self.refreshProgress.completedUnitCount = 0
                     self.refreshing = true
                 }
-                .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-                    self.refreshing = false
-                }
                 .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
                     self.refreshProgress.completedUnitCount += 1
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .profileRefreshed)) { _ in
+                    self.refreshProgress.completedUnitCount += 1
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+                    self.refreshing = false
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
                     if let urlString = notification.userInfo?["urlString"] as? String {
@@ -117,10 +120,5 @@ struct RootView: View {
             }
         }
         .preferredColorScheme(ColorScheme(uiStyle))
-    }
-
-    private var refreshUnits: Int64 {
-        // Number
-        Int64(activeProfile?.feedsArray.count ?? -1) + 1
     }
 }
