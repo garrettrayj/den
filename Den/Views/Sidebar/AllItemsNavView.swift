@@ -14,7 +14,7 @@ struct AllItemsNavView: View {
 
     @ObservedObject var profile: Profile
 
-    @State var unreadCount: Int
+    @Binding var unreadCount: Int
 
     @Binding var refreshing: Bool
 
@@ -32,22 +32,5 @@ struct AllItemsNavView: View {
             }
         }
         .accessibilityIdentifier("timeline-button")
-        .onReceive(
-            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-        ) { notification in
-            guard
-                let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                profileObjectID == profile.objectID,
-                let read = notification.userInfo?["read"] as? Bool
-            else {
-                return
-            }
-            unreadCount += read ? -1 : 1
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .profileRefreshed, object: profile.objectID)
-        ) { _ in
-            unreadCount = profile.previewItems.unread().count
-        }
     }
 }

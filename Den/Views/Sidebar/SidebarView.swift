@@ -18,6 +18,7 @@ struct SidebarView: View {
 
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
+    @Binding var profileUnreadCount: Int
 
     @State private var searchInput: String = ""
 
@@ -64,7 +65,7 @@ struct SidebarView: View {
             } else {
                 AllItemsNavView(
                     profile: profile,
-                    unreadCount: profile.previewItems.unread().count,
+                    unreadCount: $profileUnreadCount,
                     refreshing: $refreshing
                 )
                 TrendsNavView(profile: profile, refreshing: $refreshing)

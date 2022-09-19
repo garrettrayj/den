@@ -70,7 +70,7 @@ struct FeedView: View {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 Section(header: header.modifier(PinnedSectionHeaderModifier())) {
                     if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
-                        AllReadCompactView(numHidden: feed.feedData!.previewItems.read().count)
+                        AllReadCompactView()
                             .background(Color(UIColor.secondarySystemGroupedBackground))
                             .cornerRadius(8)
                             .padding()

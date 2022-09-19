@@ -25,7 +25,7 @@ struct GadgetView: View {
 
                     if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
                         Divider()
-                        AllReadCompactView(numHidden: feed.feedData!.previewItems.read().count)
+                        AllReadCompactView()
                     }
                 } else {
                     Divider()
