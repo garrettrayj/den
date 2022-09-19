@@ -18,10 +18,7 @@ struct ShowcaseSectionView: View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
             if feed.hasContent {
                 if visibleItems.isEmpty {
-                    AllReadCompactView(numHidden: feed.feedData!.previewItems.read().count)
-                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                        .cornerRadius(8)
-                        .padding()
+                    AllReadCompactView().padding(.horizontal)
                 } else {
                     BoardView(
                         width: width,

@@ -14,8 +14,7 @@ struct AllItemsView: View {
 
     @ObservedObject var profile: Profile
 
-    @State var unreadCount: Int
-
+    @Binding var unreadCount: Int
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
@@ -59,16 +58,7 @@ struct AllItemsView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
-        .onReceive(NotificationCenter.default.publisher(for: .itemStatus)) { notification in
-            guard
-                let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                profileObjectID == profile.objectID,
-                let read = notification.userInfo?["read"] as? Bool
-            else {
-                return
-            }
-            unreadCount += read ? -1 : 1
-        }
+
         .navigationTitle("All Items")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

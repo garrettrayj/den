@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct AllReadCompactView: View {
-    let numHidden: Int
-
     var body: some View {
         Label {
             Text("All read")

@@ -14,6 +14,7 @@ struct DetailView: View {
     @Binding var selection: Panel?
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
+    @Binding var profileUnreadCount: Int
 
     @ObservedObject var profile: Profile
 
@@ -32,7 +33,7 @@ struct DetailView: View {
             case .allItems:
                 AllItemsView(
                     profile: profile,
-                    unreadCount: profile.previewItems.unread().count,
+                    unreadCount: $profileUnreadCount,
                     hideRead: $hideRead,
                     refreshing: $refreshing
                 )
