@@ -62,11 +62,15 @@ struct AllItemsView: View {
         .navigationTitle("All Items")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    SubscriptionManager.showSubscribe()
-                } label: {
-                    Label("Add Feed", systemImage: "plus.circle")
-                }.accessibilityIdentifier("add-feed-button")
+                if refreshing {
+                    ProgressView().progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Button {
+                        SubscriptionManager.showSubscribe()
+                    } label: {
+                        Label("Add Feed", systemImage: "plus.circle")
+                    }.accessibilityIdentifier("add-feed-button")
+                }
             }
 
             ReadingToolbarContent(
