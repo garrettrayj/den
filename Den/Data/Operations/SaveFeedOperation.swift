@@ -109,5 +109,10 @@ final class SaveFeedOperation: Operation {
                 context.delete(item)
             }
         }
+
+        // Sync history
+        feedData.itemsArray.forEach { item in
+            item.read = item.history.isEmpty == false
+        }
     }
 }

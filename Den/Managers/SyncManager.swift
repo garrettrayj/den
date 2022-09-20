@@ -170,21 +170,6 @@ struct SyncManager {
         }
     }
 
-    static func syncHistory(context: NSManagedObjectContext) {
-        do {
-            let items = try context.fetch(Item.fetchRequest()) as [Item]
-            items.forEach { item in
-                item.read = item.history.isEmpty == false
-            }
-            if context.hasChanges {
-                try context.save()
-            }
-            Logger.main.info("History synchronized for \(items.count) items")
-        } catch {
-            CrashManager.handleCriticalError(error as NSError)
-        }
-    }
-
     static func cleanupHistory(context: NSManagedObjectContext) {
         do {
             var itemsRemoved: Int = 0
