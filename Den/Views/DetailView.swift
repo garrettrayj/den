@@ -25,75 +25,77 @@ struct DetailView: View {
 
     var body: some View {
         NavigationStack {
-            switch selection ?? .welcome {
-            case .welcome:
-                WelcomeView(profile: profile)
-            case .search:
-                SearchView(profile: profile, searchModel: searchModel)
-            case .allItems:
-                AllItemsView(
-                    profile: profile,
-                    unreadCount: $profileUnreadCount,
-                    hideRead: $hideRead,
-                    refreshing: $refreshing
-                )
-            case .trends:
-                TrendsView(
-                    profile: profile,
-                    unreadCount: profile.trends.unread().count,
-                    hideRead: $hideRead,
-                    refreshing: $refreshing
-                )
-            case .page(let page):
-                PageView(
-                    page: page,
-                    hideRead: $hideRead,
-                    refreshing: $refreshing
-                ).id(page.id)
-            case .settings:
-                SettingsView(activeProfile: $activeProfile, uiStyle: $uiStyle)
+            Group {
+                switch selection ?? .welcome {
+                case .welcome:
+                    WelcomeView(profile: profile)
+                case .search:
+                    SearchView(profile: profile, searchModel: searchModel)
+                case .allItems:
+                    AllItemsView(
+                        profile: profile,
+                        unreadCount: $profileUnreadCount,
+                        hideRead: $hideRead,
+                        refreshing: $refreshing
+                    )
+                case .trends:
+                    TrendsView(
+                        profile: profile,
+                        unreadCount: profile.trends.unread().count,
+                        hideRead: $hideRead,
+                        refreshing: $refreshing
+                    )
+                case .page(let page):
+                    PageView(
+                        page: page,
+                        hideRead: $hideRead,
+                        refreshing: $refreshing
+                    ).id(page.id)
+                case .settings:
+                    SettingsView(activeProfile: $activeProfile, uiStyle: $uiStyle)
+                }
+            }
+            .navigationDestination(for: DetailPanel.self) { detailPanel in
+                switch detailPanel {
+                case .trend(let trend):
+                    TrendView(
+                        trend: trend,
+                        unreadCount: trend.items.unread().count,
+                        hideRead: $hideRead,
+                        refreshing: $refreshing
+                    ).id(trend.id)
+                case .feed(let feed):
+                    if let feed = feed {
+                        FeedView(
+                            feed: feed,
+                            unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
+                            hideRead: $hideRead,
+                            refreshing: $refreshing
+                        ).id(feed.id)
+                    }
+                case .pageSettings(let page):
+                    PageSettingsView(page: page).id(page.id)
+                case .iconPicker(let page):
+                    IconPickerView(page: page).id(page.id)
+                case .feedSettings(let feed):
+                    FeedSettingsView(feed: feed).id(feed.id)
+                case .item(let item):
+                    ItemView(item: item).id(item.id)
+                case .profile(let profile):
+                    ProfileView(activeProfile: $activeProfile, profile: profile).id(profile.id)
+                case .importFeeds:
+                    ImportView(profile: profile)
+                case .exportFeeds:
+                    ExportView(profile: profile)
+                case .security:
+                    SecurityView(profile: profile)
+                case .history:
+                    HistoryView(profile: profile)
+                }
             }
         }
         #if targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
         #endif
-        .navigationDestination(for: DetailPanel.self) { detailPanel in
-            switch detailPanel {
-            case .trend(let trend):
-                TrendView(
-                    trend: trend,
-                    unreadCount: trend.items.unread().count,
-                    hideRead: $hideRead,
-                    refreshing: $refreshing
-                ).id(trend.id)
-            case .feed(let feed):
-                if let feed = feed {
-                    FeedView(
-                        feed: feed,
-                        unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
-                        hideRead: $hideRead,
-                        refreshing: $refreshing
-                    ).id(feed.id)
-                }
-            case .pageSettings(let page):
-                PageSettingsView(page: page).id(page.id)
-            case .iconPicker(let page):
-                IconPickerView(page: page).id(page.id)
-            case .feedSettings(let feed):
-                FeedSettingsView(feed: feed).id(feed.id)
-            case .item(let item):
-                ItemView(item: item).id(item.id)
-            case .profile(let profile):
-                ProfileView(activeProfile: $activeProfile, profile: profile).id(profile.id)
-            case .importFeeds:
-                ImportView(profile: profile)
-            case .exportFeeds:
-                ExportView(profile: profile)
-            case .security:
-                SecurityView(profile: profile)
-            case .history:
-                HistoryView(profile: profile)
-            }
-        }
     }
 }
