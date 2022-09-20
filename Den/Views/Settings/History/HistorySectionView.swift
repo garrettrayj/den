@@ -73,18 +73,20 @@ struct HistorySectionView: View {
         profile.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
+
+        profile.previewItems.forEach { item in
+            item.read = false
+        }
+
         do {
             try viewContext.save()
+            profile.objectWillChange.send()
+            profile.pagesArray.forEach { page in
+                NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
+            }
         } catch let error as NSError {
             CrashManager.handleCriticalError(error)
             return
-        }
-
-        SyncManager.syncHistory(context: viewContext)
-
-        profile.objectWillChange.send()
-        profile.pagesArray.forEach { page in
-            NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
         }
     }
 

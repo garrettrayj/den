@@ -32,13 +32,6 @@ struct DenApp: App {
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                if historySynced != nil && historySynced! > Date.now - 60 * 5 {
-                    Logger.main.debug("Skipping history synchronization")
-                    return
-                } else {
-                    SyncManager.syncHistory(context: persistentContainer.viewContext)
-                    historySynced = Date.now
-                }
             case .inactive:
                 Logger.main.debug("Scene phase: inactive")
             case .background:
