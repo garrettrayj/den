@@ -20,7 +20,7 @@ struct TrendView: View {
     @Binding var refreshing: Bool
 
     var body: some View {
-        GeometryReader { geometry in
+        Group {
             if trend.items.isEmpty {
                 StatusBoxView(
                     message: Text("Nothing Here"),
@@ -29,11 +29,13 @@ struct TrendView: View {
             } else if visibleItems.isEmpty {
                 AllReadStatusView(hiddenItemCount: trend.items.read().count)
             } else {
-                ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: visibleItems) { item in
-                        FeedItemPreviewView(item: item, refreshing: $refreshing)
+                GeometryReader { geometry in
+                    ScrollView(.vertical) {
+                        BoardView(width: geometry.size.width, list: visibleItems) { item in
+                            FeedItemPreviewView(item: item, refreshing: $refreshing)
+                        }
+                        .padding()
                     }
-                    .padding()
                 }
             }
         }
@@ -56,7 +58,7 @@ struct TrendView: View {
             ReadingToolbarContent(
                 unreadCount: $unreadCount,
                 hideRead: $hideRead,
-                refreshing: .constant(false),
+                refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
                 SyncManager.toggleReadUnread(context: viewContext, items: trend.items)

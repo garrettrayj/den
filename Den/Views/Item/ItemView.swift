@@ -16,10 +16,9 @@ struct ItemView: View {
     let maxContentWidth: CGFloat = 720
 
     var body: some View {
-        VStack {
+        Group {
             if item.managedObjectContext == nil {
                 StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
-                    .navigationTitle("")
             } else {
                 ScrollView(.vertical) {
                     VStack {
@@ -57,39 +56,36 @@ struct ItemView: View {
                         .frame(maxWidth: maxContentWidth)
                     }.frame(maxWidth: .infinity)
                 }
-                .toolbar { toolbar }
-                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    if let link = item.link {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            ShareLink(item: link).modifier(ToolbarButtonModifier())
+                        }
+                    }
+
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        Spacer()
+                        Button {
+                            SyncManager.openLink(context: viewContext, url: item.link)
+                        } label: {
+                            #if targetEnvironment(macCatalyst)
+                            Label("Open in Browser", systemImage: "link.circle")
+                            #else
+                            Label("Open in Browser", systemImage: "safari")
+                            #endif
+                        }
+                        .modifier(ToolbarButtonModifier())
+                        .accessibilityIdentifier("item-open-button")
+                    }
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        SyncManager.markItemRead(context: viewContext, item: item)
+                    }
+                }
             }
         }
         .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                SyncManager.markItemRead(context: viewContext, item: item)
-            }
-        }
-    }
-
-    @ToolbarContentBuilder
-    private var toolbar: some ToolbarContent {
-        if let link = item.link {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                ShareLink(item: link).modifier(ToolbarButtonModifier())
-            }
-        }
-
-        ToolbarItemGroup(placement: .bottomBar) {
-            Spacer()
-            Button {
-                SyncManager.openLink(context: viewContext, url: item.link)
-            } label: {
-                #if targetEnvironment(macCatalyst)
-                Label("Open in Browser", systemImage: "link.circle")
-                #else
-                Label("Open in Browser", systemImage: "safari")
-                #endif
-            }
-            .modifier(ToolbarButtonModifier())
-            .accessibilityIdentifier("item-open-button")
-        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

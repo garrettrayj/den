@@ -34,7 +34,7 @@ struct ToolbarButtonStyle: ButtonStyle {
                     isEnabled ?
                         configuration.isPressed ?
                             Color(UIColor.systemFill) :
-                                hovering ? Color(UIColor.tertiarySystemFill) : Color.clear
+                                hovering ? Color(UIColor.quaternarySystemFill) : Color.clear
                     : Color.clear
                 )
                 .cornerRadius(6)
