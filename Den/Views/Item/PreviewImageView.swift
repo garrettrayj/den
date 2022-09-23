@@ -29,6 +29,23 @@ struct PreviewImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
                 .padding(8)
+            } else if CGFloat(item.imageWidth) < ImageSize.preview.width {
+                VStack {
+                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
+                        .resizable()
+                        .purgeable(true)
+                        .placeholder {
+                            ItemImagePlaceholderView(imageURL: item.image, aspectRatio: 16/9)
+                        }
+                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                        .cornerRadius(4)
+                        .frame(
+                            maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
+                            maxHeight: item.imageHeight > 0 ? CGFloat(item.imageHeight) : nil
+                        )
+                }
+                .frame(maxWidth: .infinity)
+                .padding(8)
             } else {
                 WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
                     .resizable()
@@ -46,7 +63,7 @@ struct PreviewImageView: View {
                     )
             }
         }
-        .background(Color(UIColor.tertiarySystemGroupedBackground))
+        .background(Color(UIColor.secondarySystemFill))
         .cornerRadius(6)
         .accessibility(label: Text("Preview image"))
     }
