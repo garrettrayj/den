@@ -11,8 +11,7 @@ import SwiftUI
 struct ItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var item: Item
-
+    let item: Item
     let maxContentWidth: CGFloat = 720
 
     var body: some View {

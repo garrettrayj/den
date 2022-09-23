@@ -29,6 +29,7 @@ struct ItemImagePlaceholderView: View {
                     }
                     .labelStyle(.iconOnly)
                 }
+                .buttonStyle(.plain)
                 .accessibilityIdentifier("image-copy-url-button")
             }
         }

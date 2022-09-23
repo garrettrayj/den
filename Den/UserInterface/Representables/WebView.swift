@@ -41,15 +41,14 @@ class CustomWebView: WKWebView {
 }
 
 struct WebView: UIViewRepresentable {
-    var html: String
-    var title: String?
-    var baseURL: URL?
-
-    @State var webView: CustomWebView = CustomWebView(
-        frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
-    )
+    let html: String
+    let title: String?
+    let baseURL: URL?
 
     func makeUIView(context: Context) -> WKWebView {
+        let webView = CustomWebView(
+            frame: CGRect(origin: .zero, size: CGSize())
+        )
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
