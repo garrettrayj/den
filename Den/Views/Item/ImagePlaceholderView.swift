@@ -16,18 +16,21 @@ struct ItemImagePlaceholderView: View {
     var body: some View {
         HStack {
             Image(systemName: "photo")
-            Text(imageURL?.absoluteString ?? "Unknown address").lineLimit(1).font(.caption)
-            Spacer()
-            Button {
-                UIPasteboard.general.string = imageURL?.absoluteString
-            } label: {
-                Label {
-                    Text("Copy Image URL")
-                } icon: {
-                    Image(systemName: "doc.on.doc").imageScale(.small)
-                }.labelStyle(.iconOnly)
+            if let urlString = imageURL?.absoluteString {
+                Text(urlString).lineLimit(1).font(.caption)
+                Spacer()
+                Button {
+                    UIPasteboard.general.string = imageURL?.absoluteString
+                } label: {
+                    Label {
+                        Text("Copy Image URL")
+                    } icon: {
+                        Image(systemName: "doc.on.doc").imageScale(.small)
+                    }
+                    .labelStyle(.iconOnly)
+                }
+                .accessibilityIdentifier("image-copy-url-button")
             }
-            .accessibilityIdentifier("image-copy-url-button")
         }
         .foregroundColor(.secondary)
         .padding(padding)
