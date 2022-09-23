@@ -15,7 +15,7 @@ struct HeroImageView: View {
         AsyncImage(url: item.image) { image in
             image.resizable().aspectRatio(item.imageAspectRatio, contentMode: .fill)
         } placeholder: {
-            ItemImagePlaceholderView(imageURL: item.image, aspectRatio: item.imageAspectRatio)
+            ItemImagePlaceholderView(imageURL: item.image, aspectRatio: item.imageAspectRatio, padding: 12)
         }
         .frame(maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil)
         .background(Color(UIColor.tertiarySystemGroupedBackground))

@@ -14,6 +14,7 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
+
     var searchModel: SearchModel
 
     @Binding var selection: Panel?
@@ -28,8 +29,7 @@ struct SidebarView: View {
     var body: some View {
         List(selection: $selection) {
             if profile.pagesArray.isEmpty {
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Get Started").font(.title2.weight(.semibold))
+                Section {
                     Button {
                         withAnimation {
                             _ = Page.create(in: viewContext, profile: profile, prepend: true)
@@ -50,18 +50,16 @@ struct SidebarView: View {
                     .buttonStyle(.borderless)
                     .modifier(StartRowModifier())
                     .accessibilityIdentifier("load-demo-button")
-
-                    Text("or import feeds in settings \(Image(systemName: "gear"))").imageScale(.small)
+                } header: {
+                    Text("Get Started")
+                } footer: {
+                    Text("or import feeds in settings \(Image(systemName: "gear"))")
+                        .imageScale(.small)
+                        .padding(.top, 4)
                 }
-                .lineLimit(1)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 8).strokeBorder(Color(UIColor.separator), lineWidth: 2)
+                .headerProminence(.increased)
 
-                )
-                .cornerRadius(8)
-                .padding(.vertical)
+                .lineLimit(1)
             } else {
                 AllItemsNavView(
                     profile: profile,
@@ -140,17 +138,19 @@ struct SidebarView: View {
 
                     VStack {
                         if refreshing {
-                            GeometryReader { geometry in
-                                ProgressView(refreshProgress)
-                                    .progressViewStyle(BottomBarProgressStyle(
-                                        progress: refreshProgress,
-                                        width: max(geometry.size.width - 32, 80)
-                                    ))
-                            }.frame(maxWidth: 200)
+                            ProgressView(refreshProgress)
+                                .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
+                        } else if profile.minimumRefreshedDate != nil {
+                            Text("Updated \(profile.minimumRefreshedDate!.shortShortDisplay())")
                         } else {
-                            refreshedLabel
+                            #if targetEnvironment(macCatalyst)
+                            Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)
+                            #else
+                            Text("Pull to refresh")
+                            #endif
                         }
                     }
+                    .lineLimit(1)
                     .font(.caption)
                     .frame(maxWidth: .infinity)
 
@@ -166,21 +166,6 @@ struct SidebarView: View {
                 }
             }
         }
-    }
-
-    var refreshedLabel: some View {
-        VStack(alignment: .center, spacing: 0) {
-            if profile.minimumRefreshedDate != nil {
-                Text("Updated \(profile.minimumRefreshedDate!.shortShortDisplay())")
-            } else {
-                #if targetEnvironment(macCatalyst)
-                Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)
-                #else
-                Text("Pull to refresh")
-                #endif
-            }
-        }
-        .lineLimit(1)
     }
 
     private func save() {

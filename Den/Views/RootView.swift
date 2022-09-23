@@ -20,7 +20,8 @@ struct RootView: View {
 
     let persistentContainer: NSPersistentContainer
     let refreshProgress: Progress = Progress()
-    let searchModel = SearchModel()
+
+    @StateObject private var searchModel = SearchModel()
 
     @State private var selection: Panel?
     @State private var path = NavigationPath()

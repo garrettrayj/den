@@ -64,42 +64,37 @@ struct SyncManager {
     }
 
     static func toggleReadUnread(context: NSManagedObjectContext, items: [Item]) {
+        var modItems: [Item]
+
         if items.unread().isEmpty == true {
-            let readItems = items.read()
-            clearHistory(context: context, items: readItems)
-            for item in readItems {
-                item.read = false
-                NotificationCenter.default.postItemStatus(
-                    read: false,
-                    itemObjectID: item.objectID,
-                    feedObjectID: item.feedData?.feed?.objectID,
-                    pageObjectID: item.feedData?.feed?.page?.objectID,
-                    profileObjectID: item.feedData?.feed?.page?.profile?.objectID
-                )
-            }
-            saveContext(context: context)
+            modItems = items.read()
+            clearHistory(context: context, items: modItems)
         } else {
-            let unreadItems = items.unread()
-            logHistory(context: context, items: unreadItems)
-            unreadItems.forEach { item in
-                item.read = true
-            }
-            saveContext(context: context)
-            unreadItems.forEach { item in
+            modItems = items.unread()
+            logHistory(context: context, items: modItems)
+        }
+
+        do {
+            try context.save()
+            modItems.forEach { item in
                 NotificationCenter.default.postItemStatus(
-                    read: true,
+                    read: item.read,
                     itemObjectID: item.objectID,
                     feedObjectID: item.feedData?.feed?.objectID,
                     pageObjectID: item.feedData?.feed?.page?.objectID,
                     profileObjectID: item.feedData?.feed?.page?.profile?.objectID
                 )
             }
+        } catch {
+            CrashManager.handleCriticalError(error as NSError)
         }
     }
 
     static func logHistory(context: NSManagedObjectContext, items: [Item], visited: Date? = nil) {
         guard let profile = items.first?.feedData?.feed?.page?.profile else { return }
         for item in items {
+            item.read = true
+
             let history = item.history.first ?? History.create(in: context, profile: profile)
             history.link = item.link
             history.title = item.title
@@ -128,15 +123,13 @@ struct SyncManager {
         fetchRequest = NSFetchRequest(entityName: "History")
         fetchRequest.predicate = compoundPredicate
 
-        // Create a batch delete request for the
-        // fetch request
+        // Create a batch delete request for the fetch request
         let deleteRequest = NSBatchDeleteRequest(
             fetchRequest: fetchRequest
         )
 
         // Specify the result of the NSBatchDeleteRequest
-        // should be the NSManagedObject IDs for the
-        // deleted objects
+        // should be the NSManagedObject IDs for the deleted objects
         deleteRequest.resultType = .resultTypeObjectIDs
 
         // Perform the batch delete
@@ -151,12 +144,16 @@ struct SyncManager {
             NSDeletedObjectsKey: deleteResult
         ]
 
-        // Merge the delete changes into the managed
-        // object context
+        // Merge the delete changes into the managed object context
         NSManagedObjectContext.mergeChanges(
             fromRemoteContextSave: deletedObjects,
             into: [context]
         )
+
+        // Update items
+        items.forEach { item in
+            item.read = false
+        }
     }
 
     static func saveContext(context: NSManagedObjectContext) {
