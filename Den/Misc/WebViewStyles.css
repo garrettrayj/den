@@ -5,12 +5,10 @@
  for Apple specific CSS values
  */
 
-
 :root {
     color-scheme: light dark;
     font: -apple-system-tall-body;
 }
-
 
 body {
     margin: 0;
