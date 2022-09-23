@@ -160,10 +160,8 @@ struct FeedView: View {
             refreshing: $refreshing,
             centerLabel: Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread")
         ) {
-            withAnimation {
-                SyncManager.toggleReadUnread(context: viewContext, items: feed.feedData?.previewItems ?? [])
-                feed.objectWillChange.send()
-            }
+            SyncManager.toggleReadUnread(context: viewContext, items: feed.feedData?.previewItems ?? [])
+            feed.objectWillChange.send()
         }
     }
 }

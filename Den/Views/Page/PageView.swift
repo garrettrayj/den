@@ -175,9 +175,7 @@ struct PageView: View {
             refreshing: $refreshing,
             centerLabel: Text("\(unreadCount) Unread")
         ) {
-            withAnimation {
-                SyncManager.toggleReadUnread(context: viewContext, items: page.previewItems)
-            }
+            SyncManager.toggleReadUnread(context: viewContext, items: page.previewItems)
         }
     }
 

@@ -16,6 +16,7 @@ struct ImageSize {
     #else
     static let thumbnail = CGSize(width: 102, height: 68)
     #endif
+    static let full = CGSize(width: 720, height: 405)
 }
 
 struct ImageReferenceSize {
@@ -30,5 +31,9 @@ struct ImageReferenceSize {
     static let thumbnail = CGSize(
         width: ImageSize.thumbnail.width * UIScreen.main.scale,
         height: ImageSize.thumbnail.height * UIScreen.main.scale
+    )
+    static let full = CGSize(
+        width: ImageSize.full.width * UIScreen.main.scale,
+        height: ImageSize.full.height * UIScreen.main.scale
     )
 }

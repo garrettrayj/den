@@ -79,9 +79,7 @@ struct AllItemsView: View {
                 refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
-                withAnimation {
-                    SyncManager.toggleReadUnread(context: viewContext, items: profile.previewItems)
-                }
+                SyncManager.toggleReadUnread(context: viewContext, items: profile.previewItems)
             }
         }
     }
