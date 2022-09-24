@@ -69,7 +69,9 @@ struct AllItemsView: View {
                         SubscriptionManager.showSubscribe()
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
-                    }.accessibilityIdentifier("add-feed-button")
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .accessibilityIdentifier("add-feed-button")
                 }
             }
 
