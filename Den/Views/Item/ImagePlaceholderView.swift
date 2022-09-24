@@ -9,33 +9,10 @@
 import SwiftUI
 
 struct ItemImagePlaceholderView: View {
-    let imageURL: URL?
-    let aspectRatio: CGFloat?
-    var padding: CGFloat = .zero
-
     var body: some View {
         HStack {
-            Image(systemName: "photo")
-            if let urlString = imageURL?.absoluteString {
-                Text(urlString).lineLimit(1).font(.caption)
-                Spacer()
-                Button {
-                    UIPasteboard.general.string = imageURL?.absoluteString
-                } label: {
-                    Label {
-                        Text("Copy Image URL")
-                    } icon: {
-                        Image(systemName: "doc.on.doc").imageScale(.small)
-                    }
-                    .labelStyle(.iconOnly)
-                }
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("image-copy-url-button")
-            }
+            Image(systemName: "photo").imageScale(.large).foregroundColor(Color(UIColor.tertiaryLabel))
         }
-        .foregroundColor(.secondary)
-        .padding(padding)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .aspectRatio(aspectRatio, contentMode: .fill)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }

@@ -36,14 +36,6 @@ struct DenApp: App {
                 Logger.main.debug("Scene phase: inactive")
             case .background:
                 Logger.main.debug("Scene phase: background")
-
-                if lastCleanup != nil && lastCleanup! > Date.now - 60 * 60 * 24 {
-                    Logger.main.debug("Skipping data and history cleanup")
-                    return
-                } else {
-                    SyncManager.cleanupData(context: persistentContainer.viewContext)
-                    SyncManager.cleanupHistory(context: persistentContainer.viewContext)
-                }
             @unknown default:
                 Logger.main.debug("Scene phase: unknown")
             }
