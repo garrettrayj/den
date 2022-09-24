@@ -19,9 +19,8 @@ struct PreviewImageView: View {
                 VStack {
                     WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
                         .resizable()
-                        .purgeable(true)
                         .placeholder {
-                            ItemImagePlaceholderView(imageURL: item.image, aspectRatio: 16/9)
+                            ItemImagePlaceholderView()
                         }
                         .scaledToFit()
                         .cornerRadius(4)
@@ -33,11 +32,10 @@ struct PreviewImageView: View {
                 VStack {
                     WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
                         .resizable()
-                        .purgeable(true)
                         .placeholder {
-                            ItemImagePlaceholderView(imageURL: item.image, aspectRatio: 16/9)
+                            ItemImagePlaceholderView()
                         }
-                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                        .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .cornerRadius(4)
                         .frame(
                             maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
@@ -49,9 +47,8 @@ struct PreviewImageView: View {
             } else {
                 WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
                     .resizable()
-                    .purgeable(true)
                     .placeholder {
-                        ItemImagePlaceholderView(imageURL: item.image, aspectRatio: item.imageAspectRatio, padding: 8)
+                        ItemImagePlaceholderView()
                     }
                     .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                     .frame(

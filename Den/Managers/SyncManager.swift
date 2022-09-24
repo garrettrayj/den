@@ -38,7 +38,7 @@ struct SyncManager {
     static func markItemRead(context: NSManagedObjectContext, item: Item) {
         guard item.read != true else { return }
         item.read = true
-        logHistory(context: context, items: [item], visited: .now)
+        logHistory(context: context, items: [item])
         saveContext(context: context)
         NotificationCenter.default.postItemStatus(
             read: true,
@@ -90,7 +90,7 @@ struct SyncManager {
         }
     }
 
-    static func logHistory(context: NSManagedObjectContext, items: [Item], visited: Date? = nil) {
+    static func logHistory(context: NSManagedObjectContext, items: [Item]) {
         guard let profile = items.first?.feedData?.feed?.page?.profile else { return }
         for item in items {
             item.read = true
@@ -98,7 +98,7 @@ struct SyncManager {
             let history = item.history.first ?? History.create(in: context, profile: profile)
             history.link = item.link
             history.title = item.title
-            history.visited = visited
+            history.visited = .now
         }
     }
 
@@ -167,54 +167,4 @@ struct SyncManager {
         }
     }
 
-    static func cleanupHistory(context: NSManagedObjectContext) {
-        do {
-            var itemsRemoved: Int = 0
-            let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
-            try profiles.forEach { profile in
-                if profile.historyRetention == 0 { return }
-                let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-                fetchRequest.predicate = NSPredicate(
-                    format: "%K < %@",
-                    #keyPath(History.visited),
-                    historyRetentionStart as NSDate
-                )
-                fetchRequest.sortDescriptors = []
-
-                let fetchResults = try context.fetch(fetchRequest) as? [History]
-                fetchResults?.forEach { context.delete($0) }
-                itemsRemoved += fetchResults?.count ?? 0
-            }
-            if context.hasChanges {
-                try context.save()
-            }
-            Logger.main.info("History cleanup finished. \(itemsRemoved) entries removed")
-        } catch {
-            CrashManager.handleCriticalError(error as NSError)
-        }
-    }
-
-    /**
-     Remove abandoned FeedData entities. Related Item entities will also be removed via cascade.
-     */
-    static func cleanupData(context: NSManagedObjectContext) {
-        do {
-            let feedDatas = try context.fetch(FeedData.fetchRequest()) as [FeedData]
-            let orphanedFeedDatas = feedDatas.filter { $0.feed == nil }
-            if orphanedFeedDatas.isEmpty {
-                Logger.main.info("Skipping feed data cleanup. No orphans found")
-                return
-            }
-            for feedData in orphanedFeedDatas where feedData.feed == nil {
-                context.delete(feedData)
-            }
-            if context.hasChanges {
-                try context.save()
-                Logger.main.info("Purged \(orphanedFeedDatas.count) orphan feed data cache(s)")
-            }
-        } catch {
-            CrashManager.handleCriticalError(error as NSError)
-        }
-    }
 }

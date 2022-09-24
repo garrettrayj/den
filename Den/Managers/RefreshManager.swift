@@ -61,6 +61,15 @@ struct RefreshManager {
             pagesCompletedOp.addDependency(pageCompletionOp)
         }
 
+        // Cleanup operation
+        let cleanupOp = CleanupOperation(
+            persistentContainer: container,
+            profileObjectID: profile.objectID
+        )
+        operations.append(cleanupOp)
+        cleanupOp.addDependency(pagesCompletedOp)
+        profileCompletionOp.addDependency(cleanupOp)
+
         queue.addOperations(operations, waitUntilFinished: false)
     }
 
