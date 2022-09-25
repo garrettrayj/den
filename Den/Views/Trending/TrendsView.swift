@@ -57,7 +57,7 @@ struct TrendsView: View {
                 unreadCount: $unreadCount,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) with Unread")
+                centerLabel: Text("\(unreadCount) with unread")
             ) {
                 SyncManager.toggleReadUnread(context: viewContext, items: profile.previewItems)
             }
