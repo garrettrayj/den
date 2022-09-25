@@ -16,6 +16,7 @@ struct ProfileView: View {
 
     @ObservedObject var profile: Profile
 
+    @State private var nameInput: String = ""
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
@@ -24,7 +25,11 @@ struct ProfileView: View {
             activateDeleteSection
         }
         .navigationTitle("Profile")
+        .onAppear {
+            nameInput = profile.wrappedName
+        }
         .onDisappear {
+            profile.wrappedName = nameInput
             save()
         }
     }
@@ -32,7 +37,7 @@ struct ProfileView: View {
     private var nameSection: some View {
         Section(header: Text("\nName")) {
             HStack {
-                TextField("Name", text: $profile.wrappedName)
+                TextField("Name", text: $nameInput)
                     .modifier(TitleTextFieldModifier())
             }.modifier(FormRowModifier())
         }
