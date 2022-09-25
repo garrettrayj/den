@@ -37,7 +37,7 @@ struct TrendBlockView: View {
                         Spacer()
                         HStack {
                             if let symbol = symbol {
-                                Image(systemName: symbol).imageScale(.small).foregroundColor(.secondary)
+                                Image(systemName: symbol).imageScale(.small).foregroundColor(Color(UIColor.tertiaryLabel))
                             }
                             Text("\(trend.items.unread().count)").modifier(CapsuleModifier())
                         }

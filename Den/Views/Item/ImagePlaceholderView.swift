@@ -11,7 +11,10 @@ import SwiftUI
 struct ItemImagePlaceholderView: View {
     var body: some View {
         HStack {
-            Image(systemName: "photo").imageScale(.large).foregroundColor(Color(UIColor.tertiaryLabel))
+            Image(systemName: "photo")
+                .imageScale(.large)
+                .foregroundColor(Color(UIColor.tertiaryLabel))
+                .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
