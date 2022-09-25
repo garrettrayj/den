@@ -45,6 +45,13 @@ struct RefreshManager {
         }
         operations.append(pagesCompletedOp)
 
+        // Page refresh operations
+        profile.pagesArray.forEach { page in
+            let (pageOps, pageCompletionOp) = createPageOps(container: container, page: page)
+            operations.append(contentsOf: pageOps)
+            pagesCompletedOp.addDependency(pageCompletionOp)
+        }
+
         // Trends analysis
         let trendsOp = TrendsOperation(
             persistentContainer: container,
@@ -53,13 +60,6 @@ struct RefreshManager {
         operations.append(trendsOp)
         trendsOp.addDependency(pagesCompletedOp)
         profileCompletionOp.addDependency(trendsOp)
-
-        // Page refresh operations
-        profile.pagesArray.forEach { page in
-            let (pageOps, pageCompletionOp) = createPageOps(container: container, page: page)
-            operations.append(contentsOf: pageOps)
-            pagesCompletedOp.addDependency(pageCompletionOp)
-        }
 
         // Cleanup operation
         let cleanupOp = CleanupOperation(
