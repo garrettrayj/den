@@ -19,8 +19,12 @@ struct PageSettingsView: View {
             feedsSection
         }
         .navigationTitle("Page Settings")
-        .environment(\.editMode, .constant(.active))
         .onDisappear(perform: save)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton().buttonStyle(ToolbarButtonStyle())
+            }
+        }
     }
 
     private var nameIconSection: some View {
@@ -38,7 +42,6 @@ struct PageSettingsView: View {
                         Spacer()
                         Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
                     }
-
                 } icon: {
                     Image(systemName: "square.grid.3x3.topleft.filled")
                 }
@@ -59,6 +62,7 @@ struct PageSettingsView: View {
                 .modifier(FormRowModifier())
                 .onDelete(perform: deleteFeed)
                 .onMove(perform: moveFeed)
+
             }
         }
     }
