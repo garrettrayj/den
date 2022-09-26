@@ -13,18 +13,16 @@ struct PageSettingsView: View {
 
     @ObservedObject var page: Page
 
+    @State var showingIconPicker: Bool = false
+
     var body: some View {
         Form {
             nameIconSection
             feedsSection
         }
+        .environment(\.editMode, .constant(.active))
         .navigationTitle("Page Settings")
         .onDisappear(perform: save)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton().buttonStyle(ToolbarButtonStyle())
-            }
-        }
     }
 
     private var nameIconSection: some View {
@@ -35,17 +33,26 @@ struct PageSettingsView: View {
 
             }.modifier(FormRowModifier())
 
-            NavigationLink(value: DetailPanel.iconPicker(page)) {
-                Label {
-                    HStack {
-                        Text("Select Icon")
-                        Spacer()
-                        Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
-                    }
-                } icon: {
-                    Image(systemName: "square.grid.3x3.topleft.filled")
+            Label {
+                HStack {
+                    Text("Select Icon")
+                    Spacer()
+                    Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
                 }
-            }.modifier(FormRowModifier())
+            } icon: {
+                Image(systemName: "square.grid.3x3.topleft.filled")
+            }
+            .onTapGesture {
+                showingIconPicker = true
+            }
+            .modifier(FormRowModifier())
+        }
+        .sheet(isPresented: $showingIconPicker) {
+            NavigationStack {
+                IconPickerView(page: page)
+
+            }
+
         }
     }
 

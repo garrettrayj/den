@@ -20,6 +20,8 @@ struct FeedFaviconView: View {
             .resizable()
             .placeholder {
                 Image(systemName: "dot.radiowaves.up.forward")
+                    .font(.system(size: 15).weight(.semibold))
+                    .foregroundColor(.primary)
             }
             .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
     }

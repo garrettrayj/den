@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct IconPickerView: View {
+    @Environment(\.dismiss) var dismiss
     @ObservedObject var page: Page
 
     let columns = [
@@ -16,16 +17,27 @@ struct IconPickerView: View {
     ]
 
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
-                ForEach(SymbolCollection.shared.categories) { category in
-                    categorySection(category: category)
+        NavigationStack {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
+                    ForEach(SymbolCollection.shared.categories) { category in
+                        categorySection(category: category)
+                    }
+                }.padding(.bottom, 40)
+            }
+            .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+            .navigationTitle("Select Icon")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Close", systemImage: "xmark.circle")
+                    }.buttonStyle(ToolbarButtonStyle())
                 }
-            }.padding(.bottom, 40)
+            }
         }
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-        .navigationTitle("Select Icon")
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     private func categorySection(category: SymbolCollection.Category) -> some View {
