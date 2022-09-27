@@ -69,8 +69,8 @@ struct SidebarView: View {
                 TrendsNavView(profile: profile, refreshing: $refreshing)
 
                 Section {
-                    ForEach($profile.pagesArray) { $page in
-                        PageNavView(page: $page)
+                    ForEach(profile.pagesArray) { page in
+                        PageNavView(page: page)
                     }
                     .onMove(perform: movePage)
                     .onDelete(perform: deletePage)
@@ -171,6 +171,9 @@ struct SidebarView: View {
     private func save() {
         do {
             try viewContext.save()
+            DispatchQueue.main.async {
+                profile.objectWillChange.send()
+            }
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }

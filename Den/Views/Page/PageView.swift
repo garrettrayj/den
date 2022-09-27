@@ -8,6 +8,7 @@
 
 import CoreData
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct PageView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -104,6 +105,7 @@ struct PageView: View {
         ) { _ in
             unreadCount = page.previewItems.unread().count
         }
+        .modifier(URLDropTargetModifier(page: page))
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle(page.displayName)
         .toolbar { toolbarContent }

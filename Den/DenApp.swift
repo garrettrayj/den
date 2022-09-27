@@ -7,6 +7,7 @@
 import CoreData
 import OSLog
 import SwiftUI
+import UniformTypeIdentifiers
 
 @main
 struct DenApp: App {
@@ -27,6 +28,7 @@ struct DenApp: App {
                 .onOpenURL { url in
                     SubscriptionManager.showSubscribe(for: url)
                 }
+                .modifier(URLDropTargetModifier())
         }
         .onChange(of: scenePhase) { phase in
             switch phase {
