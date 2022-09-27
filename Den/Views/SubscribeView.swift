@@ -50,8 +50,8 @@ struct SubscribeView: View {
                             Text("\nWeb Address")
                         } footer: {
                             Group {
-                                if validationMessage != nil {
-                                    Text(validationMessage!).foregroundColor(.red)
+                                if let validationMessage = validationMessage {
+                                    Text(validationMessage).foregroundColor(.red)
                                 } else {
                                     Text("RSS, Atom, or JSON Feed")
                                 }

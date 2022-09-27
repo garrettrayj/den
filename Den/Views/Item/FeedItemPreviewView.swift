@@ -13,29 +13,27 @@ struct FeedItemPreviewView: View {
     @Binding var refreshing: Bool
 
     var body: some View {
-        if item.feedData?.feed != nil {
-            VStack(alignment: .leading, spacing: 0) {
-                NavigationLink(value: DetailPanel.feed(item.feedData?.feed)) {
-                    HStack {
-                        FeedTitleLabelView(
-                            title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                            favicon: item.feedData?.favicon
-                        )
-                        Spacer()
-                        NavChevronView()
-                    }.padding(.horizontal, 12)
-                }
-                .buttonStyle(FeedTitleButtonStyle())
-                .accessibilityIdentifier("item-feed-button")
-
-                Divider()
-
-                ItemActionView(item: item) {
-                    ItemPreviewView(item: item)
-                }
+        VStack(alignment: .leading, spacing: 0) {
+            NavigationLink(value: DetailPanel.feed(item.feedData?.feed)) {
+                HStack {
+                    FeedTitleLabelView(
+                        title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
+                        favicon: item.feedData?.favicon
+                    )
+                    Spacer()
+                    NavChevronView()
+                }.padding(.horizontal, 12)
             }
-            .modifier(GroupBlockModifier())
-            .cornerRadius(8)
+            .buttonStyle(FeedTitleButtonStyle())
+            .accessibilityIdentifier("item-feed-button")
+
+            Divider()
+
+            ItemActionView(item: item) {
+                ItemPreviewView(item: item)
+            }
         }
+        .modifier(GroupBlockModifier())
+        .cornerRadius(8)
     }
 }

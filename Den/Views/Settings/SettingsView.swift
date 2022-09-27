@@ -15,12 +15,10 @@ struct SettingsView: View {
     var body: some View {
         Form {
             ProfilesSectionView(activeProfile: $activeProfile)
-            if activeProfile != nil {
-                FeedsSectionView(profile: activeProfile!)
-                HistorySectionView(profile: activeProfile!)
-                AppearanceSectionView(uiStyle: $uiStyle)
-                ResetSectionView(activeProfile: $activeProfile)
-            }
+            FeedsSectionView(profile: activeProfile!)
+            HistorySectionView(profile: activeProfile!)
+            AppearanceSectionView(uiStyle: $uiStyle)
+            ResetSectionView(activeProfile: $activeProfile)
             AboutSectionView()
         }
         .navigationTitle("Settings")

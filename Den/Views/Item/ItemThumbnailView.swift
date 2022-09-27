@@ -14,8 +14,8 @@ struct ItemThumbnailView: View {
     let item: Item
 
     var body: some View {
-        if item.image != nil {
-            WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
+        if let image = item.image {
+            WebImage(url: image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
                 .resizable()
                 .placeholder {
                     placeholder
@@ -23,8 +23,8 @@ struct ItemThumbnailView: View {
                 .playbackRate(0)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                 .modifier(ThumbnailModifier())
-        } else if item.feedData?.image != nil {
-            WebImage(url: item.feedData?.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
+        } else if let image = item.feedData?.image {
+            WebImage(url: image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
                 .resizable()
                 .placeholder {
                     placeholder

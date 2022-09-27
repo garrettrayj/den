@@ -83,11 +83,9 @@ struct SearchResultsView: View {
         Section {
             VStack(spacing: 0) {
                 ForEach(section) { item in
-                    if item.feedData?.feed != nil {
-                        SearchResultView(item: item)
-                        if item != section.last {
-                            Divider()
-                        }
+                    SearchResultView(item: item)
+                    if item != section.last {
+                        Divider()
                     }
                 }
             }

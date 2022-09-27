@@ -140,8 +140,8 @@ struct SidebarView: View {
                         if refreshing {
                             ProgressView(refreshProgress)
                                 .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
-                        } else if profile.minimumRefreshedDate != nil {
-                            Text("Updated \(profile.minimumRefreshedDate!.shortShortDisplay())")
+                        } else if let refreshedDate = profile.minimumRefreshedDate {
+                            Text("Updated \(refreshedDate.shortShortDisplay())")
                         } else {
                             #if targetEnvironment(macCatalyst)
                             Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)

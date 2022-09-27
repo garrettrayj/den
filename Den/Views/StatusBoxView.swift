@@ -16,8 +16,8 @@ struct StatusBoxView: View {
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
-            if symbol != nil {
-                Image(systemName: symbol!)
+            if let symbol = symbol {
+                Image(systemName: symbol)
                     .font(.system(size: 48))
                     .padding(.bottom, 8)
             }

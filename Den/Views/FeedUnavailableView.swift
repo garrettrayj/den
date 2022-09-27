@@ -46,11 +46,11 @@ struct FeedUnavailableView: View {
                     caption: "Refresh to load feed",
                     useStatusBox: useStatusBox
                 )
-            } else if feedData?.error != nil {
+            } else if let error = feedData?.error {
                 StatusMessageView(
                     symbol: "exclamationmark.triangle",
                     title: "Refresh Error",
-                    caption: feedData!.error!,
+                    caption: error,
                     symbolColor: .red,
                     useStatusBox: useStatusBox
                 )
