@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct AboutSectionView: View {
+    @Environment(\.openURL) private var openURL
+
     var body: some View {
         Section(header: Text("About")) {
             HStack(alignment: .bottom, spacing: 16) {
@@ -28,7 +30,9 @@ struct AboutSectionView: View {
             }.padding(.vertical, 8)
 
             Button {
-                UIApplication.shared.openAddress("https://discord.gg/NS9hMrYrnt")
+                if let url = URL(string: "https://discord.gg/NS9hMrYrnt") {
+                    openURL(url)
+                }
             } label: {
                 Label("Discord Community", systemImage: "person.2.wave.2")
             }
@@ -36,7 +40,9 @@ struct AboutSectionView: View {
             .accessibilityIdentifier("website-button")
 
             Button {
-                UIApplication.shared.openAddress("mailto:support@devsci.net")
+                if let url = URL(string: "mailto:support@devsci.net") {
+                    openURL(url)
+                }
             } label: {
                 Label("Email Support", systemImage: "lifepreserver")
             }
@@ -44,7 +50,9 @@ struct AboutSectionView: View {
             .accessibilityIdentifier("email-support-button")
 
             Button {
-                UIApplication.shared.openAddress("https://garrettjohnson.com/apps/")
+                if let url = URL(string: "https://garrettjohnson.com/apps/") {
+                    openURL(url)
+                }
             } label: {
                 Label("Developer Website", systemImage: "house")
             }
@@ -52,7 +60,9 @@ struct AboutSectionView: View {
             .accessibilityIdentifier("website-button")
 
             Button {
-                UIApplication.shared.openAddress("https://garrettjohnson.com/privacy/")
+                if let url = URL(string: "https://garrettjohnson.com/privacy/") {
+                    openURL(url)
+                }
             } label: {
                 Label("Privacy Policy", systemImage: "hand.raised.slash")
             }
