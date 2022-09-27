@@ -96,12 +96,8 @@ struct RootView: View {
                     self.refreshing = false
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
-                    if let urlString = notification.userInfo?["urlString"] as? String {
-                        subscribeURLString = urlString
-                    }
-                    if let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
-                        subscribePageObjectID = pageObjectID
-                    }
+                    subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
+                    subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
                     showSubscribe = true
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in

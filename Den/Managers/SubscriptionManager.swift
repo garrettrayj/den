@@ -30,6 +30,8 @@ struct SubscriptionManager {
             userInfo["pageObjectID"] = initialPageObjectID
         }
 
-        NotificationCenter.default.post(name: .showSubscribe, object: nil, userInfo: userInfo)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .showSubscribe, object: nil, userInfo: userInfo)
+        }
     }
 }
