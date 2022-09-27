@@ -26,9 +26,7 @@ struct HistoryView: View {
                             Section {
                                 VStack(spacing: 0) {
                                     ForEach(section) { result in
-                                        if result.title != nil && result.link != nil {
-                                            historyRow(result)
-                                        }
+                                        historyRow(result)
                                         if section.last != result {
                                             Divider()
                                         }

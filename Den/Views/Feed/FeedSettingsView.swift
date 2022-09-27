@@ -133,8 +133,8 @@ struct FeedSettingsView: View {
             HStack {
                 Label("Refreshed", systemImage: "arrow.clockwise")
                 Spacer()
-                if feed.feedData?.refreshed != nil {
-                    Text("\(feed.feedData!.refreshed!.mediumShortDisplay())")
+                if let refreshed = feed.feedData?.refreshed {
+                    Text("\(refreshed.mediumShortDisplay())")
                         .foregroundColor(.secondary)
                 } else {
                     Text("Never").foregroundColor(.secondary)

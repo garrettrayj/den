@@ -12,8 +12,8 @@ struct FeedRefreshedLabelView: View {
     let refreshed: String?
 
     var body: some View {
-        if refreshed != nil {
-            Label(refreshed!, systemImage: "wave.3.backward")
+        if let refreshed = refreshed {
+            Label(refreshed, systemImage: "wave.3.backward")
                 .foregroundColor(.secondary)
                 .font(.footnote)
                 .imageScale(.small)

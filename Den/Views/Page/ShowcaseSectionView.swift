@@ -44,24 +44,22 @@ struct ShowcaseSectionView: View {
 
     private var header: some View {
         HStack {
-            if feed.id != nil {
-                NavigationLink(value: DetailPanel.feed(feed)) {
-                    HStack {
-                        FeedTitleLabelView(
-                            title: feed.wrappedTitle,
-                            favicon: feed.feedData?.favicon
-                        )
-                        Spacer()
-                        NavChevronView()
-                    }
-                    .padding(.leading, 28)
-                    .padding(.trailing, 28)
+            NavigationLink(value: DetailPanel.feed(feed)) {
+                HStack {
+                    FeedTitleLabelView(
+                        title: feed.wrappedTitle,
+                        favicon: feed.feedData?.favicon
+                    )
+                    Spacer()
+                    NavChevronView()
                 }
-                .buttonStyle(
-                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
-                )
-                .accessibilityIdentifier("showcase-section-feed-button")
+                .padding(.leading, 28)
+                .padding(.trailing, 28)
             }
+            .buttonStyle(
+                FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
+            )
+            .accessibilityIdentifier("showcase-section-feed-button")
         }
     }
 

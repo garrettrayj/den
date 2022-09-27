@@ -43,20 +43,18 @@ struct GadgetView: View {
 
     private var header: some View {
         HStack {
-            if feed.id != nil {
-                NavigationLink(value: DetailPanel.feed(feed)) {
-                    HStack {
-                        FeedTitleLabelView(
-                            title: feed.wrappedTitle,
-                            favicon: feed.feedData?.favicon
-                        )
-                        Spacer()
-                        NavChevronView()
-                    }.padding(.horizontal, 12)
-                }
-                .buttonStyle(FeedTitleButtonStyle())
-                .accessibilityIdentifier("gadget-feed-button")
+            NavigationLink(value: DetailPanel.feed(feed)) {
+                HStack {
+                    FeedTitleLabelView(
+                        title: feed.wrappedTitle,
+                        favicon: feed.feedData?.favicon
+                    )
+                    Spacer()
+                    NavChevronView()
+                }.padding(.horizontal, 12)
             }
+            .buttonStyle(FeedTitleButtonStyle())
+            .accessibilityIdentifier("gadget-feed-button")
         }
     }
 

@@ -102,13 +102,13 @@ struct FeedView: View {
 
     private var header: some View {
         HStack {
-            if feed.feedData?.linkDisplayString != nil {
+            if let linkDisplayString = feed.feedData?.linkDisplayString {
                 Button {
                     SyncManager.openLink(context: viewContext, url: feed.feedData?.link)
                 } label: {
                     HStack {
                         Label {
-                            Text(feed.feedData!.linkDisplayString!)
+                            Text(linkDisplayString)
                         } icon: {
                             FeedFaviconView(url: feed.feedData?.favicon, placeholderSymbol: "globe")
                         }
