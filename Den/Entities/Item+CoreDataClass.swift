@@ -29,6 +29,7 @@ public class Item: NSManagedObject {
         date.fullNoneDisplay()
     }
 
+    @objc
     public var date: Date {
         published ?? ingested ?? Date(timeIntervalSince1970: 0)
     }

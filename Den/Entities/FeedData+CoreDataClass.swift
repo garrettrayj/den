@@ -29,7 +29,7 @@ public class FeedData: NSManagedObject {
     public var itemsArray: [Item] {
         guard
             let items = items?.sortedArray(
-                using: [NSSortDescriptor(key: "published", ascending: false)]
+                using: [NSSortDescriptor(key: "date", ascending: false)]
             ) as? [Item]
         else { return [] }
 

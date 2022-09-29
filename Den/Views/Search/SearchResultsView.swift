@@ -98,7 +98,7 @@ struct SearchResultsView: View {
                 favicon: section.first?.feedData?.favicon
             )
             .font(.title3)
-            .padding(.horizontal, 28)
+            .padding(.horizontal, 20)
             .modifier(PinnedSectionHeaderModifier())
         }
     }

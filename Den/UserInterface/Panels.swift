@@ -21,7 +21,6 @@ enum DetailPanel: Hashable {
     case trend(Trend)
     case feed(Feed?)
     case pageSettings(Page)
-    case iconPicker(Page)
     case feedSettings(Feed)
     case item(Item)
     case profile(Profile)
