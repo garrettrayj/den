@@ -80,6 +80,14 @@ final class SaveFeedOperation: Operation {
     }
 
     private func updateFeedItems(feed: Feed, feedData: FeedData, context: NSManagedObjectContext) {
+        // Sync history for existing items
+        feedData.itemsArray.forEach { item in
+            if item.read == false && !item.history.isEmpty {
+                item.read = true
+            }
+        }
+
+        // Add new items
         self.workingFeedItems.forEach { workingItem in
             let item = Item.create(moc: context, feedData: feedData)
             item.id = workingItem.id
@@ -93,26 +101,24 @@ final class SaveFeedOperation: Operation {
             item.teaser = workingItem.teaser
             item.body = workingItem.body
             item.title = workingItem.title
-            item.read = item.history.isEmpty == false
+            item.read = !item.history.isEmpty
+            feedData.addToItems(item)
         }
 
         // Cleanup items
-        guard let workingFeedItemCount = workingFeed?.itemCount else { return }
-
-        let maxItems = min(
-            workingFeedItemCount,
-            feedData.feed?.wrappedItemLimit ?? ContentLimits.itemLimitDefault
-        )
-
-        if feedData.itemsArray.count > maxItems {
-            feedData.itemsArray.suffix(from: maxItems).forEach { item in
-                context.delete(item)
-            }
+        guard
+            let workingFeedItemCount = workingFeed?.itemCount,
+            let feed = feedData.feed
+        else {
+            return
         }
 
-        // Sync history
-        feedData.itemsArray.forEach { item in
-            item.read = item.history.isEmpty == false
+        let maxItems = min(workingFeedItemCount, feed.wrappedItemLimit)
+        if maxItems > 0 && feedData.itemsArray.count > maxItems {
+            feedData.itemsArray.suffix(from: maxItems).forEach { item in
+                feedData.removeFromItems(item)
+                context.delete(item)
+            }
         }
     }
 }
