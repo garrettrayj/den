@@ -53,8 +53,7 @@ struct ShowcaseSectionView: View {
                     Spacer()
                     NavChevronView()
                 }
-                .padding(.leading, 28)
-                .padding(.trailing, 28)
+                .padding(.horizontal, 20)
             }
             .buttonStyle(
                 FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))

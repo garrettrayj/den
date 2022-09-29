@@ -82,6 +82,7 @@ struct SidebarView: View {
                 }
             }
         }
+        .id(profile.id)
         .listStyle(.sidebar)
         .navigationTitle(profile.displayName)
         #if targetEnvironment(macCatalyst)
@@ -126,44 +127,41 @@ struct SidebarView: View {
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
-                HStack(spacing: 0) {
-                    Button {
-                        selection = .settings
-                    } label: {
-                        Label("Settings", systemImage: "gear")
-                    }
-                    .modifier(ToolbarButtonModifier())
-                    .accessibilityIdentifier("settings-button")
-                    .disabled(refreshing)
-
-                    VStack {
-                        if refreshing {
-                            ProgressView(refreshProgress)
-                                .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
-                        } else if let refreshedDate = profile.minimumRefreshedDate {
-                            Text("Updated \(refreshedDate.shortShortDisplay())")
-                        } else {
-                            #if targetEnvironment(macCatalyst)
-                            Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)
-                            #else
-                            Text("Pull to refresh")
-                            #endif
-                        }
-                    }
-                    .lineLimit(1)
-                    .font(.caption)
-                    .frame(maxWidth: .infinity)
-
-                    Button {
-                        RefreshManager.refresh(container: persistentContainer, profile: profile)
-                    } label: {
-                        Label("Refresh", systemImage: "arrow.clockwise")
-                    }
-                    .modifier(ToolbarButtonModifier())
-                    .keyboardShortcut("r", modifiers: [.command])
-                    .accessibilityIdentifier("profile-refresh-button")
-                    .disabled(refreshing)
+                Button {
+                    selection = .settings
+                } label: {
+                    Label("Settings", systemImage: "gear")
                 }
+                .modifier(ToolbarButtonModifier())
+                .accessibilityIdentifier("settings-button")
+                .disabled(refreshing)
+                Spacer()
+                VStack {
+                    if refreshing {
+                        ProgressView(refreshProgress)
+                            .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
+                    } else if let refreshedDate = profile.minimumRefreshedDate {
+                        Text("Updated \(refreshedDate.shortShortDisplay())")
+                    } else {
+                        #if targetEnvironment(macCatalyst)
+                        Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)
+                        #else
+                        Text("Pull to refresh")
+                        #endif
+                    }
+                }
+                .lineLimit(1)
+                .font(.caption)
+                Spacer()
+                Button {
+                    RefreshManager.refresh(container: persistentContainer, profile: profile)
+                } label: {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }
+                .modifier(ToolbarButtonModifier())
+                .keyboardShortcut("r", modifiers: [.command])
+                .accessibilityIdentifier("profile-refresh-button")
+                .disabled(refreshing)
             }
         }
     }

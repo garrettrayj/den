@@ -75,8 +75,6 @@ struct DetailView: View {
                     }
                 case .pageSettings(let page):
                     PageSettingsView(page: page).id(page.id)
-                case .iconPicker(let page):
-                    IconPickerView(page: page).id(page.id)
                 case .feedSettings(let feed):
                     FeedSettingsView(feed: feed).id(feed.id)
                 case .item(let item):

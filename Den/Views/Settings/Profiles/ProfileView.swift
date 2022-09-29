@@ -64,10 +64,6 @@ struct ProfileView: View {
             .disabled(profile == activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("delete-profile-button")
-        } footer: {
-            if profile == activeProfile {
-                Text("Active profile may not be deleted").padding(.vertical, 8)
-            }
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
             Button("Delete", role: .destructive) {

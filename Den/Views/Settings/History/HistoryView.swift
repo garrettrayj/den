@@ -38,7 +38,7 @@ struct HistoryView: View {
                             } header: {
                                 Label(section.id, systemImage: "calendar")
                                     .font(.subheadline)
-                                    .padding(.horizontal, 28)
+                                    .padding(.horizontal, 20)
                                     .modifier(PinnedSectionHeaderModifier())
                             }
                         }

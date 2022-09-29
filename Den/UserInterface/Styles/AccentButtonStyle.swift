@@ -20,8 +20,8 @@ struct AccentButtonStyle: ButtonStyle {
         var body: some View {
 
             configuration.label
-                .font(.title3)
-                .padding(.vertical, 8)
+                .font(.body.weight(.medium))
+                .padding(.vertical, 12)
                 .padding(.horizontal, 16)
                 .background(
                     configuration.isPressed ?

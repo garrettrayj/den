@@ -119,7 +119,7 @@ struct FeedView: View {
                             .font(.body.weight(.semibold))
 
                     }
-                    .padding(.horizontal, 28)
+                    .padding(.horizontal, 20)
                 }
                 .buttonStyle(
                     FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))

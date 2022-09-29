@@ -58,7 +58,6 @@ struct AllItemsView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
-
         .navigationTitle("All Items")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -70,7 +69,7 @@ struct AllItemsView: View {
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }
-                    .buttonStyle(ToolbarButtonStyle())
+                    .modifier(ToolbarButtonModifier())
                     .accessibilityIdentifier("add-feed-button")
                 }
             }
