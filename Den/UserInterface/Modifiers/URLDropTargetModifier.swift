@@ -19,16 +19,14 @@ struct URLDropTargetModifier: ViewModifier {
 
                 if provider.canLoadObject(ofClass: URL.self) {
                     _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
-                        SubscriptionManager.showSubscribe(for: url, page: page)
+                        SubscriptionManager.showSubscribe(for: url?.absoluteString, page: page)
                     })
                     return true
                 }
 
                 if provider.canLoadObject(ofClass: String.self) {
                     _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
-                        if let droppedString = droppedString, let url = URL(string: droppedString) {
-                            SubscriptionManager.showSubscribe(for: url, page: page)
-                        }
+                        SubscriptionManager.showSubscribe(for: droppedString, page: page)
                     })
                     return true
                 }

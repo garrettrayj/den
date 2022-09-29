@@ -10,20 +10,11 @@ import Foundation
 import CoreData
 
 struct SubscriptionManager {
-    static func showSubscribe(for url: URL? = nil, page: Page? = nil) {
+    static func showSubscribe(for urlString: String? = nil, page: Page? = nil) {
         var userInfo: [String: Any] = [:]
 
-        if let url = url {
-            let urlString = url.absoluteString
-                .replacingOccurrences(of: "feed:", with: "")
-                .replacingOccurrences(of: "den:", with: "")
-
-            if var urlComponents = URLComponents(string: urlString) {
-                if urlComponents.scheme == nil { urlComponents.scheme = "http" }
-                if let urlString = urlComponents.string {
-                    userInfo["urlString"] = urlString
-                }
-            }
+        if let urlString = urlString {
+            userInfo["urlString"] = cleanURLString(urlString)
         }
 
         if let initialPageObjectID = page?.objectID {
@@ -33,5 +24,11 @@ struct SubscriptionManager {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .showSubscribe, object: nil, userInfo: userInfo)
         }
+    }
+
+    static func cleanURLString(_ urlString: String) -> String {
+        urlString
+            .replacingOccurrences(of: "feed:", with: "")
+            .replacingOccurrences(of: "den:", with: "")
     }
 }
