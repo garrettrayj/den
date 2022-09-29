@@ -26,7 +26,7 @@ struct DenApp: App {
             RootView(activeProfile: $activeProfile, persistentContainer: persistentContainer)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .onOpenURL { url in
-                    SubscriptionManager.showSubscribe(for: url)
+                    SubscriptionManager.showSubscribe(for: url.absoluteString)
                 }
                 .modifier(URLDropTargetModifier())
         }
