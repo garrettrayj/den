@@ -36,7 +36,6 @@ struct RootView: View {
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
     @AppStorage("HapticsEnabled") private var hapticsEnabled = true
-    @AppStorage("HapticsTapStyle") private var hapticsTapStyle = HapticsMode.off
 
     var body: some View {
         Group {
@@ -62,7 +61,6 @@ struct RootView: View {
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
                         hapticsEnabled: $hapticsEnabled,
-                        hapticsTapStyle: $hapticsTapStyle,
                         profileUnreadCount: $profileUnreadCount,
                         profile: profile,
                         searchModel: searchModel,
@@ -76,9 +74,6 @@ struct RootView: View {
                     path.removeLast(path.count)
                 }
                 .onChange(of: hapticsEnabled, perform: { _ in
-                    setupHaptics()
-                })
-                .onChange(of: hapticsTapStyle, perform: { _ in
                     setupHaptics()
                 })
                 .onReceive(NotificationCenter.default.publisher(for: .itemStatus)) { notification in
@@ -105,6 +100,7 @@ struct RootView: View {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
                     self.refreshing = false
+                    haptics.notificationFeedbackGenerator?.notificationOccurred(.success)
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
                     subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
@@ -151,6 +147,6 @@ struct RootView: View {
     }
 
     func setupHaptics() {
-        haptics.setup(enabled: hapticsEnabled, tapStyle: hapticsTapStyle)
+        haptics.setup(enabled: hapticsEnabled)
     }
 }

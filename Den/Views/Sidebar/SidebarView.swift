@@ -156,6 +156,7 @@ struct SidebarView: View {
                 Spacer()
                 Button {
                     RefreshManager.refresh(container: persistentContainer, profile: profile)
+                    haptics.mediumImpactFeedbackGenerator?.impactOccurred()
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }

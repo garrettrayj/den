@@ -18,6 +18,7 @@ struct PageSettingsView: View {
     var body: some View {
         Form {
             nameIconSection
+            iconSection
             feedsSection
         }
         .environment(\.editMode, .constant(.active))
@@ -32,27 +33,33 @@ struct PageSettingsView: View {
                     .modifier(TitleTextFieldModifier())
 
             }.modifier(FormRowModifier())
-
-            Label {
-                HStack {
-                    Text("Select Icon")
-                    Spacer()
-                    Image(systemName: page.wrappedSymbol).foregroundColor(Color.accentColor)
-                }
-            } icon: {
-                Image(systemName: "square.grid.3x3.topleft.filled")
+        }
+        .sheet(isPresented: $showingIconPicker) {
+            NavigationStack {
+                IconPickerView(page: page)
             }
-            .onTapGesture {
+        }
+    }
+
+    private var iconSection: some View {
+        Section(header: Text("Icon")) {
+            Button {
                 showingIconPicker = true
+            } label: {
+                Label {
+                    Text("Select icon")
+                    Spacer()
+                    Image(systemName: "chevron.down").foregroundColor(.secondary)
+                } icon: {
+                    Image(systemName: page.wrappedSymbol)
+                }
             }
             .modifier(FormRowModifier())
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
                 IconPickerView(page: page)
-
             }
-
         }
     }
 
