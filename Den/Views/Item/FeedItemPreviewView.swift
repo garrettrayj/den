@@ -24,7 +24,6 @@ struct FeedItemPreviewView: View {
                     NavChevronView()
                 }.padding(.horizontal, 12)
             }
-            .modifier(HapticImpactModifier())
             .buttonStyle(FeedTitleButtonStyle())
             .accessibilityIdentifier("item-feed-button")
 

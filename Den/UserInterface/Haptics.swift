@@ -9,27 +9,23 @@
 import SwiftUI
 
 class Haptics: ObservableObject {
-    var tapFeedbackGenerator: UIImpactFeedbackGenerator?
+    var lightImpactFeedbackGenerator: UIImpactFeedbackGenerator?
+    var mediumImpactFeedbackGenerator: UIImpactFeedbackGenerator?
     var notificationFeedbackGenerator: UINotificationFeedbackGenerator?
 
-    func setup(enabled: Bool, tapStyle: HapticsMode) {
+    func setup(enabled: Bool) {
         if !enabled {
-            tapFeedbackGenerator = nil
+            lightImpactFeedbackGenerator = nil
+            mediumImpactFeedbackGenerator = nil
+
             notificationFeedbackGenerator = nil
+
             return
         }
 
-        notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+        lightImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        mediumImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
-        switch tapStyle {
-        case .off:
-            tapFeedbackGenerator = nil
-        case .light:
-            tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        case .medium:
-            tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-        case .heavy:
-            tapFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
-        }
+        notificationFeedbackGenerator = UINotificationFeedbackGenerator()
     }
 }

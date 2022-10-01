@@ -12,7 +12,6 @@ struct SettingsView: View {
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var hapticsEnabled: Bool
-    @Binding var hapticsTapStyle: HapticsMode
 
     var body: some View {
         Form {
@@ -20,7 +19,7 @@ struct SettingsView: View {
             FeedsSectionView(profile: activeProfile!)
             HistorySectionView(profile: activeProfile!)
             AppearanceSectionView(uiStyle: $uiStyle)
-            TouchSectionView(hapticsEnabled: $hapticsEnabled, hapticsTapStyle: $hapticsTapStyle)
+            TouchSectionView(hapticsEnabled: $hapticsEnabled)
             ResetSectionView(activeProfile: $activeProfile)
             AboutSectionView()
         }

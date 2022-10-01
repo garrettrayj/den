@@ -15,7 +15,6 @@ struct DetailView: View {
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var hapticsEnabled: Bool
-    @Binding var hapticsTapStyle: HapticsMode
     @Binding var profileUnreadCount: Int
 
     @ObservedObject var profile: Profile
@@ -57,8 +56,7 @@ struct DetailView: View {
                     SettingsView(
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
-                        hapticsEnabled: $hapticsEnabled,
-                        hapticsTapStyle: $hapticsTapStyle
+                        hapticsEnabled: $hapticsEnabled
                     )
                 }
             }

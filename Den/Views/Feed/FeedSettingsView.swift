@@ -11,6 +11,7 @@ import SwiftUI
 struct FeedSettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var haptics: Haptics
 
     @ObservedObject var feed: Feed
 
@@ -53,7 +54,7 @@ struct FeedSettingsView: View {
     }
 
     private var pagePickerLabel: some View {
-        Label("Page", systemImage: "square.grid.2x2")
+        Text("Page")
     }
 
     private var pagePicker: some View {
@@ -74,45 +75,46 @@ struct FeedSettingsView: View {
 
     private var generalSection: some View {
         Section(header: Text("General")) {
-            pagePicker.modifier(FormRowModifier())
+            pagePicker
+                .modifier(FormRowModifier())
 
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 HStack {
-                    Label {
-                        Text("Item Limit")
-                    } icon: {
-                        Image(systemName: "speedometer")
-                    }
+                    Text("Item Limit")
                     Spacer()
                     Text("\(feed.wrappedItemLimit)")
                 }
-            }.modifier(FormRowModifier())
+            }
+            .onChange(of: feed.itemLimit, perform: { _ in
+                haptics.lightImpactFeedbackGenerator?.impactOccurred()
+            })
+            .modifier(FormRowModifier())
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Show Thumbnails", systemImage: "photo")
+                Text("Show Thumbnails")
                 Spacer()
                 Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
             }.modifier(FormRowModifier())
             #else
             Toggle(isOn: $feed.showThumbnails) {
-                Label("Show Thumbnails", systemImage: "photo")
+                Text("Show Thumbnails")
             }
             #endif
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Label("Open Items in Browser", systemImage: "macwindow.on.rectangle")
+                Text("Open Items in Browser")
                 Spacer()
                 Toggle("Open Items in Browser", isOn: $feed.browserView).labelsHidden()
             }.modifier(FormRowModifier())
             #else
             Toggle(isOn: $feed.browserView) {
-                Label("Open in Browser", systemImage: "safari")
+                Text("Open Items in Browser")
             }
             if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
-                    Label("Use Reader Mode", systemImage: "doc.plaintext")
+                    Text("Use Reader Mode")
                 }
             }
             #endif
@@ -121,17 +123,20 @@ struct FeedSettingsView: View {
 
     private var informationSection: some View {
         Section(header: Text("Information")) {
-            HStack {
-                Label("Feed URL", systemImage: "link").lineLimit(1)
-                Spacer()
-                Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
-                Button(action: copyUrl) {
+            Button(action: copyUrl) {
+                HStack {
+                    Text("Feed URL").foregroundColor(.primary)
+                    Spacer()
+                    Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
-                }.accessibilityIdentifier("feed-copy-url-button")
-            }.modifier(FormRowModifier())
+                }
+            }
+            .buttonStyle(.borderless)
+            .accessibilityIdentifier("feed-copy-url-button")
+            .modifier(FormRowModifier())
 
             HStack {
-                Label("Refreshed", systemImage: "arrow.clockwise")
+                Text("Refreshed")
                 Spacer()
                 if let refreshed = feed.feedData?.refreshed {
                     Text("\(refreshed.mediumShortDisplay())")
