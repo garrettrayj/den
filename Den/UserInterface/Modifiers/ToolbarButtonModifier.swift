@@ -15,6 +15,7 @@ struct ToolbarButtonModifier: ViewModifier {
             .buttonStyle(ToolbarButtonStyle())
             #else
             .fontWeight(.medium)
+            .modifier(HapticImpactModifier())
             #endif
     }
 }

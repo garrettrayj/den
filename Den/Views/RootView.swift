@@ -22,6 +22,7 @@ struct RootView: View {
     let refreshProgress: Progress = Progress()
 
     @StateObject private var searchModel = SearchModel()
+    @StateObject private var haptics = Haptics()
 
     @State private var selection: Panel?
     @State private var path = NavigationPath()
@@ -34,6 +35,8 @@ struct RootView: View {
     @State private var profileUnreadCount: Int = 0
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
+    @AppStorage("HapticsEnabled") private var hapticsEnabled = true
+    @AppStorage("HapticsTapStyle") private var hapticsTapStyle = HapticsMode.off
 
     var body: some View {
         Group {
@@ -58,6 +61,8 @@ struct RootView: View {
                         selection: $selection,
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
+                        hapticsEnabled: $hapticsEnabled,
+                        hapticsTapStyle: $hapticsTapStyle,
                         profileUnreadCount: $profileUnreadCount,
                         profile: profile,
                         searchModel: searchModel,
@@ -70,6 +75,12 @@ struct RootView: View {
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
                 }
+                .onChange(of: hapticsEnabled, perform: { _ in
+                    setupHaptics()
+                })
+                .onChange(of: hapticsTapStyle, perform: { _ in
+                    setupHaptics()
+                })
                 .onReceive(NotificationCenter.default.publisher(for: .itemStatus)) { notification in
                     guard
                         let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
@@ -125,6 +136,7 @@ struct RootView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
+        .environmentObject(haptics)
         .onAppear {
             if activeProfile == nil {
                 activeProfile = ProfileManager.loadProfile(
@@ -132,7 +144,13 @@ struct RootView: View {
                     profiles: profiles.map { $0 }
                 )
             }
+
+            setupHaptics()
         }
         .preferredColorScheme(ColorScheme(uiStyle))
+    }
+
+    func setupHaptics() {
+        haptics.setup(enabled: hapticsEnabled, tapStyle: hapticsTapStyle)
     }
 }

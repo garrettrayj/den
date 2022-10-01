@@ -14,10 +14,11 @@ struct ToolbarButtonStyle: ButtonStyle {
     }
 
     private struct ToolbarButton: View {
-        let configuration: ButtonStyle.Configuration
+        @Environment(\.isEnabled) private var isEnabled: Bool
+
         @State private var hovering: Bool = false
 
-        @Environment(\.isEnabled) private var isEnabled: Bool
+        let configuration: ButtonStyle.Configuration
 
         var body: some View {
             configuration.label

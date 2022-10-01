@@ -26,11 +26,15 @@ struct ItemActionView<Content: View>: View {
                 )
             } label: {
                 content
-            }.buttonStyle(ItemButtonStyle(read: item.read))
+            }
+            .modifier(HapticImpactModifier())
+            .buttonStyle(ItemButtonStyle(read: item.read))
         } else {
             NavigationLink(value: DetailPanel.item(item)) {
                 content
-            }.buttonStyle(ItemButtonStyle(read: item.read))
+            }
+            .modifier(HapticImpactModifier())
+            .buttonStyle(ItemButtonStyle(read: item.read))
         }
     }
 }

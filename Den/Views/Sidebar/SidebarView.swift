@@ -12,6 +12,7 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var haptics: Haptics
 
     @ObservedObject var profile: Profile
 

@@ -27,12 +27,17 @@
 		6829A50C28C6479900F75C5A /* AllReadCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A50B28C6479900F75C5A /* AllReadCompactView.swift */; };
 		682A349328DF1AD8004CD90E /* CleanupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349228DF1AD8004CD90E /* CleanupOperation.swift */; };
 		682A349728E2B38E004CD90E /* URLDropTargetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */; };
+		682A349C28E567B0004CD90E /* HapticsMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349B28E567B0004CD90E /* HapticsMode.swift */; };
+		682A349E28E57B42004CD90E /* CustomEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349D28E57B42004CD90E /* CustomEnvironment.swift */; };
+		682A34A028E57E67004CD90E /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349F28E57E67004CD90E /* Haptics.swift */; };
+		682A34A428E591E5004CD90E /* TouchSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A34A328E591E5004CD90E /* TouchSectionView.swift */; };
 		683041B02754199A00BE7631 /* GroupBlockModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041AF2754199A00BE7631 /* GroupBlockModifier.swift */; };
 		683041B227542E2000BE7631 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B127542E2000BE7631 /* BoardView.swift */; };
 		683041B627543CE900BE7631 /* ShowcaseSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSectionView.swift */; };
 		6832AF262789419700CFC8CA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF252789419700CFC8CA /* ProfileView.swift */; };
 		6832AF2C278B889300CFC8CA /* StatusBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2B278B889300CFC8CA /* StatusBoxView.swift */; };
 		6832AF2E278BA6A800CFC8CA /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */; };
+		683B581528E6B23700C51425 /* HapticImpactModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683B581428E6B23700C51425 /* HapticImpactModifier.swift */; };
 		683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CEC5F250966410005F305 /* Bundle+Extensions.swift */; };
 		6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */; };
 		6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */; };
@@ -269,12 +274,17 @@
 		6829A50B28C6479900F75C5A /* AllReadCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReadCompactView.swift; sourceTree = "<group>"; };
 		682A349228DF1AD8004CD90E /* CleanupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanupOperation.swift; sourceTree = "<group>"; };
 		682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDropTargetModifier.swift; sourceTree = "<group>"; };
+		682A349B28E567B0004CD90E /* HapticsMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsMode.swift; sourceTree = "<group>"; };
+		682A349D28E57B42004CD90E /* CustomEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironment.swift; sourceTree = "<group>"; };
+		682A349F28E57E67004CD90E /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		682A34A328E591E5004CD90E /* TouchSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchSectionView.swift; sourceTree = "<group>"; };
 		683041AF2754199A00BE7631 /* GroupBlockModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBlockModifier.swift; sourceTree = "<group>"; };
 		683041B127542E2000BE7631 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		683041B527543CE900BE7631 /* ShowcaseSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSectionView.swift; sourceTree = "<group>"; };
 		6832AF252789419700CFC8CA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6832AF2B278B889300CFC8CA /* StatusBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBoxView.swift; sourceTree = "<group>"; };
 		6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
+		683B581428E6B23700C51425 /* HapticImpactModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticImpactModifier.swift; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeed+Extensions.swift"; sourceTree = "<group>"; };
@@ -543,6 +553,7 @@
 				68D9BA9D28A60BAE00F1A3AD /* Profiles */,
 				68D9BA9F28A60C3200F1A3AD /* Feeds */,
 				68D9BA9928A60A5200F1A3AD /* AppearanceSectionView.swift */,
+				682A34A328E591E5004CD90E /* TouchSectionView.swift */,
 				68D9BAA028A60C5000F1A3AD /* History */,
 				68D9BAA128A60CBE00F1A3AD /* ResetSectionView.swift */,
 				68D9BAA328A60DF300F1A3AD /* AboutSectionView.swift */,
@@ -627,6 +638,7 @@
 				6868A30F2895BF080051D43E /* CapsuleModifier.swift */,
 				6829A50128C4B93E00F75C5A /* ToolbarButtonModifier.swift */,
 				682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */,
+				683B581428E6B23700C51425 /* HapticImpactModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -655,6 +667,9 @@
 				688FD91B24780C800006A2DE /* Styles */,
 				68F8884728CCFF21000067CD /* SearchModel.swift */,
 				68F8884928CD2F1F000067CD /* Panels.swift */,
+				682A349B28E567B0004CD90E /* HapticsMode.swift */,
+				682A349D28E57B42004CD90E /* CustomEnvironment.swift */,
+				682A349F28E57E67004CD90E /* Haptics.swift */,
 			);
 			path = UserInterface;
 			sourceTree = "<group>";
@@ -1319,6 +1334,7 @@
 				68B34A672487ED870066B215 /* ExportView.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
 				68710C55259825BA007B2507 /* AppDelegate.swift in Sources */,
+				682A34A028E57E67004CD90E /* Haptics.swift in Sources */,
 				681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */,
 				68FC2563275E07770073979F /* SidebarView.swift in Sources */,
 				68E4274326D2C2BB00E496E3 /* SecurityView.swift in Sources */,
@@ -1333,6 +1349,7 @@
 				68FC256D276381FD0073979F /* HostingWindowFinder.swift in Sources */,
 				6868A30E2895229D0051D43E /* ImagePlaceholderView.swift in Sources */,
 				6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */,
+				682A349E28E57B42004CD90E /* CustomEnvironment.swift in Sources */,
 				683041B02754199A00BE7631 /* GroupBlockModifier.swift in Sources */,
 				686C384227405FA900662D84 /* Notification+Extensions.swift in Sources */,
 				6808F4442737B31E00AEEDAC /* IconProgressStyle.swift in Sources */,
@@ -1343,7 +1360,9 @@
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */,
 				686067D1280C4A86000068DE /* BottomBarProgressStyle.swift in Sources */,
+				682A34A428E591E5004CD90E /* TouchSectionView.swift in Sources */,
 				68A6FF962849C0BB0071D567 /* NavListModifier.swift in Sources */,
+				683B581528E6B23700C51425 /* HapticImpactModifier.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				6832AF2C278B889300CFC8CA /* StatusBoxView.swift in Sources */,
 				68E9BDBD279D096A003BA111 /* AtomItemTransform.swift in Sources */,
@@ -1421,6 +1440,7 @@
 				68D9BAA228A60CBE00F1A3AD /* ResetSectionView.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* SyncManager.swift in Sources */,
 				68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */,
+				682A349C28E567B0004CD90E /* HapticsMode.swift in Sources */,
 				6829A4FC28C2744900F75C5A /* DetailView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
 				68CE2C3D28CEEBF000ED1CF9 /* HeroImageView.swift in Sources */,

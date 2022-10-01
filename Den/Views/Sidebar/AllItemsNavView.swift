@@ -11,6 +11,7 @@ import SwiftUI
 
 struct AllItemsNavView: View {
     @Environment(\.editMode) private var editMode
+    @EnvironmentObject private var haptics: Haptics
 
     @ObservedObject var profile: Profile
 
