@@ -12,6 +12,7 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var haptics: Haptics
 
     @Binding var initialPageObjectID: NSManagedObjectID?
     @Binding var initialURLString: String
@@ -134,8 +135,7 @@ struct SubscribeView: View {
                         Image(systemName: "slash.circle").foregroundColor(Color(UIColor.systemRed))
                     }
                 }
-                .imageScale(.large)
-                .fontWeight(.semibold)
+                .fontWeight(.medium)
             }
         }
     }
@@ -173,28 +173,30 @@ struct SubscribeView: View {
         validationMessage = nil
         urlIsValid = nil
 
+        urlString = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
+
         if urlString == "" {
-            self.failValidation(message: "Address can not be blank")
+            self.failValidation(message: "Cannot be blank")
             return
         }
 
-        if self.urlString.contains(" ") {
-            self.failValidation(message: "Address can not contain spaces")
+        if urlString.containsWhitespace {
+            self.failValidation(message: "Must not contain spaces")
             return
         }
 
         if self.urlString.prefix(7).lowercased() != "http://" && self.urlString.prefix(8).lowercased() != "https://" {
-            self.failValidation(message: "Address must begin with “http://” or “https://”")
+            self.failValidation(message: "Must begin with “http://” or “https://”")
             return
         }
 
         guard let url = URL(string: self.urlString) else {
-            self.failValidation(message: "Unable to parse address")
+            self.failValidation(message: "Could not be parsed")
             return
         }
 
         if !UIApplication.shared.canOpenURL(url) {
-            self.failValidation(message: "Unopenable address")
+            self.failValidation(message: "Unopenable")
             return
         }
 
@@ -214,6 +216,7 @@ struct SubscribeView: View {
         urlIsValid = false
         validationMessage = message
 
+        haptics.notificationFeedbackGenerator?.notificationOccurred(.error)
         withAnimation(.default) { validationAttempts += 1 }
     }
 }

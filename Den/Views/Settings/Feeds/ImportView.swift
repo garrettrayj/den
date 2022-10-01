@@ -11,11 +11,12 @@ import SwiftUI
 struct ImportView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var haptics: Haptics
 
     let profile: Profile
 
     enum ImportStage {
-        case pickFile, folderSelection, error, importing
+        case pickFile, folderSelection, error, complete
     }
 
     @State public var stage: ImportStage = .pickFile
@@ -33,7 +34,7 @@ struct ImportView: View {
                 pickFileStage
             } else if stage == .folderSelection {
                 folderSelectionStage
-            } else if stage == .importing {
+            } else if stage == .complete {
                 completeStage
             }
         }
@@ -165,13 +166,12 @@ struct ImportView: View {
     }
 
     private func importSelected() {
-        stage = .importing
-
         let foldersToImport = opmlFolders.filter { opmlFolder in
             self.selectedFolders.contains(opmlFolder)
         }
-
         self.importFolders(opmlFolders: foldersToImport)
+        stage = .complete
+        haptics.notificationFeedbackGenerator?.notificationOccurred(.success)
     }
 
     private func importFolders(opmlFolders: [OPMLReader.Folder]) {

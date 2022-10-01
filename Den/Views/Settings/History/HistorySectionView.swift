@@ -20,7 +20,7 @@ struct HistorySectionView: View {
     var body: some View {
         Section(header: Text("History")) {
             NavigationLink(value: DetailPanel.history) {
-                Label("Read Items", systemImage: "clock")
+                Text("Log")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("view-history-button")
@@ -30,9 +30,7 @@ struct HistorySectionView: View {
             Button(role: .destructive) {
                 showingClearHistoryAlert = true
             } label: {
-                Label("Erase History", systemImage: "hourglass.bottomhalf.filled")
-                    .lineLimit(1)
-                    .foregroundColor(.red)
+                Text("Erase").lineLimit(1)
             }
             .modifier(FormRowModifier())
             .alert("Erase History?", isPresented: $showingClearHistoryAlert, actions: {
@@ -41,7 +39,7 @@ struct HistorySectionView: View {
                     eraseHistory()
                 }.accessibilityIdentifier("reset-confirm-button")
             }, message: {
-                Text("Memory of items viewed or marked read will be cleared.")
+                Text("Memory of read items will be cleared for the current profile.")
             })
             .accessibilityIdentifier("clear-history-button")
         }
@@ -52,7 +50,7 @@ struct HistorySectionView: View {
     }
 
     private var historyRetentionLabel: some View {
-        Label("Keep History", systemImage: "clock.arrow.2.circlepath").lineLimit(1)
+        Text("Keep").lineLimit(1)
     }
 
     private var historyRetentionPicker: some View {

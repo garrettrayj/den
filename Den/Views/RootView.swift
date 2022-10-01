@@ -87,6 +87,7 @@ struct RootView: View {
                     profileUnreadCount += read ? -1 : 1
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+                    haptics.mediumImpactFeedbackGenerator?.impactOccurred()
                     self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? -1) + 1
                     self.refreshProgress.completedUnitCount = 0
                     self.refreshing = true

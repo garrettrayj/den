@@ -19,7 +19,7 @@ struct ResetSectionView: View {
     var body: some View {
         Section(header: Text("Reset")) {
             Button(action: clearCache) {
-                Label("Clear Cache", systemImage: "bin.xmark")
+                Text("Cache")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-cache-button")
@@ -27,7 +27,7 @@ struct ResetSectionView: View {
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
-                Label("Reset Everything", systemImage: "clear")
+                Text("Everything")
                     .lineLimit(1)
                     .foregroundColor(.red)
             }
@@ -39,7 +39,7 @@ struct ResetSectionView: View {
                     dismiss()
                 }.accessibilityIdentifier("reset-confirm-button")
             }, message: {
-                Text("All profiles, pages, feeds, and history will be permanently deleted.")
+                Text("All profiles will be removed. Default settings will be restored.")
             })
             .accessibilityIdentifier("reset-button")
         }
