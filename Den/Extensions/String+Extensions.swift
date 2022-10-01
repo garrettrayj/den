@@ -17,6 +17,10 @@ extension String {
         case tail
     }
 
+    var containsWhitespace: Bool {
+        return(self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil)
+    }
+
     /**
      Adapted from https://gist.github.com/budidino/8585eecd55fd4284afaaef762450f98e#gistcomment-2270476
      */

@@ -14,19 +14,19 @@ struct FeedsSectionView: View {
     var body: some View {
         Section(header: Text("Feeds")) {
             NavigationLink(value: DetailPanel.importFeeds) {
-                Label("Import", systemImage: "arrow.down.doc")
+                Text("Import")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
             NavigationLink(value: DetailPanel.exportFeeds) {
-                Label("Export", systemImage: "arrow.up.doc")
+                Text("Export")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
             NavigationLink(value: DetailPanel.security) {
-                Label("Security", systemImage: "shield.lefthalf.filled")
+                Text("Security")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("security-check-button")

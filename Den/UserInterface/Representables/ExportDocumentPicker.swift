@@ -9,11 +9,9 @@
 import SwiftUI
 
 struct ExportDocumentPicker: UIViewControllerRepresentable {
-    var onDismiss: () -> Void
     var viewController: UIDocumentPickerViewController
 
-    init(url: URL, onDismiss: @escaping () -> Void) {
-        self.onDismiss = onDismiss
+    init(url: URL) {
         self.viewController = UIDocumentPickerViewController(forExporting: [url])
         self.viewController.allowsMultipleSelection = false
     }
@@ -43,16 +41,12 @@ struct ExportDocumentPicker: UIViewControllerRepresentable {
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             #if targetEnvironment(macCatalyst)
             controller.dismiss(animated: true) {}
-            #else
-            parent.onDismiss()
             #endif
         }
 
         func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
             #if targetEnvironment(macCatalyst)
             controller.dismiss(animated: true) {}
-            #else
-            parent.onDismiss()
             #endif
         }
     }

@@ -14,7 +14,7 @@ struct TouchSectionView: View {
     var body: some View {
         Section(header: Text("Touch")) {
             Toggle(isOn: $hapticsEnabled) {
-                Text("Enhanced Haptics")
+                Text("Enhanced Feedback")
             }
         }
     }

@@ -118,7 +118,7 @@ struct ExportView: View {
 
         let opmlWriter = OPMLWriter(pages: exportPages)
         let temporaryFileURL = opmlWriter.writeToFile()
-        let picker = ExportDocumentPicker(url: temporaryFileURL, onDismiss: {})
+        let picker = ExportDocumentPicker(url: temporaryFileURL)
 
         let scenes = UIApplication.shared.connectedScenes
         if

@@ -34,7 +34,7 @@ struct AboutSectionView: View {
                     openURL(url)
                 }
             } label: {
-                Label("Discord Community", systemImage: "person.2.wave.2")
+                Text("Discord Community")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
@@ -44,27 +44,17 @@ struct AboutSectionView: View {
                     openURL(url)
                 }
             } label: {
-                Label("Email Support", systemImage: "lifepreserver")
+                Text("Email Support")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("email-support-button")
-
-            Button {
-                if let url = URL(string: "https://garrettjohnson.com/apps/") {
-                    openURL(url)
-                }
-            } label: {
-                Label("Developer Website", systemImage: "house")
-            }
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("website-button")
 
             Button {
                 if let url = URL(string: "https://garrettjohnson.com/privacy/") {
                     openURL(url)
                 }
             } label: {
-                Label("Privacy Policy", systemImage: "hand.raised.slash")
+                Text("Privacy Policy")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("privacy-policy-button")

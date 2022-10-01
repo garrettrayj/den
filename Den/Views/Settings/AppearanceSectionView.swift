@@ -29,7 +29,7 @@ struct AppearanceSectionView: View {
     }
 
     private var themeSelectionLabel: some View {
-        Label("Theme", systemImage: "paintbrush").lineLimit(1)
+        Text("Theme")
     }
 
     private var themeSelectionPicker: some View {

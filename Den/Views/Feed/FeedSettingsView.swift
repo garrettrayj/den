@@ -79,11 +79,7 @@ struct FeedSettingsView: View {
                 .modifier(FormRowModifier())
 
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                HStack {
-                    Text("Item Limit")
-                    Spacer()
-                    Text("\(feed.wrappedItemLimit)")
-                }
+                Text("Item Limit: \(feed.wrappedItemLimit)")
             }
             .onChange(of: feed.itemLimit, perform: { _ in
                 haptics.lightImpactFeedbackGenerator?.impactOccurred()

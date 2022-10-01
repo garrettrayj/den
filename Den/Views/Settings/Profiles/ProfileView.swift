@@ -22,7 +22,8 @@ struct ProfileView: View {
     var body: some View {
         Form {
             nameSection
-            activateDeleteSection
+            activateSection
+            deleteSection
         }
         .navigationTitle("Profile")
         .onAppear {
@@ -43,18 +44,22 @@ struct ProfileView: View {
         }
     }
 
-    private var activateDeleteSection: some View {
+    private var activateSection: some View {
         Section {
             Button {
                 activeProfile = ProfileManager.activateProfile(profile)
                 dismiss()
             } label: {
-                Label("Switch", systemImage: "power.circle")
+                Label("Switch", systemImage: "arrow.left.arrow.right")
             }
             .disabled(profile == activeProfile)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("activate-profile-button")
+        }
+    }
 
+    private var deleteSection: some View {
+        Section {
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {
@@ -76,7 +81,7 @@ struct ProfileView: View {
                 }
             }.accessibilityIdentifier("delete-profile-confirm-button")
         }, message: {
-            Text("Pages, feeds, and history will be removed. This action cannot be undone.")
+            Text("All profile content will be removed.")
         })
     }
 
