@@ -14,11 +14,11 @@ struct AccentButtonStyle: ButtonStyle {
     }
 
     private struct AccentButton: View {
+        @Environment(\.isEnabled) private var isEnabled: Bool
+
         let configuration: ButtonStyle.Configuration
 
-        @Environment(\.isEnabled) private var isEnabled: Bool
         var body: some View {
-
             configuration.label
                 .font(.body.weight(.medium))
                 .padding(.vertical, 12)

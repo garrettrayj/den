@@ -14,6 +14,8 @@ struct DetailView: View {
     @Binding var selection: Panel?
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
+    @Binding var hapticsEnabled: Bool
+    @Binding var hapticsTapStyle: HapticsMode
     @Binding var profileUnreadCount: Int
 
     @ObservedObject var profile: Profile
@@ -52,7 +54,12 @@ struct DetailView: View {
                         refreshing: $refreshing
                     ).id(page.id)
                 case .settings:
-                    SettingsView(activeProfile: $activeProfile, uiStyle: $uiStyle)
+                    SettingsView(
+                        activeProfile: $activeProfile,
+                        uiStyle: $uiStyle,
+                        hapticsEnabled: $hapticsEnabled,
+                        hapticsTapStyle: $hapticsTapStyle
+                    )
                 }
             }
             .navigationDestination(for: DetailPanel.self) { detailPanel in
