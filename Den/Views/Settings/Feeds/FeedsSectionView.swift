@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct FeedsSectionView: View {
-    let profile: Profile
-
     var body: some View {
         Section(header: Text("Feeds")) {
             NavigationLink(value: DetailPanel.importFeeds) {
