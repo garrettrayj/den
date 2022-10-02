@@ -53,6 +53,7 @@ struct ProfileView: View {
                 Label("Switch", systemImage: "arrow.left.arrow.right")
             }
             .disabled(profile == activeProfile)
+            .foregroundColor(profile == activeProfile ? .secondary : nil)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("activate-profile-button")
         }
@@ -64,9 +65,9 @@ struct ProfileView: View {
                 showingDeleteAlert = true
             } label: {
                 Label("Delete", systemImage: "trash")
-                    .symbolRenderingMode(profile == activeProfile ? .monochrome : .multicolor)
             }
             .disabled(profile == activeProfile)
+            .foregroundColor(profile == activeProfile ? .secondary : .red)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("delete-profile-button")
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {

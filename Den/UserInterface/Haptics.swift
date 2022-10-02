@@ -17,15 +17,11 @@ class Haptics: ObservableObject {
         if !enabled {
             lightImpactFeedbackGenerator = nil
             mediumImpactFeedbackGenerator = nil
-
             notificationFeedbackGenerator = nil
-
             return
         }
-
         lightImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         mediumImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-
         notificationFeedbackGenerator = UINotificationFeedbackGenerator()
     }
 }

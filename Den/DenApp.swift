@@ -18,8 +18,6 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     @State private var activeProfile: Profile?
-    @State private var historySynced: Date?
-    @State private var lastCleanup: Date?
 
     var body: some Scene {
         WindowGroup {

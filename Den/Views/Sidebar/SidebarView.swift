@@ -83,7 +83,6 @@ struct SidebarView: View {
                 }
             }
         }
-        .id(profile.id)
         .listStyle(.sidebar)
         .navigationTitle(profile.displayName)
         #if targetEnvironment(macCatalyst)
