@@ -73,10 +73,10 @@ struct ProfileView: View {
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
             Button("Delete", role: .destructive) {
+                dismiss()
                 viewContext.delete(profile)
                 do {
                     try viewContext.save()
-                    dismiss()
                 } catch let error as NSError {
                     CrashManager.handleCriticalError(error)
                 }

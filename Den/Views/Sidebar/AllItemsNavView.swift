@@ -6,7 +6,6 @@
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
-import CoreData
 import SwiftUI
 
 struct AllItemsNavView: View {

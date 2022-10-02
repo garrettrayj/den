@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import CoreHaptics
 
 class Haptics: ObservableObject {
     var lightImpactFeedbackGenerator: UIImpactFeedbackGenerator?
@@ -15,8 +14,6 @@ class Haptics: ObservableObject {
     var notificationFeedbackGenerator: UINotificationFeedbackGenerator?
 
     func setup(enabled: Bool) {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-
         guard enabled else {
             lightImpactFeedbackGenerator = nil
             mediumImpactFeedbackGenerator = nil

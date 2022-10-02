@@ -13,7 +13,7 @@ struct StartRowModifier: ViewModifier {
         content
             #if targetEnvironment(macCatalyst)
             .font(.title3)
-            .listRowInsets(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+            .padding(.bottom, 12)
             #endif
     }
 }
