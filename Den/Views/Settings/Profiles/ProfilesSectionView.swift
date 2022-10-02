@@ -42,10 +42,10 @@ struct ProfilesSectionView: View {
     }
 
     func addProfile() {
-        var profileName = "Untitled"
+        var profileName = "New Profile"
         var suffix = 2
         while profiles.contains(where: { $0.name == profileName }) {
-            profileName = "Untitled \(suffix)"
+            profileName = "New Profile \(suffix)"
             suffix += 1
         }
 

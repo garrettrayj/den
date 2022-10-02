@@ -19,7 +19,9 @@ struct SettingsView: View {
             FeedsSectionView()
             HistorySectionView(activeProfile: $activeProfile)
             AppearanceSectionView(uiStyle: $uiStyle)
-            TouchSectionView(hapticsEnabled: $hapticsEnabled)
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                TouchSectionView(hapticsEnabled: $hapticsEnabled)
+            }
             ResetSectionView(activeProfile: $activeProfile)
             AboutSectionView()
         }

@@ -12,7 +12,6 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var haptics: Haptics
     @ObservedObject var profile: Profile
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
@@ -26,37 +25,7 @@ struct SidebarView: View {
     var body: some View {
         List(selection: $selection) {
             if profile.pagesArray.isEmpty {
-                Section {
-                    Button {
-                        withAnimation {
-                            _ = Page.create(in: viewContext, profile: profile, prepend: true)
-                            save()
-                        }
-                    } label: {
-                        Label("Create a blank page", systemImage: "plus")
-                    }
-                    .buttonStyle(.borderless)
-                    .modifier(StartRowModifier())
-                    .accessibilityIdentifier("start-blank-page-button")
-
-                    Button {
-                        loadDemo()
-                    } label: {
-                        Label("Load demo feeds", systemImage: "wand.and.stars")
-                    }
-                    .buttonStyle(.borderless)
-                    .modifier(StartRowModifier())
-                    .accessibilityIdentifier("load-demo-button")
-                } header: {
-                    Text("Get Started")
-                } footer: {
-                    Text("or import feeds in settings \(Image(systemName: "gear"))")
-                        .imageScale(.small)
-                        .padding(.top, 4)
-                }
-                .headerProminence(.increased)
-
-                .lineLimit(1)
+                StartSectionView(profile: profile)
             } else {
                 AllItemsNavView(profile: profile, unreadCount: $profileUnreadCount)
                 TrendsNavView(profile: profile)
@@ -73,6 +42,8 @@ struct SidebarView: View {
                         .font(.callout).padding(.top, 4)
                     #endif
                 }
+
+                NewPageView(profile: profile, refreshing: $refreshing)
             }
         }
         .listStyle(.sidebar)
@@ -102,20 +73,6 @@ struct SidebarView: View {
                     .modifier(ToolbarButtonModifier())
                     .disabled(refreshing)
                     .accessibilityIdentifier("edit-page-list-button")
-            }
-
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    withAnimation {
-                        _ = Page.create(in: viewContext, profile: profile, prepend: true)
-                        save()
-                    }
-                } label: {
-                    Label("New Page", systemImage: "plus")
-                }
-                .modifier(ToolbarButtonModifier())
-                .disabled(refreshing)
-                .accessibilityIdentifier("new-page-button")
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
@@ -189,47 +146,5 @@ struct SidebarView: View {
             viewContext.delete(profile.pagesArray[$0])
         }
         save()
-    }
-
-    private func loadDemo() {
-        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
-            preconditionFailure("Missing demo feeds source file")
-        }
-
-        let symbolMap = [
-            "World News": "globe",
-            "US News": "newspaper",
-            "Technology": "cpu",
-            "Business": "briefcase",
-            "Science": "atom",
-            "Space": "sparkles",
-            "Funnies": "face.smiling",
-            "Curiosity": "person.and.arrow.left.and.arrow.right",
-            "Gaming": "gamecontroller",
-            "Entertainment": "film"
-        ]
-
-        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
-
-        var newPages: [Page] = []
-        opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, profile: profile)
-            page.name = opmlFolder.name
-            page.symbol = symbolMap[opmlFolder.name]
-            newPages.append(page)
-
-            opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page, url: opmlFeed.url)
-                feed.title = opmlFeed.title
-            }
-        }
-
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            DispatchQueue.main.async {
-                CrashManager.handleCriticalError(error)
-            }
-        }
     }
 }
