@@ -141,7 +141,6 @@ struct RootView: View {
                     profiles: profiles.map { $0 }
                 )
             }
-
             setupHaptics()
         }
         .preferredColorScheme(ColorScheme(uiStyle))
