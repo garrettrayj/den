@@ -29,6 +29,7 @@ struct WelcomeView: View {
                 Text("\(profile.feedsArray.count) feeds").font(.caption)
             }
         }
-        .navigationTitle("Den")
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

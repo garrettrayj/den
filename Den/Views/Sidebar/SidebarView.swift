@@ -13,19 +13,15 @@ struct SidebarView: View {
     @Environment(\.editMode) private var editMode
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var haptics: Haptics
-
     @ObservedObject var profile: Profile
-
-    var searchModel: SearchModel
-
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
     @Binding var profileUnreadCount: Int
-
     @State private var searchInput: String = ""
 
     let persistentContainer: NSPersistentContainer
     let refreshProgress: Progress
+    let searchModel: SearchModel
 
     var body: some View {
         List(selection: $selection) {
@@ -62,12 +58,8 @@ struct SidebarView: View {
 
                 .lineLimit(1)
             } else {
-                AllItemsNavView(
-                    profile: profile,
-                    unreadCount: $profileUnreadCount,
-                    refreshing: $refreshing
-                )
-                TrendsNavView(profile: profile, refreshing: $refreshing)
+                AllItemsNavView(profile: profile, unreadCount: $profileUnreadCount)
+                TrendsNavView(profile: profile)
 
                 Section {
                     ForEach(profile.pagesArray) { page in

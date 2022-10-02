@@ -10,9 +10,8 @@ import SwiftUI
 
 struct HistorySectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.dismiss) private var dismiss
 
-    let profile: Profile
+    @Binding var activeProfile: Profile?
 
     @State var historyRentionDays: Int = 0
     @State var showingClearHistoryAlert = false
@@ -30,7 +29,7 @@ struct HistorySectionView: View {
             Button(role: .destructive) {
                 showingClearHistoryAlert = true
             } label: {
-                Text("Erase").lineLimit(1)
+                Text("Erase")
             }
             .modifier(FormRowModifier())
             .alert("Erase History?", isPresented: $showingClearHistoryAlert, actions: {
@@ -43,14 +42,6 @@ struct HistorySectionView: View {
             })
             .accessibilityIdentifier("clear-history-button")
         }
-        .onChange(of: historyRentionDays) { _ in
-            profile.wrappedHistoryRetention = historyRentionDays
-            saveProfile()
-        }
-    }
-
-    private var historyRetentionLabel: some View {
-        Text("Keep").lineLimit(1)
     }
 
     private var historyRetentionPicker: some View {
@@ -63,38 +54,39 @@ struct HistorySectionView: View {
             Text("Two weeks").tag(14 as Int)
             Text("One week").tag(7 as Int)
         } label: {
-            historyRetentionLabel
+            Text("Keep")
+        }.onAppear {
+            historyRentionDays = activeProfile?.wrappedHistoryRetention ?? 0
+        }.onChange(of: historyRentionDays) { newValue in
+            if activeProfile?.wrappedHistoryRetention != newValue {
+                activeProfile?.wrappedHistoryRetention = newValue
+                do {
+                    try viewContext.save()
+                } catch let error as NSError {
+                    CrashManager.handleCriticalError(error)
+                }
+            }
         }
     }
 
     private func eraseHistory() {
-        profile.historyArray.forEach { history in
+        activeProfile?.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
 
-        profile.previewItems.forEach { item in
+        activeProfile?.previewItems.forEach { item in
             item.read = false
         }
 
         do {
             try viewContext.save()
-            profile.objectWillChange.send()
-            profile.pagesArray.forEach { page in
+            activeProfile?.objectWillChange.send()
+            activeProfile?.pagesArray.forEach { page in
                 NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
             }
         } catch let error as NSError {
             CrashManager.handleCriticalError(error)
             return
-        }
-    }
-
-    private func saveProfile() {
-        if self.viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch let error as NSError {
-                CrashManager.handleCriticalError(error)
-            }
         }
     }
 }

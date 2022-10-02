@@ -16,8 +16,8 @@ struct SettingsView: View {
     var body: some View {
         Form {
             ProfilesSectionView(activeProfile: $activeProfile)
-            FeedsSectionView(profile: activeProfile!)
-            HistorySectionView(profile: activeProfile!)
+            FeedsSectionView()
+            HistorySectionView(activeProfile: $activeProfile)
             AppearanceSectionView(uiStyle: $uiStyle)
             TouchSectionView(hapticsEnabled: $hapticsEnabled)
             ResetSectionView(activeProfile: $activeProfile)

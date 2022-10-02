@@ -10,6 +10,7 @@ import CoreData
 import SwiftUI
 
 struct PageNavView: View {
+    @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
     @State var unreadCount: Int = 0
 
@@ -19,7 +20,9 @@ struct PageNavView: View {
                 HStack {
                     Text(page.displayName).modifier(SidebarItemLabelTextModifier())
                     Spacer()
-                    Text(String(unreadCount)).modifier(CapsuleModifier())
+                    if editMode?.wrappedValue.isEditing == false {
+                        Text(String(unreadCount)).modifier(CapsuleModifier())
+                    }
                 }.lineLimit(1)
             } icon: {
                 Image(systemName: page.wrappedSymbol).imageScale(.large)
