@@ -17,7 +17,7 @@ struct PageSelectionView: View {
 
     var body: some View {
         HStack(alignment: .bottom) {
-            Text("\nSelect")
+            Text("Select")
             Spacer()
             HStack {
                 Button(action: selectAll) { Text("All") }
@@ -31,5 +31,6 @@ struct PageSelectionView: View {
             .font(.system(size: 12))
         }
         .buttonStyle(.borderless)
+        .modifier(FormFirstHeaderModifier())
     }
 }

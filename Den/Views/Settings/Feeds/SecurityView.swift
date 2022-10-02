@@ -53,7 +53,7 @@ struct SecurityView: View {
                     .foregroundColor(.green)
             }).padding(.vertical, 8)
         } header: {
-            Text("\nSummary")
+            Text("Summary").modifier(FormFirstHeaderModifier())
         }
     }
 
@@ -83,7 +83,7 @@ struct SecurityView: View {
             }.padding(.vertical, 4)
 
         } header: {
-            Text("\nSummary")
+            Text("Summary").modifier(FormFirstHeaderModifier())
         }
     }
 
