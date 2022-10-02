@@ -48,7 +48,7 @@ struct SubscribeView: View {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
                         } header: {
-                            Text("\nWeb Address")
+                            Text("Web Address")
                         } footer: {
                             Group {
                                 if let validationMessage = validationMessage {

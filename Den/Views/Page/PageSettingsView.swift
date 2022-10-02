@@ -27,7 +27,7 @@ struct PageSettingsView: View {
     }
 
     private var nameIconSection: some View {
-        Section(header: Text("\nName & Icon")) {
+        Section(header: Text("Name").modifier(FormFirstHeaderModifier())) {
             HStack {
                 TextField("Untitled", text: $page.wrappedName)
                     .modifier(TitleTextFieldModifier())

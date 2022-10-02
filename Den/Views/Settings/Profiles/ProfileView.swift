@@ -36,7 +36,7 @@ struct ProfileView: View {
     }
 
     private var nameSection: some View {
-        Section(header: Text("\nName")) {
+        Section(header: Text("Name").modifier(FormFirstHeaderModifier())) {
             HStack {
                 TextField("Name", text: $nameInput)
                     .modifier(TitleTextFieldModifier())
