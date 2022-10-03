@@ -52,6 +52,17 @@ struct TrendsView: View {
             profile.trends.forEach { $0.objectWillChange.send() }
         }
         .navigationTitle("Trends")
+        .navigationDestination(for: TrendPanel.self) { detailPanel in
+            switch detailPanel {
+            case .trend(let trend):
+                TrendView(
+                    trend: trend,
+                    unreadCount: trend.items.unread().count,
+                    hideRead: $hideRead,
+                    refreshing: $refreshing
+                ).id(trend.id)
+            }
+        }
         .toolbar {
             ReadingToolbarContent(
                 unreadCount: $unreadCount,

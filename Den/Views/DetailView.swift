@@ -56,19 +56,13 @@ struct DetailView: View {
                     SettingsView(
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
-                        hapticsEnabled: $hapticsEnabled
+                        hapticsEnabled: $hapticsEnabled,
+                        profile: profile
                     )
                 }
             }
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 switch detailPanel {
-                case .trend(let trend):
-                    TrendView(
-                        trend: trend,
-                        unreadCount: trend.items.unread().count,
-                        hideRead: $hideRead,
-                        refreshing: $refreshing
-                    ).id(trend.id)
                 case .feed(let feed):
                     if let feed = feed {
                         FeedView(
@@ -78,22 +72,8 @@ struct DetailView: View {
                             refreshing: $refreshing
                         ).id(feed.id)
                     }
-                case .pageSettings(let page):
-                    PageSettingsView(page: page).id(page.id)
-                case .feedSettings(let feed):
-                    FeedSettingsView(feed: feed).id(feed.id)
                 case .item(let item):
                     ItemView(item: item).id(item.id)
-                case .profile(let profile):
-                    ProfileView(activeProfile: $activeProfile, profile: profile).id(profile.id)
-                case .importFeeds:
-                    ImportView(profile: profile)
-                case .exportFeeds:
-                    ExportView(profile: profile)
-                case .security:
-                    SecurityView(profile: profile)
-                case .history:
-                    HistoryView(profile: profile)
                 }
             }
         }

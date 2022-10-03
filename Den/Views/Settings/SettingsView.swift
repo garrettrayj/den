@@ -12,12 +12,13 @@ struct SettingsView: View {
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var hapticsEnabled: Bool
+    @ObservedObject var profile: Profile
 
     var body: some View {
         Form {
             ProfilesSectionView(activeProfile: $activeProfile)
             FeedsSectionView()
-            HistorySectionView(activeProfile: $activeProfile)
+            HistorySectionView(profile: profile)
             AppearanceSectionView(uiStyle: $uiStyle)
             if UIDevice.current.userInterfaceIdiom == .phone {
                 TouchSectionView(hapticsEnabled: $hapticsEnabled)
@@ -26,5 +27,19 @@ struct SettingsView: View {
             AboutSectionView()
         }
         .navigationTitle("Settings")
+        .navigationDestination(for: SettingsPanel.self) { settingsPanel in
+            switch settingsPanel {
+            case .profile(let profile):
+                ProfileView(activeProfile: $activeProfile, profile: profile).id(profile.id)
+            case .importFeeds:
+                ImportView(profile: profile)
+            case .exportFeeds:
+                ExportView(profile: profile)
+            case .security:
+                SecurityView(profile: profile)
+            case .history:
+                HistoryView(profile: profile)
+            }
+        }
     }
 }

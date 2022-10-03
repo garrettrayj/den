@@ -11,14 +11,14 @@ import SwiftUI
 struct HistorySectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var activeProfile: Profile?
+    @ObservedObject var profile: Profile
 
-    @State var historyRentionDays: Int = 0
-    @State var showingClearHistoryAlert = false
+    @State private var historyRentionDays: Int = 0
+    @State private var showingClearHistoryAlert = false
 
     var body: some View {
         Section(header: Text("History")) {
-            NavigationLink(value: DetailPanel.history) {
+            NavigationLink(value: SettingsPanel.history) {
                 Text("Log")
             }
             .modifier(FormRowModifier())
@@ -56,10 +56,10 @@ struct HistorySectionView: View {
         } label: {
             Text("Keep")
         }.onAppear {
-            historyRentionDays = activeProfile?.wrappedHistoryRetention ?? 0
+            historyRentionDays = profile.wrappedHistoryRetention
         }.onChange(of: historyRentionDays) { newValue in
-            if activeProfile?.wrappedHistoryRetention != newValue {
-                activeProfile?.wrappedHistoryRetention = newValue
+            if profile.wrappedHistoryRetention != newValue {
+                profile.wrappedHistoryRetention = newValue
                 do {
                     try viewContext.save()
                 } catch let error as NSError {
@@ -70,18 +70,18 @@ struct HistorySectionView: View {
     }
 
     private func eraseHistory() {
-        activeProfile?.historyArray.forEach { history in
+        profile.historyArray.forEach { history in
             self.viewContext.delete(history)
         }
 
-        activeProfile?.previewItems.forEach { item in
+        profile.previewItems.forEach { item in
             item.read = false
         }
 
         do {
             try viewContext.save()
-            activeProfile?.objectWillChange.send()
-            activeProfile?.pagesArray.forEach { page in
+            profile.objectWillChange.send()
+            profile.pagesArray.forEach { page in
                 NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
             }
         } catch let error as NSError {

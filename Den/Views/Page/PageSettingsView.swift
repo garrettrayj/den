@@ -47,13 +47,16 @@ struct PageSettingsView: View {
                 showingIconPicker = true
             } label: {
                 Label {
-                    Text("Select icon")
-                    Spacer()
-                    Image(systemName: "chevron.down").foregroundColor(.secondary)
+                    HStack {
+                        Text("Select icon")
+                        Spacer()
+                        Image(systemName: "chevron.down").foregroundColor(.secondary)
+                    }
                 } icon: {
                     Image(systemName: page.wrappedSymbol)
                 }
             }
+            .buttonStyle(.borderless)
             .modifier(FormRowModifier())
         }
         .sheet(isPresented: $showingIconPicker) {

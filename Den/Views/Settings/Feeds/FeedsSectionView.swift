@@ -11,19 +11,19 @@ import SwiftUI
 struct FeedsSectionView: View {
     var body: some View {
         Section(header: Text("Feeds")) {
-            NavigationLink(value: DetailPanel.importFeeds) {
+            NavigationLink(value: SettingsPanel.importFeeds) {
                 Text("Import")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
-            NavigationLink(value: DetailPanel.exportFeeds) {
+            NavigationLink(value: SettingsPanel.exportFeeds) {
                 Text("Export")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
-            NavigationLink(value: DetailPanel.security) {
+            NavigationLink(value: SettingsPanel.security) {
                 Text("Security")
             }
             .modifier(FormRowModifier())

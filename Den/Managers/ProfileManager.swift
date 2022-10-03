@@ -49,11 +49,17 @@ struct ProfileManager {
         let defaultProfile = ProfileManager.activateProfile(
             ProfileManager.createDefaultProfile(context: context)
         )
-        let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile]
-        for profile in profiles ?? [] where profile != defaultProfile {
-            context.delete(profile)
+
+        do {
+            let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
+            for profile in profiles where profile != defaultProfile {
+                context.delete(profile)
+            }
+
+            try context.save()
+        } catch {
+            CrashManager.handleCriticalError(error as NSError)
         }
-        try? context.save()
 
         return defaultProfile
     }
@@ -61,6 +67,7 @@ struct ProfileManager {
     static func createDefaultProfile(context: NSManagedObjectContext) -> Profile {
         let profile = Profile.create(in: context)
         profile.wrappedName = "Den"
+
         do {
             try context.save()
         } catch {
