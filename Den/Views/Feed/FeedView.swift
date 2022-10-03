@@ -54,6 +54,12 @@ struct FeedView: View {
             unreadCount = feed.feedData?.previewItems.count ?? 0
         }
         .navigationTitle(feed.wrappedTitle)
+        .navigationDestination(for: FeedPanel.self, destination: { feedPanel in
+            switch feedPanel {
+            case .feedSettings(let feed):
+                FeedSettingsView(feed: feed).id(feed.id)
+            }
+        })
     }
 
     private var visibleItems: [Item] {
@@ -145,7 +151,7 @@ struct FeedView: View {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
-                NavigationLink(value: DetailPanel.feedSettings(feed)) {
+                NavigationLink(value: FeedPanel.feedSettings(feed)) {
                     Label("Feed Settings", systemImage: "wrench")
                 }
                 .modifier(ToolbarButtonModifier())

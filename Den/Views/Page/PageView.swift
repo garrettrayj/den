@@ -108,6 +108,12 @@ struct PageView: View {
         .modifier(URLDropTargetModifier(page: page))
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle(page.displayName)
+        .navigationDestination(for: PagePanel.self, destination: { pagePanel in
+            switch pagePanel {
+            case .pageSettings(let page):
+                PageSettingsView(page: page).id(page.id)
+            }
+        })
         .toolbar { toolbarContent }
     }
 
@@ -135,7 +141,7 @@ struct PageView: View {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
             } else {
-                NavigationLink(value: DetailPanel.pageSettings(page)) {
+                NavigationLink(value: PagePanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
                 .modifier(ToolbarButtonModifier())
