@@ -14,7 +14,6 @@ struct NavigationListView: View {
     @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var profile: Profile
-    @Binding var activeProfile: Profile? // Re-render when active profile changes
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
     @Binding var profileUnreadCount: Int
