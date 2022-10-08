@@ -16,16 +16,14 @@ struct StartSectionView: View {
     var body: some View {
         Section {
             Button {
-                withAnimation {
-                    _ = Page.create(in: viewContext, profile: profile, prepend: true)
-                    do {
-                        try viewContext.save()
-                        DispatchQueue.main.async {
-                            profile.objectWillChange.send()
-                        }
-                    } catch {
-                        CrashManager.handleCriticalError(error as NSError)
+                _ = Page.create(in: viewContext, profile: profile, prepend: true)
+                do {
+                    try viewContext.save()
+                    DispatchQueue.main.async {
+                        profile.objectWillChange.send()
                     }
+                } catch {
+                    CrashManager.handleCriticalError(error as NSError)
                 }
             } label: {
                 Label("Create a blank page", systemImage: "plus")
