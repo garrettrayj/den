@@ -45,6 +45,7 @@ struct RootView: View {
                 NavigationSplitView {
                     SidebarView(
                         profile: profile,
+                        activeProfile: $activeProfile,
                         selection: $selection,
                         refreshing: $refreshing,
                         profileUnreadCount: $profileUnreadCount,
