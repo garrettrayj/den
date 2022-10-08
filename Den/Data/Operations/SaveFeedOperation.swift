@@ -11,11 +11,11 @@ import OSLog
 
 final class SaveFeedOperation: Operation {
     // Operation inputs
-    var workingFeed: WorkingFeedData?
+    weak var workingFeed: WorkingFeedData?
     var workingFeedItems: [WorkingItem] = []
 
-    let feedObjectID: NSManagedObjectID
-    let persistentContainer: NSPersistentContainer
+    unowned let feedObjectID: NSManagedObjectID
+    unowned let persistentContainer: NSPersistentContainer
     let saveMeta: Bool
 
     init(

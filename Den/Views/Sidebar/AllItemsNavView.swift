@@ -25,7 +25,7 @@ struct AllItemsNavView: View {
                             .modifier(CapsuleModifier())
                     }.lineLimit(1)
                 } icon: {
-                    Image(systemName: unreadCount > 0 ? "tray.full": "tray").imageScale(.large)
+                    Image(systemName: unreadCount > 0 ? "tray.full": "tray")
                 }
             }
             .accessibilityIdentifier("timeline-button")

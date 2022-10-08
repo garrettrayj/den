@@ -11,6 +11,7 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
@@ -18,7 +19,6 @@ struct RootView: View {
 
     @Binding var activeProfile: Profile?
 
-    let persistentContainer: NSPersistentContainer
     let refreshProgress: Progress = Progress()
 
     @StateObject private var searchModel = SearchModel()
@@ -48,11 +48,10 @@ struct RootView: View {
                         selection: $selection,
                         refreshing: $refreshing,
                         profileUnreadCount: $profileUnreadCount,
-                        persistentContainer: persistentContainer,
                         refreshProgress: refreshProgress,
                         searchModel: searchModel
                     )
-                    .navigationSplitViewColumnWidth(300)
+                    .navigationSplitViewColumnWidth(260)
                 } detail: {
                     DetailView(
                         path: $path,
@@ -95,7 +94,7 @@ struct RootView: View {
                 .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
                     self.refreshProgress.completedUnitCount += 1
                 }
-                .onReceive(NotificationCenter.default.publisher(for: .profileRefreshed)) { _ in
+                .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
                     self.refreshProgress.completedUnitCount += 1
                     self.profileUnreadCount = profile.previewItems.unread().count
                 }
@@ -115,15 +114,16 @@ struct RootView: View {
                     SubscribeView(
                         initialPageObjectID: $subscribePageObjectID,
                         initialURLString: $subscribeURLString,
-                        profile: activeProfile,
-                        persistentContainer: persistentContainer
-                    ).environment(\.colorScheme, colorScheme)
+                        profile: activeProfile
+                    )
+                    .environment(\.persistentContainer, persistentContainer)
+                    .environment(\.colorScheme, colorScheme)
                 }
             } else {
                 VStack(spacing: 16) {
                     Spacer()
                     ProgressView()
-                    Text("Opening profile…")
+                    Text("Opening…")
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

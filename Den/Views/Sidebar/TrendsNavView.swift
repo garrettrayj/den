@@ -22,7 +22,7 @@ struct TrendsNavView: View {
                         Text(String(profile.trends.unread().count)).modifier(CapsuleModifier())
                     }.lineLimit(1)
                 } icon: {
-                    Image(systemName: "chart.line.uptrend.xyaxis").imageScale(.large)
+                    Image(systemName: "chart.line.uptrend.xyaxis")
                 }
             }
             .accessibilityIdentifier("timeline-button")

@@ -15,7 +15,7 @@ extension Notification.Name {
 
     static let feedRefreshed = Notification.Name("feed-refreshed")
     static let pageRefreshed = Notification.Name("page-refreshed")
-    static let profileRefreshed = Notification.Name("profile-refreshed")
+    static let pagesRefreshed = Notification.Name("pages-refreshed")
 
     static let itemStatus = Notification.Name("item-status")
 

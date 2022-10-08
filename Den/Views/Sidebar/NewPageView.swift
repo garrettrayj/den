@@ -19,7 +19,11 @@ struct NewPageView: View {
             Button {
                 addPage()
             } label: {
-                Label("Add Page", systemImage: "plus")
+                Label {
+                    Text("Add Page").modifier(SidebarItemLabelTextModifier())
+                } icon: {
+                    Image(systemName: "plus")
+                }
             }
             .buttonStyle(.borderless)
             .disabled(refreshing)
@@ -35,7 +39,7 @@ struct NewPageView: View {
             suffix += 1
         }
 
-        let newPage = Page.create(in: viewContext, profile: profile, prepend: false)
+        let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
         newPage.wrappedName = pageName
 
         do {

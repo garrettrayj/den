@@ -14,11 +14,13 @@ import OSLog
  */
 final class DataTaskOperation: AsynchronousOperation {
     var url: URL?
+
+    // Operation outputs
+    weak var response: HTTPURLResponse?
     var data: Data?
     var error: Error?
-    var response: HTTPURLResponse?
 
-    private var task: URLSessionTask?
+    weak private var task: URLSessionTask?
 
     init(_ url: URL? = nil) {
         self.url = url

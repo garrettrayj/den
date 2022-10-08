@@ -17,7 +17,7 @@ import FeedKit
 final class FeedCheckOperation: Operation {
     // Operation inputs
     var httpTransportError: Error?
-    var httpResponse: HTTPURLResponse?
+    weak var httpResponse: HTTPURLResponse?
     var data: Data?
 
     // Operation outputs

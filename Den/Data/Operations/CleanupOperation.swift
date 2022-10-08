@@ -14,8 +14,8 @@ import OSLog
  Finds trending tags
  */
 final class CleanupOperation: Operation {
-    let persistentContainer: NSPersistentContainer
-    let profileObjectID: NSManagedObjectID
+    unowned let persistentContainer: NSPersistentContainer
+    unowned let profileObjectID: NSManagedObjectID
 
     init(
         persistentContainer: NSPersistentContainer,

@@ -11,6 +11,7 @@ import SwiftUI
 
 struct SidebarView: View {
     @Environment(\.editMode) private var editMode
+    @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var profile: Profile
     @Binding var selection: Panel?
@@ -18,7 +19,6 @@ struct SidebarView: View {
     @Binding var profileUnreadCount: Int
     @State private var searchInput: String = ""
 
-    let persistentContainer: NSPersistentContainer
     let refreshProgress: Progress
     let searchModel: SearchModel
 
@@ -29,8 +29,8 @@ struct SidebarView: View {
             } else {
                 AllItemsNavView(profile: profile, unreadCount: $profileUnreadCount)
                 TrendsNavView(profile: profile)
-
                 Section {
+                    NewPageView(profile: profile, refreshing: $refreshing)
                     ForEach(profile.pagesArray) { page in
                         PageNavView(page: page)
                     }
@@ -38,12 +38,7 @@ struct SidebarView: View {
                     .onDelete(perform: deletePage)
                 } header: {
                     Text("Pages")
-                    #if targetEnvironment(macCatalyst)
-                        .font(.callout).padding(.top, 4)
-                    #endif
                 }
-
-                NewPageView(profile: profile, refreshing: $refreshing)
             }
         }
         .listStyle(.sidebar)
@@ -63,6 +58,7 @@ struct SidebarView: View {
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {
+                guard let persistentContainer = persistentContainer else { return }
                 RefreshManager.refresh(container: persistentContainer, profile: profile)
             }
         }
@@ -103,6 +99,7 @@ struct SidebarView: View {
                 .font(.caption)
                 Spacer()
                 Button {
+                    guard let persistentContainer = persistentContainer else { return }
                     RefreshManager.refresh(container: persistentContainer, profile: profile)
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")

@@ -21,7 +21,8 @@ struct DenApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(activeProfile: $activeProfile, persistentContainer: persistentContainer)
+            RootView(activeProfile: $activeProfile)
+                .environment(\.persistentContainer, persistentContainer)
                 .environment(\.managedObjectContext, persistentContainer.viewContext)
                 .onOpenURL { url in
                     SubscriptionManager.showSubscribe(for: url.absoluteString)
