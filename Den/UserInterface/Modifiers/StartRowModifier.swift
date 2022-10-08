@@ -13,7 +13,7 @@ struct StartRowModifier: ViewModifier {
         content
             #if targetEnvironment(macCatalyst)
             .font(.title3)
-            .padding(.bottom, 12)
+            .padding(.vertical, 8)
             #endif
     }
 }
