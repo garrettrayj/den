@@ -43,7 +43,7 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "No Data",
-                    caption: "Refresh to load feed",
+                    caption: "Refresh to load",
                     useStatusBox: useStatusBox
                 )
             } else if let error = feedData?.error {
@@ -58,7 +58,7 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "Feed Empty",
-                    caption: "No Items",
+                    caption: "No items",
                     useStatusBox: useStatusBox
                 )
             } else {
