@@ -58,7 +58,7 @@ struct FeedUnavailableView: View {
                 StatusMessageView(
                     symbol: "questionmark.folder",
                     title: "Feed Empty",
-                    caption: "No items to show",
+                    caption: "No Items",
                     useStatusBox: useStatusBox
                 )
             } else {

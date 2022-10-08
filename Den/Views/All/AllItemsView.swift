@@ -43,7 +43,7 @@ struct AllItemsView: View {
                 #endif
             } else if profile.previewItems.isEmpty {
                 StatusBoxView(
-                    message: Text("No Items Available"),
+                    message: Text("No Items"),
                     symbol: "questionmark.folder"
                 )
             } else if profile.previewItems.unread().isEmpty && hideRead == true {

@@ -49,9 +49,11 @@ struct ResetSectionView: View {
         RefreshManager.cancel()
         resetFeeds()
 
-        activeProfile?.objectWillChange.send()
-        activeProfile?.pagesArray.forEach {
-            NotificationCenter.default.post(name: .pageRefreshed, object: $0.objectID)
+        DispatchQueue.main.async {
+            activeProfile?.objectWillChange.send()
+            activeProfile?.pagesArray.forEach {
+                NotificationCenter.default.post(name: .pageRefreshed, object: $0.objectID)
+            }
         }
     }
 
@@ -81,7 +83,6 @@ struct ResetSectionView: View {
             if viewContext.hasChanges {
                 do {
                     try viewContext.save()
-                    activeProfile?.objectWillChange.send()
                 } catch {
                     DispatchQueue.main.async {
                         CrashManager.handleCriticalError(error as NSError)

@@ -52,6 +52,7 @@ struct RootView: View {
                         refreshProgress: refreshProgress,
                         searchModel: searchModel
                     )
+                    .id(profile.id)
                     .navigationSplitViewColumnWidth(260)
                 } detail: {
                     DetailView(
