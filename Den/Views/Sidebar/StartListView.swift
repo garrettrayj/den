@@ -12,11 +12,7 @@ import SwiftUI
 struct StartListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var profile: Profile
-    @Binding var activeProfile: Profile? // Re-render when active profile changes
     @Binding var selection: Panel?
-
-    let refreshProgress: Progress
-    let searchModel: SearchModel
 
     var body: some View {
         List {

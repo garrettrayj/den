@@ -24,15 +24,11 @@ struct SidebarView: View {
         if profile.pagesArray.isEmpty {
             StartListView(
                 profile: profile,
-                activeProfile: $activeProfile,
-                selection: $selection,
-                refreshProgress: refreshProgress,
-                searchModel: searchModel
+                selection: $selection
             )
         } else {
             NavigationListView(
                 profile: profile,
-                activeProfile: $activeProfile,
                 selection: $selection,
                 refreshing: $refreshing,
                 profileUnreadCount: $profileUnreadCount,
