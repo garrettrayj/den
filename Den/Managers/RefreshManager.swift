@@ -40,7 +40,7 @@ struct RefreshManager {
 
         let pagesCompletedOp = BlockOperation { [weak profile] in
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .profileRefreshed, object: profile?.objectID)
+                NotificationCenter.default.post(name: .pagesRefreshed, object: profile?.objectID)
             }
         }
         operations.append(pagesCompletedOp)

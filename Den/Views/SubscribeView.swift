@@ -12,13 +12,13 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var persistentContainer
     @EnvironmentObject private var haptics: Haptics
 
     @Binding var initialPageObjectID: NSManagedObjectID?
     @Binding var initialURLString: String
 
     let profile: Profile?
-    let persistentContainer: NSPersistentContainer
 
     @State private var urlString: String = ""
     @State private var targetPage: Page?
@@ -204,7 +204,11 @@ struct SubscribeView: View {
     }
 
     private func addFeed() {
-        guard let url = URL(string: urlString), let page = targetPage else { return }
+        guard
+            let url = URL(string: urlString),
+            let page = targetPage,
+            let persistentContainer = persistentContainer
+        else { return }
 
         self.loading = true
 

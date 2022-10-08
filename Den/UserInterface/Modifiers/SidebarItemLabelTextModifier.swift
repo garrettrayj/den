@@ -11,10 +11,5 @@ import SwiftUI
 struct SidebarItemLabelTextModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            #if targetEnvironment(macCatalyst)
-            .frame(height: 32)
-            .padding(.leading, 6)
-            .font(.system(size: 14))
-            #endif
     }
 }

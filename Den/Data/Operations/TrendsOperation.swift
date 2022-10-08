@@ -14,8 +14,8 @@ import NaturalLanguage
  Finds trending tags
  */
 final class TrendsOperation: Operation {
-    let persistentContainer: NSPersistentContainer
-    let profileObjectID: NSManagedObjectID
+    unowned let persistentContainer: NSPersistentContainer
+    unowned let profileObjectID: NSManagedObjectID
 
     init(
         persistentContainer: NSPersistentContainer,

@@ -12,10 +12,10 @@ import UIKit
 
 final class FeedMetaOperation: Operation {
     // Operation inputs
-    var workingFeed: WorkingFeedData?
-    var defaultFaviconResponse: HTTPURLResponse?
+    weak var workingFeed: WorkingFeedData?
+    weak var defaultFaviconResponse: HTTPURLResponse?
     var defaultFaviconData: Data?
-    var webpageFaviconResponse: HTTPURLResponse?
+    weak var webpageFaviconResponse: HTTPURLResponse?
     var webpageFaviconData: Data?
     var webpageImages: [RankedImage]?
 

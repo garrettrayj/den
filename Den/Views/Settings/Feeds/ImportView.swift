@@ -52,10 +52,9 @@ struct ImportView: View {
             }
             .modifier(ProminentButtonModifier())
             .accessibilityIdentifier("import-pick-file-button")
-            Text("You will be able to choose pages to import in the next step")
+            Text("Choose pages to import in the next step")
                 .font(.title3)
                 .foregroundColor(.secondary)
-            Spacer()
             Spacer()
         }
         .multilineTextAlignment(.center)

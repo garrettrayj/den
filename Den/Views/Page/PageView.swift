@@ -165,7 +165,7 @@ struct PageView: View {
                     }
                     .accessibilityIdentifier("add-feed-button")
 
-                    NavigationLink(value: DetailPanel.pageSettings(page)) {
+                    NavigationLink(value: PagePanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
                     .accessibilityIdentifier("page-settings-button")

@@ -12,7 +12,7 @@ import SwiftUI
 struct PageNavView: View {
     @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
-    @State var unreadCount: Int = 0
+    @State private var unreadCount: Int = 0
 
     var body: some View {
         NavigationLink(value: Panel.page(page)) {
@@ -25,7 +25,7 @@ struct PageNavView: View {
                     }
                 }.lineLimit(1)
             } icon: {
-                Image(systemName: page.wrappedSymbol).imageScale(.large)
+                Image(systemName: page.wrappedSymbol)
             }
         }
         .onAppear {
@@ -48,7 +48,7 @@ struct PageNavView: View {
         ) { _ in
             unreadCount = page.previewItems.unread().count
         }
-        .modifier(URLDropTargetModifier(page: page))
+    .modifier(URLDropTargetModifier(page: page))
         .accessibilityIdentifier("page-button")
     }
 }
