@@ -50,7 +50,7 @@ struct ImportView: View {
             Button(action: pickFile) {
                 Label("Select OPML File", systemImage: "filemenu.and.cursorarrow")
             }
-            .modifier(ProminentButtonModifier())
+            .buttonStyle(AccentButtonStyle())
             .accessibilityIdentifier("import-pick-file-button")
             Text("Choose pages to import in the next step")
                 .font(.title3)
@@ -92,7 +92,7 @@ struct ImportView: View {
                 Button(action: importSelected) {
                     Label("Import Pages", systemImage: "arrow.down.doc")
                 }
-                .modifier(ProminentButtonModifier())
+                .buttonStyle(AccentButtonStyle())
                 .disabled(!(selectedFolders.count > 0))
                 .accessibilityIdentifier("import-submit-button")
             }

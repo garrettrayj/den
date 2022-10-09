@@ -58,7 +58,7 @@ struct NavigationListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
-                    .modifier(ToolbarButtonModifier())
+                    .buttonStyle(ToolbarButtonStyle())
                     .disabled(refreshing)
                     .accessibilityIdentifier("edit-page-list-button")
             }
@@ -69,7 +69,7 @@ struct NavigationListView: View {
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
-                .modifier(ToolbarButtonModifier())
+                .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("settings-button")
                 .disabled(refreshing)
                 Spacer()
@@ -97,7 +97,7 @@ struct NavigationListView: View {
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }
-                .modifier(ToolbarButtonModifier())
+                .buttonStyle(ToolbarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
                 .accessibilityIdentifier("profile-refresh-button")
                 .disabled(refreshing)

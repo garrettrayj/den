@@ -120,23 +120,22 @@ struct PageView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         #if targetEnvironment(macCatalyst)
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
             viewModePicker
-                .padding(.trailing, 8)
-                .pickerStyle(.inline)
+                .pickerStyle(.segmented)
+                .padding(8)
                 .disabled(refreshing)
-        }
-        ToolbarItem(placement: .navigationBarTrailing) {
+
             Button {
                 SubscriptionManager.showSubscribe(page: page)
             } label: {
                 Label("Add Feed", systemImage: "plus.circle")
             }
-            .modifier(ToolbarButtonModifier())
+            .buttonStyle(ToolbarButtonStyle())
             .accessibilityIdentifier("add-feed-button")
             .disabled(refreshing)
-        }
-        ToolbarItem(placement: .navigationBarTrailing) {
+
+            Spacer()
             if refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
@@ -144,7 +143,7 @@ struct PageView: View {
                 NavigationLink(value: PagePanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
-                .modifier(ToolbarButtonModifier())
+                .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("page-settings-button")
                 .disabled(refreshing)
             }
@@ -170,7 +169,10 @@ struct PageView: View {
                     }
                     .accessibilityIdentifier("page-settings-button")
                 } label: {
-                    Label("Page Menu", systemImage: "ellipsis.circle").font(.body.weight(.medium))
+                    Label("Page Menu", systemImage: "ellipsis.circle")
+                        .padding(8)
+                        .background(Color.clear)
+                        .padding(-8)
                 }
                 .accessibilityIdentifier("page-menu")
             }

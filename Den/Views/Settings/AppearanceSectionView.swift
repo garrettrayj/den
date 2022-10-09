@@ -10,35 +10,29 @@ import SwiftUI
 
 struct AppearanceSectionView: View {
     @Binding var uiStyle: UIUserInterfaceStyle
+    @Binding var showScrollIndicators: Bool
 
     var body: some View {
         Section(header: Text("Appearance")) {
+            Picker(selection: $uiStyle) {
+                Text("System").tag(UIUserInterfaceStyle.unspecified)
+                Text("Light").tag(UIUserInterfaceStyle.light)
+                Text("Dark").tag(UIUserInterfaceStyle.dark)
+            } label: {
+                Text("Theme")
+            }.modifier(FormRowModifier())
+
             #if targetEnvironment(macCatalyst)
             HStack {
-                themeSelectionLabel
+                Text("Scroll Indicators")
                 Spacer()
-                themeSelectionPicker
-                    .pickerStyle(SegmentedPickerStyle())
-                    .frame(width: 200)
-                    .modifier(FormRowModifier())
+                Toggle("Scroll Indicators", isOn: $showScrollIndicators).labelsHidden()
             }.modifier(FormRowModifier())
             #else
-            themeSelectionPicker
+            Toggle(isOn: $showScrollIndicators) {
+                Text("Scroll Indicators")
+            }
             #endif
-        }
-    }
-
-    private var themeSelectionLabel: some View {
-        Text("Theme")
-    }
-
-    private var themeSelectionPicker: some View {
-        Picker(selection: $uiStyle) {
-            Text("System").tag(UIUserInterfaceStyle.unspecified)
-            Text("Light").tag(UIUserInterfaceStyle.light)
-            Text("Dark").tag(UIUserInterfaceStyle.dark)
-        } label: {
-            themeSelectionLabel
         }
     }
 }

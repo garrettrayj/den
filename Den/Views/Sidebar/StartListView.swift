@@ -63,7 +63,7 @@ struct StartListView: View {
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
-                .modifier(ToolbarButtonModifier())
+                .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("settings-button")
                 Spacer()
             }

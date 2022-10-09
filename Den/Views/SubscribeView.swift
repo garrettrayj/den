@@ -79,7 +79,7 @@ struct SubscribeView: View {
                             Button { dismiss() } label: {
                                 Label("Cancel", systemImage: "xmark.circle")
                             }
-                            .modifier(ToolbarButtonModifier())
+                            .buttonStyle(ToolbarButtonStyle())
                             .accessibilityIdentifier("subscribe-cancel-button")
                         }
                     }
@@ -114,7 +114,7 @@ struct SubscribeView: View {
         .frame(maxWidth: .infinity)
         .listRowBackground(Color(UIColor.systemGroupedBackground))
         .disabled(!(urlString.count > 0) || loading)
-        .modifier(ProminentButtonModifier())
+        .buttonStyle(AccentButtonStyle())
         .accessibilityIdentifier("subscribe-submit-button")
     }
 
