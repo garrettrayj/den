@@ -69,7 +69,7 @@ struct AllItemsView: View {
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }
-                    .modifier(ToolbarButtonModifier())
+                    .buttonStyle(ToolbarButtonStyle())
                     .accessibilityIdentifier("add-feed-button")
                 }
             }

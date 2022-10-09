@@ -1,5 +1,5 @@
 //
-//  GlobalSidebarItemView.swift
+//  AllItemsNavView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/30/22.

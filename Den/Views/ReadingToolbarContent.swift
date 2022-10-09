@@ -28,7 +28,7 @@ struct ReadingToolbarContent: ToolbarContent {
                         : "line.3.horizontal.decrease.circle"
                 )
             }
-            .modifier(ToolbarButtonModifier())
+            .buttonStyle(ToolbarButtonStyle())
             .disabled(refreshing)
             .accessibilityIdentifier("filter-read-button")
             Spacer()
@@ -47,7 +47,7 @@ struct ReadingToolbarContent: ToolbarContent {
                     )
                 }
             }
-            .modifier(ToolbarButtonModifier())
+            .buttonStyle(ToolbarButtonStyle())
             .disabled(refreshing)
             .accessibilityIdentifier("mark-all-read-button")
         }

@@ -34,6 +34,7 @@ struct RootView: View {
     @State private var profileUnreadCount: Int = 0
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
+    @AppStorage("ShowScrollIndicators") private var showScrollIndicators = false
     @AppStorage("HapticsEnabled") private var hapticsEnabled = true
 
     var body: some View {
@@ -60,6 +61,7 @@ struct RootView: View {
                         selection: $selection,
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
+                        showScrollIndicators: $showScrollIndicators,
                         hapticsEnabled: $hapticsEnabled,
                         profileUnreadCount: $profileUnreadCount,
                         profile: profile,
@@ -69,6 +71,9 @@ struct RootView: View {
                 }
                 .onAppear {
                     profileUnreadCount = profile.previewItems.unread().count
+
+                    guard let window = WindowFinder.current() else { return }
+                    window.overrideUserInterfaceStyle = uiStyle
                 }
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
@@ -134,7 +139,9 @@ struct RootView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
+        .preferredColorScheme(ColorScheme(uiStyle))
         .environmentObject(haptics)
+        .scrollIndicators(showScrollIndicators ? .automatic : .hidden)
         .onAppear {
             if activeProfile == nil {
                 activeProfile = ProfileManager.loadProfile(
@@ -144,7 +151,6 @@ struct RootView: View {
             }
             setupHaptics()
         }
-        .preferredColorScheme(ColorScheme(uiStyle))
     }
 
     func setupHaptics() {

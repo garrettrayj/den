@@ -146,7 +146,7 @@ struct FeedView: View {
 
     @ToolbarContentBuilder
     private var toolbar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItemGroup(placement: .navigationBarTrailing) {
             if refreshing {
                 ProgressView()
                     .progressViewStyle(ToolbarProgressStyle())
@@ -154,7 +154,7 @@ struct FeedView: View {
                 NavigationLink(value: FeedPanel.feedSettings(feed)) {
                     Label("Feed Settings", systemImage: "wrench")
                 }
-                .modifier(ToolbarButtonModifier())
+                .buttonStyle(ToolbarButtonStyle())
                 .disabled(refreshing)
                 .accessibilityIdentifier("feed-settings-button")
             }

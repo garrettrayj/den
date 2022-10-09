@@ -34,7 +34,7 @@ struct IconPickerView: View {
                         dismiss()
                     } label: {
                         Label("Close", systemImage: "xmark.circle")
-                    }.modifier(ToolbarButtonModifier())
+                    }.buttonStyle(ToolbarButtonStyle())
                 }
             }
         }

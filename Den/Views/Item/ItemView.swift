@@ -58,7 +58,7 @@ struct ItemView: View {
                 .toolbar {
                     if let link = item.link {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            ShareLink(item: link).modifier(ToolbarButtonModifier())
+                            ShareLink(item: link).buttonStyle(ToolbarButtonStyle())
                         }
                     }
 
@@ -73,7 +73,7 @@ struct ItemView: View {
                             Label("Open in Browser", systemImage: "safari")
                             #endif
                         }
-                        .modifier(ToolbarButtonModifier())
+                        .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("item-open-button")
                     }
                 }
