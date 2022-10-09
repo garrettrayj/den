@@ -42,11 +42,7 @@ struct NavigationListView: View {
         #if targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
         #endif
-        .searchable(
-            text: $searchInput,
-            placement: .navigationBarDrawer(displayMode: .always),
-            prompt: Text("Search")
-        )
+        .searchable(text: $searchInput)
         .onSubmit(of: .search) {
             searchModel.query = searchInput
             selection = .search
@@ -91,7 +87,7 @@ struct NavigationListView: View {
                         #endif
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 8)
                 .lineLimit(1)
                 .font(.caption)
                 Spacer()

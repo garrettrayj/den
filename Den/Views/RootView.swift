@@ -19,14 +19,13 @@ struct RootView: View {
 
     @Binding var activeProfile: Profile?
 
-    let refreshProgress: Progress = Progress()
-
     @StateObject private var searchModel = SearchModel()
     @StateObject private var haptics = Haptics()
 
     @State private var selection: Panel?
     @State private var path = NavigationPath()
     @State private var refreshing: Bool = false
+    @State private var refreshProgress: Progress = Progress()
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
@@ -53,7 +52,7 @@ struct RootView: View {
                         searchModel: searchModel
                     )
                     .id(profile.id)
-                    .navigationSplitViewColumnWidth(260)
+                    .navigationSplitViewColumnWidth(264)
                 } detail: {
                     DetailView(
                         path: $path,

@@ -15,7 +15,7 @@ struct StartListView: View {
     @Binding var selection: Panel?
 
     var body: some View {
-        List {
+        List(selection: $selection) {
             Section {
                 Button {
                     _ = Page.create(in: viewContext, profile: profile, prepend: true)

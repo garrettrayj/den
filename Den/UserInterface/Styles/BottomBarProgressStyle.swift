@@ -10,7 +10,6 @@ import SwiftUI
 
 struct BottomBarProgressStyle: ProgressViewStyle {
     let progress: Progress
-    let width: CGFloat = 128
     let height: CGFloat = 4
 
     func makeBody(configuration: Configuration) -> some View {
@@ -28,17 +27,20 @@ struct BottomBarProgressStyle: ProgressViewStyle {
             .monospacedDigit()
 
             ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: height / 2)
-                    .frame(width: width, height: height)
-                    .foregroundColor(Color(UIColor.tertiarySystemFill))
+                GeometryReader { geometry in
+                    RoundedRectangle(cornerRadius: height / 2)
+                        .frame(width: geometry.size.width, height: height)
+                        .foregroundColor(Color(UIColor.tertiarySystemFill))
 
-                RoundedRectangle(cornerRadius: height / 2)
-                    .frame(
-                        width: CGFloat(configuration.fractionCompleted ?? 0) * width,
-                        height: height
-                    )
-                    .foregroundColor(.accentColor)
-            }
+                    RoundedRectangle(cornerRadius: height / 2)
+                        .frame(
+                            width: CGFloat(configuration.fractionCompleted ?? 0) * geometry.size.width,
+                            height: height
+                        )
+                        .foregroundColor(.accentColor)
+                }
+
+            }.frame(maxWidth: 144)
         }
         .frame(maxWidth: .infinity)
     }
