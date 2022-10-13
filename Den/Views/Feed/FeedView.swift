@@ -90,7 +90,8 @@ struct FeedView: View {
                             }
                             .background(Color(UIColor.secondarySystemGroupedBackground))
                             .cornerRadius(8)
-                        }.padding()
+                        }
+                        .padding()
                     }
                 }
             }

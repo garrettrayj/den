@@ -42,10 +42,12 @@ final class SaveFeedOperation: Operation {
                 let feedData = self.updateFeed(feed: feed, context: context)
             else { return }
 
+            self.updateFeedItems(feed: feed, feedData: feedData, context: context)
+
             do {
-                self.updateFeedItems(feed: feed, feedData: feedData, context: context)
                 try context.save()
             } catch {
+                Logger.main.error("SaveFeedOperation failed to save context")
                 self.cancel()
             }
         }

@@ -24,13 +24,13 @@ struct AppearanceSectionView: View {
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Scroll Indicators")
+                Text("Show Scrollbar")
                 Spacer()
-                Toggle("Scroll Indicators", isOn: $showScrollIndicators).labelsHidden()
+                Toggle("Show Scrollbar", isOn: $showScrollIndicators).labelsHidden()
             }.modifier(FormRowModifier())
             #else
             Toggle(isOn: $showScrollIndicators) {
-                Text("Scroll Indicators")
+                Text("Show Scrollbar")
             }
             #endif
         }

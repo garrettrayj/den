@@ -170,9 +170,10 @@ struct PageView: View {
                     .accessibilityIdentifier("page-settings-button")
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis.circle")
-                        .padding(8)
+                        .frame(height: 44, alignment: .center)
+                        .padding(.horizontal, 8)
                         .background(Color.clear)
-                        .padding(-8)
+                        .padding(.trailing, -8)
                 }
                 .accessibilityIdentifier("page-menu")
             }

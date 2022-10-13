@@ -71,13 +71,14 @@ struct RootView: View {
                 }
                 .onAppear {
                     profileUnreadCount = profile.previewItems.unread().count
-
-                    guard let window = WindowFinder.current() else { return }
-                    window.overrideUserInterfaceStyle = uiStyle
+                    WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
                 }
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
                 }
+                .onChange(of: uiStyle, perform: { _ in
+                    WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
+                })
                 .onChange(of: hapticsEnabled, perform: { _ in
                     setupHaptics()
                 })
