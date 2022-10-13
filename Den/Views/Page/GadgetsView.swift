@@ -21,7 +21,7 @@ struct GadgetsView: View {
             BoardView(width: frameSize.width, list: page.feedsArray) { feed in
                 GadgetView(feed: feed, hideRead: $hideRead, refreshing: $refreshing)
             }
-            .padding()
+            .modifier(TopLevelBoardPaddingModifier())
         }
     }
 }

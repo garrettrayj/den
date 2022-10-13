@@ -47,6 +47,7 @@ struct PreviewImageView: View {
             } else {
                 WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
                     .resizable()
+                    .purgeable(true)
                     .placeholder {
                         ItemImagePlaceholderView()
                     }
