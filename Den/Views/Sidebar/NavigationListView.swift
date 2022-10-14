@@ -10,7 +10,6 @@ import CoreData
 import SwiftUI
 
 struct NavigationListView: View {
-    @Environment(\.editMode) private var editMode
     @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var profile: Profile

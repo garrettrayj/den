@@ -14,8 +14,6 @@ struct DetailView: View {
     @Binding var selection: Panel?
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
-    @Binding var showScrollIndicators: Bool
-    @Binding var hapticsEnabled: Bool
     @Binding var profileUnreadCount: Int
 
     @ObservedObject var profile: Profile
@@ -57,8 +55,6 @@ struct DetailView: View {
                     SettingsView(
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
-                        showScrollIndicators: $showScrollIndicators,
-                        hapticsEnabled: $hapticsEnabled,
                         profile: profile
                     )
                 }

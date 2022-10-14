@@ -13,19 +13,17 @@ struct TrendsNavView: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        if editMode?.wrappedValue.isEditing == false {
-            NavigationLink(value: Panel.trends) {
-                Label {
-                    HStack {
-                        Text("Trends").modifier(SidebarItemLabelTextModifier())
-                        Spacer()
-                        Text(String(profile.trends.unread().count)).modifier(CapsuleModifier())
-                    }.lineLimit(1)
-                } icon: {
-                    Image(systemName: "chart.line.uptrend.xyaxis")
-                }
+        NavigationLink(value: Panel.trends) {
+            Label {
+                HStack {
+                    Text("Trends").modifier(SidebarItemLabelTextModifier())
+                    Spacer()
+                    Text(String(profile.trends.unread().count)).modifier(CapsuleModifier())
+                }.lineLimit(1)
+            } icon: {
+                Image(systemName: "chart.line.uptrend.xyaxis")
             }
-            .accessibilityIdentifier("timeline-button")
         }
+        .accessibilityIdentifier("timeline-button")
     }
 }

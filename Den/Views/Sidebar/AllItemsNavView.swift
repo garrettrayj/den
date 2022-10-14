@@ -15,20 +15,18 @@ struct AllItemsNavView: View {
     @Binding var unreadCount: Int
 
     var body: some View {
-        if editMode?.wrappedValue.isEditing == false {
-            NavigationLink(value: Panel.allItems) {
-                Label {
-                    HStack {
-                        Text("All Items").modifier(SidebarItemLabelTextModifier())
-                        Spacer()
-                        Text(String(profile.previewItems.unread().count))
-                            .modifier(CapsuleModifier())
-                    }.lineLimit(1)
-                } icon: {
-                    Image(systemName: unreadCount > 0 ? "tray.full": "tray")
-                }
+        NavigationLink(value: Panel.allItems) {
+            Label {
+                HStack {
+                    Text("All Items").modifier(SidebarItemLabelTextModifier())
+                    Spacer()
+                    Text(String(profile.previewItems.unread().count))
+                        .modifier(CapsuleModifier())
+                }.lineLimit(1)
+            } icon: {
+                Image(systemName: unreadCount > 0 ? "tray.full": "tray")
             }
-            .accessibilityIdentifier("timeline-button")
         }
+        .accessibilityIdentifier("timeline-button")
     }
 }

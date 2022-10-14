@@ -82,7 +82,7 @@ struct FeedSettingsView: View {
                 Text("Item Limit: \(feed.wrappedItemLimit)")
             }
             .onChange(of: feed.itemLimit, perform: { _ in
-                haptics.lightImpactFeedbackGenerator?.impactOccurred()
+                haptics.lightImpactFeedbackGenerator.impactOccurred()
             })
             .modifier(FormRowModifier())
 

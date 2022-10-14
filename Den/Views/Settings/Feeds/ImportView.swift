@@ -170,7 +170,7 @@ struct ImportView: View {
         }
         self.importFolders(opmlFolders: foldersToImport)
         stage = .complete
-        haptics.notificationFeedbackGenerator?.notificationOccurred(.success)
+        haptics.notificationFeedbackGenerator.notificationOccurred(.success)
     }
 
     private func importFolders(opmlFolders: [OPMLReader.Folder]) {

@@ -43,11 +43,11 @@ final class DataTaskOperation: AsynchronousOperation {
         request.httpShouldHandleCookies = false
         request.timeoutInterval = 30
 
-        task = URLSession.shared.dataTask(with: request) { data, response, error in
-            self.data = data
-            self.error = error
-            self.response = response as? HTTPURLResponse
-            self.finish()
+        task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            self?.data = data
+            self?.error = error
+            self?.response = response as? HTTPURLResponse
+            self?.finish()
         }
         task?.resume()
     }
