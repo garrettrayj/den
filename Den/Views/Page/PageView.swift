@@ -51,8 +51,9 @@ struct PageView: View {
                 StatusBoxView(
                     message: Text("Page Empty"),
                     caption: Text("""
-                    Add feeds by opening syndication links \
-                    or click \(Image(systemName: "plus.circle")) to add by web address
+                    To add feeds tap \(Image(systemName: "plus.circle")), \
+                    open syndication links, \
+                    or drag-and-drop URLs.
                     """),
                     symbol: "questionmark.folder"
                 )
@@ -60,9 +61,10 @@ struct PageView: View {
                 StatusBoxView(
                     message: Text("Page Empty"),
                     caption: Text("""
-                    Add feeds by opening syndication links \
-                    or tap \(Image(systemName: "ellipsis.circle")) then \(Image(systemName: "plus.circle")) \
-                    to add by web address
+                    To add feeds tap \(Image(systemName: "ellipsis.circle")) \
+                    then \(Image(systemName: "plus.circle")), \
+                    open syndication links, \
+                    or drag-and-drop URLs.
                     """),
                     symbol: "questionmark.folder"
                 )
@@ -114,79 +116,76 @@ struct PageView: View {
                 PageSettingsView(page: page).id(page.id)
             }
         })
-        .toolbar { toolbarContent }
-    }
+        .toolbar {
+            #if targetEnvironment(macCatalyst)
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                viewModePicker
+                    .pickerStyle(.segmented)
+                    .padding(8)
+                    .disabled(refreshing)
 
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        #if targetEnvironment(macCatalyst)
-        ToolbarItemGroup(placement: .navigationBarTrailing) {
-            viewModePicker
-                .pickerStyle(.segmented)
-                .padding(8)
-                .disabled(refreshing)
-
-            Button {
-                SubscriptionManager.showSubscribe(page: page)
-            } label: {
-                Label("Add Feed", systemImage: "plus.circle")
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("add-feed-button")
-            .disabled(refreshing)
-
-            Spacer()
-            if refreshing {
-                ProgressView()
-                    .progressViewStyle(ToolbarProgressStyle())
-            } else {
-                NavigationLink(value: PagePanel.pageSettings(page)) {
-                    Label("Page Settings", systemImage: "wrench")
+                Button {
+                    SubscriptionManager.showSubscribe(page: page)
+                } label: {
+                    Label("Add Feed", systemImage: "plus.circle")
                 }
                 .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("page-settings-button")
+                .accessibilityIdentifier("add-feed-button")
                 .disabled(refreshing)
-            }
-        }
-        #else
-        ToolbarItem {
-            if refreshing {
-                ProgressView()
-                    .progressViewStyle(ToolbarProgressStyle())
-            } else {
-                Menu {
-                    viewModePicker
 
-                    Button {
-                        SubscriptionManager.showSubscribe(page: page)
-                    } label: {
-                        Label("Add Feed", systemImage: "plus.circle")
-                    }
-                    .accessibilityIdentifier("add-feed-button")
-
+                Spacer()
+                if refreshing {
+                    ProgressView()
+                        .progressViewStyle(ToolbarProgressStyle())
+                } else {
                     NavigationLink(value: PagePanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
+                    .buttonStyle(ToolbarButtonStyle())
                     .accessibilityIdentifier("page-settings-button")
-                } label: {
-                    Label("Page Menu", systemImage: "ellipsis.circle")
-                        .frame(height: 44, alignment: .center)
-                        .padding(.horizontal, 8)
-                        .background(Color.clear)
-                        .padding(.trailing, -8)
+                    .disabled(refreshing)
                 }
-                .accessibilityIdentifier("page-menu")
             }
-        }
-        #endif
+            #else
+            ToolbarItem {
+                if refreshing {
+                    ProgressView()
+                        .progressViewStyle(ToolbarProgressStyle())
+                } else {
+                    Menu {
+                        viewModePicker
 
-        ReadingToolbarContent(
-            unreadCount: $unreadCount,
-            hideRead: $hideRead,
-            refreshing: $refreshing,
-            centerLabel: Text("\(unreadCount) Unread")
-        ) {
-            SyncManager.toggleReadUnread(context: viewContext, items: page.previewItems)
+                        Button {
+                            SubscriptionManager.showSubscribe(page: page)
+                        } label: {
+                            Label("Add Feed", systemImage: "plus.circle")
+                        }
+                        .accessibilityIdentifier("add-feed-button")
+
+                        NavigationLink(value: PagePanel.pageSettings(page)) {
+                            Label("Page Settings", systemImage: "wrench")
+                        }
+                        .accessibilityIdentifier("page-settings-button")
+                    } label: {
+                        Label("Page Menu", systemImage: "ellipsis.circle")
+                            .frame(height: 44, alignment: .center)
+                            .padding(.horizontal, 8)
+                            .background(Color.clear)
+                            .padding(.trailing, -8)
+                    }
+                    .accessibilityIdentifier("page-menu")
+                }
+            }
+            #endif
+
+            ReadingToolbarContent(
+                unreadCount: $unreadCount,
+                hideRead: $hideRead,
+                refreshing: $refreshing,
+                centerLabel: Text("\(unreadCount) Unread")
+            ) {
+                SyncManager.toggleReadUnread(context: viewContext, items: page.previewItems)
+            }
         }
     }
 

@@ -11,8 +11,6 @@ import SwiftUI
 struct SettingsView: View {
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
-    @Binding var showScrollIndicators: Bool
-    @Binding var hapticsEnabled: Bool
     @ObservedObject var profile: Profile
 
     var body: some View {
@@ -20,10 +18,7 @@ struct SettingsView: View {
             ProfilesSectionView(activeProfile: $activeProfile)
             FeedsSectionView()
             HistorySectionView(profile: profile)
-            AppearanceSectionView(uiStyle: $uiStyle, showScrollIndicators: $showScrollIndicators)
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                TouchSectionView(hapticsEnabled: $hapticsEnabled)
-            }
+            AppearanceSectionView(uiStyle: $uiStyle)
             ResetSectionView(activeProfile: $activeProfile)
             AboutSectionView()
         }

@@ -140,10 +140,6 @@ struct SubscribeView: View {
         }
     }
 
-    private var pagePickerLabel: some View {
-        Label("Page", systemImage: "target")
-    }
-
     private var pagePicker: some View {
         Picker(selection: $targetPage) {
             ForEach(profile!.pagesArray) { page in
@@ -151,7 +147,7 @@ struct SubscribeView: View {
             }
             .navigationTitle("")
         } label: {
-            pagePickerLabel
+            Text("Page")
         }
     }
 
@@ -220,7 +216,7 @@ struct SubscribeView: View {
         urlIsValid = false
         validationMessage = message
 
-        haptics.notificationFeedbackGenerator?.notificationOccurred(.error)
+        haptics.notificationFeedbackGenerator.notificationOccurred(.error)
         withAnimation(.default) { validationAttempts += 1 }
     }
 }

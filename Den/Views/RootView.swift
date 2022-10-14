@@ -34,8 +34,6 @@ struct RootView: View {
     @State private var profileUnreadCount: Int = 0
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
-    @AppStorage("ShowScrollIndicators") private var showScrollIndicators = false
-    @AppStorage("HapticsEnabled") private var hapticsEnabled = true
 
     var body: some View {
         Group {
@@ -61,8 +59,6 @@ struct RootView: View {
                         selection: $selection,
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
-                        showScrollIndicators: $showScrollIndicators,
-                        hapticsEnabled: $hapticsEnabled,
                         profileUnreadCount: $profileUnreadCount,
                         profile: profile,
                         searchModel: searchModel,
@@ -79,9 +75,6 @@ struct RootView: View {
                 .onChange(of: uiStyle, perform: { _ in
                     WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
                 })
-                .onChange(of: hapticsEnabled, perform: { _ in
-                    setupHaptics()
-                })
                 .onReceive(NotificationCenter.default.publisher(for: .itemStatus)) { notification in
                     guard
                         let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
@@ -93,7 +86,7 @@ struct RootView: View {
                     profileUnreadCount += read ? -1 : 1
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-                    haptics.mediumImpactFeedbackGenerator?.impactOccurred()
+                    haptics.mediumImpactFeedbackGenerator.impactOccurred()
                     self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? -1) + 1
                     self.refreshProgress.completedUnitCount = 0
                     self.refreshing = true
@@ -107,7 +100,7 @@ struct RootView: View {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
                     self.refreshing = false
-                    haptics.notificationFeedbackGenerator?.notificationOccurred(.success)
+                    haptics.notificationFeedbackGenerator.notificationOccurred(.success)
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
                     subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
@@ -142,7 +135,6 @@ struct RootView: View {
         }
         .preferredColorScheme(ColorScheme(uiStyle))
         .environmentObject(haptics)
-        .scrollIndicators(showScrollIndicators ? .automatic : .hidden)
         .onAppear {
             if activeProfile == nil {
                 activeProfile = ProfileManager.loadProfile(
@@ -150,11 +142,6 @@ struct RootView: View {
                     profiles: profiles.map { $0 }
                 )
             }
-            setupHaptics()
         }
-    }
-
-    func setupHaptics() {
-        haptics.setup(enabled: hapticsEnabled)
     }
 }
