@@ -17,9 +17,8 @@ struct SettingsView: View {
         Form {
             ProfilesSectionView(activeProfile: $activeProfile)
             FeedsSectionView()
-            HistorySectionView(profile: profile)
             AppearanceSectionView(uiStyle: $uiStyle)
-            ResetSectionView(activeProfile: $activeProfile)
+            ResetSectionView(activeProfile: $activeProfile, profile: profile)
             AboutSectionView()
         }
         .navigationTitle("Settings")
@@ -33,8 +32,6 @@ struct SettingsView: View {
                 ExportView(profile: profile)
             case .security:
                 SecurityView(profile: profile)
-            case .history:
-                HistoryView(profile: profile)
             }
         }
     }

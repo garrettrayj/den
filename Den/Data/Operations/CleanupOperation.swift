@@ -17,6 +17,8 @@ final class CleanupOperation: Operation {
     unowned let persistentContainer: NSPersistentContainer
     unowned let profileObjectID: NSManagedObjectID
 
+    let maxHistory = 100000
+
     init(
         persistentContainer: NSPersistentContainer,
         profileObjectID: NSManagedObjectID
@@ -47,8 +49,11 @@ final class CleanupOperation: Operation {
     }
 
     private func cleanupHistory(context: NSManagedObjectContext, profile: Profile) throws {
-        var itemsRemoved: Int = 0
-        if profile.historyRetention == 0 { return }
+        if profile.history?.count ?? 0 < maxHistory {
+            Logger.main.info("Skipping history cleanup")
+            return
+        }
+
         let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
         fetchRequest.predicate = NSPredicate(
@@ -56,12 +61,37 @@ final class CleanupOperation: Operation {
             #keyPath(History.visited),
             historyRetentionStart as NSDate
         )
-        fetchRequest.sortDescriptors = []
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(History.visited), ascending: false)]
+        fetchRequest.fetchOffset = maxHistory
 
-        let fetchResults = try context.fetch(fetchRequest) as? [History]
-        fetchResults?.forEach { context.delete($0) }
-        itemsRemoved += fetchResults?.count ?? 0
-        Logger.main.info("History cleanup finished. \(itemsRemoved) entries removed")
+        // Create a batch delete request for the fetch request
+        let deleteRequest = NSBatchDeleteRequest(
+            fetchRequest: fetchRequest
+        )
+
+        // Specify the result of the NSBatchDeleteRequest
+        // should be the NSManagedObject IDs for the deleted objects
+        deleteRequest.resultType = .resultTypeObjectIDs
+
+        // Perform the batch delete
+        let batchDelete = try? context.execute(deleteRequest)
+            as? NSBatchDeleteResult
+
+        guard let deleteResult = batchDelete?.result
+            as? [NSManagedObjectID]
+            else { return }
+
+        let deletedObjects: [AnyHashable: Any] = [
+            NSDeletedObjectsKey: deleteResult
+        ]
+
+        // Merge the delete changes into the managed object context
+        NSManagedObjectContext.mergeChanges(
+            fromRemoteContextSave: deletedObjects,
+            into: [context]
+        )
+
+        Logger.main.info("History cleanup finished")
     }
 
     /**

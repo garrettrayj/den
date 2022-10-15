@@ -27,7 +27,6 @@ enum SettingsPanel: Hashable {
     case importFeeds
     case exportFeeds
     case security
-    case history
 }
 
 enum PagePanel: Hashable {
