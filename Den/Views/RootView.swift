@@ -51,7 +51,7 @@ struct RootView: View {
                         searchModel: searchModel
                     )
                     .id(profile.id)
-                    .navigationSplitViewColumnWidth(264)
+                    .navigationSplitViewColumnWidth(268)
                 } detail: {
                     DetailView(
                         path: $path,

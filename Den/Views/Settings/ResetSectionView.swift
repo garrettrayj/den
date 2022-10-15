@@ -14,20 +14,36 @@ struct ResetSectionView: View {
 
     @Binding var activeProfile: Profile?
 
+    @ObservedObject var profile: Profile
+
     @State var showingResetAlert = false
 
     var body: some View {
         Section(header: Text("Reset")) {
-            Button(action: clearCache) {
-                Text("Cache")
+            Button(action: resetHistory) {
+                HStack {
+                    Text("Clear History")
+                    Spacer()
+                    Text("\(profile.history?.count ?? 0) records")
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                }
             }
+            .disabled(profile.history?.count == 0)
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("clear-history-button")
+
+            Button(action: clearCache) {
+                Text("Clear Cache")
+            }
+            .disabled(profile.feedsArray.compactMap({ $0.feedData }).isEmpty)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-cache-button")
 
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
-                Text("Everything")
+                Text("Reset Everything")
                     .lineLimit(1)
                     .foregroundColor(.red)
             }
@@ -42,6 +58,16 @@ struct ResetSectionView: View {
                 Text("All profiles will be removed. Default settings will be restored.")
             })
             .accessibilityIdentifier("reset-button")
+        }
+    }
+
+    private func resetHistory() {
+        SyncManager.resetHistory(context: viewContext, profile: profile)
+        DispatchQueue.main.async {
+            profile.objectWillChange.send()
+            profile.pagesArray.forEach { page in
+                NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
+            }
         }
     }
 
