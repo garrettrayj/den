@@ -21,20 +21,14 @@ struct ResetSectionView: View {
     var body: some View {
         Section(header: Text("Reset")) {
             Button(action: resetHistory) {
-                HStack {
-                    Text("Clear History")
-                    Spacer()
-                    Text("\(profile.history?.count ?? 0) records")
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                }
+                Text("Clear History")
             }
             .disabled(profile.history?.count == 0)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-history-button")
 
             Button(action: clearCache) {
-                Text("Clear Cache")
+                Text("Empty Cache")
             }
             .disabled(profile.feedsArray.compactMap({ $0.feedData }).isEmpty)
             .modifier(FormRowModifier())

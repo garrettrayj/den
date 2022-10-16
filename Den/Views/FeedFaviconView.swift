@@ -18,7 +18,6 @@ struct FeedFaviconView: View {
     var body: some View {
         WebImage(url: url, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])
             .resizable()
-            .purgeable(true)
             .placeholder {
                 Image(systemName: "dot.radiowaves.up.forward")
                     .font(.system(size: 15).weight(.semibold))

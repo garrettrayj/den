@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21277" systemVersion="22A5342f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21511" systemVersion="22A5373b" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -41,6 +41,10 @@
         <fetchedProperty name="items" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="Item" predicateString="link = $FETCH_SOURCE.link AND profileId = $FETCH_SOURCE.profile.id"/>
         </fetchedProperty>
+        <fetchIndex name="byProfileAndLinkIndex">
+            <fetchIndexElement property="profile" type="Binary" order="ascending"/>
+            <fetchIndexElement property="link" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
         <attribute name="body" optional="YES" attributeType="String"/>
