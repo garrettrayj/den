@@ -45,8 +45,12 @@ struct BottomBarProgressStyle: ProgressViewStyle {
                         )
                         .foregroundColor(.accentColor)
                 }
-
-            }.frame(width: 116)
+            }
+            #if targetEnvironment(macCatalyst)
+            .frame(width: 108)
+            #else
+            .frame(width: 124)
+            #endif
         }
         .frame(maxWidth: .infinity)
     }
