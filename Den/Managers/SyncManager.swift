@@ -105,12 +105,10 @@ struct SyncManager {
     static func clearHistory(context: NSManagedObjectContext, items: [Item]) {
         guard let profile = items.first?.feedData?.feed?.page?.profile else { return }
 
-        let profilePredicate = NSPredicate(
-            format: "profile.id == %@",
-            profile.id?.uuidString ?? ""
-        )
+        let profilePredicate = NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
         let linkPredicate = NSPredicate(
-            format: "link IN %@",
+            format: "%K IN %@",
+            #keyPath(History.link),
             items.map { $0.link }
         )
         let compoundPredicate = NSCompoundPredicate(
@@ -124,9 +122,7 @@ struct SyncManager {
         fetchRequest.predicate = compoundPredicate
 
         // Create a batch delete request for the fetch request
-        let deleteRequest = NSBatchDeleteRequest(
-            fetchRequest: fetchRequest
-        )
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
         // Specify the result of the NSBatchDeleteRequest
         // should be the NSManagedObject IDs for the deleted objects
@@ -136,13 +132,10 @@ struct SyncManager {
         let batchDelete = try? context.execute(deleteRequest)
             as? NSBatchDeleteResult
 
-        guard let deleteResult = batchDelete?.result
-            as? [NSManagedObjectID]
+        guard let deleteResult = batchDelete?.result as? [NSManagedObjectID]
             else { return }
 
-        let deletedObjects: [AnyHashable: Any] = [
-            NSDeletedObjectsKey: deleteResult
-        ]
+        let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
 
         // Merge the delete changes into the managed object context
         NSManagedObjectContext.mergeChanges(
@@ -151,9 +144,7 @@ struct SyncManager {
         )
 
         // Update items
-        items.forEach { item in
-            item.read = false
-        }
+        items.forEach { $0.read = false }
 
         saveContext(context: context)
     }
@@ -179,16 +170,12 @@ struct SyncManager {
         deleteRequest.resultType = .resultTypeObjectIDs
 
         // Perform the batch delete
-        let batchDelete = try? context.execute(deleteRequest)
-            as? NSBatchDeleteResult
+        let batchDelete = try? context.execute(deleteRequest) as? NSBatchDeleteResult
 
-        guard let deleteResult = batchDelete?.result
-            as? [NSManagedObjectID]
+        guard let deleteResult = batchDelete?.result as? [NSManagedObjectID]
             else { return }
 
-        let deletedObjects: [AnyHashable: Any] = [
-            NSDeletedObjectsKey: deleteResult
-        ]
+        let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
 
         // Merge the delete changes into the managed object context
         NSManagedObjectContext.mergeChanges(
@@ -197,9 +184,7 @@ struct SyncManager {
         )
 
         // Update items
-        profile.previewItems.forEach { item in
-            item.read = false
-        }
+        profile.previewItems.forEach { $0.read = false }
 
         saveContext(context: context)
     }

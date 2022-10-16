@@ -118,12 +118,13 @@ struct PageView: View {
         })
         .toolbar {
             #if targetEnvironment(macCatalyst)
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
                     .disabled(refreshing)
-
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     SubscriptionManager.showSubscribe(page: page)
                 } label: {
@@ -132,8 +133,8 @@ struct PageView: View {
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("add-feed-button")
                 .disabled(refreshing)
-
-                Spacer()
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
                 if refreshing {
                     ProgressView()
                         .progressViewStyle(ToolbarProgressStyle())

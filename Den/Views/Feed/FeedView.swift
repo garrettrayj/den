@@ -91,7 +91,12 @@ struct FeedView: View {
                             .background(Color(UIColor.secondarySystemGroupedBackground))
                             .cornerRadius(8)
                         }
+                        #if targetEnvironment(macCatalyst)
                         .padding()
+                        #else
+                        .padding([.top, .horizontal])
+                        .padding(.bottom, 84)
+                        #endif
                     }
                 }
             }
@@ -133,12 +138,12 @@ struct FeedView: View {
                 )
             } else {
                 Label {
-                    Text("Website Unknown").font(.caption)
+                    Text("Website unknown").font(.caption)
                 } icon: {
                     Image(systemName: "questionmark.square")
                 }
                 .foregroundColor(.secondary)
-                .padding(.leading, 28)
+                .padding(.leading, 20)
                 .padding(.trailing, 8)
             }
         }

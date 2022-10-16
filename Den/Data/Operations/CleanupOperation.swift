@@ -54,36 +54,24 @@ final class CleanupOperation: Operation {
             return
         }
 
-        let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-        fetchRequest.predicate = NSPredicate(
-            format: "%K < %@",
-            #keyPath(History.visited),
-            historyRetentionStart as NSDate
-        )
+        fetchRequest.predicate = NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(History.visited), ascending: false)]
         fetchRequest.fetchOffset = maxHistory
 
         // Create a batch delete request for the fetch request
-        let deleteRequest = NSBatchDeleteRequest(
-            fetchRequest: fetchRequest
-        )
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
         // Specify the result of the NSBatchDeleteRequest
         // should be the NSManagedObject IDs for the deleted objects
         deleteRequest.resultType = .resultTypeObjectIDs
 
         // Perform the batch delete
-        let batchDelete = try? context.execute(deleteRequest)
-            as? NSBatchDeleteResult
+        let batchDelete = try? context.execute(deleteRequest) as? NSBatchDeleteResult
 
-        guard let deleteResult = batchDelete?.result
-            as? [NSManagedObjectID]
-            else { return }
+        guard let deleteResult = batchDelete?.result as? [NSManagedObjectID] else { return }
 
-        let deletedObjects: [AnyHashable: Any] = [
-            NSDeletedObjectsKey: deleteResult
-        ]
+        let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
 
         // Merge the delete changes into the managed object context
         NSManagedObjectContext.mergeChanges(

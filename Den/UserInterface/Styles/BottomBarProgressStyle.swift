@@ -46,7 +46,7 @@ struct BottomBarProgressStyle: ProgressViewStyle {
                         .foregroundColor(.accentColor)
                 }
 
-            }.frame(maxWidth: 144)
+            }.frame(width: 116)
         }
         .frame(maxWidth: .infinity)
     }
