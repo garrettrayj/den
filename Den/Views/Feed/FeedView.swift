@@ -14,7 +14,7 @@ struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var feed: Feed
-    @State var unreadCount: Int
+    @State private var unreadCount: Int = 0
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
@@ -33,6 +33,9 @@ struct FeedView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .onAppear {
+            unreadCount = feed.feedData?.previewItems.unread().count ?? 0
+        }
         .onChange(of: feed.page) { _ in
             dismiss()
         }

@@ -41,7 +41,6 @@ struct DetailView: View {
                 case .trends:
                     TrendsView(
                         profile: profile,
-                        unreadCount: profile.trends.unread().count,
                         hideRead: $hideRead,
                         refreshing: $refreshing
                     )
@@ -65,7 +64,6 @@ struct DetailView: View {
                     if let feed = feed {
                         FeedView(
                             feed: feed,
-                            unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
                             hideRead: $hideRead,
                             refreshing: $refreshing
                         ).id(feed.id)

@@ -14,8 +14,8 @@ struct SecurityView: View {
     let profile: Profile
     let queue = OperationQueue()
 
-    @State var remediationInProgress: Bool = false
-    @State var failedRemediation: [UUID?] = []
+    @State private var remediationInProgress: Bool = false
+    @State private var failedRemediation: [UUID?] = []
 
     var insecureFeedCount: Int {
         profile.insecureFeedCount
