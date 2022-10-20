@@ -60,9 +60,7 @@ struct RootView: View {
                         uiStyle: $uiStyle,
                         profileUnreadCount: $profileUnreadCount,
                         profile: profile,
-                        searchModel: searchModel,
-                        profiles: profiles
-                    )
+                        searchModel: searchModel                    )
                 }
                 .onAppear {
                     profileUnreadCount = profile.previewItems.unread().count
@@ -99,6 +97,7 @@ struct RootView: View {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
                     self.refreshing = false
+                    profile.objectWillChange.send()
                     haptics.notificationFeedbackGenerator.notificationOccurred(.success)
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in

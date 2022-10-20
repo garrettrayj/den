@@ -28,12 +28,16 @@ struct TrendsView: View {
                     symbol: "questionmark.folder"
                 )
             } else {
-                TrendsLayoutView(
-                    profile: profile,
-                    hideRead: $hideRead,
-                    refreshing: $refreshing,
-                    frameSize: geometry.size
-                )
+                if visibleTrends.isEmpty {
+                    AllReadStatusView(hiddenItemCount: readTrends.count)
+                } else {
+                    ScrollView(.vertical) {
+                        BoardView(width: geometry.size.width, list: visibleTrends) { trend in
+                            TrendBlockView(trend: trend, refreshing: $refreshing)
+                        }
+                        .modifier(TopLevelBoardPaddingModifier())
+                    }
+                }
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
@@ -54,6 +58,11 @@ struct TrendsView: View {
             unreadCount = profile.trends.unread().count
             profile.trends.forEach { $0.objectWillChange.send() }
         }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
+        ) { _ in
+            unreadCount = profile.trends.unread().count
+        }
         .navigationTitle("Trends")
         .navigationDestination(for: TrendPanel.self) { detailPanel in
             switch detailPanel {
@@ -70,10 +79,22 @@ struct TrendsView: View {
                 unreadCount: $unreadCount,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) with unread")
+                centerLabel: Text("\(unreadCount) with Unread")
             ) {
                 SyncManager.toggleReadUnread(context: viewContext, items: profile.previewItems)
             }
+        }
+    }
+
+    private var readTrends: [Trend] {
+        profile.trends.filter { trend in
+            trend.items.unread().isEmpty
+        }
+    }
+
+    private var visibleTrends: [Trend] {
+        profile.trends.filter { trend in
+            hideRead ? !trend.items.unread().isEmpty : true
         }
     }
 }

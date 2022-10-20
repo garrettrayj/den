@@ -29,7 +29,6 @@ struct RefreshManager {
             DispatchQueue.main.async {
                 do {
                     try container?.viewContext.save()
-                    profile?.objectWillChange.send()
                     NotificationCenter.default.post(name: .refreshFinished, object: profile?.objectID)
                 } catch {
                     CrashManager.handleCriticalError(error as NSError)
@@ -80,9 +79,11 @@ struct RefreshManager {
         var pageOps: [Operation] = []
         var feedCompletionOps: [Operation] = []
 
-        page.feedsArray.forEach { feed in
+        page.feedsArray.forEach { [weak container] feed in
             guard
-                let refreshPlan = createRefreshPlan(container: container, feed: feed)
+                let container = container,
+                let refreshPlan = createRefreshPlan(container: container, feed: feed),
+                let saveFeedOp = refreshPlan.saveFeedOp
             else { return }
 
             // Feed progress and notifications
@@ -91,7 +92,7 @@ struct RefreshManager {
                     NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
                 }
             }
-            feedCompletionOp.addDependency(refreshPlan.saveFeedOp!)
+            feedCompletionOp.addDependency(saveFeedOp)
             pageOps.append(contentsOf: refreshPlan.getOps())
             pageOps.append(feedCompletionOp)
             feedCompletionOps.append(feedCompletionOp)
@@ -112,10 +113,7 @@ struct RefreshManager {
     }
 
     static func createRefreshPlan(container: NSPersistentContainer, feed: Feed) -> RefreshPlan? {
-        guard let feedData = checkFeedData(
-            context: container.viewContext,
-            feed: feed
-        ) else { return nil }
+        guard let feedData = checkFeedData(context: container.viewContext, feed: feed) else { return nil }
 
         let refreshPlan = RefreshPlan(
             feed: feed,

@@ -19,7 +19,6 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
 
     let searchModel: SearchModel
-    let profiles: FetchedResults<Profile>
 
     @AppStorage("hideRead") private var hideRead = false
 
