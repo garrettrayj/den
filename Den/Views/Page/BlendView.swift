@@ -18,7 +18,7 @@ struct BlendView: View {
 
     var body: some View {
         if visibleItems.isEmpty {
-            AllReadStatusView(hiddenItemCount: page.previewItems.read().count).frame(height: frameSize.height - 8)
+            AllReadStatusView(hiddenItemCount: page.previewItems.read().count)
         } else {
             ScrollView(.vertical) {
                 BoardView(width: frameSize.width, list: visibleItems) { item in

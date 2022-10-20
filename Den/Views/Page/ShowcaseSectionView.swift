@@ -18,7 +18,7 @@ struct ShowcaseSectionView: View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {
             if feed.hasContent {
                 if visibleItems.isEmpty {
-                    AllReadCompactView().padding(.horizontal)
+                    AllReadCompactView().padding(.horizontal, 8)
                 } else {
                     BoardView(
                         width: width,

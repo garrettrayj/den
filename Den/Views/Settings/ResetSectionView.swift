@@ -16,7 +16,7 @@ struct ResetSectionView: View {
 
     @ObservedObject var profile: Profile
 
-    @State var showingResetAlert = false
+    @State private var showingResetAlert = false
 
     var body: some View {
         Section(header: Text("Reset")) {

@@ -15,6 +15,7 @@ struct AllReadCompactView: View {
         } icon: {
             Image(systemName: "checkmark")
         }
+        .imageScale(.small)
         .foregroundColor(.secondary)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(12)

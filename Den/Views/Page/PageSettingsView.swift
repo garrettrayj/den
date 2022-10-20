@@ -13,7 +13,7 @@ struct PageSettingsView: View {
 
     @ObservedObject var page: Page
 
-    @State var showingIconPicker: Bool = false
+    @State private var showingIconPicker: Bool = false
 
     var body: some View {
         Form {

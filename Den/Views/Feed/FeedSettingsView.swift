@@ -15,7 +15,7 @@ struct FeedSettingsView: View {
 
     @ObservedObject var feed: Feed
 
-    @State var showingDeleteAlert: Bool = false
+    @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
         Form {
