@@ -27,6 +27,7 @@ struct ItemThumbnailView: View {
         } else if let image = item.feedData?.image {
             WebImage(url: image, context: [.imageThumbnailPixelSize: ImageReferenceSize.thumbnail])
                 .resizable()
+                .purgeable(true)
                 .placeholder {
                     placeholder
                 }

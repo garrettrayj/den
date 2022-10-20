@@ -39,7 +39,6 @@ struct SyncManager {
         guard item.read != true else { return }
         item.read = true
         logHistory(context: context, items: [item])
-        saveContext(context: context)
         NotificationCenter.default.postItemStatus(
             read: true,
             itemObjectID: item.objectID,
@@ -47,13 +46,17 @@ struct SyncManager {
             pageObjectID: item.feedData?.feed?.page?.objectID,
             profileObjectID: item.feedData?.feed?.page?.profile?.objectID
         )
+        do {
+            try context.save()
+        } catch {
+            CrashManager.handleCriticalError(error as NSError)
+        }
     }
 
     static func markItemUnread(context: NSManagedObjectContext, item: Item) {
         guard item.read != false else { return }
         item.read = false
         clearHistory(context: context, items: [item])
-        saveContext(context: context)
         NotificationCenter.default.postItemStatus(
             read: false,
             itemObjectID: item.objectID,
@@ -61,6 +64,11 @@ struct SyncManager {
             pageObjectID: item.feedData?.feed?.page?.objectID,
             profileObjectID: item.feedData?.feed?.page?.profile?.objectID
         )
+        do {
+            try context.save()
+        } catch {
+            CrashManager.handleCriticalError(error as NSError)
+        }
     }
 
     static func toggleReadUnread(context: NSManagedObjectContext, items: [Item]) {
@@ -146,7 +154,11 @@ struct SyncManager {
         // Update items
         items.forEach { $0.read = false }
 
-        saveContext(context: context)
+        do {
+            try context.save()
+        } catch {
+            CrashManager.handleCriticalError(error as NSError)
+        }
     }
 
     static func resetHistory(context: NSManagedObjectContext, profile: Profile) {
@@ -186,15 +198,8 @@ struct SyncManager {
         // Update items
         profile.previewItems.forEach { $0.read = false }
 
-        saveContext(context: context)
-    }
-
-    static func saveContext(context: NSManagedObjectContext) {
         do {
-            if context.hasChanges {
-                Logger.main.debug("Saving sync manager context changes")
-                try context.save()
-            }
+            try context.save()
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }

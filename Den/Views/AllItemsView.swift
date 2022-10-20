@@ -49,12 +49,13 @@ struct AllItemsView: View {
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
                 AllReadStatusView(hiddenItemCount: profile.previewItems.read().count)
             } else {
-                AllItemsLayoutView(
-                    profile: profile,
-                    hideRead: $hideRead,
-                    refreshing: $refreshing,
-                    frameSize: geometry.size
-                )
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: visibleItems) { item in
+                        FeedItemPreviewView(item: item, refreshing: $refreshing)
+                    }
+                    .modifier(TopLevelBoardPaddingModifier())
+                    .clipped()
+                }
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
@@ -82,6 +83,12 @@ struct AllItemsView: View {
             ) {
                 SyncManager.toggleReadUnread(context: viewContext, items: profile.previewItems)
             }
+        }
+    }
+
+    private var visibleItems: [Item] {
+        profile.previewItems.filter { item in
+            hideRead ? item.read == false : true
         }
     }
 }

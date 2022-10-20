@@ -7,7 +7,6 @@
 import CoreData
 import OSLog
 import SwiftUI
-import UniformTypeIdentifiers
 
 @main
 struct DenApp: App {

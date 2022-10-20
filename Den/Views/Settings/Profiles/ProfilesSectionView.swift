@@ -58,5 +58,4 @@ struct ProfilesSectionView: View {
             CrashManager.handleCriticalError(error)
         }
     }
-
 }
