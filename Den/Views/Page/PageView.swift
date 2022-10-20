@@ -20,7 +20,7 @@ struct PageView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
-    @AppStorage("pageViewMode_na") var viewMode = 0
+    @AppStorage("pageViewMode_na") private var viewMode = 0
 
     enum PageViewMode: Int {
         case gadgets  = 0

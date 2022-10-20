@@ -26,7 +26,6 @@ struct SubscribeView: View {
     @State private var validationAttempts: Int = 0
     @State private var validationMessage: String?
     @State private var loading: Bool = false
-
     @State private var newFeed: Feed?
 
     var body: some View {

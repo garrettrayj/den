@@ -12,7 +12,8 @@ struct ShowcaseSectionView: View {
     @ObservedObject var feed: Feed
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
-    var width: CGFloat
+
+    let width: CGFloat
 
     var body: some View {
         Section(header: header.modifier(PinnedSectionHeaderModifier())) {

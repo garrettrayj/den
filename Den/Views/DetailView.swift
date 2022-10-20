@@ -21,7 +21,7 @@ struct DetailView: View {
     let searchModel: SearchModel
     let profiles: FetchedResults<Profile>
 
-    @AppStorage("hideRead") var hideRead = false
+    @AppStorage("hideRead") private var hideRead = false
 
     var body: some View {
         NavigationStack {

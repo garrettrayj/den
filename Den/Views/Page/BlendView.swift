@@ -14,7 +14,7 @@ struct BlendView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
-    var frameSize: CGSize
+    let frameSize: CGSize
 
     var body: some View {
         if visibleItems.isEmpty {

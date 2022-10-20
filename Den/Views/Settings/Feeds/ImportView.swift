@@ -19,11 +19,10 @@ struct ImportView: View {
         case pickFile, folderSelection, error, complete
     }
 
-    @State public var stage: ImportStage = .pickFile
-    @State public var opmlFolders: [OPMLReader.Folder] = []
-    @State public var selectedFolders: [OPMLReader.Folder] = []
-    @State public var pickedURL: URL?
-
+    @State private var stage: ImportStage = .pickFile
+    @State private var opmlFolders: [OPMLReader.Folder] = []
+    @State private var selectedFolders: [OPMLReader.Folder] = []
+    @State private var pickedURL: URL?
     @State private var feedsImported: [Feed] = []
     @State private var pagesImported: [Page] = []
     @State private var documentPicker: ImportDocumentPicker?
@@ -199,7 +198,13 @@ struct ImportView: View {
      so we do it this way instead of in a UIViewControllerRepresentable
      */
     private func pickFile() {
-        self.documentPicker = ImportDocumentPicker(view: self)
+        self.documentPicker = ImportDocumentPicker(callback: { urls in
+            guard let url = urls.first else { return }
+            pickedURL = url
+            opmlFolders = OPMLReader(xmlURL: url).outlineFolders
+            selectedFolders = opmlFolders
+            stage = .folderSelection
+        })
 
         let scenes = UIApplication.shared.connectedScenes
         if

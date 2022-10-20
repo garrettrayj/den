@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct SearchResultView: View {
-
     @ObservedObject var item: Item
 
     var body: some View {
