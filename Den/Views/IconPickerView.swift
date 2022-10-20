@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct IconPickerView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var page: Page
 
     let columns = [

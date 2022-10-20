@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct PageSelectionView: View {
-
     let allSelected: Bool
     let noneSelected: Bool
     let selectAll: () -> Void

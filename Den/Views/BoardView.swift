@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
-    var content: (T) -> Content
-    var list: [T]
-    var spacing: CGFloat
-    var width: CGFloat
+    let content: (T) -> Content
+    let list: [T]
+    let spacing: CGFloat
+    let width: CGFloat
 
     var body: some View {
         HStack(alignment: .top, spacing: spacing) {
