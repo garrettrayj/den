@@ -14,11 +14,12 @@ struct FeedFaviconView: View {
     let url: URL?
 
     var placeholderSymbol: String = "dot.radiowaves.up.forward"
+    var purgeable: Bool = true
 
     var body: some View {
         WebImage(url: url, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])
             .resizable()
-            .purgeable(true)
+            .purgeable(purgeable)
             .placeholder {
                 Image(systemName: "dot.radiowaves.up.forward")
                     .font(.system(size: 15).weight(.semibold))
