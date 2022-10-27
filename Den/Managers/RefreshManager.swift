@@ -89,7 +89,12 @@ struct RefreshManager {
             // Feed progress and notifications
             let feedCompletionOp = BlockOperation { [weak feed] in
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .feedRefreshed, object: feed?.objectID)
+                    let userInfo = ["delta": 0]
+                    NotificationCenter.default.post(
+                        name: .feedRefreshed,
+                        object: feed?.objectID,
+                        userInfo: userInfo
+                    )
                 }
             }
             feedCompletionOp.addDependency(saveFeedOp)
