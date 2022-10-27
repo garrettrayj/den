@@ -12,7 +12,7 @@ import SwiftUI
 struct NavigationListView: View {
     @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
-    @ObservedObject var profile: Profile
+    let profile: Profile
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
     @Binding var profileUnreadCount: Int
