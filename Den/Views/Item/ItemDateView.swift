@@ -17,9 +17,8 @@ struct ItemDateView: View {
     let read: Bool
 
     var body: some View {
-        Text("\(date.mediumShortDisplay())")
+        Text("\(date.formatted())")
             .font(.subheadline)
-            .lineLimit(1)
             .foregroundColor(
                 isEnabled ?
                     read ? Color(UIColor.tertiaryLabel) : .secondary

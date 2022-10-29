@@ -12,7 +12,6 @@ struct ThumbnailModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(width: ImageSize.thumbnail.width, height: ImageSize.thumbnail.height)
-            .background(Color(UIColor.systemFill))
             .cornerRadius(6)
             .overlay(
                 RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)

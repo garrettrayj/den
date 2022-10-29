@@ -77,7 +77,7 @@ struct NavigationListView: View {
                         ProgressView(refreshProgress)
                             .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
                     } else if let refreshedDate = profile.minimumRefreshedDate {
-                        Text("\(refreshedDate.shortShortDisplay())")
+                        Text("\(refreshedDate.formatted())")
                     } else {
                         #if targetEnvironment(macCatalyst)
                         Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)

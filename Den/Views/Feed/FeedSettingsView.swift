@@ -135,7 +135,7 @@ struct FeedSettingsView: View {
                 Text("Refreshed")
                 Spacer()
                 if let refreshed = feed.feedData?.refreshed {
-                    Text("\(refreshed.mediumShortDisplay())")
+                    Text("\(refreshed.formatted(date: .abbreviated, time: .shortened))")
                         .foregroundColor(.secondary)
                 } else {
                     Text("Never").foregroundColor(.secondary)
