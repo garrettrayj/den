@@ -26,7 +26,7 @@ public class Item: NSManagedObject {
 
     @objc
     public var day: String {
-        date.fullNoneDisplay()
+        date.formatted(date: .complete, time: .omitted)
     }
 
     @objc

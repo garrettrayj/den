@@ -14,7 +14,7 @@ public class History: NSManagedObject {
     @objc
     var day: String {
         guard let visited = visited else { return "Unknown" }
-        return visited.fullNoneDisplay()
+        return visited.formatted(date: .complete, time: .omitted)
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> History {

@@ -32,7 +32,8 @@ struct ItemView: View {
                                 .fixedSize(horizontal: false, vertical: true)
                                 .font(.title)
 
-                            Text("\(item.date.fullShortDisplay())").font(.subheadline).lineLimit(1)
+                            Text("\(item.date.formatted(date: .complete, time: .shortened))")
+                                .font(.subheadline).lineLimit(1)
 
                             if
                                 item.image != nil &&

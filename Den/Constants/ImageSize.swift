@@ -12,7 +12,7 @@ struct ImageSize {
     static let favicon = CGSize(width: 16, height: 16)
     static let preview = CGSize(width: 396, height: 264)
     #if targetEnvironment(macCatalyst)
-    static let thumbnail = CGSize(width: 84, height: 56)
+    static let thumbnail = CGSize(width: 52, height: 52)
     #else
     static let thumbnail = CGSize(width: 102, height: 68)
     #endif

@@ -33,7 +33,8 @@ struct ItemThumbnailView: View {
                 }
                 .playbackRate(0)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                .padding(6)
+                .cornerRadius(4)
+                .padding(4)
                 .modifier(ThumbnailModifier())
         }
     }
