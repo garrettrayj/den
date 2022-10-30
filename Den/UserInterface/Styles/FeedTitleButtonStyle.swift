@@ -12,7 +12,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
     @State private var hovering: Bool = false
 
-    var backgroundColor: Color = Color(UIColor.secondarySystemGroupedBackground)
+    var backgroundColor: Color = Color.clear
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
@@ -23,9 +23,11 @@ struct FeedTitleButtonStyle: ButtonStyle {
             .frame(height: 40)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
-                isEnabled ?
-                    hovering ? Color(UIColor.quaternarySystemFill) : backgroundColor
-                : Color.clear
+                backgroundColor.overlay {
+                    isEnabled ?
+                        hovering ? Color(UIColor.quaternarySystemFill) : .clear
+                    : .clear
+                }
             )
             .onHover { hovered in
                 hovering = hovered
