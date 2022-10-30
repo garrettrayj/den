@@ -12,7 +12,8 @@ struct ItemView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     let item: Item
-    let maxContentWidth: CGFloat = 720
+
+    let maxContentWidth: CGFloat = 1072
 
     var body: some View {
         Group {

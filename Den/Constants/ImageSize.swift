@@ -14,7 +14,7 @@ struct ImageSize {
     #if targetEnvironment(macCatalyst)
     static let thumbnail = CGSize(width: 52, height: 52)
     #else
-    static let thumbnail = CGSize(width: 102, height: 68)
+    static let thumbnail = CGSize(width: 64, height: 64)
     #endif
     static let full = CGSize(width: 720, height: 405)
 }

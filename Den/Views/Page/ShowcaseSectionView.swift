@@ -16,7 +16,7 @@ struct ShowcaseSectionView: View {
     let width: CGFloat
 
     var body: some View {
-        Section(header: header.modifier(PinnedSectionHeaderModifier())) {
+        Section {
             if feed.hasContent {
                 if visibleItems.isEmpty {
                     AllReadCompactView().padding(.horizontal, 8)
@@ -40,11 +40,7 @@ struct ShowcaseSectionView: View {
                     .cornerRadius(8)
                     .padding()
             }
-        }
-    }
-
-    private var header: some View {
-        HStack {
+        } header: {
             NavigationLink(value: DetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabelView(

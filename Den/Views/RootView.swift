@@ -65,6 +65,11 @@ struct RootView: View {
                 .onAppear {
                     profileUnreadCount = profile.previewItems.unread().count
                     WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
+                    if let window = WindowFinder.current() {
+                        window.backgroundColor = .systemBlue
+                    }
+                    UINavigationBar.appearance().barStyle = .black
+
                 }
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
