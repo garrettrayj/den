@@ -48,6 +48,7 @@ struct SyncManager {
         )
         do {
             try context.save()
+            item.feedData?.feed?.objectWillChange.send()
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }
@@ -66,6 +67,7 @@ struct SyncManager {
         )
         do {
             try context.save()
+            item.feedData?.feed?.objectWillChange.send()
         } catch {
             CrashManager.handleCriticalError(error as NSError)
         }

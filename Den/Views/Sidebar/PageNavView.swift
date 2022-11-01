@@ -48,6 +48,17 @@ struct PageNavView: View {
         ) { _ in
             unreadCount = page.previewItems.unread().count
         }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
+        ) { notification in
+            guard
+                let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
+                pageObjectID == page.objectID
+            else {
+                return
+            }
+            unreadCount = page.previewItems.unread().count
+        }
     .modifier(URLDropTargetModifier(page: page))
         .accessibilityIdentifier("page-button")
     }

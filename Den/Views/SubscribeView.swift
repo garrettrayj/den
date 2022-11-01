@@ -97,7 +97,9 @@ struct SubscribeView: View {
         Button {
             validateUrl()
             if urlIsValid == true {
-                addFeed()
+                Task {
+                    await addFeed()
+                }
             }
         } label: {
             Label {
@@ -198,7 +200,7 @@ struct SubscribeView: View {
         urlIsValid = true
     }
 
-    private func addFeed() {
+    private func addFeed() async {
         guard
             let url = URL(string: urlString),
             let page = targetPage,
@@ -208,7 +210,9 @@ struct SubscribeView: View {
         self.loading = true
 
         newFeed = Feed.create(in: self.viewContext, page: page, url: url, prepend: true)
-        RefreshManager.refresh(container: persistentContainer, feed: newFeed!)
+        try? self.viewContext.save()
+        
+        await AsyncRefreshManager.refresh(container: persistentContainer, feed: newFeed!)
     }
 
     private func failValidation(message: String) {

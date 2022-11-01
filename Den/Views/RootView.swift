@@ -65,11 +65,6 @@ struct RootView: View {
                 .onAppear {
                     profileUnreadCount = profile.previewItems.unread().count
                     WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
-                    if let window = WindowFinder.current() {
-                        window.backgroundColor = .systemBlue
-                    }
-                    UINavigationBar.appearance().barStyle = .black
-
                 }
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
@@ -89,7 +84,7 @@ struct RootView: View {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
                     haptics.mediumImpactFeedbackGenerator.impactOccurred()
-                    self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? -1) + 1
+                    self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? 0)
                     self.refreshProgress.completedUnitCount = 0
                     self.refreshing = true
                 }

@@ -7,6 +7,7 @@
 import CoreData
 import OSLog
 import SwiftUI
+import BackgroundTasks
 
 @main
 struct DenApp: App {
@@ -15,14 +16,14 @@ struct DenApp: App {
      */
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
-
+    
     @State private var activeProfile: Profile?
-
+        
     var body: some Scene {
         WindowGroup {
             RootView(activeProfile: $activeProfile)
-                .environment(\.persistentContainer, persistentContainer)
-                .environment(\.managedObjectContext, persistentContainer.viewContext)
+                .environment(\.persistentContainer, container)
+                .environment(\.managedObjectContext, container.viewContext)
                 .onOpenURL { url in
                     SubscriptionManager.showSubscribe(for: url.absoluteString)
                 }
@@ -36,15 +37,19 @@ struct DenApp: App {
                 Logger.main.debug("Scene phase: inactive")
             case .background:
                 Logger.main.debug("Scene phase: background")
+                scheduleAppRefresh()
             @unknown default:
                 Logger.main.debug("Scene phase: unknown")
             }
         }
+        .backgroundTask(.appRefresh("denrefresh")) {
+            await handleRefresh()
+        }
     }
 
-    var persistentContainer: NSPersistentContainer = {
+    var container: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: "Den")
-
+        
         guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
             preconditionFailure("Storage directory not available")
         }
@@ -98,4 +103,17 @@ struct DenApp: App {
 
         return container
     }()
+    
+    func scheduleAppRefresh() {
+        let request = BGAppRefreshTaskRequest(identifier: "denrefresh")
+        request.earliestBeginDate = .now.addingTimeInterval(24 * 3600)
+        
+        try? BGTaskScheduler.shared.submit(request)
+    }
+    
+    func handleRefresh() async {
+        if let profile = activeProfile {
+            await AsyncRefreshManager.refresh(container: container, profile: profile)
+        }
+    }
 }

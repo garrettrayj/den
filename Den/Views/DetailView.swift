@@ -72,8 +72,5 @@ struct DetailView: View {
                 }
             }
         }
-        #if targetEnvironment(macCatalyst)
-        .navigationBarTitleDisplayMode(.inline)
-        #endif
     }
 }
