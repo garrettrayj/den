@@ -14,8 +14,7 @@ struct TopLevelBoardPaddingModifier: ViewModifier {
             #if targetEnvironment(macCatalyst)
             .padding()
             #else
-            .padding(.horizontal)
-            .padding(.bottom, 84)
+            .padding([.horizontal, .bottom])
             #endif
     }
 }

@@ -91,8 +91,11 @@ struct NavigationListView: View {
                 .font(.caption)
                 Spacer()
                 Button {
-                    guard let persistentContainer = persistentContainer else { return }
-                    RefreshManager.refresh(container: persistentContainer, profile: profile)
+                    if let container = persistentContainer {
+                        Task {
+                            await AsyncRefreshManager.refresh(container: container, profile: profile)
+                        }
+                    }
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")
                 }

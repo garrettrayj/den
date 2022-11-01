@@ -13,7 +13,11 @@ struct ItemView: View {
 
     let item: Item
 
+    #if targetEnvironment(macCatalyst)
+    let maxContentWidth: CGFloat = 800
+    #else
     let maxContentWidth: CGFloat = 1072
+    #endif
 
     var body: some View {
         Group {
