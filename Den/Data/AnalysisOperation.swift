@@ -8,45 +8,41 @@
 
 import CoreData
 
-final class AnalysisOperation {
+struct AnalysisOperation {
     unowned let container: NSPersistentContainer
     unowned let profileObjectID: NSManagedObjectID
-
-    init(
-        container: NSPersistentContainer,
-        profileObjectID: NSManagedObjectID
-    ) {
-        self.container = container
-        self.profileObjectID = profileObjectID
-    }
 
     func execute() async {
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
-
-            // Clear existing
-            profile.trends.forEach { trend in
-                context.delete(trend)
-            }
-
-            let workingTrends = self.analyzeTrends(profile: profile, context: context)
+            let workingTrends = self.analyzeTrends(profile: profile)
 
             workingTrends.forEach { workingTrend in
-                let trend = Trend.create(in: context, profile: profile)
+                let trend = profile.trends.first { trend in
+                    trend.slug == workingTrend.slug
+                } ?? Trend.create(in: context, profile: profile)
+                
                 trend.title = workingTrend.title
                 trend.slug = workingTrend.slug
                 trend.tag = workingTrend.tag.rawValue
 
                 workingTrend.items.forEach { item in
-                    _ = TrendItem.create(in: context, trend: trend, item: item)
+                    let _ = trend.trendItemsArray.first { trendItem in
+                        trendItem.item == item
+                    } ?? TrendItem.create(in: context, trend: trend, item: item)
                 }
+            }
+            
+            // Delete trends not present in current analysis
+            for trend in profile.trends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
+                context.delete(trend)
             }
             
             try? context.save()
         }
     }
 
-    private func analyzeTrends(profile: Profile, context: NSManagedObjectContext) -> [WorkingTrend] {
+    private func analyzeTrends(profile: Profile) -> [WorkingTrend] {
         var workingTrends: Set<WorkingTrend> = []
 
         profile.previewItems.forEach { item in

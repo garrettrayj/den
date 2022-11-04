@@ -23,7 +23,7 @@ struct BottomBarProgressStyle: ProgressViewStyle {
             HStack(spacing: 0) {
                 if progress.completedUnitCount < progress.totalUnitCount + 1 {
                     // Updating feeds
-                    Text("\(progress.completedUnitCount) of \(progress.totalUnitCount) updated")
+                    Text("\(progress.completedUnitCount) of \(progress.totalUnitCount) Updated")
                 } else {
                     // Performing analysis
                     Text("Analyzing")

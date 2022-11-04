@@ -49,8 +49,8 @@ struct NavigationListView: View {
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {
-                guard let persistentContainer = persistentContainer else { return }
-                RefreshManager.refresh(container: persistentContainer, profile: profile)
+                guard let container = persistentContainer else { return }
+                await AsyncRefreshManager.refresh(container: container, profile: profile)
             }
         }
         #endif

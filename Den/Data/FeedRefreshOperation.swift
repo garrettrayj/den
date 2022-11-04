@@ -81,6 +81,10 @@ struct FeedRefreshOperation {
                 }
             }
             
+            for item in feedData.itemsArray where item.read == false {
+                item.read = !item.history.isEmpty
+            }
+             
             try? context.save()
         }
         
