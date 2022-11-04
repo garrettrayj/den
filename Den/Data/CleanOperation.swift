@@ -9,21 +9,23 @@
 import CoreData
 import OSLog
 
-final class CleanOperation {
+struct CleanOperation {
     unowned let container: NSPersistentContainer
     unowned let profileObjectID: NSManagedObjectID
     
     let maxHistory = 100000
 
-    init(
-        container: NSPersistentContainer,
-        profileObjectID: NSManagedObjectID
-    ) {
-        self.container = container
-        self.profileObjectID = profileObjectID
-    }
-
     func execute() async {
+        let defaults = UserDefaults.standard
+        
+        if
+            let lastCleaned = defaults.object(forKey: "LastCleaned") as? Date,
+            lastCleaned + 7 * 24 * 60 * 60 > .now
+        {
+            Logger.main.info("Cleanup has been performed in last 7 days. Skipping")
+            return
+        }
+
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
 
@@ -31,11 +33,13 @@ final class CleanOperation {
             try? self.cleanupData(context: context)
             try? context.save()
         }
+        
+        defaults.set(Date.now, forKey: "LastCleaned")
     }
 
     private func cleanupHistory(context: NSManagedObjectContext, profile: Profile) throws {
         if profile.history?.count ?? 0 < maxHistory {
-            Logger.main.info("Skipping history cleanup")
+            Logger.main.info("History count does not exceed maximum records limit")
             return
         }
 
@@ -64,7 +68,7 @@ final class CleanOperation {
             into: [context]
         )
 
-        Logger.main.info("History cleanup finished")
+        Logger.main.info("History prune finished")
     }
 
     /**

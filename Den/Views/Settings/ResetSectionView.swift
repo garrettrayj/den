@@ -66,7 +66,6 @@ struct ResetSectionView: View {
     }
 
     private func clearCache() {
-        RefreshManager.cancel()
         resetFeeds()
 
         DispatchQueue.main.async {
@@ -115,7 +114,6 @@ struct ResetSectionView: View {
     }
 
     private func resetEverything() {
-        RefreshManager.cancel()
         restoreUserDefaults()
         activeProfile = ProfileManager.resetProfiles(context: viewContext)
     }

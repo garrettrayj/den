@@ -40,36 +40,30 @@ struct AsyncRefreshManager {
         }
         
         let _ = await withTaskGroup(
-            of: RefreshStatus.self,
-            returning: [RefreshStatus].self,
+            of: Void.self,
+            returning: Void.self,
             body: { taskGroup in
-                for op in feedOps {
+                for (i, op) in feedOps.enumerated() {
+                    if i % 6 == 5 { // max of six at a time
+                        await taskGroup.next()
+                    }
+                    
                     taskGroup.addTask {
-                        let refreshStatus = await op.execute()
-                        return refreshStatus
+                        let _ = await op.execute()
                     }
                 }
                 
-                var childTaskResults: [RefreshStatus] = []
-                for await result in taskGroup {
-                    // Set operation name as key and operation result as value
-                    childTaskResults.append(result)
-                }
+                await taskGroup.waitForAll()
                 
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
                 }
-                
-                // All child tasks finish running, thus task group result
-                return childTaskResults
             }
         )
         
-        // Do analysis here
         let analysisOperation = AnalysisOperation(container: container, profileObjectID: profile.objectID)
         await analysisOperation.execute()
         
-        // Cleanup
         let cleanOperation = CleanOperation(container: container, profileObjectID: profile.objectID)
         await cleanOperation.execute()
         

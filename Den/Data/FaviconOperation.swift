@@ -12,12 +12,8 @@ import OSLog
 import SwiftSoup
 
 
-class FaviconOperation {
+struct FaviconOperation {
     let webpage: URL
-    
-    init(webpage: URL) {
-        self.webpage = webpage
-    }
 
     func execute() async -> URL? {
         guard let (data, _) = try? await URLSession.shared.data(from: webpage) else {

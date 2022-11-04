@@ -15,6 +15,7 @@ struct TopLevelBoardPaddingModifier: ViewModifier {
             .padding()
             #else
             .padding([.horizontal, .bottom])
+            .padding(.top, 8)
             #endif
     }
 }
