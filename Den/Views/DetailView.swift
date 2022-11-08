@@ -15,6 +15,9 @@ struct DetailView: View {
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var profileUnreadCount: Int
+    @Binding var autoRefreshEnabled: Bool
+    @Binding var autoRefreshCooldown: Int
+    @Binding var backgroundRefreshEnabled: Bool
 
     @ObservedObject var profile: Profile
 
@@ -53,6 +56,9 @@ struct DetailView: View {
                     SettingsView(
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
+                        autoRefreshEnabled: $autoRefreshEnabled,
+                        autoRefreshCooldown: $autoRefreshCooldown,
+                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         profile: profile
                     )
                 }

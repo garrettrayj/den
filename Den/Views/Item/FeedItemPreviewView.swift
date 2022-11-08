@@ -33,7 +33,7 @@ struct FeedItemPreviewView: View {
                 ItemPreviewView(item: item)
             }
         }
-        .modifier(GroupBlockModifier())
+        .background(Color(UIColor.secondarySystemGroupedBackground))
         .cornerRadius(8)
     }
 }

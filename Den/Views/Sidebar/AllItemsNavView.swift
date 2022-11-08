@@ -17,16 +17,12 @@ struct AllItemsNavView: View {
     var body: some View {
         NavigationLink(value: Panel.allItems) {
             Label {
-                HStack {
-                    Text("All Items").modifier(SidebarItemLabelTextModifier())
-                    Spacer()
-                    Text(String(profile.previewItems.unread().count))
-                        .modifier(CapsuleModifier())
-                }.lineLimit(1)
+                Text("All Items").lineLimit(1)
             } icon: {
                 Image(systemName: unreadCount > 0 ? "tray.full": "tray")
             }
         }
+        .badge(profile.previewItems.unread().count)
         .accessibilityIdentifier("timeline-button")
     }
 }

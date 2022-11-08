@@ -20,7 +20,7 @@ struct NewPageView: View {
                 addPage()
             } label: {
                 Label {
-                    Text("Add Page").modifier(SidebarItemLabelTextModifier())
+                    Text("Add Page")
                 } icon: {
                     Image(systemName: "plus")
                 }

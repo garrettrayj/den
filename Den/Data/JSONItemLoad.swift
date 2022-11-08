@@ -24,6 +24,8 @@ struct JSONItemLoad {
 
         imageSelection.selectImage()
         item.image = imageSelection.image
+        item.imageWidth = imageSelection.imageWidth ?? 0
+        item.imageHeight = imageSelection.imageHeight ?? 0
     }
 
     private func populateGeneralProperties() {

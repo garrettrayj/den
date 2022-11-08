@@ -18,6 +18,9 @@ struct RootView: View {
     private var profiles: FetchedResults<Profile>
 
     @Binding var activeProfile: Profile?
+    @Binding var autoRefreshEnabled: Bool
+    @Binding var autoRefreshCooldown: Int
+    @Binding var backgroundRefreshEnabled: Bool
 
     @StateObject private var searchModel = SearchModel()
     @StateObject private var haptics = Haptics()
@@ -34,6 +37,8 @@ struct RootView: View {
     @State private var profileUnreadCount: Int = 0
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
+    
+    
 
     var body: some View {
         Group {
@@ -59,6 +64,9 @@ struct RootView: View {
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
                         profileUnreadCount: $profileUnreadCount,
+                        autoRefreshEnabled: $autoRefreshEnabled,
+                        autoRefreshCooldown: $autoRefreshCooldown,
+                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         profile: profile,
                         searchModel: searchModel                    )
                 }

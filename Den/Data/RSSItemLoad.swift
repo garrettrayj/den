@@ -27,6 +27,8 @@ struct RSSItemLoad {
 
         imageSelection.selectImage()
         item.image = imageSelection.image
+        item.imageWidth = imageSelection.imageWidth ?? 0
+        item.imageHeight = imageSelection.imageHeight ?? 0
     }
 
     private func populateGeneralProperties() {
@@ -99,7 +101,7 @@ struct RSSItemLoad {
                     } else {
                         imageSelection.imagePool.append(RankedImage(
                             url: url.absoluteURL,
-                            rank: Int(ImageSize.thumbnail.area) + 2)
+                            rank: Int(ImageSize.preview.area))
                         )
                     }
                 }
@@ -126,7 +128,10 @@ struct RSSItemLoad {
                             height: height
                         ))
                     } else {
-                        imageSelection.imagePool.append(RankedImage(url: url.absoluteURL))
+                        imageSelection.imagePool.append(RankedImage(
+                            url: url.absoluteURL,
+                            rank: Int(ImageSize.preview.area)
+                        ))
                     }
                 }
             }
@@ -151,7 +156,10 @@ struct RSSItemLoad {
                             height: height
                         ))
                     } else {
-                        imageSelection.imagePool.append(RankedImage(url: url.absoluteURL))
+                        imageSelection.imagePool.append(RankedImage(
+                            url: url.absoluteURL,
+                            rank: Int(ImageSize.thumbnail.area)
+                        ))
                     }
                 }
             }

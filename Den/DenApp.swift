@@ -18,32 +18,55 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
     @State private var activeProfile: Profile?
-        
+    
+    @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
+    @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 60 * 60
+    @AppStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
+    @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
+
     var body: some Scene {
         WindowGroup {
-            RootView(activeProfile: $activeProfile)
-                .environment(\.persistentContainer, container)
-                .environment(\.managedObjectContext, container.viewContext)
-                .onOpenURL { url in
-                    SubscriptionManager.showSubscribe(for: url.absoluteString)
-                }
-                .modifier(URLDropTargetModifier())
+            RootView(
+                activeProfile: $activeProfile,
+                autoRefreshEnabled: $autoRefreshEnabled,
+                autoRefreshCooldown: $autoRefreshCooldown,
+                backgroundRefreshEnabled: $backgroundRefreshEnabled
+            )
+            .environment(\.persistentContainer, container)
+            .environment(\.managedObjectContext, container.viewContext)
+            .onOpenURL { url in
+                SubscriptionManager.showSubscribe(for: url.absoluteString)
+            }
+            .modifier(URLDropTargetModifier())
+        }
+        .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
+            await handleRefresh(background: true)
         }
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
+                if
+                    autoRefreshEnabled && (
+                        autoRefreshDate == 0.0 ||
+                        Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown)
+                    )
+                {
+                    Task {
+                        await handleRefresh()
+                    }
+                    autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
+                }
             case .inactive:
                 Logger.main.debug("Scene phase: inactive")
             case .background:
                 Logger.main.debug("Scene phase: background")
-                scheduleAppRefresh()
+                if backgroundRefreshEnabled {
+                    scheduleAppRefresh()
+                }
             @unknown default:
                 Logger.main.debug("Scene phase: unknown")
             }
-        }
-        .backgroundTask(.appRefresh("denrefresh")) {
-            await handleRefresh()
         }
     }
 
@@ -105,15 +128,23 @@ struct DenApp: App {
     }()
     
     func scheduleAppRefresh() {
-        let request = BGAppRefreshTaskRequest(identifier: "denrefresh")
-        request.earliestBeginDate = .now.addingTimeInterval(24 * 3600)
+        let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
+        request.earliestBeginDate = .now + 60 * 5
         
-        try? BGTaskScheduler.shared.submit(request)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            Logger.main.info("""
+            Background refresh task scheduled with earliest begin date \
+            \(request.earliestBeginDate?.formatted() ?? "NA")
+            """)
+        } catch {
+            Logger.main.warning("Background refresh not scheduled")
+        }
+        // Break here to simulate background task
     }
     
-    func handleRefresh() async {
-        if let profile = activeProfile {
-            await AsyncRefreshManager.refresh(container: container, profile: profile)
-        }
+    func handleRefresh(background: Bool = false) async {
+        guard let profile = activeProfile else { return }
+        await AsyncRefreshManager.refresh(container: container, profile: profile)
     }
 }

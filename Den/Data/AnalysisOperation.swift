@@ -17,16 +17,18 @@ struct AnalysisOperation {
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
             let workingTrends = self.analyzeTrends(profile: profile)
 
-            workingTrends.forEach { workingTrend in
+            for workingTrend in workingTrends {
                 let trend = profile.trends.first { trend in
                     trend.slug == workingTrend.slug
-                } ?? Trend.create(in: context, profile: profile)
+                } ?? {
+                    let trend = Trend.create(in: context, profile: profile)
+                    trend.title = workingTrend.title
+                    trend.slug = workingTrend.slug
+                    trend.tag = workingTrend.tag.rawValue
+                    return trend
+                }()
                 
-                trend.title = workingTrend.title
-                trend.slug = workingTrend.slug
-                trend.tag = workingTrend.tag.rawValue
-
-                workingTrend.items.forEach { item in
+                for item in workingTrend.items {
                     let _ = trend.trendItemsArray.first { trendItem in
                         trendItem.item == item
                     } ?? TrendItem.create(in: context, trend: trend, item: item)
@@ -45,8 +47,8 @@ struct AnalysisOperation {
     private func analyzeTrends(profile: Profile) -> [WorkingTrend] {
         var workingTrends: Set<WorkingTrend> = []
 
-        profile.previewItems.forEach { item in
-            item.subjects().forEach { (tokenText, tag) in
+        for item in profile.previewItems {
+            for (tokenText, tag) in item.subjects() {
                 let slug = tokenText.removingCharacters(in: .punctuationCharacters).lowercased()
                 var (inserted, workingTrend) = workingTrends.insert(
                     WorkingTrend(slug: slug, tag: tag, title: tokenText, items: [item])
