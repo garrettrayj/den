@@ -26,6 +26,8 @@ struct AtomItemLoad {
 
         imageSelection.selectImage()
         item.image = imageSelection.image
+        item.imageWidth = imageSelection.imageWidth ?? 0
+        item.imageHeight = imageSelection.imageHeight ?? 0
     }
 
     private func populateGeneralProperties() {
@@ -98,7 +100,10 @@ struct AtomItemLoad {
                             height: height
                         ))
                     } else {
-                        imageSelection.imagePool.append(RankedImage(url: url))
+                        imageSelection.imagePool.append(RankedImage(
+                            url: url,
+                            rank: Int(ImageSize.preview.area)
+                        ))
                     }
                 }
             }
@@ -124,7 +129,10 @@ struct AtomItemLoad {
                             height: height
                         ))
                     } else {
-                        imageSelection.imagePool.append(RankedImage(url: url.absoluteURL))
+                        imageSelection.imagePool.append(RankedImage(
+                            url: url.absoluteURL,
+                            rank: Int(ImageSize.thumbnail.area)
+                        ))
                     }
                 }
             }

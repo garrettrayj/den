@@ -15,15 +15,12 @@ struct TrendsNavView: View {
     var body: some View {
         NavigationLink(value: Panel.trends) {
             Label {
-                HStack {
-                    Text("Trends").modifier(SidebarItemLabelTextModifier())
-                    Spacer()
-                    Text(String(profile.trends.unread().count)).modifier(CapsuleModifier())
-                }.lineLimit(1)
+                Text("Trends").lineLimit(1)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
+        .badge(profile.trends.unread().count)
         .accessibilityIdentifier("timeline-button")
     }
 }

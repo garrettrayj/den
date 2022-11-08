@@ -11,12 +11,21 @@ import SwiftUI
 struct SettingsView: View {
     @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
+    @Binding var autoRefreshEnabled: Bool
+    @Binding var autoRefreshCooldown: Int
+    @Binding var backgroundRefreshEnabled: Bool
+    
     @ObservedObject var profile: Profile
 
     var body: some View {
         Form {
             ProfilesSectionView(activeProfile: $activeProfile)
             FeedsSectionView()
+            AutoRefreshSectionView(
+                autoRefreshEnabled: $autoRefreshEnabled,
+                autoRefreshCooldown: $autoRefreshCooldown,
+                backgroundRefreshEnabled: $backgroundRefreshEnabled
+            )
             AppearanceSectionView(uiStyle: $uiStyle)
             ResetSectionView(activeProfile: $activeProfile, profile: profile)
             AboutSectionView()

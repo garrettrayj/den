@@ -18,6 +18,10 @@ body > :first-child {
     margin-top: 0;
 }
 
+body > div:only-of-type > :first-child {
+    margin-top: 0;
+}
+
 /* Embeds */
 
 iframe,

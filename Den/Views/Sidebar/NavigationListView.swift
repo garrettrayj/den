@@ -92,9 +92,13 @@ struct NavigationListView: View {
                 Spacer()
                 Button {
                     if let container = persistentContainer {
+                        let bgTask = UIApplication.shared.beginBackgroundTask() {
+                            // Handle expiration here
+                        }
                         Task {
                             await AsyncRefreshManager.refresh(container: container, profile: profile)
                         }
+                        UIApplication.shared.endBackgroundTask(bgTask)
                     }
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")

@@ -17,17 +17,12 @@ struct PageNavView: View {
     var body: some View {
         NavigationLink(value: Panel.page(page)) {
             Label {
-                HStack {
-                    Text(page.displayName).modifier(SidebarItemLabelTextModifier())
-                    Spacer()
-                    if editMode?.wrappedValue.isEditing == false {
-                        Text(String(unreadCount)).modifier(CapsuleModifier())
-                    }
-                }.lineLimit(1)
+                Text(page.displayName).lineLimit(1)
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
         }
+        .badge(unreadCount)
         .onAppear {
             unreadCount = page.previewItems.unread().count
         }
