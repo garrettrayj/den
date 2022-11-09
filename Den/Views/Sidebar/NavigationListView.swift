@@ -91,7 +91,7 @@ struct NavigationListView: View {
                 .font(.caption)
                 Spacer()
                 Button {
-                    if let container = persistentContainer {
+                    if !refreshing, let container = persistentContainer {
                         let bgTask = UIApplication.shared.beginBackgroundTask() {
                             // Handle expiration here
                         }
