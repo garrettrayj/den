@@ -18,6 +18,7 @@ struct RootView: View {
     private var profiles: FetchedResults<Profile>
 
     @Binding var activeProfile: Profile?
+    @Binding var refreshing: Bool
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
@@ -27,7 +28,6 @@ struct RootView: View {
 
     @State private var selection: Panel?
     @State private var path = NavigationPath()
-    @State private var refreshing: Bool = false
     @State private var refreshProgress: Progress = Progress()
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""

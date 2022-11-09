@@ -6,6 +6,7 @@
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 import WebKit
 
@@ -72,8 +73,13 @@ struct WebView: UIViewRepresentable {
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
+        var cancellable: Cancellable?
+        
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            cancellable = DispatchQueue.main.schedule(
+                after: DispatchQueue.SchedulerTimeType(.now() + 0.1),
+                interval: 1
+            ) {
                 webView.invalidateIntrinsicContentSize()
             }
         }
@@ -90,6 +96,10 @@ struct WebView: UIViewRepresentable {
             } else {
                 decisionHandler(.allow)
             }
+        }
+        
+        deinit {
+            cancellable?.cancel()
         }
     }
 

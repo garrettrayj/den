@@ -18,6 +18,7 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
     @State private var activeProfile: Profile?
+    @State private var refreshing: Bool = false
     
     @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 60 * 60
@@ -28,6 +29,7 @@ struct DenApp: App {
         WindowGroup {
             RootView(
                 activeProfile: $activeProfile,
+                refreshing: $refreshing,
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
@@ -47,7 +49,8 @@ struct DenApp: App {
             case .active:
                 Logger.main.debug("Scene phase: active")
                 if
-                    autoRefreshEnabled && (
+                    autoRefreshEnabled &&
+                    !refreshing && (
                         autoRefreshDate == 0.0 ||
                         Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown)
                     )
@@ -144,7 +147,7 @@ struct DenApp: App {
     }
     
     func handleRefresh(background: Bool = false) async {
-        guard let profile = activeProfile else { return }
+        guard !refreshing, let profile = activeProfile else { return }
         await AsyncRefreshManager.refresh(container: container, profile: profile)
     }
 }
