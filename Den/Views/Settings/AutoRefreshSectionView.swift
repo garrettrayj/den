@@ -34,13 +34,17 @@ struct AutoRefreshSectionView: View {
             #endif
             
             if autoRefreshEnabled {
-                HStack(spacing: 4) {
-                    Text("⁃ Cooldown:")
-                    TimeIntervalPickerView(
-                        duration: $autoRefreshCooldown,
-                        minimum: 60,
-                        maximum: 7 * 24 * 60 * 60
-                    )
+                Stepper(
+                    value: $autoRefreshCooldown,
+                    in: 5...24 * 60,
+                    step: autoRefreshCooldown >= 90 ? 30 : 5
+                ) {
+                    if autoRefreshCooldown >= 90 {
+                        Text("⁃ Cooldown: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                    } else {
+                        Text("⁃ Cooldown: \(autoRefreshCooldown) minutes")
+                    }
+                    
                 }
                 .font(.body)
                 .modifier(FormRowModifier())

@@ -117,7 +117,6 @@
 		68AC3A1B2910EF3A00D60273 /* DataTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC3A192910EF3A00D60273 /* DataTaskOperation.swift */; };
 		68AC3A1D2910EF6E00D60273 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC3A1C2910EF6E00D60273 /* AsynchronousOperation.swift */; };
 		68AC3A1F2916B26B00D60273 /* AutoRefreshSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC3A1E2916B26B00D60273 /* AutoRefreshSectionView.swift */; };
-		68AC3A2329180A7600D60273 /* TimeIntervalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC3A2229180A7600D60273 /* TimeIntervalPickerView.swift */; };
 		68ADABC324A21F2500BE41E2 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADABC224A21F2500BE41E2 /* WelcomeView.swift */; };
 		68B0AECF28BADE930079793D /* WindowFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B0AECE28BADE930079793D /* WindowFinder.swift */; };
 		68B18958289B633E0002A7FE /* AccentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B18957289B633E0002A7FE /* AccentButtonStyle.swift */; };
@@ -357,7 +356,6 @@
 		68AC3A192910EF3A00D60273 /* DataTaskOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskOperation.swift; sourceTree = "<group>"; };
 		68AC3A1C2910EF6E00D60273 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		68AC3A1E2916B26B00D60273 /* AutoRefreshSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoRefreshSectionView.swift; sourceTree = "<group>"; };
-		68AC3A2229180A7600D60273 /* TimeIntervalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalPickerView.swift; sourceTree = "<group>"; };
 		68ADABC224A21F2500BE41E2 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		68B0AECE28BADE930079793D /* WindowFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFinder.swift; sourceTree = "<group>"; };
 		68B18957289B633E0002A7FE /* AccentButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButtonStyle.swift; sourceTree = "<group>"; };
@@ -831,7 +829,6 @@
 				6868A305288E62250051D43E /* AllReadStatusView.swift */,
 				6829A50B28C6479900F75C5A /* AllReadCompactView.swift */,
 				6868A3072890E8680051D43E /* ReadingToolbarContent.swift */,
-				68AC3A2229180A7600D60273 /* TimeIntervalPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1332,7 +1329,6 @@
 				6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */,
 				68F56B71287ACD0B006EC915 /* WebView.swift in Sources */,
 				683041B227542E2000BE7631 /* BoardView.swift in Sources */,
-				68AC3A2329180A7600D60273 /* TimeIntervalPickerView.swift in Sources */,
 				68F56B3D286F5C20006EC915 /* TrendsView.swift in Sources */,
 				68F56B77288C0D1A006EC915 /* Trend+CoreDataClass.swift in Sources */,
 				682A349728E2B38E004CD90E /* URLDropTargetModifier.swift in Sources */,
