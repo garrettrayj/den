@@ -21,7 +21,7 @@ struct DenApp: App {
     @State private var refreshing: Bool = false
     
     @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
-    @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 60 * 60
+    @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
     @AppStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
 
@@ -52,7 +52,7 @@ struct DenApp: App {
                     autoRefreshEnabled &&
                     !refreshing && (
                         autoRefreshDate == 0.0 ||
-                        Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown)
+                        Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
                     )
                 {
                     Task {
