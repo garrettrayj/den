@@ -145,7 +145,7 @@ struct DenApp: App {
     
     private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
-        request.earliestBeginDate = .now + 60 * 5
+        request.earliestBeginDate = .now + 30 * 60
         
         do {
             try BGTaskScheduler.shared.submit(request)
@@ -167,7 +167,6 @@ struct DenApp: App {
     private func loadProfile() {
         activeProfile = ProfileManager.loadProfile(context: container.viewContext)
         profileUnreadCount = activeProfile?.previewItems.unread().count ?? 0
-        
         WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
     }
 }

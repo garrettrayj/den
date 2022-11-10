@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ItemView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
+    @Environment(\.persistentContainer) private var container
+    
     let item: Item
 
     let maxContentWidth: CGFloat = 800
@@ -28,13 +28,17 @@ struct ItemView: View {
                                 favicon: item.feedData?.favicon
                             )
                             .font(.title3)
+                            .textSelection(.enabled)
 
                             Text(item.wrappedTitle)
-                                .fixedSize(horizontal: false, vertical: true)
                                 .font(.title)
+                                .textSelection(.enabled)
+                                .fixedSize(horizontal: false, vertical: true)
 
                             Text("\(item.date.formatted(date: .complete, time: .shortened))")
-                                .font(.subheadline).lineLimit(1)
+                                .font(.subheadline)
+                                .textSelection(.enabled)
+                                .lineLimit(1)
 
                             if
                                 item.image != nil &&
@@ -51,11 +55,11 @@ struct ItemView: View {
                                     baseURL: item.link
                                 )
                             }
-
                         }
                         .padding(28)
                         .frame(maxWidth: maxContentWidth)
-                    }.frame(maxWidth: .infinity)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
                 .toolbar {
                     if let link = item.link {
@@ -67,7 +71,7 @@ struct ItemView: View {
                     ToolbarItemGroup(placement: .bottomBar) {
                         Spacer()
                         Button {
-                            SyncManager.openLink(context: viewContext, url: item.link)
+                            SafariManager.openLink(url: item.link)
                         } label: {
                             #if targetEnvironment(macCatalyst)
                             Label("Open in Browser", systemImage: "link.circle")
@@ -79,12 +83,8 @@ struct ItemView: View {
                         .accessibilityIdentifier("item-open-button")
                     }
                 }
-                .onAppear {
-                    if !item.read {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            SyncManager.markItemRead(context: viewContext, item: item)
-                        }
-                    }
+                .task(priority: TaskPriority.high) {
+                    await SyncManager.markItemRead(container: container, item: item)
                 }
             }
         }

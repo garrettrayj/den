@@ -12,9 +12,11 @@ struct ReadingToolbarContent: ToolbarContent {
     @Binding var unreadCount: Int
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
+    
+    @State private var toggling: Bool = false
 
     let centerLabel: Text
-    let toggleAll: () -> Void
+    let toggleAll: () async -> Void
 
     var body: some ToolbarContent {
         ToolbarItemGroup(placement: .bottomBar) {
@@ -34,8 +36,16 @@ struct ReadingToolbarContent: ToolbarContent {
             Spacer()
             centerLabel.font(.caption).fixedSize()
             Spacer()
-            Button(action: toggleAll) {
-                if unreadCount == 0 {
+            Button {
+                toggling = true
+                Task {
+                    await toggleAll()
+                    toggling = false
+                }
+            } label: {
+                if toggling {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle())
+                } else if unreadCount == 0 {
                     Label(
                         "Mark All Unread",
                         systemImage: "checkmark.circle.fill"

@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct FeedView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var feed: Feed
@@ -116,7 +116,7 @@ struct FeedView: View {
         HStack {
             if let linkDisplayString = feed.feedData?.linkDisplayString {
                 Button {
-                    SyncManager.openLink(context: viewContext, url: feed.feedData?.link)
+                    SafariManager.openLink(url: feed.feedData?.link)
                 } label: {
                     HStack {
                         Label {
@@ -172,7 +172,12 @@ struct FeedView: View {
             refreshing: $refreshing,
             centerLabel: Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread")
         ) {
-            SyncManager.toggleReadUnread(context: viewContext, items: feed.feedData?.previewItems ?? [])
+            Task {
+                await SyncManager.toggleReadUnread(
+                    container: persistentContainer,
+                    items: feed.feedData?.previewItems ?? []
+                )
+            }
             feed.objectWillChange.send()
         }
     }

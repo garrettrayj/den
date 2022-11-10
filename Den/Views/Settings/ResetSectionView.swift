@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ResetSectionView: View {
+    @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
@@ -20,7 +21,11 @@ struct ResetSectionView: View {
 
     var body: some View {
         Section(header: Text("Reset")) {
-            Button(action: resetHistory) {
+            Button {
+                Task {
+                    await resetHistory()
+                }
+            } label: {
                 Text("Clear History")
             }
             .disabled(profile.history?.count == 0)
@@ -55,8 +60,9 @@ struct ResetSectionView: View {
         }
     }
 
-    private func resetHistory() {
-        SyncManager.resetHistory(context: viewContext, profile: profile)
+    private func resetHistory() async {
+        guard let container = persistentContainer else { return }
+        await SyncManager.resetHistory(container: container, profile: profile)
         DispatchQueue.main.async {
             profile.objectWillChange.send()
             profile.pagesArray.forEach { page in

@@ -14,7 +14,9 @@ struct CrashManager {
     static func handleCriticalError(_ anError: NSError) {
         let formatted = self.formatErrorMessage(anError)
         Logger.main.critical("\(formatted)")
-        NotificationCenter.default.post(name: .showCrashMessage, object: nil)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .showCrashMessage, object: nil)
+        }  
     }
 
     static func formatErrorMessage(_ anError: NSError?) -> String {
