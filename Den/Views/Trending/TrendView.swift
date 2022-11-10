@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct TrendView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var container
 
     @ObservedObject var trend: Trend
 
@@ -61,7 +61,7 @@ struct TrendView: View {
                 refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
-                SyncManager.toggleReadUnread(context: viewContext, items: trend.items)
+                await SyncManager.toggleReadUnread(container: container, items: trend.items)
             }
         }
     }

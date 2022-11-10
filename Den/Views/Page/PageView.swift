@@ -11,7 +11,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct PageView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var container
 
     @ObservedObject var page: Page
 
@@ -183,7 +183,8 @@ struct PageView: View {
                 refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
-                SyncManager.toggleReadUnread(context: viewContext, items: page.previewItems)
+                await SyncManager.toggleReadUnread(container: container, items: page.previewItems)
+                page.objectWillChange.send()
             }
         }
     }

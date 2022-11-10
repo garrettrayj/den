@@ -7,10 +7,11 @@
 //
 
 import SwiftUI
+import SafariServices
 
 struct ItemActionView<Content: View>: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
+    @Environment(\.persistentContainer) private var container
+    
     @ObservedObject var item: Item
 
     @ViewBuilder var content: Content
@@ -18,12 +19,13 @@ struct ItemActionView<Content: View>: View {
     var body: some View {
         if item.feedData?.feed?.browserView == true {
             Button {
-                SyncManager.openLink(
-                    context: viewContext,
+                SafariManager.openLink(
                     url: item.link,
-                    logHistoryItem: item,
                     readerMode: item.feedData?.feed?.readerMode ?? false
                 )
+                Task(priority: .background) {
+                    await SyncManager.markItemRead(container: container, item: item)
+                }
             } label: {
                 content
             }
