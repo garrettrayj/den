@@ -16,7 +16,7 @@ struct ProfileView: View {
 
     @ObservedObject var profile: Profile
 
-    @State private var nameInput: String = ""
+    @State var nameInput: String 
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
@@ -26,9 +26,6 @@ struct ProfileView: View {
             deleteSection
         }
         .navigationTitle("Profile")
-        .onAppear {
-            nameInput = profile.wrappedName
-        }
         .onDisappear {
             profile.wrappedName = nameInput
             save()

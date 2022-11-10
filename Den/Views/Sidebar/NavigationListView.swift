@@ -28,7 +28,7 @@ struct NavigationListView: View {
             Section {
                 NewPageView(profile: profile, refreshing: $refreshing)
                 ForEach(profile.pagesArray) { page in
-                    PageNavView(page: page)
+                    PageNavView(page: page, unreadCount: page.previewItems.unread().count)
                 }
                 .onMove(perform: movePage)
                 .onDelete(perform: deletePage)

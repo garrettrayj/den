@@ -22,7 +22,7 @@ struct AllItemsNavView: View {
                 Image(systemName: unreadCount > 0 ? "tray.full": "tray")
             }
         }
-        .badge(profile.previewItems.unread().count)
+        .badge(unreadCount)
         .accessibilityIdentifier("timeline-button")
     }
 }

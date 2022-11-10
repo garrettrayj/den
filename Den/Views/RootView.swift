@@ -14,14 +14,13 @@ struct RootView: View {
     @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
 
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
-    private var profiles: FetchedResults<Profile>
-
     @Binding var activeProfile: Profile?
+    @Binding var profileUnreadCount: Int
     @Binding var refreshing: Bool
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var uiStyle: UIUserInterfaceStyle
 
     @StateObject private var searchModel = SearchModel()
     @StateObject private var haptics = Haptics()
@@ -34,11 +33,6 @@ struct RootView: View {
     @State private var subscribePageObjectID: NSManagedObjectID?
     @State private var showCrashMessage = false
     @State private var crashMessage: String = ""
-    @State private var profileUnreadCount: Int = 0
-
-    @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
-    
-    
 
     var body: some View {
         Group {
@@ -69,10 +63,6 @@ struct RootView: View {
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         profile: profile,
                         searchModel: searchModel                    )
-                }
-                .onAppear {
-                    profileUnreadCount = profile.previewItems.unread().count
-                    WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
                 }
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
@@ -141,13 +131,5 @@ struct RootView: View {
         }
         .preferredColorScheme(ColorScheme(uiStyle))
         .environmentObject(haptics)
-        .onAppear {
-            if activeProfile == nil {
-                activeProfile = ProfileManager.loadProfile(
-                    context: viewContext,
-                    profiles: profiles.map { $0 }
-                )
-            }
-        }
     }
 }

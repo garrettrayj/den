@@ -34,7 +34,11 @@ struct SettingsView: View {
         .navigationDestination(for: SettingsPanel.self) { settingsPanel in
             switch settingsPanel {
             case .profile(let profile):
-                ProfileView(activeProfile: $activeProfile, profile: profile).id(profile.id)
+                ProfileView(
+                    activeProfile: $activeProfile,
+                    profile: profile,
+                    nameInput: profile.wrappedName
+                ).id(profile.id)
             case .importFeeds:
                 ImportView(profile: profile)
             case .exportFeeds:
