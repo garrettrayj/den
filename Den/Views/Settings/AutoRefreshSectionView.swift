@@ -22,7 +22,7 @@ struct AutoRefreshSectionView: View {
                 Text("When Activated")
                 Spacer()
                 Toggle(isOn: $autoRefreshEnabled) {
-                    Text("When Actived")
+                    Text("When Activated")
                 }.labelsHidden()
             }
             .font(.body)

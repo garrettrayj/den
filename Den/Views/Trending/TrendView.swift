@@ -14,7 +14,7 @@ struct TrendView: View {
 
     @ObservedObject var trend: Trend
 
-    @State private var unreadCount: Int = 0
+    @State var unreadCount: Int
 
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
@@ -41,9 +41,6 @@ struct TrendView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-        .onAppear {
-            unreadCount = trend.items.unread().count
-        }
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in

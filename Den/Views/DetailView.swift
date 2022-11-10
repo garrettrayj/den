@@ -43,12 +43,14 @@ struct DetailView: View {
                 case .trends:
                     TrendsView(
                         profile: profile,
+                        unreadCount: profile.trends.unread().count,
                         hideRead: $hideRead,
                         refreshing: $refreshing
                     )
                 case .page(let page):
                     PageView(
                         page: page,
+                        unreadCount: page.previewItems.unread().count,
                         hideRead: $hideRead,
                         refreshing: $refreshing
                     ).id(page.id)
@@ -69,6 +71,7 @@ struct DetailView: View {
                     if let feed = feed {
                         FeedView(
                             feed: feed,
+                            unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
                             hideRead: $hideRead,
                             refreshing: $refreshing
                         ).id(feed.id)
@@ -78,5 +81,6 @@ struct DetailView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack) // Fix for disappearing back button
     }
 }

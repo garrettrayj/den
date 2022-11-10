@@ -7,7 +7,7 @@
 //
 
 import CoreData
-import Foundation
+import SwiftUI
 
 import FeedKit
 

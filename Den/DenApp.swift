@@ -19,20 +19,24 @@ struct DenApp: App {
     
     @State private var activeProfile: Profile?
     @State private var refreshing: Bool = false
+    @State private var profileUnreadCount: Int = 0
     
     @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
     @AppStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
+    @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
     var body: some Scene {
         WindowGroup {
             RootView(
                 activeProfile: $activeProfile,
+                profileUnreadCount: $profileUnreadCount,
                 refreshing: $refreshing,
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
-                backgroundRefreshEnabled: $backgroundRefreshEnabled
+                backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                uiStyle: $uiStyle
             )
             .environment(\.persistentContainer, container)
             .environment(\.managedObjectContext, container.viewContext)
@@ -44,17 +48,26 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh(background: true)
         }
+        .onChange(of: profileUnreadCount) { newValue in
+            UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
+                if granted {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.applicationIconBadgeNumber = newValue
+                    }
+                }
+            }
+        }
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                if
-                    autoRefreshEnabled &&
-                    !refreshing && (
-                        autoRefreshDate == 0.0 ||
-                        Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
-                    )
-                {
+                if activeProfile == nil {
+                    loadProfile()
+                }
+                if autoRefreshEnabled && !refreshing && (
+                    autoRefreshDate == 0.0 ||
+                    Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
+                ) {
                     Task {
                         await handleRefresh()
                     }
@@ -73,7 +86,7 @@ struct DenApp: App {
         }
     }
 
-    var container: NSPersistentContainer = {
+    private var container: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: "Den")
         
         guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
@@ -130,7 +143,7 @@ struct DenApp: App {
         return container
     }()
     
-    func scheduleAppRefresh() {
+    private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
         request.earliestBeginDate = .now + 60 * 5
         
@@ -146,8 +159,15 @@ struct DenApp: App {
         // Break here to simulate background task
     }
     
-    func handleRefresh(background: Bool = false) async {
+    private func handleRefresh(background: Bool = false) async {
         guard !refreshing, let profile = activeProfile else { return }
         await AsyncRefreshManager.refresh(container: container, profile: profile)
+    }
+    
+    private func loadProfile() {
+        activeProfile = ProfileManager.loadProfile(context: container.viewContext)
+        profileUnreadCount = activeProfile?.previewItems.unread().count ?? 0
+        
+        WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
     }
 }

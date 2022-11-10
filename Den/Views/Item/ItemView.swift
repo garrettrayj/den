@@ -80,8 +80,10 @@ struct ItemView: View {
                     }
                 }
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        SyncManager.markItemRead(context: viewContext, item: item)
+                    if !item.read {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            SyncManager.markItemRead(context: viewContext, item: item)
+                        }
                     }
                 }
             }

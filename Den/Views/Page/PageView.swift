@@ -15,7 +15,7 @@ struct PageView: View {
 
     @ObservedObject var page: Page
 
-    @State private var unreadCount: Int = 0
+    @State var unreadCount: Int
 
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
@@ -28,8 +28,9 @@ struct PageView: View {
         case blend = 2
     }
 
-    init(page: Page, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
+    init(page: Page, unreadCount: Int, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
         self.page = page
+        _unreadCount = State(initialValue: unreadCount)
         _hideRead = hideRead
         _refreshing = refreshing
         _viewMode = AppStorage(
@@ -83,9 +84,6 @@ struct PageView: View {
                     GadgetsView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
                 }
             }
-        }
-        .onAppear {
-            unreadCount = page.previewItems.unread().count
         }
         .onChange(of: viewMode, perform: { _ in
             page.objectWillChange.send()

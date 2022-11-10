@@ -12,7 +12,7 @@ import SwiftUI
 struct PageNavView: View {
     @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
-    @State private var unreadCount: Int = 0
+    @State var unreadCount: Int
 
     var body: some View {
         NavigationLink(value: Panel.page(page)) {
@@ -23,9 +23,6 @@ struct PageNavView: View {
             }
         }
         .badge(unreadCount)
-        .onAppear {
-            unreadCount = page.previewItems.unread().count
-        }
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in

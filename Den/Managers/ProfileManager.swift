@@ -25,9 +25,11 @@ struct ProfileManager {
         return profile
     }
 
-    static func loadProfile(context: NSManagedObjectContext, profiles: [Profile]) -> Profile {
+    static func loadProfile(context: NSManagedObjectContext) -> Profile {
+        let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile]
+        
         if let profileIdString = defaultProfileIdString {
-            if let profileToRestore = profiles.first(where: { profile in
+            if let profileToRestore = profiles?.first(where: { profile in
                 profile.id?.uuidString == profileIdString
             }) {
                 Logger.main.debug("Activating last used profile: \(profileToRestore.wrappedName)")
@@ -35,13 +37,14 @@ struct ProfileManager {
             }
         }
 
-        if let firstProfile = profiles.first {
+        if let firstProfile = profiles?.first {
             Logger.main.debug("Activating first profile found: \(firstProfile.wrappedName)")
             return ProfileManager.activateProfile(firstProfile)
         }
 
         Logger.main.debug("No profiles available. Creating default")
         let profile = ProfileManager.createDefaultProfile(context: context)
+        
         return ProfileManager.activateProfile(profile)
     }
 
