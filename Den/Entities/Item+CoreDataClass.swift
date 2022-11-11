@@ -38,6 +38,33 @@ public class Item: NSManagedObject {
         get {title ?? "Untitled"}
         set {title = newValue}
     }
+    
+    public var wrappedTags: [(String, NLTag)] {
+        get {
+            var results: [(String, NLTag)] = []
+            let decoder = JSONDecoder()
+
+            if
+                let json = tags?.data(using: .utf8),
+                let rawTags = try? decoder.decode([[String]].self, from: json)
+            {
+                for rawTag in rawTags {
+                    results.append((rawTag[0], NLTag(rawValue: rawTag[1])))
+                }
+            }
+            
+            return results
+        }
+        set {
+            var encodableValue: [[String]] = []
+            for (title, tag) in newValue {
+                encodableValue.append([title, tag.rawValue])
+            }
+            if let data = try? JSONSerialization.data(withJSONObject: encodableValue) {
+                tags = String(data: data, encoding: String.Encoding.utf8)
+            }
+        }
+    }
 
     public var imageAspectRatio: CGFloat? {
         guard imageWidth > 0, imageHeight > 0 else { return nil }
@@ -62,26 +89,15 @@ public class Item: NSManagedObject {
         return item
     }
 
-    public func subjects() -> [(String, NLTag)] {
-        if !trendItemsArray.isEmpty {
-            return trendItemsArray.compactMap { trendItem in
-                guard
-                    let title = trendItem.trend?.title,
-                    let tagString = trendItem.trend?.tag
-                else { return nil }
-                
-                return (title, NLTag(rawValue: tagString))
-            }
-        }
-        
-        guard let text = title else { return [] }
+    public func anaylyzeTitleTags() {
+        guard let text = title else { return }
         let tagger = NLTagger(tagSchemes: [.nameType])
         tagger.string = text
 
         let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
-        let tags: [NLTag] = [.personalName, .placeName, .organizationName]
+        let allowedTags: [NLTag] = [.personalName, .placeName, .organizationName]
 
-        var subjects: [(String, NLTag)] = []
+        var results: [(String, NLTag)] = []
 
         tagger.enumerateTags(
             in: text.startIndex..<text.endIndex,
@@ -89,14 +105,14 @@ public class Item: NSManagedObject {
             scheme: .nameType,
             options: options
         ) { tag, tokenRange in
-            if let tag = tag, tags.contains(tag) {
-                subjects.append((String(text[tokenRange]), tag))
+            if let tag = tag, allowedTags.contains(tag) {
+                results.append((String(text[tokenRange]), tag))
             }
 
             return true
         }
-
-        return subjects
+        
+        wrappedTags = results
     }
 }
 

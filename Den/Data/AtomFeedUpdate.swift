@@ -55,6 +55,8 @@ struct AtomFeedUpdate {
                 let item = Item.create(moc: context, feedData: feedData)
                 let load = AtomItemLoad(item: item, source: sourceItem)
                 load.apply()
+                
+                item.anaylyzeTitleTags()
             }
         }
     }

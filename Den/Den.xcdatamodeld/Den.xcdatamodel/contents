@@ -47,6 +47,7 @@
         </fetchIndex>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="category">
+        <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="body" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
@@ -61,6 +62,7 @@
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
+        <attribute name="tags" optional="YES" attributeType="String"/>
         <attribute name="teaser" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="feedData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedData" inverseName="items" inverseEntity="FeedData"/>

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68014D5E27BD83850017E2CB /* ItemDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68014D5D27BD83850017E2CB /* ItemDateView.swift */; };
+		68014D5E27BD83850017E2CB /* ItemDateAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68014D5D27BD83850017E2CB /* ItemDateAuthorView.swift */; };
 		680744BC28E959360008A09D /* FormFirstHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680744BB28E959360008A09D /* FormFirstHeaderModifier.swift */; };
 		680744BE28E95B780008A09D /* NewPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680744BD28E95B780008A09D /* NewPageView.swift */; };
 		680744C028E95CD80008A09D /* StartListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680744BF28E95CD80008A09D /* StartListView.swift */; };
@@ -243,7 +243,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		68014D5D27BD83850017E2CB /* ItemDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDateView.swift; sourceTree = "<group>"; };
+		68014D5D27BD83850017E2CB /* ItemDateAuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDateAuthorView.swift; sourceTree = "<group>"; };
 		680744BB28E959360008A09D /* FormFirstHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFirstHeaderModifier.swift; sourceTree = "<group>"; };
 		680744BD28E95B780008A09D /* NewPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPageView.swift; sourceTree = "<group>"; };
 		680744BF28E95CD80008A09D /* StartListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartListView.swift; sourceTree = "<group>"; };
@@ -839,7 +839,7 @@
 		68CE2C3B28CEEBBE00ED1CF9 /* Item */ = {
 			isa = PBXGroup;
 			children = (
-				68014D5D27BD83850017E2CB /* ItemDateView.swift */,
+				68014D5D27BD83850017E2CB /* ItemDateAuthorView.swift */,
 				686067D8280CAF29000068DE /* ItemThumbnailView.swift */,
 				68FC256E27640AA00073979F /* ItemPreviewView.swift */,
 				68B18959289B7B320002A7FE /* PreviewImageView.swift */,
@@ -1318,7 +1318,7 @@
 				684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */,
 				68D9BA9828A6099600F1A3AD /* ProfilesSectionView.swift in Sources */,
 				68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */,
-				68014D5E27BD83850017E2CB /* ItemDateView.swift in Sources */,
+				68014D5E27BD83850017E2CB /* ItemDateAuthorView.swift in Sources */,
 				68F56B79288C0D31006EC915 /* TrendItem+CoreDataClass.swift in Sources */,
 				68BD6841283985520075EF45 /* ThumbnailModifier.swift in Sources */,
 				68F56B6B287832A9006EC915 /* ItemActionView.swift in Sources */,

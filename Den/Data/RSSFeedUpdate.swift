@@ -48,6 +48,8 @@ struct RSSFeedUpdate {
                 let item = Item.create(moc: context, feedData: feedData)
                 let load = RSSItemLoad(item: item, source: rawItem)
                 load.apply()
+                
+                item.anaylyzeTitleTags()
             }
         }
     }

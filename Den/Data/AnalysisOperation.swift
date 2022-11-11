@@ -45,23 +45,22 @@ struct AnalysisOperation {
     }
 
     private func analyzeTrends(profile: Profile) -> [WorkingTrend] {
-        var workingTrends: Set<WorkingTrend> = []
-
+        var workingTrends: [WorkingTrend] = []
+        
         for item in profile.previewItems {
-            for (tokenText, tag) in item.subjects() {
+            for (tokenText, tag) in item.wrappedTags {
                 let slug = tokenText.removingCharacters(in: .punctuationCharacters).lowercased()
-                var (inserted, workingTrend) = workingTrends.insert(
-                    WorkingTrend(slug: slug, tag: tag, title: tokenText, items: [item])
-                )
-                if !inserted {
-                    workingTrend.items.append(item)
-                    workingTrends.update(with: workingTrend)
+                
+                if var workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == slug }) {
+                    workingTrends[workingTrendIndex].items.append(item)
+                } else {
+                    workingTrends.append(WorkingTrend(slug: slug, tag: tag, title: tokenText, items: [item]))
                 }
             }
         }
-
-        return Array(workingTrends.filter { workingTrend in
+        
+        return workingTrends.filter { workingTrend in
             workingTrend.items.count > 1 && workingTrend.feeds.count > 1
-        })
+        }
     }
 }
