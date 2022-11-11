@@ -15,13 +15,6 @@ struct SyncManager {
         guard item.read != true else { return }
         await logHistory(container: container, items: [item])
         
-        do {
-            try container?.viewContext.save()
-        } catch {
-            CrashManager.handleCriticalError(error as NSError)
-            return
-        }
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, qos: .utility) {
             NotificationCenter.default.postItemStatus(
                 read: true,

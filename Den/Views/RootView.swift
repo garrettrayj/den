@@ -64,6 +64,9 @@ struct RootView: View {
                         profile: profile,
                         searchModel: searchModel                    )
                 }
+                .onChange(of: activeProfile!) { newValue in
+                    profileUnreadCount = newValue.previewItems.unread().count
+                }
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
                 }
