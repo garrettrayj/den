@@ -20,28 +20,10 @@ struct FeedSettingsView: View {
     var body: some View {
         Form {
             titleSection
-            generalSection
-            informationSection
-
-            Button(role: .destructive) {
-                showingDeleteAlert = true
-            } label: {
-                Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
-            }
-            .alert(
-                "Delete \(feed.wrappedTitle)?",
-                isPresented: $showingDeleteAlert,
-                actions: {
-                    Button("Cancel", role: .cancel) { }
-                        .accessibilityIdentifier("feed-delete-cancel-button")
-                    Button("Delete", role: .destructive) {
-                        delete()
-                        dismiss()
-                    }.accessibilityIdentifier("feed-delete-confirm-button")
-                }
-            )
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("feed-delete-button")
+            previewsSection
+            fullViewSection
+            infoSection
+            organizeSection
         }
         .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
@@ -53,31 +35,8 @@ struct FeedSettingsView: View {
         }
     }
 
-    private var pagePickerLabel: some View {
-        Text("Page")
-    }
-
-    private var pagePicker: some View {
-        Picker(selection: $feed.page) {
-            ForEach(feed.page?.profile?.pagesArray ?? []) { page in
-                Text(page.wrappedName).tag(page as Page?)
-            }
-        } label: {
-            pagePickerLabel
-        }
-        .onChange(of: feed.page) { [oldPage = feed.page] newPage in
-            self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
-            NotificationCenter.default.post(name: .pageRefreshed, object: oldPage?.objectID)
-            NotificationCenter.default.post(name: .pageRefreshed, object: newPage?.objectID)
-            dismiss()
-        }
-    }
-
-    private var generalSection: some View {
-        Section(header: Text("General")) {
-            pagePicker
-                .modifier(FormRowModifier())
-
+    private var previewsSection: some View {
+        Section {
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 Text("Item Limit: \(feed.wrappedItemLimit)")
             }
@@ -97,16 +56,22 @@ struct FeedSettingsView: View {
                 Text("Show Thumbnails")
             }
             #endif
-
+        } header: {
+            Text("Previews")
+        }
+    }
+    
+    private var fullViewSection: some View {
+        Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Open Items in Browser")
+                Text("Open in Default Browser")
                 Spacer()
-                Toggle("Open Items in Browser", isOn: $feed.browserView).labelsHidden()
+                Toggle("Open in Default Browser", isOn: $feed.browserView).labelsHidden()
             }.modifier(FormRowModifier())
             #else
             Toggle(isOn: $feed.browserView) {
-                Text("Open Items in Browser")
+                Text("Open in Built-in Browser")
             }
             if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
@@ -114,14 +79,19 @@ struct FeedSettingsView: View {
                 }
             }
             #endif
+        } header: {
+            Text("Items")
         }
     }
 
-    private var informationSection: some View {
-        Section(header: Text("Information")) {
-            Button(action: copyUrl) {
+    private var infoSection: some View {
+        Section(header: Text("Info")) {
+            Button {
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = feed.url!.absoluteString
+            } label: {
                 HStack {
-                    Text("Feed URL").foregroundColor(.primary)
+                    Text("URL").foregroundColor(.primary)
                     Spacer()
                     Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
                     Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
@@ -143,6 +113,48 @@ struct FeedSettingsView: View {
             }.modifier(FormRowModifier())
         }
     }
+    
+    private var organizeSection: some View {
+        Section {
+            Picker(selection: $feed.page) {
+                ForEach(feed.page?.profile?.pagesArray ?? []) { page in
+                    Text(page.wrappedName).tag(page as Page?)
+                }
+            } label: {
+                Text("Select Page")
+            }
+            .onChange(of: feed.page) { [oldPage = feed.page] newPage in
+                self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
+                NotificationCenter.default.post(name: .pageRefreshed, object: oldPage?.objectID)
+                NotificationCenter.default.post(name: .pageRefreshed, object: newPage?.objectID)
+                dismiss()
+            }
+            .modifier(FormRowModifier())
+            
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
+            }
+            .alert(
+                "Delete \(feed.wrappedTitle)?",
+                isPresented: $showingDeleteAlert,
+                actions: {
+                    Button("Cancel", role: .cancel) { }
+                        .accessibilityIdentifier("feed-delete-cancel-button")
+                    Button("Delete", role: .destructive) {
+                        viewContext.delete(feed)
+                        feed.page?.profile?.objectWillChange.send()
+                        dismiss()
+                    }.accessibilityIdentifier("feed-delete-confirm-button")
+                }
+            )
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("feed-delete-button")
+        } header: {
+            Text("Organize")
+        }
+    }
 
     private func save() {
         if viewContext.hasChanges {
@@ -156,15 +168,5 @@ struct FeedSettingsView: View {
                 CrashManager.handleCriticalError(error)
             }
         }
-    }
-
-    private func delete() {
-        viewContext.delete(feed)
-        feed.page?.profile?.objectWillChange.send()
-    }
-
-    private func copyUrl() {
-        let pasteboard = UIPasteboard.general
-        pasteboard.string = feed.url!.absoluteString
     }
 }
