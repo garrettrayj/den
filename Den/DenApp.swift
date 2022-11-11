@@ -145,7 +145,9 @@ struct DenApp: App {
     
     private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
-        request.earliestBeginDate = .now + 30 * 60
+        request.earliestBeginDate = .now + 10 * 60
+        request.requiresNetworkConnectivity = true
+        request.requiresExternalPower = false
         
         do {
             try BGTaskScheduler.shared.submit(request)

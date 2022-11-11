@@ -184,7 +184,6 @@ struct PageView: View {
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
                 await SyncManager.toggleReadUnread(container: container, items: page.previewItems)
-                page.objectWillChange.send()
             }
         }
     }

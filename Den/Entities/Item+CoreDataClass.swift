@@ -43,6 +43,15 @@ public class Item: NSManagedObject {
         guard imageWidth > 0, imageHeight > 0 else { return nil }
         return CGFloat(imageWidth) / CGFloat(imageHeight)
     }
+    
+    public var trendItemsArray: [TrendItem] {
+        get {
+            trendItems?.allObjects as? [TrendItem] ?? []
+        }
+        set {
+            trendItems = NSSet(array: newValue)
+        }
+    }
 
     static func create(moc managedObjectContext: NSManagedObjectContext, feedData: FeedData) -> Item {
         let item = Item.init(context: managedObjectContext)
@@ -54,8 +63,18 @@ public class Item: NSManagedObject {
     }
 
     public func subjects() -> [(String, NLTag)] {
+        if !trendItemsArray.isEmpty {
+            return trendItemsArray.compactMap { trendItem in
+                guard
+                    let title = trendItem.trend?.title,
+                    let tagString = trendItem.trend?.tag
+                else { return nil }
+                
+                return (title, NLTag(rawValue: tagString))
+            }
+        }
+        
         guard let text = title else { return [] }
-
         let tagger = NLTagger(tagSchemes: [.nameType])
         tagger.string = text
 

@@ -11,9 +11,8 @@ import SwiftUI
 
 struct AllItemsView: View {
     @Environment(\.persistentContainer) private var container
-    @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
+    let profile: Profile
 
     @Binding var unreadCount: Int
     @Binding var hideRead: Bool
@@ -82,9 +81,7 @@ struct AllItemsView: View {
                 refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
-                Task {
-                    await SyncManager.toggleReadUnread(container: container, items: profile.previewItems)
-                }
+                await SyncManager.toggleReadUnread(container: container, items: profile.previewItems)
             }
         }
     }
