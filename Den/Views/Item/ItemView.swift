@@ -35,11 +35,26 @@ struct ItemView: View {
                                 .textSelection(.enabled)
                                 .fixedSize(horizontal: false, vertical: true)
 
-                            Text("\(item.date.formatted(date: .complete, time: .shortened))")
-                                .font(.subheadline)
-                                .textSelection(.enabled)
-                                .lineLimit(1)
-
+                            
+                            ViewThatFits(in: .horizontal) {
+                                HStack(spacing: 2) {
+                                    Text("\(item.date.formatted(date: .complete, time: .shortened))")
+                                    if let author = item.author {
+                                        Text("· \(author)")
+                                    }
+                                }
+                                
+                                VStack(alignment: .leading) {
+                                    Text("\(item.date.formatted())")
+                                    if let author = item.author {
+                                        Text(author)
+                                    }
+                                }
+                            }
+                            .font(.subheadline)
+                            .textSelection(.enabled)
+                            .lineLimit(1)
+                            
                             if
                                 item.image != nil &&
                                 !(item.summary?.contains("<img") ?? false) &&

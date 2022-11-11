@@ -54,6 +54,8 @@ struct JSONFeedUpdate {
                 let item = Item.create(moc: context, feedData: feedData)
                 let load = JSONItemLoad(item: item, source: sourceItem)
                 load.apply()
+                
+                item.anaylyzeTitleTags()
             }
         }
     }

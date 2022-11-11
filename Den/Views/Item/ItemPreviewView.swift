@@ -23,7 +23,7 @@ struct ItemPreviewView: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
 
-            ItemDateView(date: item.date, read: item.read)
+            ItemDateAuthorView(item: item)
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                 PreviewImageView(item: item)

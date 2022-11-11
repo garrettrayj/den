@@ -48,6 +48,16 @@ struct RSSItemLoad {
         }
 
         item.link = source.linkURL
+        
+        if let author = source.dublinCore?.dcCreator {
+            let formattedAuthor = author
+                .replacingOccurrences(of: "\n", with: " ")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if formattedAuthor != "" {
+                item.author = formattedAuthor
+            }
+        }
     }
 
     private func populateText() {

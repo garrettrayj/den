@@ -52,10 +52,12 @@ extension String {
     }
 
     func preparingTitle() -> String {
-        self.replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
+        self.htmlUnescape()
+            .strippingTags()
+            .replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
             .replacingOccurrences(of: "\u{202F}", with: " ") // NARROW NO-BREAK SPACE
             .trimmingCharacters(in: .whitespacesAndNewlines)
-            .htmlUnescape()
+            
     }
 
     func sanitizedForFileName() -> String {
