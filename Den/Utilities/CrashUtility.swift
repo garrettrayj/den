@@ -1,5 +1,5 @@
 //
-//  CrashManager.swift
+//  CrashUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -10,7 +10,7 @@ import CoreData
 import OSLog
 import SwiftUI
 
-struct CrashManager {
+struct CrashUtility {
     static func handleCriticalError(_ anError: NSError) {
         let formatted = self.formatErrorMessage(anError)
         Logger.main.critical("\(formatted)")

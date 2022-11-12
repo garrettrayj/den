@@ -19,12 +19,12 @@ struct ItemActionView<Content: View>: View {
     var body: some View {
         if item.feedData?.feed?.browserView == true {
             Button {
-                SafariManager.openLink(
+                SafariUtility.openLink(
                     url: item.link,
                     readerMode: item.feedData?.feed?.readerMode ?? false
                 )
                 Task(priority: .background) {
-                    await SyncManager.markItemRead(container: container, item: item)
+                    await SyncUtility.markItemRead(container: container, item: item)
                 }
             } label: {
                 content

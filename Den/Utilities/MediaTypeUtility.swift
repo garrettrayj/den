@@ -1,5 +1,5 @@
 //
-//  MediaUtil.swift
+//  MediaTypeUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/30/22.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct MediaUtil {
+struct MediaTypeUtility {
     
     static func mediaIsImage(mimeType: String?, medium: String?) -> Bool {
         if let mimeType = mimeType {

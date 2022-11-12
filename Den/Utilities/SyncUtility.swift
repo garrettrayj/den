@@ -1,5 +1,5 @@
 //
-//  SyncManager.swift
+//  SyncUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 import OSLog
 
-struct SyncManager {
+struct SyncUtility {
     static func markItemRead(container: NSPersistentContainer?, item: Item) async {
         guard item.read != true else { return }
         await logHistory(container: container, items: [item])
@@ -85,7 +85,7 @@ struct SyncManager {
             do {
                 try context.save()
             } catch {
-                CrashManager.handleCriticalError(error as NSError)
+                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }
@@ -105,7 +105,7 @@ struct SyncManager {
             do {
                 try context.save()
             } catch {
-                CrashManager.handleCriticalError(error as NSError)
+                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }
@@ -151,7 +151,7 @@ struct SyncManager {
             do {
                 try context.save()
             } catch {
-                CrashManager.handleCriticalError(error as NSError)
+                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }

@@ -66,7 +66,7 @@ struct AllItemsView: View {
                     ProgressView().progressViewStyle(ToolbarProgressStyle())
                 } else {
                     Button {
-                        SubscriptionManager.showSubscribe()
+                        SubscriptionUtility.showSubscribe()
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }
@@ -81,7 +81,7 @@ struct AllItemsView: View {
                 refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
-                await SyncManager.toggleReadUnread(container: container, items: profile.previewItems)
+                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
             }
         }
     }

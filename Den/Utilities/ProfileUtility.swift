@@ -1,5 +1,5 @@
 //
-//  ProfileManager.swift
+//  ProfileUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import OSLog
 
-struct ProfileManager {
+struct ProfileUtility {
     static var defaultProfileIdString: String? {
         get {
             UserDefaults.standard.string(forKey: "ActiveProfile")
@@ -33,24 +33,24 @@ struct ProfileManager {
                 profile.id?.uuidString == profileIdString
             }) {
                 Logger.main.debug("Activating last used profile: \(profileToRestore.wrappedName)")
-                return ProfileManager.activateProfile(profileToRestore)
+                return ProfileUtility.activateProfile(profileToRestore)
             }
         }
 
         if let firstProfile = profiles?.first {
             Logger.main.debug("Activating first profile found: \(firstProfile.wrappedName)")
-            return ProfileManager.activateProfile(firstProfile)
+            return ProfileUtility.activateProfile(firstProfile)
         }
 
         Logger.main.debug("No profiles available. Creating default")
-        let profile = ProfileManager.createDefaultProfile(context: context)
+        let profile = ProfileUtility.createDefaultProfile(context: context)
         
-        return ProfileManager.activateProfile(profile)
+        return ProfileUtility.activateProfile(profile)
     }
 
     static func resetProfiles(context: NSManagedObjectContext) -> Profile {
-        let defaultProfile = ProfileManager.activateProfile(
-            ProfileManager.createDefaultProfile(context: context)
+        let defaultProfile = ProfileUtility.activateProfile(
+            ProfileUtility.createDefaultProfile(context: context)
         )
 
         do {
@@ -61,7 +61,7 @@ struct ProfileManager {
 
             try context.save()
         } catch {
-            CrashManager.handleCriticalError(error as NSError)
+            CrashUtility.handleCriticalError(error as NSError)
         }
 
         return defaultProfile
@@ -74,7 +74,7 @@ struct ProfileManager {
         do {
             try context.save()
         } catch {
-            CrashManager.handleCriticalError(error as NSError)
+            CrashUtility.handleCriticalError(error as NSError)
         }
 
         return profile

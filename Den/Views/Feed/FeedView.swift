@@ -116,7 +116,7 @@ struct FeedView: View {
         HStack {
             if let linkDisplayString = feed.feedData?.linkDisplayString {
                 Button {
-                    SafariManager.openLink(url: feed.feedData?.link)
+                    SafariUtility.openLink(url: feed.feedData?.link)
                 } label: {
                     HStack {
                         Label {
@@ -173,7 +173,7 @@ struct FeedView: View {
             centerLabel: Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread")
         ) {
             Task {
-                await SyncManager.toggleReadUnread(
+                await SyncUtility.toggleReadUnread(
                     container: persistentContainer,
                     items: feed.feedData?.previewItems ?? []
                 )

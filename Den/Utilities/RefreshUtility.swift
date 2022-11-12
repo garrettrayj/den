@@ -11,8 +11,7 @@ import SwiftUI
 
 import FeedKit
 
-
-struct AsyncRefreshManager {
+struct RefreshUtility {
     static func refresh(container: NSPersistentContainer, profile: Profile) async {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)

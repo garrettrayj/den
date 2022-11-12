@@ -134,7 +134,7 @@ struct SecurityView: View {
                     do {
                         try self.viewContext.save()
                     } catch {
-                        CrashManager.handleCriticalError(error as NSError)
+                        CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
             }

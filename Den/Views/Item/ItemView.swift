@@ -85,7 +85,7 @@ struct ItemView: View {
                     ToolbarItemGroup(placement: .bottomBar) {
                         Spacer()
                         Button {
-                            SafariManager.openLink(url: item.link)
+                            SafariUtility.openLink(url: item.link)
                         } label: {
                             #if targetEnvironment(macCatalyst)
                             Label("Open in Browser", systemImage: "link.circle")
@@ -98,7 +98,7 @@ struct ItemView: View {
                     }
                 }
                 .task(priority: TaskPriority.high) {
-                    await SyncManager.markItemRead(container: container, item: item)
+                    await SyncUtility.markItemRead(container: container, item: item)
                 }
             }
         }

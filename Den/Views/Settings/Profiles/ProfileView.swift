@@ -44,7 +44,7 @@ struct ProfileView: View {
     private var activateSection: some View {
         Section {
             Button {
-                activeProfile = ProfileManager.activateProfile(profile)
+                activeProfile = ProfileUtility.activateProfile(profile)
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "arrow.left.arrow.right")
@@ -75,7 +75,7 @@ struct ProfileView: View {
                 do {
                     try viewContext.save()
                 } catch let error as NSError {
-                    CrashManager.handleCriticalError(error)
+                    CrashUtility.handleCriticalError(error)
                 }
             }.accessibilityIdentifier("delete-profile-confirm-button")
         }, message: {
@@ -89,7 +89,7 @@ struct ProfileView: View {
                 try viewContext.save()
                 profile.objectWillChange.send()
             } catch {
-                CrashManager.handleCriticalError(error as NSError)
+                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }

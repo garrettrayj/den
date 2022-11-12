@@ -25,7 +25,7 @@ struct StartListView: View {
                             profile.objectWillChange.send()
                         }
                     } catch {
-                        CrashManager.handleCriticalError(error as NSError)
+                        CrashUtility.handleCriticalError(error as NSError)
                     }
                 } label: {
                     Label("Add Page", systemImage: "plus")
@@ -107,7 +107,7 @@ struct StartListView: View {
             try viewContext.save()
         } catch let error as NSError {
             DispatchQueue.main.async {
-                CrashManager.handleCriticalError(error)
+                CrashUtility.handleCriticalError(error)
             }
         }
     }

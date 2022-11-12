@@ -1,5 +1,5 @@
 //
-//  SubscriptionManager.swift
+//  SubscriptionUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-struct SubscriptionManager {
+struct SubscriptionUtility {
     static func showSubscribe(for urlString: String? = nil, page: Page? = nil) {
         var userInfo: [String: Any] = [:]
 
