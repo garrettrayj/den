@@ -67,7 +67,7 @@ struct ItemView: View {
                                     html: item.body ?? item.summary!,
                                     title: item.wrappedTitle,
                                     baseURL: item.link
-                                )
+                                ).frame(maxWidth: .infinity)
                             }
                         }
                         .padding(28)
