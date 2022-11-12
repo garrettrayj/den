@@ -41,7 +41,7 @@ struct DenApp: App {
             .environment(\.persistentContainer, container)
             .environment(\.managedObjectContext, container.viewContext)
             .onOpenURL { url in
-                SubscriptionManager.showSubscribe(for: url.absoluteString)
+                SubscriptionUtility.showSubscribe(for: url.absoluteString)
             }
             .modifier(URLDropTargetModifier())
         }
@@ -131,7 +131,7 @@ struct DenApp: App {
                 - The device is out of space.
                 - The store could not be migrated to the current model version.
                 */
-                CrashManager.handleCriticalError(error! as NSError)
+                CrashUtility.handleCriticalError(error! as NSError)
                 return
             }
 
@@ -163,11 +163,11 @@ struct DenApp: App {
     
     private func handleRefresh(background: Bool = false) async {
         guard !refreshing, let profile = activeProfile else { return }
-        await AsyncRefreshManager.refresh(container: container, profile: profile)
+        await RefreshUtility.refresh(container: container, profile: profile)
     }
     
     private func loadProfile() {
-        activeProfile = ProfileManager.loadProfile(context: container.viewContext)
+        activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
         profileUnreadCount = activeProfile?.previewItems.unread().count ?? 0
         WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
     }

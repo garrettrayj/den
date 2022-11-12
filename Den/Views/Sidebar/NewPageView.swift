@@ -48,7 +48,7 @@ struct NewPageView: View {
                 profile.objectWillChange.send()
             }
         } catch {
-            CrashManager.handleCriticalError(error as NSError)
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

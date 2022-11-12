@@ -97,7 +97,7 @@ struct AtomItemLoad {
                 if
                     let urlString = media.attributes?.url,
                     let url = URL(string: urlString, relativeTo: item.link),
-                    MediaUtil.mediaIsImage(mimeType: media.attributes?.type, medium: media.attributes?.medium)
+                    MediaTypeUtility.mediaIsImage(mimeType: media.attributes?.type, medium: media.attributes?.medium)
                 {
                     if
                         let width = media.attributes?.width,

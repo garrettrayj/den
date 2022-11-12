@@ -79,7 +79,7 @@ struct TrendsView: View {
                 refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) with Unread")
             ) {
-                await SyncManager.toggleReadUnread(container: container, items: profile.previewItems)
+                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
             }
         }
     }

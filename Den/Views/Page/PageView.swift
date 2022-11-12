@@ -124,7 +124,7 @@ struct PageView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    SubscriptionManager.showSubscribe(page: page)
+                    SubscriptionUtility.showSubscribe(page: page)
                 } label: {
                     Label("Add Feed", systemImage: "plus.circle")
                 }
@@ -155,7 +155,7 @@ struct PageView: View {
                         viewModePicker
 
                         Button {
-                            SubscriptionManager.showSubscribe(page: page)
+                            SubscriptionUtility.showSubscribe(page: page)
                         } label: {
                             Label("Add Feed", systemImage: "plus.circle")
                         }
@@ -183,7 +183,7 @@ struct PageView: View {
                 refreshing: $refreshing,
                 centerLabel: Text("\(unreadCount) Unread")
             ) {
-                await SyncManager.toggleReadUnread(container: container, items: page.previewItems)
+                await SyncUtility.toggleReadUnread(container: container, items: page.previewItems)
             }
         }
     }

@@ -90,7 +90,7 @@ struct PageSettingsView: View {
                 try viewContext.save()
                 page.objectWillChange.send()
             } catch {
-                CrashManager.handleCriticalError(error as NSError)
+                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }
@@ -101,7 +101,7 @@ struct PageSettingsView: View {
         do {
             try viewContext.save()
         } catch {
-            CrashManager.handleCriticalError(error as NSError)
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 

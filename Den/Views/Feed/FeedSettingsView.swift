@@ -165,7 +165,7 @@ struct FeedSettingsView: View {
                 }
                 feed.objectWillChange.send()
             } catch let error as NSError {
-                CrashManager.handleCriticalError(error)
+                CrashUtility.handleCriticalError(error)
             }
         }
     }

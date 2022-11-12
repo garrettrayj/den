@@ -1,5 +1,5 @@
 //
-//  SafariManager.swift
+//  SafariUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/10/22.
@@ -9,7 +9,7 @@
 import SafariServices
 
 
-struct SafariManager {
+struct SafariUtility {
     static func openLink(
         url: URL?,
         readerMode: Bool = false

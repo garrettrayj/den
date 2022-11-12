@@ -62,7 +62,7 @@ struct ResetSectionView: View {
 
     private func resetHistory() async {
         guard let container = persistentContainer else { return }
-        await SyncManager.resetHistory(container: container, profile: profile)
+        await SyncUtility.resetHistory(container: container, profile: profile)
         DispatchQueue.main.async {
             profile.objectWillChange.send()
             profile.pagesArray.forEach { page in
@@ -110,17 +110,17 @@ struct ResetSectionView: View {
                     try viewContext.save()
                 } catch {
                     DispatchQueue.main.async {
-                        CrashManager.handleCriticalError(error as NSError)
+                        CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
             }
         } catch {
-            CrashManager.handleCriticalError(error as NSError)
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 
     private func resetEverything() {
         restoreUserDefaults()
-        activeProfile = ProfileManager.resetProfiles(context: viewContext)
+        activeProfile = ProfileUtility.resetProfiles(context: viewContext)
     }
 }

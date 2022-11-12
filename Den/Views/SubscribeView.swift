@@ -212,7 +212,7 @@ struct SubscribeView: View {
         newFeed = Feed.create(in: self.viewContext, page: page, url: url, prepend: true)
         try? self.viewContext.save()
         
-        await AsyncRefreshManager.refresh(container: persistentContainer, feed: newFeed!)
+        await RefreshUtility.refresh(container: persistentContainer, feed: newFeed!)
     }
 
     private func failValidation(message: String) {

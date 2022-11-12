@@ -55,7 +55,7 @@ struct ProfilesSectionView: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            CrashManager.handleCriticalError(error)
+            CrashUtility.handleCriticalError(error)
         }
     }
 }

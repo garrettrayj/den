@@ -50,7 +50,7 @@ struct NavigationListView: View {
         .refreshable {
             if !refreshing {
                 guard let container = persistentContainer else { return }
-                await AsyncRefreshManager.refresh(container: container, profile: profile)
+                await RefreshUtility.refresh(container: container, profile: profile)
             }
         }
         #endif
@@ -96,7 +96,7 @@ struct NavigationListView: View {
                             // Handle expiration here
                         }
                         Task {
-                            await AsyncRefreshManager.refresh(container: container, profile: profile)
+                            await RefreshUtility.refresh(container: container, profile: profile)
                         }
                         UIApplication.shared.endBackgroundTask(bgTask)
                     }
@@ -118,7 +118,7 @@ struct NavigationListView: View {
                 profile.objectWillChange.send()
             }
         } catch {
-            CrashManager.handleCriticalError(error as NSError)
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 
