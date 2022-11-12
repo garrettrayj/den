@@ -74,16 +74,20 @@ class MacScreenshots: ScreenshotTestCase {
     }
 
     private func goToLink(_ elementIndex: Int) {
-        app.buttons
+        let itemButton = app.buttons
             .matching(identifier: "gadget-item-button")
             .element(boundBy: elementIndex)
-            .tap()
+            .firstMatch
 
-        sleep(1)
-        app.activate()
+        _ = itemButton.waitForExistence(timeout: 10)
+        itemButton.tap()
+        
+        let backButton = app.buttons["Back"].firstMatch
+        _ = backButton.waitForExistence(timeout: 10)
+        backButton.tap()
     }
 
     private func goBack() {
-        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.buttons["Back"].firstMatch.tap()
     }
 }

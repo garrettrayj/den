@@ -606,7 +606,7 @@
 			path = Modifiers;
 			sourceTree = "<group>";
 		};
-		6880EBE427ABEDB600B479F4 /* UserInterface */ = {
+		6880EBE427ABEDB600B479F4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
 				687C27962634A84600099FCA /* Modifiers */,
@@ -617,7 +617,7 @@
 				682A349F28E57E67004CD90E /* Haptics.swift */,
 				68EB014928F018680074027D /* CustomEnvironment.swift */,
 			);
-			path = UserInterface;
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		6880EBE527ABEE7900B479F4 /* Data */ = {
@@ -756,7 +756,7 @@
 				68915AEE2618CD9C00E4C0CB /* Entities */,
 				6880EBE527ABEE7900B479F4 /* Data */,
 				68D58E6124922FE5007ED1AC /* Utilities */,
-				6880EBE427ABEDB600B479F4 /* UserInterface */,
+				6880EBE427ABEDB600B479F4 /* Interface */,
 				68C413422472760400D1DC7B /* Views */,
 				68E9BDB6279CFF90003BA111 /* Constants */,
 				68B34A5F2487C4E10066B215 /* Extensions */,
