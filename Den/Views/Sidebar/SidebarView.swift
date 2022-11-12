@@ -15,9 +15,9 @@ struct SidebarView: View {
     @Binding var activeProfile: Profile? // Re-render when active profile changes
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
     @Binding var profileUnreadCount: Int
-
-    let refreshProgress: Progress
+    
     let searchModel: SearchModel
 
     var body: some View {
@@ -29,11 +29,11 @@ struct SidebarView: View {
         } else {
             NavigationListView(
                 profile: profile,
+                searchModel: searchModel,
                 selection: $selection,
                 refreshing: $refreshing,
-                profileUnreadCount: $profileUnreadCount,
-                refreshProgress: refreshProgress,
-                searchModel: searchModel
+                refreshProgress: $refreshProgress,
+                profileUnreadCount: $profileUnreadCount
             )
         }
     }

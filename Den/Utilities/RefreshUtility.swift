@@ -12,7 +12,9 @@ import SwiftUI
 import FeedKit
 
 struct RefreshUtility {
-    static func refresh(container: NSPersistentContainer, profile: Profile) async {
+    static func refresh(container: NSPersistentContainer?, profile: Profile) async {
+        guard let container = container else { return }
+        
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
         }

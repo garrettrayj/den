@@ -12,14 +12,16 @@ import SwiftUI
 struct NavigationListView: View {
     @Environment(\.persistentContainer) private var persistentContainer
     @Environment(\.managedObjectContext) private var viewContext
+    
     let profile: Profile
+    let searchModel: SearchModel
+    
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
     @Binding var profileUnreadCount: Int
+    
     @State private var searchInput: String = ""
-
-    let refreshProgress: Progress
-    let searchModel: SearchModel
 
     var body: some View {
         List(selection: $selection) {
@@ -49,8 +51,7 @@ struct NavigationListView: View {
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {
-                guard let container = persistentContainer else { return }
-                await RefreshUtility.refresh(container: container, profile: profile)
+                await RefreshUtility.refresh(container: persistentContainer, profile: profile)
             }
         }
         #endif
@@ -91,12 +92,12 @@ struct NavigationListView: View {
                 .font(.caption)
                 Spacer()
                 Button {
-                    if !refreshing, let container = persistentContainer {
+                    if !refreshing {
                         let bgTask = UIApplication.shared.beginBackgroundTask() {
                             // Handle expiration here
                         }
                         Task {
-                            await RefreshUtility.refresh(container: container, profile: profile)
+                            await RefreshUtility.refresh(container: persistentContainer, profile: profile)
                         }
                         UIApplication.shared.endBackgroundTask(bgTask)
                     }
