@@ -38,7 +38,7 @@ struct FeedSettingsView: View {
     private var previewsSection: some View {
         Section {
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                Text("Item Limit: \(feed.wrappedItemLimit)")
+                Text("Limit: \(feed.wrappedItemLimit)")
             }
             .onChange(of: feed.itemLimit, perform: { _ in
                 haptics.lightImpactFeedbackGenerator.impactOccurred()
@@ -121,7 +121,7 @@ struct FeedSettingsView: View {
                     Text(page.wrappedName).tag(page as Page?)
                 }
             } label: {
-                Text("Select Page")
+                Text("Move")
             }
             .onChange(of: feed.page) { [oldPage = feed.page] newPage in
                 self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
@@ -134,7 +134,7 @@ struct FeedSettingsView: View {
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {
-                Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
+                Text("Delete")
             }
             .alert(
                 "Delete \(feed.wrappedTitle)?",
