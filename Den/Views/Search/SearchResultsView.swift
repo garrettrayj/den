@@ -93,13 +93,23 @@ struct SearchResultsView: View {
             .cornerRadius(8)
             .padding()
         } header: {
-            FeedTitleLabelView(
-                title: section.first?.feedData?.feed?.wrappedTitle ?? "Untitled",
-                favicon: section.first?.feedData?.favicon
-            )
-            .font(.title3)
-            .padding(.horizontal, 20)
-            .modifier(PinnedSectionHeaderModifier())
+            if let feed = section.first?.feedData?.feed {
+                NavigationLink(value: DetailPanel.feed(feed)) {
+                    HStack {
+                        FeedTitleLabelView(
+                            title: feed.wrappedTitle,
+                            favicon: feed.feedData?.favicon
+                        )
+                        Spacer()
+                        NavChevronView()
+                    }
+                    .padding(.horizontal, 20)
+                }
+                .buttonStyle(
+                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
+                )
+                .accessibilityIdentifier("search-section-feed-button")
+            }
         }
     }
 }

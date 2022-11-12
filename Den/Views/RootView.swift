@@ -45,8 +45,8 @@ struct RootView: View {
                         activeProfile: $activeProfile,
                         selection: $selection,
                         refreshing: $refreshing,
+                        refreshProgress: $refreshProgress,
                         profileUnreadCount: $profileUnreadCount,
-                        refreshProgress: refreshProgress,
                         searchModel: searchModel
                     )
                     .navigationSplitViewColumnWidth(268)
@@ -62,7 +62,8 @@ struct RootView: View {
                         autoRefreshCooldown: $autoRefreshCooldown,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         profile: profile,
-                        searchModel: searchModel                    )
+                        searchModel: searchModel
+                    )
                 }
                 .onChange(of: activeProfile!) { newValue in
                     profileUnreadCount = newValue.previewItems.unread().count
