@@ -11,11 +11,7 @@ import SwiftUI
 struct ImageSize {
     static let favicon = CGSize(width: 16, height: 16)
     static let preview = CGSize(width: 396, height: 264)
-    #if targetEnvironment(macCatalyst)
-    static let thumbnail = CGSize(width: 52, height: 52)
-    #else
-    static let thumbnail = CGSize(width: 64, height: 64)
-    #endif
+    static let thumbnail = CGSize(width: 72, height: 72)
     static let full = CGSize(width: 800, height: 450)
 }
 

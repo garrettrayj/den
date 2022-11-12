@@ -53,7 +53,6 @@ struct ItemView: View {
                             }
                             .font(.subheadline)
                             .textSelection(.enabled)
-                            .lineLimit(1)
                             
                             if
                                 item.image != nil &&
