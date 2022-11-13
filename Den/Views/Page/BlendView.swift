@@ -12,8 +12,7 @@ struct BlendView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
-
+    
     let frameSize: CGSize
 
     var body: some View {
@@ -22,7 +21,7 @@ struct BlendView: View {
         } else {
             ScrollView(.vertical) {
                 BoardView(width: frameSize.width, list: visibleItems) { item in
-                    FeedItemPreviewView(item: item, refreshing: $refreshing)
+                    FeedItemPreviewView(item: item)
                 }
                 .modifier(TopLevelBoardPaddingModifier())
                 .clipped()

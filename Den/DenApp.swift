@@ -11,10 +11,6 @@ import BackgroundTasks
 
 @main
 struct DenApp: App {
-    /**
-     Main application setup. In the past similar functionality was contained in `SceneDelegate`.
-     */
-    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
     
     @State private var activeProfile: Profile?

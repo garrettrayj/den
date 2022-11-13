@@ -82,7 +82,6 @@
 		68701DF9273E559C00C6BB69 /* ProfileUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF8273E559C00C6BB69 /* ProfileUtility.swift */; };
 		68701DFB273E57DB00C6BB69 /* SyncUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DFA273E57DB00C6BB69 /* SyncUtility.swift */; };
 		68701E01273E6A5400C6BB69 /* SubscriptionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701E00273E6A5400C6BB69 /* SubscriptionUtility.swift */; };
-		68710C55259825BA007B2507 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710C54259825BA007B2507 /* AppDelegate.swift */; };
 		68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */; };
 		687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27782631F6A000099FCA /* FileManager+Extensions.swift */; };
 		687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27972634A89A00099FCA /* ShakeModifier.swift */; };
@@ -322,7 +321,6 @@
 		68701DF8273E559C00C6BB69 /* ProfileUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUtility.swift; sourceTree = "<group>"; };
 		68701DFA273E57DB00C6BB69 /* SyncUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUtility.swift; sourceTree = "<group>"; };
 		68701E00273E6A5400C6BB69 /* SubscriptionUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionUtility.swift; sourceTree = "<group>"; };
-		68710C54259825BA007B2507 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		687C27782631F6A000099FCA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		687C27972634A89A00099FCA /* ShakeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeModifier.swift; sourceTree = "<group>"; };
@@ -747,7 +745,6 @@
 			isa = PBXGroup;
 			children = (
 				689460822596A7BB00ED4064 /* DenApp.swift */,
-				68710C54259825BA007B2507 /* AppDelegate.swift */,
 				68C41341247263D800D1DC7B /* Den.entitlements */,
 				68C41317247263C700D1DC7B /* Assets.xcassets */,
 				68F56B74288BFCCC006EC915 /* Den.xcdatamodel */,
@@ -1227,7 +1224,6 @@
 				6832AF2E278BA6A800CFC8CA /* SearchResultsView.swift in Sources */,
 				68B34A672487ED870066B215 /* ExportView.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
-				68710C55259825BA007B2507 /* AppDelegate.swift in Sources */,
 				682A34A028E57E67004CD90E /* Haptics.swift in Sources */,
 				68AC3A1B2910EF3A00D60273 /* DataTaskOperation.swift in Sources */,
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdate.swift in Sources */,

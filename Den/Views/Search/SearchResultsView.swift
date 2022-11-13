@@ -10,21 +10,22 @@ import CoreData
 import SwiftUI
 
 struct SearchResultsView: View {
-    @SectionedFetchRequest<String, Item>(sectionIdentifier: \.feedTitle, sortDescriptors: [])
-    private var searchResults: SectionedFetchResults<String, Item>
+    @FetchRequest
+    private var searchResults: FetchedResults<Item>
 
     var query: String
 
     var body: some View {
         Group {
-            if searchResults.isEmpty {
-                StatusBoxView(message: Text("No results found for “\(query)”"))
-            } else {
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                        ForEach(searchResults) { section in
-                            resultsSection(section)
+            GeometryReader { geometry in
+                if searchResults.isEmpty {
+                    StatusBoxView(message: Text("No results found for “\(query)”"))
+                } else {
+                    ScrollView(.vertical) {
+                        BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
+                            FeedItemPreviewView(item: item)
                         }
+                        .modifier(TopLevelBoardPaddingModifier())
                     }
                 }
             }
@@ -60,19 +61,17 @@ struct SearchResultsView: View {
             })
         )
         let queryPredicate = NSPredicate(
-            format: "title MATCHES[c] %@",
-            query.count > 0 ? ".*\\b\(query)\\b.*" : ""
+            format: "title CONTAINS[c] %@",
+            query.count > 0 ? "\(query)" : ""
         )
         let compoundPredicate = NSCompoundPredicate(
             type: .and,
             subpredicates: [profilePredicate, queryPredicate]
         )
 
-        _searchResults = SectionedFetchRequest<String, Item>(
+        _searchResults = FetchRequest<Item>(
             entity: Item.entity(),
-            sectionIdentifier: \.feedTitle,
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Item.feedData?.feedTitle, ascending: true),
                 NSSortDescriptor(keyPath: \Item.published, ascending: false)
             ],
             predicate: compoundPredicate

@@ -11,7 +11,6 @@ import SwiftUI
 struct GadgetView: View {
     @ObservedObject var feed: Feed
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

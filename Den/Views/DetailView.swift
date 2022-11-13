@@ -53,7 +53,7 @@ struct DetailView: View {
                         unreadCount: page.previewItems.unread().count,
                         hideRead: $hideRead,
                         refreshing: $refreshing
-                    ).id(page.id)
+                    )
                 case .settings:
                     SettingsView(
                         activeProfile: $activeProfile,
@@ -74,13 +74,12 @@ struct DetailView: View {
                             unreadCount: feed.feedData?.previewItems.unread().count ?? 0,
                             hideRead: $hideRead,
                             refreshing: $refreshing
-                        ).id(feed.id)
+                        )
                     }
                 case .item(let item):
-                    ItemView(item: item).id(item.id)
+                    ItemView(item: item)
                 }
             }
         }
-        .navigationViewStyle(.stack) // Fix for disappearing back button
     }
 }

@@ -11,7 +11,6 @@ import SwiftUI
 struct ShowcaseSectionView: View {
     @ObservedObject var feed: Feed
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     let width: CGFloat
 

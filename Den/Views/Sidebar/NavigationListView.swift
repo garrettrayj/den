@@ -20,8 +20,6 @@ struct NavigationListView: View {
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
     @Binding var profileUnreadCount: Int
-    
-    @State private var searchInput: String = ""
 
     var body: some View {
         List(selection: $selection) {
@@ -43,11 +41,7 @@ struct NavigationListView: View {
         #if targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
         #endif
-        .searchable(text: $searchInput)
-        .onSubmit(of: .search) {
-            searchModel.query = searchInput
-            selection = .search
-        }
+        
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {

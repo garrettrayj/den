@@ -10,7 +10,6 @@ import SwiftUI
 
 struct FeedItemPreviewView: View {
     @ObservedObject var item: Item
-    @Binding var refreshing: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
