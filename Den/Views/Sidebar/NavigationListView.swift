@@ -10,8 +10,7 @@ import CoreData
 import SwiftUI
 
 struct NavigationListView: View {
-    @Environment(\.persistentContainer) private var persistentContainer
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var container
     
     let profile: Profile
     let searchModel: SearchModel
@@ -45,7 +44,7 @@ struct NavigationListView: View {
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {
-                await RefreshUtility.refresh(container: persistentContainer, profile: profile)
+                await RefreshUtility.refresh(container: container, profile: profile)
             }
         }
         #endif
@@ -91,7 +90,7 @@ struct NavigationListView: View {
                             // Handle expiration here
                         }
                         Task {
-                            await RefreshUtility.refresh(container: persistentContainer, profile: profile)
+                            await RefreshUtility.refresh(container: container, profile: profile)
                         }
                         UIApplication.shared.endBackgroundTask(bgTask)
                     }
@@ -108,7 +107,7 @@ struct NavigationListView: View {
 
     private func save() {
         do {
-            try viewContext.save()
+            try container?.viewContext.save()
             DispatchQueue.main.async {
                 profile.objectWillChange.send()
             }
@@ -134,7 +133,7 @@ struct NavigationListView: View {
 
     private func deletePage(indices: IndexSet) {
         indices.forEach {
-            viewContext.delete(profile.pagesArray[$0])
+            container?.viewContext.delete(profile.pagesArray[$0])
         }
         save()
     }

@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct ResetSectionView: View {
-    @Environment(\.persistentContainer) private var persistentContainer
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfile: Profile?
@@ -61,7 +60,6 @@ struct ResetSectionView: View {
     }
 
     private func resetHistory() async {
-        guard let container = persistentContainer else { return }
         await SyncUtility.resetHistory(container: container, profile: profile)
         DispatchQueue.main.async {
             profile.objectWillChange.send()
@@ -90,37 +88,32 @@ struct ResetSectionView: View {
     }
 
     private func resetFeeds() {
+        guard let container = container else { return }
+        
         do {
-            let pages = try viewContext.fetch(Page.fetchRequest()) as [Page]
+            let pages = try container.viewContext.fetch(Page.fetchRequest()) as [Page]
             pages.forEach { page in
                 page.feedsArray.forEach { feed in
                     if let feedData = feed.feedData {
-                        viewContext.delete(feedData)
+                        container.viewContext.delete(feedData)
                     }
                 }
             }
 
-            let trends = try viewContext.fetch(Trend.fetchRequest()) as [Trend]
+            let trends = try container.viewContext.fetch(Trend.fetchRequest()) as [Trend]
             trends.forEach { trend in
-                viewContext.delete(trend)
+                container.viewContext.delete(trend)
             }
 
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch {
-                    DispatchQueue.main.async {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
+            try container.viewContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
     }
 
     private func resetEverything() {
+        guard let container = container else { return }
         restoreUserDefaults()
-        activeProfile = ProfileUtility.resetProfiles(context: viewContext)
+        activeProfile = ProfileUtility.resetProfiles(context: container.viewContext)
     }
 }

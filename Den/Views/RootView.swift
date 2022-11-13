@@ -11,8 +11,7 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @Environment(\.persistentContainer) private var persistentContainer
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var container
 
     @Binding var activeProfile: Profile?
     @Binding var profileUnreadCount: Int
@@ -116,7 +115,7 @@ struct RootView: View {
                         initialURLString: $subscribeURLString,
                         profile: activeProfile
                     )
-                    .environment(\.persistentContainer, persistentContainer)
+                    .environment(\.persistentContainer, container)
                     .environment(\.colorScheme, colorScheme)
                 }
             } else {
