@@ -14,7 +14,8 @@ struct AllItemsView: View {
 
     let profile: Profile
 
-    @Binding var unreadCount: Int
+    @State var unreadCount: Int
+    
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 

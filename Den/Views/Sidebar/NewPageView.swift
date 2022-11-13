@@ -12,7 +12,6 @@ struct NewPageView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.editMode) private var editMode
     @ObservedObject var profile: Profile
-    @Binding var refreshing: Bool
 
     var body: some View {
         if editMode?.wrappedValue.isEditing == true {
@@ -26,7 +25,6 @@ struct NewPageView: View {
                 }
             }
             .buttonStyle(.borderless)
-            .disabled(refreshing)
             .accessibilityIdentifier("new-page-button")
         }
     }
@@ -44,9 +42,6 @@ struct NewPageView: View {
 
         do {
             try viewContext.save()
-            DispatchQueue.main.async {
-                profile.objectWillChange.send()
-            }
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

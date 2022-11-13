@@ -17,10 +17,11 @@ struct ItemDateAuthorView: View {
 
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: 2) {
+            HStack(spacing: 4) {
                 Text("\(item.date.formatted())")
                 if let author = item.author {
-                    Text("· \(author)")
+                    Text("•")
+                    Text(author)
                 }
             }
             

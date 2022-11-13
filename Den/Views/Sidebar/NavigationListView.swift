@@ -11,21 +11,21 @@ import SwiftUI
 
 struct NavigationListView: View {
     @Environment(\.persistentContainer) private var container
+    @Environment(\.editMode) private var editMode
     
-    let profile: Profile
+    @ObservedObject var profile: Profile
     let searchModel: SearchModel
     
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
-    @Binding var profileUnreadCount: Int
 
     var body: some View {
         List(selection: $selection) {
-            AllItemsNavView(profile: profile, unreadCount: $profileUnreadCount)
+            AllItemsNavView(profile: profile, unreadCount: profile.previewItems.unread().count)
             TrendsNavView(profile: profile)
             Section {
-                NewPageView(profile: profile, refreshing: $refreshing)
+                NewPageView(profile: profile)
                 ForEach(profile.pagesArray) { page in
                     PageNavView(page: page, unreadCount: page.previewItems.unread().count)
                 }
@@ -64,7 +64,7 @@ struct NavigationListView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("settings-button")
-                .disabled(refreshing)
+                .disabled(refreshing || editMode?.wrappedValue.isEditing ?? true)
                 Spacer()
                 VStack {
                     if refreshing {
@@ -80,6 +80,9 @@ struct NavigationListView: View {
                         #endif
                     }
                 }
+                .foregroundColor(
+                    editMode?.wrappedValue.isEditing ?? true ? .secondary : .primary
+                )
                 .padding(.horizontal, 8)
                 .lineLimit(1)
                 .font(.caption)
@@ -100,7 +103,7 @@ struct NavigationListView: View {
                 .buttonStyle(ToolbarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
                 .accessibilityIdentifier("profile-refresh-button")
-                .disabled(refreshing)
+                .disabled(refreshing || editMode?.wrappedValue.isEditing ?? true)
             }
         }
     }

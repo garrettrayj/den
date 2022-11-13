@@ -22,7 +22,7 @@ class CustomWebView: WKWebView {
         super.init(frame: frame, configuration: configuration)
         
         cancellable = DispatchQueue.main.schedule(
-            after: .init(.now() + 1),
+            after: .init(.now() + 0.25),
             interval: 1
         ) {
             self.invalidateIntrinsicContentSize()

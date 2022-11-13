@@ -15,7 +15,7 @@ struct SyncUtility {
         guard item.read != true else { return }
         await logHistory(container: container, items: [item])
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, qos: .utility) {
+        DispatchQueue.main.async {
             NotificationCenter.default.postItemStatus(
                 read: true,
                 itemObjectID: item.objectID,
@@ -72,11 +72,12 @@ struct SyncUtility {
         
         await container?.performBackgroundTask { context in
             guard let profile = context.object(with: profileObjectID) as? Profile else { return }
+            
             for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { return }
+                guard let item = context.object(with: itemObjectID) as? Item else { continue }
                 item.read = true
 
-                let history = item.history.first ?? History.create(in: context, profile: profile)
+                let history = History.create(in: context, profile: profile)
                 history.link = item.link
                 history.title = item.title
                 history.visited = .now
@@ -95,7 +96,7 @@ struct SyncUtility {
 
         await container?.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { return }
+                guard let item = context.object(with: itemObjectID) as? Item else { continue }
                 item.read = false
                 for history in item.history {
                     context.delete(history)
