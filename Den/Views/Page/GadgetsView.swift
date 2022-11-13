@@ -12,14 +12,13 @@ struct GadgetsView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     let frameSize: CGSize
 
     var body: some View {
         ScrollView(.vertical) {
             BoardView(width: frameSize.width, list: page.feedsArray) { feed in
-                GadgetView(feed: feed, hideRead: $hideRead, refreshing: $refreshing)
+                GadgetView(feed: feed, hideRead: $hideRead)
             }
             .modifier(TopLevelBoardPaddingModifier())
         }

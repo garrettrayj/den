@@ -77,11 +77,11 @@ struct PageView: View {
                 )
             } else {
                 if viewMode == PageViewMode.blend.rawValue {
-                    BlendView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
+                    BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
                 } else if viewMode == PageViewMode.showcase.rawValue {
-                    ShowcaseView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
+                    ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
                 } else {
-                    GadgetsView(page: page, hideRead: $hideRead, refreshing: $refreshing, frameSize: geometry.size)
+                    GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
                 }
             }
         }
@@ -116,13 +116,12 @@ struct PageView: View {
         })
         .toolbar {
             #if targetEnvironment(macCatalyst)
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
                     .disabled(refreshing)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
+                
                 Button {
                     SubscriptionUtility.showSubscribe(page: page)
                 } label: {
@@ -131,49 +130,39 @@ struct PageView: View {
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("add-feed-button")
                 .disabled(refreshing)
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if refreshing {
-                    ProgressView()
-                        .progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    NavigationLink(value: PagePanel.pageSettings(page)) {
-                        Label("Page Settings", systemImage: "wrench")
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .accessibilityIdentifier("page-settings-button")
-                    .disabled(refreshing)
+                
+                NavigationLink(value: PagePanel.pageSettings(page)) {
+                    Label("Page Settings", systemImage: "wrench")
                 }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("page-settings-button")
+                .disabled(refreshing)
             }
             #else
             ToolbarItem {
-                if refreshing {
-                    ProgressView()
-                        .progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Menu {
-                        viewModePicker
+                Menu {
+                    viewModePicker
 
-                        Button {
-                            SubscriptionUtility.showSubscribe(page: page)
-                        } label: {
-                            Label("Add Feed", systemImage: "plus.circle")
-                        }
-                        .accessibilityIdentifier("add-feed-button")
-
-                        NavigationLink(value: PagePanel.pageSettings(page)) {
-                            Label("Page Settings", systemImage: "wrench")
-                        }
-                        .accessibilityIdentifier("page-settings-button")
+                    Button {
+                        SubscriptionUtility.showSubscribe(page: page)
                     } label: {
-                        Label("Page Menu", systemImage: "ellipsis.circle")
-                            .frame(height: 44, alignment: .center)
-                            .padding(.horizontal, 8)
-                            .background(Color.clear)
-                            .padding(.trailing, -8)
+                        Label("Add Feed", systemImage: "plus.circle")
                     }
-                    .accessibilityIdentifier("page-menu")
+                    .accessibilityIdentifier("add-feed-button")
+
+                    NavigationLink(value: PagePanel.pageSettings(page)) {
+                        Label("Page Settings", systemImage: "wrench")
+                    }
+                    .accessibilityIdentifier("page-settings-button")
+                } label: {
+                    Label("Page Menu", systemImage: "ellipsis.circle")
+                        .frame(height: 44, alignment: .center)
+                        .padding(.horizontal, 8)
+                        .background(Color.clear)
+                        .padding(.trailing, -8)
                 }
+                .disabled(refreshing)
+                .accessibilityIdentifier("page-menu")
             }
             #endif
 

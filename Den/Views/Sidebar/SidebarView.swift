@@ -18,7 +18,7 @@ struct SidebarView: View {
     @Binding var refreshProgress: Progress
     @Binding var profileUnreadCount: Int
     
-    let searchModel: SearchModel
+    @ObservedObject var searchModel: SearchModel
 
     var body: some View {
         if profile.pagesArray.isEmpty {
@@ -35,6 +35,13 @@ struct SidebarView: View {
                 refreshProgress: $refreshProgress,
                 profileUnreadCount: $profileUnreadCount
             )
+            .searchable(
+                text: $searchModel.query,
+                placement: SearchFieldPlacement.navigationBarDrawer(displayMode: .always)
+            )
+            .onSubmit(of: .search) {
+                selection = .search
+            }
         }
     }
 }

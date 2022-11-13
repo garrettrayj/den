@@ -12,7 +12,6 @@ struct ShowcaseView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     let frameSize: CGSize
 
@@ -23,7 +22,6 @@ struct ShowcaseView: View {
                     ShowcaseSectionView(
                         feed: feed,
                         hideRead: $hideRead,
-                        refreshing: $refreshing,
                         width: frameSize.width
                     )
                 }

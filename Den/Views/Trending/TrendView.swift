@@ -32,7 +32,7 @@ struct TrendView: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: visibleItems) { item in
-                            FeedItemPreviewView(item: item, refreshing: $refreshing)
+                            FeedItemPreviewView(item: item)
                         }
                         .modifier(TopLevelBoardPaddingModifier())
                     }
