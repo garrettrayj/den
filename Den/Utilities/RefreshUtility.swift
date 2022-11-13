@@ -73,7 +73,8 @@ struct RefreshUtility {
         }
     }
     
-    static func refresh(container: NSPersistentContainer, feed: Feed) async {
+    static func refresh(container: NSPersistentContainer?, feed: Feed) async {
+        guard let container = container else { return }
         if let url = feed.url {
             var fetchMeta = false
             // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally

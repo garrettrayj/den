@@ -11,8 +11,7 @@ import SwiftUI
 
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.persistentContainer) private var persistentContainer
+    @Environment(\.persistentContainer) private var container
     @EnvironmentObject private var haptics: Haptics
 
     @Binding var initialPageObjectID: NSManagedObjectID?
@@ -202,17 +201,21 @@ struct SubscribeView: View {
 
     private func addFeed() async {
         guard
+            let container = container,
             let url = URL(string: urlString),
-            let page = targetPage,
-            let persistentContainer = persistentContainer
+            let page = targetPage
         else { return }
 
-        self.loading = true
+        loading = true
+        newFeed = Feed.create(in: container.viewContext, page: page, url: url, prepend: true)
 
-        newFeed = Feed.create(in: self.viewContext, page: page, url: url, prepend: true)
-        try? self.viewContext.save()
+        do {
+            try container.viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
         
-        await RefreshUtility.refresh(container: persistentContainer, feed: newFeed!)
+        await RefreshUtility.refresh(container: container, feed: newFeed!)
     }
 
     private func failValidation(message: String) {
