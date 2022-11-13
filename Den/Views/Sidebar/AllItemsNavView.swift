@@ -12,7 +12,8 @@ struct AllItemsNavView: View {
     @Environment(\.editMode) private var editMode
     @EnvironmentObject private var haptics: Haptics
     @ObservedObject var profile: Profile
-    @Binding var unreadCount: Int
+    
+    @State var unreadCount: Int
 
     var body: some View {
         NavigationLink(value: Panel.allItems) {
@@ -23,6 +24,32 @@ struct AllItemsNavView: View {
             }
         }
         .badge(unreadCount)
+        .onReceive(
+            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
+        ) { notification in
+            guard
+                let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
+                profileObjectID == profile.objectID,
+                let read = notification.userInfo?["read"] as? Bool
+            else {
+                return
+            }
+            unreadCount += read ? -1 : 1
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .pagesRefreshed, object: nil)
+        ) { _ in
+            unreadCount = profile.previewItems.unread().count
+        }
+        .onChange(of: unreadCount) { newValue in
+            UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
+                if granted {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.applicationIconBadgeNumber = newValue
+                    }
+                }
+            }
+        }
         .accessibilityIdentifier("timeline-button")
     }
 }

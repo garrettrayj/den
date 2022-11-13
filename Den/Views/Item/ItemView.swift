@@ -37,15 +37,16 @@ struct ItemView: View {
 
                             
                             ViewThatFits(in: .horizontal) {
-                                HStack(spacing: 2) {
-                                    Text("\(item.date.formatted(date: .complete, time: .shortened))")
+                                HStack(spacing: 4) {
+                                    Text(item.date.formatted())
                                     if let author = item.author {
-                                        Text("· \(author)")
+                                        Text("•")
+                                        Text(author)
                                     }
                                 }
                                 
                                 VStack(alignment: .leading) {
-                                    Text("\(item.date.formatted())")
+                                    Text(item.date.formatted())
                                     if let author = item.author {
                                         Text(author)
                                     }
@@ -97,7 +98,7 @@ struct ItemView: View {
                         .accessibilityIdentifier("item-open-button")
                     }
                 }
-                .task(priority: TaskPriority.high) {
+                .task(priority: TaskPriority.userInitiated) {
                     await SyncUtility.markItemRead(container: container, item: item)
                 }
             }

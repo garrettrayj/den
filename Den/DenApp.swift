@@ -15,7 +15,6 @@ struct DenApp: App {
     
     @State private var activeProfile: Profile?
     @State private var refreshing: Bool = false
-    @State private var profileUnreadCount: Int = 0
     
     @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
@@ -27,7 +26,6 @@ struct DenApp: App {
         WindowGroup {
             RootView(
                 activeProfile: $activeProfile,
-                profileUnreadCount: $profileUnreadCount,
                 refreshing: $refreshing,
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
@@ -44,15 +42,7 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh(background: true)
         }
-        .onChange(of: profileUnreadCount) { newValue in
-            UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (granted, error) in
-                if granted {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.applicationIconBadgeNumber = newValue
-                    }
-                }
-            }
-        }
+        
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
@@ -164,7 +154,6 @@ struct DenApp: App {
     
     private func loadProfile() {
         activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
-        profileUnreadCount = activeProfile?.previewItems.unread().count ?? 0
         WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
     }
 }

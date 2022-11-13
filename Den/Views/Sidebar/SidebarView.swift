@@ -16,7 +16,6 @@ struct SidebarView: View {
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
-    @Binding var profileUnreadCount: Int
     
     @ObservedObject var searchModel: SearchModel
 
@@ -32,8 +31,7 @@ struct SidebarView: View {
                 searchModel: searchModel,
                 selection: $selection,
                 refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
-                profileUnreadCount: $profileUnreadCount
+                refreshProgress: $refreshProgress
             )
             .searchable(
                 text: $searchModel.query,

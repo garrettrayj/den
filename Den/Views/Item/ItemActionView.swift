@@ -23,7 +23,7 @@ struct ItemActionView<Content: View>: View {
                     url: item.link,
                     readerMode: item.feedData?.feed?.readerMode ?? false
                 )
-                Task(priority: .background) {
+                Task {
                     await SyncUtility.markItemRead(container: container, item: item)
                 }
             } label: {

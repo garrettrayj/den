@@ -14,7 +14,6 @@ struct RootView: View {
     @Environment(\.persistentContainer) private var container
 
     @Binding var activeProfile: Profile?
-    @Binding var profileUnreadCount: Int
     @Binding var refreshing: Bool
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
@@ -45,7 +44,6 @@ struct RootView: View {
                         selection: $selection,
                         refreshing: $refreshing,
                         refreshProgress: $refreshProgress,
-                        profileUnreadCount: $profileUnreadCount,
                         searchModel: searchModel
                     )
                     .navigationSplitViewColumnWidth(268)
@@ -56,7 +54,6 @@ struct RootView: View {
                         selection: $selection,
                         activeProfile: $activeProfile,
                         uiStyle: $uiStyle,
-                        profileUnreadCount: $profileUnreadCount,
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
@@ -64,25 +61,12 @@ struct RootView: View {
                         searchModel: searchModel
                     )
                 }
-                .onChange(of: activeProfile!) { newValue in
-                    profileUnreadCount = newValue.previewItems.unread().count
-                }
                 .onChange(of: selection) { _ in
                     path.removeLast(path.count)
                 }
                 .onChange(of: uiStyle, perform: { _ in
                     WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
                 })
-                .onReceive(NotificationCenter.default.publisher(for: .itemStatus)) { notification in
-                    guard
-                        let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                        profileObjectID == profile.objectID,
-                        let read = notification.userInfo?["read"] as? Bool
-                    else {
-                        return
-                    }
-                    profileUnreadCount += read ? -1 : 1
-                }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
                     haptics.mediumImpactFeedbackGenerator.impactOccurred()
                     self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? 0)
@@ -94,7 +78,6 @@ struct RootView: View {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
                     self.refreshProgress.completedUnitCount += 1
-                    self.profileUnreadCount = profile.previewItems.unread().count
                 }
                 .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
                     self.refreshing = false
