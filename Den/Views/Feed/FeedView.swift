@@ -14,7 +14,6 @@ struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var feed: Feed
-    @State var unreadCount: Int
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
@@ -35,23 +34,6 @@ struct FeedView: View {
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .onChange(of: feed.page) { _ in
             dismiss()
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-        ) { notification in
-            guard
-                let feedObjectID = notification.userInfo?["feedObjectID"] as? NSManagedObjectID,
-                feedObjectID == feed.objectID,
-                let read = notification.userInfo?["read"] as? Bool
-            else {
-                return
-            }
-            unreadCount += read ? -1 : 1
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
-        ) { _ in
-            unreadCount = feed.feedData?.previewItems.count ?? 0
         }
         .navigationTitle(feed.wrappedTitle)
         .navigationDestination(for: FeedPanel.self, destination: { feedPanel in
@@ -160,20 +142,12 @@ struct FeedView: View {
             .accessibilityIdentifier("feed-settings-button")
             .disabled(refreshing)
         }
-
-        ReadingToolbarContent(
-            unreadCount: $unreadCount,
+        
+        FeedBottomBarContent(
+            feed: feed,
             hideRead: $hideRead,
             refreshing: $refreshing,
-            centerLabel: Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread")
-        ) {
-            Task {
-                await SyncUtility.toggleReadUnread(
-                    container: container,
-                    items: feed.feedData?.previewItems ?? []
-                )
-            }
-            feed.objectWillChange.send()
-        }
+            unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
+        )
     }
 }

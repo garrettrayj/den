@@ -1,5 +1,5 @@
 //
-//  PageBottomBarContent.swift
+//  AllBottomBarContent.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -8,10 +8,10 @@
 
 import SwiftUI
 
-struct PageBottomBarContent: ToolbarContent {
+struct AllBottomBarContent: ToolbarContent {
     @Environment(\.persistentContainer) private var container
     
-    @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
@@ -30,8 +30,8 @@ struct PageBottomBarContent: ToolbarContent {
                     NotificationCenter.default.publisher(for: .itemStatus, object: nil)
                 ) { notification in
                     guard
-                        let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                        pageObjectID == page.objectID,
+                        let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
+                        profileObjectID == profile.objectID,
                         let read = notification.userInfo?["read"] as? Bool
                     else {
                         return
@@ -39,20 +39,15 @@ struct PageBottomBarContent: ToolbarContent {
                     unreadCount += read ? -1 : 1
                 }
                 .onReceive(
-                    NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
-                ) { notification in
-                    guard
-                        let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                        pageObjectID == page.objectID
-                    else {
-                        return
-                    }
-                    unreadCount = page.previewItems.unread().count
+                    NotificationCenter.default.publisher(for: .pagesRefreshed, object: nil)
+                ) { _ in
+                    unreadCount = profile.previewItems.unread().count
                 }
             Spacer()
             ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
-                await SyncUtility.toggleReadUnread(container: container, items: page.previewItems)
+                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
             }
         }
     }
 }
+

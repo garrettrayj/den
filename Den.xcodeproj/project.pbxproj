@@ -68,7 +68,6 @@
 		6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
 		6868A306288E62250051D43E /* AllReadStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A305288E62250051D43E /* AllReadStatusView.swift */; };
-		6868A3082890E8680051D43E /* ReadingToolbarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A3072890E8680051D43E /* ReadingToolbarContent.swift */; };
 		6868A30C2894F98C0051D43E /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30B2894F98C0051D43E /* UIConstants.swift */; };
 		6868A30E2895229D0051D43E /* ImagePlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30D2895229D0051D43E /* ImagePlaceholderView.swift */; };
 		6868A3102895BF080051D43E /* CapsuleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30F2895BF080051D43E /* CapsuleModifier.swift */; };
@@ -186,6 +185,12 @@
 		68FC256B2763626B0073979F /* FeedRefreshedLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC256A2763626B0073979F /* FeedRefreshedLabelView.swift */; };
 		68FC256F27640AA00073979F /* ItemPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FC256E27640AA00073979F /* ItemPreviewView.swift */; };
 		68FF63F02921C56E0012A275 /* PageBottomBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63EF2921C56E0012A275 /* PageBottomBarContent.swift */; };
+		68FF63F22921D88F0012A275 /* FeedBottomBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63F12921D88F0012A275 /* FeedBottomBarContent.swift */; };
+		68FF63F42921D9C50012A275 /* ToggleReadButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63F32921D9C50012A275 /* ToggleReadButtonView.swift */; };
+		68FF63F62921DB900012A275 /* FilterReadButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63F52921DB900012A275 /* FilterReadButtonView.swift */; };
+		68FF63F82921DCE00012A275 /* TrendsBottomBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63F72921DCE00012A275 /* TrendsBottomBarContent.swift */; };
+		68FF63FA2921DCF20012A275 /* TrendBottomBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63F92921DCF20012A275 /* TrendBottomBarContent.swift */; };
+		68FF63FD2921DD2B0012A275 /* AllBottomBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68FF63FC2921DD2B0012A275 /* AllBottomBarContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -308,7 +313,6 @@
 		6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldModifier.swift; sourceTree = "<group>"; };
 		6865452F274AC3B600BAE03E /* PageSymbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSymbols.plist; sourceTree = "<group>"; };
 		6868A305288E62250051D43E /* AllReadStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReadStatusView.swift; sourceTree = "<group>"; };
-		6868A3072890E8680051D43E /* ReadingToolbarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingToolbarContent.swift; sourceTree = "<group>"; };
 		6868A30B2894F98C0051D43E /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		6868A30D2895229D0051D43E /* ImagePlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePlaceholderView.swift; sourceTree = "<group>"; };
 		6868A30F2895BF080051D43E /* CapsuleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleModifier.swift; sourceTree = "<group>"; };
@@ -432,6 +436,12 @@
 		68FC256A2763626B0073979F /* FeedRefreshedLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRefreshedLabelView.swift; sourceTree = "<group>"; };
 		68FC256E27640AA00073979F /* ItemPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewView.swift; sourceTree = "<group>"; };
 		68FF63EF2921C56E0012A275 /* PageBottomBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBottomBarContent.swift; sourceTree = "<group>"; };
+		68FF63F12921D88F0012A275 /* FeedBottomBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedBottomBarContent.swift; sourceTree = "<group>"; };
+		68FF63F32921D9C50012A275 /* ToggleReadButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleReadButtonView.swift; sourceTree = "<group>"; };
+		68FF63F52921DB900012A275 /* FilterReadButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterReadButtonView.swift; sourceTree = "<group>"; };
+		68FF63F72921DCE00012A275 /* TrendsBottomBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsBottomBarContent.swift; sourceTree = "<group>"; };
+		68FF63F92921DCF20012A275 /* TrendBottomBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendBottomBarContent.swift; sourceTree = "<group>"; };
+		68FF63FC2921DD2B0012A275 /* AllBottomBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBottomBarContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -490,6 +500,7 @@
 			isa = PBXGroup;
 			children = (
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
+				68FF63F12921D88F0012A275 /* FeedBottomBarContent.swift */,
 				688FD930247A34830006A2DE /* FeedSettingsView.swift */,
 			);
 			path = Feed;
@@ -798,7 +809,7 @@
 				68FC2566275E07E20073979F /* Sidebar */,
 				6829A4FB28C2744900F75C5A /* DetailView.swift */,
 				68ADABC224A21F2500BE41E2 /* WelcomeView.swift */,
-				68F56B5928739041006EC915 /* AllItemsView.swift */,
+				68FF63FB2921DD060012A275 /* All */,
 				68F56B3B286F5C01006EC915 /* Trending */,
 				68FC2567275E0D820073979F /* Page */,
 				68014D5C27BC5CAB0017E2CB /* Feed */,
@@ -817,7 +828,8 @@
 				68F56B482870C45B006EC915 /* FeedFaviconView.swift */,
 				6868A305288E62250051D43E /* AllReadStatusView.swift */,
 				6829A50B28C6479900F75C5A /* AllReadCompactView.swift */,
-				6868A3072890E8680051D43E /* ReadingToolbarContent.swift */,
+				68FF63F32921D9C50012A275 /* ToggleReadButtonView.swift */,
+				68FF63F52921DB900012A275 /* FilterReadButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -893,8 +905,10 @@
 			isa = PBXGroup;
 			children = (
 				68F56B3C286F5C20006EC915 /* TrendsView.swift */,
+				68FF63F72921DCE00012A275 /* TrendsBottomBarContent.swift */,
 				68F56B442870C067006EC915 /* TrendBlockView.swift */,
 				68F56B462870C123006EC915 /* TrendView.swift */,
+				68FF63F92921DCF20012A275 /* TrendBottomBarContent.swift */,
 			);
 			path = Trending;
 			sourceTree = "<group>";
@@ -927,6 +941,15 @@
 				688FD917247750350006A2DE /* PageSettingsView.swift */,
 			);
 			path = Page;
+			sourceTree = "<group>";
+		};
+		68FF63FB2921DD060012A275 /* All */ = {
+			isa = PBXGroup;
+			children = (
+				68F56B5928739041006EC915 /* AllItemsView.swift */,
+				68FF63FC2921DD2B0012A275 /* AllBottomBarContent.swift */,
+			);
+			path = All;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1224,6 +1247,7 @@
 				6880EBEB27AEF12000B479F4 /* NavChevronView.swift in Sources */,
 				68B6CBE42910B9C400B5E3AB /* CleanOperation.swift in Sources */,
 				6868A3162895D20D0051D43E /* TrendsNavView.swift in Sources */,
+				68FF63FD2921DD2B0012A275 /* AllBottomBarContent.swift in Sources */,
 				680744C028E95CD80008A09D /* StartListView.swift in Sources */,
 				6832AF2E278BA6A800CFC8CA /* SearchResultsView.swift in Sources */,
 				68B34A672487ED870066B215 /* ExportView.swift in Sources */,
@@ -1236,6 +1260,7 @@
 				68E4274326D2C2BB00E496E3 /* SecurityView.swift in Sources */,
 				68701DF9273E559C00C6BB69 /* ProfileUtility.swift in Sources */,
 				684DFA0324BAC7680023D6DB /* MIMEType.swift in Sources */,
+				68FF63F22921D88F0012A275 /* FeedBottomBarContent.swift in Sources */,
 				6829A50C28C6479900F75C5A /* AllReadCompactView.swift in Sources */,
 				6880EBE327A8F63E00B479F4 /* ParsedFeedItem.swift in Sources */,
 				685ECB1126EE611000A3B184 /* PageNavView.swift in Sources */,
@@ -1254,6 +1279,7 @@
 				6880EBE127A8E61C00B479F4 /* RankedImage.swift in Sources */,
 				68AC3A1A2910EF3A00D60273 /* FeedCheckOperation.swift in Sources */,
 				68AC3A1D2910EF6E00D60273 /* AsynchronousOperation.swift in Sources */,
+				68FF63F82921DCE00012A275 /* TrendsBottomBarContent.swift in Sources */,
 				68F8884A28CD2F1F000067CD /* Panels.swift in Sources */,
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */,
@@ -1262,8 +1288,8 @@
 				682A34A428E591E5004CD90E /* TouchSectionView.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				6832AF2C278B889300CFC8CA /* StatusBoxView.swift in Sources */,
-				6868A3082890E8680051D43E /* ReadingToolbarContent.swift in Sources */,
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,
+				68FF63FA2921DCF20012A275 /* TrendBottomBarContent.swift in Sources */,
 				68AC3A172910EEB500D60273 /* WorkingTrend.swift in Sources */,
 				68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */,
 				68F56B75288BFCCC006EC915 /* Den.xcdatamodel in Sources */,
@@ -1299,6 +1325,7 @@
 				685ABAD4290EF3430080110A /* RefreshUtility.swift in Sources */,
 				687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedSettingsView.swift in Sources */,
+				68FF63F42921D9C50012A275 /* ToggleReadButtonView.swift in Sources */,
 				68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
 				6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */,
@@ -1328,6 +1355,7 @@
 				68F56B77288C0D1A006EC915 /* Trend+CoreDataClass.swift in Sources */,
 				682A349728E2B38E004CD90E /* URLDropTargetModifier.swift in Sources */,
 				680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */,
+				68FF63F62921DB900012A275 /* FilterReadButtonView.swift in Sources */,
 				689838CC291D88FE00FDC881 /* SafariUtility.swift in Sources */,
 				68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */,
 				68D9BAA228A60CBE00F1A3AD /* ResetSectionView.swift in Sources */,

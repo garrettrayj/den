@@ -13,8 +13,6 @@ struct AllItemsView: View {
     @Environment(\.persistentContainer) private var container
 
     let profile: Profile
-
-    @State var unreadCount: Int
     
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
@@ -72,15 +70,13 @@ struct AllItemsView: View {
                 .accessibilityIdentifier("add-feed-button")
                 .disabled(refreshing)
             }
-
-            ReadingToolbarContent(
-                unreadCount: $unreadCount,
+            
+            AllBottomBarContent(
+                profile: profile,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) Unread")
-            ) {
-                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
-            }
+                unreadCount: profile.previewItems.unread().count
+            )
         }
     }
 

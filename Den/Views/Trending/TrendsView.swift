@@ -14,8 +14,6 @@ struct TrendsView: View {
 
     @ObservedObject var profile: Profile
 
-    @State var unreadCount: Int
-
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
@@ -41,24 +39,6 @@ struct TrendsView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
-        .onReceive(
-            NotificationCenter.default
-                .publisher(for: .itemStatus)
-                .throttle(for: 1.0, scheduler: RunLoop.main, latest: true)
-        ) { notification in
-            guard
-                let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                profileObjectID == profile.objectID
-            else {
-                return
-            }
-            unreadCount = profile.trends.unread().count
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
-        ) { _ in
-            unreadCount = profile.trends.unread().count
-        }
         .navigationTitle("Trends")
         .navigationDestination(for: TrendPanel.self) { detailPanel in
             switch detailPanel {
@@ -72,14 +52,12 @@ struct TrendsView: View {
             }
         }
         .toolbar {
-            ReadingToolbarContent(
-                unreadCount: $unreadCount,
+            TrendsBottomBarContent(
+                profile: profile,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) with Unread")
-            ) {
-                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
-            }
+                unreadCount: profile.trends.unread().count
+            )
         }
     }
 
