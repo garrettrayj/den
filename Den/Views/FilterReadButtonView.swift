@@ -28,4 +28,3 @@ struct FilterReadButtonView: View {
         .disabled(refreshing)
     }
 }
-

@@ -28,7 +28,23 @@ struct FeedView: View {
                         feedItems(frameSize: geometry.size)
                     }
                 }
-                .toolbar { toolbar }
+                .toolbar {
+                    ToolbarItem {
+                        NavigationLink(value: FeedPanel.feedSettings(feed)) {
+                            Label("Feed Settings", systemImage: "wrench")
+                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .accessibilityIdentifier("feed-settings-button")
+                        .disabled(refreshing)
+                    }
+                    
+                    FeedBottomBarContent(
+                        feed: feed,
+                        hideRead: $hideRead,
+                        refreshing: $refreshing,
+                        unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
+                    )
+                }
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
@@ -130,24 +146,5 @@ struct FeedView: View {
             }
         }
         .lineLimit(1)
-    }
-
-    @ToolbarContentBuilder
-    private var toolbar: some ToolbarContent {
-        ToolbarItem {
-            NavigationLink(value: FeedPanel.feedSettings(feed)) {
-                Label("Feed Settings", systemImage: "wrench")
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("feed-settings-button")
-            .disabled(refreshing)
-        }
-        
-        FeedBottomBarContent(
-            feed: feed,
-            hideRead: $hideRead,
-            refreshing: $refreshing,
-            unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
-        )
     }
 }

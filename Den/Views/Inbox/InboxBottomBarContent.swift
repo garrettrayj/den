@@ -1,5 +1,5 @@
 //
-//  AllBottomBarContent.swift
+//  InboxBottomBarContent.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AllBottomBarContent: ToolbarContent {
+struct InboxBottomBarContent: ToolbarContent {
     @Environment(\.persistentContainer) private var container
     
     @ObservedObject var profile: Profile

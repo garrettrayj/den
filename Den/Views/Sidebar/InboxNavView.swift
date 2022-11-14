@@ -1,5 +1,5 @@
 //
-//  AllItemsNavView.swift
+//  InboxNavView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/30/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AllItemsNavView: View {
+struct InboxNavView: View {
     @Environment(\.editMode) private var editMode
     @EnvironmentObject private var haptics: Haptics
     @ObservedObject var profile: Profile
@@ -18,7 +18,7 @@ struct AllItemsNavView: View {
     var body: some View {
         NavigationLink(value: Panel.allItems) {
             Label {
-                Text("All Items").lineLimit(1)
+                Text("Inbox").lineLimit(1)
             } icon: {
                 Image(systemName: unreadCount > 0 ? "tray.full": "tray")
             }
@@ -50,6 +50,6 @@ struct AllItemsNavView: View {
                 }
             }
         }
-        .accessibilityIdentifier("timeline-button")
+        .accessibilityIdentifier("inbox-button")
     }
 }

@@ -22,7 +22,7 @@ struct NavigationListView: View {
 
     var body: some View {
         List(selection: $selection) {
-            AllItemsNavView(profile: profile, unreadCount: profile.previewItems.unread().count)
+            InboxNavView(profile: profile, unreadCount: profile.previewItems.unread().count)
             TrendsNavView(profile: profile)
             Section {
                 NewPageView(profile: profile)
