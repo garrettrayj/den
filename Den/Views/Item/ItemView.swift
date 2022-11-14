@@ -78,7 +78,7 @@ struct ItemView: View {
                 }
                 .toolbar {
                     if let link = item.link {
-                        ToolbarItem(placement: .navigationBarTrailing) {
+                        ToolbarItem {
                             ShareLink(item: link).buttonStyle(ToolbarButtonStyle())
                         }
                     }

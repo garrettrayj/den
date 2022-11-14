@@ -49,10 +49,9 @@ struct DetailView: View {
                 case .page(let page):
                     PageView(
                         page: page,
-                        unreadCount: page.previewItems.unread().count,
                         hideRead: $hideRead,
                         refreshing: $refreshing
-                    )
+                    ).id(page.id)
                 case .settings:
                     SettingsView(
                         activeProfile: $activeProfile,

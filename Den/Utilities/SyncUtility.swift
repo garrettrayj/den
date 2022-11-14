@@ -16,29 +16,7 @@ struct SyncUtility {
         await logHistory(container: container, items: [item])
         
         DispatchQueue.main.async {
-            NotificationCenter.default.postItemStatus(
-                read: true,
-                itemObjectID: item.objectID,
-                feedObjectID: item.feedData?.feed?.objectID,
-                pageObjectID: item.feedData?.feed?.page?.objectID,
-                profileObjectID: item.feedData?.feed?.page?.profile?.objectID
-            )
-        }
-    }
-
-    static func markItemUnread(container: NSPersistentContainer, item: Item) async {
-        guard item.read != false else { return }
-        item.read = false
-        await clearHistory(container: container, items: [item])
-        
-        DispatchQueue.main.async {
-            NotificationCenter.default.postItemStatus(
-                read: false,
-                itemObjectID: item.objectID,
-                feedObjectID: item.feedData?.feed?.objectID,
-                pageObjectID: item.feedData?.feed?.page?.objectID,
-                profileObjectID: item.feedData?.feed?.page?.profile?.objectID
-            )
+            NotificationCenter.default.postItemStatus(item: item)
         }
     }
 
@@ -53,15 +31,9 @@ struct SyncUtility {
             await logHistory(container: container, items: modItems)
         }
         
-        modItems.forEach { item in
+        for item in modItems {
             DispatchQueue.main.async {
-                NotificationCenter.default.postItemStatus(
-                    read: item.read,
-                    itemObjectID: item.objectID,
-                    feedObjectID: item.feedData?.feed?.objectID,
-                    pageObjectID: item.feedData?.feed?.page?.objectID,
-                    profileObjectID: item.feedData?.feed?.page?.profile?.objectID
-                )
+                NotificationCenter.default.postItemStatus(item: item)
             }
         }
     }

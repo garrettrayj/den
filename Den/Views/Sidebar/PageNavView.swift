@@ -36,11 +36,6 @@ struct PageNavView: View {
             unreadCount += read ? -1 : 1
         }
         .onReceive(
-            NotificationCenter.default.publisher(for: .pageRefreshed, object: page.objectID)
-        ) { _ in
-            unreadCount = page.previewItems.unread().count
-        }
-        .onReceive(
             NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
         ) { notification in
             guard

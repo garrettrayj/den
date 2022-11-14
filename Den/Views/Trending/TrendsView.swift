@@ -53,7 +53,6 @@ struct TrendsView: View {
                 return
             }
             unreadCount = profile.trends.unread().count
-            profile.trends.forEach { $0.objectWillChange.send() }
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
