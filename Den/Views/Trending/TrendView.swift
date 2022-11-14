@@ -41,28 +41,15 @@ struct TrendView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-        .onReceive(
-            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-        ) { notification in
-            guard
-                let itemObjectID = notification.userInfo?["itemObjectID"] as? NSManagedObjectID,
-                trend.items.map({ $0.objectID }).contains(itemObjectID),
-                let read = notification.userInfo?["read"] as? Bool
-            else {
-                return
-            }
-            unreadCount += read ? -1 : 1
-        }
+        
         .navigationTitle(trend.wrappedTitle)
         .toolbar {
-            ReadingToolbarContent(
-                unreadCount: $unreadCount,
+            TrendBottomBarContent(
+                trend: trend,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) Unread")
-            ) {
-                await SyncUtility.toggleReadUnread(container: container, items: trend.items)
-            }
+                unreadCount: trend.items.unread().count
+            )
         }
     }
 
