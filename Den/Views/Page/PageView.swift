@@ -15,8 +15,6 @@ struct PageView: View {
 
     @ObservedObject var page: Page
 
-    @State var unreadCount: Int
-
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
@@ -28,9 +26,8 @@ struct PageView: View {
         case blend = 2
     }
 
-    init(page: Page, unreadCount: Int, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
+    init(page: Page, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
         self.page = page
-        _unreadCount = State(initialValue: unreadCount)
         _hideRead = hideRead
         _refreshing = refreshing
         _viewMode = AppStorage(
@@ -88,23 +85,6 @@ struct PageView: View {
         .onChange(of: viewMode, perform: { _ in
             page.objectWillChange.send()
         })
-        .onReceive(
-            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-        ) { notification in
-            guard
-                let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                pageObjectID == page.objectID,
-                let read = notification.userInfo?["read"] as? Bool
-            else {
-                return
-            }
-            unreadCount += read ? -1 : 1
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .pageRefreshed, object: page.objectID)
-        ) { _ in
-            unreadCount = page.previewItems.unread().count
-        }
         .modifier(URLDropTargetModifier(page: page))
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle(page.displayName)
@@ -116,7 +96,7 @@ struct PageView: View {
         })
         .toolbar {
             #if targetEnvironment(macCatalyst)
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
+            ToolbarItemGroup {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
@@ -166,14 +146,12 @@ struct PageView: View {
             }
             #endif
 
-            ReadingToolbarContent(
-                unreadCount: $unreadCount,
+            PageBottomBarContent(
+                page: page,
                 hideRead: $hideRead,
-                refreshing: $refreshing,
-                centerLabel: Text("\(unreadCount) Unread")
-            ) {
-                await SyncUtility.toggleReadUnread(container: container, items: page.previewItems)
-            }
+                refreshing: $hideRead,
+                unreadCount: page.previewItems.unread().count
+            )
         }
     }
 

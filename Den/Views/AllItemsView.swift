@@ -62,18 +62,15 @@ struct AllItemsView: View {
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle("All Items")
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                if refreshing {
-                    ProgressView().progressViewStyle(ToolbarProgressStyle())
-                } else {
-                    Button {
-                        SubscriptionUtility.showSubscribe()
-                    } label: {
-                        Label("Add Feed", systemImage: "plus.circle")
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .accessibilityIdentifier("add-feed-button")
+            ToolbarItem {
+                Button {
+                    SubscriptionUtility.showSubscribe()
+                } label: {
+                    Label("Add Feed", systemImage: "plus.circle")
                 }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("add-feed-button")
+                .disabled(refreshing)
             }
 
             ReadingToolbarContent(

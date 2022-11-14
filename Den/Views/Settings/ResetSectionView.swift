@@ -63,9 +63,6 @@ struct ResetSectionView: View {
         await SyncUtility.resetHistory(container: container, profile: profile)
         DispatchQueue.main.async {
             profile.objectWillChange.send()
-            profile.pagesArray.forEach { page in
-                NotificationCenter.default.post(name: .pageRefreshed, object: page.objectID)
-            }
         }
     }
 
@@ -74,9 +71,6 @@ struct ResetSectionView: View {
 
         DispatchQueue.main.async {
             activeProfile?.objectWillChange.send()
-            activeProfile?.pagesArray.forEach {
-                NotificationCenter.default.post(name: .pageRefreshed, object: $0.objectID)
-            }
         }
     }
 

@@ -106,12 +106,11 @@ struct FeedRefreshOperation {
             }
         }
 
-        let userInfo = ["pageObjectID": pageObjectID as Any]
         DispatchQueue.main.async {
             NotificationCenter.default.post(
                 name: .feedRefreshed,
                 object: self.feedObjectID,
-                userInfo: userInfo
+                userInfo: ["pageObjectID": pageObjectID as Any]
             )
         }
         return refreshStatus

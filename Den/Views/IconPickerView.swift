@@ -29,7 +29,7 @@ struct IconPickerView: View {
             .navigationTitle("Select Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem {
                     Button {
                         dismiss()
                     } label: {

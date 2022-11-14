@@ -49,7 +49,7 @@ struct NavigationListView: View {
         }
         #endif
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem {
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
                     .disabled(refreshing)

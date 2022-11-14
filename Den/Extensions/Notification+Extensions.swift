@@ -14,7 +14,6 @@ extension Notification.Name {
     static let refreshFinished = Notification.Name("refresh-finished")
 
     static let feedRefreshed = Notification.Name("feed-refreshed")
-    static let pageRefreshed = Notification.Name("page-refreshed")
     static let pagesRefreshed = Notification.Name("pages-refreshed")
 
     static let itemStatus = Notification.Name("item-status")
@@ -24,19 +23,13 @@ extension Notification.Name {
 }
 
 extension NotificationCenter {
-    func postItemStatus(
-        read: Bool,
-        itemObjectID: NSManagedObjectID?,
-        feedObjectID: NSManagedObjectID?,
-        pageObjectID: NSManagedObjectID?,
-        profileObjectID: NSManagedObjectID?
-    ) {
+    func postItemStatus(item: Item) {
         let userInfo: [String: Any] = [
-            "read": read,
-            "itemObjectID": itemObjectID ?? "",
-            "feedObjectID": feedObjectID ?? "",
-            "pageObjectID": pageObjectID ?? "",
-            "profileObjectID": profileObjectID ?? ""
+            "read": item.read,
+            "itemObjectID": item.objectID,
+            "feedObjectID": item.feedData?.feed?.objectID ?? "",
+            "pageObjectID": item.feedData?.feed?.page?.objectID ?? "",
+            "profileObjectID": item.feedData?.feed?.page?.profile?.objectID ?? ""
         ]
         post(name: .itemStatus, object: nil, userInfo: userInfo)
     }
