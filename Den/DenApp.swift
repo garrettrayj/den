@@ -9,6 +9,10 @@ import OSLog
 import SwiftUI
 import BackgroundTasks
 
+import SDWebImageSwiftUI
+import SDWebImageSVGCoder
+import SDWebImageWebPCoder
+
 @main
 struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
@@ -42,7 +46,6 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh(background: true)
         }
-        
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
@@ -129,6 +132,18 @@ struct DenApp: App {
         return container
     }()
     
+    init() {
+        // Add additional image format support
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
+
+        // Explicit list of accepted image types so servers may decide what to respond with
+        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
+            mimeType.rawValue
+        }).joined(separator: ",")
+        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
+    }
+
     private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
         request.earliestBeginDate = .now + 10 * 60

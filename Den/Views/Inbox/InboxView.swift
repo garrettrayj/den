@@ -1,5 +1,5 @@
 //
-//  AllItemsView.swift
+//  InboxView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/4/22.
@@ -9,7 +9,7 @@
 import CoreData
 import SwiftUI
 
-struct AllItemsView: View {
+struct InboxView: View {
     @Environment(\.persistentContainer) private var container
 
     let profile: Profile
@@ -58,7 +58,7 @@ struct AllItemsView: View {
             }
         }
         .background(Color(UIColor.systemGroupedBackground))
-        .navigationTitle("All Items")
+        .navigationTitle("Inbox")
         .toolbar {
             ToolbarItem {
                 Button {
@@ -71,7 +71,7 @@ struct AllItemsView: View {
                 .disabled(refreshing)
             }
             
-            AllBottomBarContent(
+            InboxBottomBarContent(
                 profile: profile,
                 hideRead: $hideRead,
                 refreshing: $refreshing,

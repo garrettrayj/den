@@ -149,7 +149,7 @@ struct PageView: View {
             PageBottomBarContent(
                 page: page,
                 hideRead: $hideRead,
-                refreshing: $hideRead,
+                refreshing: $refreshing,
                 unreadCount: page.previewItems.unread().count
             )
         }

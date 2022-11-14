@@ -33,7 +33,7 @@ struct DetailView: View {
                 case .search:
                     SearchView(profile: profile, searchModel: searchModel)
                 case .allItems:
-                    AllItemsView(
+                    InboxView(
                         profile: profile,
                         hideRead: $hideRead,
                         refreshing: $refreshing
