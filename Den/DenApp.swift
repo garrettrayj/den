@@ -46,6 +46,7 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh(background: true)
         }
+        
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
@@ -142,6 +143,8 @@ struct DenApp: App {
             mimeType.rawValue
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
+
+        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 512 // 512 MB
     }
 
     private func scheduleAppRefresh() {
