@@ -18,8 +18,7 @@ struct DetailView: View {
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
 
-    @ObservedObject var profile: Profile
-
+    let profile: Profile
     let searchModel: SearchModel
 
     @AppStorage("hideRead") private var hideRead = false
@@ -49,7 +48,7 @@ struct DetailView: View {
                         page: page,
                         hideRead: $hideRead,
                         refreshing: $refreshing
-                    ).id(page.id)
+                    )
                 case .settings:
                     SettingsView(
                         activeProfile: $activeProfile,

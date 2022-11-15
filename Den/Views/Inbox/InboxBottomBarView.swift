@@ -1,5 +1,5 @@
 //
-//  PageBottomBarContent.swift
+//  InboxBottomBarView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -9,10 +9,10 @@
 import CoreData
 import SwiftUI
 
-struct PageBottomBarContent: ToolbarContent {
+struct InboxBottomBarView: View {
     @Environment(\.persistentContainer) private var container
     
-    @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
@@ -20,8 +20,8 @@ struct PageBottomBarContent: ToolbarContent {
     @State var unreadCount: Int
     @State private var toggling: Bool = false
 
-    var body: some ToolbarContent {
-        ToolbarItemGroup(placement: .bottomBar) {
+    var body: some View {
+        Group {
             FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
             Spacer()
             Text("\(unreadCount) Unread")
@@ -31,8 +31,8 @@ struct PageBottomBarContent: ToolbarContent {
                     NotificationCenter.default.publisher(for: .itemStatus, object: nil)
                 ) { notification in
                     guard
-                        let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                        pageObjectID == page.objectID,
+                        let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
+                        profileObjectID == profile.objectID,
                         let read = notification.userInfo?["read"] as? Bool
                     else {
                         return
@@ -40,20 +40,15 @@ struct PageBottomBarContent: ToolbarContent {
                     unreadCount += read ? -1 : 1
                 }
                 .onReceive(
-                    NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
-                ) { notification in
-                    guard
-                        let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                        pageObjectID == page.objectID
-                    else {
-                        return
-                    }
-                    unreadCount = page.previewItems.unread().count
+                    NotificationCenter.default.publisher(for: .pagesRefreshed, object: nil)
+                ) { _ in
+                    unreadCount = profile.previewItems.unread().count
                 }
             Spacer()
             ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
-                await SyncUtility.toggleReadUnread(container: container, items: page.previewItems)
+                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
             }
         }
     }
 }
+

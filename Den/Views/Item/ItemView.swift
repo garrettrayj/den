@@ -11,7 +11,7 @@ import SwiftUI
 struct ItemView: View {
     @Environment(\.persistentContainer) private var container
     
-    let item: Item
+    @ObservedObject var item: Item
 
     let maxContentWidth: CGFloat = 800
 
@@ -101,6 +101,7 @@ struct ItemView: View {
                 .task(priority: TaskPriority.userInitiated) {
                     await SyncUtility.markItemRead(container: container, item: item)
                 }
+                
             }
         }
         .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))

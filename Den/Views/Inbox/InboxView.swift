@@ -71,12 +71,14 @@ struct InboxView: View {
                 .disabled(refreshing)
             }
             
-            InboxBottomBarContent(
-                profile: profile,
-                hideRead: $hideRead,
-                refreshing: $refreshing,
-                unreadCount: profile.previewItems.unread().count
-            )
+            ToolbarItemGroup(placement: .bottomBar) {
+                InboxBottomBarView(
+                    profile: profile,
+                    hideRead: $hideRead,
+                    refreshing: $refreshing,
+                    unreadCount: profile.previewItems.unread().count
+                )
+            }
         }
     }
 

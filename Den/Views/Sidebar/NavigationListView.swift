@@ -37,10 +37,6 @@ struct NavigationListView: View {
         }
         .listStyle(.sidebar)
         .navigationTitle(profile.displayName)
-        #if targetEnvironment(macCatalyst)
-        .navigationBarTitleDisplayMode(.inline)
-        #endif
-        
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {

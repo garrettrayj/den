@@ -51,7 +51,7 @@ struct AnalysisOperation {
             for (tokenText, tag) in item.wrappedTags {
                 let slug = tokenText.removingCharacters(in: .punctuationCharacters).lowercased()
                 
-                if var workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == slug }) {
+                if let workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == slug }) {
                     workingTrends[workingTrendIndex].items.append(item)
                 } else {
                     workingTrends.append(WorkingTrend(slug: slug, tag: tag, title: tokenText, items: [item]))
