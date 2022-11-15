@@ -84,43 +84,17 @@ struct SyncUtility {
     }
 
     static func resetHistory(container: NSPersistentContainer?, profile: Profile) async {
-        let profilePredicate = NSPredicate(
-            format: "profile.id == %@",
-            profile.id?.uuidString ?? ""
-        )
-
-        // Specify a batch to delete with a fetch request
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult>
-        fetchRequest = NSFetchRequest(entityName: "History")
-        fetchRequest.predicate = profilePredicate
-
-        // Create a batch delete request for the fetch request
-        let deleteRequest = NSBatchDeleteRequest(
-            fetchRequest: fetchRequest
-        )
-
-        // Specify the result of the NSBatchDeleteRequest
-        // should be the NSManagedObject IDs for the deleted objects
-        deleteRequest.resultType = .resultTypeObjectIDs
-
-        // Perform the batch delete
         await container?.performBackgroundTask { context in
-            let batchDelete = try? context.execute(deleteRequest) as? NSBatchDeleteResult
-
-            guard let deleteResult = batchDelete?.result as? [NSManagedObjectID]
-                else { return }
-
-            let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
-
-            // Merge the delete changes into the managed object context
-            NSManagedObjectContext.mergeChanges(
-                fromRemoteContextSave: deletedObjects,
-                into: [context]
-            )
-
-            // Update items
-            profile.previewItems.forEach { $0.read = false }
-
+            guard let profile = context.object(with: profile.objectID) as? Profile else { return }
+            
+            for history in profile.historyArray {
+                context.delete(history)
+            }
+            
+            for item in profile.previewItems.read() {
+                item.read = false
+            }
+            
             do {
                 try context.save()
             } catch {

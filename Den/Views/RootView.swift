@@ -21,7 +21,6 @@ struct RootView: View {
     @Binding var uiStyle: UIUserInterfaceStyle
 
     @StateObject private var searchModel = SearchModel()
-    @StateObject private var haptics = Haptics()
 
     @State private var selection: Panel?
     @State private var path = NavigationPath()
@@ -60,7 +59,6 @@ struct RootView: View {
                     searchModel: searchModel
                 )
             }
-            .environmentObject(haptics)
             .onChange(of: selection) { _ in
                 path.removeLast(path.count)
             }
@@ -68,7 +66,7 @@ struct RootView: View {
                 WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
             })
             .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-                haptics.mediumImpactFeedbackGenerator.impactOccurred()
+                Haptics.mediumImpactFeedbackGenerator.impactOccurred()
                 self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? 0)
                 self.refreshProgress.completedUnitCount = 0
                 self.refreshing = true
@@ -82,7 +80,7 @@ struct RootView: View {
             .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
                 self.refreshing = false
                 profile.objectWillChange.send()
-                haptics.notificationFeedbackGenerator.notificationOccurred(.success)
+                Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
             }
             .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
                 subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""

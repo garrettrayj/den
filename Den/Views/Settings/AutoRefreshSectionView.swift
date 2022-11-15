@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct AutoRefreshSectionView: View {
-    @EnvironmentObject var haptics: Haptics
-    
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool

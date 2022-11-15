@@ -11,7 +11,6 @@ import SwiftUI
 struct ImportView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var haptics: Haptics
 
     let profile: Profile
 
@@ -169,7 +168,7 @@ struct ImportView: View {
         }
         self.importFolders(opmlFolders: foldersToImport)
         stage = .complete
-        haptics.notificationFeedbackGenerator.notificationOccurred(.success)
+        Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
     }
 
     private func importFolders(opmlFolders: [OPMLReader.Folder]) {
