@@ -145,7 +145,6 @@ struct SubscribeView: View {
             ForEach(profile!.pagesArray) { page in
                 Text(page.wrappedName).tag(page as Page?)
             }
-            .navigationTitle("")
         } label: {
             Text("Page")
         }

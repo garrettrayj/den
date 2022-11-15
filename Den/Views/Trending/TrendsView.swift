@@ -48,16 +48,18 @@ struct TrendsView: View {
                     unreadCount: trend.items.unread().count,
                     hideRead: $hideRead,
                     refreshing: $refreshing
-                ).id(trend.id)
+                )
             }
         }
         .toolbar {
-            TrendsBottomBarContent(
-                profile: profile,
-                hideRead: $hideRead,
-                refreshing: $refreshing,
-                unreadCount: profile.trends.unread().count
-            )
+            ToolbarItemGroup(placement: .bottomBar) {
+                TrendsBottomBarView(
+                    profile: profile,
+                    hideRead: $hideRead,
+                    refreshing: $refreshing,
+                    unreadCount: profile.trends.unread().count
+                )
+            }
         }
     }
 

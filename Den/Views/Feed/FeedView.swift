@@ -21,11 +21,42 @@ struct FeedView: View {
         Group {
             if feed.managedObjectContext == nil {
                 StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
-                    .navigationTitle("")
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
-                        feedItems(frameSize: geometry.size)
+                        if feed.hasContent {
+                            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                                Section(header: header.modifier(PinnedSectionHeaderModifier())) {
+                                    if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
+                                        AllReadCompactView()
+                                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                                            .cornerRadius(8)
+                                            .padding()
+                                    } else {
+                                        BoardView(
+                                            width: geometry.size.width,
+                                            list: visibleItems
+                                        ) { item in
+                                            ItemActionView(item: item) {
+                                                ItemPreviewView(item: item)
+                                            }
+                                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                                            .cornerRadius(8)
+                                        }
+                                        .padding()
+                                    }
+                                }
+                            }
+                        } else {
+                            VStack {
+                                Spacer()
+                                FeedUnavailableView(feedData: feed.feedData, useStatusBox: true)
+                                Spacer()
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: geometry.size.height)
+                        }
                     }
                 }
                 .toolbar {
@@ -38,12 +69,14 @@ struct FeedView: View {
                         .disabled(refreshing)
                     }
                     
-                    FeedBottomBarContent(
-                        feed: feed,
-                        hideRead: $hideRead,
-                        refreshing: $refreshing,
-                        unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
-                    )
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        FeedBottomBarView(
+                            feed: feed,
+                            hideRead: $hideRead,
+                            refreshing: $refreshing,
+                            unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
+                        )
+                    }
                 }
             }
         }
@@ -55,7 +88,7 @@ struct FeedView: View {
         .navigationDestination(for: FeedPanel.self, destination: { feedPanel in
             switch feedPanel {
             case .feedSettings(let feed):
-                FeedSettingsView(feed: feed).id(feed.id)
+                FeedSettingsView(feed: feed)
             }
         })
     }
@@ -65,48 +98,6 @@ struct FeedView: View {
 
         return feedData.previewItems.filter { item in
             hideRead ? item.read == false : true
-        }
-    }
-
-    @ViewBuilder
-    private func feedItems(frameSize: CGSize) -> some View {
-        if feed.hasContent {
-            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-                    if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
-                        AllReadCompactView()
-                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                            .cornerRadius(8)
-                            .padding()
-                    } else {
-                        BoardView(
-                            width: frameSize.width,
-                            list: visibleItems
-                        ) { item in
-                            ItemActionView(item: item) {
-                                ItemPreviewView(item: item)
-                            }
-                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                            .cornerRadius(8)
-                        }
-                        #if targetEnvironment(macCatalyst)
-                        .padding()
-                        #else
-                        .padding([.top, .horizontal])
-                        .padding(.bottom, 84)
-                        #endif
-                    }
-                }
-            }
-        } else {
-            VStack {
-                Spacer()
-                FeedUnavailableView(feedData: feed.feedData, useStatusBox: true)
-                Spacer()
-            }
-            .padding()
-            .frame(maxWidth: .infinity)
-            .frame(height: frameSize.height)
         }
     }
 

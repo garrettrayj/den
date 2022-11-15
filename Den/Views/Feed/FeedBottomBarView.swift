@@ -1,5 +1,5 @@
 //
-//  TrendsBottomBarContent.swift
+//  FeedBottomBarView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -9,10 +9,10 @@
 import CoreData
 import SwiftUI
 
-struct TrendsBottomBarContent: ToolbarContent {
+struct FeedBottomBarView: View {
     @Environment(\.persistentContainer) private var container
     
-    @ObservedObject var profile: Profile
+    @ObservedObject var feed: Feed
     
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
@@ -20,34 +20,37 @@ struct TrendsBottomBarContent: ToolbarContent {
     @State var unreadCount: Int
     @State private var toggling: Bool = false
 
-    var body: some ToolbarContent {
-        ToolbarItemGroup(placement: .bottomBar) {
+    var body: some View {
+        Group {
             FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
             Spacer()
             Text("\(unreadCount) Unread")
                 .font(.caption)
                 .fixedSize()
                 .onReceive(
-                    NotificationCenter.default
-                        .publisher(for: .itemStatus)
-                        .throttle(for: 1.0, scheduler: RunLoop.main, latest: true)
+                    NotificationCenter.default.publisher(for: .itemStatus, object: nil)
                 ) { notification in
                     guard
-                        let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                        profileObjectID == profile.objectID
+                        let feedObjectID = notification.userInfo?["feedObjectID"] as? NSManagedObjectID,
+                        feedObjectID == feed.objectID,
+                        let read = notification.userInfo?["read"] as? Bool
                     else {
                         return
                     }
-                    unreadCount = profile.trends.unread().count
+                    unreadCount += read ? -1 : 1
                 }
                 .onReceive(
-                    NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
+                    NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
                 ) { _ in
-                    unreadCount = profile.trends.unread().count
+                    unreadCount = feed.feedData?.previewItems.count ?? 0
                 }
             Spacer()
             ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
-                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
+                await SyncUtility.toggleReadUnread(
+                    container: container,
+                    items: feed.feedData?.previewItems ?? []
+                )
+                feed.objectWillChange.send()
             }
         }
     }

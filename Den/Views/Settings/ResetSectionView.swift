@@ -31,7 +31,11 @@ struct ResetSectionView: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-history-button")
 
-            Button(action: clearCache) {
+            Button {
+                Task {
+                    await resetFeeds(profile: profile)
+                }
+            } label: {
                 Text("Empty Cache")
             }
             .disabled(profile.feedsArray.compactMap({ $0.feedData }).isEmpty)
@@ -66,14 +70,6 @@ struct ResetSectionView: View {
         }
     }
 
-    private func clearCache() {
-        resetFeeds()
-
-        DispatchQueue.main.async {
-            activeProfile?.objectWillChange.send()
-        }
-    }
-
     private func restoreUserDefaults() {
         // Clear our UserDefaults domain
         let domain = Bundle.main.bundleIdentifier!
@@ -81,27 +77,41 @@ struct ResetSectionView: View {
         UserDefaults.standard.synchronize()
     }
 
-    private func resetFeeds() {
+    private func resetFeeds(profile: Profile) async {
         guard let container = container else { return }
         
-        do {
-            let pages = try container.viewContext.fetch(Page.fetchRequest()) as [Page]
-            pages.forEach { page in
+        await container.performBackgroundTask { context in
+            guard let profile = context.object(with: profile.objectID) as? Profile else { return }
+            
+            profile.pagesArray.forEach { page in
                 page.feedsArray.forEach { feed in
                     if let feedData = feed.feedData {
-                        container.viewContext.delete(feedData)
+                        context.delete(feedData)
                     }
                 }
             }
-
-            let trends = try container.viewContext.fetch(Trend.fetchRequest()) as [Trend]
-            trends.forEach { trend in
-                container.viewContext.delete(trend)
+            
+            profile.trends.forEach { trend in
+                context.delete(trend)
             }
-
-            try container.viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
+            
+            do {
+                try context.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
+        }
+        
+        DispatchQueue.main.async {
+            for feed in profile.feedsArray {
+                NotificationCenter.default.post(
+                    name: .feedRefreshed,
+                    object: feed.objectID,
+                    userInfo: ["pageObjectID": feed.page?.objectID as Any]
+                )
+            }
+            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
+            profile.objectWillChange.send()
         }
     }
 

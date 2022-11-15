@@ -44,12 +44,14 @@ struct TrendView: View {
         
         .navigationTitle(trend.wrappedTitle)
         .toolbar {
-            TrendBottomBarContent(
-                trend: trend,
-                hideRead: $hideRead,
-                refreshing: $refreshing,
-                unreadCount: trend.items.unread().count
-            )
+            ToolbarItemGroup(placement: .bottomBar) {
+                TrendBottomBarView(
+                    trend: trend,
+                    hideRead: $hideRead,
+                    refreshing: $refreshing,
+                    unreadCount: trend.items.unread().count
+                )
+            }
         }
     }
 

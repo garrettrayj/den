@@ -111,8 +111,6 @@ struct RootView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(UIColor.systemGroupedBackground))
                 .foregroundColor(Color.secondary)
-                .navigationTitle("")
-                .navigationBarTitleDisplayMode(.inline)
             }
         }
         .preferredColorScheme(ColorScheme(uiStyle))

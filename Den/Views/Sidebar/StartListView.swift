@@ -53,9 +53,6 @@ struct StartListView: View {
         }
         .listStyle(.grouped)
         .navigationTitle(profile.displayName)
-        #if targetEnvironment(macCatalyst)
-        .navigationBarTitleDisplayMode(.inline)
-        #endif
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 Button {

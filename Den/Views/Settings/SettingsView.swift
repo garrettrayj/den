@@ -38,7 +38,7 @@ struct SettingsView: View {
                     activeProfile: $activeProfile,
                     profile: profile,
                     nameInput: profile.wrappedName
-                ).id(profile.id)
+                )
             case .importFeeds:
                 ImportView(profile: profile)
             case .exportFeeds:

@@ -40,7 +40,6 @@ struct PageView: View {
         GeometryReader { geometry in
             if page.managedObjectContext == nil {
                 StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
-                    .navigationTitle("")
                     .toolbar {
                         EmptyView()
                     }
@@ -91,7 +90,7 @@ struct PageView: View {
         .navigationDestination(for: PagePanel.self, destination: { pagePanel in
             switch pagePanel {
             case .pageSettings(let page):
-                PageSettingsView(page: page).id(page.id)
+                PageSettingsView(page: page)
             }
         })
         .toolbar {
@@ -145,13 +144,15 @@ struct PageView: View {
                 .accessibilityIdentifier("page-menu")
             }
             #endif
-
-            PageBottomBarContent(
-                page: page,
-                hideRead: $hideRead,
-                refreshing: $refreshing,
-                unreadCount: page.previewItems.unread().count
-            )
+            
+            ToolbarItemGroup(placement: .bottomBar) {
+                PageBottomBarView(
+                    page: page,
+                    hideRead: $hideRead,
+                    refreshing: $refreshing,
+                    unreadCount: page.previewItems.unread().count
+                ).id(page.id)
+            }
         }
     }
 
