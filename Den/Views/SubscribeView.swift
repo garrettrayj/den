@@ -12,7 +12,6 @@ import SwiftUI
 struct SubscribeView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.persistentContainer) private var container
-    @EnvironmentObject private var haptics: Haptics
 
     @Binding var initialPageObjectID: NSManagedObjectID?
     @Binding var initialURLString: String
@@ -218,7 +217,7 @@ struct SubscribeView: View {
         urlIsValid = false
         validationMessage = message
 
-        haptics.notificationFeedbackGenerator.notificationOccurred(.error)
+        Haptics.notificationFeedbackGenerator.notificationOccurred(.error)
         withAnimation(.default) { validationAttempts += 1 }
     }
 }

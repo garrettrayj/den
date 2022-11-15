@@ -11,7 +11,6 @@ import SwiftUI
 struct FeedSettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject private var haptics: Haptics
 
     @ObservedObject var feed: Feed
 
@@ -41,7 +40,7 @@ struct FeedSettingsView: View {
                 Text("Limit: \(feed.wrappedItemLimit)")
             }
             .onChange(of: feed.itemLimit, perform: { _ in
-                haptics.lightImpactFeedbackGenerator.impactOccurred()
+                Haptics.lightImpactFeedbackGenerator.impactOccurred()
             })
             .modifier(FormRowModifier())
 

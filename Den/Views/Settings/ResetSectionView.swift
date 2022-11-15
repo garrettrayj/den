@@ -23,6 +23,7 @@ struct ResetSectionView: View {
             Button {
                 Task {
                     await resetHistory()
+                    refreshCounts()
                 }
             } label: {
                 Text("Clear History")
@@ -34,6 +35,7 @@ struct ResetSectionView: View {
             Button {
                 Task {
                     await resetFeeds(profile: profile)
+                    refreshCounts()
                 }
             } label: {
                 Text("Empty Cache")
@@ -62,12 +64,23 @@ struct ResetSectionView: View {
             .accessibilityIdentifier("reset-button")
         }
     }
+    
+    private func refreshCounts() {
+        DispatchQueue.main.async {
+            profile.objectWillChange.send()
+            for feed in profile.feedsArray {
+                NotificationCenter.default.post(
+                    name: .feedRefreshed,
+                    object: feed.objectID,
+                    userInfo: ["pageObjectID": feed.page?.objectID as Any]
+                )
+            }
+            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
+        }
+    }
 
     private func resetHistory() async {
         await SyncUtility.resetHistory(container: container, profile: profile)
-        DispatchQueue.main.async {
-            profile.objectWillChange.send()
-        }
     }
 
     private func restoreUserDefaults() {
@@ -100,18 +113,6 @@ struct ResetSectionView: View {
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
-        }
-        
-        DispatchQueue.main.async {
-            for feed in profile.feedsArray {
-                NotificationCenter.default.post(
-                    name: .feedRefreshed,
-                    object: feed.objectID,
-                    userInfo: ["pageObjectID": feed.page?.objectID as Any]
-                )
-            }
-            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
-            profile.objectWillChange.send()
         }
     }
 

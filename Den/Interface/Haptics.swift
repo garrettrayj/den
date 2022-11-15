@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-class Haptics: ObservableObject {
-    var lightImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-    var mediumImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-    var notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+struct Haptics {
+    static let lightImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+    static let mediumImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    static let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
 }

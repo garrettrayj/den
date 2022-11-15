@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct InboxNavView: View {
-    @Environment(\.editMode) private var editMode
-    @EnvironmentObject private var haptics: Haptics
     @ObservedObject var profile: Profile
     
     @State var unreadCount: Int
