@@ -21,33 +21,31 @@ struct InboxBottomBarView: View {
     @State private var toggling: Bool = false
 
     var body: some View {
-        Group {
-            FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
-            Spacer()
-            Text("\(unreadCount) Unread")
-                .font(.caption)
-                .fixedSize()
-                .onReceive(
-                    NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-                ) { notification in
-                    guard
-                        let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                        profileObjectID == profile.objectID,
-                        let read = notification.userInfo?["read"] as? Bool
-                    else {
-                        return
-                    }
-                    unreadCount += read ? -1 : 1
+        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
+        Spacer()
+        Text("\(unreadCount) Unread")
+            .font(.caption)
+            .fixedSize()
+            .onReceive(
+                NotificationCenter.default.publisher(for: .itemStatus, object: nil)
+            ) { notification in
+                guard
+                    let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
+                    profileObjectID == profile.objectID,
+                    let read = notification.userInfo?["read"] as? Bool
+                else {
+                    return
                 }
-                .onReceive(
-                    NotificationCenter.default.publisher(for: .pagesRefreshed, object: nil)
-                ) { _ in
-                    unreadCount = profile.previewItems.unread().count
-                }
-            Spacer()
-            ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
-                await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
+                unreadCount += read ? -1 : 1
             }
+            .onReceive(
+                NotificationCenter.default.publisher(for: .pagesRefreshed, object: nil)
+            ) { _ in
+                unreadCount = profile.previewItems.unread().count
+            }
+        Spacer()
+        ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
+            await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
         }
     }
 }

@@ -33,87 +33,84 @@ struct RootView: View {
     @State private var crashMessage: String = ""
 
     var body: some View {
-        Group {
-            if showCrashMessage {
-                CrashMessageView(message: crashMessage)
-            } else if let profile = activeProfile {
-                NavigationSplitView {
-                    SidebarView(
-                        profile: profile,
-                        activeProfile: $activeProfile,
-                        selection: $selection,
-                        refreshing: $refreshing,
-                        refreshProgress: $refreshProgress,
-                        searchModel: searchModel
-                    )
-                    .navigationSplitViewColumnWidth(268)
-                } detail: {
-                    DetailView(
-                        path: $path,
-                        refreshing: $refreshing,
-                        selection: $selection,
-                        activeProfile: $activeProfile,
-                        uiStyle: $uiStyle,
-                        autoRefreshEnabled: $autoRefreshEnabled,
-                        autoRefreshCooldown: $autoRefreshCooldown,
-                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        profile: profile,
-                        searchModel: searchModel
-                    )
-                }
-                .onChange(of: selection) { _ in
-                    path.removeLast(path.count)
-                }
-                .onChange(of: uiStyle, perform: { _ in
-                    WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
-                })
-                .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-                    haptics.mediumImpactFeedbackGenerator.impactOccurred()
-                    self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? 0)
-                    self.refreshProgress.completedUnitCount = 0
-                    self.refreshing = true
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-                    self.refreshProgress.completedUnitCount += 1
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
-                    self.refreshProgress.completedUnitCount += 1
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-                    self.refreshing = false
-                    profile.objectWillChange.send()
-                    haptics.notificationFeedbackGenerator.notificationOccurred(.success)
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
-                    subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
-                    subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
-                    showSubscribe = true
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
-                    showCrashMessage = true
-                }
-                .sheet(isPresented: $showSubscribe) {
-                    SubscribeView(
-                        initialPageObjectID: $subscribePageObjectID,
-                        initialURLString: $subscribeURLString,
-                        profile: activeProfile
-                    )
-                    .environment(\.persistentContainer, container)
-                    .environment(\.colorScheme, colorScheme)
-                }
-            } else {
-                VStack(spacing: 16) {
-                    Spacer()
-                    ProgressView()
-                    Text("Opening…")
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(UIColor.systemGroupedBackground))
-                .foregroundColor(Color.secondary)
+        if showCrashMessage {
+            CrashMessageView(message: crashMessage)
+        } else if let profile = activeProfile {
+            NavigationSplitView {
+                SidebarView(
+                    profile: profile,
+                    activeProfile: $activeProfile,
+                    selection: $selection,
+                    refreshing: $refreshing,
+                    refreshProgress: $refreshProgress,
+                    searchModel: searchModel
+                )
+                .navigationSplitViewColumnWidth(268)
+            } detail: {
+                DetailView(
+                    path: $path,
+                    refreshing: $refreshing,
+                    selection: $selection,
+                    activeProfile: $activeProfile,
+                    uiStyle: $uiStyle,
+                    autoRefreshEnabled: $autoRefreshEnabled,
+                    autoRefreshCooldown: $autoRefreshCooldown,
+                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                    profile: profile,
+                    searchModel: searchModel
+                )
             }
+            .environmentObject(haptics)
+            .onChange(of: selection) { _ in
+                path.removeLast(path.count)
+            }
+            .onChange(of: uiStyle, perform: { _ in
+                WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
+            })
+            .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+                haptics.mediumImpactFeedbackGenerator.impactOccurred()
+                self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? 0)
+                self.refreshProgress.completedUnitCount = 0
+                self.refreshing = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+                self.refreshProgress.completedUnitCount += 1
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
+                self.refreshProgress.completedUnitCount += 1
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+                self.refreshing = false
+                profile.objectWillChange.send()
+                haptics.notificationFeedbackGenerator.notificationOccurred(.success)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
+                subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
+                subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
+                showSubscribe = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
+                showCrashMessage = true
+            }
+            .sheet(isPresented: $showSubscribe) {
+                SubscribeView(
+                    initialPageObjectID: $subscribePageObjectID,
+                    initialURLString: $subscribeURLString,
+                    profile: activeProfile
+                )
+                .environment(\.persistentContainer, container)
+                .environment(\.colorScheme, colorScheme)
+            }
+        } else {
+            VStack(spacing: 16) {
+                Spacer()
+                ProgressView()
+                Text("Opening…")
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(UIColor.systemGroupedBackground))
+            .foregroundColor(Color.secondary)
         }
-        .preferredColorScheme(ColorScheme(uiStyle))
-        .environmentObject(haptics)
     }
 }

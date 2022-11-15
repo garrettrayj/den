@@ -16,17 +16,15 @@ struct SearchResultsView: View {
     var query: String
 
     var body: some View {
-        Group {
-            GeometryReader { geometry in
-                if searchResults.isEmpty {
-                    StatusBoxView(message: Text("No results found for “\(query)”"))
-                } else {
-                    ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
-                            FeedItemPreviewView(item: item)
-                        }
-                        .modifier(TopLevelBoardPaddingModifier())
+        GeometryReader { geometry in
+            if searchResults.isEmpty {
+                StatusBoxView(message: Text("No results found for “\(query)”"))
+            } else {
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
+                        FeedItemPreviewView(item: item)
                     }
+                    .modifier(TopLevelBoardPaddingModifier())
                 }
             }
         }

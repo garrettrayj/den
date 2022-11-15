@@ -128,14 +128,11 @@ struct SubscribeView: View {
                 .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
 
             if urlIsValid != nil {
-                Group {
-                    if urlIsValid == true {
-                        Image(systemName: "checkmark.circle").foregroundColor(Color(UIColor.systemGreen))
-                    } else {
-                        Image(systemName: "slash.circle").foregroundColor(Color(UIColor.systemRed))
-                    }
+                if urlIsValid == true {
+                    Image(systemName: "checkmark.circle").foregroundColor(Color(UIColor.systemGreen)).fontWeight(.medium)
+                } else {
+                    Image(systemName: "slash.circle").foregroundColor(Color(UIColor.systemRed)).fontWeight(.medium)
                 }
-                .fontWeight(.medium)
             }
         }
     }

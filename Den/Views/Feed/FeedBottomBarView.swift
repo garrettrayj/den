@@ -21,37 +21,35 @@ struct FeedBottomBarView: View {
     @State private var toggling: Bool = false
 
     var body: some View {
-        Group {
-            FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
-            Spacer()
-            Text("\(unreadCount) Unread")
-                .font(.caption)
-                .fixedSize()
-                .onReceive(
-                    NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-                ) { notification in
-                    guard
-                        let feedObjectID = notification.userInfo?["feedObjectID"] as? NSManagedObjectID,
-                        feedObjectID == feed.objectID,
-                        let read = notification.userInfo?["read"] as? Bool
-                    else {
-                        return
-                    }
-                    unreadCount += read ? -1 : 1
+        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
+        Spacer()
+        Text("\(unreadCount) Unread")
+            .font(.caption)
+            .fixedSize()
+            .onReceive(
+                NotificationCenter.default.publisher(for: .itemStatus, object: nil)
+            ) { notification in
+                guard
+                    let feedObjectID = notification.userInfo?["feedObjectID"] as? NSManagedObjectID,
+                    feedObjectID == feed.objectID,
+                    let read = notification.userInfo?["read"] as? Bool
+                else {
+                    return
                 }
-                .onReceive(
-                    NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
-                ) { _ in
-                    unreadCount = feed.feedData?.previewItems.count ?? 0
-                }
-            Spacer()
-            ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
-                await SyncUtility.toggleReadUnread(
-                    container: container,
-                    items: feed.feedData?.previewItems ?? []
-                )
-                feed.objectWillChange.send()
+                unreadCount += read ? -1 : 1
             }
+            .onReceive(
+                NotificationCenter.default.publisher(for: .feedRefreshed, object: feed.objectID)
+            ) { _ in
+                unreadCount = feed.feedData?.previewItems.count ?? 0
+            }
+        Spacer()
+        ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
+            await SyncUtility.toggleReadUnread(
+                container: container,
+                items: feed.feedData?.previewItems ?? []
+            )
+            feed.objectWillChange.send()
         }
     }
 }

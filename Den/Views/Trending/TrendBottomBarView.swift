@@ -21,28 +21,26 @@ struct TrendBottomBarView: View {
     @State private var toggling: Bool = false
 
     var body: some View {
-        Group {
-            FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
-            Spacer()
-            Text("\(unreadCount) Unread")
-                .font(.caption)
-                .fixedSize()
-                .onReceive(
-                    NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-                ) { notification in
-                    guard
-                        let itemObjectID = notification.userInfo?["itemObjectID"] as? NSManagedObjectID,
-                        trend.items.map({ $0.objectID }).contains(itemObjectID),
-                        let read = notification.userInfo?["read"] as? Bool
-                    else {
-                        return
-                    }
-                    unreadCount += read ? -1 : 1
+        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
+        Spacer()
+        Text("\(unreadCount) Unread")
+            .font(.caption)
+            .fixedSize()
+            .onReceive(
+                NotificationCenter.default.publisher(for: .itemStatus, object: nil)
+            ) { notification in
+                guard
+                    let itemObjectID = notification.userInfo?["itemObjectID"] as? NSManagedObjectID,
+                    trend.items.map({ $0.objectID }).contains(itemObjectID),
+                    let read = notification.userInfo?["read"] as? Bool
+                else {
+                    return
                 }
-            Spacer()
-            ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
-                await SyncUtility.toggleReadUnread(container: container, items: trend.items)
+                unreadCount += read ? -1 : 1
             }
+        Spacer()
+        ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
+            await SyncUtility.toggleReadUnread(container: container, items: trend.items)
         }
     }
 }
