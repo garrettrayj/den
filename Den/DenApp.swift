@@ -36,6 +36,7 @@ struct DenApp: App {
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 uiStyle: $uiStyle
             )
+            .preferredColorScheme(ColorScheme(uiStyle))
             .environment(\.persistentContainer, container)
             .environment(\.managedObjectContext, container.viewContext)
             .onOpenURL { url in
