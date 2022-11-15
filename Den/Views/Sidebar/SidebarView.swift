@@ -18,6 +18,8 @@ struct SidebarView: View {
     @Binding var refreshProgress: Progress
     
     @ObservedObject var searchModel: SearchModel
+    
+    @State var searchInput: String = ""
 
     var body: some View {
         if profile.pagesArray.isEmpty {
@@ -34,10 +36,11 @@ struct SidebarView: View {
                 refreshProgress: $refreshProgress
             )
             .searchable(
-                text: $searchModel.query,
+                text: $searchInput,
                 placement: SearchFieldPlacement.navigationBarDrawer(displayMode: .always)
             )
             .onSubmit(of: .search) {
+                searchModel.query = searchInput
                 selection = .search
             }
         }
