@@ -10,11 +10,7 @@ import CoreData
 import SwiftUI
 
 struct TrendView: View {
-    @Environment(\.persistentContainer) private var container
-
     @ObservedObject var trend: Trend
-
-    @State var unreadCount: Int
 
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool

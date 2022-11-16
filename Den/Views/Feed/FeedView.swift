@@ -10,10 +10,10 @@ import CoreData
 import SwiftUI
 
 struct FeedView: View {
-    @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var feed: Feed
+    
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 

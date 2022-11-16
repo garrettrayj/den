@@ -10,6 +10,7 @@ import SwiftUI
 
 struct GadgetView: View {
     @ObservedObject var feed: Feed
+    
     @Binding var hideRead: Bool
 
     var body: some View {

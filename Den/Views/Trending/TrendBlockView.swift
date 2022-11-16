@@ -11,7 +11,6 @@ import NaturalLanguage
 
 struct TrendBlockView: View {
     @ObservedObject var trend: Trend
-    @Binding var refreshing: Bool
 
     let columns = [
         GridItem(.adaptive(minimum: 16, maximum: 16), spacing: 12, alignment: .top)

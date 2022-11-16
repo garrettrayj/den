@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ShowcaseSectionView: View {
     @ObservedObject var feed: Feed
+    
     @Binding var hideRead: Bool
 
     let width: CGFloat

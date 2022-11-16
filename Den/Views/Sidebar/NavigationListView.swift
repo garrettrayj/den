@@ -14,6 +14,7 @@ struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     
     @ObservedObject var profile: Profile
+    
     let searchModel: SearchModel
     
     @Binding var selection: Panel?

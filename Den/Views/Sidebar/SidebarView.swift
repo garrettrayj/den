@@ -10,16 +10,16 @@ import CoreData
 import SwiftUI
 
 struct SidebarView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var profile: Profile
+    
+    let searchModel: SearchModel
+    
     @Binding var activeProfile: Profile? // Re-render when active profile changes
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
     
-    @ObservedObject var searchModel: SearchModel
-    
-    @State var searchInput: String = ""
+    @State private var searchInput: String = ""
 
     var body: some View {
         if profile.pagesArray.isEmpty {

@@ -18,12 +18,11 @@ struct TrendsBottomBarView: View {
     @Binding var refreshing: Bool
     
     @State var unreadCount: Int
-    @State private var toggling: Bool = false
 
     var body: some View {
         FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
         Spacer()
-        Text("\(unreadCount) Unread")
+        Text("\(unreadCount) with Unread")
             .font(.caption)
             .fixedSize()
             .onReceive(
