@@ -10,8 +10,8 @@ import CoreData
 import SwiftUI
 
 struct PageNavView: View {
-    @Environment(\.editMode) var editMode
     @ObservedObject var page: Page
+    
     @State var unreadCount: Int
 
     var body: some View {
@@ -46,7 +46,7 @@ struct PageNavView: View {
             }
             unreadCount = page.previewItems.unread().count
         }
-    .modifier(URLDropTargetModifier(page: page))
+        .modifier(URLDropTargetModifier(page: page))
         .accessibilityIdentifier("page-button")
     }
 }

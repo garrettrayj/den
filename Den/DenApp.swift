@@ -145,7 +145,7 @@ struct DenApp: App {
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
-        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 512 // 512 MB
+        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 256 // 256 MB
     }
 
     private func scheduleAppRefresh() {

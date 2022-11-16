@@ -11,8 +11,6 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct PageView: View {
-    @Environment(\.persistentContainer) private var container
-
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool

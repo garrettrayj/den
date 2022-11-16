@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct TrendsView: View {
-    @Environment(\.persistentContainer) private var container
-
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
@@ -31,7 +29,7 @@ struct TrendsView: View {
                 } else {
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                            TrendBlockView(trend: trend, refreshing: $refreshing)
+                            TrendBlockView(trend: trend)
                         }
                         .modifier(TopLevelBoardPaddingModifier())
                     }
@@ -45,7 +43,6 @@ struct TrendsView: View {
             case .trend(let trend):
                 TrendView(
                     trend: trend,
-                    unreadCount: trend.items.unread().count,
                     hideRead: $hideRead,
                     refreshing: $refreshing
                 )

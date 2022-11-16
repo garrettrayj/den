@@ -38,11 +38,11 @@ struct RootView: View {
             NavigationSplitView {
                 SidebarView(
                     profile: profile,
+                    searchModel: searchModel,
                     activeProfile: $activeProfile,
                     selection: $selection,
                     refreshing: $refreshing,
-                    refreshProgress: $refreshProgress,
-                    searchModel: searchModel
+                    refreshProgress: $refreshProgress
                 )
                 .navigationSplitViewColumnWidth(268)
             } detail: {

@@ -11,7 +11,9 @@ import SwiftUI
 
 struct StartListView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
     let profile: Profile
+    
     @Binding var selection: Panel?
 
     var body: some View {

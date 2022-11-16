@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct InboxView: View {
-    @Environment(\.persistentContainer) private var container
-
     let profile: Profile
     
     @Binding var hideRead: Bool

@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct TrendsNavView: View {
-    @Environment(\.editMode) private var editMode
     @ObservedObject var profile: Profile
 
     var body: some View {
