@@ -20,7 +20,9 @@ struct PageBottomBarView: View {
     @State var unreadCount: Int
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
+        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing) {
+            page.objectWillChange.send()
+        }
         Spacer()
         Text("\(unreadCount) Unread")
             .font(.caption)

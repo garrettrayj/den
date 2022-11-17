@@ -42,48 +42,56 @@ struct SecurityView: View {
 
     private var allClearSummary: some View {
         Section {
-            Label(title: {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("No Issues").fontWeight(.medium)
-                    Text("All feeds use secure URLs").foregroundColor(.secondary)
-                }
-            }, icon: {
-                Image(systemName: "checkmark.shield")
-                    .imageScale(.large)
-                    .foregroundColor(.green)
-            }).padding(.vertical, 8)
+            Label {
+                Text("All feeds have secure URLs")
+            } icon: {
+                Image(systemName: "checkmark.shield").foregroundColor(.green).imageScale(.large)
+            }.modifier(FormRowModifier())
         } header: {
-            Text("Summary").modifier(FormFirstHeaderModifier())
+            Text("All Clear").modifier(FormFirstHeaderModifier())
         }
     }
 
     private var warningSummary: some View {
         Section {
-            Label(title: {
-                Text("\(insecureFeedCount) insecure URL\(insecureFeedCount > 1 ? "s" : "")")
-                    .fontWeight(.medium)
-            }, icon: {
-                Image(systemName: "exclamationmark.shield").foregroundColor(.orange).imageScale(.large)
-            }).padding(.vertical, 8)
-
-            Group {
-                if remediationInProgress == true {
-                    HStack {
-                        ProgressView().progressViewStyle(IconProgressStyle())
-                        Text("Scanning…").foregroundColor(.secondary)
-                    }
+            Label {
+                if insecureFeedCount == 1 {
+                    Text("\(insecureFeedCount) feed has an insecure URL")
                 } else {
-                    Button {
-                        remedyInsecureUrls()
-                    } label: {
-                        Text("Scan for HTTPS Alternatives")
-                    }
-                    .accessibilityIdentifier("remedy-button")
+                    Text("\(insecureFeedCount) feeds have insecure URLs")
                 }
-            }.padding(.vertical, 4)
+            } icon: {
+                Image(systemName: "exclamationmark.shield").foregroundColor(Color(UIColor.systemOrange)).imageScale(.large)
+            }.modifier(FormRowModifier())
 
+            if remediationInProgress == true {
+                Label {
+                    Text("Checking…").foregroundColor(.secondary)
+                } icon: {
+                    ProgressView().progressViewStyle(IconProgressStyle())
+                }.modifier(FormRowModifier())
+            } else {
+                Button {
+                    remedyInsecureUrls()
+                } label: {
+                    VStack(alignment: .leading, spacing: 4) {
+                        if insecureFeedCount == 1 {
+                            Text("Check for secure alternative")
+                            Text("If avaialble, the feed will be updated to use the HTTPS URL")
+                                .font(.caption).foregroundColor(.secondary)
+                        } else {
+                            Text("Check for secure alternatives")
+                            Text("When available, feeds will be updated to use HTTPS URLs")
+                                .font(.caption).foregroundColor(.secondary)
+                        }
+                    }
+                }
+                .padding(.vertical, 8)
+                .modifier(FormRowModifier())
+                .accessibilityIdentifier("remedy-button")
+            }
         } header: {
-            Text("Summary").modifier(FormFirstHeaderModifier())
+            Text("Warning").modifier(FormFirstHeaderModifier())
         }
     }
 
@@ -105,10 +113,7 @@ struct SecurityView: View {
                 }.modifier(FormRowModifier())
             }
         } header: {
-            Label(page.displayName, systemImage: page.wrappedSymbol)
-                #if targetEnvironment(macCatalyst)
-                .font(.headline)
-                #endif
+            Text(page.displayName)
         }
     }
 

@@ -36,7 +36,7 @@ struct InboxNavView: View {
             unreadCount += read ? -1 : 1
         }
         .onReceive(
-            NotificationCenter.default.publisher(for: .pagesRefreshed, object: nil)
+            NotificationCenter.default.publisher(for: .pagesRefreshed, object: profile.objectID)
         ) { _ in
             unreadCount = profile.previewItems.unread().count
         }
