@@ -18,7 +18,8 @@ struct DetailView: View {
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
 
-    let profile: Profile
+    @ObservedObject var profile: Profile
+    
     let searchModel: SearchModel
 
     @AppStorage("hideRead") private var hideRead = false
@@ -60,8 +61,8 @@ struct DetailView: View {
                     )
                 }
             }
-            .navigationDestination(for: DetailPanel.self) { detailPanel in
-                switch detailPanel {
+            .navigationDestination(for: FeedPanel.self) { feedPanel in
+                switch feedPanel {
                 case .feed(let feed):
                     if let feed = feed {
                         FeedView(
@@ -70,6 +71,14 @@ struct DetailView: View {
                             refreshing: $refreshing
                         )
                     }
+                case .feedSettings(let feed):
+                    if let feed = feed {
+                        FeedSettingsView(feed: feed)
+                    }
+                }
+            }
+            .navigationDestination(for: ItemPanel.self) { itemPanel in
+                switch itemPanel {
                 case .item(let item):
                     ItemView(item: item)
                 }

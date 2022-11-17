@@ -17,6 +17,7 @@ struct SyncUtility {
         
         DispatchQueue.main.async {
             NotificationCenter.default.postItemStatus(item: item)
+            item.feedData?.feed?.objectWillChange.send()
         }
     }
 

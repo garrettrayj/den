@@ -10,7 +10,7 @@ import CoreData
 import SwiftUI
 
 struct InboxView: View {
-    let profile: Profile
+    @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool

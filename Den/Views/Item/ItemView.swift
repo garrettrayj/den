@@ -76,10 +76,8 @@ struct ItemView: View {
                 .frame(maxWidth: .infinity)
             }
             .toolbar {
-                if let link = item.link {
-                    ToolbarItem {
-                        ShareLink(item: link).buttonStyle(ToolbarButtonStyle())
-                    }
+                ToolbarItemGroup {
+                    ShareLink(item: item.link!).buttonStyle(ToolbarButtonStyle())
                 }
 
                 ToolbarItemGroup(placement: .bottomBar) {
@@ -101,7 +99,6 @@ struct ItemView: View {
                 await SyncUtility.markItemRead(container: container, item: item)
             }
             .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
