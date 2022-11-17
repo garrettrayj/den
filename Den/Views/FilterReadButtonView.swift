@@ -12,9 +12,12 @@ struct FilterReadButtonView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
     
+    let callback: () -> Void
+    
     var body: some View {
         Button {
             hideRead.toggle()
+            callback()
         } label: {
             Label(
                 "Filter Read",

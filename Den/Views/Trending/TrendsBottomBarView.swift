@@ -20,7 +20,9 @@ struct TrendsBottomBarView: View {
     @State var unreadCount: Int
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
+        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing) {
+            profile.objectWillChange.send()
+        }
         Spacer()
         Text("\(unreadCount) with Unread")
             .font(.caption)

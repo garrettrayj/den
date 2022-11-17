@@ -39,11 +39,11 @@ struct RootView: View {
                 SidebarView(
                     profile: profile,
                     searchModel: searchModel,
-                    activeProfile: $activeProfile,
                     selection: $selection,
                     refreshing: $refreshing,
                     refreshProgress: $refreshProgress
                 )
+                .id(profile.id) // Fix for updating sidebar when profile changes
                 .navigationSplitViewColumnWidth(268)
             } detail: {
                 DetailView(

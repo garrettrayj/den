@@ -20,7 +20,9 @@ struct InboxBottomBarView: View {
     @State var unreadCount: Int
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing)
+        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing) {
+            profile.objectWillChange.send()
+        }
         Spacer()
         Text("\(unreadCount) Unread")
             .font(.caption)
@@ -38,7 +40,7 @@ struct InboxBottomBarView: View {
                 unreadCount += read ? -1 : 1
             }
             .onReceive(
-                NotificationCenter.default.publisher(for: .pagesRefreshed, object: nil)
+                NotificationCenter.default.publisher(for: .pagesRefreshed, object: profile.objectID)
             ) { _ in
                 unreadCount = profile.previewItems.unread().count
             }

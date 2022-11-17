@@ -47,7 +47,6 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh(background: true)
         }
-        
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:

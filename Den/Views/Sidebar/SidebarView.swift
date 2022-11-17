@@ -14,7 +14,6 @@ struct SidebarView: View {
     
     let searchModel: SearchModel
     
-    @Binding var activeProfile: Profile? // Re-render when active profile changes
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
     @Binding var refreshProgress: Progress
