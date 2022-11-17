@@ -11,8 +11,9 @@ import SwiftUI
 struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     let content: (T) -> Content
     let list: [T]
-    let spacing: CGFloat
     let width: CGFloat
+    
+    let spacing: CGFloat = 12
 
     var body: some View {
         HStack(alignment: .top, spacing: spacing) {
@@ -26,8 +27,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
         }
     }
 
-    init(spacing: CGFloat = 12, width: CGFloat, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
-        self.spacing = spacing
+    init(width: CGFloat, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
         self.width = width
         self.list = list
         self.content = content

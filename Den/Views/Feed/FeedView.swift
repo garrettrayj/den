@@ -43,7 +43,7 @@ struct FeedView: View {
                                             .background(Color(UIColor.secondarySystemGroupedBackground))
                                             .cornerRadius(8)
                                         }
-                                        .padding()
+                                        .padding(12)
                                     }
                                 }
                             }
@@ -60,13 +60,14 @@ struct FeedView: View {
                     }
                 }
                 .toolbar {
-                    ToolbarItem {
+                    ToolbarItemGroup {
                         NavigationLink(value: FeedPanel.feedSettings(feed)) {
                             Label("Feed Settings", systemImage: "wrench")
                         }
                         .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("feed-settings-button")
                         .disabled(refreshing)
+                        .id(feed.id)
                     }
                     
                     ToolbarItemGroup(placement: .bottomBar) {
@@ -85,12 +86,6 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(feed.wrappedTitle)
-        .navigationDestination(for: FeedPanel.self, destination: { feedPanel in
-            switch feedPanel {
-            case .feedSettings(let feed):
-                FeedSettingsView(feed: feed)
-            }
-        })
     }
 
     private var visibleItems: [Item] {
@@ -120,7 +115,7 @@ struct FeedView: View {
                             .font(.body.weight(.semibold))
 
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal)
                 }
                 .buttonStyle(
                     FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))

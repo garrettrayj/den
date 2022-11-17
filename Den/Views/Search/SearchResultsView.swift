@@ -75,38 +75,4 @@ struct SearchResultsView: View {
             predicate: compoundPredicate
         )
     }
-
-    private func resultsSection(_ section: SectionedFetchResults<String, Item>.Element) -> some View {
-        Section {
-            VStack(spacing: 0) {
-                ForEach(section) { item in
-                    SearchResultView(item: item)
-                    if item != section.last {
-                        Divider()
-                    }
-                }
-            }
-            .background(Color(UIColor.secondarySystemGroupedBackground))
-            .cornerRadius(8)
-            .padding()
-        } header: {
-            if let feed = section.first?.feedData?.feed {
-                NavigationLink(value: DetailPanel.feed(feed)) {
-                    HStack {
-                        FeedTitleLabelView(
-                            title: feed.wrappedTitle,
-                            favicon: feed.feedData?.favicon
-                        )
-                        Spacer()
-                        NavChevronView()
-                    }
-                    .padding(.horizontal, 20)
-                }
-                .buttonStyle(
-                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
-                )
-                .accessibilityIdentifier("search-section-feed-button")
-            }
-        }
-    }
 }

@@ -12,10 +12,9 @@ struct TopLevelBoardPaddingModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             #if targetEnvironment(macCatalyst)
-            .padding([.horizontal, .bottom])
-            .padding(.top, 8)
-            #else
-            .padding([.horizontal, .bottom])
+            .padding(.top, 12)
             #endif
+            .padding(.horizontal, 12)
+            .padding(.bottom)
     }
 }

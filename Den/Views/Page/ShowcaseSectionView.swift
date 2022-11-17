@@ -30,7 +30,8 @@ struct ShowcaseSectionView: View {
                             }
                             .cornerRadius(8)
                         }
-                    ).padding()
+                    )
+                    .padding(12)
                 }
             } else {
                 FeedUnavailableView(feedData: feed.feedData)
@@ -41,7 +42,7 @@ struct ShowcaseSectionView: View {
                     .padding()
             }
         } header: {
-            NavigationLink(value: DetailPanel.feed(feed)) {
+            NavigationLink(value: FeedPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
@@ -50,7 +51,7 @@ struct ShowcaseSectionView: View {
                     Spacer()
                     NavChevronView()
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal)
             }
             .buttonStyle(
                 FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
