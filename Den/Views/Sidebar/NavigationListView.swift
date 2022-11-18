@@ -15,10 +15,9 @@ struct NavigationListView: View {
     
     @ObservedObject var profile: Profile
     
-    let searchModel: SearchModel
+    let appState: AppState
     
     @Binding var selection: Panel?
-    @Binding var refreshing: Bool
     
     let refreshProgress: Progress = Progress()
 
@@ -41,7 +40,7 @@ struct NavigationListView: View {
         .navigationTitle(profile.displayName)
         #if !targetEnvironment(macCatalyst)
         .refreshable {
-            if !refreshing {
+            if !appState.refreshing {
                 await RefreshUtility.refresh(container: container, profile: profile)
             }
         }
@@ -50,7 +49,7 @@ struct NavigationListView: View {
             Haptics.mediumImpactFeedbackGenerator.impactOccurred()
             refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
             refreshProgress.completedUnitCount = 0
-            refreshing = true
+            appState.refreshing = true
         }
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
             refreshProgress.completedUnitCount += 1
@@ -59,7 +58,7 @@ struct NavigationListView: View {
             refreshProgress.completedUnitCount += 1
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-            refreshing = false
+            appState.refreshing = false
             profile.objectWillChange.send()
             Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
         }
@@ -67,7 +66,7 @@ struct NavigationListView: View {
             ToolbarItem {
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
-                    .disabled(refreshing)
+                    .disabled(appState.refreshing)
                     .accessibilityIdentifier("edit-page-list-button")
             }
 
@@ -79,10 +78,10 @@ struct NavigationListView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("settings-button")
-                .disabled(refreshing || editMode?.wrappedValue.isEditing ?? true)
+                .disabled(appState.refreshing || editMode?.wrappedValue.isEditing ?? true)
                 Spacer()
                 VStack {
-                    if refreshing {
+                    if appState.refreshing {
                         ProgressView(refreshProgress)
                             .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
                     } else if let refreshedDate = profile.minimumRefreshedDate {
@@ -103,7 +102,7 @@ struct NavigationListView: View {
                 .font(.caption)
                 Spacer()
                 Button {
-                    if !refreshing {
+                    if !appState.refreshing {
                         Task {
                             await RefreshUtility.refresh(container: container, profile: profile)
                         }
@@ -114,7 +113,7 @@ struct NavigationListView: View {
                 .buttonStyle(ToolbarButtonStyle())
                 .keyboardShortcut("r", modifiers: [.command])
                 .accessibilityIdentifier("profile-refresh-button")
-                .disabled(refreshing || editMode?.wrappedValue.isEditing ?? true)
+                .disabled(appState.refreshing || editMode?.wrappedValue.isEditing ?? true)
             }
         }
     }

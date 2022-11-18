@@ -17,12 +17,11 @@ struct InboxNavView: View {
     var body: some View {
         NavigationLink(value: Panel.allItems) {
             Label {
-                Text("Inbox").lineLimit(1)
+                Text("Inbox").lineLimit(1).badge(unreadCount)
             } icon: {
                 Image(systemName: unreadCount > 0 ? "tray.full": "tray")
             }
         }
-        .badge(unreadCount)
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in

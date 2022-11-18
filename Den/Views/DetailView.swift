@@ -9,16 +9,14 @@
 import SwiftUI
 
 struct DetailView: View {
-    @Binding var path: NavigationPath
-    @Binding var refreshing: Bool
     @Binding var selection: Panel?
-    @Binding var activeProfile: Profile?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
 
     @ObservedObject var profile: Profile
+    @ObservedObject var appState: AppState
     
     let searchModel: SearchModel
 
@@ -36,23 +34,23 @@ struct DetailView: View {
                     InboxView(
                         profile: profile,
                         hideRead: $hideRead,
-                        refreshing: $refreshing
+                        refreshing: $appState.refreshing
                     )
                 case .trends:
                     TrendsView(
                         profile: profile,
                         hideRead: $hideRead,
-                        refreshing: $refreshing
+                        refreshing: $appState.refreshing
                     )
                 case .page(let page):
                     PageView(
                         page: page,
                         hideRead: $hideRead,
-                        refreshing: $refreshing
+                        refreshing: $appState.refreshing
                     )
                 case .settings:
                     SettingsView(
-                        activeProfile: $activeProfile,
+                        activeProfile: $appState.activeProfile,
                         uiStyle: $uiStyle,
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
@@ -68,7 +66,7 @@ struct DetailView: View {
                         FeedView(
                             feed: feed,
                             hideRead: $hideRead,
-                            refreshing: $refreshing
+                            refreshing: $appState.refreshing
                         )
                     }
                 case .item(let item):

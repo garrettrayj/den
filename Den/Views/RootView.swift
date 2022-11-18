@@ -13,8 +13,8 @@ struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(\.persistentContainer) private var container
 
-    @Binding var activeProfile: Profile?
-    @Binding var refreshing: Bool
+    @ObservedObject var appState: AppState
+    
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
@@ -33,27 +33,25 @@ struct RootView: View {
     var body: some View {
         if showCrashMessage {
             CrashMessageView(message: crashMessage)
-        } else if let profile = activeProfile {
+        } else if let profile = appState.activeProfile {
             NavigationSplitView {
                 SidebarView(
                     profile: profile,
+                    appState: appState,
                     searchModel: searchModel,
-                    selection: $selection,
-                    refreshing: $refreshing
+                    selection: $selection
                 )
                 .id(profile.id) // Fix for updating sidebar when profile changes
                 .navigationSplitViewColumnWidth(268)
             } detail: {
                 DetailView(
-                    path: $path,
-                    refreshing: $refreshing,
                     selection: $selection,
-                    activeProfile: $activeProfile,
                     uiStyle: $uiStyle,
                     autoRefreshEnabled: $autoRefreshEnabled,
                     autoRefreshCooldown: $autoRefreshCooldown,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     profile: profile,
+                    appState: appState,
                     searchModel: searchModel
                 )
             }
@@ -75,7 +73,7 @@ struct RootView: View {
                 SubscribeView(
                     initialPageObjectID: $subscribePageObjectID,
                     initialURLString: $subscribeURLString,
-                    profile: activeProfile
+                    profile: appState.activeProfile
                 )
                 .environment(\.persistentContainer, container)
                 .environment(\.colorScheme, colorScheme)
