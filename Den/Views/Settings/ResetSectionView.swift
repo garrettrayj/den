@@ -91,8 +91,6 @@ struct ResetSectionView: View {
     }
 
     private func resetFeeds(profile: Profile) async {
-        guard let container = container else { return }
-        
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profile.objectID) as? Profile else { return }
             
@@ -117,7 +115,6 @@ struct ResetSectionView: View {
     }
 
     private func resetEverything() {
-        guard let container = container else { return }
         restoreUserDefaults()
         activeProfile = ProfileUtility.resetProfiles(context: container.viewContext)
     }

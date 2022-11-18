@@ -196,7 +196,6 @@ struct SubscribeView: View {
 
     private func addFeed() async {
         guard
-            let container = container,
             let url = URL(string: urlString),
             let page = targetPage
         else { return }
