@@ -120,7 +120,7 @@ struct NavigationListView: View {
 
     private func save() {
         do {
-            try container?.viewContext.save()
+            try container.viewContext.save()
             DispatchQueue.main.async {
                 profile.objectWillChange.send()
             }
@@ -146,7 +146,7 @@ struct NavigationListView: View {
 
     private func deletePage(indices: IndexSet) {
         indices.forEach {
-            container?.viewContext.delete(profile.pagesArray[$0])
+            container.viewContext.delete(profile.pagesArray[$0])
         }
         save()
     }
