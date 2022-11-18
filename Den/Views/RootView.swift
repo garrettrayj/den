@@ -24,7 +24,6 @@ struct RootView: View {
 
     @State private var selection: Panel?
     @State private var path = NavigationPath()
-    @State private var refreshProgress: Progress = Progress()
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
@@ -40,8 +39,7 @@ struct RootView: View {
                     profile: profile,
                     searchModel: searchModel,
                     selection: $selection,
-                    refreshing: $refreshing,
-                    refreshProgress: $refreshProgress
+                    refreshing: $refreshing
                 )
                 .id(profile.id) // Fix for updating sidebar when profile changes
                 .navigationSplitViewColumnWidth(268)
@@ -65,23 +63,6 @@ struct RootView: View {
             .onChange(of: uiStyle, perform: { _ in
                 WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
             })
-            .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-                Haptics.mediumImpactFeedbackGenerator.impactOccurred()
-                self.refreshProgress.totalUnitCount = Int64(activeProfile?.feedsArray.count ?? 0)
-                self.refreshProgress.completedUnitCount = 0
-                self.refreshing = true
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-                self.refreshProgress.completedUnitCount += 1
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
-                self.refreshProgress.completedUnitCount += 1
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-                self.refreshing = false
-                profile.objectWillChange.send()
-                Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
-            }
             .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
                 subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
                 subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID

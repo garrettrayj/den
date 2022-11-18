@@ -86,6 +86,12 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(feed.wrappedTitle)
+        .navigationDestination(for: FeedPanel.self) { feedPanel in
+            switch feedPanel {
+            case .feedSettings(let feed):
+                FeedSettingsView(feed: feed)
+            }
+        }
     }
 
     private var visibleItems: [Item] {

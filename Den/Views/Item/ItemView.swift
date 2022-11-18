@@ -95,10 +95,13 @@ struct ItemView: View {
                     .accessibilityIdentifier("item-open-button")
                 }
             }
+            #if targetEnvironment(macCatalyst)
+            .navigationTitle(item.feedTitle)
+            #endif
+            .navigationBarTitleDisplayMode(.inline)
             .task(priority: TaskPriority.userInitiated) {
                 await SyncUtility.markItemRead(container: container, item: item)
             }
-            .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
         }
     }
 }
