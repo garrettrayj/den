@@ -17,12 +17,11 @@ struct PageNavView: View {
     var body: some View {
         NavigationLink(value: Panel.page(page)) {
             Label {
-                Text(page.displayName).lineLimit(1)
+                Text(page.displayName).lineLimit(1).badge(unreadCount)
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
         }
-        .badge(unreadCount)
         .onReceive(
             NotificationCenter.default.publisher(for: .itemStatus, object: nil)
         ) { notification in

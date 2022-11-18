@@ -15,11 +15,11 @@ struct TrendsNavView: View {
         NavigationLink(value: Panel.trends) {
             Label {
                 Text("Trends").lineLimit(1)
+                    .badge(profile.trends.unread().count)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
-        .badge(profile.trends.unread().count)
         .accessibilityIdentifier("timeline-button")
     }
 }

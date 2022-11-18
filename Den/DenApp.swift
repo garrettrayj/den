@@ -17,8 +17,7 @@ import SDWebImageWebPCoder
 struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
-    @State private var activeProfile: Profile?
-    @State private var refreshing: Bool = false
+    @StateObject private var appState = AppState()
     
     @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
@@ -29,8 +28,7 @@ struct DenApp: App {
     var body: some Scene {
         WindowGroup {
             RootView(
-                activeProfile: $activeProfile,
-                refreshing: $refreshing,
+                appState: appState,
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
@@ -51,10 +49,10 @@ struct DenApp: App {
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                if activeProfile == nil {
+                if appState.activeProfile == nil {
                     loadProfile()
                 }
-                if autoRefreshEnabled && !refreshing && (
+                if autoRefreshEnabled && !appState.refreshing && (
                     autoRefreshDate == 0.0 ||
                     Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
                 ) {
@@ -144,7 +142,7 @@ struct DenApp: App {
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
-        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 256 // 256 MB
+        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 512 // MB
     }
 
     private func scheduleAppRefresh() {
@@ -166,12 +164,12 @@ struct DenApp: App {
     }
     
     private func handleRefresh(background: Bool = false) async {
-        guard !refreshing, let profile = activeProfile else { return }
+        guard !appState.refreshing, let profile = appState.activeProfile else { return }
         await RefreshUtility.refresh(container: container, profile: profile)
     }
     
     private func loadProfile() {
-        activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
+        appState.activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
         WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
     }
 }
