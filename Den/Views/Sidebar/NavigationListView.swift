@@ -14,8 +14,7 @@ struct NavigationListView: View {
     @Environment(\.editMode) private var editMode
     
     @ObservedObject var profile: Profile
-    
-    let appState: AppState
+    @ObservedObject var appState: AppState
     
     @Binding var selection: Panel?
     
