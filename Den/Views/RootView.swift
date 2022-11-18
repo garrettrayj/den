@@ -45,13 +45,14 @@ struct RootView: View {
                 .navigationSplitViewColumnWidth(268)
             } detail: {
                 DetailView(
+                    activeProfile: $appState.activeProfile,
+                    refreshing: $appState.refreshing,
                     selection: $selection,
                     uiStyle: $uiStyle,
                     autoRefreshEnabled: $autoRefreshEnabled,
                     autoRefreshCooldown: $autoRefreshCooldown,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     profile: profile,
-                    appState: appState,
                     searchModel: searchModel
                 )
             }
