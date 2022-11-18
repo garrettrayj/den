@@ -16,7 +16,6 @@ struct SidebarView: View {
     
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
     
     @State private var searchInput: String = ""
 
@@ -31,8 +30,7 @@ struct SidebarView: View {
                 profile: profile,
                 searchModel: searchModel,
                 selection: $selection,
-                refreshing: $refreshing,
-                refreshProgress: $refreshProgress
+                refreshing: $refreshing
             )
             .searchable(
                 text: $searchInput,

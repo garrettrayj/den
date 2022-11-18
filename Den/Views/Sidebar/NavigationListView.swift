@@ -19,7 +19,8 @@ struct NavigationListView: View {
     
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
+    
+    let refreshProgress: Progress = Progress()
 
     var body: some View {
         List(selection: $selection) {
@@ -45,6 +46,23 @@ struct NavigationListView: View {
             }
         }
         #endif
+        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+            Haptics.mediumImpactFeedbackGenerator.impactOccurred()
+            refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
+            refreshProgress.completedUnitCount = 0
+            refreshing = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+            refreshProgress.completedUnitCount += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
+            refreshProgress.completedUnitCount += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+            refreshing = false
+            profile.objectWillChange.send()
+            Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
+        }
         .toolbar {
             ToolbarItem {
                 EditButton()
@@ -86,13 +104,9 @@ struct NavigationListView: View {
                 Spacer()
                 Button {
                     if !refreshing {
-                        let bgTask = UIApplication.shared.beginBackgroundTask() {
-                            // Handle expiration here
-                        }
                         Task {
                             await RefreshUtility.refresh(container: container, profile: profile)
                         }
-                        UIApplication.shared.endBackgroundTask(bgTask)
                     }
                 } label: {
                     Label("Refresh", systemImage: "arrow.clockwise")

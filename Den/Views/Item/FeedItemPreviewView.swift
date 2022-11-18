@@ -13,7 +13,7 @@ struct FeedItemPreviewView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            NavigationLink(value: FeedPanel.feed(item.feedData?.feed)) {
+            NavigationLink(value: DetailPanel.feed(item.feedData?.feed)) {
                 HStack {
                     FeedTitleLabelView(
                         title: item.feedData?.feed?.wrappedTitle ?? "Untitled",

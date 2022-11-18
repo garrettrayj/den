@@ -31,7 +31,7 @@ struct ItemActionView<Content: View>: View {
             }
             .buttonStyle(ItemButtonStyle(read: item.read))
         } else {
-            NavigationLink(value: ItemPanel.item(item)) {
+            NavigationLink(value: DetailPanel.item(item)) {
                 content
             }
             .buttonStyle(ItemButtonStyle(read: item.read))
