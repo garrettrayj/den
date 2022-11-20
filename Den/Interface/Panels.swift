@@ -18,8 +18,11 @@ enum Panel: Hashable {
 }
 
 enum DetailPanel: Hashable {
-    case feed(Feed?)
+    case feed(Feed)
+    case feedSettings(Feed)
     case item(Item)
+    case pageSettings(Page)
+    case trend(Trend)
 }
 
 enum SettingsPanel: Hashable {
@@ -27,16 +30,4 @@ enum SettingsPanel: Hashable {
     case importFeeds
     case exportFeeds
     case security
-}
-
-enum PagePanel: Hashable {
-    case pageSettings(Page)
-}
-
-enum FeedPanel: Hashable {
-    case feedSettings(Feed)
-}
-
-enum TrendPanel: Hashable {
-    case trend(Trend)
 }

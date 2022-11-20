@@ -96,7 +96,13 @@ struct PageSettingsView: View {
     }
 
     private func deleteFeed(indices: IndexSet) {
-        indices.forEach { viewContext.delete(page.feedsArray[$0]) }
+        indices.forEach {
+            let feed = page.feedsArray[$0]
+            if let feedData = feed.feedData {
+                viewContext.delete(feedData)
+            }
+            viewContext.delete(page.feedsArray[$0])
+        }
 
         do {
             try viewContext.save()

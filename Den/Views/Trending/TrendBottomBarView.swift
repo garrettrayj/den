@@ -42,6 +42,7 @@ struct TrendBottomBarView: View {
         Spacer()
         ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
             await SyncUtility.toggleReadUnread(container: container, items: trend.items)
+            trend.objectWillChange.send()
         }
     }
 }

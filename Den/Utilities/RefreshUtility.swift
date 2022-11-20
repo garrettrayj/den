@@ -62,12 +62,12 @@ struct RefreshUtility {
             }
         )
         
-        let analysisOperation = AnalysisOperation(container: container, profileObjectID: profile.objectID)
-        await analysisOperation.execute()
-        
         let cleanOperation = CleanOperation(container: container, profileObjectID: profile.objectID)
         await cleanOperation.execute()
         
+        let analysisOperation = AnalysisOperation(container: container, profileObjectID: profile.objectID)
+        await analysisOperation.execute()
+
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
         }

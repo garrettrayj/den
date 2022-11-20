@@ -18,67 +18,61 @@ struct FeedView: View {
     @Binding var refreshing: Bool
 
     var body: some View {
-        Group {
-            if feed.managedObjectContext == nil {
-                StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
-            } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        if feed.hasContent {
-                            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                                Section(header: header.modifier(PinnedSectionHeaderModifier())) {
-                                    if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
-                                        AllReadCompactView()
-                                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                                            .cornerRadius(8)
-                                            .padding()
-                                    } else {
-                                        BoardView(
-                                            width: geometry.size.width,
-                                            list: visibleItems
-                                        ) { item in
-                                            ItemActionView(item: item) {
-                                                ItemPreviewView(item: item)
-                                            }
-                                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                                            .cornerRadius(8)
-                                        }
-                                        .padding(12)
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
+                if feed.hasContent {
+                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                        Section(header: header.modifier(PinnedSectionHeaderModifier())) {
+                            if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
+                                AllReadCompactView()
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
+                                    .padding()
+                            } else {
+                                BoardView(
+                                    width: geometry.size.width,
+                                    list: visibleItems
+                                ) { item in
+                                    ItemActionView(item: item) {
+                                        ItemPreviewView(item: item)
                                     }
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
                                 }
+                                .padding(12)
                             }
-                        } else {
-                            VStack {
-                                Spacer()
-                                FeedUnavailableView(feedData: feed.feedData, useStatusBox: true)
-                                Spacer()
-                            }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .frame(height: geometry.size.height)
                         }
                     }
-                }
-                .toolbar {
-                    ToolbarItemGroup {
-                        NavigationLink(value: FeedPanel.feedSettings(feed)) {
-                            Label("Feed Settings", systemImage: "wrench")
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .accessibilityIdentifier("feed-settings-button")
-                        .disabled(refreshing)
-                        .id(feed.id)
+                } else {
+                    VStack {
+                        Spacer()
+                        FeedUnavailableView(feedData: feed.feedData, useStatusBox: true)
+                        Spacer()
                     }
-                    
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        FeedBottomBarView(
-                            feed: feed,
-                            hideRead: $hideRead,
-                            refreshing: $refreshing,
-                            unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
-                        )
-                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: geometry.size.height)
                 }
+            }
+        }
+        .toolbar {
+            ToolbarItemGroup {
+                NavigationLink(value: DetailPanel.feedSettings(feed)) {
+                    Label("Feed Settings", systemImage: "wrench")
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("feed-settings-button")
+                .disabled(refreshing)
+                .id(feed.id)
+            }
+            
+            ToolbarItemGroup(placement: .bottomBar) {
+                FeedBottomBarView(
+                    feed: feed,
+                    hideRead: $hideRead,
+                    refreshing: $refreshing,
+                    unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
+                )
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
@@ -86,12 +80,6 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(feed.wrappedTitle)
-        .navigationDestination(for: FeedPanel.self) { feedPanel in
-            switch feedPanel {
-            case .feedSettings(let feed):
-                FeedSettingsView(feed: feed)
-            }
-        }
     }
 
     private var visibleItems: [Item] {

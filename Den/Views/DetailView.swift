@@ -44,11 +44,15 @@ struct DetailView: View {
                         refreshing: $refreshing
                     )
                 case .page(let page):
-                    PageView(
-                        page: page,
-                        hideRead: $hideRead,
-                        refreshing: $refreshing
-                    )
+                    if page.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
+                    } else {
+                        PageView(
+                            page: page,
+                            hideRead: $hideRead,
+                            refreshing: $refreshing
+                        )
+                    }
                 case .settings:
                     SettingsView(
                         activeProfile: $activeProfile,
@@ -63,15 +67,39 @@ struct DetailView: View {
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 switch detailPanel {
                 case .feed(let feed):
-                    if let feed = feed {
-                        FeedView(
-                            feed: feed,
+                    if feed.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
+                    } else {
+                        FeedView(feed: feed, hideRead: $hideRead, refreshing: $refreshing)
+                    }
+                case .item(let item):
+                    if item.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
+                    } else {
+                        ItemView(item: item)
+                    }
+                case .pageSettings(let page):
+                    if page.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
+                    } else {
+                        PageSettingsView(page: page)
+                    }
+                case .feedSettings(let feed):
+                    if feed.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
+                    } else {
+                        FeedSettingsView(feed: feed)
+                    }
+                case .trend(let trend):
+                    if trend.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Trend Deleted"), symbol: "slash.circle")
+                    } else {
+                        TrendView(
+                            trend: trend,
                             hideRead: $hideRead,
                             refreshing: $refreshing
                         )
                     }
-                case .item(let item):
-                    ItemView(item: item)
                 }
             }
         }

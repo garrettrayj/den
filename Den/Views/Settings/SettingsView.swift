@@ -34,11 +34,15 @@ struct SettingsView: View {
         .navigationDestination(for: SettingsPanel.self) { settingsPanel in
             switch settingsPanel {
             case .profile(let profile):
-                ProfileView(
-                    activeProfile: $activeProfile,
-                    profile: profile,
-                    nameInput: profile.wrappedName
-                )
+                if profile.managedObjectContext == nil {
+                    StatusBoxView(message: Text("Profile Deleted"), symbol: "slash.circle")
+                } else {
+                    ProfileView(
+                        activeProfile: $activeProfile,
+                        profile: profile,
+                        nameInput: profile.wrappedName
+                    )
+                }
             case .importFeeds:
                 ImportView(profile: profile)
             case .exportFeeds:

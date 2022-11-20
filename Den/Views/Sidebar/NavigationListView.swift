@@ -145,8 +145,20 @@ struct NavigationListView: View {
 
     private func deletePage(indices: IndexSet) {
         indices.forEach {
-            container.viewContext.delete(profile.pagesArray[$0])
+            let page = profile.pagesArray[$0]
+            for feed in page.feedsArray where feed.feedData != nil {
+                container.viewContext.delete(feed.feedData!)
+            }
+            container.viewContext.delete(page)
         }
-        save()
+        
+        do {
+            try container.viewContext.save()
+            profile.objectWillChange.send()
+            // Update Inbox unread count
+            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 }
