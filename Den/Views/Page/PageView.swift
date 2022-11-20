@@ -36,12 +36,7 @@ struct PageView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            if page.managedObjectContext == nil {
-                StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
-                    .toolbar {
-                        EmptyView()
-                    }
-            } else if page.feedsArray.isEmpty {
+            if page.feedsArray.isEmpty {
                 #if targetEnvironment(macCatalyst)
                 StatusBoxView(
                     message: Text("Page Empty"),
@@ -85,12 +80,6 @@ struct PageView: View {
         .modifier(URLDropTargetModifier(page: page))
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle(page.displayName)
-        .navigationDestination(for: PagePanel.self, destination: { pagePanel in
-            switch pagePanel {
-            case .pageSettings(let page):
-                PageSettingsView(page: page)
-            }
-        })
         .toolbar {
             #if targetEnvironment(macCatalyst)
             ToolbarItemGroup {
@@ -108,7 +97,7 @@ struct PageView: View {
                 .accessibilityIdentifier("add-feed-button")
                 .disabled(refreshing)
                 
-                NavigationLink(value: PagePanel.pageSettings(page)) {
+                NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
                 .buttonStyle(ToolbarButtonStyle())
@@ -127,7 +116,7 @@ struct PageView: View {
                     }
                     .accessibilityIdentifier("add-feed-button")
 
-                    NavigationLink(value: PagePanel.pageSettings(page)) {
+                    NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
                     .accessibilityIdentifier("page-settings-button")

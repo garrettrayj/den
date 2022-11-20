@@ -17,20 +17,20 @@ struct CleanOperation {
 
     func execute() async {
         let defaults = UserDefaults.standard
-        
-        if
-            let lastCleaned = defaults.object(forKey: "LastCleaned") as? Date,
-            lastCleaned + 7 * 24 * 60 * 60 > .now
-        {
-            Logger.main.info("Cleanup has been performed in last 7 days. Skipping")
-            return
-        }
 
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
-
-            try? self.cleanupHistory(context: context, profile: profile)
+            
             try? self.cleanupData(context: context)
+            
+            if
+                let lastCleaned = defaults.object(forKey: "LastCleaned") as? Date,
+                lastCleaned + 7 * 24 * 60 * 60 < .now
+            {
+                Logger.main.info("Performing history cleanup")
+                try? self.cleanupHistory(context: context, profile: profile)
+            }
+            
             try? context.save()
         }
         

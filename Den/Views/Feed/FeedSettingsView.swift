@@ -64,13 +64,13 @@ struct FeedSettingsView: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Open in Default Browser")
+                Text("Open in Browser")
                 Spacer()
-                Toggle("Open in Default Browser", isOn: $feed.browserView).labelsHidden()
+                Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
             }.modifier(FormRowModifier())
             #else
             Toggle(isOn: $feed.browserView) {
-                Text("Open in Built-in Browser")
+                Text("Open in Browser")
             }
             if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
@@ -150,6 +150,9 @@ struct FeedSettingsView: View {
                     Button("Cancel", role: .cancel) { }
                         .accessibilityIdentifier("feed-delete-cancel-button")
                     Button("Delete", role: .destructive) {
+                        if let feedData = feed.feedData {
+                            viewContext.delete(feedData)
+                        }
                         viewContext.delete(feed)
                         feed.page?.profile?.objectWillChange.send()
                         dismiss()

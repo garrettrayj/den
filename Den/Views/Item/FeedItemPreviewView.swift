@@ -12,27 +12,29 @@ struct FeedItemPreviewView: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            NavigationLink(value: DetailPanel.feed(item.feedData?.feed)) {
-                HStack {
-                    FeedTitleLabelView(
-                        title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                        favicon: item.feedData?.favicon
-                    )
-                    Spacer()
-                    NavChevronView()
-                }.padding(.horizontal, 12)
-            }
-            .buttonStyle(FeedTitleButtonStyle())
-            .accessibilityIdentifier("item-feed-button")
+        if let feed = item.feedData?.feed {
+            VStack(alignment: .leading, spacing: 0) {
+                NavigationLink(value: DetailPanel.feed(feed)) {
+                    HStack {
+                        FeedTitleLabelView(
+                            title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
+                            favicon: item.feedData?.favicon
+                        )
+                        Spacer()
+                        NavChevronView()
+                    }.padding(.horizontal, 12)
+                }
+                .buttonStyle(FeedTitleButtonStyle())
+                .accessibilityIdentifier("item-feed-button")
 
-            Divider()
+                Divider()
 
-            ItemActionView(item: item) {
-                ItemPreviewView(item: item)
+                ItemActionView(item: item) {
+                    ItemPreviewView(item: item)
+                }
             }
+            .background(Color(UIColor.secondarySystemGroupedBackground))
+            .cornerRadius(8)
         }
-        .background(Color(UIColor.secondarySystemGroupedBackground))
-        .cornerRadius(8)
     }
 }

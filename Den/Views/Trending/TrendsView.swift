@@ -38,16 +38,6 @@ struct TrendsView: View {
         }
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle("Trends")
-        .navigationDestination(for: TrendPanel.self) { detailPanel in
-            switch detailPanel {
-            case .trend(let trend):
-                TrendView(
-                    trend: trend,
-                    hideRead: $hideRead,
-                    refreshing: $refreshing
-                )
-            }
-        }
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 TrendsBottomBarView(

@@ -14,8 +14,8 @@ struct ToolbarButtonStyle: ButtonStyle {
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
-            .padding(.horizontal, 8)
             #if targetEnvironment(macCatalyst)
+            .padding(.horizontal, 8)
             .frame(height: 28, alignment: .center)
             .fontWeight(.semibold)
             .foregroundColor(
@@ -38,6 +38,7 @@ struct ToolbarButtonStyle: ButtonStyle {
             )
             .cornerRadius(8)
             #else
+            .padding(.horizontal, 4)
             .frame(height: 44, alignment: .center)
             .foregroundColor(
                 isEnabled ?
@@ -49,7 +50,6 @@ struct ToolbarButtonStyle: ButtonStyle {
                     Color(UIColor.tertiaryLabel)
             )
             .background(Color.clear)
-            .padding(.horizontal, -8)
             #endif
             .onHover { hovered in
                 hovering = hovered
