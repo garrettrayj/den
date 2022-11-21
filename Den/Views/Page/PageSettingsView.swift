@@ -48,7 +48,7 @@ struct PageSettingsView: View {
             } label: {
                 Label {
                     HStack {
-                        Text("Select icon")
+                        Text("Select Icon")
                         Spacer()
                         Image(systemName: "chevron.down").foregroundColor(.secondary)
                     }

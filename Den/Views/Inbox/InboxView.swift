@@ -58,17 +58,6 @@ struct InboxView: View {
         .background(Color(UIColor.systemGroupedBackground))
         .navigationTitle("Inbox")
         .toolbar {
-            ToolbarItem {
-                Button {
-                    SubscriptionUtility.showSubscribe()
-                } label: {
-                    Label("Add Feed", systemImage: "plus.circle")
-                }
-                .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("add-feed-button")
-                .disabled(refreshing)
-            }
-            
             ToolbarItemGroup(placement: .bottomBar) {
                 InboxBottomBarView(
                     profile: profile,

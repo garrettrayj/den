@@ -56,6 +56,16 @@ struct RootView: View {
                     searchModel: searchModel
                 )
             }
+            .onOpenURL { url in
+                if case .page(let page) = selection {
+                    SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
+                } else {
+                    SubscriptionUtility.showSubscribe(for: url.absoluteString)
+                }
+            }
+            .modifier(
+                URLDropTargetModifier()
+            )
             .onChange(of: selection) { _ in
                 path.removeLast(path.count)
             }

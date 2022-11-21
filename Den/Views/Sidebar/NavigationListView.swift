@@ -62,11 +62,26 @@ struct NavigationListView: View {
             Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
         }
         .toolbar {
-            ToolbarItem {
+            ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
                     .disabled(appState.refreshing)
                     .accessibilityIdentifier("edit-page-list-button")
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    if case .page(let page) = selection {
+                        SubscriptionUtility.showSubscribe(page: page)
+                    } else {
+                        SubscriptionUtility.showSubscribe()
+                    }
+                } label: {
+                    Label("Add Feed", systemImage: "plus.circle")
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("add-feed-button")
+                .disabled(appState.refreshing)
             }
 
             ToolbarItemGroup(placement: .bottomBar) {

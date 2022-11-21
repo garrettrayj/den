@@ -20,15 +20,10 @@ struct FeedRefreshOperation {
     func execute() async -> RefreshStatus {
         var refreshStatus = RefreshStatus()
         
-        let start: Date = .now
-        
         guard let (data, _) = try? await URLSession.shared.data(from: url) else {
             refreshStatus.errors.append("Fetch error")
             return refreshStatus
         }
-        
-        let executionTime = Date().timeIntervalSince(start)
-        print("Response time: \(executionTime) \(url)")
         
         let parserResult = FeedParser(data: data).parse()
         var webpage: URL? = nil
@@ -86,7 +81,7 @@ struct FeedRefreshOperation {
                 }
             }
             
-            for item in feedData.itemsArray where item.read == false {
+            for item in feedData.itemsArray {
                 item.read = !item.history.isEmpty
             }
              
