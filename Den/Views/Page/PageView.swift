@@ -88,15 +88,6 @@ struct PageView: View {
                     .padding(8)
                     .disabled(refreshing)
                 
-                Button {
-                    SubscriptionUtility.showSubscribe(page: page)
-                } label: {
-                    Label("Add Feed", systemImage: "plus.circle")
-                }
-                .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("add-feed-button")
-                .disabled(refreshing)
-                
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
@@ -108,14 +99,7 @@ struct PageView: View {
             ToolbarItem {
                 Menu {
                     viewModePicker
-
-                    Button {
-                        SubscriptionUtility.showSubscribe(page: page)
-                    } label: {
-                        Label("Add Feed", systemImage: "plus.circle")
-                    }
-                    .accessibilityIdentifier("add-feed-button")
-
+                    
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }

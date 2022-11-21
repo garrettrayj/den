@@ -20,7 +20,6 @@ struct FeedSettingsView: View {
         Form {
             titleSection
             previewsSection
-            fullViewSection
             infoSection
             organizeSection
         }
@@ -55,13 +54,7 @@ struct FeedSettingsView: View {
                 Text("Show Thumbnails")
             }
             #endif
-        } header: {
-            Text("Previews")
-        }
-    }
-    
-    private var fullViewSection: some View {
-        Section {
+            
             #if targetEnvironment(macCatalyst)
             HStack {
                 Text("Open in Browser")
@@ -79,7 +72,7 @@ struct FeedSettingsView: View {
             }
             #endif
         } header: {
-            Text("Items")
+            Text("Previews")
         }
     }
 
@@ -161,8 +154,6 @@ struct FeedSettingsView: View {
             )
             .modifier(FormRowModifier())
             .accessibilityIdentifier("feed-delete-button")
-        } header: {
-            Text("Organize")
         }
     }
 

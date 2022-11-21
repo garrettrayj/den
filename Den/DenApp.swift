@@ -37,20 +37,17 @@ struct DenApp: App {
             )
             .preferredColorScheme(ColorScheme(uiStyle))
             .environment(\.managedObjectContext, container.viewContext)
-            .onOpenURL { url in
-                SubscriptionUtility.showSubscribe(for: url.absoluteString)
-            }
-            .modifier(URLDropTargetModifier())
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
-            await handleRefresh(background: true)
+            await handleRefresh()
         }
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                if appState.activeProfile == nil {
+                if appState.activeProfile == nil || appState.activeProfile?.isDeleted == true {
                     loadProfile()
+                    WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
                 }
                 if autoRefreshEnabled && !appState.refreshing && (
                     autoRefreshDate == 0.0 ||
@@ -106,13 +103,12 @@ struct DenApp: App {
         // Break here to simulate background task
     }
     
-    private func handleRefresh(background: Bool = false) async {
+    private func handleRefresh() async {
         guard !appState.refreshing, let profile = appState.activeProfile else { return }
         await RefreshUtility.refresh(container: container, profile: profile)
     }
     
     private func loadProfile() {
         appState.activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
-        WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
     }
 }

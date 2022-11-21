@@ -52,7 +52,6 @@ struct SyncUtility {
 
                 let history = History.create(in: context, profile: profile)
                 history.link = item.link
-                history.title = item.title
                 history.visited = .now
             }
             

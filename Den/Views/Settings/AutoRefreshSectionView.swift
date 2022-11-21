@@ -38,9 +38,9 @@ struct AutoRefreshSectionView: View {
                     step: autoRefreshCooldown >= 90 ? 30 : 5
                 ) {
                     if autoRefreshCooldown >= 90 {
-                        Text("⁃ Cooldown: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                        Text("• Cooldown: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
                     } else {
-                        Text("⁃ Cooldown: \(autoRefreshCooldown) minutes")
+                        Text("• Cooldown: \(autoRefreshCooldown) minutes")
                     }
                     
                 }
