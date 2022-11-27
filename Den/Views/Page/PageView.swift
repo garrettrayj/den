@@ -37,28 +37,15 @@ struct PageView: View {
     var body: some View {
         GeometryReader { geometry in
             if page.feedsArray.isEmpty {
-                #if targetEnvironment(macCatalyst)
                 StatusBoxView(
                     message: Text("Page Empty"),
                     caption: Text("""
-                    To add feeds tap \(Image(systemName: "plus.circle")), \
-                    open syndication links, \
-                    or drag-and-drop URLs.
+                    To add feeds tap \(Image(systemName: "plus")), \n\
+                    open syndication links, \n\
+                    or drag and drop URLs.
                     """),
                     symbol: "questionmark.folder"
                 )
-                #else
-                StatusBoxView(
-                    message: Text("Page Empty"),
-                    caption: Text("""
-                    To add feeds tap \(Image(systemName: "ellipsis.circle")) \
-                    then \(Image(systemName: "plus.circle")), \
-                    open syndication links, \
-                    or drag-and-drop URLs.
-                    """),
-                    symbol: "questionmark.folder"
-                )
-                #endif
             } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend.rawValue {
                 StatusBoxView(
                     message: Text("No Items"),

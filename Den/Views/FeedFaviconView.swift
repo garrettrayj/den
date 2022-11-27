@@ -17,6 +17,7 @@ struct FeedFaviconView: View {
     var purgeable: Bool = true
 
     var body: some View {
+        
         WebImage(url: url, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])
             .resizable()
             .playbackRate(0)

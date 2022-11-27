@@ -47,25 +47,6 @@ struct ProfileUtility {
         return ProfileUtility.activateProfile(profile)
     }
 
-    static func resetProfiles(context: NSManagedObjectContext) -> Profile {
-        let defaultProfile = ProfileUtility.activateProfile(
-            ProfileUtility.createDefaultProfile(context: context)
-        )
-
-        do {
-            let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
-            for profile in profiles where profile != defaultProfile {
-                context.delete(profile)
-            }
-
-            try context.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-
-        return defaultProfile
-    }
-
     static func createDefaultProfile(context: NSManagedObjectContext) -> Profile {
         let profile = Profile.create(in: context)
         profile.wrappedName = "Den"
