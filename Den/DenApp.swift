@@ -15,6 +15,8 @@ import SDWebImageWebPCoder
 
 @main
 struct DenApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.persistentContainer) private var container
     
@@ -71,20 +73,6 @@ struct DenApp: App {
         }
     }
     
-    init() {
-        // Add additional image format support
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
-        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
-
-        // Explicit list of accepted image types so servers may decide what to respond with
-        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
-            mimeType.rawValue
-        }).joined(separator: ",")
-        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
-
-        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 256 // MB
-    }
-
     private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
         request.earliestBeginDate = .now + 10 * 60

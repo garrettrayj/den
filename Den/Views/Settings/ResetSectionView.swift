@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+import SDWebImage
+
 struct ResetSectionView: View {
     @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
@@ -17,32 +19,70 @@ struct ResetSectionView: View {
     @ObservedObject var profile: Profile
 
     @State private var showingResetAlert = false
+    @State private var cacheSize: Int64 = 0
+    
+    var cacheSizeFormatter: ByteCountFormatter {
+        let formatter = ByteCountFormatter()
+        formatter.allowedUnits = .useAll
+        formatter.countStyle = .file
+        formatter.includesUnit = true
+        formatter.isAdaptive = true
+
+        return formatter
+    }
 
     var body: some View {
         Section(header: Text("Reset")) {
+            Button {
+                Task {
+                    await resetFeeds(profile: profile)
+                    await emptyCache()
+                    sleep(1)
+                    await calculateCacheSize()
+                    refreshCounts()
+                }
+            } label: {
+                HStack {
+                    Text("Clear Cache")
+                    Spacer()
+                    Text(cacheSizeFormatter.string(fromByteCount: cacheSize))
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                }
+            }
+            .disabled(cacheSize == 0)
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("clear-cache-button")
+            
             Button {
                 Task {
                     await resetHistory()
                     refreshCounts()
                 }
             } label: {
-                Text("Clear History")
+                HStack {
+                    Text("Clear History")
+                    Spacer()
+                    if let historyCount = profile.history?.count, historyCount > 0 {
+                        if historyCount > 1 {
+                            Text("\(historyCount) entries")
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                        } else {
+                            Text("\(historyCount) entry")
+                                .font(.callout)
+                                .foregroundColor(.secondary)
+                        }
+                    } else {
+                        Text("Empty")
+                            .font(.callout)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
             .disabled(profile.history?.count == 0)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-history-button")
-
-            Button {
-                Task {
-                    await resetFeeds(profile: profile)
-                    refreshCounts()
-                }
-            } label: {
-                Text("Empty Cache")
-            }
-            .disabled(profile.feedsArray.compactMap({ $0.feedData }).isEmpty)
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("clear-cache-button")
 
             Button(role: .destructive) {
                 showingResetAlert = true
@@ -55,13 +95,20 @@ struct ResetSectionView: View {
             .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
                 Button("Cancel", role: .cancel) { }.accessibilityIdentifier("reset-cancel-button")
                 Button("Reset", role: .destructive) {
-                    resetEverything()
+                    Task {
+                        await resetEverything()
+                        sleep(1)
+                        await calculateCacheSize()
+                    }
                     dismiss()
                 }.accessibilityIdentifier("reset-confirm-button")
             }, message: {
                 Text("All profiles will be removed. Default settings will be restored.")
             })
             .accessibilityIdentifier("reset-button")
+        }
+        .task {
+            await calculateCacheSize()
         }
     }
     
@@ -89,6 +136,22 @@ struct ResetSectionView: View {
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
     }
+    
+    private func emptyCache() async {
+        await SDImageCache.shared.clear(with: .all)
+
+        URLCache.shared.removeAllCachedResponses()
+    }
+    
+    private func calculateCacheSize() async {
+        let (_, imageCacheSize) = await SDImageCache.shared.calculateSize()
+        
+        let urlCacheSize = URLCache.shared.currentDiskUsage
+        
+        let cacheBytes = Int64(imageCacheSize) + Int64(urlCacheSize)
+        
+        cacheSize = cacheBytes > 1024 * 512 ? cacheBytes : 0
+    }
 
     private func resetFeeds(profile: Profile) async {
         await container.performBackgroundTask { context in
@@ -114,8 +177,30 @@ struct ResetSectionView: View {
         }
     }
 
-    private func resetEverything() {
+    private func resetEverything() async {
+        await emptyCache()
+        
         restoreUserDefaults()
-        activeProfile = ProfileUtility.resetProfiles(context: container.viewContext)
+        
+        await container.performBackgroundTask { context in
+            let newProfile = ProfileUtility.activateProfile(
+                ProfileUtility.createDefaultProfile(context: context)
+            )
+            
+            do {
+                let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
+                for profile in profiles where profile != newProfile {
+                    for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
+                        context.delete(feedData)
+                    }
+                    context.delete(profile)
+                }
+                try context.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
+        }
+        
+        activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
     }
 }
