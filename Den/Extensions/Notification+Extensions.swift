@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreData
 
 extension Notification.Name {
     static let refreshStarted = Notification.Name("refresh-started")

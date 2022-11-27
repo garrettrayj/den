@@ -41,14 +41,14 @@ extension String {
     }
 
     func strippingTags() -> String {
-        guard
+        if
             let doc: Document = try? SwiftSoup.parseBodyFragment(self),
             let txt = try? doc.text()
-        else {
-            return self
+        {
+            return txt
         }
 
-        return txt
+        return self
     }
 
     func preparingTitle() -> String {
@@ -57,11 +57,10 @@ extension String {
             .replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
             .replacingOccurrences(of: "\u{202F}", with: " ") // NARROW NO-BREAK SPACE
             .trimmingCharacters(in: .whitespacesAndNewlines)
-            
     }
 
     func sanitizedForFileName() -> String {
-        // For reasoning on character sets see https://superuser.com/a/358861
+        // See https://superuser.com/a/358861
         let invalidCharacters = CharacterSet(charactersIn: "\\/:*?\"<>|")
             .union(.newlines)
             .union(.illegalCharacters)
@@ -73,15 +72,15 @@ extension String {
     }
 
     func removingCharacters(in charactersSet: CharacterSet) -> String {
-        var filteredString = self
+        var filtered = self
         while true {
-            if let forbiddenCharRange = filteredString.rangeOfCharacter(from: charactersSet) {
-                filteredString.removeSubrange(forbiddenCharRange)
+            if let forbiddenCharRange = filtered.rangeOfCharacter(from: charactersSet) {
+                filtered.removeSubrange(forbiddenCharRange)
             } else {
                 break
             }
         }
 
-        return filteredString
+        return filtered
     }
 }

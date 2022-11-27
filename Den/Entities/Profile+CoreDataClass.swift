@@ -11,7 +11,7 @@ import CoreData
 @objc(Profile)
 public class Profile: NSManagedObject {
     public var wrappedName: String {
-        get { name ?? "Untitled" }
+        get { name ?? "" }
         set { name = newValue }
     }
 

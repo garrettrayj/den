@@ -12,6 +12,6 @@ struct PinnedSectionHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: 40)
+            .frame(height: 36)
     }
 }

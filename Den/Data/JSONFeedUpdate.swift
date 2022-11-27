@@ -21,7 +21,7 @@ struct JSONFeedUpdate {
     
     func execute() {
         if feed.title == nil, let feedTitle = source.title {
-            feed.title = feedTitle.strippingTags().preparingTitle()
+            feed.title = feedTitle.preparingTitle()
         }
         feedData.link = source.webpage
 

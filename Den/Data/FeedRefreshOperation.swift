@@ -19,14 +19,24 @@ struct FeedRefreshOperation {
     
     func execute() async -> RefreshStatus {
         var refreshStatus = RefreshStatus()
+        var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
+        var faviconURL: URL?
+        var metaFetched: Date?
         
-        guard let (data, _) = try? await URLSession.shared.data(from: url) else {
-            refreshStatus.errors.append("Fetch error")
-            return refreshStatus
+        if let (data, _) = try? await URLSession.shared.data(from: url) {
+            parserResult = FeedParser(data: data).parse()
         }
         
-        let parserResult = FeedParser(data: data).parse()
-        var webpage: URL? = nil
+        if fetchMeta {
+            if
+                case .success(let parsedFeed) = parserResult,
+                let webpage = parsedFeed.webpage
+            {
+                let faviconOp = FaviconOperation(webpage: webpage)
+                faviconURL = await faviconOp.execute()
+            }
+            metaFetched = .now
+        }
             
         await container.performBackgroundTask { context in
             guard
@@ -64,13 +74,11 @@ struct FeedRefreshOperation {
                     )
                     updater.execute()
                 }
-                webpage = feedData.link
             case .failure:
                 refreshStatus.errors.append("Unable to parse feed")
+            case .none:
+                refreshStatus.errors.append("Unable to fetch data")
             }
-            
-            feedData.refreshed = .now
-            feedData.error = refreshStatus.errors.first
             
             // Cleanup items
             let maxItems = feed.wrappedItemLimit
@@ -81,29 +89,22 @@ struct FeedRefreshOperation {
                 }
             }
             
+            // Update read flags
             for item in feedData.itemsArray {
                 item.read = !item.history.isEmpty
             }
-             
-            try? context.save()
-        }
-        
-        if fetchMeta, let webpage = webpage {
-            let faviconOp = FaviconOperation(webpage: webpage)
             
-            if let faviconURL = await faviconOp.execute() {
-                await container.performBackgroundTask { context in
-                    guard
-                        let feed = context.object(with: self.feedObjectID) as? Feed,
-                        let feedData = feed.feedData
-                    else { return }
-                    
+            // Update metadata and status
+            if metaFetched != nil {
+                feedData.metaFetched = metaFetched
+                if let faviconURL = faviconURL {
                     feedData.favicon = faviconURL
-                    feedData.metaFetched = .now
-                    
-                    try? context.save()
                 }
             }
+            feedData.refreshed = .now
+            feedData.error = refreshStatus.errors.first
+             
+            try? context.save()
         }
 
         DispatchQueue.main.async {
@@ -113,6 +114,7 @@ struct FeedRefreshOperation {
                 userInfo: ["pageObjectID": pageObjectID as Any]
             )
         }
+            
         return refreshStatus
     }
 }

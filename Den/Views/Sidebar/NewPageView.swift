@@ -23,7 +23,7 @@ struct NewPageView: View {
                 Label {
                     Text("Add Page")
                 } icon: {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus.circle")
                 }
             }
             .buttonStyle(.borderless)

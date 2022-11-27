@@ -38,7 +38,6 @@ struct ToolbarButtonStyle: ButtonStyle {
             )
             .cornerRadius(8)
             #else
-            .padding(.horizontal, 4)
             .frame(height: 44, alignment: .center)
             .foregroundColor(
                 isEnabled ?

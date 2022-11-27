@@ -8,9 +8,7 @@
 
 import Foundation
 
-
 struct MediaTypeUtility {
-    
     static func mediaIsImage(mimeType: String?, medium: String?) -> Bool {
         if let mimeType = mimeType {
             if ImageMIMEType(rawValue: mimeType) != nil {

@@ -19,9 +19,7 @@ struct ItemPreviewView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(item.wrappedTitle)
-                .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
+            Text(item.wrappedTitle).font(.headline)
 
             ItemDateAuthorView(item: item)
 
