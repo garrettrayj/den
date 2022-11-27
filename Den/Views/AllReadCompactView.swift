@@ -11,7 +11,7 @@ import SwiftUI
 struct AllReadCompactView: View {
     var body: some View {
         Label {
-            Text("All read")
+            Text("All Read")
         } icon: {
             Image(systemName: "checkmark")
         }

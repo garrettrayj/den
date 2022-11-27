@@ -6,7 +6,6 @@
 //  Copyright © 2021 Garrett Johnson. All rights reserved.
 //
 
-import Foundation
 import CoreData
 
 struct SubscriptionUtility {

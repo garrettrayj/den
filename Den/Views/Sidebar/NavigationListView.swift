@@ -62,26 +62,18 @@ struct NavigationListView: View {
             Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
-                    .buttonStyle(ToolbarButtonStyle())
-                    .disabled(appState.refreshing)
-                    .accessibilityIdentifier("edit-page-list-button")
-            }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    if case .page(let page) = selection {
-                        SubscriptionUtility.showSubscribe(page: page)
-                    } else {
-                        SubscriptionUtility.showSubscribe()
-                    }
-                } label: {
-                    Label("Add Feed", systemImage: "plus.circle")
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    editButton
                 }
-                .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("add-feed-button")
-                .disabled(appState.refreshing)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    addFeedButton
+                }
+            } else {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    editButton
+                    addFeedButton
+                }
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
@@ -130,6 +122,28 @@ struct NavigationListView: View {
                 .disabled(appState.refreshing || editMode?.wrappedValue.isEditing ?? true)
             }
         }
+    }
+    
+    private var editButton: some View {
+        EditButton()
+            .buttonStyle(ToolbarButtonStyle())
+            .disabled(appState.refreshing)
+            .accessibilityIdentifier("edit-page-list-button")
+    }
+    
+    private var addFeedButton: some View {
+        Button {
+            if case .page(let page) = selection {
+                SubscriptionUtility.showSubscribe(page: page)
+            } else {
+                SubscriptionUtility.showSubscribe()
+            }
+        } label: {
+            Label("Add Feed", systemImage: "plus")
+        }
+        .buttonStyle(ToolbarButtonStyle())
+        .accessibilityIdentifier("add-feed-button")
+        .disabled(appState.refreshing)
     }
 
     private func save() {

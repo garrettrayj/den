@@ -7,8 +7,8 @@
 //
 
 import CoreData
-import SwiftUI
 import OSLog
+import SwiftUI
 
 struct SyncUtility {
     static func markItemRead(container: NSPersistentContainer?, item: Item) async {

@@ -8,7 +8,6 @@
 
 import SafariServices
 
-
 struct SafariUtility {
     static func openLink(
         url: URL?,

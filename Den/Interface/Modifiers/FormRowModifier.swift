@@ -11,9 +11,7 @@ import SwiftUI
 struct FormRowModifier: ViewModifier {
     func body(content: Content) -> some View {
         #if targetEnvironment(macCatalyst)
-        content
-            .font(.body)
-            .frame(minHeight: 36)
+        content.font(.body).frame(minHeight: 36)
         #else
         content
         #endif
