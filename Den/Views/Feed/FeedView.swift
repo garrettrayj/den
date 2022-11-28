@@ -15,7 +15,6 @@ struct FeedView: View {
     @ObservedObject var feed: Feed
     
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     var body: some View {
         GeometryReader { geometry in
@@ -62,7 +61,6 @@ struct FeedView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("feed-settings-button")
-                .disabled(refreshing)
                 .id(feed.id)
             }
             
@@ -70,7 +68,6 @@ struct FeedView: View {
                 FeedBottomBarView(
                     feed: feed,
                     hideRead: $hideRead,
-                    refreshing: $refreshing,
                     unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
                 )
             }

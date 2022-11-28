@@ -15,12 +15,11 @@ struct FeedBottomBarView: View {
     @ObservedObject var feed: Feed
     
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
     
     @State var unreadCount: Int
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing) {
+        FilterReadButtonView(hideRead: $hideRead) {
             feed.objectWillChange.send()
         }
         Spacer()
@@ -45,7 +44,7 @@ struct FeedBottomBarView: View {
                 unreadCount = feed.feedData?.previewItems.count ?? 0
             }
         Spacer()
-        ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
+        ToggleReadButtonView(unreadCount: $unreadCount) {
             await SyncUtility.toggleReadUnread(
                 container: container,
                 items: feed.feedData?.previewItems ?? []

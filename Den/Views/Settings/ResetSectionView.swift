@@ -54,36 +54,6 @@ struct ResetSectionView: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-cache-button")
             
-            Button {
-                Task {
-                    await resetHistory()
-                    refreshCounts()
-                }
-            } label: {
-                HStack {
-                    Text("Clear History")
-                    Spacer()
-                    if let historyCount = profile.history?.count, historyCount > 0 {
-                        if historyCount > 1 {
-                            Text("\(historyCount) entries")
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                        } else {
-                            Text("\(historyCount) entry")
-                                .font(.callout)
-                                .foregroundColor(.secondary)
-                        }
-                    } else {
-                        Text("Empty")
-                            .font(.callout)
-                            .foregroundColor(.secondary)
-                    }
-                }
-            }
-            .disabled(profile.history?.count == 0)
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("clear-history-button")
-
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
@@ -126,9 +96,6 @@ struct ResetSectionView: View {
         }
     }
 
-    private func resetHistory() async {
-        await SyncUtility.resetHistory(container: container, profile: profile)
-    }
 
     private func restoreUserDefaults() {
         // Clear our UserDefaults domain
@@ -155,24 +122,21 @@ struct ResetSectionView: View {
 
     private func resetFeeds(profile: Profile) async {
         await container.performBackgroundTask { context in
-            guard let profile = context.object(with: profile.objectID) as? Profile else { return }
-            
-            profile.pagesArray.forEach { page in
-                page.feedsArray.forEach { feed in
-                    if let feedData = feed.feedData {
-                        context.delete(feedData)
-                    }
+            guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else { return }
+            for profile in profiles {
+                for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
+                    context.delete(feedData)
+                }
+                profile.trends.forEach { trend in
+                    context.delete(trend)
                 }
             }
-            
-            profile.trends.forEach { trend in
-                context.delete(trend)
-            }
-            
-            do {
-                try context.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+            if context.hasChanges {
+                do {
+                    try context.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
         }
     }

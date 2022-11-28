@@ -18,13 +18,10 @@ public class Profile: NSManagedObject {
     public var displayName: String {
         name == nil || name == "" ? "Untitled" : name!
     }
-
-    public var feedDataIDs: [UUID] {
-        pagesArray.flatMap({ page in
-            page.feedsArray.compactMap { feed in
-                feed.feedData?.id
-            }
-        })
+    
+    public var wrappedHistoryRetention: Int {
+        get { Int(historyRetention) }
+        set { historyRetention = Int16(newValue) }
     }
 
     public var pagesWithInsecureFeeds: [Page] {
@@ -140,6 +137,7 @@ public class Profile: NSManagedObject {
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {
         let newProfile = self.init(context: managedObjectContext)
         newProfile.id = UUID()
+        newProfile.historyRetention = 90
 
         return newProfile
     }
