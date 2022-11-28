@@ -14,7 +14,6 @@ struct PageView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     @AppStorage("pageViewMode_na") private var viewMode = 0
 
@@ -24,10 +23,9 @@ struct PageView: View {
         case blend = 2
     }
 
-    init(page: Page, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
-        self.page = page
+    init(page: Page, hideRead: Binding<Bool>) {
+        _page = ObservedObject(wrappedValue: page)
         _hideRead = hideRead
-        _refreshing = refreshing
         _viewMode = AppStorage(
             wrappedValue: PageViewMode.gadgets.rawValue,
             "pageViewMode_\(page.id?.uuidString ?? "na")"
@@ -73,14 +71,12 @@ struct PageView: View {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
-                    .disabled(refreshing)
                 
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("page-settings-button")
-                .disabled(refreshing)
             }
             #else
             ToolbarItem {
@@ -107,7 +103,6 @@ struct PageView: View {
                 PageBottomBarView(
                     page: page,
                     hideRead: $hideRead,
-                    refreshing: $refreshing,
                     unreadCount: page.previewItems.unread().count
                 ).id(page.id)
             }

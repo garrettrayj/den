@@ -17,6 +17,22 @@ struct AutoRefreshSectionView: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
+                Text("In Background")
+                Spacer()
+                Toggle(isOn: $backgroundRefreshEnabled) {
+                    Text("In Background")
+                }.labelsHidden()
+            }
+            .font(.body)
+            .modifier(FormRowModifier())
+            #else
+            Toggle(isOn: $backgroundRefreshEnabled) {
+                Text("In Background")
+            }
+            #endif
+            
+            #if targetEnvironment(macCatalyst)
+            HStack {
                 Text("When Activated")
                 Spacer()
                 Toggle(isOn: $autoRefreshEnabled) {
@@ -34,35 +50,19 @@ struct AutoRefreshSectionView: View {
             if autoRefreshEnabled {
                 Stepper(
                     value: $autoRefreshCooldown,
-                    in: 5...24 * 60,
-                    step: autoRefreshCooldown >= 90 ? 30 : 5
+                    in: 10...24 * 60,
+                    step: autoRefreshCooldown >= 120 ? 60 : 10
                 ) {
-                    if autoRefreshCooldown >= 90 {
-                        Text("• Cooldown: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                    if autoRefreshCooldown >= 120 {
+                        Text("⁃ Cooldown Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
                     } else {
-                        Text("• Cooldown: \(autoRefreshCooldown) minutes")
+                        Text("⁃ Cooldown Period: \(autoRefreshCooldown) minutes")
                     }
                     
                 }
                 .font(.body)
                 .modifier(FormRowModifier())
             }
-            
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Text("In Background")
-                Spacer()
-                Toggle(isOn: $backgroundRefreshEnabled) {
-                    Text("In Background")
-                }.labelsHidden()
-            }
-            .font(.body)
-            .modifier(FormRowModifier())
-            #else
-            Toggle(isOn: $backgroundRefreshEnabled) {
-                Text("In Background")
-            }
-            #endif
         } header: {
             Text("Refresh")
         }

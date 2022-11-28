@@ -13,7 +13,6 @@ struct InboxView: View {
     @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     var body: some View {
         GeometryReader { geometry in
@@ -62,7 +61,6 @@ struct InboxView: View {
                 InboxBottomBarView(
                     profile: profile,
                     hideRead: $hideRead,
-                    refreshing: $refreshing,
                     unreadCount: profile.previewItems.unread().count
                 )
             }

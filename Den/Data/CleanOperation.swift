@@ -12,8 +12,6 @@ import OSLog
 struct CleanOperation {
     unowned let container: NSPersistentContainer
     unowned let profileObjectID: NSManagedObjectID
-    
-    let maxHistory = 100000
 
     func execute() async {
         let defaults = UserDefaults.standard
@@ -38,15 +36,22 @@ struct CleanOperation {
     }
 
     private func cleanupHistory(context: NSManagedObjectContext, profile: Profile) throws {
-        if profile.history?.count ?? 0 < maxHistory {
-            Logger.main.info("History count does not exceed maximum records limit")
+        if profile.historyRetention == 0 {
+            Logger.main.info("Skipping history cleanup, retention is not limited")
             return
+            
         }
-
+        
+        let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-        fetchRequest.predicate = NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(History.visited), ascending: false)]
-        fetchRequest.fetchOffset = maxHistory
+        fetchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(
+                format: "%K < %@",
+                #keyPath(History.visited),
+                historyRetentionStart as NSDate
+            ),
+            NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
+        ])
 
         // Create a batch delete request for the fetch request
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)

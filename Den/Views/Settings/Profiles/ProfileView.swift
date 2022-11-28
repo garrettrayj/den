@@ -9,35 +9,45 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfile: Profile?
 
     @ObservedObject var profile: Profile
 
-    @State var nameInput: String 
+    @State var nameInput: String
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
         Form {
-            nameSection
             activateSection
+            nameSection
             deleteSection
         }
         .navigationTitle("Profile")
         .onDisappear {
+            if profile.isDeleted { return }
             profile.wrappedName = nameInput
-            save()
+            
+            if container.viewContext.hasChanges {
+                do {
+                    try container.viewContext.save()
+                } catch let error {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            }
         }
     }
 
     private var nameSection: some View {
-        Section(header: Text("Name").modifier(FormFirstHeaderModifier())) {
+        Section {
             HStack {
                 TextField("Name", text: $nameInput)
                     .modifier(TitleTextFieldModifier())
             }.modifier(FormRowModifier())
+        } header: {
+            Text("Name")
         }
     }
 
@@ -70,26 +80,29 @@ struct ProfileView: View {
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
             Button("Delete", role: .destructive) {
-                dismiss()
-                viewContext.delete(profile)
-                do {
-                    try viewContext.save()
-                } catch let error as NSError {
-                    CrashUtility.handleCriticalError(error)
+                Task {
+                    await delete()
                 }
+                dismiss()
             }.accessibilityIdentifier("delete-profile-confirm-button")
         }, message: {
             Text("All profile content will be removed.")
         })
     }
-
-    private func save() {
-        if viewContext.hasChanges {
+    
+    private func delete() async {
+        await container.performBackgroundTask { context in
+            if let toDelete = context.object(with: profile.objectID) as? Profile {
+                for feedData in toDelete.feedsArray.compactMap({$0.feedData}) {
+                    context.delete(feedData)
+                }
+                context.delete(toDelete)
+            }
+            
             do {
-                try viewContext.save()
-                profile.objectWillChange.send()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+                try context.save()
+            } catch let error as NSError {
+                CrashUtility.handleCriticalError(error)
             }
         }
     }

@@ -13,7 +13,6 @@ struct TrendsView: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     var body: some View {
         GeometryReader { geometry in
@@ -43,7 +42,6 @@ struct TrendsView: View {
                 TrendsBottomBarView(
                     profile: profile,
                     hideRead: $hideRead,
-                    refreshing: $refreshing,
                     unreadCount: profile.trends.unread().count
                 )
             }

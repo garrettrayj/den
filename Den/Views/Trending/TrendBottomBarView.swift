@@ -15,12 +15,11 @@ struct TrendBottomBarView: View {
     @ObservedObject var trend: Trend
     
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
     
     @State var unreadCount: Int
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing) {
+        FilterReadButtonView(hideRead: $hideRead) {
             trend.objectWillChange.send()
         }
         Spacer()
@@ -40,7 +39,7 @@ struct TrendBottomBarView: View {
                 unreadCount += read ? -1 : 1
             }
         Spacer()
-        ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
+        ToggleReadButtonView(unreadCount: $unreadCount) {
             await SyncUtility.toggleReadUnread(container: container, items: trend.items)
             trend.objectWillChange.send()
         }

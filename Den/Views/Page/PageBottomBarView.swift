@@ -15,12 +15,11 @@ struct PageBottomBarView: View {
     @ObservedObject var page: Page
     
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
     
     @State var unreadCount: Int
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing) {
+        FilterReadButtonView(hideRead: $hideRead) {
             page.objectWillChange.send()
         }
         Spacer()
@@ -51,7 +50,7 @@ struct PageBottomBarView: View {
                 unreadCount = page.previewItems.unread().count
             }
         Spacer()
-        ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
+        ToggleReadButtonView(unreadCount: $unreadCount) {
             await SyncUtility.toggleReadUnread(container: container, items: page.previewItems)
         }
     }

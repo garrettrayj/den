@@ -15,12 +15,11 @@ struct TrendsBottomBarView: View {
     @ObservedObject var profile: Profile
     
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
     
     @State var unreadCount: Int
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead, refreshing: $refreshing) {
+        FilterReadButtonView(hideRead: $hideRead) {
             profile.objectWillChange.send()
         }
         Spacer()
@@ -46,7 +45,7 @@ struct TrendsBottomBarView: View {
                 unreadCount = profile.trends.unread().count
             }
         Spacer()
-        ToggleReadButtonView(unreadCount: $unreadCount, refreshing: $refreshing) {
+        ToggleReadButtonView(unreadCount: $unreadCount) {
             await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
         }
     }

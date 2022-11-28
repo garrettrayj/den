@@ -21,6 +21,7 @@ struct SettingsView: View {
         Form {
             ProfilesSectionView(activeProfile: $activeProfile)
             FeedsSectionView()
+            HistorySectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             AutoRefreshSectionView(
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,

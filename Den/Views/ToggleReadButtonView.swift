@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ToggleReadButtonView: View {
     @Binding var unreadCount: Int
-    @Binding var refreshing: Bool
     
     let toggleAll: () async -> Void
     
@@ -40,6 +39,6 @@ struct ToggleReadButtonView: View {
         }
         .buttonStyle(ToolbarButtonStyle())
         .accessibilityIdentifier("mark-all-read-button")
-        .disabled(refreshing || toggling)
+        .disabled(toggling)
     }
 }

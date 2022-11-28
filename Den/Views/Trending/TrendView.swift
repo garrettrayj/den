@@ -13,7 +13,6 @@ struct TrendView: View {
     @ObservedObject var trend: Trend
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     var body: some View {
         Group {
@@ -43,7 +42,6 @@ struct TrendView: View {
                 TrendBottomBarView(
                     trend: trend,
                     hideRead: $hideRead,
-                    refreshing: $refreshing,
                     unreadCount: trend.items.unread().count
                 )
             }

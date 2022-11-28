@@ -10,7 +10,6 @@ import SwiftUI
 
 struct FilterReadButtonView: View {
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
     
     let callback: () -> Void
     
@@ -28,6 +27,5 @@ struct FilterReadButtonView: View {
         }
         .buttonStyle(ToolbarButtonStyle())
         .accessibilityIdentifier("filter-read-button")
-        .disabled(refreshing)
     }
 }
