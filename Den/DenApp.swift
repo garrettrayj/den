@@ -27,7 +27,7 @@ struct DenApp: App {
     @AppStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
-
+    
     var body: some Scene {
         WindowGroup {
             RootView(
@@ -47,10 +47,6 @@ struct DenApp: App {
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                if appState.activeProfile == nil || appState.activeProfile?.isDeleted == true {
-                    loadProfile()
-                    WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
-                }
                 if autoRefreshEnabled && !appState.refreshing && (
                     autoRefreshDate == 0.0 ||
                     Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
@@ -92,11 +88,7 @@ struct DenApp: App {
     }
     
     private func handleRefresh() async {
-        guard !appState.refreshing, let profile = appState.activeProfile else { return }
+        guard !appState.refreshing, let profile = appState.activeProfiles.first else { return }
         await RefreshUtility.refresh(container: container, profile: profile)
-    }
-    
-    private func loadProfile() {
-        appState.activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
     }
 }

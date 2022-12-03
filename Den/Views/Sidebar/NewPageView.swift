@@ -16,9 +16,11 @@ struct NewPageView: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        if editMode?.wrappedValue.isEditing == true {
+        if editMode?.wrappedValue == .active {
             Button {
-                addPage()
+                withAnimation {
+                    addPage()
+                }
             } label: {
                 Label {
                     Text("Add Page")
@@ -26,7 +28,7 @@ struct NewPageView: View {
                     Image(systemName: "plus.circle")
                 }
             }
-            .buttonStyle(.borderless)
+            .buttonStyle(ActionButtonStyle())
             .accessibilityIdentifier("new-page-button")
         }
     }
@@ -39,7 +41,7 @@ struct NewPageView: View {
             suffix += 1
         }
 
-        let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
+        let newPage = Page.create(in: viewContext, profile: profile, prepend: false)
         newPage.wrappedName = pageName
 
         do {

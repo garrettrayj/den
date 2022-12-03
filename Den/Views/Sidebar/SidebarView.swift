@@ -11,11 +11,12 @@ import SwiftUI
 
 struct SidebarView: View {
     @ObservedObject var profile: Profile
-    
-    let appState: AppState
+
     let searchModel: SearchModel
+    let progress: Progress
     
     @Binding var selection: Panel?
+    @Binding var refreshing: Bool
     
     @State private var searchInput: String = ""
 
@@ -28,17 +29,11 @@ struct SidebarView: View {
         } else {
             NavigationListView(
                 profile: profile,
-                appState: appState,
-                selection: $selection
+                searchModel: searchModel,
+                progress: progress,
+                selection: $selection,
+                refreshing: $refreshing
             )
-            .searchable(
-                text: $searchInput,
-                placement: .navigationBarDrawer(displayMode: .automatic)
-            )
-            .onSubmit(of: .search) {
-                searchModel.query = searchInput
-                selection = .search
-            }
         }
     }
 }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding var activeProfile: Profile?
+    @Binding var activeProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
@@ -19,7 +19,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            ProfilesSectionView(activeProfile: $activeProfile)
+            ProfilesSectionView(activeProfileID: $activeProfileID)
             FeedsSectionView()
             HistorySectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             AutoRefreshSectionView(
@@ -28,7 +28,7 @@ struct SettingsView: View {
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
             AppearanceSectionView(uiStyle: $uiStyle)
-            ResetSectionView(activeProfile: $activeProfile, profile: profile)
+            ResetSectionView(activeProfileID: $activeProfileID, profile: profile)
             AboutSectionView()
         }
         .navigationTitle("Settings")
@@ -39,7 +39,7 @@ struct SettingsView: View {
                     StatusBoxView(message: Text("Profile Deleted"), symbol: "slash.circle")
                 } else {
                     ProfileView(
-                        activeProfile: $activeProfile,
+                        activeProfileID: $activeProfileID,
                         profile: profile,
                         nameInput: profile.wrappedName
                     )

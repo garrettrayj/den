@@ -48,6 +48,7 @@ struct ToolbarButtonStyle: ButtonStyle {
                     :
                     Color(UIColor.tertiaryLabel)
             )
+            .contentShape(Rectangle())
             .background(Color.clear)
             #endif
             .onHover { hovered in

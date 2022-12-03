@@ -38,6 +38,11 @@
 		6832AF2C278B889300CFC8CA /* StatusBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2B278B889300CFC8CA /* StatusBoxView.swift */; };
 		6832AF2E278BA6A800CFC8CA /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */; };
 		683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CEC5F250966410005F305 /* Bundle+Extensions.swift */; };
+		683E3F43293BBB1900B16814 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */; };
+		683E3F45293BC02A00B16814 /* AddFeedButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */; };
+		683E3F47293BC18C00B16814 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F46293BC18C00B16814 /* StatusView.swift */; };
+		683E3F49293BC19800B16814 /* RefreshButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F48293BC19800B16814 /* RefreshButtonView.swift */; };
+		683E3F4B293BC1AA00B16814 /* SettingsButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F4A293BC1AA00B16814 /* SettingsButtonView.swift */; };
 		6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */; };
 		6845BCF424EBE4750008B296 /* AtomFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */; };
 		6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */; };
@@ -281,6 +286,11 @@
 		6832AF2B278B889300CFC8CA /* StatusBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBoxView.swift; sourceTree = "<group>"; };
 		6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
+		683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
+		683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedButtonView.swift; sourceTree = "<group>"; };
+		683E3F46293BC18C00B16814 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		683E3F48293BC19800B16814 /* RefreshButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshButtonView.swift; sourceTree = "<group>"; };
+		683E3F4A293BC1AA00B16814 /* SettingsButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButtonView.swift; sourceTree = "<group>"; };
 		6845BCF124EBE45A0008B296 /* JSONFeedItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeedItem+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF324EBE4750008B296 /* AtomFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeed+Extensions.swift"; sourceTree = "<group>"; };
 		6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONFeed+Extensions.swift"; sourceTree = "<group>"; };
@@ -667,6 +677,7 @@
 			children = (
 				6829A4FF28C3D30C00F75C5A /* ToolbarButtonStyle.swift */,
 				68B18957289B633E0002A7FE /* AccentButtonStyle.swift */,
+				683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
 				6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */,
 				68F56B4D2872DD63006EC915 /* HoverShadowButtonStyle.swift */,
@@ -930,6 +941,10 @@
 				6868A3152895D20D0051D43E /* TrendsNavView.swift */,
 				685ECB1026EE611000A3B184 /* PageNavView.swift */,
 				680744BD28E95B780008A09D /* NewPageView.swift */,
+				683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */,
+				683E3F46293BC18C00B16814 /* StatusView.swift */,
+				683E3F48293BC19800B16814 /* RefreshButtonView.swift */,
+				683E3F4A293BC1AA00B16814 /* SettingsButtonView.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -1239,6 +1254,7 @@
 				68B6CBDC290F2CFB00B5E3AB /* RSSItemLoad.swift in Sources */,
 				68F56B6728782886006EC915 /* ItemView.swift in Sources */,
 				68B34A5E2486D2AD0066B215 /* ImportView.swift in Sources */,
+				683E3F45293BC02A00B16814 /* AddFeedButtonView.swift in Sources */,
 				680744BE28E95B780008A09D /* NewPageView.swift in Sources */,
 				6885C42226D37259002C41B0 /* FeedTitleLabelView.swift in Sources */,
 				683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */,
@@ -1254,6 +1270,7 @@
 				68FC25552758B2250073979F /* FeedUnavailableView.swift in Sources */,
 				6868A3142895CA860051D43E /* InboxNavView.swift in Sources */,
 				6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */,
+				683E3F49293BC19800B16814 /* RefreshButtonView.swift in Sources */,
 				68E9BDB8279D0021003BA111 /* ImageSize.swift in Sources */,
 				6880EBEB27AEF12000B479F4 /* NavChevronView.swift in Sources */,
 				68B6CBE42910B9C400B5E3AB /* CleanOperation.swift in Sources */,
@@ -1261,6 +1278,7 @@
 				68FF63FD2921DD2B0012A275 /* InboxBottomBarView.swift in Sources */,
 				680744C028E95CD80008A09D /* StartListView.swift in Sources */,
 				6832AF2E278BA6A800CFC8CA /* SearchResultsView.swift in Sources */,
+				683E3F47293BC18C00B16814 /* StatusView.swift in Sources */,
 				68B34A672487ED870066B215 /* ExportView.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
 				682A34A028E57E67004CD90E /* Haptics.swift in Sources */,
@@ -1302,6 +1320,7 @@
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,
 				68FF63FA2921DCF20012A275 /* TrendBottomBarView.swift in Sources */,
 				68AC3A172910EEB500D60273 /* WorkingTrend.swift in Sources */,
+				683E3F43293BBB1900B16814 /* ActionButtonStyle.swift in Sources */,
 				68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */,
 				68F56B75288BFCCC006EC915 /* Den.xcdatamodel in Sources */,
 				68D9BA9A28A60A5200F1A3AD /* AppearanceSectionView.swift in Sources */,
@@ -1319,6 +1338,7 @@
 				68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */,
 				684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */,
 				6829A4FE28C3CC8D00F75C5A /* PageSelectionView.swift in Sources */,
+				683E3F4B293BC1AA00B16814 /* SettingsButtonView.swift in Sources */,
 				6832AF262789419700CFC8CA /* ProfileView.swift in Sources */,
 				6811B08727B75C9600C6C40A /* GadgetsView.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,

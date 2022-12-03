@@ -11,21 +11,25 @@ import SwiftUI
 
 struct NavigationListView: View {
     @Environment(\.persistentContainer) private var container
-    @Environment(\.editMode) private var editMode
     
     @ObservedObject var profile: Profile
-    @ObservedObject var appState: AppState
+    
+    let searchModel: SearchModel
+    let progress: Progress
     
     @Binding var selection: Panel?
-    
-    let refreshProgress: Progress = Progress()
+    @Binding var refreshing: Bool
 
     var body: some View {
         List(selection: $selection) {
-            InboxNavView(profile: profile, unreadCount: profile.previewItems.unread().count)
+            InboxNavView(
+                profile: profile,
+                searchModel: searchModel,
+                selection: $selection,
+                unreadCount: profile.previewItems.unread().count
+            )
             TrendsNavView(profile: profile)
             Section {
-                NewPageView(profile: profile)
                 ForEach(profile.pagesArray) { page in
                     PageNavView(page: page, unreadCount: page.previewItems.unread().count)
                 }
@@ -34,85 +38,30 @@ struct NavigationListView: View {
             } header: {
                 Text("Pages")
             }
+            NewPageView(profile: profile)
         }
         .listStyle(.sidebar)
         .navigationTitle(profile.displayName)
         #if !targetEnvironment(macCatalyst)
         .refreshable {
-            if !appState.refreshing {
+            if !refreshing {
                 await RefreshUtility.refresh(container: container, profile: profile)
             }
         }
         #endif
-        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-            Haptics.mediumImpactFeedbackGenerator.impactOccurred()
-            refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
-            refreshProgress.completedUnitCount = 0
-            appState.refreshing = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-            refreshProgress.completedUnitCount += 1
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
-            refreshProgress.completedUnitCount += 1
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-            appState.refreshing = false
-            profile.objectWillChange.send()
-            Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
-        }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 editButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                addFeedButton
+                AddFeedButtonView(selection: $selection)
             }
-
             ToolbarItemGroup(placement: .bottomBar) {
-                Button {
-                    selection = .settings
-                } label: {
-                    Label("Settings", systemImage: "gear")
-                }
-                .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("settings-button")
-                .disabled(appState.refreshing || editMode?.wrappedValue.isEditing ?? true)
+                SettingsButtonView(selection: $selection)
                 Spacer()
-                VStack {
-                    if appState.refreshing {
-                        ProgressView(refreshProgress)
-                            .progressViewStyle(BottomBarProgressStyle(progress: refreshProgress))
-                    } else if let refreshedDate = profile.minimumRefreshedDate {
-                        Text("\(refreshedDate.formatted())")
-                    } else {
-                        #if targetEnvironment(macCatalyst)
-                        Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)
-                        #else
-                        Text("Pull to refresh")
-                        #endif
-                    }
-                }
-                .foregroundColor(
-                    editMode?.wrappedValue.isEditing ?? true ? .secondary : .primary
-                )
-                .padding(.horizontal, 8)
-                .lineLimit(1)
-                .font(.caption)
+                StatusView(profile: profile, refreshing: $refreshing, progress: progress)
                 Spacer()
-                Button {
-                    if !appState.refreshing {
-                        Task {
-                            await RefreshUtility.refresh(container: container, profile: profile)
-                        }
-                    }
-                } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }
-                .buttonStyle(ToolbarButtonStyle())
-                .keyboardShortcut("r", modifiers: [.command])
-                .accessibilityIdentifier("profile-refresh-button")
-                .disabled(appState.refreshing || editMode?.wrappedValue.isEditing ?? true)
+                RefreshButtonView(profile: profile)
             }
         }
     }
@@ -120,23 +69,8 @@ struct NavigationListView: View {
     private var editButton: some View {
         EditButton()
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(appState.refreshing)
+            .disabled(refreshing)
             .accessibilityIdentifier("edit-page-list-button")
-    }
-    
-    private var addFeedButton: some View {
-        Button {
-            if case .page(let page) = selection {
-                SubscriptionUtility.showSubscribe(page: page)
-            } else {
-                SubscriptionUtility.showSubscribe()
-            }
-        } label: {
-            Label("Add Feed", systemImage: "plus")
-        }
-        .buttonStyle(ToolbarButtonStyle())
-        .accessibilityIdentifier("add-feed-button")
-        .disabled(appState.refreshing)
     }
 
     private func save() {

@@ -9,6 +9,6 @@
 import SwiftUI
 
 class AppState: ObservableObject {
-    @Published var activeProfile: Profile?
-    @Published var refreshing: Bool = false
+    var activeProfiles: Set<Profile> = []
+    var refreshing: Bool = false
 }

@@ -10,42 +10,51 @@ import CoreData
 import SwiftUI
 
 struct PageNavView: View {
+    @Environment(\.editMode) private var editMode
+    
     @ObservedObject var page: Page
     
     @State var unreadCount: Int
 
     var body: some View {
-        NavigationLink(value: Panel.page(page)) {
+        if editMode?.wrappedValue == .inactive {
             Label {
                 Text(page.displayName).lineLimit(1).badge(unreadCount)
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-        ) { notification in
-            guard
-                let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                pageObjectID == page.objectID,
-                let read = notification.userInfo?["read"] as? Bool
-            else {
-                return
+            .onReceive(
+                NotificationCenter.default.publisher(for: .itemStatus, object: nil)
+            ) { notification in
+                guard
+                    let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
+                    pageObjectID == page.objectID,
+                    let read = notification.userInfo?["read"] as? Bool
+                else {
+                    return
+                }
+                unreadCount += read ? -1 : 1
             }
-            unreadCount += read ? -1 : 1
-        }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
-        ) { notification in
-            guard
-                let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                pageObjectID == page.objectID
-            else {
-                return
+            .onReceive(
+                NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
+            ) { notification in
+                guard
+                    let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
+                    pageObjectID == page.objectID
+                else {
+                    return
+                }
+                unreadCount = page.previewItems.unread().count
             }
-            unreadCount = page.previewItems.unread().count
+            .modifier(URLDropTargetModifier(page: page))
+            .accessibilityIdentifier("page-button")
+            .tag(Panel.page(page))
+        } else {
+            Label {
+                Text(page.displayName).lineLimit(1)
+            } icon: {
+                Image(systemName: page.wrappedSymbol)
+            }
         }
-        .modifier(URLDropTargetModifier(page: page))
-        .accessibilityIdentifier("page-button")
     }
 }
