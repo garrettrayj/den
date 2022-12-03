@@ -33,7 +33,7 @@ struct SidebarView: View {
             )
             .searchable(
                 text: $searchInput,
-                placement: .navigationBarDrawer(displayMode: .always)
+                placement: .navigationBarDrawer(displayMode: .automatic)
             )
             .onSubmit(of: .search) {
                 searchModel.query = searchInput

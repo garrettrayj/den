@@ -62,18 +62,11 @@ struct NavigationListView: View {
             Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
         }
         .toolbar {
-            if UIDevice.current.userInterfaceIdiom == .phone {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    editButton
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    addFeedButton
-                }
-            } else {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    editButton
-                    addFeedButton
-                }
+            ToolbarItem(placement: .navigationBarLeading) {
+                editButton
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                addFeedButton
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
