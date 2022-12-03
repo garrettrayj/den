@@ -35,14 +35,14 @@ struct ItemPreviewView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
-        .padding(12)
         .multilineTextAlignment(.leading)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .padding(12)
         .foregroundColor(
             isEnabled ?
                 item.read ? .secondary : .primary
             :
                 item.read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
         )
-        .frame(maxWidth: .infinity)
     }
 }

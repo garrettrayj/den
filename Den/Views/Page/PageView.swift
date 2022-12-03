@@ -12,7 +12,7 @@ import UniformTypeIdentifiers
 
 struct PageView: View {
     @ObservedObject var page: Page
-
+    
     @Binding var hideRead: Bool
 
     @AppStorage("pageViewMode_na") private var viewMode = 0
@@ -51,11 +51,11 @@ struct PageView: View {
                 )
             } else {
                 if viewMode == PageViewMode.blend.rawValue {
-                    BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size).id(page.id)
                 } else if viewMode == PageViewMode.showcase.rawValue {
-                    ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size).id(page.id)
                 } else {
-                    GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size).id(page.id)
                 }
             }
         }
@@ -83,6 +83,13 @@ struct PageView: View {
                 Menu {
                     viewModePicker
                     
+                    Button {
+                        SubscriptionUtility.showSubscribe(page: page)
+                    } label: {
+                        Label("Add Feed", systemImage: "plus")
+                    }
+                    .accessibilityIdentifier("add-feed-button")
+                    
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
@@ -94,7 +101,6 @@ struct PageView: View {
                         .background(Color.clear)
                         .padding(.trailing, -8)
                 }
-                .disabled(refreshing)
                 .accessibilityIdentifier("page-menu")
             }
             #endif
