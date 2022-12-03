@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct DetailView: View {
-    @Binding var activeProfile: Profile?
+    @Binding var activeProfileID: String?
     @Binding var refreshing: Bool
     @Binding var selection: Panel?
     @Binding var uiStyle: UIUserInterfaceStyle
@@ -31,7 +31,7 @@ struct DetailView: View {
                     WelcomeView(profile: profile)
                 case .search:
                     SearchView(profile: profile, searchModel: searchModel)
-                case .allItems:
+                case .inbox:
                     InboxView(profile: profile, hideRead: $hideRead)
                 case .trends:
                     TrendsView(profile: profile, hideRead: $hideRead)
@@ -43,7 +43,7 @@ struct DetailView: View {
                     }
                 case .settings:
                     SettingsView(
-                        activeProfile: $activeProfile,
+                        activeProfileID: $activeProfileID,
                         uiStyle: $uiStyle,
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,

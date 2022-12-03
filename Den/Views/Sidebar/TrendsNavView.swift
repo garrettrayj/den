@@ -9,17 +9,20 @@
 import SwiftUI
 
 struct TrendsNavView: View {
+    @Environment(\.editMode) private var editMode
+    
     @ObservedObject var profile: Profile
 
     var body: some View {
-        NavigationLink(value: Panel.trends) {
+        if editMode?.wrappedValue == .inactive {
             Label {
                 Text("Trends").lineLimit(1)
                     .badge(profile.trends.unread().count)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
+            .accessibilityIdentifier("timeline-button")
+            .tag(Panel.trends)
         }
-        .accessibilityIdentifier("timeline-button")
     }
 }

@@ -14,7 +14,7 @@ struct ResetSectionView: View {
     @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
 
-    @Binding var activeProfile: Profile?
+    @Binding var activeProfileID: String?
 
     @ObservedObject var profile: Profile
 
@@ -147,9 +147,7 @@ struct ResetSectionView: View {
         restoreUserDefaults()
         
         await container.performBackgroundTask { context in
-            let newProfile = ProfileUtility.activateProfile(
-                ProfileUtility.createDefaultProfile(context: context)
-            )
+            let newProfile = ProfileUtility.createDefaultProfile(context: context)
             
             do {
                 let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
@@ -160,11 +158,11 @@ struct ResetSectionView: View {
                     context.delete(profile)
                 }
                 try context.save()
+                activeProfileID = newProfile.id?.uuidString
+                
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
-        
-        activeProfile = ProfileUtility.loadProfile(context: container.viewContext)
     }
 }

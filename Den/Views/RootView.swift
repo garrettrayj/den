@@ -12,8 +12,8 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(\.persistentContainer) private var container
-
-    @ObservedObject var appState: AppState
+    
+    let appState: AppState
     
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
@@ -22,6 +22,7 @@ struct RootView: View {
 
     @StateObject private var searchModel = SearchModel()
 
+    @State private var refreshing: Bool = false
     @State private var selection: Panel?
     @State private var path = NavigationPath()
     @State private var showSubscribe = false
@@ -29,24 +30,37 @@ struct RootView: View {
     @State private var subscribePageObjectID: NSManagedObjectID?
     @State private var showCrashMessage = false
     @State private var crashMessage: String = ""
+    
+    @SceneStorage("ActiveProfileID") private var activeProfileID: String?
+    
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
+    private var profiles: FetchedResults<Profile>
+    
+    let progress = Progress()
+    
+    var activeProfile: Profile? {
+        guard let activeProfileID = activeProfileID else { return nil }
+        return profiles.first(where: {$0.id?.uuidString == activeProfileID})
+    }
 
     var body: some View {
         if showCrashMessage {
             CrashMessageView(message: crashMessage)
-        } else if let profile = appState.activeProfile {
+        } else if let profile = activeProfile {
             NavigationSplitView {
                 SidebarView(
                     profile: profile,
-                    appState: appState,
                     searchModel: searchModel,
-                    selection: $selection
+                    progress: progress,
+                    selection: $selection,
+                    refreshing: $refreshing
                 )
                 .id(profile.id) // Fix for updating sidebar when profile changes
                 .navigationSplitViewColumnWidth(268)
             } detail: {
                 DetailView(
-                    activeProfile: $appState.activeProfile,
-                    refreshing: $appState.refreshing,
+                    activeProfileID: $activeProfileID,
+                    refreshing: $refreshing,
                     selection: $selection,
                     uiStyle: $uiStyle,
                     autoRefreshEnabled: $autoRefreshEnabled,
@@ -66,6 +80,9 @@ struct RootView: View {
             .modifier(
                 URLDropTargetModifier()
             )
+            .onAppear {
+                appState.activeProfiles.insert(profile)
+            }
             .onChange(of: selection) { _ in
                 path.removeLast(path.count)
             }
@@ -80,11 +97,30 @@ struct RootView: View {
             .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
                 showCrashMessage = true
             }
+            .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+                Haptics.mediumImpactFeedbackGenerator.impactOccurred()
+                progress.totalUnitCount = Int64(profile.feedsArray.count)
+                progress.completedUnitCount = 0
+                refreshing = true
+                appState.refreshing = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+                progress.completedUnitCount += 1
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
+                progress.completedUnitCount += 1
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+                refreshing = false
+                appState.refreshing = false
+                profile.objectWillChange.send()
+                Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
+            }
             .sheet(isPresented: $showSubscribe) {
                 SubscribeView(
                     initialPageObjectID: $subscribePageObjectID,
                     initialURLString: $subscribeURLString,
-                    profile: appState.activeProfile
+                    profile: profile
                 )
                 .environment(\.persistentContainer, container)
                 .environment(\.colorScheme, colorScheme)
@@ -99,6 +135,12 @@ struct RootView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(UIColor.systemGroupedBackground))
             .foregroundColor(Color.secondary)
+            .onAppear {
+                let openProfile = profiles.first ?? ProfileUtility.createDefaultProfile(
+                    context: container.viewContext
+                )
+                activeProfileID = openProfile.id?.uuidString
+            }
         }
     }
 }

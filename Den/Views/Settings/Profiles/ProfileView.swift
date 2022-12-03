@@ -12,7 +12,7 @@ struct ProfileView: View {
     @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
 
-    @Binding var activeProfile: Profile?
+    @Binding var activeProfileID: String?
 
     @ObservedObject var profile: Profile
 
@@ -50,17 +50,21 @@ struct ProfileView: View {
             Text("Name")
         }
     }
+    
+    private var isActive: Bool {
+        profile.id?.uuidString == activeProfileID
+    }
 
     private var activateSection: some View {
         Section {
             Button {
-                activeProfile = ProfileUtility.activateProfile(profile)
+                activeProfileID = profile.id?.uuidString
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "arrow.left.arrow.right")
             }
-            .disabled(profile == activeProfile)
-            .foregroundColor(profile == activeProfile ? .secondary : nil)
+            .disabled(isActive)
+            .foregroundColor(isActive ? .secondary : nil)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("activate-profile-button")
         }
@@ -73,8 +77,8 @@ struct ProfileView: View {
             } label: {
                 Label("Delete", systemImage: "trash")
             }
-            .disabled(profile == activeProfile)
-            .foregroundColor(profile == activeProfile ? .secondary : .red)
+            .disabled(isActive)
+            .foregroundColor(isActive ? .secondary : .red)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("delete-profile-button")
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {

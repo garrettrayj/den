@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfilesSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Binding var activeProfile: Profile?
+    @Binding var activeProfileID: String?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -21,7 +21,7 @@ struct ProfilesSectionView: View {
                 NavigationLink(value: SettingsPanel.profile(profile)) {
                     Label(
                         profile.displayName,
-                        systemImage: profile == activeProfile ? "hexagon.fill" : "hexagon"
+                        systemImage: profile.id?.uuidString == activeProfileID ? "hexagon.fill" : "hexagon"
                     )
                 }
                 .modifier(FormRowModifier())

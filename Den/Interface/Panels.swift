@@ -11,7 +11,7 @@ import Foundation
 enum Panel: Hashable {
     case welcome
     case search
-    case allItems
+    case inbox
     case trends
     case page(Page)
     case settings
