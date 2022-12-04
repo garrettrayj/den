@@ -14,8 +14,8 @@ struct PageView: View {
     @ObservedObject var page: Page
     
     @Binding var hideRead: Bool
-
-    @AppStorage("pageViewMode_na") private var viewMode = 0
+    
+    @SceneStorage("PageViewMode_Default") private var viewMode = 0
 
     enum PageViewMode: Int {
         case gadgets  = 0
@@ -26,9 +26,9 @@ struct PageView: View {
     init(page: Page, hideRead: Binding<Bool>) {
         _page = ObservedObject(wrappedValue: page)
         _hideRead = hideRead
-        _viewMode = AppStorage(
+        _viewMode = SceneStorage(
             wrappedValue: PageViewMode.gadgets.rawValue,
-            "pageViewMode_\(page.id?.uuidString ?? "na")"
+            "PageViewMode_\(page.id?.uuidString ?? "Default")"
         )
     }
 
@@ -67,11 +67,12 @@ struct PageView: View {
         .navigationTitle(page.displayName)
         .toolbar {
             #if targetEnvironment(macCatalyst)
-            ToolbarItemGroup {
+            ToolbarItem(placement: .navigation) {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
-                
+            }
+            ToolbarItem(placement: .navigation) {
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }

@@ -30,18 +30,6 @@ struct NewPageView: View {
             }
             .buttonStyle(ActionButtonStyle())
             .accessibilityIdentifier("new-page-button")
-            .onDisappear {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                        profile.objectWillChange.send()
-                        // Update Inbox unread count
-                        NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
         }
     }
 
