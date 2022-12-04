@@ -15,7 +15,7 @@ struct PageView: View {
     
     @Binding var hideRead: Bool
     
-    @SceneStorage("PageViewMode_Default") private var viewMode = 0
+    @AppStorage<Int> var viewMode: Int
 
     enum PageViewMode: Int {
         case gadgets  = 0
@@ -23,56 +23,44 @@ struct PageView: View {
         case blend = 2
     }
 
-    init(page: Page, hideRead: Binding<Bool>) {
-        _page = ObservedObject(wrappedValue: page)
-        _hideRead = hideRead
-        _viewMode = SceneStorage(
-            wrappedValue: PageViewMode.gadgets.rawValue,
-            "PageViewMode_\(page.id?.uuidString ?? "Default")"
-        )
-    }
-
     var body: some View {
-        GeometryReader { geometry in
-            if page.feedsArray.isEmpty {
-                StatusBoxView(
-                    message: Text("Page Empty"),
-                    caption: Text("""
-                    To add feeds tap \(Image(systemName: "plus")), \n\
-                    open syndication links, \n\
-                    or drag and drop URLs.
-                    """),
-                    symbol: "questionmark.folder"
-                )
-            } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend.rawValue {
-                StatusBoxView(
-                    message: Text("No Items"),
-                    symbol: "questionmark.folder"
-                )
-            } else {
-                if viewMode == PageViewMode.blend.rawValue {
-                    BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size).id(page.id)
-                } else if viewMode == PageViewMode.showcase.rawValue {
-                    ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size).id(page.id)
+        Group {
+            GeometryReader { geometry in
+                if page.feedsArray.isEmpty {
+                    StatusBoxView(
+                        message: Text("Page Empty"),
+                        caption: Text("""
+                        To add feeds tap \(Image(systemName: "plus")), \n\
+                        open syndication links, \n\
+                        or drag and drop URLs.
+                        """),
+                        symbol: "questionmark.folder"
+                    )
+                } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend.rawValue {
+                    StatusBoxView(
+                        message: Text("No Items"),
+                        symbol: "questionmark.folder"
+                    )
                 } else {
-                    GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size).id(page.id)
+                    if viewMode == PageViewMode.blend.rawValue {
+                        BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    } else if viewMode == PageViewMode.showcase.rawValue {
+                        ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    } else {
+                        GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
+                    }
                 }
             }
         }
-        .onChange(of: viewMode, perform: { _ in
-            page.objectWillChange.send()
-        })
         .modifier(URLDropTargetModifier(page: page))
         .background(Color(UIColor.systemGroupedBackground))
-        .navigationTitle(page.displayName)
         .toolbar {
             #if targetEnvironment(macCatalyst)
-            ToolbarItem(placement: .navigation) {
+            ToolbarItemGroup(placement: .navigationBarLeading) {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
-            }
-            ToolbarItem(placement: .navigation) {
+                
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
@@ -114,6 +102,7 @@ struct PageView: View {
                 ).id(page.id)
             }
         }
+        .navigationTitle(page.displayName)
     }
 
     private var viewModePicker: some View {
@@ -127,6 +116,9 @@ struct PageView: View {
             Label("Blend", systemImage: "square.text.square")
                 .tag(PageViewMode.blend.rawValue)
                 .accessibilityIdentifier("page-timeline-view-button")
+        }
+        .onChange(of: viewMode) { _ in
+            page.objectWillChange.send()
         }
     }
 }

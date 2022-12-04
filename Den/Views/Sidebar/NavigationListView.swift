@@ -15,7 +15,6 @@ struct NavigationListView: View {
     @ObservedObject var profile: Profile
     
     let searchModel: SearchModel
-    let progress: Progress
     
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
@@ -29,8 +28,8 @@ struct NavigationListView: View {
                 unreadCount: profile.previewItems.unread().count
             )
             TrendsNavView(profile: profile)
-            NewPageView(profile: profile)
             Section {
+                NewPageView(profile: profile)
                 ForEach(profile.pagesArray) { page in
                     PageNavView(page: page, unreadCount: page.previewItems.unread().count)
                 }
@@ -63,7 +62,11 @@ struct NavigationListView: View {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
-                StatusView(profile: profile, refreshing: $refreshing, progress: progress)
+                StatusView(
+                    profile: profile,
+                    refreshing: $refreshing,
+                    progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
+                )
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()

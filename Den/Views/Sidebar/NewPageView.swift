@@ -22,13 +22,9 @@ struct NewPageView: View {
                     addPage()
                 }
             } label: {
-                Label {
-                    Text("Add Page")
-                } icon: {
-                    Image(systemName: "plus.circle")
-                }
+                Label("Add Page", systemImage: "plus.circle").imageScale(.large)
             }
-            .buttonStyle(ActionButtonStyle())
+            .buttonStyle(.borderless)
             .accessibilityIdentifier("new-page-button")
         }
     }
@@ -41,7 +37,7 @@ struct NewPageView: View {
             suffix += 1
         }
 
-        let newPage = Page.create(in: viewContext, profile: profile, prepend: false)
+        let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
         newPage.wrappedName = pageName
 
         do {

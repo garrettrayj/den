@@ -13,7 +13,6 @@ struct SidebarView: View {
     @ObservedObject var profile: Profile
 
     let searchModel: SearchModel
-    let progress: Progress
     
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
@@ -30,7 +29,6 @@ struct SidebarView: View {
             NavigationListView(
                 profile: profile,
                 searchModel: searchModel,
-                progress: progress,
                 selection: $selection,
                 refreshing: $refreshing
             )

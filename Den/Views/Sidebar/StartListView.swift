@@ -56,7 +56,7 @@ struct StartListView: View {
         .listStyle(.grouped)
         .navigationTitle(profile.displayName)
         .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
                 Button {
                     selection = .settings
                 } label: {
@@ -64,6 +64,8 @@ struct StartListView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("settings-button")
+            }
+            ToolbarItem(placement: .bottomBar) {
                 Spacer()
             }
         }

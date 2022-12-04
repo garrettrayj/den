@@ -38,7 +38,14 @@ struct DetailView: View {
                     if page.managedObjectContext == nil {
                         StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
                     } else {
-                        PageView(page: page, hideRead: $hideRead)
+                        PageView(
+                            page: page,
+                            hideRead: $hideRead,
+                            viewMode: AppStorage(
+                                wrappedValue: 0,
+                                "PageViewMode_\(page.id?.uuidString ?? "Default")"
+                            )
+                        )
                     }
                 case .settings:
                     SettingsView(

@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct CrashMessageView: View {
-    let message: String
-
     var body: some View {
         StatusBoxView(
             message: Text("Critical Error"),
