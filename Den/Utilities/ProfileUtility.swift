@@ -11,7 +11,6 @@ import OSLog
 import SwiftUI
 
 struct ProfileUtility {
-
     static func createDefaultProfile(context: NSManagedObjectContext) -> Profile {
         let profile = Profile.create(in: context)
         profile.wrappedName = "Den"

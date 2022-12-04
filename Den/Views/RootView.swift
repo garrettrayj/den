@@ -136,10 +136,13 @@ struct RootView: View {
             .background(Color(UIColor.systemGroupedBackground))
             .foregroundColor(Color.secondary)
             .onAppear {
-                let openProfile = profiles.first ?? ProfileUtility.createDefaultProfile(
-                    context: container.viewContext
-                )
-                activeProfileID = openProfile.id?.uuidString
+                if activeProfileID == nil || activeProfile?.managedObjectContext == nil {
+                    let defaultProfile = profiles
+                        .filter({$0.managedObjectContext != nil})
+                        .first ?? ProfileUtility.createDefaultProfile(context: container.viewContext)
+                    
+                    activeProfileID = defaultProfile.id?.uuidString
+                }
             }
         }
     }
