@@ -10,7 +10,6 @@ import SwiftUI
 
 struct DetailView: View {
     @Binding var activeProfileID: String?
-    @Binding var refreshing: Bool
     @Binding var selection: Panel?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
@@ -52,7 +51,6 @@ struct DetailView: View {
                     )
                 }
             }
-            .disabled(refreshing)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 Group {
                     switch detailPanel {
@@ -87,7 +85,7 @@ struct DetailView: View {
                             TrendView(trend: trend, hideRead: $hideRead)
                         }
                     }
-                }.disabled(refreshing)
+                }
             }
         }
     }

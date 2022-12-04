@@ -1,15 +1,14 @@
 //
-//  BottomBarProgressStyle.swift
+//  BottomBarProgressViewStyle.swift
 //  Den
 //
-//  Created by Garrett Johnson on 4/17/22.
+//  Created by Garrett Johnson on 12/3/22.
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct BottomBarProgressStyle: ProgressViewStyle {
-    let progress: Progress
+struct BottomBarProgressViewStyle: ProgressViewStyle {
     let height: CGFloat = 4
 
     #if targetEnvironment(macCatalyst)
@@ -20,10 +19,11 @@ struct BottomBarProgressStyle: ProgressViewStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .center, spacing: spacing) {
-            HStack(spacing: 0) {
-                if progress.completedUnitCount < progress.totalUnitCount + 1 {
+            HStack {
+                if let completed = configuration.fractionCompleted, completed < 1.0 {
                     // Updating feeds
-                    Text("\(progress.completedUnitCount) of \(progress.totalUnitCount) Updated")
+                    configuration.currentValueLabel
+                    Text("Updated")
                 } else {
                     // Performing analysis
                     Text("Analyzing")
@@ -31,6 +31,7 @@ struct BottomBarProgressStyle: ProgressViewStyle {
             }
             .lineLimit(1)
             .monospacedDigit()
+            .padding(.horizontal, 8)
 
             ZStack(alignment: .leading) {
                 GeometryReader { geometry in
@@ -46,12 +47,6 @@ struct BottomBarProgressStyle: ProgressViewStyle {
                         .foregroundColor(.accentColor)
                 }
             }
-            #if targetEnvironment(macCatalyst)
-            .frame(width: 108)
-            #else
-            .frame(width: 124)
-            #endif
         }
-        .frame(maxWidth: .infinity)
     }
 }

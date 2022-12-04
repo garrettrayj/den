@@ -88,7 +88,10 @@ struct DenApp: App {
     }
     
     private func handleRefresh() async {
-        guard !appState.refreshing, let profile = appState.activeProfiles.first else { return }
-        await RefreshUtility.refresh(container: container, profile: profile)
+        guard !appState.refreshing else { return }
+        
+        for profile in appState.activeProfiles {
+            await RefreshUtility.refresh(container: container, profile: profile)
+        }
     }
 }

@@ -29,10 +29,17 @@ struct InboxNavView: View {
             } icon: {
                 Image(systemName: unreadCount > 0 ? "tray.full": "tray")
             }
+            #if targetEnvironment(macCatalyst)
+            .searchable(
+                text: $searchInput,
+                placement: .navigationBarDrawer(displayMode: .always)
+            )
+            #else
             .searchable(
                 text: $searchInput,
                 placement: .navigationBarDrawer(displayMode: .automatic)
             )
+            #endif
             .onSubmit(of: .search) {
                 searchModel.query = searchInput
                 selection = .search

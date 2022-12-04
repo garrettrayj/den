@@ -60,7 +60,6 @@ struct RootView: View {
             } detail: {
                 DetailView(
                     activeProfileID: $activeProfileID,
-                    refreshing: $refreshing,
                     selection: $selection,
                     uiStyle: $uiStyle,
                     autoRefreshEnabled: $autoRefreshEnabled,
@@ -70,6 +69,7 @@ struct RootView: View {
                     searchModel: searchModel
                 )
             }
+            .disabled(refreshing)
             .onOpenURL { url in
                 if case .page(let page) = selection {
                     SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)

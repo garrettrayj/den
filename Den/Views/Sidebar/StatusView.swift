@@ -18,8 +18,7 @@ struct StatusView: View {
     var body: some View {
         VStack {
             if refreshing {
-                ProgressView(progress)
-                    .progressViewStyle(BottomBarProgressStyle(progress: progress))
+                ProgressView(progress).progressViewStyle(BottomBarProgressViewStyle())
             } else if let refreshedDate = profile.minimumRefreshedDate {
                 Text("\(refreshedDate.formatted())")
             } else {
@@ -30,9 +29,7 @@ struct StatusView: View {
                 #endif
             }
         }
-        .padding(.horizontal, 8)
         .lineLimit(1)
         .font(.caption)
-        
     }
 }
