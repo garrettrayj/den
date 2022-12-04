@@ -29,6 +29,7 @@ struct NavigationListView: View {
                 unreadCount: profile.previewItems.unread().count
             )
             TrendsNavView(profile: profile)
+            NewPageView(profile: profile)
             Section {
                 ForEach(profile.pagesArray) { page in
                     PageNavView(page: page, unreadCount: page.previewItems.unread().count)
@@ -38,7 +39,6 @@ struct NavigationListView: View {
             } header: {
                 Text("Pages")
             }
-            NewPageView(profile: profile)
         }
         .listStyle(.sidebar)
         .navigationTitle(profile.displayName)
@@ -56,11 +56,19 @@ struct NavigationListView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 AddFeedButtonView(selection: $selection)
             }
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
                 SettingsButtonView(selection: $selection)
+            }
+            ToolbarItem(placement: .bottomBar) {
                 Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
                 StatusView(profile: profile, refreshing: $refreshing, progress: progress)
+            }
+            ToolbarItem(placement: .bottomBar) {
                 Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
                 RefreshButtonView(profile: profile)
             }
         }
@@ -96,7 +104,6 @@ struct NavigationListView: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-        save()
     }
 
     private func deletePage(indices: IndexSet) {
@@ -106,15 +113,6 @@ struct NavigationListView: View {
                 container.viewContext.delete(feed.feedData!)
             }
             container.viewContext.delete(page)
-        }
-        
-        do {
-            try container.viewContext.save()
-            profile.objectWillChange.send()
-            // Update Inbox unread count
-            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }
