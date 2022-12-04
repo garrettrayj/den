@@ -20,17 +20,12 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.persistentContainer) private var container
     
-    @StateObject private var appState = AppState()
-    
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
-    @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
     
     var body: some Scene {
         WindowGroup {
             RootView(
-                appState: appState,
-                backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                uiStyle: $uiStyle
+                backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
             .environment(\.managedObjectContext, container.viewContext)
         }
@@ -39,17 +34,11 @@ struct DenApp: App {
         }
         .onChange(of: scenePhase) { phase in
             switch phase {
-            case .active:
-                Logger.main.debug("Scene phase: active")
-            case .inactive:
-                Logger.main.debug("Scene phase: inactive")
             case .background:
-                Logger.main.debug("Scene phase: background")
                 if backgroundRefreshEnabled {
                     scheduleAppRefresh()
                 }
-            @unknown default:
-                Logger.main.debug("Scene phase: unknown")
+            default: break
             }
         }
     }
@@ -63,19 +52,20 @@ struct DenApp: App {
         do {
             try BGTaskScheduler.shared.submit(request)
             Logger.main.info("""
-            Background refresh task scheduled with earliest begin date \
+            Background refresh task scheduled with earliest begin date: \
             \(request.earliestBeginDate?.formatted() ?? "NA")
             """)
         } catch {
-            Logger.main.warning("Background refresh not scheduled")
+            Logger.main.warning("Failed to schedule background refresh task")
         }
         // Break here to simulate background task
     }
     
     private func handleRefresh() async {
-        guard !appState.refreshing else { return }
-        
-        for profile in appState.activeProfiles {
+        guard let profiles = try? container.viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
+            return
+        }
+        for profile in profiles {
             await RefreshUtility.refresh(container: container, profile: profile)
         }
     }
