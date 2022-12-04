@@ -7,16 +7,16 @@
 //
 
 import CoreData
+import OSLog
 import SwiftUI
 
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(\.persistentContainer) private var container
+    @Environment(\.scenePhase) private var scenePhase
     
     let appState: AppState
     
-    @Binding var autoRefreshEnabled: Bool
-    @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var uiStyle: UIUserInterfaceStyle
 
@@ -31,7 +31,11 @@ struct RootView: View {
     @State private var showCrashMessage = false
     @State private var crashMessage: String = ""
     
+    @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
+    @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
+    
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
+    @SceneStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -82,6 +86,28 @@ struct RootView: View {
             )
             .onAppear {
                 appState.activeProfiles.insert(profile)
+            }
+            .onChange(of: scenePhase) { phase in
+                switch phase {
+                case .active:
+                    Logger.main.debug("Root scene phase: active")
+                    if autoRefreshEnabled && !appState.refreshing && (
+                        autoRefreshDate == 0.0 ||
+                        Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
+                    ) {
+                        Task {
+                            guard !refreshing, let profile = activeProfile else { return }
+                            await RefreshUtility.refresh(container: container, profile: profile)
+                            autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
+                        }
+                    }
+                case .inactive:
+                    Logger.main.debug("Root scene phase: inactive")
+                case .background:
+                    Logger.main.debug("Root scene phase: background")
+                @unknown default:
+                    Logger.main.debug("Root scene phase: unknown")
+                }
             }
             .onChange(of: selection) { _ in
                 path.removeLast(path.count)

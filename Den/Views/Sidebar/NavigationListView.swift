@@ -50,7 +50,7 @@ struct NavigationListView: View {
         }
         #endif
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .navigation) {
                 editButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -104,6 +104,12 @@ struct NavigationListView: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
+        
+        do {
+            try container.viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 
     private func deletePage(indices: IndexSet) {
@@ -113,6 +119,12 @@ struct NavigationListView: View {
                 container.viewContext.delete(feed.feedData!)
             }
             container.viewContext.delete(page)
+        }
+        
+        do {
+            try container.viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

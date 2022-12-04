@@ -19,8 +19,8 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
     
     let searchModel: SearchModel
-
-    @AppStorage("hideRead") private var hideRead = false
+    
+    @SceneStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         NavigationStack {

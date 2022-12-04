@@ -16,20 +16,18 @@ struct StatusView: View {
     let progress: Progress
     
     var body: some View {
-        VStack {
-            if refreshing {
-                ProgressView(progress).progressViewStyle(BottomBarProgressViewStyle())
-            } else if let refreshedDate = profile.minimumRefreshedDate {
-                Text("\(refreshedDate.formatted())")
-            } else {
-                #if targetEnvironment(macCatalyst)
-                Text("Press \(Image(systemName: "command")) + R to refresh").imageScale(.small)
-                #else
-                Text("Pull to refresh")
-                #endif
-            }
+        if refreshing {
+            ProgressView(progress).progressViewStyle(BottomBarProgressViewStyle())
+        } else if let refreshedDate = profile.minimumRefreshedDate {
+            Text("\(refreshedDate.formatted())").font(.caption)
+        } else {
+            #if targetEnvironment(macCatalyst)
+            Text("Press \(Image(systemName: "command")) + R to refresh")
+                .imageScale(.small)
+                .font(.caption)
+            #else
+            Text("Pull to refresh").font(.caption)
+            #endif
         }
-        .lineLimit(1)
-        .font(.caption)
     }
 }

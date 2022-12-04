@@ -22,9 +22,6 @@ struct DenApp: App {
     
     @StateObject private var appState = AppState()
     
-    @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
-    @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
-    @AppStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
     
@@ -32,12 +29,9 @@ struct DenApp: App {
         WindowGroup {
             RootView(
                 appState: appState,
-                autoRefreshEnabled: $autoRefreshEnabled,
-                autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 uiStyle: $uiStyle
             )
-            .preferredColorScheme(ColorScheme(uiStyle))
             .environment(\.managedObjectContext, container.viewContext)
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
@@ -47,15 +41,6 @@ struct DenApp: App {
             switch phase {
             case .active:
                 Logger.main.debug("Scene phase: active")
-                if autoRefreshEnabled && !appState.refreshing && (
-                    autoRefreshDate == 0.0 ||
-                    Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
-                ) {
-                    Task {
-                        await handleRefresh()
-                    }
-                    autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
-                }
             case .inactive:
                 Logger.main.debug("Scene phase: inactive")
             case .background:

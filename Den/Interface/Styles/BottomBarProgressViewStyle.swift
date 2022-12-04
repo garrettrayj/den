@@ -10,6 +10,7 @@ import SwiftUI
 
 struct BottomBarProgressViewStyle: ProgressViewStyle {
     let height: CGFloat = 4
+    let width: CGFloat = 120
 
     #if targetEnvironment(macCatalyst)
     let spacing: CGFloat = 4
@@ -21,32 +22,25 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
         VStack(alignment: .center, spacing: spacing) {
             HStack {
                 if let completed = configuration.fractionCompleted, completed < 1.0 {
-                    // Updating feeds
-                    configuration.currentValueLabel
+                    configuration.currentValueLabel.monospacedDigit()
                     Text("Updated")
                 } else {
-                    // Performing analysis
                     Text("Analyzing")
                 }
-            }
-            .lineLimit(1)
-            .monospacedDigit()
-            .padding(.horizontal, 8)
+            }.font(.caption)
 
             ZStack(alignment: .leading) {
-                GeometryReader { geometry in
-                    RoundedRectangle(cornerRadius: height / 2)
-                        .frame(width: geometry.size.width, height: height)
-                        .foregroundColor(Color(UIColor.tertiarySystemFill))
+                RoundedRectangle(cornerRadius: height / 2)
+                    .frame(width: width, height: height)
+                    .foregroundColor(Color(UIColor.tertiarySystemFill))
 
-                    RoundedRectangle(cornerRadius: height / 2)
-                        .frame(
-                            width: CGFloat(configuration.fractionCompleted ?? 0) * geometry.size.width,
-                            height: height
-                        )
-                        .foregroundColor(.accentColor)
-                }
-            }
+                RoundedRectangle(cornerRadius: height / 2)
+                    .frame(
+                        width: CGFloat(configuration.fractionCompleted ?? 0) * width,
+                        height: height
+                    )
+                    .foregroundColor(.accentColor)
+            }.frame(width: width)
         }
     }
 }
