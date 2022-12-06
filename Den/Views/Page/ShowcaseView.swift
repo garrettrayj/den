@@ -13,17 +13,13 @@ struct ShowcaseView: View {
 
     @Binding var hideRead: Bool
 
-    let frameSize: CGSize
+    let width: CGFloat
 
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                 ForEach(page.feedsArray) { feed in
-                    ShowcaseSectionView(
-                        feed: feed,
-                        hideRead: $hideRead,
-                        width: frameSize.width
-                    )
+                    ShowcaseSectionView(feed: feed, hideRead: $hideRead, width: width)
                 }
             }
         }

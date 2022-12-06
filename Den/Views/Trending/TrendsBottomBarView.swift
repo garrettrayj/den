@@ -16,7 +16,9 @@ struct TrendsBottomBarView: View {
     
     @Binding var hideRead: Bool
     
-    @State var unreadCount: Int
+    var unreadCount: Int {
+        profile.trends.unread().count
+    }
 
     var body: some View {
         FilterReadButtonView(hideRead: $hideRead) {
@@ -26,26 +28,8 @@ struct TrendsBottomBarView: View {
         Text("\(unreadCount) with Unread")
             .font(.caption)
             .fixedSize()
-            .onReceive(
-                NotificationCenter.default
-                    .publisher(for: .itemStatus)
-                    .throttle(for: 1.0, scheduler: RunLoop.main, latest: true)
-            ) { notification in
-                guard
-                    let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                    profileObjectID == profile.objectID
-                else {
-                    return
-                }
-                unreadCount = profile.trends.unread().count
-            }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
-            ) { _ in
-                unreadCount = profile.trends.unread().count
-            }
         Spacer()
-        ToggleReadButtonView(unreadCount: $unreadCount) {
+        ToggleReadButtonView(unreadCount: unreadCount) {
             await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
         }
     }

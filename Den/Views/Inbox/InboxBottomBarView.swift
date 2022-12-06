@@ -16,7 +16,9 @@ struct InboxBottomBarView: View {
     
     @Binding var hideRead: Bool
     
-    @State var unreadCount: Int
+    var unreadCount: Int {
+        profile.previewItems.unread().count
+    }
 
     var body: some View {
         FilterReadButtonView(hideRead: $hideRead) {
@@ -26,26 +28,13 @@ struct InboxBottomBarView: View {
         Text("\(unreadCount) Unread")
             .font(.caption)
             .fixedSize()
-            .onReceive(
-                NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-            ) { notification in
-                guard
-                    let profileObjectID = notification.userInfo?["profileObjectID"] as? NSManagedObjectID,
-                    profileObjectID == profile.objectID,
-                    let read = notification.userInfo?["read"] as? Bool
-                else {
-                    return
-                }
-                unreadCount += read ? -1 : 1
-            }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .pagesRefreshed, object: profile.objectID)
-            ) { _ in
-                unreadCount = profile.previewItems.unread().count
-            }
         Spacer()
-        ToggleReadButtonView(unreadCount: $unreadCount) {
+        ToggleReadButtonView(unreadCount: unreadCount) {
             await SyncUtility.toggleReadUnread(container: container, items: profile.previewItems)
+            profile.objectWillChange.send()
+            for page in profile.pagesArray {
+                page.objectWillChange.send()
+            }
         }
     }
 }

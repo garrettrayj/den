@@ -43,8 +43,9 @@ struct ContentView: View {
                 selection: $selection,
                 refreshing: $refreshing
             )
-            .id(profile.id) // Fix for updating sidebar when profile changes
             .navigationSplitViewColumnWidth(268)
+            .disabled(refreshing)
+            .id(profile.id) // Fix for updating sidebar when profile changes
         } detail: {
             DetailView(
                 activeProfileID: $activeProfileID,
@@ -56,8 +57,8 @@ struct ContentView: View {
                 profile: profile,
                 searchModel: searchModel
             )
+            .disabled(refreshing)
         }
-        .disabled(refreshing)
         .onOpenURL { url in
             if case .page(let page) = selection {
                 SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)

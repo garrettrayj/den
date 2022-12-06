@@ -60,8 +60,7 @@ struct InboxView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 InboxBottomBarView(
                     profile: profile,
-                    hideRead: $hideRead,
-                    unreadCount: profile.previewItems.unread().count
+                    hideRead: $hideRead
                 )
             }
         }

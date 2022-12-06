@@ -10,26 +10,10 @@ import Foundation
 
 extension Notification.Name {
     static let refreshStarted = Notification.Name("refresh-started")
-    static let refreshFinished = Notification.Name("refresh-finished")
-
     static let feedRefreshed = Notification.Name("feed-refreshed")
     static let pagesRefreshed = Notification.Name("pages-refreshed")
-
-    static let itemStatus = Notification.Name("item-status")
+    static let refreshFinished = Notification.Name("refresh-finished")
 
     static let showSubscribe = Notification.Name("show-subscribe")
     static let showCrashMessage = Notification.Name("show-crash-message")
-}
-
-extension NotificationCenter {
-    func postItemStatus(item: Item) {
-        let userInfo: [String: Any] = [
-            "read": item.read,
-            "itemObjectID": item.objectID,
-            "feedObjectID": item.feedData?.feed?.objectID ?? "",
-            "pageObjectID": item.feedData?.feed?.page?.objectID ?? "",
-            "profileObjectID": item.feedData?.feed?.page?.profile?.objectID ?? ""
-        ]
-        post(name: .itemStatus, object: nil, userInfo: userInfo)
-    }
 }

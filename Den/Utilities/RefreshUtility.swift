@@ -71,6 +71,7 @@ struct RefreshUtility {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
         }
+       
     }
     
     static func refresh(container: NSPersistentContainer?, feed: Feed) async {

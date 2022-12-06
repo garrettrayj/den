@@ -39,11 +39,7 @@ struct TrendsView: View {
         .navigationTitle("Trends")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                TrendsBottomBarView(
-                    profile: profile,
-                    hideRead: $hideRead,
-                    unreadCount: profile.trends.unread().count
-                )
+                TrendsBottomBarView(profile: profile, hideRead: $hideRead)
             }
         }
     }

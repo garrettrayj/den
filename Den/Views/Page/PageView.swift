@@ -6,49 +6,45 @@
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
 
-import CoreData
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct PageView: View {
+    enum PageViewMode: Int {
+        case gadgets  = 0
+        case showcase = 1
+        case blend    = 2
+    }
+    
     @ObservedObject var page: Page
     
     @Binding var hideRead: Bool
     
-    @AppStorage<Int> var viewMode: Int
-
-    enum PageViewMode: Int {
-        case gadgets  = 0
-        case showcase = 1
-        case blend = 2
-    }
+    @SceneStorage("PageViewMode") private var viewMode = PageViewMode.gadgets.rawValue
 
     var body: some View {
-        Group {
-            GeometryReader { geometry in
-                if page.feedsArray.isEmpty {
-                    StatusBoxView(
-                        message: Text("Page Empty"),
-                        caption: Text("""
-                        To add feeds tap \(Image(systemName: "plus")), \n\
-                        open syndication links, \n\
-                        or drag and drop URLs.
-                        """),
-                        symbol: "questionmark.folder"
-                    )
-                } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend.rawValue {
-                    StatusBoxView(
-                        message: Text("No Items"),
-                        symbol: "questionmark.folder"
-                    )
+        GeometryReader { geometry in
+            if page.feedsArray.isEmpty {
+                StatusBoxView(
+                    message: Text("Page Empty"),
+                    caption: Text("""
+                    To add feeds tap \(Image(systemName: "plus")), \n\
+                    open syndication links, \n\
+                    or drag and drop URLs.
+                    """),
+                    symbol: "questionmark.folder"
+                )
+            } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend.rawValue {
+                StatusBoxView(
+                    message: Text("No Items"),
+                    symbol: "questionmark.folder"
+                )
+            } else {
+                if viewMode == PageViewMode.blend.rawValue {
+                    BlendView(page: page, hideRead: $hideRead, width: geometry.size.width).id(page.id)
+                } else if viewMode == PageViewMode.showcase.rawValue {
+                    ShowcaseView(page: page, hideRead: $hideRead, width: geometry.size.width).id(page.id)
                 } else {
-                    if viewMode == PageViewMode.blend.rawValue {
-                        BlendView(page: page, hideRead: $hideRead, frameSize: geometry.size)
-                    } else if viewMode == PageViewMode.showcase.rawValue {
-                        ShowcaseView(page: page, hideRead: $hideRead, frameSize: geometry.size)
-                    } else {
-                        GadgetsView(page: page, hideRead: $hideRead, frameSize: geometry.size)
-                    }
+                    GadgetsView(page: page, hideRead: $hideRead, width: geometry.size.width).id(page.id)
                 }
             }
         }
@@ -56,7 +52,7 @@ struct PageView: View {
         .background(Color(UIColor.systemGroupedBackground))
         .toolbar {
             #if targetEnvironment(macCatalyst)
-            ToolbarItemGroup(placement: .navigationBarLeading) {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
@@ -97,8 +93,8 @@ struct PageView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 PageBottomBarView(
                     page: page,
-                    hideRead: $hideRead,
-                    unreadCount: page.previewItems.unread().count
+                    viewMode: $viewMode,
+                    hideRead: $hideRead
                 ).id(page.id)
             }
         }
@@ -116,9 +112,6 @@ struct PageView: View {
             Label("Blend", systemImage: "square.text.square")
                 .tag(PageViewMode.blend.rawValue)
                 .accessibilityIdentifier("page-timeline-view-button")
-        }
-        .onChange(of: viewMode) { _ in
-            page.objectWillChange.send()
         }
     }
 }
