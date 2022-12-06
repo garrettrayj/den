@@ -16,7 +16,7 @@ struct StatusView: View {
     let progress: Progress
     
     var body: some View {
-        Group {
+        VStack {
             if refreshing {
                 ProgressView(progress).progressViewStyle(BottomBarProgressViewStyle())
             } else if let refreshedDate = profile.minimumRefreshedDate {

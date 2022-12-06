@@ -12,39 +12,15 @@ import SwiftUI
 struct PageNavView: View {
     @Environment(\.editMode) private var editMode
     
+    @ObservedObject var profile: Profile
     @ObservedObject var page: Page
     
-    @State var unreadCount: Int
-
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Label {
-                Text(page.displayName).lineLimit(1).badge(unreadCount)
+                Text(page.displayName).lineLimit(1).badge(page.previewItems.unread().count)
             } icon: {
                 Image(systemName: page.wrappedSymbol)
-            }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-            ) { notification in
-                guard
-                    let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                    pageObjectID == page.objectID,
-                    let read = notification.userInfo?["read"] as? Bool
-                else {
-                    return
-                }
-                unreadCount += read ? -1 : 1
-            }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
-            ) { notification in
-                guard
-                    let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                    pageObjectID == page.objectID
-                else {
-                    return
-                }
-                unreadCount = page.previewItems.unread().count
             }
             .modifier(URLDropTargetModifier(page: page))
             .accessibilityIdentifier("page-button")

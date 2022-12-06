@@ -24,22 +24,20 @@ struct NavigationListView: View {
             InboxNavView(
                 profile: profile,
                 searchModel: searchModel,
-                selection: $selection,
-                unreadCount: profile.previewItems.unread().count
+                selection: $selection
             )
             TrendsNavView(profile: profile)
             Section {
                 NewPageView(profile: profile)
                 ForEach(profile.pagesArray) { page in
-                    PageNavView(page: page, unreadCount: page.previewItems.unread().count)
+                    PageNavView(profile: profile, page: page)
                 }
-                .onMove(perform: movePage)
                 .onDelete(perform: deletePage)
+                .onMove(perform: movePage)
             } header: {
                 Text("Pages")
             }
         }
-        .listStyle(.sidebar)
         .navigationTitle(profile.displayName)
         #if !targetEnvironment(macCatalyst)
         .refreshable {
@@ -49,7 +47,7 @@ struct NavigationListView: View {
         }
         #endif
         .toolbar {
-            ToolbarItem(placement: .navigation) {
+            ToolbarItem(placement: .navigationBarLeading) {
                 editButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -84,17 +82,6 @@ struct NavigationListView: View {
             .accessibilityIdentifier("edit-page-list-button")
     }
 
-    private func save() {
-        do {
-            try container.viewContext.save()
-            DispatchQueue.main.async {
-                profile.objectWillChange.send()
-            }
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-    }
-
     private func movePage( from source: IndexSet, to destination: Int) {
         var revisedItems = profile.pagesArray
 
@@ -110,6 +97,8 @@ struct NavigationListView: View {
         
         do {
             try container.viewContext.save()
+            // Update array for UI
+            profile.pagesArray = revisedItems
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
@@ -126,6 +115,7 @@ struct NavigationListView: View {
         
         do {
             try container.viewContext.save()
+            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

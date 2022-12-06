@@ -13,14 +13,14 @@ struct BlendView: View {
 
     @Binding var hideRead: Bool
     
-    let frameSize: CGSize
+    let width: CGFloat
 
     var body: some View {
         if visibleItems.isEmpty {
             AllReadStatusView(hiddenItemCount: page.previewItems.read().count)
         } else {
             ScrollView(.vertical) {
-                BoardView(width: frameSize.width, list: visibleItems) { item in
+                BoardView(width: width, list: visibleItems) { item in
                     FeedItemPreviewView(item: item)
                 }
                 .modifier(TopLevelBoardPaddingModifier())

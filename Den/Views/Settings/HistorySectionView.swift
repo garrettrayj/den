@@ -25,8 +25,8 @@ struct HistorySectionView: View {
             Button {
                 Task {
                     await resetHistory()
-                    SyncUtility.refreshCounts(profile: profile)
                 }
+                profile.objectWillChange.send()
             } label: {
                 HStack {
                     Text("Clear History")

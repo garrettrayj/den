@@ -16,7 +16,8 @@ struct SyncUtility {
         await logHistory(container: container, items: [item])
         
         DispatchQueue.main.async {
-            NotificationCenter.default.postItemStatus(item: item)
+            item.feedData?.feed?.page?.profile?.objectWillChange.send()
+            item.feedData?.feed?.page?.objectWillChange.send()
             item.feedData?.feed?.objectWillChange.send()
         }
     }
@@ -30,12 +31,6 @@ struct SyncUtility {
         } else {
             modItems = items.unread()
             await logHistory(container: container, items: modItems)
-        }
-        
-        for item in modItems {
-            DispatchQueue.main.async {
-                NotificationCenter.default.postItemStatus(item: item)
-            }
         }
     }
 

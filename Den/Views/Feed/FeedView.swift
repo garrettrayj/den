@@ -65,11 +65,7 @@ struct FeedView: View {
             }
             
             ToolbarItemGroup(placement: .bottomBar) {
-                FeedBottomBarView(
-                    feed: feed,
-                    hideRead: $hideRead,
-                    unreadCount: feed.feedData?.itemsArray.unread().count ?? 0
-                )
+                FeedBottomBarView(feed: feed, hideRead: $hideRead)
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))

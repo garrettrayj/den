@@ -15,7 +15,7 @@ struct SettingsView: View {
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
     
-    @ObservedObject var profile: Profile
+    let profile: Profile
 
     var body: some View {
         Form {

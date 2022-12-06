@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ToggleReadButtonView: View {
-    @Binding var unreadCount: Int
+    let unreadCount: Int
     
     let toggleAll: () async -> Void
     

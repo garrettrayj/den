@@ -90,13 +90,12 @@ public class Profile: NSManagedObject {
 
     public var pagesArray: [Page] {
         get {
-            guard
-                let pages = self.pages?.sortedArray(
-                    using: [NSSortDescriptor(key: "userOrder", ascending: true)]
-                ) as? [Page]
-            else { return [] }
-
-            return pages
+            if let pages = self.pages?.sortedArray(
+                using: [NSSortDescriptor(key: "userOrder", ascending: true)]
+            ) as? [Page] {
+                return pages
+            }
+            return []
         }
         set {
             pages = NSSet(array: newValue)

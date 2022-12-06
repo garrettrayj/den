@@ -14,9 +14,12 @@ struct PageBottomBarView: View {
     
     @ObservedObject var page: Page
     
+    @Binding var viewMode: Int
     @Binding var hideRead: Bool
     
-    @State var unreadCount: Int
+    var unreadCount: Int {
+        page.previewItems.unread().count
+    }
 
     var body: some View {
         FilterReadButtonView(hideRead: $hideRead) {
@@ -26,32 +29,19 @@ struct PageBottomBarView: View {
         Text("\(unreadCount) Unread")
             .font(.caption)
             .fixedSize()
-            .onReceive(
-                NotificationCenter.default.publisher(for: .itemStatus, object: nil)
-            ) { notification in
-                guard
-                    let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                    pageObjectID == page.objectID,
-                    let read = notification.userInfo?["read"] as? Bool
-                else {
-                    return
-                }
-                unreadCount += read ? -1 : 1
-            }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)
-            ) { notification in
-                guard
-                    let pageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID,
-                    pageObjectID == page.objectID
-                else {
-                    return
-                }
-                unreadCount = page.previewItems.unread().count
-            }
         Spacer()
-        ToggleReadButtonView(unreadCount: $unreadCount) {
+        ToggleReadButtonView(unreadCount: unreadCount) {
             await SyncUtility.toggleReadUnread(container: container, items: page.previewItems)
+            
+            if viewMode == PageView.PageViewMode.blend.rawValue {
+                // Send page update to refresh blend view
+                page.objectWillChange.send()
+            } else {
+                // Send feed updates to refresh gadgets and showcase views
+                for feed in page.feedsArray {
+                    feed.objectWillChange.send()
+                }
+            }
         }
     }
 }

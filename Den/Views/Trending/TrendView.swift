@@ -41,8 +41,7 @@ struct TrendView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 TrendBottomBarView(
                     trend: trend,
-                    hideRead: $hideRead,
-                    unreadCount: trend.items.unread().count
+                    hideRead: $hideRead
                 )
             }
         }
