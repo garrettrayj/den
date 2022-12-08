@@ -22,6 +22,11 @@ struct PageNavView: View {
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
+            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
+                if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
+                    page.objectWillChange.send()
+                }
+            }
             .modifier(URLDropTargetModifier(page: page))
             .accessibilityIdentifier("page-button")
             .tag(Panel.page(page))

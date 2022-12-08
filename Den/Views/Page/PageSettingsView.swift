@@ -74,7 +74,10 @@ struct PageSettingsView: View {
                     .modifier(FormRowModifier())
             } else {
                 ForEach(page.feedsArray) { feed in
-                    FeedTitleLabelView(title: feed.wrappedTitle, favicon: feed.feedData?.favicon)
+                    FeedTitleLabelView(
+                        title: feed.wrappedTitle,
+                        favicon: feed.feedData?.favicon
+                    )
                 }
                 .modifier(FormRowModifier())
                 .onDelete(perform: deleteFeed)

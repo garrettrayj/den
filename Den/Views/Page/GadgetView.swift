@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct GadgetView: View {
+    @Environment(\.isEnabled) private var isEnabled
+    
     @ObservedObject var feed: Feed
     
     @Binding var hideRead: Bool
@@ -47,11 +49,13 @@ struct GadgetView: View {
                 HStack {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
-                        favicon: feed.feedData?.favicon
+                        favicon: feed.feedData?.favicon,
+                        dimmed: allRead
                     )
                     Spacer()
                     NavChevronView()
-                }.padding(.horizontal, 12)
+                }
+                .padding(.horizontal, 12)
             }
             .buttonStyle(FeedTitleButtonStyle())
             .accessibilityIdentifier("gadget-feed-button")
@@ -62,5 +66,9 @@ struct GadgetView: View {
         feed.feedData!.previewItems.filter { item in
             hideRead ? item.read == false : true
         }
+    }
+    
+    private var allRead: Bool {
+        feed.feedData?.previewItems.unread().isEmpty ?? false
     }
 }

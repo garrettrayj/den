@@ -27,8 +27,8 @@ struct NavigationListView: View {
                 selection: $selection
             )
             TrendsNavView(profile: profile)
+            NewPageView(profile: profile, selection: $selection)
             Section {
-                NewPageView(profile: profile)
                 ForEach(profile.pagesArray) { page in
                     PageNavView(profile: profile, page: page)
                 }

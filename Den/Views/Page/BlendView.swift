@@ -24,7 +24,6 @@ struct BlendView: View {
                     FeedItemPreviewView(item: item)
                 }
                 .modifier(TopLevelBoardPaddingModifier())
-                .clipped()
             }
         }
     }

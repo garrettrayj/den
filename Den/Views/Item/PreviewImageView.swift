@@ -11,6 +11,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct PreviewImageView: View {
+    @Environment(\.isEnabled) private var isEnabled
+    
     let item: Item
 
     var body: some View {
@@ -65,6 +67,8 @@ struct PreviewImageView: View {
         }
         .background(Color(UIColor.secondarySystemFill))
         .cornerRadius(6)
+        .grayscale(isEnabled ? 0 : 1)
+        .opacity(isEnabled ? 1 : UIConstants.dimmedImageOpacity)
         .accessibility(label: Text("Preview image"))
     }
 }

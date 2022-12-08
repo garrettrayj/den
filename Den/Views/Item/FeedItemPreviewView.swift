@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct FeedItemPreviewView: View {
+    @Environment(\.isEnabled) private var isEnabled
+    
     @ObservedObject var item: Item
 
     var body: some View {
@@ -18,7 +20,8 @@ struct FeedItemPreviewView: View {
                     HStack {
                         FeedTitleLabelView(
                             title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                            favicon: item.feedData?.favicon
+                            favicon: item.feedData?.favicon,
+                            dimmed: item.read
                         )
                         Spacer()
                         NavChevronView()

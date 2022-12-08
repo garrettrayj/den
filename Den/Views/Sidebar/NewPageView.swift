@@ -14,6 +14,8 @@ struct NewPageView: View {
     @Environment(\.editMode) private var editMode
     
     @ObservedObject var profile: Profile
+    
+    @Binding var selection: Panel?
 
     var body: some View {
         if editMode?.wrappedValue == .active {
