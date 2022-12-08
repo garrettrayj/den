@@ -46,7 +46,8 @@ struct ShowcaseSectionView: View {
                 HStack {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
-                        favicon: feed.feedData?.favicon
+                        favicon: feed.feedData?.favicon,
+                        dimmed: allRead
                     )
                     Spacer()
                     NavChevronView()
@@ -64,5 +65,9 @@ struct ShowcaseSectionView: View {
         feed.feedData?.previewItems.filter { item in
             hideRead ? item.read == false : true
         } ?? []
+    }
+    
+    private var allRead: Bool {
+        feed.feedData?.previewItems.unread().isEmpty ?? false
     }
 }

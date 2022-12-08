@@ -95,7 +95,7 @@ struct PageView: View {
                     page: page,
                     viewMode: $viewMode,
                     hideRead: $hideRead
-                ).id(page.id)
+                )
             }
         }
         .navigationTitle(page.displayName)

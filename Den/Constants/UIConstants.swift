@@ -9,5 +9,5 @@
 import Foundation
 
 struct UIConstants {
-    static let dimmedImageOpacity: Double = 0.65
+    static let dimmedImageOpacity: Double = 0.5
 }

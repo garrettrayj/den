@@ -11,18 +11,18 @@ import OSLog
 import SwiftUI
 
 struct SyncUtility {
-    static func markItemRead(container: NSPersistentContainer?, item: Item) async {
+    static func markItemRead(container: NSPersistentContainer, item: Item) async {
         guard item.read != true else { return }
         await logHistory(container: container, items: [item])
         
         DispatchQueue.main.async {
-            item.feedData?.feed?.page?.profile?.objectWillChange.send()
-            item.feedData?.feed?.page?.objectWillChange.send()
             item.feedData?.feed?.objectWillChange.send()
+            item.feedData?.feed?.page?.objectWillChange.send()
+            item.feedData?.feed?.page?.profile?.objectWillChange.send()
         }
     }
 
-    static func toggleReadUnread(container: NSPersistentContainer?, items: [Item]) async {
+    static func toggleReadUnread(container: NSPersistentContainer, items: [Item]) async {
         var modItems: [Item]
 
         if items.unread().isEmpty == true {
@@ -34,11 +34,11 @@ struct SyncUtility {
         }
     }
 
-    static func logHistory(container: NSPersistentContainer?, items: [Item]) async {
+    static func logHistory(container: NSPersistentContainer, items: [Item]) async {
         guard let profileObjectID = items.first?.feedData?.feed?.page?.profile?.objectID else { return }
         let itemObjectIDs = items.map { $0.objectID }
         
-        await container?.performBackgroundTask { context in
+        await container.performBackgroundTask { context in
             guard let profile = context.object(with: profileObjectID) as? Profile else { return }
             
             for itemObjectID in itemObjectIDs {
@@ -75,20 +75,6 @@ struct SyncUtility {
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
-        }
-    }
-    
-    static func refreshCounts(profile: Profile) {
-        DispatchQueue.main.async {
-            profile.objectWillChange.send()
-            for feed in profile.feedsArray {
-                NotificationCenter.default.post(
-                    name: .feedRefreshed,
-                    object: feed.objectID,
-                    userInfo: ["pageObjectID": feed.page?.objectID as Any]
-                )
-            }
-            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
         }
     }
     

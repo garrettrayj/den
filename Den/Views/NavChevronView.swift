@@ -9,9 +9,13 @@
 import SwiftUI
 
 struct NavChevronView: View {
+    @Environment(\.isEnabled) private var isEnabled
+    
     var body: some View {
         Image(systemName: "chevron.forward")
-            .foregroundColor(Color(UIColor.tertiaryLabel))
+            .foregroundColor(
+                isEnabled ? Color(UIColor.tertiaryLabel) : Color(UIColor.quaternaryLabel)
+            )
             .imageScale(.small)
             .font(.body.weight(.semibold))
     }

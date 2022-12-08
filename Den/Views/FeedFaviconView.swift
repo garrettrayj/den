@@ -11,13 +11,15 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedFaviconView: View {
+    @Environment(\.isEnabled) private var isEnabled
+    
     let url: URL?
 
     var placeholderSymbol: String = "dot.radiowaves.up.forward"
     var purgeable: Bool = true
+    var dimmed: Bool = false
 
     var body: some View {
-        
         WebImage(url: url, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])
             .resizable()
             .playbackRate(0)
@@ -27,5 +29,7 @@ struct FeedFaviconView: View {
                     .foregroundColor(.primary)
             }
             .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
+            .grayscale(isEnabled ? 0 : 1)
+            .opacity(isEnabled && !dimmed ? 1 : UIConstants.dimmedImageOpacity)
     }
 }

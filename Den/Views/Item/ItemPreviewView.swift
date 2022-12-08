@@ -44,5 +44,6 @@ struct ItemPreviewView: View {
             :
                 item.read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
         )
+        .background(Color(UIColor.secondarySystemGroupedBackground))
     }
 }

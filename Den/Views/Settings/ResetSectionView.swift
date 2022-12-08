@@ -39,7 +39,7 @@ struct ResetSectionView: View {
                     await emptyCache()
                     sleep(1)
                     await calculateCacheSize()
-                    refreshCounts()
+                    profile.objectWillChange.send()
                 }
             } label: {
                 HStack {
@@ -81,21 +81,6 @@ struct ResetSectionView: View {
             await calculateCacheSize()
         }
     }
-    
-    private func refreshCounts() {
-        DispatchQueue.main.async {
-            profile.objectWillChange.send()
-            for feed in profile.feedsArray {
-                NotificationCenter.default.post(
-                    name: .feedRefreshed,
-                    object: feed.objectID,
-                    userInfo: ["pageObjectID": feed.page?.objectID as Any]
-                )
-            }
-            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
-        }
-    }
-
 
     private func restoreUserDefaults() {
         // Clear our UserDefaults domain

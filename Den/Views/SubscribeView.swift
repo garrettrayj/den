@@ -64,12 +64,6 @@ struct SubscribeView: View {
 
                         submitButtonSection
                     }
-                    .onReceive(
-                        NotificationCenter.default.publisher(for: .feedRefreshed, object: newFeed?.objectID)
-                    ) { _ in
-                        profile?.objectWillChange.send()
-                        dismiss()
-                    }
                     .navigationTitle("Add Feed")
                     .toolbar {
                         ToolbarItem {
@@ -98,6 +92,7 @@ struct SubscribeView: View {
                 addFeed()
                 Task {
                     await RefreshUtility.refresh(container: container, feed: newFeed!)
+                    dismiss()
                 }
             }
         } label: {
