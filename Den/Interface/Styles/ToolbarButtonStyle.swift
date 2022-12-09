@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ToolbarButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
+    
     @State private var hovering: Bool = false
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
@@ -39,7 +40,6 @@ struct ToolbarButtonStyle: ButtonStyle {
             .cornerRadius(8)
             #else
             .frame(height: 44, alignment: .center)
-            .contentShape(Rectangle())
             .foregroundColor(
                 isEnabled ?
                     configuration.isPressed ?
@@ -54,5 +54,6 @@ struct ToolbarButtonStyle: ButtonStyle {
             .onHover { hovered in
                 hovering = hovered
             }
+            .contentShape(Rectangle())
     }
 }

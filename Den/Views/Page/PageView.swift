@@ -27,7 +27,7 @@ struct PageView: View {
                 StatusBoxView(
                     message: Text("Page Empty"),
                     caption: Text("""
-                    To add feeds tap \(Image(systemName: "plus")), \n\
+                    To add feeds tap \(Image(systemName: "plus.circle")), \n\
                     open syndication links, \n\
                     or drag and drop URLs.
                     """),
@@ -71,7 +71,7 @@ struct PageView: View {
                     Button {
                         SubscriptionUtility.showSubscribe(page: page)
                     } label: {
-                        Label("Add Feed", systemImage: "plus")
+                        Label("Add Feed", systemImage: "plus.circle")
                     }
                     .accessibilityIdentifier("add-feed-button")
                     
