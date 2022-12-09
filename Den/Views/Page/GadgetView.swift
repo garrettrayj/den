@@ -69,6 +69,11 @@ struct GadgetView: View {
     }
     
     private var allRead: Bool {
-        feed.feedData?.previewItems.unread().isEmpty ?? false
+        guard
+            let feedData = feed.feedData,
+            !feedData.previewItems.isEmpty
+        else { return false }
+        
+        return feedData.previewItems.unread().isEmpty
     }
 }

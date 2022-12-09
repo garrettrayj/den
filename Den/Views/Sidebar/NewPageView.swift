@@ -24,7 +24,7 @@ struct NewPageView: View {
                     addPage()
                 }
             } label: {
-                Label("Add Page", systemImage: "plus.circle").imageScale(.large)
+                Label("Add Page", systemImage: "plus").imageScale(.large)
             }
             .buttonStyle(.borderless)
             .accessibilityIdentifier("new-page-button")
