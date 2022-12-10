@@ -415,6 +415,7 @@
 		68C4138124733D7D00D1DC7B /* SubscribeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeView.swift; sourceTree = "<group>"; };
 		68C4FA252474927800D2C0D6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
+		68CCE0A829450FFA00424850 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		68CE2C3C28CEEBF000ED1CF9 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
@@ -709,6 +710,7 @@
 		689EDC0A26A3F46A0055811A /* DenScreenshots */ = {
 			isa = PBXGroup;
 			children = (
+				68CCE0A829450FFA00424850 /* Images */,
 				689EDC0D26A3F46A0055811A /* Info.plist */,
 				689EDC1326A3FE940055811A /* screenshots.sh */,
 				6880E1E826B4591900A8E3E8 /* ScreenshotTestCase.swift */,

@@ -7,8 +7,6 @@
 #  Copyright © 2021 Garrett Johnson. All rights reserved.
 set -e
 
-rm -rf /tmp/DenDerivedData/
-
 # The Xcode project to create screenshots for
 projectName="./Den.xcodeproj"
 
@@ -19,8 +17,8 @@ testBundle="DenScreenshots"
 # All the simulators we want to screenshot
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
-    #"iPhone 12 Pro Max"
-    #"iPhone 8 Plus"
+    "iPhone 12 Pro Max"
+    "iPhone 8 Plus"
     "iPad Pro (12.9-inch) (5th generation)"
     "iPad Pro (12.9-inch) (2nd generation)"
 )
@@ -39,10 +37,6 @@ appearances=(
 # Save final screenshots into this folder (it will be created)
 targetFolder="$PWD/DenScreenshots/Images"
 
-#capture_mac()
-capture_ios()
-
-
 function capture_mac {
     # Capture macOS screenshots
     for language in "${languages[@]}"
@@ -60,8 +54,15 @@ function capture_mac {
                 build test
 
             echo "🖼  Collecting macOS results..."
-            mkdir -p "$targetFolder/macOS/$language/$appearance"
-            find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$targetFolder/macOS/$language/$appearance" \;
+            destination="$targetFolder/macOS/$language/$appearance"
+            mkdir -p "$destination"
+            find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$destination" \;
+            
+            # Remove UUID from screenshot filenames
+            for file ($destination/*.png(ND.)) {
+                new_name=${file/_1_*\.png/\.png}
+                mv -f "$file" "$new_name"
+            }
         done
     done
     echo "✅  Mac Screenshots Done"
@@ -93,6 +94,7 @@ function capture_ios {
                     -destination "platform=iOS Simulator,name=$simulator_name" \
                     -only-testing:$testBundle \
                     build test
+                    
                 echo "🖼  Collecting Results..."
                 destination="$targetFolder/$simulator/$language/$appearance"
                 mkdir -p "$destination"
@@ -103,17 +105,21 @@ function capture_ios {
                     new_name=${file/_1_*\.png/\.png}
                     mv -f "$file" "$new_name"
                 }
-                
-                
             done
         done
         
         xcrun simctl shutdown "$simulator_name"
-        xcrun simctl erase "$simulator_name"
+        xcrun simctl delete "$simulator_name"
 
         echo "✅  iOS Screenshots Done"
     done
 }
 
+start_time=$SECONDS
 
+capture_mac
+capture_ios
 
+elapsed=$(( SECONDS - start_time ))
+
+eval "echo 🎉  Capture completed in $(bc <<<"scale=2; $elapsed / 60") minutes"

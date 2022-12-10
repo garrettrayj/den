@@ -39,11 +39,13 @@ class PadScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "02-ShowcaseView")
 
         app.buttons["blend-view-button"].tap()
+        sleep(2)
         takeScreenshot(named: "03-BlendView")
 
         // Page settings
         app.buttons["page-menu"].tap()
         app.buttons["page-settings-button"].tap()
+        sleep(2)
         takeScreenshot(named: "04-PageSettings")
         goBack()
 
@@ -53,6 +55,7 @@ class PadScreenshots: ScreenshotTestCase {
 
         // Feed settings
         app.buttons["feed-settings-button"].tap()
+        sleep(2)
         takeScreenshot(named: "06-FeedSettings")
 
         // Settings
