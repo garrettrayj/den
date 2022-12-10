@@ -111,7 +111,7 @@ struct PageView: View {
                 .accessibilityIdentifier("showcase-view-button")
             Label("Blend", systemImage: "square.text.square")
                 .tag(PageViewMode.blend.rawValue)
-                .accessibilityIdentifier("page-timeline-view-button")
+                .accessibilityIdentifier("blend-view-button")
         }
     }
 }
