@@ -70,7 +70,7 @@ class ScreenshotTestCase: XCTestCase {
 
     func takeScreenshot(named name: String) {
         // Take the screenshot
-        let fullScreenshot = XCUIScreen.main.screenshot()
+        let screenshot = app.windows.firstMatch.screenshot()
 
         // Create a new attachment to save our screenshot
         // and give it a name consisting of the "named"
@@ -79,7 +79,7 @@ class ScreenshotTestCase: XCTestCase {
         let screenshotAttachment = XCTAttachment(
             uniformTypeIdentifier: "public.png",
             name: "\(name).png",
-            payload: fullScreenshot.pngRepresentation,
+            payload: screenshot.pngRepresentation,
             userInfo: nil
         )
 

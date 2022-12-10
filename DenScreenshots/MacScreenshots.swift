@@ -27,24 +27,32 @@ class MacScreenshots: ScreenshotTestCase {
         goToLink(1)
         goToLink(3)
 
+        sleep(2)
         takeScreenshot(named: "01-GadgetsView")
+        
         app.buttons["showcase-view-button"].tap()
+        sleep(2)
         takeScreenshot(named: "02-ShowcaseView")
+        
         app.buttons["blend-view-button"].tap()
+        sleep(2)
         takeScreenshot(named: "03-BlendView")
 
         // Page settings
         app.buttons["page-settings-button"].tap()
+        sleep(2)
         takeScreenshot(named: "04-PageSettings")
         goBack()
 
         // Feed view
         app.buttons["gadgets-view-button"].tap()
         app.buttons.matching(identifier: "gadget-feed-button").firstMatch.tap()
+        sleep(2)
         takeScreenshot(named: "05-FeedView")
 
         // Feed settings
         app.buttons["feed-settings-button"].tap()
+        sleep(2)
         takeScreenshot(named: "06-FeedSettings")
         goBack()
 

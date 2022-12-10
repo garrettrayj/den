@@ -36,26 +36,31 @@ class PhoneScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "02-GadgetsView")
 
         app.navigationBars.buttons["page-menu"].tap()
-
         app.buttons["showcase-view-button"].tap()
+        sleep(2)
         takeScreenshot(named: "03-ShowcaseView")
+        
         app.navigationBars.buttons["page-menu"].tap()
         app.buttons["blend-view-button"].tap()
+        sleep(2)
         takeScreenshot(named: "04-BlendView")
 
         // Page settings
         app.navigationBars.buttons["page-menu"].tap()
         app.buttons["page-settings-button"].tap()
+        sleep(2)
         takeScreenshot(named: "04-PageSettings")
 
         goBack()
 
         // Feed view
         app.buttons.matching(identifier: "item-feed-button").firstMatch.forceTap()
+        sleep(2)
         takeScreenshot(named: "05-FeedView")
 
         // Feed settings
         app.buttons["feed-settings-button"].forceTap()
+        sleep(2)
         takeScreenshot(named: "06-FeedSettings")
 
         goBack()
@@ -76,9 +81,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         searchField.tap()
         searchField.typeText("Apple")
         searchField.typeText("\n")
-        let searchGroupHeader = app.scrollViews.otherElements.staticTexts["Apple Newsroom"]
-        expectation(for: existsPredicate, evaluatedWith: searchGroupHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
+        sleep(1)
         takeScreenshot(named: "08-Search")
     }
 
