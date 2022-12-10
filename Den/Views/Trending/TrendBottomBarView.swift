@@ -11,11 +11,11 @@ import SwiftUI
 
 struct TrendBottomBarView: View {
     @Environment(\.persistentContainer) private var container
-    
+
     @ObservedObject var trend: Trend
-    
+
     @Binding var hideRead: Bool
-    
+
     var unreadCount: Int {
         trend.items.unread().count
     }

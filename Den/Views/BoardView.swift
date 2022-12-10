@@ -12,7 +12,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     let content: (T) -> Content
     let list: [T]
     let width: CGFloat
-    
+
     let spacing: CGFloat = 12
 
     var body: some View {

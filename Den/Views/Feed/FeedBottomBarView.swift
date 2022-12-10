@@ -11,11 +11,11 @@ import SwiftUI
 
 struct FeedBottomBarView: View {
     @Environment(\.persistentContainer) private var container
-    
+
     @ObservedObject var feed: Feed
-    
+
     @Binding var hideRead: Bool
-    
+
     var unreadCount: Int {
         feed.feedData?.previewItems.count ?? 0
     }

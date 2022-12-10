@@ -11,15 +11,15 @@ import SwiftUI
 struct HistorySectionView: View {
     @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
-    
+
     @ObservedObject var profile: Profile
-    
+
     @State var historyRentionDays: Int
-    
+
     var historyCount: Int {
         profile.history?.count ?? 0
     }
-    
+
     var body: some View {
         Section {
             Button {
@@ -51,7 +51,7 @@ struct HistorySectionView: View {
             .disabled(historyCount == 0)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-history-button")
-            
+
             Picker(selection: $historyRentionDays) {
                 Text("Forever").tag(0 as Int)
                 Text("One Year").tag(365 as Int)
@@ -67,7 +67,11 @@ struct HistorySectionView: View {
             Text("History")
         } footer: {
             if historyRentionDays == 0 || historyRentionDays > 90 || historyCount > 100_000 {
-                Text("\(Image(systemName: "exclamationmark.triangle")) Retaining history for long periods may adversely affect performance").imageScale(.small)
+                (
+                    Text("\(Image(systemName: "exclamationmark.triangle")) ") +
+                    Text("Retaining history for long periods may adversely affect performance")
+                )
+                .imageScale(.small)
             }
         }
         .onChange(of: historyRentionDays) { _ in
@@ -81,19 +85,19 @@ struct HistorySectionView: View {
             }
         }
     }
-    
+
     private func resetHistory() async {
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profile.objectID) as? Profile else { return }
-            
+
             for history in profile.historyArray {
                 context.delete(history)
             }
-            
+
             for item in profile.previewItems.read() {
                 item.read = false
             }
-            
+
             do {
                 try context.save()
             } catch {

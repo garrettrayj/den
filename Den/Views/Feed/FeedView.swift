@@ -13,7 +13,7 @@ struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var feed: Feed
-    
+
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -63,7 +63,7 @@ struct FeedView: View {
                 .accessibilityIdentifier("feed-settings-button")
                 .id(feed.id)
             }
-            
+
             ToolbarItemGroup(placement: .bottomBar) {
                 FeedBottomBarView(feed: feed, hideRead: $hideRead)
             }

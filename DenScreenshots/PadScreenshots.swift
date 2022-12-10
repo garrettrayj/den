@@ -12,7 +12,9 @@ class PadScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .pad }
 
     func testScreenshots() {
-        if !app.staticTexts["GET STARTED"].waitForExistence(timeout: 5) { XCTFail() }
+        if !app.staticTexts["GET STARTED"].waitForExistence(timeout: 5) {
+            XCTFail("Get Started message does not exist")
+        }
         app.buttons["load-demo-button"].forceTap()
 
         // Refresh all pages
@@ -28,10 +30,8 @@ class PadScreenshots: ScreenshotTestCase {
         goToLink(3)
 
         takeScreenshot(named: "01-GadgetsView")
-        
-        
+
         app.buttons["page-menu"].tap()
-        if !app.buttons["showcase-view-button"].waitForExistence(timeout: 5) { XCTFail() }
         app.buttons["showcase-view-button"].tap()
 
         // Show page menu in next screenshot
@@ -59,7 +59,7 @@ class PadScreenshots: ScreenshotTestCase {
         app.buttons["settings-button"].tap()
         if !app.buttons["Den"].waitForExistence(timeout: 5) { XCTFail("Profile button does not exist") }
         takeScreenshot(named: "07-Settings")
-        
+
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()

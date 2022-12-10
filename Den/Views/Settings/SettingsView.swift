@@ -14,7 +14,7 @@ struct SettingsView: View {
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
-    
+
     let profile: Profile
 
     var body: some View {

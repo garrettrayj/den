@@ -12,7 +12,7 @@ struct BlendView: View {
     @ObservedObject var page: Page
 
     @Binding var hideRead: Bool
-    
+
     let width: CGFloat
 
     var body: some View {

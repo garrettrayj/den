@@ -29,7 +29,7 @@ struct ProfileView: View {
         .onDisappear {
             if profile.isDeleted { return }
             profile.wrappedName = nameInput
-            
+
             if container.viewContext.hasChanges {
                 do {
                     try container.viewContext.save()
@@ -50,7 +50,7 @@ struct ProfileView: View {
             Text("Name")
         }
     }
-    
+
     private var isActive: Bool {
         profile.id?.uuidString == activeProfileID
     }
@@ -93,7 +93,7 @@ struct ProfileView: View {
             Text("All profile content will be removed.")
         })
     }
-    
+
     private func delete() async {
         await container.performBackgroundTask { context in
             if let toDelete = context.object(with: profile.objectID) as? Profile {
@@ -102,7 +102,7 @@ struct ProfileView: View {
                 }
                 context.delete(toDelete)
             }
-            
+
             do {
                 try context.save()
             } catch let error as NSError {

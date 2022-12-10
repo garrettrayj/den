@@ -13,10 +13,10 @@ struct SidebarView: View {
     @ObservedObject var profile: Profile
 
     let searchModel: SearchModel
-    
+
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
-    
+
     @State private var searchInput: String = ""
 
     var body: some View {

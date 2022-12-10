@@ -1,0 +1,2 @@
+screenshots:
+	DenScreenshots/screenshots.sh

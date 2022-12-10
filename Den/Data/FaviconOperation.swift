@@ -11,7 +11,6 @@ import OSLog
 
 import SwiftSoup
 
-
 struct FaviconOperation {
     let webpage: URL
 
@@ -19,13 +18,13 @@ struct FaviconOperation {
         guard let (data, _) = try? await URLSession.shared.data(from: webpage) else {
             return nil
         }
-        
+
         if let favicon = await self.getWebpageFavicon(url: webpage, data: data) {
             return favicon
         } else if let favicon = await self.getDefaultFavicon(url: webpage) {
             return favicon
         }
-        
+
         return nil
     }
 
@@ -44,21 +43,21 @@ struct FaviconOperation {
         else {
             return nil
         }
-        
+
         return await checkFavicon(url: faviconURL)
     }
 
     private func getDefaultFavicon(url: URL) async -> URL? {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.path = "/favicon.ico"
-        
+
         if let faviconURL = components.url {
             return await checkFavicon(url: faviconURL)
         }
-        
+
         return nil
     }
-    
+
     private func checkFavicon(url: URL) async -> URL? {
         guard
             let (_, response) = try? await URLSession.shared.data(from: url),
@@ -68,7 +67,7 @@ struct FaviconOperation {
         else {
             return nil
         }
-        
+
         return url.absoluteURL
     }
 

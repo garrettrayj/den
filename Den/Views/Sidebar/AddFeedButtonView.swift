@@ -10,9 +10,9 @@ import SwiftUI
 
 struct AddFeedButtonView: View {
     @Environment(\.editMode) private var editMode
-    
+
     @Binding var selection: Panel?
-    
+
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Button {

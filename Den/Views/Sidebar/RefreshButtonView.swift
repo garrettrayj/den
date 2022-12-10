@@ -11,9 +11,9 @@ import SwiftUI
 struct RefreshButtonView: View {
     @Environment(\.persistentContainer) private var container
     @Environment(\.editMode) private var editMode
-    
+
     let profile: Profile
-    
+
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Button {

@@ -10,10 +10,10 @@ import SwiftUI
 
 struct FeedTitleLabelView: View {
     @Environment(\.isEnabled) private var isEnabled
-    
+
     let title: String
     let favicon: URL?
-    
+
     var dimmed: Bool = false
 
     var body: some View {

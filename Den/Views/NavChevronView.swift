@@ -10,7 +10,7 @@ import SwiftUI
 
 struct NavChevronView: View {
     @Environment(\.isEnabled) private var isEnabled
-    
+
     var body: some View {
         Image(systemName: "chevron.forward")
             .foregroundColor(

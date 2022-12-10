@@ -16,12 +16,12 @@ import SDWebImageWebPCoder
 @main
 struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    
+
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.persistentContainer) private var container
-    
+
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
-    
+
     var body: some Scene {
         WindowGroup {
             RootView(
@@ -42,13 +42,13 @@ struct DenApp: App {
             }
         }
     }
-    
+
     private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
         request.earliestBeginDate = .now + 10 * 60
         request.requiresNetworkConnectivity = true
         request.requiresExternalPower = false
-        
+
         do {
             try BGTaskScheduler.shared.submit(request)
             Logger.main.info("""
@@ -60,7 +60,7 @@ struct DenApp: App {
         }
         // Break here to simulate background task
     }
-    
+
     private func handleRefresh() async {
         guard let profiles = try? container.viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
             return

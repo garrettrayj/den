@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 
 struct FeedFaviconView: View {
     @Environment(\.isEnabled) private var isEnabled
-    
+
     let url: URL?
 
     var placeholderSymbol: String = "dot.radiowaves.up.forward"

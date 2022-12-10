@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.remove(menu: .format)
         builder.remove(menu: .toolbar)
     }
-    
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
         SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 1024 // MB
-        
+
         return true
     }
 }

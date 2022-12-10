@@ -16,9 +16,9 @@ struct AtomFeedUpdate {
     let feedData: FeedData
     let source: AtomFeed
     let context: NSManagedObjectContext
-    
+
     let imageSelection = ImageSelection()
-    
+
     func execute() {
         if feed.title == nil, let feedTitle = source.title {
             feed.title = feedTitle.preparingTitle()
@@ -46,16 +46,16 @@ struct AtomFeedUpdate {
                     Logger.ingest.notice("Missing link for item.")
                     continue
                 }
-                
+
                 // Continue if item already exists
                 if (existingItemLinks.contains(where: { $0 == itemLink})) {
                     continue
                 }
-                
+
                 let item = Item.create(moc: context, feedData: feedData)
                 let load = AtomItemLoad(item: item, source: sourceItem)
                 load.apply()
-                
+
                 item.anaylyzeTitleTags()
             }
         }

@@ -13,7 +13,7 @@ import FeedKit
 struct JSONItemLoad {
     let item: Item
     let source: JSONFeedItem
-    
+
     let imageSelection = ImageSelection()
 
     func apply() {
@@ -44,12 +44,12 @@ struct JSONItemLoad {
         } else if let urlString = source.id, let link = URL(string: urlString) {
             item.link = link
         }
-        
+
         if let author = source.author?.name {
             let formattedAuthor = author
                 .replacingOccurrences(of: "\n", with: " ")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
-            
+
             if formattedAuthor != "" {
                 item.author = formattedAuthor
             }

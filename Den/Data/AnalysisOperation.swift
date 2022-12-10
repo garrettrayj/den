@@ -27,30 +27,30 @@ struct AnalysisOperation {
                     trend.tag = workingTrend.tag.rawValue
                     return trend
                 }()
-                
+
                 for item in workingTrend.items {
-                    let _ = trend.trendItemsArray.first { trendItem in
+                    _ = trend.trendItemsArray.first { trendItem in
                         trendItem.item == item
                     } ?? TrendItem.create(in: context, trend: trend, item: item)
                 }
             }
-            
+
             // Delete trends not present in current analysis
             for trend in profile.trends where !workingTrends.contains(where: { $0.slug == trend.slug }) {
                 context.delete(trend)
             }
-            
+
             try? context.save()
         }
     }
 
     private func analyzeTrends(profile: Profile) -> [WorkingTrend] {
         var workingTrends: [WorkingTrend] = []
-        
+
         for item in profile.previewItems {
             for (tokenText, tag) in item.wrappedTags {
                 let slug = tokenText.removingCharacters(in: .punctuationCharacters).lowercased()
-                
+
                 if let workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == slug }) {
                     workingTrends[workingTrendIndex].items.append(item)
                 } else {
@@ -58,7 +58,7 @@ struct AnalysisOperation {
                 }
             }
         }
-        
+
         return workingTrends.filter { workingTrend in
             workingTrend.items.count > 1 && workingTrend.feeds.count > 1
         }

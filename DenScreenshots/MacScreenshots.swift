@@ -52,7 +52,7 @@ class MacScreenshots: ScreenshotTestCase {
         app.buttons["settings-button"].tap()
         if !app.buttons["Den"].waitForExistence(timeout: 5) { XCTFail("Profile button does not exist") }
         takeScreenshot(named: "07-Settings")
-        
+
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()
@@ -77,7 +77,7 @@ class MacScreenshots: ScreenshotTestCase {
 
         _ = itemButton.waitForExistence(timeout: 10)
         itemButton.tap()
-        
+
         let backButton = app.buttons["Back"].firstMatch
         _ = backButton.waitForExistence(timeout: 10)
         backButton.tap()

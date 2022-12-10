@@ -15,7 +15,6 @@ struct AtomItemLoad {
     let source: AtomFeedEntry
     let imageSelection = ImageSelection()
 
-    
     func apply() {
         populateGeneralProperties()
         populateText()
@@ -44,12 +43,12 @@ struct AtomItemLoad {
         } else {
             item.title = "Untitled"
         }
-        
+
         if let author = source.authors?.first?.name {
             let formattedAuthor = author
                 .replacingOccurrences(of: "\n", with: " ")
                 .trimmingCharacters(in: .whitespacesAndNewlines)
-            
+
             if formattedAuthor != "" {
                 item.author = formattedAuthor
             }
