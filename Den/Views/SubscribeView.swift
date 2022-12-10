@@ -124,7 +124,9 @@ struct SubscribeView: View {
 
             if urlIsValid != nil {
                 if urlIsValid == true {
-                    Image(systemName: "checkmark.circle").foregroundColor(Color(UIColor.systemGreen)).fontWeight(.medium)
+                    Image(systemName: "checkmark.circle")
+                        .foregroundColor(Color(UIColor.systemGreen))
+                        .fontWeight(.medium)
                 } else {
                     Image(systemName: "slash.circle").foregroundColor(Color(UIColor.systemRed)).fontWeight(.medium)
                 }

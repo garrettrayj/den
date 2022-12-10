@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ShowcaseSectionView: View {
     @ObservedObject var feed: Feed
-    
+
     @Binding var hideRead: Bool
 
     let width: CGFloat
@@ -66,13 +66,13 @@ struct ShowcaseSectionView: View {
             hideRead ? item.read == false : true
         } ?? []
     }
-    
+
     private var allRead: Bool {
         guard
             let feedData = feed.feedData,
             !feedData.previewItems.isEmpty
         else { return false }
-        
+
         return feedData.previewItems.unread().isEmpty
     }
 }

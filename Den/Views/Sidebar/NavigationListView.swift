@@ -11,11 +11,11 @@ import SwiftUI
 
 struct NavigationListView: View {
     @Environment(\.persistentContainer) private var container
-    
+
     @ObservedObject var profile: Profile
-    
+
     let searchModel: SearchModel
-    
+
     @Binding var selection: Panel?
     @Binding var refreshing: Bool
 
@@ -74,7 +74,7 @@ struct NavigationListView: View {
             }
         }
     }
-    
+
     private var editButton: some View {
         EditButton()
             .buttonStyle(ToolbarButtonStyle())
@@ -94,7 +94,7 @@ struct NavigationListView: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-        
+
         do {
             try container.viewContext.save()
             // Update array for UI
@@ -112,7 +112,7 @@ struct NavigationListView: View {
             }
             container.viewContext.delete(page)
         }
-        
+
         do {
             try container.viewContext.save()
             NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)

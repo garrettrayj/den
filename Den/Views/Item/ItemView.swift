@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ItemView: View {
     @Environment(\.persistentContainer) private var container
-    
+
     @ObservedObject var item: Item
 
     let maxContentWidth: CGFloat = 800
@@ -31,7 +31,6 @@ struct ItemView: View {
                         .textSelection(.enabled)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    
                     ViewThatFits(in: .horizontal) {
                         HStack(spacing: 4) {
                             Text(item.date.formatted())
@@ -40,7 +39,7 @@ struct ItemView: View {
                                 Text(author)
                             }
                         }
-                        
+
                         VStack(alignment: .leading) {
                             Text(item.date.formatted())
                             if let author = item.author {
@@ -50,7 +49,7 @@ struct ItemView: View {
                     }
                     .font(.subheadline)
                     .textSelection(.enabled)
-                    
+
                     if
                         item.image != nil &&
                         !(item.summary?.contains("<img") ?? false) &&

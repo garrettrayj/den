@@ -11,10 +11,10 @@ import SwiftUI
 
 struct PageNavView: View {
     @Environment(\.editMode) private var editMode
-    
+
     @ObservedObject var profile: Profile
     @ObservedObject var page: Page
-    
+
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Label {

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ToggleReadButtonView: View {
     let unreadCount: Int
-    
+
     let toggleAll: () async -> Void
-    
+
     @State private var toggling = false
-    
+
     var body: some View {
         Button {
             toggling = true

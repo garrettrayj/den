@@ -30,7 +30,7 @@ struct AutoRefreshSectionView: View {
                 Text("In Background")
             }
             #endif
-            
+
             #if targetEnvironment(macCatalyst)
             HStack {
                 Text("When Activated")
@@ -46,7 +46,7 @@ struct AutoRefreshSectionView: View {
                 Text("When Activated")
             }
             #endif
-            
+
             if autoRefreshEnabled {
                 Stepper(
                     value: $autoRefreshCooldown,
@@ -58,7 +58,7 @@ struct AutoRefreshSectionView: View {
                     } else {
                         Text("⁃ Cooldown: \(autoRefreshCooldown) minutes")
                     }
-                    
+
                 }
                 .font(.body)
                 .modifier(FormRowModifier())

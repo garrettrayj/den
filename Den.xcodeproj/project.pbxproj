@@ -372,6 +372,7 @@
 		689EDC0B26A3F46A0055811A /* PhoneScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneScreenshots.swift; sourceTree = "<group>"; };
 		689EDC0D26A3F46A0055811A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689EDC1326A3FE940055811A /* screenshots.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = screenshots.sh; sourceTree = "<group>"; };
+		68A807ED2944843800944D2C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		68AC3A162910EEB500D60273 /* WorkingTrend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkingTrend.swift; sourceTree = "<group>"; };
 		68AC3A182910EF3A00D60273 /* FeedCheckOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCheckOperation.swift; sourceTree = "<group>"; };
 		68AC3A192910EF3A00D60273 /* DataTaskOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskOperation.swift; sourceTree = "<group>"; };
@@ -746,6 +747,7 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
+				68A807ED2944843800944D2C /* Makefile */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
 				6845BD0F24EFB38C0008B296 /* README.md */,

@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 
 struct ItemThumbnailView: View {
     @Environment(\.isEnabled) private var isEnabled
-    
+
     let item: Item
 
     var body: some View {

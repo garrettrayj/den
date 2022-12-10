@@ -18,9 +18,9 @@ struct CleanOperation {
 
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
-            
+
             try? self.cleanupData(context: context)
-            
+
             if
                 let lastCleaned = defaults.object(forKey: "LastCleaned") as? Date,
                 lastCleaned + 7 * 24 * 60 * 60 < .now
@@ -28,10 +28,10 @@ struct CleanOperation {
                 Logger.main.info("Performing history cleanup")
                 try? self.cleanupHistory(context: context, profile: profile)
             }
-            
+
             try? context.save()
         }
-        
+
         defaults.set(Date.now, forKey: "LastCleaned")
     }
 
@@ -39,9 +39,9 @@ struct CleanOperation {
         if profile.historyRetention == 0 {
             Logger.main.info("Skipping history cleanup, retention is not limited")
             return
-            
+
         }
-        
+
         let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
         fetchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [

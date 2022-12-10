@@ -12,7 +12,7 @@ import SwiftUI
 private struct PersistentContainerKey: EnvironmentKey {
     static let defaultValue: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: "Den")
-        
+
         guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
             preconditionFailure("Storage directory not available")
         }

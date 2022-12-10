@@ -10,9 +10,9 @@ import SwiftUI
 
 struct GadgetView: View {
     @Environment(\.isEnabled) private var isEnabled
-    
+
     @ObservedObject var feed: Feed
-    
+
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -67,13 +67,13 @@ struct GadgetView: View {
             hideRead ? item.read == false : true
         }
     }
-    
+
     private var allRead: Bool {
         guard
             let feedData = feed.feedData,
             !feedData.previewItems.isEmpty
         else { return false }
-        
+
         return feedData.previewItems.unread().isEmpty
     }
 }

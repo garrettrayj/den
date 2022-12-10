@@ -11,7 +11,7 @@ import SafariServices
 
 struct ItemActionView<Content: View>: View {
     @Environment(\.persistentContainer) private var container
-    
+
     @ObservedObject var item: Item
 
     @ViewBuilder var content: Content

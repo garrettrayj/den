@@ -10,11 +10,11 @@ import SwiftUI
 
 struct StatusView: View {
     @ObservedObject var profile: Profile
-    
+
     @Binding var refreshing: Bool
-    
+
     let progress: Progress
-    
+
     var body: some View {
         VStack {
             if refreshing {

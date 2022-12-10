@@ -10,11 +10,11 @@ import SwiftUI
 
 struct NewPageView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @Environment(\.editMode) private var editMode
-    
+
     @ObservedObject var profile: Profile
-    
+
     @Binding var selection: Panel?
 
     var body: some View {

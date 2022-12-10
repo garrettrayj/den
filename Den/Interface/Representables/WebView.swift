@@ -17,10 +17,10 @@ import WebKit
 /// size unpredictably.
 class CustomWebView: WKWebView {
     var cancellable: Cancellable?
-    
+
     override init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
-        
+
         cancellable = DispatchQueue.main.schedule(
             after: .init(.now() + 0.25),
             interval: 1
@@ -28,15 +28,15 @@ class CustomWebView: WKWebView {
             self.invalidateIntrinsicContentSize()
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override var intrinsicContentSize: CGSize {
         return self.scrollView.contentSize
     }
-    
+
     deinit {
         cancellable?.cancel()
     }
@@ -64,7 +64,7 @@ struct WebView: UIViewRepresentable {
             userContentController.addUserScript(userScript)
             configuration.userContentController = userContentController
         }
-        
+
         let webView = CustomWebView(
             frame: CGRect(origin: .zero, size: CGSize(width: 800, height: 600)),
             configuration: configuration
@@ -83,7 +83,7 @@ struct WebView: UIViewRepresentable {
         let htmlString = "\(htmlStart)\(html)\(htmlEnd)"
 
         webView.loadHTMLString(htmlString, baseURL: baseURL)
-        
+
         webView.invalidateIntrinsicContentSize()
 
         return webView

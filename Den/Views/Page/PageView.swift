@@ -14,11 +14,11 @@ struct PageView: View {
         case showcase = 1
         case blend    = 2
     }
-    
+
     @ObservedObject var page: Page
-    
+
     @Binding var hideRead: Bool
-    
+
     @SceneStorage("PageViewMode") private var viewMode = PageViewMode.gadgets.rawValue
 
     var body: some View {
@@ -56,7 +56,7 @@ struct PageView: View {
                 viewModePicker
                     .pickerStyle(.segmented)
                     .padding(8)
-                
+
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
@@ -67,14 +67,14 @@ struct PageView: View {
             ToolbarItem {
                 Menu {
                     viewModePicker
-                    
+
                     Button {
                         SubscriptionUtility.showSubscribe(page: page)
                     } label: {
                         Label("Add Feed", systemImage: "plus.circle")
                     }
                     .accessibilityIdentifier("add-feed-button")
-                    
+
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
@@ -89,7 +89,7 @@ struct PageView: View {
                 .accessibilityIdentifier("page-menu")
             }
             #endif
-            
+
             ToolbarItemGroup(placement: .bottomBar) {
                 PageBottomBarView(
                     page: page,

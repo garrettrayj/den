@@ -17,9 +17,9 @@ struct DetailView: View {
     @Binding var backgroundRefreshEnabled: Bool
 
     @ObservedObject var profile: Profile
-    
+
     let searchModel: SearchModel
-    
+
     @SceneStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {

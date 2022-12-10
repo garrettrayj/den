@@ -38,7 +38,7 @@ public class Item: NSManagedObject {
         get {title ?? "Untitled"}
         set {title = newValue}
     }
-    
+
     public var wrappedTags: [(String, NLTag)] {
         get {
             var results: [(String, NLTag)] = []
@@ -52,7 +52,7 @@ public class Item: NSManagedObject {
                     results.append((rawTag[0], NLTag(rawValue: rawTag[1])))
                 }
             }
-            
+
             return results
         }
         set {
@@ -70,7 +70,7 @@ public class Item: NSManagedObject {
         guard imageWidth > 0, imageHeight > 0 else { return nil }
         return CGFloat(imageWidth) / CGFloat(imageHeight)
     }
-    
+
     public var trendItemsArray: [TrendItem] {
         get {
             trendItems?.allObjects as? [TrendItem] ?? []
@@ -111,7 +111,7 @@ public class Item: NSManagedObject {
 
             return true
         }
-        
+
         wrappedTags = results
     }
 }

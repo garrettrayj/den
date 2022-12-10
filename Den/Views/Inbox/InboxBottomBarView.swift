@@ -11,11 +11,11 @@ import SwiftUI
 
 struct InboxBottomBarView: View {
     @Environment(\.persistentContainer) private var container
-    
+
     @ObservedObject var profile: Profile
-    
+
     @Binding var hideRead: Bool
-    
+
     var unreadCount: Int {
         profile.previewItems.unread().count
     }
@@ -38,4 +38,3 @@ struct InboxBottomBarView: View {
         }
     }
 }
-

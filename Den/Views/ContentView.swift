@@ -14,9 +14,9 @@ struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(\.persistentContainer) private var container
     @Environment(\.scenePhase) private var scenePhase
-    
+
     @ObservedObject var profile: Profile
-    
+
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var uiStyle: UIUserInterfaceStyle
 
@@ -28,13 +28,13 @@ struct ContentView: View {
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
-    
+
     @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
-    
+
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
     @SceneStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
-    
+
     var body: some View {
         NavigationSplitView {
             SidebarView(

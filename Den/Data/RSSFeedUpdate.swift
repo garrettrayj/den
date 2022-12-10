@@ -16,14 +16,14 @@ struct RSSFeedUpdate {
     let feedData: FeedData
     let source: RSSFeed
     let context: NSManagedObjectContext
-    
+
     func execute() {
         if feed.title == nil, let feedTitle = source.title {
             feed.title = feedTitle.preparingTitle()
         }
 
         feedData.link = source.webpage
-        
+
         if
             let urlString = source.image?.url,
             let url = URL(string: urlString, relativeTo: feedData.link)
@@ -39,16 +39,16 @@ struct RSSFeedUpdate {
                     Logger.ingest.notice("Missing link for item.")
                     continue
                 }
-                
+
                 // Continue if item already exists
                 if (existingItemLinks.contains(where: { $0 == itemLink})) {
                     continue
                 }
-                
+
                 let item = Item.create(moc: context, feedData: feedData)
                 let load = RSSItemLoad(item: item, source: rawItem)
                 load.apply()
-                
+
                 item.anaylyzeTitleTags()
             }
         }

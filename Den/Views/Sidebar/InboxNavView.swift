@@ -11,13 +11,13 @@ import SwiftUI
 
 struct InboxNavView: View {
     @Environment(\.editMode) private var editMode
-    
+
     @ObservedObject var profile: Profile
-    
+
     let searchModel: SearchModel
-    
+
     @Binding var selection: Panel?
-    
+
     @State private var searchInput = ""
 
     var body: some View {

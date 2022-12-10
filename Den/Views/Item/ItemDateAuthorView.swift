@@ -24,7 +24,7 @@ struct ItemDateAuthorView: View {
                     Text(author)
                 }
             }
-            
+
             VStack(alignment: .leading) {
                 Text("\(item.date.formatted())")
                 if let author = item.author {

@@ -61,7 +61,9 @@ struct SecurityView: View {
                     Text("\(insecureFeedCount) feeds have insecure URLs")
                 }
             } icon: {
-                Image(systemName: "exclamationmark.shield").foregroundColor(Color(UIColor.systemOrange)).imageScale(.large)
+                Image(systemName: "exclamationmark.shield")
+                    .foregroundColor(Color(UIColor.systemOrange))
+                    .imageScale(.large)
             }.modifier(FormRowModifier())
 
             if remediationInProgress == true {

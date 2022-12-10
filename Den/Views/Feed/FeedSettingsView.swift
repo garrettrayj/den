@@ -54,7 +54,7 @@ struct FeedSettingsView: View {
                 Text("Show Thumbnails")
             }
             #endif
-            
+
             #if targetEnvironment(macCatalyst)
             HStack {
                 Text("Open in Browser")
@@ -105,7 +105,7 @@ struct FeedSettingsView: View {
             }.modifier(FormRowModifier())
         }
     }
-    
+
     private var organizeSection: some View {
         Section {
             Picker(selection: $feed.page) {
@@ -130,7 +130,7 @@ struct FeedSettingsView: View {
                 dismiss()
             }
             .modifier(FormRowModifier())
-            
+
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {

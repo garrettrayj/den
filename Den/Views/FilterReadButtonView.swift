@@ -10,9 +10,9 @@ import SwiftUI
 
 struct FilterReadButtonView: View {
     @Binding var hideRead: Bool
-    
+
     let callback: () -> Void
-    
+
     var body: some View {
         Button {
             hideRead.toggle()

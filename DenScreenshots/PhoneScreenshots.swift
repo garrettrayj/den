@@ -34,7 +34,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         goToLink(3)
 
         takeScreenshot(named: "02-GadgetsView")
-        
+
         app.navigationBars.buttons["page-menu"].tap()
 
         app.buttons["showcase-view-button"].tap()
@@ -70,7 +70,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "07-Settings")
 
         goBack()
-        
+
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()

@@ -14,7 +14,7 @@ struct SyncUtility {
     static func markItemRead(container: NSPersistentContainer, item: Item) async {
         guard item.read != true else { return }
         await logHistory(container: container, items: [item])
-        
+
         DispatchQueue.main.async {
             item.feedData?.feed?.objectWillChange.send()
             item.feedData?.feed?.page?.objectWillChange.send()
@@ -37,10 +37,10 @@ struct SyncUtility {
     static func logHistory(container: NSPersistentContainer, items: [Item]) async {
         guard let profileObjectID = items.first?.feedData?.feed?.page?.profile?.objectID else { return }
         let itemObjectIDs = items.map { $0.objectID }
-        
+
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profileObjectID) as? Profile else { return }
-            
+
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }
                 item.read = true
@@ -49,7 +49,7 @@ struct SyncUtility {
                 history.link = item.link
                 history.visited = .now
             }
-            
+
             do {
                 try context.save()
             } catch {
@@ -69,7 +69,7 @@ struct SyncUtility {
                     context.delete(history)
                 }
             }
-            
+
             do {
                 try context.save()
             } catch {
@@ -77,7 +77,7 @@ struct SyncUtility {
             }
         }
     }
-    
+
     static func cleanupHistory(context: NSManagedObjectContext) {
         do {
             var itemsRemoved: Int = 0

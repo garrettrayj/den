@@ -13,18 +13,18 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(\.persistentContainer) private var container
-    
+
     @Binding var backgroundRefreshEnabled: Bool
 
     @State private var showCrashMessage = false
-    
+
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
-    
+
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
-    
+
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
-    
+
     var activeProfile: Profile? {
         guard let activeProfileID = activeProfileID else { return nil }
         return profiles.first(where: {$0.id?.uuidString == activeProfileID})
@@ -55,7 +55,7 @@ struct RootView: View {
                         let defaultProfile = profiles
                             .filter({$0.managedObjectContext != nil})
                             .first ?? ProfileUtility.createDefaultProfile(context: container.viewContext)
-                        
+
                         activeProfileID = defaultProfile.id?.uuidString
                     }
                 }
