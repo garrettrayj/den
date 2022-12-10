@@ -48,26 +48,22 @@ class MacScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "06-FeedSettings")
         goBack()
 
+        // Settings
+        app.buttons["settings-button"].tap()
+        if !app.buttons["Den"].waitForExistence(timeout: 5) { XCTFail("Profile button does not exist") }
+        takeScreenshot(named: "07-Settings")
+        
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()
         searchField.typeText("Apple")
         searchField.typeText("\n")
-        let searchGroupHeader = app.scrollViews.otherElements.staticTexts["Apple Newsroom"]
-        expectation(for: existsPredicate, evaluatedWith: searchGroupHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "07-Search")
-
-        // Settings
-        app.buttons["settings-button"].tap()
-        let settingsHeader = app.navigationBars["Settings"]
-        expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "08-Settings")
+        sleep(1)
+        takeScreenshot(named: "08-Search")
     }
 
     private func goToPage(_ elementIndex: Int) {
-        app.buttons
+        app.staticTexts
             .matching(identifier: "page-button")
             .element(boundBy: elementIndex)
             .tap()

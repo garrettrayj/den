@@ -14,7 +14,7 @@ class PhoneScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .phone }
 
     func testScreenshots() {
-        let getStartedLabel = app.staticTexts["Get Started"]
+        let getStartedLabel = app.staticTexts["GET STARTED"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
         app.buttons["load-demo-button"].tap()
@@ -34,20 +34,17 @@ class PhoneScreenshots: ScreenshotTestCase {
         goToLink(3)
 
         takeScreenshot(named: "02-GadgetsView")
-
-        let pageMenuButton = app.buttons["page-menu"]
-        expectation(for: existsPredicate, evaluatedWith: pageMenuButton, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        pageMenuButton.forceTap()
+        
+        app.navigationBars.buttons["page-menu"].tap()
 
         app.buttons["showcase-view-button"].tap()
         takeScreenshot(named: "03-ShowcaseView")
-        app.navigationBars.buttons["page-menu"].forceTap()
+        app.navigationBars.buttons["page-menu"].tap()
         app.buttons["blend-view-button"].tap()
         takeScreenshot(named: "04-BlendView")
 
         // Page settings
-        app.navigationBars.buttons["page-menu"].forceTap()
+        app.navigationBars.buttons["page-menu"].tap()
         app.buttons["page-settings-button"].tap()
         takeScreenshot(named: "04-PageSettings")
 
@@ -63,7 +60,17 @@ class PhoneScreenshots: ScreenshotTestCase {
 
         goBack()
         goBack()
+        goBack()
 
+        // Settings
+        app.buttons["settings-button"].forceTap()
+        let settingsHeader = app.navigationBars["Settings"]
+        expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
+        waitForExpectations(timeout: 5, handler: nil)
+        takeScreenshot(named: "07-Settings")
+
+        goBack()
+        
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()
@@ -72,37 +79,30 @@ class PhoneScreenshots: ScreenshotTestCase {
         let searchGroupHeader = app.scrollViews.otherElements.staticTexts["Apple Newsroom"]
         expectation(for: existsPredicate, evaluatedWith: searchGroupHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "07-Search")
-
-        goBack()
-
-        // Settings
-        app.buttons["settings-button"].forceTap()
-        let settingsHeader = app.navigationBars["Settings"]
-        expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "08-Settings")
+        takeScreenshot(named: "08-Search")
     }
 
     private func goToPage(_ elementIndex: Int) {
-        app.buttons
+        app.staticTexts
             .matching(identifier: "page-button")
             .element(boundBy: elementIndex)
             .tap()
     }
 
     private func goToLink(_ elementIndex: Int) {
-        app.buttons
+        let itemButton = app.buttons
             .matching(identifier: "gadget-item-button")
             .element(boundBy: elementIndex)
             .firstMatch
-            .forceTap()
 
-        let doneButton = app.buttons["Done"]
-        expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
-        doneButton.tap()
-        sleep(1)
+        expectation(for: existsPredicate, evaluatedWith: itemButton, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        itemButton.tap()
+
+        let backButton = app.navigationBars.buttons.element(boundBy: 0)
+        expectation(for: existsPredicate, evaluatedWith: backButton, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
+        backButton.tap()
     }
 
     private func goBack() {

@@ -12,10 +12,8 @@ class PadScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .pad }
 
     func testScreenshots() {
-        let getStartedLabel = app.staticTexts["Get Started"]
-        expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        app.buttons["load-demo-button"].tap()
+        if !app.staticTexts["GET STARTED"].waitForExistence(timeout: 5) { XCTFail() }
+        app.buttons["load-demo-button"].forceTap()
 
         // Refresh all pages
         let profileRefreshButton = app.buttons.matching(identifier: "profile-refresh-button").firstMatch
@@ -30,46 +28,45 @@ class PadScreenshots: ScreenshotTestCase {
         goToLink(3)
 
         takeScreenshot(named: "01-GadgetsView")
-        app.navigationBars.buttons["page-menu"].forceTap()
+        
+        
+        app.buttons["page-menu"].tap()
+        if !app.buttons["showcase-view-button"].waitForExistence(timeout: 5) { XCTFail() }
         app.buttons["showcase-view-button"].tap()
 
         // Show page menu in next screenshot
-        app.navigationBars.buttons["page-menu"].forceTap()
+        app.buttons["page-menu"].tap()
         takeScreenshot(named: "02-ShowcaseView")
 
         app.buttons["blend-view-button"].tap()
         takeScreenshot(named: "03-BlendView")
 
         // Page settings
-        app.navigationBars.buttons["page-menu"].forceTap()
+        app.buttons["page-menu"].tap()
         app.buttons["page-settings-button"].tap()
         takeScreenshot(named: "04-PageSettings")
         goBack()
 
         // Feed view
-        app.buttons.matching(identifier: "item-feed-button").firstMatch.forceTap()
+        app.buttons["item-feed-button"].firstMatch.tap()
         takeScreenshot(named: "05-FeedView")
 
         // Feed settings
-        app.buttons["feed-settings-button"].forceTap()
+        app.buttons["feed-settings-button"].tap()
         takeScreenshot(named: "06-FeedSettings")
 
+        // Settings
+        app.buttons["settings-button"].tap()
+        if !app.buttons["Den"].waitForExistence(timeout: 5) { XCTFail("Profile button does not exist") }
+        takeScreenshot(named: "07-Settings")
+        
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()
         searchField.typeText("Apple")
         searchField.typeText("\n")
-        let searchGroupHeader = app.scrollViews.otherElements.staticTexts["Apple Newsroom"]
-        expectation(for: existsPredicate, evaluatedWith: searchGroupHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "07-Search")
-
-        // Settings
-        app.buttons["settings-button"].forceTap()
-        let settingsHeader = app.navigationBars["Settings"]
-        expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
-        waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "08-Settings")
+        sleep(1)
+        takeScreenshot(named: "08-Search")
     }
 
     private func goBack() {
@@ -77,7 +74,7 @@ class PadScreenshots: ScreenshotTestCase {
     }
 
     private func goToPage(_ elementIndex: Int) {
-        app.tables.buttons
+        app.staticTexts
             .matching(identifier: "page-button")
             .element(boundBy: elementIndex)
             .tap()
@@ -91,11 +88,11 @@ class PadScreenshots: ScreenshotTestCase {
 
         expectation(for: existsPredicate, evaluatedWith: itemButton, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
-        itemButton.forceTap()
+        itemButton.tap()
 
-        let doneButton = app.buttons["Done"]
-        expectation(for: existsPredicate, evaluatedWith: doneButton, handler: nil)
+        let backButton = app.navigationBars.element(boundBy: 1).buttons.element(boundBy: 0)
+        expectation(for: existsPredicate, evaluatedWith: backButton, handler: nil)
         waitForExpectations(timeout: 10, handler: nil)
-        doneButton.tap()
+        backButton.tap()
     }
 }
