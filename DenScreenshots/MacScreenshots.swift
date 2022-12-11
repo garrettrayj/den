@@ -21,8 +21,7 @@ class MacScreenshots: ScreenshotTestCase {
         expectation(for: enabledPredicate, evaluatedWith: profileRefreshButton, handler: nil)
         waitForExpectations(timeout: 120, handler: nil)
 
-        // Page view
-        goToPage(2)
+        goToPage(5)
 
         goToLink(1)
         goToLink(3)
@@ -64,7 +63,7 @@ class MacScreenshots: ScreenshotTestCase {
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()
-        searchField.typeText("Apple")
+        searchField.typeText("NASA")
         searchField.typeText("\n")
         sleep(1)
         takeScreenshot(named: "08-Search")

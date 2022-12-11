@@ -28,7 +28,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "01-PageList")
 
         // Page views
-        goToPage(2)
+        goToPage(5)
 
         goToLink(1)
         goToLink(3)
@@ -79,7 +79,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()
-        searchField.typeText("Apple")
+        searchField.typeText("NASA")
         searchField.typeText("\n")
         sleep(1)
         takeScreenshot(named: "08-Search")

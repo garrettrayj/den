@@ -35,11 +35,15 @@ struct RootView: View {
             if showCrashMessage {
                 CrashMessageView()
             } else if let profile = activeProfile {
-                ContentView(
-                    profile: profile,
-                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    uiStyle: $uiStyle
-                )
+                if profile.managedObjectContext == nil {
+                    Text("Profile Deleted").onAppear { loadProfile() }
+                } else {
+                    ContentView(
+                        profile: profile,
+                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                        uiStyle: $uiStyle
+                    )
+                }
             } else {
                 VStack(spacing: 16) {
                     Spacer()
@@ -51,12 +55,8 @@ struct RootView: View {
                 .background(Color(UIColor.systemGroupedBackground))
                 .foregroundColor(Color.secondary)
                 .onAppear {
-                    if activeProfileID == nil || activeProfile?.managedObjectContext == nil {
-                        let defaultProfile = profiles
-                            .filter({$0.managedObjectContext != nil})
-                            .first ?? ProfileUtility.createDefaultProfile(context: container.viewContext)
-
-                        activeProfileID = defaultProfile.id?.uuidString
+                    if activeProfile == nil {
+                        loadProfile()
                     }
                 }
             }
@@ -71,5 +71,10 @@ struct RootView: View {
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showCrashMessage = true
         }
+    }
+    
+    private func loadProfile() {
+        let profile = profiles.first ?? ProfileUtility.createDefaultProfile(context: container.viewContext)
+        activeProfileID = profile.id?.uuidString
     }
 }
