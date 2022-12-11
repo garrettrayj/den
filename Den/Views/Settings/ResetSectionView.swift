@@ -128,26 +128,20 @@ struct ResetSectionView: View {
 
     private func resetEverything() async {
         await emptyCache()
-
-        restoreUserDefaults()
-
         await container.performBackgroundTask { context in
-            let newProfile = ProfileUtility.createDefaultProfile(context: context)
-
             do {
                 let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
-                for profile in profiles where profile != newProfile {
+                for profile in profiles {
                     for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
                         context.delete(feedData)
                     }
                     context.delete(profile)
                 }
                 try context.save()
-                activeProfileID = newProfile.id?.uuidString
-
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
+        restoreUserDefaults()
     }
 }

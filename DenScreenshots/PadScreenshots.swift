@@ -24,7 +24,7 @@ class PadScreenshots: ScreenshotTestCase {
         waitForExpectations(timeout: 120, handler: nil)
 
         // Page views
-        goToPage(2)
+        goToPage(5)
 
         goToLink(1)
         goToLink(3)
@@ -66,7 +66,7 @@ class PadScreenshots: ScreenshotTestCase {
         // Search
         let searchField = app.searchFields["Search"]
         searchField.tap()
-        searchField.typeText("Apple")
+        searchField.typeText("NASA")
         searchField.typeText("\n")
         sleep(1)
         takeScreenshot(named: "08-Search")
