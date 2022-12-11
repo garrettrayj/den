@@ -73,7 +73,7 @@
 		686069372831501B000068DE /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 686068EA2831501B000068DE /* popup.html */; };
 		686069392831501B000068DE /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 686068EB2831501B000068DE /* popup.css */; };
 		6860693B2831501B000068DE /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 686068EC2831501B000068DE /* popup.js */; };
-		6860694C2831533E000068DE /* Den Helper.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Den Helper.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6860694C2831533E000068DE /* Feed Detector.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Feed Detector.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6865452C274A288A00BAE03E /* PinnedSectionHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */; };
 		6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
@@ -106,7 +106,6 @@
 		6880EBE327A8F63E00B479F4 /* ParsedFeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE227A8F63E00B479F4 /* ParsedFeedItem.swift */; };
 		6880EBE927AC45FE00B479F4 /* XCUIElement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBE827AC45FE00B479F4 /* XCUIElement+Extensions.swift */; };
 		6880EBEB27AEF12000B479F4 /* NavChevronView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880EBEA27AEF12000B479F4 /* NavChevronView.swift */; };
-		6880EBF027AFCAC100B479F4 /* screenshots.sh in Resources */ = {isa = PBXBuildFile; fileRef = 689EDC1326A3FE940055811A /* screenshots.sh */; };
 		6885C42226D37259002C41B0 /* FeedTitleLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885C42126D37259002C41B0 /* FeedTitleLabelView.swift */; };
 		6885FD0E24819446007A3D5B /* ItemButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */; };
 		6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6887D40825B35B83004A170D /* History+CoreDataClass.swift */; };
@@ -249,7 +248,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6860694C2831533E000068DE /* Den Helper.appex in Embed Foundation Extensions */,
+				6860694C2831533E000068DE /* Feed Detector.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,7 +322,7 @@
 		686068EA2831501B000068DE /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
 		686068EB2831501B000068DE /* popup.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
 		686068EC2831501B000068DE /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
-		6860690E2831501B000068DE /* Den Helper.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Den Helper.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6860690E2831501B000068DE /* Feed Detector.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Feed Detector.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		686069132831501B000068DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6860694B28315247000068DE /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
 		6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedSectionHeaderModifier.swift; sourceTree = "<group>"; };
@@ -368,7 +367,7 @@
 		689838CB291D88FE00FDC881 /* SafariUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariUtility.swift; sourceTree = "<group>"; };
 		68998B842504C87400FDB6EE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		689EDBF8269188580055811A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		689EDC0926A3F46A0055811A /* DenScreenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DenScreenshots.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		689EDC0926A3F46A0055811A /* Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Screenshots.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		689EDC0B26A3F46A0055811A /* PhoneScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneScreenshots.swift; sourceTree = "<group>"; };
 		689EDC0D26A3F46A0055811A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689EDC1326A3FE940055811A /* screenshots.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = screenshots.sh; sourceTree = "<group>"; };
@@ -609,7 +608,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		686069122831501B000068DE /* SafariExtension */ = {
+		686069122831501B000068DE /* FeedDetector */ = {
 			isa = PBXGroup;
 			children = (
 				686068E32831501B000068DE /* SafariWebExtensionHandler.swift */,
@@ -617,7 +616,7 @@
 				686069132831501B000068DE /* Info.plist */,
 				6860694B28315247000068DE /* SafariExtension.entitlements */,
 			);
-			path = SafariExtension;
+			path = FeedDetector;
 			sourceTree = "<group>";
 		};
 		687C27962634A84600099FCA /* Modifiers */ = {
@@ -707,7 +706,7 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		689EDC0A26A3F46A0055811A /* DenScreenshots */ = {
+		689EDC0A26A3F46A0055811A /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
 				68CCE0A829450FFA00424850 /* Images */,
@@ -719,7 +718,7 @@
 				689EDC0B26A3F46A0055811A /* PhoneScreenshots.swift */,
 				6880EBE827AC45FE00B479F4 /* XCUIElement+Extensions.swift */,
 			);
-			path = DenScreenshots;
+			path = Screenshots;
 			sourceTree = "<group>";
 		};
 		68B34A5C2486D2710066B215 /* Representables */ = {
@@ -757,8 +756,8 @@
 				68C4130B247263C700D1DC7B /* Den */,
 				68C41327247263C700D1DC7B /* DenTests */,
 				68C41332247263C700D1DC7B /* DenUITests */,
-				689EDC0A26A3F46A0055811A /* DenScreenshots */,
-				686069122831501B000068DE /* SafariExtension */,
+				689EDC0A26A3F46A0055811A /* Screenshots */,
+				686069122831501B000068DE /* FeedDetector */,
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
@@ -771,9 +770,9 @@
 				68C41309247263C700D1DC7B /* Den.app */,
 				68C41324247263C700D1DC7B /* DenTests.xctest */,
 				68C4132F247263C700D1DC7B /* DenUITests.xctest */,
-				689EDC0926A3F46A0055811A /* DenScreenshots.xctest */,
+				689EDC0926A3F46A0055811A /* Screenshots.xctest */,
 				6813FD082748DE1100EC88A5 /* SymbolLibrary */,
-				6860690E2831501B000068DE /* Den Helper.appex */,
+				6860690E2831501B000068DE /* Feed Detector.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1001,9 +1000,9 @@
 			productReference = 6813FD082748DE1100EC88A5 /* SymbolLibrary */;
 			productType = "com.apple.product-type.tool";
 		};
-		6860690D2831501B000068DE /* SafariExtension */ = {
+		6860690D2831501B000068DE /* FeedDetector */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 686069472831501B000068DE /* Build configuration list for PBXNativeTarget "SafariExtension" */;
+			buildConfigurationList = 686069472831501B000068DE /* Build configuration list for PBXNativeTarget "FeedDetector" */;
 			buildPhases = (
 				6860690A2831501B000068DE /* Sources */,
 				6860690B2831501B000068DE /* Frameworks */,
@@ -1013,14 +1012,14 @@
 			);
 			dependencies = (
 			);
-			name = SafariExtension;
+			name = FeedDetector;
 			productName = "SafariExtension Extension (iOS)";
-			productReference = 6860690E2831501B000068DE /* Den Helper.appex */;
+			productReference = 6860690E2831501B000068DE /* Feed Detector.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		689EDC0826A3F46A0055811A /* DenScreenshots */ = {
+		689EDC0826A3F46A0055811A /* Screenshots */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 689EDC1026A3F46A0055811A /* Build configuration list for PBXNativeTarget "DenScreenshots" */;
+			buildConfigurationList = 689EDC1026A3F46A0055811A /* Build configuration list for PBXNativeTarget "Screenshots" */;
 			buildPhases = (
 				689EDC0526A3F46A0055811A /* Sources */,
 				689EDC0626A3F46A0055811A /* Frameworks */,
@@ -1031,9 +1030,9 @@
 			dependencies = (
 				689EDC0F26A3F46A0055811A /* PBXTargetDependency */,
 			);
-			name = DenScreenshots;
+			name = Screenshots;
 			productName = DenScreenshots;
-			productReference = 689EDC0926A3F46A0055811A /* DenScreenshots.xctest */;
+			productReference = 689EDC0926A3F46A0055811A /* Screenshots.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		68C41308247263C700D1DC7B /* Den */ = {
@@ -1158,9 +1157,9 @@
 				68C41308247263C700D1DC7B /* Den */,
 				68C41323247263C700D1DC7B /* DenTests */,
 				68C4132E247263C700D1DC7B /* DenUITests */,
-				689EDC0826A3F46A0055811A /* DenScreenshots */,
+				689EDC0826A3F46A0055811A /* Screenshots */,
 				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
-				6860690D2831501B000068DE /* SafariExtension */,
+				6860690D2831501B000068DE /* FeedDetector */,
 			);
 		};
 /* End PBXProject section */
@@ -1185,7 +1184,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6880EBF027AFCAC100B479F4 /* screenshots.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1435,7 +1433,7 @@
 /* Begin PBXTargetDependency section */
 		6860694E2831533E000068DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6860690D2831501B000068DE /* SafariExtension */;
+			target = 6860690D2831501B000068DE /* FeedDetector */;
 			targetProxy = 6860694D2831533E000068DE /* PBXContainerItemProxy */;
 		};
 		689EDC0F26A3F46A0055811A /* PBXTargetDependency */ = {
@@ -1505,26 +1503,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SafariExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Safari Extension";
+				INFOPLIST_FILE = FeedDetector/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Feed Detector";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.14.0;
+				MARKETING_VERSION = 1.14.1;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.safari-extension";
-				PRODUCT_NAME = "Den Helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.feed-detector";
+				PRODUCT_NAME = "Feed Detector";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1538,26 +1536,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = SafariExtension/SafariExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SafariExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Safari Extension";
+				INFOPLIST_FILE = FeedDetector/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Feed Detector";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.14.0;
+				MARKETING_VERSION = 1.14.1;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.safari-extension";
-				PRODUCT_NAME = "Den Helper";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.feed-detector";
+				PRODUCT_NAME = "Feed Detector";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1572,7 +1570,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N7TC759VWV;
-				INFOPLIST_FILE = DenScreenshots/Info.plist;
+				INFOPLIST_FILE = Screenshots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1581,6 +1579,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = devsci.net.DenScreenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Den;
@@ -1592,7 +1593,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N7TC759VWV;
-				INFOPLIST_FILE = DenScreenshots/Info.plist;
+				INFOPLIST_FILE = Screenshots/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1601,6 +1602,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = devsci.net.DenScreenshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Den;
@@ -1733,7 +1737,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1745,7 +1749,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14.0;
+				MARKETING_VERSION = 1.14.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1764,7 +1768,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1776,7 +1780,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14.0;
+				MARKETING_VERSION = 1.14.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1885,7 +1889,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		686069472831501B000068DE /* Build configuration list for PBXNativeTarget "SafariExtension" */ = {
+		686069472831501B000068DE /* Build configuration list for PBXNativeTarget "FeedDetector" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				686069432831501B000068DE /* Debug */,
@@ -1894,7 +1898,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		689EDC1026A3F46A0055811A /* Build configuration list for PBXNativeTarget "DenScreenshots" */ = {
+		689EDC1026A3F46A0055811A /* Build configuration list for PBXNativeTarget "Screenshots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				689EDC1126A3F46A0055811A /* Debug */,

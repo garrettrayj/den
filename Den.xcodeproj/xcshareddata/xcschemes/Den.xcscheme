@@ -59,8 +59,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "689EDC0826A3F46A0055811A"
-               BuildableName = "DenScreenshots.xctest"
-               BlueprintName = "DenScreenshots"
+               BuildableName = "Screenshots.xctest"
+               BlueprintName = "Screenshots"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
          </TestableReference>

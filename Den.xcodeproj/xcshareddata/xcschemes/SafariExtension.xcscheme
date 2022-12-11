@@ -17,7 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6860690D2831501B000068DE"
                BuildableName = "Den Helper.appex"
-               BlueprintName = "SafariExtension"
+               BlueprintName = "FeedDetector"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,7 +50,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
             BuildableName = "Den Helper.appex"
-            BlueprintName = "SafariExtension"
+            BlueprintName = "FeedDetector"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,7 +66,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
             BuildableName = "Den Helper.appex"
-            BlueprintName = "SafariExtension"
+            BlueprintName = "FeedDetector"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
