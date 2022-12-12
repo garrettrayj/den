@@ -31,7 +31,7 @@ struct RootView: View {
     }
 
     var body: some View {
-        Group {
+        VStack {
             if showCrashMessage {
                 CrashMessageView()
             } else if let profile = activeProfile {
@@ -66,7 +66,8 @@ struct RootView: View {
             WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
         }
         .onAppear {
-            WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
+            guard let window = WindowFinder.current() else { return }
+            window.overrideUserInterfaceStyle = uiStyle
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showCrashMessage = true

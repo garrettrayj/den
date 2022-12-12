@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6860690D2831501B000068DE"
-               BuildableName = "Den Helper.appex"
+               BuildableName = "Feed Detector.appex"
                BlueprintName = "FeedDetector"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
@@ -49,7 +49,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
-            BuildableName = "Den Helper.appex"
+            BuildableName = "Feed Detector.appex"
             BlueprintName = "FeedDetector"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
-            BuildableName = "Den Helper.appex"
+            BuildableName = "Feed Detector.appex"
             BlueprintName = "FeedDetector"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
