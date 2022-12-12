@@ -50,6 +50,7 @@ struct PageView: View {
         }
         .modifier(URLDropTargetModifier(page: page))
         .background(Color(UIColor.systemGroupedBackground))
+        .navigationTitle(page.displayName)
         .toolbar {
             #if targetEnvironment(macCatalyst)
             ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -98,7 +99,6 @@ struct PageView: View {
                 )
             }
         }
-        .navigationTitle(page.displayName)
     }
 
     private var viewModePicker: some View {

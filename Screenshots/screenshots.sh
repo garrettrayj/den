@@ -12,7 +12,7 @@ projectName="./Den.xcodeproj"
 
 # The scheme and bundle to run
 schemeName="Den"
-testBundle="DenScreenshots"
+testBundle="Screenshots"
 
 # All the simulators we want to screenshot
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
