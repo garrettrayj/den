@@ -20,7 +20,7 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .center, spacing: spacing) {
-            HStack {
+            HStack(spacing: 4) {
                 if let completed = configuration.fractionCompleted, completed < 1.0 {
                     configuration.currentValueLabel.monospacedDigit()
                     Text("Updated")

@@ -35,7 +35,7 @@ appearances=(
 )
 
 # Save final screenshots into this folder (it will be created)
-targetFolder="$PWD/DenScreenshots/Images"
+targetFolder="$PWD/Screenshots/Images"
 
 function capture_mac {
     # Capture macOS screenshots
@@ -117,8 +117,8 @@ function capture_ios {
 
 start_time=$SECONDS
 
-capture_mac
-#capture_ios
+#capture_mac
+capture_ios
 
 elapsed=$(( SECONDS - start_time ))
 
