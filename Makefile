@@ -1,2 +1,2 @@
 screenshots:
-	DenScreenshots/screenshots.sh
+	Screenshots/screenshots.sh

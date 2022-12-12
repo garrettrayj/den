@@ -20,12 +20,6 @@ private struct PersistentContainerKey: EnvironmentKey {
         var cloudStoreLocation = appSupportDirectory.appendingPathComponent("Den.sqlite")
         var localStoreLocation = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
 
-        if CommandLine.arguments.contains("--reset") {
-            // Use in memory storage
-            cloudStoreLocation = URL(fileURLWithPath: "/dev/null/1")
-            localStoreLocation = URL(fileURLWithPath: "/dev/null/2")
-        }
-
         // Create a store description for a CloudKit-backed store
         let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreLocation)
         cloudStoreDescription.configuration = "Cloud"

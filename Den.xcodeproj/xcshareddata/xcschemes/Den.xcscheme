@@ -26,10 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "NO">
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-com.apple.CoreData.Logging.stderr 0"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--reset"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -93,10 +97,6 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-UIFocusLoggingEnabled YES"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "--reset"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
