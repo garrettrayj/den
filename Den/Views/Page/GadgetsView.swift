@@ -20,7 +20,6 @@ struct GadgetsView: View {
             BoardView(width: width, list: page.feedsArray) { feed in
                 GadgetView(feed: feed, hideRead: $hideRead)
             }
-            .modifier(TopLevelBoardPaddingModifier())
         }
     }
 }

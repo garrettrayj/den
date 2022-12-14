@@ -23,7 +23,6 @@ struct BlendView: View {
                 BoardView(width: width, list: visibleItems) { item in
                     FeedItemPreviewView(item: item)
                 }
-                .modifier(TopLevelBoardPaddingModifier())
             }
         }
     }

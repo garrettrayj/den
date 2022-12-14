@@ -30,7 +30,6 @@ struct TrendsView: View {
                         BoardView(width: geometry.size.width, list: visibleTrends) { trend in
                             TrendBlockView(trend: trend)
                         }
-                        .modifier(TopLevelBoardPaddingModifier())
                     }
                 }
             }
