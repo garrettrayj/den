@@ -29,7 +29,6 @@ struct TrendView: View {
                         BoardView(width: geometry.size.width, list: visibleItems) { item in
                             FeedItemPreviewView(item: item)
                         }
-                        .modifier(TopLevelBoardPaddingModifier())
                     }
                 }
             }

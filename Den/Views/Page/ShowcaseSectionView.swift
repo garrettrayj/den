@@ -31,7 +31,6 @@ struct ShowcaseSectionView: View {
                             .cornerRadius(8)
                         }
                     )
-                    .padding(12)
                 }
             } else {
                 FeedUnavailableView(feedData: feed.feedData)
