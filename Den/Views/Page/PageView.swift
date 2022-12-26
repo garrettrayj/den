@@ -70,6 +70,7 @@ struct PageView: View {
         .navigationTitle(page.displayName)
         .toolbar {
             #if targetEnvironment(macCatalyst)
+            // This causes the toolbar to crash in full-screen
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 viewModePicker
                     .pickerStyle(.segmented)
