@@ -46,7 +46,7 @@ struct TrendBlockView: View {
 
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
                         ForEach(trend.feeds) { feed in
-                            FeedFaviconView(url: feed.feedData?.favicon, purgeable: false)
+                            FeedFaviconView(url: feed.feedData?.favicon)
                                 .opacity(trend.items.unread().isEmpty ? UIConstants.dimmedImageOpacity : 1.0)
                         }
                     }
