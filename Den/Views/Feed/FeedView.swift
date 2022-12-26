@@ -30,7 +30,7 @@ struct FeedView: View {
                             } else {
                                 BoardView(
                                     width: geometry.size.width,
-                                    list: visibleItems
+                                    list: feed.feedData?.visibleItems(hideRead) ?? []
                                 ) { item in
                                     ItemActionView(item: item) {
                                         ItemPreviewView(item: item)
@@ -38,7 +38,6 @@ struct FeedView: View {
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
                                 }
-                                .padding(12)
                             }
                         }
                     }
@@ -72,14 +71,6 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(feed.wrappedTitle)
-    }
-
-    private var visibleItems: [Item] {
-        guard let feedData = feed.feedData else { return [] }
-
-        return feedData.previewItems.filter { item in
-            hideRead ? item.read == false : true
-        }
     }
 
     private var header: some View {

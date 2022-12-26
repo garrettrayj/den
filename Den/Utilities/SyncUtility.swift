@@ -14,12 +14,6 @@ struct SyncUtility {
     static func markItemRead(container: NSPersistentContainer, item: Item) async {
         guard item.read != true else { return }
         await logHistory(container: container, items: [item])
-
-        DispatchQueue.main.async {
-            item.feedData?.feed?.objectWillChange.send()
-            item.feedData?.feed?.page?.objectWillChange.send()
-            item.feedData?.feed?.page?.profile?.objectWillChange.send()
-        }
     }
 
     static func toggleReadUnread(container: NSPersistentContainer, items: [Item]) async {

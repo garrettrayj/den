@@ -11,8 +11,7 @@ import SwiftUI
 struct ItemView: View {
     @Environment(\.persistentContainer) private var container
 
-    @ObservedObject var item: Item
-
+    let item: Item
     let maxContentWidth: CGFloat = 800
 
     var body: some View {

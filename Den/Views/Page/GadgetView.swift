@@ -21,7 +21,7 @@ struct GadgetView: View {
 
             VStack(spacing: 0) {
                 if feed.hasContent {
-                    ForEach(visibleItems) { item in
+                    ForEach(feed.visibleItems(hideRead)) { item in
                         GadgetItemView(item: item)
                     }
 
@@ -59,12 +59,6 @@ struct GadgetView: View {
             }
             .buttonStyle(FeedTitleButtonStyle())
             .accessibilityIdentifier("gadget-feed-button")
-        }
-    }
-
-    private var visibleItems: [Item] {
-        feed.feedData!.previewItems.filter { item in
-            hideRead ? item.read == false : true
         }
     }
 

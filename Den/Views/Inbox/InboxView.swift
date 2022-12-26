@@ -46,7 +46,7 @@ struct InboxView: View {
                 AllReadStatusView(hiddenItemCount: profile.previewItems.read().count)
             } else {
                 ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: visibleItems) { item in
+                    BoardView(width: geometry.size.width, list: profile.visibleItems(hideRead)) { item in
                         FeedItemPreviewView(item: item)
                     }
                 }
@@ -61,12 +61,6 @@ struct InboxView: View {
                     hideRead: $hideRead
                 )
             }
-        }
-    }
-
-    private var visibleItems: [Item] {
-        profile.previewItems.filter { item in
-            hideRead ? item.read == false : true
         }
     }
 }

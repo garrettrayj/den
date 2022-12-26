@@ -18,12 +18,12 @@ struct ShowcaseSectionView: View {
     var body: some View {
         Section {
             if feed.hasContent {
-                if visibleItems.isEmpty {
+                if feed.visibleItems(hideRead).isEmpty {
                     AllReadCompactView().padding(.horizontal, 8)
                 } else {
                     BoardView(
                         width: width,
-                        list: visibleItems,
+                        list: feed.visibleItems(hideRead),
                         content: { item in
                             ItemActionView(item: item) {
                                 ItemPreviewView(item: item)
@@ -58,12 +58,6 @@ struct ShowcaseSectionView: View {
             )
             .accessibilityIdentifier("showcase-section-feed-button")
         }
-    }
-
-    private var visibleItems: [Item] {
-        feed.feedData?.previewItems.filter { item in
-            hideRead ? item.read == false : true
-        } ?? []
     }
 
     private var allRead: Bool {

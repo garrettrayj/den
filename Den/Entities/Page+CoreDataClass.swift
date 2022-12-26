@@ -31,8 +31,7 @@ public class Page: NSManagedObject {
 
     public var previewItems: [Item] {
         feedsArray.flatMap { (feed) -> [Item] in
-            guard let feedData = feed.feedData else { return [] }
-            return feedData.previewItems
+            return feed.feedData?.previewItems ?? []
         }.sorted { $0.date > $1.date }
     }
 
@@ -84,19 +83,13 @@ public class Page: NSManagedObject {
             return false
         }.first?.feedData?.refreshed
     }
-
-    public var limitedItemsArray: [Item] {
-        let items: NSMutableSet = []
-
-        feedsArray.forEach { feed in
-            guard let feedData = feed.feedData else { return }
-            items.union(Set(feedData.previewItems))
+    
+    func visibleItems(_ hideRead: Bool) -> [Item] {
+        previewItems.filter { item in
+            hideRead ? item.read == false : true
         }
-
-        return items.sortedArray(
-            using: [NSSortDescriptor(key: "published", ascending: false)]
-        ) as? [Item] ?? []
     }
+
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,

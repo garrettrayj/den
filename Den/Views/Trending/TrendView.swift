@@ -16,17 +16,12 @@ struct TrendView: View {
 
     var body: some View {
         Group {
-            if trend.items.isEmpty {
-                StatusBoxView(
-                    message: Text("Nothing Here"),
-                    symbol: "tray"
-                )
-            } else if visibleItems.isEmpty {
+            if trend.visibleItems(hideRead).isEmpty {
                 AllReadStatusView(hiddenItemCount: trend.items.read().count)
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: visibleItems) { item in
+                        BoardView(width: geometry.size.width, list: trend.visibleItems(hideRead)) { item in
                             FeedItemPreviewView(item: item)
                         }
                     }
@@ -43,12 +38,6 @@ struct TrendView: View {
                     hideRead: $hideRead
                 )
             }
-        }
-    }
-
-    private var visibleItems: [Item] {
-        trend.items.filter { item in
-            hideRead ? item.read == false : true
         }
     }
 }

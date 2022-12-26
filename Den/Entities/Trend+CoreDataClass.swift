@@ -23,6 +23,12 @@ public class Trend: NSManagedObject {
             .compactMap { $0.item }
             .sorted { $0.date > $1.date }
     }
+    
+    func visibleItems(_ hideRead: Bool) -> [Item] {
+        items.filter { item in
+            hideRead ? item.read == false : true
+        }
+    }
 
     var feeds: [Feed] {
         var feeds: Set<Feed> = []
