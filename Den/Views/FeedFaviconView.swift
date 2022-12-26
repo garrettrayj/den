@@ -16,7 +16,6 @@ struct FeedFaviconView: View {
     let url: URL?
 
     var placeholderSymbol: String = "dot.radiowaves.up.forward"
-    var purgeable: Bool = true
     var dimmed: Bool = false
 
     var body: some View {
@@ -24,7 +23,7 @@ struct FeedFaviconView: View {
             .resizable()
             .playbackRate(0)
             .placeholder {
-                Image(systemName: "dot.radiowaves.up.forward")
+                Image(systemName: placeholderSymbol)
                     .font(.system(size: 15).weight(.semibold))
                     .foregroundColor(.primary)
             }
