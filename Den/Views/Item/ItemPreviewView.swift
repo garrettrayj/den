@@ -32,7 +32,6 @@ struct ItemPreviewView: View {
 
             if hasTeaser {
                 Text(item.teaser!).font(.body).lineLimit(6)
-                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .multilineTextAlignment(.leading)
@@ -44,6 +43,5 @@ struct ItemPreviewView: View {
             :
                 item.read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
         )
-        .background(Color(UIColor.secondarySystemGroupedBackground))
     }
 }

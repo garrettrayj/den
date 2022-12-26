@@ -39,6 +39,7 @@ public class FeedData: NSManagedObject {
     public var previewItems: [Item] {
         Array(itemsArray.prefix(feed?.wrappedItemLimit ?? Int(ContentLimits.itemLimitDefault)))
     }
+    
 
     public var linkDisplayString: String? {
         guard let link = link else { return nil }
@@ -47,6 +48,12 @@ public class FeedData: NSManagedObject {
             .replacingOccurrences(of: "http://", with: "")
             .replacingOccurrences(of: "https://", with: "")
             .trimmingCharacters(in: .init(charactersIn: "/"))
+    }
+    
+    func visibleItems(_ hideRead: Bool) -> [Item] {
+        previewItems.filter { item in
+            hideRead ? item.read == false : true
+        }
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, feedId: UUID) -> FeedData {
