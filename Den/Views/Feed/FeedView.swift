@@ -61,7 +61,6 @@ struct FeedView: View {
                 }
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("feed-settings-button")
-                .id(feed.id)
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
