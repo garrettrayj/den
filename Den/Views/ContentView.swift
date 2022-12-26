@@ -43,9 +43,8 @@ struct ContentView: View {
                 selection: $selection,
                 refreshing: $refreshing
             )
-            .navigationSplitViewColumnWidth(268)
+            .navigationSplitViewColumnWidth(260)
             .disabled(refreshing)
-            .id(profile.id) // Fix for updating sidebar when profile changes
         } detail: {
             DetailView(
                 activeProfileID: $activeProfileID,
