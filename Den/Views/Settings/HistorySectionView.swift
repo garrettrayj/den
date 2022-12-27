@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HistorySectionView: View {
-    @Environment(\.persistentContainer) private var container
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var profile: Profile
@@ -76,17 +76,17 @@ struct HistorySectionView: View {
         }
         .onChange(of: historyRentionDays) { _ in
             profile.wrappedHistoryRetention = historyRentionDays
-            if container.viewContext.hasChanges {
-                do {
-                    try container.viewContext.save()
-                } catch let error {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
+            do {
+                try viewContext.save()
+            } catch let error {
+                CrashUtility.handleCriticalError(error as NSError)
             }
         }
     }
 
     private func resetHistory() async {
+        let container = PersistenceController.shared.container
+        
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profile.objectID) as? Profile else { return }
 

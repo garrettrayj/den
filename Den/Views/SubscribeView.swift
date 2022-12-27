@@ -10,8 +10,8 @@ import CoreData
 import SwiftUI
 
 struct SubscribeView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.persistentContainer) private var container
 
     @Binding var initialPageObjectID: NSManagedObjectID?
     @Binding var initialURLString: String
@@ -91,7 +91,7 @@ struct SubscribeView: View {
             if urlIsValid == true {
                 addFeed()
                 Task {
-                    await RefreshUtility.refresh(container: container, feed: newFeed!)
+                    await RefreshUtility.refresh(feed: newFeed!)
                     dismiss()
                 }
             }
@@ -199,10 +199,10 @@ struct SubscribeView: View {
         else { return }
 
         loading = true
-        newFeed = Feed.create(in: container.viewContext, page: page, url: url, prepend: true)
+        newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
 
         do {
-            try container.viewContext.save()
+            try viewContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

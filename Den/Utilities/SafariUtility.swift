@@ -21,8 +21,10 @@ struct SafariUtility {
 
         guard
             let window = WindowFinder.current(),
-            let rootViewController = window.rootViewController else { return }
-        rootViewController.modalPresentationStyle = .fullScreen
+            let rootViewController = window.rootViewController
+        else { return }
+        
+        //rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)
     }
 }

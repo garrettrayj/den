@@ -55,7 +55,6 @@ struct GadgetView: View {
                     Spacer()
                     NavChevronView()
                 }
-                .padding(.horizontal, 12)
             }
             .buttonStyle(FeedTitleButtonStyle())
             .accessibilityIdentifier("gadget-feed-button")

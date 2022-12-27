@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @Environment(\.persistentContainer) private var container
     @Environment(\.scenePhase) private var scenePhase
 
     @ObservedObject var profile: Profile
@@ -78,7 +77,7 @@ struct ContentView: View {
                     Logger.main.debug("Performing automatic refresh")
                     Task {
                         guard !refreshing else { return }
-                        await RefreshUtility.refresh(container: container, profile: profile)
+                        await RefreshUtility.refresh(profile: profile)
                         autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
                     }
                 }
@@ -108,7 +107,6 @@ struct ContentView: View {
                 initialURLString: $subscribeURLString,
                 profile: profile
             )
-            .environment(\.persistentContainer, container)
             .environment(\.colorScheme, colorScheme)
         }
     }

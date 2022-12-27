@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct PageBottomBarView: View {
-    @Environment(\.persistentContainer) private var container
-
     @ObservedObject var page: Page
 
     @Binding var viewMode: Int
@@ -31,7 +29,7 @@ struct PageBottomBarView: View {
             .fixedSize()
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
-            await SyncUtility.toggleReadUnread(container: container, items: page.previewItems)
+            await SyncUtility.toggleReadUnread(items: page.previewItems)
 
             if viewMode == PageView.PageViewMode.blend.rawValue {
                 // Send page update to refresh blend view

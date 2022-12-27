@@ -11,8 +11,8 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @Environment(\.persistentContainer) private var container
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.colorScheme) private var colorScheme
 
     @Binding var backgroundRefreshEnabled: Bool
 
@@ -75,7 +75,7 @@ struct RootView: View {
     }
     
     private func loadProfile() {
-        let profile = profiles.first ?? ProfileUtility.createDefaultProfile(context: container.viewContext)
+        let profile = profiles.first ?? ProfileUtility.createDefaultProfile(context: viewContext)
         activeProfileID = profile.id?.uuidString
     }
 }

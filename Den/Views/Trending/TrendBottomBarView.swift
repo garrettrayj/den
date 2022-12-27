@@ -10,8 +10,6 @@ import CoreData
 import SwiftUI
 
 struct TrendBottomBarView: View {
-    @Environment(\.persistentContainer) private var container
-
     @ObservedObject var trend: Trend
 
     @Binding var hideRead: Bool
@@ -30,7 +28,7 @@ struct TrendBottomBarView: View {
             .fixedSize()
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
-            await SyncUtility.toggleReadUnread(container: container, items: trend.items)
+            await SyncUtility.toggleReadUnread(items: trend.items)
             trend.objectWillChange.send()
         }
     }

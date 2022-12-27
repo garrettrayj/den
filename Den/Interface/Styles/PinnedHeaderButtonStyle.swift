@@ -1,14 +1,14 @@
 //
-//  FeedTitleButtonStyle.swift
+//  PinnedHeaderButtonStyle.swift
 //  Den
 //
-//  Created by Garrett Johnson on 11/12/21.
-//  Copyright © 2021 Garrett Johnson. All rights reserved.
+//  Created by Garrett Johnson on 12/26/22.
+//  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct FeedTitleButtonStyle: ButtonStyle {
+struct PinnedHeaderButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
     @State private var hovering: Bool = false
 
@@ -22,7 +22,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 8)
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 16)
             .background(
                 backgroundColor.overlay {
                     isEnabled ?
