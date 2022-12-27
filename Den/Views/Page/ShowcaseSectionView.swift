@@ -51,11 +51,9 @@ struct ShowcaseSectionView: View {
                     Spacer()
                     NavChevronView()
                 }
-                .padding(.horizontal)
             }
-            .buttonStyle(
-                FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
-            )
+            .modifier(PinnedSectionHeaderModifier())
+            .buttonStyle(PinnedHeaderButtonStyle())
             .accessibilityIdentifier("showcase-section-feed-button")
         }
     }

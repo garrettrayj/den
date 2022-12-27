@@ -42,7 +42,7 @@ struct ContentView: View {
                 selection: $selection,
                 refreshing: $refreshing
             )
-            .navigationSplitViewColumnWidth(260)
+            .navigationSplitViewColumnWidth(240)
             .disabled(refreshing)
         } detail: {
             DetailView(

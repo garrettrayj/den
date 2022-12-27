@@ -84,7 +84,7 @@ struct ItemView: View {
                     Label("Open in Browser", systemImage: "safari")
                     #endif
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .buttonStyle(BottomBarButtonStyle())
                 .accessibilityIdentifier("item-open-button")
             }
         }

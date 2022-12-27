@@ -24,9 +24,7 @@ struct PageBottomBarView: View {
             page.objectWillChange.send()
         }
         Spacer()
-        Text("\(unreadCount) Unread")
-            .font(.caption)
-            .fixedSize()
+        Text("\(unreadCount) Unread").font(.caption).fixedSize()
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
             await SyncUtility.toggleReadUnread(items: page.previewItems)

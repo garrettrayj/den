@@ -1,14 +1,14 @@
 //
-//  ToolbarButtonStyle.swift
+//  BottomBarButtonStyle.swift
 //  Den
 //
-//  Created by Garrett Johnson on 9/3/22.
+//  Created by Garrett Johnson on 12/26/22.
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import SwiftUI
 
-struct ToolbarButtonStyle: ButtonStyle {
+struct BottomBarButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
 
     @State private var hovering: Bool = false
@@ -16,30 +16,20 @@ struct ToolbarButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             #if targetEnvironment(macCatalyst)
-            .frame(height: 28, alignment: .center)
-            .padding(.horizontal, 8)
             .fontWeight(.semibold)
             .foregroundColor(
                 isEnabled ?
-                    configuration.isPressed ? Color.primary : Color.secondary
+                    configuration.isPressed ?
+                        Color.primary
+                        :
+                        hovering ?
+                            Color(UIColor.tertiaryLabel)
+                            :
+                            Color.secondary
                     :
                     Color(UIColor.tertiaryLabel)
             )
-            .background(
-                isEnabled ?
-                    configuration.isPressed ?
-                        Color(UIColor.systemFill)
-                        :
-                        hovering ?
-                            Color(UIColor.quaternarySystemFill)
-                            :
-                            Color.clear
-                    :
-                    Color.clear
-            )
-            .cornerRadius(6)
             #else
-            .frame(height: 44, alignment: .center)
             .foregroundColor(
                 isEnabled ?
                     configuration.isPressed ?
@@ -51,9 +41,11 @@ struct ToolbarButtonStyle: ButtonStyle {
             )
             .background(Color.clear)
             #endif
+            .frame(height: 44, alignment: .center)
             .onHover { hovered in
                 hovering = hovered
             }
             .contentShape(Rectangle())
     }
 }
+

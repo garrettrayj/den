@@ -33,6 +33,10 @@ public class Feed: NSManagedObject {
 
         return nil
     }
+    
+    public var previewItems: [Item] {
+        feedData?.previewItems ?? []
+    }
 
     public var urlString: String {
         get {url?.absoluteString ?? ""}
