@@ -19,11 +19,11 @@ struct FeedBottomBarView: View {
             feed.objectWillChange.send()
         }
         Spacer()
-        Text("\(unreadCount) Unread")
+        Text("\(feed.previewItems.unread().count) Unread")
             .font(.caption)
             .fixedSize()
         Spacer()
-        ToggleReadButtonView(unreadCount: unreadCount) {
+        ToggleReadButtonView(unreadCount: feed.previewItems.unread().count) {
             await SyncUtility.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
             feed.objectWillChange.send()
         }

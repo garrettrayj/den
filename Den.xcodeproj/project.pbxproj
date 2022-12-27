@@ -36,6 +36,7 @@
 		6832AF2E278BA6A800CFC8CA /* SearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */; };
 		6835733F295A5B5100843A8E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835733E295A5B5000843A8E /* Persistence.swift */; };
 		6835737F295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */; };
+		68357381295AC75300843A8E /* BottomBarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68357380295AC75300843A8E /* BottomBarButtonStyle.swift */; };
 		683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CEC5F250966410005F305 /* Bundle+Extensions.swift */; };
 		683E3F43293BBB1900B16814 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */; };
 		683E3F45293BC02A00B16814 /* AddFeedButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */; };
@@ -281,6 +282,7 @@
 		6832AF2D278BA6A800CFC8CA /* SearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsView.swift; sourceTree = "<group>"; };
 		6835733E295A5B5000843A8E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Persistence.swift; path = ../../../../../Applications/Persistence.swift; sourceTree = "<group>"; };
 		6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedHeaderButtonStyle.swift; sourceTree = "<group>"; };
+		68357380295AC75300843A8E /* BottomBarButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarButtonStyle.swift; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 		683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedButtonView.swift; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 			isa = PBXGroup;
 			children = (
 				6829A4FF28C3D30C00F75C5A /* ToolbarButtonStyle.swift */,
+				68357380295AC75300843A8E /* BottomBarButtonStyle.swift */,
 				68B18957289B633E0002A7FE /* AccentButtonStyle.swift */,
 				683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
@@ -1378,6 +1381,7 @@
 				68F56B71287ACD0B006EC915 /* WebView.swift in Sources */,
 				683041B227542E2000BE7631 /* BoardView.swift in Sources */,
 				68F56B3D286F5C20006EC915 /* TrendsView.swift in Sources */,
+				68357381295AC75300843A8E /* BottomBarButtonStyle.swift in Sources */,
 				68F56B77288C0D1A006EC915 /* Trend+CoreDataClass.swift in Sources */,
 				682A349728E2B38E004CD90E /* URLDropTargetModifier.swift in Sources */,
 				680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */,

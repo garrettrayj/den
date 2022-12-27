@@ -65,7 +65,7 @@ struct FeedView: View {
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
-                FeedBottomBarView(feed: feed, feedData: feed.feedData!, hideRead: $hideRead)
+                FeedBottomBarView(feed: feed, hideRead: $hideRead)
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
@@ -95,7 +95,7 @@ struct FeedView: View {
 
                     }
                 }
-                .buttonStyle(FeedTitleButtonStyle())
+                .buttonStyle(PinnedHeaderButtonStyle())
             } else {
                 Label {
                     Text("Website unknown").font(.caption)
