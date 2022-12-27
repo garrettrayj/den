@@ -38,8 +38,11 @@ struct FeedRefreshOperation {
             }
             metaFetched = .now
         }
-
+        
         await container.performBackgroundTask { context in
+            context.automaticallyMergesChangesFromParent = true
+            context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            
             guard
                 let feed = context.object(with: self.feedObjectID) as? Feed,
                 let feedId = feed.id
@@ -104,8 +107,12 @@ struct FeedRefreshOperation {
             }
             feedData.refreshed = .now
             feedData.error = refreshStatus.errors.first
-
-            try? context.save()
+            
+            do {
+                try context.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
         }
 
         DispatchQueue.main.async {

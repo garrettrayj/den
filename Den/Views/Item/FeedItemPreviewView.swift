@@ -25,7 +25,7 @@ struct FeedItemPreviewView: View {
                         )
                         Spacer()
                         NavChevronView()
-                    }.padding(.horizontal, 12)
+                    }
                 }
                 .buttonStyle(FeedTitleButtonStyle())
                 .accessibilityIdentifier("item-feed-button")

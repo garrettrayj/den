@@ -10,8 +10,6 @@ import SwiftUI
 import SafariServices
 
 struct ItemActionView<Content: View>: View {
-    @Environment(\.persistentContainer) private var container
-
     @ObservedObject var item: Item
 
     @ViewBuilder var content: Content
@@ -24,7 +22,7 @@ struct ItemActionView<Content: View>: View {
                     readerMode: item.feedData?.feed?.readerMode ?? false
                 )
                 Task {
-                    await SyncUtility.markItemRead(container: container, item: item)
+                    await SyncUtility.markItemRead(item: item)
                 }
             } label: {
                 content

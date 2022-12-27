@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct RefreshButtonView: View {
-    @Environment(\.persistentContainer) private var container
     @Environment(\.editMode) private var editMode
 
     let profile: Profile
@@ -18,7 +17,7 @@ struct RefreshButtonView: View {
         if editMode?.wrappedValue == .inactive {
             Button {
                 Task {
-                    await RefreshUtility.refresh(container: container, profile: profile)
+                    await RefreshUtility.refresh(profile: profile)
                 }
             } label: {
                 Label("Refresh", systemImage: "arrow.clockwise")

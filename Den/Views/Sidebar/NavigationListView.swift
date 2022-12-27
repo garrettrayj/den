@@ -10,8 +10,8 @@ import CoreData
 import SwiftUI
 
 struct NavigationListView: View {
-    @Environment(\.persistentContainer) private var container
-
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var profile: Profile
 
     let searchModel: SearchModel
@@ -42,7 +42,7 @@ struct NavigationListView: View {
         #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing {
-                await RefreshUtility.refresh(container: container, profile: profile)
+                await RefreshUtility.refresh(profile: profile)
             }
         }
         #endif
@@ -96,7 +96,7 @@ struct NavigationListView: View {
         }
 
         do {
-            try container.viewContext.save()
+            try viewContext.save()
             // Update array for UI
             profile.pagesArray = revisedItems
         } catch {
@@ -108,13 +108,13 @@ struct NavigationListView: View {
         indices.forEach {
             let page = profile.pagesArray[$0]
             for feed in page.feedsArray where feed.feedData != nil {
-                container.viewContext.delete(feed.feedData!)
+                viewContext.delete(feed.feedData!)
             }
-            container.viewContext.delete(page)
+            viewContext.delete(page)
         }
 
         do {
-            try container.viewContext.save()
+            try viewContext.save()
             NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
         } catch {
             CrashUtility.handleCriticalError(error as NSError)

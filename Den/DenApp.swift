@@ -16,18 +16,17 @@ import SDWebImageWebPCoder
 @main
 struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.persistentContainer) private var container
-
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
+    
+    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
-            .environment(\.managedObjectContext, container.viewContext)
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh()
@@ -62,11 +61,11 @@ struct DenApp: App {
     }
 
     private func handleRefresh() async {
-        guard let profiles = try? container.viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
+        guard let profiles = try? persistenceController.container.viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
             return
         }
         for profile in profiles {
-            await RefreshUtility.refresh(container: container, profile: profile)
+            await RefreshUtility.refresh(profile: profile)
         }
     }
 }

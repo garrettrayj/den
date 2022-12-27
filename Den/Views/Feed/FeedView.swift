@@ -21,7 +21,7 @@ struct FeedView: View {
             ScrollView(.vertical) {
                 if feed.hasContent {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                        Section(header: header.modifier(PinnedSectionHeaderModifier())) {
+                        Section {
                             if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
                                 AllReadCompactView()
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
@@ -39,6 +39,8 @@ struct FeedView: View {
                                     .cornerRadius(8)
                                 }
                             }
+                        } header: {
+                            header.modifier(PinnedSectionHeaderModifier())
                         }
                     }
                 } else {
@@ -63,7 +65,7 @@ struct FeedView: View {
             }
 
             ToolbarItemGroup(placement: .bottomBar) {
-                FeedBottomBarView(feed: feed, hideRead: $hideRead)
+                FeedBottomBarView(feed: feed, feedData: feed.feedData!, hideRead: $hideRead)
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
@@ -92,11 +94,8 @@ struct FeedView: View {
                             .font(.body.weight(.semibold))
 
                     }
-                    .padding(.horizontal)
                 }
-                .buttonStyle(
-                    FeedTitleButtonStyle(backgroundColor: Color(UIColor.tertiarySystemGroupedBackground))
-                )
+                .buttonStyle(FeedTitleButtonStyle())
             } else {
                 Label {
                     Text("Website unknown").font(.caption)

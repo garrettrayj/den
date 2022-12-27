@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(\.persistentContainer) private var container
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfileID: String?
@@ -30,9 +30,9 @@ struct ProfileView: View {
             if profile.isDeleted { return }
             profile.wrappedName = nameInput
 
-            if container.viewContext.hasChanges {
+            if viewContext.hasChanges {
                 do {
-                    try container.viewContext.save()
+                    try viewContext.save()
                 } catch let error {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
@@ -95,6 +95,8 @@ struct ProfileView: View {
     }
 
     private func delete() async {
+        let container = PersistenceController.shared.container
+        
         await container.performBackgroundTask { context in
             if let toDelete = context.object(with: profile.objectID) as? Profile {
                 for feedData in toDelete.feedsArray.compactMap({$0.feedData}) {

@@ -10,15 +10,9 @@ import CoreData
 import SwiftUI
 
 struct FeedBottomBarView: View {
-    @Environment(\.persistentContainer) private var container
-
     @ObservedObject var feed: Feed
 
     @Binding var hideRead: Bool
-
-    var unreadCount: Int {
-        feed.feedData?.previewItems.count ?? 0
-    }
 
     var body: some View {
         FilterReadButtonView(hideRead: $hideRead) {
@@ -30,10 +24,7 @@ struct FeedBottomBarView: View {
             .fixedSize()
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
-            await SyncUtility.toggleReadUnread(
-                container: container,
-                items: feed.feedData?.previewItems ?? []
-            )
+            await SyncUtility.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
             feed.objectWillChange.send()
         }
     }

@@ -11,27 +11,29 @@ import OSLog
 import SwiftUI
 
 struct SyncUtility {
-    static func markItemRead(container: NSPersistentContainer, item: Item) async {
+    static func markItemRead(item: Item) async {
         guard item.read != true else { return }
-        await logHistory(container: container, items: [item])
+        await logHistory(items: [item])
     }
 
-    static func toggleReadUnread(container: NSPersistentContainer, items: [Item]) async {
+    static func toggleReadUnread(items: [Item]) async {
         var modItems: [Item]
 
         if items.unread().isEmpty == true {
             modItems = items.read()
-            await clearHistory(container: container, items: modItems)
+            await clearHistory(items: modItems)
         } else {
             modItems = items.unread()
-            await logHistory(container: container, items: modItems)
+            await logHistory(items: modItems)
         }
     }
 
-    static func logHistory(container: NSPersistentContainer, items: [Item]) async {
+    static func logHistory(items: [Item]) async {
         guard let profileObjectID = items.first?.feedData?.feed?.page?.profile?.objectID else { return }
         let itemObjectIDs = items.map { $0.objectID }
 
+        let container = PersistenceController.shared.container
+        
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profileObjectID) as? Profile else { return }
 
@@ -52,10 +54,12 @@ struct SyncUtility {
         }
     }
 
-    static func clearHistory(container: NSPersistentContainer?, items: [Item]) async {
+    static func clearHistory(items: [Item]) async {
         let itemObjectIDs = items.map { $0.objectID }
 
-        await container?.performBackgroundTask { context in
+        let container = PersistenceController.shared.container
+        
+        await container.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }
                 item.read = false

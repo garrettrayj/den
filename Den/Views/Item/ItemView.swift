@@ -9,8 +9,6 @@
 import SwiftUI
 
 struct ItemView: View {
-    @Environment(\.persistentContainer) private var container
-
     let item: Item
     let maxContentWidth: CGFloat = 800
 
@@ -92,7 +90,7 @@ struct ItemView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            await SyncUtility.markItemRead(container: container, item: item)
+            await SyncUtility.markItemRead(item: item)
         }
     }
 }

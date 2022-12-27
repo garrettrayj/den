@@ -104,9 +104,17 @@ struct WebView: UIViewRepresentable {
             decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
         ) {
             let browserActions: Set<WKNavigationType> = [.linkActivated]
-            if let url = navigationAction.request.url, browserActions.contains(navigationAction.navigationType) {
+            if
+                let url = navigationAction.request.url,
+                browserActions.contains(navigationAction.navigationType)
+            {
                 decisionHandler(.cancel)
+                
+                #if targetEnvironment(macCatalyst)
                 UIApplication.shared.open(url)
+                #else
+                SafariUtility.openLink(url: url)
+                #endif
             } else {
                 decisionHandler(.allow)
             }

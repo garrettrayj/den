@@ -11,7 +11,6 @@ import SwiftUI
 import SDWebImage
 
 struct ResetSectionView: View {
-    @Environment(\.persistentContainer) private var container
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfileID: String?
@@ -106,6 +105,8 @@ struct ResetSectionView: View {
     }
 
     private func resetFeeds(profile: Profile) async {
+        let container = PersistenceController.shared.container
+        
         await container.performBackgroundTask { context in
             guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else { return }
             for profile in profiles {
@@ -128,6 +129,8 @@ struct ResetSectionView: View {
 
     private func resetEverything() async {
         await emptyCache()
+        
+        let container = PersistenceController.shared.container
         await container.performBackgroundTask { context in
             do {
                 let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
