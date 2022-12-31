@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DetailView: View {
     @Binding var activeProfileID: String?
+    @Binding var lastProfileID: String?
     @Binding var selection: Panel?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
@@ -43,6 +44,7 @@ struct DetailView: View {
                 case .settings:
                     SettingsView(
                         activeProfileID: $activeProfileID,
+                        lastProfileID: $lastProfileID,
                         uiStyle: $uiStyle,
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,

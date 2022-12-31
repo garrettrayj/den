@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Binding var activeProfileID: String?
+    @Binding var lastProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
@@ -40,6 +41,7 @@ struct SettingsView: View {
                 } else {
                     ProfileView(
                         activeProfileID: $activeProfileID,
+                        lastProfileID: $lastProfileID,
                         profile: profile,
                         nameInput: profile.wrappedName
                     )

@@ -13,7 +13,7 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
     
     #if targetEnvironment(macCatalyst)
     let spacing: CGFloat = 4
-    let width: CGFloat = 108
+    let width: CGFloat = 100
     #else
     let spacing: CGFloat = 6
     let width: CGFloat = 120
