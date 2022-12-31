@@ -108,3 +108,11 @@ public class Page: NSManagedObject {
         return newPage
     }
 }
+
+extension Array where Element == Page {
+    func firstMatchingUUIDString(uuidString: String) -> Page? {
+        self.first { page in
+            page.id?.uuidString == uuidString
+        }
+    }
+}

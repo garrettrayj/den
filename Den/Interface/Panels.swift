@@ -8,12 +8,32 @@
 
 import Foundation
 
-enum Panel: Hashable {
+enum Panel: Hashable, RawRepresentable, Decodable, Encodable{
+    var rawValue: String {
+        switch self {
+        case .page(let uuidString):
+            return "page-\(uuidString)"
+        default:
+            return String(describing: self)
+        }
+    }
+    
+    init?(rawValue: String) {
+        if rawValue.contains("page-") {
+            let uuidString = rawValue.replacingOccurrences(of: "page-", with: "")
+            self = .page(uuidString)
+            return
+        }
+        self = Panel.init(rawValue: rawValue)!
+    }
+    
+    typealias RawValue = String
+    
     case welcome
     case search
     case inbox
     case trends
-    case page(Page)
+    case page(String)
     case settings
 }
 
