@@ -78,13 +78,9 @@ struct ItemView: View {
                 Button {
                     SafariUtility.openLink(url: item.link)
                 } label: {
-                    #if targetEnvironment(macCatalyst)
                     Label("Open in Browser", systemImage: "link.circle")
-                    #else
-                    Label("Open in Browser", systemImage: "safari")
-                    #endif
                 }
-                .buttonStyle(BottomBarButtonStyle())
+                .buttonStyle(PlainToolbarButtonStyle())
                 .accessibilityIdentifier("item-open-button")
             }
         }

@@ -13,16 +13,15 @@ struct SafariUtility {
         url: URL?,
         readerMode: Bool = false
     ) {
-        guard let url = url else { return }
+        guard
+            let url = url,
+            let rootViewController = WindowFinder.current()?.rootViewController
+        else { return }
+        
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = readerMode
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
-
-        guard
-            let window = WindowFinder.current(),
-            let rootViewController = window.rootViewController
-        else { return }
         
         //rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)

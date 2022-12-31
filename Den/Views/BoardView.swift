@@ -13,7 +13,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     let list: [T]
     let width: CGFloat
 
-    let spacing: CGFloat = 12
+    let spacing: CGFloat = 8
 
     var body: some View {
         HStack(alignment: .top, spacing: spacing) {

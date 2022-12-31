@@ -20,7 +20,7 @@ struct SettingsButtonView: View {
             } label: {
                 Label("Settings", systemImage: "gear")
             }
-            .buttonStyle(BottomBarButtonStyle())
+            .buttonStyle(PlainToolbarButtonStyle())
             .accessibilityIdentifier("settings-button")
         }
     }

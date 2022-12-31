@@ -15,6 +15,7 @@ struct SettingsView: View {
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var useInbuiltBrowser: Bool
 
     let profile: Profile
 
@@ -22,6 +23,7 @@ struct SettingsView: View {
         Form {
             ProfilesSectionView(activeProfileID: $activeProfileID)
             FeedsSectionView()
+            BrowserSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
             HistorySectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             AutoRefreshSectionView(
                 autoRefreshEnabled: $autoRefreshEnabled,
@@ -29,7 +31,11 @@ struct SettingsView: View {
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
             AppearanceSectionView(uiStyle: $uiStyle)
-            ResetSectionView(activeProfileID: $activeProfileID, profile: profile)
+            ResetSectionView(
+                activeProfileID: $activeProfileID,
+                lastProfileID: $lastProfileID,
+                profile: profile
+            )
             AboutSectionView()
         }
         .navigationTitle("Settings")

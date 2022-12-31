@@ -16,6 +16,7 @@ struct DetailView: View {
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var useInbuiltBrowser: Bool
 
     @ObservedObject var profile: Profile
 
@@ -49,6 +50,7 @@ struct DetailView: View {
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                        useInbuiltBrowser: $useInbuiltBrowser,
                         profile: profile
                     )
                 }
