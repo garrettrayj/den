@@ -31,6 +31,7 @@ struct ContentView: View {
 
     @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
+    @AppStorage("UseInbuiltBrowser") var useInbuiltBrowser: Bool = true
 
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
     @SceneStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
@@ -58,6 +59,7 @@ struct ContentView: View {
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                useInbuiltBrowser: $useInbuiltBrowser,
                 profile: profile,
                 searchModel: searchModel
             )

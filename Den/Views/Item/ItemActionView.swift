@@ -10,6 +10,8 @@ import SwiftUI
 import SafariServices
 
 struct ItemActionView<Content: View>: View {
+    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
+    @Environment(\.openURL) private var openURL
     @ObservedObject var item: Item
 
     @ViewBuilder var content: Content
@@ -17,10 +19,16 @@ struct ItemActionView<Content: View>: View {
     var body: some View {
         if item.feedData?.feed?.browserView == true {
             Button {
-                SafariUtility.openLink(
-                    url: item.link,
-                    readerMode: item.feedData?.feed?.readerMode ?? false
-                )
+                if useInbuiltBrowser {
+                    SafariUtility.openLink(
+                        url: item.link,
+                        readerMode: item.feedData?.feed?.readerMode ?? false
+                    )
+                } else {
+                    if let url = item.link {
+                        openURL(url)
+                    }
+                }
                 Task {
                     await SyncUtility.markItemRead(item: item)
                 }

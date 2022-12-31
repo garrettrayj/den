@@ -1,5 +1,5 @@
 //
-//  BottomBarButtonStyle.swift
+//  PlainToolbarButtonStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/26/22.
@@ -20,10 +20,10 @@ struct PlainToolbarButtonStyle: ButtonStyle {
             .foregroundColor(
                 isEnabled ?
                     configuration.isPressed ?
-                        Color.primary
+                        Color.secondary.opacity(0.5)
                         :
                         hovering ?
-                            Color.primary.opacity(0.75)
+                            Color.secondary.opacity(0.75)
                             :
                             Color.secondary
                     :

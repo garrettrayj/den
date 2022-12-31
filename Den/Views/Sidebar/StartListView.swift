@@ -30,7 +30,7 @@ struct StartListView: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 } label: {
-                    Label("Add Page", systemImage: "plus")
+                    Label("Add a New Page", systemImage: "plus")
                 }
                 .buttonStyle(.borderless)
                 .modifier(StartRowModifier())
@@ -39,7 +39,7 @@ struct StartListView: View {
                 Button {
                     loadDemo()
                 } label: {
-                    Label("Load Demo", systemImage: "wand.and.stars")
+                    Label("Load Demo Feeds", systemImage: "wand.and.stars")
                 }
                 .buttonStyle(.borderless)
                 .modifier(StartRowModifier())
@@ -53,7 +53,7 @@ struct StartListView: View {
             }
             .lineLimit(1)
         }
-        .listStyle(.grouped)
+        .listStyle(.insetGrouped)
         .navigationTitle(profile.displayName)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
@@ -62,7 +62,7 @@ struct StartListView: View {
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
-                .buttonStyle(BottomBarButtonStyle())
+                .buttonStyle(PlainToolbarButtonStyle())
                 .accessibilityIdentifier("settings-button")
             }
             ToolbarItem(placement: .bottomBar) {

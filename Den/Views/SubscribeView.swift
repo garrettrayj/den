@@ -70,7 +70,7 @@ struct SubscribeView: View {
                             Button { dismiss() } label: {
                                 Label("Cancel", systemImage: "xmark.circle")
                             }
-                            .buttonStyle(ToolbarButtonStyle())
+                            .buttonStyle(PlainToolbarButtonStyle())
                             .accessibilityIdentifier("subscribe-cancel-button")
                         }
                     }

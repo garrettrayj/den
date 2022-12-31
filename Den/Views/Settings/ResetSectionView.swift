@@ -14,6 +14,7 @@ struct ResetSectionView: View {
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfileID: String?
+    @Binding var lastProfileID: String?
 
     @ObservedObject var profile: Profile
 
