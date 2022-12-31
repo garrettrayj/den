@@ -17,6 +17,7 @@ struct ContentView: View {
     @ObservedObject var profile: Profile
 
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var lastProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
 
     @StateObject private var searchModel = SearchModel()
@@ -42,11 +43,16 @@ struct ContentView: View {
                 selection: $selection,
                 refreshing: $refreshing
             )
+            #if targetEnvironment(macCatalyst)
             .navigationSplitViewColumnWidth(240)
+            #else
+            .navigationSplitViewColumnWidth(280)
+            #endif
             .disabled(refreshing)
         } detail: {
             DetailView(
                 activeProfileID: $activeProfileID,
+                lastProfileID: $lastProfileID,
                 selection: $selection,
                 uiStyle: $uiStyle,
                 autoRefreshEnabled: $autoRefreshEnabled,

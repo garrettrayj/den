@@ -15,6 +15,7 @@ struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var lastProfileID: String?
 
     @State private var showCrashMessage = false
 
@@ -41,6 +42,7 @@ struct RootView: View {
                     ContentView(
                         profile: profile,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                        lastProfileID: $lastProfileID,
                         uiStyle: $uiStyle
                     )
                 }
@@ -75,7 +77,11 @@ struct RootView: View {
     }
     
     private func loadProfile() {
-        let profile = profiles.first ?? ProfileUtility.createDefaultProfile(context: viewContext)
+        let profile = profiles.first { $0.id?.uuidString == lastProfileID }
+                        ?? profiles.first
+                        ?? ProfileUtility.createDefaultProfile(context: viewContext)
+        
         activeProfileID = profile.id?.uuidString
+        lastProfileID = profile.id?.uuidString
     }
 }
