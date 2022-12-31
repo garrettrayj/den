@@ -51,7 +51,7 @@ struct NavigationListView: View {
                 editButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                AddFeedButtonView(selection: $selection)
+                AddFeedButtonView(selection: $selection, profile: profile)
             }
             ToolbarItem(placement: .bottomBar) {
                 SettingsButtonView(selection: $selection)

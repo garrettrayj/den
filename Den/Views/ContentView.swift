@@ -23,8 +23,6 @@ struct ContentView: View {
     @StateObject private var searchModel = SearchModel()
 
     @State private var refreshing: Bool = false
-    @State private var selection: Panel?
-    @State private var path = NavigationPath()
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
@@ -34,7 +32,8 @@ struct ContentView: View {
     @AppStorage("UseInbuiltBrowser") var useInbuiltBrowser: Bool = true
 
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
-    @SceneStorage("AutoRefreshDate") var autoRefreshDate: Double = 0.0
+    @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
+    @SceneStorage("PanelSelection") private var selection: Panel?
 
     var body: some View {
         NavigationSplitView {
@@ -65,8 +64,19 @@ struct ContentView: View {
             )
             .disabled(refreshing)
         }
+        .onChange(of: selection, perform: { newValue in
+            print("SELECTION VALUE CHANGED: \(selection)")
+        })
+        .onContinueUserActivity(DetailView.selectionUserActivityType) { userActivity in
+            print("CONTINUE USER ACTIVITY: \(userActivity)")
+            if let panel = try? userActivity.typedPayload(Panel.self) {
+                selection = panel
+            }
+        }
+        .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in
-            if case .page(let page) = selection {
+            if case .page(let uuidString) = selection {
+                let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString)
                 SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
             } else {
                 SubscriptionUtility.showSubscribe(for: url.absoluteString)
@@ -91,9 +101,6 @@ struct ContentView: View {
                 }
             default: break
             }
-        }
-        .onChange(of: selection) { _ in
-            path.removeLast(path.count)
         }
         .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
             subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""

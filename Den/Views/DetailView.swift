@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct DetailView: View {
+    static let selectionUserActivityType = "net.devsci.den.select-panel"
+    
     @Binding var activeProfileID: String?
     @Binding var lastProfileID: String?
     @Binding var selection: Panel?
@@ -21,11 +23,17 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
 
     let searchModel: SearchModel
-
+    
+    @StateObject private var navigationStore = NavigationStore(
+        urlHandler: DefaultURLHandler(),
+        activityHandler: DefaultActivityHandler()
+    )
+        
+    @SceneStorage("NavigationData") private var navigationData: Data?
     @SceneStorage("HideRead") private var hideRead: Bool = false
-
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationStore.path) {
             Group {
                 switch selection ?? .welcome {
                 case .welcome:
@@ -36,11 +44,14 @@ struct DetailView: View {
                     InboxView(profile: profile, hideRead: $hideRead)
                 case .trends:
                     TrendsView(profile: profile, hideRead: $hideRead)
-                case .page(let page):
-                    if page.managedObjectContext == nil {
-                        StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
-                    } else {
+                case .page(let uuidString):
+                    if
+                        let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString),
+                        page.managedObjectContext != nil
+                    {
                         PageView(page: page, hideRead: $hideRead)
+                    } else {
+                        StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
                     }
                 case .settings:
                     SettingsView(
@@ -53,6 +64,15 @@ struct DetailView: View {
                         useInbuiltBrowser: $useInbuiltBrowser,
                         profile: profile
                     )
+                }
+            }
+            .task {
+                if let navigationData {
+                    navigationStore.restore(from: navigationData)
+                }
+                
+                for await _ in navigationStore.$path.values {
+                    navigationData = navigationStore.encoded()
                 }
             }
             .navigationDestination(for: DetailPanel.self) { detailPanel in
@@ -91,6 +111,22 @@ struct DetailView: View {
                     }
                 }
             }
+            .userActivity(
+                DetailView.selectionUserActivityType,
+                isActive: true
+            ) { userActivity in
+                guard let panel = selection else { return }
+                print("UPDATING USER ACTIVITY: \(panel)")
+                describeUserActivity(userActivity, panel: panel)
+            }
         }
+    }
+    
+    func describeUserActivity(_ userActivity: NSUserActivity, panel: Panel) {
+        userActivity.title = "ShowPanel"
+        userActivity.isEligibleForHandoff = true
+        userActivity.isEligibleForSearch = true
+        userActivity.targetContentIdentifier = selection.debugDescription
+        try? userActivity.setTypedPayload(panel)
     }
 }
