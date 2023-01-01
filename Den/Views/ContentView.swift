@@ -2,118 +2,90 @@
 //  ContentView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 12/4/22.
+//  Created by Garrett Johnson on 9/2/22.
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
-import CoreData
-import OSLog
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @Environment(\.scenePhase) private var scenePhase
+    @Binding var activeProfileID: String?
+    @Binding var appProfileID: String?
+    @Binding var apexSelection: ApexPanel?
+    @Binding var uiStyle: UIUserInterfaceStyle
+    @Binding var autoRefreshEnabled: Bool
+    @Binding var autoRefreshCooldown: Int
+    @Binding var backgroundRefreshEnabled: Bool
+    @Binding var useInbuiltBrowser: Bool
 
     @ObservedObject var profile: Profile
 
-    @Binding var backgroundRefreshEnabled: Bool
-    @Binding var lastProfileID: String?
-    @Binding var uiStyle: UIUserInterfaceStyle
+    let searchModel: SearchModel
+    
+    @SceneStorage("HideRead") private var hideRead: Bool = false
+    @SceneStorage("NavigationData") private var navigationData: Data?
 
-    @StateObject private var searchModel = SearchModel()
-
-    @State private var refreshing: Bool = false
-    @State private var showSubscribe = false
-    @State private var subscribeURLString: String = ""
-    @State private var subscribePageObjectID: NSManagedObjectID?
-
-    @AppStorage("AutoRefreshEnabled") var autoRefreshEnabled: Bool = false
-    @AppStorage("AutoRefreshCooldown") var autoRefreshCooldown: Int = 30
-    @AppStorage("UseInbuiltBrowser") var useInbuiltBrowser: Bool = true
-
-    @SceneStorage("ActiveProfileID") private var activeProfileID: String?
-    @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
-    @SceneStorage("PanelSelection") private var selection: RootPanel?
-
+    @StateObject private var navigationStore = NavigationStore(
+        urlHandler: DefaultURLHandler(),
+        activityHandler: DefaultActivityHandler()
+    )
+    
     var body: some View {
-        NavigationSplitView {
-            SidebarView(
-                profile: profile,
-                searchModel: searchModel,
-                selection: $selection,
-                refreshing: $refreshing
-            )
-            #if targetEnvironment(macCatalyst)
-            .navigationSplitViewColumnWidth(240)
-            #else
-            .navigationSplitViewColumnWidth(280)
-            #endif
-            .disabled(refreshing)
-        } detail: {
-            DetailView(
-                activeProfileID: $activeProfileID,
-                lastProfileID: $lastProfileID,
-                selection: $selection,
-                uiStyle: $uiStyle,
-                autoRefreshEnabled: $autoRefreshEnabled,
-                autoRefreshCooldown: $autoRefreshCooldown,
-                backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                useInbuiltBrowser: $useInbuiltBrowser,
-                profile: profile,
-                searchModel: searchModel
-            )
-            .disabled(refreshing)
-        }
-        .environment(\.useInbuiltBrowser, useInbuiltBrowser)
-        .onOpenURL { url in
-            if case .page(let uuidString) = selection {
-                let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString)
-                SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
-            } else {
-                SubscriptionUtility.showSubscribe(for: url.absoluteString)
+        NavigationStack(path: $navigationStore.path) {
+            Group {
+                switch apexSelection ?? .welcome {
+                case .welcome:
+                    WelcomeView(profile: profile)
+                case .search:
+                    SearchView(profile: profile, searchModel: searchModel)
+                case .inbox:
+                    InboxView(profile: profile, hideRead: $hideRead)
+                case .trends:
+                    TrendsView(profile: profile, hideRead: $hideRead)
+                case .page(let uuidString):
+                    if
+                        let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString),
+                        page.managedObjectContext != nil
+                    {
+                        PageView(page: page, hideRead: $hideRead)
+                    } else {
+                        StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
+                    }
+                case .settings:
+                    SettingsView(
+                        activeProfileID: $activeProfileID,
+                        lastProfileID: $appProfileID,
+                        uiStyle: $uiStyle,
+                        autoRefreshEnabled: $autoRefreshEnabled,
+                        autoRefreshCooldown: $autoRefreshCooldown,
+                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                        useInbuiltBrowser: $useInbuiltBrowser,
+                        profile: profile
+                    )
+                }
             }
-        }
-        .modifier(
-            URLDropTargetModifier()
-        )
-        .onChange(of: scenePhase) { phase in
-            switch phase {
-            case .active:
-                if autoRefreshEnabled && !refreshing && (
-                    autoRefreshDate == 0.0 ||
-                    Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
-                ) {
-                    Logger.main.debug("Performing automatic refresh")
-                    Task {
-                        guard !refreshing else { return }
-                        await RefreshUtility.refresh(profile: profile)
-                        autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
+            .navigationDestination(for: DetailPanel.self) { detailPanel in
+                switch detailPanel {
+                case .feed(let feed):
+                    if feed.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
+                    } else {
+                        FeedView(feed: feed, hideRead: $hideRead)
+                    }
+                case .item(let item):
+                    if item.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
+                    } else {
+                        ItemView(item: item)
+                    }
+                case .trend(let trend):
+                    if trend.managedObjectContext == nil {
+                        StatusBoxView(message: Text("Trend Deleted"), symbol: "slash.circle")
+                    } else {
+                        TrendView(trend: trend, hideRead: $hideRead)
                     }
                 }
-            default: break
             }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
-            subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
-            subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
-            showSubscribe = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-            refreshing = true
-            Haptics.mediumImpactFeedbackGenerator.impactOccurred()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-            refreshing = false
-            profile.objectWillChange.send()
-            Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
-        }
-        .sheet(isPresented: $showSubscribe) {
-            SubscribeView(
-                initialPageObjectID: $subscribePageObjectID,
-                initialURLString: $subscribeURLString,
-                profile: profile
-            )
-            .environment(\.colorScheme, colorScheme)
         }
     }
 }

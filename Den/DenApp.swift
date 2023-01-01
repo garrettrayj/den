@@ -19,7 +19,7 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
-    @AppStorage("LastProfileID") var lastProfileID: String?
+    @AppStorage("AppProfileID") var appProfileID: String?
     
     let persistenceController = PersistenceController.shared
 
@@ -27,7 +27,7 @@ struct DenApp: App {
         WindowGroup {
             RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                lastProfileID: $lastProfileID
+                appProfileID: $appProfileID
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
@@ -68,7 +68,7 @@ struct DenApp: App {
             return
         }
         
-        for profile in profiles where profile.id?.uuidString == lastProfileID {
+        for profile in profiles where profile.id?.uuidString == appProfileID {
             await RefreshUtility.refresh(profile: profile)
         }
     }

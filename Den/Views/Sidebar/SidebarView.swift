@@ -14,7 +14,7 @@ struct SidebarView: View {
 
     let searchModel: SearchModel
 
-    @Binding var selection: RootPanel?
+    @Binding var apexSelection: ApexPanel?
     @Binding var refreshing: Bool
 
     @State private var searchInput: String = ""
@@ -23,13 +23,13 @@ struct SidebarView: View {
         if profile.pagesArray.isEmpty {
             StartListView(
                 profile: profile,
-                selection: $selection
+                apexSelection: $apexSelection
             )
         } else {
             NavigationListView(
                 profile: profile,
                 searchModel: searchModel,
-                selection: $selection,
+                apexSelection: $apexSelection,
                 refreshing: $refreshing
             )
         }

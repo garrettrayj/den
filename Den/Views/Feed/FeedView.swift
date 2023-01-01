@@ -55,12 +55,6 @@ struct FeedView: View {
                 }
             }
         }
-        .navigationDestination(for: FeedPanel.self) { panel in
-            switch panel {
-            case .feedSettings(let feed):
-                FeedSettingsView(feed: feed)
-            }
-        }
         .toolbar {
             ToolbarItemGroup {
                 NavigationLink(value: FeedPanel.feedSettings(feed)) {
