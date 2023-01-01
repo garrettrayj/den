@@ -29,7 +29,7 @@ struct PageNavView: View {
             }
             .modifier(URLDropTargetModifier(page: page))
             .accessibilityIdentifier("page-button")
-            .tag(Panel.page(page.id?.uuidString ?? ""))
+            .tag(RootPanel.page(page.id?.uuidString ?? ""))
         } else {
             Label {
                 Text(page.displayName).lineLimit(1)

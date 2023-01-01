@@ -16,7 +16,7 @@ struct NavigationListView: View {
 
     let searchModel: SearchModel
 
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
     @Binding var refreshing: Bool
 
     var body: some View {

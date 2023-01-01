@@ -14,7 +14,7 @@ struct StartListView: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
 
     var body: some View {
         List(selection: $selection) {

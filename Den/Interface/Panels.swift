@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Panel: Hashable, RawRepresentable, Decodable, Encodable{
+enum RootPanel: Hashable, RawRepresentable, Decodable, Encodable{
     var rawValue: String {
         switch self {
         case .page(let uuidString):
@@ -24,7 +24,7 @@ enum Panel: Hashable, RawRepresentable, Decodable, Encodable{
             self = .page(uuidString)
             return
         }
-        self = Panel.init(rawValue: rawValue)!
+        self = RootPanel.init(rawValue: rawValue)!
     }
     
     typealias RawValue = String
@@ -39,10 +39,16 @@ enum Panel: Hashable, RawRepresentable, Decodable, Encodable{
 
 enum DetailPanel: Hashable {
     case feed(Feed)
-    case feedSettings(Feed)
     case item(Item)
-    case pageSettings(Page)
     case trend(Trend)
+}
+
+enum PagePanel: Hashable {
+    case pageSettings(Page)
+}
+
+enum FeedPanel: Hashable {
+    case feedSettings(Feed)
 }
 
 enum SettingsPanel: Hashable {
