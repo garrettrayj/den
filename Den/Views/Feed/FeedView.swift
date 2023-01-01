@@ -57,7 +57,7 @@ struct FeedView: View {
         }
         .toolbar {
             ToolbarItemGroup {
-                NavigationLink(value: FeedPanel.feedSettings(feed.id!.uuidString)) {
+                NavigationLink(value: DetailPanel.feedSettings(feed)) {
                     Label("Feed Settings", systemImage: "wrench")
                 }
                 .buttonStyle(ToolbarButtonStyle())

@@ -22,6 +22,7 @@ struct SplitView: View {
 
     @StateObject private var searchModel = SearchModel()
 
+    @State private var contentSelection: ContentPanel?
     @State private var refreshing: Bool = false
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
@@ -33,7 +34,6 @@ struct SplitView: View {
 
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
     @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
-    @SceneStorage("contentSelection") private var contentSelection: ContentPanel?
 
     var body: some View {
         NavigationSplitView {
@@ -66,8 +66,7 @@ struct SplitView: View {
         }
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in
-            if case .page(let uuidString) = contentSelection {
-                let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString)
+            if case .page(let page) = contentSelection {
                 SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
             } else {
                 SubscriptionUtility.showSubscribe(for: url.absoluteString)

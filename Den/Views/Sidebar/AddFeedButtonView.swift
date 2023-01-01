@@ -18,8 +18,7 @@ struct AddFeedButtonView: View {
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Button {
-                if case .page(let uuidString) = contentSelection {
-                    let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString)
+                if case .page(let page) = contentSelection {
                     SubscriptionUtility.showSubscribe(page: page)
                 } else {
                     SubscriptionUtility.showSubscribe()

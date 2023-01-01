@@ -9,31 +9,11 @@
 import Foundation
 
 /// Raw representable so values may be stored in scene storage
-enum ContentPanel: Hashable, RawRepresentable, Decodable, Encodable {
-    typealias RawValue = String
-    
+enum ContentPanel: Hashable {
     case welcome
     case search
     case inbox
     case trends
-    case page(String)
+    case page(Page)
     case settings
-    
-    init?(rawValue: String) {
-        if rawValue.contains("page-") {
-            let uuidString = rawValue.replacingOccurrences(of: "page-", with: "")
-            self = .page(uuidString)
-            return
-        }
-        self = ContentPanel.init(rawValue: rawValue)!
-    }
-    
-    var rawValue: String {
-        switch self {
-        case .page(let uuidString):
-            return "page-\(uuidString)"
-        default:
-            return String(describing: self)
-        }
-    }
 }

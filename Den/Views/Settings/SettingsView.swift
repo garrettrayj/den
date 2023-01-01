@@ -44,8 +44,8 @@ struct SettingsView: View {
         .navigationTitle("Settings")
         .navigationDestination(for: SettingsPanel.self) { settingsPanel in
             switch settingsPanel {
-            case .profile(let uuidString):
-                if let profile = profiles.firstMatchingID(uuidString), profile.managedObjectContext != nil {
+            case .profileSettings(let profile):
+                if profile.managedObjectContext != nil {
                     ProfileView(
                         activeProfileID: $activeProfileID,
                         lastProfileID: $lastProfileID,
