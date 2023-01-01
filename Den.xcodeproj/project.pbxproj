@@ -43,9 +43,7 @@
 		683573892960489900843A8E /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683573882960489900843A8E /* NavigationStore.swift */; };
 		6835738C29614C3A00843A8E /* ContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738B29614C3A00843A8E /* ContentPanel.swift */; };
 		6835738E29614C5600843A8E /* DetailPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738D29614C5600843A8E /* DetailPanel.swift */; };
-		6835739029614C6200843A8E /* PagePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738F29614C6200843A8E /* PagePanel.swift */; };
 		6835739229614C6E00843A8E /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835739129614C6E00843A8E /* SettingsPanel.swift */; };
-		6835739429614D9000843A8E /* FeedPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835739329614D9000843A8E /* FeedPanel.swift */; };
 		683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CEC5F250966410005F305 /* Bundle+Extensions.swift */; };
 		683E3F43293BBB1900B16814 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */; };
 		683E3F45293BC02A00B16814 /* AddFeedButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */; };
@@ -296,9 +294,7 @@
 		683573882960489900843A8E /* NavigationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
 		6835738B29614C3A00843A8E /* ContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPanel.swift; sourceTree = "<group>"; };
 		6835738D29614C5600843A8E /* DetailPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPanel.swift; sourceTree = "<group>"; };
-		6835738F29614C6200843A8E /* PagePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagePanel.swift; sourceTree = "<group>"; };
 		6835739129614C6E00843A8E /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
-		6835739329614D9000843A8E /* FeedPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPanel.swift; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		683E3F42293BBB1900B16814 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 		683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedButtonView.swift; sourceTree = "<group>"; };
@@ -557,9 +553,7 @@
 			children = (
 				6835738B29614C3A00843A8E /* ContentPanel.swift */,
 				6835738D29614C5600843A8E /* DetailPanel.swift */,
-				6835738F29614C6200843A8E /* PagePanel.swift */,
 				6835739129614C6E00843A8E /* SettingsPanel.swift */,
-				6835739329614D9000843A8E /* FeedPanel.swift */,
 			);
 			path = Panels;
 			sourceTree = "<group>";
@@ -1387,7 +1381,6 @@
 				687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedSettingsView.swift in Sources */,
 				683E3F4D293C1B9400B16814 /* BottomBarProgressViewStyle.swift in Sources */,
-				6835739429614D9000843A8E /* FeedPanel.swift in Sources */,
 				68FF63F42921D9C50012A275 /* ToggleReadButtonView.swift in Sources */,
 				68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
@@ -1428,7 +1421,6 @@
 				68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */,
 				6829A4FC28C2744900F75C5A /* ContentView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
-				6835739029614C6200843A8E /* PagePanel.swift in Sources */,
 				68CE2C3D28CEEBF000ED1CF9 /* HeroImageView.swift in Sources */,
 				68D9BAA428A60DF300F1A3AD /* AboutSectionView.swift in Sources */,
 				68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */,

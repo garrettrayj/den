@@ -16,7 +16,7 @@ struct FeedItemPreviewView: View {
     var body: some View {
         if let feed = item.feedData?.feed {
             VStack(alignment: .leading, spacing: 0) {
-                NavigationLink(value: DetailPanel.feed(feed.id!.uuidString)) {
+                NavigationLink(value: DetailPanel.feed(feed)) {
                     HStack {
                         FeedTitleLabelView(
                             title: item.feedData?.feed?.wrappedTitle ?? "Untitled",

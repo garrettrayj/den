@@ -19,7 +19,7 @@ struct ProfilesSectionView: View {
     var body: some View {
         Section {
             ForEach(profiles) { profile in
-                NavigationLink(value: SettingsPanel.profile(profile.id!.uuidString)) {
+                NavigationLink(value: SettingsPanel.profileSettings(profile)) {
                     Label(
                         profile.displayName,
                         systemImage: profile.id?.uuidString == activeProfileID ? "hexagon.fill" : "hexagon"
