@@ -14,7 +14,7 @@ struct SidebarView: View {
 
     let searchModel: SearchModel
 
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
     @Binding var refreshing: Bool
 
     @State private var searchInput: String = ""

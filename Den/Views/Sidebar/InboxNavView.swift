@@ -16,7 +16,7 @@ struct InboxNavView: View {
 
     let searchModel: SearchModel
 
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
 
     @State private var searchInput = ""
 
@@ -36,7 +36,7 @@ struct InboxNavView: View {
                 selection = .search
             }
             .accessibilityIdentifier("inbox-button")
-            .tag(Panel.inbox)
+            .tag(RootPanel.inbox)
         }
     }
 }

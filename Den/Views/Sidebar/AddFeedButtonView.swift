@@ -11,7 +11,7 @@ import SwiftUI
 struct AddFeedButtonView: View {
     @Environment(\.editMode) private var editMode
 
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
     
     let profile: Profile
 

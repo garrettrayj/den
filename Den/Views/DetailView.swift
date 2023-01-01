@@ -13,7 +13,7 @@ struct DetailView: View {
     
     @Binding var activeProfileID: String?
     @Binding var lastProfileID: String?
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
@@ -24,13 +24,13 @@ struct DetailView: View {
 
     let searchModel: SearchModel
     
+    @SceneStorage("HideRead") private var hideRead: Bool = false
+    @SceneStorage("NavigationData") private var navigationData: Data?
+
     @StateObject private var navigationStore = NavigationStore(
         urlHandler: DefaultURLHandler(),
         activityHandler: DefaultActivityHandler()
     )
-        
-    @SceneStorage("NavigationData") private var navigationData: Data?
-    @SceneStorage("HideRead") private var hideRead: Bool = false
     
     var body: some View {
         NavigationStack(path: $navigationStore.path) {
@@ -66,15 +66,6 @@ struct DetailView: View {
                     )
                 }
             }
-            .task {
-                if let navigationData {
-                    navigationStore.restore(from: navigationData)
-                }
-                
-                for await _ in navigationStore.$path.values {
-                    navigationData = navigationStore.encoded()
-                }
-            }
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 Group {
                     switch detailPanel {
@@ -90,18 +81,6 @@ struct DetailView: View {
                         } else {
                             ItemView(item: item)
                         }
-                    case .pageSettings(let page):
-                        if page.managedObjectContext == nil {
-                            StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
-                        } else {
-                            PageSettingsView(page: page)
-                        }
-                    case .feedSettings(let feed):
-                        if feed.managedObjectContext == nil {
-                            StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
-                        } else {
-                            FeedSettingsView(feed: feed)
-                        }
                     case .trend(let trend):
                         if trend.managedObjectContext == nil {
                             StatusBoxView(message: Text("Trend Deleted"), symbol: "slash.circle")
@@ -111,22 +90,6 @@ struct DetailView: View {
                     }
                 }
             }
-            .userActivity(
-                DetailView.selectionUserActivityType,
-                isActive: true
-            ) { userActivity in
-                guard let panel = selection else { return }
-                print("UPDATING USER ACTIVITY: \(panel)")
-                describeUserActivity(userActivity, panel: panel)
-            }
         }
-    }
-    
-    func describeUserActivity(_ userActivity: NSUserActivity, panel: Panel) {
-        userActivity.title = "ShowPanel"
-        userActivity.isEligibleForHandoff = true
-        userActivity.isEligibleForSearch = true
-        userActivity.targetContentIdentifier = selection.debugDescription
-        try? userActivity.setTypedPayload(panel)
     }
 }

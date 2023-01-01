@@ -11,7 +11,7 @@ import SwiftUI
 struct SettingsButtonView: View {
     @Environment(\.editMode) private var editMode
 
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
 
     var body: some View {
         if editMode?.wrappedValue == .inactive {

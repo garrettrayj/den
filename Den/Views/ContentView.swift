@@ -33,7 +33,7 @@ struct ContentView: View {
 
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
     @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
-    @SceneStorage("PanelSelection") private var selection: Panel?
+    @SceneStorage("PanelSelection") private var selection: RootPanel?
 
     var body: some View {
         NavigationSplitView {
@@ -63,15 +63,6 @@ struct ContentView: View {
                 searchModel: searchModel
             )
             .disabled(refreshing)
-        }
-        .onChange(of: selection, perform: { newValue in
-            print("SELECTION VALUE CHANGED: \(selection)")
-        })
-        .onContinueUserActivity(DetailView.selectionUserActivityType) { userActivity in
-            print("CONTINUE USER ACTIVITY: \(userActivity)")
-            if let panel = try? userActivity.typedPayload(Panel.self) {
-                selection = panel
-            }
         }
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in

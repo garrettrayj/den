@@ -78,7 +78,7 @@ struct PageView: View {
                 }
                 
                 ToolbarItem {
-                    NavigationLink(value: DetailPanel.pageSettings(page)) {
+                    NavigationLink(value: PagePanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
                     .buttonStyle(ToolbarButtonStyle())
@@ -92,6 +92,12 @@ struct PageView: View {
                         hideRead: $hideRead
                     )
                 }
+            }
+        }
+        .navigationDestination(for: PagePanel.self) { panel in
+            switch panel {
+            case .pageSettings(let page):
+                PageSettingsView(page: page)
             }
         }
         .background(Color(UIColor.systemGroupedBackground))

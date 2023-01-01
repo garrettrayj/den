@@ -15,7 +15,7 @@ struct NewPageView: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var selection: Panel?
+    @Binding var selection: RootPanel?
 
     var body: some View {
         if editMode?.wrappedValue == .active {
