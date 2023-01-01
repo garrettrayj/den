@@ -29,7 +29,7 @@ struct PageNavView: View {
             }
             .modifier(URLDropTargetModifier(page: page))
             .accessibilityIdentifier("page-button")
-            .tag(RootPanel.page(page.id?.uuidString ?? ""))
+            .tag(ApexPanel.page(page.id?.uuidString ?? ""))
         } else {
             Label {
                 Text(page.displayName).lineLimit(1)

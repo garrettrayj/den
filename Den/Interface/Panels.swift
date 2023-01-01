@@ -8,25 +8,8 @@
 
 import Foundation
 
-enum RootPanel: Hashable, RawRepresentable, Decodable, Encodable{
-    var rawValue: String {
-        switch self {
-        case .page(let uuidString):
-            return "page-\(uuidString)"
-        default:
-            return String(describing: self)
-        }
-    }
-    
-    init?(rawValue: String) {
-        if rawValue.contains("page-") {
-            let uuidString = rawValue.replacingOccurrences(of: "page-", with: "")
-            self = .page(uuidString)
-            return
-        }
-        self = RootPanel.init(rawValue: rawValue)!
-    }
-    
+/// Raw representable so values may be stored in scene storage
+enum ApexPanel: Hashable, RawRepresentable, Decodable, Encodable{
     typealias RawValue = String
     
     case welcome
@@ -35,6 +18,24 @@ enum RootPanel: Hashable, RawRepresentable, Decodable, Encodable{
     case trends
     case page(String)
     case settings
+    
+    init?(rawValue: String) {
+        if rawValue.contains("page-") {
+            let uuidString = rawValue.replacingOccurrences(of: "page-", with: "")
+            self = .page(uuidString)
+            return
+        }
+        self = ApexPanel.init(rawValue: rawValue)!
+    }
+    
+    var rawValue: String {
+        switch self {
+        case .page(let uuidString):
+            return "page-\(uuidString)"
+        default:
+            return String(describing: self)
+        }
+    }
 }
 
 enum DetailPanel: Hashable {

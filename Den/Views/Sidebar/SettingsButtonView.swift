@@ -11,12 +11,12 @@ import SwiftUI
 struct SettingsButtonView: View {
     @Environment(\.editMode) private var editMode
 
-    @Binding var selection: RootPanel?
+    @Binding var apexSelection: ApexPanel?
 
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Button {
-                selection = .settings
+                apexSelection = .settings
             } label: {
                 Label("Settings", systemImage: "gear")
             }

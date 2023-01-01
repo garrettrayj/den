@@ -16,7 +16,7 @@ struct InboxNavView: View {
 
     let searchModel: SearchModel
 
-    @Binding var selection: RootPanel?
+    @Binding var apexSelection: ApexPanel?
 
     @State private var searchInput = ""
 
@@ -33,10 +33,10 @@ struct InboxNavView: View {
             )
             .onSubmit(of: .search) {
                 searchModel.query = searchInput
-                selection = .search
+                apexSelection = .search
             }
             .accessibilityIdentifier("inbox-button")
-            .tag(RootPanel.inbox)
+            .tag(ApexPanel.inbox)
         }
     }
 }

@@ -22,7 +22,7 @@ struct TrendsNavView: View {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
             .accessibilityIdentifier("timeline-button")
-            .tag(RootPanel.trends)
+            .tag(ApexPanel.trends)
         }
     }
 }

@@ -15,20 +15,20 @@ struct RootView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var lastProfileID: String?
+    @Binding var appProfileID: String?
 
     @State private var showCrashMessage = false
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
-    @SceneStorage("ActiveProfileID") private var activeProfileID: String?
+    @SceneStorage("ActiveProfileID") private var sceneProfileID: String?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
 
     var activeProfile: Profile? {
-        guard let activeProfileID = activeProfileID else { return nil }
-        return profiles.first(where: {$0.id?.uuidString == activeProfileID})
+        guard let sceneProfileID = sceneProfileID else { return nil }
+        return profiles.first(where: {$0.id?.uuidString == sceneProfileID})
     }
 
     var body: some View {
@@ -39,10 +39,10 @@ struct RootView: View {
                 if profile.managedObjectContext == nil {
                     Text("Profile Deleted").onAppear { loadProfile() }
                 } else {
-                    ContentView(
+                    SplitView(
                         profile: profile,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        lastProfileID: $lastProfileID,
+                        appProfileID: $appProfileID,
                         uiStyle: $uiStyle
                     )
                 }
@@ -77,11 +77,11 @@ struct RootView: View {
     }
     
     private func loadProfile() {
-        let profile = profiles.first { $0.id?.uuidString == lastProfileID }
+        let profile = profiles.first { $0.id?.uuidString == appProfileID }
                         ?? profiles.first
                         ?? ProfileUtility.createDefaultProfile(context: viewContext)
         
-        activeProfileID = profile.id?.uuidString
-        lastProfileID = profile.id?.uuidString
+        sceneProfileID = profile.id?.uuidString
+        appProfileID = profile.id?.uuidString
     }
 }
