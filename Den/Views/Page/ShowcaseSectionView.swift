@@ -41,7 +41,7 @@ struct ShowcaseSectionView: View {
                     .padding()
             }
         } header: {
-            NavigationLink(value: DetailPanel.feed(feed)) {
+            NavigationLink(value: DetailPanel.feed(feed.id!.uuidString)) {
                 HStack {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,

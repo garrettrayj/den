@@ -11,14 +11,15 @@ import SwiftUI
 struct ProfilesSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var activeProfileID: String?
-
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
+    
 
     var body: some View {
         Section {
             ForEach(profiles) { profile in
-                NavigationLink(value: SettingsPanel.profile(profile)) {
+                NavigationLink(value: SettingsPanel.profile(profile.id!.uuidString)) {
                     Label(
                         profile.displayName,
                         systemImage: profile.id?.uuidString == activeProfileID ? "hexagon.fill" : "hexagon"

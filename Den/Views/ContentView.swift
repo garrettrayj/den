@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @Binding var activeProfileID: String?
     @Binding var appProfileID: String?
-    @Binding var apexSelection: ApexPanel?
+    @Binding var contentSelection: ContentPanel?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
@@ -33,7 +33,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $navigationStore.path) {
             Group {
-                switch apexSelection ?? .welcome {
+                switch contentSelection ?? .welcome {
                 case .welcome:
                     WelcomeView(profile: profile)
                 case .search:
@@ -64,25 +64,46 @@ struct ContentView: View {
                     )
                 }
             }
+            .onChange(of: contentSelection) { _ in
+                navigationStore.path.removeLast(navigationStore.path.count)
+                navigationData = navigationStore.encoded()
+            }
+            .task {
+                if let navigationData {
+                    navigationStore.restore(from: navigationData)
+                }
+                for await _ in navigationStore.$path.values {
+                    navigationData = navigationStore.encoded()
+                }
+            }
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 switch detailPanel {
-                case .feed(let feed):
-                    if feed.managedObjectContext == nil {
-                        StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
-                    } else {
+                case .feed(let uuidString):
+                    if
+                        let feed = profile.feedsArray.firstMatchingID(uuidString),
+                        feed.managedObjectContext != nil
+                    {
                         FeedView(feed: feed, hideRead: $hideRead)
-                    }
-                case .item(let item):
-                    if item.managedObjectContext == nil {
-                        StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
                     } else {
+                        StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
+                    }
+                case .item(let uuidString):
+                    if
+                        let item = profile.previewItems.firstMatchingID(uuidString),
+                        item.managedObjectContext != nil
+                    {
                         ItemView(item: item)
-                    }
-                case .trend(let trend):
-                    if trend.managedObjectContext == nil {
-                        StatusBoxView(message: Text("Trend Deleted"), symbol: "slash.circle")
                     } else {
+                        StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
+                    }
+                case .trend(let uuidString):
+                    if
+                        let trend = profile.trends.firstMatchingID(uuidString),
+                        trend.managedObjectContext != nil
+                    {
                         TrendView(trend: trend, hideRead: $hideRead)
+                    } else {
+                        StatusBoxView(message: Text("Trend Deleted"), symbol: "slash.circle")
                     }
                 }
             }

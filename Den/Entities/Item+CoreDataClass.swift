@@ -116,7 +116,13 @@ public class Item: NSManagedObject {
     }
 }
 
-extension Array where Element == Item {
+extension Collection where Element == Item {
+    func firstMatchingID(_ uuidString: String) -> Item? {
+        self.first { item in
+            item.id?.uuidString == uuidString
+        }
+    }
+    
     func read() -> [Item] {
         self.filter { item in
             item.read == true

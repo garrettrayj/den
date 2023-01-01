@@ -1,15 +1,15 @@
 //
-//  Panels.swift
+//  ContentPanel.swift
 //  Den
 //
-//  Created by Garrett Johnson on 9/10/22.
+//  Created by Garrett Johnson on 12/31/22.
 //  Copyright © 2022 Garrett Johnson. All rights reserved.
 //
 
 import Foundation
 
 /// Raw representable so values may be stored in scene storage
-enum ApexPanel: Hashable, RawRepresentable, Decodable, Encodable{
+enum ContentPanel: Hashable, RawRepresentable, Decodable, Encodable {
     typealias RawValue = String
     
     case welcome
@@ -25,7 +25,7 @@ enum ApexPanel: Hashable, RawRepresentable, Decodable, Encodable{
             self = .page(uuidString)
             return
         }
-        self = ApexPanel.init(rawValue: rawValue)!
+        self = ContentPanel.init(rawValue: rawValue)!
     }
     
     var rawValue: String {
@@ -36,25 +36,4 @@ enum ApexPanel: Hashable, RawRepresentable, Decodable, Encodable{
             return String(describing: self)
         }
     }
-}
-
-enum DetailPanel: Hashable {
-    case feed(Feed)
-    case item(Item)
-    case trend(Trend)
-}
-
-enum PagePanel: Hashable {
-    case pageSettings(Page)
-}
-
-enum FeedPanel: Hashable {
-    case feedSettings(Feed)
-}
-
-enum SettingsPanel: Hashable {
-    case profile(Profile)
-    case importFeeds
-    case exportFeeds
-    case security
 }

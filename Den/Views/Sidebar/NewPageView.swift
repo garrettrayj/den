@@ -15,7 +15,7 @@ struct NewPageView: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var apexSelection: ApexPanel?
+    @Binding var contentSelection: ContentPanel?
 
     var body: some View {
         if editMode?.wrappedValue == .active {

@@ -11,14 +11,14 @@ import SwiftUI
 struct AddFeedButtonView: View {
     @Environment(\.editMode) private var editMode
 
-    @Binding var apexSelection: ApexPanel?
+    @Binding var contentSelection: ContentPanel?
     
     let profile: Profile
 
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Button {
-                if case .page(let uuidString) = apexSelection {
+                if case .page(let uuidString) = contentSelection {
                     let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString)
                     SubscriptionUtility.showSubscribe(page: page)
                 } else {

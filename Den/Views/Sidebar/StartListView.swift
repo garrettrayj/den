@@ -14,10 +14,10 @@ struct StartListView: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var apexSelection: ApexPanel?
+    @Binding var contentSelection: ContentPanel?
 
     var body: some View {
-        List(selection: $apexSelection) {
+        List(selection: $contentSelection) {
             Section {
                 Button {
                     _ = Page.create(in: viewContext, profile: profile, prepend: true)
@@ -58,7 +58,7 @@ struct StartListView: View {
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    apexSelection = .settings
+                    contentSelection = .settings
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
