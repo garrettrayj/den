@@ -16,18 +16,18 @@ struct NavigationListView: View {
 
     let searchModel: SearchModel
 
-    @Binding var apexSelection: ApexPanel?
+    @Binding var contentSelection: ContentPanel?
     @Binding var refreshing: Bool
 
     var body: some View {
-        List(selection: $apexSelection) {
+        List(selection: $contentSelection) {
             InboxNavView(
                 profile: profile,
                 searchModel: searchModel,
-                apexSelection: $apexSelection
+                contentSelection: $contentSelection
             )
             TrendsNavView(profile: profile)
-            NewPageView(profile: profile, apexSelection: $apexSelection)
+            NewPageView(profile: profile, contentSelection: $contentSelection)
             Section {
                 ForEach(profile.pagesArray) { page in
                     PageNavView(profile: profile, page: page)
@@ -51,10 +51,10 @@ struct NavigationListView: View {
                 editButton
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                AddFeedButtonView(apexSelection: $apexSelection, profile: profile)
+                AddFeedButtonView(contentSelection: $contentSelection, profile: profile)
             }
             ToolbarItem(placement: .bottomBar) {
-                SettingsButtonView(apexSelection: $apexSelection)
+                SettingsButtonView(contentSelection: $contentSelection)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()

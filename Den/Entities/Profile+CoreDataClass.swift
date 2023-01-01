@@ -147,3 +147,11 @@ public class Profile: NSManagedObject {
         return newProfile
     }
 }
+
+extension Collection where Element == Profile {
+    func firstMatchingID(_ uuidString: String) -> Profile? {
+        self.first { profile in
+            profile.id?.uuidString == uuidString
+        }
+    }
+}

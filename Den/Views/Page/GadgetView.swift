@@ -45,7 +45,7 @@ struct GadgetView: View {
 
     private var header: some View {
         HStack {
-            NavigationLink(value: DetailPanel.feed(feed)) {
+            NavigationLink(value: DetailPanel.feed(feed.id!.uuidString)) {
                 HStack {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,

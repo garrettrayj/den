@@ -33,14 +33,14 @@ struct SplitView: View {
 
     @SceneStorage("ActiveProfileID") private var activeProfileID: String?
     @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
-    @SceneStorage("ApexSelection") private var apexSelection: ApexPanel?
+    @SceneStorage("contentSelection") private var contentSelection: ContentPanel?
 
     var body: some View {
         NavigationSplitView {
             SidebarView(
                 profile: profile,
                 searchModel: searchModel,
-                apexSelection: $apexSelection,
+                contentSelection: $contentSelection,
                 refreshing: $refreshing
             )
             #if targetEnvironment(macCatalyst)
@@ -53,7 +53,7 @@ struct SplitView: View {
             ContentView(
                 activeProfileID: $activeProfileID,
                 appProfileID: $appProfileID,
-                apexSelection: $apexSelection,
+                contentSelection: $contentSelection,
                 uiStyle: $uiStyle,
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
@@ -66,7 +66,7 @@ struct SplitView: View {
         }
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in
-            if case .page(let uuidString) = apexSelection {
+            if case .page(let uuidString) = contentSelection {
                 let page = profile.pagesArray.firstMatchingUUIDString(uuidString: uuidString)
                 SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
             } else {

@@ -83,3 +83,11 @@ public class Feed: NSManagedObject {
         return feed
     }
 }
+
+extension Collection where Element == Feed {
+    func firstMatchingID(_ uuidString: String) -> Feed? {
+        self.first { feed in
+            feed.id?.uuidString == uuidString
+        }
+    }
+}

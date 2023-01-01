@@ -18,6 +18,9 @@ struct SettingsView: View {
     @Binding var useInbuiltBrowser: Bool
 
     let profile: Profile
+    
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
+    private var profiles: FetchedResults<Profile>
 
     var body: some View {
         Form {
@@ -41,16 +44,16 @@ struct SettingsView: View {
         .navigationTitle("Settings")
         .navigationDestination(for: SettingsPanel.self) { settingsPanel in
             switch settingsPanel {
-            case .profile(let profile):
-                if profile.managedObjectContext == nil {
-                    StatusBoxView(message: Text("Profile Deleted"), symbol: "slash.circle")
-                } else {
+            case .profile(let uuidString):
+                if let profile = profiles.firstMatchingID(uuidString), profile.managedObjectContext != nil {
                     ProfileView(
                         activeProfileID: $activeProfileID,
                         lastProfileID: $lastProfileID,
                         profile: profile,
                         nameInput: profile.wrappedName
                     )
+                } else {
+                    StatusBoxView(message: Text("Profile Deleted"), symbol: "slash.circle")
                 }
             case .importFeeds:
                 ImportView(profile: profile)

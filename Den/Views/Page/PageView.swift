@@ -78,7 +78,7 @@ struct PageView: View {
                 }
                 
                 ToolbarItem {
-                    NavigationLink(value: PagePanel.pageSettings(page)) {
+                    NavigationLink(value: PagePanel.pageSettings(page.id!.uuidString)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
                     .buttonStyle(ToolbarButtonStyle())
@@ -96,7 +96,8 @@ struct PageView: View {
         }
         .navigationDestination(for: PagePanel.self) { panel in
             switch panel {
-            case .pageSettings(let page):
+            case .pageSettings:
+                
                 PageSettingsView(page: page)
             }
         }
