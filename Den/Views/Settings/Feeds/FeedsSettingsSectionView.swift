@@ -1,5 +1,5 @@
 //
-//  FeedsSectionView.swift
+//  FeedsSettingsSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedsSectionView: View {
+struct FeedsSettingsSectionView: View {
     var body: some View {
         Section(header: Text("Feeds")) {
             NavigationLink(value: SettingsPanel.importFeeds) {

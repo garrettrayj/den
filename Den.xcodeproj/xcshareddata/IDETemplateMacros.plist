@@ -4,12 +4,11 @@
 <dict>
     <key>FILEHEADER</key>
     <string>
+//  ___FILEBASENAME___.swift
+//  ___PACKAGENAME___
 //
-//  FILE_NAME.swift
-//  MODULE_NAME
-//
-//  Created by AUTHOR on DD/MM/yyyy.
-//  Copyright © yyyy ORGANIZATION
+//  Created by ___FULLUSERNAME___ on ___DATE___.
+//  Copyright © ___YEAR___ ___ORGANIZATIONNAME___
 //
 //  SPDX-License-Identifier: MIT
 //</string>

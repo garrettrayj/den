@@ -12,7 +12,7 @@ import Foundation
 
 import FeedKit
 
-extension AtomFeedEntry: ParsedFeedItem {
+extension AtomFeedEntry: LinkableItem {
     var linkURL: URL? {
         guard
             let linkString = self.links?.first(where: { atomLink in

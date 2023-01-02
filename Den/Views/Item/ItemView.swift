@@ -88,7 +88,7 @@ struct ItemView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            await SyncUtility.markItemRead(item: item)
+            await HistoryUtility.markItemRead(item: item)
         }
     }
 }

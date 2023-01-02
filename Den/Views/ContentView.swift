@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Binding var activeProfileID: String?
+    @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var contentSelection: ContentPanel?
     @Binding var uiStyle: UIUserInterfaceStyle
@@ -25,12 +25,9 @@ struct ContentView: View {
     let searchModel: SearchModel
     
     @SceneStorage("HideRead") private var hideRead: Bool = false
-    @SceneStorage("NavigationData") private var navigationData: Data?
-
-    @State private var navigationPath = NavigationPath()
     
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack {
             VStack {
                 switch contentSelection ?? .welcome {
                 case .welcome:
@@ -49,7 +46,7 @@ struct ContentView: View {
                     }
                 case .settings:
                     SettingsView(
-                        activeProfileID: $activeProfileID,
+                        sceneProfileID: $sceneProfileID,
                         appProfileID: $appProfileID,
                         uiStyle: $uiStyle,
                         autoRefreshEnabled: $autoRefreshEnabled,
@@ -98,8 +95,8 @@ struct ContentView: View {
                 switch settingsPanel {
                 case .profileSettings(let profile):
                     if profile.managedObjectContext != nil {
-                        ProfileView(
-                            activeProfileID: $activeProfileID,
+                        ProfileSettingsView(
+                            sceneProfileID: $sceneProfileID,
                             appProfileID: $appProfileID,
                             profile: profile,
                             nameInput: profile.wrappedName

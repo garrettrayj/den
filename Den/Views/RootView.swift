@@ -7,7 +7,6 @@
 //
 //  SPDX-License-Identifier: MIT
 //
-//
 
 import CoreData
 import OSLog

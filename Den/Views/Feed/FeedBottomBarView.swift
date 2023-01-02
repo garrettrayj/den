@@ -26,7 +26,7 @@ struct FeedBottomBarView: View {
             .fixedSize()
         Spacer()
         ToggleReadButtonView(unreadCount: feed.previewItems.unread().count) {
-            await SyncUtility.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
+            await HistoryUtility.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
             feed.objectWillChange.send()
         }
     }

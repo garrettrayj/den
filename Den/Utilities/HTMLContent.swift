@@ -8,21 +8,22 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import OSLog
 import SwiftUI
 
 import SwiftSoup
 
 final class HTMLContent {
-    let imageSrcBlockList = ["feedburner", "npr-rss-pixel", "google-analytics"]
-    let source: String
+    let imageSourceBlocklist = ["feedburner", "npr-rss-pixel", "google-analytics"]
+    let content: String
 
     init(_ source: String) {
-        self.source = source
+        self.content = source
     }
 
     func plainText() -> String? {
         guard
-            let doc: Document = try? SwiftSoup.parseBodyFragment(source),
+            let doc: Document = try? SwiftSoup.parseBodyFragment(content),
             let plainText = try? doc.text()
         else {
             return nil
@@ -38,7 +39,7 @@ final class HTMLContent {
 
     func sanitizedHTML() -> String? {
         guard
-            let dirty: Document = try? SwiftSoup.parseBodyFragment(source),
+            let dirty: Document = try? SwiftSoup.parseBodyFragment(content),
             let doc: Document = try? Cleaner(customWhitelist()).clean(dirty)
         else {
             return nil
@@ -52,7 +53,7 @@ final class HTMLContent {
                 try element.attr("style", "aspect-ratio: \(width ?? "16") / \(height ?? "9");")
             }
         } catch {
-            print(error)
+            Logger.main.error("HTML sanitization error: \(error)")
         }
 
         return try? doc.body()?.html()
@@ -60,7 +61,7 @@ final class HTMLContent {
 
     func imageElements() -> Elements? {
         guard
-            let doc: Document = try? SwiftSoup.parseBodyFragment(source),
+            let doc: Document = try? SwiftSoup.parseBodyFragment(content),
             let elements = try? doc.select("img")
         else {
             return nil
@@ -76,7 +77,7 @@ final class HTMLContent {
 
         var images: [RankedImage] = []
         for el in elements {
-            // Requirement image atrributes
+            // Required image atrributes
             guard
                 let src = try? el.attr("src"),
                 let url = URL(string: src, relativeTo: itemLink)
@@ -85,7 +86,7 @@ final class HTMLContent {
             }
 
             // Check blocklist
-            if imageSrcBlockList.contains(where: src.contains) {
+            if imageSourceBlocklist.contains(where: src.contains) {
                 continue
             }
 

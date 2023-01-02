@@ -1,5 +1,5 @@
 //
-//  AppearanceSectionView.swift
+//  AppearanceSettingsSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct AppearanceSectionView: View {
+struct AppearanceSettingsSectionView: View {
     @Binding var uiStyle: UIUserInterfaceStyle
 
     var body: some View {

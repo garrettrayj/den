@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import OSLog
 import SwiftUI
 
 import AEXML
@@ -55,6 +56,10 @@ final class OPMLWriter {
         } catch {
             // failed to write file – bad permissions, bad filename, missing permissions,
             // or more likely it can't be converted to the encoding
+            Logger.main.error("""
+            Failed to write OPML file – bad permissions, bad filename, missing permissions, \
+            or more likely it can't be converted to the encoding.
+            """)
         }
 
         return temporaryFileUrl

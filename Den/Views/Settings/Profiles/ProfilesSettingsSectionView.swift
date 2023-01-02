@@ -1,5 +1,5 @@
 //
-//  ProfilesSectionView.swift
+//  ProfilesSettingsSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,9 +10,9 @@
 
 import SwiftUI
 
-struct ProfilesSectionView: View {
+struct ProfilesSettingsSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Binding var activeProfileID: String?
+    @Binding var sceneProfileID: String?
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -24,7 +24,7 @@ struct ProfilesSectionView: View {
                 NavigationLink(value: SettingsPanel.profileSettings(profile)) {
                     Label(
                         profile.displayName,
-                        systemImage: profile.id?.uuidString == activeProfileID ? "hexagon.fill" : "hexagon"
+                        systemImage: profile.id?.uuidString == sceneProfileID ? "hexagon.fill" : "hexagon"
                     )
                 }
                 .modifier(FormRowModifier())

@@ -1,5 +1,5 @@
 //
-//  AutoRefreshSectionView.swift
+//  RefreshSettingsSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/5/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct AutoRefreshSectionView: View {
+struct RefreshSettingsSectionView: View {
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool

@@ -1,5 +1,5 @@
 //
-//  ShakeAnimationModifier.swift
+//  ShakeModifier.swift
 //  Den
 //
 //  Created by Garrett Johnson on 4/24/21.

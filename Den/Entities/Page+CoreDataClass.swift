@@ -111,7 +111,7 @@ public class Page: NSManagedObject {
     }
 }
 
-extension Array where Element == Page {
+extension Collection where Element == Page {
     func firstMatchingUUIDString(uuidString: String) -> Page? {
         self.first { page in
             page.id?.uuidString == uuidString

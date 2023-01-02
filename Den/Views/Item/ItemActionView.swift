@@ -32,7 +32,7 @@ struct ItemActionView<Content: View>: View {
                     }
                 }
                 Task {
-                    await SyncUtility.markItemRead(item: item)
+                    await HistoryUtility.markItemRead(item: item)
                 }
             } label: {
                 content

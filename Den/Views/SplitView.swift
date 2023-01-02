@@ -34,7 +34,7 @@ struct SplitView: View {
     @AppStorage("AutoRefreshCooldown") private var autoRefreshCooldown: Int = 30
     @AppStorage("UseInbuiltBrowser") private var useInbuiltBrowser: Bool = true
 
-    @SceneStorage("ActiveProfileID") private var activeProfileID: String?
+    @SceneStorage("ActiveProfileID") private var sceneProfileID: String?
     @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
 
     var body: some View {
@@ -53,7 +53,7 @@ struct SplitView: View {
             .disabled(refreshing)
         } detail: {
             ContentView(
-                activeProfileID: $activeProfileID,
+                sceneProfileID: $sceneProfileID,
                 appProfileID: $appProfileID,
                 contentSelection: $contentSelection,
                 uiStyle: $uiStyle,

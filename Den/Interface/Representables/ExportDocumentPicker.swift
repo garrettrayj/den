@@ -18,7 +18,7 @@ struct ExportDocumentPicker: UIViewControllerRepresentable {
         self.viewController.allowsMultipleSelection = false
     }
 
-    func makeCoordinator() -> Coordinator { Coordinator(self) }
+    func makeCoordinator() -> Coordinator { Coordinator() }
 
     func updateUIViewController(
         _ uiViewController: UIDocumentPickerViewController,
@@ -34,12 +34,6 @@ struct ExportDocumentPicker: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, UIDocumentPickerDelegate {
-        var parent: ExportDocumentPicker
-
-        init(_ parent: ExportDocumentPicker) {
-            self.parent = parent
-        }
-
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             #if targetEnvironment(macCatalyst)
             controller.dismiss(animated: true) {}
