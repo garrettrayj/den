@@ -29,7 +29,7 @@ struct PageBottomBarView: View {
         Text("\(unreadCount) Unread").font(.caption).fixedSize()
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
-            await SyncUtility.toggleReadUnread(items: page.previewItems)
+            await HistoryUtility.toggleReadUnread(items: page.previewItems)
 
             if viewMode == PageView.PageViewMode.blend.rawValue {
                 // Send page update to refresh blend view

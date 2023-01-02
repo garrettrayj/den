@@ -39,7 +39,7 @@ public class FeedData: NSManagedObject {
     }
 
     public var previewItems: [Item] {
-        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? Int(ContentLimits.itemLimitDefault)))
+        Array(itemsArray.prefix(feed?.wrappedItemLimit ?? UIConstants.defaultItemLimit))
     }
     
 

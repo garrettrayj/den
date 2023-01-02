@@ -1,5 +1,5 @@
 //
-//  ParsedFeedItem.swift
+//  LinkableItem.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/31/22.
@@ -10,6 +10,6 @@
 
 import Foundation
 
-protocol ParsedFeedItem {
+protocol LinkableItem {
     var linkURL: URL? { get }
 }

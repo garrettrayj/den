@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding var activeProfileID: String?
+    @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
@@ -26,24 +26,24 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            ProfilesSectionView(activeProfileID: $activeProfileID)
-            FeedsSectionView()
+            ProfilesSettingsSectionView(sceneProfileID: $sceneProfileID)
+            FeedsSettingsSectionView()
             #if !targetEnvironment(macCatalyst)
-            BrowserSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+            BrowserSettingsSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
             #endif
-            HistorySectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
-            AutoRefreshSectionView(
+            HistorySettingsSectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
+            RefreshSettingsSectionView(
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
-            AppearanceSectionView(uiStyle: $uiStyle)
-            ResetSectionView(
-                activeProfileID: $activeProfileID,
+            AppearanceSettingsSectionView(uiStyle: $uiStyle)
+            ResetSettingsSectionView(
+                sceneProfileID: $sceneProfileID,
                 appProfileID: $appProfileID,
                 profile: profile
             )
-            AboutSectionView()
+            AboutSettingsSectionView()
         }
         .navigationTitle("Settings")
     }

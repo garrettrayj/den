@@ -53,7 +53,7 @@ class SymbolCollection {
             let symbolsPath = Bundle.main.path(forResource: "PageSymbols", ofType: "plist"),
             let symbolsPlist = NSDictionary(contentsOfFile: symbolsPath)
         else {
-            preconditionFailure("Missing categories configuration")
+            preconditionFailure("Symbol categories configuration missing")
         }
 
         if let symbolsDictionary = symbolsPlist as? [String: [String]] {

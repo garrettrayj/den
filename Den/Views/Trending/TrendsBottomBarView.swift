@@ -30,7 +30,7 @@ struct TrendsBottomBarView: View {
             .fixedSize()
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
-            await SyncUtility.toggleReadUnread(items: profile.previewItems)
+            await HistoryUtility.toggleReadUnread(items: profile.previewItems)
         }
     }
 }

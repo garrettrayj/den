@@ -1,5 +1,5 @@
 //
-//  AyncRefreshManager.swift
+//  RefreshManager.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/30/22.
@@ -75,7 +75,6 @@ struct RefreshUtility {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
         }
-
     }
 
     static func refresh(feed: Feed) async {

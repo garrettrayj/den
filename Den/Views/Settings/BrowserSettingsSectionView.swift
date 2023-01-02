@@ -1,5 +1,5 @@
 //
-//  BrowserSectionView.swift
+//  BrowserSettingsSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/31/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct BrowserSectionView: View {
+struct BrowserSettingsSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 

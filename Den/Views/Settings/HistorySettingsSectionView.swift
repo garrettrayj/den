@@ -1,5 +1,5 @@
 //
-//  HistorySectionView.swift
+//  HistorySettingsSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/27/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct HistorySectionView: View {
+struct HistorySettingsSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 

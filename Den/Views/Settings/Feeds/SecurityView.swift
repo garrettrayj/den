@@ -72,7 +72,7 @@ struct SecurityView: View {
                 Label {
                     Text("Checking…").foregroundColor(.secondary)
                 } icon: {
-                    ProgressView().progressViewStyle(IconProgressStyle())
+                    ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }.modifier(FormRowModifier())
             } else {
                 Button {

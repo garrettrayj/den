@@ -1,5 +1,5 @@
 //
-//  SyncUtility.swift
+//  HistoryUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 import SwiftUI
 
-struct SyncUtility {
+struct HistoryUtility {
     static func markItemRead(item: Item) async {
         guard item.read != true else { return }
         await logHistory(items: [item])

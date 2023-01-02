@@ -12,7 +12,7 @@ import Foundation
 
 import FeedKit
 
-extension RSSFeed {
+extension RSSFeed: WebAccessibleFeed {
     var webpage: URL? {
         if
             let urlString = self.link?.trimmingCharacters(in: .whitespacesAndNewlines),

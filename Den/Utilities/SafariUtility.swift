@@ -25,7 +25,7 @@ struct SafariUtility {
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
         
-        //rootViewController.modalPresentationStyle = .fullScreen
+        rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)
     }
 }

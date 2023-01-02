@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  ProfileSettingsView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/7/22.
@@ -10,11 +10,11 @@
 
 import SwiftUI
 
-struct ProfileView: View {
+struct ProfileSettingsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
-    @Binding var activeProfileID: String?
+    @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
 
     @ObservedObject var profile: Profile
@@ -55,13 +55,13 @@ struct ProfileView: View {
     }
 
     private var isActive: Bool {
-        profile.id?.uuidString == activeProfileID
+        profile.id?.uuidString == sceneProfileID
     }
 
     private var activateSection: some View {
         Section {
             Button {
-                activeProfileID = profile.id?.uuidString
+                sceneProfileID = profile.id?.uuidString
                 appProfileID = profile.id?.uuidString
                 dismiss()
             } label: {
