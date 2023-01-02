@@ -14,7 +14,7 @@ struct ResetSectionView: View {
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfileID: String?
-    @Binding var lastProfileID: String?
+    @Binding var appProfileID: String?
 
     @ObservedObject var profile: Profile
 
@@ -141,6 +141,7 @@ struct ResetSectionView: View {
                     }
                     context.delete(profile)
                 }
+                let _ = ProfileUtility.createDefaultProfile(context: context)
                 try context.save()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)

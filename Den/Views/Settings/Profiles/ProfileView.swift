@@ -13,7 +13,7 @@ struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfileID: String?
-    @Binding var lastProfileID: String?
+    @Binding var appProfileID: String?
 
     @ObservedObject var profile: Profile
 
@@ -60,7 +60,7 @@ struct ProfileView: View {
         Section {
             Button {
                 activeProfileID = profile.id?.uuidString
-                lastProfileID = profile.id?.uuidString
+                appProfileID = profile.id?.uuidString
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "arrow.left.arrow.right")

@@ -5,6 +5,7 @@
 //  Created by Garrett Johnson on 5/18/20.
 //  Copyright © 2020 Garrett Johnson. All rights reserved.
 //
+// 
 
 import CoreData
 import OSLog
@@ -17,22 +18,17 @@ struct RootView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
 
+    @State private var activeProfile: Profile?
     @State private var showCrashMessage = false
+    @State private var profileLoadAttempts = 0
+    @State private var profileMissing = true
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
     @SceneStorage("ActiveProfileID") private var sceneProfileID: String?
 
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
-    private var profiles: FetchedResults<Profile>
-
-    var activeProfile: Profile? {
-        guard let sceneProfileID = sceneProfileID else { return nil }
-        return profiles.first(where: {$0.id?.uuidString == sceneProfileID})
-    }
-
     var body: some View {
-        VStack {
+        Group {
             if showCrashMessage {
                 CrashMessageView()
             } else if let profile = activeProfile {
@@ -50,24 +46,40 @@ struct RootView: View {
                 VStack(spacing: 16) {
                     Spacer()
                     ProgressView()
-                    Text("Opening…")
+                    // After 12 seconds, give the option to create a new profile.
+                    // The app will continue attempting to load an existing profile.
+                    // It usually takes 30 to 40 seconds to sort things out and recover profiles from the cloud.
+                    // While this isn't an ideal introduction to the app, it resolves a glaring bug.
+                    // Trying to automatically create profiles has always led to duplicates historically.
+                    if profileLoadAttempts > 4 {
+                        Text("Profile Not Found")
+                        Button {
+                            activateProfile(ProfileUtility.createDefaultProfile(context: viewContext))
+                        } label: {
+                            Text("Create New Profile")
+                        }
+                        .buttonStyle(AccentButtonStyle())
+                        .accessibilityIdentifier("create-new-profile-button")
+                        Text("""
+                        If you have used the app before then synchronization could be in progress. \
+                        Please wait a minute.
+                        """)
+                        .font(.caption)
+                    } else {
+                        Text("Loading…").onAppear { loadProfile() }
+                    }
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(UIColor.systemGroupedBackground))
                 .foregroundColor(Color.secondary)
-                .onAppear {
-                    if activeProfile == nil {
-                        loadProfile()
-                    }
-                }
             }
         }
         .preferredColorScheme(ColorScheme(uiStyle))
         .onChange(of: uiStyle) { _ in
             WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
         }
-        .onAppear {
+        .task {
             guard let window = WindowFinder.current() else { return }
             window.overrideUserInterfaceStyle = uiStyle
         }
@@ -77,11 +89,34 @@ struct RootView: View {
     }
     
     private func loadProfile() {
-        let profile = profiles.first { $0.id?.uuidString == appProfileID }
-                        ?? profiles.first
-                        ?? ProfileUtility.createDefaultProfile(context: viewContext)
+        profileLoadAttempts += 1
         
+        do {
+            let profiles = try viewContext.fetch(Profile.fetchRequest()) as! [Profile]
+            if let profile = profiles.firstMatchingID(sceneProfileID ?? "") ??
+                profiles.firstMatchingID(appProfileID ?? "") ??
+                profiles.first
+            {
+                activateProfile(profile)
+                Logger.main.info("\(profile.displayName) profile loaded")
+            } else {
+                let attempt = NumberFormatter.localizedString(
+                    from: profileLoadAttempts as NSNumber,
+                    number: .ordinal
+                )
+                Logger.main.info("Could not load profile on \(attempt) attempt. Trying again...")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    loadProfile()
+                }
+            }
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+    
+    private func activateProfile(_ profile: Profile) {
         sceneProfileID = profile.id?.uuidString
         appProfileID = profile.id?.uuidString
+        activeProfile = profile
     }
 }

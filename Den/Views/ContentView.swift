@@ -48,7 +48,7 @@ struct ContentView: View {
                 case .settings:
                     SettingsView(
                         activeProfileID: $activeProfileID,
-                        lastProfileID: $appProfileID,
+                        appProfileID: $appProfileID,
                         uiStyle: $uiStyle,
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
@@ -90,6 +90,27 @@ struct ContentView: View {
                     } else {
                         StatusBoxView(message: Text("Trend Deleted"), symbol: "slash.circle")
                     }
+                }
+            }
+            .navigationDestination(for: SettingsPanel.self) { settingsPanel in
+                switch settingsPanel {
+                case .profileSettings(let profile):
+                    if profile.managedObjectContext != nil {
+                        ProfileView(
+                            activeProfileID: $activeProfileID,
+                            appProfileID: $appProfileID,
+                            profile: profile,
+                            nameInput: profile.wrappedName
+                        )
+                    } else {
+                        StatusBoxView(message: Text("Profile Deleted"), symbol: "slash.circle")
+                    }
+                case .importFeeds:
+                    ImportView(profile: profile)
+                case .exportFeeds:
+                    ExportView(profile: profile)
+                case .security:
+                    SecurityView(profile: profile)
                 }
             }
         }
