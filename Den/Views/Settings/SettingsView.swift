@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Binding var activeProfileID: String?
-    @Binding var lastProfileID: String?
+    @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
@@ -26,7 +26,9 @@ struct SettingsView: View {
         Form {
             ProfilesSectionView(activeProfileID: $activeProfileID)
             FeedsSectionView()
+            #if !targetEnvironment(macCatalyst)
             BrowserSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+            #endif
             HistorySectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             AutoRefreshSectionView(
                 autoRefreshEnabled: $autoRefreshEnabled,
@@ -36,32 +38,11 @@ struct SettingsView: View {
             AppearanceSectionView(uiStyle: $uiStyle)
             ResetSectionView(
                 activeProfileID: $activeProfileID,
-                lastProfileID: $lastProfileID,
+                appProfileID: $appProfileID,
                 profile: profile
             )
             AboutSectionView()
         }
         .navigationTitle("Settings")
-        .navigationDestination(for: SettingsPanel.self) { settingsPanel in
-            switch settingsPanel {
-            case .profileSettings(let profile):
-                if profile.managedObjectContext != nil {
-                    ProfileView(
-                        activeProfileID: $activeProfileID,
-                        lastProfileID: $lastProfileID,
-                        profile: profile,
-                        nameInput: profile.wrappedName
-                    )
-                } else {
-                    StatusBoxView(message: Text("Profile Deleted"), symbol: "slash.circle")
-                }
-            case .importFeeds:
-                ImportView(profile: profile)
-            case .exportFeeds:
-                ExportView(profile: profile)
-            case .security:
-                SecurityView(profile: profile)
-            }
-        }
     }
 }
