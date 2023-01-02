@@ -34,4 +34,4 @@ e -l objc -- (void)[[BGTaskScheduler sharedScheduler] _simulateLaunchForTaskWith
 
 ---
 
-Copyright 2020 Garrett Johnson. All Rights Reserved.
+Copyright 2020 Garrett Johnson

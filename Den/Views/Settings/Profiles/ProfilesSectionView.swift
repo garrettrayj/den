@@ -3,7 +3,7 @@
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
-//  Copyright © 2022 Garrett Johnson. All rights reserved.
+//  Copyright © 2022 Garrett Johnson
 //
 
 import SwiftUI

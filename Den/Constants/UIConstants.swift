@@ -3,7 +3,7 @@
 //  Den
 //
 //  Created by Garrett Johnson on 7/29/22.
-//  Copyright © 2022 Garrett Johnson. All rights reserved.
+//  Copyright © 2022 Garrett Johnson
 //
 
 import Foundation
