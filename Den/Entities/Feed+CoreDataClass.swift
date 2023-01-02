@@ -35,7 +35,7 @@ public class Feed: NSManagedObject {
 
         return nil
     }
-    
+
     public var previewItems: [Item] {
         feedData?.previewItems ?? []
     }
@@ -56,7 +56,7 @@ public class Feed: NSManagedObject {
     public var hasContent: Bool {
         self.feedData != nil && self.feedData!.itemsArray.count > 0 && self.feedData!.error == nil
     }
-    
+
     func visibleItems(_ hideRead: Bool) -> [Item] {
         feedData?.previewItems.filter { item in
             hideRead ? item.read == false : true

@@ -25,7 +25,7 @@ public class Trend: NSManagedObject {
             .compactMap { $0.item }
             .sorted { $0.date > $1.date }
     }
-    
+
     func visibleItems(_ hideRead: Bool) -> [Item] {
         items.filter { item in
             hideRead ? item.read == false : true
@@ -58,7 +58,7 @@ extension Collection where Element == Trend {
             trend.id?.uuidString == uuidString
         }
     }
-    
+
     func read() -> [Trend] {
         self.filter { trend in
             trend.items.unread().isEmpty == true

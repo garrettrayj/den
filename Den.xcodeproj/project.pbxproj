@@ -290,6 +290,7 @@
 		6835739129614C6E00843A8E /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
 		6835739D29636DFA00843A8E /* ResizingWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingWebView.swift; sourceTree = "<group>"; };
 		6835739F296372DA00843A8E /* WebAccessibleFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAccessibleFeed.swift; sourceTree = "<group>"; };
+		683573A22963792900843A8E /* lint.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = lint.sh; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedButtonView.swift; sourceTree = "<group>"; };
 		683E3F46293BC18C00B16814 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
@@ -756,6 +757,7 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
+				683573A22963792900843A8E /* lint.sh */,
 				68A807ED2944843800944D2C /* Makefile */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
@@ -1048,6 +1050,7 @@
 				68C41306247263C700D1DC7B /* Frameworks */,
 				68C41307247263C700D1DC7B /* Resources */,
 				6860694F2831533E000068DE /* Embed Foundation Extensions */,
+				683573A1296378FB00843A8E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1224,6 +1227,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		683573A1296378FB00843A8E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${SRCROOT}/lint.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6813FD042748DE1100EC88A5 /* Sources */ = {

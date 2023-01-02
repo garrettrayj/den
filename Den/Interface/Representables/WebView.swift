@@ -78,7 +78,7 @@ struct WebView: UIViewRepresentable {
                 browserActions.contains(navigationAction.navigationType)
             {
                 decisionHandler(.cancel)
-                
+
                 #if targetEnvironment(macCatalyst)
                 UIApplication.shared.open(url)
                 #else

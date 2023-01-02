@@ -79,7 +79,7 @@ struct RefreshUtility {
 
     static func refresh(feed: Feed) async {
         let container = PersistenceController.shared.container
-        
+
         if let url = feed.url {
             var fetchMeta = false
             // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally

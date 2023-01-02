@@ -35,7 +35,7 @@ struct HistoryUtility {
         let itemObjectIDs = items.map { $0.objectID }
 
         let container = PersistenceController.shared.container
-        
+
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profileObjectID) as? Profile else { return }
 
@@ -60,7 +60,7 @@ struct HistoryUtility {
         let itemObjectIDs = items.map { $0.objectID }
 
         let container = PersistenceController.shared.container
-        
+
         await container.performBackgroundTask { context in
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }

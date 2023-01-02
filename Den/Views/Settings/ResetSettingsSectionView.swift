@@ -109,7 +109,7 @@ struct ResetSettingsSectionView: View {
 
     private func resetFeeds(profile: Profile) async {
         let container = PersistenceController.shared.container
-        
+
         await container.performBackgroundTask { context in
             guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else { return }
             for profile in profiles {
@@ -132,7 +132,7 @@ struct ResetSettingsSectionView: View {
 
     private func resetEverything() async {
         await emptyCache()
-        
+
         let container = PersistenceController.shared.container
         await container.performBackgroundTask { context in
             do {
@@ -143,7 +143,7 @@ struct ResetSettingsSectionView: View {
                     }
                     context.delete(profile)
                 }
-                let _ = ProfileUtility.createDefaultProfile(context: context)
+                _ = ProfileUtility.createDefaultProfile(context: context)
                 try context.save()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)

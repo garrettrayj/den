@@ -13,7 +13,7 @@ import SwiftUI
 
 struct NavigationListView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @ObservedObject var profile: Profile
 
     let searchModel: SearchModel
