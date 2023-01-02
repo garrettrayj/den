@@ -23,9 +23,9 @@ struct ContentView: View {
     @ObservedObject var profile: Profile
 
     let searchModel: SearchModel
-    
+
     @SceneStorage("HideRead") private var hideRead: Bool = false
-    
+
     var body: some View {
         NavigationStack {
             VStack {

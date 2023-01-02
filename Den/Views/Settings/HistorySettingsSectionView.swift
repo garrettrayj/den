@@ -88,7 +88,7 @@ struct HistorySettingsSectionView: View {
 
     private func resetHistory() async {
         let container = PersistenceController.shared.container
-        
+
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profile.objectID) as? Profile else { return }
 

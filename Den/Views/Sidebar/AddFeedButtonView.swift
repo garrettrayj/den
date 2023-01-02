@@ -14,7 +14,7 @@ struct AddFeedButtonView: View {
     @Environment(\.editMode) private var editMode
 
     @Binding var contentSelection: ContentPanel?
-    
+
     let profile: Profile
 
     var body: some View {

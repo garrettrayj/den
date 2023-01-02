@@ -20,7 +20,7 @@ struct SettingsView: View {
     @Binding var useInbuiltBrowser: Bool
 
     let profile: Profile
-    
+
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
 

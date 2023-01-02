@@ -85,13 +85,12 @@ public class Page: NSManagedObject {
             return false
         }.first?.feedData?.refreshed
     }
-    
+
     func visibleItems(_ hideRead: Bool) -> [Item] {
         previewItems.filter { item in
             hideRead ? item.read == false : true
         }
     }
-
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,

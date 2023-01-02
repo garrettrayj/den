@@ -30,11 +30,11 @@ class MacScreenshots: ScreenshotTestCase {
 
         sleep(2)
         takeScreenshot(named: "01-GadgetsView")
-        
+
         app.buttons["showcase-view-button"].tap()
         sleep(2)
         takeScreenshot(named: "02-ShowcaseView")
-        
+
         app.buttons["blend-view-button"].tap()
         sleep(2)
         takeScreenshot(named: "03-BlendView")

@@ -48,4 +48,3 @@ struct PlainToolbarButtonStyle: ButtonStyle {
             .contentShape(Rectangle())
     }
 }
-

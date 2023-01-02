@@ -41,7 +41,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         app.buttons["showcase-view-button"].tap()
         sleep(2)
         takeScreenshot(named: "03-ShowcaseView")
-        
+
         app.navigationBars.buttons["page-menu"].tap()
         app.buttons["blend-view-button"].tap()
         sleep(2)

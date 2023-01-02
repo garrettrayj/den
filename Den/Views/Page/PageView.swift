@@ -22,7 +22,7 @@ struct PageView: View {
     @Binding var hideRead: Bool
 
     @SceneStorage("PageViewMode") private var sceneViewMode = PageViewMode.gadgets.rawValue
-    
+
     private var viewMode: PageViewMode {
         return PageViewMode(rawValue: sceneViewMode) ?? PageViewMode.gadgets
     }
@@ -78,7 +78,7 @@ struct PageView: View {
                         viewModePicker
                     }
                 }
-                
+
                 ToolbarItem {
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")

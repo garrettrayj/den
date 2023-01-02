@@ -88,16 +88,16 @@ struct RootView: View {
             showCrashMessage = true
         }
     }
-    
+
     private func loadProfile() {
         profileLoadAttempts += 1
-        
+
         do {
-            let profiles = try viewContext.fetch(Profile.fetchRequest()) as! [Profile]
-            if let profile = profiles.firstMatchingID(sceneProfileID ?? "") ??
+            if
+                let profiles = try viewContext.fetch(Profile.fetchRequest()) as? [Profile],
+                let profile = profiles.firstMatchingID(sceneProfileID ?? "") ??
                 profiles.firstMatchingID(appProfileID ?? "") ??
-                profiles.first
-            {
+                profiles.first {
                 activateProfile(profile)
                 Logger.main.info("\(profile.displayName) profile loaded")
             } else {
@@ -114,7 +114,7 @@ struct RootView: View {
             CrashUtility.handleCriticalError(error as NSError)
         }
     }
-    
+
     private func activateProfile(_ profile: Profile) {
         sceneProfileID = profile.id?.uuidString
         appProfileID = profile.id?.uuidString

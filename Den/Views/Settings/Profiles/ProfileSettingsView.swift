@@ -100,7 +100,7 @@ struct ProfileSettingsView: View {
 
     private func delete() async {
         let container = PersistenceController.shared.container
-        
+
         await container.performBackgroundTask { context in
             if let toDelete = context.object(with: profile.objectID) as? Profile {
                 for feedData in toDelete.feedsArray.compactMap({$0.feedData}) {

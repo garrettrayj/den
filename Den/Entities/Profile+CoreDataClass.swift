@@ -134,7 +134,7 @@ public class Profile: NSManagedObject {
             return []
         }.sorted { $0.date > $1.date }
     }
-    
+
     func visibleItems(_ hideRead: Bool) -> [Item] {
         previewItems.filter { item in
             hideRead ? item.read == false : true

@@ -124,7 +124,7 @@ extension Collection where Element == Item {
             item.id?.uuidString == uuidString
         }
     }
-    
+
     func read() -> [Item] {
         self.filter { item in
             item.read == true
