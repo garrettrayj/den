@@ -3,7 +3,7 @@
 //  PhoneScreenshots
 //
 //  Created by Garrett Johnson on 7/17/21.
-//  Copyright © 2021 Garrett Johnson. All rights reserved.
+//  Copyright © 2021 Garrett Johnson
 //
 
 // swiftlint:disable function_body_length
