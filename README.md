@@ -1,17 +1,24 @@
 # Den
 
-A comfortable take on RSS powered personalized start pages.
+<img src="Den/Assets.xcassets/AppIcon.appiconset/Mac 128pt@2x.png" alt="App Icon" width="128" height="128">
 
+A news app made for clear and intuitive browsing.
+
+- Flexible organization for your collection
+- Broadsheet layouts designed to make the most of screen space
 - For phones, tablets, laptops, and desktops
 - Cloud synchronized profiles
 - RSS, Atom, and JSON Feed format support
 - OPML import and export
+- and much more...
+
+<img src="Screenshots/Images/macOS/en/light/01-GadgetsView.png" alt="iPad screenshot" width=800 height=450>
 
 ## Installation
 
 Purchase [Den on the App Store](https://apps.apple.com/us/app/den-for-rss/id1528917651) to get both iOS and Mac versions with automatic updates.
 This project does not currently offer a free binary download.
-Of course it's possible to compile and install with Xcode for free if one is so inclined.
+Of course, it's possible to compile and install with Xcode for free if one is so inclined.
 
 ## Mission
 
@@ -24,28 +31,27 @@ New in the sense that modern devices and networks mean individuals often carry a
 what might as well be a public intelligence workstation in their pocket.
 There's no reason to compromise on privacy or control.
 Anyone can follow hundreds of publishers with all the conveniences provided by 
-cloud storage, machine learning, natural language processing, artificial intelligence, etcetera.
-Custom big-picture views and automated analysis should be accessible to the masses.
-Without added layers of censorship and monetization.
+cloud storage, machine learning, natural language processing, artificial intelligence, etc.
+It's about custom views and automated analysis useful for keeping up with current events.
+Without added layers of curation, censorship or monetization.
 
 ## Design Philosophy
 
 The icon is a chair because it symbolizes how simple and utilitarian the app aspires to be.
 A streamlined basic comfort with reliable mechanisms.
-The idea is reflected throughout, from the clean stock interface to the tone of language.
-It's just a seat; A place to relax and enjoy looking around at stuff.
-Or in other words, it is boring and minimalist on purpose.
-Stimulation should come from content and useful features, not personifiable branding.
+The idea is reflected throughout, from the clean stock interface to the tone of language in messages.
+It is just a seat; A place to relax and enjoy looking around at stuff.
+Or in other words, it is boring on purpose.
 
 ## Publishers
 
 Fairness to publishers is a core part of Den.
 No one is favored over another except by way of the user preference.
-The app doesn't supplement feed content by automatically reading webpages or fetching data from other sources.
-What is in a feed is what's available for users to display.
-It lightly sanitizes HTML for security and compatibility.
+The app doesn't supplement feed content by reading webpages or fetching data from other sources.
+What is in a feed is what is available to the user.
+It sanitizes HTML for security and compatibility.
 But in general, the sky is the limit.
-Information rich syndication feeds gather happy followers.
+Information rich feeds gather happy followers.
 Happy followers are more likely to convert on goals.
 The app does its best to let good content speak for itself.
 
@@ -54,8 +60,8 @@ The app does its best to let good content speak for itself.
 News apps are the platforms world views are built on. 
 Folks should be able to trust their choice without hesitation.
 They should also have the freedom to make it better without asking for permission.
-Furthermore, they should have a voice in the development of software they may depend on.
-Thus Den is open source software for trust, transparency, and community.
+Furthermore, they should have a voice in the development of software they may come to depend on.
+Thus, Den is open source software for trust, transparency, and community.
 
 [♫ Buy it, use it, break it, fix it, trash it, change it, mail, upgrade it.](https://youtu.be/D8K90hX4PrE)
 [♫ Work it, make it, do it, makes us, harder, better, faster, stronger.](https://youtu.be/gAjR4_CbPpQ)
@@ -76,4 +82,4 @@ Thus Den is open source software for trust, transparency, and community.
 
 ---
 
-Copyright 2020 Garrett Johnson
+Copyright 2023 Garrett Johnson
