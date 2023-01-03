@@ -57,7 +57,7 @@ The app does its best to let good content speak for itself.
 
 News apps are the platforms world views are built on. 
 Folks should be able to trust their choice without hesitation.
-They should also have the freedom to make it better without asking for permission.
+They should also have the freedom to make it better.
 Furthermore, they should have a voice in the development of software they may come to depend on.
 Thus, Den is open source software for trust, transparency, and community.
 
