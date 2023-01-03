@@ -8,6 +8,7 @@ A news app made for clear and intuitive browsing.
 - Cloud synchronized profiles
 - RSS, Atom, and JSON Feed format support
 - OPML import and export
+- Feed Detector browser extension
 - and much more...
 
 <img src="Screenshots/Images/macOS/en/light/01-GadgetsView.png" alt="iPad screenshot" width=800 height=450>
