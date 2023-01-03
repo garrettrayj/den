@@ -31,12 +31,11 @@ Without added layers of censorship and monetization.
 ## Design Philosophy
 
 The icon is a chair because it symbolizes how simple and utilitarian the app aspires to be.
-It's not a personifiable buddy app.
-It's a streamlined basic comfort with reliable mechanisms.
-This is reflected throughout, from the clean stock interface to the tone of language.
+A streamlined basic comfort with reliable mechanisms.
+The idea is reflected throughout, from the clean stock interface to the tone of language.
 It's just a seat; A place to relax and enjoy looking around at stuff.
 Or other words, it's boring and minimalist on purpose.
-Stimulation should come from content and useful features, not unescessary bling.
+Stimulation should come from content and useful features, not personifiable branding.
 
 ## Publishers
 
@@ -64,8 +63,8 @@ Thus Den is open source software for trust, transparency, and community.
 ## Development Requirements
 
 1. Xcode with Command Line Tools
-2. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results `brew install chargepoint/xcparse/xcparse`
-3. [swiftlint](https://github.com/realm/SwiftLint) to check code formatting
+2. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results. `brew install chargepoint/xcparse/xcparse`
+3. [swiftlint](https://github.com/realm/SwiftLint) to check code formatting. `brew install swiftlint`
 
 ## Getting Started
 
