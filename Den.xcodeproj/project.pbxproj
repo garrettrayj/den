@@ -291,6 +291,7 @@
 		6835739D29636DFA00843A8E /* ResizingWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingWebView.swift; sourceTree = "<group>"; };
 		6835739F296372DA00843A8E /* WebAccessibleFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAccessibleFeed.swift; sourceTree = "<group>"; };
 		683573A22963792900843A8E /* lint.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = lint.sh; sourceTree = "<group>"; };
+		683573A32963A0BA00843A8E /* NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NOTES.md; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedButtonView.swift; sourceTree = "<group>"; };
 		683E3F46293BC18C00B16814 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
@@ -757,18 +758,19 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
-				683573A22963792900843A8E /* lint.sh */,
+				6845BD0F24EFB38C0008B296 /* README.md */,
+				683573A32963A0BA00843A8E /* NOTES.md */,
 				68A807ED2944843800944D2C /* Makefile */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
-				6845BD0F24EFB38C0008B296 /* README.md */,
-				68C4137F2473305600D1DC7B /* Design */,
+				683573A22963792900843A8E /* lint.sh */,
 				68C4130B247263C700D1DC7B /* Den */,
 				68C41327247263C700D1DC7B /* DenTests */,
 				68C41332247263C700D1DC7B /* DenUITests */,
 				689EDC0A26A3F46A0055811A /* Screenshots */,
 				686069122831501B000068DE /* FeedDetector */,
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,
+				68C4137F2473305600D1DC7B /* Design */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
 			);
