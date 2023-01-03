@@ -34,7 +34,7 @@ The icon is a chair because it symbolizes how simple and utilitarian the app asp
 A streamlined basic comfort with reliable mechanisms.
 The idea is reflected throughout, from the clean stock interface to the tone of language.
 It's just a seat; A place to relax and enjoy looking around at stuff.
-Or other words, it's boring and minimalist on purpose.
+Or in other words, it is boring and minimalist on purpose.
 Stimulation should come from content and useful features, not personifiable branding.
 
 ## Publishers
