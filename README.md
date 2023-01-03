@@ -1,6 +1,4 @@
-<img src="Den/Assets.xcassets/AppIcon.appiconset/Mac 128pt@2x.png" alt="App Icon" width="128" height="128">
-
-# Den for RSS
+<h1><img src="Den/Assets.xcassets/AppIcon.appiconset/Mac 128pt@2x.png" alt="App Icon" width="128" height="128" align="center"> Den for RSS</h1>
 
 A news app made for clear and intuitive browsing.
 
