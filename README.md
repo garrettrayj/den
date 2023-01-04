@@ -34,7 +34,7 @@ cloud storage, machine learning, natural language processing, artificial intelli
 It's about custom views and automated analysis useful for keeping up with current events.
 Without added layers of curation, censorship or monetization.
 
-## Design Philosophy
+## Philosophy
 
 The icon is a chair because it symbolizes how simple and utilitarian the app aspires to be.
 A streamlined basic comfort with reliable mechanisms.
