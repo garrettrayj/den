@@ -11,7 +11,7 @@ A news app made for clear and intuitive browsing.
 - Feed Detector browser extension
 - and much more...
 
-<img src="Screenshots/Images/macOS/en/light/01-GadgetsView.png" alt="iPad screenshot" width=800 height=450>
+<img src="Screenshots/Images/macOS/en/light/01-GadgetsView.png" alt="iPad screenshot" width="800" />
 
 ## Installation
 
@@ -65,19 +65,23 @@ Thus, Den is open source software for trust, transparency, and community.
 [♫ Buy it, use it, break it, fix it, trash it, change it, mail, upgrade it.](https://youtu.be/D8K90hX4PrE)
 [♫ Work it, make it, do it, makes us, harder, better, faster, stronger.](https://youtu.be/gAjR4_CbPpQ)
 
-## Development Requirements
+## Development
+
+### Prerequisites
 
 1. Xcode with Command Line Tools
 2. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results. `brew install chargepoint/xcparse/xcparse`
 3. [swiftlint](https://github.com/realm/SwiftLint) to check code formatting. `brew install swiftlint`
 
-## Getting Started
+### Getting Started
 
 1. Clone the project from GitHub
 2. Open in Xcode
 3. Update development team settings
 4. Select the "Den" scheme and device
 5. Run the scheme
+
+See the [contributing guide](CONTRIBUTING.md) for more.
 
 ---
 
