@@ -12,10 +12,6 @@ import OSLog
 import SwiftUI
 import BackgroundTasks
 
-import SDWebImageSwiftUI
-import SDWebImageSVGCoder
-import SDWebImageWebPCoder
-
 @main
 struct DenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
@@ -67,7 +63,9 @@ struct DenApp: App {
     }
 
     private func handleRefresh() async {
-        guard let profiles = try? persistenceController.container.viewContext.fetch(Profile.fetchRequest()) as? [Profile] else {
+        guard let profiles = try? persistenceController.container.viewContext.fetch(
+            Profile.fetchRequest()
+        ) as? [Profile] else {
             return
         }
 
