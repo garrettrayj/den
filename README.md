@@ -24,7 +24,7 @@ Of course, it's possible to compile and install with Xcode for free if one is so
 Den aims to be a news app so sharp it cuts through misinformation like a white-hot knife through butter.
 Old and new tech is blended to create a unique content-focused browsing experience.
 Old in the sense that RSS has been around since 1999. 
-Decentralized and based on reliable foundations (HTTP, XML, etc.); 
+Decentralized and based on reliable foundations; 
 Syndication feeds are still the best way to publish and consume news.
 New in the sense that modern devices and networks mean individuals often carry around 
 what might as well be a public intelligence workstation in their pocket.
