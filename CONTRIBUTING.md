@@ -24,11 +24,15 @@ No strict requirements. Just write a good description.
 
 ## General Guidance
 
-The project uses a cutting edge, native, Apple development stack including Swift 5, SwiftUI, MacCatalyst, CoreData, WebKit, and Natural Language. Rock-solid open source libraries, FeedKit, SDWebImage, SwiftSoup, and AEXML round out the dependencies.
+The project uses a cutting edge, native, Apple development stack including Swift 5, SwiftUI, MacCatalyst, CoreData, WebKit, and Natural Language. 
+Rock-solid open source libraries, FeedKit, SDWebImage, SwiftSoup, and AEXML round out the dependencies.
 
-A common hurdle that comes up is features that may be easy in plain UIKit, AppKit on Mac, or with higher level libraries may be impossible or so complex it's not worth it.
+A common hurdle that comes up is features that may be easy in plain UIKit, AppKit on Mac, or with higher level libraries may be impossible or impractical. 
+It's the tradeoff made when building a multi-platform app with a unified code base.
 
- Often it's just a matter of waiting for an official solution to make it into SwiftUI. So to summarize, keep it simple and don't spin out on features that "should" be easy but aren't addressed by the core framework yet. There will be ongoing integration of improvements as the stack matures.
+ Often it's just a matter of waiting for an official solution to make it into SwiftUI. 
+ So to summarize, keep it simple and don't spin out on features that "should" be easy but aren't addressed by the core framework yet. 
+ There will be ongoing integration of improvements as the stack matures.
 
 ## Credits
 

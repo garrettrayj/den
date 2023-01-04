@@ -64,6 +64,13 @@ Thus, Den is open source software for trust, transparency, and community.
 
 [♫ Buy it, use it, break it, fix it, trash it, change it, mail, upgrade it.](https://youtu.be/D8K90hX4PrE)
 [♫ Work it, make it, do it, makes us, harder, better, faster, stronger.](https://youtu.be/gAjR4_CbPpQ)
+    
+## Connect
+
+* [Start a discussion](https://github.com/garrettrayj/den/discussions/new) to share an idea or ask a question.
+* [Create an issue](https://github.com/garrettrayj/den/issues/new) to report a bug or request an enhancement.
+* [Join the Discord server](https://discord.gg/NS9hMrYrnt) for real-time chat and announcements. 
+* [Email the developer](mailto:garrett@devsci.net) for a timely-ish response if other options aren't to your liking.
 
 ## Development
 
@@ -81,7 +88,7 @@ Thus, Den is open source software for trust, transparency, and community.
 4. Select the "Den" scheme and device
 5. Run the scheme
 
-See the [contributing guide](CONTRIBUTING.md) for more.
+See the [Contributing Guide](CONTRIBUTING.md) for more.
 
 ---
 
