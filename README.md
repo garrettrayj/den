@@ -15,9 +15,9 @@ A news app made for clear and intuitive browsing.
 
 ## Installation
 
-Purchase [Den on the App Store](https://apps.apple.com/us/app/den-for-rss/id1528917651) to get both iOS and Mac versions with automatic updates.
-This project does not currently offer a free binary download.
-Of course, it's possible to compile and install with Xcode for free if one is so inclined.
+Buy [Den for RSS on the App Store](https://apps.apple.com/us/app/den-for-rss/id1528917651) to get both iOS and Mac versions with automatic updates. Purchasing on the App Store supports development. Thank you.
+
+This project does not currently offer a free binary download. Of course, it's possible to compile and install yourslf for free.
 
 ## Mission
 
@@ -34,7 +34,7 @@ cloud storage, machine learning, natural language processing, artificial intelli
 It's about custom views and automated analysis useful for keeping up with current events.
 Without added layers of curation, censorship or monetization.
 
-## Philosophy
+## Design
 
 The icon is a chair because it symbolizes how simple and utilitarian the app aspires to be.
 A streamlined basic comfort with reliable mechanisms.
@@ -67,10 +67,11 @@ Thus, Den is open source software for trust, transparency, and community.
     
 ## Connect
 
-* [Start a discussion](https://github.com/garrettrayj/den/discussions/new) to share an idea or ask a question.
-* [Create an issue](https://github.com/garrettrayj/den/issues/new) to report a bug or request an enhancement.
-* [Join the Discord server](https://discord.gg/NS9hMrYrnt) for real-time chat and announcements. 
-* [Email the developer](mailto:garrett@devsci.net) for a timely-ish response if other options aren't to your liking.
+* [Follow the RSS feed](https://den.io/feed.rss) to keep up with news and announcements.
+* [Start a discussion on GitHub](https://github.com/garrettrayj/den/discussions/new) to share an idea or ask a question.
+* [Create an issue on GitHub](https://github.com/garrettrayj/den/issues/new) to report a bug or request an enhancement.
+* [Join the Discord server](https://discord.gg/NS9hMrYrnt) to chat.
+* [Email the developer](mailto:garrett@devsci.net) anytime for anything.
 
 ## Development
 
@@ -92,4 +93,4 @@ See the [Contributing Guide](CONTRIBUTING.md) for more.
 
 ---
 
-Copyright 2023 Garrett Johnson
+&copy; 2023 Garrett Johnson

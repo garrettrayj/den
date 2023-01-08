@@ -11,6 +11,9 @@
 import SwiftUI
 
 struct ItemView: View {
+    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
+    @Environment(\.openURL) private var openURL
+    
     let item: Item
     let maxContentWidth: CGFloat = 800
 
@@ -78,7 +81,16 @@ struct ItemView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
                 Button {
-                    SafariUtility.openLink(url: item.link)
+                    if useInbuiltBrowser {
+                        SafariUtility.openLink(
+                            url: item.link,
+                            readerMode: item.feedData?.feed?.readerMode ?? false
+                        )
+                    } else {
+                        if let url = item.link {
+                            openURL(url)
+                        }
+                    }
                 } label: {
                     Label("Open in Browser", systemImage: "link.circle")
                 }
