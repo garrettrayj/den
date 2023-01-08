@@ -28,31 +28,20 @@ struct AboutSettingsSectionView: View {
                         .font(.caption)
                 }
                 Spacer()
-
             }.padding(.vertical, 8)
 
             Button {
-                if let url = URL(string: "https://discord.gg/NS9hMrYrnt") {
+                if let url = URL(string: "https://den.io") {
                     openURL(url)
                 }
             } label: {
-                Text("Discord Community")
+                Text("Website")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
 
             Button {
-                if let url = URL(string: "mailto:support@devsci.net") {
-                    openURL(url)
-                }
-            } label: {
-                Text("Email Support")
-            }
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("email-support-button")
-
-            Button {
-                if let url = URL(string: "https://garrettjohnson.com/privacy/") {
+                if let url = URL(string: "https://den.io/privacy/") {
                     openURL(url)
                 }
             } label: {

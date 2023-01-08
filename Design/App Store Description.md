@@ -1,14 +1,17 @@
 # Den for RSS
 
-## Comfy News Browsing
+## Comfy Feed Browsing
 
-Create landscape views of what's happening with the sources that matter to you.
+A modern, content focused, news app for iOS and Mac.
 
-Den is a modern take on the personalized start page made for following many publishers and being your own editor. Simple yet powerful features for browsing, reading, and organizing news feeds make it easy build up media dashboards around whatever you're into.
+Be your own editor, get news direct from publishers, and keep up with the happenings that matter to you. Simple yet powerful features make it easy to organize and follow syndication feeds.
+
+Den is open source! Visit https://github.com/garrettrayj/den to checkout the code. Purchasing on the App Store supports development. Thank you.
+
 
 FEATURES
 
-+ One App
++ Multi-Platform
 Designed for phones, tablets, and computers.
 
 + Cloud Sync

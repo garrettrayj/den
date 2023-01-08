@@ -14,6 +14,7 @@ import SafariServices
 struct ItemActionView<Content: View>: View {
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
     @Environment(\.openURL) private var openURL
+    
     @ObservedObject var item: Item
 
     @ViewBuilder var content: Content

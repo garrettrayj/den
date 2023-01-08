@@ -13,6 +13,8 @@ import SwiftUI
 
 struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
+    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
 
     @ObservedObject var feed: Feed
 
@@ -81,7 +83,13 @@ struct FeedView: View {
         HStack {
             if let linkDisplayString = feed.feedData?.linkDisplayString {
                 Button {
-                    SafariUtility.openLink(url: feed.feedData?.link)
+                    if useInbuiltBrowser {
+                        SafariUtility.openLink(url: feed.feedData?.link)
+                    } else {
+                        if let url = feed.feedData?.link {
+                            openURL(url)
+                        }
+                    }
                 } label: {
                     HStack {
                         Label {

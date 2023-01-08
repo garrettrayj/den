@@ -370,6 +370,7 @@
 		6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
 		688FD917247750350006A2DE /* PageSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSettingsView.swift; sourceTree = "<group>"; };
 		688FD930247A34830006A2DE /* FeedSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSettingsView.swift; sourceTree = "<group>"; };
+		68922A642969D78A00C9A276 /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
 		689460822596A7BB00ED4064 /* DenApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DenApp.swift; sourceTree = "<group>"; };
 		689838CB291D88FE00FDC881 /* SafariUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariUtility.swift; sourceTree = "<group>"; };
 		68998B842504C87400FDB6EE /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -760,8 +761,9 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
-				683573A429659BBB00843A8E /* CONTRIBUTING.md */,
+				68922A642969D78A00C9A276 /* .github */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
+				683573A429659BBB00843A8E /* CONTRIBUTING.md */,
 				683573A32963A0BA00843A8E /* NOTES.md */,
 				68A807ED2944843800944D2C /* Makefile */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
@@ -1538,7 +1540,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeedDetector/Info.plist;
@@ -1549,7 +1551,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.14.1;
+				MARKETING_VERSION = 1.14.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -1571,7 +1573,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeedDetector/Info.plist;
@@ -1582,7 +1584,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.14.1;
+				MARKETING_VERSION = 1.14.2;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -1770,7 +1772,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1782,7 +1784,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14.1;
+				MARKETING_VERSION = 1.14.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1801,7 +1803,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1813,7 +1815,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14.1;
+				MARKETING_VERSION = 1.14.2;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
