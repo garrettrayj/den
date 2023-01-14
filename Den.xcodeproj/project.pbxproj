@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -152,7 +152,6 @@
 		68C41318247263C700D1DC7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C41317247263C700D1DC7B /* Assets.xcassets */; };
 		68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C4131A247263C700D1DC7B /* Preview Assets.xcassets */; };
 		68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68C4131C247263C700D1DC7B /* LaunchScreen.storyboard */; };
-		68C41329247263C700D1DC7B /* DenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C41328247263C700D1DC7B /* DenTests.swift */; };
 		68C41334247263C700D1DC7B /* DenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C41333247263C700D1DC7B /* DenUITests.swift */; };
 		68C413462472773100D1DC7B /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C413452472773100D1DC7B /* PageView.swift */; };
 		68C4134B24727F2B00D1DC7B /* GadgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* GadgetView.swift */; };
@@ -210,13 +209,6 @@
 			remoteInfo = SafariExtension;
 		};
 		689EDC0E26A3F46A0055811A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 68C41301247263C700D1DC7B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 68C41308247263C700D1DC7B;
-			remoteInfo = Den;
-		};
-		68C41325247263C700D1DC7B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 68C41301247263C700D1DC7B /* Project object */;
 			proxyType = 1;
@@ -409,7 +401,6 @@
 		68C4131A247263C700D1DC7B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		68C4131D247263C700D1DC7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68C4131F247263C700D1DC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		68C41324247263C700D1DC7B /* DenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C41328247263C700D1DC7B /* DenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenTests.swift; sourceTree = "<group>"; };
 		68C4132A247263C700D1DC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68C4132F247263C700D1DC7B /* DenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -498,13 +489,6 @@
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
 				681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		68C41321247263C700D1DC7B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -785,7 +769,6 @@
 			isa = PBXGroup;
 			children = (
 				68C41309247263C700D1DC7B /* Den.app */,
-				68C41324247263C700D1DC7B /* DenTests.xctest */,
 				68C4132F247263C700D1DC7B /* DenUITests.xctest */,
 				689EDC0926A3F46A0055811A /* Screenshots.xctest */,
 				6813FD082748DE1100EC88A5 /* SymbolLibrary */,
@@ -1078,24 +1061,6 @@
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
 			productType = "com.apple.product-type.application";
 		};
-		68C41323247263C700D1DC7B /* DenTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 68C4133B247263C700D1DC7B /* Build configuration list for PBXNativeTarget "DenTests" */;
-			buildPhases = (
-				68C41320247263C700D1DC7B /* Sources */,
-				68C41321247263C700D1DC7B /* Frameworks */,
-				68C41322247263C700D1DC7B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				68C41326247263C700D1DC7B /* PBXTargetDependency */,
-			);
-			name = DenTests;
-			productName = DenTests;
-			productReference = 68C41324247263C700D1DC7B /* DenTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		68C4132E247263C700D1DC7B /* DenUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 68C4133E247263C700D1DC7B /* Build configuration list for PBXNativeTarget "DenUITests" */;
@@ -1137,10 +1102,6 @@
 					68C41308247263C700D1DC7B = {
 						CreatedOnToolsVersion = 11.4.1;
 					};
-					68C41323247263C700D1DC7B = {
-						CreatedOnToolsVersion = 11.4.1;
-						TestTargetID = 68C41308247263C700D1DC7B;
-					};
 					68C4132E247263C700D1DC7B = {
 						CreatedOnToolsVersion = 11.4.1;
 						TestTargetID = 68C41308247263C700D1DC7B;
@@ -1170,7 +1131,6 @@
 			projectRoot = "";
 			targets = (
 				68C41308247263C700D1DC7B /* Den */,
-				68C41323247263C700D1DC7B /* DenTests */,
 				68C4132E247263C700D1DC7B /* DenUITests */,
 				689EDC0826A3F46A0055811A /* Screenshots */,
 				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
@@ -1220,13 +1180,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		68C41322247263C700D1DC7B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		68C4132D247263C700D1DC7B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1239,6 +1192,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		683573A1296378FB00843A8E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1447,14 +1401,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		68C41320247263C700D1DC7B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				68C41329247263C700D1DC7B /* DenTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		68C4132B247263C700D1DC7B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1475,11 +1421,6 @@
 			isa = PBXTargetDependency;
 			target = 68C41308247263C700D1DC7B /* Den */;
 			targetProxy = 689EDC0E26A3F46A0055811A /* PBXContainerItemProxy */;
-		};
-		68C41326247263C700D1DC7B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 68C41308247263C700D1DC7B /* Den */;
-			targetProxy = 68C41325247263C700D1DC7B /* PBXContainerItemProxy */;
 		};
 		68C41331247263C700D1DC7B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1826,56 +1767,6 @@
 			};
 			name = Release;
 		};
-		68C4133C247263C700D1DC7B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N7TC759VWV;
-				INFOPLIST_FILE = DenTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.DenTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Den.app/Den";
-			};
-			name = Debug;
-		};
-		68C4133D247263C700D1DC7B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N7TC759VWV;
-				INFOPLIST_FILE = DenTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.DenTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Den.app/Den";
-			};
-			name = Release;
-		};
 		68C4133F247263C700D1DC7B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1968,15 +1859,6 @@
 			buildConfigurations = (
 				68C41339247263C700D1DC7B /* Debug */,
 				68C4133A247263C700D1DC7B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		68C4133B247263C700D1DC7B /* Build configuration list for PBXNativeTarget "DenTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				68C4133C247263C700D1DC7B /* Debug */,
-				68C4133D247263C700D1DC7B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
