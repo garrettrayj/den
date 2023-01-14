@@ -67,7 +67,7 @@ class MacScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "07-Settings")
 
         // Search
-        let searchField = app.searchFields["Search"]
+        let searchField = app.searchFields["Search"].firstMatch
         searchField.tap()
         searchField.typeText("NASA")
         searchField.typeText("\n")
