@@ -30,7 +30,7 @@ Without added layers of curation, censorship or monetization.
 ## Design
 
 The icon is a chair because it symbolizes how simple and utilitarian the app aspires to be.
-A streamlined basic comfort with reliable mechanisms.
+Just a streamlined basic comfort with reliable mechanisms.
 
 ## Publishers
 
