@@ -68,11 +68,6 @@ struct PageView: View {
                     }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                 }
             }
-            .task {
-                if CommandLine.arguments.contains("-in-memory") && sceneViewMode != PageViewMode.gadgets.rawValue {
-                    sceneViewMode = PageViewMode.gadgets.rawValue
-                }
-            }
             .modifier(URLDropTargetModifier(page: page))
             .navigationTitle(page.displayName)
             .toolbar {
