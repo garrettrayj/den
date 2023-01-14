@@ -11,7 +11,7 @@ A news app made for clear and intuitive browsing.
 - Feed Detector browser extension
 - and much more...
 
-<img src="Screenshots/Images/macOS/en/light/01-GadgetsView.png" alt="iPad screenshot" width="800" />
+<img src="Screenshots/Images/iPad Pro (12.9-inch) (5th generation)/en/light/01-GadgetsView.png" alt="iPad screenshot" width="800" />
 
 ## Installation
 

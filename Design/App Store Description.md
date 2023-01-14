@@ -2,11 +2,9 @@
 
 ## Comfy Feed Browsing
 
-A modern, content focused, news app for iOS and Mac.
+A modern news app for iOS and Mac made for creating custom landscape views of what's happening. 
 
-Be your own editor, get news direct from publishers, and keep up with the happenings that matter to you. Simple yet powerful features make it easy to organize and follow syndication feeds.
-
-Den is open source! Visit https://github.com/garrettrayj/den to checkout the code. Purchasing on the App Store supports development. Thank you.
+Broadsheet, content focused, layouts ideal for quickly catching up on a lot of information is what sets it apart from others.
 
 FEATURES
 
