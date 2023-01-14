@@ -36,6 +36,7 @@ class PadScreenshots: ScreenshotTestCase {
         goToLink(1)
         goToLink(3)
 
+        sleep(2)
         takeScreenshot(named: "01-GadgetsView")
 
         app.buttons["showcase-view-button"].tap()
@@ -54,6 +55,7 @@ class PadScreenshots: ScreenshotTestCase {
 
         // Feed view
         app.buttons["item-feed-button"].firstMatch.tap()
+        sleep(2)
         takeScreenshot(named: "05-FeedView")
 
         // Feed settings

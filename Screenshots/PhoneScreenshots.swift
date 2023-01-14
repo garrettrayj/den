@@ -38,6 +38,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         goToLink(1)
         goToLink(3)
 
+        sleep(2)
         takeScreenshot(named: "02-GadgetsView")
 
         app.navigationBars.buttons["view-mode-picker"].tap()
@@ -66,6 +67,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         sleep(2)
         takeScreenshot(named: "07-FeedSettings")
 
+        goBack()
         goBack()
         goBack()
 

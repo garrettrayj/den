@@ -73,6 +73,7 @@ function capture_ios {
     for simulator in "${simulators[@]}"
     do
         simulator_name="$simulator Screenshots"
+        
         xcrun simctl create "$simulator_name" "$simulator"
         xcrun simctl boot "$simulator_name"
 
