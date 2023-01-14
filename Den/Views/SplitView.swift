@@ -18,6 +18,7 @@ struct SplitView: View {
 
     @ObservedObject var profile: Profile
 
+    @Binding var activeProfile: Profile?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
@@ -53,6 +54,7 @@ struct SplitView: View {
             .disabled(refreshing)
         } detail: {
             ContentView(
+                activeProfile: $activeProfile,
                 sceneProfileID: $sceneProfileID,
                 appProfileID: $appProfileID,
                 contentSelection: $contentSelection,

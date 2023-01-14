@@ -14,6 +14,11 @@ class PadScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .pad }
 
     func testScreenshots() {
+        if !app.buttons["create-profile-button"].waitForExistence(timeout: 30) {
+            XCTFail("Create profile button did not appear in time")
+        }
+        app.buttons["create-profile-button"].forceTap()
+
         if !app.staticTexts["GET STARTED"].waitForExistence(timeout: 5) {
             XCTFail("Get Started message does not exist")
         }
@@ -33,11 +38,8 @@ class PadScreenshots: ScreenshotTestCase {
 
         takeScreenshot(named: "01-GadgetsView")
 
-        app.buttons["page-menu"].tap()
         app.buttons["showcase-view-button"].tap()
-
-        // Show page menu in next screenshot
-        app.buttons["page-menu"].tap()
+        sleep(2)
         takeScreenshot(named: "02-ShowcaseView")
 
         app.buttons["blend-view-button"].tap()
@@ -45,7 +47,6 @@ class PadScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "03-BlendView")
 
         // Page settings
-        app.buttons["page-menu"].tap()
         app.buttons["page-settings-button"].tap()
         sleep(2)
         takeScreenshot(named: "04-PageSettings")

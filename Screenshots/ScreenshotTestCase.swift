@@ -56,7 +56,7 @@ class ScreenshotTestCase: XCTestCase {
 
         // Initialize the application
         app = XCUIApplication()
-        app.launchArguments.append("--reset")
+        app.launchArguments.append("-in-memory")
         app.launch()
 
         #if !targetEnvironment(macCatalyst)

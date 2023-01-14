@@ -14,12 +14,16 @@ class MacScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .mac }
 
     func testScreenshots() {
-        // Page list
+        if !app.buttons["create-profile-button"].waitForExistence(timeout: 30) {
+            XCTFail("Create profile button did not appear in time")
+        }
+        app.buttons["create-profile-button"].tap()
+
         app.buttons["load-demo-button"].tap()
 
         // Refresh all pages
-        let profileRefreshButton = app.buttons.matching(identifier: "profile-refresh-button").firstMatch
-        profileRefreshButton.forceTap()
+        let profileRefreshButton = app.buttons["profile-refresh-button"]
+        profileRefreshButton.tap()
         expectation(for: enabledPredicate, evaluatedWith: profileRefreshButton, handler: nil)
         waitForExpectations(timeout: 120, handler: nil)
 

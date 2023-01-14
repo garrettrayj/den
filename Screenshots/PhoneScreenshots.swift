@@ -8,14 +8,17 @@
 //  SPDX-License-Identifier: MIT
 //
 
-// swiftlint:disable function_body_length
-
 import XCTest
 
 class PhoneScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .phone }
 
     func testScreenshots() {
+        if !app.buttons["create-profile-button"].waitForExistence(timeout: 30) {
+            XCTFail("Create profile button did not appear in time")
+        }
+        app.buttons["create-profile-button"].forceTap()
+
         let getStartedLabel = app.staticTexts["GET STARTED"]
         expectation(for: existsPredicate, evaluatedWith: getStartedLabel, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
@@ -37,35 +40,32 @@ class PhoneScreenshots: ScreenshotTestCase {
 
         takeScreenshot(named: "02-GadgetsView")
 
-        app.navigationBars.buttons["page-menu"].tap()
+        app.navigationBars.buttons["view-mode-picker"].tap()
         app.buttons["showcase-view-button"].tap()
+        app.navigationBars.buttons["view-mode-picker"].tap()
         sleep(2)
         takeScreenshot(named: "03-ShowcaseView")
 
-        app.navigationBars.buttons["page-menu"].tap()
         app.buttons["blend-view-button"].tap()
         sleep(2)
         takeScreenshot(named: "04-BlendView")
 
-        // Page settings
-        app.navigationBars.buttons["page-menu"].tap()
         app.buttons["page-settings-button"].tap()
         sleep(2)
-        takeScreenshot(named: "04-PageSettings")
+        takeScreenshot(named: "05-PageSettings")
 
         goBack()
 
         // Feed view
         app.buttons.matching(identifier: "item-feed-button").firstMatch.forceTap()
         sleep(2)
-        takeScreenshot(named: "05-FeedView")
+        takeScreenshot(named: "06-FeedView")
 
         // Feed settings
         app.buttons["feed-settings-button"].forceTap()
         sleep(2)
-        takeScreenshot(named: "06-FeedSettings")
+        takeScreenshot(named: "07-FeedSettings")
 
-        goBack()
         goBack()
         goBack()
 
@@ -74,7 +74,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         let settingsHeader = app.navigationBars["Settings"]
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
-        takeScreenshot(named: "07-Settings")
+        takeScreenshot(named: "08-Settings")
 
         goBack()
 
@@ -84,7 +84,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         searchField.typeText("NASA")
         searchField.typeText("\n")
         sleep(1)
-        takeScreenshot(named: "08-Search")
+        takeScreenshot(named: "09-Search")
     }
 
     private func goToPage(_ elementIndex: Int) {

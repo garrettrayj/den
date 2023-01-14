@@ -8,7 +8,6 @@ Be your own editor, get news direct from publishers, and keep up with the happen
 
 Den is open source! Visit https://github.com/garrettrayj/den to checkout the code. Purchasing on the App Store supports development. Thank you.
 
-
 FEATURES
 
 + Multi-Platform

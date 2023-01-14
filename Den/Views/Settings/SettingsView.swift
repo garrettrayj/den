@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Binding var activeProfile: Profile?
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
@@ -39,6 +40,7 @@ struct SettingsView: View {
             )
             AppearanceSettingsSectionView(uiStyle: $uiStyle)
             ResetSettingsSectionView(
+                activeProfile: $activeProfile,
                 sceneProfileID: $sceneProfileID,
                 appProfileID: $appProfileID,
                 profile: profile
