@@ -21,26 +21,16 @@ This project does not currently offer a free binary download. Of course, it's po
 
 ## Mission
 
-Den aims to be a news app so sharp it cuts through misinformation like a white-hot knife through butter.
-Old and new tech is blended to create a unique content-focused browsing experience.
-Old in the sense that RSS has been around since 1999. 
-Decentralized and based on reliable foundations; 
-Syndication feeds are still the best way to publish and consume news.
-New in the sense that modern devices and networks mean individuals often carry around 
-what might as well be a public intelligence workstation in their pocket.
-There's no reason to compromise on privacy or control.
+Den aims to be a news app so sharp it cuts through misinformation like a hot knife through butter.
+Given modern devices and networks, there's no reason to compromise on privacy or control.
 Anyone can follow hundreds of publishers with all the conveniences provided by 
 cloud storage, machine learning, natural language processing, artificial intelligence, etc.
-It's about custom views and automated analysis useful for keeping up with current events.
 Without added layers of curation, censorship or monetization.
 
 ## Design
 
 The icon is a chair because it symbolizes how simple and utilitarian the app aspires to be.
 A streamlined basic comfort with reliable mechanisms.
-The idea is reflected throughout, from the clean stock interface to the tone of language in messages.
-It is just a seat; A place to relax and enjoy looking around at stuff.
-Or in other words, it is boring on purpose.
 
 ## Publishers
 
