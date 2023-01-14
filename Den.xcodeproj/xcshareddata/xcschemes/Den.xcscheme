@@ -29,11 +29,11 @@
       shouldUseLaunchSchemeArgsEnv = "NO">
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-com.apple.CoreData.Logging.stderr 0"
+            argument = "-in-memory"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--reset"
+            argument = "-com.apple.CoreData.Logging.stderr 0"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -94,6 +94,10 @@
          <CommandLineArgument
             argument = "-com.apple.CoreData.Logging.stderr 0 "
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-in-memory"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-UIFocusLoggingEnabled YES"

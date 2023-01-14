@@ -68,11 +68,16 @@ struct PageView: View {
                     }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                 }
             }
+            .task {
+                if CommandLine.arguments.contains("-in-memory") && sceneViewMode != PageViewMode.gadgets.rawValue {
+                    sceneViewMode = PageViewMode.gadgets.rawValue
+                }
+            }
             .modifier(URLDropTargetModifier(page: page))
             .navigationTitle(page.displayName)
             .toolbar {
                 ToolbarItem {
-                    if geometry.size.width > 400 {
+                    if geometry.size.width > 460 {
                         viewModePicker.pickerStyle(.segmented)
                     } else {
                         viewModePicker
@@ -110,6 +115,6 @@ struct PageView: View {
             Label("Blend", systemImage: "square.text.square")
                 .tag(PageViewMode.blend.rawValue)
                 .accessibilityIdentifier("blend-view-button")
-        }
+        }.accessibilityIdentifier("view-mode-picker")
     }
 }

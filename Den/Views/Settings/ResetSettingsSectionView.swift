@@ -15,6 +15,7 @@ import SDWebImage
 struct ResetSettingsSectionView: View {
     @Environment(\.dismiss) private var dismiss
 
+    @Binding var activeProfile: Profile?
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
 
@@ -84,13 +85,6 @@ struct ResetSettingsSectionView: View {
         }
     }
 
-    private func restoreUserDefaults() {
-        // Clear our UserDefaults domain
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
-    }
-
     private func emptyCache() async {
         await SDImageCache.shared.clear(with: .all)
 
@@ -143,12 +137,19 @@ struct ResetSettingsSectionView: View {
                     }
                     context.delete(profile)
                 }
-                _ = ProfileUtility.createDefaultProfile(context: context)
+                let defaultProfile = ProfileUtility.createDefaultProfile(context: context)
                 try context.save()
+
+                activeProfile = defaultProfile
+                appProfileID = defaultProfile.id?.uuidString
+                sceneProfileID = defaultProfile.id?.uuidString
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
-        restoreUserDefaults()
+
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
     }
 }

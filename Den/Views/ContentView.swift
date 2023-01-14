@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Binding var activeProfile: Profile?
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var contentSelection: ContentPanel?
@@ -46,6 +47,7 @@ struct ContentView: View {
                     }
                 case .settings:
                     SettingsView(
+                        activeProfile: $activeProfile,
                         sceneProfileID: $sceneProfileID,
                         appProfileID: $appProfileID,
                         uiStyle: $uiStyle,
@@ -94,16 +96,12 @@ struct ContentView: View {
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in
                 switch settingsPanel {
                 case .profileSettings(let profile):
-                    if profile.managedObjectContext != nil {
-                        ProfileSettingsView(
-                            sceneProfileID: $sceneProfileID,
-                            appProfileID: $appProfileID,
-                            profile: profile,
-                            nameInput: profile.wrappedName
-                        )
-                    } else {
-                        StatusBoxView(message: Text("Profile Deleted"), symbol: "slash.circle")
-                    }
+                    ProfileSettingsView(
+                        sceneProfileID: $sceneProfileID,
+                        appProfileID: $appProfileID,
+                        profile: profile,
+                        nameInput: profile.wrappedName
+                    )
                 case .importFeeds:
                     ImportView(profile: profile)
                 case .exportFeeds:

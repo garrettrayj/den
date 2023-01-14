@@ -13,7 +13,7 @@ import SwiftUI
 struct ItemView: View {
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
     @Environment(\.openURL) private var openURL
-    
+
     let item: Item
     let maxContentWidth: CGFloat = 800
 

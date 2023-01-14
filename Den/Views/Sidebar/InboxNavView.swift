@@ -31,7 +31,7 @@ struct InboxNavView: View {
             }
             .searchable(
                 text: $searchInput,
-                placement: .navigationBarDrawer(displayMode: .automatic)
+                placement: .navigationBarDrawer(displayMode: .always)
             )
             .onSubmit(of: .search) {
                 searchModel.query = searchInput

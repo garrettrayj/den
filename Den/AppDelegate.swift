@@ -27,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        resetUserDefaultsIfNeeded()
+        setupImageHandling()
+
+        return true
+    }
+
+    private func setupImageHandling() {
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
         SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
@@ -38,7 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
         SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 64 // MB
+    }
 
-        return true
+    private func resetUserDefaultsIfNeeded() {
+        if CommandLine.arguments.contains("-in-memory") {
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+        }
     }
 }

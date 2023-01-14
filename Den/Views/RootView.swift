@@ -38,6 +38,7 @@ struct RootView: View {
                 } else {
                     SplitView(
                         profile: profile,
+                        activeProfile: $activeProfile,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         appProfileID: $appProfileID,
                         uiStyle: $uiStyle
@@ -52,7 +53,7 @@ struct RootView: View {
                     // It usually takes 30 to 40 seconds to sort things out and recover profiles from the cloud.
                     // While this isn't an ideal introduction to the app, it resolves a glaring bug.
                     // Trying to automatically create profiles has always led to duplicates historically.
-                    if profileLoadAttempts > 4 {
+                    if profileLoadAttempts > 3 {
                         Text("Profile Not Found")
                         Button {
                             activateProfile(ProfileUtility.createDefaultProfile(context: viewContext))
@@ -60,11 +61,12 @@ struct RootView: View {
                             Text("Create New Profile")
                         }
                         .buttonStyle(AccentButtonStyle())
-                        .accessibilityIdentifier("create-new-profile-button")
+                        .accessibilityIdentifier("create-profile-button")
                         Text("""
                         If you have used the app before then synchronization could be in progress. \
                         Please wait a minute.
                         """)
+                        .multilineTextAlignment(.center)
                         .font(.caption)
                     } else {
                         Text("Loading…").onAppear { loadProfile() }
@@ -72,6 +74,7 @@ struct RootView: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding()
                 .background(Color(UIColor.systemGroupedBackground))
                 .foregroundColor(Color.secondary)
             }
