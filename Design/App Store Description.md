@@ -2,9 +2,9 @@
 
 ## Comfy Feed Browsing
 
-Den is modern news app for iOS and Mac made for creating custom landscape views of what's happening. 
+Den is a modern news app for iOS and Mac made for creating custom landscape views of what's happening. 
 
-Broadsheet, content focused, layouts ideal for quickly catching up on a lot of information is what sets it apart from others.
+Content focused, broadsheet, layouts built to be ideal for scanning lots of information is what sets it apart from others.
 
 FEATURES
 
