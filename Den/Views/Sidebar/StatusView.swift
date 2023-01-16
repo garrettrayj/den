@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct StatusView: View {
+    @Environment(\.editMode) private var editMode
+
     @ObservedObject var profile: Profile
 
     @Binding var refreshing: Bool
@@ -18,26 +20,28 @@ struct StatusView: View {
     let progress: Progress
 
     var body: some View {
-        VStack {
-            if refreshing {
-                ProgressView(progress).progressViewStyle(BottomBarProgressViewStyle())
-            } else if let refreshedDate = profile.minimumRefreshedDate {
-                Text("\(refreshedDate.formatted())").font(.caption)
-            } else {
-                #if targetEnvironment(macCatalyst)
-                Text("Press \(Image(systemName: "command")) + R to refresh")
-                    .imageScale(.small)
-                    .font(.caption)
-                #else
-                Text("Pull to refresh").font(.caption)
-                #endif
+        if editMode?.wrappedValue == .inactive {
+            VStack {
+                if refreshing {
+                    ProgressView(progress).progressViewStyle(BottomBarProgressViewStyle())
+                } else if let refreshedDate = profile.minimumRefreshedDate {
+                    Text("\(refreshedDate.formatted())").font(.caption)
+                } else {
+                    #if targetEnvironment(macCatalyst)
+                    Text("Press \(Image(systemName: "command")) + R to refresh")
+                        .imageScale(.small)
+                        .font(.caption)
+                    #else
+                    Text("Pull to refresh").font(.caption)
+                    #endif
+                }
             }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-            progress.completedUnitCount += 1
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
-            progress.completedUnitCount += 1
+            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+                progress.completedUnitCount += 1
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
+                progress.completedUnitCount += 1
+            }
         }
     }
 }

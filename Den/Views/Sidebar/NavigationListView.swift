@@ -29,7 +29,6 @@ struct NavigationListView: View {
                 contentSelection: $contentSelection
             )
             TrendsNavView(profile: profile)
-            NewPageView(profile: profile, contentSelection: $contentSelection)
             Section {
                 ForEach(profile.pagesArray) { page in
                     PageNavView(profile: profile, page: page)
@@ -61,6 +60,10 @@ struct NavigationListView: View {
             ToolbarItem(placement: .bottomBar) {
                 Spacer()
             }
+            ToolbarItem(placement: .bottomBar) {
+                NewPageView(profile: profile, contentSelection: $contentSelection)
+            }
+
             ToolbarItem(placement: .bottomBar) {
                 StatusView(
                     profile: profile,
