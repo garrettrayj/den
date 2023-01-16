@@ -23,22 +23,24 @@ struct InboxNavView: View {
     @State private var searchInput = ""
 
     var body: some View {
-        if editMode?.wrappedValue == .inactive {
-            Label {
-                Text("Inbox").lineLimit(1).badge(profile.previewItems.unread().count)
-            } icon: {
-                Image(systemName: profile.previewItems.unread().count > 0 ? "tray.full": "tray")
-            }
-            .searchable(
-                text: $searchInput,
-                placement: .navigationBarDrawer(displayMode: .always)
-            )
-            .onSubmit(of: .search) {
-                searchModel.query = searchInput
-                contentSelection = .search
-            }
-            .accessibilityIdentifier("inbox-button")
-            .tag(ContentPanel.inbox)
+        Label {
+            Text("Inbox")
+                .lineLimit(1)
+                .badge(editMode?.wrappedValue.isEditing == true ? 0 : profile.previewItems.unread().count)
+        } icon: {
+            Image(systemName: profile.previewItems.unread().count > 0 ? "tray.full": "tray")
         }
+        .searchable(
+            text: $searchInput,
+            placement: .navigationBarDrawer(displayMode: .always)
+        )
+        .onSubmit(of: .search) {
+            searchModel.query = searchInput
+            contentSelection = .search
+        }
+        .disabled(editMode?.wrappedValue == .active)
+        .accessibilityIdentifier("inbox-button")
+        .tag(ContentPanel.inbox)
+        .foregroundColor(editMode?.wrappedValue == .active ? .secondary : nil)
     }
 }

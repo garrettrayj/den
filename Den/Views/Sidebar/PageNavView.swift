@@ -18,26 +18,20 @@ struct PageNavView: View {
     @ObservedObject var page: Page
 
     var body: some View {
-        if editMode?.wrappedValue == .inactive {
-            Label {
-                Text(page.displayName).lineLimit(1).badge(page.previewItems.unread().count)
-            } icon: {
-                Image(systemName: page.wrappedSymbol)
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
-                if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
-                    page.objectWillChange.send()
-                }
-            }
-            .modifier(URLDropTargetModifier(page: page))
-            .accessibilityIdentifier("page-button")
-            .tag(ContentPanel.page(page))
-        } else {
-            Label {
-                Text(page.displayName).lineLimit(1)
-            } icon: {
-                Image(systemName: page.wrappedSymbol)
+        Label {
+            Text(page.displayName)
+                .lineLimit(1)
+                .badge(editMode?.wrappedValue.isEditing == true ? 0 : page.previewItems.unread().count)
+        } icon: {
+            Image(systemName: page.wrappedSymbol)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
+            if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
+                page.objectWillChange.send()
             }
         }
+        .modifier(URLDropTargetModifier(page: page))
+        .accessibilityIdentifier("page-button")
+        .tag(ContentPanel.page(page))
     }
 }

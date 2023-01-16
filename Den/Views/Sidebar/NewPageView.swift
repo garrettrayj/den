@@ -22,11 +22,9 @@ struct NewPageView: View {
     var body: some View {
         if editMode?.wrappedValue == .active {
             Button {
-                withAnimation {
-                    addPage()
-                }
+                addPage()
             } label: {
-                Label("Add Page", systemImage: "plus").imageScale(.large)
+                Label("Add Page", systemImage: "plus").labelStyle(.titleAndIcon)
             }
             .buttonStyle(.borderless)
             .accessibilityIdentifier("new-page-button")
@@ -41,7 +39,7 @@ struct NewPageView: View {
             suffix += 1
         }
 
-        let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
+        let newPage = Page.create(in: viewContext, profile: profile, prepend: false)
         newPage.wrappedName = pageName
 
         do {
