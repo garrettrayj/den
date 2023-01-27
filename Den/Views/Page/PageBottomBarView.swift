@@ -30,16 +30,7 @@ struct PageBottomBarView: View {
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
             await HistoryUtility.toggleReadUnread(items: page.previewItems)
-
-            if viewMode == PageView.PageViewMode.blend.rawValue {
-                // Send page update to refresh blend view
-                page.objectWillChange.send()
-            } else {
-                // Send feed updates to refresh gadgets and showcase views
-                for feed in page.feedsArray {
-                    feed.objectWillChange.send()
-                }
-            }
+            page.objectWillChange.send()
         }
     }
 }

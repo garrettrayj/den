@@ -14,14 +14,14 @@ import SwiftUI
 struct PageNavView: View {
     @Environment(\.editMode) private var editMode
 
-    @ObservedObject var profile: Profile
+    @ObservedObject var profile: Profile // Observed for state changes
     @ObservedObject var page: Page
 
     var body: some View {
         Label {
             Text(page.displayName)
                 .lineLimit(1)
-                .badge(editMode?.wrappedValue.isEditing == true ? 0 : page.previewItems.unread().count)
+                .badge(page.previewItems.unread().count)
         } icon: {
             Image(systemName: page.wrappedSymbol)
         }

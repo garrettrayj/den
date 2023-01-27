@@ -26,21 +26,17 @@ struct InboxNavView: View {
         Label {
             Text("Inbox")
                 .lineLimit(1)
-                .badge(editMode?.wrappedValue.isEditing == true ? 0 : profile.previewItems.unread().count)
+                .badge(profile.previewItems.unread().count)
         } icon: {
             Image(systemName: profile.previewItems.unread().count > 0 ? "tray.full": "tray")
         }
-        .searchable(
-            text: $searchInput,
-            placement: .navigationBarDrawer(displayMode: .always)
-        )
-        .onSubmit(of: .search) {
-            searchModel.query = searchInput
-            contentSelection = .search
-        }
-        .disabled(editMode?.wrappedValue == .active)
+        .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
+        .modifier(SearchableModifier(
+            searchInput: $searchInput,
+            contentSelection: $contentSelection,
+            searchModel: searchModel
+        ))
         .accessibilityIdentifier("inbox-button")
         .tag(ContentPanel.inbox)
-        .foregroundColor(editMode?.wrappedValue == .active ? .secondary : nil)
     }
 }
