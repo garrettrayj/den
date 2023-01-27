@@ -24,7 +24,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 8)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 20)
             .background(
                 backgroundColor.overlay {
                     isEnabled ?

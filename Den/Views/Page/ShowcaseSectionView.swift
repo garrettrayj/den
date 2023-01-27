@@ -21,7 +21,7 @@ struct ShowcaseSectionView: View {
         Section {
             if feed.hasContent {
                 if feed.visibleItems(hideRead).isEmpty {
-                    AllReadCompactView().padding(.horizontal, 8)
+                    AllReadCompactView().padding(.horizontal, 12)
                 } else {
                     BoardView(
                         width: width,
@@ -47,8 +47,7 @@ struct ShowcaseSectionView: View {
                 HStack {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
-                        favicon: feed.feedData?.favicon,
-                        dimmed: allRead
+                        favicon: feed.feedData?.favicon
                     )
                     Spacer()
                     NavChevronView()
@@ -58,14 +57,5 @@ struct ShowcaseSectionView: View {
             .buttonStyle(PinnedHeaderButtonStyle())
             .accessibilityIdentifier("showcase-section-feed-button")
         }
-    }
-
-    private var allRead: Bool {
-        guard
-            let feedData = feed.feedData,
-            !feedData.previewItems.isEmpty
-        else { return false }
-
-        return feedData.previewItems.unread().isEmpty
     }
 }
