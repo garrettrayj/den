@@ -16,15 +16,12 @@ struct SplashNoteView: View {
     var symbol: String?
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 8) {
             Spacer()
             if let symbol = symbol {
-                Image(systemName: symbol)
-                    .font(.system(size: 48))
-                    .padding(.bottom, 8)
+                Image(systemName: symbol).font(.system(size: 48)).padding(.bottom, 16)
             }
-            title
-                .font(.title2.weight(.semibold))
+            title.font(.title2.weight(.semibold))
             caption
                 .font(.title3)
                 .frame(maxWidth: 360)
