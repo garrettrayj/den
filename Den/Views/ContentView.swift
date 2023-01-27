@@ -97,6 +97,7 @@ struct ContentView: View {
                 switch settingsPanel {
                 case .profileSettings(let profile):
                     ProfileSettingsView(
+                        activeProfile: $activeProfile,
                         sceneProfileID: $sceneProfileID,
                         appProfileID: $appProfileID,
                         profile: profile,
