@@ -19,14 +19,14 @@ struct TrendsView: View {
     var body: some View {
         GeometryReader { geometry in
             if profile.trends.isEmpty {
-                StatusBoxView(
-                    message: Text("No Trends Available"),
+                SplashNoteView(
+                    title: Text("No Trends Available"),
                     caption: Text("Could not find any common organizations, people, or places in titles"),
                     symbol: "questionmark.folder"
                 )
             } else {
                 if visibleTrends.isEmpty {
-                    AllReadStatusView(hiddenItemCount: readTrends.count)
+                    AllReadSplashNoteView(hiddenItemCount: readTrends.count)
                 } else {
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: visibleTrends) { trend in

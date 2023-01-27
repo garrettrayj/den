@@ -27,7 +27,7 @@ struct FeedView: View {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                         Section {
                             if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
-                                AllReadCompactView()
+                                AllReadStatusView(hiddenCount: feed.feedData!.itemsArray.read().count)
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
                                     .padding()
@@ -50,7 +50,7 @@ struct FeedView: View {
                 } else {
                     VStack {
                         Spacer()
-                        FeedUnavailableView(feedData: feed.feedData, useStatusBox: true)
+                        FeedUnavailableView(feedData: feed.feedData, splashNote: true)
                         Spacer()
                     }
                     .padding()

@@ -43,7 +43,7 @@ struct ContentView: View {
                     if page.managedObjectContext != nil {
                         PageView(page: page, hideRead: $hideRead)
                     } else {
-                        StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
+                        SplashNoteView(title: Text("Page Deleted"), symbol: "slash.circle")
                     }
                 case .settings:
                     SettingsView(
@@ -65,31 +65,31 @@ struct ContentView: View {
                     if page.managedObjectContext != nil {
                         PageSettingsView(page: page)
                     } else {
-                        StatusBoxView(message: Text("Page Deleted"), symbol: "slash.circle")
+                        SplashNoteView(title: Text("Page Deleted"), symbol: "slash.circle")
                     }
                 case .feed(let feed):
                     if feed.managedObjectContext != nil {
                         FeedView(feed: feed, hideRead: $hideRead)
                     } else {
-                        StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
+                        SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
                     }
                 case .feedSettings(let feed):
                     if feed.managedObjectContext != nil {
                         FeedSettingsView(feed: feed)
                     } else {
-                        StatusBoxView(message: Text("Feed Deleted"), symbol: "slash.circle")
+                        SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
                     }
                 case .item(let item):
                     if item.managedObjectContext != nil {
                         ItemView(item: item)
                     } else {
-                        StatusBoxView(message: Text("Item Deleted"), symbol: "slash.circle")
+                        SplashNoteView(title: Text("Item Deleted"), symbol: "slash.circle")
                     }
                 case .trend(let trend):
                     if trend.managedObjectContext != nil {
                         TrendView(trend: trend, hideRead: $hideRead)
                     } else {
-                        StatusBoxView(message: Text("Trend Deleted"), symbol: "slash.circle")
+                        SplashNoteView(title: Text("Trend Deleted"), symbol: "slash.circle")
                     }
                 }
             }

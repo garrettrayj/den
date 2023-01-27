@@ -20,7 +20,7 @@ struct SearchResultsView: View {
     var body: some View {
         GeometryReader { geometry in
             if searchResults.isEmpty {
-                StatusBoxView(message: Text("No results found for “\(query)”"))
+                SplashNoteView(title: Text("No results found for “\(query)”"))
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: Array(searchResults)) { item in

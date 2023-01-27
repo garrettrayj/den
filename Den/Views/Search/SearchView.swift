@@ -18,8 +18,8 @@ struct SearchView: View {
     var body: some View {
         Group {
             if searchModel.query == "" {
-                StatusBoxView(
-                    message: Text("Searching \(profile.wrappedName)"),
+                SplashNoteView(
+                    title: Text("Searching \(profile.wrappedName)"),
                     symbol: "magnifyingglass"
                 )
             } else {

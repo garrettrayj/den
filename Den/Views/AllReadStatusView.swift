@@ -2,7 +2,7 @@
 //  AllReadStatusView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 7/24/22.
+//  Created by Garrett Johnson on 9/5/22.
 //  Copyright © 2022 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -11,13 +11,19 @@
 import SwiftUI
 
 struct AllReadStatusView: View {
-    let hiddenItemCount: Int
+    let hiddenCount: Int
 
     var body: some View {
-        StatusBoxView(
-            message: Text("All Read"),
-            caption: Text("\(hiddenItemCount) hidden"),
-            symbol: "checkmark"
-        )
+        Label {
+            HStack(spacing: 4) {
+                Text("All read")
+                Spacer()
+                Text("\(hiddenCount) hidden").font(.caption)
+            }
+        } icon: {
+            Image(systemName: "checkmark").imageScale(.small)
+        }
+        .foregroundColor(.secondary)
+        .padding(12)
     }
 }

@@ -20,8 +20,8 @@ struct InboxView: View {
         GeometryReader { geometry in
             if profile.feedsArray.isEmpty {
                 #if targetEnvironment(macCatalyst)
-                StatusBoxView(
-                    message: Text("No Feeds"),
+                SplashNoteView(
+                    title: Text("No Feeds"),
                     caption: Text("""
                     Add feeds by opening syndication links \
                     or click \(Image(systemName: "plus.circle")) to add by web address
@@ -30,7 +30,7 @@ struct InboxView: View {
                 )
                 #else
                 StatusBoxView(
-                    message: Text("No Feeds"),
+                    title: Text("No Feeds"),
                     caption: Text("""
                     Add feeds by opening syndication links \
                     or tap \(Image(systemName: "plus.circle")) \
@@ -40,12 +40,12 @@ struct InboxView: View {
                 )
                 #endif
             } else if profile.previewItems.isEmpty {
-                StatusBoxView(
-                    message: Text("No Items"),
+                SplashNoteView(
+                    title: Text("No Items"),
                     symbol: "questionmark.folder"
                 )
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
-                AllReadStatusView(hiddenItemCount: profile.previewItems.read().count)
+                AllReadSplashNoteView(hiddenItemCount: profile.previewItems.read().count)
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: profile.visibleItems(hideRead)) { item in
