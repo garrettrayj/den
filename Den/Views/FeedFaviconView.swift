@@ -18,7 +18,6 @@ struct FeedFaviconView: View {
     let url: URL?
 
     var placeholderSymbol: String = "dot.radiowaves.up.forward"
-    var dimmed: Bool = false
 
     var body: some View {
         WebImage(url: url, context: [.imageThumbnailPixelSize: ImageReferenceSize.favicon])
@@ -31,6 +30,6 @@ struct FeedFaviconView: View {
             }
             .frame(width: ImageSize.favicon.width, height: ImageSize.favicon.height)
             .grayscale(isEnabled ? 0 : 1)
-            .opacity(isEnabled && !dimmed ? 1 : UIConstants.dimmedImageOpacity)
+            .opacity(isEnabled ? 1 : UIConstants.dimmedImageOpacity)
     }
 }

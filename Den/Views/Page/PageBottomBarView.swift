@@ -31,6 +31,7 @@ struct PageBottomBarView: View {
         ToggleReadButtonView(unreadCount: unreadCount) {
             await HistoryUtility.toggleReadUnread(items: page.previewItems)
             page.objectWillChange.send()
+            page.feedsArray.forEach { $0.objectWillChange.send() }
         }
     }
 }
