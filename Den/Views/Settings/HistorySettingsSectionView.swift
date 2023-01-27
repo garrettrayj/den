@@ -12,7 +12,6 @@ import SwiftUI
 
 struct HistorySettingsSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var profile: Profile
 

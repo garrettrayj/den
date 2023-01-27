@@ -1,5 +1,5 @@
 //
-//  NewPageView.swift
+//  AddPageButtonView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/1/22.
@@ -10,14 +10,11 @@
 
 import SwiftUI
 
-struct NewPageView: View {
+struct AddPageButtonView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
     @Environment(\.editMode) private var editMode
 
     @ObservedObject var profile: Profile
-
-    @Binding var contentSelection: ContentPanel?
 
     var body: some View {
         if editMode?.wrappedValue == .active {

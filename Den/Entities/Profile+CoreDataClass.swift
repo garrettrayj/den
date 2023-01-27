@@ -91,17 +91,12 @@ public class Profile: NSManagedObject {
     }
 
     public var pagesArray: [Page] {
-        get {
-            if let pages = self.pages?.sortedArray(
-                using: [NSSortDescriptor(key: "userOrder", ascending: true)]
-            ) as? [Page] {
-                return pages
-            }
-            return []
+        if let pages = self.pages?.sortedArray(
+            using: [NSSortDescriptor(key: "userOrder", ascending: true)]
+        ) as? [Page] {
+            return pages
         }
-        set {
-            pages = NSSet(array: newValue)
-        }
+        return []
     }
 
     public var pagesUserOrderMin: Int16 {

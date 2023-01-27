@@ -17,13 +17,12 @@ struct TrendsNavView: View {
 
     var body: some View {
         Label {
-            Text("Trends").lineLimit(1)
-                .badge(editMode?.wrappedValue.isEditing == true ? 0 : profile.trends.unread().count)
+            Text("Trends").lineLimit(1).badge(profile.trends.unread().count)
         } icon: {
             Image(systemName: "chart.line.uptrend.xyaxis")
         }
-        .accessibilityIdentifier("timeline-button")
+        .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
+        .accessibilityIdentifier("trends-button")
         .tag(ContentPanel.trends)
-        .foregroundColor(editMode?.wrappedValue == .active ? .secondary : nil)
     }
 }

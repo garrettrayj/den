@@ -55,15 +55,14 @@ struct NavigationListView: View {
                 AddFeedButtonView(contentSelection: $contentSelection, profile: profile)
             }
             ToolbarItem(placement: .bottomBar) {
-                SettingsButtonView(contentSelection: $contentSelection)
+                SettingsButtonView(listSelection: $contentSelection)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
-                NewPageView(profile: profile, contentSelection: $contentSelection)
+                AddPageButtonView(profile: profile)
             }
-
             ToolbarItem(placement: .bottomBar) {
                 StatusView(
                     profile: profile,
@@ -87,23 +86,21 @@ struct NavigationListView: View {
             .accessibilityIdentifier("edit-page-list-button")
     }
 
-    private func movePage( from source: IndexSet, to destination: Int) {
+    private func movePage(from source: IndexSet, to destination: Int) {
         var revisedItems = profile.pagesArray
 
-        // change the order of the items in the array
+        // Change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)
 
-        // update the userOrder attribute in revisedItems to
-        // persist the new order. This is done in reverse order
-        // to minimize changes to the indices.
+        // Update the userOrder attribute in revisedItems to persist the new order.
+        // This is done in reverse order to minimize changes to the indices.
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
 
         do {
             try viewContext.save()
-            // Update array for UI
-            profile.pagesArray = revisedItems
+            profile.objectWillChange.send()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
@@ -111,16 +108,12 @@ struct NavigationListView: View {
 
     private func deletePage(indices: IndexSet) {
         indices.forEach {
-            let page = profile.pagesArray[$0]
-            for feed in page.feedsArray where feed.feedData != nil {
-                viewContext.delete(feed.feedData!)
-            }
-            viewContext.delete(page)
+            viewContext.delete(profile.pagesArray[$0])
         }
 
         do {
             try viewContext.save()
-            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
+            profile.objectWillChange.send()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

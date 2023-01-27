@@ -13,12 +13,12 @@ import SwiftUI
 struct SettingsButtonView: View {
     @Environment(\.editMode) private var editMode
 
-    @Binding var contentSelection: ContentPanel?
+    @Binding var listSelection: ContentPanel?
 
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Button {
-                contentSelection = .settings
+                listSelection = .settings
             } label: {
                 Label("Settings", systemImage: "gear")
             }

@@ -13,6 +13,7 @@ import XCTest
 class PhoneScreenshots: ScreenshotTestCase {
     override var targetIdiom: UIUserInterfaceIdiom { .phone }
 
+    // swiftlint:disable function_body_length
     func testScreenshots() {
         if !app.buttons["create-profile-button"].waitForExistence(timeout: 30) {
             XCTFail("Create profile button did not appear in time")
