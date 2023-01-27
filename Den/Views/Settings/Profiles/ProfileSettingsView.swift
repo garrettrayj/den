@@ -14,6 +14,7 @@ struct ProfileSettingsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
+    @Binding var activeProfile: Profile?
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
 
@@ -63,6 +64,7 @@ struct ProfileSettingsView: View {
             Button {
                 sceneProfileID = profile.id?.uuidString
                 appProfileID = profile.id?.uuidString
+                activeProfile = profile
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "arrow.left.arrow.right")
