@@ -12,62 +12,33 @@ import SwiftUI
 
 struct FeedUnavailableView: View {
     let feedData: FeedData?
-    var useStatusBox: Bool = false
-
-    private struct StatusMessageView: View {
-        let symbol: String
-        let title: String
-        var caption: String = ""
-        var symbolColor: Color = Color.secondary
-        var useStatusBox: Bool = false
-
-        var body: some View {
-            if useStatusBox {
-                StatusBoxView(message: Text(title), caption: Text(caption), symbol: symbol)
-            } else {
-                Label {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(title).font(.headline.weight(.regular))
-                        Text(caption).font(.subheadline).foregroundColor(.secondary)
-                    }
-                } icon: {
-                    Image(systemName: symbol)
-                        .foregroundColor(symbolColor)
-                        .padding(.trailing, 4)
-                }
-            }
-        }
-    }
+    var splashNote: Bool = false
 
     var body: some View {
         HStack(alignment: .top) {
             if feedData == nil {
-                StatusMessageView(
-                    symbol: "questionmark.folder",
+                FeedStatusView(
                     title: "No Data",
-                    caption: "Refresh to load",
-                    useStatusBox: useStatusBox
+                    caption: "Refresh to get content",
+                    splashNote: splashNote
                 )
             } else if let error = feedData?.error {
-                StatusMessageView(
-                    symbol: "exclamationmark.triangle",
+                FeedStatusView(
                     title: "Refresh Error",
                     caption: error,
                     symbolColor: .red,
-                    useStatusBox: useStatusBox
+                    splashNote: splashNote
                 )
             } else if feedData!.itemsArray.isEmpty {
-                StatusMessageView(
-                    symbol: "questionmark.folder",
+                FeedStatusView(
                     title: "Feed Empty",
                     caption: "No items",
-                    useStatusBox: useStatusBox
+                    splashNote: splashNote
                 )
             } else {
-                StatusMessageView(
-                    symbol: "questionmark.diamond",
+                FeedStatusView(
                     title: "Status Unavailable",
-                    useStatusBox: useStatusBox
+                    splashNote: splashNote
                 )
             }
         }

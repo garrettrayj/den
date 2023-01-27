@@ -21,24 +21,19 @@ struct GadgetView: View {
         VStack(alignment: .leading, spacing: 0) {
             header
 
-            VStack(spacing: 0) {
-                if feed.hasContent {
+            if feed.hasContent {
+                if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
+                    Divider()
+                    AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
+                } else {
                     ForEach(feed.visibleItems(hideRead)) { item in
                         GadgetItemView(item: item)
                     }
-
-                    if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
-                        Divider()
-                        AllReadCompactView()
-                    }
-                } else {
-                    Divider()
-                    FeedUnavailableView(feedData: feed.feedData)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
                 }
+            } else {
+                Divider()
+                FeedUnavailableView(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
             }
-            .clipped()
         }
         .fixedSize(horizontal: false, vertical: true)
         .background(Color(UIColor.secondarySystemGroupedBackground))

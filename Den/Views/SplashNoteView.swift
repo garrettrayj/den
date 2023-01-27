@@ -1,5 +1,5 @@
 //
-//  StatusBoxView.swift
+//  SplashNoteView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/9/22.
@@ -10,8 +10,8 @@
 
 import SwiftUI
 
-struct StatusBoxView: View {
-    let message: Text
+struct SplashNoteView: View {
+    let title: Text
     var caption: Text?
     var symbol: String?
 
@@ -23,7 +23,7 @@ struct StatusBoxView: View {
                     .font(.system(size: 48))
                     .padding(.bottom, 8)
             }
-            message
+            title
                 .font(.title2.weight(.semibold))
             caption
                 .font(.title3)

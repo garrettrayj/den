@@ -19,7 +19,7 @@ struct TrendView: View {
     var body: some View {
         Group {
             if trend.visibleItems(hideRead).isEmpty {
-                AllReadStatusView(hiddenItemCount: trend.items.read().count)
+                AllReadSplashNoteView(hiddenItemCount: trend.items.read().count)
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {

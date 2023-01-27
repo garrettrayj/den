@@ -31,8 +31,8 @@ struct PageView: View {
         GeometryReader { geometry in
             VStack {
                 if page.feedsArray.isEmpty {
-                    StatusBoxView(
-                        message: Text("Page Empty"),
+                    SplashNoteView(
+                        title: Text("Page Empty"),
                         caption: Text("""
                         To add feeds tap \(Image(systemName: "plus.circle")), \n\
                         open syndication links, \n\
@@ -41,12 +41,12 @@ struct PageView: View {
                         symbol: "questionmark.folder"
                     )
                 } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend {
-                    StatusBoxView(
-                        message: Text("No Items"),
+                    SplashNoteView(
+                        title: Text("No Items"),
                         symbol: "questionmark.folder"
                     )
                 } else if page.visibleItems(hideRead).isEmpty  && viewMode == PageViewMode.blend {
-                    AllReadStatusView(hiddenItemCount: page.previewItems.read().count)
+                    AllReadSplashNoteView(hiddenItemCount: page.previewItems.read().count)
                 } else {
                     ScrollView {
                         switch viewMode {
