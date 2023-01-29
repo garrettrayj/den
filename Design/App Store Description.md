@@ -4,7 +4,7 @@
 
 Den is a modern news app for iOS and Mac made for creating custom landscape views of what's happening. 
 
-Broadsheet layout options set it apart from other readers. If you want to see the latest put up on a wall for easy scanning, then this is the app for you. Den shows more content at once on larger screens and scales down for browsing on smaller devices. Inspired by personalized start pages past and built by a developer more than a little nostalgic for simpler media, Den makes it easy to follow the latest from your favorite websites without unescessary distractions.
+Broadsheet layout options set it apart from other readers. If you want to see the latest put up on a wall for easy scanning, then this is the app for you. Den shows more content at once on larger screens and scales down for browsing on smaller devices. Inspired by personalized start pages past and built by a developer more than a little nostalgic for simpler media, Den makes it easy to follow the latest from your favorite websites without compromises.
 
 FEATURES
 
