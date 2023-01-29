@@ -32,7 +32,6 @@ struct SubscribeView: View {
         Group {
             if targetPage == nil || profile == nil {
                 VStack(spacing: 24) {
-                    Image(systemName: "questionmark.folder").font(.system(size: 52))
                     Text("No Pages Available").font(.title2)
                     Button { dismiss() } label: {
                         Text("Cancel").font(.title3)

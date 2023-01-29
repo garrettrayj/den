@@ -74,7 +74,7 @@ struct ItemView: View {
             .frame(maxWidth: .infinity)
         }
         .toolbar {
-            ToolbarItemGroup {
+            ToolbarItem {
                 ShareLink(item: item.link!).buttonStyle(ToolbarButtonStyle())
             }
 

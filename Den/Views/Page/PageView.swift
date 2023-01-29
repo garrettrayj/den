@@ -34,16 +34,14 @@ struct PageView: View {
                     SplashNoteView(
                         title: Text("Page Empty"),
                         caption: Text("""
-                        To add feeds tap \(Image(systemName: "plus.circle")), \n\
-                        open syndication links, \n\
-                        or drag and drop URLs.
-                        """),
-                        symbol: "questionmark.folder"
+                        Tap \(Image(systemName: "plus.circle")), \
+                        open syndication links, or drag and drop URLs to add feeds.
+                        """)
                     )
                 } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend {
                     SplashNoteView(
                         title: Text("No Items"),
-                        symbol: "questionmark.folder"
+                        caption: Text("Refresh \(Image(systemName: "arrow.clockwise")) to fetch content.")
                     )
                 } else if page.visibleItems(hideRead).isEmpty  && viewMode == PageViewMode.blend {
                     AllReadSplashNoteView(hiddenItemCount: page.previewItems.read().count)

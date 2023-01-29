@@ -60,7 +60,7 @@ struct FeedView: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup {
+            ToolbarItem {
                 NavigationLink(value: DetailPanel.feedSettings(feed)) {
                     Label("Feed Settings", systemImage: "wrench")
                 }

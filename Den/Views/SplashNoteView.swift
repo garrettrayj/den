@@ -24,7 +24,6 @@ struct SplashNoteView: View {
             title.font(.title2.weight(.semibold))
             caption
                 .font(.title3)
-                .frame(maxWidth: 360)
                 .padding(.horizontal)
                 .foregroundColor(.secondary)
             Spacer()

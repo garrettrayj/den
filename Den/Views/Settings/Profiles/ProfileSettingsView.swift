@@ -65,6 +65,7 @@ struct ProfileSettingsView: View {
                 sceneProfileID = profile.id?.uuidString
                 appProfileID = profile.id?.uuidString
                 activeProfile = profile
+                profile.objectWillChange.send()
                 dismiss()
             } label: {
                 Label("Switch", systemImage: "arrow.left.arrow.right")
