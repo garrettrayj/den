@@ -4,21 +4,21 @@
 
 Den is a modern news app for iOS and Mac made for creating custom landscape views of what's happening. 
 
-Content focused, broadsheet, layouts built to be ideal for scanning lots of information is what sets it apart from others.
+Broadsheet layout options set it apart from other readers. If you want to see the latest put up on a wall for easy scanning, then this is the app for you. Den shows more content at once on larger screens and scales down for browsing on smaller devices. Inspired by personalized start pages past and built by a developer more than a little nostalgic for simpler media, Den makes it easy to follow the latest from your favorite websites without unescessary distractions.
 
 FEATURES
 
 + Multi-Platform
-Designed for phones, tablets, and computers.
+Designed for computers, tablets, and phones.
 
 + Cloud Sync
 Profiles, feeds, history, and more on all your devices without signing up for yet another account.
 
 + RSS, Atom, and JSON Feed
-Works with popular formats so the library of compatible feeds is limitless.
+Support for the formats used by most feeds.
 
 + OPML Import and Export
-Backup, restore, or share feeds with common OPML files.
+Backup and restore feeds using XML files compatible with most feed reader apps.
 
 + Item Search
 Quickly get the latest on a topic by searching the titles of current items.
