@@ -71,7 +71,7 @@ struct PageSettingsView: View {
     private var feedsSection: some View {
         Section(header: Text("Feeds")) {
             if page.feedsArray.isEmpty {
-                Label("Page empty", systemImage: "questionmark.folder")
+                Text("Page Emtpy")
                     .foregroundColor(.secondary)
                     .modifier(FormRowModifier())
             } else {

@@ -23,10 +23,9 @@ struct InboxView: View {
                 SplashNoteView(
                     title: Text("No Feeds"),
                     caption: Text("""
-                    Add feeds by opening syndication links \
-                    or click \(Image(systemName: "plus.circle")) to add by web address
-                    """),
-                    symbol: "questionmark.folder"
+                    Tap \(Image(systemName: "plus.circle")), \
+                    open syndication links, or drag and drop URLs to add feeds.
+                    """)
                 )
                 #else
                 SplashNoteView(
@@ -35,14 +34,13 @@ struct InboxView: View {
                     Add feeds by opening syndication links \
                     or tap \(Image(systemName: "plus.circle")) \
                     to add by web address
-                    """),
-                    symbol: "questionmark.folder"
+                    """)
                 )
                 #endif
             } else if profile.previewItems.isEmpty {
                 SplashNoteView(
                     title: Text("No Items"),
-                    symbol: "questionmark.folder"
+                    caption: Text("Refresh \(Image(systemName: "arrow.clockwise")) to fetch content.")
                 )
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
                 AllReadSplashNoteView(hiddenItemCount: profile.previewItems.read().count)
