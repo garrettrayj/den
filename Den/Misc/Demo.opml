@@ -5,7 +5,7 @@
 	</head>
 	<body>
 		<outline text="World News" title="World News">
-			<outline text="ABC News" title="ABC News" type="rss" xmlUrl="https://abcnews.go.com/abcnews/internationalheadlines" />
+			<outline text="NBC News" title="NBC News" type="rss" xmlUrl="https://feeds.nbcnews.com/nbcnews/public/world" />
 			<outline text="DER SPIEGEL" title="DER SPIEGEL" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
 			<outline text="Vox" title="Vox" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
 			<outline text="Raw Story" title="Raw Story" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />

@@ -29,7 +29,7 @@ struct InboxView: View {
                     symbol: "questionmark.folder"
                 )
                 #else
-                StatusBoxView(
+                SplashNoteView(
                     title: Text("No Feeds"),
                     caption: Text("""
                     Add feeds by opening syndication links \
