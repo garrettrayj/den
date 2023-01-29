@@ -17,7 +17,7 @@ struct GadgetItemView: View {
         VStack(spacing: 0) {
             Divider()
             ItemActionView(item: item) {
-                HStack(alignment: .top, spacing: 12) {
+                HStack(alignment: .top, spacing: 8) {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(item.wrappedTitle).lineLimit(6).font(.headline)
                         ItemDateAuthorView(item: item)
@@ -29,7 +29,7 @@ struct GadgetItemView: View {
                         ItemThumbnailView(item: item).opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
                     }
                 }
-                .padding(12)
+                .padding(8)
             }
             .accessibilityIdentifier("gadget-item-button")
         }

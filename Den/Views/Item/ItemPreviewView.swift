@@ -38,7 +38,7 @@ struct ItemPreviewView: View {
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .padding(12)
+        .padding(8)
         .foregroundColor(
             isEnabled ?
                 item.read ? .secondary : .primary
