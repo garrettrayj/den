@@ -20,20 +20,21 @@ struct ItemPreviewView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(item.wrappedTitle).font(.headline)
-
-            ItemDateAuthorView(item: item)
+        VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(item.wrappedTitle).font(.headline).lineLimit(6)
+                ItemDateAuthorView(item: item)
+            }
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .multilineTextAlignment(.leading)
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                 PreviewImageView(item: item)
-                    .padding(.top, 4)
-                    .padding(.bottom, hasTeaser ? 4 : 0)
                     .opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
             }
 
             if hasTeaser {
-                Text(item.teaser!).font(.body).lineLimit(6)
+                Text(item.teaser!).lineLimit(6)
             }
         }
         .multilineTextAlignment(.leading)
