@@ -21,8 +21,6 @@ struct ContentView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useInbuiltBrowser: Bool
 
-    @ObservedObject var profile: Profile
-
     let searchModel: SearchModel
 
     @SceneStorage("HideRead") private var hideRead: Bool = false
@@ -30,33 +28,37 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                switch contentSelection ?? .welcome {
-                case .welcome:
-                    WelcomeView(profile: profile)
-                case .search:
-                    SearchView(profile: profile, searchModel: searchModel)
-                case .inbox:
-                    InboxView(profile: profile, hideRead: $hideRead)
-                case .trends:
-                    TrendsView(profile: profile, hideRead: $hideRead)
-                case .page(let page):
-                    if page.managedObjectContext != nil {
-                        PageView(page: page, hideRead: $hideRead)
-                    } else {
-                        SplashNoteView(title: Text("Page Deleted"), symbol: "slash.circle")
+                if let profile = activeProfile {
+                    switch contentSelection ?? .welcome {
+                    case .welcome:
+                        WelcomeView(profile: profile)
+                    case .search:
+                        SearchView(profile: profile, searchModel: searchModel)
+                    case .inbox:
+                        InboxView(profile: profile, hideRead: $hideRead)
+                    case .trends:
+                        TrendsView(profile: profile, hideRead: $hideRead)
+                    case .page(let page):
+                        if page.managedObjectContext != nil {
+                            PageView(page: page, hideRead: $hideRead)
+                        } else {
+                            SplashNoteView(title: Text("Page Deleted"))
+                        }
+                    case .settings:
+                        SettingsView(
+                            activeProfile: $activeProfile,
+                            sceneProfileID: $sceneProfileID,
+                            appProfileID: $appProfileID,
+                            uiStyle: $uiStyle,
+                            autoRefreshEnabled: $autoRefreshEnabled,
+                            autoRefreshCooldown: $autoRefreshCooldown,
+                            backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                            useInbuiltBrowser: $useInbuiltBrowser,
+                            profile: profile
+                        )
                     }
-                case .settings:
-                    SettingsView(
-                        activeProfile: $activeProfile,
-                        sceneProfileID: $sceneProfileID,
-                        appProfileID: $appProfileID,
-                        uiStyle: $uiStyle,
-                        autoRefreshEnabled: $autoRefreshEnabled,
-                        autoRefreshCooldown: $autoRefreshCooldown,
-                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        useInbuiltBrowser: $useInbuiltBrowser,
-                        profile: profile
-                    )
+                } else {
+                    SplashNoteView(title: Text("Profile Unavailable"))
                 }
             }
             .navigationDestination(for: DetailPanel.self) { detailPanel in
@@ -97,6 +99,7 @@ struct ContentView: View {
                 switch settingsPanel {
                 case .profileSettings(let profile):
                     ProfileSettingsView(
+                        contentSelection: $contentSelection,
                         activeProfile: $activeProfile,
                         sceneProfileID: $sceneProfileID,
                         appProfileID: $appProfileID,
@@ -104,12 +107,23 @@ struct ContentView: View {
                         nameInput: profile.wrappedName
                     )
                 case .importFeeds:
-                    ImportView(profile: profile)
+                    if let profile = activeProfile {
+                        ImportView(profile: profile)
+                    } else {
+                        SplashNoteView(title: Text("Import Unavailable"))
+                    }
                 case .exportFeeds:
-                    ExportView(profile: profile)
+                    if let profile = activeProfile {
+                        ExportView(profile: profile)
+                    } else {
+                        SplashNoteView(title: Text("Export Unavailable"))
+                    }
                 case .security:
-                    SecurityView(profile: profile)
-                }
+                    if let profile = activeProfile {
+                        SecurityView(profile: profile)
+                    } else {
+                        SplashNoteView(title: Text("Security Check Unavailable"))
+                    }                }
             }
         }
     }

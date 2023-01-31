@@ -12,28 +12,29 @@ import CoreData
 import SwiftUI
 
 struct SidebarView: View {
-    @ObservedObject var profile: Profile
-
     let searchModel: SearchModel
 
+    @Binding var activeProfile: Profile?
     @Binding var contentSelection: ContentPanel?
     @Binding var refreshing: Bool
 
     @State private var searchInput: String = ""
 
     var body: some View {
-        if profile.pagesArray.isEmpty {
-            StartListView(
-                profile: profile,
-                contentSelection: $contentSelection
-            )
-        } else {
-            NavigationListView(
-                profile: profile,
-                searchModel: searchModel,
-                contentSelection: $contentSelection,
-                refreshing: $refreshing
-            )
+        if let profile = activeProfile {
+            if profile.pagesArray.isEmpty {
+                StartListView(
+                    profile: profile,
+                    contentSelection: $contentSelection
+                )
+            } else {
+                NavigationListView(
+                    profile: profile,
+                    searchModel: searchModel,
+                    contentSelection: $contentSelection,
+                    refreshing: $refreshing
+                )
+            }
         }
     }
 }

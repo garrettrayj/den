@@ -40,13 +40,6 @@ struct NavigationListView: View {
             }
         }
         .navigationTitle(profile.displayName)
-        #if !targetEnvironment(macCatalyst)
-        .refreshable {
-            if !refreshing {
-                await RefreshUtility.refresh(profile: profile)
-            }
-        }
-        #endif
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 editButton

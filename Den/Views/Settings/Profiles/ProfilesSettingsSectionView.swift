@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ProfilesSettingsSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
+
     @Binding var sceneProfileID: String?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])

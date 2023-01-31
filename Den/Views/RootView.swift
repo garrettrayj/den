@@ -37,7 +37,6 @@ struct RootView: View {
                     Text("Profile Deleted").onAppear { loadProfile() }
                 } else {
                     SplitView(
-                        profile: profile,
                         activeProfile: $activeProfile,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         appProfileID: $appProfileID,
