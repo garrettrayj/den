@@ -40,8 +40,6 @@ Buy [Den for RSS on the App Store](https://apps.apple.com/us/app/den-for-rss/id1
 4. Select the "Den" scheme and device
 5. Run the scheme
 
-See the [Contributing Guide](CONTRIBUTING.md) for more.
-
 ---
 
 &copy; 2023 Garrett Johnson
