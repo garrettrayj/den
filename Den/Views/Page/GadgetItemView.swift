@@ -18,8 +18,8 @@ struct GadgetItemView: View {
             Divider()
             ItemActionView(item: item) {
                 HStack(alignment: .top, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(item.wrappedTitle).lineLimit(6).font(.headline)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(item.wrappedTitle).font(.headline).lineLimit(6)
                         ItemDateAuthorView(item: item)
                     }
                     .frame(maxWidth: .infinity, alignment: .topLeading)
