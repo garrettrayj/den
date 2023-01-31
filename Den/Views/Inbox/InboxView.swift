@@ -49,6 +49,7 @@ struct InboxView: View {
                     BoardView(width: geometry.size.width, list: profile.visibleItems(hideRead)) { item in
                         FeedItemPreviewView(item: item)
                     }
+                    Spacer()
                 }
             }
         }

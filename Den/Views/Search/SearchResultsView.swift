@@ -26,6 +26,7 @@ struct SearchResultsView: View {
                     BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
                         FeedItemPreviewView(item: item)
                     }
+                    Spacer()
                 }
             }
         }

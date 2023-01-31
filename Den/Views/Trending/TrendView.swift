@@ -26,6 +26,7 @@ struct TrendView: View {
                         BoardView(width: geometry.size.width, list: trend.visibleItems(hideRead)) { item in
                             FeedItemPreviewView(item: item)
                         }
+                        Spacer()
                     }
                 }
             }
