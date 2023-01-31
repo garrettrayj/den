@@ -16,8 +16,6 @@ struct SplitView: View {
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @Environment(\.scenePhase) private var scenePhase
 
-    @ObservedObject var profile: Profile
-
     @Binding var activeProfile: Profile?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
@@ -41,14 +39,19 @@ struct SplitView: View {
     var body: some View {
         NavigationSplitView {
             SidebarView(
-                profile: profile,
                 searchModel: searchModel,
+                activeProfile: $activeProfile,
                 contentSelection: $contentSelection,
                 refreshing: $refreshing
             )
             #if targetEnvironment(macCatalyst)
             .navigationSplitViewColumnWidth(240)
             #else
+            .refreshable {
+                if !refreshing, let profile = activeProfile {
+                    await RefreshUtility.refresh(profile: profile)
+                }
+            }
             .navigationSplitViewColumnWidth(280)
             #endif
             .disabled(refreshing)
@@ -63,7 +66,6 @@ struct SplitView: View {
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 useInbuiltBrowser: $useInbuiltBrowser,
-                profile: profile,
                 searchModel: searchModel
             )
             .disabled(refreshing)
@@ -88,7 +90,7 @@ struct SplitView: View {
                 ) {
                     Logger.main.debug("Performing automatic refresh")
                     Task {
-                        guard !refreshing else { return }
+                        guard !refreshing, let profile = activeProfile else { return }
                         await RefreshUtility.refresh(profile: profile)
                         autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
                     }
@@ -101,20 +103,20 @@ struct SplitView: View {
             subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
             showSubscribe = true
         }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: activeProfile?.objectID)) { _ in
             refreshing = true
             Haptics.mediumImpactFeedbackGenerator.impactOccurred()
         }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: activeProfile?.objectID)) { _ in
             refreshing = false
-            profile.objectWillChange.send()
+            activeProfile?.objectWillChange.send()
             Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
         }
         .sheet(isPresented: $showSubscribe) {
             SubscribeView(
                 initialPageObjectID: $subscribePageObjectID,
                 initialURLString: $subscribeURLString,
-                profile: profile
+                profile: activeProfile
             )
             .environment(\.colorScheme, colorScheme)
         }
