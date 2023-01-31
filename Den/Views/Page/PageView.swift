@@ -63,7 +63,9 @@ struct PageView: View {
                                 GadgetView(feed: feed, hideRead: $hideRead)
                             }
                         }
-                    }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                        Spacer()
+                    }
+                    .id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                 }
             }
             .modifier(URLDropTargetModifier(page: page))

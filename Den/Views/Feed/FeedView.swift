@@ -47,6 +47,7 @@ struct FeedView: View {
                             header.modifier(PinnedSectionHeaderModifier())
                         }
                     }
+                    Spacer()
                 } else {
                     VStack {
                         Spacer()
