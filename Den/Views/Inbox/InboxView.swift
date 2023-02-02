@@ -19,24 +19,7 @@ struct InboxView: View {
     var body: some View {
         GeometryReader { geometry in
             if profile.feedsArray.isEmpty {
-                #if targetEnvironment(macCatalyst)
-                SplashNoteView(
-                    title: Text("No Feeds"),
-                    caption: Text("""
-                    Tap \(Image(systemName: "plus.circle")), \
-                    open syndication links, or drag and drop URLs to add feeds.
-                    """)
-                )
-                #else
-                SplashNoteView(
-                    title: Text("No Feeds"),
-                    caption: Text("""
-                    Add feeds by opening syndication links \
-                    or tap \(Image(systemName: "plus.circle")) \
-                    to add by web address
-                    """)
-                )
-                #endif
+                NoFeedsView()
             } else if profile.previewItems.isEmpty {
                 SplashNoteView(
                     title: Text("No Items"),

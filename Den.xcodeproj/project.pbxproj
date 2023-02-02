@@ -139,6 +139,7 @@
 		68B34A672487ED870066B215 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A662487ED870066B215 /* ExportView.swift */; };
 		68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A68248801660066B215 /* ExportDocumentPicker.swift */; };
 		68B34A6C24880ADE0066B215 /* AEXML in Frameworks */ = {isa = PBXBuildFile; productRef = 68B34A6B24880ADE0066B215 /* AEXML */; };
+		68B526A0298A352600D4B927 /* NoFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B5269F298A352600D4B927 /* NoFeedsView.swift */; };
 		68B6CBDC290F2CFB00B5E3AB /* RSSItemLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDB290F2CFB00B5E3AB /* RSSItemLoad.swift */; };
 		68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */; };
 		68B6CBE0290FA5A300B5E3AB /* FaviconOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDF290FA5A300B5E3AB /* FaviconOperation.swift */; };
@@ -388,6 +389,7 @@
 		68B34A5D2486D2AD0066B215 /* ImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportView.swift; sourceTree = "<group>"; };
 		68B34A662487ED870066B215 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		68B34A68248801660066B215 /* ExportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDocumentPicker.swift; sourceTree = "<group>"; };
+		68B5269F298A352600D4B927 /* NoFeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFeedsView.swift; sourceTree = "<group>"; };
 		68B6CBDB290F2CFB00B5E3AB /* RSSItemLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemLoad.swift; sourceTree = "<group>"; };
 		68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeUtility.swift; sourceTree = "<group>"; };
 		68B6CBDF290FA5A300B5E3AB /* FaviconOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconOperation.swift; sourceTree = "<group>"; };
@@ -861,6 +863,7 @@
 				6829A50B28C6479900F75C5A /* AllReadStatusView.swift */,
 				68FF63F32921D9C50012A275 /* ToggleReadButtonView.swift */,
 				68FF63F52921DB900012A275 /* FilterReadButtonView.swift */,
+				68B5269F298A352600D4B927 /* NoFeedsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1328,6 +1331,7 @@
 				68D9BA9A28A60A5200F1A3AD /* AppearanceSettingsSectionView.swift in Sources */,
 				68D9BA9C28A60B4900F1A3AD /* FeedsSettingsSectionView.swift in Sources */,
 				68B6CBE0290FA5A300B5E3AB /* FaviconOperation.swift in Sources */,
+				68B526A0298A352600D4B927 /* NoFeedsView.swift in Sources */,
 				68B6CBE22910B84E00B5E3AB /* AnalysisOperation.swift in Sources */,
 				6885FD0E24819446007A3D5B /* ItemButtonStyle.swift in Sources */,
 				6868A30C2894F98C0051D43E /* UIConstants.swift in Sources */,

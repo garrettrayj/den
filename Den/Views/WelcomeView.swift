@@ -13,15 +13,19 @@ import SwiftUI
 struct WelcomeView: View {
     @ObservedObject var profile: Profile
 
+    var refreshedTimeAgo: String? {
+        guard let minRefreshed = profile.minimumRefreshedDate else { return nil }
+        let dateFormatter = RelativeDateTimeFormatter()
+        return dateFormatter.localizedString(for: minRefreshed, relativeTo: .now)
+    }
+
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
-            ZStack(alignment: .center) {
-                Image(systemName: "hexagon").font(.system(size: 48))
-                Image(systemName: "bolt.fill").font(.system(size: 24)).foregroundColor(.accentColor)
+            Text(profile.displayName).font(.largeTitle)
+            if let refreshedText = refreshedTimeAgo {
+                Text("Refreshed \(refreshedText)")
             }
-
-            Text(profile.displayName).font(.largeTitle.weight(.semibold))
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
