@@ -16,16 +16,13 @@ struct SplashNoteView: View {
     var symbol: String?
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 16) {
             Spacer()
             if let symbol = symbol {
-                Image(systemName: symbol).font(.system(size: 48)).padding(.bottom, 16)
+                Image(systemName: symbol).font(.system(size: 28))
             }
-            title.font(.title2.weight(.semibold))
-            caption
-                .font(.title3)
-                .padding(.horizontal)
-                .foregroundColor(.secondary)
+            title.font(.title)
+            caption.padding(.horizontal)
             Spacer()
         }
         .multilineTextAlignment(.center)

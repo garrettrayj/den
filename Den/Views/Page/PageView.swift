@@ -31,17 +31,11 @@ struct PageView: View {
         GeometryReader { geometry in
             VStack {
                 if page.feedsArray.isEmpty {
-                    SplashNoteView(
-                        title: Text("Page Empty"),
-                        caption: Text("""
-                        Tap \(Image(systemName: "plus.circle")), \
-                        open syndication links, or drag and drop URLs to add feeds.
-                        """)
-                    )
+                    NoFeedsView(page: page)
                 } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend {
                     SplashNoteView(
                         title: Text("No Items"),
-                        caption: Text("Refresh \(Image(systemName: "arrow.clockwise")) to fetch content.")
+                        caption: Text("Refresh \(Image(systemName: "arrow.clockwise")) to get content.")
                     )
                 } else if page.visibleItems(hideRead).isEmpty  && viewMode == PageViewMode.blend {
                     AllReadSplashNoteView(hiddenItemCount: page.previewItems.read().count)

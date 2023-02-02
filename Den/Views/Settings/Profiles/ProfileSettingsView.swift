@@ -26,11 +26,11 @@ struct ProfileSettingsView: View {
 
     var body: some View {
         Form {
-            activateSection
             nameSection
+            activateSection
             deleteSection
         }
-        .navigationTitle("Profile")
+        .navigationTitle("Profile Settings")
         .onDisappear {
             if profile.isDeleted { return }
             profile.wrappedName = nameInput
@@ -52,7 +52,7 @@ struct ProfileSettingsView: View {
                     .modifier(TitleTextFieldModifier())
             }.modifier(FormRowModifier())
         } header: {
-            Text("Name")
+            Text("Name").modifier(FormFirstHeaderModifier())
         }
     }
 
@@ -68,6 +68,7 @@ struct ProfileSettingsView: View {
                     appProfileID = profile.id?.uuidString
                     activeProfile = profile
                     contentSelection = nil
+                    profile.objectWillChange.send()
                 }
             } label: {
                 Label("Switch", systemImage: "arrow.left.arrow.right")
