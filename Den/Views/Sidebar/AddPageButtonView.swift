@@ -36,7 +36,7 @@ struct AddPageButtonView: View {
             suffix += 1
         }
 
-        let newPage = Page.create(in: viewContext, profile: profile, prepend: false)
+        let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
         newPage.wrappedName = pageName
 
         do {
