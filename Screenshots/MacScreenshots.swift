@@ -30,7 +30,7 @@ class MacScreenshots: ScreenshotTestCase {
         goToPage(5)
 
         goToLink(1)
-        goToLink(3)
+        goToLink(4)
 
         sleep(2)
         takeScreenshot(named: "01-GadgetsView")
