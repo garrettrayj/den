@@ -23,7 +23,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 isEnabled ? .primary : .secondary
             )
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 8)
+            .frame(height: 36)
             .padding(.horizontal, 12)
             .background(
                 backgroundColor.overlay {

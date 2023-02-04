@@ -140,6 +140,7 @@
 		68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B34A68248801660066B215 /* ExportDocumentPicker.swift */; };
 		68B34A6C24880ADE0066B215 /* AEXML in Frameworks */ = {isa = PBXBuildFile; productRef = 68B34A6B24880ADE0066B215 /* AEXML */; };
 		68B526A0298A352600D4B927 /* NoFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B5269F298A352600D4B927 /* NoFeedsView.swift */; };
+		68B526A2298E3B2000D4B927 /* DeckColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B526A1298E3B2000D4B927 /* DeckColumnView.swift */; };
 		68B6CBDC290F2CFB00B5E3AB /* RSSItemLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDB290F2CFB00B5E3AB /* RSSItemLoad.swift */; };
 		68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */; };
 		68B6CBE0290FA5A300B5E3AB /* FaviconOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDF290FA5A300B5E3AB /* FaviconOperation.swift */; };
@@ -390,6 +391,7 @@
 		68B34A662487ED870066B215 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		68B34A68248801660066B215 /* ExportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDocumentPicker.swift; sourceTree = "<group>"; };
 		68B5269F298A352600D4B927 /* NoFeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFeedsView.swift; sourceTree = "<group>"; };
+		68B526A1298E3B2000D4B927 /* DeckColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckColumnView.swift; sourceTree = "<group>"; };
 		68B6CBDB290F2CFB00B5E3AB /* RSSItemLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemLoad.swift; sourceTree = "<group>"; };
 		68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeUtility.swift; sourceTree = "<group>"; };
 		68B6CBDF290FA5A300B5E3AB /* FaviconOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconOperation.swift; sourceTree = "<group>"; };
@@ -973,6 +975,7 @@
 				687D9CB724A9CA2A00EB7F46 /* GadgetItemView.swift */,
 				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
 				688FD917247750350006A2DE /* PageSettingsView.swift */,
+				68B526A1298E3B2000D4B927 /* DeckColumnView.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -1362,6 +1365,7 @@
 				688FD931247A34830006A2DE /* FeedSettingsView.swift in Sources */,
 				683E3F4D293C1B9400B16814 /* BottomBarProgressViewStyle.swift in Sources */,
 				68FF63F42921D9C50012A275 /* ToggleReadButtonView.swift in Sources */,
+				68B526A2298E3B2000D4B927 /* DeckColumnView.swift in Sources */,
 				68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
 				6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */,
