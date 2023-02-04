@@ -21,7 +21,12 @@ struct ShowcaseSectionView: View {
         Section {
             if feed.hasContent {
                 if feed.visibleItems(hideRead).isEmpty {
-                    AllReadStatusView(hiddenCount: feed.feedData!.itemsArray.read().count).padding(.horizontal, 8)
+                    AllReadStatusView(hiddenCount: feed.feedData!.itemsArray.read().count)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                        .cornerRadius(8)
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                 } else {
                     BoardView(
                         width: width,
@@ -35,7 +40,13 @@ struct ShowcaseSectionView: View {
                     )
                 }
             } else {
-                FeedUnavailableView(feedData: feed.feedData).padding(.horizontal, 8)
+                FeedUnavailableView(feedData: feed.feedData)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .cornerRadius(8)
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+
             }
         } header: {
             NavigationLink(value: DetailPanel.feed(feed)) {

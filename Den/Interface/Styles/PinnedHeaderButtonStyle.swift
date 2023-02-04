@@ -14,6 +14,8 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
     @State private var hovering: Bool = false
 
+    var horizontalPadding: CGFloat = 24
+
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .font(.title3)
@@ -21,8 +23,8 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
                 isEnabled ? .primary : .secondary
             )
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 8)
-            .padding(.horizontal, 20)
+            .frame(height: 36)
+            .padding(.horizontal, horizontalPadding)
             .background(
                 isEnabled ?
                     hovering ? Color(UIColor.quaternarySystemFill) : .clear

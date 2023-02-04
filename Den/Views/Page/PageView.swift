@@ -15,6 +15,7 @@ struct PageView: View {
         case gadgets  = 0
         case showcase = 1
         case blend    = 2
+        case deck     = 3
     }
 
     @ObservedObject var page: Page
@@ -35,31 +36,51 @@ struct PageView: View {
                 } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend {
                     SplashNoteView(
                         title: Text("No Items"),
-                        caption: Text("Refresh \(Image(systemName: "arrow.clockwise")) to get content.")
+                        caption: Text("Refresh to get content")
                     )
                 } else if page.visibleItems(hideRead).isEmpty  && viewMode == PageViewMode.blend {
                     AllReadSplashNoteView(hiddenItemCount: page.previewItems.read().count)
                 } else {
-                    ScrollView {
-                        switch viewMode {
-                        case .blend:
+                    switch viewMode {
+                    case .deck:
+                        ScrollView(.horizontal) {
+                            LazyHStack(alignment: .top, spacing: 8) {
+                                ForEach(page.feedsArray) { feed in
+                                    DeckColumnView(feed: feed, hideRead: $hideRead)
+                                }
+                            }
+                            .padding(.horizontal)
+                            .background(alignment: .top) {
+                                Rectangle()
+                                    .foregroundColor(Color(UIColor.tertiarySystemGroupedBackground))
+                                    .frame(height: 36)
+                                    .frame(maxWidth: .infinity, alignment: .top)
+                            }
+                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                    case .blend:
+                        ScrollView(.vertical) {
                             BoardView(width: geometry.size.width, list: page.visibleItems(hideRead)) { item in
                                 FeedItemPreviewView(item: item)
                             }
-                        case .showcase:
+                            Spacer()
+                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                    case .showcase:
+                        ScrollView(.vertical) {
                             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                                 ForEach(page.feedsArray) { feed in
                                     ShowcaseSectionView(feed: feed, hideRead: $hideRead, width: geometry.size.width)
                                 }
                             }
-                        case .gadgets:
+                            Spacer()
+                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                    case .gadgets:
+                        ScrollView(.vertical) {
                             BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
                                 GadgetView(feed: feed, hideRead: $hideRead)
                             }
-                        }
-                        Spacer()
+                            Spacer()
+                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                     }
-                    .id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                 }
             }
             .modifier(URLDropTargetModifier(page: page))
@@ -101,6 +122,9 @@ struct PageView: View {
             Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
                 .tag(PageViewMode.showcase.rawValue)
                 .accessibilityIdentifier("showcase-view-button")
+            Label("Deck", systemImage: "rectangle.split.3x1")
+                .tag(PageViewMode.deck.rawValue)
+                .accessibilityIdentifier("deck-view-button")
             Label("Blend", systemImage: "square.text.square")
                 .tag(PageViewMode.blend.rawValue)
                 .accessibilityIdentifier("blend-view-button")
