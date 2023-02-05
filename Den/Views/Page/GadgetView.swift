@@ -27,6 +27,7 @@ struct GadgetView: View {
                     AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
                 } else {
                     ForEach(feed.visibleItems(hideRead)) { item in
+                        Divider()
                         GadgetItemView(item: item)
                     }
                 }

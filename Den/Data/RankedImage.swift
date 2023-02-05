@@ -16,3 +16,11 @@ struct RankedImage {
     var width: Int?
     var height: Int?
 }
+
+extension Array where Element == RankedImage {
+    var topRanked: RankedImage? {
+        self.sorted(by: { a, b in
+            a.rank > b.rank
+        }).first
+    }
+}

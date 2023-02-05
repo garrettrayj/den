@@ -19,52 +19,56 @@ struct DeckColumnView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            header
 
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(alignment: .leading, spacing: 8) {
-                    if feed.hasContent {
-                        if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
-                            AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
-                                .background(Color(UIColor.secondarySystemGroupedBackground))
-                                .cornerRadius(8)
-                        } else {
-                            ForEach(feed.visibleItems(hideRead)) { item in
-                                ItemActionView(item: item) {
-                                    ItemPreviewView(item: item)
+                LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
+                    Section {
+                        Group {
+                            if feed.hasContent {
+                                if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
+                                    AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
+                                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                                        .cornerRadius(8)
+                                } else {
+                                    ForEach(feed.visibleItems(hideRead)) { item in
+                                        ItemActionView(item: item) {
+                                            ItemPreviewView(item: item)
+                                        }
+                                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                                        .cornerRadius(8)
+                                    }
+                                    Spacer()
                                 }
-                                .background(Color(UIColor.secondarySystemGroupedBackground))
-                                .cornerRadius(8)
+                            } else {
+                                FeedUnavailableView(feedData: feed.feedData)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
                             }
-                            Spacer()
-                        }
-                    } else {
-                        FeedUnavailableView(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                            .cornerRadius(8)
+                        }.padding(.horizontal, 4)
+                    } header: {
+                        header
                     }
                 }
-                .padding(.vertical, 8)
             }
         }
         .frame(minWidth: 272, idealWidth: 300, maxWidth: 360)
     }
 
     private var header: some View {
-        HStack {
-            NavigationLink(value: DetailPanel.feed(feed)) {
-                HStack {
-                    FeedTitleLabelView(
-                        title: feed.wrappedTitle,
-                        favicon: feed.feedData?.favicon
-                    )
-                    Spacer()
-                    NavChevronView()
-                }
+        NavigationLink(value: DetailPanel.feed(feed)) {
+            HStack {
+                FeedTitleLabelView(
+                    title: feed.wrappedTitle,
+                    favicon: feed.feedData?.favicon
+                )
+                Spacer()
+                NavChevronView()
             }
-            .buttonStyle(PinnedHeaderButtonStyle(horizontalPadding: 8))
-            .accessibilityIdentifier("gadget-feed-button")
         }
+        .buttonStyle(PinnedHeaderButtonStyle(horizontalPadding: 12))
+        .modifier(PinnedSectionHeaderModifier())
+        .accessibilityIdentifier("deck-feed-button")
     }
 
     private var allRead: Bool {

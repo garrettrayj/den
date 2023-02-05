@@ -44,17 +44,16 @@ struct PageView: View {
                     switch viewMode {
                     case .deck:
                         ScrollView(.horizontal) {
-                            LazyHStack(alignment: .top, spacing: 8) {
+                            LazyHStack(alignment: .top, spacing: 0) {
                                 ForEach(page.feedsArray) { feed in
                                     DeckColumnView(feed: feed, hideRead: $hideRead)
                                 }
                             }
-                            .padding(.horizontal)
+                            .padding(.horizontal, 12)
                             .background(alignment: .top) {
-                                Rectangle()
-                                    .foregroundColor(Color(UIColor.tertiarySystemGroupedBackground))
-                                    .frame(height: 36)
-                                    .frame(maxWidth: .infinity, alignment: .top)
+                                HStack {}
+                                    .modifier(PinnedSectionHeaderModifier())
+
                             }
                         }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                     case .blend:

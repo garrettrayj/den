@@ -14,24 +14,21 @@ struct GadgetItemView: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        VStack(spacing: 0) {
-            Divider()
-            ItemActionView(item: item) {
-                HStack(alignment: .top, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(item.wrappedTitle).font(.headline).lineLimit(6)
-                        ItemDateAuthorView(item: item)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    .multilineTextAlignment(.leading)
-
-                    if item.feedData?.feed?.showThumbnails == true {
-                        ItemThumbnailView(item: item).opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
-                    }
+        ItemActionView(item: item) {
+            HStack(alignment: .top, spacing: 8) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.wrappedTitle).font(.headline).lineLimit(6)
+                    ItemDateAuthorView(item: item)
                 }
-                .padding(8)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                .multilineTextAlignment(.leading)
+
+                if item.feedData?.feed?.showThumbnails == true {
+                    ItemThumbnailView(item: item).opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
+                }
             }
-            .accessibilityIdentifier("gadget-item-button")
+            .padding(8)
         }
+        .accessibilityIdentifier("gadget-item-button")
     }
 }

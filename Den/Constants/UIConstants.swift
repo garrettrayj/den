@@ -12,5 +12,6 @@ import Foundation
 
 struct UIConstants {
     static let defaultItemLimit: Int = 6
+    static let extraItemLimit: Int = 12
     static let dimmedImageOpacity: Double = 0.5
 }

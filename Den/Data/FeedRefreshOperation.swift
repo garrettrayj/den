@@ -17,28 +17,26 @@ struct FeedRefreshOperation {
     let feedObjectID: NSManagedObjectID
     let pageObjectID: NSManagedObjectID?
     let url: URL
-    let fetchMeta: Bool
+    let updateMetadata: Bool
 
     // swiftlint:disable cyclomatic_complexity function_body_length
     func execute() async -> RefreshStatus {
         var refreshStatus = RefreshStatus()
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
-        var faviconURL: URL?
-        var metaFetched: Date?
+        var webpageMetadata: WebpageMetadata?
 
         if let (data, _) = try? await URLSession.shared.data(from: url) {
             parserResult = FeedParser(data: data).parse()
         }
 
-        if fetchMeta {
+        if updateMetadata {
             if
                 case .success(let parsedFeed) = parserResult,
                 let webpage = parsedFeed.webpage
             {
-                let faviconOp = FaviconOperation(webpage: webpage)
-                faviconURL = await faviconOp.execute()
+                let webpagMetadataOp = WebpageMetadataOperation(webpage: webpage)
+                webpageMetadata = await webpagMetadataOp.execute()
             }
-            metaFetched = .now
         }
 
         await container.performBackgroundTask { context in
@@ -60,6 +58,8 @@ struct FeedRefreshOperation {
                         feed: feed,
                         feedData: feedData,
                         source: parsedFeed,
+                        webpageMetadata: webpageMetadata,
+                        updateMetadata: updateMetadata,
                         context: context
                     )
                     updater.execute()
@@ -68,6 +68,8 @@ struct FeedRefreshOperation {
                         feed: feed,
                         feedData: feedData,
                         source: parsedFeed,
+                        webpageMetadata: webpageMetadata,
+                        updateMetadata: updateMetadata,
                         context: context
                     )
                     updater.execute()
@@ -76,6 +78,8 @@ struct FeedRefreshOperation {
                         feed: feed,
                         feedData: feedData,
                         source: parsedFeed,
+                        webpageMetadata: webpageMetadata,
+                        updateMetadata: updateMetadata,
                         context: context
                     )
                     updater.execute()
@@ -87,8 +91,8 @@ struct FeedRefreshOperation {
             }
 
             // Cleanup items
-            let maxItems = feed.wrappedItemLimit
-            if maxItems > 0 && feedData.itemsArray.count > maxItems {
+            let maxItems = feed.wrappedItemLimit + UIConstants.extraItemLimit
+            if feedData.itemsArray.count > maxItems {
                 feedData.itemsArray.suffix(from: maxItems).forEach { item in
                     feedData.removeFromItems(item)
                     context.delete(item)
@@ -101,11 +105,8 @@ struct FeedRefreshOperation {
             }
 
             // Update metadata and status
-            if metaFetched != nil {
-                feedData.metaFetched = metaFetched
-                if let faviconURL = faviconURL {
-                    feedData.favicon = faviconURL
-                }
+            if updateMetadata {
+                feedData.metaFetched = .now
             }
             feedData.refreshed = .now
             feedData.error = refreshStatus.errors.first
