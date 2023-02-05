@@ -141,9 +141,10 @@
 		68B34A6C24880ADE0066B215 /* AEXML in Frameworks */ = {isa = PBXBuildFile; productRef = 68B34A6B24880ADE0066B215 /* AEXML */; };
 		68B526A0298A352600D4B927 /* NoFeedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B5269F298A352600D4B927 /* NoFeedsView.swift */; };
 		68B526A2298E3B2000D4B927 /* DeckColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B526A1298E3B2000D4B927 /* DeckColumnView.swift */; };
+		68B526A4298F001800D4B927 /* WebpageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B526A3298F001800D4B927 /* WebpageMetadata.swift */; };
 		68B6CBDC290F2CFB00B5E3AB /* RSSItemLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDB290F2CFB00B5E3AB /* RSSItemLoad.swift */; };
 		68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */; };
-		68B6CBE0290FA5A300B5E3AB /* FaviconOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDF290FA5A300B5E3AB /* FaviconOperation.swift */; };
+		68B6CBE0290FA5A300B5E3AB /* WebpageMetadataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBDF290FA5A300B5E3AB /* WebpageMetadataOperation.swift */; };
 		68B6CBE22910B84E00B5E3AB /* AnalysisOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBE12910B84E00B5E3AB /* AnalysisOperation.swift */; };
 		68B6CBE42910B9C400B5E3AB /* CleanOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBE32910B9C400B5E3AB /* CleanOperation.swift */; };
 		68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBE52910BD0E00B5E3AB /* AtomFeedUpdate.swift */; };
@@ -392,9 +393,10 @@
 		68B34A68248801660066B215 /* ExportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDocumentPicker.swift; sourceTree = "<group>"; };
 		68B5269F298A352600D4B927 /* NoFeedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFeedsView.swift; sourceTree = "<group>"; };
 		68B526A1298E3B2000D4B927 /* DeckColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckColumnView.swift; sourceTree = "<group>"; };
+		68B526A3298F001800D4B927 /* WebpageMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebpageMetadata.swift; sourceTree = "<group>"; };
 		68B6CBDB290F2CFB00B5E3AB /* RSSItemLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemLoad.swift; sourceTree = "<group>"; };
 		68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeUtility.swift; sourceTree = "<group>"; };
-		68B6CBDF290FA5A300B5E3AB /* FaviconOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaviconOperation.swift; sourceTree = "<group>"; };
+		68B6CBDF290FA5A300B5E3AB /* WebpageMetadataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebpageMetadataOperation.swift; sourceTree = "<group>"; };
 		68B6CBE12910B84E00B5E3AB /* AnalysisOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisOperation.swift; sourceTree = "<group>"; };
 		68B6CBE32910B9C400B5E3AB /* CleanOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanOperation.swift; sourceTree = "<group>"; };
 		68B6CBE52910BD0E00B5E3AB /* AtomFeedUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomFeedUpdate.swift; sourceTree = "<group>"; };
@@ -668,7 +670,7 @@
 				68BD683E2839626E0075EF45 /* ImageSelection.swift */,
 				685ABAD1290EEF7B0080110A /* RefreshStatus.swift */,
 				68B6CBE12910B84E00B5E3AB /* AnalysisOperation.swift */,
-				68B6CBDF290FA5A300B5E3AB /* FaviconOperation.swift */,
+				68B6CBDF290FA5A300B5E3AB /* WebpageMetadataOperation.swift */,
 				68B6CBE32910B9C400B5E3AB /* CleanOperation.swift */,
 				685ABADD290F187C0080110A /* FeedRefreshOperation.swift */,
 				685ABAD9290F0BDC0080110A /* RSSFeedUpdate.swift */,
@@ -678,6 +680,7 @@
 				68B6CBE92910CA1C00B5E3AB /* JSONFeedUpdate.swift */,
 				68B6CBEB2910CA3000B5E3AB /* JSONItemLoad.swift */,
 				6880EBE027A8E61C00B479F4 /* RankedImage.swift */,
+				68B526A3298F001800D4B927 /* WebpageMetadata.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1333,7 +1336,7 @@
 				68F56B75288BFCCC006EC915 /* Den.xcdatamodel in Sources */,
 				68D9BA9A28A60A5200F1A3AD /* AppearanceSettingsSectionView.swift in Sources */,
 				68D9BA9C28A60B4900F1A3AD /* FeedsSettingsSectionView.swift in Sources */,
-				68B6CBE0290FA5A300B5E3AB /* FaviconOperation.swift in Sources */,
+				68B6CBE0290FA5A300B5E3AB /* WebpageMetadataOperation.swift in Sources */,
 				68B526A0298A352600D4B927 /* NoFeedsView.swift in Sources */,
 				68B6CBE22910B84E00B5E3AB /* AnalysisOperation.swift in Sources */,
 				6885FD0E24819446007A3D5B /* ItemButtonStyle.swift in Sources */,
@@ -1403,6 +1406,7 @@
 				68567B0429838828008855E9 /* FeedStatusView.swift in Sources */,
 				68D9BAA228A60CBE00F1A3AD /* ResetSettingsSectionView.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
+				68B526A4298F001800D4B927 /* WebpageMetadata.swift in Sources */,
 				68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */,
 				6829A4FC28C2744900F75C5A /* ContentView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,

@@ -11,6 +11,8 @@
 import CoreData
 import SwiftUI
 
+import SDWebImageSwiftUI
+
 struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
@@ -25,16 +27,36 @@ struct FeedView: View {
             ScrollView(.vertical) {
                 if feed.hasContent {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                        VStack(spacing: 0) {
+                            WebImage(url: feed.feedData?.banner ?? feed.feedData?.image)
+                                .resizable()
+                                .scaledToFit()
+                                .cornerRadius(8)
+                                .shadow(radius: 3, x: 1, y: 2)
+                                .frame(maxWidth: 360, maxHeight: 180)
+                                .padding(.horizontal)
+                                .padding(.vertical, 20)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background {
+                            WebImage(url: feed.feedData?.banner ?? feed.feedData?.image)
+                                .resizable()
+                                .scaledToFill()
+                                .overlay(.regularMaterial)
+                        }
+                        .clipped()
+
                         Section {
-                            if hideRead == true && feed.feedData!.itemsArray.unread().isEmpty {
-                                AllReadStatusView(hiddenCount: feed.feedData!.itemsArray.read().count)
+                            if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
+                                AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
-                                    .padding()
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal)
                             } else {
                                 BoardView(
                                     width: geometry.size.width,
-                                    list: feed.feedData?.visibleItems(hideRead) ?? []
+                                    list: feed.feedData?.visiblePreviewItems(hideRead) ?? []
                                 ) { item in
                                     ItemActionView(item: item) {
                                         ItemPreviewView(item: item)
@@ -44,7 +66,85 @@ struct FeedView: View {
                                 }
                             }
                         } header: {
-                            header.modifier(PinnedSectionHeaderModifier())
+                            HStack {
+                                Text("Top Items").font(.title3)
+                                Spacer()
+                                if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
+                                    Text("Refreshed \(refreshedTimeAgo)").font(.footnote)
+                                }
+                            }
+                            .padding(.horizontal, 24)
+                            .modifier(PinnedSectionHeaderModifier())
+                        }
+
+                        Section {
+                            if hideRead == true && feed.feedData!.extraItems.unread().isEmpty {
+                                AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal)
+                            } else {
+                                BoardView(
+                                    width: geometry.size.width,
+                                    list: feed.feedData?.visibleExtraItems(hideRead) ?? []
+                                ) { item in
+                                    GadgetItemView(item: item)
+                                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                                        .cornerRadius(8)
+                                }
+                            }
+                        } header: {
+                            Text("More Items")
+                                .font(.title3)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 24)
+                                .modifier(PinnedSectionHeaderModifier())
+                        }
+
+                        Section {
+                            VStack(alignment: .leading, spacing: 8) {
+                                if let linkDisplayString = feed.feedData?.linkDisplayString {
+                                    Button {
+                                        if useInbuiltBrowser {
+                                            SafariUtility.openLink(url: feed.feedData?.link)
+                                        } else {
+                                            if let url = feed.feedData?.link {
+                                                openURL(url)
+                                            }
+                                        }
+                                    } label: {
+                                        Label("\(linkDisplayString)", systemImage: "globe")
+                                        Image(systemName: "link").imageScale(.small)
+                                    }
+                                    .buttonStyle(.plain)
+                                } else {
+                                    Label("Website Not Available", systemImage: "globe")
+                                }
+
+                                Button {
+                                    UIPasteboard.general.string = feed.url!.absoluteString
+                                } label: {
+                                    HStack {
+                                        Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward")
+                                        Image(systemName: "doc.on.doc").imageScale(.small)
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityIdentifier("feed-copy-url-button")
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                            .cornerRadius(8)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                        } header: {
+                            Text("Feed Info")
+                                .font(.title3)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 24)
+                                .modifier(PinnedSectionHeaderModifier())
                         }
                     }
                     Spacer()
@@ -78,46 +178,5 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(feed.wrappedTitle)
-    }
-
-    private var header: some View {
-        HStack {
-            if let linkDisplayString = feed.feedData?.linkDisplayString {
-                Button {
-                    if useInbuiltBrowser {
-                        SafariUtility.openLink(url: feed.feedData?.link)
-                    } else {
-                        if let url = feed.feedData?.link {
-                            openURL(url)
-                        }
-                    }
-                } label: {
-                    HStack {
-                        Label {
-                            Text(linkDisplayString)
-                        } icon: {
-                            FeedFaviconView(url: feed.feedData?.favicon, placeholderSymbol: "globe")
-                        }
-                        Spacer()
-                        Image(systemName: "link")
-                            .foregroundColor(Color(UIColor.tertiaryLabel))
-                            .imageScale(.small)
-                            .font(.body.weight(.semibold))
-
-                    }
-                }
-                .buttonStyle(PinnedHeaderButtonStyle())
-            } else {
-                Label {
-                    Text("Website unknown").font(.caption)
-                } icon: {
-                    Image(systemName: "questionmark.square")
-                }
-                .foregroundColor(.secondary)
-                .padding(.leading, 20)
-                .padding(.trailing, 8)
-            }
-        }
-        .lineLimit(1)
     }
 }

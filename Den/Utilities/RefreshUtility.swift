@@ -28,7 +28,7 @@ struct RefreshUtility {
                 // Fetch meta (favicon, etc.) on first refresh or if user cleared cache,
                 // then check for updates occasionally
                 if feed.feedData?.metaFetched == nil ||
-                    feed.feedData!.metaFetched! < Date(timeIntervalSinceNow: -30 * 24 * 60 * 60) {
+                    feed.feedData!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
                     fetchMeta = true
                 }
 
@@ -38,7 +38,7 @@ struct RefreshUtility {
                         feedObjectID: feed.objectID,
                         pageObjectID: feed.page?.objectID,
                         url: url,
-                        fetchMeta: fetchMeta
+                        updateMetadata: fetchMeta
                     )
                 )
             }
@@ -93,7 +93,7 @@ struct RefreshUtility {
                 feedObjectID: feed.objectID,
                 pageObjectID: feed.page?.objectID,
                 url: url,
-                fetchMeta: fetchMeta
+                updateMetadata: fetchMeta
             )
             _ = await feedOp.execute()
         }

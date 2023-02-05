@@ -15,8 +15,7 @@ struct WelcomeView: View {
 
     var refreshedTimeAgo: String? {
         guard let minRefreshed = profile.minimumRefreshedDate else { return nil }
-        let dateFormatter = RelativeDateTimeFormatter()
-        return dateFormatter.localizedString(for: minRefreshed, relativeTo: .now)
+        return minRefreshed.formatted(.relative(presentation: .numeric))
     }
 
     var body: some View {

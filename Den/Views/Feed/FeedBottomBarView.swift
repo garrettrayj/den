@@ -21,12 +21,12 @@ struct FeedBottomBarView: View {
             feed.objectWillChange.send()
         }
         Spacer()
-        Text("\(feed.previewItems.unread().count) Unread")
+        Text("\(feed.feedData?.itemsArray.unread().count ?? 0) Unread")
             .font(.caption)
             .fixedSize()
         Spacer()
-        ToggleReadButtonView(unreadCount: feed.previewItems.unread().count) {
-            await HistoryUtility.toggleReadUnread(items: feed.feedData?.previewItems ?? [])
+        ToggleReadButtonView(unreadCount: feed.feedData?.itemsArray.unread().count ?? 0) {
+            await HistoryUtility.toggleReadUnread(items: feed.feedData?.itemsArray ?? [])
             feed.objectWillChange.send()
         }
     }

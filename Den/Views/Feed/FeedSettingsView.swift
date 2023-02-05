@@ -22,7 +22,6 @@ struct FeedSettingsView: View {
         Form {
             titleSection
             previewsSection
-            infoSection
             organizeSection
         }
         .onDisappear(perform: save)
@@ -75,36 +74,6 @@ struct FeedSettingsView: View {
             #endif
         } header: {
             Text("Previews")
-        }
-    }
-
-    private var infoSection: some View {
-        Section(header: Text("Info")) {
-            Button {
-                let pasteboard = UIPasteboard.general
-                pasteboard.string = feed.url!.absoluteString
-            } label: {
-                HStack {
-                    Text("URL").foregroundColor(.primary)
-                    Spacer()
-                    Text(feed.urlString).lineLimit(1).foregroundColor(.secondary)
-                    Image(systemName: "doc.on.doc").resizable().scaledToFit().frame(width: 16, height: 16)
-                }
-            }
-            .buttonStyle(.borderless)
-            .accessibilityIdentifier("feed-copy-url-button")
-            .modifier(FormRowModifier())
-
-            HStack {
-                Text("Refreshed")
-                Spacer()
-                if let refreshed = feed.feedData?.refreshed {
-                    Text("\(refreshed.formatted(date: .abbreviated, time: .shortened))")
-                        .foregroundColor(.secondary)
-                } else {
-                    Text("Never").foregroundColor(.secondary)
-                }
-            }.modifier(FormRowModifier())
         }
     }
 

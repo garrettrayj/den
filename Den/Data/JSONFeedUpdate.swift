@@ -17,6 +17,8 @@ struct JSONFeedUpdate {
     let feed: Feed
     let feedData: FeedData
     let source: JSONFeed
+    let webpageMetadata: WebpageMetadata?
+    let updateMetadata: Bool
     let context: NSManagedObjectContext
 
     let imageSelection = ImageSelection()
@@ -27,21 +29,37 @@ struct JSONFeedUpdate {
         }
         feedData.link = source.webpage
 
-        if
-            let urlString = source.icon,
-            let url = URL(string: urlString, relativeTo: feedData.link)
-        {
-            feedData.image = url.absoluteURL
-        } else if
-            let urlString = source.favicon,
-            let url = URL(string: urlString, relativeTo: feedData.link)
-        {
-            feedData.image = url.absoluteURL
+        if updateMetadata {
+            if
+                let urlString = source.icon,
+                let url = URL(string: urlString, relativeTo: feedData.link)
+            {
+                feedData.image = url.absoluteURL
+            } else if let topIconURL = webpageMetadata?.icons.topRanked?.url {
+                feedData.image = topIconURL
+            }
+
+            if
+                let urlString = source.favicon,
+                let url = URL(string: urlString, relativeTo: feedData.link)
+            {
+                feedData.favicon = url.absoluteURL
+            } else if let topFavicon = webpageMetadata?.favicons.topRanked?.url {
+                feedData.favicon = topFavicon
+            }
+
+            if let topBanner = webpageMetadata?.banners.topRanked?.url {
+                feedData.banner = topBanner
+            }
+
+            if feedData.image == nil && feedData.banner != nil {
+                feedData.image = feedData.banner
+            }
         }
 
         if let sourceItems = source.items {
             let existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
-            for sourceItem in sourceItems.prefix(feed.wrappedItemLimit) {
+            for sourceItem in sourceItems.prefix(feed.wrappedItemLimit + UIConstants.extraItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = sourceItem.linkURL else {
                     Logger.ingest.notice("Missing link for item.")
