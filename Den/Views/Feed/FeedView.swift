@@ -33,10 +33,11 @@ struct FeedView: View {
                                 .scaledToFit()
                                 .cornerRadius(8)
                                 .shadow(radius: 3, x: 1, y: 2)
-                                .frame(maxWidth: 360, maxHeight: 180)
+                                .frame(maxWidth: 360)
                                 .padding(.horizontal)
                                 .padding(.vertical, 20)
                         }
+                        .frame(height: 220)
                         .frame(maxWidth: .infinity)
                         .background {
                             WebImage(url: feed.feedData?.banner ?? feed.feedData?.image)
@@ -77,33 +78,38 @@ struct FeedView: View {
                             .modifier(PinnedSectionHeaderModifier())
                         }
 
-                        Section {
-                            if hideRead == true && feed.feedData!.extraItems.unread().isEmpty {
-                                AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal)
-                            } else {
-                                BoardView(
-                                    width: geometry.size.width,
-                                    list: feed.feedData?.visibleExtraItems(hideRead) ?? []
-                                ) { item in
-                                    GadgetItemView(item: item)
+                        if feed.feedData!.extraItems.isEmpty == false {
+                            Section {
+                                if hideRead == true && feed.feedData!.extraItems.unread().isEmpty {
+                                    AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
                                         .background(Color(UIColor.secondarySystemGroupedBackground))
                                         .cornerRadius(8)
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal)
+                                } else {
+                                    BoardView(
+                                        width: geometry.size.width,
+                                        list: feed.feedData?.visibleExtraItems(hideRead) ?? []
+                                    ) { item in
+                                        GadgetItemView(item: item)
+                                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                                            .cornerRadius(8)
+                                    }
                                 }
+                            } header: {
+                                Text("More Items")
+                                    .font(.title3)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal, 24)
+                                    .modifier(PinnedSectionHeaderModifier())
                             }
-                        } header: {
-                            Text("More Items")
-                                .font(.title3)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.horizontal, 24)
-                                .modifier(PinnedSectionHeaderModifier())
                         }
 
+                        Spacer()
+                        Divider()
+
                         Section {
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .center, spacing: 8) {
                                 if let linkDisplayString = feed.feedData?.linkDisplayString {
                                     Button {
                                         if useInbuiltBrowser {
@@ -133,21 +139,11 @@ struct FeedView: View {
                                 .buttonStyle(.plain)
                                 .accessibilityIdentifier("feed-copy-url-button")
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                            .cornerRadius(8)
+                            .frame(maxWidth: .infinity)
                             .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                        } header: {
-                            Text("Feed Info")
-                                .font(.title3)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.horizontal, 24)
-                                .modifier(PinnedSectionHeaderModifier())
+                            .padding(.vertical)
                         }
                     }
-                    Spacer()
                 } else {
                     VStack {
                         Spacer()
