@@ -45,6 +45,9 @@ struct WebpageMetadataOperation {
             metadata.banners.append(RankedImage(url: twitterImage, rank: 1))
         }
 
+        metadata.description = getMetaContent(in: document, property: "description")
+        metadata.copyright = getMetaContent(in: document, property: "copyright")
+
         return metadata
     }
 
@@ -105,5 +108,17 @@ struct WebpageMetadataOperation {
         }
 
         return url.absoluteURL
+    }
+
+    private func getMetaContent(in document: Document, property: String) -> String? {
+        guard
+            let el = try? document.select("meta[name='\(property)']"),
+            let content = try? el.attr("content"),
+            content != ""
+        else {
+            return nil
+        }
+
+        return content
     }
 }

@@ -18,41 +18,37 @@ struct DeckColumnView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        VStack(spacing: 0) {
-
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
-                    Section {
-                        Group {
-                            if feed.hasContent {
-                                if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
-                                    AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
-                                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                                        .cornerRadius(8)
-                                } else {
-                                    ForEach(feed.visibleItems(hideRead)) { item in
-                                        ItemActionView(item: item) {
-                                            ItemPreviewView(item: item)
-                                        }
-                                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                                        .cornerRadius(8)
-                                    }
-                                    Spacer()
-                                }
-                            } else {
-                                FeedUnavailableView(feedData: feed.feedData)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
+                Section {
+                    Group {
+                        if feed.hasContent {
+                            if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
+                                AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
+                            } else {
+                                ForEach(feed.visibleItems(hideRead)) { item in
+                                    ItemActionView(item: item) {
+                                        ItemPreviewView(item: item)
+                                    }
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
+                                }
+                                Spacer()
                             }
-                        }.padding(.horizontal, 4)
-                    } header: {
-                        header
-                    }
+                        } else {
+                            FeedUnavailableView(feedData: feed.feedData)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color(UIColor.secondarySystemGroupedBackground))
+                                .cornerRadius(8)
+                        }
+                    }.padding(.horizontal, 4)
+                } header: {
+                    header.padding(.bottom, 4)
                 }
             }
-        }
-        .frame(minWidth: 272, idealWidth: 300, maxWidth: 360)
+        }.frame(minWidth: 272, idealWidth: 300, maxWidth: 360)
     }
 
     private var header: some View {

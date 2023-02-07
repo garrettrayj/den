@@ -27,25 +27,26 @@ struct FeedView: View {
             ScrollView(.vertical) {
                 if feed.hasContent {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                        VStack(spacing: 0) {
-                            WebImage(url: feed.feedData?.banner ?? feed.feedData?.image)
-                                .resizable()
-                                .scaledToFit()
-                                .cornerRadius(8)
-                                .shadow(radius: 3, x: 1, y: 2)
-                                .frame(maxWidth: 360)
-                                .padding(.horizontal)
-                                .padding(.vertical, 20)
+                        if let heroImage = feed.feedData?.banner ?? feed.feedData?.image {
+                            VStack(spacing: 0) {
+                                WebImage(url: heroImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .cornerRadius(8)
+                                    .shadow(radius: 3, x: 1, y: 2)
+                                    .frame(maxWidth: 360, maxHeight: 200)
+                                    .padding()
+                            }
+                            .aspectRatio(16/10, contentMode: .fill)
+                            .frame(maxWidth: .infinity, maxHeight: 232)
+                            .background {
+                                WebImage(url: heroImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .overlay(.thinMaterial)
+                            }
+                            .clipped()
                         }
-                        .frame(height: 220)
-                        .frame(maxWidth: .infinity)
-                        .background {
-                            WebImage(url: feed.feedData?.banner ?? feed.feedData?.image)
-                                .resizable()
-                                .scaledToFill()
-                                .overlay(.regularMaterial)
-                        }
-                        .clipped()
 
                         Section {
                             if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
@@ -68,10 +69,10 @@ struct FeedView: View {
                             }
                         } header: {
                             HStack {
-                                Text("Top Items").font(.title3)
+                                Text("Latest").font(.title3)
                                 Spacer()
                                 if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
-                                    Text("Refreshed \(refreshedTimeAgo)").font(.footnote)
+                                    Text("Updated \(refreshedTimeAgo)").font(.footnote)
                                 }
                             }
                             .padding(.horizontal, 24)
@@ -97,7 +98,7 @@ struct FeedView: View {
                                     }
                                 }
                             } header: {
-                                Text("More Items")
+                                Text("More")
                                     .font(.title3)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.horizontal, 24)
@@ -105,44 +106,44 @@ struct FeedView: View {
                             }
                         }
 
-                        Spacer()
                         Divider()
 
                         Section {
-                            VStack(alignment: .center, spacing: 8) {
+                            VStack(alignment: .center, spacing: 12) {
+                                if let description = feed.feedData?.metaDescription {
+                                    Text(description)
+                                }
+
                                 if let linkDisplayString = feed.feedData?.linkDisplayString {
                                     Button {
-                                        if useInbuiltBrowser {
-                                            SafariUtility.openLink(url: feed.feedData?.link)
-                                        } else {
-                                            if let url = feed.feedData?.link {
-                                                openURL(url)
-                                            }
+                                        if let url = feed.feedData?.link {
+                                            openURL(url)
                                         }
                                     } label: {
-                                        Label("\(linkDisplayString)", systemImage: "globe")
-                                        Image(systemName: "link").imageScale(.small)
+                                        Label("\(linkDisplayString)", systemImage: "globe").lineLimit(1)
                                     }
                                     .buttonStyle(.plain)
-                                } else {
-                                    Label("Website Not Available", systemImage: "globe")
                                 }
 
                                 Button {
-                                    UIPasteboard.general.string = feed.url!.absoluteString
+                                    openURL(feed.url!)
                                 } label: {
-                                    HStack {
-                                        Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward")
-                                        Image(systemName: "doc.on.doc").imageScale(.small)
-                                    }
+                                    Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
                                 }
                                 .buttonStyle(.plain)
                                 .accessibilityIdentifier("feed-copy-url-button")
+
+                                if let copyright = feed.feedData?.copyright {
+                                    Text(copyright)
+                                }
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical)
+                            .font(.footnote)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 20)
                         }
+                        Spacer()
                     }
                 } else {
                     VStack {

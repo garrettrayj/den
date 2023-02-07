@@ -17,6 +17,7 @@
     </entity>
     <entity name="FeedData" representedClassName="FeedData" syncable="YES" codeGenerationType="category">
         <attribute name="banner" optional="YES" attributeType="URI"/>
+        <attribute name="copyright" optional="YES" attributeType="String"/>
         <attribute name="error" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
         <attribute name="faviconFile" optional="YES" attributeType="String"/>
@@ -27,6 +28,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
+        <attribute name="metaDescription" optional="YES" attributeType="String"/>
         <attribute name="metaFetched" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feedData" inverseEntity="Item"/>

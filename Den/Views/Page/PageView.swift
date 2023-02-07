@@ -55,7 +55,9 @@ struct PageView: View {
                                     .modifier(PinnedSectionHeaderModifier())
 
                             }
-                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                        }
+                        .id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                        .navigationBarTitleDisplayMode(.inline)
                     case .blend:
                         ScrollView(.vertical) {
                             BoardView(width: geometry.size.width, list: page.visibleItems(hideRead)) { item in
