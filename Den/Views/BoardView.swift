@@ -28,7 +28,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
             }
         }
         .padding(.horizontal)
-        .padding(.vertical, 8)
+        .padding(.vertical, 12)
     }
 
     init(width: CGFloat, list: [T], @ViewBuilder content: @escaping (T) -> Content) {

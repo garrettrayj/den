@@ -14,4 +14,6 @@ struct WebpageMetadata {
     var favicons: [RankedImage] = []
     var icons: [RankedImage] = []
     var banners: [RankedImage] = []
+    var description: String?
+    var copyright: String?
 }

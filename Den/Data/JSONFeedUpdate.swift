@@ -30,31 +30,7 @@ struct JSONFeedUpdate {
         feedData.link = source.webpage
 
         if updateMetadata {
-            if
-                let urlString = source.icon,
-                let url = URL(string: urlString, relativeTo: feedData.link)
-            {
-                feedData.image = url.absoluteURL
-            } else if let topIconURL = webpageMetadata?.icons.topRanked?.url {
-                feedData.image = topIconURL
-            }
-
-            if
-                let urlString = source.favicon,
-                let url = URL(string: urlString, relativeTo: feedData.link)
-            {
-                feedData.favicon = url.absoluteURL
-            } else if let topFavicon = webpageMetadata?.favicons.topRanked?.url {
-                feedData.favicon = topFavicon
-            }
-
-            if let topBanner = webpageMetadata?.banners.topRanked?.url {
-                feedData.banner = topBanner
-            }
-
-            if feedData.image == nil && feedData.banner != nil {
-                feedData.image = feedData.banner
-            }
+            populateMetadata(feedData: feedData)
         }
 
         if let sourceItems = source.items {
@@ -77,6 +53,44 @@ struct JSONFeedUpdate {
 
                 item.anaylyzeTitleTags()
             }
+        }
+    }
+
+    private func populateMetadata(feedData: FeedData) {
+        if
+            let urlString = source.icon,
+            let url = URL(string: urlString, relativeTo: feedData.link)
+        {
+            feedData.image = url.absoluteURL
+        } else if let topIconURL = webpageMetadata?.icons.topRanked?.url {
+            feedData.image = topIconURL
+        }
+
+        if
+            let urlString = source.favicon,
+            let url = URL(string: urlString, relativeTo: feedData.link)
+        {
+            feedData.favicon = url.absoluteURL
+        } else if let topFavicon = webpageMetadata?.favicons.topRanked?.url {
+            feedData.favicon = topFavicon
+        }
+
+        if let topBanner = webpageMetadata?.banners.topRanked?.url {
+            feedData.banner = topBanner
+        }
+
+        if feedData.image == nil && feedData.banner != nil {
+            feedData.image = feedData.banner
+        }
+
+        if let description = source.description, description != "" {
+            feedData.metaDescription = description
+        } else if let description = webpageMetadata?.description {
+            feedData.metaDescription = description
+        }
+
+        if let copyright = webpageMetadata?.copyright {
+            feedData.copyright = copyright
         }
     }
 }

@@ -68,7 +68,8 @@ struct ItemView: View {
                         ).frame(maxWidth: .infinity)
                     }
                 }
-                .padding(28)
+                .padding(.horizontal, 24)
+                .padding(.vertical)
                 .frame(maxWidth: maxContentWidth)
             }
             .frame(maxWidth: .infinity)
