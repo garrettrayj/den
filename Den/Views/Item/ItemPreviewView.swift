@@ -33,7 +33,12 @@ struct ItemPreviewView: View {
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                 PreviewImageView(item: item)
-                    .opacity(item.read ? UIConstants.dimmedImageOpacity : 1.0)
+                    .overlay(
+                        item.read ?
+                            Color(UIColor.secondarySystemGroupedBackground).opacity(0.5)
+                            :
+                            nil
+                    )
             }
 
             if hasTeaser {

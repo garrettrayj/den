@@ -33,6 +33,13 @@ struct PreviewImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
                 .padding(8)
+                .background {
+                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
+                        .resizable()
+                        .purgeable(true)
+                        .scaledToFill()
+                        .overlay(.thinMaterial)
+                }
             } else if CGFloat(item.imageWidth) < ImageSize.preview.width {
                 VStack {
                     WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
@@ -50,6 +57,13 @@ struct PreviewImageView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(8)
+                .background {
+                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
+                        .resizable()
+                        .purgeable(true)
+                        .scaledToFill()
+                        .overlay(.thinMaterial)
+                }
             } else {
                 WebImage(url: item.image, context: [.imageThumbnailPixelSize: ImageReferenceSize.preview])
                     .resizable()
@@ -62,15 +76,11 @@ struct PreviewImageView: View {
                         maxWidth: item.imageWidth > 0 ? CGFloat(item.imageWidth) : nil,
                         maxHeight: item.imageHeight > 0 ? CGFloat(item.imageHeight) : nil
                     )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
-                    )
             }
         }
         .background(Color(UIColor.secondarySystemFill))
         .cornerRadius(6)
         .grayscale(isEnabled ? 0 : 1)
-        .opacity(isEnabled ? 1 : UIConstants.dimmedImageOpacity)
         .accessibility(label: Text("Preview image"))
     }
 }
