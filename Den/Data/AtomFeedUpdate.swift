@@ -44,7 +44,7 @@ struct AtomFeedUpdate {
                 }
 
                 // Continue if item already exists
-                if (existingItemLinks.contains(where: { $0 == itemLink})) {
+                if existingItemLinks.contains(itemLink) {
                     continue
                 }
 
@@ -53,6 +53,13 @@ struct AtomFeedUpdate {
                 load.apply()
 
                 item.anaylyzeTitleTags()
+            }
+
+            let sourceItemURLs = sourceItems.compactMap { $0.linkURL }
+            for item in feedData.itemsArray {
+                if let link = item.link, sourceItemURLs.contains(link) == false {
+                    context.delete(item)
+                }
             }
         }
     }

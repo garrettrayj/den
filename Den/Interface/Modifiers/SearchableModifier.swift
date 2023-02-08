@@ -25,7 +25,7 @@ struct SearchableModifier: ViewModifier {
                 placement: .navigationBarDrawer(displayMode: .always)
             )
             .onSubmit(of: .search) {
-                searchModel.query = searchInput
+                searchModel.query = searchInput.trimmingCharacters(in: .whitespaces)
                 contentSelection = .search
             }
             .disabled(editMode?.wrappedValue == .active)
