@@ -46,14 +46,13 @@ struct PageView: View {
                         ScrollView(.horizontal) {
                             LazyHStack(alignment: .top, spacing: 0) {
                                 ForEach(page.feedsArray) { feed in
-                                    DeckColumnView(feed: feed, hideRead: $hideRead)
+                                    DeckColumnView(
+                                        feed: feed,
+                                        hideRead: $hideRead,
+                                        isFirst: page.feedsArray.first == feed,
+                                        isLast: page.feedsArray.last == feed
+                                    )
                                 }
-                            }
-                            .padding(.horizontal, 12)
-                            .background(alignment: .top) {
-                                HStack {}
-                                    .modifier(PinnedSectionHeaderModifier())
-
                             }
                         }
                         .id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")

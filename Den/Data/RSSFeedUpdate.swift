@@ -32,9 +32,9 @@ struct RSSFeedUpdate {
             populateMetadata(feedData: feedData)
         }
 
-        if let rawItems = source.items {
+        if let sourceItems = source.items {
             let existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
-            for rawItem in rawItems.prefix(feed.wrappedItemLimit + UIConstants.extraItemLimit) {
+            for rawItem in sourceItems.prefix(feed.wrappedItemLimit + UIConstants.extraItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = rawItem.linkURL else {
                     Logger.ingest.notice("Missing link for item.")
@@ -42,15 +42,22 @@ struct RSSFeedUpdate {
                 }
 
                 // Continue if item already exists
-                if (existingItemLinks.contains(where: { $0 == itemLink})) {
+                if existingItemLinks.contains(itemLink) {
                     continue
                 }
 
                 let item = Item.create(moc: context, feedData: feedData)
                 let load = RSSItemLoad(item: item, source: rawItem)
                 load.apply()
-
                 item.anaylyzeTitleTags()
+                feedData.addToItems(item)
+            }
+
+            let sourceItemURLs = sourceItems.compactMap { $0.linkURL }
+            for item in feedData.itemsArray {
+                if let link = item.link, sourceItemURLs.contains(link) == false {
+                    context.delete(item)
+                }
             }
         }
     }

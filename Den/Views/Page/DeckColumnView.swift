@@ -17,6 +17,9 @@ struct DeckColumnView: View {
 
     @Binding var hideRead: Bool
 
+    let isFirst: Bool
+    let isLast: Bool
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
@@ -43,9 +46,12 @@ struct DeckColumnView: View {
                                 .background(Color(UIColor.secondarySystemGroupedBackground))
                                 .cornerRadius(8)
                         }
-                    }.padding(.horizontal, 4)
+                    }
+                    .padding(.horizontal, 4)
+                    .padding(.leading, isFirst ? 12 : 0)
+                    .padding(.trailing, isLast ? 12 : 0)
                 } header: {
-                    header.padding(.bottom, 4)
+                    header
                 }
             }
         }.frame(minWidth: 272, idealWidth: 300, maxWidth: 360)
@@ -61,9 +67,12 @@ struct DeckColumnView: View {
                 Spacer()
                 NavChevronView()
             }
+            .padding(.leading, isFirst ? 12 : 0)
+            .padding(.trailing, isLast ? 12 : 0)
         }
         .buttonStyle(PinnedHeaderButtonStyle(horizontalPadding: 12))
         .modifier(PinnedSectionHeaderModifier())
+        .padding(.bottom, 4)
         .accessibilityIdentifier("deck-feed-button")
     }
 
