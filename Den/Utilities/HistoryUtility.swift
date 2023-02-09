@@ -16,7 +16,7 @@ struct HistoryUtility {
     static func markItemRead(item: Item) async {
         guard item.read != true else { return }
         await logHistory(items: [item])
-        
+
         DispatchQueue.main.async {
             item.feedData?.feed?.page?.objectWillChange.send()
         }

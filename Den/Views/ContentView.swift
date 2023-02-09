@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     @Binding var activeProfile: Profile?
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
@@ -24,6 +26,8 @@ struct ContentView: View {
     let searchModel: SearchModel
 
     @SceneStorage("HideRead") private var hideRead: Bool = false
+
+    @AppStorage("ContentSizeCategory") private var contentSizeCategory: UIContentSizeCategory = .unspecified
 
     var body: some View {
         NavigationStack {
@@ -50,6 +54,7 @@ struct ContentView: View {
                             sceneProfileID: $sceneProfileID,
                             appProfileID: $appProfileID,
                             uiStyle: $uiStyle,
+                            contentSizeCategory: $contentSizeCategory,
                             autoRefreshEnabled: $autoRefreshEnabled,
                             autoRefreshCooldown: $autoRefreshCooldown,
                             backgroundRefreshEnabled: $backgroundRefreshEnabled,
@@ -61,39 +66,42 @@ struct ContentView: View {
                     SplashNoteView(title: Text("Profile Unavailable"))
                 }
             }
+            .environment(\.contentSizeCategory, contentSizeCategory)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
-                switch detailPanel {
-                case .pageSettings(let page):
-                    if page.managedObjectContext != nil {
-                        PageSettingsView(page: page)
-                    } else {
-                        SplashNoteView(title: Text("Page Deleted"), symbol: "slash.circle")
+                Group {
+                    switch detailPanel {
+                    case .pageSettings(let page):
+                        if page.managedObjectContext != nil {
+                            PageSettingsView(page: page)
+                        } else {
+                            SplashNoteView(title: Text("Page Deleted"), symbol: "slash.circle")
+                        }
+                    case .feed(let feed):
+                        if feed.managedObjectContext != nil {
+                            FeedView(feed: feed, hideRead: $hideRead)
+                        } else {
+                            SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
+                        }
+                    case .feedSettings(let feed):
+                        if feed.managedObjectContext != nil {
+                            FeedSettingsView(feed: feed)
+                        } else {
+                            SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
+                        }
+                    case .item(let item):
+                        if item.managedObjectContext != nil {
+                            ItemView(item: item)
+                        } else {
+                            SplashNoteView(title: Text("Item Deleted"), symbol: "slash.circle")
+                        }
+                    case .trend(let trend):
+                        if trend.managedObjectContext != nil {
+                            TrendView(trend: trend, hideRead: $hideRead)
+                        } else {
+                            SplashNoteView(title: Text("Trend Deleted"), symbol: "slash.circle")
+                        }
                     }
-                case .feed(let feed):
-                    if feed.managedObjectContext != nil {
-                        FeedView(feed: feed, hideRead: $hideRead)
-                    } else {
-                        SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
-                    }
-                case .feedSettings(let feed):
-                    if feed.managedObjectContext != nil {
-                        FeedSettingsView(feed: feed)
-                    } else {
-                        SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
-                    }
-                case .item(let item):
-                    if item.managedObjectContext != nil {
-                        ItemView(item: item)
-                    } else {
-                        SplashNoteView(title: Text("Item Deleted"), symbol: "slash.circle")
-                    }
-                case .trend(let trend):
-                    if trend.managedObjectContext != nil {
-                        TrendView(trend: trend, hideRead: $hideRead)
-                    } else {
-                        SplashNoteView(title: Text("Trend Deleted"), symbol: "slash.circle")
-                    }
-                }
+                }.environment(\.contentSizeCategory, contentSizeCategory)
             }
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in
                 switch settingsPanel {
@@ -123,8 +131,10 @@ struct ContentView: View {
                         SecurityView(profile: profile)
                     } else {
                         SplashNoteView(title: Text("Security Check Unavailable"))
-                    }                }
+                    }
+                }
             }
         }
+
     }
 }

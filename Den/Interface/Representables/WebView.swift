@@ -12,6 +12,8 @@ import SwiftUI
 import WebKit
 
 struct WebView: UIViewRepresentable {
+    @Environment(\.contentSizeCategory) private var contentSizeCategory
+
     let html: String
     let title: String?
     let baseURL: URL?
@@ -19,25 +21,33 @@ struct WebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
 
+        let webpagePreferences = WKWebpagePreferences()
+        webpagePreferences.preferredContentMode = .mobile // Fix for webkitTextSizeAdjust on iPad
+
         if
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             let cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
         {
-            let source = """
+            var source = """
             var style = document.createElement('style');
             style.innerHTML = '\(cssString)';
             document.head.appendChild(style);
             """
+
+            #if !targetEnvironment(macCatalyst)
+            if let typeSize = DynamicTypeSize(contentSizeCategory) {
+                source += "document.body.style.webkitTextSizeAdjust='\(typeSize.fontScale * 100)%';"
+            }
+            #endif
+
             let userScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
             let userContentController = WKUserContentController()
             userContentController.addUserScript(userScript)
             configuration.userContentController = userContentController
+            configuration.defaultWebpagePreferences = webpagePreferences
         }
 
-        let webView = ResizingWebView(
-            frame: CGRect(origin: .zero, size: CGSize(width: 800, height: 600)),
-            configuration: configuration
-        )
+        let webView = ResizingWebView(frame: .zero, configuration: configuration)
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
@@ -93,4 +103,5 @@ struct WebView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator()
     }
+
 }

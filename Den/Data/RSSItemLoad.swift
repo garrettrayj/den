@@ -113,8 +113,8 @@ struct RSSItemLoad {
                     } else {
                         imageSelection.imagePool.append(RankedImage(
                             url: url.absoluteURL,
-                            rank: Int(ImageSize.preview.area))
-                        )
+                            rank: Int(PreviewImageView.baseSize.area)
+                        ))
                     }
                 }
             }
@@ -142,7 +142,7 @@ struct RSSItemLoad {
                     } else {
                         imageSelection.imagePool.append(RankedImage(
                             url: url.absoluteURL,
-                            rank: Int(ImageSize.preview.area)
+                            rank: Int(PreviewImageView.baseSize.area)
                         ))
                     }
                 }
@@ -170,7 +170,7 @@ struct RSSItemLoad {
                     } else {
                         imageSelection.imagePool.append(RankedImage(
                             url: url.absoluteURL,
-                            rank: Int(ImageSize.thumbnail.area)
+                            rank: Int(ItemThumbnailView.baseSize.area)
                         ))
                     }
                 }

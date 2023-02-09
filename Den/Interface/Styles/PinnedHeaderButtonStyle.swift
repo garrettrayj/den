@@ -23,7 +23,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
                 isEnabled ? .primary : .secondary
             )
             .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: UIConstants.sectionHeaderHeight)
+            .padding(.vertical, 12)
             .padding(.horizontal, horizontalPadding)
             .background(
                 isEnabled ?
