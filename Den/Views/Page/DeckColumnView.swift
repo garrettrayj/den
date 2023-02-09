@@ -12,6 +12,8 @@ import SwiftUI
 
 struct DeckColumnView: View {
     @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.contentSizeCategory) private var contentSizeCategory
 
     @ObservedObject var feed: Feed
 
@@ -54,7 +56,17 @@ struct DeckColumnView: View {
                     header
                 }
             }
-        }.frame(minWidth: 272, idealWidth: 300, maxWidth: 360)
+        }.frame(width: columnWidth)
+    }
+
+    private var columnWidth: CGFloat {
+        #if targetEnvironment(macCatalyst)
+        let typeSize = dynamicTypeSize
+        #else
+        let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
+        #endif
+
+        return 300 * typeSize.fontScale
     }
 
     private var header: some View {

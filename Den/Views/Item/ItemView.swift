@@ -11,11 +11,22 @@
 import SwiftUI
 
 struct ItemView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.contentSizeCategory) private var contentSizeCategory
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
     @Environment(\.openURL) private var openURL
 
     let item: Item
-    let maxContentWidth: CGFloat = 800
+
+    var maxContentWidth: CGFloat {
+        #if targetEnvironment(macCatalyst)
+        let typeSize = dynamicTypeSize
+        #else
+        let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
+        #endif
+
+        return CGFloat(800) * typeSize.fontScale
+    }
 
     var body: some View {
         ScrollView(.vertical) {
@@ -28,51 +39,55 @@ struct ItemView: View {
                     .font(.title3)
                     .textSelection(.enabled)
 
-                    Text(item.wrappedTitle)
-                        .font(.title)
+                    Group {
+                        Text(item.wrappedTitle)
+                            .font(.title)
+                            .textSelection(.enabled)
+                            .fixedSize(horizontal: false, vertical: true)
+
+                        ViewThatFits(in: .horizontal) {
+                            HStack(spacing: 4) {
+                                Text(item.date.formatted())
+                                if let author = item.author {
+                                    Text("•")
+                                    Text(author)
+                                }
+                            }
+
+                            VStack(alignment: .leading) {
+                                Text(item.date.formatted())
+                                if let author = item.author {
+                                    Text(author)
+                                }
+                            }
+                        }
+                        .font(.subheadline)
                         .textSelection(.enabled)
-                        .fixedSize(horizontal: false, vertical: true)
 
-                    ViewThatFits(in: .horizontal) {
-                        HStack(spacing: 4) {
-                            Text(item.date.formatted())
-                            if let author = item.author {
-                                Text("•")
-                                Text(author)
-                            }
+                        if
+                            item.image != nil &&
+                            !(item.summary?.contains("<img") ?? false) &&
+                            !(item.body?.contains("<img") ?? false)
+                        {
+                            HeroImageView(item: item)
                         }
 
-                        VStack(alignment: .leading) {
-                            Text(item.date.formatted())
-                            if let author = item.author {
-                                Text(author)
-                            }
+                        if item.body != nil || item.summary != nil {
+                            WebView(
+                                html: item.body ?? item.summary!,
+                                title: item.wrappedTitle,
+                                baseURL: item.link
+                            )
+                            .frame(maxWidth: .infinity)
                         }
-                    }
-                    .font(.subheadline)
-                    .textSelection(.enabled)
-
-                    if
-                        item.image != nil &&
-                        !(item.summary?.contains("<img") ?? false) &&
-                        !(item.body?.contains("<img") ?? false)
-                    {
-                        HeroImageView(item: item)
-                    }
-
-                    if item.body != nil || item.summary != nil {
-                        WebView(
-                            html: item.body ?? item.summary!,
-                            title: item.wrappedTitle,
-                            baseURL: item.link
-                        ).frame(maxWidth: .infinity)
-                    }
+                    }.dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                 }
                 .padding(.horizontal, 24)
                 .padding(.vertical)
                 .frame(maxWidth: maxContentWidth)
             }
             .frame(maxWidth: .infinity)
+
         }
         .toolbar {
             ToolbarItem {

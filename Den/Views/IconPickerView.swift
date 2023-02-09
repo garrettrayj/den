@@ -58,7 +58,7 @@ struct IconPickerView: View {
                         Image(systemName: symbol.id)
                             .imageScale(.large)
                             .foregroundColor(symbol.id == page.wrappedSymbol ? .accentColor : .primary)
-                            .frame(width: 40, height: 40, alignment: .center)
+                            .padding(8)
                             .background(
                                 RoundedRectangle(cornerRadius: 4)
                                     .fill(Color(UIColor.secondarySystemGroupedBackground))

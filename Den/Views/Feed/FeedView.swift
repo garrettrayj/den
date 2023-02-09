@@ -76,6 +76,7 @@ struct FeedView: View {
                                 }
                             }
                             .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
                             .modifier(PinnedSectionHeaderModifier())
                         }
 
@@ -102,6 +103,7 @@ struct FeedView: View {
                                     .font(.title3)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.horizontal, 24)
+                                    .padding(.vertical, 12)
                                     .modifier(PinnedSectionHeaderModifier())
                             }
                         }

@@ -15,6 +15,7 @@ struct SettingsView: View {
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
+    @Binding var contentSizeCategory: UIContentSizeCategory
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
@@ -38,7 +39,10 @@ struct SettingsView: View {
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
-            AppearanceSettingsSectionView(uiStyle: $uiStyle)
+            AppearanceSettingsSectionView(
+                uiStyle: $uiStyle,
+                contentSizeCategory: $contentSizeCategory
+            )
             ResetSettingsSectionView(
                 activeProfile: $activeProfile,
                 sceneProfileID: $sceneProfileID,
