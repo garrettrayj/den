@@ -22,7 +22,6 @@ struct WebView: UIViewRepresentable {
         let configuration = WKWebViewConfiguration()
 
         let webpagePreferences = WKWebpagePreferences()
-        webpagePreferences.preferredContentMode = .mobile // Fix for webkitTextSizeAdjust on iPad
 
         if
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
@@ -37,8 +36,7 @@ struct WebView: UIViewRepresentable {
             #if !targetEnvironment(macCatalyst)
             if let typeSize = DynamicTypeSize(contentSizeCategory) {
                 source += """
-                document.body.style.fontSize='100%';
-                document.body.style.webkitTextSizeAdjust='\(typeSize.fontScale * 100)%';
+                document.body.style.fontSize='\(typeSize.fontScale * 100)%';
                 """
             }
             #endif
