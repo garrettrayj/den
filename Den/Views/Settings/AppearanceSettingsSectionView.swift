@@ -28,7 +28,7 @@ struct AppearanceSettingsSectionView: View {
             Picker(selection: $contentSizeCategory) {
                 Text("Automatic").tag(UIContentSizeCategory.unspecified)
                 Group {
-                    Text("Extra Small").tag(UIContentSizeCategory.extraSmall)
+                    Text("Micro").tag(UIContentSizeCategory.extraSmall)
                     Text("Small").tag(UIContentSizeCategory.small)
                     Text("Medium").tag(UIContentSizeCategory.medium)
                     Text("Large").tag(UIContentSizeCategory.large)
@@ -44,7 +44,7 @@ struct AppearanceSettingsSectionView: View {
                     Text("Accessibility XXXL").tag(UIContentSizeCategory.accessibilityExtraExtraExtraLarge)
                 }
             } label: {
-                Text("Text Size")
+                Text("Content Size")
             }
             #endif
         }

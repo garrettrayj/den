@@ -1,5 +1,5 @@
 //
-//  HeroImageView.swift
+//  ItemHeroView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/11/22.
@@ -12,7 +12,7 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct HeroImageView: View {
+struct ItemHeroView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let item: Item
@@ -21,8 +21,8 @@ struct HeroImageView: View {
 
     private var scaledSize: CGSize {
         return CGSize(
-            width: HeroImageView.baseSize.width * dynamicTypeSize.fontScale,
-            height: HeroImageView.baseSize.height * dynamicTypeSize.fontScale
+            width: ItemHeroView.baseSize.width * dynamicTypeSize.fontScale,
+            height: ItemHeroView.baseSize.height * dynamicTypeSize.fontScale
         )
     }
 
@@ -64,7 +64,7 @@ struct HeroImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
                 .padding(8)
-            } else if CGFloat(item.imageWidth) < HeroImageView.baseSize.width {
+            } else if CGFloat(item.imageWidth) < ItemHeroView.baseSize.width {
                 VStack {
                     WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
                         .resizable()

@@ -23,7 +23,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
                 isEnabled ? .primary : .secondary
             )
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 12)
+            .padding(.vertical, 8)
             .padding(.horizontal, horizontalPadding)
             .background(
                 isEnabled ?

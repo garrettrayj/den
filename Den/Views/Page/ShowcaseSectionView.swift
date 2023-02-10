@@ -35,6 +35,7 @@ struct ShowcaseSectionView: View {
                             ItemActionView(item: item) {
                                 ItemPreviewView(item: item)
                             }
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
                             .cornerRadius(8)
                         }
                     )

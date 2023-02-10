@@ -17,6 +17,8 @@ struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
+    @Environment(\.contentSizeCategory) private var contentSizeCategory
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var feed: Feed
 
@@ -28,24 +30,7 @@ struct FeedView: View {
                 if feed.hasContent {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                         if let heroImage = feed.feedData?.banner ?? feed.feedData?.image {
-                            VStack(spacing: 0) {
-                                WebImage(url: heroImage)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .cornerRadius(8)
-                                    .shadow(radius: 3, x: 1, y: 2)
-                                    .frame(maxWidth: 360, maxHeight: 200)
-                                    .padding()
-                            }
-                            .aspectRatio(16/10, contentMode: .fill)
-                            .frame(maxWidth: .infinity, maxHeight: 232)
-                            .background {
-                                WebImage(url: heroImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .overlay(.thinMaterial)
-                            }
-                            .clipped()
+                            FeedHeroView(heroImage: heroImage)
                         }
 
                         Section {
@@ -76,7 +61,7 @@ struct FeedView: View {
                                 }
                             }
                             .padding(.horizontal, 24)
-                            .padding(.vertical, 12)
+                            .padding(.vertical, 8)
                             .modifier(PinnedSectionHeaderModifier())
                         }
 
@@ -103,7 +88,7 @@ struct FeedView: View {
                                     .font(.title3)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.horizontal, 24)
-                                    .padding(.vertical, 12)
+                                    .padding(.vertical, 8)
                                     .modifier(PinnedSectionHeaderModifier())
                             }
                         }
@@ -141,6 +126,7 @@ struct FeedView: View {
                             }
                             .font(.footnote)
                             .multilineTextAlignment(.center)
+                            .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.horizontal, 24)
                             .padding(.vertical, 20)

@@ -23,6 +23,18 @@ struct HistorySettingsSectionView: View {
 
     var body: some View {
         Section {
+            Picker(selection: $historyRentionDays) {
+                Text("Forever").tag(0 as Int)
+                Text("One Year").tag(365 as Int)
+                Text("Six Months").tag(182 as Int)
+                Text("Three Months").tag(90 as Int)
+                Text("One Month").tag(30 as Int)
+                Text("Two Weeks").tag(14 as Int)
+                Text("One Week").tag(7 as Int)
+            } label: {
+                Text("Keep History")
+            }.modifier(FormRowModifier())
+
             Button {
                 Task {
                     await resetHistory()
@@ -52,25 +64,13 @@ struct HistorySettingsSectionView: View {
             .disabled(historyCount == 0)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-history-button")
-
-            Picker(selection: $historyRentionDays) {
-                Text("Forever").tag(0 as Int)
-                Text("One Year").tag(365 as Int)
-                Text("Six Months").tag(182 as Int)
-                Text("Three Months").tag(90 as Int)
-                Text("One Month").tag(30 as Int)
-                Text("Two Weeks").tag(14 as Int)
-                Text("One Week").tag(7 as Int)
-            } label: {
-                Text("Keep History")
-            }.modifier(FormRowModifier())
         } header: {
             Text("History")
         } footer: {
             if historyRentionDays == 0 || historyRentionDays > 90 || historyCount > 100_000 {
                 (
                     Text("\(Image(systemName: "exclamationmark.triangle")) ") +
-                    Text("Retaining history for long periods may adversely affect performance")
+                    Text("Retaining history for long periods may adversely affect performance.")
                 )
                 .imageScale(.small)
             }

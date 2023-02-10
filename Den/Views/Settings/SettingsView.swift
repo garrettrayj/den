@@ -33,16 +33,16 @@ struct SettingsView: View {
             #if !targetEnvironment(macCatalyst)
             BrowserSettingsSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
             #endif
-            HistorySettingsSectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
+            AppearanceSettingsSectionView(
+                uiStyle: $uiStyle,
+                contentSizeCategory: $contentSizeCategory
+            )
             RefreshSettingsSectionView(
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
-            AppearanceSettingsSectionView(
-                uiStyle: $uiStyle,
-                contentSizeCategory: $contentSizeCategory
-            )
+            HistorySettingsSectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             ResetSettingsSectionView(
                 activeProfile: $activeProfile,
                 sceneProfileID: $sceneProfileID,

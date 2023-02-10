@@ -31,7 +31,7 @@ struct ItemView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 12) {
                     FeedTitleLabelView(
                         title: item.feedTitle,
                         favicon: item.feedData?.favicon
@@ -47,7 +47,7 @@ struct ItemView: View {
 
                         ViewThatFits(in: .horizontal) {
                             HStack(spacing: 4) {
-                                Text(item.date.formatted())
+                                Text(item.date.formatted(date: .long, time: .shortened))
                                 if let author = item.author {
                                     Text("•")
                                     Text(author)
@@ -55,21 +55,20 @@ struct ItemView: View {
                             }
 
                             VStack(alignment: .leading) {
-                                Text(item.date.formatted())
+                                Text(item.date.formatted(date: .long, time: .shortened))
                                 if let author = item.author {
                                     Text(author)
                                 }
                             }
                         }
                         .font(.subheadline)
-                        .textSelection(.enabled)
 
                         if
                             item.image != nil &&
                             !(item.summary?.contains("<img") ?? false) &&
                             !(item.body?.contains("<img") ?? false)
                         {
-                            HeroImageView(item: item)
+                            ItemHeroView(item: item).padding(.bottom, 4)
                         }
 
                         if item.body != nil || item.summary != nil {

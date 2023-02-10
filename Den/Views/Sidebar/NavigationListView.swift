@@ -67,7 +67,7 @@ struct NavigationListView: View {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
-                RefreshButtonView(profile: profile)
+                RefreshButtonView(profile: profile, refreshing: $refreshing)
             }
         }
     }
