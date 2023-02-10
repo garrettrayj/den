@@ -23,7 +23,7 @@ class ResizingWebView: WKWebView {
         super.init(frame: frame, configuration: configuration)
 
         cancellable = DispatchQueue.main.schedule(
-            after: .init(.now() + 0.25),
+            after: .init(.now() + 1),
             interval: 1
         ) {
             self.invalidateIntrinsicContentSize()

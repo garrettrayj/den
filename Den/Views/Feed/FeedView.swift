@@ -57,7 +57,7 @@ struct FeedView: View {
                                 Text("Latest").font(.title3)
                                 Spacer()
                                 if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
-                                    Text("Updated \(refreshedTimeAgo)").font(.footnote)
+                                    Text("Updated \(refreshedTimeAgo)").font(.callout)
                                 }
                             }
                             .padding(.horizontal, 24)
