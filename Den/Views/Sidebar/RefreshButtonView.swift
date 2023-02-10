@@ -15,9 +15,12 @@ struct RefreshButtonView: View {
 
     let profile: Profile
 
+    @Binding var refreshing: Bool
+
     var body: some View {
         if editMode?.wrappedValue == .inactive {
             Button {
+                guard !refreshing else { return }
                 Task {
                     await RefreshUtility.refresh(profile: profile)
                 }

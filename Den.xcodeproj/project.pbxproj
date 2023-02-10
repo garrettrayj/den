@@ -16,6 +16,7 @@
 		680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
 		6813FD0B2748DE1100EC88A5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FD0A2748DE1100EC88A5 /* main.swift */; };
+		681AEAF929954AC70054B084 /* FeedHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHeroView.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
 		681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */; };
 		681DE1102928259800D2F7B2 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681DE10F2928259800D2F7B2 /* SearchModel.swift */; };
@@ -163,7 +164,7 @@
 		68C4138224733D7D00D1DC7B /* SubscribeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* SubscribeView.swift */; };
 		68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4FA252474927800D2C0D6 /* SettingsView.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
-		68CE2C3D28CEEBF000ED1CF9 /* HeroImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE2C3C28CEEBF000ED1CF9 /* HeroImageView.swift */; };
+		68CE2C3D28CEEBF000ED1CF9 /* ItemHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE2C3C28CEEBF000ED1CF9 /* ItemHeroView.swift */; };
 		68D486BE26C9896300AF5B59 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D486BD26C9896300AF5B59 /* IconPickerView.swift */; };
 		68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E6824955321007ED1AC /* OPMLReader.swift */; };
 		68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68D58E6A2498481A007ED1AC /* OPMLIcon.png */; };
@@ -262,6 +263,7 @@
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		681AEAF829954AC70054B084 /* FeedHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHeroView.swift; sourceTree = "<group>"; };
 		681DE10F2928259800D2F7B2 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		681E6F122741AD8F00C74590 /* FormRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRowModifier.swift; sourceTree = "<group>"; };
 		681F0C232933B1830037C609 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -423,7 +425,7 @@
 		68C4FA252474927800D2C0D6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
 		68CCE0A829450FFA00424850 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
-		68CE2C3C28CEEBF000ED1CF9 /* HeroImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageView.swift; sourceTree = "<group>"; };
+		68CE2C3C28CEEBF000ED1CF9 /* ItemHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemHeroView.swift; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
 		68D58E6A2498481A007ED1AC /* OPMLIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OPMLIcon.png; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				68FF63F12921D88F0012A275 /* FeedBottomBarView.swift */,
 				688FD930247A34830006A2DE /* FeedSettingsView.swift */,
+				681AEAF829954AC70054B084 /* FeedHeroView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -882,7 +885,7 @@
 				6880EBC227A46C2200B479F4 /* FeedItemPreviewView.swift */,
 				68F56B6A287832A9006EC915 /* ItemActionView.swift */,
 				68F56B6628782886006EC915 /* ItemView.swift */,
-				68CE2C3C28CEEBF000ED1CF9 /* HeroImageView.swift */,
+				68CE2C3C28CEEBF000ED1CF9 /* ItemHeroView.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1269,6 +1272,7 @@
 				68B6CBE82910C54500B5E3AB /* AtomItemLoad.swift in Sources */,
 				68F56B492870C45B006EC915 /* FeedFaviconView.swift in Sources */,
 				68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */,
+				681AEAF929954AC70054B084 /* FeedHeroView.swift in Sources */,
 				685ABADA290F0BDC0080110A /* RSSFeedUpdate.swift in Sources */,
 				6835738E29614C5600843A8E /* DetailPanel.swift in Sources */,
 				68D486BE26C9896300AF5B59 /* IconPickerView.swift in Sources */,
@@ -1406,7 +1410,7 @@
 				68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */,
 				6829A4FC28C2744900F75C5A /* ContentView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
-				68CE2C3D28CEEBF000ED1CF9 /* HeroImageView.swift in Sources */,
+				68CE2C3D28CEEBF000ED1CF9 /* ItemHeroView.swift in Sources */,
 				68D9BAA428A60DF300F1A3AD /* AboutSettingsSectionView.swift in Sources */,
 				68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */,
 				684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */,

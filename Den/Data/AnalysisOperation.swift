@@ -20,15 +20,23 @@ struct AnalysisOperation {
             let workingTrends = self.analyzeTrends(profile: profile)
 
             for workingTrend in workingTrends {
-                let trend = profile.trends.first { trend in
-                    trend.slug == workingTrend.slug
-                } ?? {
-                    let trend = Trend.create(in: context, profile: profile)
+                var trend: Trend
+
+                if let existingTrend = profile.trends.first(where: {$0.slug == workingTrend.slug}) {
+                    // Cleanup items outside of preview range
+                    existingTrend.trendItemsArray.forEach { trendItem in
+                        guard let item = trendItem.item else { return }
+                        if item.feedData?.previewItems.contains(item) == false {
+                            context.delete(trendItem)
+                        }
+                    }
+                    trend = existingTrend
+                } else {
+                    trend = Trend.create(in: context, profile: profile)
                     trend.title = workingTrend.title
                     trend.slug = workingTrend.slug
                     trend.tag = workingTrend.tag.rawValue
-                    return trend
-                }()
+                }
 
                 for item in workingTrend.items {
                     _ = trend.trendItemsArray.first { trendItem in

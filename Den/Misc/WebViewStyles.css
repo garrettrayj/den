@@ -7,10 +7,10 @@
 
 :root {
     color-scheme: light dark;
-    font: -apple-system-body;
 }
 
 body {
+    font: -apple-system-body;
     margin: 0;
 }
 

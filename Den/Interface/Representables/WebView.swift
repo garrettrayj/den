@@ -36,7 +36,10 @@ struct WebView: UIViewRepresentable {
 
             #if !targetEnvironment(macCatalyst)
             if let typeSize = DynamicTypeSize(contentSizeCategory) {
-                source += "document.body.style.webkitTextSizeAdjust='\(typeSize.fontScale * 100)%';"
+                source += """
+                document.body.style.fontSize='100%';
+                document.body.style.webkitTextSizeAdjust='\(typeSize.fontScale * 100)%';
+                """
             }
             #endif
 

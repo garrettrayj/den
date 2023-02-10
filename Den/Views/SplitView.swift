@@ -13,8 +13,9 @@ import OSLog
 import SwiftUI
 
 struct SplitView: View {
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @Binding var activeProfile: Profile?
     @Binding var backgroundRefreshEnabled: Bool
@@ -54,7 +55,7 @@ struct SplitView: View {
                         await RefreshUtility.refresh(profile: profile)
                     }
                 }
-                .navigationSplitViewColumnWidth(280)
+                .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
                 #endif
                 .disabled(refreshing)
             } detail: {

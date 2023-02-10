@@ -18,7 +18,7 @@ struct PreviewImageView: View {
 
     let item: Item
 
-    static let baseSize = CGSize(width: 396, height: 264)
+    static let baseSize = CGSize(width: 384, height: 216)
 
     private var scaledSize: CGSize {
         return CGSize(
@@ -68,7 +68,7 @@ struct PreviewImageView: View {
                 .padding(8)
                 .background(Color(UIColor.secondarySystemFill))
                 .cornerRadius(6)
-            } else if CGFloat(item.imageWidth) < scaledSize.width {
+            } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
                 VStack {
                     WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
                         .resizable()
@@ -84,7 +84,8 @@ struct PreviewImageView: View {
                         .cornerRadius(4)
                         .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color(uiColor: .separator)))
                 }
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: 400, alignment: .top)
+                .clipped()
                 .padding(8)
                 .background(Color(UIColor.secondarySystemFill))
                 .cornerRadius(6)
