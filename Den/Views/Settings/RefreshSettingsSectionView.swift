@@ -19,33 +19,29 @@ struct RefreshSettingsSectionView: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("In Background")
+                Text("In Background").modifier(FormRowModifier())
                 Spacer()
                 Toggle(isOn: $backgroundRefreshEnabled) {
                     Text("In Background")
                 }.labelsHidden()
             }
-            .font(.body)
-            .modifier(FormRowModifier())
             #else
             Toggle(isOn: $backgroundRefreshEnabled) {
-                Text("In Background")
+                Text("In Background").modifier(FormRowModifier())
             }
             #endif
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("When Activated")
+                Text("When Activated").modifier(FormRowModifier())
                 Spacer()
                 Toggle(isOn: $autoRefreshEnabled) {
                     Text("When Activated")
                 }.labelsHidden()
             }
-            .font(.body)
-            .modifier(FormRowModifier())
             #else
             Toggle(isOn: $autoRefreshEnabled) {
-                Text("When Activated")
+                Text("When Activated").modifier(FormRowModifier())
             }
             #endif
 
@@ -55,15 +51,14 @@ struct RefreshSettingsSectionView: View {
                     in: 10...24 * 60,
                     step: autoRefreshCooldown >= 120 ? 60 : 10
                 ) {
-                    if autoRefreshCooldown >= 120 {
-                        Text("⁃ Cooldown: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
-                    } else {
-                        Text("⁃ Cooldown: \(autoRefreshCooldown) minutes")
-                    }
-
+                    Group {
+                        if autoRefreshCooldown >= 120 {
+                            Text("⁃ Cooldown: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                        } else {
+                            Text("⁃ Cooldown: \(autoRefreshCooldown) minutes")
+                        }
+                    }.modifier(FormRowModifier())
                 }
-                .font(.body)
-                .modifier(FormRowModifier())
             }
         } header: {
             Text("Refresh")

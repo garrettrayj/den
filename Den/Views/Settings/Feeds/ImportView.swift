@@ -45,21 +45,18 @@ struct ImportView: View {
     }
 
     private var pickFileStage: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 24) {
             Spacer()
             Button(action: pickFile) {
                 Label("Select OPML File", systemImage: "filemenu.and.cursorarrow")
             }
             .buttonStyle(AccentButtonStyle())
-            .accessibilityIdentifier("import-pick-file-button")
-            Text("Choose pages to import in the next step")
-                .font(.title3)
-                .foregroundColor(.secondary)
+            .accessibilityIdentifier("select-file-button")
+            Text("Choose pages to import in the next step").foregroundColor(.secondary)
             Spacer()
         }
         .multilineTextAlignment(.center)
-        .frame(maxWidth: 300)
-        .padding()
+        .padding(24)
     }
 
     private var folderSelectionStage: some View {
@@ -84,21 +81,20 @@ struct ImportView: View {
                         }.lineLimit(1)
                     }
                     .modifier(FormRowModifier())
-                    .accessibilityIdentifier("import-toggle-folder-button")
+                    .accessibilityIdentifier("toggle-folder-button")
                 }
             }
-
-            Section {
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
                 Button(action: importSelected) {
                     Label("Import Pages", systemImage: "arrow.down.doc")
                 }
-                .buttonStyle(AccentButtonStyle())
+                .labelStyle(TitleAndTrailingIconLabelStyle())
                 .disabled(!(selectedFolders.count > 0))
-                .accessibilityIdentifier("import-submit-button")
+                .accessibilityIdentifier("import-button")
             }
-            .frame(maxWidth: .infinity)
-            .listRowBackground(Color.clear)
-            .listRowInsets(EdgeInsets())
         }
     }
 
@@ -108,16 +104,12 @@ struct ImportView: View {
 
     private var completeStage: some View {
         VStack(spacing: 16) {
-            Image(systemName: "checkmark.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 48, height: 48)
+            Spacer()
             Text("Import Complete").font(.title)
             Text("Added \(feedsImported.count) feeds to \(pagesImported.count) pages")
-                .foregroundColor(Color(.secondaryLabel))
+            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .padding()
+        .padding(24)
     }
 
     private var selectionSectionHeader: some View {

@@ -32,8 +32,8 @@ struct HistorySettingsSectionView: View {
                 Text("Two Weeks").tag(14 as Int)
                 Text("One Week").tag(7 as Int)
             } label: {
-                Text("Keep History")
-            }.modifier(FormRowModifier())
+                Text("Keep History").modifier(FormRowModifier())
+            }
 
             Button {
                 Task {

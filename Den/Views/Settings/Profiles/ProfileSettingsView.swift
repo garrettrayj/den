@@ -47,10 +47,9 @@ struct ProfileSettingsView: View {
 
     private var nameSection: some View {
         Section {
-            HStack {
-                TextField("Name", text: $nameInput)
-                    .modifier(TitleTextFieldModifier())
-            }.modifier(FormRowModifier())
+            TextField("Name", text: $nameInput)
+                .modifier(FormRowModifier())
+                .modifier(TitleTextFieldModifier())
         } header: {
             Text("Name").modifier(FormFirstHeaderModifier())
         }

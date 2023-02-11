@@ -47,26 +47,16 @@ struct NavigationListView: View {
             ToolbarItem {
                 AddFeedButtonView(contentSelection: $contentSelection, profile: profile)
             }
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .bottomBar) {
                 SettingsButtonView(listSelection: $contentSelection)
-            }
-            ToolbarItem(placement: .bottomBar) {
                 Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
                 AddPageButtonView(profile: profile)
-            }
-            ToolbarItem(placement: .bottomBar) {
                 StatusView(
                     profile: profile,
                     refreshing: $refreshing,
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                 )
-            }
-            ToolbarItem(placement: .bottomBar) {
                 Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
                 RefreshButtonView(profile: profile, refreshing: $refreshing)
             }
         }

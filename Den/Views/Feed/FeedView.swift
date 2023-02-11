@@ -125,13 +125,13 @@ struct FeedView: View {
                                 }
                             }
                             .font(.footnote)
+                            .imageScale(.small)
                             .multilineTextAlignment(.center)
                             .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.horizontal, 24)
-                            .padding(.vertical, 20)
+                            .padding(.vertical)
                         }
-                        Spacer()
                     }
                 } else {
                     VStack {

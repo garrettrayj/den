@@ -30,45 +30,46 @@ struct FeedSettingsView: View {
 
     private var titleSection: some View {
         Section(header: Text("Title").modifier(FormFirstHeaderModifier())) {
-            TextField("Title", text: $feed.wrappedTitle).modifier(TitleTextFieldModifier())
+            TextField("Title", text: $feed.wrappedTitle)
+                .modifier(FormRowModifier())
+                .modifier(TitleTextFieldModifier())
         }
     }
 
     private var previewsSection: some View {
         Section {
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                Text("Limit: \(feed.wrappedItemLimit)")
+                Text("Limit: \(feed.wrappedItemLimit)").modifier(FormRowModifier())
             }
             .onChange(of: feed.itemLimit, perform: { _ in
                 Haptics.lightImpactFeedbackGenerator.impactOccurred()
             })
-            .modifier(FormRowModifier())
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Show Thumbnails")
+                Text("Show Thumbnails").modifier(FormRowModifier())
                 Spacer()
                 Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
-            }.modifier(FormRowModifier())
+            }
             #else
             Toggle(isOn: $feed.showThumbnails) {
-                Text("Show Thumbnails")
+                Text("Show Thumbnails").modifier(FormRowModifier())
             }
             #endif
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Open in Browser")
+                Text("Open in Browser").modifier(FormRowModifier())
                 Spacer()
                 Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
-            }.modifier(FormRowModifier())
+            }
             #else
             Toggle(isOn: $feed.browserView) {
-                Text("Open in Browser")
+                Text("Open in Browser").modifier(FormRowModifier())
             }
             if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
-                    Text("Use Reader Mode")
+                    Text("Use Reader Mode").modifier(FormRowModifier())
                 }
             }
             #endif
@@ -84,7 +85,7 @@ struct FeedSettingsView: View {
                     Text(page.wrappedName).tag(page as Page?)
                 }
             } label: {
-                Text("Move")
+                Text("Move").modifier(FormRowModifier())
             }
             .onChange(of: feed.page) { [oldPage = feed.page] newPage in
                 self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
@@ -100,7 +101,6 @@ struct FeedSettingsView: View {
                 )
                 dismiss()
             }
-            .modifier(FormRowModifier())
 
             Button(role: .destructive) {
                 showingDeleteAlert = true

@@ -16,9 +16,8 @@ struct TitleTextFieldModifier: ViewModifier {
             content
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 4)
         } icon: {
             Image(systemName: "character.cursor.ibeam")
-        }.modifier(FormRowModifier())
+        }
     }
 }

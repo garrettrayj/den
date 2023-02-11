@@ -23,15 +23,15 @@ struct PageSelectionView: View {
             HStack {
                 Button(action: selectAll) { Text("All") }
                     .disabled(allSelected)
-                    .accessibilityIdentifier("import-select-all-button")
+                    .accessibilityIdentifier("select-all-button")
                 Text("/").foregroundColor(.secondary)
                 Button(action: selectNone) { Text("None") }
                     .disabled(noneSelected)
-                    .accessibilityIdentifier("import-select-none-button")
+                    .accessibilityIdentifier("select-none-button")
             }
-            .font(.system(size: 12))
+            .font(.caption)
+            .buttonStyle(.borderless)
         }
-        .buttonStyle(.borderless)
         .modifier(FormFirstHeaderModifier())
     }
 }
