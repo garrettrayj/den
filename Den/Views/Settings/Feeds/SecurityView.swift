@@ -35,7 +35,6 @@ struct SecurityView: View {
 
             }
         }
-        .listStyle(InsetGroupedListStyle())
         .onDisappear {
             reset()
         }
@@ -44,58 +43,55 @@ struct SecurityView: View {
 
     private var allClearSummary: some View {
         Section {
-            Label {
-                Text("All feeds have secure URLs")
-            } icon: {
-                Image(systemName: "checkmark.shield").foregroundColor(.green).imageScale(.large)
-            }.modifier(FormRowModifier())
+            Text("All feeds have secure web addresses.").modifier(FormRowModifier())
         } header: {
-            Text("All Clear").modifier(FormFirstHeaderModifier())
+            Label {
+                Text("No Problems")
+            } icon: {
+                Image(systemName: "checkmark.shield")
+            }.modifier(FormFirstHeaderModifier())
         }
     }
 
     private var warningSummary: some View {
         Section {
-            Label {
-                if insecureFeedCount == 1 {
-                    Text("\(insecureFeedCount) feed has an insecure URL")
-                } else {
-                    Text("\(insecureFeedCount) feeds have insecure URLs")
-                }
-            } icon: {
-                Image(systemName: "exclamationmark.shield")
-                    .foregroundColor(Color(UIColor.systemOrange))
-                    .imageScale(.large)
-            }.modifier(FormRowModifier())
-
             if remediationInProgress == true {
                 Label {
-                    Text("Checking…").foregroundColor(.secondary)
+                    Text("Checking…").foregroundColor(.secondary).modifier(FormRowModifier())
                 } icon: {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
-                }.modifier(FormRowModifier())
+                }
             } else {
                 Button {
                     remedyInsecureUrls()
                 } label: {
-                    VStack(alignment: .leading, spacing: 4) {
-                        if insecureFeedCount == 1 {
-                            Text("Check for secure alternative")
-                            Text("If avaialble, the feed will be updated to use the HTTPS URL")
-                                .font(.caption).foregroundColor(.secondary)
-                        } else {
-                            Text("Check for secure alternatives")
-                            Text("When available, feeds will be updated to use HTTPS URLs")
-                                .font(.caption).foregroundColor(.secondary)
-                        }
+                    Label {
+                        Group {
+                            if insecureFeedCount == 1 {
+                                Text("Check for a Secure Option")
+                            } else {
+                                Text("Check for Secure Options")
+                            }
+                        }.modifier(FormRowModifier())
+                    } icon: {
+                        Image(systemName: "bolt.shield")
                     }
                 }
-                .padding(.vertical, 8)
-                .modifier(FormRowModifier())
-                .accessibilityIdentifier("remedy-button")
+                .accessibilityIdentifier("security-remedy-button")
             }
         } header: {
-            Text("Warning").modifier(FormFirstHeaderModifier())
+            Label {
+                if insecureFeedCount == 1 {
+                    Text("\(insecureFeedCount) feed is using an insecure web address")
+                } else {
+                    Text("\(insecureFeedCount) feeds use insecure web addresses")
+                }
+            } icon: {
+                Image(systemName: "exclamationmark.shield")
+            }
+            .modifier(FormFirstHeaderModifier())
+        } footer: {
+            Text("Feeds will be updated to use HTTPS when available.")
         }
     }
 
@@ -106,7 +102,7 @@ struct SecurityView: View {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
                         favicon: feed.feedData?.favicon
-                    )
+                    ).modifier(FormRowModifier())
                     Spacer()
                     Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(.secondary)
                     if failedRemediation.contains(feed.id) == true {
@@ -114,7 +110,7 @@ struct SecurityView: View {
                     } else {
                         Image(systemName: "lock.open").foregroundColor(.secondary)
                     }
-                }.modifier(FormRowModifier())
+                }
             }
         } header: {
             Text(page.displayName)

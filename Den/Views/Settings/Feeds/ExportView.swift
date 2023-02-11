@@ -23,24 +23,23 @@ struct ExportView: View {
             } else {
                 Form {
                     pageListSection
-
-                    Section {
-                        Button {
-                            exportOpml()
-                        } label: {
-                            Label("Save OPML File", systemImage: "arrow.up.doc")
-                        }
-                        .buttonStyle(AccentButtonStyle())
-                        .disabled(selectedPages.isEmpty)
-                        .accessibilityIdentifier("export-opml-button")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets())
                 }
             }
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
+                Button {
+                    exportOpml()
+                } label: {
+                    Label("Export OPML", systemImage: "arrow.up.doc")
+                        .labelStyle(TitleAndTrailingIconLabelStyle())
+                }
+                .disabled(selectedPages.isEmpty)
+                .accessibilityIdentifier("export-button")
+            }
+        }
         .navigationTitle("Export")
     }
 

@@ -21,8 +21,8 @@ struct AppearanceSettingsSectionView: View {
                 Text("Light").tag(UIUserInterfaceStyle.light)
                 Text("Dark").tag(UIUserInterfaceStyle.dark)
             } label: {
-                Text("Theme")
-            }.modifier(FormRowModifier())
+                Text("Theme").modifier(FormRowModifier())
+            }
 
             #if !targetEnvironment(macCatalyst)
             Picker(selection: $contentSizeCategory) {
@@ -44,7 +44,7 @@ struct AppearanceSettingsSectionView: View {
                     Text("Accessibility XXXL").tag(UIContentSizeCategory.accessibilityExtraExtraExtraLarge)
                 }
             } label: {
-                Text("Content Size")
+                Text("Content Size").modifier(FormRowModifier())
             }
             #endif
         }

@@ -30,11 +30,9 @@ struct PageSettingsView: View {
 
     private var nameIconSection: some View {
         Section(header: Text("Name").modifier(FormFirstHeaderModifier())) {
-            HStack {
-                TextField("Untitled", text: $page.wrappedName)
-                    .modifier(TitleTextFieldModifier())
-
-            }.modifier(FormRowModifier())
+            TextField("Untitled", text: $page.wrappedName)
+                .modifier(FormRowModifier())
+                .modifier(TitleTextFieldModifier())
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
@@ -79,12 +77,10 @@ struct PageSettingsView: View {
                     FeedTitleLabelView(
                         title: feed.wrappedTitle,
                         favicon: feed.feedData?.favicon
-                    )
+                    ).modifier(FormRowModifier())
                 }
-                .modifier(FormRowModifier())
                 .onDelete(perform: deleteFeed)
                 .onMove(perform: moveFeed)
-
             }
         }
     }

@@ -21,7 +21,7 @@ struct BrowserSettingsSectionView: View {
     var body: some View {
         Section {
             Toggle(isOn: $useInbuiltBrowser) {
-                Text("Use Inbuilt Browser")
+                Text("Use Inbuilt Browser").modifier(FormRowModifier())
             }
         } header: {
             Text("Links")

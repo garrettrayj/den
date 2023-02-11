@@ -19,12 +19,7 @@ struct ItemView: View {
     let item: Item
 
     var maxContentWidth: CGFloat {
-        #if targetEnvironment(macCatalyst)
-        let typeSize = dynamicTypeSize
-        #else
         let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        #endif
-
         return CGFloat(800) * typeSize.fontScale
     }
 

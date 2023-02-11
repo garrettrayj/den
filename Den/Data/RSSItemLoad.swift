@@ -59,6 +59,14 @@ struct RSSItemLoad {
             if formattedAuthor != "" {
                 item.author = formattedAuthor
             }
+        } else if let author = source.author {
+            let formattedAuthor = author
+                .replacingOccurrences(of: "\n", with: " ")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+
+            if formattedAuthor != "" {
+                item.author = formattedAuthor
+            }
         }
     }
 

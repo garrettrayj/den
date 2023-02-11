@@ -60,7 +60,7 @@ struct SubscribeView: View {
                         }.headerProminence(.increased)
 
                         Section {
-                            pagePicker.modifier(FormRowModifier())
+                            pagePicker
                         }
 
                         submitButtonSection
@@ -141,7 +141,7 @@ struct SubscribeView: View {
                 Text(page.wrappedName).tag(page as Page?)
             }
         } label: {
-            Text("Page")
+            Text("Page").modifier(FormRowModifier())
         }
     }
 
