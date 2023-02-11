@@ -43,7 +43,6 @@ struct PlainToolbarButtonStyle: ButtonStyle {
             )
             .background(Color.clear)
             #endif
-            .frame(height: 44, alignment: .center)
             .onHover { hovered in
                 hovering = hovered
             }

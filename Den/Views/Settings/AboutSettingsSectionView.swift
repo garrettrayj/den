@@ -14,21 +14,14 @@ struct AboutSettingsSectionView: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        Section(header: Text("About")) {
-            HStack(alignment: .bottom, spacing: 16) {
-                Image(uiImage: UIImage(named: "TitleIcon") ?? UIImage())
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 48, height: 48)
-                    .cornerRadius(8)
-                VStack(alignment: .leading) {
-                    Text("Den").font(.system(size: 24).weight(.bold))
-                    Text("v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
-                        .foregroundColor(.secondary)
-                        .font(.caption)
-                }
+        Section {
+            HStack {
+                Text("Den").font(.title3)
                 Spacer()
-            }.padding(.vertical, 8)
+                Text("Version \(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                    .foregroundColor(.secondary)
+            }
+            .modifier(FormRowModifier())
 
             Button {
                 if let url = URL(string: "https://den.io") {
@@ -49,6 +42,8 @@ struct AboutSettingsSectionView: View {
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("privacy-policy-button")
+        } header: {
+            Text("About")
         }
     }
 }
