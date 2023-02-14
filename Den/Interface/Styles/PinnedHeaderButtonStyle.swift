@@ -27,7 +27,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .padding(.horizontal, horizontalPadding)
             .background(
                 isEnabled ?
-                    hovering ? Color(UIColor.quaternarySystemFill) : .clear
+                    hovering ? Color(UIColor.secondarySystemFill) : Color(UIColor.tertiarySystemFill)
                 : .clear
             )
             .onHover { hovered in
@@ -36,5 +36,6 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .onDisappear {
                 hovering = false
             }
+            .background(.thickMaterial)
     }
 }

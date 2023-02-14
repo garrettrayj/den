@@ -1,5 +1,5 @@
 //
-//  HistorySettingsSectionView.swift
+//  ProfileSettingsHistorySectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/27/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct HistorySettingsSectionView: View {
+struct ProfileSettingsHistorySectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile

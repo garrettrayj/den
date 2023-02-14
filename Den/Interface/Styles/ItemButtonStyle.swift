@@ -29,11 +29,7 @@ struct ItemButtonStyle: ButtonStyle {
             )
             .frame(maxWidth: .infinity)
             .background(
-                isEnabled ?
-                    hovering ?
-                        Color(UIColor.quaternarySystemFill) :
-                        Color(UIColor.secondarySystemGroupedBackground)
-                : Color.clear
+                isEnabled && hovering ? Color(UIColor.quaternarySystemFill) : Color.clear
             )
             .onHover { hovered in
                 hovering = hovered

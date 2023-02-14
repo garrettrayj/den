@@ -18,7 +18,7 @@ struct ItemThumbnailView: View {
 
     let item: Item
 
-    static let baseSize = CGSize(width: 72, height: 72)
+    static let baseSize = CGSize(width: 64, height: 64)
 
     private var scaledSize: CGSize {
         return CGSize(
@@ -63,6 +63,7 @@ struct ItemThumbnailView: View {
             }
         }
         .frame(width: scaledSize.width, height: scaledSize.height)
+        .background(Color(UIColor.tertiarySystemFill))
         .cornerRadius(6)
         .overlay(
             RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)

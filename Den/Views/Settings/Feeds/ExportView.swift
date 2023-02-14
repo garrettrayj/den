@@ -28,14 +28,13 @@ struct ExportView: View {
         }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-                Spacer()
+            ToolbarItem(placement: .bottomBar) {
                 Button {
                     exportOpml()
                 } label: {
-                    Label("Export OPML", systemImage: "arrow.up.doc")
-                        .labelStyle(TitleAndTrailingIconLabelStyle())
+                    Label("Export OPML", systemImage: "arrow.up.doc").labelStyle(.titleAndIcon)
                 }
+                .buttonStyle(PlainToolbarButtonStyle())
                 .disabled(selectedPages.isEmpty)
                 .accessibilityIdentifier("export-button")
             }

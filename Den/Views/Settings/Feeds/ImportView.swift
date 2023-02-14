@@ -86,12 +86,11 @@ struct ImportView: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-                Spacer()
+            ToolbarItem(placement: .bottomBar) {
                 Button(action: importSelected) {
-                    Label("Import Pages", systemImage: "arrow.down.doc")
+                    Label("Import Pages", systemImage: "arrow.down.doc").labelStyle(.titleAndIcon)
                 }
-                .labelStyle(TitleAndTrailingIconLabelStyle())
+                .buttonStyle(PlainToolbarButtonStyle())
                 .disabled(!(selectedFolders.count > 0))
                 .accessibilityIdentifier("import-button")
             }

@@ -83,7 +83,6 @@ struct DeckColumnView: View {
             .padding(.trailing, isLast ? 12 : 0)
         }
         .buttonStyle(PinnedHeaderButtonStyle(horizontalPadding: 12))
-        .modifier(PinnedSectionHeaderModifier())
         .padding(.bottom, 4)
         .accessibilityIdentifier("deck-feed-button")
     }

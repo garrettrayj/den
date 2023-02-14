@@ -28,7 +28,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            ProfilesSettingsSectionView(sceneProfileID: $sceneProfileID)
+            ProfilesListSectionView(sceneProfileID: $sceneProfileID)
             FeedsSettingsSectionView()
             #if !targetEnvironment(macCatalyst)
             BrowserSettingsSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
@@ -42,7 +42,6 @@ struct SettingsView: View {
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
-            HistorySettingsSectionView(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             ResetSettingsSectionView(
                 activeProfile: $activeProfile,
                 sceneProfileID: $sceneProfileID,
