@@ -43,6 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mimeType.rawValue
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
+
+        SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 512 // MB
     }
 
     private func resetUserDefaultsIfNeeded() {

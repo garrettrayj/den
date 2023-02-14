@@ -1,5 +1,5 @@
 //
-//  ProfilesSettingsSectionView.swift
+//  ProfilesListSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ProfilesSettingsSectionView: View {
+struct ProfilesListSectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var sceneProfileID: String?

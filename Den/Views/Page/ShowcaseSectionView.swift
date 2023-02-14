@@ -26,7 +26,7 @@ struct ShowcaseSectionView: View {
                         .background(Color(UIColor.secondarySystemGroupedBackground))
                         .cornerRadius(8)
                         .padding(.horizontal)
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 12)
                 } else {
                     BoardView(
                         width: width,
@@ -46,7 +46,7 @@ struct ShowcaseSectionView: View {
                     .background(Color(UIColor.secondarySystemGroupedBackground))
                     .cornerRadius(8)
                     .padding(.horizontal)
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 12)
 
             }
         } header: {
@@ -60,7 +60,6 @@ struct ShowcaseSectionView: View {
                     NavChevronView()
                 }
             }
-            .modifier(PinnedSectionHeaderModifier())
             .buttonStyle(PinnedHeaderButtonStyle())
             .accessibilityIdentifier("showcase-section-feed-button")
         }

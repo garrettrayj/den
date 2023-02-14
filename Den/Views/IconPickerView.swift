@@ -78,9 +78,6 @@ struct IconPickerView: View {
             .padding(.horizontal)
         } header: {
             Label(category.title, systemImage: category.symbol)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
-                .padding(.vertical, 8)
                 .modifier(PinnedSectionHeaderModifier())
         }
 

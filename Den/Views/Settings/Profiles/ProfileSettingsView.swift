@@ -27,8 +27,30 @@ struct ProfileSettingsView: View {
     var body: some View {
         Form {
             nameSection
-            activateSection
+            ProfileSettingsHistorySectionView(
+                profile: profile,
+                historyRentionDays: profile.wrappedHistoryRetention
+            )
             deleteSection
+        }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Button {
+                    DispatchQueue.main.async {
+                        sceneProfileID = profile.id?.uuidString
+                        appProfileID = profile.id?.uuidString
+                        activeProfile = profile
+                        contentSelection = nil
+                        profile.objectWillChange.send()
+                    }
+                } label: {
+                    Label("Switch", systemImage: "arrow.left.arrow.right").labelStyle(.titleAndIcon)
+                }
+                .buttonStyle(PlainToolbarButtonStyle())
+                .disabled(isActive)
+                .foregroundColor(isActive ? .secondary : nil)
+                .accessibilityIdentifier("switch-to-profile-button")
+            }
         }
         .navigationTitle("Profile Settings")
         .onDisappear {
@@ -57,26 +79,6 @@ struct ProfileSettingsView: View {
 
     private var isActive: Bool {
         profile.id?.uuidString == sceneProfileID
-    }
-
-    private var activateSection: some View {
-        Section {
-            Button {
-                DispatchQueue.main.async {
-                    sceneProfileID = profile.id?.uuidString
-                    appProfileID = profile.id?.uuidString
-                    activeProfile = profile
-                    contentSelection = nil
-                    profile.objectWillChange.send()
-                }
-            } label: {
-                Label("Switch", systemImage: "arrow.left.arrow.right")
-            }
-            .disabled(isActive)
-            .foregroundColor(isActive ? .secondary : nil)
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("activate-profile-button")
-        }
     }
 
     private var deleteSection: some View {

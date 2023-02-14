@@ -17,8 +17,6 @@ struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var feed: Feed
 
@@ -38,7 +36,7 @@ struct FeedView: View {
                                 AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
-                                    .padding(.vertical, 8)
+                                    .padding(.vertical, 12)
                                     .padding(.horizontal)
                             } else {
                                 BoardView(
@@ -60,8 +58,6 @@ struct FeedView: View {
                                     Text("Updated \(refreshedTimeAgo)").font(.callout)
                                 }
                             }
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 8)
                             .modifier(PinnedSectionHeaderModifier())
                         }
 
@@ -71,7 +67,7 @@ struct FeedView: View {
                                     AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
                                         .background(Color(UIColor.secondarySystemGroupedBackground))
                                         .cornerRadius(8)
-                                        .padding(.vertical, 8)
+                                        .padding(.vertical, 12)
                                         .padding(.horizontal)
                                 } else {
                                     BoardView(
@@ -86,9 +82,6 @@ struct FeedView: View {
                             } header: {
                                 Text("More")
                                     .font(.title3)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.horizontal, 24)
-                                    .padding(.vertical, 8)
                                     .modifier(PinnedSectionHeaderModifier())
                             }
                         }
@@ -127,7 +120,6 @@ struct FeedView: View {
                             .font(.footnote)
                             .imageScale(.small)
                             .multilineTextAlignment(.center)
-                            .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.horizontal, 24)
                             .padding(.vertical)

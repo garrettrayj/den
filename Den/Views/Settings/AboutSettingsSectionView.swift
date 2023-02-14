@@ -16,7 +16,7 @@ struct AboutSettingsSectionView: View {
     var body: some View {
         Section {
             HStack {
-                Text("Den").font(.title3)
+                Text("Den").font(.title3.weight(.semibold))
                 Spacer()
                 Text("Version \(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                     .foregroundColor(.secondary)

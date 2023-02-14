@@ -66,7 +66,7 @@ struct PreviewImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
                 .padding(8)
-                .background(Color(UIColor.secondarySystemFill))
+                .background(Color(UIColor.tertiarySystemFill))
                 .cornerRadius(6)
             } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
                 VStack {
@@ -87,7 +87,7 @@ struct PreviewImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: 400, alignment: .top)
                 .clipped()
                 .padding(8)
-                .background(Color(UIColor.secondarySystemFill))
+                .background(Color(UIColor.tertiarySystemFill))
                 .cornerRadius(6)
             } else {
                 WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
