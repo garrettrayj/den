@@ -36,7 +36,7 @@ struct FeedView: View {
                                 AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
-                                    .padding(.vertical, 12)
+                                    .padding(.vertical, 8)
                                     .padding(.horizontal)
                             } else {
                                 BoardView(
@@ -48,14 +48,14 @@ struct FeedView: View {
                                     }
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
-                                }
+                                }.modifier(SectionBoardModifier())
                             }
                         } header: {
                             HStack {
                                 Text("Latest").font(.title3)
                                 Spacer()
                                 if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
-                                    Text("Updated \(refreshedTimeAgo)").font(.callout)
+                                    Text("Updated \(refreshedTimeAgo)").font(.caption)
                                 }
                             }
                             .modifier(PinnedSectionHeaderModifier())
@@ -67,7 +67,7 @@ struct FeedView: View {
                                     AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
                                         .background(Color(UIColor.secondarySystemGroupedBackground))
                                         .cornerRadius(8)
-                                        .padding(.vertical, 12)
+                                        .padding(.vertical, 8)
                                         .padding(.horizontal)
                                 } else {
                                     BoardView(
@@ -77,7 +77,7 @@ struct FeedView: View {
                                         GadgetItemView(item: item)
                                             .background(Color(UIColor.secondarySystemGroupedBackground))
                                             .cornerRadius(8)
-                                    }
+                                    }.modifier(SectionBoardModifier())
                                 }
                             } header: {
                                 Text("More")
@@ -122,7 +122,8 @@ struct FeedView: View {
                             .multilineTextAlignment(.center)
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.horizontal, 24)
-                            .padding(.vertical)
+                            .padding(.top, 20)
+                            .padding(.bottom)
                         }
                     }
                 } else {

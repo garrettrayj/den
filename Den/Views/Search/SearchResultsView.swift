@@ -25,8 +25,7 @@ struct SearchResultsView: View {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
                         FeedItemPreviewView(item: item)
-                    }
-                    Spacer()
+                    }.modifier(MainBoardModifier())
                 }
             }
         }

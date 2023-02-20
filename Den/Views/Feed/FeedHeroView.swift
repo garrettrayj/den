@@ -18,7 +18,7 @@ struct FeedHeroView: View {
 
     let heroImage: URL
 
-    static let baseSize = CGSize(width: 320, height: 180)
+    static let baseSize = CGSize(width: 400, height: 180)
 
     private var typeSize: DynamicTypeSize {
         DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
@@ -38,10 +38,6 @@ struct FeedHeroView: View {
         )
     }
 
-    private var maxHeight: CGFloat {
-        scaledSize.height + 40
-    }
-
     var body: some View {
         VStack(spacing: 0) {
             WebImage(url: heroImage, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
@@ -50,10 +46,10 @@ struct FeedHeroView: View {
                 .cornerRadius(8)
                 .shadow(radius: 3, x: 1, y: 2)
                 .frame(maxWidth: scaledSize.width, maxHeight: scaledSize.height)
-                .padding(20)
+                .padding()
         }
         .aspectRatio(16/9, contentMode: .fill)
-        .frame(maxWidth: .infinity, maxHeight: maxHeight)
+        .frame(maxWidth: .infinity, maxHeight: scaledSize.height + 32)
         .background {
             WebImage(url: heroImage)
                 .resizable()

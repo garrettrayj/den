@@ -16,7 +16,7 @@ struct AllReadStatusView: View {
     var body: some View {
         Label {
             HStack(spacing: 4) {
-                Text("All read")
+                Text("All read").font(.callout)
                 Spacer()
                 Text("\(hiddenCount) hidden").font(.caption)
             }

@@ -31,8 +31,7 @@ struct InboxView: View {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: profile.visibleItems(hideRead)) { item in
                         FeedItemPreviewView(item: item)
-                    }
-                    Spacer()
+                    }.modifier(MainBoardModifier())
                 }
             }
         }
