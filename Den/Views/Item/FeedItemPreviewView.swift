@@ -22,7 +22,8 @@ struct FeedItemPreviewView: View {
                     HStack {
                         FeedTitleLabelView(
                             title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                            favicon: item.feedData?.favicon
+                            favicon: item.feedData?.favicon,
+                            read: item.read
                         )
                         Spacer()
                         NavChevronView()

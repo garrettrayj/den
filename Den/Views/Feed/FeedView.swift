@@ -36,7 +36,7 @@ struct FeedView: View {
                                 AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
-                                    .padding(.vertical, 8)
+                                    .padding(.vertical, 12)
                                     .padding(.horizontal)
                             } else {
                                 BoardView(
@@ -67,7 +67,7 @@ struct FeedView: View {
                                     AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
                                         .background(Color(UIColor.secondarySystemGroupedBackground))
                                         .cornerRadius(8)
-                                        .padding(.vertical, 8)
+                                        .padding(.vertical, 12)
                                         .padding(.horizontal)
                                 } else {
                                     BoardView(

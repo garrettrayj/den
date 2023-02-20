@@ -14,6 +14,6 @@ struct SectionBoardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(.horizontal)
-            .padding(.vertical, 8)
+            .padding(.vertical, 12)
     }
 }
