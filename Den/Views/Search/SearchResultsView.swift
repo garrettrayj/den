@@ -15,7 +15,7 @@ struct SearchResultsView: View {
     @FetchRequest
     private var searchResults: FetchedResults<Item>
 
-    var query: String
+    let query: String
 
     var body: some View {
         GeometryReader { geometry in
@@ -30,19 +30,14 @@ struct SearchResultsView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .bottomBar) {
                 if !searchResults.isEmpty {
                     HStack(spacing: 0) {
                         Text("Results for “")
                         Text(query).foregroundColor(.primary)
                         Text("”")
                     }
-                    #if targetEnvironment(macCatalyst)
-                    .font(.system(size: 11))
-                    #else
-                    .font(.system(size: 13))
-                    #endif
-                    .foregroundColor(.secondary)
+                    .font(.caption)
                 }
             }
         }
