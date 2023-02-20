@@ -69,7 +69,7 @@ class PhoneScreenshots: ScreenshotTestCase {
         takeScreenshot(named: "07-FeedSettings")
 
         goBack()
-        goBack()
+        sleep(2)
         goBack()
 
         // Settings
