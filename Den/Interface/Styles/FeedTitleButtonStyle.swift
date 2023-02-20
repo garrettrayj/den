@@ -21,8 +21,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 isEnabled ? .primary : .secondary
             )
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
+            .padding(8)
             .background(
                 isEnabled ?
                     hovering ? Color(UIColor.quaternarySystemFill) : .clear

@@ -9,6 +9,10 @@
     color-scheme: light dark;
 }
 
+* {
+    max-width: 100%;
+}
+
 body {
     font: -apple-system-body;
     margin: 0;

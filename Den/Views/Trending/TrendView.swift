@@ -25,8 +25,7 @@ struct TrendView: View {
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: trend.visibleItems(hideRead)) { item in
                             FeedItemPreviewView(item: item)
-                        }
-                        Spacer()
+                        }.modifier(MainBoardModifier())
                     }
                 }
             }

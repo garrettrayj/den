@@ -49,9 +49,9 @@ struct DeckColumnView: View {
                                 .cornerRadius(8)
                         }
                     }
-                    .padding(.horizontal, 4)
-                    .padding(.leading, isFirst ? 12 : 0)
-                    .padding(.trailing, isLast ? 12 : 0)
+                    .padding(.leading, 8)
+                    .padding(.leading, isFirst ? 8 : 0)
+                    .padding(.trailing, isLast ? 16 : 0)
                 } header: {
                     header
                 }
@@ -72,18 +72,14 @@ struct DeckColumnView: View {
     private var header: some View {
         NavigationLink(value: DetailPanel.feed(feed)) {
             HStack {
-                FeedTitleLabelView(
-                    title: feed.wrappedTitle,
-                    favicon: feed.feedData?.favicon
-                )
+                FeedTitleLabelView(title: feed.wrappedTitle, favicon: feed.feedData?.favicon)
                 Spacer()
-                NavChevronView()
+                NavChevronView().padding(.trailing, 8)
             }
             .padding(.leading, isFirst ? 12 : 0)
             .padding(.trailing, isLast ? 12 : 0)
         }
-        .buttonStyle(PinnedHeaderButtonStyle(horizontalPadding: 12))
-        .padding(.bottom, 4)
+        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 8 , trailingPadding: 4))
         .accessibilityIdentifier("deck-feed-button")
     }
 

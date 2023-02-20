@@ -30,8 +30,7 @@ struct TrendsView: View {
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: visibleTrends) { trend in
                             TrendBlockView(trend: trend)
-                        }
-                        Spacer()
+                        }.modifier(MainBoardModifier())
                     }
                 }
             }

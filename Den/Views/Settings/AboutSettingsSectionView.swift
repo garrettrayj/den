@@ -15,14 +15,6 @@ struct AboutSettingsSectionView: View {
 
     var body: some View {
         Section {
-            HStack {
-                Text("Den").font(.title3.weight(.semibold))
-                Spacer()
-                Text("Version \(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
-                    .foregroundColor(.secondary)
-            }
-            .modifier(FormRowModifier())
-
             Button {
                 if let url = URL(string: "https://den.io") {
                     openURL(url)
@@ -44,6 +36,18 @@ struct AboutSettingsSectionView: View {
             .accessibilityIdentifier("privacy-policy-button")
         } header: {
             Text("About")
+        } footer: {
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    Text("Den v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                    Spacer()
+                    Text("© 2023 Garrett Johnson")
+                }
+                VStack(alignment: .leading) {
+                    Text("Den v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                    Text("© 2023 Garrett Johnson")
+                }
+            }
         }
     }
 }

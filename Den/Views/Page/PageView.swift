@@ -61,8 +61,7 @@ struct PageView: View {
                         ScrollView(.vertical) {
                             BoardView(width: geometry.size.width, list: page.visibleItems(hideRead)) { item in
                                 FeedItemPreviewView(item: item)
-                            }
-                            Spacer()
+                            }.modifier(MainBoardModifier())
                         }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                     case .showcase:
                         ScrollView(.vertical) {
@@ -77,8 +76,7 @@ struct PageView: View {
                         ScrollView(.vertical) {
                             BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
                                 GadgetView(feed: feed, hideRead: $hideRead)
-                            }
-                            Spacer()
+                            }.modifier(MainBoardModifier())
                         }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                     }
                 }

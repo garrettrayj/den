@@ -26,7 +26,7 @@ struct ShowcaseSectionView: View {
                         .background(Color(UIColor.secondarySystemGroupedBackground))
                         .cornerRadius(8)
                         .padding(.horizontal)
-                        .padding(.vertical, 12)
+                        .padding(.vertical, 8)
                 } else {
                     BoardView(
                         width: width,
@@ -38,7 +38,7 @@ struct ShowcaseSectionView: View {
                             .background(Color(UIColor.secondarySystemGroupedBackground))
                             .cornerRadius(8)
                         }
-                    )
+                    ).modifier(SectionBoardModifier())
                 }
             } else {
                 FeedUnavailableView(feedData: feed.feedData)
@@ -46,7 +46,7 @@ struct ShowcaseSectionView: View {
                     .background(Color(UIColor.secondarySystemGroupedBackground))
                     .cornerRadius(8)
                     .padding(.horizontal)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, 8)
 
             }
         } header: {
