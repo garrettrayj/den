@@ -25,8 +25,7 @@ struct ShowcaseSectionView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color(UIColor.secondarySystemGroupedBackground))
                         .cornerRadius(8)
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
+                        .padding()
                 } else {
                     BoardView(
                         width: width,
@@ -45,8 +44,7 @@ struct ShowcaseSectionView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(UIColor.secondarySystemGroupedBackground))
                     .cornerRadius(8)
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
+                    .padding()
 
             }
         } header: {

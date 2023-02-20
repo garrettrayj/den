@@ -16,9 +16,11 @@ struct FeedTitleLabelView: View {
     let title: String
     let favicon: URL?
 
+    var read: Bool?
+
     var body: some View {
         Label {
-            Text(title).lineLimit(1)
+            Text(title).lineLimit(1).foregroundColor(read == true || !isEnabled ? .secondary : .primary)
         } icon: {
             FeedFaviconView(url: favicon)
         }

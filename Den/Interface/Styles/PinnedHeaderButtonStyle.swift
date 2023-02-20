@@ -14,8 +14,8 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
     @State private var hovering: Bool = false
 
-    var leadingPadding: CGFloat = 16
-    var trailingPadding: CGFloat = 16
+    var leadingPadding: CGFloat = 24
+    var trailingPadding: CGFloat = 24
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
