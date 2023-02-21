@@ -81,7 +81,6 @@ struct DeckColumnView: View {
         }
         .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 12, trailingPadding: 12))
         .accessibilityIdentifier("deck-feed-button")
-        .padding(.bottom, 4)
     }
 
     private var allRead: Bool {

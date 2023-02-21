@@ -24,18 +24,20 @@ struct InboxNavView: View {
 
     var body: some View {
         Label {
-            Text("Inbox")
-                .lineLimit(1)
-                .badge(profile.previewItems.unread().count)
+            Text("Inbox").lineLimit(1).badge(profile.previewItems.unread().count)
         } icon: {
             Image(systemName: profile.previewItems.unread().count > 0 ? "tray.full": "tray")
         }
         .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
-        .modifier(SearchableModifier(
-            searchInput: $searchInput,
-            contentSelection: $contentSelection,
-            searchModel: searchModel
-        ))
+        .searchable(
+            text: $searchInput,
+            placement: .navigationBarDrawer(displayMode: .always)
+        )
+        .onSubmit(of: .search) {
+            searchModel.query = searchInput
+            contentSelection = .search
+        }
+        .disabled(editMode?.wrappedValue == .active)
         .accessibilityIdentifier("inbox-button")
         .tag(ContentPanel.inbox)
     }

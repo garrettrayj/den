@@ -72,8 +72,9 @@ class PadScreenshots: ScreenshotTestCase {
         let searchField = app.searchFields["Search"]
         searchField.tap()
         searchField.typeText("NASA")
+        sleep(2)
         searchField.typeText("\n")
-        sleep(1)
+        sleep(2)
         takeScreenshot(named: "08-Search")
     }
 

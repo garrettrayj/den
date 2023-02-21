@@ -16,6 +16,21 @@ struct AppearanceSettingsSectionView: View {
 
     var body: some View {
         Section(header: Text("Appearance")) {
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                Text("Theme")
+                Spacer()
+                Picker(selection: $uiStyle) {
+                    Text("Automatic").tag(UIUserInterfaceStyle.unspecified)
+                    Text("Light").tag(UIUserInterfaceStyle.light)
+                    Text("Dark").tag(UIUserInterfaceStyle.dark)
+                } label: {
+                    Text("Theme")
+                }
+                .labelsHidden()
+                .frame(maxWidth: 120)
+            }.modifier(FormRowModifier())
+            #else
             Picker(selection: $uiStyle) {
                 Text("Automatic").tag(UIUserInterfaceStyle.unspecified)
                 Text("Light").tag(UIUserInterfaceStyle.light)
@@ -23,6 +38,7 @@ struct AppearanceSettingsSectionView: View {
             } label: {
                 Text("Theme").modifier(FormRowModifier())
             }
+            #endif
 
             #if !targetEnvironment(macCatalyst)
             Picker(selection: $contentSizeCategory) {
