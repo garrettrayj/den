@@ -42,21 +42,37 @@ struct ImportView: View {
         .onDisappear(perform: reset)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .navigationTitle("Import")
+        .toolbar {
+            if stage == .pickFile {
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: pickFile) {
+                        Label("Select File", systemImage: "filemenu.and.cursorarrow")
+                            .labelStyle(.titleAndIcon)
+                    }
+                    .buttonStyle(PlainToolbarButtonStyle())
+                    .accessibilityIdentifier("select-file-button")
+                }
+            } else if stage == .folderSelection {
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: importSelected) {
+                        Label("Import Pages", systemImage: "arrow.down.doc")
+                            .labelStyle(.titleAndIcon)
+                    }
+                    .buttonStyle(PlainToolbarButtonStyle())
+                    .disabled(!(selectedFolders.count > 0))
+                    .accessibilityIdentifier("import-button")
+                }
+            }
+        }
     }
 
     private var pickFileStage: some View {
-        VStack(spacing: 24) {
+        VStack {
             Spacer()
-            Button(action: pickFile) {
-                Label("Select OPML File", systemImage: "filemenu.and.cursorarrow")
-            }
-            .buttonStyle(AccentButtonStyle())
-            .accessibilityIdentifier("select-file-button")
-            Text("Choose pages to import in the next step").foregroundColor(.secondary)
+            Text("Choose an OPML file to add feeds from. You'll be able to pick pages in the next step.")
+                .multilineTextAlignment(.center).padding(24)
             Spacer()
         }
-        .multilineTextAlignment(.center)
-        .padding(24)
     }
 
     private var folderSelectionStage: some View {
@@ -85,16 +101,7 @@ struct ImportView: View {
                 }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Button(action: importSelected) {
-                    Label("Import Pages", systemImage: "arrow.down.doc").labelStyle(.titleAndIcon)
-                }
-                .buttonStyle(PlainToolbarButtonStyle())
-                .disabled(!(selectedFolders.count > 0))
-                .accessibilityIdentifier("import-button")
-            }
-        }
+
     }
 
     private var errorStage: some View {

@@ -36,8 +36,7 @@ struct FeedView: View {
                                 AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal)
+                                    .modifier(SectionContentPaddingModifier())
                             } else {
                                 BoardView(
                                     width: geometry.size.width,
@@ -48,7 +47,7 @@ struct FeedView: View {
                                     }
                                     .background(Color(UIColor.secondarySystemGroupedBackground))
                                     .cornerRadius(8)
-                                }.modifier(SectionBoardModifier())
+                                }.modifier(SectionContentPaddingModifier())
                             }
                         } header: {
                             HStack {
@@ -67,8 +66,7 @@ struct FeedView: View {
                                     AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
                                         .background(Color(UIColor.secondarySystemGroupedBackground))
                                         .cornerRadius(8)
-                                        .padding(.vertical, 12)
-                                        .padding(.horizontal)
+                                        .modifier(SectionContentPaddingModifier())
                                 } else {
                                     BoardView(
                                         width: geometry.size.width,
@@ -77,7 +75,7 @@ struct FeedView: View {
                                         GadgetItemView(item: item)
                                             .background(Color(UIColor.secondarySystemGroupedBackground))
                                             .cornerRadius(8)
-                                    }.modifier(SectionBoardModifier())
+                                    }.modifier(SectionContentPaddingModifier())
                                 }
                             } header: {
                                 Text("More")
@@ -121,9 +119,7 @@ struct FeedView: View {
                             .imageScale(.small)
                             .multilineTextAlignment(.center)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.horizontal, 24)
-                            .padding(.top, 20)
-                            .padding(.bottom)
+                            .padding()
                         }
                     }
                 } else {
