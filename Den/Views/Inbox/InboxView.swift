@@ -23,7 +23,7 @@ struct InboxView: View {
             } else if profile.previewItems.isEmpty {
                 SplashNoteView(
                     title: Text("No Items"),
-                    caption: Text("Refresh \(Image(systemName: "arrow.clockwise")) to fetch content.")
+                    caption: Text("Refresh to get content.")
                 )
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
                 AllReadSplashNoteView(hiddenItemCount: profile.previewItems.read().count)

@@ -11,9 +11,6 @@
 import SwiftUI
 
 struct BrowserSettingsSectionView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.dismiss) private var dismiss
-
     @ObservedObject var profile: Profile
 
     @Binding var useInbuiltBrowser: Bool
@@ -21,7 +18,7 @@ struct BrowserSettingsSectionView: View {
     var body: some View {
         Section {
             Toggle(isOn: $useInbuiltBrowser) {
-                Text("Use Inbuilt Browser").modifier(FormRowModifier())
+                Text("Use Built-in Browser").modifier(FormRowModifier())
             }
         } header: {
             Text("Links")

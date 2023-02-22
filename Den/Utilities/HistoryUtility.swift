@@ -45,11 +45,20 @@ struct HistoryUtility {
 
             for itemObjectID in itemObjectIDs {
                 guard let item = context.object(with: itemObjectID) as? Item else { continue }
-                item.read = true
-
                 let history = History.create(in: context, profile: profile)
                 history.link = item.link
                 history.visited = .now
+            }
+
+            do {
+                try context.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
+
+            for itemObjectID in itemObjectIDs {
+                guard let item = context.object(with: itemObjectID) as? Item else { continue }
+                item.read = true
             }
 
             do {

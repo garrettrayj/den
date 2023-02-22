@@ -13,43 +13,19 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedHeroView: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
-
     let heroImage: URL
-
-    static let baseSize = CGSize(width: 400, height: 180)
-
-    private var typeSize: DynamicTypeSize {
-        DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-    }
-
-    private var scaledSize: CGSize {
-        return CGSize(
-            width: FeedHeroView.baseSize.width * typeSize.fontScale,
-            height: FeedHeroView.baseSize.height * typeSize.fontScale
-        )
-    }
-
-    private var thumbnailPixelSize: CGSize {
-        CGSize(
-            width: scaledSize.width * UIScreen.main.scale,
-            height: scaledSize.height * UIScreen.main.scale
-        )
-    }
 
     var body: some View {
         VStack(spacing: 0) {
-            WebImage(url: heroImage, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+            WebImage(url: heroImage)
                 .resizable()
                 .scaledToFit()
                 .cornerRadius(8)
                 .shadow(radius: 3, x: 1, y: 2)
-                .frame(maxWidth: scaledSize.width, maxHeight: scaledSize.height)
                 .padding()
+                .frame(maxWidth: 400, maxHeight: 240)
         }
-        .aspectRatio(16/9, contentMode: .fill)
-        .frame(maxWidth: .infinity, maxHeight: scaledSize.height + 32)
+        .frame(maxWidth: .infinity)
         .background {
             WebImage(url: heroImage)
                 .resizable()

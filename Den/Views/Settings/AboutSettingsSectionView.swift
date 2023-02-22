@@ -15,8 +15,12 @@ struct AboutSettingsSectionView: View {
 
     var body: some View {
         Section {
-            Text("Den v\(Bundle.main.releaseVersionNumber)")
-                .modifier(FormRowModifier())
+            HStack {
+                Text("Den for RSS")
+                Spacer()
+                Text("v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                    .foregroundColor(.secondary)
+            }.modifier(FormRowModifier())
 
             Button {
                 if let url = URL(string: "https://den.io") {
@@ -27,20 +31,13 @@ struct AboutSettingsSectionView: View {
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
-
-            Button {
-                if let url = URL(string: "https://den.io/privacy/") {
-                    openURL(url)
-                }
-            } label: {
-                Text("Privacy Policy")
-            }
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("privacy-policy-button")
         } header: {
             Text("About")
         } footer: {
             Text("© 2023 Garrett Johnson")
+                #if targetEnvironment(macCatalyst)
+                .padding(.bottom)
+                #endif
         }
     }
 }
