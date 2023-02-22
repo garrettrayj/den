@@ -97,9 +97,12 @@ struct RootView: View {
         do {
             if
                 let profiles = try viewContext.fetch(Profile.fetchRequest()) as? [Profile],
-                let profile = profiles.firstMatchingID(sceneProfileID ?? "") ??
-                profiles.firstMatchingID(appProfileID ?? "") ??
-                profiles.first {
+                let profile =
+                    profiles.firstMatchingID(sceneProfileID ?? "") ??
+                    profiles.firstMatchingID(appProfileID ?? "") ??
+                    profiles.first,
+                profile.managedObjectContext != nil
+            {
                 activateProfile(profile)
                 Logger.main.info("\(profile.displayName) profile loaded")
             } else {

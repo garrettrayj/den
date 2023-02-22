@@ -23,6 +23,25 @@ struct FeedSettingsView: View {
             titleSection
             previewsSection
             organizeSection
+
+            Button(role: .destructive) {
+                showingDeleteAlert = true
+            } label: {
+                Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
+            }
+            .alert(
+                "Delete \(feed.wrappedTitle)?",
+                isPresented: $showingDeleteAlert,
+                actions: {
+                    Button("Cancel", role: .cancel) { }
+                        .accessibilityIdentifier("feed-delete-cancel-button")
+                    Button("Delete", role: .destructive) {
+                        deleteFeed()
+                    }.accessibilityIdentifier("feed-delete-confirm-button")
+                }
+            )
+            .modifier(FormRowModifier())
+            .accessibilityIdentifier("feed-delete-button")
         }
         .onDisappear(perform: save)
         .navigationTitle("Feed Settings")
@@ -80,51 +99,43 @@ struct FeedSettingsView: View {
 
     private var organizeSection: some View {
         Section {
-            Picker(selection: $feed.page) {
-                ForEach(feed.page?.profile?.pagesArray ?? []) { page in
-                    Text(page.wrappedName).tag(page as Page?)
-                }
-            } label: {
-                Text("Move").modifier(FormRowModifier())
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                Text("Page").modifier(FormRowModifier())
+                Spacer()
+                pagePicker
+                    .labelsHidden()
+                    .frame(maxWidth: 160)
             }
-            .onChange(of: feed.page) { [oldPage = feed.page] newPage in
-                self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
-                NotificationCenter.default.post(
-                    name: .feedRefreshed,
-                    object: self.feed.objectID,
-                    userInfo: ["pageObjectID": oldPage?.objectID as Any]
-                )
-                NotificationCenter.default.post(
-                    name: .feedRefreshed,
-                    object: self.feed.objectID,
-                    userInfo: ["pageObjectID": newPage?.objectID as Any]
-                )
-                dismiss()
-            }
+            #else
+            pagePicker
+            #endif
+        } header: {
+            Text("Move")
+        }
+    }
 
-            Button(role: .destructive) {
-                showingDeleteAlert = true
-            } label: {
-                Text("Delete")
+    private var pagePicker: some View {
+        Picker(selection: $feed.page) {
+            ForEach(feed.page?.profile?.pagesArray ?? []) { page in
+                Text(page.wrappedName).tag(page as Page?)
             }
-            .alert(
-                "Delete \(feed.wrappedTitle)?",
-                isPresented: $showingDeleteAlert,
-                actions: {
-                    Button("Cancel", role: .cancel) { }
-                        .accessibilityIdentifier("feed-delete-cancel-button")
-                    Button("Delete", role: .destructive) {
-                        if let feedData = feed.feedData {
-                            viewContext.delete(feedData)
-                        }
-                        viewContext.delete(feed)
-                        feed.page?.profile?.objectWillChange.send()
-                        dismiss()
-                    }.accessibilityIdentifier("feed-delete-confirm-button")
-                }
+        } label: {
+            Text("Page").modifier(FormRowModifier())
+        }
+        .onChange(of: feed.page) { [oldPage = feed.page] newPage in
+            self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
+            NotificationCenter.default.post(
+                name: .feedRefreshed,
+                object: self.feed.objectID,
+                userInfo: ["pageObjectID": oldPage?.objectID as Any]
             )
-            .modifier(FormRowModifier())
-            .accessibilityIdentifier("feed-delete-button")
+            NotificationCenter.default.post(
+                name: .feedRefreshed,
+                object: self.feed.objectID,
+                userInfo: ["pageObjectID": newPage?.objectID as Any]
+            )
+            dismiss()
         }
     }
 
@@ -139,6 +150,21 @@ struct FeedSettingsView: View {
             } catch let error as NSError {
                 CrashUtility.handleCriticalError(error)
             }
+        }
+    }
+
+    private func deleteFeed() {
+        if let feedData = feed.feedData {
+            viewContext.delete(feedData)
+        }
+        viewContext.delete(feed)
+
+        do {
+            try viewContext.save()
+            feed.page?.profile?.objectWillChange.send()
+            dismiss()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

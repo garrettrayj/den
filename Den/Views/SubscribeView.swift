@@ -57,7 +57,7 @@ struct SubscribeView: View {
                             }
                             .font(.caption)
                             .padding(.top, 4)
-                        }.headerProminence(.increased)
+                        }
 
                         Section {
                             pagePicker
@@ -136,6 +136,21 @@ struct SubscribeView: View {
     }
 
     private var pagePicker: some View {
+        #if targetEnvironment(macCatalyst)
+        HStack {
+            Text("Page").modifier(FormRowModifier())
+            Spacer()
+            Picker(selection: $targetPage) {
+                ForEach(profile!.pagesArray) { page in
+                    Text(page.wrappedName).tag(page as Page?)
+                }
+            } label: {
+                Text("Page")
+            }
+            .labelsHidden()
+            .frame(maxWidth: 160)
+        }
+        #else
         Picker(selection: $targetPage) {
             ForEach(profile!.pagesArray) { page in
                 Text(page.wrappedName).tag(page as Page?)
@@ -143,6 +158,7 @@ struct SubscribeView: View {
         } label: {
             Text("Page").modifier(FormRowModifier())
         }
+        #endif
     }
 
     private func checkTargetPage() {

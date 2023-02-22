@@ -23,115 +23,29 @@ struct FeedView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical) {
-                if feed.hasContent {
-                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                        if let heroImage = feed.feedData?.banner ?? feed.feedData?.image {
-                            FeedHeroView(heroImage: heroImage)
-                        }
-
-                        Section {
-                            if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
-                                AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
-                                    .modifier(SectionContentPaddingModifier())
-                            } else {
-                                BoardView(
-                                    width: geometry.size.width,
-                                    list: feed.feedData?.visiblePreviewItems(hideRead) ?? []
-                                ) { item in
-                                    ItemActionView(item: item) {
-                                        ItemPreviewView(item: item)
-                                    }
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
-                                }.modifier(SectionContentPaddingModifier())
+        Group {
+            if feed.hasContent {
+                GeometryReader { geometry in
+                    ScrollView(.vertical) {
+                        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                            if let heroImage = feed.feedData?.banner ?? feed.feedData?.image {
+                                FeedHeroView(heroImage: heroImage)
                             }
-                        } header: {
-                            HStack {
-                                Text("Latest").font(.title3)
-                                Spacer()
-                                if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
-                                    Text("Updated \(refreshedTimeAgo)").font(.caption)
-                                }
+
+                            previewItemsSection(width: geometry.size.width)
+
+                            if feed.feedData!.extraItems.isEmpty == false {
+                                moreSection(width: geometry.size.width)
                             }
-                            .modifier(PinnedSectionHeaderModifier())
-                        }
 
-                        if feed.feedData!.extraItems.isEmpty == false {
-                            Section {
-                                if hideRead == true && feed.feedData!.extraItems.unread().isEmpty {
-                                    AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
-                                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                                        .cornerRadius(8)
-                                        .modifier(SectionContentPaddingModifier())
-                                } else {
-                                    BoardView(
-                                        width: geometry.size.width,
-                                        list: feed.feedData?.visibleExtraItems(hideRead) ?? []
-                                    ) { item in
-                                        GadgetItemView(item: item)
-                                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                                            .cornerRadius(8)
-                                    }.modifier(SectionContentPaddingModifier())
-                                }
-                            } header: {
-                                Text("More")
-                                    .font(.title3)
-                                    .modifier(PinnedSectionHeaderModifier())
-                            }
-                        }
+                            Divider()
 
-                        Divider()
-
-                        Section {
-                            VStack(alignment: .center, spacing: 12) {
-                                if let description = feed.feedData?.metaDescription {
-                                    Text(description)
-                                }
-
-                                if let linkDisplayString = feed.feedData?.linkDisplayString {
-                                    Button {
-                                        if let url = feed.feedData?.link {
-                                            openURL(url)
-                                        }
-                                    } label: {
-                                        Label("\(linkDisplayString)", systemImage: "globe").lineLimit(1)
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-
-                                Button {
-                                    openURL(feed.url!)
-                                } label: {
-                                    Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
-                                }
-                                .buttonStyle(.plain)
-                                .accessibilityIdentifier("feed-copy-url-button")
-
-                                if let copyright = feed.feedData?.copyright {
-                                    Text(copyright)
-                                }
-                            }
-                            .font(.footnote)
-                            .imageScale(.small)
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding()
+                            metaSection
                         }
                     }
-                } else {
-                    VStack {
-                        Spacer()
-                        FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-                        Spacer()
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: geometry.size.height)
                 }
+            } else {
+                FeedUnavailableView(feedData: feed.feedData, splashNote: true)
             }
         }
         .toolbar {
@@ -142,7 +56,6 @@ struct FeedView: View {
                 .buttonStyle(ToolbarButtonStyle())
                 .accessibilityIdentifier("feed-settings-button")
             }
-
             ToolbarItemGroup(placement: .bottomBar) {
                 FeedBottomBarView(feed: feed, hideRead: $hideRead)
             }
@@ -152,5 +65,98 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(feed.wrappedTitle)
+    }
+
+    private func previewItemsSection(width: CGFloat) -> some View {
+        Section {
+            if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
+                AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .cornerRadius(8)
+                    .modifier(SectionContentPaddingModifier())
+            } else {
+                BoardView(
+                    width: width,
+                    list: feed.feedData?.visiblePreviewItems(hideRead) ?? []
+                ) { item in
+                    ItemActionView(item: item) {
+                        ItemPreviewView(item: item)
+                    }
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .cornerRadius(8)
+                }.modifier(SectionContentPaddingModifier())
+            }
+        } header: {
+            HStack {
+                Text("Latest").font(.title3)
+                Spacer()
+                if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
+                    Text("Updated \(refreshedTimeAgo)").font(.caption)
+                }
+            }
+            .modifier(PinnedSectionHeaderModifier())
+        }
+    }
+
+    private func moreSection(width: CGFloat) -> some View {
+        Section {
+            if hideRead == true && feed.feedData!.extraItems.unread().isEmpty {
+                AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .cornerRadius(8)
+                    .modifier(SectionContentPaddingModifier())
+            } else {
+                BoardView(
+                    width: width,
+                    list: feed.feedData?.visibleExtraItems(hideRead) ?? []
+                ) { item in
+                    GadgetItemView(item: item)
+                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                        .cornerRadius(8)
+                }.modifier(SectionContentPaddingModifier())
+            }
+        } header: {
+            Text("More")
+                .font(.title3)
+                .modifier(PinnedSectionHeaderModifier())
+        }
+    }
+
+    private var metaSection: some View {
+        Section {
+            VStack(alignment: .center, spacing: 12) {
+                if let description = feed.feedData?.metaDescription {
+                    Text(description)
+                }
+
+                if let linkDisplayString = feed.feedData?.linkDisplayString {
+                    Button {
+                        if let url = feed.feedData?.link {
+                            openURL(url)
+                        }
+                    } label: {
+                        Label("\(linkDisplayString)", systemImage: "globe").lineLimit(1)
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                Button {
+                    openURL(feed.url!)
+                } label: {
+                    Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("feed-copy-url-button")
+
+                if let copyright = feed.feedData?.copyright {
+                    Text(copyright)
+                }
+            }
+            .font(.footnote)
+            .imageScale(.small)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding()
+        }
     }
 }

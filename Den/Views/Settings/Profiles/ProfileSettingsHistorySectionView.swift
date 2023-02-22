@@ -23,6 +23,25 @@ struct ProfileSettingsHistorySectionView: View {
 
     var body: some View {
         Section {
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                Text("Keep History").modifier(FormRowModifier())
+                Spacer()
+                Picker(selection: $historyRentionDays) {
+                    Text("Forever").tag(0 as Int)
+                    Text("One Year").tag(365 as Int)
+                    Text("Six Months").tag(182 as Int)
+                    Text("Three Months").tag(90 as Int)
+                    Text("One Month").tag(30 as Int)
+                    Text("Two Weeks").tag(14 as Int)
+                    Text("One Week").tag(7 as Int)
+                } label: {
+                    Text("Keep History")
+                }
+                .labelsHidden()
+                .frame(maxWidth: 140)
+            }
+            #else
             Picker(selection: $historyRentionDays) {
                 Text("Forever").tag(0 as Int)
                 Text("One Year").tag(365 as Int)
@@ -34,6 +53,7 @@ struct ProfileSettingsHistorySectionView: View {
             } label: {
                 Text("Keep History").modifier(FormRowModifier())
             }
+            #endif
 
             Button {
                 Task {

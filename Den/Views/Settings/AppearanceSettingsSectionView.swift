@@ -18,7 +18,7 @@ struct AppearanceSettingsSectionView: View {
         Section(header: Text("Appearance")) {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Theme")
+                Text("Theme").modifier(FormRowModifier())
                 Spacer()
                 Picker(selection: $uiStyle) {
                     Text("Automatic").tag(UIUserInterfaceStyle.unspecified)
@@ -29,7 +29,7 @@ struct AppearanceSettingsSectionView: View {
                 }
                 .labelsHidden()
                 .frame(maxWidth: 120)
-            }.modifier(FormRowModifier())
+            }
             #else
             Picker(selection: $uiStyle) {
                 Text("Automatic").tag(UIUserInterfaceStyle.unspecified)
