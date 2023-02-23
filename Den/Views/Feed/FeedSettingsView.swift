@@ -27,7 +27,9 @@ struct FeedSettingsView: View {
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {
-                Label("Delete", systemImage: "trash").symbolRenderingMode(.multicolor)
+                Label("Delete", systemImage: "trash")
+                    .symbolRenderingMode(.multicolor)
+                    .modifier(FormRowModifier())
             }
             .alert(
                 "Delete \(feed.wrappedTitle)?",
@@ -40,7 +42,6 @@ struct FeedSettingsView: View {
                     }.accessibilityIdentifier("feed-delete-confirm-button")
                 }
             )
-            .modifier(FormRowModifier())
             .accessibilityIdentifier("feed-delete-button")
         }
         .onDisappear(perform: save)

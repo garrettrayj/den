@@ -18,11 +18,11 @@ struct FeedStatusView: View {
 
     var body: some View {
         if splashNote {
-            SplashNoteView(title: Text(title), caption: Text(caption))
+            SplashNoteView(title: Text(title), caption: Text(.init(caption)))
         } else {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                Text(caption).font(.caption).foregroundColor(.secondary)
+                Text(.init(caption)).font(.caption).foregroundColor(.secondary)
             }
             .padding(.horizontal)
             .padding(.vertical, 12)

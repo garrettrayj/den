@@ -5,10 +5,10 @@
 	</head>
 	<body>
 		<outline text="World News" title="World News">
+			<outline text="CNN" title="CNN" type="rss" xmlUrl="http://rss.cnn.com/rss/cnn_world.rss" />
 			<outline text="NBC News" title="NBC News" type="rss" xmlUrl="https://feeds.nbcnews.com/nbcnews/public/world" />
+			<outline text="Global News" title="Global News" type="rss" xmlUrl="https://globalnews.ca/category/world/feed/" />
 			<outline text="DER SPIEGEL" title="DER SPIEGEL" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
-			<outline text="Vox" title="Vox" type="rss" xmlUrl="https://www.vox.com/rss/world/index.xml" />
-			<outline text="Raw Story" title="Raw Story" type="rss" xmlUrl="https://www.rawstory.com/category/world/feed/" />
 			<outline text="ChannelNewsAsia" title="ChannelNewsAsia" type="rss" xmlUrl="https://www.channelnewsasia.com/rssfeeds/8395884" />
 			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://news.un.org/feed/subscribe/en/news/all/rss.xml" />
 			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
@@ -27,7 +27,7 @@
 			<outline text="Politico" title="Politico" type="rss" xmlUrl="https://www.politico.com/rss/politicopicks.xml" />
 			<outline text="The Texas Tribune" title="The Texas Tribune" type="rss" xmlUrl="https://feeds.texastribune.org/feeds/main/" />
 			<outline text="The Intercept" title="The Intercept" type="rss" xmlUrl="https://theintercept.com/feed/?lang=en" />
-			<outline text="New Yorker" title="New Yorker" type="rss" xmlUrl="https://www.newyorker.com/feed/news" />
+			<outline text="Center for Public Integrity" title="Center for Public Integrity" type="rss" xmlUrl="https://publicintegrity.org/feed/" />
 			<outline text="ProPublica" title="ProPublica" type="rss" xmlUrl="https://feeds.propublica.org/propublica/main" />
 			<outline text="Reason.com" title="Reason.com" type="rss" xmlUrl="https://reason.com/feed/" />
 		</outline>
@@ -40,6 +40,7 @@
 			<outline text="TechCrunch" title="TechCrunch" type="rss" xmlUrl="https://techcrunch.com/feed/" />
 			<outline text="Futurism" title="Futurism" type="rss" xmlUrl="https://futurism.com/feed" />
 			<outline text="9to5Mac" title="9to5Mac" type="rss" xmlUrl="https://9to5mac.com/feed/" />
+			<outline text="Den for RSS" title="Den for RSS" type="rss" xmlUrl="https://den.io/feed.rss" />
 			<outline text="Apple Newsroom" title="Apple Newsroom" type="rss" xmlUrl="https://www.apple.com/newsroom/rss-feed.rss" />
 		</outline>
 		<outline text="Business" title="Business">
@@ -96,7 +97,7 @@
 			<outline text="Hackaday" title="Hackaday" type="rss" xmlUrl="https://hackaday.com/blog/feed/" />
 			<outline text="Hyperallergic" title="Hyperallergic" type="rss" xmlUrl="https://hyperallergic.com/feed/" />
 			<outline text="Inverse" title="Inverse" type="rss" xmlUrl="https://www.inverse.com/rss" />
-            <outline text="Brain Easer" title="Brain Easer" type="rss" xmlUrl="https://braineaser.com/feed" />
+			<outline text="Brain Easer" title="Brain Easer" type="rss" xmlUrl="https://braineaser.com/feed" />
 			<outline text="Make: DIY Projects and Ideas" title="Make: DIY Projects and Ideas" type="rss" xmlUrl="https://makezine.com/feed/" />
 			<outline text="Braingle" title="Braingle" type="rss" xmlUrl="https://feeds.braingle.com/braingle/all" />
 			<outline text="TED Talks Daily" title="TED Talks Daily" type="rss" xmlUrl="https://feeds.feedburner.com/tedtalks_video" />
