@@ -55,7 +55,7 @@ struct ImportView: View {
             } else if stage == .folderSelection {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: importSelected) {
-                        Label("Import Pages", systemImage: "arrow.down.doc")
+                        Label("Import Pages", systemImage: "rectangle.stack.badge.plus")
                             .labelStyle(.titleAndIcon)
                     }
                     .buttonStyle(PlainToolbarButtonStyle())

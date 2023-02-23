@@ -79,13 +79,14 @@ struct PreviewImageView: View {
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .frame(
                             maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
-                            maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
+                            maxHeight: adjustedItemImageSize.height > 0 ? min(adjustedItemImageSize.height, 400) : nil,
+                            alignment: .center
                         )
+                        .clipped()
                         .cornerRadius(4)
                         .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color(uiColor: .separator)))
                 }
-                .frame(maxWidth: .infinity, maxHeight: 400, alignment: .top)
-                .clipped()
+                .frame(maxWidth: .infinity)
                 .padding(8)
                 .background(Color(UIColor.tertiarySystemFill))
                 .cornerRadius(6)
