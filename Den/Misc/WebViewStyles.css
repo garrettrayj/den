@@ -42,9 +42,9 @@ audio {
     margin: 1em 0;
 }
 
-img {
+img, picture {
     border: 1px solid -apple-system-separator;
-    border-radius: 0.375em;
+    border-radius: 8px;
     box-sizing: border-box;
     display: block;
     height: auto;
@@ -90,7 +90,7 @@ hr {
 
 blockquote {
     background: -apple-system-secondary-background;
-    border-radius: 0.5em;
+    border-radius: 8px;
     margin: 1em;
     overflow: hidden;
     padding: 1em;
@@ -106,7 +106,7 @@ blockquote > :last-child {
 
 figure {
     background: -apple-system-secondary-background;
-    border-radius: 0.5em;
+    border-radius: 8px;
     display: table;
     font: -apple-system-caption1;
     margin: 1em 0;
@@ -135,7 +135,8 @@ figcaption {
     padding: 1em;
 }
 
-figure img {
+figure img, figure picture {
+    border-radius: 4px;
     margin: 0;
 }
 

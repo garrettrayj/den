@@ -13,9 +13,9 @@
 			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://news.un.org/feed/subscribe/en/news/all/rss.xml" />
 			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
 			<outline text="Deutsche Welle" title="Deutsche Welle" type="rss" xmlUrl="https://rss.dw.com/rdf/rss-en-world" />
-			<outline text="The Diplomat" title="The Diplomat" type="rss" xmlUrl="https://thediplomat.com/feed/" />
 			<outline text="BBC News" title="BBC News" type="rss" xmlUrl="https://feeds.bbci.co.uk/news/world/rss.xml" />
 			<outline text="CBSNews.com" title="CBSNews.com" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/world" />
+			<outline text="The Diplomat" title="The Diplomat" type="rss" xmlUrl="https://thediplomat.com/feed/" />
 		</outline>
 		<outline text="US News" title="US News">
 			<outline text="PBS NewsHour " title="PBS NewsHour " type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
@@ -45,14 +45,14 @@
 		</outline>
 		<outline text="Business" title="Business">
 			<outline text="Fast Company" title="Fast Company" type="rss" xmlUrl="https://www.fastcompany.com/latest/rss" />
+			<outline text="Fortune" title="Fortune" type="rss" xmlUrl="https://fortune.com/feed/fortune-feeds/?id=3230629" />
 			<outline text="Wired" title="Wired" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
 			<outline text="TheStreet" title="TheStreet" type="rss" xmlUrl="https://www.thestreet.com/.rss/full/" />
-			<outline text="3D Printing Media Network" title="3D Printing Media Network" type="rss" xmlUrl="https://www.3dprintingmedia.network/feed/" />
-			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
-			<outline text="Nieman Lab" title="Nieman Lab" type="rss" xmlUrl="https://feeds.feedburner.com/NiemanJournalismLab" />
-			<outline text="MetalMiner" title="MetalMiner" type="rss" xmlUrl="https://feeds.feedburner.com/agmetalminer" />
 			<outline text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
 			<outline text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
+			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
+			<outline text="MetalMiner" title="MetalMiner" type="rss" xmlUrl="https://feeds.feedburner.com/agmetalminer" />
+			<outline text="CNBC" title="CNBC" type="rss" xmlUrl="https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&amp;id=10001147" />
 		</outline>
 		<outline text="Science" title="Science">
 			<outline text="Science News" title="Science News" type="rss" xmlUrl="https://www.sciencenews.org/feed" />
@@ -116,13 +116,13 @@
 		</outline>
 		<outline text="Entertainment" title="Entertainment">
 			<outline text="Metro" title="Metro" type="rss" xmlUrl="https://metro.co.uk/entertainment/feed/" />
-			<outline text="UPROXX" title="UPROXX" type="rss" xmlUrl="https://uproxx.com/feed/" />
 			<outline text="Little White Lies" title="Little White Lies" type="rss" xmlUrl="https://lwlies.com/feed/" />
+			<outline text="The A.V. Club" title="The A.V. Club" type="rss" xmlUrl="https://www.avclub.com/rss" />
+			<outline text="Variety" title="Variety" type="rss" xmlUrl="https://feeds.feedburner.com/variety/headlines" />
+			<outline text="UPROXX" title="UPROXX" type="rss" xmlUrl="https://uproxx.com/feed/" />
 			<outline text="NME" title="NME" type="rss" xmlUrl="https://www.nme.com/feed" />
 			<outline text="American Songwriter" title="American Songwriter" type="rss" xmlUrl="https://americansongwriter.com/feed/" />
 			<outline text="NPR Music" title="NPR Music" type="rss" xmlUrl="https://www.npr.org/rss/rss.php?id=1039" />
-			<outline text="XXL" title="XXL" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />
-			<outline text="Variety" title="Variety" type="rss" xmlUrl="https://feeds.feedburner.com/variety/headlines" />
 		</outline>
 	</body>
 </opml>

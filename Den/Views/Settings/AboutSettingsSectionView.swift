@@ -23,9 +23,8 @@ struct AboutSettingsSectionView: View {
             }.modifier(FormRowModifier())
 
             Button {
-                if let url = URL(string: "https://den.io") {
-                    openURL(url)
-                }
+                guard let url = URL(string: "https://den.io") else { return }
+                openURL(url)
             } label: {
                 HStack {
                     Text("Website")
@@ -33,7 +32,6 @@ struct AboutSettingsSectionView: View {
                     Text("https://den.io")
                 }
             }
-            .buttonStyle(.plain)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
         } header: {
@@ -41,7 +39,8 @@ struct AboutSettingsSectionView: View {
         } footer: {
             Text("© 2023 Garrett Johnson")
                 #if targetEnvironment(macCatalyst)
-                .padding(.vertical)
+                .padding(.top, 4)
+                .padding(.bottom)
                 #endif
         }
     }

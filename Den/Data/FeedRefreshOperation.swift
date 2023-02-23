@@ -85,9 +85,9 @@ struct FeedRefreshOperation {
                     updater.execute()
                 }
             case .failure:
-                refreshStatus.errors.append("Unable to parse content from [\(feed.urlString)](\(feed.urlString))")
+                refreshStatus.errors.append("Unable to load content from \n[\(feed.urlString)](\(feed.urlString))")
             case .none:
-                refreshStatus.errors.append("Unable to fetch data from [\(feed.urlString)](\(feed.urlString))")
+                refreshStatus.errors.append("Unable to fetch data from \n[\(feed.urlString)](\(feed.urlString))")
             }
 
             // Cleanup items
