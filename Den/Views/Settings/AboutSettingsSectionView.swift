@@ -16,9 +16,9 @@ struct AboutSettingsSectionView: View {
     var body: some View {
         Section {
             HStack {
-                Text("Den for RSS")
+                Text("Version")
                 Spacer()
-                Text("v\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                Text("\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                     .foregroundColor(.secondary)
             }.modifier(FormRowModifier())
 
@@ -27,8 +27,13 @@ struct AboutSettingsSectionView: View {
                     openURL(url)
                 }
             } label: {
-                Text("Website")
+                HStack {
+                    Text("Website")
+                    Spacer()
+                    Text("https://den.io")
+                }
             }
+            .buttonStyle(.plain)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
         } header: {
@@ -36,7 +41,7 @@ struct AboutSettingsSectionView: View {
         } footer: {
             Text("© 2023 Garrett Johnson")
                 #if targetEnvironment(macCatalyst)
-                .padding(.bottom)
+                .padding(.vertical)
                 #endif
         }
     }

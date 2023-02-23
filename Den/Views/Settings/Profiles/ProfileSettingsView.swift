@@ -87,10 +87,9 @@ struct ProfileSettingsView: View {
                 showingDeleteAlert = true
             } label: {
                 Label("Delete", systemImage: "trash")
+                    .symbolRenderingMode(.multicolor)
+                    .modifier(FormRowModifier())
             }
-            .disabled(isActive)
-            .foregroundColor(isActive ? .secondary : .red)
-            .modifier(FormRowModifier())
             .accessibilityIdentifier("delete-profile-button")
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
@@ -101,7 +100,7 @@ struct ProfileSettingsView: View {
                 dismiss()
             }.accessibilityIdentifier("delete-profile-confirm-button")
         }, message: {
-            Text("All profile content will be removed.")
+            Text("All content within will be removed.")
         })
     }
 
@@ -118,6 +117,10 @@ struct ProfileSettingsView: View {
 
             do {
                 try context.save()
+                sceneProfileID = nil
+                appProfileID = nil
+                activeProfile = nil
+                contentSelection = nil
             } catch let error as NSError {
                 CrashUtility.handleCriticalError(error)
             }
