@@ -16,6 +16,7 @@
 		680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
 		680F494E29AA178B0083B664 /* BigDemo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 680F494D29AA178B0083B664 /* BigDemo.opml */; };
+		680F495029AA56BE0083B664 /* WithItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F494F29AA56BE0083B664 /* WithItemsView.swift */; };
 		6813FD0B2748DE1100EC88A5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FD0A2748DE1100EC88A5 /* main.swift */; };
 		681AEAF929954AC70054B084 /* FeedHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHeroView.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
@@ -261,6 +262,7 @@
 		680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680F494D29AA178B0083B664 /* BigDemo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BigDemo.opml; sourceTree = "<group>"; };
+		680F494F29AA56BE0083B664 /* WithItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithItemsView.swift; sourceTree = "<group>"; };
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHeroView.swift; sourceTree = "<group>"; };
@@ -845,6 +847,7 @@
 				68998B842504C87400FDB6EE /* SearchView.swift */,
 				68C4138124733D7D00D1DC7B /* SubscribeView.swift */,
 				687F488F269165EE00EA2498 /* CrashMessageView.swift */,
+				680F494F29AA56BE0083B664 /* WithItemsView.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				6885C42126D37259002C41B0 /* FeedTitleLabelView.swift */,
 				68D486BD26C9896300AF5B59 /* IconPickerView.swift */,
@@ -1334,6 +1337,7 @@
 				68BD683F2839626E0075EF45 /* ImageSelection.swift in Sources */,
 				685ABADE290F187C0080110A /* FeedRefreshOperation.swift in Sources */,
 				681F0C262933F4C10037C609 /* ProfileSettingsHistorySectionView.swift in Sources */,
+				680F495029AA56BE0083B664 /* WithItemsView.swift in Sources */,
 				68AC3A1F2916B26B00D60273 /* RefreshSettingsSectionView.swift in Sources */,
 				687D9CB824A9CA2A00EB7F46 /* GadgetItemView.swift in Sources */,
 				68FC256F27640AA00073979F /* ItemPreviewView.swift in Sources */,

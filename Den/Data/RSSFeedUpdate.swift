@@ -34,7 +34,7 @@ struct RSSFeedUpdate {
 
         if let sourceItems = source.items {
             let existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
-            for rawItem in sourceItems.prefix(feed.wrappedItemLimit + UIConstants.extraItemLimit) {
+            for rawItem in sourceItems.prefix(feed.wrappedItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = rawItem.linkURL else {
                     Logger.ingest.notice("Missing link for item.")

@@ -91,7 +91,7 @@ struct FeedRefreshOperation {
             }
 
             // Cleanup items
-            let maxItems = feed.wrappedItemLimit + UIConstants.extraItemLimit
+            let maxItems = feed.wrappedItemLimit
             if feedData.itemsArray.count > maxItems {
                 feedData.itemsArray.suffix(from: maxItems).forEach { item in
                     feedData.removeFromItems(item)

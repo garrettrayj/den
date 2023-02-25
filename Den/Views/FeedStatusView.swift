@@ -22,7 +22,6 @@ struct FeedStatusView: View {
             }
         }
         .padding(.horizontal)
-        .padding(.top, 8)
-        .padding(.bottom, 12)
+        .padding(.vertical, 8)
     }
 }
