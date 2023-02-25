@@ -20,8 +20,8 @@ struct TrendsView: View {
         GeometryReader { geometry in
             if profile.trends.isEmpty {
                 SplashNoteView(
-                    title: Text("Trends Empty"),
-                    caption: Text("No common subjects were found in item titles.")
+                    title: "Trends Empty",
+                    note: "No common subjects were found in item titles."
                 )
             } else {
                 if visibleTrends.isEmpty {

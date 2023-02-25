@@ -15,8 +15,8 @@ struct AllReadSplashNoteView: View {
 
     var body: some View {
         SplashNoteView(
-            title: Text("All Read"),
-            caption: Text("\(hiddenItemCount) hidden"),
+            title: "All Read",
+            note: "\(hiddenItemCount) hidden",
             symbol: "checkmark"
         )
     }

@@ -15,32 +15,22 @@ struct FeedUnavailableView: View {
     var splashNote: Bool = false
 
     var body: some View {
-        HStack(alignment: .top) {
-            if feedData == nil {
-                FeedStatusView(
-                    title: "No Data",
-                    caption: "Refresh to get content",
-                    splashNote: splashNote
-                )
-            } else if let error = feedData?.error {
-                FeedStatusView(
-                    title: "Refresh Error",
-                    caption: error,
-                    symbolColor: .red,
-                    splashNote: splashNote
-                )
-            } else if feedData!.itemsArray.isEmpty {
-                FeedStatusView(
-                    title: "Feed Empty",
-                    caption: "No items",
-                    splashNote: splashNote
-                )
-            } else {
-                FeedStatusView(
-                    title: "Status Unavailable",
-                    splashNote: splashNote
-                )
-            }
+        if splashNote {
+            SplashNoteView(title: titleAndDescripition.0, note: titleAndDescripition.1)
+        } else {
+            FeedStatusView(title: titleAndDescripition.0, caption: titleAndDescripition.1)
+        }
+    }
+
+    var titleAndDescripition: (String, String?) {
+        if feedData == nil {
+            return ("No Data", "Refresh to get content.")
+        } else if let error = feedData?.error {
+            return ("Refresh Error", error)
+        } else if feedData!.itemsArray.isEmpty {
+            return ("Feed Empty", "No items.")
+        } else {
+            return ("Status Unavailable", nil)
         }
     }
 }

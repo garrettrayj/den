@@ -11,8 +11,8 @@
 import SwiftUI
 
 struct SplashNoteView: View {
-    let title: Text
-    var caption: Text?
+    let title: String
+    var note: String?
     var symbol: String?
 
     var body: some View {
@@ -21,12 +21,14 @@ struct SplashNoteView: View {
             if let symbol = symbol {
                 Image(systemName: symbol).font(.system(size: 28))
             }
-            title.font(.title)
-            caption.padding(.horizontal)
+            Text(title).font(.title)
+            if let note = note {
+                Text(.init(note))
+            }
             Spacer()
         }
         .multilineTextAlignment(.center)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(24)
     }
 }

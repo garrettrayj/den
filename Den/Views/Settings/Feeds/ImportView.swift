@@ -105,17 +105,17 @@ struct ImportView: View {
     }
 
     private var errorStage: some View {
-        Text("Error").font(.title)
+        SplashNoteView(
+            title: "Import Error",
+            note: "The operation did not complete successfully."
+        )
     }
 
     private var completeStage: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            Text("Import Complete").font(.title)
-            Text("\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile")
-            Spacer()
-        }
-        .padding(24)
+        SplashNoteView(
+            title: "Import Complete",
+            note: "\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile."
+        )
     }
 
     private var selectionSectionHeader: some View {

@@ -22,11 +22,11 @@ struct SearchView: View {
         VStack {
             if searchModel.query == "" {
                 SplashNoteView(
-                    title: Text("Searching \(profile.wrappedName)"),
+                    title: "Searching \(profile.wrappedName)",
                     symbol: "magnifyingglass"
                 )
             } else if searchResults.isEmpty {
-                SplashNoteView(title: Text("No items found for “\(searchModel.query)”"))
+                SplashNoteView(title: "No items found for “\(searchModel.query)”")
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {

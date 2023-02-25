@@ -46,7 +46,7 @@ struct ContentView: View {
                         if page.managedObjectContext != nil {
                             PageView(page: page, hideRead: $hideRead)
                         } else {
-                            SplashNoteView(title: Text("Page Deleted"))
+                            SplashNoteView(title: "Page Deleted")
                         }
                     case .settings:
                         SettingsView(
@@ -63,7 +63,7 @@ struct ContentView: View {
                         )
                     }
                 } else {
-                    SplashNoteView(title: Text("Profile Unavailable"))
+                    SplashNoteView(title: "Profile Unavailable")
                 }
             }
             .environment(\.contentSizeCategory, contentSizeCategory)
@@ -74,64 +74,56 @@ struct ContentView: View {
                         if page.managedObjectContext != nil {
                             PageSettingsView(page: page)
                         } else {
-                            SplashNoteView(title: Text("Page Deleted"), symbol: "slash.circle")
+                            SplashNoteView(title: "Page Deleted", symbol: "slash.circle")
                         }
                     case .feed(let feed):
                         if feed.managedObjectContext != nil {
                             FeedView(feed: feed, hideRead: $hideRead)
                         } else {
-                            SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
+                            SplashNoteView(title: "Feed Deleted", symbol: "slash.circle")
                         }
                     case .feedSettings(let feed):
                         if feed.managedObjectContext != nil {
                             FeedSettingsView(feed: feed)
                         } else {
-                            SplashNoteView(title: Text("Feed Deleted"), symbol: "slash.circle")
+                            SplashNoteView(title: "Feed Deleted", symbol: "slash.circle")
                         }
                     case .item(let item):
                         if item.managedObjectContext != nil {
                             ItemView(item: item)
                         } else {
-                            SplashNoteView(title: Text("Item Deleted"), symbol: "slash.circle")
+                            SplashNoteView(title: "Item Deleted", symbol: "slash.circle")
                         }
                     case .trend(let trend):
                         if trend.managedObjectContext != nil {
                             TrendView(trend: trend, hideRead: $hideRead)
                         } else {
-                            SplashNoteView(title: Text("Trend Deleted"), symbol: "slash.circle")
+                            SplashNoteView(title: "Trend Deleted", symbol: "slash.circle")
                         }
                     }
                 }.environment(\.contentSizeCategory, contentSizeCategory)
             }
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in
-                switch settingsPanel {
-                case .profileSettings(let profile):
-                    ProfileSettingsView(
-                        contentSelection: $contentSelection,
-                        activeProfile: $activeProfile,
-                        sceneProfileID: $sceneProfileID,
-                        appProfileID: $appProfileID,
-                        profile: profile,
-                        nameInput: profile.wrappedName
-                    )
-                case .importFeeds:
-                    if let profile = activeProfile {
+                if let profile = activeProfile {
+                    switch settingsPanel {
+                    case .profileSettings(let profile):
+                        ProfileSettingsView(
+                            contentSelection: $contentSelection,
+                            activeProfile: $activeProfile,
+                            sceneProfileID: $sceneProfileID,
+                            appProfileID: $appProfileID,
+                            profile: profile,
+                            nameInput: profile.wrappedName
+                        )
+                    case .importFeeds:
                         ImportView(profile: profile)
-                    } else {
-                        SplashNoteView(title: Text("Import Unavailable"))
-                    }
-                case .exportFeeds:
-                    if let profile = activeProfile {
+                    case .exportFeeds:
                         ExportView(profile: profile)
-                    } else {
-                        SplashNoteView(title: Text("Export Unavailable"))
-                    }
-                case .security:
-                    if let profile = activeProfile {
+                    case .security:
                         SecurityView(profile: profile)
-                    } else {
-                        SplashNoteView(title: Text("Security Check Unavailable"))
                     }
+                } else {
+                    SplashNoteView(title: "Profile Not Available")
                 }
             }
         }

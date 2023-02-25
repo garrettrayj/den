@@ -21,10 +21,7 @@ struct InboxView: View {
             if profile.feedsArray.isEmpty {
                 NoFeedsView()
             } else if profile.previewItems.isEmpty {
-                SplashNoteView(
-                    title: Text("No Items"),
-                    caption: Text("Refresh to get content.")
-                )
+                SplashNoteView(title: "No Items", note: "Refresh to get content.")
             } else if profile.previewItems.unread().isEmpty && hideRead == true {
                 AllReadSplashNoteView(hiddenItemCount: profile.previewItems.read().count)
             } else {
