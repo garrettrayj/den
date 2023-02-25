@@ -15,6 +15,7 @@
 		680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */; };
 		680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
+		680F494E29AA178B0083B664 /* BigDemo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 680F494D29AA178B0083B664 /* BigDemo.opml */; };
 		6813FD0B2748DE1100EC88A5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FD0A2748DE1100EC88A5 /* main.swift */; };
 		681AEAF929954AC70054B084 /* FeedHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHeroView.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
@@ -259,6 +260,7 @@
 		680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Page+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
+		680F494D29AA178B0083B664 /* BigDemo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BigDemo.opml; sourceTree = "<group>"; };
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHeroView.swift; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 			isa = PBXGroup;
 			children = (
 				68CAC50B292954C7002D9EB9 /* Demo.opml */,
+				680F494D29AA178B0083B664 /* BigDemo.opml */,
 				6865452F274AC3B600BAE03E /* PageSymbols.plist */,
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
 				68D58E6A2498481A007ED1AC /* OPMLIcon.png */,
@@ -1168,6 +1171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
+				680F494E29AA178B0083B664 /* BigDemo.opml in Resources */,
 				68F56B73287B4B26006EC915 /* WebViewStyles.css in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68C4131E247263C700D1DC7B /* LaunchScreen.storyboard in Resources */,

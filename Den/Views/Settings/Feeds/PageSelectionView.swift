@@ -32,6 +32,5 @@ struct PageSelectionView: View {
             .font(.caption)
             .buttonStyle(.borderless)
         }
-        .modifier(FormFirstHeaderModifier())
     }
 }

@@ -15,6 +15,7 @@ struct ExportView: View {
 
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
+    @State private var title: String = "Den Export \(Date().formatted())"
 
     var body: some View {
         VStack {
@@ -22,6 +23,10 @@ struct ExportView: View {
                 SplashNoteView(title: "Profile Empty")
             } else {
                 Form {
+                    TextField("Untitled", text: $title)
+                        .modifier(FormRowModifier())
+                        .modifier(TitleTextFieldModifier())
+
                     pageListSection
                 }
             }
@@ -116,7 +121,7 @@ struct ExportView: View {
             return nil
         }
 
-        let opmlWriter = OPMLWriter(pages: exportPages)
+        let opmlWriter = OPMLWriter(title: title, pages: exportPages)
         let temporaryFileURL = opmlWriter.writeToFile()
         let picker = ExportDocumentPicker(url: temporaryFileURL)
 

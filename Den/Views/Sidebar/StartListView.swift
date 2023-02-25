@@ -18,6 +18,8 @@ struct StartListView: View {
 
     @Binding var contentSelection: ContentPanel?
 
+    @State private var useBigDemo: Bool = false
+
     var body: some View {
         List(selection: $contentSelection) {
             Section {
@@ -41,7 +43,16 @@ struct StartListView: View {
                 Button {
                     loadDemo()
                 } label: {
-                    Label("Load Demo Feeds", systemImage: "wand.and.stars")
+                    Label {
+                        VStack(alignment: .leading) {
+                            Text("Load Demo Pages")
+                            Toggle(isOn: $useBigDemo) {
+                                Text("More feeds?").foregroundColor(.secondary)
+                            }.font(.callout)
+                        }
+                    } icon: {
+                        Image(systemName: "wand.and.stars")
+                    }
                 }
                 .buttonStyle(.borderless)
                 .modifier(StartRowModifier())
@@ -74,7 +85,12 @@ struct StartListView: View {
     }
 
     private func loadDemo() {
-        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
+        var demoFileBaseName = "Demo"
+        if useBigDemo {
+            demoFileBaseName = "BigDemo"
+        }
+
+        guard let demoPath = Bundle.main.path(forResource: demoFileBaseName, ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
 
