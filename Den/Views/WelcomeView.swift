@@ -19,15 +19,13 @@ struct WelcomeView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            Text(profile.displayName).font(.largeTitle)
-            if let refreshedText = refreshedTimeAgo {
-                Text("Refreshed \(refreshedText)")
+        Group {
+            if let refreshedTimeAgo = refreshedTimeAgo {
+                SplashNoteView(title: profile.displayName, note: "Refreshed \(refreshedTimeAgo)")
+            } else {
+                SplashNoteView(title: profile.displayName)
             }
-            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {

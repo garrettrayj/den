@@ -19,7 +19,7 @@ struct ExportView: View {
     var body: some View {
         VStack {
             if profile.feedsArray.isEmpty {
-                SplashNoteView(title: Text("Profile Empty"), symbol: "folder.badge.questionmark")
+                SplashNoteView(title: "Profile Empty")
             } else {
                 Form {
                     pageListSection

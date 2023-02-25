@@ -35,8 +35,8 @@ struct PageView: View {
                     NoFeedsView(page: page)
                 } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend {
                     SplashNoteView(
-                        title: Text("No Items"),
-                        caption: Text("Refresh to get content")
+                        title: "No Items",
+                        note: "Refresh to get content"
                     )
                 } else if page.visibleItems(hideRead).isEmpty  && viewMode == PageViewMode.blend {
                     AllReadSplashNoteView(hiddenItemCount: page.previewItems.read().count)

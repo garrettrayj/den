@@ -123,7 +123,7 @@ struct SplitView: View {
                 .environment(\.colorScheme, colorScheme)
             }
         } else {
-            SplashNoteView(title: Text("Profile Not Available"))
+            SplashNoteView(title: "Profile Not Available")
         }
     }
 }

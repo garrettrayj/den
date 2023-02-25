@@ -13,9 +13,9 @@ import SwiftUI
 struct CrashMessageView: View {
     var body: some View {
         SplashNoteView(
-            title: Text("Critical Error"),
-            caption: Text("Restart to try again"),
+            title: "Critical Error",
+            note: "Restart to try again",
             symbol: "xmark.octagon"
-        ).background(Color(UIColor.systemBackground))
+        )
     }
 }
