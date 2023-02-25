@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0">
 	<head>
-		<title>Den Export 2/25/2023, 5:36 AM</title>
+		<title>Den Export 2/25/2023, 6:56 AM</title>
 	</head>
 	<body>
+		<outline text="Design" title="Design">
+			<outline text="Identity Designed" title="Identity Designed" type="rss" xmlUrl="https://identitydesigned.com/feed/" />
+			<outline text="BP&amp;O" title="BP&amp;O" type="rss" xmlUrl="https://bpando.org/feed" />
+			<outline text="The Design Blog" title="The Design Blog" type="rss" xmlUrl="https://thedsgnblog.com/rss" />
+			<outline text="Dieline Posts" title="Dieline Posts" type="rss" xmlUrl="https://thedieline.com/feed/posts" />
+			<outline text="Logo Design Love" title="Logo Design Love" type="rss" xmlUrl="https://www.logodesignlove.com/feed" />
+			<outline text="abdz.do" title="abdz.do" type="rss" xmlUrl="https://abduzeedo.com/rss.xml" />
+			<outline text="Creative Bloq" title="Creative Bloq" type="rss" xmlUrl="https://www.creativebloq.com/feed" />
+			<outline text="Smashing Magazine" title="Smashing Magazine" type="rss" xmlUrl="https://www.smashingmagazine.com/feed/" />
+			<outline text="Creative Review" title="Creative Review" type="rss" xmlUrl="https://www.creativereview.co.uk/feed/" />
+			<outline text="Design Milk" title="Design Milk" type="rss" xmlUrl="https://design-milk.com/feed" />
+			<outline text="Behance Featured Projects" title="Behance Featured Projects" type="rss" xmlUrl="http://feeds.feedburner.com/behance/vorr" />
+			<outline text="A Beautiful Mess" title="A Beautiful Mess" type="rss" xmlUrl="https://abeautifulmess.com/feed/" />
+		</outline>
 		<outline text="World News" title="World News">
 			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://news.un.org/feed/subscribe/en/news/all/rss.xml" />
 			<outline text="ABC News" title="ABC News" type="rss" xmlUrl="http://abcnews.go.com/abcnews/internationalheadlines" />
@@ -38,7 +52,7 @@
 			<outline text="Raw Story News" title="Raw Story News" type="rss" xmlUrl="https://www.rawstory.com/category/nation/feed/" />
 			<outline text="The Guardian News" title="The Guardian News" type="rss" xmlUrl="https://www.theguardian.com/us/rss" />
 			<outline text="The Denver Post" title="The Denver Post" type="rss" xmlUrl="https://www.denverpost.com/feed/" />
-			<outline text="New Yorker - News" title="New Yorker - News" type="rss" xmlUrl="https://www.newyorker.com/feed/news" />
+			<outline text="New Yorker" title="New Yorker" type="rss" xmlUrl="https://www.newyorker.com/feed/news" />
 			<outline text="The Texas Tribune" title="The Texas Tribune" type="rss" xmlUrl="https://feeds.texastribune.org/feeds/main/" />
 			<outline text="The Atlantic" title="The Atlantic" type="rss" xmlUrl="https://www.theatlantic.com/feed/best-of/" />
 			<outline text="Voice of America" title="Voice of America" type="rss" xmlUrl="https://www.voanews.com/taxonomy/term/32681/feed" />
@@ -210,7 +224,7 @@
 			<outline text="Collider" title="Collider" type="rss" xmlUrl="https://collider.com/feed/" />
 			<outline text="Billboard" title="Billboard" type="rss" xmlUrl="https://www.billboard.com/rss" />
 			<outline text="iTunes Store: Top Albums" title="iTunes Store: Top Albums" type="rss" xmlUrl="http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topalbums/limit=10/xml" />
-			<outline text="XXL - Hip-Hop" title="XXL - Hip-Hop News" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />
+			<outline text="XXL - Hip-Hop News" title="XXL - Hip-Hop News" type="rss" xmlUrl="https://www.xxlmag.com/feed/" />
 			<outline text="The Source - Hip Hop Music" title="The Source - Hip Hop Music" type="rss" xmlUrl="https://thesource.com/category/music/feed/" />
 			<outline text="Music Connection Magazine" title="Music Connection Magazine" type="rss" xmlUrl="http://www.musicconnection.com/feed/" />
 			<outline text="American Blues Scene" title="American Blues Scene" type="rss" xmlUrl="https://www.americanbluesscene.com/feed/" />

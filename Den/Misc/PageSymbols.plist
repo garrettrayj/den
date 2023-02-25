@@ -2,13 +2,83 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>1.brakesignal</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>1.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
 	<key>1.magnifyingglass</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>10.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>11.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>12.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>2.brakesignal</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>2.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>3.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>4.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
 	<key>4k.tv</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>5.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>6.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>7.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>8.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
+	<key>9.lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
 	</array>
 	<key>a</key>
 	<array>
@@ -21,6 +91,35 @@
 	<key>a.book.closed.th</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>abs</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>abs.brakesignal</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>abs.brakesignal.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>air.conditioner.horizontal</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>air.conditioner.vertical</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>air.purifier</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>airplane</key>
 	<array>
@@ -40,9 +139,16 @@
 		<string>objectsandtools</string>
 		<string>time</string>
 	</array>
+	<key>alarm.waves.left.and.right</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>time</string>
+		<string>variablecolor</string>
+	</array>
 	<key>align.horizontal.center</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>align.horizontal.left</key>
 	<array>
@@ -58,7 +164,7 @@
 	</array>
 	<key>align.vertical.center</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>align.vertical.top</key>
 	<array>
@@ -82,6 +188,10 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>angle</key>
+	<array>
+		<string>math</string>
+	</array>
 	<key>ant</key>
 	<array>
 		<string>nature</string>
@@ -91,6 +201,7 @@
 		<string>connectivity</string>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>antenna.radiowaves.left.and.right.slash</key>
 	<array>
@@ -121,6 +232,10 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>apple.logo</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>applepencil</key>
 	<array>
 		<string>devices</string>
@@ -128,14 +243,19 @@
 	<key>aqi.high</key>
 	<array>
 		<string>multicolor</string>
+		<string>variablecolor</string>
 		<string>weather</string>
 	</array>
 	<key>aqi.low</key>
 	<array>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 		<string>weather</string>
 	</array>
 	<key>aqi.medium</key>
 	<array>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 		<string>weather</string>
 	</array>
 	<key>archivebox</key>
@@ -175,6 +295,10 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrow.down.and.line.horizontal.and.arrow.up</key>
+	<array>
+		<string>arrows</string>
+	</array>
 	<key>arrow.down.app</key>
 	<array>
 		<string>arrows</string>
@@ -194,6 +318,7 @@
 	<key>arrow.down.forward.and.arrow.up.backward</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>arrow.down.heart</key>
 	<array>
@@ -210,6 +335,7 @@
 	<key>arrow.down.right.and.arrow.up.left</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>arrow.down.to.line</key>
 	<array>
@@ -238,12 +364,17 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrow.left.and.line.vertical.and.arrow.right</key>
+	<array>
+		<string>arrows</string>
+	</array>
 	<key>arrow.left.and.right</key>
 	<array>
 		<string>arrows</string>
 	</array>
 	<key>arrow.left.and.right.righttriangle.left.righttriangle.right</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>editing</string>
 	</array>
 	<key>arrow.left.arrow.right</key>
@@ -276,12 +407,17 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrow.right.and.line.vertical.and.arrow.left</key>
+	<array>
+		<string>arrows</string>
+	</array>
 	<key>arrow.right.arrow.left</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
 	<key>arrow.right.doc.on.clipboard</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>arrow.right.to.line</key>
@@ -368,11 +504,22 @@
 	</array>
 	<key>arrow.up.and.down.and.arrow.left.and.right</key>
 	<array>
+		<string>accessibility</string>
 		<string>arrows</string>
+	</array>
+	<key>arrow.up.and.down.and.sparkles</key>
+	<array>
+		<string>accessibility</string>
+		<string>devices</string>
 	</array>
 	<key>arrow.up.and.down.righttriangle.up.righttriangle.down</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>editing</string>
+	</array>
+	<key>arrow.up.and.line.horizontal.and.arrow.down</key>
+	<array>
+		<string>arrows</string>
 	</array>
 	<key>arrow.up.and.person.rectangle.portrait</key>
 	<array>
@@ -397,6 +544,7 @@
 	<key>arrow.up.backward.and.arrow.down.forward</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>arrow.up.bin</key>
 	<array>
@@ -408,6 +556,7 @@
 	</array>
 	<key>arrow.up.doc.on.clipboard</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>arrow.up.forward</key>
@@ -429,9 +578,11 @@
 	<key>arrow.up.left.and.arrow.down.right</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>arrow.up.left.and.down.right.and.arrow.up.right.and.down.left</key>
 	<array>
+		<string>accessibility</string>
 		<string>arrows</string>
 	</array>
 	<key>arrow.up.left.and.down.right.magnifyingglass</key>
@@ -488,6 +639,11 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrowshape.backward</key>
+	<array>
+		<string>arrows</string>
+		<string>automotive</string>
+	</array>
 	<key>arrowshape.bounce.forward</key>
 	<array>
 		<string>arrows</string>
@@ -496,6 +652,21 @@
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>arrowshape.forward</key>
+	<array>
+		<string>arrows</string>
+		<string>automotive</string>
+	</array>
+	<key>arrowshape.left</key>
+	<array>
+		<string>arrows</string>
+		<string>automotive</string>
+	</array>
+	<key>arrowshape.right</key>
+	<array>
+		<string>arrows</string>
+		<string>automotive</string>
+	</array>
 	<key>arrowshape.turn.up.backward</key>
 	<array>
 		<string>arrows</string>
@@ -503,6 +674,16 @@
 	<key>arrowshape.turn.up.backward.2</key>
 	<array>
 		<string>arrows</string>
+	</array>
+	<key>arrowshape.turn.up.backward.badge.clock</key>
+	<array>
+		<string>arrows</string>
+		<string>multicolor</string>
+	</array>
+	<key>arrowshape.turn.up.backward.badge.clock.rtl</key>
+	<array>
+		<string>arrows</string>
+		<string>multicolor</string>
 	</array>
 	<key>arrowshape.turn.up.forward</key>
 	<array>
@@ -574,7 +755,67 @@
 	</array>
 	<key>atom</key>
 	<array>
-		<string>uncategorized</string>
+		<string>nature</string>
+	</array>
+	<key>auto.brakesignal</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>auto.headlight.high.beam</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>auto.headlight.low.beam</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>autostartstop</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>autostartstop.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>autostartstop.trianglebadge.exclamationmark</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>av.remote</key>
+	<array>
+		<string>devices</string>
+		<string>home</string>
+	</array>
+	<key>axel.2</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>axel.2.front.and.rear.engaged</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>axel.2.front.engaged</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>axel.2.rear.engaged</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>backpack</key>
+	<array>
+		<string>objectsandtools</string>
 	</array>
 	<key>backward</key>
 	<array>
@@ -595,6 +836,24 @@
 	<key>bag</key>
 	<array>
 		<string>commerce</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>bag.badge.questionmark</key>
+	<array>
+		<string>commerce</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>balloon</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>balloon.2</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>bandage</key>
 	<array>
@@ -618,8 +877,33 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>baseball</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>baseball.diamond.bases</key>
+	<array>
+		<string>fitness</string>
+	</array>
+	<key>basket</key>
+	<array>
+		<string>commerce</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>basketball</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>bathtub</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>battery.0</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>battery.100</key>
@@ -652,9 +936,26 @@
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>batteryblock</key>
+	<array>
+		<string>automotive</string>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
+	<key>batteryblock.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
+	<key>beach.umbrella</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
 	<key>bed.double</key>
 	<array>
 		<string>health</string>
+		<string>home</string>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
@@ -665,7 +966,15 @@
 	</array>
 	<key>bell.and.waveform</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
+	</array>
+	<key>bell.and.waves.left.and.right</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>bell.badge</key>
 	<array>
@@ -684,20 +993,60 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>bird</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>birthday.cake</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>blinds.horizontal.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>blinds.horizontal.open</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>blinds.vertical.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>blinds.vertical.open</key>
+	<array>
+		<string>home</string>
+	</array>
 	<key>bolt</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>nature</string>
 	</array>
 	<key>bolt.badge.a</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+		<string>nature</string>
+	</array>
+	<key>bolt.badge.clock</key>
+	<array>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+		<string>nature</string>
 	</array>
 	<key>bolt.batteryblock</key>
 	<array>
+		<string>automotive</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>bolt.brakesignal</key>
+	<array>
+		<string>automotive</string>
 	</array>
 	<key>bolt.car</key>
 	<array>
+		<string>automotive</string>
+		<string>devices</string>
 		<string>multicolor</string>
 		<string>transportation</string>
 	</array>
@@ -711,11 +1060,20 @@
 	</array>
 	<key>bolt.shield</key>
 	<array>
+		<string>nature</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>bolt.slash</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>nature</string>
+	</array>
+	<key>bolt.trianglebadge.exclamationmark</key>
+	<array>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+		<string>nature</string>
+		<string>whatsnew</string>
 	</array>
 	<key>book</key>
 	<array>
@@ -739,6 +1097,20 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>box.truck</key>
+	<array>
+		<string>transportation</string>
+	</array>
+	<key>box.truck.badge.clock</key>
+	<array>
+		<string>multicolor</string>
+		<string>transportation</string>
+	</array>
+	<key>box.truck.badge.clock.rtl</key>
+	<array>
+		<string>multicolor</string>
+		<string>transportation</string>
+	</array>
 	<key>brain</key>
 	<array>
 		<string>health</string>
@@ -748,6 +1120,14 @@
 	<array>
 		<string>health</string>
 		<string>human</string>
+	</array>
+	<key>brakesignal</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>brakesignal.dashed</key>
+	<array>
+		<string>automotive</string>
 	</array>
 	<key>briefcase</key>
 	<array>
@@ -761,10 +1141,13 @@
 	<key>bubble.left.and.bubble.right</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
 	</array>
 	<key>bubble.left.and.exclamationmark.bubble.right</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>bubble.middle.bottom</key>
 	<array>
@@ -778,12 +1161,17 @@
 	<array>
 		<string>communication</string>
 	</array>
+	<key>bubbles.and.sparkles</key>
+	<array>
+		<string>health</string>
+	</array>
 	<key>building</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
 	<key>building.2</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>building.columns</key>
@@ -805,6 +1193,15 @@
 	<key>bus.doubledecker</key>
 	<array>
 		<string>transportation</string>
+	</array>
+	<key>button.programmable</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>cabinet</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>cable.connector</key>
 	<array>
@@ -856,55 +1253,74 @@
 	</array>
 	<key>camera</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>camera.aperture</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>camera.badge.ellipsis</key>
 	<array>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>camera.filters</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>editing</string>
+		<string>editing</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>camera.macro</key>
+	<array>
+		<string>cameraandphotos</string>
+		<string>nature</string>
 	</array>
 	<key>camera.metering.center.weighted</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>camera.metering.center.weighted.average</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>camera.metering.matrix</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>camera.metering.multispot</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>camera.metering.none</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>camera.metering.partial</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>camera.metering.spot</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>camera.metering.unknown</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>camera.on.rectangle</key>
 	<array>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>camera.rotate</key>
@@ -913,6 +1329,7 @@
 	</array>
 	<key>camera.shutter.button</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>camera.viewfinder</key>
@@ -937,26 +1354,302 @@
 	</array>
 	<key>captions.bubble</key>
 	<array>
+		<string>accessibility</string>
 		<string>communication</string>
 	</array>
 	<key>car</key>
 	<array>
+		<string>automotive</string>
+		<string>devices</string>
+		<string>multicolor</string>
 		<string>transportation</string>
 	</array>
 	<key>car.2</key>
 	<array>
+		<string>automotive</string>
+		<string>devices</string>
+		<string>multicolor</string>
 		<string>transportation</string>
 	</array>
 	<key>car.ferry</key>
 	<array>
 		<string>transportation</string>
 	</array>
+	<key>car.front.waves.up</key>
+	<array>
+		<string>automotive</string>
+		<string>devices</string>
+		<string>multicolor</string>
+		<string>transportation</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.rear</key>
+	<array>
+		<string>automotive</string>
+		<string>devices</string>
+		<string>transportation</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.rear.and.tire.marks</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.rear.and.tire.marks.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.rear.road.lane</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.rear.road.lane.dashed</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.rear.waves.up</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.air.circulate</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.air.fresh</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.and.exclamationmark</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.arrowtriangle.down</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.arrowtriangle.up</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.arrowtriangle.up.arrowtriangle.down</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.front.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.side.rear.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.and.front.right.and.rear.left.and.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.and.front.right.and.rear.left.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.and.front.right.and.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.and.front.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.and.rear.left.and.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.and.rear.left.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.and.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.left.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.right.and.rear.left.and.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.right.and.rear.left.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.right.and.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.front.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.rear.left.and.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.rear.left.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.door.rear.right.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.lane.dashed.arrowtriangle.inward</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.lane.dashed.badge.steeringwheel</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.lane.dashed.departure.left</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.lane.dashed.departure.right</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.radiowaves.front</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.radiowaves.rear</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.radiowaves.rear.left</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.radiowaves.rear.left.and.rear.right</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>car.top.radiowaves.rear.right</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>carbon.dioxide.cloud</key>
+	<array>
+		<string>home</string>
+		<string>weather</string>
+	</array>
+	<key>carbon.monoxide.cloud</key>
+	<array>
+		<string>home</string>
+		<string>weather</string>
+	</array>
+	<key>carrot</key>
+	<array>
+		<string>nature</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>cart</key>
 	<array>
 		<string>commerce</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>cart.badge.questionmark</key>
+	<array>
+		<string>commerce</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>cart.badge.questionmark.rtl</key>
+	<array>
+		<string>commerce</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>case</key>
 	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>cellularbars</key>
+	<array>
+		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
+	<key>chair</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>chair.lounge</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>chandelier</key>
+	<array>
+		<string>home</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>character.book.closed</key>
@@ -977,19 +1670,37 @@
 	</array>
 	<key>chart.bar</key>
 	<array>
-		<string>uncategorized</string>
+		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>chart.bar.doc.horizontal</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>chart.bar.xaxis</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
+	<key>chart.dots.scatter</key>
+	<array>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>chart.line.downtrend.xyaxis</key>
+	<array>
+		<string>multicolor</string>
+	</array>
+	<key>chart.line.flattrend.xyaxis</key>
+	<array>
+		<string>multicolor</string>
 	</array>
 	<key>chart.line.uptrend.xyaxis</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>chart.pie</key>
 	<array>
@@ -997,6 +1708,7 @@
 	</array>
 	<key>chart.xyaxis.line</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>checkerboard.rectangle</key>
@@ -1011,13 +1723,26 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>checklist.checked</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>checklist.checked.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>checklist.rtl</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>checklist.unchecked</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
 	<key>checkmark</key>
 	<array>
 		<string>multicolor</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>checkmark.bubble</key>
 	<array>
@@ -1025,31 +1750,40 @@
 	</array>
 	<key>checkmark.diamond</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>checkmark.rectangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>checkmark.rectangle.portrait</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>checkmark.seal</key>
 	<array>
-		<string>uncategorized</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>checkmark.shield</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>chevron.backward</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>chevron.backward.2</key>
 	<array>
 		<string>arrows</string>
+	</array>
+	<key>chevron.backward.to.line</key>
+	<array>
+		<string>keyboard</string>
 	</array>
 	<key>chevron.compact.down</key>
 	<array>
@@ -1070,18 +1804,25 @@
 	<key>chevron.down</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>chevron.forward</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>chevron.forward.2</key>
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>chevron.forward.to.line</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>chevron.left</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>chevron.left.2</key>
 	<array>
@@ -1095,17 +1836,27 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>chevron.left.to.line</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>chevron.right</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>chevron.right.2</key>
 	<array>
 		<string>arrows</string>
 	</array>
+	<key>chevron.right.to.line</key>
+	<array>
+		<string>keyboard</string>
+	</array>
 	<key>chevron.up</key>
 	<array>
 		<string>arrows</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>chevron.up.chevron.down</key>
 	<array>
@@ -1117,6 +1868,7 @@
 	</array>
 	<key>circle.and.line.horizontal</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>editing</string>
 	</array>
 	<key>circle.bottomthird.split</key>
@@ -1126,6 +1878,10 @@
 	<key>circle.dashed</key>
 	<array>
 		<string>editing</string>
+	</array>
+	<key>circle.dashed.rectangle</key>
+	<array>
+		<string>cameraandphotos</string>
 	</array>
 	<key>circle.dotted</key>
 	<array>
@@ -1157,7 +1913,11 @@
 	</array>
 	<key>circle.hexagonpath</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
+	</array>
+	<key>circle.rectangle.dashed</key>
+	<array>
+		<string>cameraandphotos</string>
 	</array>
 	<key>circle.slash</key>
 	<array>
@@ -1184,7 +1944,17 @@
 		<string>keyboard</string>
 		<string>multicolor</string>
 	</array>
+	<key>clipboard</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
 	<key>clock</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>time</string>
+	</array>
+	<key>clock.badge</key>
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
@@ -1202,68 +1972,96 @@
 		<string>objectsandtools</string>
 		<string>time</string>
 	</array>
+	<key>clock.badge.questionmark</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>time</string>
+	</array>
 	<key>cloud</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.bolt</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.bolt.rain</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.drizzle</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.fog</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.hail</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.heavyrain</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.moon</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.moon.bolt</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.moon.rain</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.rain</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.sleet</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.snow</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.sun</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.sun.bolt</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>cloud.sun.rain</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>comb</key>
@@ -1274,6 +2072,11 @@
 	<array>
 		<string>keyboard</string>
 	</array>
+	<key>compass.drawing</key>
+	<array>
+		<string>math</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>computermouse</key>
 	<array>
 		<string>devices</string>
@@ -1282,13 +2085,22 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>contact.sensor</key>
+	<array>
+		<string>home</string>
+	</array>
 	<key>contextualmenu.and.cursorarrow</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
 	</array>
 	<key>control</key>
 	<array>
 		<string>keyboard</string>
+	</array>
+	<key>cooktop</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>cpu</key>
 	<array>
@@ -1297,6 +2109,7 @@
 	<key>creditcard</key>
 	<array>
 		<string>commerce</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>creditcard.and.123</key>
 	<array>
@@ -1306,6 +2119,15 @@
 	<array>
 		<string>commerce</string>
 		<string>multicolor</string>
+	</array>
+	<key>creditcard.viewfinder</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>cricket.ball</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>crop</key>
 	<array>
@@ -1328,6 +2150,7 @@
 	</array>
 	<key>cross.vial</key>
 	<array>
+		<string>health</string>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
@@ -1365,27 +2188,40 @@
 	</array>
 	<key>cursorarrow.click</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
 	</array>
 	<key>cursorarrow.click.2</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>cursorarrow.click.badge.clock</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
+		<string>multicolor</string>
 	</array>
 	<key>cursorarrow.motionlines</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
 	</array>
 	<key>cursorarrow.motionlines.click</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
 	</array>
 	<key>cursorarrow.rays</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
+	</array>
+	<key>curtains.closed</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+	</array>
+	<key>curtains.open</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
 	</array>
 	<key>cylinder</key>
 	<array>
@@ -1394,6 +2230,11 @@
 	<key>cylinder.split.1x2</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>dehumidifier</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>delete.backward</key>
 	<array>
@@ -1433,19 +2274,36 @@
 		<string>devices</string>
 		<string>multicolor</string>
 	</array>
+	<key>deskview</key>
+	<array>
+		<string>communication</string>
+	</array>
 	<key>dial</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>dial.high</key>
+	<array>
+		<string>editing</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>dial.low</key>
+	<array>
+		<string>editing</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>dial.max</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>dial.medium</key>
 	<array>
 		<string>editing</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>dial.min</key>
 	<array>
-		<string>editing</string>
-		<string>objectsandtools</string>
+		<string>uncategorized</string>
 	</array>
 	<key>diamond</key>
 	<array>
@@ -1453,6 +2311,7 @@
 	</array>
 	<key>dice</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>die.face.1</key>
@@ -1483,6 +2342,11 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>dishwasher</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>display</key>
 	<array>
 		<string>devices</string>
@@ -1490,6 +2354,7 @@
 	<key>display.2</key>
 	<array>
 		<string>devices</string>
+		<string>multicolor</string>
 	</array>
 	<key>display.and.arrow.down</key>
 	<array>
@@ -1499,6 +2364,30 @@
 	<array>
 		<string>devices</string>
 		<string>multicolor</string>
+	</array>
+	<key>distribute.horizontal.center</key>
+	<array>
+		<string>multicolor</string>
+	</array>
+	<key>distribute.horizontal.left</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>distribute.horizontal.right</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>distribute.vertical.bottom</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>distribute.vertical.center</key>
+	<array>
+		<string>multicolor</string>
+	</array>
+	<key>distribute.vertical.top</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>divide</key>
 	<array>
@@ -1516,8 +2405,14 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>doc.badge.arrow.up</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>doc.badge.ellipsis</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>doc.badge.gearshape</key>
@@ -1526,10 +2421,12 @@
 	</array>
 	<key>doc.on.clipboard</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>doc.on.doc</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>doc.plaintext</key>
@@ -1588,23 +2485,133 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>dollarsign</key>
+	<array>
+		<string>commerce</string>
+	</array>
+	<key>door.french.closed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.french.open</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.closed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.closed.trianglebadge.exclamationmark</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.double.bay.closed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.double.bay.closed.trianglebadge.exclamationmark</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.double.bay.open</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.double.bay.open.trianglebadge.exclamationmark</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.open</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.garage.open.trianglebadge.exclamationmark</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.left.hand.closed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.left.hand.open</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.right.hand.closed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.right.hand.open</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.sliding.left.hand.closed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.sliding.left.hand.open</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.sliding.right.hand.closed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>door.sliding.right.hand.open</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>dot.radiowaves.forward</key>
 	<array>
 		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>dot.radiowaves.left.and.right</key>
 	<array>
 		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>dot.radiowaves.right</key>
 	<array>
 		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>dot.radiowaves.up.forward</key>
 	<array>
 		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>dot.viewfinder</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>dots.and.line.vertical.and.cursorarrow.rectangle</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
@@ -1616,29 +2623,62 @@
 	<array>
 		<string>nature</string>
 	</array>
+	<key>drop.degreesign</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>drop.degreesign.slash</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>drop.degreesign.slash.rtl</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>drop.keypad.rectangle</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>drop.triangle</key>
 	<array>
 		<string>nature</string>
 	</array>
+	<key>dryer</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>dumbbell</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>ear</key>
 	<array>
+		<string>accessibility</string>
 		<string>health</string>
 		<string>human</string>
 		<string>multicolor</string>
 	</array>
 	<key>ear.and.waveform</key>
 	<array>
+		<string>accessibility</string>
 		<string>health</string>
 		<string>human</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>ear.badge.checkmark</key>
 	<array>
+		<string>accessibility</string>
 		<string>health</string>
 		<string>human</string>
 		<string>multicolor</string>
 	</array>
 	<key>ear.trianglebadge.exclamationmark</key>
 	<array>
+		<string>accessibility</string>
 		<string>health</string>
 		<string>human</string>
 		<string>multicolor</string>
@@ -1661,23 +2701,53 @@
 	</array>
 	<key>ellipsis</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>ellipsis.bubble</key>
 	<array>
+		<string>accessibility</string>
 		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>ellipsis.curlybraces</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>ellipsis.rectangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>ellipsis.vertical.bubble</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
+	<key>ellipsis.viewfinder</key>
+	<array>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>engine.combustion</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>entry.lever.keypad</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>entry.lever.keypad.trianglebadge.exclamationmark</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>envelope</key>
 	<array>
@@ -1690,14 +2760,30 @@
 	<key>envelope.badge</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
 	</array>
 	<key>envelope.open</key>
 	<array>
 		<string>communication</string>
 	</array>
+	<key>envelope.open.badge.clock</key>
+	<array>
+		<string>communication</string>
+		<string>multicolor</string>
+	</array>
 	<key>equal</key>
 	<array>
 		<string>math</string>
+	</array>
+	<key>eraser</key>
+	<array>
+		<string>editing</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>eraser.line.dashed</key>
+	<array>
+		<string>editing</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>escape</key>
 	<array>
@@ -1719,21 +2805,42 @@
 	<array>
 		<string>multicolor</string>
 	</array>
+	<key>exclamationmark.brakesignal</key>
+	<array>
+		<string>automotive</string>
+	</array>
 	<key>exclamationmark.bubble</key>
 	<array>
 		<string>communication</string>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>exclamationmark.lock</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>exclamationmark.octagon</key>
 	<array>
 		<string>multicolor</string>
 	</array>
+	<key>exclamationmark.questionmark</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>exclamationmark.shield</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>exclamationmark.transmission</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
 	</array>
 	<key>exclamationmark.triangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>automotive</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>externaldrive</key>
 	<array>
@@ -1744,9 +2851,20 @@
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>externaldrive.badge.exclamationmark</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>externaldrive.badge.person.crop</key>
 	<array>
 		<string>human</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>externaldrive.badge.questionmark</key>
+	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>externaldrive.badge.timemachine</key>
@@ -1757,27 +2875,39 @@
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>externaldrive.connected.to.line.below</key>
 	<array>
 		<string>connectivity</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>externaldrive.trianglebadge.exclamationmark</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>eye</key>
 	<array>
+		<string>accessibility</string>
 		<string>health</string>
 		<string>human</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>eye.slash</key>
 	<array>
-		<string>editing</string>
+		<string>accessibility</string>
+		<string>health</string>
 		<string>human</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>eye.trianglebadge.exclamationmark</key>
 	<array>
+		<string>accessibility</string>
 		<string>health</string>
 		<string>human</string>
 		<string>multicolor</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>eyebrow</key>
 	<array>
@@ -1798,7 +2928,7 @@
 	</array>
 	<key>f.cursive</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>face.dashed</key>
 	<array>
@@ -1811,10 +2941,44 @@
 	<key>facemask</key>
 	<array>
 		<string>health</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>fan.and.light.ceiling</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>fan.ceiling</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>fan.desk</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>fan.floor</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>fan.oscillation</key>
+	<array>
+		<string>home</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>fanblades</key>
 	<array>
+		<string>automotive</string>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>fanblades.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>home</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>faxmachine</key>
@@ -1834,8 +2998,395 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>figure.2.and.child.holdinghands</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>figure.2.arms.open</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>figure.american.football</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.and.child.holdinghands</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>figure.archery</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.arms.open</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>figure.australian.football</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.badminton</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.barre</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.baseball</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.basketball</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.bowling</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.boxing</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.climbing</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.cooldown</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.core.training</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.cricket</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.cross.training</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.curling</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.dance</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.disc.sports</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.dress.line.vertical.figure</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>figure.elliptical</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.equestrian.sports</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.fall</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>figure.fencing</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.fishing</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.flexibility</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.golf</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.gymnastics</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.hand.cycling</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.handball</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.highintensity.intervaltraining</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.hiking</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.hockey</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.hunting</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.indoor.cycle</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.jumprope</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.kickboxing</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.lacrosse</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.martial.arts</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.mind.and.body</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.mixed.cardio</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.open.water.swim</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.outdoor.cycle</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.pickleball</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.pilates</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.play</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.pool.swim</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.racquetball</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
 	<key>figure.roll</key>
 	<array>
+		<string>accessibility</string>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.roll.runningpace</key>
+	<array>
+		<string>accessibility</string>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.rolling</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.rower</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.rugby</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.run</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.sailing</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.seated.seatbelt</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.seatbelt.and.airbag.off</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.seatbelt.and.airbag.on</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.air.lower</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.air.upper</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.air.upper.and.lower</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.air.windshield</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.airbag.off</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.airbag.off.2</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.airbag.on</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.airbag.on.2</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.seated.side.windshield.front.and.heat.waves</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>figure.skating</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.skiing.crosscountry</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.skiing.downhill</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.snowboarding</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.soccer</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.socialdance</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.softball</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.squash</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.stair.stepper</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.stairs</key>
+	<array>
+		<string>fitness</string>
 		<string>human</string>
 	</array>
 	<key>figure.stand</key>
@@ -1844,30 +3395,113 @@
 	</array>
 	<key>figure.stand.line.dotted.figure.stand</key>
 	<array>
+		<string>accessibility</string>
+		<string>human</string>
+	</array>
+	<key>figure.step.training</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.strengthtraining.functional</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.strengthtraining.traditional</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.surfing</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.table.tennis</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.taichi</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.tennis</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.track.and.field</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.volleyball</key>
+	<array>
+		<string>fitness</string>
 		<string>human</string>
 	</array>
 	<key>figure.walk</key>
 	<array>
+		<string>fitness</string>
 		<string>human</string>
 		<string>transportation</string>
 	</array>
+	<key>figure.walk.arrival</key>
+	<array>
+		<string>home</string>
+		<string>human</string>
+	</array>
+	<key>figure.walk.departure</key>
+	<array>
+		<string>home</string>
+		<string>human</string>
+	</array>
 	<key>figure.walk.diamond</key>
 	<array>
+		<string>fitness</string>
 		<string>human</string>
 		<string>transportation</string>
+	</array>
+	<key>figure.walk.motion</key>
+	<array>
+		<string>home</string>
+		<string>human</string>
+	</array>
+	<key>figure.water.fitness</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.waterpolo</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
 	</array>
 	<key>figure.wave</key>
 	<array>
 		<string>human</string>
 		<string>transportation</string>
 	</array>
+	<key>figure.wrestling</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
+	<key>figure.yoga</key>
+	<array>
+		<string>fitness</string>
+		<string>human</string>
+	</array>
 	<key>filemenu.and.cursorarrow</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
 	</array>
 	<key>filemenu.and.cursorarrow.rtl</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
 	</array>
 	<key>filemenu.and.selection</key>
 	<array>
@@ -1877,6 +3511,23 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>film.stack</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>fireplace</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>firewall</key>
+	<array>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>fish</key>
+	<array>
+		<string>nature</string>
+	</array>
 	<key>flag</key>
 	<array>
 		<string>multicolor</string>
@@ -1884,10 +3535,25 @@
 	</array>
 	<key>flag.2.crossed</key>
 	<array>
+		<string>fitness</string>
+		<string>gaming</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>flag.badge.ellipsis</key>
 	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>flag.checkered</key>
+	<array>
+		<string>fitness</string>
+		<string>gaming</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>flag.checkered.2.crossed</key>
+	<array>
+		<string>fitness</string>
+		<string>gaming</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>flag.slash</key>
@@ -1910,6 +3576,15 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>fluid.brakesignal</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>fluid.transmission</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
 	<key>fn</key>
 	<array>
 		<string>uncategorized</string>
@@ -1930,11 +3605,17 @@
 	<key>folder.badge.person.crop</key>
 	<array>
 		<string>human</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>folder.badge.questionmark</key>
 	<array>
 		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>football</key>
+	<array>
+		<string>fitness</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>fork.knife</key>
@@ -1958,8 +3639,19 @@
 	<array>
 		<string>media</string>
 	</array>
+	<key>fossil.shell</key>
+	<array>
+		<string>nature</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>frying.pan</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>fuelpump</key>
 	<array>
+		<string>automotive</string>
 		<string>objectsandtools</string>
 		<string>transportation</string>
 	</array>
@@ -1974,10 +3666,23 @@
 	<key>gamecontroller</key>
 	<array>
 		<string>devices</string>
+		<string>fitness</string>
 		<string>gaming</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>gauge</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>gauge.high</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>gauge.low</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>gauge.medium</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
@@ -1986,11 +3691,19 @@
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>gear.badge</key>
+	<array>
+		<string>multicolor</string>
+	</array>
 	<key>gear.badge.checkmark</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>gear.badge.questionmark</key>
+	<array>
+		<string>multicolor</string>
+	</array>
+	<key>gear.badge.rtl</key>
 	<array>
 		<string>multicolor</string>
 	</array>
@@ -2026,10 +3739,24 @@
 	<key>globe.badge.chevron.backward</key>
 	<array>
 		<string>keyboard</string>
+		<string>multicolor</string>
+	</array>
+	<key>globe.central.south.asia</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>globe.desk</key>
+	<array>
+		<string>objectsandtools</string>
 	</array>
 	<key>globe.europe.africa</key>
 	<array>
 		<string>nature</string>
+	</array>
+	<key>glowplug</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
 	</array>
 	<key>gobackward</key>
 	<array>
@@ -2067,6 +3794,10 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>hand.app</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>hand.draw</key>
 	<array>
 		<string>human</string>
@@ -2085,10 +3816,12 @@
 	</array>
 	<key>hand.point.up</key>
 	<array>
+		<string>accessibility</string>
 		<string>human</string>
 	</array>
 	<key>hand.point.up.braille</key>
 	<array>
+		<string>accessibility</string>
 		<string>human</string>
 	</array>
 	<key>hand.point.up.left</key>
@@ -2099,13 +3832,37 @@
 	<array>
 		<string>human</string>
 		<string>multicolor</string>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>hand.raised.app</key>
+	<array>
+		<string>human</string>
+		<string>multicolor</string>
+		<string>privacyandsecurity</string>
+		<string>whatsnew</string>
+	</array>
+	<key>hand.raised.brakesignal</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>hand.raised.brakesignal.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>hand.raised.fingers.spread</key>
+	<array>
+		<string>human</string>
 	</array>
 	<key>hand.raised.slash</key>
 	<array>
 		<string>human</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>hand.tap</key>
 	<array>
+		<string>accessibility</string>
 		<string>human</string>
 	</array>
 	<key>hand.thumbsdown</key>
@@ -2120,6 +3877,11 @@
 	<array>
 		<string>human</string>
 	</array>
+	<key>handbag</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
 	<key>hands.clap</key>
 	<array>
 		<string>human</string>
@@ -2130,7 +3892,32 @@
 	</array>
 	<key>hare</key>
 	<array>
+		<string>accessibility</string>
 		<string>nature</string>
+	</array>
+	<key>hazardsign</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>headlight.daytime</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>headlight.fog</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>headlight.high.beam</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>headlight.low.beam</key>
+	<array>
+		<string>automotive</string>
 	</array>
 	<key>headphones</key>
 	<array>
@@ -2141,8 +3928,17 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>hearingdevice.and.signal.meter</key>
+	<array>
+		<string>accessibility</string>
+		<string>devices</string>
+		<string>human</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
 	<key>hearingdevice.ear</key>
 	<array>
+		<string>accessibility</string>
 		<string>devices</string>
 		<string>human</string>
 	</array>
@@ -2159,6 +3955,17 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>heat.element.windshield</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>heater.vertical</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>helm</key>
 	<array>
 		<string>uncategorized</string>
@@ -2166,6 +3973,11 @@
 	<key>hexagon</key>
 	<array>
 		<string>shapes</string>
+	</array>
+	<key>hifireceiver</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>hifispeaker</key>
 	<array>
@@ -2180,6 +3992,15 @@
 		<string>editing</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>hockey.puck</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>hold.brakesignal</key>
+	<array>
+		<string>automotive</string>
+	</array>
 	<key>hourglass</key>
 	<array>
 		<string>multicolor</string>
@@ -2189,14 +4010,38 @@
 	<key>house</key>
 	<array>
 		<string>gaming</string>
+		<string>home</string>
+	</array>
+	<key>house.and.flag</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
+	<key>house.lodge</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
+	<key>humidifier</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>humidifier.and.droplets</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>humidity</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>hurricane</key>
 	<array>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>infinity</key>
@@ -2207,12 +4052,22 @@
 	<array>
 		<string>multicolor</string>
 	</array>
+	<key>info.bubble</key>
+	<array>
+		<string>communication</string>
+	</array>
+	<key>info.windshield</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
 	<key>internaldrive</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
 	<key>ivfluid.bag</key>
 	<array>
+		<string>health</string>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
@@ -2222,7 +4077,30 @@
 	</array>
 	<key>key</key>
 	<array>
+		<string>automotive</string>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>key.horizontal</key>
+	<array>
+		<string>automotive</string>
+		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
+		<string>whatsnew</string>
+	</array>
+	<key>key.radiowaves.forward</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
+		<string>variablecolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>key.viewfinder</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>keyboard</key>
 	<array>
@@ -2230,6 +4108,12 @@
 		<string>keyboard</string>
 	</array>
 	<key>keyboard.badge.ellipsis</key>
+	<array>
+		<string>devices</string>
+		<string>keyboard</string>
+		<string>multicolor</string>
+	</array>
+	<key>keyboard.badge.eye</key>
 	<array>
 		<string>devices</string>
 		<string>keyboard</string>
@@ -2257,6 +4141,11 @@
 	<array>
 		<string>devices</string>
 		<string>keyboard</string>
+	</array>
+	<key>kph</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
 	</array>
 	<key>l.joystick</key>
 	<array>
@@ -2302,6 +4191,31 @@
 	<array>
 		<string>nature</string>
 	</array>
+	<key>lamp.ceiling</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>lamp.desk</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>lamp.floor</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>lamp.table</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>lane</key>
+	<array>
+		<string>fitness</string>
+		<string>whatsnew</string>
+	</array>
 	<key>lanyardcard</key>
 	<array>
 		<string>uncategorized</string>
@@ -2313,6 +4227,11 @@
 	<key>laptopcomputer.and.arrow.down</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>laptopcomputer.slash</key>
+	<array>
+		<string>devices</string>
+		<string>whatsnew</string>
 	</array>
 	<key>laptopcomputer.trianglebadge.exclamationmark</key>
 	<array>
@@ -2337,6 +4256,14 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>laurel.leading</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>laurel.trailing</key>
+	<array>
+		<string>nature</string>
+	</array>
 	<key>lb.rectangle.roundedbottom</key>
 	<array>
 		<string>gaming</string>
@@ -2352,10 +4279,28 @@
 	</array>
 	<key>level</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>lifepreserver</key>
 	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>light.beacon.max</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>light.beacon.min</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>light.cylindrical.ceiling</key>
+	<array>
+		<string>home</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>light.max</key>
@@ -2366,13 +4311,74 @@
 	<array>
 		<string>keyboard</string>
 	</array>
+	<key>light.overhead.left</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>light.overhead.right</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>light.panel</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>light.recessed</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>light.recessed.3</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>light.ribbon</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>light.strip.2</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>lightbulb</key>
 	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>lightbulb.2</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>lightbulb.led</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>lightbulb.led.wide</key>
+	<array>
+		<string>home</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>lightbulb.slash</key>
 	<array>
+		<string>home</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>lightswitch.off</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>lightswitch.on</key>
+	<array>
+		<string>home</string>
 	</array>
 	<key>line.3.horizontal</key>
 	<array>
@@ -2400,7 +4406,8 @@
 	</array>
 	<key>lines.measurement.horizontal</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>lineweight</key>
 	<array>
@@ -2419,6 +4426,12 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>list.bullet.clipboard</key>
+	<array>
+		<string>health</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>list.bullet.rectangle</key>
 	<array>
 		<string>uncategorized</string>
@@ -2427,9 +4440,19 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>list.clipboard</key>
+	<array>
+		<string>health</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>list.dash.header.rectangle</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>lizard</key>
+	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 	</array>
 	<key>location</key>
 	<array>
@@ -2462,66 +4485,103 @@
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.desktopcomputer</key>
 	<array>
 		<string>devices</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.display</key>
 	<array>
 		<string>devices</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.doc</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.laptopcomputer</key>
 	<array>
 		<string>devices</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.open</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.open.desktopcomputer</key>
 	<array>
 		<string>devices</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.open.display</key>
 	<array>
 		<string>devices</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.open.laptopcomputer</key>
 	<array>
 		<string>devices</string>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>lock.open.rotation</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
+		<string>whatsnew</string>
+	</array>
+	<key>lock.open.trianglebadge.exclamationmark</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.rectangle</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.rectangle.on.rectangle</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.rectangle.stack</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.rotation</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.rotation.open</key>
 	<array>
-		<string>objectsandtools</string>
+		<string>uncategorized</string>
 	</array>
 	<key>lock.shield</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>lock.slash</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>lock.trianglebadge.exclamationmark</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>loupe</key>
 	<array>
@@ -2533,8 +4593,13 @@
 	</array>
 	<key>lungs</key>
 	<array>
+		<string>health</string>
 		<string>human</string>
 		<string>multicolor</string>
+	</array>
+	<key>macstudio</key>
+	<array>
+		<string>devices</string>
 	</array>
 	<key>macwindow</key>
 	<array>
@@ -2542,11 +4607,11 @@
 	</array>
 	<key>macwindow.on.rectangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>macwindow.on.rectangle.rtl</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>magazine</key>
 	<array>
@@ -2570,11 +4635,11 @@
 	</array>
 	<key>mail.and.text.magnifyingglass</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>mail.and.text.magnifyingglass.rtl</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>mail.stack</key>
 	<array>
@@ -2593,14 +4658,25 @@
 	<array>
 		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>mappin.slash</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>medal</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>mediastick</key>
 	<array>
 		<string>devices</string>
+	</array>
+	<key>medical.thermometer</key>
+	<array>
+		<string>health</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>megaphone</key>
 	<array>
@@ -2647,9 +4723,26 @@
 		<string>communication</string>
 		<string>multicolor</string>
 	</array>
+	<key>mic.and.signal.meter</key>
+	<array>
+		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
 	<key>mic.slash</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
+	</array>
+	<key>microbe</key>
+	<array>
+		<string>health</string>
+		<string>nature</string>
+	</array>
+	<key>microwave</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>minus</key>
 	<array>
@@ -2663,6 +4756,7 @@
 	</array>
 	<key>minus.magnifyingglass</key>
 	<array>
+		<string>accessibility</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>minus.rectangle</key>
@@ -2674,17 +4768,89 @@
 	<array>
 		<string>multicolor</string>
 	</array>
+	<key>mirror.side.left</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+	</array>
+	<key>mirror.side.left.and.arrow.turn.down.right</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>mirror.side.left.and.heat.waves</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>mirror.side.right</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+	</array>
+	<key>mirror.side.right.and.arrow.turn.down.left</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>mirror.side.right.and.heat.waves</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
 	<key>moon</key>
 	<array>
+		<string>nature</string>
+		<string>weather</string>
+	</array>
+	<key>moon.haze</key>
+	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>moon.stars</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>moon.zzz</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>moonphase.first.quarter</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>moonphase.full.moon</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>moonphase.last.quarter</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>moonphase.new.moon</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>moonphase.waning.crescent</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>moonphase.waning.gibbous</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>moonphase.waxing.crescent</key>
+	<array>
+		<string>nature</string>
+	</array>
+	<key>moonphase.waxing.gibbous</key>
+	<array>
+		<string>nature</string>
 	</array>
 	<key>mosaic</key>
 	<array>
@@ -2694,6 +4860,12 @@
 	<array>
 		<string>keyboard</string>
 	</array>
+	<key>mountain.2</key>
+	<array>
+		<string>multicolor</string>
+		<string>nature</string>
+		<string>whatsnew</string>
+	</array>
 	<key>mouth</key>
 	<array>
 		<string>human</string>
@@ -2701,6 +4873,16 @@
 	<key>move.3d</key>
 	<array>
 		<string>editing</string>
+	</array>
+	<key>mph</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>mug</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
 	</array>
 	<key>multiply</key>
 	<array>
@@ -2753,7 +4935,11 @@
 	</array>
 	<key>nosign</key>
 	<array>
-		<string>uncategorized</string>
+		<string>privacyandsecurity</string>
+	</array>
+	<key>nosign.app</key>
+	<array>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>note</key>
 	<array>
@@ -2767,9 +4953,19 @@
 	<array>
 		<string>math</string>
 	</array>
+	<key>oar.2.crossed</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>octagon</key>
 	<array>
 		<string>shapes</string>
+	</array>
+	<key>oilcan</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
 	</array>
 	<key>opticaldisc</key>
 	<array>
@@ -2790,6 +4986,11 @@
 	<key>oval.portrait</key>
 	<array>
 		<string>shapes</string>
+	</array>
+	<key>oven</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>paintbrush</key>
 	<array>
@@ -2817,6 +5018,7 @@
 	</array>
 	<key>paperclip.badge.ellipsis</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>paperplane</key>
@@ -2831,9 +5033,27 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>parkinglight</key>
+	<array>
+		<string>automotive</string>
+	</array>
 	<key>parkingsign</key>
 	<array>
-		<string>uncategorized</string>
+		<string>automotive</string>
+	</array>
+	<key>parkingsign.brakesignal</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>parkingsign.brakesignal.slash</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>party.popper</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>pause</key>
 	<array>
@@ -2856,6 +5076,18 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>pedestrian.gate.closed</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>pedestrian.gate.open</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>pencil</key>
 	<array>
 		<string>editing</string>
@@ -2866,6 +5098,15 @@
 		<string>uncategorized</string>
 	</array>
 	<key>pencil.and.outline</key>
+	<array>
+		<string>editing</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>pencil.and.ruler</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>pencil.line</key>
 	<array>
 		<string>editing</string>
 		<string>objectsandtools</string>
@@ -2891,9 +5132,23 @@
 	<array>
 		<string>human</string>
 	</array>
+	<key>person.2.badge.gearshape</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>person.2.gobackward</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>person.2.slash</key>
+	<array>
+		<string>human</string>
+	</array>
 	<key>person.2.wave.2</key>
 	<array>
 		<string>human</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>person.3</key>
 	<array>
@@ -2903,7 +5158,25 @@
 	<array>
 		<string>human</string>
 	</array>
+	<key>person.and.background.dotted</key>
+	<array>
+		<string>human</string>
+	</array>
 	<key>person.badge.clock</key>
+	<array>
+		<string>human</string>
+		<string>multicolor</string>
+	</array>
+	<key>person.badge.key</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>person.badge.shield.checkmark</key>
+	<array>
+		<string>human</string>
+		<string>multicolor</string>
+	</array>
+	<key>person.bust</key>
 	<array>
 		<string>human</string>
 	</array>
@@ -2919,6 +5192,10 @@
 	<array>
 		<string>human</string>
 	</array>
+	<key>person.line.dotted.person</key>
+	<array>
+		<string>human</string>
+	</array>
 	<key>person.text.rectangle</key>
 	<array>
 		<string>human</string>
@@ -2926,6 +5203,8 @@
 	<key>person.wave.2</key>
 	<array>
 		<string>human</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>personalhotspot</key>
 	<array>
@@ -2934,7 +5213,9 @@
 	</array>
 	<key>perspective</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>editing</string>
+		<string>multicolor</string>
 	</array>
 	<key>phone</key>
 	<array>
@@ -2944,6 +5225,8 @@
 	<key>phone.and.waveform</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>phone.arrow.down.left</key>
 	<array>
@@ -2956,6 +5239,11 @@
 	<key>phone.arrow.up.right</key>
 	<array>
 		<string>communication</string>
+	</array>
+	<key>phone.badge.checkmark</key>
+	<array>
+		<string>communication</string>
+		<string>multicolor</string>
 	</array>
 	<key>phone.bubble.left</key>
 	<array>
@@ -2970,21 +5258,33 @@
 		<string>communication</string>
 		<string>multicolor</string>
 	</array>
+	<key>phone.down.waves.left.and.right</key>
+	<array>
+		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
 	<key>photo</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>photo.artframe</key>
 	<array>
-		<string>uncategorized</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>photo.on.rectangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
 	</array>
 	<key>photo.on.rectangle.angled</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+	</array>
+	<key>photo.stack</key>
+	<array>
+		<string>cameraandphotos</string>
 	</array>
 	<key>photo.tv</key>
 	<array>
@@ -2994,9 +5294,17 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>pill</key>
+	<array>
+		<string>health</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>pills</key>
 	<array>
 		<string>health</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>pin</key>
 	<array>
@@ -3009,27 +5317,43 @@
 	</array>
 	<key>pip</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>pip.enter</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>pip.exit</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>pip.remove</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>pip.swap</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+	</array>
+	<key>pipe.and.drop</key>
+	<array>
+		<string>home</string>
 	</array>
 	<key>play</key>
 	<array>
 		<string>media</string>
+	</array>
+	<key>play.desktopcomputer</key>
+	<array>
+		<string>devices</string>
+	</array>
+	<key>play.display</key>
+	<array>
+		<string>devices</string>
+	</array>
+	<key>play.laptopcomputer</key>
+	<array>
+		<string>devices</string>
 	</array>
 	<key>play.rectangle</key>
 	<array>
@@ -3037,7 +5361,7 @@
 	</array>
 	<key>play.rectangle.on.rectangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>play.slash</key>
 	<array>
@@ -3050,6 +5374,10 @@
 	<key>playpause</key>
 	<array>
 		<string>media</string>
+	</array>
+	<key>playstation.logo</key>
+	<array>
+		<string>gaming</string>
 	</array>
 	<key>plus</key>
 	<array>
@@ -3071,6 +5399,7 @@
 	</array>
 	<key>plus.magnifyingglass</key>
 	<array>
+		<string>accessibility</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>plus.rectangle</key>
@@ -3080,11 +5409,12 @@
 	</array>
 	<key>plus.rectangle.on.folder</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>plus.rectangle.on.rectangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>plus.rectangle.portrait</key>
 	<array>
@@ -3092,10 +5422,11 @@
 	</array>
 	<key>plus.viewfinder</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>plusminus</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>math</string>
 	</array>
 	<key>point.3.connected.trianglepath.dotted</key>
@@ -3104,7 +5435,12 @@
 	</array>
 	<key>point.topleft.down.curvedto.point.bottomright.up</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+	</array>
+	<key>popcorn</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>power</key>
 	<array>
@@ -3121,6 +5457,71 @@
 	<key>poweron</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>poweroutlet.strip</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>poweroutlet.type.a</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.b</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.c</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.d</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.e</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.f</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.g</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.h</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.i</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.j</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.k</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.l</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.m</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.n</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>poweroutlet.type.o</key>
+	<array>
+		<string>home</string>
 	</array>
 	<key>powerplug</key>
 	<array>
@@ -3180,6 +5581,10 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>questionmark.bubble</key>
+	<array>
+		<string>communication</string>
+	</array>
 	<key>questionmark.diamond</key>
 	<array>
 		<string>multicolor</string>
@@ -3190,10 +5595,12 @@
 	</array>
 	<key>quote.bubble</key>
 	<array>
+		<string>accessibility</string>
 		<string>communication</string>
 	</array>
 	<key>quote.bubble.rtl</key>
 	<array>
+		<string>accessibility</string>
 		<string>communication</string>
 	</array>
 	<key>quote.closing</key>
@@ -3258,7 +5665,8 @@
 	</array>
 	<key>rays</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>rb.rectangle.roundedbottom</key>
 	<array>
@@ -3282,6 +5690,7 @@
 	</array>
 	<key>rectangle.3.group.bubble.left</key>
 	<array>
+		<string>accessibility</string>
 		<string>communication</string>
 	</array>
 	<key>rectangle.3.offgrid</key>
@@ -3294,15 +5703,16 @@
 	</array>
 	<key>rectangle.and.arrow.up.right.and.arrow.down.left</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>rectangle.and.arrow.up.right.and.arrow.down.left.slash</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>rectangle.and.hand.point.up.left</key>
 	<array>
 		<string>human</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.and.paperclip</key>
 	<array>
@@ -3311,20 +5721,26 @@
 	<key>rectangle.and.pencil.and.ellipsis</key>
 	<array>
 		<string>editing</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>rectangle.and.pencil.and.ellipsis.rtl</key>
 	<array>
 		<string>editing</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>rectangle.and.text.magnifyingglass</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.and.text.magnifyingglass.rtl</key>
 	<array>
-		<string>uncategorized</string>
+		<string>accessibility</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.arrowtriangle.2.inward</key>
 	<array>
@@ -3341,6 +5757,7 @@
 	<key>rectangle.badge.person.crop</key>
 	<array>
 		<string>human</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.compress.vertical</key>
 	<array>
@@ -3385,10 +5802,11 @@
 	<key>rectangle.on.rectangle</key>
 	<array>
 		<string>gaming</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.on.rectangle.angled</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.on.rectangle.slash</key>
 	<array>
@@ -3397,6 +5815,10 @@
 	<key>rectangle.portrait</key>
 	<array>
 		<string>shapes</string>
+	</array>
+	<key>rectangle.portrait.and.arrow.forward</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>rectangle.portrait.and.arrow.right</key>
 	<array>
@@ -3412,7 +5834,11 @@
 	</array>
 	<key>rectangle.portrait.on.rectangle.portrait</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+	</array>
+	<key>rectangle.portrait.on.rectangle.portrait.angled</key>
+	<array>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.portrait.on.rectangle.portrait.slash</key>
 	<array>
@@ -3475,10 +5901,11 @@
 	<key>rectangle.stack.badge.person.crop</key>
 	<array>
 		<string>human</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.stack.badge.play</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>rectangle.stack.person.crop</key>
 	<array>
@@ -3487,6 +5914,11 @@
 	<key>rectangle.topthird.inset</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>refrigerator</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>repeat</key>
 	<array>
@@ -3499,6 +5931,11 @@
 	<key>restart</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>retarder.brakesignal</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
 	</array>
 	<key>return</key>
 	<array>
@@ -3515,6 +5952,39 @@
 	<key>rhombus</key>
 	<array>
 		<string>shapes</string>
+	</array>
+	<key>road.lane.arrowtriangle.2.inward</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>road.lanes</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>road.lanes.curved.left</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>road.lanes.curved.right</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>roller.shade.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>roller.shade.open</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>roman.shade.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>roman.shade.open</key>
+	<array>
+		<string>home</string>
 	</array>
 	<key>rosette</key>
 	<array>
@@ -3540,6 +6010,11 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>sailboat</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>transportation</string>
+	</array>
 	<key>scale.3d</key>
 	<array>
 		<string>editing</string>
@@ -3561,6 +6036,7 @@
 	<key>scissors.badge.ellipsis</key>
 	<array>
 		<string>editing</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>scooter</key>
@@ -3569,7 +6045,7 @@
 	</array>
 	<key>scope</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>screwdriver</key>
 	<array>
@@ -3593,23 +6069,45 @@
 	</array>
 	<key>seal</key>
 	<array>
+		<string>privacyandsecurity</string>
 		<string>shapes</string>
 	</array>
 	<key>selection.pin.in.out</key>
 	<array>
 		<string>editing</string>
 	</array>
+	<key>sensor</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
 	<key>sensor.tag.radiowaves.forward</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>server.rack</key>
 	<array>
 		<string>devices</string>
 	</array>
+	<key>shared.with.you</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>shared.with.you.slash</key>
+	<array>
+		<string>human</string>
+	</array>
+	<key>shazam.logo</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>shield</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 		<string>shapes</string>
 	</array>
 	<key>shield.checkerboard</key>
@@ -3619,6 +6117,7 @@
 	<key>shield.slash</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>shift</key>
 	<array>
@@ -3627,6 +6126,31 @@
 	<key>shippingbox</key>
 	<array>
 		<string>objectsandtools</string>
+	</array>
+	<key>shippingbox.and.arrow.backward</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>shower</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>variablecolor</string>
+	</array>
+	<key>shower.handheld</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>variablecolor</string>
+	</array>
+	<key>shower.sidejet</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>shuffle</key>
 	<array>
@@ -3648,13 +6172,23 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>signpost.and.arrowtriangle.up</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
 	<key>signpost.left</key>
 	<array>
-		<string>uncategorized</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>signpost.right</key>
 	<array>
-		<string>uncategorized</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>signpost.right.and.left</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
 	</array>
 	<key>simcard</key>
 	<array>
@@ -3662,6 +6196,12 @@
 	</array>
 	<key>simcard.2</key>
 	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>sink</key>
+	<array>
+		<string>home</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>skew</key>
@@ -3671,6 +6211,10 @@
 	<key>sleep</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>slider.horizontal.2.gobackward</key>
+	<array>
+		<string>editing</string>
 	</array>
 	<key>slider.horizontal.3</key>
 	<array>
@@ -3686,7 +6230,8 @@
 	</array>
 	<key>slowmo</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>smiley</key>
 	<array>
@@ -3694,6 +6239,7 @@
 	</array>
 	<key>smoke</key>
 	<array>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>snow</key>
@@ -3702,8 +6248,45 @@
 	</array>
 	<key>snowflake</key>
 	<array>
+		<string>automotive</string>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
+	</array>
+	<key>snowflake.road.lane</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>snowflake.road.lane.dashed</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>snowflake.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>nature</string>
+		<string>weather</string>
+		<string>whatsnew</string>
+	</array>
+	<key>soccerball</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>sofa</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>sos</key>
+	<array>
+		<string>whatsnew</string>
+	</array>
+	<key>space</key>
+	<array>
+		<string>keyboard</string>
 	</array>
 	<key>sparkle</key>
 	<array>
@@ -3716,6 +6299,7 @@
 	<key>sparkles</key>
 	<array>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>sparkles.rectangle.stack</key>
@@ -3757,15 +6341,33 @@
 	</array>
 	<key>speaker.wave.1</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>speaker.wave.2</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
+	</array>
+	<key>speaker.wave.2.bubble.left</key>
+	<array>
+		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
+	<key>speaker.wave.2.bubble.left.rtl</key>
+	<array>
+		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>speaker.wave.3</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>speaker.zzz</key>
 	<array>
@@ -3779,19 +6381,55 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>spigot</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>sportscourt</key>
 	<array>
-		<string>uncategorized</string>
+		<string>fitness</string>
+	</array>
+	<key>sprinkler</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>sprinkler.and.droplets</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>square</key>
 	<array>
 		<string>shapes</string>
 	</array>
+	<key>square.2.layers.3d</key>
+	<array>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+	</array>
 	<key>square.2.stack.3d</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>square.3.layers.3d</key>
+	<array>
+		<string>cameraandphotos</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
+	<key>square.3.layers.3d.slash</key>
+	<array>
+		<string>cameraandphotos</string>
+	</array>
 	<key>square.3.stack.3d</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>square.3.stack.3d.slash</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
@@ -3819,6 +6457,10 @@
 	<key>square.dashed</key>
 	<array>
 		<string>editing</string>
+	</array>
+	<key>square.dotted</key>
+	<array>
+		<string>uncategorized</string>
 	</array>
 	<key>square.grid.2x2</key>
 	<array>
@@ -3854,7 +6496,7 @@
 	</array>
 	<key>square.split.bottomrightquarter</key>
 	<array>
-		<string>uncategorized</string>
+		<string>home</string>
 	</array>
 	<key>square.split.diagonal</key>
 	<array>
@@ -3874,23 +6516,27 @@
 	</array>
 	<key>square.stack.3d.down.forward</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>square.stack.3d.down.right</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>square.stack.3d.forward.dottedline</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>square.stack.3d.up</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>square.stack.3d.up.badge.a</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>square.stack.3d.up.slash</key>
 	<array>
@@ -3900,7 +6546,15 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>squares.leading.rectangle</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
 	<key>squareshape</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>squareshape.dotted.split.2x2</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
@@ -3915,6 +6569,10 @@
 	<key>squareshape.split.3x3</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>stairs</key>
+	<array>
+		<string>home</string>
 	</array>
 	<key>star</key>
 	<array>
@@ -3932,6 +6590,46 @@
 	<array>
 		<string>health</string>
 	</array>
+	<key>steeringwheel</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>steeringwheel.and.heat.waves</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>steeringwheel.and.key</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>steeringwheel.and.lock</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>steeringwheel.exclamationmark</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>steeringwheel.road.lane</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>steeringwheel.road.lane.dashed</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>steeringwheel.slash</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
 	<key>stethoscope</key>
 	<array>
 		<string>multicolor</string>
@@ -3946,6 +6644,16 @@
 		<string>multicolor</string>
 		<string>objectsandtools</string>
 		<string>time</string>
+	</array>
+	<key>stove</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>stroller</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
 	</array>
 	<key>studentdesk</key>
 	<array>
@@ -3975,43 +6683,124 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>suitcase.rolling</key>
+	<array>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
 	<key>sum</key>
 	<array>
 		<string>math</string>
 	</array>
 	<key>sun.and.horizon</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>sun.dust</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>sun.haze</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>sun.max</key>
 	<array>
 		<string>keyboard</string>
+		<string>nature</string>
+		<string>weather</string>
+	</array>
+	<key>sun.max.trianglebadge.exclamationmark</key>
+	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>sun.min</key>
 	<array>
 		<string>keyboard</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>sunrise</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>sunset</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
+	</array>
+	<key>suv.side</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.air.circulate</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.air.fresh</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.and.exclamationmark</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.arrowtriangle.down</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.arrowtriangle.up</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.arrowtriangle.up.arrowtriangle.down</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.front.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>suv.side.rear.open</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>swatchpalette</key>
+	<array>
+		<string>objectsandtools</string>
 	</array>
 	<key>switch.2</key>
 	<array>
 		<string>uncategorized</string>
+	</array>
+	<key>switch.programmable</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>syringe</key>
+	<array>
+		<string>health</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>t.bubble</key>
 	<array>
@@ -4025,13 +6814,18 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>table.furniture</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>tablecells</key>
 	<array>
 		<string>uncategorized</string>
 	</array>
 	<key>tablecells.badge.ellipsis</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>tag</key>
 	<array>
@@ -4041,13 +6835,43 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>taillight.fog</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
 	<key>takeoutbag.and.cup.and.straw</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
 	<key>target</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
+	</array>
+	<key>teddybear</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>tennis.racket</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>tennisball</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>tent</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>tent.2</key>
+	<array>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
 	</array>
 	<key>terminal</key>
 	<array>
@@ -4080,11 +6904,11 @@
 	</array>
 	<key>text.below.photo</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>text.below.photo.rtl</key>
 	<array>
-		<string>uncategorized</string>
+		<string>cameraandphotos</string>
 	</array>
 	<key>text.book.closed</key>
 	<array>
@@ -4118,6 +6942,14 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>text.line.first.and.arrowtriangle.forward</key>
+	<array>
+		<string>media</string>
+	</array>
+	<key>text.line.last.and.arrowtriangle.forward</key>
+	<array>
+		<string>media</string>
+	</array>
 	<key>text.magnifyingglass</key>
 	<array>
 		<string>objectsandtools</string>
@@ -4146,23 +6978,63 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>theatermask.and.paintbrush</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
 	<key>theatermasks</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
 	</array>
 	<key>thermometer</key>
 	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>thermometer.and.liquid.waves</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>thermometer.brakesignal</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>thermometer.high</key>
+	<array>
 		<string>multicolor</string>
+		<string>weather</string>
+	</array>
+	<key>thermometer.low</key>
+	<array>
+		<string>multicolor</string>
+		<string>weather</string>
+	</array>
+	<key>thermometer.medium</key>
+	<array>
+		<string>multicolor</string>
+		<string>weather</string>
+	</array>
+	<key>thermometer.medium.slash</key>
+	<array>
 		<string>weather</string>
 	</array>
 	<key>thermometer.snowflake</key>
 	<array>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>thermometer.sun</key>
 	<array>
+		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
+	</array>
+	<key>thermometer.transmission</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
 	</array>
 	<key>ticket</key>
 	<array>
@@ -4170,7 +7042,8 @@
 	</array>
 	<key>timelapse</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>timeline.selection</key>
 	<array>
@@ -4186,13 +7059,20 @@
 	<array>
 		<string>uncategorized</string>
 	</array>
+	<key>toilet</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>tornado</key>
 	<array>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>tortoise</key>
 	<array>
+		<string>accessibility</string>
 		<string>nature</string>
 	</array>
 	<key>torus</key>
@@ -4215,12 +7095,19 @@
 	<array>
 		<string>transportation</string>
 	</array>
+	<key>transmission</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
 	<key>trapezoid.and.line.horizontal</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>editing</string>
 	</array>
 	<key>trapezoid.and.line.vertical</key>
 	<array>
+		<string>cameraandphotos</string>
 		<string>editing</string>
 	</array>
 	<key>trash</key>
@@ -4253,18 +7140,31 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>tree</key>
+	<array>
+		<string>nature</string>
+		<string>objectsandtools</string>
+		<string>whatsnew</string>
+	</array>
 	<key>triangle</key>
 	<array>
 		<string>shapes</string>
 	</array>
+	<key>trophy</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>tropicalstorm</key>
 	<array>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>tshirt</key>
 	<array>
 		<string>human</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>tuningfork</key>
 	<array>
@@ -4290,6 +7190,15 @@
 	<array>
 		<string>objectsandtools</string>
 	</array>
+	<key>umbrella.percent</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
+	<key>vial.viewfinder</key>
+	<array>
+		<string>health</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>view.2d</key>
 	<array>
 		<string>uncategorized</string>
@@ -4300,7 +7209,12 @@
 	</array>
 	<key>viewfinder</key>
 	<array>
-		<string>uncategorized</string>
+		<string>shapes</string>
+	</array>
+	<key>volleyball</key>
+	<array>
+		<string>fitness</string>
+		<string>objectsandtools</string>
 	</array>
 	<key>wake</key>
 	<array>
@@ -4313,45 +7227,99 @@
 	<key>wand.and.rays</key>
 	<array>
 		<string>editing</string>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>wand.and.stars</key>
 	<array>
 		<string>editing</string>
 		<string>objectsandtools</string>
 	</array>
+	<key>washer</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
+	<key>water.waves</key>
+	<array>
+		<string>fitness</string>
+		<string>multicolor</string>
+		<string>nature</string>
+		<string>variablecolor</string>
+	</array>
+	<key>water.waves.and.arrow.down</key>
+	<array>
+		<string>fitness</string>
+		<string>multicolor</string>
+		<string>nature</string>
+		<string>variablecolor</string>
+	</array>
+	<key>water.waves.and.arrow.down.trianglebadge.exclamationmark</key>
+	<array>
+		<string>fitness</string>
+		<string>multicolor</string>
+		<string>nature</string>
+	</array>
+	<key>water.waves.and.arrow.up</key>
+	<array>
+		<string>fitness</string>
+		<string>multicolor</string>
+		<string>nature</string>
+		<string>variablecolor</string>
+	</array>
+	<key>water.waves.slash</key>
+	<array>
+		<string>fitness</string>
+		<string>nature</string>
+	</array>
 	<key>wave.3.backward</key>
 	<array>
 		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>wave.3.forward</key>
 	<array>
 		<string>connectivity</string>
+		<string>variablecolor</string>
 	</array>
 	<key>wave.3.left</key>
 	<array>
 		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>wave.3.right</key>
 	<array>
 		<string>connectivity</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>waveform</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>waveform.and.magnifyingglass</key>
 	<array>
+		<string>accessibility</string>
 		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>waveform.and.mic</key>
 	<array>
 		<string>communication</string>
+		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>waveform.badge.exclamationmark</key>
 	<array>
 		<string>communication</string>
 		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>waveform.path</key>
 	<array>
@@ -4366,14 +7334,31 @@
 		<string>health</string>
 		<string>multicolor</string>
 	</array>
+	<key>waveform.slash</key>
+	<array>
+		<string>communication</string>
+	</array>
+	<key>web.camera</key>
+	<array>
+		<string>home</string>
+		<string>objectsandtools</string>
+	</array>
 	<key>wifi</key>
 	<array>
 		<string>connectivity</string>
 		<string>multicolor</string>
+		<string>variablecolor</string>
 	</array>
 	<key>wifi.exclamationmark</key>
 	<array>
 		<string>connectivity</string>
+	</array>
+	<key>wifi.router</key>
+	<array>
+		<string>home</string>
+		<string>multicolor</string>
+		<string>objectsandtools</string>
+		<string>variablecolor</string>
 	</array>
 	<key>wifi.slash</key>
 	<array>
@@ -4382,20 +7367,186 @@
 	<key>wind</key>
 	<array>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
 	<key>wind.snow</key>
 	<array>
 		<string>multicolor</string>
+		<string>nature</string>
 		<string>weather</string>
 	</array>
+	<key>window.awning</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.awning.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.casement</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.casement.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.ceiling</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.ceiling.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.horizontal</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.horizontal.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.shade.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.shade.open</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.vertical.closed</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>window.vertical.open</key>
+	<array>
+		<string>home</string>
+	</array>
+	<key>windshield.front.and.fluid</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>windshield.front.and.fluid.and.spray</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.front.and.heat.waves</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.front.and.spray</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.front.and.wiper</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+	</array>
+	<key>windshield.front.and.wiper.and.drop</key>
+	<array>
+		<string>automotive</string>
+	</array>
+	<key>windshield.front.and.wiper.and.spray</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.front.and.wiper.exclamationmark</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.front.and.wiper.intermittent</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.rear.and.fluid</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>windshield.rear.and.fluid.and.spray</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.rear.and.heat.waves</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.rear.and.spray</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.rear.and.wiper</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+	</array>
+	<key>windshield.rear.and.wiper.and.drop</key>
+	<array>
+		<string>automotive</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.rear.and.wiper.and.spray</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.rear.and.wiper.exclamationmark</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>windshield.rear.and.wiper.intermittent</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>wineglass</key>
+	<array>
+		<string>objectsandtools</string>
+	</array>
 	<key>wrench</key>
+	<array>
+		<string>uncategorized</string>
+	</array>
+	<key>wrench.adjustable</key>
 	<array>
 		<string>objectsandtools</string>
 	</array>
 	<key>wrench.and.screwdriver</key>
 	<array>
+		<string>multicolor</string>
 		<string>objectsandtools</string>
+	</array>
+	<key>wrongwaysign</key>
+	<array>
+		<string>automotive</string>
+		<string>multicolor</string>
+		<string>whatsnew</string>
+	</array>
+	<key>xbox.logo</key>
+	<array>
+		<string>gaming</string>
 	</array>
 	<key>xmark</key>
 	<array>
@@ -4412,7 +7563,7 @@
 	</array>
 	<key>xmark.diamond</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>xmark.octagon</key>
 	<array>
@@ -4420,19 +7571,20 @@
 	</array>
 	<key>xmark.rectangle</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>xmark.rectangle.portrait</key>
 	<array>
-		<string>uncategorized</string>
+		<string>multicolor</string>
 	</array>
 	<key>xmark.seal</key>
 	<array>
-		<string>uncategorized</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>xmark.shield</key>
 	<array>
 		<string>objectsandtools</string>
+		<string>privacyandsecurity</string>
 	</array>
 	<key>zl.rectangle.roundedtop</key>
 	<array>

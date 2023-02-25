@@ -44,10 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
 
-        // After tons of tweaking this I'm still not sure what to do.
-        // Setting it helps maintain lower memory usage, providing a boost to snappiness.
-        // The trade-off is that it seems to cap performance overall.
-        // SDImageCache.shared.config.maxMemoryCost = 1024 * 1024 * 512 // MB
+        SDImageCache.shared.config.maxMemoryCost = 1_000_000 * 24 // MiB
     }
 
     private func resetUserDefaultsIfNeeded() {

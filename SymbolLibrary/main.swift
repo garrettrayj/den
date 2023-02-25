@@ -10,9 +10,9 @@
 
 import Foundation
 
-let categoriesPath       = "/Applications/SF Symbols.app/Contents/Resources/categories.plist"
-let nameAvailabilityPath = "/Applications/SF Symbols.app/Contents/Resources/name_availability.plist"
-let symbolCategoriesPath = "/Applications/SF Symbols.app/Contents/Resources/symbol_categories.plist"
+let categoriesPath       = "/Applications/SF Symbols.app/Contents/Resources/Metadata-Public/categories.plist"
+let nameAvailabilityPath = "/Applications/SF Symbols.app/Contents/Resources/Metadata-Public/name_availability.plist"
+let symbolCategoriesPath = "/Applications/SF Symbols.app/Contents/Resources/Metadata-Public/symbol_categories.plist"
 
 let categories = NSDictionary(contentsOfFile: categoriesPath)
 let nameAvailability = NSDictionary(contentsOfFile: nameAvailabilityPath)
