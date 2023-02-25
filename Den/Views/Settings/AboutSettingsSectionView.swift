@@ -32,6 +32,7 @@ struct AboutSettingsSectionView: View {
                     Text("https://den.io")
                 }
             }
+            .buttonStyle(.plain)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
         } header: {

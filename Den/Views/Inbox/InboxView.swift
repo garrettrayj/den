@@ -39,10 +39,7 @@ struct InboxView: View {
         .navigationTitle("Inbox")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                InboxBottomBarView(
-                    profile: profile,
-                    hideRead: $hideRead
-                )
+                InboxBottomBarView(profile: profile, hideRead: $hideRead)
             }
         }
     }
