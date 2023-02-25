@@ -14,9 +14,11 @@ import SwiftUI
 import AEXML
 
 final class OPMLWriter {
+    let title: String
     private var pages: [Page]
 
-    init(pages: [Page]) {
+    init(title: String, pages: [Page]) {
+        self.title = title
         self.pages = pages
     }
 
@@ -25,7 +27,7 @@ final class OPMLWriter {
         let root = opmlDocument.addChild(name: "opml", attributes: ["version": "1.0"])
 
         let head = root.addChild(name: "head")
-        head.addChild(name: "title", value: "Den Export")
+        head.addChild(name: "title", value: title)
 
         let body = root.addChild(name: "body")
         pages.forEach { page in
@@ -44,15 +46,13 @@ final class OPMLWriter {
             }
         }
 
-        let fileDate = Date().formatted(date: .abbreviated, time: .omitted).sanitizedForFileName()
-        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        let temporaryFilename = ("Den Export " + fileDate)
-        let temporaryFileUrl = temporaryDirectoryURL
-            .appendingPathComponent(temporaryFilename)
+        let directoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let fileURL = directoryURL
+            .appendingPathComponent(title.sanitizedForFileName())
             .appendingPathExtension("opml")
 
         do {
-            try opmlDocument.xml.write(to: temporaryFileUrl, atomically: true, encoding: String.Encoding.utf8)
+            try opmlDocument.xml.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
         } catch {
             // failed to write file – bad permissions, bad filename, missing permissions,
             // or more likely it can't be converted to the encoding
@@ -62,6 +62,6 @@ final class OPMLWriter {
             """)
         }
 
-        return temporaryFileUrl
+        return fileURL
     }
 }
