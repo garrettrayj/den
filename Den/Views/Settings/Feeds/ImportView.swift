@@ -69,8 +69,9 @@ struct ImportView: View {
     private var pickFileStage: some View {
         VStack {
             Spacer()
-            Text("Choose an OPML file to add feeds from. You'll be able to pick pages in the next step.")
-                .multilineTextAlignment(.center).padding(24)
+            Text("Choose an OPML file to add feeds from. You will be able to pick pages in the next step.")
+                .multilineTextAlignment(.center)
+                .padding(24)
             Spacer()
         }
     }
@@ -101,7 +102,6 @@ struct ImportView: View {
                 }
             }
         }
-
     }
 
     private var errorStage: some View {
@@ -112,7 +112,7 @@ struct ImportView: View {
         VStack(spacing: 16) {
             Spacer()
             Text("Import Complete").font(.title)
-            Text("Added \(feedsImported.count) feeds to \(pagesImported.count) pages")
+            Text("\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile")
             Spacer()
         }
         .padding(24)
