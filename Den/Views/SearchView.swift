@@ -42,13 +42,7 @@ struct SearchView: View {
         .navigationTitle("Search")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                if !searchResults.isEmpty {
-                    HStack(spacing: 0) {
-                        Text("Results for “")
-                        Text(searchModel.query)
-                        Text("”")
-                    }.font(.caption)
-                }
+                Text("Results for “\(searchModel.query)”").font(.caption)
             }
         }
     }

@@ -39,25 +39,26 @@ struct NavigationListView: View {
                 Text("Pages")
             }
         }
+        .disabled(refreshing)
         .navigationTitle(profile.displayName)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                editButton
+                editButton.disabled(refreshing)
             }
             ToolbarItem {
-                AddFeedButtonView(contentSelection: $contentSelection, profile: profile)
+                AddFeedButtonView(contentSelection: $contentSelection, profile: profile).disabled(refreshing)
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                SettingsButtonView(listSelection: $contentSelection)
+                SettingsButtonView(listSelection: $contentSelection).disabled(refreshing)
                 Spacer()
-                AddPageButtonView(profile: profile)
+                AddPageButtonView(profile: profile).disabled(refreshing)
                 StatusView(
                     profile: profile,
                     refreshing: $refreshing,
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                 )
                 Spacer()
-                RefreshButtonView(profile: profile, refreshing: $refreshing)
+                RefreshButtonView(profile: profile, refreshing: $refreshing).disabled(refreshing)
             }
         }
     }

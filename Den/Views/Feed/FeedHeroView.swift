@@ -23,15 +23,15 @@ struct FeedHeroView: View {
                 .cornerRadius(8)
                 .shadow(radius: 3, x: 1, y: 2)
                 .padding()
-                .frame(maxWidth: 400, maxHeight: 240)
         }
-        .frame(maxWidth: .infinity)
+        .aspectRatio(16/9, contentMode: .fit)
+        .frame(maxWidth: .infinity, maxHeight: 240)
         .background {
             WebImage(url: heroImage)
                 .resizable()
                 .scaledToFill()
-                .background(Color(uiColor: .secondarySystemGroupedBackground))
-                .overlay(.thinMaterial)
+                .background(Color(UIColor.systemBackground))
+                .overlay(.ultraThinMaterial)
         }
         .clipped()
     }

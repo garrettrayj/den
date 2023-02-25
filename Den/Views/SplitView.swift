@@ -57,7 +57,6 @@ struct SplitView: View {
                 }
                 .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
                 #endif
-                .disabled(refreshing)
             } detail: {
                 ContentView(
                     activeProfile: $activeProfile,

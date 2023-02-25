@@ -38,9 +38,7 @@ struct HistoryUtility {
         guard let profileObjectID = items.first?.feedData?.feed?.page?.profile?.objectID else { return }
         let itemObjectIDs = items.map { $0.objectID }
 
-        let container = PersistenceController.shared.container
-
-        await container.performBackgroundTask { context in
+        await PersistenceController.shared.container.performBackgroundTask { context in
             guard let profile = context.object(with: profileObjectID) as? Profile else { return }
 
             for itemObjectID in itemObjectIDs {
@@ -48,16 +46,6 @@ struct HistoryUtility {
                 let history = History.create(in: context, profile: profile)
                 history.link = item.link
                 history.visited = .now
-            }
-
-            do {
-                try context.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-
-            for itemObjectID in itemObjectIDs {
-                guard let item = context.object(with: itemObjectID) as? Item else { continue }
                 item.read = true
             }
 
@@ -71,7 +59,6 @@ struct HistoryUtility {
 
     static func clearHistory(items: [Item]) async {
         let itemObjectIDs = items.map { $0.objectID }
-
         let container = PersistenceController.shared.container
 
         await container.performBackgroundTask { context in
@@ -110,10 +97,15 @@ struct HistoryUtility {
                 fetchResults?.forEach { context.delete($0) }
                 itemsRemoved += fetchResults?.count ?? 0
             }
+
             if context.hasChanges {
-                try context.save()
+                do {
+                    try context.save()
+                    Logger.main.info("History cleanup finished. \(itemsRemoved) entries removed")
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
-            Logger.main.info("History cleanup finished. \(itemsRemoved) entries removed")
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

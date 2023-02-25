@@ -44,8 +44,9 @@ struct ProfileSettingsView: View {
                         profile.objectWillChange.send()
                     }
                 } label: {
-                    Label("Switch", systemImage: "arrow.left.arrow.right").labelStyle(.titleAndIcon)
+                    Label("Switch", systemImage: "arrow.left.arrow.right")
                 }
+                .labelStyle(.titleAndIcon)
                 .buttonStyle(PlainToolbarButtonStyle())
                 .disabled(isActive)
                 .foregroundColor(isActive ? .secondary : nil)
