@@ -31,12 +31,8 @@ struct FeedView: View {
             ) { _, items in
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-
                 } else if items.isEmpty {
-                    AllReadStatusView()
-                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                        .cornerRadius(8)
-                        .modifier(SectionContentPaddingModifier())
+                    AllReadSplashNoteView()
                 } else {
                     GeometryReader { geometry in
                         ScrollView(.vertical) {

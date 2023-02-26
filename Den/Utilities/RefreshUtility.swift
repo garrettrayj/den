@@ -15,6 +15,7 @@ import FeedKit
 
 struct RefreshUtility {
     static func refresh(profile: Profile) async {
+        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
         let container = PersistenceController.shared.container
 
         DispatchQueue.main.async {
@@ -44,20 +45,19 @@ struct RefreshUtility {
             }
         }
 
-        _ = await withTaskGroup(
-            of: Void.self,
-            returning: Void.self,
-            body: { taskGroup in
-                for (idx, operation) in feedOps.enumerated() {
-                    if idx % 6 == 5 { // max of six at a time
+        _ = await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
+                var working: Int = 0
+                for operation in feedOps {
+                    if working >= maxConcurrency {
                         await taskGroup.next()
+                        working = 0
                     }
 
                     taskGroup.addTask {
                         _ = await operation.execute()
                     }
+                    working += 1
                 }
-
                 await taskGroup.waitForAll()
 
                 DispatchQueue.main.async {

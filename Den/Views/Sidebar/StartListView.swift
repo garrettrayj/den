@@ -44,12 +44,7 @@ struct StartListView: View {
                     loadDemo()
                 } label: {
                     Label {
-                        VStack(alignment: .leading) {
-                            Text("Load Demo Pages")
-                            Toggle(isOn: $useBigDemo) {
-                                Text("More feeds?").foregroundColor(.secondary)
-                            }.font(.callout)
-                        }
+                        Text("Load Demo Pages")
                     } icon: {
                         Image(systemName: "wand.and.stars")
                     }
@@ -57,6 +52,10 @@ struct StartListView: View {
                 .buttonStyle(.borderless)
                 .modifier(StartRowModifier())
                 .accessibilityIdentifier("load-demo-button")
+
+                Toggle(isOn: $useBigDemo) {
+                    Text("More feeds?").foregroundColor(.secondary)
+                }.font(.footnote).padding(.leading, 44)
             } header: {
                 Text("Get Started")
             } footer: {

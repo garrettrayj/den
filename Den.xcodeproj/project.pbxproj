@@ -677,6 +677,8 @@
 				68B6CBEB2910CA3000B5E3AB /* JSONItemLoad.swift */,
 				6880EBE027A8E61C00B479F4 /* RankedImage.swift */,
 				68B526A3298F001800D4B927 /* WebpageMetadata.swift */,
+				684DFA0224BAC7680023D6DB /* MIMEType.swift */,
+				6868A30B2894F98C0051D43E /* UIConstants.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -931,8 +933,6 @@
 		68E9BDB6279CFF90003BA111 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				684DFA0224BAC7680023D6DB /* MIMEType.swift */,
-				6868A30B2894F98C0051D43E /* UIConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
