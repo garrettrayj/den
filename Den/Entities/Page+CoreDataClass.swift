@@ -70,16 +70,6 @@ public class Page: NSManagedObject {
         }
     }
 
-    public var minimumRefreshedDate: Date? {
-        feedsArray.sorted { aFeed, bFeed in
-            if let aRefreshed = aFeed.feedData?.refreshed,
-               let bRefreshed = bFeed.feedData?.refreshed {
-                return aRefreshed < bRefreshed
-            }
-            return false
-        }.first?.feedData?.refreshed
-    }
-
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         profile: Profile,

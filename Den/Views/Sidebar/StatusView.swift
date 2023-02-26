@@ -24,7 +24,7 @@ struct StatusView: View {
             VStack {
                 if refreshing {
                     ProgressView(progress).progressViewStyle(BottomBarProgressViewStyle())
-                } else if let refreshedDate = profile.minimumRefreshedDate {
+                } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                     Text("\(refreshedDate.formatted())").font(.caption)
                 } else {
                     #if targetEnvironment(macCatalyst)

@@ -17,6 +17,7 @@
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
 		680F494E29AA178B0083B664 /* BigDemo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 680F494D29AA178B0083B664 /* BigDemo.opml */; };
 		680F495029AA56BE0083B664 /* WithItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F494F29AA56BE0083B664 /* WithItemsView.swift */; };
+		680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F495129AB2A240083B664 /* RefreshedDateStorage.swift */; };
 		6813FD0B2748DE1100EC88A5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6813FD0A2748DE1100EC88A5 /* main.swift */; };
 		681AEAF929954AC70054B084 /* FeedHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHeroView.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
@@ -263,6 +264,7 @@
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680F494D29AA178B0083B664 /* BigDemo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BigDemo.opml; sourceTree = "<group>"; };
 		680F494F29AA56BE0083B664 /* WithItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithItemsView.swift; sourceTree = "<group>"; };
+		680F495129AB2A240083B664 /* RefreshedDateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshedDateStorage.swift; sourceTree = "<group>"; };
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHeroView.swift; sourceTree = "<group>"; };
@@ -646,6 +648,7 @@
 				682A349F28E57E67004CD90E /* Haptics.swift */,
 				681DE10F2928259800D2F7B2 /* SearchModel.swift */,
 				6835738429602A7F00843A8E /* Environment.swift */,
+				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1314,6 +1317,7 @@
 				68AC3A1D2910EF6E00D60273 /* AsynchronousOperation.swift in Sources */,
 				68FF63F82921DCE00012A275 /* TrendsBottomBarView.swift in Sources */,
 				683E3F4F293D220000B16814 /* SplitView.swift in Sources */,
+				680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */,
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */,
 				68AB038C299B16BD00A39D47 /* MainBoardModifier.swift in Sources */,

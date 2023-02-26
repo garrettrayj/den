@@ -14,8 +14,8 @@ struct WelcomeView: View {
     @ObservedObject var profile: Profile
 
     var refreshedTimeAgo: String? {
-        guard let minRefreshed = profile.minimumRefreshedDate else { return nil }
-        return minRefreshed.formatted(.relative(presentation: .numeric))
+        guard let refreshed = RefreshedDateStorage.shared.getRefreshed(profile) else { return nil }
+        return refreshed.formatted(.relative(presentation: .numeric))
     }
 
     var body: some View {

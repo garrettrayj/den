@@ -42,10 +42,6 @@ public class Profile: NSManagedObject {
         insecureFeeds.count
     }
 
-    public var minimumRefreshedDate: Date? {
-        Date()
-    }
-
     public var historyArray: [History] {
         get {
             guard
