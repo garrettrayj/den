@@ -16,7 +16,7 @@ struct FeedBottomBarView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItemsView(scopeObject: feed) { _, unreadItems in
+        WithItems(scopeObject: feed) { _, unreadItems in
             FilterReadButtonView(hideRead: $hideRead) {
                 feed.objectWillChange.send()
             }

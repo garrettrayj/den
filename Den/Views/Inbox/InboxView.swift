@@ -17,7 +17,11 @@ struct InboxView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItemsView(scopeObject: profile, readFilter: hideRead ? false : nil) { _, items in
+        WithItems(
+            scopeObject: profile,
+            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
+            readFilter: hideRead ? false : nil
+        ) { _, items in
             GeometryReader { geometry in
                 if profile.feedsArray.isEmpty {
                     NoFeedsView()

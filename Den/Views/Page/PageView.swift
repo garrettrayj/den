@@ -28,8 +28,23 @@ struct PageView: View {
         return PageViewMode(rawValue: sceneViewMode) ?? PageViewMode.gadgets
     }
 
+    private var sortDescriptors: [NSSortDescriptor] {
+        if viewMode == .blend {
+            return [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
+        }
+
+        return [
+            NSSortDescriptor(keyPath: \Item.feedData, ascending: false),
+            NSSortDescriptor(keyPath: \Item.published, ascending: false)
+        ]
+    }
+
     var body: some View {
-        WithItemsView(scopeObject: page, readFilter: hideRead ? false : nil) { _, items in
+        WithItems(
+            scopeObject: page,
+            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
+            readFilter: hideRead ? false : nil
+        ) { _, items in
             GeometryReader { geometry in
                 VStack {
                     if page.feedsArray.isEmpty {

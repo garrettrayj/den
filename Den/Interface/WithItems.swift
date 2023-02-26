@@ -16,7 +16,7 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
 
     @ObservedObject private var scopeObject: ScopeObject
 
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.published, order: .reverse)])
+    @FetchRequest(sortDescriptors: [])
     private var items: FetchedResults<Item>
 
     @ViewBuilder
