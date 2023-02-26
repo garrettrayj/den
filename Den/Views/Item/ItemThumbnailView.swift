@@ -35,46 +35,36 @@ struct ItemThumbnailView: View {
     }
 
     var body: some View {
-
-        Group {
-            if let image = item.image {
-                WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
-                    .resizable()
-                    .purgeable(true)
-                    .placeholder {
-                        placeholder
-                    }
-                    .playbackRate(0)
-                    .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                    .grayscale(isEnabled ? 0 : 1)
-                    .opacity(isEnabled ? 1 : UIConstants.dimmedImageOpacity)
-            } else if let image = item.feedData?.image {
-                WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
-                    .resizable()
-                    .purgeable(true)
-                    .placeholder {
-                        placeholder
-                    }
-                    .playbackRate(0)
-                    .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                    .cornerRadius(4)
-                    .padding(4)
-                    .grayscale(isEnabled ? 0 : 1)
-                    .opacity(isEnabled ? 1 : UIConstants.dimmedImageOpacity)
-            }
+        if let image = item.image {
+            WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                .resizable()
+                .purgeable(true)
+                .placeholder {
+                    placeholder
+                }
+                .playbackRate(0)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .grayscale(isEnabled ? 0 : 1)
+                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
+                .modifier(ThumbnailModifier(width: scaledSize.width, height: scaledSize.height))
+        } else if let image = item.feedData?.image {
+            WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                .resizable()
+                .purgeable(true)
+                .placeholder {
+                    placeholder
+                }
+                .playbackRate(0)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                .cornerRadius(4)
+                .padding(4)
+                .grayscale(isEnabled ? 0 : 1)
+                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
+                .modifier(ThumbnailModifier(width: scaledSize.width, height: scaledSize.height))
         }
-        .frame(width: scaledSize.width, height: scaledSize.height)
-        .background(Color(UIColor.tertiarySystemFill))
-        .cornerRadius(6)
-        .overlay(
-            RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
-        )
-        .accessibility(label: Text("Thumbnail"))
-
     }
 
     var placeholder: some View {
-        Image(systemName: "photo")
-            .foregroundColor(Color(UIColor.tertiaryLabel))
+        Image(systemName: "photo").foregroundColor(Color(UIColor.tertiaryLabel))
     }
 }

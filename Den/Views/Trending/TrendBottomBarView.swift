@@ -23,7 +23,7 @@ struct TrendBottomBarView: View {
                 trend.objectWillChange.send()
             }
             Spacer()
-            Text("\(unreadItems.count) Unread")
+            Text("\(unreadItems.count) unread")
                 .font(.caption)
                 .fixedSize()
             Spacer()

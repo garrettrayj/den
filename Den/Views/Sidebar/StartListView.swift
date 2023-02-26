@@ -59,7 +59,7 @@ struct StartListView: View {
             } header: {
                 Text("Get Started")
             } footer: {
-                Text("or import feeds in settings \(Image(systemName: "gear"))")
+                Text("or import feeds in settings. \(Image(systemName: "gear"))")
                     .imageScale(.small)
                     .padding(.top, 8)
             }

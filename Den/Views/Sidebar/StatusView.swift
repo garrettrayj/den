@@ -28,11 +28,11 @@ struct StatusView: View {
                     Text("\(refreshedDate.formatted())").font(.caption)
                 } else {
                     #if targetEnvironment(macCatalyst)
-                    Text("Press \(Image(systemName: "command")) + R to refresh")
+                    Text("Press \(Image(systemName: "command")) + R to refresh.")
                         .imageScale(.small)
                         .font(.caption)
                     #else
-                    Text("Pull to refresh").font(.caption)
+                    Text("Pull to refresh.").font(.caption)
                     #endif
                 }
             }

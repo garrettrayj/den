@@ -56,7 +56,7 @@ struct FeedView: View {
                                         Text("Latest").font(.title3)
                                         Spacer()
                                         if let refreshedTimeAgo = feed.feedData?.refreshedRelativeDateTimeString {
-                                            Text("Updated \(refreshedTimeAgo)").font(.caption)
+                                            Text("Updated \(refreshedTimeAgo).").font(.caption)
                                         }
                                     }
                                     .modifier(PinnedSectionHeaderModifier())

@@ -19,30 +19,30 @@ struct RefreshSettingsSectionView: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("In Background").modifier(FormRowModifier())
+                Text("In Background")
                 Spacer()
                 Toggle(isOn: $backgroundRefreshEnabled) {
                     Text("In Background")
                 }.labelsHidden()
-            }
+            }.modifier(FormRowModifier())
             #else
             Toggle(isOn: $backgroundRefreshEnabled) {
-                Text("In Background").modifier(FormRowModifier())
-            }
+                Text("In Background")
+            }.modifier(FormRowModifier())
             #endif
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("When Activated").modifier(FormRowModifier())
+                Text("When Activated")
                 Spacer()
                 Toggle(isOn: $autoRefreshEnabled) {
                     Text("When Activated")
                 }.labelsHidden()
-            }
+            }.modifier(FormRowModifier())
             #else
             Toggle(isOn: $autoRefreshEnabled) {
-                Text("When Activated").modifier(FormRowModifier())
-            }
+                Text("When Activated")
+            }.modifier(FormRowModifier())
             #endif
 
             if autoRefreshEnabled {
@@ -51,14 +51,13 @@ struct RefreshSettingsSectionView: View {
                     in: 10...24 * 60,
                     step: autoRefreshCooldown >= 120 ? 60 : 10
                 ) {
-                    Group {
-                        if autoRefreshCooldown >= 120 {
-                            Text("⁃ Cooldown: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
-                        } else {
-                            Text("⁃ Cooldown: \(autoRefreshCooldown) minutes")
-                        }
-                    }.modifier(FormRowModifier())
-                }
+                    if autoRefreshCooldown >= 120 {
+                        Text("• Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                    } else {
+                        Text("• Recovery Period: \(autoRefreshCooldown) minutes")
+                    }
+
+                }.modifier(FormRowModifier())
             }
         } header: {
             Text("Refresh")

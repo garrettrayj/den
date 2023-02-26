@@ -21,7 +21,7 @@ struct WelcomeView: View {
     var body: some View {
         Group {
             if let refreshedTimeAgo = refreshedTimeAgo {
-                SplashNoteView(title: profile.displayName, note: "Refreshed \(refreshedTimeAgo)")
+                SplashNoteView(title: profile.displayName, note: "Refreshed \(refreshedTimeAgo).")
             } else {
                 SplashNoteView(title: profile.displayName)
             }

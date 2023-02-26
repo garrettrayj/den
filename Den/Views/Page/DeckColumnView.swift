@@ -35,6 +35,7 @@ struct DeckColumnView: View {
                                 .cornerRadius(8)
                         } else if items.isEmpty {
                             AllReadStatusView()
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color(UIColor.secondarySystemGroupedBackground))
                                 .cornerRadius(8)
                         } else {

@@ -86,7 +86,7 @@ struct PageView: View {
                                         ShowcaseSectionView(
                                             feed: feed,
                                             hideRead: $hideRead,
-                                            items: Array(items),
+                                            items: items.forFeed(feed: feed),
                                             width: geometry.size.width
                                         )
                                     }

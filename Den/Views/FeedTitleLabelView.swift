@@ -23,7 +23,7 @@ struct FeedTitleLabelView: View {
             Text(title).lineLimit(1).foregroundColor(read == true || !isEnabled ? .secondary : .primary)
         } icon: {
             FeedFaviconView(url: favicon)
-                .opacity(read == true || !isEnabled ? UIConstants.dimmedImageOpacity : 1.0)
+                .opacity(read == true || !isEnabled ? AppDefaults.dimmedImageOpacity : 1.0)
         }
     }
 }

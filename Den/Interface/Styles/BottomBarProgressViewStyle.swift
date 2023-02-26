@@ -21,14 +21,15 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         VStack(spacing: spacing) {
-            HStack(spacing: 4) {
+            HStack(spacing: 0) {
                 if let completed = configuration.fractionCompleted, completed < 1.0 {
-                    configuration.currentValueLabel.monospacedDigit()
-                    Text("Updated")
+                    configuration.currentValueLabel
+                    Text(" updated")
                 } else {
                     Text("Analyzing")
                 }
-            }.font(.caption)
+            }
+            .font(.caption).monospacedDigit()
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
