@@ -12,6 +12,7 @@ import CoreData
 import SwiftUI
 
 struct TrendBottomBarView: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var trend: Trend
 
     @Binding var hideRead: Bool
@@ -29,6 +30,9 @@ struct TrendBottomBarView: View {
             ToggleReadButtonView(unreadCount: unreadItems.count) {
                 await HistoryUtility.toggleReadUnread(items: trend.items)
                 trend.objectWillChange.send()
+                if hideRead {
+                    dismiss()
+                }
             }
         }
     }

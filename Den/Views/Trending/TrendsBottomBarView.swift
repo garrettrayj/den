@@ -16,7 +16,30 @@ struct TrendsBottomBarView: View {
 
     @Binding var hideRead: Bool
 
+    var unreadCount: Int {
+        profile.trends.containingUnread().count
+    }
+
+    var itemsFromVisibleTrends: [Item] {
+        if hideRead {
+            return profile.trends.containingUnread().flatMap { $0.items }
+        }
+
+        return profile.trends.flatMap { $0.items }
+    }
+
     var body: some View {
-        EmptyView()
+        FilterReadButtonView(hideRead: $hideRead) { }
+        Spacer()
+        if hideRead {
+            Text("\(unreadCount) with unread").font(.caption)
+        } else {
+            Text("\(unreadCount) trends").font(.caption)
+        }
+        Spacer()
+        ToggleReadButtonView(unreadCount: unreadCount) {
+            await HistoryUtility.toggleReadUnread(items: itemsFromVisibleTrends)
+            profile.objectWillChange.send()
+        }
     }
 }

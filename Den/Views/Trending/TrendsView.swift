@@ -16,6 +16,13 @@ struct TrendsView: View {
 
     @Binding var hideRead: Bool
 
+    var visibleTrends: [Trend] {
+        if hideRead {
+            return profile.trends.containingUnread()
+        }
+        return profile.trends
+    }
+
     var body: some View {
         GeometryReader { geometry in
             if profile.trends.isEmpty {
@@ -23,9 +30,11 @@ struct TrendsView: View {
                     title: "Trends Empty",
                     note: "No common subjects were found in item titles."
                 )
+            } else if visibleTrends.isEmpty {
+                AllReadSplashNoteView()
             } else {
                 ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: profile.trends) { trend in
+                    BoardView(width: geometry.size.width, list: visibleTrends) { trend in
                         TrendBlockView(trend: trend)
                     }.modifier(MainBoardModifier())
                 }
