@@ -29,6 +29,12 @@ struct TrendBlockView: View {
         return nil
     }
 
+    var uniqueFaviconURLs: [URL] {
+        trend.feeds.compactMap { feed in
+            feed.feedData?.favicon
+        }.unique
+    }
+
     var body: some View {
         VStack {
             NavigationLink(value: DetailPanel.trend(trend)) {
@@ -42,22 +48,27 @@ struct TrendBlockView: View {
                                     .imageScale(.small)
                                     .foregroundColor(Color(UIColor.tertiaryLabel))
                             }
-                            Text("\(trend.items.unread().count)").modifier(CapsuleModifier())
                         }
                     }
 
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
-                        ForEach(trend.feeds) { feed in
-                            FeedFaviconView(url: feed.feedData?.favicon)
-                                .opacity(trend.items.unread().isEmpty ? UIConstants.dimmedImageOpacity : 1.0)
+                        ForEach(uniqueFaviconURLs, id: \.self) { url in
+                            FeedFaviconView(url: url)
                         }
-                    }
+                    }.opacity(trend.hasUnread ? 1.0 : UIConstants.dimmedImageOpacity)
 
-                    Text("""
-                    \(trend.items.count) items in \(trend.feeds.count) feeds
-                    """)
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
+                    if trend.hasUnread {
+                        Text("""
+                        \(trend.items.count) items in \(trend.feeds.count) feeds, \
+                        \(trend.items.unread().count) unread
+                        """)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                    } else {
+                        Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 .padding(12)
                 .foregroundColor(trend.items.unread().isEmpty ? .secondary : .primary)

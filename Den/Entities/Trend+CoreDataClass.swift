@@ -26,6 +26,10 @@ public class Trend: NSManagedObject {
             .sorted { $0.date > $1.date }
     }
 
+    var hasUnread: Bool {
+        items.unread().count > 0
+    }
+
     func visibleItems(_ hideRead: Bool) -> [Item] {
         items.filter { item in
             hideRead ? item.read == false : true
@@ -49,5 +53,11 @@ public class Trend: NSManagedObject {
         trend.profileId = profile.id
 
         return trend
+    }
+}
+
+extension Collection where Element == Trend {
+    func containingUnread() -> [Trend] {
+        self.filter { $0.hasUnread }
     }
 }
