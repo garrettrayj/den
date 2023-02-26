@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+import CoreData
 import SwiftUI
 
 struct ProfileSettingsHistorySectionView: View {
