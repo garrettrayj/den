@@ -68,9 +68,9 @@ struct SecurityView: View {
                     Label {
                         Group {
                             if insecureFeedCount == 1 {
-                                Text("Check for a Secure Option")
+                                Text("Check for a secure option")
                             } else {
-                                Text("Check for Secure Options")
+                                Text("Check for secure options")
                             }
                         }.modifier(FormRowModifier())
                     } icon: {
@@ -82,9 +82,9 @@ struct SecurityView: View {
         } header: {
             Label {
                 if insecureFeedCount == 1 {
-                    Text("\(insecureFeedCount) feed is using an insecure web address")
+                    Text("\(insecureFeedCount) feed is using an insecure web address.")
                 } else {
-                    Text("\(insecureFeedCount) feeds use insecure web addresses")
+                    Text("\(insecureFeedCount) feeds use insecure web addresses.")
                 }
             } icon: {
                 Image(systemName: "exclamationmark.shield")

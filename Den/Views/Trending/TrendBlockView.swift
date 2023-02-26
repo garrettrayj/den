@@ -55,7 +55,7 @@ struct TrendBlockView: View {
                         ForEach(uniqueFaviconURLs, id: \.self) { url in
                             FeedFaviconView(url: url)
                         }
-                    }.opacity(trend.hasUnread ? 1.0 : UIConstants.dimmedImageOpacity)
+                    }.opacity(trend.hasUnread ? 1.0 : AppDefaults.dimmedImageOpacity)
 
                     if trend.hasUnread {
                         Text("""

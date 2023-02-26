@@ -14,7 +14,7 @@ struct CrashMessageView: View {
     var body: some View {
         SplashNoteView(
             title: "Critical Error",
-            note: "Restart to try again",
+            note: "Restart to try again.",
             symbol: "xmark.octagon"
         )
     }

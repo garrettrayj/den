@@ -1,5 +1,5 @@
 //
-//  UIConstants.swift
+//  AppDefaults.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/29/22.
@@ -10,7 +10,7 @@
 
 import Foundation
 
-struct UIConstants {
-    static let defaultItemLimit: Int = 6
+struct AppDefaults {
+    static let defaultItemLimit: Int = 8
     static let dimmedImageOpacity: Double = 0.5
 }

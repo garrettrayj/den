@@ -60,7 +60,7 @@ public class Feed: NSManagedObject {
         feed.page = page
         feed.url = url
         feed.showThumbnails = true
-        feed.itemLimit = Int16(UIConstants.defaultItemLimit)
+        feed.itemLimit = Int16(AppDefaults.defaultItemLimit)
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1
