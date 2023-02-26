@@ -20,9 +20,10 @@ struct NoFeedsView: View {
             Button {
                 SubscriptionUtility.showSubscribe(page: page)
             } label: {
-                Label("Add Feed by Address", systemImage: "plus.circle")
+                Label("Add by entering a web address", systemImage: "plus.circle")
             }
             .buttonStyle(.bordered)
+            .lineLimit(2)
             Text("""
             Or drag and drop URLs, or open syndication links, \
             or use the Feed Detector Safari extension.

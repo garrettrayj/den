@@ -55,11 +55,17 @@ struct StartListView: View {
 
                 Toggle(isOn: $useBigDemo) {
                     Text("More feeds?").foregroundColor(.secondary)
-                }.font(.footnote).padding(.leading, 44)
+                }
+                .font(.footnote)
+                #if targetEnvironment(macCatalyst)
+                .padding(.leading, 32)
+                #else
+                .padding(.leading, 44)
+                #endif
             } header: {
                 Text("Get Started")
             } footer: {
-                Text("or import feeds in settings. \(Image(systemName: "gear"))")
+                Text("Or import feeds in settings. \(Image(systemName: "gear"))")
                     .imageScale(.small)
                     .padding(.top, 8)
             }

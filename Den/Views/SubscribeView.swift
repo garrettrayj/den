@@ -52,7 +52,12 @@ struct SubscribeView: View {
                                 if let validationMessage = validationMessage {
                                     Text(validationMessage).foregroundColor(.red)
                                 } else {
-                                    Text("RSS, Atom, or JSON Feed")
+                                    Text(.init("""
+                                    [RSS](https://validator.w3.org/feed/docs/rss2.html), \
+                                    [Atom](https://validator.w3.org/feed/docs/atom.html), \
+                                    and [JSON Feed](https://www.jsonfeed.org/version/1.1/) \
+                                    supported.
+                                    """))
                                 }
                             }
                             .font(.caption)

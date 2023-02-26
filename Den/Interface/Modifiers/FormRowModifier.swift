@@ -13,7 +13,7 @@ import SwiftUI
 struct FormRowModifier: ViewModifier {
     func body(content: Content) -> some View {
         #if targetEnvironment(macCatalyst)
-        content.padding(.vertical, 8)
+        content.padding(.vertical, 8).frame(minHeight: 36)
         #else
         content.padding(.vertical, 4)
         #endif
