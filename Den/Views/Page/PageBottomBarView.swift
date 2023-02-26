@@ -19,7 +19,7 @@ struct PageBottomBarView: View {
     let visibleItems: FetchedResults<Item>
 
     var body: some View {
-        WithItemsView(scopeObject: page, readFilter: false) { _, unreadItems in
+        WithItems(scopeObject: page, readFilter: false) { _, unreadItems in
             FilterReadButtonView(hideRead: $hideRead) {
                 page.objectWillChange.send()
             }

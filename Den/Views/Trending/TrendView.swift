@@ -17,7 +17,7 @@ struct TrendView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItemsView(scopeObject: trend, readFilter: hideRead ? false : nil) { _, items in
+        WithItems(scopeObject: trend, readFilter: hideRead ? false : nil) { _, items in
             Group {
                 if items.isEmpty {
                     AllReadSplashNoteView()

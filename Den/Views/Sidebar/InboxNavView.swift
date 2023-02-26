@@ -24,7 +24,7 @@ struct InboxNavView: View {
 
     var body: some View {
         Label {
-            WithItemsView(scopeObject: profile, readFilter: false) { _, items in
+            WithItems(scopeObject: profile, readFilter: false) { _, items in
                 Text("Inbox").lineLimit(1).badge(items.count)
             }
         } icon: {

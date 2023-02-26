@@ -45,7 +45,7 @@
         <fetchedProperty name="items" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="Item" predicateString="link = $FETCH_SOURCE.link AND profileId = $FETCH_SOURCE.profile.id"/>
         </fetchedProperty>
-        <fetchIndex name="byProfileAndLinkIndex">
+        <fetchIndex name="byProfileLinkIndex">
             <fetchIndexElement property="profile" type="Binary" order="ascending"/>
             <fetchIndexElement property="link" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -74,6 +74,15 @@
         <fetchedProperty name="history" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="History" predicateString="link = $FETCH_SOURCE.link AND profile.id = $FETCH_SOURCE.profileId"/>
         </fetchedProperty>
+        <fetchIndex name="byReadIndex">
+            <fetchIndexElement property="read" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byPublishedIndex">
+            <fetchIndexElement property="published" type="Binary" order="ascending"/>
+        </fetchIndex>
+        <fetchIndex name="byFeedDataIndex">
+            <fetchIndexElement property="feedData" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="Page" representedClassName="Page" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

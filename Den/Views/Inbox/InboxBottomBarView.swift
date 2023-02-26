@@ -19,7 +19,7 @@ struct InboxBottomBarView: View {
     let visibleItems: FetchedResults<Item>
 
     var body: some View {
-        WithItemsView(scopeObject: profile, readFilter: false) { _, unreadItems in
+        WithItems(scopeObject: profile, readFilter: false) { _, unreadItems in
             FilterReadButtonView(hideRead: $hideRead) {
                 profile.objectWillChange.send()
             }
