@@ -24,14 +24,10 @@ struct TrendsView: View {
                     note: "No common subjects were found in item titles."
                 )
             } else {
-                if visibleTrends.isEmpty {
-                    AllReadSplashNoteView(hiddenItemCount: readTrends.count)
-                } else {
-                    ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                            TrendBlockView(trend: trend)
-                        }.modifier(MainBoardModifier())
-                    }
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: profile.trends) { trend in
+                        TrendBlockView(trend: trend)
+                    }.modifier(MainBoardModifier())
                 }
             }
         }
@@ -41,18 +37,6 @@ struct TrendsView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 TrendsBottomBarView(profile: profile, hideRead: $hideRead)
             }
-        }
-    }
-
-    private var readTrends: [Trend] {
-        profile.trends.filter { trend in
-            trend.items.unread().isEmpty
-        }
-    }
-
-    private var visibleTrends: [Trend] {
-        profile.trends.filter { trend in
-            hideRead ? !trend.items.unread().isEmpty : true
         }
     }
 }

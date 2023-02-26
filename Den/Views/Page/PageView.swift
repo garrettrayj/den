@@ -29,87 +29,96 @@ struct PageView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                if page.feedsArray.isEmpty {
-                    NoFeedsView(page: page)
-                } else if page.previewItems.isEmpty  && viewMode == PageViewMode.blend {
-                    SplashNoteView(
-                        title: "No Items",
-                        note: "Refresh to get content"
-                    )
-                } else if page.visibleItems(hideRead).isEmpty  && viewMode == PageViewMode.blend {
-                    AllReadSplashNoteView(hiddenItemCount: page.previewItems.read().count)
-                } else {
-                    switch viewMode {
-                    case .deck:
-                        ScrollView(.horizontal) {
-                            LazyHStack(alignment: .top, spacing: 0) {
-                                ForEach(page.feedsArray) { feed in
-                                    DeckColumnView(
-                                        feed: feed,
-                                        hideRead: $hideRead,
-                                        isFirst: page.feedsArray.first == feed,
-                                        isLast: page.feedsArray.last == feed
-                                    )
-                                }
-                            }
+        WithItemsView(scopeObject: page, readFilter: hideRead ? false : nil) { _, items in
+            GeometryReader { geometry in
+                VStack {
+                    if page.feedsArray.isEmpty {
+                        NoFeedsView(page: page)
+                    } else if items.isEmpty && viewMode == PageViewMode.blend {
+                        if hideRead == true {
+                            AllReadSplashNoteView()
+                        } else {
+                            SplashNoteView(title: "No Items", note: "Refresh to get content")
                         }
-                        .id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
-                        .navigationBarTitleDisplayMode(.inline)
-                    case .blend:
-                        ScrollView(.vertical) {
-                            BoardView(width: geometry.size.width, list: page.visibleItems(hideRead)) { item in
-                                FeedItemPreviewView(item: item)
-                            }.modifier(MainBoardModifier())
-                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
-                    case .showcase:
-                        ScrollView(.vertical) {
-                            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                                ForEach(page.feedsArray) { feed in
-                                    ShowcaseSectionView(feed: feed, hideRead: $hideRead, width: geometry.size.width)
+                    } else {
+                        switch viewMode {
+                        case .deck:
+                            ScrollView(.horizontal) {
+                                LazyHStack(alignment: .top, spacing: 0) {
+                                    ForEach(page.feedsArray) { feed in
+                                        DeckColumnView(
+                                            feed: feed,
+                                            hideRead: $hideRead,
+                                            isFirst: page.feedsArray.first == feed,
+                                            isLast: page.feedsArray.last == feed,
+                                            items: items.forFeed(feed: feed)
+                                        )
+                                    }
                                 }
                             }
-                            Spacer()
-                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
-                    case .gadgets:
-                        ScrollView(.vertical) {
-                            BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
-                                GadgetView(feed: feed, hideRead: $hideRead)
-                            }.modifier(MainBoardModifier())
-                        }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                            .id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                            .navigationBarTitleDisplayMode(.inline)
+                        case .blend:
+                            ScrollView(.vertical) {
+                                BoardView(width: geometry.size.width, list: Array(items)) { item in
+                                    FeedItemPreviewView(item: item)
+                                }.modifier(MainBoardModifier())
+                            }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                        case .showcase:
+                            ScrollView(.vertical) {
+                                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                                    ForEach(page.feedsArray) { feed in
+                                        ShowcaseSectionView(
+                                            feed: feed,
+                                            hideRead: $hideRead,
+                                            items: Array(items),
+                                            width: geometry.size.width
+                                        )
+                                    }
+                                }
+                                Spacer()
+                            }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                        case .gadgets:
+                            ScrollView(.vertical) {
+                                BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
+                                    GadgetView(feed: feed, hideRead: $hideRead, items: items.forFeed(feed: feed))
+                                }.modifier(MainBoardModifier())
+                            }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
+                        }
+                    }
+                }
+                .modifier(URLDropTargetModifier(page: page))
+                .navigationTitle(page.displayName)
+                .toolbar {
+                    ToolbarItem {
+                        if geometry.size.width > 460 {
+                            viewModePicker.pickerStyle(.segmented)
+                        } else {
+                            viewModePicker
+                        }
+                    }
+
+                    ToolbarItem {
+                        NavigationLink(value: DetailPanel.pageSettings(page)) {
+                            Label("Page Settings", systemImage: "wrench")
+                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .accessibilityIdentifier("page-settings-button")
+                    }
+
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        PageBottomBarView(
+                            page: page,
+                            hideRead: $hideRead,
+                            visibleItems: items
+                        )
                     }
                 }
             }
-            .modifier(URLDropTargetModifier(page: page))
-            .navigationTitle(page.displayName)
-            .toolbar {
-                ToolbarItem {
-                    if geometry.size.width > 460 {
-                        viewModePicker.pickerStyle(.segmented)
-                    } else {
-                        viewModePicker
-                    }
-                }
+            .background(Color(UIColor.systemGroupedBackground))
 
-                ToolbarItem {
-                    NavigationLink(value: DetailPanel.pageSettings(page)) {
-                        Label("Page Settings", systemImage: "wrench")
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .accessibilityIdentifier("page-settings-button")
-                }
-
-                ToolbarItemGroup(placement: .bottomBar) {
-                    PageBottomBarView(
-                        page: page,
-                        viewMode: $sceneViewMode,
-                        hideRead: $hideRead
-                    )
-                }
-            }
         }
-        .background(Color(UIColor.systemGroupedBackground))
+
     }
 
     private var viewModePicker: some View {

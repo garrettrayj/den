@@ -16,24 +16,24 @@ struct InboxBottomBarView: View {
 
     @Binding var hideRead: Bool
 
-    var unreadCount: Int {
-        profile.previewItems.unread().count
-    }
+    let visibleItems: FetchedResults<Item>
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead) {
-            profile.objectWillChange.send()
-        }
-        Spacer()
-        Text("\(unreadCount) Unread")
-            .font(.caption)
-            .fixedSize()
-        Spacer()
-        ToggleReadButtonView(unreadCount: unreadCount) {
-            await HistoryUtility.toggleReadUnread(items: profile.previewItems)
-            profile.objectWillChange.send()
-            for page in profile.pagesArray {
-                page.objectWillChange.send()
+        WithItemsView(scopeObject: profile, readFilter: false) { _, unreadItems in
+            FilterReadButtonView(hideRead: $hideRead) {
+                profile.objectWillChange.send()
+            }
+            Spacer()
+            Text("\(unreadItems.count) Unread")
+                .font(.caption)
+                .fixedSize()
+            Spacer()
+            ToggleReadButtonView(unreadCount: unreadItems.count) {
+                await HistoryUtility.toggleReadUnread(items: Array(visibleItems))
+                profile.objectWillChange.send()
+                for page in profile.pagesArray {
+                    page.objectWillChange.send()
+                }
             }
         }
     }

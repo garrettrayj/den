@@ -21,32 +21,31 @@ struct DeckColumnView: View {
 
     let isFirst: Bool
     let isLast: Bool
+    let items: [Item]
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
                 Section {
                     Group {
-                        if feed.hasContent {
-                            if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
-                                AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
-                            } else {
-                                ForEach(feed.visibleItems(hideRead)) { item in
-                                    ItemActionView(item: item) {
-                                        ItemPreviewView(item: item)
-                                    }
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
-                                }
-                                Spacer()
-                            }
-                        } else {
+                        if feed.feedData == nil || feed.feedData?.error != nil {
                             FeedUnavailableView(feedData: feed.feedData)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color(UIColor.secondarySystemGroupedBackground))
                                 .cornerRadius(8)
+                        } else if items.isEmpty {
+                            AllReadStatusView()
+                                .background(Color(UIColor.secondarySystemGroupedBackground))
+                                .cornerRadius(8)
+                        } else {
+                            ForEach(items) { item in
+                                ItemActionView(item: item) {
+                                    ItemPreviewView(item: item)
+                                }
+                                .background(Color(UIColor.secondarySystemGroupedBackground))
+                                .cornerRadius(8)
+                            }
+                            Spacer()
                         }
                     }
                     .padding(.horizontal, 4)
@@ -81,14 +80,5 @@ struct DeckColumnView: View {
         }
         .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 12, trailingPadding: 12))
         .accessibilityIdentifier("deck-feed-button")
-    }
-
-    private var allRead: Bool {
-        guard
-            let feedData = feed.feedData,
-            !feedData.previewItems.isEmpty
-        else { return false }
-
-        return feedData.previewItems.unread().isEmpty
     }
 }

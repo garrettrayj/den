@@ -31,12 +31,6 @@ public class Page: NSManagedObject {
         set { itemsPerFeed = Int16(newValue) }
     }
 
-    public var previewItems: [Item] {
-        feedsArray.flatMap { (feed) -> [Item] in
-            return feed.feedData?.previewItems ?? []
-        }.sorted { $0.date > $1.date }
-    }
-
     public var feedsArray: [Feed] {
         get {
             guard
@@ -84,12 +78,6 @@ public class Page: NSManagedObject {
             }
             return false
         }.first?.feedData?.refreshed
-    }
-
-    func visibleItems(_ hideRead: Bool) -> [Item] {
-        previewItems.filter { item in
-            hideRead ? item.read == false : true
-        }
     }
 
     static func create(

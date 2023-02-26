@@ -25,7 +25,7 @@ struct WithItemsView<Content: View, ScopeObject: ObservableObject>: View {
 
     init(
         scopeObject: ScopeObject,
-        excludingRead: Bool,
+        readFilter: Bool? = nil,
         @ViewBuilder content: @escaping (ScopeObject, FetchedResults<Item>) -> Content
     ) {
         _scopeObject = ObservedObject(wrappedValue: scopeObject)
@@ -35,7 +35,8 @@ struct WithItemsView<Content: View, ScopeObject: ObservableObject>: View {
         var predicates: [NSPredicate] = []
 
         if let feed = scopeObject as? Feed {
-            predicates.append(NSPredicate(format: "feedData.id = %@", feed.feedData!.id!.uuidString))
+            guard let feedDataID = feed.feedData?.id?.uuidString else { return }
+            predicates.append(NSPredicate(format: "feedData.id = %@", feedDataID))
         } else if let page = scopeObject as? Page {
             predicates.append(NSPredicate(
                 format: "feedData.id IN %@",
@@ -52,10 +53,15 @@ struct WithItemsView<Content: View, ScopeObject: ObservableObject>: View {
                     }
                 })
             ))
+        } else if let trend = scopeObject as? Trend {
+            predicates.append(NSPredicate(
+                format: "id IN %@",
+                trend.items.map { $0.id }
+            ))
         }
 
-        if excludingRead {
-            predicates.append(NSPredicate(format: "read = false"))
+        if readFilter != nil {
+            predicates.append(NSPredicate(format: "read = %@", NSNumber(value: readFilter!)))
         }
 
         let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)

@@ -87,6 +87,7 @@ public class Item: NSManagedObject {
         item.id = UUID()
         item.feedData = feedData
         item.profileId = feedData.feed?.page?.profile?.id
+        item.read = false
 
         return item
     }
@@ -119,9 +120,15 @@ public class Item: NSManagedObject {
 }
 
 extension Collection where Element == Item {
-    func firstMatchingID(_ uuidString: String) -> Item? {
-        self.first { item in
-            item.id?.uuidString == uuidString
+    func forPage(page: Page) -> [Item] {
+        self.filter { item in
+            page.feedsArray.compactMap { $0.feedData }.contains(item.feedData)
+        }
+    }
+
+    func forFeed(feed: Feed) -> [Item] {
+        self.filter { item in
+            item.feedData == feed.feedData
         }
     }
 

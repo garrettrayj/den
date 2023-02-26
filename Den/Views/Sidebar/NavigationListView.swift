@@ -31,7 +31,10 @@ struct NavigationListView: View {
             TrendsNavView(profile: profile)
             Section {
                 ForEach(profile.pagesArray) { page in
-                    PageNavView(profile: profile, page: page)
+                    PageNavView(
+                        profile: profile,
+                        page: page
+                    )
                 }
                 .onDelete(perform: deletePage)
                 .onMove(perform: movePage)
@@ -61,6 +64,7 @@ struct NavigationListView: View {
                 RefreshButtonView(profile: profile, refreshing: $refreshing).disabled(refreshing)
             }
         }
+
     }
 
     private var editButton: some View {

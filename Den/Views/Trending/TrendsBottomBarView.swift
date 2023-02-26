@@ -16,21 +16,7 @@ struct TrendsBottomBarView: View {
 
     @Binding var hideRead: Bool
 
-    var unreadCount: Int {
-        profile.trends.unread().count
-    }
-
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead) {
-            profile.objectWillChange.send()
-        }
-        Spacer()
-        Text("\(unreadCount) with Unread")
-            .font(.caption)
-            .fixedSize()
-        Spacer()
-        ToggleReadButtonView(unreadCount: unreadCount) {
-            await HistoryUtility.toggleReadUnread(items: profile.previewItems)
-        }
+        EmptyView()
     }
 }

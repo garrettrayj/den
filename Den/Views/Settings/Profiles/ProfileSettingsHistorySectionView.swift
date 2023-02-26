@@ -115,8 +115,20 @@ struct ProfileSettingsHistorySectionView: View {
                 context.delete(history)
             }
 
-            for item in profile.previewItems.read() {
-                item.read = false
+            let request: NSFetchRequest<Item> = Item.fetchRequest()
+            request.predicate = NSPredicate(
+                format: "feedData.id IN %@",
+                profile.pagesArray.flatMap({ page in
+                    page.feedsArray.compactMap { feed in
+                        feed.feedData?.id
+                    }
+                })
+            )
+
+            if let results = try? context.fetch(request) {
+                for item in results {
+                    item.read = false
+                }
             }
 
             do {

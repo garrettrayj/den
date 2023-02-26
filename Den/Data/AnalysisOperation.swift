@@ -17,19 +17,13 @@ struct AnalysisOperation {
     func execute() async {
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
-            let workingTrends = self.analyzeTrends(profile: profile)
+
+            let workingTrends = self.analyzeTrends(profile: profile, context: context)
 
             for workingTrend in workingTrends {
                 var trend: Trend
 
                 if let existingTrend = profile.trends.first(where: {$0.slug == workingTrend.slug}) {
-                    // Cleanup items outside of preview range
-                    existingTrend.trendItemsArray.forEach { trendItem in
-                        guard let item = trendItem.item else { return }
-                        if item.feedData?.previewItems.contains(item) == false {
-                            context.delete(trendItem)
-                        }
-                    }
                     trend = existingTrend
                 } else {
                     trend = Trend.create(in: context, profile: profile)
@@ -54,10 +48,22 @@ struct AnalysisOperation {
         }
     }
 
-    private func analyzeTrends(profile: Profile) -> [WorkingTrend] {
+    private func analyzeTrends(profile: Profile, context: NSManagedObjectContext) -> [WorkingTrend] {
         var workingTrends: [WorkingTrend] = []
 
-        for item in profile.previewItems {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        request.predicate = NSPredicate(
+            format: "feedData.id IN %@",
+            profile.pagesArray.flatMap({ page in
+                page.feedsArray.compactMap { feed in
+                    feed.feedData?.id
+                }
+            })
+        )
+
+        guard let items = try? context.fetch(request) else { return [] }
+
+        for item in items {
             for (tokenText, tag) in item.wrappedTags {
                 let slug = tokenText.removingCharacters(in: .punctuationCharacters).lowercased()
 

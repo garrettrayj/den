@@ -19,9 +19,11 @@ struct PageNavView: View {
 
     var body: some View {
         Label {
-            Text(page.displayName)
-                .lineLimit(1)
-                .badge(page.previewItems.unread().count)
+            WithItemsView(scopeObject: page, readFilter: false) { _, items in
+                Text(page.displayName)
+                    .lineLimit(1)
+                    .badge(items.count)
+            }
         } icon: {
             Image(systemName: page.wrappedSymbol)
         }

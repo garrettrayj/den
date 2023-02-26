@@ -24,28 +24,55 @@ struct FeedView: View {
 
     var body: some View {
         Group {
-            if feed.hasContent {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                            if let heroImage = feed.feedData?.banner {
-                                FeedHeroView(heroImage: heroImage)
+            WithItemsView(scopeObject: feed, readFilter: hideRead ? false : nil) { _, items in
+                if items.isEmpty {
+                    FeedUnavailableView(feedData: feed.feedData, splashNote: true)
+                } else {
+                    GeometryReader { geometry in
+                        ScrollView(.vertical) {
+                            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                                if let heroImage = feed.feedData?.banner {
+                                    FeedHeroView(heroImage: heroImage)
+                                }
+
+                                Section {
+                                    if feed.feedData == nil || feed.feedData?.error != nil {
+                                        FeedUnavailableView(feedData: feed.feedData)
+                                    } else if items.isEmpty {
+                                        AllReadStatusView()
+                                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                                            .cornerRadius(8)
+                                            .modifier(SectionContentPaddingModifier())
+                                    } else {
+                                        BoardView(
+                                            width: geometry.size.width,
+                                            list: Array(items)
+                                        ) { item in
+                                            ItemActionView(item: item) {
+                                                ItemPreviewView(item: item)
+                                            }
+                                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                                            .cornerRadius(8)
+                                        }.modifier(SectionContentPaddingModifier())
+                                    }
+                                } header: {
+                                    HStack {
+                                        Text("Latest").font(.title3)
+                                        Spacer()
+                                        if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
+                                            Text("Updated \(refreshedTimeAgo)").font(.caption)
+                                        }
+                                    }
+                                    .modifier(PinnedSectionHeaderModifier())
+                                }
+
+                                Divider()
+
+                                metaSection
                             }
-
-                            previewItemsSection(width: geometry.size.width)
-
-                            if feed.feedData!.extraItems.isEmpty == false {
-                                moreSection(width: geometry.size.width)
-                            }
-
-                            Divider()
-
-                            metaSection
                         }
                     }
                 }
-            } else {
-                FeedUnavailableView(feedData: feed.feedData, splashNote: true)
             }
         }
         .toolbar {
@@ -65,61 +92,6 @@ struct FeedView: View {
             dismiss()
         }
         .navigationTitle(feed.wrappedTitle)
-    }
-
-    private func previewItemsSection(width: CGFloat) -> some View {
-        Section {
-            if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
-                AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
-                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                    .cornerRadius(8)
-                    .modifier(SectionContentPaddingModifier())
-            } else {
-                BoardView(
-                    width: width,
-                    list: feed.feedData?.visiblePreviewItems(hideRead) ?? []
-                ) { item in
-                    ItemActionView(item: item) {
-                        ItemPreviewView(item: item)
-                    }
-                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                    .cornerRadius(8)
-                }.modifier(SectionContentPaddingModifier())
-            }
-        } header: {
-            HStack {
-                Text("Latest").font(.title3)
-                Spacer()
-                if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
-                    Text("Updated \(refreshedTimeAgo)").font(.caption)
-                }
-            }
-            .modifier(PinnedSectionHeaderModifier())
-        }
-    }
-
-    private func moreSection(width: CGFloat) -> some View {
-        Section {
-            if hideRead == true && feed.feedData!.extraItems.unread().isEmpty {
-                AllReadStatusView(hiddenCount: feed.feedData!.extraItems.read().count)
-                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                    .cornerRadius(8)
-                    .modifier(SectionContentPaddingModifier())
-            } else {
-                BoardView(
-                    width: width,
-                    list: feed.feedData?.visibleExtraItems(hideRead) ?? []
-                ) { item in
-                    GadgetItemView(item: item)
-                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                        .cornerRadius(8)
-                }.modifier(SectionContentPaddingModifier())
-            }
-        } header: {
-            Text("More")
-                .font(.title3)
-                .modifier(PinnedSectionHeaderModifier())
-        }
     }
 
     private var metaSection: some View {

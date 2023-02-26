@@ -17,25 +17,23 @@ struct GadgetView: View {
 
     @Binding var hideRead: Bool
 
+    let items: [Item]
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             header
 
-            if feed.hasContent {
-                if hideRead == true && feed.feedData!.previewItems.unread().isEmpty {
-                    Divider()
-                    AllReadStatusView(hiddenCount: feed.feedData!.previewItems.read().count)
-                } else {
-                    WithItemsView(scopeObject: feed, excludingRead: hideRead) { _, items in
-                        ForEach(items) { item in
-                            Divider()
-                            GadgetItemView(item: item)
-                        }
-                    }
-                }
-            } else {
+            if feed.feedData == nil || feed.feedData?.error != nil {
                 Divider()
                 FeedUnavailableView(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
+            } else if items.isEmpty {
+                Divider()
+                AllReadStatusView()
+            } else {
+                ForEach(items) { item in
+                    Divider()
+                    GadgetItemView(item: item)
+                }
             }
         }
         .fixedSize(horizontal: false, vertical: true)
@@ -58,14 +56,5 @@ struct GadgetView: View {
             .buttonStyle(FeedTitleButtonStyle())
             .accessibilityIdentifier("gadget-feed-button")
         }
-    }
-
-    private var allRead: Bool {
-        guard
-            let feedData = feed.feedData,
-            !feedData.previewItems.isEmpty
-        else { return false }
-
-        return feedData.previewItems.unread().isEmpty
     }
 }

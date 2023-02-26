@@ -51,23 +51,3 @@ public class Trend: NSManagedObject {
         return trend
     }
 }
-
-extension Collection where Element == Trend {
-    func firstMatchingID(_ uuidString: String) -> Trend? {
-        self.first { trend in
-            trend.id?.uuidString == uuidString
-        }
-    }
-
-    func read() -> [Trend] {
-        self.filter { trend in
-            trend.items.unread().isEmpty == true
-        }
-    }
-
-    func unread() -> [Trend] {
-        self.filter { trend in
-            trend.items.unread().isEmpty == false
-        }
-    }
-}

@@ -11,14 +11,11 @@
 import SwiftUI
 
 struct AllReadStatusView: View {
-    let hiddenCount: Int
 
     var body: some View {
         Label {
             HStack(spacing: 4) {
                 Text("All read").font(.callout)
-                Spacer()
-                Text("\(hiddenCount) hidden").font(.caption)
             }
         } icon: {
             Image(systemName: "checkmark").imageScale(.small)

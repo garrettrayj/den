@@ -17,27 +17,28 @@ struct InboxView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        GeometryReader { geometry in
-            if profile.feedsArray.isEmpty {
-                NoFeedsView()
-            } else if profile.previewItems.isEmpty {
-                SplashNoteView(title: "No Items", note: "Refresh to get content.")
-            } else if profile.previewItems.unread().isEmpty && hideRead == true {
-                AllReadSplashNoteView(hiddenItemCount: profile.previewItems.read().count)
-            } else {
-                ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: profile.visibleItems(hideRead)) { item in
-                        FeedItemPreviewView(item: item)
-                    }.modifier(MainBoardModifier())
+        WithItemsView(scopeObject: profile, readFilter: hideRead ? false : nil) { _, items in
+            GeometryReader { geometry in
+                if profile.feedsArray.isEmpty {
+                    NoFeedsView()
+                } else if items.isEmpty {
+                    AllReadSplashNoteView()
+                } else {
+                    ScrollView(.vertical) {
+                        BoardView(width: geometry.size.width, list: Array(items)) { item in
+                            FeedItemPreviewView(item: item)
+                        }.modifier(MainBoardModifier())
+                    }
+                }
+            }
+            .background(Color(UIColor.systemGroupedBackground))
+            .navigationTitle("Inbox")
+            .toolbar {
+                ToolbarItemGroup(placement: .bottomBar) {
+                    InboxBottomBarView(profile: profile, hideRead: $hideRead, visibleItems: items)
                 }
             }
         }
-        .background(Color(UIColor.systemGroupedBackground))
-        .navigationTitle("Inbox")
-        .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
-                InboxBottomBarView(profile: profile, hideRead: $hideRead)
-            }
-        }
+
     }
 }

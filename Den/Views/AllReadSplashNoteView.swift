@@ -11,13 +11,7 @@
 import SwiftUI
 
 struct AllReadSplashNoteView: View {
-    let hiddenItemCount: Int
-
     var body: some View {
-        SplashNoteView(
-            title: "All Read",
-            note: "\(hiddenItemCount) hidden",
-            symbol: "checkmark"
-        )
+        SplashNoteView(title: "All Read", symbol: "checkmark")
     }
 }
