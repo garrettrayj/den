@@ -43,13 +43,7 @@ public class Profile: NSManagedObject {
     }
 
     public var minimumRefreshedDate: Date? {
-        pagesArray.filter({ $0.minimumRefreshedDate != nil }).sorted { aPage, bPage in
-            if let aRefreshed = aPage.minimumRefreshedDate,
-               let bRefreshed = bPage.minimumRefreshedDate {
-                return aRefreshed < bRefreshed
-            }
-            return false
-        }.first?.minimumRefreshedDate
+        Date()
     }
 
     public var historyArray: [History] {
@@ -119,21 +113,6 @@ public class Profile: NSManagedObject {
 
     public var feedsArray: [Feed] {
         pagesArray.flatMap { $0.feedsArray }
-    }
-
-    public var previewItems: [Item] {
-        feedsArray.flatMap { (feed) -> [Item] in
-            if let feedData = feed.feedData {
-                return feedData.previewItems
-            }
-            return []
-        }.sorted { $0.date > $1.date }
-    }
-
-    func visibleItems(_ hideRead: Bool) -> [Item] {
-        previewItems.filter { item in
-            hideRead ? item.read == false : true
-        }
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {

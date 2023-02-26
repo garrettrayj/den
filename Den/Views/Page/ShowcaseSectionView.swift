@@ -15,37 +15,35 @@ struct ShowcaseSectionView: View {
 
     @Binding var hideRead: Bool
 
+    let items: [Item]
     let width: CGFloat
 
     var body: some View {
         Section {
-            if feed.hasContent {
-                if feed.visibleItems(hideRead).isEmpty {
-                    AllReadStatusView(hiddenCount: feed.feedData!.itemsArray.read().count)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                        .cornerRadius(8)
-                        .modifier(SectionContentPaddingModifier())
-                } else {
-                    BoardView(
-                        width: width,
-                        list: feed.visibleItems(hideRead),
-                        content: { item in
-                            ItemActionView(item: item) {
-                                ItemPreviewView(item: item)
-                            }
-                            .background(Color(UIColor.secondarySystemGroupedBackground))
-                            .cornerRadius(8)
-                        }
-                    ).modifier(SectionContentPaddingModifier())
-                }
-            } else {
+            if feed.feedData == nil || feed.feedData?.error != nil {
                 FeedUnavailableView(feedData: feed.feedData)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color(UIColor.secondarySystemGroupedBackground))
                     .cornerRadius(8)
                     .modifier(SectionContentPaddingModifier())
-
+            } else if items.isEmpty {
+                AllReadStatusView()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .cornerRadius(8)
+                    .modifier(SectionContentPaddingModifier())
+            } else {
+                BoardView(
+                    width: width,
+                    list: items,
+                    content: { item in
+                        ItemActionView(item: item) {
+                            ItemPreviewView(item: item)
+                        }
+                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                        .cornerRadius(8)
+                    }
+                ).modifier(SectionContentPaddingModifier())
             }
         } header: {
             NavigationLink(value: DetailPanel.feed(feed)) {

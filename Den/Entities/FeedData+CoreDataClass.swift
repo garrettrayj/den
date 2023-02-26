@@ -38,20 +38,6 @@ public class FeedData: NSManagedObject {
         return items
     }
 
-    public var previewItems: [Item] {
-        guard let itemLimit = feed?.wrappedItemLimit else { return [] }
-        return Array(itemsArray.prefix(itemLimit))
-    }
-
-    public var extraItems: [Item] {
-        guard
-            let itemLimit = feed?.wrappedItemLimit,
-            itemsArray.count > itemLimit
-        else { return [] }
-
-        return Array(itemsArray.suffix(from: itemLimit))
-    }
-
     public var refreshedRelativeDateTimeString: String? {
         guard let refreshed = refreshed else { return nil }
         return refreshed.formatted(.relative(presentation: .numeric))
@@ -64,18 +50,6 @@ public class FeedData: NSManagedObject {
             .replacingOccurrences(of: "http://", with: "")
             .replacingOccurrences(of: "https://", with: "")
             .trimmingCharacters(in: .init(charactersIn: "/"))
-    }
-
-    func visiblePreviewItems(_ hideRead: Bool) -> [Item] {
-        previewItems.filter { item in
-            hideRead ? item.read == false : true
-        }
-    }
-
-    func visibleExtraItems(_ hideRead: Bool) -> [Item] {
-        extraItems.filter { item in
-            hideRead ? item.read == false : true
-        }
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, feedId: UUID) -> FeedData {

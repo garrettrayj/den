@@ -17,7 +17,7 @@ struct TrendsNavView: View {
 
     var body: some View {
         Label {
-            Text("Trends").lineLimit(1).badge(profile.trends.unread().count)
+            Text("Trends").lineLimit(1)
         } icon: {
             Image(systemName: "chart.line.uptrend.xyaxis")
         }

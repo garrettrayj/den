@@ -64,7 +64,7 @@
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="profileId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="read" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="tags" optional="YES" attributeType="String"/>
         <attribute name="teaser" optional="YES" attributeType="String"/>

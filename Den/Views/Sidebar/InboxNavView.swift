@@ -24,9 +24,11 @@ struct InboxNavView: View {
 
     var body: some View {
         Label {
-            Text("Inbox").lineLimit(1).badge(profile.previewItems.unread().count)
+            WithItemsView(scopeObject: profile, readFilter: false) { _, items in
+                Text("Inbox").lineLimit(1).badge(items.count)
+            }
         } icon: {
-            Image(systemName: profile.previewItems.unread().count > 0 ? "tray.full": "tray")
+            Image(systemName: "tray")
         }
         .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
         .searchable(

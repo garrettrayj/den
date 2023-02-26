@@ -16,22 +16,20 @@ struct TrendBottomBarView: View {
 
     @Binding var hideRead: Bool
 
-    var unreadCount: Int {
-        trend.items.unread().count
-    }
-
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead) {
-            trend.objectWillChange.send()
-        }
-        Spacer()
-        Text("\(unreadCount) Unread")
-            .font(.caption)
-            .fixedSize()
-        Spacer()
-        ToggleReadButtonView(unreadCount: unreadCount) {
-            await HistoryUtility.toggleReadUnread(items: trend.items)
-            trend.objectWillChange.send()
+        WithItemsView(scopeObject: trend, readFilter: false) { _, unreadItems in
+            FilterReadButtonView(hideRead: $hideRead) {
+                trend.objectWillChange.send()
+            }
+            Spacer()
+            Text("\(unreadItems.count) Unread")
+                .font(.caption)
+                .fixedSize()
+            Spacer()
+            ToggleReadButtonView(unreadCount: unreadItems.count) {
+                await HistoryUtility.toggleReadUnread(items: trend.items)
+                trend.objectWillChange.send()
+            }
         }
     }
 }

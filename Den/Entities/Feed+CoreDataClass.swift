@@ -36,10 +36,6 @@ public class Feed: NSManagedObject {
         return nil
     }
 
-    public var previewItems: [Item] {
-        feedData?.previewItems ?? []
-    }
-
     public var urlString: String {
         get {url?.absoluteString ?? ""}
         set {url = URL(string: newValue)}
@@ -51,16 +47,6 @@ public class Feed: NSManagedObject {
         }
 
         return "lock.slash"
-    }
-
-    public var hasContent: Bool {
-        self.feedData != nil && self.feedData!.itemsArray.count > 0 && self.feedData!.error == nil
-    }
-
-    func visibleItems(_ hideRead: Bool) -> [Item] {
-        feedData?.previewItems.filter { item in
-            hideRead ? item.read == false : true
-        } ?? []
     }
 
     static func create(

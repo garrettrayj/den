@@ -14,24 +14,23 @@ import SwiftUI
 struct PageBottomBarView: View {
     @ObservedObject var page: Page
 
-    @Binding var viewMode: Int
     @Binding var hideRead: Bool
 
-    var unreadCount: Int {
-        page.previewItems.unread().count
-    }
+    let visibleItems: FetchedResults<Item>
 
     var body: some View {
-        FilterReadButtonView(hideRead: $hideRead) {
-            page.objectWillChange.send()
-        }
-        Spacer()
-        Text("\(unreadCount) Unread").font(.caption).fixedSize()
-        Spacer()
-        ToggleReadButtonView(unreadCount: unreadCount) {
-            await HistoryUtility.toggleReadUnread(items: page.previewItems)
-            page.objectWillChange.send()
-            page.feedsArray.forEach { $0.objectWillChange.send() }
+        WithItemsView(scopeObject: page, readFilter: false) { _, unreadItems in
+            FilterReadButtonView(hideRead: $hideRead) {
+                page.objectWillChange.send()
+            }
+            Spacer()
+            Text("\(unreadItems.count) Unread").font(.caption).fixedSize()
+            Spacer()
+            ToggleReadButtonView(unreadCount: unreadItems.count) {
+                await HistoryUtility.toggleReadUnread(items: Array(visibleItems))
+                page.objectWillChange.send()
+                page.feedsArray.forEach { $0.objectWillChange.send() }
+            }
         }
     }
 }
