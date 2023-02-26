@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0">
 	<head>
-		<title>Den Export 2/26/2023, 3:01 AM</title>
+		<title>Den Export 2/26/2023, 11:32 AM</title>
 	</head>
 	<body>
 		<outline text="World News" title="World News">
@@ -81,7 +81,6 @@
 			<outline text="Fast Company" title="Fast Company" type="rss" xmlUrl="https://www.fastcompany.com/latest/rss" />
 			<outline text="Fortune" title="Fortune" type="rss" xmlUrl="https://fortune.com/feed/fortune-feeds/?id=3230629" />
 			<outline text="Wired" title="Wired" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
-			<outline text="TheStreet" title="TheStreet" type="rss" xmlUrl="https://www.thestreet.com/.rss/full/" />
 			<outline text="New York Times" title="New York Times" type="rss" xmlUrl="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml" />
 			<outline text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
 			<outline text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
