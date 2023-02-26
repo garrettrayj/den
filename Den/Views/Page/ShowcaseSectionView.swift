@@ -35,7 +35,7 @@ struct ShowcaseSectionView: View {
             } else {
                 BoardView(
                     width: width,
-                    list: items,
+                    list: items.forFeed(feed: feed),
                     content: { item in
                         ItemActionView(item: item) {
                             ItemPreviewView(item: item)

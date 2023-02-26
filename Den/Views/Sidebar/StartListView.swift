@@ -103,6 +103,7 @@ struct StartListView: View {
             "Space": "sparkles",
             "Funnies": "face.smiling",
             "Curiosity": "person.and.arrow.left.and.arrow.right",
+            "Design": "pyramid",
             "Gaming": "gamecontroller",
             "Entertainment": "film"
         ]

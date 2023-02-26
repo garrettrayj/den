@@ -29,22 +29,22 @@ struct FeedView: View {
                 sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
                 readFilter: hideRead ? false : nil
             ) { _, items in
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                            if let heroImage = feed.feedData?.banner {
-                                FeedHeroView(heroImage: heroImage)
-                            }
+                if feed.feedData == nil || feed.feedData?.error != nil {
+                    FeedUnavailableView(feedData: feed.feedData, splashNote: true)
 
-                            Section {
-                                if feed.feedData == nil || feed.feedData?.error != nil {
-                                    FeedUnavailableView(feedData: feed.feedData)
-                                } else if items.isEmpty {
-                                    AllReadStatusView()
-                                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                                        .cornerRadius(8)
-                                        .modifier(SectionContentPaddingModifier())
-                                } else {
+                } else if items.isEmpty {
+                    AllReadStatusView()
+                        .background(Color(UIColor.secondarySystemGroupedBackground))
+                        .cornerRadius(8)
+                        .modifier(SectionContentPaddingModifier())
+                } else {
+                    GeometryReader { geometry in
+                        ScrollView(.vertical) {
+                            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                                if let heroImage = feed.feedData?.banner {
+                                    FeedHeroView(heroImage: heroImage)
+                                }
+                                Section {
                                     BoardView(
                                         width: geometry.size.width,
                                         list: Array(items)
@@ -55,21 +55,21 @@ struct FeedView: View {
                                         .background(Color(UIColor.secondarySystemGroupedBackground))
                                         .cornerRadius(8)
                                     }.modifier(SectionContentPaddingModifier())
-                                }
-                            } header: {
-                                HStack {
-                                    Text("Latest").font(.title3)
-                                    Spacer()
-                                    if let refreshedTimeAgo = feed.feedData!.refreshedRelativeDateTimeString {
-                                        Text("Updated \(refreshedTimeAgo)").font(.caption)
+                                } header: {
+                                    HStack {
+                                        Text("Latest").font(.title3)
+                                        Spacer()
+                                        if let refreshedTimeAgo = feed.feedData?.refreshedRelativeDateTimeString {
+                                            Text("Updated \(refreshedTimeAgo)").font(.caption)
+                                        }
                                     }
+                                    .modifier(PinnedSectionHeaderModifier())
                                 }
-                                .modifier(PinnedSectionHeaderModifier())
+
+                                Divider()
+
+                                metaSection
                             }
-
-                            Divider()
-
-                            metaSection
                         }
                     }
                 }

@@ -53,7 +53,7 @@ struct PageView: View {
                         if hideRead == true {
                             AllReadSplashNoteView()
                         } else {
-                            SplashNoteView(title: "No Items", note: "Refresh to get content")
+                            SplashNoteView(title: "No Items", note: "Refresh to get content.")
                         }
                     } else {
                         switch viewMode {
