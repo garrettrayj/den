@@ -21,7 +21,6 @@ struct FeedStatusView: View {
                 Text(.init(caption)).font(.caption).foregroundColor(.secondary)
             }
         }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
+        .padding()
     }
 }
