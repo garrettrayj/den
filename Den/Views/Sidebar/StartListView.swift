@@ -59,8 +59,6 @@ struct StartListView: View {
                 .font(.footnote)
                 #if targetEnvironment(macCatalyst)
                 .padding(.leading, 32)
-                #else
-                .padding(.leading, 44)
                 #endif
             } header: {
                 Text("Get Started")
