@@ -13,7 +13,6 @@ import SwiftUI
 
 struct InboxView: View {
     @ObservedObject var profile: Profile
-
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -43,6 +42,5 @@ struct InboxView: View {
                 }
             }
         }
-
     }
 }

@@ -20,14 +20,18 @@ struct NoFeedsView: View {
             Button {
                 SubscriptionUtility.showSubscribe(page: page)
             } label: {
-                Label("Add by entering a web address", systemImage: "plus.circle")
+                Label("Enter a web address", systemImage: "plus.circle")
             }
             .buttonStyle(.bordered)
             .lineLimit(2)
             Text("""
-            Or drag and drop URLs, or open syndication links, \
-            or use the Feed Detector Safari extension.
-            """).padding(.horizontal)
+            Or drag and drop a URL, \
+            or open a \(Image(systemName: "dot.radiowaves.up.forward")) syndication link, \
+            or use the Feed Detector extension in Safari.
+            """)
+            .font(.body)
+            .imageScale(.small)
+            .padding(.horizontal)
             Spacer()
         }
         .multilineTextAlignment(.center)

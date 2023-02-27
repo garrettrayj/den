@@ -118,8 +118,8 @@ function capture_ios {
 
 start_time=$SECONDS
 
-#capture_mac
-capture_ios
+capture_mac
+#capture_ios
 
 elapsed=$(( SECONDS - start_time ))
 

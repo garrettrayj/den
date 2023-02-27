@@ -30,6 +30,15 @@ class PadScreenshots: ScreenshotTestCase {
         expectation(for: enabledPredicate, evaluatedWith: profileRefreshButton, handler: nil)
         waitForExpectations(timeout: 120, handler: nil)
 
+        // Search
+        let searchField = app.searchFields["Search"]
+        searchField.tap()
+        searchField.typeText("NASA\n")
+        sleep(3)
+        takeScreenshot(named: "08-Search")
+        searchField.buttons["Clear text"].tap()
+        app.buttons["Cancel"].tap()
+
         // Page views
         goToPage(5)
 
@@ -67,15 +76,6 @@ class PadScreenshots: ScreenshotTestCase {
         app.buttons["settings-button"].tap()
         if !app.buttons["Den"].waitForExistence(timeout: 5) { XCTFail("Profile button does not exist") }
         takeScreenshot(named: "07-Settings")
-
-        // Search
-        let searchField = app.searchFields["Search"]
-        searchField.tap()
-        searchField.typeText("NASA")
-        sleep(2)
-        searchField.typeText("\n")
-        sleep(2)
-        takeScreenshot(named: "08-Search")
     }
 
     private func goBack() {

@@ -12,14 +12,14 @@ import CoreData
 import SwiftUI
 
 struct SearchView: View {
-    @FetchRequest
+    @FetchRequest(sortDescriptors: [])
     private var searchResults: FetchedResults<Item>
 
     @ObservedObject var profile: Profile
     @ObservedObject var searchModel: SearchModel
 
     var body: some View {
-        VStack {
+        GeometryReader { geometry in
             if searchModel.query == "" {
                 SplashNoteView(
                     title: "Searching \(profile.wrappedName)",
@@ -28,12 +28,10 @@ struct SearchView: View {
             } else if searchResults.isEmpty {
                 SplashNoteView(title: "No items found for “\(searchModel.query)”")
             } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
-                            FeedItemPreviewView(item: item)
-                        }.modifier(MainBoardModifier())
-                    }
+                ScrollView(.vertical) {
+                    BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
+                        FeedItemPreviewView(item: item)
+                    }.modifier(MainBoardModifier())
                 }
             }
         }

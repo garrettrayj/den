@@ -19,30 +19,30 @@ struct RefreshSettingsSectionView: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("In Background")
+                Text("In Background").modifier(FormRowModifier())
                 Spacer()
                 Toggle(isOn: $backgroundRefreshEnabled) {
                     Text("In Background")
                 }.labelsHidden()
-            }.modifier(FormRowModifier())
+            }
             #else
             Toggle(isOn: $backgroundRefreshEnabled) {
-                Text("In Background")
-            }.modifier(FormRowModifier())
+                Text("In Background").modifier(FormRowModifier())
+            }
             #endif
 
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("When Activated")
+                Text("When Activated").modifier(FormRowModifier())
                 Spacer()
                 Toggle(isOn: $autoRefreshEnabled) {
                     Text("When Activated")
                 }.labelsHidden()
-            }.modifier(FormRowModifier())
+            }
             #else
             Toggle(isOn: $autoRefreshEnabled) {
-                Text("When Activated")
-            }.modifier(FormRowModifier())
+                Text("When Activated").modifier(FormRowModifier())
+            }
             #endif
 
             if autoRefreshEnabled {
@@ -53,11 +53,12 @@ struct RefreshSettingsSectionView: View {
                 ) {
                     if autoRefreshCooldown >= 120 {
                         Text("• Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                            .modifier(FormRowModifier())
                     } else {
                         Text("• Recovery Period: \(autoRefreshCooldown) minutes")
+                            .modifier(FormRowModifier())
                     }
-
-                }.modifier(FormRowModifier())
+                }
             }
         } header: {
             Text("Refresh")
