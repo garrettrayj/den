@@ -71,9 +71,11 @@ class PhoneScreenshots: ScreenshotTestCase {
         goBack()
         sleep(2)
         goBack()
+        goBack()
+        sleep(2)
 
         // Settings
-        app.buttons["settings-button"].forceTap()
+        app.buttons["settings-button"].tap()
         let settingsHeader = app.navigationBars["Settings"]
         expectation(for: existsPredicate, evaluatedWith: settingsHeader, handler: nil)
         waitForExpectations(timeout: 5, handler: nil)
