@@ -46,7 +46,7 @@ struct DenApp: App {
 
     private func scheduleAppRefresh() {
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.refresh")
-        request.earliestBeginDate = .now + 10 * 60
+        request.earliestBeginDate = .now + 5 * 60
         request.requiresNetworkConnectivity = true
         request.requiresExternalPower = false
 
@@ -57,7 +57,7 @@ struct DenApp: App {
             \(request.earliestBeginDate?.formatted() ?? "NA")
             """)
         } catch {
-            Logger.main.warning("Failed to schedule background refresh task")
+            Logger.main.warning("Failed to schedule background refresh task.")
         }
         // Break here to simulate background task
     }
