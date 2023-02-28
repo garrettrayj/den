@@ -39,9 +39,6 @@ struct ThumbnailView: View {
             WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
                 .resizable()
                 .purgeable(true)
-                .placeholder {
-                    placeholder
-                }
                 .playbackRate(0)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                 .grayscale(isEnabled ? 0 : 1)
@@ -51,9 +48,6 @@ struct ThumbnailView: View {
             WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
                 .resizable()
                 .purgeable(true)
-                .placeholder {
-                    placeholder
-                }
                 .playbackRate(0)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .cornerRadius(4)

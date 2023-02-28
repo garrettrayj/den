@@ -43,4 +43,3 @@ struct FeedItemCompactView: View {
         }
     }
 }
-
