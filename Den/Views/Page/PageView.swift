@@ -15,19 +15,11 @@ struct PageView: View {
 
     @Binding var hideRead: Bool
 
-    @SceneStorage("PageLayout") private var pageLayout = PageLayout.gadgets.rawValue
-    @SceneStorage("PagePreviewStyle") private var previewStyle = PreviewStyle.compact.rawValue
-
-    private var wrappedPageLayout: PageLayout {
-        return PageLayout(rawValue: pageLayout) ?? PageLayout.gadgets
-    }
-
-    private var wrappedPreviewStyle: PreviewStyle {
-        return PreviewStyle(rawValue: previewStyle) ?? PreviewStyle.compact
-    }
+    @SceneStorage("PageLayout") private var pageLayout = PageLayout.gadgets
+    @SceneStorage("PagePreviewStyle") private var previewStyle = PreviewStyle.compact
 
     private var sortDescriptors: [NSSortDescriptor] {
-        if wrappedPageLayout == .blend {
+        if pageLayout == .blend {
             return [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
         }
 
@@ -47,14 +39,14 @@ struct PageView: View {
                 VStack {
                     if page.feedsArray.isEmpty {
                         NoFeedsView(page: page)
-                    } else if items.isEmpty && wrappedPageLayout == .blend {
+                    } else if items.isEmpty && pageLayout == .blend {
                         if hideRead == true {
                             AllReadSplashNoteView()
                         } else {
                             SplashNoteView(title: "No Items", note: "Refresh to get content.")
                         }
                     } else {
-                        switch wrappedPageLayout {
+                        switch pageLayout {
                         case .deck:
                             ScrollView(.horizontal) {
                                 LazyHStack(alignment: .top, spacing: 0) {
@@ -64,7 +56,7 @@ struct PageView: View {
                                             isFirst: page.feedsArray.first == feed,
                                             isLast: page.feedsArray.last == feed,
                                             items: items.forFeed(feed: feed),
-                                            previewStyle: wrappedPreviewStyle
+                                            previewStyle: previewStyle
                                         )
                                     }
                                 }
@@ -75,7 +67,7 @@ struct PageView: View {
                             ScrollView(.vertical) {
                                 BoardView(width: geometry.size.width, list: Array(items)) { item in
                                     ItemActionView(item: item) {
-                                        if wrappedPreviewStyle == .compact {
+                                        if previewStyle == .compact {
                                             FeedItemCompactView(item: item)
                                         } else {
                                             FeedItemTeaserView(item: item)
@@ -90,7 +82,7 @@ struct PageView: View {
                                         ShowcaseSectionView(
                                             feed: feed,
                                             items: items.forFeed(feed: feed),
-                                            previewStyle: wrappedPreviewStyle,
+                                            previewStyle: previewStyle,
                                             width: geometry.size.width
                                         )
                                     }
@@ -103,7 +95,7 @@ struct PageView: View {
                                     GadgetView(
                                         feed: feed,
                                         items: items.forFeed(feed: feed),
-                                        previewStyle: wrappedPreviewStyle
+                                        previewStyle: previewStyle
                                     )
                                 }.modifier(MainBoardModifier())
                             }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)")

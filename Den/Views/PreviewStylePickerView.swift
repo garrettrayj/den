@@ -11,16 +11,16 @@
 import SwiftUI
 
 struct PreviewStylePickerView: View {
-    @Binding var previewStyle: Int
+    @Binding var previewStyle: PreviewStyle
 
     var body: some View {
         Picker("Preview Style", selection: $previewStyle) {
             Label("Compact", systemImage: "square.text.square")
-                .tag(PreviewStyle.compact.rawValue)
+                .tag(PreviewStyle.compact)
                 .accessibilityIdentifier("compact-preview-style-option")
 
             Label("Teaser", systemImage: "doc.richtext")
-                .tag(PreviewStyle.teaser.rawValue)
+                .tag(PreviewStyle.teaser)
                 .accessibilityIdentifier("teaser-preview-style-option")
         }
         .accessibilityIdentifier("preview-style-picker")

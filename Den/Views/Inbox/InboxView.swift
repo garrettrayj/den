@@ -15,6 +15,8 @@ struct InboxView: View {
     @ObservedObject var profile: Profile
     @Binding var hideRead: Bool
 
+    @SceneStorage("InboxPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compact
+
     var body: some View {
         WithItems(
             scopeObject: profile,
@@ -22,25 +24,38 @@ struct InboxView: View {
             readFilter: hideRead ? false : nil
         ) { _, items in
             GeometryReader { geometry in
-                if profile.feedsArray.isEmpty {
-                    NoFeedsView()
-                } else if items.isEmpty {
-                    AllReadSplashNoteView()
-                } else {
-                    ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: Array(items)) { item in
-                            FeedItemTeaserView(item: item)
-                        }.modifier(MainBoardModifier())
+                Group {
+                    if profile.feedsArray.isEmpty {
+                        NoFeedsView()
+                    } else if items.isEmpty {
+                        AllReadSplashNoteView()
+                    } else {
+                        ScrollView(.vertical) {
+                            BoardView(width: geometry.size.width, list: Array(items)) { item in
+                                if previewStyle == .compact {
+                                    FeedItemCompactView(item: item)
+                                } else {
+                                    FeedItemTeaserView(item: item)
+                                }
+                            }.modifier(MainBoardModifier())
+                        }
+                    }
+                }
+                .toolbar {
+                    ToolbarItem {
+                        if geometry.size.width > 460 {
+                            PreviewStylePickerView(previewStyle: $previewStyle).pickerStyle(.segmented)
+                        } else {
+                            PreviewStylePickerView(previewStyle: $previewStyle)
+                        }
+                    }
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        InboxBottomBarView(profile: profile, hideRead: $hideRead, visibleItems: items)
                     }
                 }
             }
             .background(Color(UIColor.systemGroupedBackground))
             .navigationTitle("Inbox")
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    InboxBottomBarView(profile: profile, hideRead: $hideRead, visibleItems: items)
-                }
-            }
         }
     }
 }

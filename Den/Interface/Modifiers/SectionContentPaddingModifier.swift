@@ -14,7 +14,7 @@ struct SectionContentPaddingModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding(.horizontal)
-            .padding(.bottom, 12)
+            .padding(.bottom)
             .padding(.top, 8)
     }
 }
