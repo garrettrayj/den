@@ -1,5 +1,5 @@
 //
-//  ItemThumbnailView.swift
+//  ThumbnailView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 4/17/22.
@@ -12,7 +12,7 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct ItemThumbnailView: View {
+struct ThumbnailView: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -22,8 +22,8 @@ struct ItemThumbnailView: View {
 
     private var scaledSize: CGSize {
         return CGSize(
-            width: ItemThumbnailView.baseSize.width * dynamicTypeSize.fontScale,
-            height: ItemThumbnailView.baseSize.height * dynamicTypeSize.fontScale
+            width: ThumbnailView.baseSize.width * dynamicTypeSize.fontScale,
+            height: ThumbnailView.baseSize.height * dynamicTypeSize.fontScale
         )
     }
 

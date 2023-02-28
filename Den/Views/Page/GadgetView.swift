@@ -32,7 +32,7 @@ struct GadgetView: View {
             } else {
                 ForEach(items) { item in
                     Divider()
-                    GadgetItemView(item: item)
+                    ItemCompactView(item: item)
                 }
             }
         }

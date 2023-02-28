@@ -178,7 +178,7 @@ struct RSSItemLoad {
                     } else {
                         imageSelection.imagePool.append(RankedImage(
                             url: url.absoluteURL,
-                            rank: Int(ItemThumbnailView.baseSize.area)
+                            rank: Int(ThumbnailView.baseSize.area)
                         ))
                     }
                 }

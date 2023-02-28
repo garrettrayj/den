@@ -1,5 +1,5 @@
 //
-//  GadgetItemView.swift
+//  ItemCompactView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct GadgetItemView: View {
+struct ItemCompactView: View {
     @ObservedObject var item: Item
 
     var body: some View {
@@ -24,7 +24,7 @@ struct GadgetItemView: View {
                 .multilineTextAlignment(.leading)
 
                 if item.feedData?.feed?.showThumbnails == true {
-                    ItemThumbnailView(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
+                    ThumbnailView(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
                 }
             }
             .padding(8)

@@ -29,7 +29,7 @@ struct InboxView: View {
                 } else {
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: Array(items)) { item in
-                            FeedItemPreviewView(item: item)
+                            FeedItemTeaserView(item: item)
                         }.modifier(MainBoardModifier())
                     }
                 }
