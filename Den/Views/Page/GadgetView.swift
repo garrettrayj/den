@@ -15,9 +15,8 @@ struct GadgetView: View {
 
     @ObservedObject var feed: Feed
 
-    @Binding var hideRead: Bool
-
     let items: [Item]
+    let previewStyle: PreviewStyle
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -32,7 +31,11 @@ struct GadgetView: View {
             } else {
                 ForEach(items) { item in
                     Divider()
-                    ItemCompactView(item: item)
+                    if previewStyle == .compact {
+                        ItemCompactView(item: item)
+                    } else {
+                        ItemTeaserView(item: item)
+                    }
                 }
             }
         }

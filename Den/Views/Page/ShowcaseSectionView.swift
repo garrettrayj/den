@@ -13,9 +13,8 @@ import SwiftUI
 struct ShowcaseSectionView: View {
     @ObservedObject var feed: Feed
 
-    @Binding var hideRead: Bool
-
     let items: [Item]
+    let previewStyle: PreviewStyle
     let width: CGFloat
 
     var body: some View {
@@ -38,7 +37,11 @@ struct ShowcaseSectionView: View {
                     list: items,
                     content: { item in
                         ItemActionView(item: item) {
-                            ItemTeaserView(item: item)
+                            if previewStyle == .compact {
+                                ItemCompactView(item: item)
+                            } else {
+                                ItemTeaserView(item: item)
+                            }
                         }
                         .background(Color(UIColor.secondarySystemGroupedBackground))
                         .cornerRadius(8)

@@ -17,11 +17,10 @@ struct DeckColumnView: View {
 
     @ObservedObject var feed: Feed
 
-    @Binding var hideRead: Bool
-
     let isFirst: Bool
     let isLast: Bool
     let items: [Item]
+    let previewStyle: PreviewStyle
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -41,7 +40,11 @@ struct DeckColumnView: View {
                         } else {
                             ForEach(items) { item in
                                 ItemActionView(item: item) {
-                                    ItemTeaserView(item: item)
+                                    if previewStyle == .compact {
+                                        ItemCompactView(item: item)
+                                    } else {
+                                        ItemTeaserView(item: item)
+                                    }
                                 }
                                 .background(Color(UIColor.secondarySystemGroupedBackground))
                                 .cornerRadius(8)
