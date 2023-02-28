@@ -41,7 +41,7 @@ struct DeckColumnView: View {
                         } else {
                             ForEach(items) { item in
                                 ItemActionView(item: item) {
-                                    ItemPreviewView(item: item)
+                                    ItemTeaserView(item: item)
                                 }
                                 .background(Color(UIColor.secondarySystemGroupedBackground))
                                 .cornerRadius(8)

@@ -105,8 +105,8 @@ final class HTMLContent {
             {
                 // Width and height must be greater than thumbnail size if specified
                 // to help filter hidden images
-                if CGFloat(width) >= ItemThumbnailView.baseSize.width
-                    && CGFloat(height) >= ItemThumbnailView.baseSize.height {
+                if CGFloat(width) >= ThumbnailView.baseSize.width
+                    && CGFloat(height) >= ThumbnailView.baseSize.height {
 
                     images.append(RankedImage(
                         url: url.absoluteURL,

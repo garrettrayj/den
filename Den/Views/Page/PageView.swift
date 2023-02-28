@@ -76,7 +76,7 @@ struct PageView: View {
                         case .blend:
                             ScrollView(.vertical) {
                                 BoardView(width: geometry.size.width, list: Array(items)) { item in
-                                    FeedItemPreviewView(item: item)
+                                    FeedItemTeaserView(item: item)
                                 }.modifier(MainBoardModifier())
                             }.id("\(page.id?.uuidString ?? "na")_\(sceneViewMode)")
                         case .showcase:

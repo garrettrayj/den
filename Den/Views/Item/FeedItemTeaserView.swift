@@ -1,5 +1,5 @@
 //
-//  FeedItemPreviewView.swift
+//  FeedItemTeaserView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/28/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedItemPreviewView: View {
+struct FeedItemTeaserView: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
@@ -35,7 +35,7 @@ struct FeedItemPreviewView: View {
                 Divider()
 
                 ItemActionView(item: item) {
-                    ItemPreviewView(item: item)
+                    ItemTeaserView(item: item)
                 }
             }
             .background(Color(UIColor.secondarySystemGroupedBackground))

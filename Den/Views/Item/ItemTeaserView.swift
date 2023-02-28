@@ -1,5 +1,5 @@
 //
-//  ItemPreviewView.swift
+//  ItemTeaserView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/10/21.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ItemPreviewView: View {
+struct ItemTeaserView: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item

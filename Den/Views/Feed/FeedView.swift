@@ -46,7 +46,7 @@ struct FeedView: View {
                                         list: Array(items)
                                     ) { item in
                                         ItemActionView(item: item) {
-                                            ItemPreviewView(item: item)
+                                            ItemTeaserView(item: item)
                                         }
                                         .background(Color(UIColor.secondarySystemGroupedBackground))
                                         .cornerRadius(8)
