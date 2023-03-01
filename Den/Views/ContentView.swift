@@ -28,6 +28,7 @@ struct ContentView: View {
     @SceneStorage("HideRead") private var hideRead: Bool = false
 
     @AppStorage("ContentSizeCategory") private var contentSizeCategory: UIContentSizeCategory = .unspecified
+    @AppStorage("ContentFontFamily") private var contentFontFamily: String = UIFont.preferredFont(forTextStyle: .body).familyName
 
     var body: some View {
         NavigationStack {
@@ -55,6 +56,7 @@ struct ContentView: View {
                             appProfileID: $appProfileID,
                             uiStyle: $uiStyle,
                             contentSizeCategory: $contentSizeCategory,
+                            contentFontFamily: $contentFontFamily,
                             autoRefreshEnabled: $autoRefreshEnabled,
                             autoRefreshCooldown: $autoRefreshCooldown,
                             backgroundRefreshEnabled: $backgroundRefreshEnabled,
@@ -67,6 +69,7 @@ struct ContentView: View {
                 }
             }
             .environment(\.contentSizeCategory, contentSizeCategory)
+            .environment(\.contentFontFamily, contentFontFamily)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 Group {
                     switch detailPanel {
@@ -101,7 +104,9 @@ struct ContentView: View {
                             SplashNoteView(title: "Trend Deleted", symbol: "slash.circle")
                         }
                     }
-                }.environment(\.contentSizeCategory, contentSizeCategory)
+                }
+                .environment(\.contentSizeCategory, contentSizeCategory)
+                .environment(\.contentFontFamily, contentFontFamily)
             }
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in
                 if let profile = activeProfile {

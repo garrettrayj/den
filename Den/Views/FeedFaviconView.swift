@@ -15,7 +15,6 @@ import SDWebImageSwiftUI
 struct FeedFaviconView: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
 
     let url: URL?
 
@@ -40,6 +39,7 @@ struct FeedFaviconView: View {
     var body: some View {
         WebImage(url: url, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
             .resizable()
+            .purgeable(true)
             .playbackRate(0)
             .placeholder {
                 Image(systemName: placeholderSymbol)

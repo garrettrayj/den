@@ -63,12 +63,7 @@ struct DeckColumnView: View {
     }
 
     private var columnWidth: CGFloat {
-        #if targetEnvironment(macCatalyst)
-        let typeSize = dynamicTypeSize
-        #else
         let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        #endif
-
         return 300 * typeSize.fontScale
     }
 

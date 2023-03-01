@@ -39,11 +39,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     }
 
     private var columnData: [(Int, [T])] {
-        #if targetEnvironment(macCatalyst)
-        let typeSize = dynamicTypeSize
-        #else
         let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        #endif
         let adjustedWidth = width / typeSize.fontScale
         let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 26))
         var gridArray: [(Int, [T])] = []

@@ -13,8 +13,11 @@
     max-width: 100%;
 }
 
-body {
+html {
     font: -apple-system-body;
+}
+
+body {
     margin: 0;
 }
 
@@ -79,6 +82,7 @@ h4 {
 }
 
 h1, h2, h3, h4 {
+    font-family: inherit;
     font-weight: 600;
 }
 

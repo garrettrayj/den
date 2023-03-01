@@ -34,7 +34,7 @@ struct ItemDateAuthorView: View {
                 }
             }
         }
-        .font(.subheadline)
+        .modifier(CustomFontModifier(relativeTo: .subheadline, textStyle: .subheadline))
         .lineLimit(1)
         .foregroundColor(
             isEnabled ?
