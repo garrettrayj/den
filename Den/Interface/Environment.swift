@@ -19,6 +19,10 @@ private struct ContentSizeCategoryKey: EnvironmentKey {
     static let defaultValue: UIContentSizeCategory = .unspecified
 }
 
+private struct ContentFontFamilyKey: EnvironmentKey {
+    static let defaultValue: String = UIFont.preferredFont(forTextStyle: .body).familyName
+}
+
 extension EnvironmentValues {
     var useInbuiltBrowser: Bool {
         get { self[UseInbuiltBrowserKey.self] }
@@ -28,5 +32,10 @@ extension EnvironmentValues {
     var contentSizeCategory: UIContentSizeCategory {
         get { self[ContentSizeCategoryKey.self] }
         set { self[ContentSizeCategoryKey.self] = newValue }
+    }
+
+    var contentFontFamily: String {
+        get { self[ContentFontFamilyKey.self] }
+        set { self[ContentFontFamilyKey.self] = newValue }
     }
 }

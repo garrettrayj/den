@@ -1,5 +1,5 @@
 //
-//  PreviewStylePickerView.swift
+//  PreviewStyleButtonView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/27/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PreviewStylePickerView: View {
+struct PreviewStyleButtonView: View {
     @Binding var previewStyle: PreviewStyle
 
     var body: some View {

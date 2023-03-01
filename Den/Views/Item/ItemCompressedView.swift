@@ -11,13 +11,19 @@
 import SwiftUI
 
 struct ItemCompressedView: View {
+    @Environment(\.isEnabled) private var isEnabled
+
     @ObservedObject var item: Item
 
     var body: some View {
         ItemActionView(item: item) {
             HStack(alignment: .top, spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(item.wrappedTitle).font(.headline).lineLimit(6)
+                    Text(item.wrappedTitle)
+                        .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
+                        .fontWeight(.semibold)
+                        .lineLimit(6)
+
                     ItemDateAuthorView(item: item)
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)

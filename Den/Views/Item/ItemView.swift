@@ -20,7 +20,7 @@ struct ItemView: View {
 
     var maxContentWidth: CGFloat {
         let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        return CGFloat(800) * typeSize.fontScale
+        return CGFloat(700) * typeSize.fontScale
     }
 
     var body: some View {
@@ -36,7 +36,7 @@ struct ItemView: View {
 
                     Group {
                         Text(item.wrappedTitle)
-                            .font(.title)
+                            .modifier(CustomFontModifier(relativeTo: .title, textStyle: .title1))
                             .textSelection(.enabled)
                             .fixedSize(horizontal: false, vertical: true)
 
@@ -56,7 +56,7 @@ struct ItemView: View {
                                 }
                             }
                         }
-                        .font(.subheadline)
+                        .modifier(CustomFontModifier(relativeTo: .subheadline, textStyle: .subheadline))
 
                         if
                             item.image != nil &&

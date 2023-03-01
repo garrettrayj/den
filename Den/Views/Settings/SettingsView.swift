@@ -16,6 +16,7 @@ struct SettingsView: View {
     @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var contentSizeCategory: UIContentSizeCategory
+    @Binding var contentFontFamily: String
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
@@ -35,7 +36,8 @@ struct SettingsView: View {
             #endif
             AppearanceSettingsSectionView(
                 uiStyle: $uiStyle,
-                contentSizeCategory: $contentSizeCategory
+                contentSizeCategory: $contentSizeCategory,
+                contentFontFamily: $contentFontFamily
             )
             RefreshSettingsSectionView(
                 autoRefreshEnabled: $autoRefreshEnabled,

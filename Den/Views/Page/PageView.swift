@@ -107,10 +107,10 @@ struct PageView: View {
                 .toolbar {
                     ToolbarItemGroup {
                         if geometry.size.width > 460 {
-                            PreviewStylePickerView(previewStyle: $previewStyle).pickerStyle(.segmented)
+                            PreviewStyleButtonView(previewStyle: $previewStyle).pickerStyle(.segmented)
                             PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
                         } else {
-                            PreviewStylePickerView(previewStyle: $previewStyle)
+                            PreviewStyleButtonView(previewStyle: $previewStyle)
                             PageLayoutPickerView(pageLayout: $pageLayout)
                         }
                     }

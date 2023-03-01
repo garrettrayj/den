@@ -42,9 +42,9 @@ struct TrendView: View {
                 .toolbar {
                     ToolbarItem {
                         if geometry.size.width > 460 {
-                            PreviewStylePickerView(previewStyle: $previewStyle).pickerStyle(.segmented)
+                            PreviewStyleButtonView(previewStyle: $previewStyle).pickerStyle(.segmented)
                         } else {
-                            PreviewStylePickerView(previewStyle: $previewStyle)
+                            PreviewStyleButtonView(previewStyle: $previewStyle)
                         }
                     }
                     ToolbarItemGroup(placement: .bottomBar) {

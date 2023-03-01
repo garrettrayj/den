@@ -23,7 +23,8 @@ struct ItemExpandedView: View {
         VStack(alignment: .leading, spacing: 8) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.wrappedTitle)
-                    .font(.headline)
+                    .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
+                    .fontWeight(.semibold)
                     .lineLimit(6)
                     .fixedSize(horizontal: false, vertical: true)
                 ItemDateAuthorView(item: item)
@@ -42,7 +43,9 @@ struct ItemExpandedView: View {
             }
 
             if hasTeaser {
-                Text(item.teaser!).lineLimit(6)
+                Text(item.teaser!)
+                    .modifier(CustomFontModifier(relativeTo: .body, textStyle: .body))
+                    .lineLimit(6)
             }
         }
         .multilineTextAlignment(.leading)
