@@ -1,5 +1,5 @@
 //
-//  ItemCompactView.swift
+//  ItemCompressedView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ItemCompactView: View {
+struct ItemCompressedView: View {
     @ObservedObject var item: Item
 
     var body: some View {

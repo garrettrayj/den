@@ -1,16 +1,16 @@
 //
-//  FeedItemCompactView.swift
+//  FeedItemExpandedView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 2/27/23.
-//  Copyright © 2023 Garrett Johnson
+//  Created by Garrett Johnson on 1/28/22.
+//  Copyright © 2022 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
 //
 
 import SwiftUI
 
-struct FeedItemCompactView: View {
+struct FeedItemExpandedView: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
@@ -35,7 +35,7 @@ struct FeedItemCompactView: View {
                 Divider()
 
                 ItemActionView(item: item) {
-                    ItemCompactView(item: item)
+                    ItemExpandedView(item: item)
                 }
             }
             .background(Color(UIColor.secondarySystemGroupedBackground))

@@ -1,16 +1,16 @@
 //
-//  FeedItemTeaserView.swift
+//  FeedItemCompressedView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 1/28/22.
-//  Copyright © 2022 Garrett Johnson
+//  Created by Garrett Johnson on 2/27/23.
+//  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
 //
 
 import SwiftUI
 
-struct FeedItemTeaserView: View {
+struct FeedItemCompressedView: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
@@ -35,7 +35,7 @@ struct FeedItemTeaserView: View {
                 Divider()
 
                 ItemActionView(item: item) {
-                    ItemTeaserView(item: item)
+                    ItemCompressedView(item: item)
                 }
             }
             .background(Color(UIColor.secondarySystemGroupedBackground))

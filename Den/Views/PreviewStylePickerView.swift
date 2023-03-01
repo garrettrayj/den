@@ -14,15 +14,20 @@ struct PreviewStylePickerView: View {
     @Binding var previewStyle: PreviewStyle
 
     var body: some View {
-        Picker("Preview Style", selection: $previewStyle) {
-            Label("Compact", systemImage: "square.text.square")
-                .tag(PreviewStyle.compact)
-                .accessibilityIdentifier("compact-preview-style-option")
-
-            Label("Teaser", systemImage: "doc.richtext")
-                .tag(PreviewStyle.teaser)
-                .accessibilityIdentifier("teaser-preview-style-option")
+        Button {
+            if previewStyle == .compressed {
+                previewStyle = .expanded
+            } else {
+                previewStyle = .compressed
+            }
+        } label: {
+            if previewStyle == .compressed {
+                Label("Expand Previews", systemImage: "rectangle.expand.vertical")
+            } else {
+                Label("Compress Previews", systemImage: "rectangle.compress.vertical")
+            }
         }
-        .accessibilityIdentifier("preview-style-picker")
+        .buttonStyle(ToolbarButtonStyle())
+        .accessibilityIdentifier("preview-style-button")
     }
 }

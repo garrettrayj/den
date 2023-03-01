@@ -40,10 +40,10 @@ struct DeckColumnView: View {
                         } else {
                             ForEach(items) { item in
                                 ItemActionView(item: item) {
-                                    if previewStyle == .compact {
-                                        ItemCompactView(item: item)
+                                    if previewStyle == .compressed {
+                                        ItemCompressedView(item: item)
                                     } else {
-                                        ItemTeaserView(item: item)
+                                        ItemExpandedView(item: item)
                                     }
                                 }
                                 .background(Color(UIColor.secondarySystemGroupedBackground))

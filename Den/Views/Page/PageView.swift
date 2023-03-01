@@ -16,7 +16,7 @@ struct PageView: View {
     @Binding var hideRead: Bool
 
     @SceneStorage("PageLayout") private var pageLayout = PageLayout.gadgets
-    @SceneStorage("PagePreviewStyle") private var previewStyle = PreviewStyle.compact
+    @SceneStorage("PagePreviewStyle") private var previewStyle = PreviewStyle.compressed
 
     private var sortDescriptors: [NSSortDescriptor] {
         if pageLayout == .blend {
@@ -67,10 +67,10 @@ struct PageView: View {
                             ScrollView(.vertical) {
                                 BoardView(width: geometry.size.width, list: Array(items)) { item in
                                     ItemActionView(item: item) {
-                                        if previewStyle == .compact {
-                                            FeedItemCompactView(item: item)
+                                        if previewStyle == .compressed {
+                                            FeedItemCompressedView(item: item)
                                         } else {
-                                            FeedItemTeaserView(item: item)
+                                            FeedItemExpandedView(item: item)
                                         }
                                     }
                                 }.modifier(MainBoardModifier())
@@ -108,7 +108,6 @@ struct PageView: View {
                     ToolbarItemGroup {
                         if geometry.size.width > 460 {
                             PreviewStylePickerView(previewStyle: $previewStyle).pickerStyle(.segmented)
-                            Divider()
                             PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
                         } else {
                             PreviewStylePickerView(previewStyle: $previewStyle)

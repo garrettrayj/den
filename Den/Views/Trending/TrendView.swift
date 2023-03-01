@@ -16,30 +16,40 @@ struct TrendView: View {
 
     @Binding var hideRead: Bool
 
+    @SceneStorage("TrendPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compressed
+
     var body: some View {
         WithItems(scopeObject: trend, readFilter: hideRead ? false : nil) { _, items in
-            Group {
-                if items.isEmpty {
-                    AllReadSplashNoteView()
-                } else {
-                    GeometryReader { geometry in
+            GeometryReader { geometry in
+                Group {
+                    if items.isEmpty {
+                        AllReadSplashNoteView()
+                    } else {
                         ScrollView(.vertical) {
                             BoardView(width: geometry.size.width, list: Array(items)) { item in
-                                FeedItemTeaserView(item: item)
+                                if previewStyle == .compressed {
+                                    FeedItemCompressedView(item: item)
+                                } else {
+                                    FeedItemExpandedView(item: item)
+                                }
                             }.modifier(MainBoardModifier())
                         }
                     }
                 }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-            .navigationTitle(trend.wrappedTitle)
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    TrendBottomBarView(
-                        trend: trend,
-                        hideRead: $hideRead
-                    )
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+                .navigationTitle(trend.wrappedTitle)
+                .toolbar {
+                    ToolbarItem {
+                        if geometry.size.width > 460 {
+                            PreviewStylePickerView(previewStyle: $previewStyle).pickerStyle(.segmented)
+                        } else {
+                            PreviewStylePickerView(previewStyle: $previewStyle)
+                        }
+                    }
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        TrendBottomBarView(trend: trend, hideRead: $hideRead)
+                    }
                 }
             }
         }

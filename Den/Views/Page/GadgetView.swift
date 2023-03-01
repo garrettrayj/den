@@ -31,10 +31,10 @@ struct GadgetView: View {
             } else {
                 ForEach(items) { item in
                     Divider()
-                    if previewStyle == .compact {
-                        ItemCompactView(item: item)
+                    if previewStyle == .compressed {
+                        ItemCompressedView(item: item)
                     } else {
-                        ItemTeaserView(item: item)
+                        ItemExpandedView(item: item)
                     }
                 }
             }
