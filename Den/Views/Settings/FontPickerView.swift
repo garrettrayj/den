@@ -30,7 +30,7 @@ struct FontPickerView: View {
     }
 
     var body: some View {
-        Picker("Font Family", selection: $fontFamily) {
+        Picker(selection: $fontFamily) {
             Text("System UI")
                 .font(.custom(systemFont, fixedSize: fontSize))
                 .padding(8)
@@ -42,6 +42,8 @@ struct FontPickerView: View {
                     .padding(8)
                     .tag(font)
             }
+        } label: {
+            Text("Font Family").modifier(FormRowModifier())
         }
         .pickerStyle(.navigationLink)
         .accessibilityIdentifier("font-picker")

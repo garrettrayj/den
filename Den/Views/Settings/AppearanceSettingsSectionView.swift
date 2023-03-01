@@ -39,10 +39,9 @@ struct AppearanceSettingsSectionView: View {
             }
             #else
             ContentSizePickerView(contentSizeCategory: $contentSizeCategory)
-                .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
             #endif
 
-            FontPickerView(fontFamily: $contentFontFamily)
+            FontPickerView(fontFamily: $contentFontFamily).environment(\.contentSizeCategory, contentSizeCategory)
         }
     }
 }
