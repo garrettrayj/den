@@ -15,7 +15,7 @@ struct InboxView: View {
     @ObservedObject var profile: Profile
     @Binding var hideRead: Bool
 
-    @SceneStorage("InboxPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compact
+    @SceneStorage("InboxPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compressed
 
     var body: some View {
         WithItems(
@@ -32,10 +32,10 @@ struct InboxView: View {
                     } else {
                         ScrollView(.vertical) {
                             BoardView(width: geometry.size.width, list: Array(items)) { item in
-                                if previewStyle == .compact {
-                                    FeedItemCompactView(item: item)
+                                if previewStyle == .compressed {
+                                    FeedItemCompressedView(item: item)
                                 } else {
-                                    FeedItemTeaserView(item: item)
+                                    FeedItemExpandedView(item: item)
                                 }
                             }.modifier(MainBoardModifier())
                         }

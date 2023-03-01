@@ -11,6 +11,6 @@
 import Foundation
 
 enum PreviewStyle: Int {
-    case compact = 0
-    case teaser  = 1
+    case compressed = 0
+    case expanded   = 1
 }

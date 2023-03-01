@@ -30,7 +30,7 @@ struct SearchView: View {
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
-                        FeedItemTeaserView(item: item)
+                        FeedItemExpandedView(item: item)
                     }.modifier(MainBoardModifier())
                 }
             }
