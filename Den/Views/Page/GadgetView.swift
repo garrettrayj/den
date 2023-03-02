@@ -38,6 +38,7 @@ struct GadgetView: View {
                             ItemExpandedView(item: item)
                         }
                     }
+                    .accessibilityIdentifier("gadget-item-button")
                 }
             }
         }

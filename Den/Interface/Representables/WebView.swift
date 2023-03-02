@@ -14,7 +14,6 @@ import WebKit
 struct WebView: UIViewRepresentable {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.contentFontFamily) private var contentFontFamily
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
 
     let html: String
     let title: String?
@@ -29,13 +28,12 @@ struct WebView: UIViewRepresentable {
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             let cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
         {
-            let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
             let source = """
             var style = document.createElement('style');
             style.innerHTML = '\(cssString)';
             document.head.appendChild(style);
             document.body.style.fontFamily='\(contentFontFamily)';
-            document.body.style.fontSize='\(typeSize.fontScale * 100)%';
+            document.body.style.fontSize='\(dynamicTypeSize.fontScale * 100)%';
             """
 
             let userScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)

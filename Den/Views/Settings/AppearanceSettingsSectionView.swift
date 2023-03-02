@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct AppearanceSettingsSectionView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var contentSizeCategory: UIContentSizeCategory
     @Binding var contentFontFamily: String
@@ -23,7 +25,7 @@ struct AppearanceSettingsSectionView: View {
                 Spacer()
                 UIStylePickerView(uiStyle: $uiStyle)
                 .labelsHidden()
-                .frame(maxWidth: 120)
+                .frame(maxWidth: 112)
             }
             #else
             UIStylePickerView(uiStyle: $uiStyle)
@@ -35,13 +37,14 @@ struct AppearanceSettingsSectionView: View {
                 Spacer()
                 ContentSizePickerView(contentSizeCategory: $contentSizeCategory)
                     .labelsHidden()
-                    .frame(maxWidth: 160)
+                    .frame(maxWidth: 172)
             }
             #else
             ContentSizePickerView(contentSizeCategory: $contentSizeCategory)
             #endif
 
-            FontPickerView(fontFamily: $contentFontFamily).environment(\.contentSizeCategory, contentSizeCategory)
+            FontPickerView(fontFamily: $contentFontFamily)
+                .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
         }
     }
 }

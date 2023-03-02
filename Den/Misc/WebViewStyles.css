@@ -113,6 +113,7 @@ figure {
     border-radius: 8px;
     display: table;
     font: -apple-system-caption1;
+    font-family: inherit
     margin: 1em 0;
     overflow: hidden;
     padding: 1em;
@@ -176,6 +177,7 @@ p:empty {
 
 table {
     font: -apple-system-body;
+    font-family: inherit
 }
 
 table, th, td {

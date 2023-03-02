@@ -17,12 +17,8 @@ struct FontPickerView: View {
     @Binding var fontFamily: String
 
     var fontSize: CGFloat {
-        #if targetEnvironment(macCatalyst)
-        let dynamicTypeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        return UIFont.preferredFont(forTextStyle: .body).pointSize * dynamicTypeSize.fontScale
-        #else
-        UIFont.preferredFont(forTextStyle: .body)
-        #endif
+        let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
+        return UIFont.preferredFont(forTextStyle: .body).pointSize * typeSize.fontScale
     }
 
     var systemFont: String {

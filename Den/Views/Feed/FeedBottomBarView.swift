@@ -21,7 +21,7 @@ struct FeedBottomBarView: View {
                 feed.objectWillChange.send()
             }
             Spacer()
-            Text("\(unreadItems.count) unread")
+            Text("\(unreadItems.count) Unread")
                 .font(.caption)
                 .fixedSize()
             Spacer()
