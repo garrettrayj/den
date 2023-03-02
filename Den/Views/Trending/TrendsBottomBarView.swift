@@ -32,9 +32,9 @@ struct TrendsBottomBarView: View {
         FilterReadButtonView(hideRead: $hideRead) { }
         Spacer()
         if hideRead {
-            Text("\(unreadCount) with unread").font(.caption)
+            Text("\(unreadCount) w/ Unread").font(.caption)
         } else {
-            Text("\(unreadCount) trends").font(.caption)
+            Text("\(unreadCount) Trends").font(.caption)
         }
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {

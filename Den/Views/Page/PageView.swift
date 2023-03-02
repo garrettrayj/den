@@ -105,23 +105,31 @@ struct PageView: View {
                 .modifier(URLDropTargetModifier(page: page))
                 .navigationTitle(page.displayName)
                 .toolbar {
+                    #if targetEnvironment(macCatalyst)
                     ToolbarItemGroup {
-                        if geometry.size.width > 460 {
-                            PreviewStyleButtonView(previewStyle: $previewStyle).pickerStyle(.segmented)
-                            PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
-                        } else {
-                            PreviewStyleButtonView(previewStyle: $previewStyle)
-                            PageLayoutPickerView(pageLayout: $pageLayout)
-                        }
-                    }
-
-                    ToolbarItem {
+                        PreviewStyleButtonView(previewStyle: $previewStyle)
+                        PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
                         NavigationLink(value: DetailPanel.pageSettings(page)) {
                             Label("Page Settings", systemImage: "wrench")
                         }
                         .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("page-settings-button")
                     }
+                    #else
+                    ToolbarItem {
+                        Menu {
+                            PreviewStyleButtonView(previewStyle: $previewStyle)
+                            PageLayoutPickerView(pageLayout: $pageLayout)
+                            NavigationLink(value: DetailPanel.pageSettings(page)) {
+                                Label("Page Settings", systemImage: "wrench")
+                            }
+                            .buttonStyle(ToolbarButtonStyle())
+                            .accessibilityIdentifier("page-settings-button")
+                        } label: {
+                            Label("Page Menu", systemImage: "ellipsis.circle")
+                        }
+                    }
+                    #endif
 
                     ToolbarItemGroup(placement: .bottomBar) {
                         PageBottomBarView(

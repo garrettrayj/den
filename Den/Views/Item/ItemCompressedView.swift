@@ -16,25 +16,22 @@ struct ItemCompressedView: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        ItemActionView(item: item) {
-            HStack(alignment: .top, spacing: 8) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(item.wrappedTitle)
-                        .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
-                        .fontWeight(.semibold)
-                        .lineLimit(6)
+        HStack(alignment: .top, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(item.wrappedTitle)
+                    .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
+                    .fontWeight(.semibold)
+                    .lineLimit(6)
 
-                    ItemDateAuthorView(item: item)
-                }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .multilineTextAlignment(.leading)
-
-                if item.feedData?.feed?.showThumbnails == true {
-                    ThumbnailView(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
-                }
+                ItemDateAuthorView(item: item)
             }
-            .padding(8)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
+            .multilineTextAlignment(.leading)
+
+            if item.feedData?.feed?.showThumbnails == true {
+                ThumbnailView(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
+            }
         }
-        .accessibilityIdentifier("gadget-item-button")
+        .padding(8)
     }
 }

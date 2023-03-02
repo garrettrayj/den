@@ -51,6 +51,7 @@ struct ItemExpandedView: View {
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(8)
+        .fixedSize(horizontal: false, vertical: true)
         .foregroundColor(
             isEnabled ?
                 item.read ? .secondary : .primary

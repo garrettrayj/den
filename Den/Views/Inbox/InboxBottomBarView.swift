@@ -24,7 +24,7 @@ struct InboxBottomBarView: View {
                 profile.objectWillChange.send()
             }
             Spacer()
-            Text("\(unreadItems.count) unread")
+            Text("\(unreadItems.count) Unread")
                 .font(.caption)
                 .fixedSize()
             Spacer()

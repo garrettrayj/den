@@ -28,7 +28,9 @@ struct ContentView: View {
     @SceneStorage("HideRead") private var hideRead: Bool = false
 
     @AppStorage("ContentSizeCategory") private var contentSizeCategory: UIContentSizeCategory = .unspecified
-    @AppStorage("ContentFontFamily") private var contentFontFamily: String = UIFont.preferredFont(forTextStyle: .body).familyName
+    @AppStorage("ContentFontFamily") private var contentFontFamily: String = UIFont.preferredFont(
+        forTextStyle: .body
+    ).familyName
 
     var body: some View {
         NavigationStack {
