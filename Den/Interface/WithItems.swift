@@ -13,13 +13,11 @@ import SwiftUI
 
 struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
     let content: (ScopeObject, FetchedResults<Item>) -> Content
-
-    @ObservedObject private var scopeObject: ScopeObject
+    let scopeObject: ScopeObject
 
     @FetchRequest(sortDescriptors: [])
     private var items: FetchedResults<Item>
 
-    @ViewBuilder
     var body: some View {
         content(scopeObject, items)
     }
@@ -30,28 +28,28 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
         readFilter: Bool? = nil,
         @ViewBuilder content: @escaping (ScopeObject, FetchedResults<Item>) -> Content
     ) {
-        _scopeObject = ObservedObject(wrappedValue: scopeObject)
+        self.scopeObject = scopeObject
 
         self.content = content
 
         var predicates: [NSPredicate] = []
 
         if let feed = scopeObject as? Feed {
-            guard let feedDataID = feed.feedData?.id?.uuidString else { return }
-            predicates.append(NSPredicate(format: "feedData.id = %@", feedDataID))
+            guard let feedData = feed.feedData else { return }
+            predicates.append(NSPredicate(format: "feedData = %@", feedData))
         } else if let page = scopeObject as? Page {
             predicates.append(NSPredicate(
-                format: "feedData.id IN %@",
+                format: "feedData IN %@",
                 page.feedsArray.compactMap { feed in
-                    feed.feedData?.id
+                    feed.feedData
                 }
             ))
         } else if let profile = scopeObject as? Profile {
             predicates.append(NSPredicate(
-                format: "feedData.id IN %@",
+                format: "feedData IN %@",
                 profile.pagesArray.flatMap({ page in
                     page.feedsArray.compactMap { feed in
-                        feed.feedData?.id
+                        feed.feedData
                     }
                 })
             ))

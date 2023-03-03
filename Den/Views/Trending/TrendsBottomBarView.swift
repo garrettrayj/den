@@ -20,11 +20,7 @@ struct TrendsBottomBarView: View {
         profile.trends.containingUnread().count
     }
 
-    var itemsFromVisibleTrends: [Item] {
-        if hideRead {
-            return profile.trends.containingUnread().flatMap { $0.items }
-        }
-
+    var itemsFromTrends: [Item] {
         return profile.trends.flatMap { $0.items }
     }
 
@@ -38,7 +34,7 @@ struct TrendsBottomBarView: View {
         }
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
-            await HistoryUtility.toggleReadUnread(items: itemsFromVisibleTrends)
+            await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
             profile.objectWillChange.send()
         }
     }

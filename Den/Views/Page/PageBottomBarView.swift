@@ -16,18 +16,16 @@ struct PageBottomBarView: View {
 
     @Binding var hideRead: Bool
 
-    let visibleItems: FetchedResults<Item>
-
     var body: some View {
-        WithItems(scopeObject: page, readFilter: false) { _, unreadItems in
+        WithItems(scopeObject: page) { _, items in
             FilterReadButtonView(hideRead: $hideRead) {
                 page.objectWillChange.send()
             }
             Spacer()
-            Text("\(unreadItems.count) Unread").font(.caption).fixedSize()
+            Text("\(items.unread().count) Unread").font(.caption).fixedSize()
             Spacer()
-            ToggleReadButtonView(unreadCount: unreadItems.count) {
-                await HistoryUtility.toggleReadUnread(items: Array(visibleItems))
+            ToggleReadButtonView(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
             }

@@ -134,8 +134,7 @@ struct PageView: View {
                     ToolbarItemGroup(placement: .bottomBar) {
                         PageBottomBarView(
                             page: page,
-                            hideRead: $hideRead,
-                            visibleItems: items
+                            hideRead: $hideRead
                         )
                     }
                 }

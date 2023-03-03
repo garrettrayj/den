@@ -19,7 +19,11 @@ struct TrendView: View {
     @SceneStorage("TrendPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compressed
 
     var body: some View {
-        WithItems(scopeObject: trend, readFilter: hideRead ? false : nil) { _, items in
+        WithItems(
+            scopeObject: trend,
+            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
+            readFilter: hideRead ? false : nil
+        ) { _, items in
             GeometryReader { geometry in
                 Group {
                     if items.isEmpty {

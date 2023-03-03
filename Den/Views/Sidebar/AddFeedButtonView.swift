@@ -11,25 +11,21 @@
 import SwiftUI
 
 struct AddFeedButtonView: View {
-    @Environment(\.editMode) private var editMode
-
     @Binding var contentSelection: ContentPanel?
 
     let profile: Profile
 
     var body: some View {
-        if editMode?.wrappedValue == .inactive {
-            Button {
-                if case .page(let page) = contentSelection {
-                    SubscriptionUtility.showSubscribe(page: page)
-                } else {
-                    SubscriptionUtility.showSubscribe()
-                }
-            } label: {
-                Label("Add Feed", systemImage: "plus.circle")
+        Button {
+            if case .page(let page) = contentSelection {
+                SubscriptionUtility.showSubscribe(page: page)
+            } else {
+                SubscriptionUtility.showSubscribe()
             }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("add-feed-button")
+        } label: {
+            Label("Add Feed", systemImage: "plus.circle")
         }
+        .buttonStyle(ToolbarButtonStyle())
+        .accessibilityIdentifier("add-feed-button")
     }
 }

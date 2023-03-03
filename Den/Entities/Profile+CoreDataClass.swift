@@ -9,6 +9,7 @@
 //
 
 import CoreData
+import SwiftUI
 
 @objc(Profile)
 public class Profile: NSManagedObject {
@@ -24,6 +25,11 @@ public class Profile: NSManagedObject {
     public var wrappedHistoryRetention: Int {
         get { Int(historyRetention) }
         set { historyRetention = Int16(newValue) }
+    }
+
+    public var tintColor: Color? {
+        guard let tint = tint, let tintOption = TintOption(rawValue: tint) else { return nil }
+        return tintOption.color
     }
 
     public var pagesWithInsecureFeeds: [Page] {

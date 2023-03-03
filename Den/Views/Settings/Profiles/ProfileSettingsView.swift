@@ -22,11 +22,13 @@ struct ProfileSettingsView: View {
     @ObservedObject var profile: Profile
 
     @State var nameInput: String
+    @State var tintSelection: String?
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
         Form {
             nameSection
+            tintSection
             ProfileSettingsHistorySectionView(
                 profile: profile,
                 historyRentionDays: profile.wrappedHistoryRetention
@@ -75,6 +77,16 @@ struct ProfileSettingsView: View {
                 .modifier(TitleTextFieldModifier())
         } header: {
             Text("Name").modifier(FormFirstHeaderModifier())
+        }
+    }
+
+    private var tintSection: some View {
+        Section {
+            TintPickerView(tint: $tintSelection).onChange(of: tintSelection) { newValue in
+                profile.tint = newValue
+            }
+        } header: {
+            Text("Customization")
         }
     }
 

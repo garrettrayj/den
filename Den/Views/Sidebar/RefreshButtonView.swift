@@ -11,25 +11,21 @@
 import SwiftUI
 
 struct RefreshButtonView: View {
-    @Environment(\.editMode) private var editMode
-
     let profile: Profile
 
     @Binding var refreshing: Bool
 
     var body: some View {
-        if editMode?.wrappedValue == .inactive {
-            Button {
-                guard !refreshing else { return }
-                Task {
-                    await RefreshUtility.refresh(profile: profile)
-                }
-            } label: {
-                Label("Refresh", systemImage: "arrow.clockwise")
+        Button {
+            guard !refreshing else { return }
+            Task {
+                await RefreshUtility.refresh(profile: profile)
             }
-            .buttonStyle(PlainToolbarButtonStyle())
-            .keyboardShortcut("r", modifiers: [.command])
-            .accessibilityIdentifier("profile-refresh-button")
+        } label: {
+            Label("Refresh", systemImage: "arrow.clockwise")
         }
+        .buttonStyle(PlainToolbarButtonStyle())
+        .keyboardShortcut("r", modifiers: [.command])
+        .accessibilityIdentifier("profile-refresh-button")
     }
 }

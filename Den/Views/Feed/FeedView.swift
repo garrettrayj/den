@@ -23,71 +23,73 @@ struct FeedView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        Group {
-            WithItems(
-                scopeObject: feed,
-                sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
-                readFilter: hideRead ? false : nil
-            ) { _, items in
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                            if let heroImage = feed.feedData?.banner {
-                                FeedHeroView(heroImage: heroImage)
-                            }
-                            Section {
-                                if feed.feedData == nil || feed.feedData?.error != nil {
-                                    FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-                                } else if items.isEmpty {
-                                    AllReadStatusView()
-                                } else {
-                                    BoardView(
-                                        width: geometry.size.width,
-                                        list: Array(items)
-                                    ) { item in
-                                        ItemActionView(item: item) {
-                                            ItemExpandedView(item: item)
-                                        }
-                                        .background(Color(UIColor.secondarySystemGroupedBackground))
-                                        .cornerRadius(8)
-                                    }.modifier(SectionContentPaddingModifier())
-                                }
-                            } header: {
-                                HStack {
-                                    Text("Latest").font(.title3)
-                                    Spacer()
-                                    if let refreshedTimeAgo = feed.feedData?.refreshedRelativeDateTimeString {
-                                        Text("Updated \(refreshedTimeAgo).").font(.caption)
-                                    }
-                                }
-                                .modifier(PinnedSectionHeaderModifier())
-                            }
-
-                            Divider()
-
-                            metaSection
+        WithItems(
+            scopeObject: feed,
+            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
+            readFilter: hideRead ? false : nil
+        ) { _, items in
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                        if let heroImage = feed.feedData?.banner {
+                            FeedHeroView(heroImage: heroImage)
                         }
+                        Section {
+                            if feed.feedData == nil || feed.feedData?.error != nil {
+                                FeedUnavailableView(feedData: feed.feedData, splashNote: true)
+                            } else if items.isEmpty {
+                                AllReadStatusView()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
+                                    .modifier(SectionContentPaddingModifier())
+                            } else {
+                                BoardView(
+                                    width: geometry.size.width,
+                                    list: Array(items)
+                                ) { item in
+                                    ItemActionView(item: item) {
+                                        ItemExpandedView(item: item)
+                                    }
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
+                                }.modifier(SectionContentPaddingModifier())
+                            }
+                        } header: {
+                            HStack {
+                                Text("Latest").font(.title3)
+                                Spacer()
+                                if let refreshedTimeAgo = feed.feedData?.refreshedRelativeDateTimeString {
+                                    Text("Updated \(refreshedTimeAgo).").font(.caption)
+                                }
+                            }
+                            .modifier(PinnedSectionHeaderModifier())
+                        }
+
+                        Divider()
+
+                        metaSection
                     }
                 }
-            }
-        }
-        .toolbar {
-            ToolbarItem {
-                NavigationLink(value: DetailPanel.feedSettings(feed)) {
-                    Label("Feed Settings", systemImage: "wrench")
+                .toolbar {
+                    ToolbarItem {
+                        NavigationLink(value: DetailPanel.feedSettings(feed)) {
+                            Label("Feed Settings", systemImage: "wrench")
+                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .accessibilityIdentifier("feed-settings-button")
+                    }
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        FeedBottomBarView(feed: feed, hideRead: $hideRead)
+                    }
                 }
-                .buttonStyle(ToolbarButtonStyle())
-                .accessibilityIdentifier("feed-settings-button")
-            }
-            ToolbarItemGroup(placement: .bottomBar) {
-                FeedBottomBarView(feed: feed, hideRead: $hideRead)
+                .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+                .onChange(of: feed.page) { _ in
+                    dismiss()
+                }
+                .navigationTitle(feed.wrappedTitle)
             }
         }
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
-        .onChange(of: feed.page) { _ in
-            dismiss()
-        }
-        .navigationTitle(feed.wrappedTitle)
     }
 
     private var metaSection: some View {
