@@ -17,6 +17,8 @@ struct SplitView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
+    @ObservedObject var profile: Profile
+
     @Binding var activeProfile: Profile?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
@@ -38,92 +40,89 @@ struct SplitView: View {
     @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
 
     var body: some View {
-        if let profile = activeProfile {
-            NavigationSplitView {
-                SidebarView(
-                    searchModel: searchModel,
-                    profile: profile,
-                    activeProfile: $activeProfile,
-                    contentSelection: $contentSelection,
-                    refreshing: $refreshing
-                )
-                #if targetEnvironment(macCatalyst)
-                .navigationSplitViewColumnWidth(240)
-                #else
-                .refreshable {
-                    if !refreshing, let profile = activeProfile {
-                        await RefreshUtility.refresh(profile: profile)
-                    }
-                }
-                .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
-                #endif
-            } detail: {
-                ContentView(
-                    activeProfile: $activeProfile,
-                    sceneProfileID: $sceneProfileID,
-                    appProfileID: $appProfileID,
-                    contentSelection: $contentSelection,
-                    uiStyle: $uiStyle,
-                    autoRefreshEnabled: $autoRefreshEnabled,
-                    autoRefreshCooldown: $autoRefreshCooldown,
-                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    useInbuiltBrowser: $useInbuiltBrowser,
-                    searchModel: searchModel
-                )
-                .disabled(refreshing)
-            }
-            .environment(\.useInbuiltBrowser, useInbuiltBrowser)
-            .onOpenURL { url in
-                if case .page(let page) = contentSelection {
-                    SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
-                } else {
-                    SubscriptionUtility.showSubscribe(for: url.absoluteString)
-                }
-            }
-            .modifier(
-                URLDropTargetModifier()
+        NavigationSplitView {
+            SidebarView(
+                searchModel: searchModel,
+                profile: profile,
+                activeProfile: $activeProfile,
+                contentSelection: $contentSelection,
+                refreshing: $refreshing
             )
-            .onChange(of: scenePhase) { phase in
-                switch phase {
-                case .active:
-                    if autoRefreshEnabled && !refreshing && (
-                        autoRefreshDate == 0.0 ||
-                        Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
-                    ) {
-                        Logger.main.debug("Performing automatic refresh")
-                        Task {
-                            guard !refreshing, let profile = activeProfile else { return }
-                            await RefreshUtility.refresh(profile: profile)
-                            autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
-                        }
-                    }
-                default: break
+            #if targetEnvironment(macCatalyst)
+            .navigationSplitViewColumnWidth(240)
+            #else
+            .refreshable {
+                if !refreshing, let profile = activeProfile {
+                    await RefreshUtility.refresh(profile: profile)
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
-                subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
-                subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
-                showSubscribe = true
+            .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
+            #endif
+        } detail: {
+            ContentView(
+                profile: profile,
+                activeProfile: $activeProfile,
+                sceneProfileID: $sceneProfileID,
+                appProfileID: $appProfileID,
+                contentSelection: $contentSelection,
+                uiStyle: $uiStyle,
+                autoRefreshEnabled: $autoRefreshEnabled,
+                autoRefreshCooldown: $autoRefreshCooldown,
+                backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                useInbuiltBrowser: $useInbuiltBrowser,
+                searchModel: searchModel
+            )
+            .disabled(refreshing)
+        }
+        .environment(\.useInbuiltBrowser, useInbuiltBrowser)
+        .onOpenURL { url in
+            if case .page(let page) = contentSelection {
+                SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
+            } else {
+                SubscriptionUtility.showSubscribe(for: url.absoluteString)
             }
-            .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-                refreshing = true
-                Haptics.mediumImpactFeedbackGenerator.impactOccurred()
+        }
+        .modifier(
+            URLDropTargetModifier()
+        )
+        .onChange(of: scenePhase) { phase in
+            switch phase {
+            case .active:
+                if autoRefreshEnabled && !refreshing && (
+                    autoRefreshDate == 0.0 ||
+                    Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
+                ) {
+                    Logger.main.debug("Performing automatic refresh")
+                    Task {
+                        guard !refreshing, let profile = activeProfile else { return }
+                        await RefreshUtility.refresh(profile: profile)
+                        autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
+                    }
+                }
+            default: break
             }
-            .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-                refreshing = false
-                profile.objectWillChange.send()
-                Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
-            }
-            .sheet(isPresented: $showSubscribe) {
-                SubscribeView(
-                    initialPageObjectID: $subscribePageObjectID,
-                    initialURLString: $subscribeURLString,
-                    profile: activeProfile
-                )
-                .environment(\.colorScheme, colorScheme)
-            }
-        } else {
-            SplashNoteView(title: "Profile Not Available")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
+            subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
+            subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
+            showSubscribe = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+            refreshing = true
+            Haptics.mediumImpactFeedbackGenerator.impactOccurred()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+            refreshing = false
+            profile.objectWillChange.send()
+            Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
+        }
+        .sheet(isPresented: $showSubscribe) {
+            SubscribeView(
+                initialPageObjectID: $subscribePageObjectID,
+                initialURLString: $subscribeURLString,
+                profile: activeProfile
+            )
+            .environment(\.colorScheme, colorScheme)
         }
     }
 }

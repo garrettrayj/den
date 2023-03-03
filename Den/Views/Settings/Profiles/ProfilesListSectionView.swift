@@ -22,10 +22,12 @@ struct ProfilesListSectionView: View {
         Section {
             ForEach(profiles) { profile in
                 NavigationLink(value: SettingsPanel.profileSettings(profile)) {
-                    Label(
-                        profile.displayName,
-                        systemImage: profile.id?.uuidString == sceneProfileID ? "hexagon.fill" : "hexagon"
-                    )
+                    Label {
+                        Text(profile.displayName)
+                    } icon: {
+                        Image(systemName: profile.id?.uuidString == sceneProfileID ? "hexagon.fill" : "hexagon")
+                            .foregroundColor(profile.tintColor ?? .secondary)
+                    }
                 }
                 .modifier(FormRowModifier())
                 .accessibilityIdentifier("profile-button")

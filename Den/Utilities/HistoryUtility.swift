@@ -23,14 +23,10 @@ struct HistoryUtility {
     }
 
     static func toggleReadUnread(items: [Item]) async {
-        var modItems: [Item]
-
         if items.unread().isEmpty == true {
-            modItems = items.read()
-            await clearHistory(items: modItems)
+            await clearHistory(items: items)
         } else {
-            modItems = items.unread()
-            await logHistory(items: modItems)
+            await logHistory(items: items.unread())
         }
     }
 

@@ -16,14 +16,12 @@ struct SettingsButtonView: View {
     @Binding var listSelection: ContentPanel?
 
     var body: some View {
-        if editMode?.wrappedValue == .inactive {
-            Button {
-                listSelection = .settings
-            } label: {
-                Label("Settings", systemImage: "gear")
-            }
-            .buttonStyle(PlainToolbarButtonStyle())
-            .accessibilityIdentifier("settings-button")
+        Button {
+            listSelection = .settings
+        } label: {
+            Label("Settings", systemImage: "gear")
         }
+        .buttonStyle(PlainToolbarButtonStyle())
+        .accessibilityIdentifier("settings-button")
     }
 }

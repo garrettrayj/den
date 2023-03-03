@@ -16,17 +16,17 @@ struct FeedBottomBarView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: feed) { _, unreadItems in
+        WithItems(scopeObject: feed) { _, items in
             FilterReadButtonView(hideRead: $hideRead) {
                 feed.objectWillChange.send()
             }
             Spacer()
-            Text("\(unreadItems.count) Unread")
+            Text("\(items.unread().count) Unread")
                 .font(.caption)
                 .fixedSize()
             Spacer()
-            ToggleReadButtonView(unreadCount: unreadItems.count) {
-                await HistoryUtility.toggleReadUnread(items: feed.feedData?.itemsArray ?? [])
+            ToggleReadButtonView(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()
             }
         }

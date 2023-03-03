@@ -39,9 +39,15 @@ struct NavigationListView: View {
                 .onDelete(perform: deletePage)
                 .onMove(perform: movePage)
             } header: {
-                Text("Pages")
+                HStack {
+                    Text("Pages")
+                    Spacer()
+                    AddPageButtonView(profile: profile)
+                }
+
             }
         }
+        .tint(profile.tintColor)
         .disabled(refreshing)
         .navigationTitle(profile.displayName)
         .toolbar {
@@ -54,7 +60,6 @@ struct NavigationListView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 SettingsButtonView(listSelection: $contentSelection).disabled(refreshing)
                 Spacer()
-                AddPageButtonView(profile: profile).disabled(refreshing)
                 StatusView(
                     profile: profile,
                     refreshing: $refreshing,

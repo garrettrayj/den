@@ -18,17 +18,17 @@ struct TrendBottomBarView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: trend, readFilter: false) { _, unreadItems in
+        WithItems(scopeObject: trend) { _, items in
             FilterReadButtonView(hideRead: $hideRead) {
                 trend.objectWillChange.send()
             }
             Spacer()
-            Text("\(unreadItems.count) Unread")
+            Text("\(items.unread().count) Unread")
                 .font(.caption)
                 .fixedSize()
             Spacer()
-            ToggleReadButtonView(unreadCount: unreadItems.count) {
-                await HistoryUtility.toggleReadUnread(items: trend.items)
+            ToggleReadButtonView(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
                 trend.objectWillChange.send()
                 if hideRead {
                     dismiss()

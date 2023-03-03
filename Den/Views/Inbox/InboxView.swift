@@ -50,7 +50,7 @@ struct InboxView: View {
                         }
                     }
                     ToolbarItemGroup(placement: .bottomBar) {
-                        InboxBottomBarView(profile: profile, hideRead: $hideRead, visibleItems: items)
+                        InboxBottomBarView(profile: profile, hideRead: $hideRead)
                     }
                 }
             }

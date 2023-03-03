@@ -37,6 +37,7 @@ struct RootView: View {
                     Text("Profile Deleted").onAppear { loadProfile() }
                 } else {
                     SplitView(
+                        profile: profile,
                         activeProfile: $activeProfile,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         appProfileID: $appProfileID,
@@ -68,14 +69,14 @@ struct RootView: View {
                         .multilineTextAlignment(.center)
                         .font(.caption)
                     } else {
-                        Text("Loading…").onAppear { loadProfile() }
+                        Text("Loading…").foregroundColor(Color.secondary).onAppear { loadProfile() }
                     }
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding()
+                .padding(.horizontal, 24)
+                .padding(.bottom)
                 .background(Color(UIColor.systemGroupedBackground))
-                .foregroundColor(Color.secondary)
             }
         }
         .preferredColorScheme(ColorScheme(uiStyle))
