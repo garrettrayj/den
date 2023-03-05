@@ -93,6 +93,7 @@
 		6868A30E2895229D0051D43E /* ImagePlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30D2895229D0051D43E /* ImagePlaceholderView.swift */; };
 		6868A3142895CA860051D43E /* InboxNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A3132895CA860051D43E /* InboxNavView.swift */; };
 		6868A3162895D20D0051D43E /* TrendsNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A3152895D20D0051D43E /* TrendsNavView.swift */; };
+		686A198D29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A198C29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift */; };
 		686C384227405FA900662D84 /* Notification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C384127405FA900662D84 /* Notification+Extensions.swift */; };
 		68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DE2273BD42D00C6BB69 /* FeedView.swift */; };
 		68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */; };
@@ -356,6 +357,7 @@
 		6868A30D2895229D0051D43E /* ImagePlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePlaceholderView.swift; sourceTree = "<group>"; };
 		6868A3132895CA860051D43E /* InboxNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNavView.swift; sourceTree = "<group>"; };
 		6868A3152895D20D0051D43E /* TrendsNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsNavView.swift; sourceTree = "<group>"; };
+		686A198C29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Extensions.swift"; sourceTree = "<group>"; };
 		686C384127405FA900662D84 /* Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extensions.swift"; sourceTree = "<group>"; };
 		68701DE2273BD42D00C6BB69 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleButtonStyle.swift; sourceTree = "<group>"; };
@@ -780,6 +782,7 @@
 				68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */,
 				6897242C299440B4003DAC4C /* DynamicTypeSize+Extensions.swift */,
 				680F495329AB59430083B664 /* Array+Extensions.swift */,
+				686A198C29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1405,6 +1408,7 @@
 				68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
 				6887D41C25B6D016004A170D /* Feed+CoreDataClass.swift in Sources */,
+				686A198D29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift in Sources */,
 				68B1895A289B7B320002A7FE /* PreviewImageView.swift in Sources */,
 				68998B852504C87400FDB6EE /* SearchView.swift in Sources */,
 				687F4890269165EE00EA2498 /* CrashMessageView.swift in Sources */,
@@ -1764,8 +1768,9 @@
 		68C41339247263C700D1DC7B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Light-Default";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1795,8 +1800,9 @@
 		68C4133A247263C700D1DC7B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Light-Default";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;

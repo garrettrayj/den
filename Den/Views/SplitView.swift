@@ -85,6 +85,15 @@ struct SplitView: View {
         .modifier(
             URLDropTargetModifier()
         )
+        .onChange(of: profile.tint) { _ in
+            updateAppIcon()
+        }
+        .onChange(of: activeProfile) { _ in
+            updateAppIcon()
+        }
+        .onChange(of: uiStyle) { _ in
+            updateAppIcon()
+        }
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
@@ -123,6 +132,19 @@ struct SplitView: View {
                 profile: activeProfile
             )
             .environment(\.colorScheme, colorScheme)
+        }
+    }
+
+    private func updateAppIcon() {
+        let iconName = "AppIcon-\(uiStyle.name ?? "Light")-\(activeProfile?.tint ?? "Default")"
+        if iconName != UIApplication.shared.alternateIconName {
+            UIApplication.shared.setAlternateIconName(iconName) { error in
+                if let error = error {
+                    Logger.main.warning("Alternate icon error \(iconName): \(error.localizedDescription)")
+                } else {
+                    Logger.main.info("Successfully set alternate icon: \(iconName)")
+                }
+            }
         }
     }
 }
