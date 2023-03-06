@@ -13,7 +13,9 @@ import SwiftUI
 
 struct TrendView: View {
     @ObservedObject var trend: Trend
+    @ObservedObject var profile: Profile
 
+    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     @SceneStorage("TrendPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compressed
@@ -52,7 +54,7 @@ struct TrendView: View {
                         }
                     }
                     ToolbarItemGroup(placement: .bottomBar) {
-                        TrendBottomBarView(trend: trend, hideRead: $hideRead)
+                        TrendBottomBarView(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
                     }
                 }
             }

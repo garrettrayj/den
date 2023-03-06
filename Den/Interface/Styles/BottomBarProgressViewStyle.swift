@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct BottomBarProgressViewStyle: ProgressViewStyle {
+    @ObservedObject var profile: Profile
+
     let height: CGFloat = 4
 
     #if targetEnvironment(macCatalyst)
@@ -24,9 +26,9 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
             HStack(spacing: 0) {
                 if let completed = configuration.fractionCompleted, completed < 1.0 {
                     configuration.currentValueLabel
-                    Text(" Updated")
+                    Text(" updated.")
                 } else {
-                    Text("Analyzing")
+                    Text("Analyzing.")
                 }
             }
             .font(.caption).monospacedDigit()
@@ -35,8 +37,9 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                 ZStack(alignment: .leading) {
                     Capsule().fill(Color(UIColor.systemFill))
                     Capsule()
-                        .fill(Color.accentColor)
-                        .frame(width: CGFloat(configuration.fractionCompleted ?? 0) * geometry.size.width)
+                        .fill(profile.tintColor ?? Color.blue)
+                        .frame(width: (CGFloat(configuration.fractionCompleted ?? 0) > 1 ? 1 :
+                                        CGFloat(configuration.fractionCompleted ?? 0)) * geometry.size.width)
                 }.frame(height: height)
             }
         }

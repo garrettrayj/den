@@ -18,6 +18,8 @@ struct ItemView: View {
 
     let item: Item
 
+    @ObservedObject var profile: Profile
+
     var maxContentWidth: CGFloat {
         let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
         return CGFloat(700) * typeSize.fontScale
@@ -70,7 +72,8 @@ struct ItemView: View {
                             WebView(
                                 html: item.body ?? item.summary!,
                                 title: item.wrappedTitle,
-                                baseURL: item.link
+                                baseURL: item.link,
+                                profile: profile
                             )
                             .frame(maxWidth: maxContentWidth)
                         }
