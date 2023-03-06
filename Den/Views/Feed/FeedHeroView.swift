@@ -19,7 +19,7 @@ struct FeedHeroView: View {
         VStack(spacing: 0) {
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly, .delayPlaceholder])
                 .resizable()
-                .placeholder { ImagePlaceholderView() }
+                .placeholder { ImageErrorPlaceholderView() }
                 .indicator(.activity)
                 .scaledToFit()
                 .cornerRadius(8)

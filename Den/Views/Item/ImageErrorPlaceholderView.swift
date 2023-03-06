@@ -1,5 +1,5 @@
 //
-//  ImagePlaceholderView.swift
+//  ImageErrorPlaceholderView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/30/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ImagePlaceholderView: View {
+struct ImageErrorPlaceholderView: View {
     var imageScale: Image.Scale = .large
 
     var body: some View {

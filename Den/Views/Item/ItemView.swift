@@ -71,12 +71,16 @@ struct ItemView: View {
                             WebView(
                                 html: item.body ?? item.summary!,
                                 title: item.wrappedTitle,
+<<<<<<< HEAD
                                 baseURL: item.link,
                                 profile: profile
+=======
+                                baseURL: item.link
+>>>>>>> d8ed5ec (Improve image error placeholder.)
                             )
                         }
                     }
-                    .frame(maxWidth: maxContentWidth)
+                    .multilineTextAlignment(.leading)
                     .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                 }
                 .padding(.horizontal, 24)
@@ -84,7 +88,6 @@ struct ItemView: View {
                 .frame(maxWidth: maxContentWidth)
             }
             .frame(maxWidth: .infinity)
-
         }
         .toolbar {
             ToolbarItem {

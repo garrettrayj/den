@@ -40,24 +40,24 @@ struct ThumbnailView: View {
             if let image = item.image {
                 WebImage(
                     url: image,
-                    options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+                    options: [.decodeFirstFrameOnly, .delayPlaceholder],
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
                     .resizable()
                     .purgeable(true)
-                    .placeholder { ImagePlaceholderView(imageScale: .medium) }
+                    .placeholder { ImageErrorPlaceholderView() }
                     .indicator(.activity)
                     .aspectRatio(item.imageAspectRatio, contentMode: .fill)
 
             } else if let image = item.feedData?.image {
                 WebImage(
                     url: image,
-                    options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+                    options: [.decodeFirstFrameOnly, .delayPlaceholder],
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
                     .resizable()
                     .purgeable(true)
-                    .placeholder { ImagePlaceholderView(imageScale: .medium) }
+                    .placeholder { ImageErrorPlaceholderView() }
                     .indicator(.activity)
                     .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                     .cornerRadius(4)

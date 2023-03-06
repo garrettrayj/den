@@ -58,7 +58,7 @@ struct ItemHeroView: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
-                        .placeholder { ImagePlaceholderView() }
+                        .placeholder { ImageErrorPlaceholderView() }
                         .indicator(.activity)
                         .scaledToFit()
                         .cornerRadius(4)
@@ -74,7 +74,7 @@ struct ItemHeroView: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
-                        .placeholder { ImagePlaceholderView() }
+                        .placeholder { ImageErrorPlaceholderView() }
                         .indicator(.activity)
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .cornerRadius(4)
@@ -92,7 +92,7 @@ struct ItemHeroView: View {
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
                     .resizable()
-                    .placeholder { ImagePlaceholderView() }
+                    .placeholder { ImageErrorPlaceholderView() }
                     .indicator(.activity)
                     .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                     .overlay(

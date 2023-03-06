@@ -59,7 +59,7 @@ struct PreviewImageView: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
-                        .placeholder { ImagePlaceholderView() }
+                        .placeholder { ImageErrorPlaceholderView() }
                         .indicator(.activity)
                         .scaledToFit()
                         .cornerRadius(4)
@@ -78,7 +78,7 @@ struct PreviewImageView: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
-                        .placeholder { ImagePlaceholderView() }
+                        .placeholder { ImageErrorPlaceholderView() }
                         .indicator(.activity)
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .frame(
@@ -101,7 +101,7 @@ struct PreviewImageView: View {
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
                     .resizable()
-                    .placeholder { ImagePlaceholderView() }
+                    .placeholder { ImageErrorPlaceholderView() }
                     .indicator(.activity)
                     .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                     .frame(
