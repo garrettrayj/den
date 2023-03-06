@@ -71,12 +71,8 @@ struct ItemView: View {
                             WebView(
                                 html: item.body ?? item.summary!,
                                 title: item.wrappedTitle,
-<<<<<<< HEAD
                                 baseURL: item.link,
                                 profile: profile
-=======
-                                baseURL: item.link
->>>>>>> d8ed5ec (Improve image error placeholder.)
                             )
                         }
                     }
