@@ -24,6 +24,7 @@ struct ContentView: View {
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useInbuiltBrowser: Bool
+    @Binding var refreshing: Bool
 
     let searchModel: SearchModel
 
@@ -39,16 +40,21 @@ struct ContentView: View {
             Group {
                 switch contentSelection ?? .welcome {
                 case .welcome:
-                    WelcomeView(profile: profile)
+                    WelcomeView(profile: profile, refreshing: $refreshing)
                 case .search:
                     SearchView(profile: profile, searchModel: searchModel)
                 case .inbox:
-                    InboxView(profile: profile, hideRead: $hideRead)
+                    InboxView(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
                 case .trends:
-                    TrendsView(profile: profile, hideRead: $hideRead)
+                    TrendsView(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
                 case .page(let page):
                     if page.managedObjectContext != nil {
-                        PageView(page: page, hideRead: $hideRead)
+                        PageView(
+                            page: page,
+                            profile: profile,
+                            hideRead: $hideRead,
+                            refreshing: $refreshing
+                        )
                     } else {
                         SplashNoteView(title: "Page Deleted")
                     }
@@ -80,7 +86,11 @@ struct ContentView: View {
                     }
                 case .feed(let feed):
                     if feed.managedObjectContext != nil {
-                        FeedView(feed: feed, hideRead: $hideRead)
+                        FeedView(feed: feed,
+                                 profile: profile,
+                                 refreshing: $refreshing,
+                                 hideRead: $hideRead
+                        )
                             .environment(\.contentSizeCategory, contentSizeCategory)
                             .environment(\.contentFontFamily, contentFontFamily)
                     } else {
@@ -94,7 +104,7 @@ struct ContentView: View {
                     }
                 case .item(let item):
                     if item.managedObjectContext != nil {
-                        ItemView(item: item)
+                        ItemView(item: item, profile: profile)
                             .environment(\.contentSizeCategory, contentSizeCategory)
                             .environment(\.contentFontFamily, contentFontFamily)
                     } else {
@@ -102,7 +112,11 @@ struct ContentView: View {
                     }
                 case .trend(let trend):
                     if trend.managedObjectContext != nil {
-                        TrendView(trend: trend, hideRead: $hideRead)
+                        TrendView(trend: trend,
+                                  profile: profile,
+                                  refreshing: $refreshing,
+                                  hideRead: $hideRead
+                        )
                             .environment(\.contentSizeCategory, contentSizeCategory)
                             .environment(\.contentFontFamily, contentFontFamily)
                     } else {

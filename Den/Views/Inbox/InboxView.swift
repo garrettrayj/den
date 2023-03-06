@@ -14,6 +14,7 @@ import SwiftUI
 struct InboxView: View {
     @ObservedObject var profile: Profile
     @Binding var hideRead: Bool
+    @Binding var refreshing: Bool
 
     @SceneStorage("InboxPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compressed
 
@@ -50,7 +51,7 @@ struct InboxView: View {
                         }
                     }
                     ToolbarItemGroup(placement: .bottomBar) {
-                        InboxBottomBarView(profile: profile, hideRead: $hideRead)
+                        InboxBottomBarView(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
                     }
                 }
             }

@@ -12,8 +12,10 @@ import SwiftUI
 
 struct PageView: View {
     @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
+    @Binding var refreshing: Bool
 
     @SceneStorage("PageLayout") private var pageLayout = PageLayout.gadgets
     @SceneStorage("PagePreviewStyle") private var previewStyle = PreviewStyle.compressed
@@ -134,6 +136,8 @@ struct PageView: View {
                     ToolbarItemGroup(placement: .bottomBar) {
                         PageBottomBarView(
                             page: page,
+                            profile: profile,
+                            refreshing: $refreshing,
                             hideRead: $hideRead
                         )
                     }

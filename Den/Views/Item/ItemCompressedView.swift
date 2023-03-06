@@ -21,9 +21,9 @@ struct ItemCompressedView: View {
                 Text(item.wrappedTitle)
                     .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
                     .fontWeight(.semibold)
-                    .lineLimit(6)
+                    .lineLimit(3)
 
-                ItemDateAuthorView(item: item)
+                ItemDateAuthorCompressedView(item: item)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
