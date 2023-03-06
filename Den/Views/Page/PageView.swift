@@ -26,7 +26,7 @@ struct PageView: View {
         }
 
         return [
-            NSSortDescriptor(keyPath: \Item.feedData, ascending: false),
+            NSSortDescriptor(keyPath: \Item.feedData?.id, ascending: false),
             NSSortDescriptor(keyPath: \Item.published, ascending: false)
         ]
     }
@@ -34,7 +34,7 @@ struct PageView: View {
     var body: some View {
         WithItems(
             scopeObject: page,
-            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
+            sortDescriptors: sortDescriptors,
             readFilter: hideRead ? false : nil
         ) { _, items in
             GeometryReader { geometry in

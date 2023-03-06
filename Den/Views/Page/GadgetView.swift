@@ -42,7 +42,6 @@ struct GadgetView: View {
                 }
             }
         }
-        .fixedSize(horizontal: false, vertical: true)
         .background(Color(UIColor.secondarySystemGroupedBackground))
         .cornerRadius(8)
     }

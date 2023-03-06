@@ -26,7 +26,6 @@ struct ItemExpandedView: View {
                     .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
                     .fontWeight(.semibold)
                     .lineLimit(6)
-                    .fixedSize(horizontal: false, vertical: true)
                 ItemDateAuthorView(item: item)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -51,7 +50,6 @@ struct ItemExpandedView: View {
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(8)
-        .fixedSize(horizontal: false, vertical: true)
         .foregroundColor(
             isEnabled ?
                 item.read ? .secondary : .primary

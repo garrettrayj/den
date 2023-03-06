@@ -40,7 +40,6 @@ struct ItemView: View {
                         Text(item.wrappedTitle)
                             .modifier(CustomFontModifier(relativeTo: .title, textStyle: .title1))
                             .textSelection(.enabled)
-                            .fixedSize(horizontal: false, vertical: true)
 
                         ViewThatFits(in: .horizontal) {
                             HStack(spacing: 4) {
@@ -75,9 +74,9 @@ struct ItemView: View {
                                 baseURL: item.link,
                                 profile: profile
                             )
-                            .frame(maxWidth: maxContentWidth)
                         }
                     }
+                    .frame(maxWidth: maxContentWidth)
                     .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                 }
                 .padding(.horizontal, 24)

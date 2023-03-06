@@ -53,12 +53,14 @@ struct PreviewImageView: View {
         Group {
             if item.imageAspectRatio == nil {
                 VStack {
-                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                    WebImage(
+                        url: item.image,
+                        options: [.delayPlaceholder, .lowPriority],
+                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                    )
                         .resizable()
-                        .purgeable(true)
-                        .placeholder {
-                            ItemImagePlaceholderView()
-                        }
+                        .placeholder { ImagePlaceholderView() }
+                        .indicator(.activity)
                         .scaledToFit()
                         .cornerRadius(4)
                         .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color(uiColor: .separator)))
@@ -70,12 +72,14 @@ struct PreviewImageView: View {
                 .cornerRadius(6)
             } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
                 VStack {
-                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                    WebImage(
+                        url: item.image,
+                        options: [.delayPlaceholder, .lowPriority],
+                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                    )
                         .resizable()
-                        .purgeable(true)
-                        .placeholder {
-                            ItemImagePlaceholderView()
-                        }
+                        .placeholder { ImagePlaceholderView() }
+                        .indicator(.activity)
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .frame(
                             maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
@@ -91,12 +95,14 @@ struct PreviewImageView: View {
                 .background(Color(UIColor.tertiarySystemFill))
                 .cornerRadius(6)
             } else {
-                WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                WebImage(
+                    url: item.image,
+                    options: [.delayPlaceholder, .lowPriority],
+                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                )
                     .resizable()
-                    .purgeable(true)
-                    .placeholder {
-                        ItemImagePlaceholderView()
-                    }
+                    .placeholder { ImagePlaceholderView() }
+                    .indicator(.activity)
                     .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                     .frame(
                         maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,

@@ -37,14 +37,14 @@ struct FeedFaviconView: View {
     }
 
     var body: some View {
-        WebImage(url: url, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+        WebImage(
+            url: url,
+            options: [.decodeFirstFrameOnly],
+            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+        )
             .resizable()
-            .purgeable(true)
-            .playbackRate(0)
             .placeholder {
                 Image(systemName: placeholderSymbol)
-                    .font(.system(size: 15).weight(.semibold))
-                    .foregroundColor(.primary)
             }
             .frame(width: scaledSize.width, height: scaledSize.height)
             .grayscale(isEnabled ? 0 : 1)

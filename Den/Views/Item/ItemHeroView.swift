@@ -52,12 +52,14 @@ struct ItemHeroView: View {
         Group {
             if item.imageAspectRatio == nil {
                 VStack {
-                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                    WebImage(
+                        url: item.image,
+                        options: [.delayPlaceholder],
+                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                    )
                         .resizable()
-                        .purgeable(true)
-                        .placeholder {
-                            ItemImagePlaceholderView()
-                        }
+                        .placeholder { ImagePlaceholderView() }
+                        .indicator(.activity)
                         .scaledToFit()
                         .cornerRadius(4)
                 }
@@ -66,12 +68,14 @@ struct ItemHeroView: View {
                 .padding(8)
             } else if CGFloat(item.imageWidth) < ItemHeroView.baseSize.width {
                 VStack {
-                    WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                    WebImage(
+                        url: item.image,
+                        options: [.delayPlaceholder],
+                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                    )
                         .resizable()
-                        .purgeable(true)
-                        .placeholder {
-                            ItemImagePlaceholderView()
-                        }
+                        .placeholder { ImagePlaceholderView() }
+                        .indicator(.activity)
                         .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                         .cornerRadius(4)
                         .frame(
@@ -82,12 +86,14 @@ struct ItemHeroView: View {
                 .frame(maxWidth: .infinity)
                 .padding(8)
             } else {
-                WebImage(url: item.image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
+                WebImage(
+                    url: item.image,
+                    options: [.delayPlaceholder],
+                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                )
                     .resizable()
-                    .purgeable(true)
-                    .placeholder {
-                        ItemImagePlaceholderView()
-                    }
+                    .placeholder { ImagePlaceholderView() }
+                    .indicator(.activity)
                     .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
@@ -96,6 +102,5 @@ struct ItemHeroView: View {
         }
         .background(Color(UIColor.secondarySystemFill))
         .cornerRadius(6)
-        .accessibility(label: Text("Hero image"))
     }
 }

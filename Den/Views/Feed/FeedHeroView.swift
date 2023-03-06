@@ -17,8 +17,10 @@ struct FeedHeroView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            WebImage(url: heroImage)
+            WebImage(url: heroImage, options: [.decodeFirstFrameOnly, .delayPlaceholder])
                 .resizable()
+                .placeholder { ImagePlaceholderView() }
+                .indicator(.activity)
                 .scaledToFit()
                 .cornerRadius(8)
                 .shadow(radius: 3, x: 1, y: 2)
@@ -27,7 +29,7 @@ struct FeedHeroView: View {
         .aspectRatio(16/9, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: 240)
         .background {
-            WebImage(url: heroImage)
+            WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
                 .background(Color(UIColor.systemBackground))

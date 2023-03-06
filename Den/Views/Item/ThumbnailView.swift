@@ -22,7 +22,6 @@ struct ThumbnailView: View {
     static let baseSize = CGSize(width: 64, height: 64)
 
     private var scaledSize: CGSize {
-
         return CGSize(
             width: ThumbnailView.baseSize.width * dynamicTypeSize.fontScale,
             height: ThumbnailView.baseSize.height * dynamicTypeSize.fontScale
@@ -37,30 +36,41 @@ struct ThumbnailView: View {
     }
 
     var body: some View {
-        if let image = item.image {
-            WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
-                .resizable()
-                .purgeable(true)
-                .playbackRate(0)
-                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                .grayscale(isEnabled ? 0 : 1)
-                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
-                .modifier(ThumbnailModifier(width: scaledSize.width, height: scaledSize.height))
-        } else if let image = item.feedData?.image {
-            WebImage(url: image, context: [.imageThumbnailPixelSize: thumbnailPixelSize])
-                .resizable()
-                .purgeable(true)
-                .playbackRate(0)
-                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                .cornerRadius(4)
-                .padding(4)
-                .grayscale(isEnabled ? 0 : 1)
-                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
-                .modifier(ThumbnailModifier(width: scaledSize.width, height: scaledSize.height))
-        }
-    }
+        Group {
+            if let image = item.image {
+                WebImage(
+                    url: image,
+                    options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                )
+                    .resizable()
+                    .purgeable(true)
+                    .placeholder { ImagePlaceholderView(imageScale: .medium) }
+                    .indicator(.activity)
+                    .aspectRatio(item.imageAspectRatio, contentMode: .fill)
 
-    var placeholder: some View {
-        Image(systemName: "photo").foregroundColor(Color(UIColor.tertiaryLabel))
+            } else if let image = item.feedData?.image {
+                WebImage(
+                    url: image,
+                    options: [.decodeFirstFrameOnly, .delayPlaceholder, .lowPriority],
+                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                )
+                    .resizable()
+                    .purgeable(true)
+                    .placeholder { ImagePlaceholderView(imageScale: .medium) }
+                    .indicator(.activity)
+                    .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                    .cornerRadius(4)
+                    .padding(4)
+            }
+        }
+        .grayscale(isEnabled ? 0 : 1)
+        .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
+        .frame(width: scaledSize.width, height: scaledSize.height)
+        .background(Color(UIColor.tertiarySystemFill))
+        .cornerRadius(6)
+        .overlay(
+            RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
+        )
     }
 }
