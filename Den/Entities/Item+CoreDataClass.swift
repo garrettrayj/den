@@ -41,6 +41,11 @@ public class Item: NSManagedObject {
         set {title = newValue}
     }
 
+    public var wrappedAuthor: String {
+        get {author ?? "Untitled"}
+        set {author = newValue}
+    }
+
     public var wrappedTags: [(String, NLTag)] {
         get {
             var results: [(String, NLTag)] = []

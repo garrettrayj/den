@@ -70,6 +70,7 @@ struct SplitView: View {
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 useInbuiltBrowser: $useInbuiltBrowser,
+                refreshing: $refreshing,
                 searchModel: searchModel
             )
             .disabled(refreshing)

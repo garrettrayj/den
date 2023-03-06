@@ -19,6 +19,8 @@ struct WebView: UIViewRepresentable {
     let title: String?
     let baseURL: URL?
 
+    @ObservedObject var profile: Profile
+
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
 
@@ -27,13 +29,28 @@ struct WebView: UIViewRepresentable {
         if
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             let cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
-        {
+                .replacingOccurrences(of: "a {    color: -apple-system-blue", with: """
+                @media (prefers-color-scheme: dark) { a { color:
+                \(self.hexStringFromColor(color: UIColor(
+                    profile.tintColor ?? Color.blue)
+                        .adjust(brightness: 1.0, saturation: 0.85)));}}
+                @media (prefers-color-scheme: light) { a { color:
+                \(self.hexStringFromColor(color: UIColor(
+                    profile.tintColor ?? Color.blue)
+                        .adjust(brightness: 0.9, saturation: 1)));}}
+                a { text-decoration: none
+                """)
+                .components(separatedBy: .newlines).joined()
+                .replacingOccurrences(of: "-apple-system-purple;}", with: """
+                -apple-system-purple;} a:hover{text-decoration: underline}
+                """) {
             let source = """
             var style = document.createElement('style');
             style.innerHTML = '\(cssString)';
             document.head.appendChild(style);
             document.body.style.fontFamily='\(contentFontFamily)';
             document.body.style.fontSize='\(dynamicTypeSize.fontScale * 100)%';
+            document.body.style.lineHeight='\(dynamicTypeSize.fontScale * 140)%';
             """
 
             let userScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
@@ -45,7 +62,7 @@ struct WebView: UIViewRepresentable {
 
         let webView = ResizingWebView(frame: .zero, configuration: configuration)
         webView.scrollView.isScrollEnabled = false
-        webView.scrollView.bounces = false
+        webView.scrollView.bounces = true
         webView.navigationDelegate = context.coordinator
 
         let htmlStart = """
@@ -100,4 +117,18 @@ struct WebView: UIViewRepresentable {
         Coordinator()
     }
 
+    func hexStringFromColor(color: UIColor) -> String {
+        let components = color.cgColor.components
+        let red: CGFloat = components?[0] ?? 0.0
+        let green: CGFloat = components?[1] ?? 0.0
+        let blue: CGFloat = components?[2] ?? 0.0
+
+        let hexString = String.init(
+            format: "#%02lX%02lX%02lX",
+                    lroundf(Float(red * 255)),
+                    lroundf(Float(green * 255)),
+                    lroundf(Float(blue * 255))
+        )
+        return hexString
+     }
 }

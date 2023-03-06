@@ -23,43 +23,44 @@ struct DeckColumnView: View {
     let previewStyle: PreviewStyle
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(alignment: .leading, spacing: 8, pinnedViews: .sectionHeaders) {
-                Section {
-                    Group {
-                        if feed.feedData == nil || feed.feedData?.error != nil {
-                            FeedUnavailableView(feedData: feed.feedData)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(UIColor.secondarySystemGroupedBackground))
-                                .cornerRadius(8)
-                        } else if items.isEmpty {
-                            AllReadStatusView()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(UIColor.secondarySystemGroupedBackground))
-                                .cornerRadius(8)
-                        } else {
-                            ForEach(items) { item in
-                                ItemActionView(item: item) {
-                                    if previewStyle == .compressed {
-                                        ItemCompressedView(item: item)
-                                    } else {
-                                        ItemExpandedView(item: item)
+        ZStack(alignment: .top) {
+            ScrollView(.vertical, showsIndicators: true) {
+                LazyVStack(alignment: .leading, spacing: 8) {
+                    Section {
+                        Group {
+                            Spacer(minLength: 37)
+                            if feed.feedData == nil || feed.feedData?.error != nil {
+                                FeedUnavailableView(feedData: feed.feedData)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
+                            } else if items.isEmpty {
+                                AllReadStatusView()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
+                            } else {
+                                ForEach(items) { item in
+                                    ItemActionView(item: item) {
+                                        if previewStyle == .compressed {
+                                            ItemCompressedView(item: item)
+                                        } else {
+                                            ItemExpandedView(item: item)
+                                        }
                                     }
+                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .cornerRadius(8)
                                 }
-                                .background(Color(UIColor.secondarySystemGroupedBackground))
-                                .cornerRadius(8)
                             }
-                            Spacer()
+                            Spacer(minLength: 8)
                         }
+                        .padding(.leading, isFirst ? 11 : 0)
+                        .padding(.trailing, 11)
                     }
-                    .padding(.horizontal, 4)
-                    .padding(.leading, isFirst ? 12 : 0)
-                    .padding(.trailing, isLast ? 12 : 0)
-                } header: {
-                    header
                 }
-            }
-        }.frame(width: columnWidth)
+            }.frame(width: columnWidth)
+            header.frame(width: columnWidth)
+        }
     }
 
     private var columnWidth: CGFloat {
@@ -74,10 +75,10 @@ struct DeckColumnView: View {
                 Spacer()
                 NavChevronView()
             }
-            .padding(.leading, isFirst ? 12 : 0)
-            .padding(.trailing, isLast ? 12 : 0)
+            .padding(.leading, isFirst ? 10 : 0)
+            .padding(.trailing, isLast ? 11 : 0)
         }
-        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 12, trailingPadding: 12))
+        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 10, trailingPadding: 11))
         .accessibilityIdentifier("deck-feed-button")
     }
 }

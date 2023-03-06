@@ -19,7 +19,9 @@ struct FeedView: View {
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
 
     @ObservedObject var feed: Feed
+    @ObservedObject var profile: Profile
 
+    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -80,7 +82,11 @@ struct FeedView: View {
                         .accessibilityIdentifier("feed-settings-button")
                     }
                     ToolbarItemGroup(placement: .bottomBar) {
-                        FeedBottomBarView(feed: feed, hideRead: $hideRead)
+                        FeedBottomBarView(feed: feed,
+                                          profile: profile,
+                                          refreshing: $refreshing,
+                                          hideRead: $hideRead
+                        )
                     }
                 }
                 .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
