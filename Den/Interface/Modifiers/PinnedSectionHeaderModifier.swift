@@ -16,7 +16,6 @@ struct PinnedSectionHeaderModifier: ViewModifier {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
-            .background(Color(UIColor.tertiarySystemFill))
-            .background(.thickMaterial)
+            .background(.ultraThickMaterial)
     }
 }

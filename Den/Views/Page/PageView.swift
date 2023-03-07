@@ -69,12 +69,10 @@ struct PageView: View {
                         case .blend:
                             ScrollView(.vertical) {
                                 BoardView(width: geometry.size.width, list: Array(items)) { item in
-                                    ItemActionView(item: item) {
-                                        if previewStyle == .compressed {
-                                            FeedItemCompressedView(item: item)
-                                        } else {
-                                            FeedItemExpandedView(item: item)
-                                        }
+                                    if previewStyle == .compressed {
+                                        FeedItemCompressedView(item: item)
+                                    } else {
+                                        FeedItemExpandedView(item: item)
                                     }
                                 }.modifier(MainBoardModifier())
                             }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)")

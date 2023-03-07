@@ -59,7 +59,6 @@ struct DeckColumnView: View {
                     }
                 }
             }
-            .edgesIgnoringSafeArea(.trailing)
             .safeAreaInset(edge: .top) {
                 header.hidden()
             }

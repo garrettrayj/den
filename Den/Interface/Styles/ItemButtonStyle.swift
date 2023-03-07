@@ -29,7 +29,7 @@ struct ItemButtonStyle: ButtonStyle {
             )
             .frame(maxWidth: .infinity)
             .background(
-                isEnabled && hovering ? Color(UIColor.quaternarySystemFill) : Color.clear
+                .thickMaterial.opacity(isEnabled && hovering ? 1 : 0)
             )
             .onHover { hovered in
                 hovering = hovered

@@ -26,6 +26,7 @@ struct ItemExpandedView: View {
                     .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
                     .fontWeight(.semibold)
                     .lineLimit(6)
+                    .fixedSize(horizontal: false, vertical: true)
                 ItemDateAuthorView(item: item)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)

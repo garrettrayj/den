@@ -23,9 +23,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(8)
             .background(
-                isEnabled ?
-                    hovering ? Color(UIColor.quaternarySystemFill) : .clear
-                : .clear
+                .thickMaterial.opacity(isEnabled && hovering ? 1 : 0)
             )
             .onHover { hovered in
                 hovering = hovered

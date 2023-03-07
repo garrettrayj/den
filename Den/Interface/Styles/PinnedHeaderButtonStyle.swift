@@ -26,16 +26,14 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
             .background(
-                isEnabled ?
-                    hovering ? Color(UIColor.secondarySystemFill) : Color(UIColor.tertiarySystemFill)
-                : .clear
+                isEnabled && hovering ? Color(UIColor.secondarySystemFill) : .clear
             )
+            .background(.ultraThickMaterial)
             .onHover { hovered in
                 hovering = hovered
             }
             .onDisappear {
                 hovering = false
             }
-            .background(.thickMaterial)
     }
 }
