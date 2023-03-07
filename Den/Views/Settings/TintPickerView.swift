@@ -15,8 +15,8 @@ struct TintPickerView: View {
 
     var body: some View {
         Picker(selection: $tint) {
-            Label("None", systemImage: "diamond")
-                .foregroundColor(.primary)
+            Label("None", systemImage: "hexagon")
+                .foregroundColor(.secondary)
                 .padding(.vertical, 8)
                 .tag(nil as String?)
 

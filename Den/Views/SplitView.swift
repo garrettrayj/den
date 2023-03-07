@@ -20,8 +20,9 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var activeProfile: Profile?
-    @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
+    @Binding var sceneProfileID: String?
+    @Binding var backgroundRefreshEnabled: Bool
     @Binding var uiStyle: UIUserInterfaceStyle
 
     @StateObject private var searchModel = SearchModel()
@@ -36,7 +37,6 @@ struct SplitView: View {
     @AppStorage("AutoRefreshCooldown") private var autoRefreshCooldown: Int = 30
     @AppStorage("UseInbuiltBrowser") private var useInbuiltBrowser: Bool = true
 
-    @SceneStorage("ActiveProfileID") private var sceneProfileID: String?
     @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
 
     var body: some View {

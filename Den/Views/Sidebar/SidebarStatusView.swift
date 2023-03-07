@@ -24,13 +24,11 @@ struct SidebarStatusView: View {
                     BottomBarProgressViewStyle(profile: profile)
                 )
             } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                Group {
-                    if refreshedDate.formatted(date: .complete, time: .omitted) ==
-                        Date().formatted(date: .complete, time: .omitted) {
-                        Text("Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))")
-                    } else {
-                        Text("Updated \(refreshedDate.formatted(date: .abbreviated, time: .shortened))")
-                    }
+                if refreshedDate.formatted(date: .complete, time: .omitted) ==
+                    Date().formatted(date: .complete, time: .omitted) {
+                    Text("Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))")
+                } else {
+                    Text("Updated \(refreshedDate.formatted(date: .abbreviated, time: .omitted))")
                 }
             } else {
                 #if targetEnvironment(macCatalyst)

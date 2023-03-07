@@ -26,7 +26,7 @@ struct RootView: View {
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
-    @SceneStorage("ActiveProfileID") private var sceneProfileID: String?
+    @SceneStorage("SceneProfileID") private var sceneProfileID: String?
 
     var body: some View {
         Group {
@@ -39,8 +39,9 @@ struct RootView: View {
                     SplitView(
                         profile: profile,
                         activeProfile: $activeProfile,
-                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         appProfileID: $appProfileID,
+                        sceneProfileID: $sceneProfileID,
+                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         uiStyle: $uiStyle
                     )
                 }
