@@ -24,11 +24,11 @@ struct DeckColumnView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 8) {
                     Section {
-                        Group {
-                            Spacer(minLength: 37)
+                        VStack(spacing: 8) {
+                            header.hidden()
                             if feed.feedData == nil || feed.feedData?.error != nil {
                                 FeedUnavailableView(feedData: feed.feedData)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -52,13 +52,15 @@ struct DeckColumnView: View {
                                     .cornerRadius(8)
                                 }
                             }
-                            Spacer(minLength: 8)
+                            Spacer(minLength: 16)
                         }
-                        .padding(.leading, isFirst ? 11 : 0)
-                        .padding(.trailing, 11)
+                        .padding(.horizontal, 4)
+                        .padding(.leading, isFirst ? 12 : 0)
+                        .padding(.trailing, isLast ? 12 : 0)
                     }
                 }
             }.frame(width: columnWidth)
+
             header.frame(width: columnWidth)
         }
     }
@@ -75,10 +77,10 @@ struct DeckColumnView: View {
                 Spacer()
                 NavChevronView()
             }
-            .padding(.leading, isFirst ? 10 : 0)
-            .padding(.trailing, isLast ? 11 : 0)
+            .padding(.leading, isFirst ? 12 : 0)
+            .padding(.trailing, isLast ? 12 : 0)
         }
-        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 10, trailingPadding: 11))
+        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 12, trailingPadding: 12))
         .accessibilityIdentifier("deck-feed-button")
     }
 }
