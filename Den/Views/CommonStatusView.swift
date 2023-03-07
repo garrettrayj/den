@@ -54,6 +54,9 @@ struct CommonStatusView: View {
         .task {
             updateRefreshedDateAndRelativeString()
         }
+        .onChange(of: refreshing) { _ in
+            updateRefreshedDateAndRelativeString()
+        }
         .onDisappear {
             self.timer.upstream.connect().cancel()
         }

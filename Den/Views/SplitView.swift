@@ -48,6 +48,7 @@ struct SplitView: View {
                 contentSelection: $contentSelection,
                 refreshing: $refreshing
             )
+            .background(.regularMaterial)
             #if targetEnvironment(macCatalyst)
             .navigationSplitViewColumnWidth(240)
             #else

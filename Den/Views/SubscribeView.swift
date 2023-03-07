@@ -84,7 +84,7 @@ struct SubscribeView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.ultraThinMaterial)
+        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .onAppear {
             urlString = initialURLString
             checkTargetPage()
@@ -113,6 +113,7 @@ struct SubscribeView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .listRowBackground(Color(UIColor.systemGroupedBackground))
         .disabled(!(urlString.count > 0) || loading)
         .buttonStyle(AccentButtonStyle())
         .accessibilityIdentifier("subscribe-submit-button")

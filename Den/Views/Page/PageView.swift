@@ -139,7 +139,7 @@ struct PageView: View {
                             profile: profile,
                             refreshing: $refreshing,
                             hideRead: $hideRead
-                        ).id("page-bottom-bar-\(page.id?.uuidString ?? "na")")
+                        )
                     }
                 }
             }
