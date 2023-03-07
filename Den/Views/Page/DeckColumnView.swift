@@ -24,11 +24,10 @@ struct DeckColumnView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 8) {
                     Section {
                         VStack(spacing: 8) {
-                            header.hidden()
                             if feed.feedData == nil || feed.feedData?.error != nil {
                                 FeedUnavailableView(feedData: feed.feedData)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,12 +53,20 @@ struct DeckColumnView: View {
                             }
                             Spacer(minLength: 16)
                         }
-                        .padding(.horizontal, 4)
-                        .padding(.leading, isFirst ? 12 : 0)
-                        .padding(.trailing, isLast ? 12 : 0)
+                        .padding(.trailing, 8)
+                        .padding(.leading, isFirst ? 16 : 0)
+                        .padding(.trailing, isLast ? 8 : 0)
                     }
                 }
-            }.frame(width: columnWidth)
+            }
+            .edgesIgnoringSafeArea(.trailing)
+            .safeAreaInset(edge: .top) {
+                header.hidden()
+            }
+            .safeAreaInset(edge: .bottom) {
+                EmptyView().frame(height: 36)
+            }
+            .frame(width: columnWidth)
 
             header.frame(width: columnWidth)
         }

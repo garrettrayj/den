@@ -50,7 +50,7 @@ struct PageView: View {
                     } else {
                         switch pageLayout {
                         case .deck:
-                            ScrollView(.horizontal) {
+                            ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(alignment: .top, spacing: 0) {
                                     ForEach(page.feedsArray) { feed in
                                         DeckColumnView(
@@ -63,6 +63,7 @@ struct PageView: View {
                                     }
                                 }
                             }
+                            .edgesIgnoringSafeArea(.bottom)
                             .id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
                             .navigationBarTitleDisplayMode(.inline)
                         case .blend:
