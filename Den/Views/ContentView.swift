@@ -86,11 +86,7 @@ struct ContentView: View {
                     }
                 case .feed(let feed):
                     if feed.managedObjectContext != nil {
-                        FeedView(feed: feed,
-                                 profile: profile,
-                                 refreshing: $refreshing,
-                                 hideRead: $hideRead
-                        )
+                        FeedView(feed: feed, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
                             .environment(\.contentSizeCategory, contentSizeCategory)
                             .environment(\.contentFontFamily, contentFontFamily)
                     } else {
@@ -112,13 +108,14 @@ struct ContentView: View {
                     }
                 case .trend(let trend):
                     if trend.managedObjectContext != nil {
-                        TrendView(trend: trend,
-                                  profile: profile,
-                                  refreshing: $refreshing,
-                                  hideRead: $hideRead
+                        TrendView(
+                            trend: trend,
+                            profile: profile,
+                            refreshing: $refreshing,
+                            hideRead: $hideRead
                         )
-                            .environment(\.contentSizeCategory, contentSizeCategory)
-                            .environment(\.contentFontFamily, contentFontFamily)
+                        .environment(\.contentSizeCategory, contentSizeCategory)
+                        .environment(\.contentFontFamily, contentFontFamily)
                     } else {
                         SplashNoteView(title: "Trend Deleted", symbol: "slash.circle")
                     }

@@ -58,14 +58,7 @@ struct FeedView: View {
                                 }.modifier(SectionContentPaddingModifier())
                             }
                         } header: {
-                            HStack {
-                                Text("Latest").font(.title3)
-                                Spacer()
-                                if let refreshedTimeAgo = feed.feedData?.refreshedRelativeDateTimeString {
-                                    Text("Updated \(refreshedTimeAgo).").font(.caption)
-                                }
-                            }
-                            .modifier(PinnedSectionHeaderModifier())
+                            Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
                         }
 
                         Divider()
@@ -82,10 +75,11 @@ struct FeedView: View {
                         .accessibilityIdentifier("feed-settings-button")
                     }
                     ToolbarItemGroup(placement: .bottomBar) {
-                        FeedBottomBarView(feed: feed,
-                                          profile: profile,
-                                          refreshing: $refreshing,
-                                          hideRead: $hideRead
+                        FeedBottomBarView(
+                            feed: feed,
+                            profile: profile,
+                            refreshing: $refreshing,
+                            hideRead: $hideRead
                         )
                     }
                 }

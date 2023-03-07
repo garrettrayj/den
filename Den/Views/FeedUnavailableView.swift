@@ -18,7 +18,13 @@ struct FeedUnavailableView: View {
         if splashNote {
             SplashNoteView(title: titleAndDescripition.0, note: titleAndDescripition.1)
         } else {
-            FeedStatusView(title: titleAndDescripition.0, caption: titleAndDescripition.1)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(titleAndDescripition.0)
+                if let caption = titleAndDescripition.1 {
+                    Text(.init(caption)).font(.caption).foregroundColor(.secondary)
+                }
+            }
+            .padding()
         }
     }
 
