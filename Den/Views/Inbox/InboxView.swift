@@ -55,7 +55,7 @@ struct InboxView: View {
                     }
                 }
             }
-            .background(Color(UIColor.systemGroupedBackground))
+            .background(.ultraThinMaterial)
             .navigationTitle("Inbox")
         }
     }

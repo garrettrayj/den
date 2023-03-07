@@ -35,8 +35,12 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
         var predicates: [NSPredicate] = []
 
         if let feed = scopeObject as? Feed {
-            guard let feedData = feed.feedData else { return }
-            predicates.append(NSPredicate(format: "feedData = %@", feedData))
+            if let feedData = feed.feedData {
+                predicates.append(NSPredicate(format: "feedData = %@", feedData))
+            } else {
+                // Impossible query because there will be no items without FeedData
+                predicates.append(NSPredicate(format: "1 = 2"))
+            }
         } else if let page = scopeObject as? Page {
             predicates.append(NSPredicate(
                 format: "feedData IN %@",

@@ -55,7 +55,6 @@
 			<outline text="CNBC" title="CNBC" type="rss" xmlUrl="https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&amp;id=10001147" />
 		</outline>
 		<outline text="Science" title="Science">
-			<outline text="Science News" title="Science News" type="rss" xmlUrl="https://www.sciencenews.org/feed" />
 			<outline text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed" />
 			<outline text="NeuroLogica Blog" title="NeuroLogica Blog" type="rss" xmlUrl="https://theness.com/neurologicablog/index.php/feed/" />
 			<outline text="symmetry magazine" title="symmetry magazine" type="rss" xmlUrl="https://www.symmetrymagazine.org/feed" />
@@ -76,7 +75,7 @@
 			<outline text="Astronomy Now" title="Astronomy Now" type="rss" xmlUrl="https://astronomynow.com/feed/" />
 			<outline text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
 			<outline text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="https://www.esa.int/rssfeed/TopNews" />
-            <outline text="SpaceDaily.com" title="SpaceDaily.com" type="rss" xmlUrl="https://www.spacedaily.com/spacedaily.xml" />
+			<outline text="SpaceDaily.com" title="SpaceDaily.com" type="rss" xmlUrl="https://www.spacedaily.com/spacedaily.xml" />
 			<outline text="SatNews" title="SatNews" type="rss" xmlUrl="https://news.satnews.com/feed/" />
 			<outline text="BBC Sky at Night Magazine" title="BBC Sky at Night Magazine" type="rss" xmlUrl="https://www.skyatnightmagazine.com/feed/atom/" />
 		</outline>

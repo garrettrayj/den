@@ -36,7 +36,7 @@ struct SearchView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .background(.ultraThinMaterial)
         .navigationTitle("Search")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {

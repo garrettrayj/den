@@ -83,7 +83,7 @@ struct FeedView: View {
                         )
                     }
                 }
-                .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+                .background(.ultraThinMaterial)
                 .onChange(of: feed.page) { _ in
                     dismiss()
                 }

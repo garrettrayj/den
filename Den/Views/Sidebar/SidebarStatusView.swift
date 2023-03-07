@@ -15,7 +15,7 @@ struct SidebarStatusView: View {
 
     @Binding var refreshing: Bool
 
-    @State var progress: Progress
+    let progress: Progress
 
     var body: some View {
         VStack {

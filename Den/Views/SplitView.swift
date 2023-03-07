@@ -73,7 +73,6 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 searchModel: searchModel
             )
-            .disabled(refreshing)
         }
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in

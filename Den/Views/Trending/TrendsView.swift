@@ -41,7 +41,7 @@ struct TrendsView: View {
                 }
             }
         }
-        .background(Color(UIColor.systemGroupedBackground))
+        .background(.ultraThinMaterial)
         .navigationTitle("Trends")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {

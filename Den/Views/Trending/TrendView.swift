@@ -43,7 +43,7 @@ struct TrendView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+                .background(.ultraThinMaterial)
                 .navigationTitle(trend.wrappedTitle)
                 .toolbar {
                     ToolbarItem {

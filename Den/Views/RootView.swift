@@ -77,7 +77,7 @@ struct RootView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 24)
                 .padding(.bottom)
-                .background(Color(UIColor.systemGroupedBackground))
+                .background(.ultraThinMaterial)
             }
         }
         .preferredColorScheme(ColorScheme(uiStyle))

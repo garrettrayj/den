@@ -74,72 +74,74 @@ struct ContentView: View {
                     )
                 }
             }
+            .disabled(refreshing)
             .environment(\.contentSizeCategory, contentSizeCategory)
             .environment(\.contentFontFamily, contentFontFamily)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
-                switch detailPanel {
-                case .pageSettings(let page):
-                    if page.managedObjectContext != nil {
-                        PageSettingsView(page: page)
-                    } else {
-                        SplashNoteView(title: "Page Deleted", symbol: "slash.circle")
-                    }
-                case .feed(let feed):
-                    if feed.managedObjectContext != nil {
-                        FeedView(feed: feed, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
-                            .environment(\.contentSizeCategory, contentSizeCategory)
-                            .environment(\.contentFontFamily, contentFontFamily)
-                    } else {
-                        SplashNoteView(title: "Feed Deleted", symbol: "slash.circle")
-                    }
-                case .feedSettings(let feed):
-                    if feed.managedObjectContext != nil {
-                        FeedSettingsView(feed: feed)
-                    } else {
-                        SplashNoteView(title: "Feed Deleted", symbol: "slash.circle")
-                    }
-                case .item(let item):
-                    if item.managedObjectContext != nil {
-                        ItemView(item: item, profile: profile)
-                            .environment(\.contentSizeCategory, contentSizeCategory)
-                            .environment(\.contentFontFamily, contentFontFamily)
-                    } else {
-                        SplashNoteView(title: "Item Deleted", symbol: "slash.circle")
-                    }
-                case .trend(let trend):
-                    if trend.managedObjectContext != nil {
-                        TrendView(
-                            trend: trend,
-                            profile: profile,
-                            refreshing: $refreshing,
-                            hideRead: $hideRead
-                        )
-                        .environment(\.contentSizeCategory, contentSizeCategory)
-                        .environment(\.contentFontFamily, contentFontFamily)
-                    } else {
-                        SplashNoteView(title: "Trend Deleted", symbol: "slash.circle")
+                Group {
+                    switch detailPanel {
+                    case .pageSettings(let page):
+                        if page.managedObjectContext != nil {
+                            PageSettingsView(page: page)
+                        } else {
+                            SplashNoteView(title: "Page Deleted", symbol: "slash.circle")
+                        }
+                    case .feed(let feed):
+                        if feed.managedObjectContext != nil {
+                            FeedView(feed: feed, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                        } else {
+                            SplashNoteView(title: "Feed Deleted", symbol: "slash.circle")
+                        }
+                    case .feedSettings(let feed):
+                        if feed.managedObjectContext != nil {
+                            FeedSettingsView(feed: feed)
+                        } else {
+                            SplashNoteView(title: "Feed Deleted", symbol: "slash.circle")
+                        }
+                    case .item(let item):
+                        if item.managedObjectContext != nil {
+                            ItemView(item: item, profile: profile)
+                        } else {
+                            SplashNoteView(title: "Item Deleted", symbol: "slash.circle")
+                        }
+                    case .trend(let trend):
+                        if trend.managedObjectContext != nil {
+                            TrendView(
+                                trend: trend,
+                                profile: profile,
+                                refreshing: $refreshing,
+                                hideRead: $hideRead
+                            )
+                        } else {
+                            SplashNoteView(title: "Trend Deleted", symbol: "slash.circle")
+                        }
                     }
                 }
+                .environment(\.contentSizeCategory, contentSizeCategory)
+                .environment(\.contentFontFamily, contentFontFamily)
+                .disabled(refreshing)
             }
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in
-                switch settingsPanel {
-                case .profileSettings(let profile):
-                    ProfileSettingsView(
-                        contentSelection: $contentSelection,
-                        activeProfile: $activeProfile,
-                        sceneProfileID: $sceneProfileID,
-                        appProfileID: $appProfileID,
-                        profile: profile,
-                        nameInput: profile.wrappedName,
-                        tintSelection: profile.tint
-                    )
-                case .importFeeds:
-                    ImportView(profile: profile)
-                case .exportFeeds:
-                    ExportView(profile: profile)
-                case .security:
-                    SecurityView(profile: profile)
-                }
+                Group {
+                    switch settingsPanel {
+                    case .profileSettings(let profile):
+                        ProfileSettingsView(
+                            contentSelection: $contentSelection,
+                            activeProfile: $activeProfile,
+                            sceneProfileID: $sceneProfileID,
+                            appProfileID: $appProfileID,
+                            profile: profile,
+                            nameInput: profile.wrappedName,
+                            tintSelection: profile.tint
+                        )
+                    case .importFeeds:
+                        ImportView(profile: profile)
+                    case .exportFeeds:
+                        ExportView(profile: profile)
+                    case .security:
+                        SecurityView(profile: profile)
+                    }
+                }.disabled(refreshing)
             }
         }
     }

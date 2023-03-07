@@ -31,7 +31,7 @@ struct ExportView: View {
                 }
             }
         }
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .background(.ultraThinMaterial)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {
