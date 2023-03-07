@@ -33,39 +33,14 @@ struct TrendsBottomBarView: View {
     }
 
     var body: some View {
-        let timer = Timer.publish(
-            every: 1,
-            on: .main,
-            in: .common
-        ).autoconnect()
-
         FilterReadButtonView(hideRead: $hideRead) { }
         Spacer()
-        VStack {
-            if refreshing {
-                Text("Refreshing feeds...").font(.caption).fixedSize()
-            } else if let refreshedDateTimeAgo = RefreshedDateStorage.shared.getRefreshed(profile) {
-                Text(refreshedDateTimeStr)
-                    .font(.caption).fixedSize()
-                    .multilineTextAlignment(TextAlignment.center)
-                    .onReceive(timer) { (_) in
-                        if -refreshedDateTimeAgo.timeIntervalSinceNow < 60 {
-                            self.refreshedDateTimeStr = """
-                            \(unreadCount) trend\(unreadCount > 1 ? "s" : "").
-                            Refreshed a few seconds ago.
-                            """
-                        } else {
-                            self.refreshedDateTimeStr = """
-                            \(unreadCount) trend\(unreadCount > 1 ? "s" : "").
-                            Refreshed \(refreshedDateTimeAgo.relativeTime()).
-                            """
-                        }
-                    }
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-            self.refreshedDateTimeStr = "Refreshing feeds..."
-        }
+        CommonStatusView(
+            profile: profile,
+            refreshing: $refreshing,
+            unreadCount: unreadCount,
+            unreadLabel: unreadCount == 1 ? "Trend" : "Trends"
+        )
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {
             await HistoryUtility.toggleReadUnread(items: itemsFromTrends)

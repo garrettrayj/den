@@ -26,12 +26,14 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
             HStack(spacing: 0) {
                 if let completed = configuration.fractionCompleted, completed < 1.0 {
                     configuration.currentValueLabel
-                    Text(" updated.")
+                    Text(" Updated")
                 } else {
-                    Text("Analyzing.")
+                    Text("Analyzing Trends…")
                 }
             }
-            .font(.caption).monospacedDigit()
+            .font(.caption)
+            .monospacedDigit()
+            .fixedSize()
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
@@ -40,7 +42,8 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                         .fill(profile.tintColor ?? Color.blue)
                         .frame(width: (CGFloat(configuration.fractionCompleted ?? 0) > 1 ? 1 :
                                         CGFloat(configuration.fractionCompleted ?? 0)) * geometry.size.width)
-                }.frame(height: height)
+                }
+                .frame(height: height)
             }
         }
     }

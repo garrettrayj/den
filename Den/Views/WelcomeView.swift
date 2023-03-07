@@ -18,41 +18,46 @@ struct WelcomeView: View {
         return refreshed
     }
 
-    @State var refreshedDateTimeStr: String = "Loading.."
-
     @Binding var refreshing: Bool
 
-    var body: some View {
-        let timer = Timer.publish(
-            every: 1,
-            on: .main,
-            in: .common
-        ).autoconnect()
+    @State private var refreshedDate: Date?
+    @State private var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
+    var body: some View {
         Group {
             if refreshing {
-                SplashNoteView(title: profile.displayName, note: "Refreshing feeds...")
-            } else if let refreshedDateTimeAgo = RefreshedDateStorage.shared.getRefreshed(profile) {
-                SplashNoteView(title: profile.displayName, note: "\(refreshedDateTimeStr).").onReceive(timer) { (_) in
-                    if -refreshedDateTimeAgo.timeIntervalSinceNow < 60 {
-                        self.refreshedDateTimeStr = "Refreshed a few seconds ago"
-                    } else {
-                        self.refreshedDateTimeStr = "Refreshed \(refreshedDateTimeAgo.relativeTime())"
-                    }
-                }
+                SplashNoteView(title: profile.displayName, note: "Checking for New Items…")
+            } else if let refreshedDate = refreshedDate {
+                SplashNoteView(
+                    title: profile.displayName,
+                    note: "Updated \(refreshedDate.formatted(.relative(presentation: .numeric, unitsStyle: .wide)))"
+                )
             } else {
                 SplashNoteView(title: profile.displayName)
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-            self.refreshedDateTimeStr = "Refreshing feeds.."
-        }
         .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                Text("\(profile.feedsArray.count) feed\(profile.feedsArray.count > 1 ? "s" : "")").font(.caption)
+                if profile.feedsArray.count == 1 {
+                    Text("1 Feed").font(.caption)
+                } else {
+                    Text("\(profile.feedsArray.count) Feeds").font(.caption)
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .task {
+            refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile)
+        }
+        .onReceive(timer) { _ in
+            refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile)
+        }
+        .onDisappear {
+            timer.upstream.connect().cancel()
+        }
+        .onAppear {
+            timer = self.timer.upstream.autoconnect()
+        }
     }
 }

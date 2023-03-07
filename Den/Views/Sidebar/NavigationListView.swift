@@ -60,7 +60,7 @@ struct NavigationListView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 SettingsButtonView(listSelection: $contentSelection).disabled(refreshing)
                 Spacer()
-                StatusView(
+                SidebarStatusView(
                     profile: profile,
                     refreshing: $refreshing,
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
