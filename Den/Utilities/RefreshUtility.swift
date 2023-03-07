@@ -72,9 +72,8 @@ struct RefreshUtility {
         let analysisOperation = AnalysisOperation(container: container, profileObjectID: profile.objectID)
         await analysisOperation.execute()
 
-        RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
-
         DispatchQueue.main.async {
+            RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
             NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
         }
     }

@@ -13,25 +13,24 @@ import SwiftUI
 struct WelcomeView: View {
     @ObservedObject var profile: Profile
 
-    var refreshedDateTimeAgo: Date? {
-        guard let refreshed = RefreshedDateStorage.shared.getRefreshed(profile) else { return nil }
-        return refreshed
-    }
-
     @Binding var refreshing: Bool
 
     @State private var refreshedDate: Date?
-    @State private var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    @State private var refreshedRelativeString: String?
+    @State private var timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
+
+    let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .named, unitsStyle: .wide)
 
     var body: some View {
         Group {
             if refreshing {
                 SplashNoteView(title: profile.displayName, note: "Checking for New Items…")
-            } else if let refreshedDate = refreshedDate {
-                SplashNoteView(
-                    title: profile.displayName,
-                    note: "Updated \(refreshedDate.formatted(.relative(presentation: .numeric, unitsStyle: .wide)))"
-                )
+            } else if let refreshedDate = refreshedDate, let refreshedRelativeString = refreshedRelativeString {
+                if -refreshedDate.timeIntervalSinceNow < 60 {
+                    SplashNoteView(title: profile.displayName, note: "Updated Just Now")
+                } else {
+                    SplashNoteView(title: profile.displayName, note: "Updated \(refreshedRelativeString)")
+                }
             } else {
                 SplashNoteView(title: profile.displayName)
             }
@@ -48,16 +47,26 @@ struct WelcomeView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .task {
-            refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile)
+            updateRefreshedDateAndRelativeString()
         }
         .onReceive(timer) { _ in
-            refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile)
+            updateRefreshedDateAndRelativeString()
+        }
+        .onChange(of: refreshing) { _ in
+            updateRefreshedDateAndRelativeString()
         }
         .onDisappear {
             timer.upstream.connect().cancel()
         }
         .onAppear {
             timer = self.timer.upstream.autoconnect()
+        }
+    }
+
+    private func updateRefreshedDateAndRelativeString() {
+        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+            self.refreshedDate = refreshedDate
+            self.refreshedRelativeString = refreshedDate.formatted(relativeDateStyle)
         }
     }
 }

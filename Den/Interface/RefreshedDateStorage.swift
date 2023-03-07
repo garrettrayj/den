@@ -32,14 +32,4 @@ final class RefreshedDateStorage: ObservableObject {
             UserDefaults.standard.set(date.timeIntervalSince1970, forKey: profileKey)
         }
     }
-
-    func getRefreshedTimeAgo(_ profile: Profile) -> String? {
-        guard let refreshed = getRefreshed(profile) else { return nil }
-
-        if -refreshed.timeIntervalSinceNow < 60 {
-            return "Updated Just Now"
-        } else {
-            return "Updated \(refreshed.formatted(.relative(presentation: .numeric, unitsStyle: .wide)))"
-        }
-    }
 }

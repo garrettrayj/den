@@ -19,39 +19,53 @@ struct CommonStatusView: View {
     @Binding var refreshing: Bool
 
     @State private var refreshedDate: Date?
-    @State private var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    @State private var refreshedRelativeString: String?
+    @State private var timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
 
     let unreadCount: Int
     var unreadLabel = "Unread"
+
+    let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .numeric, unitsStyle: .wide)
 
     var body: some View {
         VStack {
             if refreshing {
                 Text("Checking for New Items…")
             } else {
-                if let refreshedDate = refreshedDate {
+                if
+                    let refreshedDate = refreshedDate,
+                    let refreshedRelativeString = refreshedRelativeString
+                {
                     if -refreshedDate.timeIntervalSinceNow < 60 {
                         Text("Updated Just Now")
                     } else {
-                        Text("Updated \(refreshedDate.formatted(.relative(presentation: .numeric, unitsStyle: .wide)))")
+                        Text("Updated \(refreshedRelativeString)")
                     }
                 }
+
                 Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
             }
         }
         .font(.caption)
         .lineLimit(1)
-        .task {
-            refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile)
-        }
         .onReceive(timer) { _ in
-            refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile)
+            updateRefreshedDateAndRelativeString()
+        }
+        .task {
+            updateRefreshedDateAndRelativeString()
         }
         .onDisappear {
-            timer.upstream.connect().cancel()
+            self.timer.upstream.connect().cancel()
         }
         .onAppear {
-            timer = self.timer.upstream.autoconnect()
+            self.timer = self.timer.upstream.autoconnect()
+        }
+    }
+
+    private func updateRefreshedDateAndRelativeString() {
+        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+            self.refreshedDate = refreshedDate
+            self.refreshedRelativeString = refreshedDate.formatted(relativeDateStyle)
         }
     }
 }

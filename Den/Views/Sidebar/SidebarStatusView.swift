@@ -15,10 +15,7 @@ struct SidebarStatusView: View {
 
     @Binding var refreshing: Bool
 
-    let progress: Progress
-
-    @State private var refreshedDate: Date?
-    @State private var timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    @State var progress: Progress
 
     var body: some View {
         VStack {
@@ -26,12 +23,14 @@ struct SidebarStatusView: View {
                 ProgressView(progress).progressViewStyle(
                     BottomBarProgressViewStyle(profile: profile)
                 )
-            } else if let refreshedDate = refreshedDate {
-                if refreshedDate.formatted(date: .complete, time: .omitted) ==
-                    Date().formatted(date: .complete, time: .omitted) {
-                    Text("Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))")
-                } else {
-                    Text("Updated \(refreshedDate.formatted(date: .abbreviated, time: .shortened))")
+            } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                Group {
+                    if refreshedDate.formatted(date: .complete, time: .omitted) ==
+                        Date().formatted(date: .complete, time: .omitted) {
+                        Text("Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))")
+                    } else {
+                        Text("Updated \(refreshedDate.formatted(date: .abbreviated, time: .shortened))")
+                    }
                 }
             } else {
                 #if targetEnvironment(macCatalyst)
@@ -48,15 +47,6 @@ struct SidebarStatusView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
             progress.completedUnitCount += 1
-        }
-        .task {
-            refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile)
-        }
-        .onDisappear {
-            self.timer.upstream.connect().cancel()
-        }
-        .onAppear {
-            self.timer = self.timer.upstream.autoconnect()
         }
     }
 }
