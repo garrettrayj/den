@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0">
 	<head>
-		<title>Den Export 2/26/2023, 12:37 PM</title>
+		<title>BigDemo</title>
 	</head>
 	<body>
 		<outline text="World News" title="World News">
@@ -100,7 +100,6 @@
 			<outline text="SciTechDaily" title="SciTechDaily" type="rss" xmlUrl="https://scitechdaily.com/feed/" />
 			<outline text="Livescience.com" title="Livescience.com" type="rss" xmlUrl="http://www.livescience.com/feeds/all" />
 			<outline text="Popular Science" title="Popular Science" type="rss" xmlUrl="https://www.popsci.com/feed" />
-			<outline text="Science News" title="Science News" type="rss" xmlUrl="https://www.sciencenews.org/feed" />
 			<outline text="The Scientist" title="The Scientist" type="rss" xmlUrl="http://www.the-scientist.com/?rss.feed/" />
 			<outline text="Phys.org " title="Phys.org " type="rss" xmlUrl="https://phys.org/rss-feed/" />
 			<outline text="symmetry magazine" title="symmetry magazine" type="rss" xmlUrl="http://www.symmetrymagazine.org/feed" />
