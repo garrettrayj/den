@@ -15,7 +15,6 @@ struct RaisedGroupModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .background(.bar)
             .background(.background)
             .cornerRadius(8)
             .shadow(
