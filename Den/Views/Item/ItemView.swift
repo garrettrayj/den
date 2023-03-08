@@ -111,6 +111,7 @@ struct ItemView: View {
                 .accessibilityIdentifier("item-open-button")
             }
         }
+        .background(.background)
         .navigationBarTitleDisplayMode(.inline)
         .task {
             await HistoryUtility.markItemRead(item: item)
