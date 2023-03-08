@@ -11,11 +11,18 @@
 import SwiftUI
 
 struct RaisedGroupModifier: ViewModifier {
+    @Environment(\.colorScheme) private var colorScheme
+    
     func body(content: Content) -> some View {
         content
             .background(.bar)
             .background(.background)
             .cornerRadius(8)
-            .shadow(color: .black.opacity(0.2), radius: 4, x: 1, y: 1)
+            .shadow(
+                color: .black.opacity(colorScheme == .light ? 0.15 : 0.5),
+                radius: 4,
+                x: 1,
+                y: 1
+            )
     }
 }

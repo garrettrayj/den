@@ -23,7 +23,7 @@ struct ItemCompressedView: View {
                     .fontWeight(.semibold)
                     .lineLimit(6)
 
-                ItemDateAuthorCompressedView(item: item)
+                ItemDateAuthorView(item: item)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
@@ -32,6 +32,6 @@ struct ItemCompressedView: View {
                 ThumbnailView(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
             }
         }
-        .padding(8)
+        .padding(12)
     }
 }

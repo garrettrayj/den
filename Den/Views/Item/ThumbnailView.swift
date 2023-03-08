@@ -36,39 +36,43 @@ struct ThumbnailView: View {
     }
 
     var body: some View {
-        Group {
-            if let image = item.image {
-                WebImage(
-                    url: image,
-                    options: [.decodeFirstFrameOnly, .delayPlaceholder],
-                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-                )
-                    .resizable()
-                    .purgeable(true)
-                    .placeholder { ImageErrorPlaceholderView() }
-                    .indicator(.activity)
-                    .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-
-            } else if let image = item.feedData?.image {
-                WebImage(
-                    url: image,
-                    options: [.decodeFirstFrameOnly, .delayPlaceholder],
-                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-                )
-                    .resizable()
-                    .purgeable(true)
-                    .placeholder { ImageErrorPlaceholderView() }
-                    .indicator(.activity)
-                    .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                    .cornerRadius(4)
-                    .padding(4)
-            }
+        if let image = item.image {
+            WebImage(
+                url: image,
+                options: [.decodeFirstFrameOnly, .delayPlaceholder],
+                context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+            )
+                .resizable()
+                .purgeable(true)
+                .placeholder { ImageErrorPlaceholderView() }
+                .indicator(.activity)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .grayscale(isEnabled ? 0 : 1)
+                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
+                .frame(width: scaledSize.width, height: scaledSize.height)
+                .background(.quaternary)
+                .cornerRadius(6)
+                .shadow(radius: 1)
+        } else if let image = item.feedData?.image {
+            WebImage(
+                url: image,
+                options: [.decodeFirstFrameOnly, .delayPlaceholder],
+                context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+            )
+                .resizable()
+                .purgeable(true)
+                .placeholder { ImageErrorPlaceholderView() }
+                .indicator(.activity)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                .cornerRadius(4)
+                .shadow(radius: 1)
+                .padding(4)
+                .grayscale(isEnabled ? 0 : 1)
+                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
+                .frame(width: scaledSize.width, height: scaledSize.height)
+                .background(.quaternary)
+                .cornerRadius(6)
         }
-        .grayscale(isEnabled ? 0 : 1)
-        .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
-        .frame(width: scaledSize.width, height: scaledSize.height)
-        .background(.quaternary)
-        .cornerRadius(6)
-        .shadow(radius: 1)
+        
     }
 }
