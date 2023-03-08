@@ -40,7 +40,6 @@ struct ImportView: View {
         }
         .frame(maxWidth: .infinity)
         .onDisappear(perform: reset)
-        .background(.ultraThinMaterial)
         .navigationTitle("Import")
         .toolbar {
             if stage == .pickFile {

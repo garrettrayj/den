@@ -21,10 +21,10 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 isEnabled ? .primary : .secondary
             )
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(8)
-            .background(
-                .thickMaterial.opacity(isEnabled && hovering ? 1 : 0)
-            )
+            .padding(.horizontal, 8)
+            .padding(.vertical, 12)
+            .background(.thickMaterial.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.quaternary.opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

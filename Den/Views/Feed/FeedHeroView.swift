@@ -32,8 +32,8 @@ struct FeedHeroView: View {
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
+                .overlay(.regularMaterial)
                 .background(Color(UIColor.systemBackground))
-                .overlay(.ultraThinMaterial)
         }
         .clipped()
     }

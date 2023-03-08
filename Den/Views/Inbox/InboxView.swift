@@ -55,7 +55,6 @@ struct InboxView: View {
                     }
                 }
             }
-            .background(.ultraThinMaterial)
             .navigationTitle("Inbox")
         }
     }

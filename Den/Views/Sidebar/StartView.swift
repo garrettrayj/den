@@ -1,5 +1,5 @@
 //
-//  StartListView.swift
+//  StartView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/1/22.
@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct StartListView: View {
+struct StartView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
@@ -21,8 +21,9 @@ struct StartListView: View {
     @State private var useBigDemo: Bool = false
 
     var body: some View {
-        List(selection: $contentSelection) {
-            Section {
+        VStack(alignment: .leading) {
+            Text("Get Started").font(.callout)
+            VStack(alignment: .leading, spacing: 0) {
                 Button {
                     _ = Page.create(in: viewContext, profile: profile, prepend: true)
                     do {
@@ -37,9 +38,11 @@ struct StartListView: View {
                     Label("Add a New Page", systemImage: "plus")
                 }
                 .buttonStyle(.borderless)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
                 .modifier(StartRowModifier())
                 .accessibilityIdentifier("start-add-page-button")
-
+                Divider()
                 Button {
                     loadDemo()
                 } label: {
@@ -50,41 +53,35 @@ struct StartListView: View {
                     }
                 }
                 .buttonStyle(.borderless)
+                .padding(.horizontal, 8)
+                .padding(.top, 4)
                 .modifier(StartRowModifier())
                 .accessibilityIdentifier("load-demo-button")
 
                 Toggle(isOn: $useBigDemo) {
-                    Text("More feeds?").foregroundColor(.secondary)
+                    Text("More feeds?")
+                        .foregroundColor(.secondary)
+                        #if targetEnvironment(macCatalyst)
+                        .padding(.leading, 2)
+                        #endif
                 }
                 .font(.footnote)
+                .padding(.horizontal, 8)
+                .padding(.bottom, 12)
                 #if targetEnvironment(macCatalyst)
-                .padding(.leading, 32)
+                .padding(.leading, 4)
                 #endif
-            } header: {
-                Text("Get Started")
-            } footer: {
-                Text("Or import feeds in settings. \(Image(systemName: "gear"))")
-                    .imageScale(.small)
-                    .padding(.top, 8)
             }
-            .lineLimit(1)
+            .font(.body)
+            .background(Color(UIColor.systemBackground))
+            .cornerRadius(8)
+            
+            Text("Or import feeds in \(Image(systemName: "gear")) settings.")
+                .font(.footnote)
+                .imageScale(.small)
+                .padding(.top, 8)
         }
-        .listStyle(.insetGrouped)
-        .navigationTitle(profile.displayName)
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Button {
-                    contentSelection = .settings
-                } label: {
-                    Label("Settings", systemImage: "gear")
-                }
-                .buttonStyle(PlainToolbarButtonStyle())
-                .accessibilityIdentifier("settings-button")
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-        }
+        .lineLimit(1)
     }
 
     private func loadDemo() {

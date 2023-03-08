@@ -21,54 +21,53 @@ struct DeckColumnView: View {
     let isLast: Bool
     let items: [Item]
     let previewStyle: PreviewStyle
+    let pageGeometry: GeometryProxy
 
     var body: some View {
         ZStack(alignment: .top) {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 8) {
-                    Section {
-                        VStack(spacing: 8) {
-                            if feed.feedData == nil || feed.feedData?.error != nil {
-                                FeedUnavailableView(feedData: feed.feedData)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
-                            } else if items.isEmpty {
-                                AllReadStatusView()
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
-                            } else {
-                                ForEach(items) { item in
-                                    ItemActionView(item: item) {
-                                        if previewStyle == .compressed {
-                                            ItemCompressedView(item: item)
-                                        } else {
-                                            ItemExpandedView(item: item)
-                                        }
-                                    }
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
-                                    .cornerRadius(8)
+                    if feed.feedData == nil || feed.feedData?.error != nil {
+                        FeedUnavailableView(feedData: feed.feedData)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                            .cornerRadius(8)
+                    } else if items.isEmpty {
+                        AllReadStatusView()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color(UIColor.secondarySystemGroupedBackground))
+                            .cornerRadius(8)
+                    } else {
+                        ForEach(items) { item in
+                            ItemActionView(item: item) {
+                                if previewStyle == .compressed {
+                                    ItemCompressedView(item: item)
+                                } else {
+                                    ItemExpandedView(item: item)
                                 }
                             }
-                            Spacer(minLength: 16)
+                            .modifier(RaisedGroupModifier())
                         }
-                        .padding(.trailing, 8)
-                        .padding(.leading, isFirst ? 16 : 0)
-                        .padding(.trailing, isLast ? 8 : 0)
                     }
+                    Spacer(minLength: 16)
                 }
+                .padding(.top, 4)
+                .padding(.trailing, 8)
+                .padding(.leading, isFirst ? 16 : 0)
+                .padding(.trailing, isLast ? 8 : 0)
             }
             .safeAreaInset(edge: .top) {
-                header.hidden()
+                header.padding(.top, pageGeometry.safeAreaInsets.top)
             }
             .safeAreaInset(edge: .bottom) {
-                EmptyView().frame(height: 36)
+                EmptyView().frame(height: pageGeometry.safeAreaInsets.bottom - 16)
             }
-            .frame(width: columnWidth)
 
-            header.frame(width: columnWidth)
+            header.safeAreaInset(edge: .top) {
+                EmptyView().frame(height: pageGeometry.safeAreaInsets.top - 8)
+            }
         }
+        .frame(width: columnWidth)
     }
 
     private var columnWidth: CGFloat {
@@ -83,10 +82,10 @@ struct DeckColumnView: View {
                 Spacer()
                 NavChevronView()
             }
-            .padding(.leading, isFirst ? 12 : 0)
-            .padding(.trailing, isLast ? 12 : 0)
+            .padding(.leading, isFirst ? 16 : 0)
+            .padding(.trailing, isLast ? 8 : 0)
         }
-        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 12, trailingPadding: 12))
+        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 8, trailingPadding: 16))
         .accessibilityIdentifier("deck-feed-button")
     }
 }

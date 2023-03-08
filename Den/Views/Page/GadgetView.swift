@@ -42,8 +42,7 @@ struct GadgetView: View {
                 }
             }
         }
-        .background(Color(UIColor.secondarySystemGroupedBackground))
-        .cornerRadius(8)
+        .modifier(RaisedGroupModifier())
     }
 
     private var header: some View {

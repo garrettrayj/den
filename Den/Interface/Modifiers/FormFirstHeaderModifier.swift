@@ -14,7 +14,7 @@ struct FormFirstHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             #if targetEnvironment(macCatalyst)
-            .listRowInsets(EdgeInsets(top: 28, leading: 16, bottom: 8, trailing: 16))
+            .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 8, trailing: 16))
             #endif
     }
 }

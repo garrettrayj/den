@@ -35,7 +35,6 @@ struct WelcomeView: View {
                 SplashNoteView(title: profile.displayName)
             }
         }
-        .background(.ultraThinMaterial)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 if profile.feedsArray.count == 1 {

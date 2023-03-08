@@ -31,7 +31,6 @@ struct ExportView: View {
                 }
             }
         }
-        .background(.ultraThinMaterial)
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button {

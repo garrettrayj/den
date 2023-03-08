@@ -36,7 +36,6 @@ struct SearchView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(.ultraThinMaterial)
         .navigationTitle("Search")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {

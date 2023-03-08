@@ -20,7 +20,7 @@ struct NoFeedsView: View {
             Button {
                 SubscriptionUtility.showSubscribe(page: page)
             } label: {
-                Label("Enter a web address", systemImage: "plus.circle")
+                Label("Enter a Web Address", systemImage: "plus.circle")
             }
             .buttonStyle(.bordered)
             .lineLimit(2)

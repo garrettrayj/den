@@ -22,13 +22,11 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .font(.title3)
             .foregroundColor(isEnabled ? .primary : .secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 8)
+            .padding(.vertical, 12)
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
-            .background(
-                isEnabled && hovering ? Color(UIColor.tertiarySystemFill) : .clear
-            )
-            .background(.ultraThickMaterial)
+            .background(.thickMaterial)
+            .background(isEnabled && hovering ? .secondary : .tertiary)
             .onHover { hovered in
                 hovering = hovered
             }

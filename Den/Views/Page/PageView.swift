@@ -58,12 +58,13 @@ struct PageView: View {
                                             isFirst: page.feedsArray.first == feed,
                                             isLast: page.feedsArray.last == feed,
                                             items: items.forFeed(feed: feed),
-                                            previewStyle: previewStyle
+                                            previewStyle: previewStyle,
+                                            pageGeometry: geometry
                                         )
                                     }
-                                }
+                                }.modifier(MainStackModifier())
                             }
-                            .edgesIgnoringSafeArea(.bottom)
+                            .edgesIgnoringSafeArea([.top, .bottom])
                             .id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
                             .navigationBarTitleDisplayMode(.inline)
                         case .blend:
@@ -87,8 +88,7 @@ struct PageView: View {
                                             width: geometry.size.width
                                         )
                                     }
-                                }
-                                Spacer()
+                                }.modifier(MainStackModifier())
                             }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
                         case .gadgets:
                             ScrollView(.vertical) {
@@ -99,7 +99,8 @@ struct PageView: View {
                                         previewStyle: previewStyle
                                     )
                                 }.modifier(MainBoardModifier())
-                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
+                            }
+                            .id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
                         }
                     }
                 }
@@ -142,7 +143,6 @@ struct PageView: View {
                     }
                 }
             }
-            .background(.ultraThinMaterial)
         }
     }
 }

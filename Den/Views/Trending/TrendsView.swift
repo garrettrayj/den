@@ -41,7 +41,6 @@ struct TrendsView: View {
                 }
             }
         }
-        .background(.ultraThinMaterial)
         .navigationTitle("Trends")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
