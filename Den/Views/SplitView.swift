@@ -75,7 +75,7 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 searchModel: searchModel
             )
-            .background(.ultraThinMaterial)
+            .background(.thinMaterial)
             .background(.background)
             .scrollContentBackground(.hidden) // Hide `Form` background color
         }

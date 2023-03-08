@@ -117,6 +117,9 @@ struct ContentView: View {
                         }
                     }
                 }
+                .background(.thinMaterial)
+                .background(.background)
+                .scrollContentBackground(.hidden) // Hide `Form` background color
                 .environment(\.contentSizeCategory, contentSizeCategory)
                 .environment(\.contentFontFamily, contentFontFamily)
                 .disabled(refreshing)
@@ -141,7 +144,11 @@ struct ContentView: View {
                     case .security:
                         SecurityView(profile: profile)
                     }
-                }.disabled(refreshing)
+                }
+                .background(.thinMaterial)
+                .background(.background)
+                .scrollContentBackground(.hidden) // Hide `Form` background color
+                .disabled(refreshing)
             }
         }
     }
