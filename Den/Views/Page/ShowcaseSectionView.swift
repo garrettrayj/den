@@ -22,13 +22,13 @@ struct ShowcaseSectionView: View {
             if feed.feedData == nil || feed.feedData?.error != nil {
                 FeedUnavailableView(feedData: feed.feedData)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .background(.background)
                     .cornerRadius(8)
                     .modifier(SectionContentPaddingModifier())
             } else if items.isEmpty {
                 AllReadStatusView()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .background(.background)
                     .cornerRadius(8)
                     .modifier(SectionContentPaddingModifier())
             } else {

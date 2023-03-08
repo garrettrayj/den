@@ -63,12 +63,11 @@ struct PreviewImageView: View {
                         .indicator(.activity)
                         .scaledToFit()
                         .cornerRadius(4)
-                        .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color(uiColor: .separator)))
+                        .shadow(radius: 2)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
                 .padding(8)
-                .background(Color(UIColor.tertiarySystemFill))
                 .cornerRadius(6)
             } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
                 VStack {
@@ -88,11 +87,10 @@ struct PreviewImageView: View {
                         )
                         .clipped()
                         .cornerRadius(4)
-                        .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color(uiColor: .separator)))
+                        .shadow(radius: 2)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(8)
-                .background(Color(UIColor.tertiarySystemFill))
                 .cornerRadius(6)
             } else {
                 WebImage(
@@ -100,19 +98,19 @@ struct PreviewImageView: View {
                     options: [.delayPlaceholder, .lowPriority],
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
-                    .resizable()
-                    .placeholder { ImageErrorPlaceholderView() }
-                    .indicator(.activity)
-                    .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                    .frame(
-                        maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
-                        maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
-                    )
-                    .background(Color(UIColor.secondarySystemFill))
-                    .cornerRadius(6)
-                    .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(Color(uiColor: .separator)))
+                .resizable()
+                .placeholder { ImageErrorPlaceholderView() }
+                .indicator(.activity)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                .frame(
+                    maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
+                    maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
+                )
+                .cornerRadius(6)
+                .shadow(radius: 2)
             }
         }
+        .background(.quaternary)
         .grayscale(isEnabled ? 0 : 1)
         .accessibility(label: Text("Preview image"))
     }

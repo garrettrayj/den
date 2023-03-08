@@ -73,7 +73,7 @@ struct StartView: View {
                 #endif
             }
             .font(.body)
-            .background(Color(UIColor.systemBackground))
+            .background(.background)
             .cornerRadius(8)
             
             Text("Or import feeds in \(Image(systemName: "gear")) settings.")

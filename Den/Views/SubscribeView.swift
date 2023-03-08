@@ -84,7 +84,8 @@ struct SubscribeView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all))
+        .background(.ultraThinMaterial)
+        .background(.background)
         .onAppear {
             urlString = initialURLString
             checkTargetPage()
@@ -113,7 +114,7 @@ struct SubscribeView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .listRowBackground(Color(UIColor.systemGroupedBackground))
+        .listRowBackground(Color.clear)
         .disabled(!(urlString.count > 0) || loading)
         .buttonStyle(AccentButtonStyle())
         .accessibilityIdentifier("subscribe-submit-button")
@@ -131,10 +132,10 @@ struct SubscribeView: View {
             if urlIsValid != nil {
                 if urlIsValid == true {
                     Image(systemName: "checkmark.circle")
-                        .foregroundColor(Color(UIColor.systemGreen))
+                        .foregroundColor(.green)
                         .fontWeight(.medium)
                 } else {
-                    Image(systemName: "slash.circle").foregroundColor(Color(UIColor.systemRed)).fontWeight(.medium)
+                    Image(systemName: "slash.circle").foregroundColor(.red).fontWeight(.medium)
                 }
             }
         }

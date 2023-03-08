@@ -17,10 +17,10 @@ struct ThumbnailModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(width: width, height: height)
-            .background(Color(UIColor.tertiarySystemFill))
+            .background(.tertiary)
             .cornerRadius(6)
             .overlay(
-                RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 6).stroke(.tertiary, lineWidth: 1)
             )
             .accessibility(label: Text("Thumbnail"))
     }

@@ -42,7 +42,7 @@ struct FeedView: View {
                             } else if items.isEmpty {
                                 AllReadStatusView()
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                                    .background(.background)
                                     .cornerRadius(8)
                                     .modifier(SectionContentPaddingModifier())
                             } else {
@@ -82,7 +82,6 @@ struct FeedView: View {
                         )
                     }
                 }
-                .background(.ultraThinMaterial)
                 .onChange(of: feed.page) { _ in
                     dismiss()
                 }

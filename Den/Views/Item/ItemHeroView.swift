@@ -95,12 +95,10 @@ struct ItemHeroView: View {
                     .placeholder { ImageErrorPlaceholderView() }
                     .indicator(.activity)
                     .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6).stroke(Color(UIColor.separator), lineWidth: 1)
-                    )
             }
         }
-        .background(Color(UIColor.secondarySystemFill))
+        .background(.tertiary)
         .cornerRadius(6)
+        .shadow(radius: 2)
     }
 }

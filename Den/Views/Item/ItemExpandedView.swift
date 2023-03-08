@@ -35,10 +35,7 @@ struct ItemExpandedView: View {
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                 PreviewImageView(item: item)
                     .overlay(
-                        item.read ?
-                            Color(UIColor.secondarySystemGroupedBackground).opacity(0.5)
-                            :
-                            nil
+                        .background.opacity(item.read ? 0.5 : 0)
                     )
             }
 

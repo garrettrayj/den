@@ -75,7 +75,6 @@ struct TrendBlockView: View {
             }
             .buttonStyle(HoverShadowButtonStyle())
         }
-        .background(Color(UIColor.secondarySystemGroupedBackground))
-        .cornerRadius(8)
+        .modifier(RaisedGroupModifier())
     }
 }

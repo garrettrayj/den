@@ -37,9 +37,9 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
-                    Capsule().fill(Color(UIColor.systemFill))
+                    Capsule().fill(.quaternary)
                     Capsule()
-                        .fill(profile.tintColor ?? Color.blue)
+                        .fill(.tint)
                         .frame(width: (CGFloat(configuration.fractionCompleted ?? 0) > 1 ? 1 :
                                         CGFloat(configuration.fractionCompleted ?? 0)) * geometry.size.width)
                 }

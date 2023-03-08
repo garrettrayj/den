@@ -57,8 +57,7 @@ struct IconPickerView: View {
             ) {
                 ForEach(SymbolCollection.shared.categorySymbols(categoryID: category.id)) { symbol in
                     ZStack {
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(Color(UIColor.secondarySystemGroupedBackground))
+                        RoundedRectangle(cornerRadius: 4).background(.background)
 
                         Image(systemName: symbol.id)
                             .imageScale(.large)

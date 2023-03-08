@@ -33,7 +33,7 @@ struct FeedHeroView: View {
                 .resizable()
                 .scaledToFill()
                 .overlay(.regularMaterial)
-                .background(Color(UIColor.systemBackground))
+                .background(.background)
         }
         .clipped()
     }

@@ -48,7 +48,8 @@ struct SplitView: View {
                 contentSelection: $contentSelection,
                 refreshing: $refreshing
             )
-            .background(.regularMaterial)
+            .background(.ultraThickMaterial, ignoresSafeAreaEdges: .all)
+            .background(.background)
             #if targetEnvironment(macCatalyst)
             .navigationSplitViewColumnWidth(240)
             #else
@@ -74,7 +75,7 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 searchModel: searchModel
             )
-            .background(.ultraThinMaterial, ignoresSafeAreaEdges: .all)
+            .background(.ultraThinMaterial)
             .background(.background)
             .scrollContentBackground(.hidden) // Hide `Form` background color
         }
