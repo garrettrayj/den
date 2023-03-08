@@ -69,6 +69,6 @@ struct ThumbnailView: View {
         .frame(width: scaledSize.width, height: scaledSize.height)
         .background(.quaternary)
         .cornerRadius(6)
-        .shadow(radius: 2)
+        .shadow(radius: 1)
     }
 }
