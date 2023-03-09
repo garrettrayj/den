@@ -69,7 +69,7 @@ struct PreviewImageView: View {
                 .aspectRatio(16/9, contentMode: .fill)
                 .padding(8)
                 .background(.thinMaterial)
-                .background(.tertiary)
+                .background(.quaternary)
                 .cornerRadius(6)
             } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
                 VStack {
@@ -94,7 +94,7 @@ struct PreviewImageView: View {
                 .frame(maxWidth: .infinity)
                 .padding(8)
                 .background(.thinMaterial)
-                .background(.tertiary)
+                .background(.quaternary)
                 .cornerRadius(6)
             } else {
                 WebImage(

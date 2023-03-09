@@ -13,6 +13,7 @@ import SwiftUI
 
 struct SidebarView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     
     let searchModel: SearchModel
 
@@ -58,6 +59,12 @@ struct SidebarView: View {
         }
         .listStyle(.sidebar)
         .tint(profile.tintColor)
+        .modifier(BaseBackgroundModifier())
+        #if targetEnvironment(macCatalyst)
+        .navigationSplitViewColumnWidth(240)
+        #else
+        .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
+        #endif
         .disabled(refreshing)
         .navigationTitle(profile.displayName)
         .toolbar {

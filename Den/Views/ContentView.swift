@@ -74,6 +74,7 @@ struct ContentView: View {
                     )
                 }
             }
+            .modifier(BaseBackgroundModifier())
             .disabled(refreshing)
             .environment(\.contentSizeCategory, contentSizeCategory)
             .environment(\.contentFontFamily, contentFontFamily)
@@ -117,9 +118,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                .background(.thinMaterial)
-                .background(.background)
-                .scrollContentBackground(.hidden) // Hide `Form` background color
+                .modifier(BaseBackgroundModifier())
                 .environment(\.contentSizeCategory, contentSizeCategory)
                 .environment(\.contentFontFamily, contentFontFamily)
                 .disabled(refreshing)
@@ -145,9 +144,7 @@ struct ContentView: View {
                         SecurityView(profile: profile)
                     }
                 }
-                .background(.thinMaterial)
-                .background(.background)
-                .scrollContentBackground(.hidden) // Hide `Form` background color
+                .modifier(BaseBackgroundModifier())
                 .disabled(refreshing)
             }
         }

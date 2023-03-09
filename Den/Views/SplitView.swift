@@ -15,7 +15,6 @@ import SwiftUI
 struct SplitView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var profile: Profile
 
@@ -48,18 +47,15 @@ struct SplitView: View {
                 contentSelection: $contentSelection,
                 refreshing: $refreshing
             )
-            .background(.regularMaterial, ignoresSafeAreaEdges: .all)
-            .background(.background)
-            #if targetEnvironment(macCatalyst)
-            .navigationSplitViewColumnWidth(240)
-            #else
+            #if !targetEnvironment(macCatalyst)
             .refreshable {
                 if !refreshing, let profile = activeProfile {
                     await RefreshUtility.refresh(profile: profile)
                 }
             }
-            .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
             #endif
+            
+            
         } detail: {
             ContentView(
                 profile: profile,
@@ -75,9 +71,6 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 searchModel: searchModel
             )
-            .background(.ultraThickMaterial)
-            .background(.background)
-            .scrollContentBackground(.hidden) // Hide `Form` background color
         }
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in
