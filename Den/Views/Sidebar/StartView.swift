@@ -76,7 +76,7 @@ struct StartView: View {
             .background(.background)
             .cornerRadius(8)
             
-            Text("Or import feeds in \(Image(systemName: "gear")) settings.")
+            Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
                 .font(.footnote)
                 .imageScale(.small)
                 .padding(.top, 8)

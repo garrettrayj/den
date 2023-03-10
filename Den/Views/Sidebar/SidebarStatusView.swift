@@ -23,6 +23,8 @@ struct SidebarStatusView: View {
                 ProgressView(progress).progressViewStyle(
                     BottomBarProgressViewStyle(profile: profile)
                 )
+            } else if profile.pagesArray.isEmpty {
+                Text("Profile Empty")
             } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                 if refreshedDate.formatted(date: .complete, time: .omitted) ==
                     Date().formatted(date: .complete, time: .omitted) {

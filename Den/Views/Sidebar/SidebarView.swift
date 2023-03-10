@@ -69,10 +69,12 @@ struct SidebarView: View {
         .navigationTitle(profile.displayName)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                editButton.disabled(refreshing)
+                editButton
+                    .disabled(refreshing || profile.pagesArray.isEmpty)
             }
             ToolbarItem {
-                AddFeedButtonView(contentSelection: $contentSelection, profile: profile).disabled(refreshing)
+                AddFeedButtonView(contentSelection: $contentSelection, profile: profile)
+                    .disabled(refreshing || profile.pagesArray.isEmpty)
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 SettingsButtonView(listSelection: $contentSelection).disabled(refreshing)
@@ -83,7 +85,8 @@ struct SidebarView: View {
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                 )
                 Spacer()
-                RefreshButtonView(profile: profile, refreshing: $refreshing).disabled(refreshing)
+                RefreshButtonView(profile: profile, refreshing: $refreshing)
+                    .disabled(refreshing || profile.pagesArray.isEmpty)
             }
         }
     }
@@ -91,7 +94,7 @@ struct SidebarView: View {
     private var editButton: some View {
         EditButton()
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(refreshing)
+            .disabled(refreshing || profile.pagesArray.isEmpty)
             .accessibilityIdentifier("edit-page-list-button")
     }
 
