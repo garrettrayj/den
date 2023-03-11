@@ -16,7 +16,7 @@ struct NavChevronView: View {
     var body: some View {
         Image(systemName: "chevron.forward")
             .foregroundColor(
-                isEnabled ? Color(UIColor.tertiaryLabel) : Color(UIColor.quaternaryLabel)
+                isEnabled ? Color(.tertiaryLabel) : Color(.quaternaryLabel)
             )
             .imageScale(.small)
             .font(.body.weight(.semibold))

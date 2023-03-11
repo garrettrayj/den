@@ -54,7 +54,7 @@ struct ItemExpandedView: View {
             isEnabled ?
                 item.read ? .secondary : .primary
             :
-                item.read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
+                item.read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
         )
     }
 }

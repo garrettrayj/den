@@ -29,7 +29,7 @@ struct PlainToolbarButtonStyle: ButtonStyle {
                             :
                             Color.secondary
                     :
-                    Color(UIColor.tertiaryLabel)
+                    Color(.tertiaryLabel)
             )
             #else
             .foregroundColor(
@@ -39,7 +39,7 @@ struct PlainToolbarButtonStyle: ButtonStyle {
                         :
                         Color.accentColor
                     :
-                    Color(UIColor.tertiaryLabel)
+                    Color(.tertiaryLabel)
             )
             .background(Color.clear)
             #endif

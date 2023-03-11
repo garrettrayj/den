@@ -17,7 +17,7 @@ struct ImageErrorPlaceholderView: View {
         HStack {
             Image(systemName: "photo")
                 .imageScale(imageScale)
-                .foregroundColor(Color(UIColor.tertiaryLabel))
+                .foregroundColor(Color(.tertiaryLabel))
                 .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

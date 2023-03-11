@@ -46,7 +46,7 @@ struct TrendBlockView: View {
                             if let symbol = symbol {
                                 Image(systemName: symbol)
                                     .imageScale(.small)
-                                    .foregroundColor(Color(UIColor.tertiaryLabel))
+                                    .foregroundColor(Color(.tertiaryLabel))
                             }
                         }
                     }

@@ -25,15 +25,15 @@ struct ToolbarButtonStyle: ButtonStyle {
                 isEnabled ?
                     configuration.isPressed ? Color.primary : Color.secondary
                     :
-                    Color(UIColor.tertiaryLabel)
+                    Color(.tertiaryLabel)
             )
             .background(
                 isEnabled ?
                     configuration.isPressed ?
-                        Color(UIColor.systemFill)
+                        Color(.systemFill)
                         :
                         hovering ?
-                            Color(UIColor.quaternarySystemFill)
+                            Color(.quaternarySystemFill)
                             :
                             Color.clear
                     :
@@ -52,7 +52,7 @@ struct ToolbarButtonStyle: ButtonStyle {
                         :
                         Color.accentColor
                     :
-                    Color(UIColor.tertiaryLabel)
+                    Color(.tertiaryLabel)
             )
             .background(Color.clear)
             .contentShape(Rectangle())

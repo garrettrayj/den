@@ -38,9 +38,9 @@ struct ItemDateAuthorView: View {
         .lineLimit(1)
         .foregroundColor(
             isEnabled ?
-                item.read ? Color(UIColor.tertiaryLabel) : .secondary
+                item.read ? Color(.tertiaryLabel) : .secondary
                 :
-                item.read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
+                item.read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
         )
     }
 }
