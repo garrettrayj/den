@@ -60,9 +60,7 @@ struct ResetSettingsSectionView: View {
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
-                Text("Reset Everything")
-                    .lineLimit(1)
-                    .foregroundColor(.red)
+                Text("Reset Everything").lineLimit(1)
             }
             .modifier(FormRowModifier())
             .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {

@@ -54,8 +54,6 @@ struct SplitView: View {
                 }
             }
             #endif
-            
-            
         } detail: {
             ContentView(
                 profile: profile,
@@ -72,6 +70,7 @@ struct SplitView: View {
                 searchModel: searchModel
             )
         }
+        .tint(profile.tintColor)
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in
             if case .page(let page) = contentSelection {

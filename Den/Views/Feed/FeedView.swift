@@ -105,7 +105,7 @@ struct FeedView: View {
                     } label: {
                         Label("\(linkDisplayString)", systemImage: "globe").lineLimit(1)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.borderless)
                 }
 
                 Button {
@@ -113,7 +113,7 @@ struct FeedView: View {
                 } label: {
                     Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderless)
                 .accessibilityIdentifier("feed-copy-url-button")
 
                 if let copyright = feed.feedData?.copyright {
@@ -124,7 +124,9 @@ struct FeedView: View {
             .imageScale(.small)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding()
+            .padding(.horizontal)
+            .padding(.top)
+            .padding(.bottom, 28)
         }
     }
 }

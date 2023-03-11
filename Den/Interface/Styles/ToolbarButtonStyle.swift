@@ -48,9 +48,9 @@ struct ToolbarButtonStyle: ButtonStyle {
             .foregroundColor(
                 isEnabled ?
                     configuration.isPressed ?
-                        Color.accentColor.opacity(0.5)
+                        Color(.tintColor).opacity(0.75)
                         :
-                        Color.accentColor
+                        Color(.tintColor)
                     :
                     Color(.tertiaryLabel)
             )

@@ -58,7 +58,6 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
-        .tint(profile.tintColor)
         .background(.ultraThinMaterial)
         .background(.clear)
         #if targetEnvironment(macCatalyst)
