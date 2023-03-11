@@ -23,7 +23,7 @@ struct ItemButtonStyle: ButtonStyle {
         configuration.label
             .foregroundColor(
                 isEnabled ?
-                    read ? Color(.label) : Color(.secondaryLabel)
+                    read ? Color(.secondaryLabel) : Color(.label)
                 :
                     read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
             )

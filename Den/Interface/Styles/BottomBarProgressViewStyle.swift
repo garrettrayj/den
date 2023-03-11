@@ -28,7 +28,7 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                     configuration.currentValueLabel
                     Text(" Updated")
                 } else {
-                    Text("Analyzing Trends…")
+                    Text("Analyzing…")
                 }
             }
             .font(.caption)

@@ -97,7 +97,7 @@ struct ItemHeroView: View {
                     .aspectRatio(item.imageAspectRatio, contentMode: .fill)
             }
         }
-        .background(.tertiary)
+        .background(Color(.tertiarySystemFill))
         .cornerRadius(6)
         .shadow(radius: 2)
     }

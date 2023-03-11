@@ -51,7 +51,7 @@ struct DeckColumnView: View {
                     }
                     Spacer(minLength: 16)
                 }
-                .padding(.top, 8)
+                .padding(.top, 4)
                 .padding(.leading, 4)
                 .padding(.trailing, 4)
                 .padding(.leading, isFirst ? 12 : 0)
