@@ -14,10 +14,14 @@
 }
 
 html {
+    accent-color: $TINT_COLOR;
     font: -apple-system-body;
+    font-family: $FONT_FAMILY;
 }
 
 body {
+    font-size: $FONT_SIZE;
+    line-height: 140%;
     margin: 0;
 }
 
@@ -37,7 +41,7 @@ video {
     border: 0;
     display: block;
     height: auto;
-    margin: 1em 0;
+    margin: 1eem 0;
     max-width: 100%;
 }
 
@@ -56,11 +60,11 @@ img, picture {
 }
 
 img[align="right"] {
-    margin: 0 0 1em 1em;
+    margin: 0 0 1rem 1rem;
 }
 
 img[align="left"] {
-    margin: 0 1em 1em 0;
+    margin: 0 1rem 1rem 0;
 }
 
 /* Typography */
@@ -88,6 +92,10 @@ h1, h2, h3, h4 {
 
 /* Content Sectioning */
 
+p {
+    margin: 1em 0;
+}
+
 hr {
     border-top: 1px solid -apple-system-separator;
 }
@@ -95,9 +103,9 @@ hr {
 blockquote {
     background: -apple-system-secondary-background;
     border-radius: 8px;
-    margin: 1em;
+    margin: 1rem;
     overflow: hidden;
-    padding: 1em;
+    padding: 1rem;
 }
 
 blockquote > :first-child {
@@ -113,10 +121,11 @@ figure {
     border-radius: 8px;
     display: table;
     font: -apple-system-caption1;
-    font-family: inherit
+    font-family: inherit;
+    font-size: 0.8em;
     margin: 1em 0;
     overflow: hidden;
-    padding: 1em;
+    padding: 1rem;
 }
 
 figure > :first-child {
@@ -128,16 +137,16 @@ figure > :last-child {
 }
 
 figure > :not(:first-child):not(figcaption) {
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 figcaption {
     display: table-caption;
     caption-side: bottom;
     background: -apple-system-secondary-background;
-    margin-top: -1em;
-    padding: 1em;
+    margin-top: -1rem;
+    padding: 1rem;
 }
 
 figure img, figure picture {
@@ -149,11 +158,11 @@ figure img, figure picture {
 /* Links */
 
 a {
-    color: -apple-system-blue;
+    color: $TINT_COLOR;
 }
 
 a:visited {
-    color: -apple-system-purple;
+    filter: brightness(0.85);
 }
 
 /* Remove Extra Whitespace */
@@ -185,7 +194,7 @@ table, th, td {
 }
 
 td, th {
-    padding: 0.375em;
+    padding: 0.375rem;
 }
 
 th {

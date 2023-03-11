@@ -16,8 +16,7 @@ struct ItemView: View {
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
     @Environment(\.openURL) private var openURL
 
-    let item: Item
-
+    @ObservedObject var item: Item
     @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
@@ -28,7 +27,7 @@ struct ItemView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 16) {
                     FeedTitleLabelView(
                         title: item.feedTitle,
                         favicon: item.feedData?.favicon
@@ -69,19 +68,19 @@ struct ItemView: View {
                         }
 
                         if item.body != nil || item.summary != nil {
-                            WebView(
+                            ItemWebView(
                                 html: item.body ?? item.summary!,
                                 title: item.wrappedTitle,
                                 baseURL: item.link,
-                                profile: profile
+                                tint: profile.tintUIColor
                             )
                         }
                     }
                     .multilineTextAlignment(.leading)
                     .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 12)
+                .padding(.horizontal)
+                .padding(.top)
                 .padding(.bottom, 28)
                 .frame(maxWidth: maxContentWidth)
             }

@@ -12,19 +12,19 @@ import Foundation
 import SwiftUI
 
 extension UIColor {
-    func adjust(brightness: CGFloat, saturation: CGFloat) -> UIColor {
-        var hue: CGFloat = 0, sat: CGFloat = 0, bri: CGFloat = 0, alp: CGFloat = 0
+    var hexString: String {
+        let components = self.cgColor.components
+        let red: CGFloat = components?[0] ?? 0.0
+        let green: CGFloat = components?[1] ?? 0.0
+        let blue: CGFloat = components?[2] ?? 0.0
 
-        if getHue(&hue, saturation: &sat, brightness: &bri, alpha: &alp) {
-            bri += (brightness - 1.0)
-            bri = max(min(bri, 1.0), 0.0)
-
-            sat += (saturation - 1.0)
-            sat = max(min(sat, 1.0), 0.0)
-
-            return UIColor(hue: hue, saturation: sat, brightness: bri, alpha: alp)
-        }
-
-        return self
+        let hexString = String.init(
+            format: "#%02lX%02lX%02lX",
+            lroundf(Float(red * 255)),
+            lroundf(Float(green * 255)),
+            lroundf(Float(blue * 255))
+        )
+        
+        return hexString
     }
 }
