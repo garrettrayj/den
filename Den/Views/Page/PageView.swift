@@ -17,8 +17,8 @@ struct PageView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
-    @SceneStorage("PageLayout") private var pageLayout = PageLayout.gadgets
-    @SceneStorage("PagePreviewStyle") private var previewStyle = PreviewStyle.compressed
+    @AppStorage("PageLayout_NA") private var pageLayout = PageLayout.gadgets
+    @AppStorage("PagePreviewStyle_NA") private var previewStyle = PreviewStyle.compressed
 
     private var sortDescriptors: [NSSortDescriptor] {
         if pageLayout == .blend {
@@ -143,5 +143,27 @@ struct PageView: View {
                 }
             }
         }
+    }
+    
+    init(
+        page: Page,
+        profile: Profile,
+        hideRead: Binding<Bool>,
+        refreshing: Binding<Bool>
+    ) {
+        self.page = page
+        self.profile = profile
+        
+        _hideRead = hideRead
+        _refreshing = refreshing
+        
+        _pageLayout = AppStorage(
+            wrappedValue: PageLayout.gadgets,
+            "PageLayout_\(page.id?.uuidString ?? "NA")"
+        )
+        _previewStyle = AppStorage(
+            wrappedValue: PreviewStyle.compressed,
+            "PagePreviewStyle_\(page.id?.uuidString ?? "NA")"
+        )
     }
 }
