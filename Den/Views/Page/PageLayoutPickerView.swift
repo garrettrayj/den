@@ -15,21 +15,38 @@ struct PageLayoutPickerView: View {
 
     var body: some View {
         Picker("Page Layout", selection: $pageLayout) {
-            Label("Gadgets", systemImage: "rectangle.grid.2x2")
-                .tag(PageLayout.gadgets)
-                .accessibilityIdentifier("gadgets-page-layout-option")
+            Label {
+                Text("Gadgets")
+            } icon: {
+                Image(systemName: "rectangle.grid.3x2")
+            }
+            .tag(PageLayout.gadgets)
+            .accessibilityIdentifier("gadgets-page-layout-option")
 
-            Label("Showcase", systemImage: "square.grid.3x1.below.line.grid.1x2")
-                .tag(PageLayout.showcase)
-                .accessibilityIdentifier("showcase-page-layout-option")
-
-            Label("Deck", systemImage: "rectangle.split.3x1")
-                .tag(PageLayout.deck)
-                .accessibilityIdentifier("deck-page-layout-option")
-
-            Label("Blend", systemImage: "rectangle.grid.3x2")
-                .tag(PageLayout.blend)
-                .accessibilityIdentifier("blend-page-layout-option")
+            Label {
+                Text("Blend")
+            } icon: {
+                Image(systemName: "square.grid.3x3")
+            }
+            .tag(PageLayout.blend)
+            .accessibilityIdentifier("blend-page-layout-option")
+            
+            Label {
+                Text("Showcase")
+            } icon: {
+                Image(systemName: "square.grid.3x1.below.line.grid.1x2")
+            }
+            .tag(PageLayout.showcase)
+            .accessibilityIdentifier("showcase-page-layout-option")
+            
+            Label {
+                Text("Deck")
+            } icon: {
+                Image(systemName: "rectangle.split.3x1")
+            }
+            .tag(PageLayout.deck)
+            .accessibilityIdentifier("deck-page-layout-option")
+            
         }
         .accessibilityIdentifier("page-layout-picker")
     }
