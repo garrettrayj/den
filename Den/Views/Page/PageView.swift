@@ -62,9 +62,8 @@ struct PageView: View {
                                             pageGeometry: geometry
                                         )
                                     }
-                                }.modifier(MainStackModifier())
+                                }
                             }
-                            .edgesIgnoringSafeArea([.top, .bottom])
                             .id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
                             .navigationBarTitleDisplayMode(.inline)
                         case .blend:
@@ -88,7 +87,7 @@ struct PageView: View {
                                             width: geometry.size.width
                                         )
                                     }
-                                }.modifier(MainStackModifier())
+                                }.padding(.bottom)
                             }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
                         case .gadgets:
                             ScrollView(.vertical) {

@@ -31,7 +31,7 @@ struct IconPickerView: View {
                     }
                 }.padding(.bottom)
             }
-            .background(.ultraThinMaterial)
+            .background(Color(.systemGroupedBackground))
             .navigationTitle("Select Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

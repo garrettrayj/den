@@ -22,7 +22,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
-            .background(.quaternary.opacity(isEnabled && hovering ? 0.5 : 0))
+            .background(Color(.quaternarySystemFill).opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

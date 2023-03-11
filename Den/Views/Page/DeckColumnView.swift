@@ -25,8 +25,8 @@ struct DeckColumnView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            ScrollView(.vertical) {
-                LazyVStack(alignment: .leading, spacing: 12) {
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(alignment: .leading, spacing: 8) {
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailableView(feedData: feed.feedData)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -53,20 +53,15 @@ struct DeckColumnView: View {
                 }
                 .padding(.top, 8)
                 .padding(.leading, 4)
-                .padding(.trailing, 8)
+                .padding(.trailing, 4)
                 .padding(.leading, isFirst ? 12 : 0)
-                .padding(.trailing, isLast ? 8 : 0)
+                .padding(.trailing, isLast ? 12 : 0)
             }
             .safeAreaInset(edge: .top) {
-                header.padding(.top, pageGeometry.safeAreaInsets.top)
-            }
-            .safeAreaInset(edge: .bottom) {
-                EmptyView().frame(height: pageGeometry.safeAreaInsets.bottom - 16)
+                header
             }
 
-            header.safeAreaInset(edge: .top) {
-                EmptyView().frame(height: pageGeometry.safeAreaInsets.top - 8)
-            }
+            header
         }
         .frame(width: columnWidth)
     }
@@ -83,7 +78,7 @@ struct DeckColumnView: View {
                 Spacer()
                 NavChevronView()
             }
-            .padding(.leading, isFirst ? 12 : 0)
+            .padding(.leading, isFirst ? 16 : 0)
             .padding(.trailing, isLast ? 8 : 0)
         }
         .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 12, trailingPadding: 16))

@@ -23,12 +23,12 @@ struct ItemButtonStyle: ButtonStyle {
         configuration.label
             .foregroundColor(
                 isEnabled ?
-                    read ? .secondary : .primary
+                    read ? Color(.label) : Color(.secondaryLabel)
                 :
-                    read ? Color(UIColor.quaternaryLabel) : Color(UIColor.tertiaryLabel)
+                    read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
             )
             .frame(maxWidth: .infinity)
-            .background(.quaternary.opacity(isEnabled && hovering ? 0.5 : 0))
+            .background(Color(.quaternarySystemFill).opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

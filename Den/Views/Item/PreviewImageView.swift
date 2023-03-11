@@ -68,8 +68,7 @@ struct PreviewImageView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
                 .padding(8)
-                .background(.thinMaterial)
-                .background(.quaternary)
+                .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
             } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
                 VStack {
@@ -93,8 +92,7 @@ struct PreviewImageView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(8)
-                .background(.thinMaterial)
-                .background(.quaternary)
+                .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
             } else {
                 WebImage(
@@ -110,8 +108,7 @@ struct PreviewImageView: View {
                     maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
                     maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
                 )
-                .background(.thickMaterial)
-                .background(.tertiary)
+                .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
                 .shadow(radius: 1)
             }

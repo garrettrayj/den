@@ -15,12 +15,11 @@ struct RaisedGroupModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .background(.ultraThinMaterial.opacity(0.4))
             .background(.background)
             .cornerRadius(8)
             .shadow(
                 color: .black.opacity(colorScheme == .light ? 0.15 : 0.5),
-                radius: 4,
+                radius: 2,
                 x: 1,
                 y: 1
             )

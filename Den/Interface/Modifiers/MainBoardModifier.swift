@@ -16,7 +16,9 @@ struct MainBoardModifier: ViewModifier {
             .padding(.horizontal)
             #if targetEnvironment(macCatalyst)
             .padding(.top)
+            #else
+            .padding(.top, 0)
             #endif
-            .padding(.bottom)
+            .padding(.bottom, 16 + 12)
     }
 }

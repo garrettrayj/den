@@ -84,8 +84,7 @@ struct SubscribeView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.ultraThinMaterial)
-        .background(.background)
+        .background(Color(.systemGroupedBackground))
         .onAppear {
             urlString = initialURLString
             checkTargetPage()

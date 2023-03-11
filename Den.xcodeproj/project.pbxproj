@@ -30,7 +30,6 @@
 		681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681E6F122741AD8F00C74590 /* FormRowModifier.swift */; };
 		681F0C242933B1830037C609 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681F0C232933B1830037C609 /* AppDelegate.swift */; };
 		681F0C262933F4C10037C609 /* ProfileSettingsHistorySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681F0C252933F4C10037C609 /* ProfileSettingsHistorySectionView.swift */; };
-		68245E2B29B832810068D450 /* MainStackModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68245E2A29B832810068D450 /* MainStackModifier.swift */; };
 		68245E2D29B834AC0068D450 /* RaisedGroupModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68245E2C29B834AC0068D450 /* RaisedGroupModifier.swift */; };
 		6829A4FC28C2744900F75C5A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A4FB28C2744900F75C5A /* ContentView.swift */; };
 		6829A4FE28C3CC8D00F75C5A /* PageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A4FD28C3CC8D00F75C5A /* PageSelectionView.swift */; };
@@ -294,7 +293,6 @@
 		681E6F122741AD8F00C74590 /* FormRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRowModifier.swift; sourceTree = "<group>"; };
 		681F0C232933B1830037C609 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		681F0C252933F4C10037C609 /* ProfileSettingsHistorySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsHistorySectionView.swift; sourceTree = "<group>"; };
-		68245E2A29B832810068D450 /* MainStackModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStackModifier.swift; sourceTree = "<group>"; };
 		68245E2C29B834AC0068D450 /* RaisedGroupModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaisedGroupModifier.swift; sourceTree = "<group>"; };
 		6829A4FB28C2744900F75C5A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6829A4FD28C3CC8D00F75C5A /* PageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSelectionView.swift; sourceTree = "<group>"; };
@@ -673,7 +671,6 @@
 				682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */,
 				680744BB28E959360008A09D /* FormFirstHeaderModifier.swift */,
 				68AB038B299B16BD00A39D47 /* MainBoardModifier.swift */,
-				68245E2A29B832810068D450 /* MainStackModifier.swift */,
 				68BF14AD29A4621900021AC1 /* SectionContentPaddingModifier.swift */,
 				680F495529ABEF140083B664 /* ThumbnailModifier.swift */,
 				68F6FBA629AF7BF1001F74B9 /* CustomFontModifier.swift */,
@@ -1360,7 +1357,6 @@
 				68E58F2929B6E5E900C18A87 /* FeedStatusView.swift in Sources */,
 				68B6CBEA2910CA1C00B5E3AB /* JSONFeedUpdate.swift in Sources */,
 				68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */,
-				68245E2B29B832810068D450 /* MainStackModifier.swift in Sources */,
 				689460852596A7BB00ED4064 /* DenApp.swift in Sources */,
 				6880EBE127A8E61C00B479F4 /* RankedImage.swift in Sources */,
 				68AC3A1A2910EF3A00D60273 /* FeedCheckOperation.swift in Sources */,

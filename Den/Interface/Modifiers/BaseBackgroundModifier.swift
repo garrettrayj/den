@@ -13,8 +13,6 @@ import SwiftUI
 struct BaseBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .background(.ultraThinMaterial)
-            .background(.background)
-            .scrollContentBackground(.hidden) // Hide form backgrounds
+            .background(Color(.systemGroupedBackground))
     }
 }

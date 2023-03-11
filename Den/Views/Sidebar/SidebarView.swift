@@ -59,7 +59,8 @@ struct SidebarView: View {
         }
         .listStyle(.sidebar)
         .tint(profile.tintColor)
-        .modifier(BaseBackgroundModifier())
+        .background(.ultraThinMaterial)
+        .background(.clear)
         #if targetEnvironment(macCatalyst)
         .navigationSplitViewColumnWidth(240)
         #else

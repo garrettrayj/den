@@ -81,7 +81,8 @@ struct ItemView: View {
                     .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                 }
                 .padding(.horizontal, 24)
-                .padding(.vertical)
+                .padding(.top, 12)
+                .padding(.bottom, 28)
                 .frame(maxWidth: maxContentWidth)
             }
             .frame(maxWidth: .infinity)

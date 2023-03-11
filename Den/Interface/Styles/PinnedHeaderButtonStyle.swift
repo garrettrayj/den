@@ -14,8 +14,8 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
     @State private var hovering: Bool = false
 
-    var leadingPadding: CGFloat = 24
-    var trailingPadding: CGFloat = 24
+    var leadingPadding: CGFloat = 28
+    var trailingPadding: CGFloat = 28
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
@@ -25,14 +25,8 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .padding(.vertical, 12)
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
-            #if targetEnvironment(macCatalyst)
             .background(.ultraThickMaterial)
-            .background(isEnabled && hovering ? .secondary : .tertiary)
-            #else
-            .background(.regularMaterial)
-            .background(.black.opacity(isEnabled && hovering ? 0.6 : 0.4))
-            #endif
-            
+            .overlay(Color(.tertiarySystemFill).opacity(isEnabled && hovering ? 0.5 : 0.2))
             .onHover { hovered in
                 hovering = hovered
             }

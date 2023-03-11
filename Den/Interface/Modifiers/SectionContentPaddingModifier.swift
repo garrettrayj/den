@@ -13,6 +13,7 @@ import SwiftUI
 struct SectionContentPaddingModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding()
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
     }
 }

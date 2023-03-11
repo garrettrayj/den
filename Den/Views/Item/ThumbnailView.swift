@@ -50,7 +50,7 @@ struct ThumbnailView: View {
                 .grayscale(isEnabled ? 0 : 1)
                 .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
                 .frame(width: scaledSize.width, height: scaledSize.height)
-                .background(.quaternary)
+                .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
                 .shadow(radius: 1)
         } else if let image = item.feedData?.image {
@@ -70,7 +70,7 @@ struct ThumbnailView: View {
                 .grayscale(isEnabled ? 0 : 1)
                 .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
                 .frame(width: scaledSize.width, height: scaledSize.height)
-                .background(.quaternary)
+                .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
         }
         
