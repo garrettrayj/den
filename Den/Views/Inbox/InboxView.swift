@@ -16,7 +16,7 @@ struct InboxView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
-    @SceneStorage("InboxPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compressed
+    @AppStorage("InboxPreviewStyle_NA") private var previewStyle: PreviewStyle = PreviewStyle.compressed
 
     var body: some View {
         WithItems(
@@ -25,7 +25,7 @@ struct InboxView: View {
             readFilter: hideRead ? false : nil
         ) { _, items in
             GeometryReader { geometry in
-                Group {
+                VStack {
                     if profile.feedsArray.isEmpty {
                         NoFeedsView()
                     } else if items.isEmpty {
@@ -39,7 +39,7 @@ struct InboxView: View {
                                     FeedItemExpandedView(item: item)
                                 }
                             }.modifier(MainBoardModifier())
-                        }
+                        }.id("inbox_\(profile.id?.uuidString ?? "na")_\(previewStyle)")
                     }
                 }
                 .toolbar {
@@ -57,5 +57,17 @@ struct InboxView: View {
             }
             .navigationTitle("Inbox")
         }
+    }
+    
+    init(profile: Profile, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
+        self.profile = profile
+        
+        _hideRead = hideRead
+        _refreshing = refreshing
+        
+        _previewStyle = AppStorage(
+            wrappedValue: PreviewStyle.compressed,
+            "InboxPreviewStyle_\(profile.id?.uuidString ?? "NA")"
+        )
     }
 }

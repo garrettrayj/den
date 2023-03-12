@@ -18,7 +18,7 @@ struct TrendView: View {
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
-    @SceneStorage("TrendPreviewStyle") private var previewStyle: PreviewStyle = PreviewStyle.compressed
+    @AppStorage("TrendPreviewStyle_NA") private var previewStyle: PreviewStyle = PreviewStyle.compressed
 
     var body: some View {
         WithItems(
@@ -27,7 +27,7 @@ struct TrendView: View {
             readFilter: hideRead ? false : nil
         ) { _, items in
             GeometryReader { geometry in
-                Group {
+                VStack {
                     if items.isEmpty {
                         AllReadSplashNoteView()
                     } else {
@@ -39,7 +39,7 @@ struct TrendView: View {
                                     FeedItemExpandedView(item: item)
                                 }
                             }.modifier(MainBoardModifier())
-                        }
+                        }.id("trend_\(trend.id?.uuidString ?? "na")_\(previewStyle)")
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -58,5 +58,23 @@ struct TrendView: View {
                 }
             }
         }
+    }
+    
+    init(
+        trend: Trend,
+        profile: Profile,
+        refreshing: Binding<Bool>,
+        hideRead: Binding<Bool>
+    ) {
+        self.trend = trend
+        self.profile = profile
+        
+        _refreshing = refreshing
+        _hideRead = hideRead
+        
+        _previewStyle = AppStorage(
+            wrappedValue: PreviewStyle.compressed,
+            "TrendPreviewStyle_\(profile.id?.uuidString ?? "NA")"
+        )
     }
 }
