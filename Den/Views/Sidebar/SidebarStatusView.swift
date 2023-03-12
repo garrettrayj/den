@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct SidebarStatusView: View {
+    @EnvironmentObject var networkMonitor: NetworkMonitor
+    
     @ObservedObject var profile: Profile
 
     @Binding var refreshing: Bool
@@ -23,21 +25,31 @@ struct SidebarStatusView: View {
                 ProgressView(progress).progressViewStyle(
                     BottomBarProgressViewStyle(profile: profile)
                 )
-            } else if profile.pagesArray.isEmpty {
-                Text("Profile Empty")
-            } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                if refreshedDate.formatted(date: .complete, time: .omitted) ==
-                    Date().formatted(date: .complete, time: .omitted) {
-                    Text("Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))")
-                } else {
-                    Text("Updated \(refreshedDate.formatted(date: .abbreviated, time: .omitted))")
-                }
             } else {
-                #if targetEnvironment(macCatalyst)
-                Text("Press \(Image(systemName: "command")) + R to Refresh").imageScale(.small)
-                #else
-                Text("Pull to Refresh")
-                #endif
+                if profile.pagesArray.isEmpty {
+                    Text("Profile Empty")
+                } else {
+                    if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                        if refreshedDate.formatted(date: .complete, time: .omitted) ==
+                            Date().formatted(date: .complete, time: .omitted) {
+                            Text("Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))")
+                        } else {
+                            Text("Updated \(refreshedDate.formatted(date: .abbreviated, time: .omitted))")
+                        }
+                    } else {
+                        if networkMonitor.isConnected {
+                            #if targetEnvironment(macCatalyst)
+                            Text("Press \(Image(systemName: "command")) + R to Refresh").imageScale(.small)
+                            #else
+                            Text("Pull to Refresh")
+                            #endif
+                        }
+                    }
+                }
+                
+                if !networkMonitor.isConnected {
+                    Text("Network Offline").foregroundColor(.secondary)
+                }
             }
         }
         .font(.caption)

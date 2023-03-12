@@ -64,7 +64,7 @@ struct PageView: View {
                                     }
                                 }
                             }
-                            .id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
+                            .id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
                             .navigationBarTitleDisplayMode(.inline)
                         case .blend:
                             ScrollView(.vertical) {
@@ -75,7 +75,7 @@ struct PageView: View {
                                         FeedItemExpandedView(item: item)
                                     }
                                 }.modifier(MainBoardModifier())
-                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
+                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
                         case .showcase:
                             ScrollView(.vertical) {
                                 LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
@@ -88,7 +88,7 @@ struct PageView: View {
                                         )
                                     }
                                 }.padding(.bottom)
-                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
+                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
                         case .gadgets:
                             ScrollView(.vertical) {
                                 BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
@@ -98,8 +98,7 @@ struct PageView: View {
                                         previewStyle: previewStyle
                                     )
                                 }.modifier(MainBoardModifier())
-                            }
-                            .id("\(page.id?.uuidString ?? "na")_\(pageLayout)")
+                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
                         }
                     }
                 }

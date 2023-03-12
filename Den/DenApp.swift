@@ -19,6 +19,8 @@ struct DenApp: App {
 
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("AppProfileID") var appProfileID: String?
+    
+    @StateObject var networkMonitor = NetworkMonitor()
 
     let persistenceController = PersistenceController.shared
 
@@ -29,6 +31,7 @@ struct DenApp: App {
                 appProfileID: $appProfileID
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .environmentObject(networkMonitor)
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh()

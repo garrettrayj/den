@@ -47,13 +47,6 @@ struct SplitView: View {
                 contentSelection: $contentSelection,
                 refreshing: $refreshing
             )
-            #if !targetEnvironment(macCatalyst)
-            .refreshable {
-                if !refreshing, let profile = activeProfile {
-                    await RefreshUtility.refresh(profile: profile)
-                }
-            }
-            #endif
         } detail: {
             ContentView(
                 profile: profile,
@@ -70,7 +63,6 @@ struct SplitView: View {
                 searchModel: searchModel
             )
         }
-        .tint(profile.tintColor)
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
         .onOpenURL { url in
             if case .page(let page) = contentSelection {
@@ -121,5 +113,6 @@ struct SplitView: View {
             )
             .environment(\.colorScheme, colorScheme)
         }
+        .tint(profile.tintColor)
     }
 }

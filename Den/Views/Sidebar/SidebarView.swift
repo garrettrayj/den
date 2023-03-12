@@ -14,6 +14,7 @@ import SwiftUI
 struct SidebarView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @EnvironmentObject var networkMonitor: NetworkMonitor
     
     let searchModel: SearchModel
 
@@ -59,11 +60,17 @@ struct SidebarView: View {
         }
         .listStyle(.sidebar)
         .background(.ultraThinMaterial)
-        .background(.clear)
         #if targetEnvironment(macCatalyst)
         .navigationSplitViewColumnWidth(240)
         #else
         .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
+        #endif
+        #if !targetEnvironment(macCatalyst)
+        .refreshable {
+            if !refreshing && networkMonitor.isConnected {
+                await RefreshUtility.refresh(profile: profile)
+            }
+        }
         #endif
         .disabled(refreshing)
         .navigationTitle(profile.displayName)
@@ -74,7 +81,7 @@ struct SidebarView: View {
             }
             ToolbarItem {
                 AddFeedButtonView(contentSelection: $contentSelection, profile: profile)
-                    .disabled(refreshing || profile.pagesArray.isEmpty)
+                    .disabled(refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 SettingsButtonView(listSelection: $contentSelection).disabled(refreshing)
@@ -86,7 +93,7 @@ struct SidebarView: View {
                 )
                 Spacer()
                 RefreshButtonView(profile: profile, refreshing: $refreshing)
-                    .disabled(refreshing || profile.pagesArray.isEmpty)
+                    .disabled(refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
             }
         }
     }

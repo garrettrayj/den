@@ -22,9 +22,9 @@ struct PreviewStyleButtonView: View {
             }
         } label: {
             if previewStyle == .compressed {
-                Label("Expand Previews", systemImage: "rectangle.expand.vertical")
+                Label("Expand Items", systemImage: "rectangle.expand.vertical")
             } else {
-                Label("Compress Previews", systemImage: "rectangle.compress.vertical")
+                Label("Compress Items", systemImage: "rectangle.compress.vertical")
             }
         }
         .buttonStyle(ToolbarButtonStyle())

@@ -15,7 +15,7 @@ struct RaisedGroupModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .background(.background)
+            .background(Color(.secondarySystemGroupedBackground))
             .cornerRadius(8)
             .shadow(
                 color: .black.opacity(colorScheme == .light ? 0.15 : 0.5),

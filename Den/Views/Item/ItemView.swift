@@ -80,7 +80,7 @@ struct ItemView: View {
                     .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                 }
                 .padding(.horizontal)
-                .padding(.top)
+                .padding(.top, 24)
                 .padding(.bottom, 28)
                 .frame(maxWidth: maxContentWidth)
             }
@@ -111,7 +111,7 @@ struct ItemView: View {
                 .accessibilityIdentifier("item-open-button")
             }
         }
-        .background(.background)
+        .background(Color(.systemBackground))
         .navigationBarTitleDisplayMode(.inline)
         .task {
             await HistoryUtility.markItemRead(item: item)
