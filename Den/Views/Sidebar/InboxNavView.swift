@@ -31,9 +31,6 @@ struct InboxNavView: View {
             } icon: {
                 Image(systemName: "tray")
             }
-            .onChange(of: items.count) { newValue in
-                updateIconBadge(count: newValue)
-            }
             .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
             .searchable(
                 text: $searchInput,
@@ -43,26 +40,9 @@ struct InboxNavView: View {
                 searchModel.query = searchInput
                 contentSelection = .search
             }
-            .onChange(of: scenePhase) { phase in
-                switch phase {
-                case .active:
-                    UIApplication.shared.applicationIconBadgeNumber = items.count
-                default: break
-                }
-            }
             .disabled(editMode?.wrappedValue == .active)
             .accessibilityIdentifier("inbox-button")
             .tag(ContentPanel.inbox)
-        }
-    }
-
-    private func updateIconBadge(count: Int) {
-        UNUserNotificationCenter.current().requestAuthorization(options: .badge) { (_, error) in
-            if error == nil {
-                DispatchQueue.main.async {
-                    UIApplication.shared.applicationIconBadgeNumber = count
-                }
-            }
         }
     }
 }

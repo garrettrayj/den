@@ -105,7 +105,7 @@ struct FeedView: View {
                     } label: {
                         Label("\(linkDisplayString)", systemImage: "globe").lineLimit(1)
                     }
-                    .buttonStyle(.borderless)
+                    .buttonStyle(.plain)
                 }
 
                 Button {
@@ -113,7 +113,7 @@ struct FeedView: View {
                 } label: {
                     Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.plain)
                 .accessibilityIdentifier("feed-copy-url-button")
 
                 if let copyright = feed.feedData?.copyright {
