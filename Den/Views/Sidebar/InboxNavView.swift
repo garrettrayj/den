@@ -25,13 +25,15 @@ struct InboxNavView: View {
     @State private var searchInput = ""
 
     var body: some View {
-        WithItems(scopeObject: profile, readFilter: false) { _, items in
+        NavigationLink(value: ContentPanel.inbox) {
             Label {
-                Text("Inbox").lineLimit(1).badge(items.count)
+                WithItems(scopeObject: profile, readFilter: false) { items in
+                    Text("Inbox").lineLimit(1).badge(items.count)
+                }
             } icon: {
                 Image(systemName: "tray")
             }
-            .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
+            .foregroundColor(editMode?.wrappedValue.isEditing == true ? Color(.secondaryLabel) : nil)
             .searchable(
                 text: $searchInput,
                 placement: .navigationBarDrawer(displayMode: .always)
@@ -44,5 +46,7 @@ struct InboxNavView: View {
             .accessibilityIdentifier("inbox-button")
             .tag(ContentPanel.inbox)
         }
+        
+        
     }
 }

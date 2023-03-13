@@ -53,10 +53,10 @@ struct ExportView: View {
                 Button { self.togglePage(page) } label: {
                     Label {
                         HStack {
-                            Text(page.wrappedName).foregroundColor(.primary)
+                            Text(page.wrappedName).foregroundColor(Color(.label))
                             Spacer()
                             Text("\(page.feeds?.count ?? 0) feeds")
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color(.secondaryLabel))
                                 .font(.footnote)
                         }
                     } icon: {

@@ -61,7 +61,7 @@ struct IconPickerView: View {
 
                         Image(systemName: symbol.id)
                             .imageScale(.large)
-                            .foregroundColor(symbol.id == page.wrappedSymbol ? .accentColor : .primary)
+                            .foregroundColor(symbol.id == page.wrappedSymbol ? Color(.tintColor) : Color(.label))
 
                         if symbol.id == page.wrappedSymbol {
                             RoundedRectangle(cornerRadius: 4).strokeBorder(Color.accentColor, lineWidth: 2)

@@ -22,12 +22,12 @@ struct PlainToolbarButtonStyle: ButtonStyle {
             .foregroundColor(
                 isEnabled ?
                     configuration.isPressed ?
-                        Color.secondary.opacity(0.5)
+                        Color(.secondaryLabel).opacity(0.5)
                         :
                         hovering ?
-                            Color.secondary.opacity(0.75)
+                            Color(.secondaryLabel).opacity(0.75)
                             :
-                            Color.secondary
+                            Color(.secondaryLabel)
                     :
                     Color(.tertiaryLabel)
             )
@@ -35,9 +35,9 @@ struct PlainToolbarButtonStyle: ButtonStyle {
             .foregroundColor(
                 isEnabled ?
                     configuration.isPressed ?
-                        Color.accentColor.opacity(0.5)
+                        Color(.tintColor).opacity(0.5)
                         :
-                        Color.accentColor
+                        Color(.tintColor)
                     :
                     Color(.tertiaryLabel)
             )

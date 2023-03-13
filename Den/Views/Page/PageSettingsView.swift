@@ -50,7 +50,7 @@ struct PageSettingsView: View {
                     HStack {
                         Text("Select icon")
                         Spacer()
-                        Image(systemName: "chevron.down").foregroundColor(.secondary)
+                        Image(systemName: "chevron.down").foregroundColor(Color(.secondaryLabel))
                     }
                 } icon: {
                     Image(systemName: page.wrappedSymbol)
@@ -70,7 +70,7 @@ struct PageSettingsView: View {
         Section(header: Text("Feeds")) {
             if page.feedsArray.isEmpty {
                 Text("Page Emtpy")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color(.secondaryLabel))
                     .modifier(FormRowModifier())
             } else {
                 ForEach(page.feedsArray) { feed in

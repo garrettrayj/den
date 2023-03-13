@@ -57,7 +57,7 @@ struct SecurityView: View {
         Section {
             if remediationInProgress == true {
                 Label {
-                    Text("Checking…").foregroundColor(.secondary).modifier(FormRowModifier())
+                    Text("Checking…").foregroundColor(Color(.secondaryLabel)).modifier(FormRowModifier())
                 } icon: {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
@@ -104,11 +104,11 @@ struct SecurityView: View {
                         favicon: feed.feedData?.favicon
                     ).modifier(FormRowModifier())
                     Spacer()
-                    Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(.secondary)
+                    Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(Color(.secondaryLabel))
                     if failedRemediation.contains(feed.id) == true {
-                        Image(systemName: "shield.slash").foregroundColor(.red)
+                        Image(systemName: "shield.slash").foregroundColor(Color(.systemRed))
                     } else {
-                        Image(systemName: "lock.open").foregroundColor(.secondary)
+                        Image(systemName: "lock.open").foregroundColor(Color(.secondaryLabel))
                     }
                 }
             }

@@ -63,15 +63,15 @@ struct TrendBlockView: View {
                         \(trend.items.unread().count) unread
                         """)
                             .font(.footnote)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color(.secondaryLabel))
                     } else {
                         Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
                             .font(.footnote)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Color(.secondaryLabel))
                     }
                 }
                 .padding(12)
-                .foregroundColor(trend.items.unread().isEmpty ? .secondary : .primary)
+                .foregroundColor(trend.items.unread().isEmpty ? Color(.secondaryLabel) : Color(.label))
             }
             .buttonStyle(HoverShadowButtonStyle())
         }

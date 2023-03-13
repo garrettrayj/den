@@ -52,7 +52,7 @@ struct ThumbnailView: View {
                 .frame(width: scaledSize.width, height: scaledSize.height)
                 .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
-                .shadow(radius: 1)
+                .shadow(color: Color(.separator), radius: 1)
         } else if let image = item.feedData?.image {
             WebImage(
                 url: image,
@@ -65,7 +65,7 @@ struct ThumbnailView: View {
                 .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .cornerRadius(4)
-                .shadow(radius: 1)
+                .shadow(color: Color(.separator), radius: 1)
                 .padding(4)
                 .grayscale(isEnabled ? 0 : 1)
                 .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)

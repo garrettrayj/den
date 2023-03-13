@@ -26,7 +26,7 @@ struct ProfilesListSectionView: View {
                         Text(profile.displayName)
                     } icon: {
                         Image(systemName: profile.id?.uuidString == sceneProfileID ? "hexagon.fill" : "hexagon")
-                            .foregroundColor(profile.tintColor ?? .secondary)
+                            .foregroundColor(profile.tintColor ?? Color(.secondaryLabel))
                     }
                 }
                 .modifier(FormRowModifier())

@@ -36,7 +36,7 @@ struct PageView: View {
             scopeObject: page,
             sortDescriptors: sortDescriptors,
             readFilter: hideRead ? false : nil
-        ) { _, items in
+        ) { items in
             GeometryReader { geometry in
                 VStack {
                     if page.feedsArray.isEmpty {

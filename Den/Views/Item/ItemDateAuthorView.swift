@@ -27,7 +27,7 @@ struct ItemDateAuthorView: View {
                 }
             }
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading) {
                 Text("\(item.date.formatted())")
                 if let author = item.author {
                     Text(author)
@@ -38,7 +38,7 @@ struct ItemDateAuthorView: View {
         .lineLimit(1)
         .foregroundColor(
             isEnabled ?
-                item.read ? Color(.tertiaryLabel) : .secondary
+                item.read ? Color(.tertiaryLabel) : Color(.secondaryLabel)
                 :
                 item.read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
         )

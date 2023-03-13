@@ -12,21 +12,21 @@ import CoreData
 import SwiftUI
 
 struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
-    let content: (ScopeObject, FetchedResults<Item>) -> Content
+    let content: (FetchedResults<Item>) -> Content
     let scopeObject: ScopeObject
 
     @FetchRequest(sortDescriptors: [])
     private var items: FetchedResults<Item>
 
     var body: some View {
-        content(scopeObject, items)
+        content(items)
     }
 
     init(
         scopeObject: ScopeObject,
         sortDescriptors: [NSSortDescriptor] = [],
         readFilter: Bool? = nil,
-        @ViewBuilder content: @escaping (ScopeObject, FetchedResults<Item>) -> Content
+        @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
     ) {
         self.scopeObject = scopeObject
 

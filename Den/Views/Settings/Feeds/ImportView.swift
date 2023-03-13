@@ -82,10 +82,10 @@ struct ImportView: View {
                     Button { toggleFolder(folder) } label: {
                         Label {
                             HStack {
-                                Text(folder.name).foregroundColor(.primary)
+                                Text(folder.name).foregroundColor(Color(.label))
                                 Spacer()
                                 Text("\(folder.feeds.count) feeds")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(Color(.secondaryLabel))
                                     .font(.footnote)
                             }
                         } icon: {

@@ -11,16 +11,15 @@
 import SwiftUI
 
 struct AllReadStatusView: View {
-
     var body: some View {
         Label {
             HStack(spacing: 4) {
-                Text("All read").font(.callout)
+                Text("All Read")
             }
         } icon: {
             Image(systemName: "checkmark").imageScale(.small)
         }
-        .foregroundColor(.secondary)
+        .foregroundColor(Color(.secondaryLabel))
         .padding(12)
     }
 }

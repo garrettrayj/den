@@ -20,7 +20,9 @@ struct FeedTitleLabelView: View {
 
     var body: some View {
         Label {
-            Text(title).lineLimit(1).foregroundColor(read == true || !isEnabled ? .secondary : .primary)
+            Text(title)
+                .lineLimit(1)
+                .foregroundColor(read == true || !isEnabled ? Color(.secondaryLabel) : Color(.label))
         } icon: {
             FeedFaviconView(url: favicon)
                 .opacity(read == true || !isEnabled ? AppDefaults.dimmedImageOpacity : 1.0)

@@ -19,7 +19,7 @@ struct PageBottomBarView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: page) { _, items in
+        WithItems(scopeObject: page) { items in
             FilterReadButtonView(hideRead: $hideRead) {
                 page.objectWillChange.send()
             }

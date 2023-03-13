@@ -24,7 +24,7 @@ struct PageSelectionView: View {
                 Button(action: selectAll) { Text("All") }
                     .disabled(allSelected)
                     .accessibilityIdentifier("select-all-button")
-                Text("/").foregroundColor(.secondary)
+                Text("/").foregroundColor(Color(.secondaryLabel))
                 Button(action: selectNone) { Text("None") }
                     .disabled(noneSelected)
                     .accessibilityIdentifier("select-none-button")

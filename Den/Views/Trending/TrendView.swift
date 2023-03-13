@@ -25,7 +25,7 @@ struct TrendView: View {
             scopeObject: trend,
             sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
             readFilter: hideRead ? false : nil
-        ) { _, items in
+        ) { items in
             GeometryReader { geometry in
                 VStack {
                     if items.isEmpty {

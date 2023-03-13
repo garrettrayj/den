@@ -63,7 +63,7 @@ struct PreviewImageView: View {
                         .indicator(.activity)
                         .scaledToFit()
                         .cornerRadius(4)
-                        .shadow(radius: 1)
+                        .shadow(color: Color(.separator), radius: 1)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
@@ -88,7 +88,7 @@ struct PreviewImageView: View {
                         )
                         .clipped()
                         .cornerRadius(4)
-                        .shadow(radius: 1)
+                        .shadow(color: Color(.separator), radius: 1)
                 }
                 .frame(maxWidth: .infinity)
                 .padding(8)
@@ -110,7 +110,7 @@ struct PreviewImageView: View {
                 )
                 .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
-                .shadow(radius: 1)
+                .shadow(color: Color(.separator), radius: 1)
             }
         }
         .grayscale(isEnabled ? 0 : 1)

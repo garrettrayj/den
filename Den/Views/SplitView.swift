@@ -114,5 +114,6 @@ struct SplitView: View {
             .environment(\.colorScheme, colorScheme)
         }
         .tint(profile.tintColor)
+        .backgroundStyle(.background)
     }
 }

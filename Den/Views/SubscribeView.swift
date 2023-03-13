@@ -39,7 +39,7 @@ struct SubscribeView: View {
                     .buttonStyle(.bordered)
                     .accessibilityIdentifier("subscribe-cancel-button")
                 }
-                .foregroundColor(.secondary)
+                .foregroundColor(Color(.secondaryLabel))
             } else {
                 NavigationStack {
                     Form {
@@ -50,7 +50,7 @@ struct SubscribeView: View {
                         } footer: {
                             Group {
                                 if let validationMessage = validationMessage {
-                                    Text(validationMessage).foregroundColor(.red)
+                                    Text(validationMessage).foregroundColor(Color(.systemRed))
                                 } else {
                                     Text(.init("""
                                     [RSS](https://validator.w3.org/feed/docs/rss2.html), \
@@ -131,10 +131,10 @@ struct SubscribeView: View {
             if urlIsValid != nil {
                 if urlIsValid == true {
                     Image(systemName: "checkmark.circle")
-                        .foregroundColor(.green)
+                        .foregroundColor(Color(.systemGreen))
                         .fontWeight(.medium)
                 } else {
-                    Image(systemName: "slash.circle").foregroundColor(.red).fontWeight(.medium)
+                    Image(systemName: "slash.circle").foregroundColor(Color(.systemRed)).fontWeight(.medium)
                 }
             }
         }

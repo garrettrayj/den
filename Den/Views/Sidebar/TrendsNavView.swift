@@ -16,13 +16,14 @@ struct TrendsNavView: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        Label {
-            Text("Trends").lineLimit(1).badge(profile.trends.containingUnread().count)
-        } icon: {
-            Image(systemName: "chart.line.uptrend.xyaxis")
+        NavigationLink(value: ContentPanel.trends) {
+            Label {
+                Text("Trends").lineLimit(1).badge(profile.trends.containingUnread().count)
+            } icon: {
+                Image(systemName: "chart.line.uptrend.xyaxis")
+            }
         }
-        .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
+        .foregroundColor(editMode?.wrappedValue.isEditing == true ? Color(.secondaryLabel) : nil)
         .accessibilityIdentifier("trends-button")
-        .tag(ContentPanel.trends)
     }
 }

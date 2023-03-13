@@ -50,7 +50,7 @@ struct ResetSettingsSectionView: View {
                     Spacer()
                     Text(cacheSizeFormatter.string(fromByteCount: cacheSize))
                         .font(.callout)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color(.secondaryLabel))
                 }
             }
             .disabled(cacheSize == 0)

@@ -51,7 +51,7 @@ struct ProfileSettingsView: View {
                 .labelStyle(.titleAndIcon)
                 .buttonStyle(PlainToolbarButtonStyle())
                 .disabled(isActive)
-                .foregroundColor(isActive ? .secondary : nil)
+                .foregroundColor(isActive ? Color(.secondaryLabel) : nil)
                 .accessibilityIdentifier("switch-to-profile-button")
             }
         }

@@ -18,11 +18,11 @@ struct FeedTitleButtonStyle: ButtonStyle {
         configuration.label
             .font(.title3)
             .foregroundColor(
-                isEnabled ? .primary : .secondary
+                isEnabled ? Color(.label) : Color(.secondaryLabel)
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
-            .background(Color(.quaternarySystemFill).opacity(isEnabled && hovering ? 1 : 0))
+            .background(.thickMaterial.opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

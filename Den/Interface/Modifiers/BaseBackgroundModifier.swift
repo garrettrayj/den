@@ -13,6 +13,12 @@ import SwiftUI
 struct BaseBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+            #if targetEnvironment(macCatalyst)
+            .background(.ultraThinMaterial)
+            .background(.background)
+            #else
             .background(Color(.systemGroupedBackground))
+            #endif
+            .scrollContentBackground(.hidden)
     }
 }

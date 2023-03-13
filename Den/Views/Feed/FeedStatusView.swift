@@ -37,7 +37,7 @@ struct FeedStatusView: View {
                     }
                 }
 
-                Text("\(unreadCount) Unread").foregroundColor(.secondary)
+                Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
             }
         }
         .font(.caption)

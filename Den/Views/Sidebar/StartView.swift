@@ -60,7 +60,7 @@ struct StartView: View {
 
                 Toggle(isOn: $useBigDemo) {
                     Text("More feeds?")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color(.secondaryLabel))
                         #if targetEnvironment(macCatalyst)
                         .padding(.leading, 2)
                         #endif

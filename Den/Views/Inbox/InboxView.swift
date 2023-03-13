@@ -23,7 +23,7 @@ struct InboxView: View {
             scopeObject: profile,
             sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
             readFilter: hideRead ? false : nil
-        ) { _, items in
+        ) { items in
             GeometryReader { geometry in
                 VStack {
                     if profile.feedsArray.isEmpty {

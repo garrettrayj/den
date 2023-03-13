@@ -29,7 +29,7 @@ struct FeedView: View {
             scopeObject: feed,
             sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
             readFilter: hideRead ? false : nil
-        ) { _, items in
+        ) { items in
             GeometryReader { geometry in
                 ScrollView(.vertical) {
                     LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
@@ -42,8 +42,7 @@ struct FeedView: View {
                             } else if items.isEmpty {
                                 AllReadStatusView()
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(.background)
-                                    .cornerRadius(8)
+                                    .modifier(RaisedGroupModifier())
                                     .modifier(SectionContentPaddingModifier())
                             } else {
                                 BoardView(

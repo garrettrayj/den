@@ -24,7 +24,7 @@ struct ItemDateAuthorCompressedView: View {
         .lineLimit(1)
         .foregroundColor(
             isEnabled ?
-                item.read ? Color(.tertiaryLabel) : .secondary
+                item.read ? Color(.tertiaryLabel) : Color(.secondaryLabel)
                 :
                 item.read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
         )

@@ -18,17 +18,14 @@ struct PageNavView: View {
     @ObservedObject var page: Page
 
     var body: some View {
-        Label {
-            WithItems(
-                scopeObject: page,
-                readFilter: false
-            ) { _, items in
-                Text(page.displayName)
-                    .lineLimit(1)
-                    .badge(items.count)
+        NavigationLink(value: ContentPanel.page(page)) {
+            Label {
+                WithItems(scopeObject: page, readFilter: false) { items in
+                    Text(page.displayName).lineLimit(1).badge(items.count)
+                }
+            } icon: {
+                Image(systemName: page.wrappedSymbol)
             }
-        } icon: {
-            Image(systemName: page.wrappedSymbol)
         }
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
             if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
@@ -37,6 +34,5 @@ struct PageNavView: View {
         }
         .modifier(URLDropTargetModifier(page: page))
         .accessibilityIdentifier("page-button")
-        .tag(ContentPanel.page(page))
     }
 }

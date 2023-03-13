@@ -29,14 +29,10 @@ struct DeckColumnView: View {
                 LazyVStack(alignment: .leading, spacing: 8) {
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailableView(feedData: feed.feedData)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(.background)
-                            .cornerRadius(8)
                     } else if items.isEmpty {
                         AllReadStatusView()
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(.background)
-                            .cornerRadius(8)
+                            .modifier(RaisedGroupModifier())
                     } else {
                         ForEach(items) { item in
                             ItemActionView(item: item) {

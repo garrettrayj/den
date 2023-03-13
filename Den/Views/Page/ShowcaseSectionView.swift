@@ -21,15 +21,11 @@ struct ShowcaseSectionView: View {
         Section {
             if feed.feedData == nil || feed.feedData?.error != nil {
                 FeedUnavailableView(feedData: feed.feedData)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.background)
-                    .cornerRadius(8)
                     .modifier(SectionContentPaddingModifier())
             } else if items.isEmpty {
                 AllReadStatusView()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.background)
-                    .cornerRadius(8)
+                    .modifier(RaisedGroupModifier())
                     .modifier(SectionContentPaddingModifier())
             } else {
                 BoardView(

@@ -27,7 +27,7 @@ struct TrendBottomBarView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: trend) { _, items in
+        WithItems(scopeObject: trend) { items in
             FilterReadButtonView(hideRead: $hideRead) {
                 trend.objectWillChange.send()
             }

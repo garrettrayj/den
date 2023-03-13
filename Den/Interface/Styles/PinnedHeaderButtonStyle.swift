@@ -20,13 +20,17 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .font(.title3)
-            .foregroundColor(isEnabled ? .primary : .secondary)
+            .foregroundColor(isEnabled ? Color(.label) : Color(.secondaryLabel))
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
-            .background(.ultraThickMaterial)
-            .overlay(Color(.tertiarySystemFill).opacity(isEnabled && hovering ? 0.5 : 0.2))
+            .background(.thickMaterial)
+            .background(
+                Color(.systemGray3)
+                    .colorInvert()
+                    .opacity(isEnabled && hovering ? 0.25 : 0.15)
+            )
             .onHover { hovered in
                 hovering = hovered
             }

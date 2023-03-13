@@ -43,7 +43,7 @@ struct CommonStatusView: View {
                     }
                 }
 
-                Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
+                Text("\(unreadCount) \(unreadLabel)").foregroundColor(Color(.secondaryLabel))
             }
         }
         .font(.caption)

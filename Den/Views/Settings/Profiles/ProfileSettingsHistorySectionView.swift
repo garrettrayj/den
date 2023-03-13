@@ -65,21 +65,19 @@ struct ProfileSettingsHistorySectionView: View {
                 HStack {
                     Text("Clear History")
                     Spacer()
-                    if historyCount > 0 {
-                        if historyCount > 1 {
-                            Text("\(historyCount) entries")
-                                .font(.callout)
-                                .foregroundColor(.secondary)
+                    Group {
+                        if historyCount > 0 {
+                            if historyCount > 1 {
+                                Text("\(historyCount) entries")
+                            } else {
+                                Text("\(historyCount) entry")
+                            }
                         } else {
-                            Text("\(historyCount) entry")
-                                .font(.callout)
-                                .foregroundColor(.secondary)
+                            Text("No entries")
                         }
-                    } else {
-                        Text("No entries")
-                            .font(.callout)
-                            .foregroundColor(.secondary)
                     }
+                    .font(.callout)
+                    .foregroundColor(Color(.secondaryLabel))
                 }
             }
             .disabled(historyCount == 0)

@@ -25,7 +25,7 @@ struct InboxBottomBarView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: profile) { _, items in
+        WithItems(scopeObject: profile) { items in
             FilterReadButtonView(hideRead: $hideRead) {
                 profile.objectWillChange.send()
             }
