@@ -23,7 +23,7 @@ struct ToolbarButtonStyle: ButtonStyle {
             .fontWeight(.semibold)
             .foregroundColor(
                 isEnabled ?
-                    configuration.isPressed ? Color.primary : Color.secondary
+                    configuration.isPressed ? Color(.label) : Color(.secondaryLabel)
                     :
                     Color(.tertiaryLabel)
             )
@@ -35,9 +35,9 @@ struct ToolbarButtonStyle: ButtonStyle {
                         hovering ?
                             Color(.quaternarySystemFill)
                             :
-                            Color.clear
+                            Color(.clear)
                     :
-                    Color.clear
+                    Color(.clear)
             )
             .cornerRadius(6)
             .onHover { hovered in
@@ -54,7 +54,7 @@ struct ToolbarButtonStyle: ButtonStyle {
                     :
                     Color(.tertiaryLabel)
             )
-            .background(Color.clear)
+            .background(Color(.clear))
             .contentShape(Rectangle())
             .onHover { hovered in
                 hovering = hovered
