@@ -18,13 +18,10 @@ struct RaisedGroupModifier: ViewModifier {
             .frame(maxWidth: .infinity, alignment: .leading)
             #if targetEnvironment(macCatalyst)
             .background(.bar)
+            .background(.background)
             #else
             .background(Color(.secondarySystemGroupedBackground))
             #endif
-            .cornerRadius(8)
-            .shadow(
-                color: .black.opacity(colorScheme == .light ? 0.15 : 0.5),
-                radius: 1
-            )
+            .cornerRadius(6)
     }
 }

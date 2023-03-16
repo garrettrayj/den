@@ -29,28 +29,31 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            ProfilesListSectionView(sceneProfileID: $sceneProfileID)
-            FeedsSettingsSectionView()
-            #if !targetEnvironment(macCatalyst)
-            BrowserSettingsSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
-            #endif
-            AppearanceSettingsSectionView(
-                uiStyle: $uiStyle,
-                contentSizeCategory: $contentSizeCategory,
-                contentFontFamily: $contentFontFamily
-            )
-            RefreshSettingsSectionView(
-                autoRefreshEnabled: $autoRefreshEnabled,
-                autoRefreshCooldown: $autoRefreshCooldown,
-                backgroundRefreshEnabled: $backgroundRefreshEnabled
-            )
-            ResetSettingsSectionView(
-                activeProfile: $activeProfile,
-                sceneProfileID: $sceneProfileID,
-                appProfileID: $appProfileID,
-                profile: profile
-            )
-            AboutSettingsSectionView()
+            Group {
+                ProfilesListSectionView(sceneProfileID: $sceneProfileID)
+                FeedsSettingsSectionView()
+                #if !targetEnvironment(macCatalyst)
+                BrowserSettingsSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+                #endif
+                AppearanceSettingsSectionView(
+                    uiStyle: $uiStyle,
+                    contentSizeCategory: $contentSizeCategory,
+                    contentFontFamily: $contentFontFamily
+                )
+                RefreshSettingsSectionView(
+                    autoRefreshEnabled: $autoRefreshEnabled,
+                    autoRefreshCooldown: $autoRefreshCooldown,
+                    backgroundRefreshEnabled: $backgroundRefreshEnabled
+                )
+                ResetSettingsSectionView(
+                    activeProfile: $activeProfile,
+                    sceneProfileID: $sceneProfileID,
+                    appProfileID: $appProfileID,
+                    profile: profile
+                )
+                AboutSettingsSectionView()
+            }.modifier(ListRowBackgroundModifier())
+            
         }
         .navigationTitle("Settings")
     }

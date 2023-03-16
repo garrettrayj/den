@@ -33,5 +33,6 @@ struct ItemCompressedView: View {
             }
         }
         .padding(12)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }

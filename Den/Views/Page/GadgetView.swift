@@ -46,19 +46,17 @@ struct GadgetView: View {
     }
 
     private var header: some View {
-        HStack {
-            NavigationLink(value: DetailPanel.feed(feed)) {
-                HStack {
-                    FeedTitleLabelView(
-                        title: feed.wrappedTitle,
-                        favicon: feed.feedData?.favicon
-                    )
-                    Spacer()
-                    NavChevronView()
-                }
+        NavigationLink(value: DetailPanel.feed(feed)) {
+            HStack {
+                FeedTitleLabelView(
+                    title: feed.wrappedTitle,
+                    favicon: feed.feedData?.favicon
+                )
+                Spacer()
+                NavChevronView()
             }
-            .buttonStyle(FeedTitleButtonStyle())
-            .accessibilityIdentifier("gadget-feed-button")
         }
+        .buttonStyle(FeedTitleButtonStyle())
+        .accessibilityIdentifier("gadget-feed-button")
     }
 }

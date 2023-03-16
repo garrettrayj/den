@@ -47,17 +47,18 @@ struct DeckColumnView: View {
                     }
                     Spacer(minLength: 16)
                 }
-                .padding(.top, 4)
+                .padding(.top, 8)
                 .padding(.leading, 4)
                 .padding(.trailing, 4)
                 .padding(.leading, isFirst ? 12 : 0)
                 .padding(.trailing, isLast ? 12 : 0)
             }
             .safeAreaInset(edge: .top) {
-                header
+                header.padding(.top, pageGeometry.safeAreaInsets.top)
             }
-
-            header
+            .safeAreaInset(edge: .bottom) {
+                EmptyView().frame(height: pageGeometry.safeAreaInsets.bottom)
+            }
         }
         .frame(width: columnWidth)
     }

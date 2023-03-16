@@ -186,6 +186,7 @@
 		68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */; };
 		68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */; };
 		68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */; };
+		68ED797D29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */; };
 		68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */; };
 		68F56B3D286F5C20006EC915 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B3C286F5C20006EC915 /* TrendsView.swift */; };
 		68F56B452870C067006EC915 /* TrendBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B442870C067006EC915 /* TrendBlockView.swift */; };
@@ -465,6 +466,7 @@
 		68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowBackgroundModifier.swift; sourceTree = "<group>"; };
 		68F56B3C286F5C20006EC915 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
 		68F56B442870C067006EC915 /* TrendBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendBlockView.swift; sourceTree = "<group>"; };
 		68F56B462870C123006EC915 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
@@ -676,6 +678,7 @@
 				68F6FBA629AF7BF1001F74B9 /* CustomFontModifier.swift */,
 				68245E2C29B834AC0068D450 /* RaisedGroupModifier.swift */,
 				6879AAB929B9670200E73FD0 /* BaseBackgroundModifier.swift */,
+				68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1416,6 +1419,7 @@
 				687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedSettingsView.swift in Sources */,
 				683E3F4D293C1B9400B16814 /* BottomBarProgressViewStyle.swift in Sources */,
+				68ED797D29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift in Sources */,
 				68F6FBA729AF7BF1001F74B9 /* CustomFontModifier.swift in Sources */,
 				68FF63F42921D9C50012A275 /* ToggleReadButtonView.swift in Sources */,
 				68B526A2298E3B2000D4B927 /* DeckColumnView.swift in Sources */,

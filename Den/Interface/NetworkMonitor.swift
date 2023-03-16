@@ -21,7 +21,6 @@ class NetworkMonitor: ObservableObject {
         networkMonitor.pathUpdateHandler = { path in
             DispatchQueue.main.async {
                 self.isConnected = path.status == .satisfied
-                print("NETWORK: \(path.status)")
             }
         }
         networkMonitor.start(queue: workerQueue)

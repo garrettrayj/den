@@ -27,13 +27,15 @@ struct ProfileSettingsView: View {
 
     var body: some View {
         Form {
-            nameSection
-            tintSection
-            ProfileSettingsHistorySectionView(
-                profile: profile,
-                historyRentionDays: profile.wrappedHistoryRetention
-            )
-            deleteSection
+            Group {
+                nameSection
+                tintSection
+                ProfileSettingsHistorySectionView(
+                    profile: profile,
+                    historyRentionDays: profile.wrappedHistoryRetention
+                )
+                deleteSection
+            }.modifier(ListRowBackgroundModifier())
         }
         .toolbar {
             ToolbarItem(placement: .bottomBar) {

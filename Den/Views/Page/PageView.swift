@@ -64,6 +64,7 @@ struct PageView: View {
                                     }
                                 }
                             }
+                            .edgesIgnoringSafeArea([.bottom, .top])
                             .id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
                             .navigationBarTitleDisplayMode(.inline)
                         case .blend:
