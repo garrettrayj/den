@@ -50,56 +50,28 @@ struct PageView: View {
                     } else {
                         switch pageLayout {
                         case .deck:
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack(alignment: .top, spacing: 0) {
-                                    ForEach(page.feedsArray) { feed in
-                                        DeckColumnView(
-                                            feed: feed,
-                                            isFirst: page.feedsArray.first == feed,
-                                            isLast: page.feedsArray.last == feed,
-                                            items: items.forFeed(feed: feed),
-                                            previewStyle: previewStyle,
-                                            pageGeometry: geometry
-                                        )
-                                    }
-                                }
-                            }
-                            .edgesIgnoringSafeArea([.bottom, .top])
-                            .id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
-                            .navigationBarTitleDisplayMode(.inline)
+                            DeckLayoutView(
+                                page: page,
+                                previewStyle: $previewStyle,
+                                items: items,
+                                pageGeometry: geometry
+                            )
                         case .blend:
-                            ScrollView(.vertical) {
-                                BoardView(width: geometry.size.width, list: Array(items)) { item in
-                                    if previewStyle == .compressed {
-                                        FeedItemCompressedView(item: item)
-                                    } else {
-                                        FeedItemExpandedView(item: item)
-                                    }
-                                }.modifier(MainBoardModifier())
-                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
+                            BlendLayoutView(previewStyle: $previewStyle, items: items, width: geometry.size.width)
                         case .showcase:
-                            ScrollView(.vertical) {
-                                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                                    ForEach(page.feedsArray) { feed in
-                                        ShowcaseSectionView(
-                                            feed: feed,
-                                            items: items.forFeed(feed: feed),
-                                            previewStyle: previewStyle,
-                                            width: geometry.size.width
-                                        )
-                                    }
-                                }.padding(.bottom)
-                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
+                            ShowcaseLayoutView(
+                                page: page,
+                                previewStyle: $previewStyle,
+                                items: items,
+                                width: geometry.size.width
+                            )
                         case .gadgets:
-                            ScrollView(.vertical) {
-                                BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
-                                    GadgetView(
-                                        feed: feed,
-                                        items: items.forFeed(feed: feed),
-                                        previewStyle: previewStyle
-                                    )
-                                }.modifier(MainBoardModifier())
-                            }.id("\(page.id?.uuidString ?? "na")_\(pageLayout)_\(previewStyle)")
+                            GadgetLayoutView(
+                                page: page,
+                                previewStyle: $previewStyle,
+                                items: items,
+                                width: geometry.size.width
+                            )
                         }
                     }
                 }

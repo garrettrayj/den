@@ -187,6 +187,10 @@
 		68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */; };
 		68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */; };
 		68ED797D29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */; };
+		68ED797F29C29A6800D85B4F /* GadgetLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797E29C29A6800D85B4F /* GadgetLayoutView.swift */; };
+		68ED798129C29A7700D85B4F /* ShowcaseLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED798029C29A7700D85B4F /* ShowcaseLayoutView.swift */; };
+		68ED798329C29A8B00D85B4F /* BlendLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED798229C29A8B00D85B4F /* BlendLayoutView.swift */; };
+		68ED798529C29B2700D85B4F /* DeckLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED798429C29B2700D85B4F /* DeckLayoutView.swift */; };
 		68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */; };
 		68F56B3D286F5C20006EC915 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B3C286F5C20006EC915 /* TrendsView.swift */; };
 		68F56B452870C067006EC915 /* TrendBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B442870C067006EC915 /* TrendBlockView.swift */; };
@@ -467,6 +471,10 @@
 		68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowBackgroundModifier.swift; sourceTree = "<group>"; };
+		68ED797E29C29A6800D85B4F /* GadgetLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GadgetLayoutView.swift; sourceTree = "<group>"; };
+		68ED798029C29A7700D85B4F /* ShowcaseLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseLayoutView.swift; sourceTree = "<group>"; };
+		68ED798229C29A8B00D85B4F /* BlendLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendLayoutView.swift; sourceTree = "<group>"; };
+		68ED798429C29B2700D85B4F /* DeckLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckLayoutView.swift; sourceTree = "<group>"; };
 		68F56B3C286F5C20006EC915 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
 		68F56B442870C067006EC915 /* TrendBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendBlockView.swift; sourceTree = "<group>"; };
 		68F56B462870C123006EC915 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
@@ -1020,6 +1028,10 @@
 				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
 				68B526A1298E3B2000D4B927 /* DeckColumnView.swift */,
 				688FD917247750350006A2DE /* PageSettingsView.swift */,
+				68ED797E29C29A6800D85B4F /* GadgetLayoutView.swift */,
+				68ED798029C29A7700D85B4F /* ShowcaseLayoutView.swift */,
+				68ED798229C29A8B00D85B4F /* BlendLayoutView.swift */,
+				68ED798429C29B2700D85B4F /* DeckLayoutView.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -1325,6 +1337,7 @@
 				68F6FB9729ADDA41001F74B9 /* FeedItemCompressedView.swift in Sources */,
 				683E3F49293BC19800B16814 /* RefreshButtonView.swift in Sources */,
 				68BF14AE29A4621900021AC1 /* SectionContentPaddingModifier.swift in Sources */,
+				68ED798129C29A7700D85B4F /* ShowcaseLayoutView.swift in Sources */,
 				6880EBEB27AEF12000B479F4 /* NavChevronView.swift in Sources */,
 				68B6CBE42910B9C400B5E3AB /* CleanOperation.swift in Sources */,
 				6868A3162895D20D0051D43E /* TrendsNavView.swift in Sources */,
@@ -1346,6 +1359,7 @@
 				684DFA0324BAC7680023D6DB /* MIMEType.swift in Sources */,
 				68F6FB9F29ADE0E2001F74B9 /* PageLayout.swift in Sources */,
 				68FF63F22921D88F0012A275 /* FeedBottomBarView.swift in Sources */,
+				68ED798329C29A8B00D85B4F /* BlendLayoutView.swift in Sources */,
 				6829A50C28C6479900F75C5A /* AllReadStatusView.swift in Sources */,
 				6880EBE327A8F63E00B479F4 /* LinkableItem.swift in Sources */,
 				685ECB1126EE611000A3B184 /* PageNavView.swift in Sources */,
@@ -1372,6 +1386,7 @@
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */,
 				68F6FBA929AF9132001F74B9 /* ContentSizePickerView.swift in Sources */,
+				68ED797F29C29A6800D85B4F /* GadgetLayoutView.swift in Sources */,
 				68AB038C299B16BD00A39D47 /* MainBoardModifier.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				6832AF2C278B889300CFC8CA /* SplashNoteView.swift in Sources */,
@@ -1462,6 +1477,7 @@
 				68FF63F62921DB900012A275 /* FilterReadButtonView.swift in Sources */,
 				689838CC291D88FE00FDC881 /* SafariUtility.swift in Sources */,
 				68352D1629B16C5F0073CEFD /* TintPickerView.swift in Sources */,
+				68ED798529C29B2700D85B4F /* DeckLayoutView.swift in Sources */,
 				68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */,
 				68D9BAA228A60CBE00F1A3AD /* ResetSettingsSectionView.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
