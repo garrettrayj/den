@@ -1,5 +1,5 @@
 //
-//  AppearanceSettingsSectionView.swift
+//  AppearanceSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct AppearanceSettingsSectionView: View {
+struct AppearanceSectionView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @Binding var uiStyle: UIUserInterfaceStyle

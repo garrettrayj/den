@@ -1,5 +1,5 @@
 //
-//  BrowserSettingsSectionView.swift
+//  BrowserSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/31/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct BrowserSettingsSectionView: View {
+struct BrowserSectionView: View {
     @ObservedObject var profile: Profile
 
     @Binding var useInbuiltBrowser: Bool

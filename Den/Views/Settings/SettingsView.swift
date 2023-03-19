@@ -31,27 +31,27 @@ struct SettingsView: View {
         Form {
             Group {
                 ProfilesListSectionView(sceneProfileID: $sceneProfileID)
-                FeedsSettingsSectionView()
+                FeedsSectionView()
                 #if !targetEnvironment(macCatalyst)
-                BrowserSettingsSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+                BrowserSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
                 #endif
-                AppearanceSettingsSectionView(
+                AppearanceSectionView(
                     uiStyle: $uiStyle,
                     contentSizeCategory: $contentSizeCategory,
                     contentFontFamily: $contentFontFamily
                 )
-                RefreshSettingsSectionView(
+                RefreshSectionView(
                     autoRefreshEnabled: $autoRefreshEnabled,
                     autoRefreshCooldown: $autoRefreshCooldown,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled
                 )
-                ResetSettingsSectionView(
+                ResetSectionView(
                     activeProfile: $activeProfile,
                     sceneProfileID: $sceneProfileID,
                     appProfileID: $appProfileID,
                     profile: profile
                 )
-                AboutSettingsSectionView()
+                AboutSectionView()
             }.modifier(ListRowBackgroundModifier())
 
         }

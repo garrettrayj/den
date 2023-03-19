@@ -28,7 +28,7 @@ struct ItemButtonStyle: ButtonStyle {
                     read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
             )
             .frame(maxWidth: .infinity)
-            .background(.thickMaterial.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.regularMaterial.opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

@@ -1,5 +1,5 @@
 //
-//  ResetSettingsSectionView.swift
+//  ResetSectionView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -12,7 +12,7 @@ import SwiftUI
 
 import SDWebImage
 
-struct ResetSettingsSectionView: View {
+struct ResetSectionView: View {
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfile: Profile?

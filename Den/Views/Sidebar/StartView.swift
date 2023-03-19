@@ -57,7 +57,7 @@ struct StartView: View {
                 .font(.footnote)
                 .foregroundColor(Color(.secondaryLabel))
                 .imageScale(.small)
-                .padding(.vertical, 8)
+                .padding(.vertical, 16)
                 .multilineTextAlignment(.center)
         } header: {
             Text("Get Started")
