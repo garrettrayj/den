@@ -116,7 +116,7 @@ struct PageView: View {
             }
         }
     }
-    
+
     init(
         page: Page,
         profile: Profile,
@@ -125,10 +125,10 @@ struct PageView: View {
     ) {
         self.page = page
         self.profile = profile
-        
+
         _hideRead = hideRead
         _refreshing = refreshing
-        
+
         _pageLayout = AppStorage(
             wrappedValue: PageLayout.gadgets,
             "PageLayout_\(page.id?.uuidString ?? "NA")"

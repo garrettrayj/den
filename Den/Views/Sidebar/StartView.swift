@@ -52,7 +52,7 @@ struct StartView: View {
             .padding(.top, 4)
             .modifier(StartRowModifier())
             .accessibilityIdentifier("load-demo-button")
-            
+
             Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
                 .font(.footnote)
                 .foregroundColor(Color(.secondaryLabel))

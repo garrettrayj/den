@@ -12,12 +12,12 @@ import SwiftUI
 
 struct DeckLayoutView: View {
     @ObservedObject var page: Page
-    
+
     @Binding var previewStyle: PreviewStyle
-    
+
     let items: FetchedResults<Item>
     let pageGeometry: GeometryProxy
-    
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(alignment: .top, spacing: 0) {

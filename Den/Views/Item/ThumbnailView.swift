@@ -73,6 +73,6 @@ struct ThumbnailView: View {
                 .background(Color(.tertiarySystemFill))
                 .cornerRadius(6)
         }
-        
+
     }
 }

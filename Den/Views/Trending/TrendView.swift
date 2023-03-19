@@ -59,7 +59,7 @@ struct TrendView: View {
             }
         }
     }
-    
+
     init(
         trend: Trend,
         profile: Profile,
@@ -68,10 +68,10 @@ struct TrendView: View {
     ) {
         self.trend = trend
         self.profile = profile
-        
+
         _refreshing = refreshing
         _hideRead = hideRead
-        
+
         _previewStyle = AppStorage(
             wrappedValue: PreviewStyle.compressed,
             "TrendPreviewStyle_\(profile.id?.uuidString ?? "NA")"

@@ -12,12 +12,12 @@ import SwiftUI
 
 struct ShowcaseLayoutView: View {
     @ObservedObject var page: Page
-    
+
     @Binding var previewStyle: PreviewStyle
-    
+
     let items: FetchedResults<Item>
     let width: CGFloat
-    
+
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {

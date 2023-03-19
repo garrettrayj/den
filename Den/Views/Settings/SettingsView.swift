@@ -53,7 +53,7 @@ struct SettingsView: View {
                 )
                 AboutSettingsSectionView()
             }.modifier(ListRowBackgroundModifier())
-            
+
         }
         .navigationTitle("Settings")
     }

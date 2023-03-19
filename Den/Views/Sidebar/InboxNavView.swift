@@ -46,7 +46,6 @@ struct InboxNavView: View {
             .accessibilityIdentifier("inbox-button")
             .tag(ContentPanel.inbox)
         }
-        
-        
+
     }
 }

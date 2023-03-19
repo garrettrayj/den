@@ -58,13 +58,13 @@ struct InboxView: View {
             .navigationTitle("Inbox")
         }
     }
-    
+
     init(profile: Profile, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
         self.profile = profile
-        
+
         _hideRead = hideRead
         _refreshing = refreshing
-        
+
         _previewStyle = AppStorage(
             wrappedValue: PreviewStyle.compressed,
             "InboxPreviewStyle_\(profile.id?.uuidString ?? "NA")"

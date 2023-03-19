@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ListRowBackgroundModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
-    
+
     func body(content: Content) -> some View {
         content
             .listRowBackground(

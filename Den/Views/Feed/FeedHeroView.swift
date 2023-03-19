@@ -34,7 +34,7 @@ struct FeedHeroView: View {
                 .resizable()
                 .scaledToFill()
                 .background(Color(.secondarySystemGroupedBackground))
-            
+
         }
         .clipped()
     }

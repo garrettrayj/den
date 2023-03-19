@@ -20,16 +20,16 @@ struct ItemWebView: UIViewRepresentable {
     var title: String
     var baseURL: URL?
     var tint: UIColor?
-    
+
     @State var webView = CustomWebView(frame: .zero, configuration: WKWebViewConfiguration())
 
     func makeUIView(context: Context) -> WKWebView {
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
-        
+
         loadContent()
-        
+
         return webView
     }
 
@@ -40,10 +40,10 @@ struct ItemWebView: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator()
     }
-    
+
     private func loadContent() {
         guard let html = html else { return }
-        
+
         let htmlStart = """
         <HTML><HEAD>\
         <title>\(title)</title>\
@@ -54,7 +54,7 @@ struct ItemWebView: UIViewRepresentable {
         let htmlString = "\(htmlStart)\(html)\(htmlEnd)"
 
         webView.loadHTMLString(htmlString, baseURL: baseURL)
-        
+
         if let cssString = getStylesString() {
             let source = """
             var style = document.createElement('style');
@@ -66,7 +66,7 @@ struct ItemWebView: UIViewRepresentable {
             webView.configuration.userContentController.addUserScript(userScript)
         }
     }
-    
+
     private func getStylesString() -> String? {
         guard
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
@@ -76,13 +76,13 @@ struct ItemWebView: UIViewRepresentable {
                 .replacingOccurrences(of: "$FONT_SIZE", with: "\(dynamicTypeSize.fontScale * 100)%")
                 .components(separatedBy: .newlines).joined()
         else { return nil }
-        
+
         return cssString
     }
-    
+
     class Coordinator: NSObject, WKNavigationDelegate {
         var cancellable: Cancellable?
-        
+
         func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
             cancellable = DispatchQueue.main.schedule(
                 after: .init(.now() + 0.1),
@@ -91,7 +91,7 @@ struct ItemWebView: UIViewRepresentable {
                 webView.invalidateIntrinsicContentSize()
             }
         }
-        
+
         func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
             cancellable?.cancel()
         }
@@ -117,12 +117,12 @@ struct ItemWebView: UIViewRepresentable {
                 decisionHandler(.allow)
             }
         }
-        
+
         deinit {
             cancellable?.cancel()
         }
     }
-    
+
     class CustomWebView: WKWebView {
         override init(frame: CGRect, configuration: WKWebViewConfiguration) {
             super.init(frame: frame, configuration: configuration)

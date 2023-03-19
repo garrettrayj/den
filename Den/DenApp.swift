@@ -19,7 +19,7 @@ struct DenApp: App {
 
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("AppProfileID") var appProfileID: String?
-    
+
     @StateObject var networkMonitor = NetworkMonitor()
 
     let persistenceController = PersistenceController.shared

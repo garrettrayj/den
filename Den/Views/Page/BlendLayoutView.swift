@@ -12,10 +12,10 @@ import SwiftUI
 
 struct BlendLayoutView: View {
     @Binding var previewStyle: PreviewStyle
-    
+
     let items: FetchedResults<Item>
     let width: CGFloat
-    
+
     var body: some View {
         ScrollView(.vertical) {
             BoardView(width: width, list: Array(items)) { item in

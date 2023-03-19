@@ -12,12 +12,12 @@ import SwiftUI
 
 struct GadgetLayoutView: View {
     @ObservedObject var page: Page
-    
+
     @Binding var previewStyle: PreviewStyle
-    
+
     let items: FetchedResults<Item>
     let width: CGFloat
-    
+
     var body: some View {
         ScrollView(.vertical) {
             BoardView(width: width, list: page.feedsArray) { feed in
@@ -30,4 +30,3 @@ struct GadgetLayoutView: View {
         }
     }
 }
-

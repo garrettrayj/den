@@ -58,7 +58,7 @@ struct IconPickerView: View {
                 ForEach(SymbolCollection.shared.categorySymbols(categoryID: category.id)) { symbol in
                     ZStack {
                         RoundedRectangle(cornerRadius: 4).fill(.background)
-                        
+
                         Image(systemName: symbol.id)
                             .imageScale(.large)
                             .foregroundColor(symbol.id == page.wrappedSymbol ? Color(.tintColor) : Color(.label))
@@ -67,7 +67,7 @@ struct IconPickerView: View {
                             RoundedRectangle(cornerRadius: 4).strokeBorder(Color.accentColor, lineWidth: 2)
                         }
                     }
-                    
+
                     .aspectRatio(1, contentMode: .fit)
                     .onTapGesture {
                         page.wrappedSymbol = symbol.id

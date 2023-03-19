@@ -53,7 +53,7 @@ enum TintOption: String, CaseIterable {
             return .systemBrown
         }
     }
-    
+
     var color: Color {
         Color(self.uiColor)
     }

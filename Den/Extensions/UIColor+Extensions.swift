@@ -24,7 +24,7 @@ extension UIColor {
             lroundf(Float(green * 255)),
             lroundf(Float(blue * 255))
         )
-        
+
         return hexString
     }
 }

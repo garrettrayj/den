@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct RefreshButtonView: View {
-    
+
     let profile: Profile
 
     @Binding var refreshing: Bool

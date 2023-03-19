@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 #  lint.sh
 #  Den
@@ -9,7 +9,7 @@
 #  SPDX-License-Identifier: MIT
 #
 
-if which swiftlint >/dev/null; then
-swiftlint --fix && swiftlint
-else echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+if [ -f "/opt/homebrew/bin/swiftlint" ]; then
+/opt/homebrew/bin/swiftlint --fix && /opt/homebrew/bin/swiftlint
+else echo "warning: SwiftLint not installed. Run `brew install swiftlint`."
 fi

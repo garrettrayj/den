@@ -15,7 +15,7 @@ struct SidebarView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject var networkMonitor: NetworkMonitor
-    
+
     let searchModel: SearchModel
 
     @ObservedObject var profile: Profile
@@ -59,7 +59,7 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
-        
+
         #if targetEnvironment(macCatalyst)
         .background(.thickMaterial)
         .navigationSplitViewColumnWidth(240)
@@ -99,7 +99,7 @@ struct SidebarView: View {
             }
         }
     }
-    
+
     private var editButton: some View {
         EditButton()
             .buttonStyle(ToolbarButtonStyle())

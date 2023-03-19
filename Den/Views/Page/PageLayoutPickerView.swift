@@ -30,7 +30,7 @@ struct PageLayoutPickerView: View {
             }
             .tag(PageLayout.blend)
             .accessibilityIdentifier("blend-page-layout-option")
-            
+
             Label {
                 Text("Showcase")
             } icon: {
@@ -38,7 +38,7 @@ struct PageLayoutPickerView: View {
             }
             .tag(PageLayout.showcase)
             .accessibilityIdentifier("showcase-page-layout-option")
-            
+
             Label {
                 Text("Deck")
             } icon: {
@@ -46,7 +46,7 @@ struct PageLayoutPickerView: View {
             }
             .tag(PageLayout.deck)
             .accessibilityIdentifier("deck-page-layout-option")
-            
+
         }
         .accessibilityIdentifier("page-layout-picker")
     }

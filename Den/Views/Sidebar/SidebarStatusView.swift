@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SidebarStatusView: View {
     @EnvironmentObject var networkMonitor: NetworkMonitor
-    
+
     @ObservedObject var profile: Profile
 
     @Binding var refreshing: Bool
@@ -46,7 +46,7 @@ struct SidebarStatusView: View {
                         }
                     }
                 }
-                
+
                 if !networkMonitor.isConnected {
                     Text("Network Offline").foregroundColor(Color(.secondaryLabel))
                 }
