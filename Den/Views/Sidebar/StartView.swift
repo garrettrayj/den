@@ -19,54 +19,49 @@ struct StartView: View {
     @Binding var contentSelection: ContentPanel?
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Get Started").font(.callout)
-            VStack(alignment: .leading, spacing: 0) {
-                Button {
-                    _ = Page.create(in: viewContext, profile: profile, prepend: true)
-                    do {
-                        try viewContext.save()
-                        DispatchQueue.main.async {
-                            profile.objectWillChange.send()
-                        }
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
+        Section {
+            Button {
+                _ = Page.create(in: viewContext, profile: profile, prepend: true)
+                do {
+                    try viewContext.save()
+                    DispatchQueue.main.async {
+                        profile.objectWillChange.send()
                     }
-                } label: {
-                    Label("Add a New Page", systemImage: "plus")
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
                 }
-                .buttonStyle(.borderless)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .modifier(StartRowModifier())
-                .accessibilityIdentifier("start-add-page-button")
-                Divider()
-                Button {
-                    loadDemo()
-                } label: {
-                    Label {
-                        Text("Load Demo Pages")
-                    } icon: {
-                        Image(systemName: "wand.and.stars")
-                    }
-                }
-                .buttonStyle(.borderless)
-                .padding(.horizontal, 8)
-                .padding(.top, 4)
-                .modifier(StartRowModifier())
-                .accessibilityIdentifier("load-demo-button")
+            } label: {
+                Label("Add a New Page", systemImage: "plus")
             }
-            .font(.body)
-            .background(.background)
-            .cornerRadius(8)
+            .buttonStyle(.borderless)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .modifier(StartRowModifier())
+            .accessibilityIdentifier("start-add-page-button")
+            Button {
+                loadDemo()
+            } label: {
+                Label {
+                    Text("Load Demo Pages")
+                } icon: {
+                    Image(systemName: "wand.and.stars")
+                }
+            }
+            .buttonStyle(.borderless)
+            .padding(.horizontal, 8)
+            .padding(.top, 4)
+            .modifier(StartRowModifier())
+            .accessibilityIdentifier("load-demo-button")
             
             Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
                 .font(.footnote)
                 .foregroundColor(Color(.secondaryLabel))
                 .imageScale(.small)
-                .padding(.top, 8)
+                .padding(.vertical, 8)
+                .multilineTextAlignment(.center)
+        } header: {
+            Text("Get Started")
         }
-        .lineLimit(1)
     }
 
     private func loadDemo() {

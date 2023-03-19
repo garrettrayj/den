@@ -13,9 +13,5 @@ import SwiftUI
 struct StartRowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            #if targetEnvironment(macCatalyst)
-            .font(.title3)
-            #endif
-            .padding(.vertical, 8)
     }
 }
