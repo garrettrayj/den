@@ -15,7 +15,7 @@ struct ContentSizePickerView: View {
 
     var body: some View {
         Picker(selection: $contentSizeCategory) {
-            Text("Automatic").tag(UIContentSizeCategory.unspecified)
+            Text("Default").tag(UIContentSizeCategory.unspecified)
             Group {
                 Text("Micro").tag(UIContentSizeCategory.extraSmall)
                 Text("Small").tag(UIContentSizeCategory.small)

@@ -40,7 +40,7 @@ struct ProfileSettingsHistorySectionView: View {
                     Text("Keep History")
                 }
                 .labelsHidden()
-                .frame(maxWidth: 140)
+                .scaledToFit()
             }
             #else
             Picker(selection: $historyRentionDays) {

@@ -153,7 +153,7 @@ struct SubscribeView: View {
                 Text("Page")
             }
             .labelsHidden()
-            .frame(maxWidth: 160)
+            .scaledToFit()
         }
         #else
         Picker(selection: $targetPage) {

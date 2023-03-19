@@ -16,12 +16,7 @@ struct RaisedGroupModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)
-            #if targetEnvironment(macCatalyst)
-            .background(.bar)
             .background(.background)
-            #else
-            .background(Color(.secondarySystemGroupedBackground))
-            #endif
-            .cornerRadius(6)
+            .cornerRadius(8)
     }
 }

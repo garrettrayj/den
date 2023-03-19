@@ -29,13 +29,13 @@ struct FontPickerView: View {
         Picker(selection: $fontFamily) {
             Text("System UI")
                 .font(.custom(systemFont, fixedSize: fontSize))
-                .padding(8)
+                .padding(.vertical, 8)
                 .tag(systemFont)
 
             ForEach(UIFont.familyNames.sorted(), id: \.self) { font in
                 Text(font)
                     .font(.custom(font, fixedSize: fontSize))
-                    .padding(8)
+                    .padding(.vertical, 8)
                     .tag(font)
             }
         } label: {

@@ -15,7 +15,7 @@ struct UIStylePickerView: View {
 
     var body: some View {
         Picker(selection: $uiStyle) {
-            Text("Automatic").tag(UIUserInterfaceStyle.unspecified)
+            Text("System").tag(UIUserInterfaceStyle.unspecified)
             Text("Light").tag(UIUserInterfaceStyle.light)
             Text("Dark").tag(UIUserInterfaceStyle.dark)
         } label: {

@@ -80,8 +80,8 @@ struct PageView: View {
                 .toolbar {
                     #if targetEnvironment(macCatalyst)
                     ToolbarItemGroup {
-                        PreviewStyleButtonView(previewStyle: $previewStyle)
                         PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
+                        PreviewStyleButtonView(previewStyle: $previewStyle)
                         NavigationLink(value: DetailPanel.pageSettings(page)) {
                             Label("Page Settings", systemImage: "wrench")
                         }

@@ -23,9 +23,7 @@ struct AppearanceSettingsSectionView: View {
             HStack {
                 Text("Theme").modifier(FormRowModifier())
                 Spacer()
-                UIStylePickerView(uiStyle: $uiStyle)
-                .labelsHidden()
-                .frame(maxWidth: 112)
+                UIStylePickerView(uiStyle: $uiStyle).labelsHidden().scaledToFit()
             }
             #else
             UIStylePickerView(uiStyle: $uiStyle)
@@ -35,9 +33,7 @@ struct AppearanceSettingsSectionView: View {
             HStack {
                 Text("Content Size").modifier(FormRowModifier())
                 Spacer()
-                ContentSizePickerView(contentSizeCategory: $contentSizeCategory)
-                    .labelsHidden()
-                    .frame(maxWidth: 172)
+                ContentSizePickerView(contentSizeCategory: $contentSizeCategory).labelsHidden().scaledToFit()
             }
             #else
             ContentSizePickerView(contentSizeCategory: $contentSizeCategory)

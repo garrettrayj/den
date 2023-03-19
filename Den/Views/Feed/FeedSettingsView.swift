@@ -106,7 +106,7 @@ struct FeedSettingsView: View {
                 Spacer()
                 pagePicker
                     .labelsHidden()
-                    .frame(maxWidth: 160)
+                    .scaledToFit()
             }
             #else
             pagePicker

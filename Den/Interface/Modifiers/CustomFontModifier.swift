@@ -19,7 +19,7 @@ struct CustomFontModifier: ViewModifier {
 
     var fontSize: CGFloat {
         #if targetEnvironment(macCatalyst)
-        return UIFont.preferredFont(forTextStyle: textStyle).pointSize * dynamicTypeSize.fontScale
+        UIFont.preferredFont(forTextStyle: textStyle).pointSize * dynamicTypeSize.fontScale
         #else
         // Font will be pre-scaled on iOS. Make sure .dynamicTypeSize() call is on parent
         UIFont.preferredFont(forTextStyle: textStyle).pointSize
@@ -27,10 +27,6 @@ struct CustomFontModifier: ViewModifier {
     }
 
     func body(content: Content) -> some View {
-        content.font(.custom(
-            contentFontFamily,
-            size: fontSize,
-            relativeTo: relativeTo
-        ))
+        content.font(.custom(contentFontFamily, size: fontSize, relativeTo: relativeTo))
     }
 }
