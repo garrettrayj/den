@@ -35,5 +35,6 @@ struct DeckLayoutView: View {
         }
         .edgesIgnoringSafeArea([.bottom, .top])
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.visible, for: .navigationBar)
     }
 }

@@ -25,11 +25,9 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .padding(.vertical, 12)
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
-            .background(.thickMaterial)
+            .background(.regularMaterial)
             .background(
-                Color(.systemGray3)
-                    .colorInvert()
-                    .opacity(isEnabled && hovering ? 0.25 : 0.15)
+                .primary.opacity(isEnabled && hovering ? 0.4 : 0.25)
             )
             .onHover { hovered in
                 hovering = hovered

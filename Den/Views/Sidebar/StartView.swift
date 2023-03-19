@@ -18,8 +18,6 @@ struct StartView: View {
 
     @Binding var contentSelection: ContentPanel?
 
-    @State private var useBigDemo: Bool = false
-
     var body: some View {
         VStack(alignment: .leading) {
             Text("Get Started").font(.callout)
@@ -57,20 +55,6 @@ struct StartView: View {
                 .padding(.top, 4)
                 .modifier(StartRowModifier())
                 .accessibilityIdentifier("load-demo-button")
-
-                Toggle(isOn: $useBigDemo) {
-                    Text("More feeds?")
-                        .foregroundColor(Color(.secondaryLabel))
-                        #if targetEnvironment(macCatalyst)
-                        .padding(.leading, 2)
-                        #endif
-                }
-                .font(.footnote)
-                .padding(.horizontal, 8)
-                .padding(.bottom, 12)
-                #if targetEnvironment(macCatalyst)
-                .padding(.leading, 4)
-                #endif
             }
             .font(.body)
             .background(.background)
@@ -78,6 +62,7 @@ struct StartView: View {
             
             Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
                 .font(.footnote)
+                .foregroundColor(Color(.secondaryLabel))
                 .imageScale(.small)
                 .padding(.top, 8)
         }
@@ -85,12 +70,7 @@ struct StartView: View {
     }
 
     private func loadDemo() {
-        var demoFileBaseName = "Demo"
-        if useBigDemo {
-            demoFileBaseName = "BigDemo"
-        }
-
-        guard let demoPath = Bundle.main.path(forResource: demoFileBaseName, ofType: "opml") else {
+        guard let demoPath = Bundle.main.path(forResource: "Demo", ofType: "opml") else {
             preconditionFailure("Missing demo feeds source file")
         }
 

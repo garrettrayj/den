@@ -1024,14 +1024,14 @@
 				68C413452472773100D1DC7B /* PageView.swift */,
 				68F6FB9C29ADDF6D001F74B9 /* PageLayoutPickerView.swift */,
 				68FF63EF2921C56E0012A275 /* PageBottomBarView.swift */,
-				68C4134A24727F2B00D1DC7B /* GadgetView.swift */,
-				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
-				68B526A1298E3B2000D4B927 /* DeckColumnView.swift */,
-				688FD917247750350006A2DE /* PageSettingsView.swift */,
 				68ED797E29C29A6800D85B4F /* GadgetLayoutView.swift */,
+				68C4134A24727F2B00D1DC7B /* GadgetView.swift */,
 				68ED798029C29A7700D85B4F /* ShowcaseLayoutView.swift */,
-				68ED798229C29A8B00D85B4F /* BlendLayoutView.swift */,
+				683041B527543CE900BE7631 /* ShowcaseSectionView.swift */,
 				68ED798429C29B2700D85B4F /* DeckLayoutView.swift */,
+				68B526A1298E3B2000D4B927 /* DeckColumnView.swift */,
+				68ED798229C29A8B00D85B4F /* BlendLayoutView.swift */,
+				688FD917247750350006A2DE /* PageSettingsView.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
