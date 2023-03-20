@@ -20,7 +20,19 @@ struct GadgetView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            header
+            NavigationLink(value: DetailPanel.feed(feed)) {
+                HStack {
+                    FeedTitleLabelView(
+                        title: feed.wrappedTitle,
+                        favicon: feed.feedData?.favicon
+                    )
+                    Spacer()
+                    NavChevronView()
+                }
+            }
+            .buttonStyle(FeedTitleButtonStyle())
+            .accessibilityIdentifier("gadget-feed-button")
+            .fixedSize(horizontal: false, vertical: true)
 
             if feed.feedData == nil || feed.feedData?.error != nil {
                 Divider()
@@ -43,20 +55,5 @@ struct GadgetView: View {
             }
         }
         .modifier(RaisedGroupModifier())
-    }
-
-    private var header: some View {
-        NavigationLink(value: DetailPanel.feed(feed)) {
-            HStack {
-                FeedTitleLabelView(
-                    title: feed.wrappedTitle,
-                    favicon: feed.feedData?.favicon
-                )
-                Spacer()
-                NavChevronView()
-            }
-        }
-        .buttonStyle(FeedTitleButtonStyle())
-        .accessibilityIdentifier("gadget-feed-button")
     }
 }

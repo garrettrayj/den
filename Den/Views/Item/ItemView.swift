@@ -39,7 +39,6 @@ struct ItemView: View {
                         Text(item.wrappedTitle)
                             .modifier(CustomFontModifier(relativeTo: .title, textStyle: .title1))
                             .textSelection(.enabled)
-                            .fixedSize(horizontal: false, vertical: true)
 
                         ViewThatFits(in: .horizontal) {
                             HStack(spacing: 4) {

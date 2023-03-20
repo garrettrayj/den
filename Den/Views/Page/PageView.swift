@@ -57,7 +57,12 @@ struct PageView: View {
                                 pageGeometry: geometry
                             )
                         case .blend:
-                            BlendLayoutView(previewStyle: $previewStyle, items: items, width: geometry.size.width)
+                            BlendLayoutView(
+                                page: page,
+                                previewStyle: $previewStyle,
+                                items: items,
+                                width: geometry.size.width
+                            )
                         case .showcase:
                             ShowcaseLayoutView(
                                 page: page,

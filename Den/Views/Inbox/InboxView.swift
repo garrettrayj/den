@@ -39,7 +39,7 @@ struct InboxView: View {
                                     FeedItemExpandedView(item: item)
                                 }
                             }.modifier(MainBoardModifier())
-                        }.id("inbox_\(profile.id?.uuidString ?? "na")_\(previewStyle)")
+                        }.id("inbox_\(profile.id?.uuidString ?? "na")_\(previewStyle)_\(hideRead)")
                     }
                 }
                 .toolbar {

@@ -52,14 +52,18 @@ struct AnalysisOperation {
         var workingTrends: [WorkingTrend] = []
 
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(
-            format: "feedData.id IN %@",
-            profile.pagesArray.flatMap({ page in
-                page.feedsArray.compactMap { feed in
-                    feed.feedData?.id
-                }
-            })
-        )
+        var predicates: [NSPredicate] = [
+            NSPredicate(
+                format: "feedData.id IN %@",
+                profile.pagesArray.flatMap({ page in
+                    page.feedsArray.compactMap { feed in
+                        feed.feedData?.id
+                    }
+                })
+            ),
+            NSPredicate(format: "extra = %@", NSNumber(value: false))
+        ]
+        request.predicate = NSCompoundPredicate(type: .and, subpredicates: predicates)
 
         guard let items = try? context.fetch(request) else { return [] }
 

@@ -26,6 +26,7 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
         scopeObject: ScopeObject,
         sortDescriptors: [NSSortDescriptor] = [],
         readFilter: Bool? = nil,
+        includeExtras: Bool = false,
         @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
     ) {
         self.scopeObject = scopeObject
@@ -66,6 +67,10 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
 
         if readFilter != nil {
             predicates.append(NSPredicate(format: "read = %@", NSNumber(value: readFilter!)))
+        }
+
+        if !includeExtras {
+            predicates.append(NSPredicate(format: "extra = %@", NSNumber(value: false)))
         }
 
         let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)

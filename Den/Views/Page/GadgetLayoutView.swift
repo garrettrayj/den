@@ -27,6 +27,6 @@ struct GadgetLayoutView: View {
                     previewStyle: previewStyle
                 )
             }.modifier(MainBoardModifier())
-        }
+        }.id("gadgets_\(page.id?.uuidString ?? "na")_\(previewStyle)")
     }
 }

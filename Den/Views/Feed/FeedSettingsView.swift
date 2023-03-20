@@ -104,9 +104,7 @@ struct FeedSettingsView: View {
             HStack {
                 Text("Page").modifier(FormRowModifier())
                 Spacer()
-                pagePicker
-                    .labelsHidden()
-                    .scaledToFit()
+                pagePicker.labelsHidden().scaledToFit()
             }
             #else
             pagePicker

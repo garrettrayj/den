@@ -36,5 +36,6 @@ struct DeckLayoutView: View {
         .edgesIgnoringSafeArea([.bottom, .top])
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
+        .id("deck_\(page.id?.uuidString ?? "na")_\(previewStyle)")
     }
 }

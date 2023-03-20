@@ -24,18 +24,36 @@ struct FeedView: View {
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
+    @AppStorage("FeedPreviewStyle_NA") private var previewStyle = PreviewStyle.compressed
+
+    init(feed: Feed, profile: Profile, refreshing: Binding<Bool>, hideRead: Binding<Bool>) {
+        self.feed = feed
+        self.profile = profile
+
+        _refreshing = refreshing
+        _hideRead = hideRead
+
+        _previewStyle = AppStorage(
+            wrappedValue: PreviewStyle.compressed,
+            "FeedPreviewStyle_\(feed.id?.uuidString ?? "NA")"
+        )
+    }
+
     var body: some View {
-        WithItems(
-            scopeObject: feed,
-            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
-            readFilter: hideRead ? false : nil
-        ) { items in
-            GeometryReader { geometry in
-                ScrollView(.vertical) {
-                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                        if let heroImage = feed.feedData?.banner {
-                            FeedHeroView(heroImage: heroImage)
-                        }
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
+                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                    if let heroImage = feed.feedData?.banner {
+                        FeedHeroView(heroImage: heroImage)
+                        Divider()
+                    }
+
+                    WithItems(
+                        scopeObject: feed,
+                        sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
+                        readFilter: hideRead ? false : nil,
+                        includeExtras: true
+                    ) { items in
                         Section {
                             if feed.feedData == nil || feed.feedData?.error != nil {
                                 FeedUnavailableView(feedData: feed.feedData, splashNote: true)
@@ -47,10 +65,14 @@ struct FeedView: View {
                             } else {
                                 BoardView(
                                     width: geometry.size.width,
-                                    list: Array(items)
+                                    list: Array(items).previews()
                                 ) { item in
                                     ItemActionView(item: item) {
-                                        ItemExpandedView(item: item)
+                                        if previewStyle == .compressed {
+                                            ItemCompressedView(item: item)
+                                        } else {
+                                            ItemExpandedView(item: item)
+                                        }
                                     }
                                     .modifier(RaisedGroupModifier())
                                 }.modifier(SectionContentPaddingModifier())
@@ -59,33 +81,61 @@ struct FeedView: View {
                             Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
                         }
 
-                        Divider()
-
-                        metaSection
-                    }
-                }
-                .toolbar {
-                    ToolbarItem {
-                        NavigationLink(value: DetailPanel.feedSettings(feed)) {
-                            Label("Feed Settings", systemImage: "wrench")
+                        if items.count > feed.wrappedItemLimit {
+                            Section {
+                                if feed.feedData == nil || feed.feedData?.error != nil {
+                                    FeedUnavailableView(feedData: feed.feedData, splashNote: true)
+                                } else if items.isEmpty {
+                                    AllReadStatusView()
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .modifier(RaisedGroupModifier())
+                                        .modifier(SectionContentPaddingModifier())
+                                } else {
+                                    BoardView(
+                                        width: geometry.size.width,
+                                        list: Array(items).extras()
+                                    ) { item in
+                                        ItemActionView(item: item) {
+                                            if previewStyle == .compressed {
+                                                ItemCompressedView(item: item)
+                                            } else {
+                                                ItemExpandedView(item: item)
+                                            }
+                                        }
+                                        .modifier(RaisedGroupModifier())
+                                    }.modifier(SectionContentPaddingModifier())
+                                }
+                            } header: {
+                                Text("More").font(.title3).modifier(PinnedSectionHeaderModifier())
+                            }
                         }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .accessibilityIdentifier("feed-settings-button")
                     }
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        FeedBottomBarView(
-                            feed: feed,
-                            profile: profile,
-                            refreshing: $refreshing,
-                            hideRead: $hideRead
-                        )
-                    }
+                    Divider()
+                    metaSection
                 }
-                .onChange(of: feed.page) { _ in
-                    dismiss()
-                }
-                .navigationTitle(feed.wrappedTitle)
             }
+            .toolbar {
+                ToolbarItemGroup {
+                    PreviewStyleButtonView(previewStyle: $previewStyle)
+                    NavigationLink(value: DetailPanel.feedSettings(feed)) {
+                        Label("Feed Settings", systemImage: "wrench")
+                    }
+                    .buttonStyle(ToolbarButtonStyle())
+                    .accessibilityIdentifier("feed-settings-button")
+                }
+                ToolbarItemGroup(placement: .bottomBar) {
+                    FeedBottomBarView(
+                        feed: feed,
+                        profile: profile,
+                        refreshing: $refreshing,
+                        hideRead: $hideRead
+                    )
+                }
+            }
+            .onChange(of: feed.page) { _ in
+                dismiss()
+            }
+            .navigationTitle(feed.wrappedTitle)
         }
     }
 
@@ -123,9 +173,7 @@ struct FeedView: View {
             .imageScale(.small)
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.horizontal)
-            .padding(.top)
-            .padding(.bottom, 28)
+            .padding()
         }
     }
 }

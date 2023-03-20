@@ -35,7 +35,7 @@ struct JSONFeedUpdate {
 
         if let sourceItems = source.items {
             let existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
-            for sourceItem in sourceItems.prefix(feed.wrappedItemLimit) {
+            for sourceItem in sourceItems.prefix(feed.wrappedItemLimit + AppDefaults.extraItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = sourceItem.linkURL else {
                     Logger.ingest.notice("Missing link for item.")
@@ -54,6 +54,7 @@ struct JSONFeedUpdate {
                 item.anaylyzeTitleTags()
             }
 
+            // Remove items no longer in feed
             let sourceItemURLs = sourceItems.compactMap { $0.linkURL }
             for item in feedData.itemsArray {
                 if let link = item.link, sourceItemURLs.contains(link) == false {

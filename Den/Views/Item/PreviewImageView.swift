@@ -101,6 +101,7 @@ struct PreviewImageView: View {
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
                 .resizable()
+                .purgeable(true)
                 .placeholder { ImageErrorPlaceholderView() }
                 .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)

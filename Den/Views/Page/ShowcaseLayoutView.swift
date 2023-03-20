@@ -30,6 +30,6 @@ struct ShowcaseLayoutView: View {
                     )
                 }
             }.padding(.bottom)
-        }
+        }.id("showcase_\(page.id?.uuidString ?? "na")_\(previewStyle)")
     }
 }

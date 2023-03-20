@@ -15,44 +15,43 @@ struct ItemExpandedView: View {
 
     @ObservedObject var item: Item
 
+    var showFavicon: Bool = false
+
     var hasTeaser: Bool {
         item.teaser != nil && item.teaser != ""
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(item.wrappedTitle)
-                    .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
-                    .fontWeight(.semibold)
-                    .lineLimit(6)
-                ItemDateAuthorView(item: item)
-            }
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            .multilineTextAlignment(.leading)
+        VStack(alignment: .leading, spacing: 4) {
+            Text(item.wrappedTitle)
+                .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
+                .fontWeight(.semibold)
+                .lineLimit(6)
+
+            ItemDateAuthorView(item: item)
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                 PreviewImageView(item: item)
-                    .overlay(
-                        .background.opacity(item.read ? 0.5 : 0)
-                    )
+                    .overlay(.background.opacity(item.read ? 0.5 : 0))
+                    .padding(.top, 4)
             }
 
             if hasTeaser {
                 Text(item.teaser!)
                     .modifier(CustomFontModifier(relativeTo: .body, textStyle: .body))
                     .lineLimit(6)
+                    .padding(.top, 4)
             }
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
-        .fixedSize(horizontal: false, vertical: true)
         .foregroundColor(
             isEnabled ?
                 item.read ? Color(.secondaryLabel) : Color(.label)
             :
                 item.read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
         )
+        .fixedSize(horizontal: false, vertical: true)
     }
 }

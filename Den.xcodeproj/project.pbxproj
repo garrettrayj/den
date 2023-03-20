@@ -564,8 +564,8 @@
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				68FF63F12921D88F0012A275 /* FeedBottomBarView.swift */,
 				68E58F2829B6E5E900C18A87 /* FeedStatusView.swift */,
-				688FD930247A34830006A2DE /* FeedSettingsView.swift */,
 				681AEAF829954AC70054B084 /* FeedHeroView.swift */,
+				688FD930247A34830006A2DE /* FeedSettingsView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";

@@ -19,8 +19,7 @@ struct FeedFaviconView: View {
     let url: URL?
 
     var placeholderSymbol: String = "dot.radiowaves.up.forward"
-
-    let baseSize = CGSize(width: 16, height: 16)
+    var baseSize = CGSize(width: 16, height: 16)
 
     private var scaledSize: CGSize {
         return CGSize(
@@ -43,6 +42,7 @@ struct FeedFaviconView: View {
             context: [.imageThumbnailPixelSize: thumbnailPixelSize]
         )
             .resizable()
+            .purgeable(true)
             .placeholder {
                 Image(systemName: placeholderSymbol)
             }

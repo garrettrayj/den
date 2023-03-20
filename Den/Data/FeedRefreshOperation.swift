@@ -90,8 +90,8 @@ struct FeedRefreshOperation {
                 refreshStatus.errors.append("Unable to fetch data from [\(feed.urlString)](\(feed.urlString))")
             }
 
-            // Cleanup items
-            let maxItems = feed.wrappedItemLimit
+            // Cleanup old items
+            let maxItems = feed.wrappedItemLimit + AppDefaults.extraItemLimit
             if feedData.itemsArray.count > maxItems {
                 feedData.itemsArray.suffix(from: maxItems).forEach { item in
                     feedData.removeFromItems(item)
@@ -99,9 +99,15 @@ struct FeedRefreshOperation {
                 }
             }
 
-            // Update read flags
-            for item in feedData.itemsArray {
+            // Update read and extra status of items
+            for (idx, item) in feedData.itemsArray.enumerated() {
                 item.read = !item.history.isEmpty
+
+                if idx + 1 > feed.wrappedItemLimit {
+                    item.extra = true
+                } else {
+                    item.extra = false
+                }
             }
 
             // Update metadata and status

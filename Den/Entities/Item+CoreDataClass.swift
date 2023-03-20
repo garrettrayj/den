@@ -148,4 +148,12 @@ extension Collection where Element == Item {
             item.read == false
         }
     }
+
+    func previews() -> [Item] {
+        self.filter { $0.extra == false }
+    }
+
+    func extras() -> [Item] {
+        self.filter { $0.extra == true }
+    }
 }

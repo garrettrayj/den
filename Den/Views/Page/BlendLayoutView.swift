@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct BlendLayoutView: View {
+    @ObservedObject var page: Page
+
     @Binding var previewStyle: PreviewStyle
 
     let items: FetchedResults<Item>
@@ -25,6 +27,6 @@ struct BlendLayoutView: View {
                     FeedItemExpandedView(item: item)
                 }
             }.modifier(MainBoardModifier())
-        }
+        }.id("blend_\(page.id?.uuidString ?? "na")_\(previewStyle)")
     }
 }
