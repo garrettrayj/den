@@ -14,13 +14,6 @@ import SwiftUI
 struct TrendsBottomBarView: View {
     @ObservedObject var profile: Profile
 
-    var refreshedDateTimeAgo: Date? {
-        guard let refreshed = RefreshedDateStorage.shared.getRefreshed(profile) else { return nil }
-        return refreshed
-    }
-
-    @State var refreshedDateTimeStr: String = "Loading..."
-
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
@@ -39,7 +32,7 @@ struct TrendsBottomBarView: View {
             profile: profile,
             refreshing: $refreshing,
             unreadCount: unreadCount,
-            unreadLabel: unreadCount == 1 ? "Trend" : "Trends"
+            unreadLabel: unreadCount == 1 ? "Trend with Unread" : "Trends with Unread"
         )
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {

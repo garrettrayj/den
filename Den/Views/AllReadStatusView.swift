@@ -17,7 +17,7 @@ struct AllReadStatusView: View {
                 Text("All Read")
             }
         } icon: {
-            Image(systemName: "checkmark").imageScale(.small)
+            Image(systemName: "checkmark")
         }
         .foregroundColor(Color(.secondaryLabel))
         .padding(12)

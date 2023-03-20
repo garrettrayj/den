@@ -52,7 +52,7 @@ struct AnalysisOperation {
         var workingTrends: [WorkingTrend] = []
 
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        var predicates: [NSPredicate] = [
+        let predicates: [NSPredicate] = [
             NSPredicate(
                 format: "feedData.id IN %@",
                 profile.pagesArray.flatMap({ page in

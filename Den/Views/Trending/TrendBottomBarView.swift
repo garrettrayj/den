@@ -37,6 +37,7 @@ struct TrendBottomBarView: View {
             ToggleReadButtonView(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 trend.objectWillChange.send()
+                profile.objectWillChange.send()
                 if hideRead {
                     dismiss()
                 }

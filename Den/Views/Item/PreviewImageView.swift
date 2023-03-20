@@ -115,6 +115,6 @@ struct PreviewImageView: View {
             }
         }
         .grayscale(isEnabled ? 0 : 1)
-        .accessibility(label: Text("Preview image"))
+        .accessibility(label: Text("Preview Image"))
     }
 }

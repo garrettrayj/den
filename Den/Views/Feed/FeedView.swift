@@ -11,8 +11,6 @@
 import CoreData
 import SwiftUI
 
-import SDWebImageSwiftUI
-
 struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL

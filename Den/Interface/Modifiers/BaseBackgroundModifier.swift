@@ -13,7 +13,7 @@ import SwiftUI
 struct BaseBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .background(.ultraThinMaterial)
+            .background(.thinMaterial)
             .background(.background)
             .scrollContentBackground(.hidden)
     }

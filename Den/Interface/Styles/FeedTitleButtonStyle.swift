@@ -21,7 +21,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
                 isEnabled ? Color(.label) : Color(.secondaryLabel)
             )
             .padding(12)
-            .background(.regularMaterial.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.ultraThinMaterial.opacity(isEnabled && hovering ? 0.5 : 0))
             .onHover { hovered in
                 hovering = hovered
             }
