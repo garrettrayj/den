@@ -11,7 +11,8 @@
 import SwiftUI
 
 struct InboxLayoutView: View {
-    let profile: Profile
+    @ObservedObject var profile: Profile
+
     let hideRead: Bool
     let previewStyle: PreviewStyle
 

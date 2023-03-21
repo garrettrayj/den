@@ -15,7 +15,7 @@ struct FeedLayoutView: View {
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
-    
+
     let hideRead: Bool
     let previewStyle: PreviewStyle
 

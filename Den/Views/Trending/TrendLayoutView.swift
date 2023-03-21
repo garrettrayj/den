@@ -11,8 +11,9 @@
 import SwiftUI
 
 struct TrendLayoutView: View {
-    let trend: Trend
-    let profile: Profile
+    @ObservedObject var trend: Trend
+    @ObservedObject var profile: Profile
+
     let hideRead: Bool
     let previewStyle: PreviewStyle
 
