@@ -25,32 +25,35 @@ struct PageView: View {
             if page.feedsArray.isEmpty {
                 NoFeedsView(page: page)
             } else {
-                switch pageLayout {
-                case .deck:
-                    DeckLayoutView(
-                        page: page,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
-                    )
-                case .blend:
-                    BlendLayoutView(
-                        page: page,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
-                    )
-                case .showcase:
-                    ShowcaseLayoutView(
-                        page: page,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
-                    )
-                case .gadgets:
-                    GadgetLayoutView(
-                        page: page,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
-                    )
+                Group {
+                    switch pageLayout {
+                    case .deck:
+                        DeckLayoutView(
+                            page: page,
+                            hideRead: hideRead,
+                            previewStyle: previewStyle
+                        )
+                    case .blend:
+                        BlendLayoutView(
+                            page: page,
+                            hideRead: hideRead,
+                            previewStyle: previewStyle
+                        )
+                    case .showcase:
+                        ShowcaseLayoutView(
+                            page: page,
+                            hideRead: hideRead,
+                            previewStyle: previewStyle
+                        )
+                    case .gadgets:
+                        GadgetLayoutView(
+                            page: page,
+                            hideRead: hideRead,
+                            previewStyle: previewStyle
+                        )
+                    }
                 }
+                .id("ResetScrollView_\(page.id?.uuidString ?? "NoID")")
             }
         }
         .modifier(URLDropTargetModifier(page: page))

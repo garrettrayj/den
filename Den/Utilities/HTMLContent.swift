@@ -144,8 +144,8 @@ final class HTMLContent {
             .addTags("script")
             .addAttributes("script", "src", "type", "charset", "async")
 
-            // Misc
-            .addAttributes(":all", "class", "id")
+            // Everything
+            .addAttributes(":all", "class", "id", "dir")
 
         return whitelist
     }
