@@ -52,7 +52,7 @@ struct SettingsView: View {
                     profile: profile
                 )
                 AboutSectionView()
-            }.modifier(ListRowBackgroundModifier())
+            }
 
         }
         .navigationTitle("Settings")

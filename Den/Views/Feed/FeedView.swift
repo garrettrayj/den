@@ -13,8 +13,6 @@ import SwiftUI
 
 struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.openURL) private var openURL
-    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
@@ -22,7 +20,7 @@ struct FeedView: View {
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
-    @AppStorage("FeedPreviewStyle_NA") private var previewStyle = PreviewStyle.compressed
+    @AppStorage("FeedPreviewStyle_NoID") private var previewStyle = PreviewStyle.compressed
 
     init(feed: Feed, profile: Profile, refreshing: Binding<Bool>, hideRead: Binding<Bool>) {
         self.feed = feed
@@ -33,85 +31,12 @@ struct FeedView: View {
 
         _previewStyle = AppStorage(
             wrappedValue: PreviewStyle.compressed,
-            "FeedPreviewStyle_\(feed.id?.uuidString ?? "NA")"
+            "FeedPreviewStyle_\(feed.id?.uuidString ?? "NoID")"
         )
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView(.vertical) {
-                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                    if let heroImage = feed.feedData?.banner {
-                        FeedHeroView(heroImage: heroImage)
-                        Divider()
-                    }
-
-                    WithItems(
-                        scopeObject: feed,
-                        sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
-                        readFilter: hideRead ? false : nil,
-                        includeExtras: true
-                    ) { items in
-                        Section {
-                            if feed.feedData == nil || feed.feedData?.error != nil {
-                                FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-                            } else if items.isEmpty {
-                                AllReadStatusView()
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .modifier(RaisedGroupModifier())
-                                    .modifier(SectionContentPaddingModifier())
-                            } else {
-                                BoardView(
-                                    width: geometry.size.width,
-                                    list: Array(items).previews()
-                                ) { item in
-                                    ItemActionView(item: item) {
-                                        if previewStyle == .compressed {
-                                            ItemCompressedView(item: item)
-                                        } else {
-                                            ItemExpandedView(item: item)
-                                        }
-                                    }
-                                    .modifier(RaisedGroupModifier())
-                                }.modifier(SectionContentPaddingModifier())
-                            }
-                        } header: {
-                            Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
-                        }
-
-                        if items.count > feed.wrappedItemLimit {
-                            Section {
-                                if feed.feedData == nil || feed.feedData?.error != nil {
-                                    FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-                                } else if items.isEmpty {
-                                    AllReadStatusView()
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .modifier(RaisedGroupModifier())
-                                        .modifier(SectionContentPaddingModifier())
-                                } else {
-                                    BoardView(
-                                        width: geometry.size.width,
-                                        list: Array(items).extras()
-                                    ) { item in
-                                        ItemActionView(item: item) {
-                                            if previewStyle == .compressed {
-                                                ItemCompressedView(item: item)
-                                            } else {
-                                                ItemExpandedView(item: item)
-                                            }
-                                        }
-                                        .modifier(RaisedGroupModifier())
-                                    }.modifier(SectionContentPaddingModifier())
-                                }
-                            } header: {
-                                Text("More").font(.title3).modifier(PinnedSectionHeaderModifier())
-                            }
-                        }
-                    }
-                    Divider()
-                    metaSection
-                }
-            }
+        FeedLayoutView(feed: feed, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
             .toolbar {
                 ToolbarItemGroup {
                     PreviewStyleButtonView(previewStyle: $previewStyle)
@@ -134,44 +59,5 @@ struct FeedView: View {
                 dismiss()
             }
             .navigationTitle(feed.wrappedTitle)
-        }
-    }
-
-    private var metaSection: some View {
-        Section {
-            VStack(alignment: .center, spacing: 12) {
-                if let description = feed.feedData?.metaDescription {
-                    Text(description)
-                }
-
-                if let linkDisplayString = feed.feedData?.linkDisplayString {
-                    Button {
-                        if let url = feed.feedData?.link {
-                            openURL(url)
-                        }
-                    } label: {
-                        Label("\(linkDisplayString)", systemImage: "globe").lineLimit(1)
-                    }
-                    .buttonStyle(.plain)
-                }
-
-                Button {
-                    openURL(feed.url!)
-                } label: {
-                    Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
-                }
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("feed-copy-url-button")
-
-                if let copyright = feed.feedData?.copyright {
-                    Text(copyright)
-                }
-            }
-            .font(.footnote)
-            .imageScale(.small)
-            .multilineTextAlignment(.center)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .padding()
-        }
     }
 }

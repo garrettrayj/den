@@ -1,8 +1,8 @@
 //
-//  BlendLayoutView.swift
+//  InboxLayoutView.swift
 //  Den
 //
-//  Created by Garrett Johnson on 3/15/23.
+//  Created by Garrett Johnson on 3/20/23.
 //  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -10,22 +10,20 @@
 
 import SwiftUI
 
-struct BlendLayoutView: View {
-    let page: Page
+struct InboxLayoutView: View {
+    let profile: Profile
     let hideRead: Bool
     let previewStyle: PreviewStyle
 
     var body: some View {
         WithItems(
-            scopeObject: page,
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Item.feedData, ascending: false),
-                NSSortDescriptor(keyPath: \Item.published, ascending: false)
-            ],
+            scopeObject: profile,
             readFilter: hideRead ? false : nil
         ) { items in
-            if items.isEmpty {
-                SplashNoteView(title: "Nothing Here", note: "Refresh to check for new items.")
+            if profile.feedsArray.isEmpty {
+                NoFeedsView()
+            } else if items.isEmpty {
+                AllReadSplashNoteView()
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {

@@ -11,25 +11,33 @@
 import SwiftUI
 
 struct ShowcaseLayoutView: View {
-    @ObservedObject var page: Page
-
-    @Binding var previewStyle: PreviewStyle
-
-    let items: FetchedResults<Item>
-    let width: CGFloat
+    let page: Page
+    let hideRead: Bool
+    let previewStyle: PreviewStyle
 
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                ForEach(page.feedsArray) { feed in
-                    ShowcaseSectionView(
-                        feed: feed,
-                        items: items.forFeed(feed: feed),
-                        previewStyle: previewStyle,
-                        width: width
-                    )
+        GeometryReader { geometry in
+            ScrollView(.vertical) {
+                WithItems(
+                    scopeObject: page,
+                    sortDescriptors: [
+                        NSSortDescriptor(keyPath: \Item.feedData?.id, ascending: false),
+                        NSSortDescriptor(keyPath: \Item.published, ascending: false)
+                    ],
+                    readFilter: hideRead ? false : nil
+                ) { items in
+                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                        ForEach(page.feedsArray) { feed in
+                            ShowcaseSectionView(
+                                feed: feed,
+                                items: items.forFeed(feed: feed),
+                                previewStyle: previewStyle,
+                                width: geometry.size.width
+                            )
+                        }
+                    }.padding(.bottom)
                 }
-            }.padding(.bottom)
-        }.id("showcase_\(page.id?.uuidString ?? "na")_\(previewStyle)")
+            }
+        }
     }
 }

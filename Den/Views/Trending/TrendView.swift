@@ -8,7 +8,6 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
 import SwiftUI
 
 struct TrendView: View {
@@ -18,47 +17,7 @@ struct TrendView: View {
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
-    @AppStorage("TrendPreviewStyle_NA") private var previewStyle: PreviewStyle = PreviewStyle.compressed
-
-    var body: some View {
-        WithItems(
-            scopeObject: trend,
-            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
-            readFilter: hideRead ? false : nil
-        ) { items in
-            GeometryReader { geometry in
-                VStack {
-                    if items.isEmpty {
-                        AllReadSplashNoteView()
-                    } else {
-                        ScrollView(.vertical) {
-                            BoardView(width: geometry.size.width, list: Array(items)) { item in
-                                if previewStyle == .compressed {
-                                    FeedItemCompressedView(item: item)
-                                } else {
-                                    FeedItemExpandedView(item: item)
-                                }
-                            }.modifier(MainBoardModifier())
-                        }.id("trend_\(trend.id?.uuidString ?? "na")_\(previewStyle)")
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .navigationTitle(trend.wrappedTitle)
-                .toolbar {
-                    ToolbarItem {
-                        if geometry.size.width > 460 {
-                            PreviewStyleButtonView(previewStyle: $previewStyle).pickerStyle(.segmented)
-                        } else {
-                            PreviewStyleButtonView(previewStyle: $previewStyle)
-                        }
-                    }
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        TrendBottomBarView(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
-                    }
-                }
-            }
-        }
-    }
+    @AppStorage("TrendPreviewStyle_NoID") private var previewStyle: PreviewStyle = PreviewStyle.compressed
 
     init(
         trend: Trend,
@@ -74,7 +33,20 @@ struct TrendView: View {
 
         _previewStyle = AppStorage(
             wrappedValue: PreviewStyle.compressed,
-            "TrendPreviewStyle_\(profile.id?.uuidString ?? "NA")"
+            "TrendPreviewStyle_\(profile.id?.uuidString ?? "NoID")"
         )
+    }
+
+    var body: some View {
+        TrendLayoutView(trend: trend, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+            .navigationTitle(trend.wrappedTitle)
+            .toolbar {
+                ToolbarItem {
+                    PreviewStyleButtonView(previewStyle: $previewStyle)
+                }
+                ToolbarItemGroup(placement: .bottomBar) {
+                    TrendBottomBarView(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                }
+            }
     }
 }

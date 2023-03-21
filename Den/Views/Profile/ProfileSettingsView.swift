@@ -35,7 +35,7 @@ struct ProfileSettingsView: View {
                     historyRentionDays: profile.wrappedHistoryRetention
                 )
                 deleteSection
-            }.modifier(ListRowBackgroundModifier())
+            }
         }
         .toolbar {
             ToolbarItem(placement: .bottomBar) {

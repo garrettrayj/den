@@ -93,7 +93,7 @@
 		6868A30C2894F98C0051D43E /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30B2894F98C0051D43E /* AppDefaults.swift */; };
 		6868A30E2895229D0051D43E /* ImageErrorPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30D2895229D0051D43E /* ImageErrorPlaceholderView.swift */; };
 		6868A3142895CA860051D43E /* InboxNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A3132895CA860051D43E /* InboxNavView.swift */; };
-		6868A3162895D20D0051D43E /* TrendsNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A3152895D20D0051D43E /* TrendsNavView.swift */; };
+		6868A3162895D20D0051D43E /* TrendingNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A3152895D20D0051D43E /* TrendingNavView.swift */; };
 		686A198D29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A198C29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift */; };
 		686C384227405FA900662D84 /* Notification+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C384127405FA900662D84 /* Notification+Extensions.swift */; };
 		68701DE3273BD42D00C6BB69 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DE2273BD42D00C6BB69 /* FeedView.swift */; };
@@ -102,6 +102,9 @@
 		68701DF9273E559C00C6BB69 /* ProfileUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF8273E559C00C6BB69 /* ProfileUtility.swift */; };
 		68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DFA273E57DB00C6BB69 /* HistoryUtility.swift */; };
 		68701E01273E6A5400C6BB69 /* SubscriptionUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701E00273E6A5400C6BB69 /* SubscriptionUtility.swift */; };
+		6870EBDC29C9556500E15154 /* FeedLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDA29C9556400E15154 /* FeedLayoutView.swift */; };
+		6870EBDD29C9556500E15154 /* InboxLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDB29C9556400E15154 /* InboxLayoutView.swift */; };
+		6870EBDF29C95F6700E15154 /* TrendLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDE29C95F6700E15154 /* TrendLayoutView.swift */; };
 		68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */; };
 		6879AABA29B9670200E73FD0 /* BaseBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879AAB929B9670200E73FD0 /* BaseBackgroundModifier.swift */; };
 		687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27782631F6A000099FCA /* FileManager+Extensions.swift */; };
@@ -186,7 +189,6 @@
 		68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */; };
 		68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */; };
 		68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */; };
-		68ED797D29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */; };
 		68ED797F29C29A6800D85B4F /* GadgetLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED797E29C29A6800D85B4F /* GadgetLayoutView.swift */; };
 		68ED798129C29A7700D85B4F /* ShowcaseLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED798029C29A7700D85B4F /* ShowcaseLayoutView.swift */; };
 		68ED798329C29A8B00D85B4F /* BlendLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ED798229C29A8B00D85B4F /* BlendLayoutView.swift */; };
@@ -366,7 +368,7 @@
 		6868A30B2894F98C0051D43E /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		6868A30D2895229D0051D43E /* ImageErrorPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageErrorPlaceholderView.swift; sourceTree = "<group>"; };
 		6868A3132895CA860051D43E /* InboxNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNavView.swift; sourceTree = "<group>"; };
-		6868A3152895D20D0051D43E /* TrendsNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsNavView.swift; sourceTree = "<group>"; };
+		6868A3152895D20D0051D43E /* TrendingNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingNavView.swift; sourceTree = "<group>"; };
 		686A198C29B55D5400718D52 /* UIUserInterfaceStyle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Extensions.swift"; sourceTree = "<group>"; };
 		686C384127405FA900662D84 /* Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extensions.swift"; sourceTree = "<group>"; };
 		68701DE2273BD42D00C6BB69 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -375,6 +377,9 @@
 		68701DF8273E559C00C6BB69 /* ProfileUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUtility.swift; sourceTree = "<group>"; };
 		68701DFA273E57DB00C6BB69 /* HistoryUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUtility.swift; sourceTree = "<group>"; };
 		68701E00273E6A5400C6BB69 /* SubscriptionUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionUtility.swift; sourceTree = "<group>"; };
+		6870EBDA29C9556400E15154 /* FeedLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedLayoutView.swift; sourceTree = "<group>"; };
+		6870EBDB29C9556400E15154 /* InboxLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxLayoutView.swift; sourceTree = "<group>"; };
+		6870EBDE29C95F6700E15154 /* TrendLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendLayoutView.swift; sourceTree = "<group>"; };
 		68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		6879AAB929B9670200E73FD0 /* BaseBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBackgroundModifier.swift; sourceTree = "<group>"; };
 		687C27782631F6A000099FCA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
@@ -470,7 +475,6 @@
 		68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
-		68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowBackgroundModifier.swift; sourceTree = "<group>"; };
 		68ED797E29C29A6800D85B4F /* GadgetLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GadgetLayoutView.swift; sourceTree = "<group>"; };
 		68ED798029C29A7700D85B4F /* ShowcaseLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseLayoutView.swift; sourceTree = "<group>"; };
 		68ED798229C29A8B00D85B4F /* BlendLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlendLayoutView.swift; sourceTree = "<group>"; };
@@ -562,6 +566,7 @@
 			isa = PBXGroup;
 			children = (
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
+				6870EBDA29C9556400E15154 /* FeedLayoutView.swift */,
 				68FF63F12921D88F0012A275 /* FeedBottomBarView.swift */,
 				68E58F2829B6E5E900C18A87 /* FeedStatusView.swift */,
 				681AEAF829954AC70054B084 /* FeedHeroView.swift */,
@@ -688,7 +693,6 @@
 				68F6FBA629AF7BF1001F74B9 /* CustomFontModifier.swift */,
 				68245E2C29B834AC0068D450 /* RaisedGroupModifier.swift */,
 				6879AAB929B9670200E73FD0 /* BaseBackgroundModifier.swift */,
-				68ED797C29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -988,6 +992,7 @@
 				68FF63F72921DCE00012A275 /* TrendsBottomBarView.swift */,
 				68F56B442870C067006EC915 /* TrendBlockView.swift */,
 				68F56B462870C123006EC915 /* TrendView.swift */,
+				6870EBDE29C95F6700E15154 /* TrendLayoutView.swift */,
 				68FF63F92921DCF20012A275 /* TrendBottomBarView.swift */,
 			);
 			path = Trending;
@@ -999,7 +1004,7 @@
 				68FC2562275E07770073979F /* SidebarView.swift */,
 				680744BF28E95CD80008A09D /* StartView.swift */,
 				6868A3132895CA860051D43E /* InboxNavView.swift */,
-				6868A3152895D20D0051D43E /* TrendsNavView.swift */,
+				6868A3152895D20D0051D43E /* TrendingNavView.swift */,
 				685ECB1026EE611000A3B184 /* PageNavView.swift */,
 				680744BD28E95B780008A09D /* AddPageButtonView.swift */,
 				683E3F44293BC02A00B16814 /* AddFeedButtonView.swift */,
@@ -1032,6 +1037,7 @@
 			isa = PBXGroup;
 			children = (
 				68F56B5928739041006EC915 /* InboxView.swift */,
+				6870EBDB29C9556400E15154 /* InboxLayoutView.swift */,
 				68FF63FC2921DD2B0012A275 /* InboxBottomBarView.swift */,
 			);
 			path = Inbox;
@@ -1332,7 +1338,7 @@
 				68ED798129C29A7700D85B4F /* ShowcaseLayoutView.swift in Sources */,
 				6880EBEB27AEF12000B479F4 /* NavChevronView.swift in Sources */,
 				68B6CBE42910B9C400B5E3AB /* CleanOperation.swift in Sources */,
-				6868A3162895D20D0051D43E /* TrendsNavView.swift in Sources */,
+				6868A3162895D20D0051D43E /* TrendingNavView.swift in Sources */,
 				68FF63FD2921DD2B0012A275 /* InboxBottomBarView.swift in Sources */,
 				680744C028E95CD80008A09D /* StartView.swift in Sources */,
 				683E3F47293BC18C00B16814 /* SidebarStatusView.swift in Sources */,
@@ -1425,8 +1431,8 @@
 				685ABAD4290EF3430080110A /* RefreshUtility.swift in Sources */,
 				687C27982634A89A00099FCA /* ShakeModifier.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedSettingsView.swift in Sources */,
+				6870EBDD29C9556500E15154 /* InboxLayoutView.swift in Sources */,
 				683E3F4D293C1B9400B16814 /* BottomBarProgressViewStyle.swift in Sources */,
-				68ED797D29BEEA9F00D85B4F /* ListRowBackgroundModifier.swift in Sources */,
 				68F6FBA729AF7BF1001F74B9 /* CustomFontModifier.swift in Sources */,
 				68FF63F42921D9C50012A275 /* ToggleReadButtonView.swift in Sources */,
 				68B526A2298E3B2000D4B927 /* DeckColumnView.swift in Sources */,
@@ -1438,11 +1444,13 @@
 				68B1895A289B7B320002A7FE /* PreviewImageView.swift in Sources */,
 				68998B852504C87400FDB6EE /* SearchView.swift in Sources */,
 				687F4890269165EE00EA2498 /* CrashMessageView.swift in Sources */,
+				6870EBDF29C95F6700E15154 /* TrendLayoutView.swift in Sources */,
 				6845BD5824F90F450008B296 /* String+Extensions.swift in Sources */,
 				68C4134B24727F2B00D1DC7B /* GadgetView.swift in Sources */,
 				54F8EA4829B418A600955BB6 /* UIColor+Extensions.swift in Sources */,
 				684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */,
 				68D9BA9828A6099600F1A3AD /* ProfilesListSectionView.swift in Sources */,
+				6870EBDC29C9556500E15154 /* FeedLayoutView.swift in Sources */,
 				68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */,
 				68014D5E27BD83850017E2CB /* ItemDateAuthorView.swift in Sources */,
 				68F56B79288C0D31006EC915 /* TrendItem+CoreDataClass.swift in Sources */,

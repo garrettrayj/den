@@ -11,31 +11,38 @@
 import SwiftUI
 
 struct DeckLayoutView: View {
-    @ObservedObject var page: Page
-
-    @Binding var previewStyle: PreviewStyle
-
-    let items: FetchedResults<Item>
-    let pageGeometry: GeometryProxy
+    let page: Page
+    let hideRead: Bool
+    let previewStyle: PreviewStyle
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(alignment: .top, spacing: 0) {
-                ForEach(page.feedsArray) { feed in
-                    DeckColumnView(
-                        feed: feed,
-                        isFirst: page.feedsArray.first == feed,
-                        isLast: page.feedsArray.last == feed,
-                        items: items.forFeed(feed: feed),
-                        previewStyle: previewStyle,
-                        pageGeometry: pageGeometry
-                    )
+        GeometryReader { geometry in
+            ScrollView(.horizontal, showsIndicators: false) {
+                WithItems(
+                    scopeObject: page,
+                    sortDescriptors: [
+                        NSSortDescriptor(keyPath: \Item.feedData?.id, ascending: false),
+                        NSSortDescriptor(keyPath: \Item.published, ascending: false)
+                    ],
+                    readFilter: hideRead ? false : nil
+                ) { items in
+                    LazyHStack(alignment: .top, spacing: 0) {
+                        ForEach(page.feedsArray) { feed in
+                            DeckColumnView(
+                                feed: feed,
+                                isFirst: page.feedsArray.first == feed,
+                                isLast: page.feedsArray.last == feed,
+                                items: items.forFeed(feed: feed),
+                                previewStyle: previewStyle,
+                                pageGeometry: geometry
+                            )
+                        }
+                    }
                 }
             }
+            .edgesIgnoringSafeArea([.bottom, .top])
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
-        .edgesIgnoringSafeArea([.bottom, .top])
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .id("deck_\(page.id?.uuidString ?? "na")_\(previewStyle)")
     }
 }

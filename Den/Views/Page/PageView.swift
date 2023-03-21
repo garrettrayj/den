@@ -17,107 +17,78 @@ struct PageView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
-    @AppStorage("PageLayout_NA") private var pageLayout = PageLayout.gadgets
-    @AppStorage("PagePreviewStyle_NA") private var previewStyle = PreviewStyle.compressed
-
-    private var sortDescriptors: [NSSortDescriptor] {
-        if pageLayout == .blend {
-            return [NSSortDescriptor(keyPath: \Item.published, ascending: false)]
-        }
-
-        return [
-            NSSortDescriptor(keyPath: \Item.feedData?.id, ascending: false),
-            NSSortDescriptor(keyPath: \Item.published, ascending: false)
-        ]
-    }
+    @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
+    @AppStorage("PagePreviewStyle_NoID") private var previewStyle = PreviewStyle.compressed
 
     var body: some View {
-        WithItems(
-            scopeObject: page,
-            sortDescriptors: sortDescriptors,
-            readFilter: hideRead ? false : nil
-        ) { items in
-            GeometryReader { geometry in
-                VStack {
-                    if page.feedsArray.isEmpty {
-                        NoFeedsView(page: page)
-                    } else if items.isEmpty && pageLayout == .blend {
-                        if hideRead == true {
-                            AllReadSplashNoteView()
-                        } else {
-                            SplashNoteView(title: "No Items", note: "Refresh to get content.")
-                        }
-                    } else {
-                        switch pageLayout {
-                        case .deck:
-                            DeckLayoutView(
-                                page: page,
-                                previewStyle: $previewStyle,
-                                items: items,
-                                pageGeometry: geometry
-                            )
-                        case .blend:
-                            BlendLayoutView(
-                                page: page,
-                                previewStyle: $previewStyle,
-                                items: items,
-                                width: geometry.size.width
-                            )
-                        case .showcase:
-                            ShowcaseLayoutView(
-                                page: page,
-                                previewStyle: $previewStyle,
-                                items: items,
-                                width: geometry.size.width
-                            )
-                        case .gadgets:
-                            GadgetLayoutView(
-                                page: page,
-                                previewStyle: $previewStyle,
-                                items: items,
-                                width: geometry.size.width
-                            )
-                        }
-                    }
+        VStack {
+            if page.feedsArray.isEmpty {
+                NoFeedsView(page: page)
+            } else {
+                switch pageLayout {
+                case .deck:
+                    DeckLayoutView(
+                        page: page,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
+                case .blend:
+                    BlendLayoutView(
+                        page: page,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
+                case .showcase:
+                    ShowcaseLayoutView(
+                        page: page,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
+                case .gadgets:
+                    GadgetLayoutView(
+                        page: page,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
                 }
-                .modifier(URLDropTargetModifier(page: page))
-                .navigationTitle(page.displayName)
-                .toolbar {
-                    #if targetEnvironment(macCatalyst)
-                    ToolbarItemGroup {
-                        PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
-                        PreviewStyleButtonView(previewStyle: $previewStyle)
-                        NavigationLink(value: DetailPanel.pageSettings(page)) {
-                            Label("Page Settings", systemImage: "wrench")
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .accessibilityIdentifier("page-settings-button")
+            }
+        }
+        .modifier(URLDropTargetModifier(page: page))
+        .navigationTitle(page.displayName)
+        .toolbar {
+            #if targetEnvironment(macCatalyst)
+            ToolbarItemGroup {
+                PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
+                PreviewStyleButtonView(previewStyle: $previewStyle)
+                NavigationLink(value: DetailPanel.pageSettings(page)) {
+                    Label("Page Settings", systemImage: "wrench")
+                }
+                .buttonStyle(ToolbarButtonStyle())
+                .accessibilityIdentifier("page-settings-button")
+            }
+            #else
+            ToolbarItem {
+                Menu {
+                    PreviewStyleButtonView(previewStyle: $previewStyle)
+                    PageLayoutPickerView(pageLayout: $pageLayout)
+                    NavigationLink(value: DetailPanel.pageSettings(page)) {
+                        Label("Page Settings", systemImage: "wrench")
                     }
-                    #else
-                    ToolbarItem {
-                        Menu {
-                            PreviewStyleButtonView(previewStyle: $previewStyle)
-                            PageLayoutPickerView(pageLayout: $pageLayout)
-                            NavigationLink(value: DetailPanel.pageSettings(page)) {
-                                Label("Page Settings", systemImage: "wrench")
-                            }
-                            .buttonStyle(ToolbarButtonStyle())
-                            .accessibilityIdentifier("page-settings-button")
-                        } label: {
-                            Label("Page Menu", systemImage: "ellipsis.circle")
-                        }
-                    }
-                    #endif
+                    .buttonStyle(ToolbarButtonStyle())
+                    .accessibilityIdentifier("page-settings-button")
+                } label: {
+                    Label("Page Menu", systemImage: "ellipsis.circle")
+                }
+            }
+            #endif
 
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        PageBottomBarView(
-                            page: page,
-                            profile: profile,
-                            refreshing: $refreshing,
-                            hideRead: $hideRead
-                        )
-                    }
-                }
+            ToolbarItemGroup(placement: .bottomBar) {
+                PageBottomBarView(
+                    page: page,
+                    profile: profile,
+                    refreshing: $refreshing,
+                    hideRead: $hideRead
+                )
             }
         }
     }
@@ -128,19 +99,19 @@ struct PageView: View {
         hideRead: Binding<Bool>,
         refreshing: Binding<Bool>
     ) {
-        self.page = page
-        self.profile = profile
-
         _hideRead = hideRead
         _refreshing = refreshing
 
         _pageLayout = AppStorage(
             wrappedValue: PageLayout.gadgets,
-            "PageLayout_\(page.id?.uuidString ?? "NA")"
+            "PageLayout_\(page.id?.uuidString ?? "NoID")"
         )
         _previewStyle = AppStorage(
             wrappedValue: PreviewStyle.compressed,
-            "PagePreviewStyle_\(page.id?.uuidString ?? "NA")"
+            "PagePreviewStyle_\(page.id?.uuidString ?? "NoID")"
         )
+
+        self.page = page
+        self.profile = profile
     }
 }

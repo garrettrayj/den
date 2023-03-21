@@ -39,7 +39,7 @@ struct SidebarView: View {
                     searchModel: searchModel,
                     contentSelection: $contentSelection
                 )
-                TrendsNavView(profile: profile)
+                TrendingNavView(profile: profile)
                 Section {
                     ForEach(profile.pagesArray) { page in
                         PageNavView(

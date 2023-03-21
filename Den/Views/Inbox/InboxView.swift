@@ -8,56 +8,15 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
 import SwiftUI
 
 struct InboxView: View {
     @ObservedObject var profile: Profile
+
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
-    @AppStorage("InboxPreviewStyle_NA") private var previewStyle: PreviewStyle = PreviewStyle.compressed
-
-    var body: some View {
-        WithItems(
-            scopeObject: profile,
-            sortDescriptors: [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
-            readFilter: hideRead ? false : nil
-        ) { items in
-            GeometryReader { geometry in
-                VStack {
-                    if profile.feedsArray.isEmpty {
-                        NoFeedsView()
-                    } else if items.isEmpty {
-                        AllReadSplashNoteView()
-                    } else {
-                        ScrollView(.vertical) {
-                            BoardView(width: geometry.size.width, list: Array(items)) { item in
-                                if previewStyle == .compressed {
-                                    FeedItemCompressedView(item: item)
-                                } else {
-                                    FeedItemExpandedView(item: item)
-                                }
-                            }.modifier(MainBoardModifier())
-                        }.id("inbox_\(profile.id?.uuidString ?? "na")_\(previewStyle)_\(hideRead)")
-                    }
-                }
-                .toolbar {
-                    ToolbarItem {
-                        if geometry.size.width > 460 {
-                            PreviewStyleButtonView(previewStyle: $previewStyle).pickerStyle(.segmented)
-                        } else {
-                            PreviewStyleButtonView(previewStyle: $previewStyle)
-                        }
-                    }
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        InboxBottomBarView(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
-                    }
-                }
-            }
-            .navigationTitle("Inbox")
-        }
-    }
+    @AppStorage("InboxPreviewStyle_NoID") private var previewStyle: PreviewStyle = PreviewStyle.compressed
 
     init(profile: Profile, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
         self.profile = profile
@@ -67,7 +26,20 @@ struct InboxView: View {
 
         _previewStyle = AppStorage(
             wrappedValue: PreviewStyle.compressed,
-            "InboxPreviewStyle_\(profile.id?.uuidString ?? "NA")"
+            "InboxPreviewStyle_\(profile.id?.uuidString ?? "NoID")"
         )
+    }
+
+    var body: some View {
+        InboxLayoutView(profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+            .toolbar {
+                ToolbarItem {
+                    PreviewStyleButtonView(previewStyle: $previewStyle)
+                }
+                ToolbarItemGroup(placement: .bottomBar) {
+                    InboxBottomBarView(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                }
+            }
+            .navigationTitle("Inbox")
     }
 }

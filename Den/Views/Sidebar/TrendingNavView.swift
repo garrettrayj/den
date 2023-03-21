@@ -1,5 +1,5 @@
 //
-//  TrendsNavView.swift
+//  TrendingNavView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/30/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TrendsNavView: View {
+struct TrendingNavView: View {
     @Environment(\.editMode) private var editMode
 
     @ObservedObject var profile: Profile
@@ -18,7 +18,7 @@ struct TrendsNavView: View {
     var body: some View {
         NavigationLink(value: ContentPanel.trends) {
             Label {
-                Text("Trends").lineLimit(1).badge(profile.trends.containingUnread().count)
+                Text("Trending").lineLimit(1).badge(profile.trends.containingUnread().count)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }

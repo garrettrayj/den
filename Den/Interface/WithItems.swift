@@ -24,13 +24,12 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
 
     init(
         scopeObject: ScopeObject,
-        sortDescriptors: [NSSortDescriptor] = [],
+        sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
         readFilter: Bool? = nil,
         includeExtras: Bool = false,
         @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
     ) {
         self.scopeObject = scopeObject
-
         self.content = content
 
         var predicates: [NSPredicate] = []
