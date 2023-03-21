@@ -16,7 +16,7 @@ struct TrendsBottomBarView: View {
 
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
-    
+
     var unreadCount: Int {
         profile.trends.containingUnread().count
     }

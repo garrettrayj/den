@@ -28,43 +28,41 @@ struct FeedLayoutView: View {
                         Divider()
                     }
 
-                    WithItems(
-                        scopeObject: feed,
-                        readFilter: hideRead ? false : nil,
-                        includeExtras: true
-                    ) { items in
-                        Section {
-                            if feed.feedData == nil || feed.feedData?.error != nil {
-                                FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-                            } else if items.previews().isEmpty && hideRead == true {
-                                AllReadStatusView()
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .modifier(RaisedGroupModifier())
-                                    .modifier(SectionContentPaddingModifier())
-                            } else {
-                                BoardView(
-                                    width: geometry.size.width,
-                                    list: Array(items).previews()
-                                ) { item in
-                                    ItemActionView(item: item) {
-                                        if previewStyle == .compressed {
-                                            ItemCompressedView(item: item)
-                                        } else {
-                                            ItemExpandedView(item: item)
-                                        }
-                                    }
-                                    .modifier(RaisedGroupModifier())
-                                }.modifier(SectionContentPaddingModifier())
-                            }
-                        } header: {
-                            Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
-                        }
-
-                        if items.count > feed.wrappedItemLimit && (
-                            feed.feedData != nil && feed.feedData?.error == nil
-                        ) {
+                    if feed.feedData == nil || feed.feedData?.error != nil {
+                        FeedUnavailableView(feedData: feed.feedData, splashNote: true)
+                    } else {
+                        WithItems(
+                            scopeObject: feed,
+                            readFilter: hideRead ? false : nil,
+                            includeExtras: true
+                        ) { items in
                             Section {
-                                if items.isEmpty {
+                                if items.previews().isEmpty && hideRead == true {
+                                    AllReadStatusView()
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .modifier(RaisedGroupModifier())
+                                        .modifier(SectionContentPaddingModifier())
+                                } else {
+                                    BoardView(
+                                        width: geometry.size.width,
+                                        list: Array(items).previews()
+                                    ) { item in
+                                        ItemActionView(item: item) {
+                                            if previewStyle == .compressed {
+                                                ItemCompressedView(item: item)
+                                            } else {
+                                                ItemExpandedView(item: item)
+                                            }
+                                        }
+                                        .modifier(RaisedGroupModifier())
+                                    }.modifier(SectionContentPaddingModifier())
+                                }
+                            } header: {
+                                Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
+                            }
+
+                            Section {
+                                if items.extras().isEmpty {
                                     AllReadStatusView()
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())
