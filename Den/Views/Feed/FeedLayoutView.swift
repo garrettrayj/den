@@ -60,11 +60,11 @@ struct FeedLayoutView: View {
                             Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
                         }
 
-                        if items.count > feed.wrappedItemLimit {
+                        if items.count > feed.wrappedItemLimit && (
+                            feed.feedData != nil && feed.feedData?.error == nil
+                        ) {
                             Section {
-                                if feed.feedData == nil || feed.feedData?.error != nil {
-                                    FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-                                } else if items.isEmpty {
+                                if items.isEmpty {
                                     AllReadStatusView()
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())

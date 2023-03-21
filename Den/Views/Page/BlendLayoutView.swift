@@ -20,7 +20,7 @@ struct BlendLayoutView: View {
         WithItems(
             scopeObject: page,
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Item.feedData, ascending: false),
+                NSSortDescriptor(keyPath: \Item.feedData?.id, ascending: false),
                 NSSortDescriptor(keyPath: \Item.published, ascending: false)
             ],
             readFilter: hideRead ? false : nil
