@@ -13,8 +13,9 @@ import SwiftUI
 struct FeedLayoutView: View {
     @Environment(\.openURL) private var openURL
 
-    let feed: Feed
-    let profile: Profile
+    @ObservedObject var feed: Feed
+    @ObservedObject var profile: Profile
+    
     let hideRead: Bool
     let previewStyle: PreviewStyle
 
