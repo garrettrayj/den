@@ -14,7 +14,7 @@ struct BaseBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .background(.thinMaterial)
-            .background(.background)
+            .background(Color(.systemBackground))
             .scrollContentBackground(.hidden)
     }
 }

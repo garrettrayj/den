@@ -16,7 +16,7 @@ struct TrendsBottomBarView: View {
 
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
-
+    
     var unreadCount: Int {
         profile.trends.containingUnread().count
     }
@@ -32,7 +32,7 @@ struct TrendsBottomBarView: View {
             profile: profile,
             refreshing: $refreshing,
             unreadCount: unreadCount,
-            unreadLabel: unreadCount == 1 ? "Trend with Unread" : "Trends with Unread"
+            unreadLabel: "with Unread"
         )
         Spacer()
         ToggleReadButtonView(unreadCount: unreadCount) {

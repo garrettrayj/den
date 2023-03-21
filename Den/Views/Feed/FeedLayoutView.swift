@@ -36,7 +36,7 @@ struct FeedLayoutView: View {
                         Section {
                             if feed.feedData == nil || feed.feedData?.error != nil {
                                 FeedUnavailableView(feedData: feed.feedData, splashNote: true)
-                            } else if items.isEmpty {
+                            } else if items.previews().isEmpty && hideRead == true {
                                 AllReadStatusView()
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .modifier(RaisedGroupModifier())
