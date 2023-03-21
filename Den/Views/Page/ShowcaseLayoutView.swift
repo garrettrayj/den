@@ -11,7 +11,8 @@
 import SwiftUI
 
 struct ShowcaseLayoutView: View {
-    let page: Page
+    @ObservedObject var page: Page
+
     let hideRead: Bool
     let previewStyle: PreviewStyle
 
