@@ -20,13 +20,13 @@ struct FeedItemExpandedView: View {
             VStack(alignment: .leading, spacing: 0) {
                 NavigationLink(value: DetailPanel.feed(feed)) {
                     HStack {
-                        FeedTitleLabelView(
+                        FeedTitleLabel(
                             title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
                             favicon: item.feedData?.favicon,
                             read: item.read
                         )
                         Spacer()
-                        NavChevronView()
+                        ButtonChevron()
                     }
                 }
                 .buttonStyle(FeedTitleButtonStyle())

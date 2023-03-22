@@ -118,7 +118,7 @@ struct ImportView: View {
     }
 
     private var selectionSectionHeader: some View {
-        PageSelectionView(
+        BulkSelectionButtons(
             allSelected: allSelected,
             noneSelected: noneSelected,
             selectAll: selectAll,

@@ -85,7 +85,7 @@ struct AtomItemLoad {
             self.imageSelection.imagePool.append(
                 RankedImage(
                     url: url.absoluteURL,
-                    rank: Int(ThumbnailView.baseSize.area) + 3
+                    rank: Int(ItemThumbnailImage.baseSize.area) + 3
                 )
             )
         }
@@ -113,7 +113,7 @@ struct AtomItemLoad {
                     } else {
                         imageSelection.imagePool.append(RankedImage(
                             url: url,
-                            rank: Int(PreviewImageView.baseSize.area)
+                            rank: Int(ItemPreviewImage.baseSize.area)
                         ))
                     }
                 }
@@ -142,7 +142,7 @@ struct AtomItemLoad {
                     } else {
                         imageSelection.imagePool.append(RankedImage(
                             url: url.absoluteURL,
-                            rank: Int(ThumbnailView.baseSize.area)
+                            rank: Int(ItemThumbnailImage.baseSize.area)
                         ))
                     }
                 }

@@ -28,24 +28,24 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Group {
-                ProfilesListSectionView(sceneProfileID: $sceneProfileID)
-                FeedsSectionView()
+                ProfilesListSection(sceneProfileID: $sceneProfileID)
+                FeedsSettingsSection()
                 #if !targetEnvironment(macCatalyst)
-                BrowserSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+                BrowserSettingsSection(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
                 #endif
-                AppearanceSectionView(uiStyle: $uiStyle)
-                RefreshSectionView(
+                AppearanceSettingsSection(uiStyle: $uiStyle)
+                RefreshSettingsSection(
                     autoRefreshEnabled: $autoRefreshEnabled,
                     autoRefreshCooldown: $autoRefreshCooldown,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled
                 )
-                ResetSectionView(
+                ResetSettingsSection(
                     activeProfile: $activeProfile,
                     sceneProfileID: $sceneProfileID,
                     appProfileID: $appProfileID,
                     profile: profile
                 )
-                AboutSectionView()
+                AboutSettingsSection()
             }
 
         }

@@ -38,14 +38,14 @@ struct TrendView: View {
     }
 
     var body: some View {
-        TrendLayoutView(trend: trend, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+        TrendLayout(trend: trend, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
             .navigationTitle(trend.wrappedTitle)
             .toolbar {
                 ToolbarItem {
-                    PreviewStyleButtonView(previewStyle: $previewStyle)
+                    PreviewStyleButton(previewStyle: $previewStyle)
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
-                    TrendBottomBarView(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                    TrendBottomBar(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
                 }
             }
     }

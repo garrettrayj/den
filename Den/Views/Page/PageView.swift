@@ -23,30 +23,30 @@ struct PageView: View {
     var body: some View {
         VStack {
             if page.feedsArray.isEmpty {
-                NoFeedsView(page: page)
+                NoFeeds(page: page)
             } else {
                 Group {
                     switch pageLayout {
                     case .deck:
-                        DeckLayoutView(
+                        DeckLayout(
                             page: page,
                             hideRead: hideRead,
                             previewStyle: previewStyle
                         )
                     case .blend:
-                        BlendLayoutView(
+                        BlendLayout(
                             page: page,
                             hideRead: hideRead,
                             previewStyle: previewStyle
                         )
                     case .showcase:
-                        ShowcaseLayoutView(
+                        ShowcaseLayout(
                             page: page,
                             hideRead: hideRead,
                             previewStyle: previewStyle
                         )
                     case .gadgets:
-                        GadgetLayoutView(
+                        GadgetLayout(
                             page: page,
                             hideRead: hideRead,
                             previewStyle: previewStyle
@@ -61,8 +61,8 @@ struct PageView: View {
         .toolbar {
             #if targetEnvironment(macCatalyst)
             ToolbarItemGroup {
-                PageLayoutPickerView(pageLayout: $pageLayout).pickerStyle(.segmented)
-                PreviewStyleButtonView(previewStyle: $previewStyle)
+                PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
+                PreviewStyleButton(previewStyle: $previewStyle)
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
@@ -73,7 +73,7 @@ struct PageView: View {
             ToolbarItem {
                 Menu {
                     PreviewStyleButtonView(previewStyle: $previewStyle)
-                    PageLayoutPickerView(pageLayout: $pageLayout)
+                    PageLayoutPicker(pageLayout: $pageLayout)
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
@@ -86,7 +86,7 @@ struct PageView: View {
             #endif
 
             ToolbarItemGroup(placement: .bottomBar) {
-                PageBottomBarView(
+                PageBottomBar(
                     page: page,
                     profile: profile,
                     refreshing: $refreshing,

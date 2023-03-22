@@ -28,10 +28,10 @@ struct ItemExpandedView: View {
                 .fontWeight(.semibold)
                 .lineLimit(6)
 
-            ItemDateAuthorView(item: item)
+            ItemDateAuthor(item: item)
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
-                PreviewImageView(item: item)
+                ItemPreviewImage(item: item)
                     .overlay(.background.opacity(item.read ? 0.5 : 0))
                     .padding(.top, 4)
             }

@@ -23,13 +23,13 @@ struct ItemCompressedView: View {
                     .fontWeight(.semibold)
                     .lineLimit(6)
 
-                ItemDateAuthorView(item: item)
+                ItemDateAuthor(item: item)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
 
             if item.feedData?.feed?.showThumbnails == true {
-                ThumbnailView(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
+                ItemThumbnailImage(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
             }
         }
         .padding(12)

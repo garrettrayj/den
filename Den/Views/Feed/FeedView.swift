@@ -36,10 +36,10 @@ struct FeedView: View {
     }
 
     var body: some View {
-        FeedLayoutView(feed: feed, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+        FeedLayout(feed: feed, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
             .toolbar {
                 ToolbarItemGroup {
-                    PreviewStyleButtonView(previewStyle: $previewStyle)
+                    PreviewStyleButton(previewStyle: $previewStyle)
                     NavigationLink(value: DetailPanel.feedSettings(feed)) {
                         Label("Feed Settings", systemImage: "wrench")
                     }
@@ -47,7 +47,7 @@ struct FeedView: View {
                     .accessibilityIdentifier("feed-settings-button")
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
-                    FeedBottomBarView(
+                    FeedBottomBar(
                         feed: feed,
                         profile: profile,
                         refreshing: $refreshing,

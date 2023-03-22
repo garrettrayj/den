@@ -35,13 +35,13 @@ struct ContentView: View {
             Group {
                 switch contentSelection ?? .welcome {
                 case .welcome:
-                    WelcomeView(profile: profile, refreshing: $refreshing)
+                    Welcome(profile: profile, refreshing: $refreshing)
                 case .search:
                     SearchView(profile: profile, searchModel: searchModel)
                 case .inbox:
-                    InboxView(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
+                    Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
                 case .trends:
-                    TrendsView(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
+                    Trending(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
                 case .page(let page):
                     if page.managedObjectContext != nil {
                         PageView(
@@ -74,7 +74,7 @@ struct ContentView: View {
                     switch detailPanel {
                     case .pageSettings(let page):
                         if page.managedObjectContext != nil {
-                            PageSettingsView(page: page)
+                            PageSettings(page: page)
                         } else {
                             SplashNoteView(title: "Page Deleted", symbol: "slash.circle")
                         }
@@ -86,7 +86,7 @@ struct ContentView: View {
                         }
                     case .feedSettings(let feed):
                         if feed.managedObjectContext != nil {
-                            FeedSettingsView(feed: feed)
+                            FeedSettings(feed: feed)
                         } else {
                             SplashNoteView(title: "Feed Deleted", symbol: "slash.circle")
                         }
@@ -116,7 +116,7 @@ struct ContentView: View {
                 Group {
                     switch settingsPanel {
                     case .profileSettings(let profile):
-                        ProfileSettingsView(
+                        ProfileSettings(
                             contentSelection: $contentSelection,
                             activeProfile: $activeProfile,
                             sceneProfileID: $sceneProfileID,

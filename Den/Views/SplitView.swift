@@ -40,7 +40,7 @@ struct SplitView: View {
 
     var body: some View {
         NavigationSplitView {
-            SidebarView(
+            Sidebar(
                 searchModel: searchModel,
                 profile: profile,
                 activeProfile: $activeProfile,
@@ -106,7 +106,7 @@ struct SplitView: View {
             Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
         }
         .sheet(isPresented: $showSubscribe) {
-            SubscribeView(
+            AddFeed(
                 initialPageObjectID: $subscribePageObjectID,
                 initialURLString: $subscribeURLString,
                 profile: activeProfile

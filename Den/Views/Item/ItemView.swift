@@ -26,7 +26,7 @@ struct ItemView: View {
         ScrollView(.vertical) {
             VStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    FeedTitleLabelView(
+                    FeedTitleLabel(
                         title: item.feedTitle,
                         favicon: item.feedData?.favicon
                     )
@@ -61,7 +61,7 @@ struct ItemView: View {
                             !(item.summary?.contains("<img") ?? false) &&
                             !(item.body?.contains("<img") ?? false)
                         {
-                            ItemHeroView(item: item).padding(.top, 8)
+                            ItemHero(item: item).padding(.top, 8)
                         }
 
                         if item.body != nil || item.summary != nil {

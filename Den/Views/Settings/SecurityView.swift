@@ -99,7 +99,7 @@ struct SecurityView: View {
         Section {
             ForEach(page.insecureFeeds) { feed in
                 HStack {
-                    FeedTitleLabelView(
+                    FeedTitleLabel(
                         title: feed.wrappedTitle,
                         favicon: feed.feedData?.favicon
                     ).modifier(FormRowModifier())
