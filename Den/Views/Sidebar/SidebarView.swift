@@ -59,15 +59,11 @@ struct SidebarView: View {
             }
         }
         .listStyle(.sidebar)
-
         #if targetEnvironment(macCatalyst)
-        .background(.thickMaterial)
+        .background(.regularMaterial)
         .navigationSplitViewColumnWidth(240)
         #else
-        .background(.ultraThinMaterial)
         .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)
-        #endif
-        #if !targetEnvironment(macCatalyst)
         .refreshable {
             if !refreshing && networkMonitor.isConnected {
                 await RefreshUtility.refresh(profile: profile)

@@ -16,7 +16,7 @@ struct RaisedGroupModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.background)
+            .background(Color(.secondarySystemGroupedBackground))
             .cornerRadius(8)
     }
 }

@@ -32,13 +32,14 @@ body > :first-child > :first-child > :first-child {
 /* Embeds */
 
 img, picture {
-    border: 1px solid -apple-system-separator;
     border-radius: 6px;
     box-sizing: border-box;
     display: block;
     height: auto;
     margin: 1.25rem 0;
     max-width: 100%;
+    outline: 1px solid -apple-system-separator;
+    outline-offset: -1px;
 }
 
 picture img {

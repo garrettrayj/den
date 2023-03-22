@@ -56,11 +56,11 @@ struct ItemHeroView: View {
                     options: [.delayPlaceholder],
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
-                    .resizable()
-                    .placeholder { ImageErrorPlaceholderView() }
-                    .indicator(.activity)
-                    .scaledToFit()
-                    .modifier(ImageBorderModifier(cornerRadius: 4))
+                .resizable()
+                .placeholder { ImageErrorPlaceholderView() }
+                .indicator(.activity)
+                .scaledToFit()
+                .modifier(ImageBorderModifier(cornerRadius: 4))
             }
             .aspectRatio(16/9, contentMode: .fill)
         } else if CGFloat(item.imageWidth) < ItemHeroView.baseSize.width {

@@ -12,9 +12,6 @@ import SwiftUI
 
 struct BaseBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
-        content
-            .background(.thinMaterial)
-            .background(Color(.systemBackground))
-            .scrollContentBackground(.hidden)
+        content.background(Color(.systemGroupedBackground))
     }
 }
