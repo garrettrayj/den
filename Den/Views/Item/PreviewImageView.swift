@@ -52,7 +52,7 @@ struct PreviewImageView: View {
     var body: some View {
         Group {
             if item.imageAspectRatio == nil {
-                VStack {
+                ImageDepressionView(padding: 8) {
                     WebImage(
                         url: item.image,
                         options: [.delayPlaceholder, .lowPriority],
@@ -61,17 +61,12 @@ struct PreviewImageView: View {
                         .resizable()
                         .placeholder { ImageErrorPlaceholderView() }
                         .indicator(.activity)
+                        .modifier(ImageBorderModifier(cornerRadius: 4))
                         .scaledToFit()
-                        .cornerRadius(4)
-                        .shadow(color: Color(.separator), radius: 1)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .aspectRatio(16/9, contentMode: .fill)
-                .padding(8)
-                .background(Color(.tertiarySystemFill))
-                .cornerRadius(6)
             } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
-                VStack {
+                ImageDepressionView(padding: 8) {
                     WebImage(
                         url: item.image,
                         options: [.delayPlaceholder, .lowPriority],
@@ -87,13 +82,8 @@ struct PreviewImageView: View {
                             alignment: .center
                         )
                         .clipped()
-                        .cornerRadius(4)
-                        .shadow(color: Color(.separator), radius: 1)
+                        .modifier(ImageBorderModifier(cornerRadius: 4))
                 }
-                .frame(maxWidth: .infinity)
-                .padding(8)
-                .background(Color(.tertiarySystemFill))
-                .cornerRadius(6)
             } else {
                 WebImage(
                     url: item.image,
@@ -110,8 +100,7 @@ struct PreviewImageView: View {
                     maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
                 )
                 .background(Color(.tertiarySystemFill))
-                .cornerRadius(6)
-                .shadow(color: Color(.separator), radius: 1)
+                .modifier(ImageBorderModifier())
             }
         }
         .grayscale(isEnabled ? 0 : 1)

@@ -13,12 +13,9 @@
     max-width: 100%;
 }
 
-html {
+body {
     accent-color: $TINT_COLOR;
     font: -apple-system-body;
-}
-
-body {
     margin: 0;
 }
 
@@ -26,11 +23,28 @@ body > :first-child {
     margin-top: 0;
 }
 
-body > div:only-of-type > :first-child {
+body > :first-child,
+body > :first-child > :first-child,
+body > :first-child > :first-child > :first-child {
     margin-top: 0;
 }
 
 /* Embeds */
+
+img, picture {
+    border: 1px solid -apple-system-separator;
+    border-radius: 6px;
+    box-sizing: border-box;
+    display: block;
+    height: auto;
+    margin: 1.25rem 0;
+    max-width: 100%;
+}
+
+picture img {
+    border: 0;
+    margin: 0;
+}
 
 iframe,
 object,
@@ -44,16 +58,6 @@ video {
 
 audio {
     margin: 1.25rem 0;
-}
-
-img, picture {
-    border: 1px solid -apple-system-separator;
-    border-radius: 8px;
-    box-sizing: border-box;
-    display: block;
-    height: auto;
-    margin: 1.25rem 0;
-    max-width: 100%;
 }
 
 img[align="right"] {
@@ -96,12 +100,12 @@ hr {
 
 blockquote {
     background: -apple-system-secondary-background;
-    border-radius: 8px;
+    border-radius: 6px;
     font: -apple-system-title3;
     font-family: inherit;
     margin: 1.25rem 0;
     overflow: hidden;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 blockquote > :first-child {
@@ -116,26 +120,31 @@ blockquote > :last-child {
 
 figure {
     background: -apple-system-secondary-background;
-    border-radius: 8px;
+    border-radius: 6px;
     font: -apple-system-caption1;
     font-family: inherit;
     margin: 1.25rem 0;
     overflow: hidden;
-    padding: 1rem;
+    padding: 0.75rem;
 }
 
-figure > :first-child {
+figure img,
+figure picture,
+figure iframe,
+figure object,
+figure video {
+    border-radius: 4px;
+    margin: 0.75rem auto;
+}
+
+figure > :first-child,
+figure > :first-child > :first-child {
     margin-top: 0;
 }
 
-figure > :last-child {
+figure > :last-child,
+figure > :last-child > :last-child {
     margin-bottom: 0;
-}
-
-figure img, figure picture {
-    border-radius: 4px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 figure blockquote {
@@ -155,6 +164,9 @@ a:visited {
 /* Remove Extra Whitespace */
 
 img + br,
+iframe + br,
+object + br,
+video + br,
 p + br,
 hr + br,
 br + br {
@@ -165,7 +177,8 @@ br:first-child {
     display: none;
 }
 
-p:empty {
+p:empty,
+div:empty {
     display: none;
 }
 

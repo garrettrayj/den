@@ -49,43 +49,8 @@ struct ItemHeroView: View {
     }
 
     var body: some View {
-        Group {
-            if item.imageAspectRatio == nil {
-                VStack {
-                    WebImage(
-                        url: item.image,
-                        options: [.delayPlaceholder],
-                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-                    )
-                        .resizable()
-                        .placeholder { ImageErrorPlaceholderView() }
-                        .indicator(.activity)
-                        .scaledToFit()
-                        .cornerRadius(4)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .aspectRatio(16/9, contentMode: .fill)
-                .padding(8)
-            } else if CGFloat(item.imageWidth) < ItemHeroView.baseSize.width {
-                VStack {
-                    WebImage(
-                        url: item.image,
-                        options: [.delayPlaceholder],
-                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-                    )
-                        .resizable()
-                        .placeholder { ImageErrorPlaceholderView() }
-                        .indicator(.activity)
-                        .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                        .cornerRadius(4)
-                        .frame(
-                            maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
-                            maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
-                        )
-                }
-                .frame(maxWidth: .infinity)
-                .padding(8)
-            } else {
+        if item.imageAspectRatio == nil {
+            ImageDepressionView {
                 WebImage(
                     url: item.image,
                     options: [.delayPlaceholder],
@@ -94,11 +59,40 @@ struct ItemHeroView: View {
                     .resizable()
                     .placeholder { ImageErrorPlaceholderView() }
                     .indicator(.activity)
-                    .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                    .scaledToFit()
+                    .modifier(ImageBorderModifier(cornerRadius: 4))
             }
+            .aspectRatio(16/9, contentMode: .fill)
+        } else if CGFloat(item.imageWidth) < ItemHeroView.baseSize.width {
+            ImageDepressionView {
+                WebImage(
+                    url: item.image,
+                    options: [.delayPlaceholder],
+                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                )
+                .resizable()
+                .placeholder { ImageErrorPlaceholderView() }
+                .indicator(.activity)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .frame(
+                    maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
+                    maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
+                )
+                .modifier(ImageBorderModifier(cornerRadius: 4))
+            }
+            .scaledToFit()
+        } else {
+            WebImage(
+                url: item.image,
+                options: [.delayPlaceholder],
+                context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+            )
+                .resizable()
+                .placeholder { ImageErrorPlaceholderView() }
+                .indicator(.activity)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .background(Color(.tertiarySystemFill))
+                .modifier(ImageBorderModifier())
         }
-        .background(Color(.tertiarySystemFill))
-        .cornerRadius(6)
-        .shadow(radius: 2)
     }
 }

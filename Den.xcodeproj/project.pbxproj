@@ -161,6 +161,8 @@
 		68B6CBE82910C54500B5E3AB /* AtomItemLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBE72910C54500B5E3AB /* AtomItemLoad.swift */; };
 		68B6CBEA2910CA1C00B5E3AB /* JSONFeedUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBE92910CA1C00B5E3AB /* JSONFeedUpdate.swift */; };
 		68B6CBEC2910CA3000B5E3AB /* JSONItemLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBEB2910CA3000B5E3AB /* JSONItemLoad.swift */; };
+		68B8E79829CABD5100E9AF42 /* ImageBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */; };
+		68B8E79A29CAC95300E9AF42 /* ImageDepressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B8E79929CAC95300E9AF42 /* ImageDepressionView.swift */; };
 		68BD683F2839626E0075EF45 /* ImageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD683E2839626E0075EF45 /* ImageSelection.swift */; };
 		68BF14AE29A4621900021AC1 /* SectionContentPaddingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BF14AD29A4621900021AC1 /* SectionContentPaddingModifier.swift */; };
 		68C41316247263C700D1DC7B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C41315247263C700D1DC7B /* RootView.swift */; };
@@ -435,6 +437,8 @@
 		68B6CBE72910C54500B5E3AB /* AtomItemLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomItemLoad.swift; sourceTree = "<group>"; };
 		68B6CBE92910CA1C00B5E3AB /* JSONFeedUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFeedUpdate.swift; sourceTree = "<group>"; };
 		68B6CBEB2910CA3000B5E3AB /* JSONItemLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONItemLoad.swift; sourceTree = "<group>"; };
+		68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBorderModifier.swift; sourceTree = "<group>"; };
+		68B8E79929CAC95300E9AF42 /* ImageDepressionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDepressionView.swift; sourceTree = "<group>"; };
 		68BD683E2839626E0075EF45 /* ImageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelection.swift; sourceTree = "<group>"; };
 		68BF14AD29A4621900021AC1 /* SectionContentPaddingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContentPaddingModifier.swift; sourceTree = "<group>"; };
 		68C41309247263C700D1DC7B /* Den.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Den.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -684,6 +688,7 @@
 				680F495529ABEF140083B664 /* ThumbnailModifier.swift */,
 				68245E2C29B834AC0068D450 /* RaisedGroupModifier.swift */,
 				6879AAB929B9670200E73FD0 /* BaseBackgroundModifier.swift */,
+				68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -923,6 +928,7 @@
 				68FF63F52921DB900012A275 /* FilterReadButtonView.swift */,
 				68B5269F298A352600D4B927 /* NoFeedsView.swift */,
 				68F6FB9829ADDBAB001F74B9 /* PreviewStyleButtonView.swift */,
+				68B8E79929CAC95300E9AF42 /* ImageDepressionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1327,6 +1333,7 @@
 				683E3F49293BC19800B16814 /* RefreshButtonView.swift in Sources */,
 				68BF14AE29A4621900021AC1 /* SectionContentPaddingModifier.swift in Sources */,
 				68ED798129C29A7700D85B4F /* ShowcaseLayoutView.swift in Sources */,
+				68B8E79829CABD5100E9AF42 /* ImageBorderModifier.swift in Sources */,
 				6880EBEB27AEF12000B479F4 /* NavChevronView.swift in Sources */,
 				68B6CBE42910B9C400B5E3AB /* CleanOperation.swift in Sources */,
 				6868A3162895D20D0051D43E /* TrendingNavView.swift in Sources */,
@@ -1452,6 +1459,7 @@
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
 				6835738C29614C3A00843A8E /* ContentPanel.swift in Sources */,
 				68B0AECF28BADE930079793D /* WindowFinder.swift in Sources */,
+				68B8E79A29CAC95300E9AF42 /* ImageDepressionView.swift in Sources */,
 				68701E01273E6A5400C6BB69 /* SubscriptionUtility.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* SubscribeView.swift in Sources */,
 				6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */,
