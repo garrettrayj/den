@@ -1,5 +1,5 @@
 //
-//  AllReadSplashNoteView.swift
+//  AllReadSplashNote.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/24/22.
@@ -10,8 +10,8 @@
 
 import SwiftUI
 
-struct AllReadSplashNoteView: View {
+struct AllReadSplashNote: View {
     var body: some View {
-        SplashNoteView(title: "All Read", symbol: "checkmark")
+        SplashNote(title: "All Read", symbol: "checkmark")
     }
 }

@@ -24,15 +24,15 @@ struct InboxLayout: View {
             if profile.feedsArray.isEmpty {
                 NoFeeds()
             } else if items.isEmpty {
-                AllReadSplashNoteView()
+                AllReadSplashNote()
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: Array(items)) { item in
                             if previewStyle == .compressed {
-                                FeedItemCompressedView(item: item)
+                                FeedItemCompressed(item: item)
                             } else {
-                                FeedItemExpandedView(item: item)
+                                FeedItemExpanded(item: item)
                             }
                         }.modifier(MainBoardModifier())
                     }

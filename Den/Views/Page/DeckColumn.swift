@@ -27,18 +27,18 @@ struct DeckColumn: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 8) {
                     if feed.feedData == nil || feed.feedData?.error != nil {
-                        FeedUnavailableView(feedData: feed.feedData)
+                        FeedUnavailable(feedData: feed.feedData)
                     } else if items.isEmpty {
-                        AllReadStatusView()
+                        AllRead()
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .modifier(RaisedGroupModifier())
                     } else {
                         ForEach(items) { item in
                             ItemActionView(item: item) {
                                 if previewStyle == .compressed {
-                                    ItemCompressedView(item: item)
+                                    ItemCompressed(item: item)
                                 } else {
-                                    ItemExpandedView(item: item)
+                                    ItemExpanded(item: item)
                                 }
                             }
                             .modifier(RaisedGroupModifier())

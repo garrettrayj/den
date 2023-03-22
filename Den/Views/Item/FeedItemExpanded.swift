@@ -1,5 +1,5 @@
 //
-//  FeedItemExpandedView.swift
+//  FeedItemExpanded.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/28/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedItemExpandedView: View {
+struct FeedItemExpanded: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
@@ -35,7 +35,7 @@ struct FeedItemExpandedView: View {
                 Divider()
 
                 ItemActionView(item: item) {
-                    ItemExpandedView(item: item)
+                    ItemExpanded(item: item)
                 }
             }
             .modifier(RaisedGroupModifier())

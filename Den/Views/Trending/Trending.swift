@@ -27,12 +27,12 @@ struct Trending: View {
     var body: some View {
         GeometryReader { geometry in
             if profile.trends.isEmpty {
-                SplashNoteView(
+                SplashNote(
                     title: "Nothing Trending",
                     note: "No common subjects were found in item titles."
                 )
             } else if visibleTrends.isEmpty {
-                AllReadSplashNoteView()
+                AllReadSplashNote()
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: visibleTrends) { trend in

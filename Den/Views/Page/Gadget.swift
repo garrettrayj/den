@@ -36,18 +36,18 @@ struct Gadget: View {
 
             if feed.feedData == nil || feed.feedData?.error != nil {
                 Divider()
-                FeedUnavailableView(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
+                FeedUnavailable(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
             } else if items.isEmpty {
                 Divider()
-                AllReadStatusView()
+                AllRead()
             } else {
                 ForEach(items) { item in
                     Divider()
                     ItemActionView(item: item) {
                         if previewStyle == .compressed {
-                            ItemCompressedView(item: item)
+                            ItemCompressed(item: item)
                         } else {
-                            ItemExpandedView(item: item)
+                            ItemExpanded(item: item)
                         }
                     }
                     .accessibilityIdentifier("gadget-item-button")

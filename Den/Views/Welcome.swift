@@ -24,15 +24,15 @@ struct Welcome: View {
     var body: some View {
         Group {
             if refreshing {
-                SplashNoteView(title: profile.displayName, note: "Checking for New Items…")
+                SplashNote(title: profile.displayName, note: "Checking for New Items…")
             } else if let refreshedDate = refreshedDate, let refreshedRelativeString = refreshedRelativeString {
                 if -refreshedDate.timeIntervalSinceNow < 60 {
-                    SplashNoteView(title: profile.displayName, note: "Updated Just Now")
+                    SplashNote(title: profile.displayName, note: "Updated Just Now")
                 } else {
-                    SplashNoteView(title: profile.displayName, note: "Updated \(refreshedRelativeString)")
+                    SplashNote(title: profile.displayName, note: "Updated \(refreshedRelativeString)")
                 }
             } else {
-                SplashNoteView(title: profile.displayName)
+                SplashNote(title: profile.displayName)
             }
         }
         .toolbar {

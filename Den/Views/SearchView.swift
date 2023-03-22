@@ -21,16 +21,16 @@ struct SearchView: View {
     var body: some View {
         GeometryReader { geometry in
             if searchModel.query == "" {
-                SplashNoteView(
+                SplashNote(
                     title: "Searching \(profile.wrappedName)",
                     symbol: "magnifyingglass"
                 )
             } else if searchResults.isEmpty {
-                SplashNoteView(title: "No items found for “\(searchModel.query)”")
+                SplashNote(title: "No items found for “\(searchModel.query)”")
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
-                        FeedItemExpandedView(item: item)
+                        FeedItemExpanded(item: item)
                     }.modifier(MainBoardModifier())
                 }
             }

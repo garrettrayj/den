@@ -1,5 +1,5 @@
 //
-//  FeedItemCompressedView.swift
+//  FeedItemCompressed.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/27/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedItemCompressedView: View {
+struct FeedItemCompressed: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
@@ -35,7 +35,7 @@ struct FeedItemCompressedView: View {
                 Divider()
 
                 ItemActionView(item: item) {
-                    ItemCompressedView(item: item)
+                    ItemCompressed(item: item)
                 }
             }
             .modifier(RaisedGroupModifier())

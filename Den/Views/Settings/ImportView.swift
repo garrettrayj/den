@@ -104,14 +104,14 @@ struct ImportView: View {
     }
 
     private var errorStage: some View {
-        SplashNoteView(
+        SplashNote(
             title: "Import Error",
             note: "The operation did not complete successfully."
         )
     }
 
     private var completeStage: some View {
-        SplashNoteView(
+        SplashNote(
             title: "Import Complete",
             note: "\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile."
         )

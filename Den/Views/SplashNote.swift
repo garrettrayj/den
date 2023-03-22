@@ -1,5 +1,5 @@
 //
-//  SplashNoteView.swift
+//  SplashNote.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/9/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SplashNoteView: View {
+struct SplashNote: View {
     let title: String
     var note: String?
     var symbol: String?

@@ -29,7 +29,7 @@ struct FeedLayout: View {
                     }
 
                     if feed.feedData == nil || feed.feedData?.error != nil {
-                        FeedUnavailableView(feedData: feed.feedData, splashNote: true)
+                        FeedUnavailable(feedData: feed.feedData, splashNote: true)
                     } else {
                         WithItems(
                             scopeObject: feed,
@@ -38,7 +38,7 @@ struct FeedLayout: View {
                         ) { items in
                             Section {
                                 if items.previews().isEmpty && hideRead == true {
-                                    AllReadStatusView()
+                                    AllRead()
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())
                                         .modifier(SectionContentPaddingModifier())
@@ -49,9 +49,9 @@ struct FeedLayout: View {
                                     ) { item in
                                         ItemActionView(item: item) {
                                             if previewStyle == .compressed {
-                                                ItemCompressedView(item: item)
+                                                ItemCompressed(item: item)
                                             } else {
-                                                ItemExpandedView(item: item)
+                                                ItemExpanded(item: item)
                                             }
                                         }
                                         .modifier(RaisedGroupModifier())
@@ -63,7 +63,7 @@ struct FeedLayout: View {
 
                             Section {
                                 if items.extras().isEmpty {
-                                    AllReadStatusView()
+                                    AllRead()
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())
                                         .modifier(SectionContentPaddingModifier())
@@ -74,9 +74,9 @@ struct FeedLayout: View {
                                     ) { item in
                                         ItemActionView(item: item) {
                                             if previewStyle == .compressed {
-                                                ItemCompressedView(item: item)
+                                                ItemCompressed(item: item)
                                             } else {
-                                                ItemExpandedView(item: item)
+                                                ItemExpanded(item: item)
                                             }
                                         }
                                         .modifier(RaisedGroupModifier())

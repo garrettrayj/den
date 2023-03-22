@@ -1,5 +1,5 @@
 //
-//  FeedUnavailableView.swift
+//  FeedUnavailable.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/2/21.
@@ -10,13 +10,13 @@
 
 import SwiftUI
 
-struct FeedUnavailableView: View {
+struct FeedUnavailable: View {
     let feedData: FeedData?
     var splashNote: Bool = false
 
     var body: some View {
         if splashNote {
-            SplashNoteView(title: titleAndDescripition.0, note: titleAndDescripition.1)
+            SplashNote(title: titleAndDescripition.0, note: titleAndDescripition.1)
         } else {
             VStack(alignment: .leading, spacing: 4) {
                 Text(titleAndDescripition.0)

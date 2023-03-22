@@ -26,7 +26,7 @@ struct DenApp: App {
 
     var body: some Scene {
         WindowGroup {
-            Root(
+            RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 appProfileID: $appProfileID
             )

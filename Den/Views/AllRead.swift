@@ -1,5 +1,5 @@
 //
-//  AllReadStatusView.swift
+//  AllRead.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/5/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct AllReadStatusView: View {
+struct AllRead: View {
     var body: some View {
         Label {
             HStack(spacing: 4) {

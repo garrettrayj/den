@@ -20,10 +20,10 @@ struct ShowcaseSection: View {
     var body: some View {
         Section {
             if feed.feedData == nil || feed.feedData?.error != nil {
-                FeedUnavailableView(feedData: feed.feedData)
+                FeedUnavailable(feedData: feed.feedData)
                     .modifier(SectionContentPaddingModifier())
             } else if items.isEmpty {
-                AllReadStatusView()
+                AllRead()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(RaisedGroupModifier())
                     .modifier(SectionContentPaddingModifier())
@@ -34,9 +34,9 @@ struct ShowcaseSection: View {
                     content: { item in
                         ItemActionView(item: item) {
                             if previewStyle == .compressed {
-                                ItemCompressedView(item: item)
+                                ItemCompressed(item: item)
                             } else {
-                                ItemExpandedView(item: item)
+                                ItemExpanded(item: item)
                             }
                         }
                         .modifier(RaisedGroupModifier())

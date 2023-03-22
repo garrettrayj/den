@@ -1,5 +1,5 @@
 //
-//  Root.swift
+//  RootView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/18/20.
@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 import SwiftUI
 
-struct Root: View {
+struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
 

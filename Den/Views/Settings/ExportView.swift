@@ -20,7 +20,7 @@ struct ExportView: View {
     var body: some View {
         VStack {
             if profile.feedsArray.isEmpty {
-                SplashNoteView(title: "Profile Empty")
+                SplashNote(title: "Profile Empty")
             } else {
                 Form {
                     TextField("Untitled", text: $title)

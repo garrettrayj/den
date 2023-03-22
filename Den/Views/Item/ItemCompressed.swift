@@ -1,5 +1,5 @@
 //
-//  ItemCompressedView.swift
+//  ItemCompressed.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ItemCompressedView: View {
+struct ItemCompressed: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item

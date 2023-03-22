@@ -26,15 +26,15 @@ struct BlendLayout: View {
             readFilter: hideRead ? false : nil
         ) { items in
             if items.isEmpty {
-                SplashNoteView(title: "Nothing Here", note: "Refresh to check for new items.")
+                SplashNote(title: "Nothing Here", note: "Refresh to check for new items.")
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         BoardView(width: geometry.size.width, list: Array(items)) { item in
                             if previewStyle == .compressed {
-                                FeedItemCompressedView(item: item)
+                                FeedItemCompressed(item: item)
                             } else {
-                                FeedItemExpandedView(item: item)
+                                FeedItemExpanded(item: item)
                             }
                         }.modifier(MainBoardModifier())
                     }
