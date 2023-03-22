@@ -22,8 +22,8 @@ struct PreviewImageView: View {
 
     private var scaledSize: CGSize {
         return CGSize(
-            width: PreviewImageView.baseSize.width * dynamicTypeSize.fontScale,
-            height: PreviewImageView.baseSize.height * dynamicTypeSize.fontScale
+            width: PreviewImageView.baseSize.width * dynamicTypeSize.layoutScalingFactor,
+            height: PreviewImageView.baseSize.height * dynamicTypeSize.layoutScalingFactor
         )
     }
 
@@ -38,8 +38,8 @@ struct PreviewImageView: View {
         // Small images scale with dynamic type size even though bluring is likely
         if CGFloat(item.imageWidth) < scaledSize.width {
             return CGSize(
-                width: CGFloat(item.imageWidth) * dynamicTypeSize.fontScale,
-                height: CGFloat(item.imageHeight) * dynamicTypeSize.fontScale
+                width: CGFloat(item.imageWidth) * dynamicTypeSize.layoutScalingFactor,
+                height: CGFloat(item.imageHeight) * dynamicTypeSize.layoutScalingFactor
             )
         }
 

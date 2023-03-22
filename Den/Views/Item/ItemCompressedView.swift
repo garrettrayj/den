@@ -19,7 +19,7 @@ struct ItemCompressedView: View {
         HStack(alignment: .top, spacing: 8) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.wrappedTitle)
-                    .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
+                    .font(.headline)
                     .fontWeight(.semibold)
                     .lineLimit(6)
 

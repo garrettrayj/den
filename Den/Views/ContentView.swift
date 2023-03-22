@@ -30,11 +30,6 @@ struct ContentView: View {
 
     @SceneStorage("HideRead") private var hideRead: Bool = false
 
-    @AppStorage("ContentSizeCategory") private var contentSizeCategory: UIContentSizeCategory = .unspecified
-    @AppStorage("ContentFontFamily") private var contentFontFamily: String = UIFont.preferredFont(
-        forTextStyle: .body
-    ).familyName
-
     var body: some View {
         NavigationStack {
             Group {
@@ -64,8 +59,6 @@ struct ContentView: View {
                         sceneProfileID: $sceneProfileID,
                         appProfileID: $appProfileID,
                         uiStyle: $uiStyle,
-                        contentSizeCategory: $contentSizeCategory,
-                        contentFontFamily: $contentFontFamily,
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
@@ -76,8 +69,6 @@ struct ContentView: View {
             }
             .modifier(BaseBackgroundModifier())
             .disabled(refreshing)
-            .environment(\.contentSizeCategory, contentSizeCategory)
-            .environment(\.contentFontFamily, contentFontFamily)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 Group {
                     switch detailPanel {
@@ -119,8 +110,6 @@ struct ContentView: View {
                     }
                 }
                 .modifier(BaseBackgroundModifier())
-                .environment(\.contentSizeCategory, contentSizeCategory)
-                .environment(\.contentFontFamily, contentFontFamily)
                 .disabled(refreshing)
             }
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in

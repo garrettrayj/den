@@ -15,8 +15,6 @@ struct SettingsView: View {
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
-    @Binding var contentSizeCategory: UIContentSizeCategory
-    @Binding var contentFontFamily: String
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
@@ -35,11 +33,7 @@ struct SettingsView: View {
                 #if !targetEnvironment(macCatalyst)
                 BrowserSectionView(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
                 #endif
-                AppearanceSectionView(
-                    uiStyle: $uiStyle,
-                    contentSizeCategory: $contentSizeCategory,
-                    contentFontFamily: $contentFontFamily
-                )
+                AppearanceSectionView(uiStyle: $uiStyle)
                 RefreshSectionView(
                     autoRefreshEnabled: $autoRefreshEnabled,
                     autoRefreshCooldown: $autoRefreshCooldown,

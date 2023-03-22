@@ -13,13 +13,11 @@ import SwiftUI
 struct IconPickerView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
 
     @ObservedObject var page: Page
 
     var columnWidth: CGFloat {
-        let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        return 36 * typeSize.fontScale
+        return 36 * dynamicTypeSize.layoutScalingFactor
     }
 
     var body: some View {

@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let content: (T) -> Content
@@ -39,8 +38,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     }
 
     private var columnData: [(Int, [T])] {
-        let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        let adjustedWidth = width / typeSize.fontScale
+        let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
         let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 26))
         var gridArray: [(Int, [T])] = []
 

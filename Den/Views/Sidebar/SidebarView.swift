@@ -65,7 +65,7 @@ struct SidebarView: View {
         .navigationSplitViewColumnWidth(240)
         #else
         .background(.ultraThinMaterial)
-        .navigationSplitViewColumnWidth(240 * dynamicTypeSize.fontScale)
+        .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)
         #endif
         #if !targetEnvironment(macCatalyst)
         .refreshable {

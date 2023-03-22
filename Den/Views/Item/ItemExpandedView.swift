@@ -24,7 +24,7 @@ struct ItemExpandedView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(item.wrappedTitle)
-                .modifier(CustomFontModifier(relativeTo: .headline, textStyle: .headline))
+                .font(.headline)
                 .fontWeight(.semibold)
                 .lineLimit(6)
 
@@ -38,7 +38,7 @@ struct ItemExpandedView: View {
 
             if hasTeaser {
                 Text(item.teaser!)
-                    .modifier(CustomFontModifier(relativeTo: .body, textStyle: .body))
+                    .font(.body)
                     .lineLimit(6)
                     .padding(.top, 4)
             }

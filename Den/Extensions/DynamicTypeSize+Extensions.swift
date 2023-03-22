@@ -11,38 +11,34 @@
 import SwiftUI
 
 extension DynamicTypeSize {
-    var fontScale: CGFloat {
-        var fontScale = 1.0
-
+    var layoutScalingFactor: CGFloat {
         switch self {
         case .xSmall:
-            fontScale = 0.882758620689655
+            return 0.882
         case .small:
-            fontScale = 0.937931034482759
+            return 0.937
         case .medium:
-            fontScale = 1.0
+            return 1.0
         case .large:
-            fontScale = 1.0448275862069
+            return 1.044
         case .xLarge:
-            fontScale = 1.16551724137931
+            return 1.165
         case .xxLarge:
-            fontScale = 1.24827586206897
+            return 1.248
         case .xxxLarge:
-            fontScale = 1.36551724137931
+            return 1.365
         case .accessibility1:
-            fontScale = 1.64137931034483
+            return 1.641
         case .accessibility2:
-            fontScale = 1.93793103448276
+            return 1.937
         case .accessibility3:
-            fontScale = 2.33793103448276
+            return 2.337
         case .accessibility4:
-            fontScale = 2.77931034482759
+            return 2.779
         case .accessibility5:
-            fontScale = 2.99310344827586
+            return 2.993
         default:
-            fontScale = 1
+            return 1.0
         }
-
-        return fontScale
     }
 }

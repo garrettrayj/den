@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ItemView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
     @Environment(\.openURL) private var openURL
 
@@ -20,8 +19,7 @@ struct ItemView: View {
     @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
-        let typeSize = DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize
-        return CGFloat(700) * typeSize.fontScale
+        return CGFloat(700) * dynamicTypeSize.layoutScalingFactor
     }
 
     var body: some View {
@@ -37,7 +35,7 @@ struct ItemView: View {
 
                     Group {
                         Text(item.wrappedTitle)
-                            .modifier(CustomFontModifier(relativeTo: .title, textStyle: .title1))
+                            .font(.largeTitle)
                             .textSelection(.enabled)
                             .padding(.top, 8)
 
@@ -56,7 +54,7 @@ struct ItemView: View {
                                 }
                             }
                         }
-                        .modifier(CustomFontModifier(relativeTo: .subheadline, textStyle: .subheadline))
+                        .font(.subheadline)
 
                         if
                             item.image != nil &&
@@ -76,7 +74,6 @@ struct ItemView: View {
                         }
                     }
                     .multilineTextAlignment(.leading)
-                    .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
                 }
                 .padding(.horizontal)
                 .padding(.top, 24)

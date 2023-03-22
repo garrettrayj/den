@@ -13,9 +13,6 @@ import SwiftUI
 import WebKit
 
 struct ItemWebView: UIViewRepresentable {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.contentFontFamily) private var contentFontFamily
-
     var html: String?
     var title: String
     var baseURL: URL?
@@ -72,8 +69,6 @@ struct ItemWebView: UIViewRepresentable {
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             let cssString = try? String(contentsOfFile: path)
                 .replacingOccurrences(of: "$TINT_COLOR", with: tint?.hexString ?? UIColor.tintColor.hexString)
-                .replacingOccurrences(of: "$FONT_FAMILY", with: contentFontFamily)
-                .replacingOccurrences(of: "$FONT_SIZE", with: "\(dynamicTypeSize.fontScale * 100)%")
                 .components(separatedBy: .newlines).joined()
         else { return nil }
 

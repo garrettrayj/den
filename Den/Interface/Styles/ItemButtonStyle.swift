@@ -13,7 +13,6 @@ import SwiftUI
 struct ItemButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
 
     let read: Bool
 
@@ -35,6 +34,5 @@ struct ItemButtonStyle: ButtonStyle {
             .onDisappear {
                 hovering = false
             }
-            .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
     }
 }

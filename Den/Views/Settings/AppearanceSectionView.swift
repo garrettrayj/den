@@ -14,8 +14,6 @@ struct AppearanceSectionView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @Binding var uiStyle: UIUserInterfaceStyle
-    @Binding var contentSizeCategory: UIContentSizeCategory
-    @Binding var contentFontFamily: String
 
     var body: some View {
         Section(header: Text("Appearance")) {
@@ -28,19 +26,6 @@ struct AppearanceSectionView: View {
             #else
             UIStylePickerView(uiStyle: $uiStyle)
             #endif
-
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Text("Content Size").modifier(FormRowModifier())
-                Spacer()
-                ContentSizePickerView(contentSizeCategory: $contentSizeCategory).labelsHidden().scaledToFit()
-            }
-            #else
-            ContentSizePickerView(contentSizeCategory: $contentSizeCategory)
-            #endif
-
-            FontPickerView(fontFamily: $contentFontFamily)
-                .dynamicTypeSize(DynamicTypeSize(contentSizeCategory) ?? dynamicTypeSize)
         }
     }
 }

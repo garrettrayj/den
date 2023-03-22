@@ -16,12 +16,9 @@
 html {
     accent-color: $TINT_COLOR;
     font: -apple-system-body;
-    font-family: $FONT_FAMILY;
-    font-size: $FONT_SIZE;
 }
 
 body {
-    line-height: 140%;
     margin: 0;
 }
 
@@ -41,7 +38,7 @@ video {
     border: 0;
     display: block;
     height: auto;
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     max-width: 100%;
 }
 
@@ -55,7 +52,7 @@ img, picture {
     box-sizing: border-box;
     display: block;
     height: auto;
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     max-width: 100%;
 }
 
@@ -85,11 +82,6 @@ h4 {
     font: -apple-system-title3;
 }
 
-h1, h2, h3, h4 {
-    font-family: inherit;
-    font-weight: 600;
-}
-
 /* Content Sectioning */
 
 p {
@@ -107,7 +99,7 @@ blockquote {
     border-radius: 8px;
     font: -apple-system-title3;
     font-family: inherit;
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     overflow: hidden;
     padding: 2rem;
 }
@@ -127,7 +119,7 @@ figure {
     border-radius: 8px;
     font: -apple-system-caption1;
     font-family: inherit;
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     overflow: hidden;
     padding: 1rem;
 }

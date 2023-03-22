@@ -20,7 +20,7 @@ struct ItemDateAuthorCompressedView: View {
     var body: some View {
         Text("\(item.date.formatted()) • \(item.wrappedAuthor)")
             .lineLimit(1)
-        .modifier(CustomFontModifier(relativeTo: .subheadline, textStyle: .subheadline))
+            .font(.subheadline)
         .lineLimit(1)
         .foregroundColor(
             isEnabled ?

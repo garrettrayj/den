@@ -23,8 +23,8 @@ struct FeedFaviconView: View {
 
     private var scaledSize: CGSize {
         return CGSize(
-            width: baseSize.width * dynamicTypeSize.fontScale,
-            height: baseSize.height * dynamicTypeSize.fontScale
+            width: baseSize.width * dynamicTypeSize.layoutScalingFactor,
+            height: baseSize.height * dynamicTypeSize.layoutScalingFactor
         )
     }
 

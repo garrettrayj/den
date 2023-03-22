@@ -15,7 +15,6 @@ import SDWebImageSwiftUI
 struct ThumbnailView: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.contentSizeCategory) private var contentSizeCategory
 
     let item: Item
 
@@ -23,8 +22,8 @@ struct ThumbnailView: View {
 
     private var scaledSize: CGSize {
         return CGSize(
-            width: ThumbnailView.baseSize.width * dynamicTypeSize.fontScale,
-            height: ThumbnailView.baseSize.height * dynamicTypeSize.fontScale
+            width: ThumbnailView.baseSize.width * dynamicTypeSize.layoutScalingFactor,
+            height: ThumbnailView.baseSize.height * dynamicTypeSize.layoutScalingFactor
         )
     }
 
