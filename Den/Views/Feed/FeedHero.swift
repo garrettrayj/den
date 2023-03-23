@@ -28,13 +28,12 @@ struct FeedHero: View {
         }
         .aspectRatio(16/9, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: 240)
-        .background(.thinMaterial)
+        .background(.ultraThinMaterial)
         .background {
+            Color(.systemBackground)
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
-                .background(Color(.secondarySystemGroupedBackground))
-
         }
         .clipped()
     }
