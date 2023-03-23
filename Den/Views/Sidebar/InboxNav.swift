@@ -10,10 +10,8 @@
 
 import CoreData
 import SwiftUI
-import UserNotifications
 
 struct InboxNav: View {
-    @Environment(\.scenePhase) private var scenePhase
     @Environment(\.editMode) private var editMode
 
     @ObservedObject var profile: Profile
@@ -46,6 +44,5 @@ struct InboxNav: View {
             .accessibilityIdentifier("inbox-button")
             .tag(ContentPanel.inbox)
         }
-
     }
 }

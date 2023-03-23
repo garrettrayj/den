@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @ObservedObject var profile: Profile
+
     @Binding var activeProfile: Profile?
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
@@ -20,34 +22,26 @@ struct SettingsView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useInbuiltBrowser: Bool
 
-    let profile: Profile
-
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
-    private var profiles: FetchedResults<Profile>
-
     var body: some View {
         Form {
-            Group {
-                ProfilesListSection(sceneProfileID: $sceneProfileID)
-                FeedsSettingsSection()
-                #if !targetEnvironment(macCatalyst)
-                BrowserSettingsSection(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
-                #endif
-                AppearanceSettingsSection(uiStyle: $uiStyle)
-                RefreshSettingsSection(
-                    autoRefreshEnabled: $autoRefreshEnabled,
-                    autoRefreshCooldown: $autoRefreshCooldown,
-                    backgroundRefreshEnabled: $backgroundRefreshEnabled
-                )
-                ResetSettingsSection(
-                    activeProfile: $activeProfile,
-                    sceneProfileID: $sceneProfileID,
-                    appProfileID: $appProfileID,
-                    profile: profile
-                )
-                AboutSettingsSection()
-            }
-
+            ProfilesListSection(sceneProfileID: $sceneProfileID)
+            FeedsSettingsSection()
+            #if !targetEnvironment(macCatalyst)
+            BrowserSettingsSection(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+            #endif
+            AppearanceSettingsSection(uiStyle: $uiStyle)
+            RefreshSettingsSection(
+                autoRefreshEnabled: $autoRefreshEnabled,
+                autoRefreshCooldown: $autoRefreshCooldown,
+                backgroundRefreshEnabled: $backgroundRefreshEnabled
+            )
+            ResetSettingsSection(
+                activeProfile: $activeProfile,
+                sceneProfileID: $sceneProfileID,
+                appProfileID: $appProfileID,
+                profile: profile
+            )
+            AboutSettingsSection()
         }
         .navigationTitle("Settings")
     }

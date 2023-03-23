@@ -13,6 +13,7 @@ import SwiftUI
 
 struct TrendBottomBar: View {
     @Environment(\.dismiss) private var dismiss
+
     @ObservedObject var trend: Trend
     @ObservedObject var profile: Profile
 
@@ -20,8 +21,6 @@ struct TrendBottomBar: View {
         guard let refreshed = RefreshedDateStorage.shared.getRefreshed(profile) else { return nil }
         return refreshed
     }
-
-    @State var refreshedDateTimeStr: String = "Loading..."
 
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool

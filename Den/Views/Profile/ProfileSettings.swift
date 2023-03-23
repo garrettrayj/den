@@ -14,15 +14,16 @@ struct ProfileSettings: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
 
+    @ObservedObject var profile: Profile
+
     @Binding var contentSelection: ContentPanel?
     @Binding var activeProfile: Profile?
     @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
 
-    @ObservedObject var profile: Profile
-
     @State var nameInput: String
     @State var tintSelection: String?
+
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {

@@ -45,7 +45,12 @@ struct TrendView: View {
                     PreviewStyleButton(previewStyle: $previewStyle)
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
-                    TrendBottomBar(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                    TrendBottomBar(
+                        trend: trend,
+                        profile: profile,
+                        refreshing: $refreshing,
+                        hideRead: $hideRead
+                    )
                 }
             }
     }

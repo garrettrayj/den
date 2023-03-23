@@ -13,8 +13,6 @@ import Foundation
 import SwiftUI
 
 struct ItemDateAuthor: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     let item: Item
 
     var body: some View {
@@ -36,11 +34,5 @@ struct ItemDateAuthor: View {
         }
         .font(.subheadline)
         .lineLimit(1)
-        .foregroundColor(
-            isEnabled ?
-                item.read ? Color(.tertiaryLabel) : Color(.secondaryLabel)
-                :
-                item.read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
-        )
     }
 }

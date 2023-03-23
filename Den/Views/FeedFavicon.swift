@@ -48,6 +48,5 @@ struct FeedFavicon: View {
             }
             .frame(width: scaledSize.width, height: scaledSize.height)
             .grayscale(isEnabled ? 0 : 1)
-            .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
     }
 }

@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct Gadget: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var feed: Feed
 
     let items: [Item]

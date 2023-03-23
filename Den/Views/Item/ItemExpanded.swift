@@ -11,13 +11,9 @@
 import SwiftUI
 
 struct ItemExpanded: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var item: Item
 
-    var showFavicon: Bool = false
-
-    var hasTeaser: Bool {
+    var showTeaser: Bool {
         item.teaser != nil && item.teaser != ""
     }
 
@@ -36,22 +32,13 @@ struct ItemExpanded: View {
                     .padding(.top, 4)
             }
 
-            if hasTeaser {
-                Text(item.teaser!)
-                    .font(.body)
-                    .lineLimit(6)
-                    .padding(.top, 4)
+            if showTeaser {
+                Text(item.teaser!).font(.body).lineLimit(6).padding(.top, 4)
             }
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
-        .foregroundColor(
-            isEnabled ?
-                item.read ? Color(.secondaryLabel) : Color(.label)
-            :
-                item.read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
-        )
         .fixedSize(horizontal: false, vertical: true)
     }
 }

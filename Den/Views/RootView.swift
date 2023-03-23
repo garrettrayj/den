@@ -8,7 +8,6 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
 import OSLog
 import SwiftUI
 

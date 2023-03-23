@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct FeedTitleLabel: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     let title: String
     let favicon: URL?
 
@@ -20,12 +18,9 @@ struct FeedTitleLabel: View {
 
     var body: some View {
         Label {
-            Text(title)
-                .lineLimit(1)
-                .foregroundColor(read == true || !isEnabled ? Color(.secondaryLabel) : Color(.label))
+            Text(title).lineLimit(1)
         } icon: {
             FeedFavicon(url: favicon)
-                .opacity(read == true || !isEnabled ? AppDefaults.dimmedImageOpacity : 1.0)
         }
     }
 }

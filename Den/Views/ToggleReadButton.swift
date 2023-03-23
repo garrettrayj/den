@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ToggleReadButton: View {
     let unreadCount: Int
-
     let toggleAll: () async -> Void
 
     @State private var toggling = false

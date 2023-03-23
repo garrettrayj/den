@@ -1,5 +1,5 @@
 //
-//  FeedHeroView.swift
+//  FeedHero.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/9/23.
@@ -12,7 +12,7 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct FeedHeroView: View {
+struct FeedHero: View {
     let heroImage: URL
 
     var body: some View {

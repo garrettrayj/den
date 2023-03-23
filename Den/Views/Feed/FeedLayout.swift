@@ -24,8 +24,7 @@ struct FeedLayout: View {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                     if let heroImage = feed.feedData?.banner {
-                        FeedHeroView(heroImage: heroImage)
-                        Divider()
+                        FeedHero(heroImage: heroImage)
                     }
 
                     if feed.feedData == nil || feed.feedData?.error != nil {

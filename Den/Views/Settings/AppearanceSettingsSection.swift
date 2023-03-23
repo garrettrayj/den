@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct AppearanceSettingsSection: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
     @Binding var uiStyle: UIUserInterfaceStyle
 
     var body: some View {

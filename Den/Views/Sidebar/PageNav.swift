@@ -12,8 +12,6 @@ import CoreData
 import SwiftUI
 
 struct PageNav: View {
-    @Environment(\.editMode) private var editMode
-
     @ObservedObject var profile: Profile // Observed for state changes
     @ObservedObject var page: Page
 

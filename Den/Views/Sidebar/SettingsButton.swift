@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct SettingsButton: View {
-    @Environment(\.editMode) private var editMode
-
     @Binding var listSelection: ContentPanel?
 
     var body: some View {

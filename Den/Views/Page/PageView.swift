@@ -72,7 +72,7 @@ struct PageView: View {
             #else
             ToolbarItem {
                 Menu {
-                    PreviewStyleButtonView(previewStyle: $previewStyle)
+                    PreviewStyleButton(previewStyle: $previewStyle)
                     PageLayoutPicker(pageLayout: $pageLayout)
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")

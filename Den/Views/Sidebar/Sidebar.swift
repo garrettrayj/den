@@ -20,19 +20,13 @@ struct Sidebar: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var activeProfile: Profile?
     @Binding var contentSelection: ContentPanel?
     @Binding var refreshing: Bool
-
-    @State private var searchInput: String = ""
 
     var body: some View {
         List(selection: $contentSelection) {
             if profile.pagesArray.isEmpty {
-                Start(
-                    profile: profile,
-                    contentSelection: $contentSelection
-                )
+                Start(profile: profile)
             } else {
                 InboxNav(
                     profile: profile,
@@ -78,7 +72,7 @@ struct Sidebar: View {
                     .disabled(refreshing || profile.pagesArray.isEmpty)
             }
             ToolbarItem {
-                AddFeedButton(contentSelection: $contentSelection, profile: profile)
+                AddFeedButton(contentSelection: $contentSelection)
                     .disabled(refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
             }
             ToolbarItemGroup(placement: .bottomBar) {

@@ -16,8 +16,6 @@ struct Start: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var contentSelection: ContentPanel?
-
     var body: some View {
         Section {
             Button {

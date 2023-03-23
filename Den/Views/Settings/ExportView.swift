@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ExportView: View {
-    let profile: Profile
+    @ObservedObject var profile: Profile
 
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false

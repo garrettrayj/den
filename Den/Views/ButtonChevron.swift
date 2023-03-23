@@ -11,13 +11,8 @@
 import SwiftUI
 
 struct ButtonChevron: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     var body: some View {
         Image(systemName: "chevron.forward")
-            .foregroundColor(
-                isEnabled ? Color(.tertiaryLabel) : Color(.quaternaryLabel)
-            )
             .imageScale(.small)
             .font(.body.weight(.semibold))
     }

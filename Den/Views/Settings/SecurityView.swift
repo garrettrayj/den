@@ -13,7 +13,8 @@ import SwiftUI
 struct SecurityView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    let profile: Profile
+    @ObservedObject var profile: Profile
+
     let queue = OperationQueue()
 
     @State private var remediationInProgress: Bool = false

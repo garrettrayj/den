@@ -18,8 +18,6 @@ struct InboxBottomBar: View {
         return refreshed
     }
 
-    @State var refreshedDateTimeStr: String = "Loading..."
-
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 

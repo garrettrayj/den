@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct FeedItemCompressed: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var item: Item
 
     var body: some View {

@@ -35,15 +35,13 @@ struct SplitView: View {
     @AppStorage("AutoRefreshEnabled") private var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") private var autoRefreshCooldown: Int = 30
     @AppStorage("UseInbuiltBrowser") private var useInbuiltBrowser: Bool = true
-
-    @SceneStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
+    @AppStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
 
     var body: some View {
         NavigationSplitView {
             Sidebar(
                 searchModel: searchModel,
                 profile: profile,
-                activeProfile: $activeProfile,
                 contentSelection: $contentSelection,
                 refreshing: $refreshing
             )

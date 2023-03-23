@@ -46,7 +46,6 @@ struct PageLayoutPicker: View {
             }
             .tag(PageLayout.deck)
             .accessibilityIdentifier("deck-page-layout-option")
-
         }
         .accessibilityIdentifier("page-layout-picker")
     }

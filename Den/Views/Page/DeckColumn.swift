@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct DeckColumn: View {
-    @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var feed: Feed

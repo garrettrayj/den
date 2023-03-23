@@ -12,9 +12,8 @@ import SwiftUI
 
 struct ImportView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.dismiss) private var dismiss
 
-    let profile: Profile
+    @ObservedObject var profile: Profile
 
     enum ImportStage {
         case pickFile, folderSelection, error, complete

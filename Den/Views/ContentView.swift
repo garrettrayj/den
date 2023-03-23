@@ -28,7 +28,7 @@ struct ContentView: View {
 
     let searchModel: SearchModel
 
-    @SceneStorage("HideRead") private var hideRead: Bool = false
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -55,6 +55,7 @@ struct ContentView: View {
                     }
                 case .settings:
                     SettingsView(
+                        profile: profile,
                         activeProfile: $activeProfile,
                         sceneProfileID: $sceneProfileID,
                         appProfileID: $appProfileID,
@@ -62,8 +63,7 @@ struct ContentView: View {
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        useInbuiltBrowser: $useInbuiltBrowser,
-                        profile: profile
+                        useInbuiltBrowser: $useInbuiltBrowser
                     )
                 }
             }
@@ -117,11 +117,11 @@ struct ContentView: View {
                     switch settingsPanel {
                     case .profileSettings(let profile):
                         ProfileSettings(
+                            profile: profile,
                             contentSelection: $contentSelection,
                             activeProfile: $activeProfile,
                             sceneProfileID: $sceneProfileID,
                             appProfileID: $appProfileID,
-                            profile: profile,
                             nameInput: profile.wrappedName,
                             tintSelection: profile.tint
                         )

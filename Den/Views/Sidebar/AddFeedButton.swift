@@ -13,8 +13,6 @@ import SwiftUI
 struct AddFeedButton: View {
     @Binding var contentSelection: ContentPanel?
 
-    let profile: Profile
-
     var body: some View {
         Button {
             if case .page(let page) = contentSelection {
