@@ -23,7 +23,7 @@ struct FeedHero: View {
                 .indicator(.activity)
                 .scaledToFit()
                 .cornerRadius(8)
-                .shadow(radius: 3, x: 1, y: 2)
+                .shadow(radius: 2, x: 1, y: 1)
                 .padding()
         }
         .aspectRatio(16/9, contentMode: .fit)

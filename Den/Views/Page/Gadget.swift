@@ -30,7 +30,6 @@ struct Gadget: View {
             }
             .buttonStyle(FeedTitleButtonStyle())
             .accessibilityIdentifier("gadget-feed-button")
-            .fixedSize(horizontal: false, vertical: true)
 
             if feed.feedData == nil || feed.feedData?.error != nil {
                 Divider()

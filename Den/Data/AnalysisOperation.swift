@@ -17,7 +17,7 @@ struct AnalysisOperation {
     func execute() async {
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
-            
+
             let workingTrends = self.analyzeTrends(profile: profile, context: context)
 
             for workingTrend in workingTrends {
@@ -38,10 +38,9 @@ struct AnalysisOperation {
                     } ?? TrendItem.create(in: context, trend: trend, item: item)
                 }
 
-                for trendItem in trend.trendItemsArray {
-                    if !workingTrend.items.contains(where: { $0 == trendItem.item }) {
-                        context.delete(trendItem)
-                    }
+                for trendItem in trend.trendItemsArray
+                where !workingTrend.items.contains(where: { $0 == trendItem.item }) {
+                    context.delete(trendItem)
                 }
             }
 
@@ -75,12 +74,12 @@ struct AnalysisOperation {
 
         for item in items {
             for (tokenText, tag) in item.wrappedTags {
-                let slug = tokenText.removingCharacters(in: .punctuationCharacters).lowercased()
-
-                if let workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == slug }) {
+                if let workingTrendIndex = workingTrends.firstIndex(where: { $0.slug == tokenText }) {
                     workingTrends[workingTrendIndex].items.append(item)
                 } else {
-                    workingTrends.append(WorkingTrend(slug: slug, tag: tag, title: tokenText, items: [item]))
+                    workingTrends.append(
+                        WorkingTrend(slug: tokenText, tag: tag, title: tokenText, items: [item])
+                    )
                 }
             }
         }

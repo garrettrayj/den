@@ -15,5 +15,6 @@ struct ButtonChevron: View {
         Image(systemName: "chevron.forward")
             .imageScale(.small)
             .font(.body.weight(.semibold))
+            .foregroundColor(.secondary)
     }
 }

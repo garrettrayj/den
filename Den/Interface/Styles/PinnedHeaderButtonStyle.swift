@@ -26,9 +26,13 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
             .background(
-                Rectangle()
-                    .fill(isEnabled && hovering ? Color(.tertiarySystemFill) : Color(.quaternarySystemFill))
+                Color(.secondarySystemFill)
+                    .opacity(isEnabled && hovering ? 1 : 0.8)
+                    #if targetEnvironment(macCatalyst)
                     .background(.thickMaterial)
+                    #else
+                    .background(.regularMaterial)
+                    #endif
             )
             .onHover { hovered in
                 hovering = hovered
