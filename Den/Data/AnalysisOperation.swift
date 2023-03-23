@@ -17,7 +17,7 @@ struct AnalysisOperation {
     func execute() async {
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
-
+            
             let workingTrends = self.analyzeTrends(profile: profile, context: context)
 
             for workingTrend in workingTrends {
@@ -36,6 +36,12 @@ struct AnalysisOperation {
                     _ = trend.trendItemsArray.first { trendItem in
                         trendItem.item == item
                     } ?? TrendItem.create(in: context, trend: trend, item: item)
+                }
+
+                for trendItem in trend.trendItemsArray {
+                    if !workingTrend.items.contains(where: { $0 == trendItem.item }) {
+                        context.delete(trendItem)
+                    }
                 }
             }
 
