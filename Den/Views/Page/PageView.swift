@@ -82,6 +82,7 @@ struct PageView: View {
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis.circle")
                 }
+                .accessibilityIdentifier("page-menu")
             }
             #endif
 

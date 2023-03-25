@@ -38,6 +38,7 @@ struct ItemView: View {
                             .font(.largeTitle)
                             .textSelection(.enabled)
                             .padding(.top, 8)
+                            .fixedSize(horizontal: false, vertical: true)
 
                         ViewThatFits(in: .horizontal) {
                             HStack(spacing: 4) {

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct FeedTitleButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
+
     @State private var hovering: Bool = false
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {

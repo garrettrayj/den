@@ -49,7 +49,7 @@ struct FeedSettings: View {
     }
 
     private var titleSection: some View {
-        Section(header: Text("Title").modifier(FormFirstHeaderModifier())) {
+        Section(header: Text("Title").modifier(FirstFormHeaderModifier())) {
             TextField("Title", text: $feed.wrappedTitle)
                 .modifier(FormRowModifier())
                 .modifier(TitleTextFieldModifier())

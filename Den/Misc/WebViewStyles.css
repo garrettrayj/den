@@ -17,6 +17,7 @@ body {
     accent-color: $TINT_COLOR;
     font: -apple-system-body;
     margin: 0;
+    overflow: hidden;
 }
 
 body > :first-child {

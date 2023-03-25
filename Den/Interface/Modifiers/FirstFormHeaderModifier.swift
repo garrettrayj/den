@@ -1,5 +1,5 @@
 //
-//  FormFirstHeaderModifier.swift
+//  FirstFormHeaderModifier.swift
 //  Den
 //
 //  Created by Garrett Johnson on 10/1/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FormFirstHeaderModifier: ViewModifier {
+struct FirstFormHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             #if targetEnvironment(macCatalyst)

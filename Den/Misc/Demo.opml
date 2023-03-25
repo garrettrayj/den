@@ -25,7 +25,6 @@
 			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
 			<outline text="The Conversation" title="The Conversation" type="rss" xmlUrl="https://theconversation.com/us/home-page/articles.atom" />
 			<outline text="Axios" title="Axios" type="rss" xmlUrl="https://api.axios.com/feed/" />
-			<outline text="Washington Post" title="Washington Post" type="rss" xmlUrl="https://feeds.washingtonpost.com/rss/national?itid=lk_inline_manual_32" />
 			<outline text="Washington Examiner" title="Washington Examiner" type="rss" xmlUrl="https://www.washingtonexaminer.com/news.rss" />
 			<outline text="The Washington Times" title="The Washington Times" type="rss" xmlUrl="https://www.washingtontimes.com/atom/headlines/news/national/" />
 			<outline text="The Hill" title="The Hill" type="rss" xmlUrl="https://thehill.com/news/feed/" />
@@ -57,7 +56,6 @@
 			<outline text="Fortune" title="Fortune" type="rss" xmlUrl="https://fortune.com/feed/fortune-feeds/?id=3230629" />
 			<outline text="Wired" title="Wired" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
 			<outline text="TheStreet" title="TheStreet" type="rss" xmlUrl="https://www.thestreet.com/.rss/full/" />
-			<outline text="Financial Times" title="Financial Times" type="rss" xmlUrl="https://www.ft.com/rss/home" />
 			<outline text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
 			<outline text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
 			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
@@ -65,6 +63,11 @@
 			<outline text="CNBC" title="CNBC" type="rss" xmlUrl="https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&amp;id=10001147" />
 		</outline>
 		<outline text="Science" title="Science">
+			<outline text="Scientific American" title="Scientific American" type="rss" xmlUrl="http://rss.sciam.com/ScientificAmerican-Global" />
+			<outline text="New Scientist" title="New Scientist" type="rss" xmlUrl="https://feeds.newscientist.com/home" />
+			<outline text="Botany One" title="Botany One" type="rss" xmlUrl="https://botany.one/feed/" />
+			<outline text="Nautilus" title="Nautilus" type="rss" xmlUrl="https://nautil.us/feed/" />
+			<outline text="CSIROscope" title="CSIROscope" type="rss" xmlUrl="https://blog.csiro.au/feed/" />
 			<outline text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed" />
 			<outline text="NeuroLogica Blog" title="NeuroLogica Blog" type="rss" xmlUrl="https://theness.com/neurologicablog/index.php/feed/" />
 			<outline text="symmetry magazine" title="symmetry magazine" type="rss" xmlUrl="https://www.symmetrymagazine.org/feed" />

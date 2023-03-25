@@ -32,7 +32,11 @@ struct Welcome: View {
                     SplashNote(title: profile.displayName, note: "Updated \(refreshedRelativeString)")
                 }
             } else {
-                SplashNote(title: profile.displayName)
+                if profile.pagesArray.isEmpty {
+                    SplashNote(title: "Welcome", note: "See the sidebar to begin.")
+                } else {
+                    SplashNote(title: profile.displayName)
+                }
             }
         }
         .toolbar {

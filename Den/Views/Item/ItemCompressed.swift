@@ -20,6 +20,7 @@ struct ItemCompressed: View {
                     .font(.headline)
                     .fontWeight(.semibold)
                     .lineLimit(6)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 ItemDateAuthor(item: item)
             }
@@ -31,6 +32,5 @@ struct ItemCompressed: View {
             }
         }
         .padding(12)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }

@@ -40,7 +40,7 @@ struct FeedLayout: View {
                                     AllRead()
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())
-                                        .modifier(SectionContentPaddingModifier())
+                                        .padding()
                                 } else {
                                     BoardView(
                                         width: geometry.size.width,
@@ -54,7 +54,7 @@ struct FeedLayout: View {
                                             }
                                         }
                                         .modifier(RaisedGroupModifier())
-                                    }.modifier(SectionContentPaddingModifier())
+                                    }.padding()
                                 }
                             } header: {
                                 Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
@@ -65,7 +65,7 @@ struct FeedLayout: View {
                                     AllRead()
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())
-                                        .modifier(SectionContentPaddingModifier())
+                                        .padding()
                                 } else {
                                     BoardView(
                                         width: geometry.size.width,
@@ -79,7 +79,7 @@ struct FeedLayout: View {
                                             }
                                         }
                                         .modifier(RaisedGroupModifier())
-                                    }.modifier(SectionContentPaddingModifier())
+                                    }.padding()
                                 }
                             } header: {
                                 Text("More").font(.title3).modifier(PinnedSectionHeaderModifier())

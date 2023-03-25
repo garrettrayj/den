@@ -21,12 +21,12 @@ struct ShowcaseSection: View {
         Section {
             if feed.feedData == nil || feed.feedData?.error != nil {
                 FeedUnavailable(feedData: feed.feedData)
-                    .modifier(SectionContentPaddingModifier())
+                    .padding()
             } else if items.isEmpty {
                 AllRead()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(RaisedGroupModifier())
-                    .modifier(SectionContentPaddingModifier())
+                    .padding()
             } else {
                 BoardView(
                     width: width,
@@ -41,7 +41,7 @@ struct ShowcaseSection: View {
                         }
                         .modifier(RaisedGroupModifier())
                     }
-                ).modifier(SectionContentPaddingModifier())
+                ).padding()
             }
         } header: {
             NavigationLink(value: DetailPanel.feed(feed)) {

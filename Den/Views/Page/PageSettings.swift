@@ -29,7 +29,7 @@ struct PageSettings: View {
     }
 
     private var nameIconSection: some View {
-        Section(header: Text("Name").modifier(FormFirstHeaderModifier())) {
+        Section(header: Text("Name").modifier(FirstFormHeaderModifier())) {
             TextField("Untitled", text: $page.wrappedName)
                 .modifier(FormRowModifier())
                 .modifier(TitleTextFieldModifier())

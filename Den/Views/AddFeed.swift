@@ -103,10 +103,13 @@ struct AddFeed: View {
             }
         } label: {
             Label {
-                Text("Add to \(targetPage?.wrappedName ?? "...")")
+                Text("Add to \(targetPage?.wrappedName ?? "…")")
             } icon: {
                 if loading {
-                    ProgressView().progressViewStyle(.circular).colorInvert().padding(.trailing, 4)
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .tint(Color.white)
+                        .padding(.trailing, 4)
                 } else {
                     Image(systemName: "note.text.badge.plus")
                 }
@@ -134,7 +137,9 @@ struct AddFeed: View {
                         .foregroundColor(Color(.systemGreen))
                         .fontWeight(.medium)
                 } else {
-                    Image(systemName: "slash.circle").foregroundColor(Color(.systemRed)).fontWeight(.medium)
+                    Image(systemName: "slash.circle")
+                        .foregroundColor(Color(.systemRed))
+                        .fontWeight(.medium)
                 }
             }
         }

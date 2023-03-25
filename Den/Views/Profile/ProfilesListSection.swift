@@ -42,7 +42,7 @@ struct ProfilesListSection: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("add-profile-button")
         } header: {
-            Text("Profiles").modifier(FormFirstHeaderModifier())
+            Text("Profiles").modifier(FirstFormHeaderModifier())
         }
     }
 

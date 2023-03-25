@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct RaisedGroupModifier: ViewModifier {
-    @Environment(\.colorScheme) private var colorScheme
-
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)

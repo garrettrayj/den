@@ -32,10 +32,8 @@ struct Start: View {
                 Label("Add a New Page", systemImage: "plus")
             }
             .buttonStyle(.borderless)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .modifier(StartRowModifier())
             .accessibilityIdentifier("start-add-page-button")
+
             Button {
                 loadDemo()
             } label: {
@@ -46,19 +44,23 @@ struct Start: View {
                 }
             }
             .buttonStyle(.borderless)
-            .padding(.horizontal, 8)
-            .padding(.top, 4)
-            .modifier(StartRowModifier())
             .accessibilityIdentifier("load-demo-button")
 
+            #if targetEnvironment(macCatalyst)
             Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
                 .font(.footnote)
                 .foregroundColor(Color(.secondaryLabel))
                 .imageScale(.small)
-                .padding(.vertical, 16)
-                .multilineTextAlignment(.center)
+                .padding(.vertical)
+            #endif
         } header: {
             Text("Get Started")
+        } footer: {
+            Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
+                .font(.footnote)
+                .foregroundColor(Color(.secondaryLabel))
+                .imageScale(.small)
+                .padding(.vertical, 4)
         }
     }
 

@@ -79,7 +79,7 @@ struct ProfileSettings: View {
                 .modifier(FormRowModifier())
                 .modifier(TitleTextFieldModifier())
         } header: {
-            Text("Name").modifier(FormFirstHeaderModifier())
+            Text("Name").modifier(FirstFormHeaderModifier())
         }
     }
 

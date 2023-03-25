@@ -12,6 +12,7 @@ import SwiftUI
 
 struct PinnedHeaderButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled: Bool
+
     @State private var hovering: Bool = false
 
     var leadingPadding: CGFloat = 28

@@ -67,7 +67,10 @@ struct ImportView: View {
     private var pickFileStage: some View {
         VStack {
             Spacer()
-            Text("Choose an OPML file to add feeds from. You will be able to pick pages in the next step.")
+            Text("""
+            Tap \(Image(systemName: "filemenu.and.cursorarrow")) Select File \
+            to choose an OPML file to add feeds from. Pick pages to import next.
+            """)
                 .multilineTextAlignment(.center)
                 .padding(24)
             Spacer()
@@ -76,7 +79,7 @@ struct ImportView: View {
 
     private var folderSelectionStage: some View {
         Form {
-            Section(header: selectionSectionHeader) {
+            Section(header: selectionSectionHeader.modifier(FirstFormHeaderModifier())) {
                 ForEach(opmlFolders, id: \.name) { folder in
                     Button { toggleFolder(folder) } label: {
                         Label {

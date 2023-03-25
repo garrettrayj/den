@@ -21,7 +21,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "rectangle.grid.3x2")
             }
             .tag(PageLayout.gadgets)
-            .accessibilityIdentifier("gadgets-page-layout-option")
+            .accessibilityIdentifier("gadgets-layout-button")
 
             Label {
                 Text("Blend")
@@ -29,7 +29,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "square.grid.3x3")
             }
             .tag(PageLayout.blend)
-            .accessibilityIdentifier("blend-page-layout-option")
+            .accessibilityIdentifier("blend-layout-button")
 
             Label {
                 Text("Showcase")
@@ -37,7 +37,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "square.grid.3x1.below.line.grid.1x2")
             }
             .tag(PageLayout.showcase)
-            .accessibilityIdentifier("showcase-page-layout-option")
+            .accessibilityIdentifier("showcase-layout-button")
 
             Label {
                 Text("Deck")
@@ -45,7 +45,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "rectangle.split.3x1")
             }
             .tag(PageLayout.deck)
-            .accessibilityIdentifier("deck-page-layout-option")
+            .accessibilityIdentifier("deck-layout-button")
         }
         .accessibilityIdentifier("page-layout-picker")
     }

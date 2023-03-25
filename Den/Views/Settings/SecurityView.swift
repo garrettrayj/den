@@ -50,7 +50,7 @@ struct SecurityView: View {
                 Text("No Problems")
             } icon: {
                 Image(systemName: "checkmark.shield")
-            }.modifier(FormFirstHeaderModifier())
+            }.modifier(FirstFormHeaderModifier())
         }
     }
 
@@ -90,7 +90,7 @@ struct SecurityView: View {
             } icon: {
                 Image(systemName: "exclamationmark.shield")
             }
-            .modifier(FormFirstHeaderModifier())
+            .modifier(FirstFormHeaderModifier())
         } footer: {
             Text("Feeds will be updated to use HTTPS when available.")
         }

@@ -10,7 +10,6 @@
 
 import Foundation
 
-/// Raw representable so values may be stored in scene storage
 enum ContentPanel: Hashable {
     case welcome
     case search
