@@ -25,7 +25,6 @@
 		681AEAF929954AC70054B084 /* FeedHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681AEAF829954AC70054B084 /* FeedHero.swift */; };
 		681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */; };
 		681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */; };
-		681DE1102928259800D2F7B2 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681DE10F2928259800D2F7B2 /* SearchModel.swift */; };
 		681E6F132741AD8F00C74590 /* FormRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681E6F122741AD8F00C74590 /* FormRowModifier.swift */; };
 		681F0C242933B1830037C609 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681F0C232933B1830037C609 /* AppDelegate.swift */; };
 		681F0C262933F4C10037C609 /* ProfileSettingsHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681F0C252933F4C10037C609 /* ProfileSettingsHistorySection.swift */; };
@@ -290,7 +289,6 @@
 		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHero.swift; sourceTree = "<group>"; };
-		681DE10F2928259800D2F7B2 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		681E6F122741AD8F00C74590 /* FormRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRowModifier.swift; sourceTree = "<group>"; };
 		681F0C232933B1830037C609 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		681F0C252933F4C10037C609 /* ProfileSettingsHistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsHistorySection.swift; sourceTree = "<group>"; };
@@ -689,7 +687,6 @@
 				68B34A5C2486D2710066B215 /* Representables */,
 				688FD91B24780C800006A2DE /* Styles */,
 				682A349F28E57E67004CD90E /* Haptics.swift */,
-				681DE10F2928259800D2F7B2 /* SearchModel.swift */,
 				6835738429602A7F00843A8E /* Environment.swift */,
 				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
 				680F494F29AA56BE0083B664 /* WithItems.swift */,
@@ -1403,7 +1400,6 @@
 				6832AF262789419700CFC8CA /* ProfileSettings.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
 				68C41316247263C700D1DC7B /* RootView.swift in Sources */,
-				681DE1102928259800D2F7B2 /* SearchModel.swift in Sources */,
 				680F495629ABEF140083B664 /* ThumbnailModifier.swift in Sources */,
 				68F56B452870C067006EC915 /* TrendBlock.swift in Sources */,
 				68ADABC324A21F2500BE41E2 /* Welcome.swift in Sources */,
