@@ -25,6 +25,14 @@ Buy [Den for RSS on the App Store](https://apps.apple.com/us/app/den-for-rss/id1
 * [Create an Issue](https://github.com/garrettrayj/den/issues/new) to report a bug or request an enhancement.
 * [Email the developer](mailto:garrett@devsci.net) anytime for anything.
 
+## Development Quickstart
+
+1. Clone the project from GitHub
+2. Open in Xcode
+3. Update development team settings
+4. Select the "Den" scheme and device
+5. Run the scheme
+
 ### Extras
 
 1. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results. `brew install chargepoint/xcparse/xcparse`
