@@ -20,7 +20,7 @@ Buy [Den for RSS on the App Store](https://apps.apple.com/us/app/den-for-rss/id1
 ## Connect
 
 * [Follow the RSS feed](https://den.io/feed.rss) to keep up with news and announcements.
-* [Join the Discord](https://discord.gg/NS9hMrYrnt) to chat and get see what's going on behind the scene.
+* [Join the Discord](https://discord.gg/NS9hMrYrnt) to chat and get see what's going on behind the scenes.
 * [Start a Discussion](https://github.com/garrettrayj/den/discussions/new) to share an idea or ask a question.
 * [Create an Issue](https://github.com/garrettrayj/den/issues/new) to report a bug or request an enhancement.
 * [Email the developer](mailto:garrett@devsci.net) anytime for anything.
