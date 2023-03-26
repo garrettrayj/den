@@ -24,7 +24,7 @@ struct SidebarStatus: View {
             if refreshing {
                 ProgressView(progress).progressViewStyle(
                     BottomBarProgressViewStyle(profile: profile)
-                )
+                ).frame(width: 100)
             } else {
                 if profile.pagesArray.isEmpty {
                     Text("Profile Empty")

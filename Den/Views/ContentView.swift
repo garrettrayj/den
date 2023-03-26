@@ -25,8 +25,7 @@ struct ContentView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useInbuiltBrowser: Bool
     @Binding var refreshing: Bool
-
-    let searchModel: SearchModel
+    @Binding var searchQuery: String
 
     @AppStorage("HideRead") private var hideRead: Bool = false
 
@@ -37,7 +36,7 @@ struct ContentView: View {
                 case .welcome:
                     Welcome(profile: profile, refreshing: $refreshing)
                 case .search:
-                    SearchView(profile: profile, searchModel: searchModel)
+                    SearchView(profile: profile, query: searchQuery)
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
                 case .trends:

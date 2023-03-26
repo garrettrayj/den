@@ -16,13 +16,15 @@ struct SearchView: View {
     private var searchResults: FetchedResults<Item>
 
     @ObservedObject var profile: Profile
-    @ObservedObject var searchModel: SearchModel
 
-    init(profile: Profile, searchModel: SearchModel) {
-        _searchModel = ObservedObject(wrappedValue: searchModel)
+    var query: String
+
+    init(profile: Profile, query: String) {
+        self.query = query
+
         _profile = ObservedObject(wrappedValue: profile)
 
-        let trimmedQuery = searchModel.query.trimmingCharacters(in: .whitespaces)
+        let trimmedQuery = query.trimmingCharacters(in: .whitespaces)
 
         let profilePredicate = NSPredicate(
             format: "feedData.id IN %@",
@@ -52,13 +54,13 @@ struct SearchView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            if searchModel.query == "" {
+            if query == "" {
                 SplashNote(
                     title: "Searching \(profile.wrappedName)",
                     symbol: "magnifyingglass"
                 )
             } else if searchResults.isEmpty {
-                SplashNote(title: "No items found for “\(searchModel.query)”")
+                SplashNote(title: "No items found for “\(query)”")
             } else {
                 ScrollView(.vertical) {
                     BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
@@ -71,7 +73,11 @@ struct SearchView: View {
         .navigationTitle("Search")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                Text("Results for “\(searchModel.query)”").font(.caption)
+                if query.isEmpty {
+                    Text("Enter a word or phrase to look for in item titles.").font(.caption)
+                } else {
+                    Text("Results for “\(query)”").font(.caption)
+                }
             }
         }
     }

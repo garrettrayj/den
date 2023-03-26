@@ -24,8 +24,7 @@ struct SplitView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var uiStyle: UIUserInterfaceStyle
 
-    @StateObject private var searchModel = SearchModel()
-
+    @State private var searchQuery: String = ""
     @State private var contentSelection: ContentPanel?
     @State private var refreshing: Bool = false
     @State private var showSubscribe = false
@@ -40,10 +39,10 @@ struct SplitView: View {
     var body: some View {
         NavigationSplitView {
             Sidebar(
-                searchModel: searchModel,
                 profile: profile,
                 contentSelection: $contentSelection,
-                refreshing: $refreshing
+                refreshing: $refreshing,
+                searchQuery: $searchQuery
             )
         } detail: {
             ContentView(
@@ -58,7 +57,7 @@ struct SplitView: View {
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 useInbuiltBrowser: $useInbuiltBrowser,
                 refreshing: $refreshing,
-                searchModel: searchModel
+                searchQuery: $searchQuery
             )
         }
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)

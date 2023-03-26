@@ -16,12 +16,11 @@ struct Sidebar: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject var networkMonitor: NetworkMonitor
 
-    let searchModel: SearchModel
-
     @ObservedObject var profile: Profile
 
     @Binding var contentSelection: ContentPanel?
     @Binding var refreshing: Bool
+    @Binding var searchQuery: String
 
     var body: some View {
         List(selection: $contentSelection) {
@@ -30,8 +29,8 @@ struct Sidebar: View {
             } else {
                 InboxNav(
                     profile: profile,
-                    searchModel: searchModel,
-                    contentSelection: $contentSelection
+                    contentSelection: $contentSelection,
+                    searchQuery: $searchQuery
                 )
                 TrendingNav(profile: profile)
                 Section {

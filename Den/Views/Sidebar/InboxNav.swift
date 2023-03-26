@@ -16,11 +16,10 @@ struct InboxNav: View {
 
     @ObservedObject var profile: Profile
 
-    let searchModel: SearchModel
-
     @Binding var contentSelection: ContentPanel?
+    @Binding var searchQuery: String
 
-    @State private var searchInput = ""
+    @State private var searchInput: String = ""
 
     var body: some View {
         NavigationLink(value: ContentPanel.inbox) {
@@ -37,7 +36,7 @@ struct InboxNav: View {
                 placement: .navigationBarDrawer(displayMode: .always)
             )
             .onSubmit(of: .search) {
-                searchModel.query = searchInput
+                searchQuery = searchInput
                 contentSelection = .search
             }
             .disabled(editMode?.wrappedValue == .active)
