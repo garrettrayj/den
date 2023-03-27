@@ -23,6 +23,7 @@ struct ItemExpanded: View {
                 .font(.headline)
                 .fontWeight(.semibold)
                 .lineLimit(6)
+                .fixedSize(horizontal: false, vertical: true)
 
             ItemDateAuthor(item: item)
 
@@ -33,12 +34,15 @@ struct ItemExpanded: View {
             }
 
             if showTeaser {
-                Text(item.teaser!).font(.body).lineLimit(6).padding(.top, 4)
+                Text(item.teaser!)
+                    .font(.body)
+                    .lineLimit(6)
+                    .padding(.top, 4)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }
