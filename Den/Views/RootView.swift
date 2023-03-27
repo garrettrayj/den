@@ -17,15 +17,13 @@ struct RootView: View {
 
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
+    @Binding var activeProfile: Profile?
 
-    @State private var activeProfile: Profile?
     @State private var showCrashMessage = false
     @State private var profileLoadAttempts = 0
     @State private var profileMissing = true
 
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
-
-    @SceneStorage("SceneProfileID") private var sceneProfileID: String?
 
     var body: some View {
         Group {
@@ -39,7 +37,6 @@ struct RootView: View {
                         profile: profile,
                         activeProfile: $activeProfile,
                         appProfileID: $appProfileID,
-                        sceneProfileID: $sceneProfileID,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         uiStyle: $uiStyle
                     )
@@ -98,7 +95,6 @@ struct RootView: View {
             if
                 let profiles = try viewContext.fetch(Profile.fetchRequest()) as? [Profile],
                 let profile =
-                    profiles.firstMatchingID(sceneProfileID ?? "") ??
                     profiles.firstMatchingID(appProfileID ?? "") ??
                     profiles.first,
                 profile.managedObjectContext != nil
@@ -121,7 +117,6 @@ struct RootView: View {
     }
 
     private func activateProfile(_ profile: Profile) {
-        sceneProfileID = profile.id?.uuidString
         appProfileID = profile.id?.uuidString
         activeProfile = profile
     }

@@ -14,7 +14,6 @@ struct SettingsView: View {
     @ObservedObject var profile: Profile
 
     @Binding var activeProfile: Profile?
-    @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
@@ -24,7 +23,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            ProfilesListSection(sceneProfileID: $sceneProfileID)
+            ProfilesListSection(activeProfile: $activeProfile)
             FeedsSettingsSection()
             #if !targetEnvironment(macCatalyst)
             BrowserSettingsSection(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
@@ -37,7 +36,6 @@ struct SettingsView: View {
             )
             ResetSettingsSection(
                 activeProfile: $activeProfile,
-                sceneProfileID: $sceneProfileID,
                 appProfileID: $appProfileID,
                 profile: profile
             )

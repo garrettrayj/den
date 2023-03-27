@@ -20,7 +20,9 @@ struct DenApp: App {
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("AppProfileID") var appProfileID: String?
 
-    @StateObject var networkMonitor = NetworkMonitor()
+    @StateObject private var networkMonitor = NetworkMonitor()
+
+    @State private var activeProfile: Profile?
 
     let persistenceController = PersistenceController.shared
 
@@ -28,10 +30,33 @@ struct DenApp: App {
         WindowGroup {
             RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                appProfileID: $appProfileID
+                appProfileID: $appProfileID,
+                activeProfile: $activeProfile
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
+        }
+        .commands {
+            CommandGroup(after: .sidebar) {
+                Divider()
+                Button {
+                    Task {
+                        guard let profile = activeProfile else { return }
+                        await RefreshUtility.refresh(profile: profile)
+                    }
+                } label: {
+                    Text("Refresh")
+                }
+                .keyboardShortcut("r", modifiers: [.command])
+            }
+            CommandGroup(after: .importExport) {
+                Button {
+                    SubscriptionUtility.showSubscribe()
+                } label: {
+                    Text("Add Feed")
+                }
+                .keyboardShortcut("d", modifiers: [.command])
+            }
         }
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh()

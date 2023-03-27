@@ -16,7 +16,6 @@ struct ContentView: View {
     @ObservedObject var profile: Profile
 
     @Binding var activeProfile: Profile?
-    @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
     @Binding var contentSelection: ContentPanel?
     @Binding var uiStyle: UIUserInterfaceStyle
@@ -56,7 +55,6 @@ struct ContentView: View {
                     SettingsView(
                         profile: profile,
                         activeProfile: $activeProfile,
-                        sceneProfileID: $sceneProfileID,
                         appProfileID: $appProfileID,
                         uiStyle: $uiStyle,
                         autoRefreshEnabled: $autoRefreshEnabled,
@@ -119,7 +117,6 @@ struct ContentView: View {
                             profile: profile,
                             contentSelection: $contentSelection,
                             activeProfile: $activeProfile,
-                            sceneProfileID: $sceneProfileID,
                             appProfileID: $appProfileID,
                             nameInput: profile.wrappedName,
                             tintSelection: profile.tint

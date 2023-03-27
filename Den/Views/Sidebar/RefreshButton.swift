@@ -25,7 +25,6 @@ struct RefreshButton: View {
             Label("Refresh", systemImage: "arrow.clockwise")
         }
         .buttonStyle(PlainToolbarButtonStyle())
-        .keyboardShortcut("r", modifiers: [.command])
         .accessibilityIdentifier("profile-refresh-button")
     }
 }

@@ -20,7 +20,6 @@ struct SplitView: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    @Binding var sceneProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var uiStyle: UIUserInterfaceStyle
 
@@ -48,7 +47,6 @@ struct SplitView: View {
             ContentView(
                 profile: profile,
                 activeProfile: $activeProfile,
-                sceneProfileID: $sceneProfileID,
                 appProfileID: $appProfileID,
                 contentSelection: $contentSelection,
                 uiStyle: $uiStyle,

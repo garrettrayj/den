@@ -16,7 +16,6 @@ struct ResetSettingsSection: View {
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfile: Profile?
-    @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
 
     @ObservedObject var profile: Profile
@@ -140,7 +139,6 @@ struct ResetSettingsSection: View {
 
                 activeProfile = defaultProfile
                 appProfileID = defaultProfile.id?.uuidString
-                sceneProfileID = defaultProfile.id?.uuidString
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

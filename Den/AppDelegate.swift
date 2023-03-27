@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         builder.remove(menu: .services)
         builder.remove(menu: .format)
         builder.remove(menu: .toolbar)
+        builder.remove(menu: .edit)
+        builder.remove(menu: .document)
     }
 
     func application(

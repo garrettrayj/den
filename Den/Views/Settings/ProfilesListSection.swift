@@ -13,7 +13,7 @@ import SwiftUI
 struct ProfilesListSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var sceneProfileID: String?
+    @Binding var activeProfile: Profile?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -25,7 +25,7 @@ struct ProfilesListSection: View {
                     Label {
                         Text(profile.displayName)
                     } icon: {
-                        Image(systemName: profile.id?.uuidString == sceneProfileID ? "hexagon.fill" : "hexagon")
+                        Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
                             .foregroundColor(profile.tintColor ?? Color(.secondaryLabel))
                     }
                 }

@@ -18,7 +18,6 @@ struct ProfileSettings: View {
 
     @Binding var contentSelection: ContentPanel?
     @Binding var activeProfile: Profile?
-    @Binding var sceneProfileID: String?
     @Binding var appProfileID: String?
 
     @State var nameInput: String
@@ -42,7 +41,6 @@ struct ProfileSettings: View {
             ToolbarItem(placement: .bottomBar) {
                 Button {
                     DispatchQueue.main.async {
-                        sceneProfileID = profile.id?.uuidString
                         appProfileID = profile.id?.uuidString
                         activeProfile = profile
                         contentSelection = nil
@@ -53,8 +51,7 @@ struct ProfileSettings: View {
                 }
                 .labelStyle(.titleAndIcon)
                 .buttonStyle(PlainToolbarButtonStyle())
-                .disabled(isActive)
-                .foregroundColor(isActive ? Color(.secondaryLabel) : nil)
+                .disabled(profile == activeProfile)
                 .accessibilityIdentifier("switch-to-profile-button")
             }
         }
@@ -93,10 +90,6 @@ struct ProfileSettings: View {
         }
     }
 
-    private var isActive: Bool {
-        profile.id?.uuidString == sceneProfileID
-    }
-
     private var deleteSection: some View {
         Section {
             Button(role: .destructive) {
@@ -133,7 +126,6 @@ struct ProfileSettings: View {
 
             do {
                 try context.save()
-                sceneProfileID = nil
                 appProfileID = nil
                 activeProfile = nil
                 contentSelection = nil
