@@ -20,6 +20,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
 
     private var feedTask: URLSessionTask?
     private var webpageTask: URLSessionTask?
+    private var start: Double?
 
     init(feedURL: URL, feedObjectID: NSManagedObjectID, updateMeta: Bool) {
         self.feedURL = feedURL
@@ -34,7 +35,9 @@ final class FeedUpdateOperation: AsynchronousOperation {
         super.cancel()
     }
 
+    // swiftlint:disable function_body_length
     override func main() {
+        start = CFAbsoluteTimeGetCurrent()
         let feedRequest = URLRequest(url: feedURL)
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
 
@@ -42,6 +45,9 @@ final class FeedUpdateOperation: AsynchronousOperation {
             with: feedRequest,
             completionHandler: { [self] data, _, _ in
                 PersistenceController.shared.container.performBackgroundTask { context in
+                    context.automaticallyMergesChangesFromParent = true
+                    context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
+
                     guard
                         let feed = context.object(with: self.feedObjectID) as? Feed,
                         let feedID = feed.id
@@ -210,7 +216,10 @@ final class FeedUpdateOperation: AsynchronousOperation {
     private func save(context: NSManagedObjectContext, feed: Feed) {
         do {
             try context.save()
-            Logger.ingest.info("Feed updated: \(feed.wrappedTitle)")
+            if let start = start {
+                let duration = CFAbsoluteTimeGetCurrent() - start
+                Logger.ingest.info("Feed updated in \(duration) seconds: \(feed.wrappedTitle)")
+            }
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

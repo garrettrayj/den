@@ -22,6 +22,7 @@ struct FeedUpdateTask {
 
     // swiftlint:disable cyclomatic_complexity function_body_length
     func execute() async {
+        let start = CFAbsoluteTimeGetCurrent()
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpageMetadata: WebpageMetadata?
 
@@ -41,6 +42,9 @@ struct FeedUpdateTask {
         }
 
         await container.performBackgroundTask { context in
+            context.automaticallyMergesChangesFromParent = true
+            context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
+
             guard
                 let feed = context.object(with: self.feedObjectID) as? Feed,
                 let feedId = feed.id
@@ -87,7 +91,8 @@ struct FeedUpdateTask {
 
             do {
                 try context.save()
-                Logger.ingest.info("Feed updated: \(feed.wrappedTitle)")
+                let duration = CFAbsoluteTimeGetCurrent() - start
+                Logger.ingest.info("Feed updated in \(duration) seconds: \(feed.wrappedTitle)")
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
