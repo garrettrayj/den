@@ -1,9 +1,9 @@
 //
-//  CleanOperation.swift
+//  HistoryCleanupOperation.swift
 //  Den
 //
-//  Created by Garrett Johnson on 10/31/22.
-//  Copyright © 2022 Garrett Johnson
+//  Created by Garrett Johnson on 4/1/23.
+//  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
 //
@@ -11,37 +11,26 @@
 import CoreData
 import OSLog
 
-struct CleanOperation {
-    unowned let container: NSPersistentContainer
-    unowned let profileObjectID: NSManagedObjectID
+final class HistoryCleanupOperation: Operation {
 
-    func execute() async {
-        let defaults = UserDefaults.standard
-
-        await container.performBackgroundTask { context in
-            guard let profile = context.object(with: self.profileObjectID) as? Profile else { return }
-
-            try? self.cleanupData(context: context)
-
-            if
-                let lastCleaned = defaults.object(forKey: "LastCleaned") as? Date,
-                lastCleaned + 7 * 24 * 60 * 60 < .now
-            {
-                Logger.main.info("Performing history cleanup")
+    override func main() {
+        PersistenceController.shared.container.performBackgroundTask { context in
+            let fetchRequest = Profile.fetchRequest()
+            guard let profiles = try? context.fetch(fetchRequest) as [Profile] else { return }
+            for profile in profiles {
                 try? self.cleanupHistory(context: context, profile: profile)
             }
-
             try? context.save()
         }
-
-        defaults.set(Date.now, forKey: "LastCleaned")
     }
 
     private func cleanupHistory(context: NSManagedObjectContext, profile: Profile) throws {
         if profile.historyRetention == 0 {
-            Logger.main.info("Skipping history cleanup, retention is not limited")
+            Logger.main.info("""
+            History cleanup skipped for profile: \(profile.wrappedName). \
+            Retention period is unlimited
+            """)
             return
-
         }
 
         let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
@@ -74,20 +63,6 @@ struct CleanOperation {
             fromRemoteContextSave: deletedObjects,
             into: [context]
         )
-
-        Logger.main.info("History prune finished")
-    }
-
-    /**
-     Remove abandoned FeedData entities. Related Item entities will also be removed via cascade.
-     */
-    private func cleanupData(context: NSManagedObjectContext) throws {
-        var orphansPurged = 0
-        let feedDatas = try context.fetch(FeedData.fetchRequest()) as [FeedData]
-        for feedData in feedDatas where feedData.feed == nil {
-            context.delete(feedData)
-            orphansPurged += 1
-        }
-        Logger.main.info("Purged \(orphansPurged) orphaned feed data caches")
+        Logger.main.info("History cleanup finished for profile: \(profile.wrappedName)")
     }
 }

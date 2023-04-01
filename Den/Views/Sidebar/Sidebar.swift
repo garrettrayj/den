@@ -14,7 +14,7 @@ import SwiftUI
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @EnvironmentObject var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
 
@@ -58,8 +58,8 @@ struct Sidebar: View {
         #else
         .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)
         .refreshable {
-            if !refreshing && networkMonitor.isConnected {
-                await RefreshUtility.refresh(profile: profile)
+            if networkMonitor.isConnected {
+                await RefreshManager.refresh(profile: profile)
             }
         }
         #endif

@@ -20,12 +20,12 @@ struct ItemCompressed: View {
                     .font(.headline)
                     .fontWeight(.semibold)
                     .lineLimit(6)
-                    .fixedSize(horizontal: false, vertical: true)
 
                 ItemDateAuthor(item: item)
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
+            .fixedSize(horizontal: false, vertical: true)
 
             if item.feedData?.feed?.showThumbnails == true {
                 ItemThumbnailImage(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)

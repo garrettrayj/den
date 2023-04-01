@@ -17,9 +17,9 @@ struct RefreshButton: View {
 
     var body: some View {
         Button {
-            guard !refreshing else { return }
             Task {
-                await RefreshUtility.refresh(profile: profile)
+                guard !refreshing else { return }
+                await RefreshManager.refresh(profile: profile)
             }
         } label: {
             Label("Refresh", systemImage: "arrow.clockwise")

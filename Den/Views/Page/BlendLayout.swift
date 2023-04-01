@@ -19,10 +19,6 @@ struct BlendLayout: View {
     var body: some View {
         WithItems(
             scopeObject: page,
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Item.feedData?.id, ascending: false),
-                NSSortDescriptor(keyPath: \Item.published, ascending: false)
-            ],
             readFilter: hideRead ? false : nil
         ) { items in
             if items.isEmpty {

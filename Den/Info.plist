@@ -4,6 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
+		<string>net.devsci.den.cleanup</string>
 		<string>net.devsci.den.refresh</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>

@@ -97,7 +97,7 @@ struct AddFeed: View {
             if urlIsValid == true {
                 addFeed()
                 Task {
-                    await RefreshUtility.refresh(feed: newFeed!)
+                    await RefreshManager.refresh(feed: newFeed!)
                     dismiss()
                 }
             }

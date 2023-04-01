@@ -2,44 +2,62 @@
 //  RefreshManager.swift
 //  Den
 //
-//  Created by Garrett Johnson on 10/30/22.
-//  Copyright © 2022 Garrett Johnson
+//  Created by Garrett Johnson on 4/1/23.
+//  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
 //
 
 import CoreData
-import SwiftUI
+import OSLog
 
-import FeedKit
+struct RefreshManager {
+    static func refresh(profile: Profile) {
+        var ops: [Operation] = []
 
-struct RefreshUtility {
-    static func refresh(profile: Profile) async {
+        let analyzeOperation = AnalyzeOperation(profileObjectID: profile.objectID)
+        ops.append(analyzeOperation)
+
+        for feed in profile.feedsArray {
+            guard let url = feed.url else { continue }
+            let op = FeedUpdateOperation(
+                feedURL: url,
+                feedObjectID: feed.objectID,
+                updateMeta: feed.needsMetaUpdate
+            )
+            analyzeOperation.addDependency(op)
+            ops.append(op)
+        }
+
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = min(4, ProcessInfo().activeProcessorCount)
+        queue.addOperations(ops, waitUntilFinished: true)
+
+        RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
+        profile.objectWillChange.send()
+    }
+
+    static func refresh(
+        profile: Profile,
+        container: NSPersistentContainer = PersistenceController.shared.container,
+        session: URLSession = URLSession.shared
+    ) async {
         let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
-        let container = PersistenceController.shared.container
 
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
         }
 
-        var feedOps: [FeedRefreshOperation] = []
+        var feedUpdateTasks: [FeedUpdateTask] = []
         for feed in profile.feedsArray {
             if let url = feed.url {
-                var fetchMeta = false
-                // Fetch meta (favicon, etc.) on first refresh or if user cleared cache,
-                // then check for updates occasionally
-                if feed.feedData?.metaFetched == nil ||
-                    feed.feedData!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
-                    fetchMeta = true
-                }
-
-                feedOps.append(
-                    FeedRefreshOperation(
+                feedUpdateTasks.append(
+                    FeedUpdateTask(
                         container: container,
                         feedObjectID: feed.objectID,
                         pageObjectID: feed.page?.objectID,
                         url: url,
-                        updateMetadata: fetchMeta
+                        updateMetadata: feed.needsMetaUpdate
                     )
                 )
             }
@@ -47,30 +65,22 @@ struct RefreshUtility {
 
         _ = await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
                 var working: Int = 0
-                for operation in feedOps {
+                for task in feedUpdateTasks {
                     if working >= maxConcurrency {
                         await taskGroup.next()
                         working = 0
                     }
-
-                    taskGroup.addTask {
-                        _ = await operation.execute()
-                    }
+                    taskGroup.addTask { _ = await task.execute() }
                     working += 1
                 }
                 await taskGroup.waitForAll()
-
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
                 }
             }
         )
 
-        let cleanOperation = CleanOperation(container: container, profileObjectID: profile.objectID)
-        await cleanOperation.execute()
-
-        let analysisOperation = AnalysisOperation(container: container, profileObjectID: profile.objectID)
-        await analysisOperation.execute()
+        await AnalyzeTask(container: container, profileObjectID: profile.objectID).execute()
 
         DispatchQueue.main.async {
             RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
@@ -82,21 +92,14 @@ struct RefreshUtility {
         let container = PersistenceController.shared.container
 
         if let url = feed.url {
-            var fetchMeta = false
-            // Fetch meta (favicon, etc.) on first refresh or if user cleared cache, then check for updates occasionally
-            if feed.feedData?.metaFetched == nil ||
-                feed.feedData!.metaFetched! < Date(timeIntervalSinceNow: -30 * 24 * 60 * 60) {
-                fetchMeta = true
-            }
-
-            let feedOp = FeedRefreshOperation(
+            let feedUpdateTask = FeedUpdateTask(
                 container: container,
                 feedObjectID: feed.objectID,
                 pageObjectID: feed.page?.objectID,
                 url: url,
-                updateMetadata: fetchMeta
+                updateMetadata: true
             )
-            _ = await feedOp.execute()
+            _ = await feedUpdateTask.execute()
         }
     }
 }

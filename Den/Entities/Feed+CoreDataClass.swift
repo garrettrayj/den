@@ -41,6 +41,14 @@ public class Feed: NSManagedObject {
         set {url = URL(string: newValue)}
     }
 
+    public var needsMetaUpdate: Bool {
+        if feedData?.metaFetched == nil ||
+            feedData!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
+            return true
+        }
+        return false
+    }
+
     public var urlSchemeSymbol: String {
         if url?.scheme?.contains("https") == true {
             return "lock"
