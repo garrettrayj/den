@@ -28,7 +28,6 @@ struct JSONFeedUpdate {
         feedData.link = source.webpage
 
         if let sourceItems = source.items {
-            let existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
             for sourceItem in sourceItems.prefix(feed.wrappedItemLimit + AppDefaults.extraItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = sourceItem.linkURL else {
@@ -37,7 +36,7 @@ struct JSONFeedUpdate {
                 }
 
                 // Continue if item already exists
-                if existingItemLinks.contains(itemLink) {
+                if feedData.itemsArray.compactMap({ $0.link }).contains(itemLink) {
                     continue
                 }
 

@@ -32,7 +32,7 @@ struct TrendBlock: View {
     var uniqueFaviconURLs: [URL] {
         trend.feeds.compactMap { feed in
             feed.feedData?.favicon
-        }.unique
+        }.uniqueElements()
     }
 
     var body: some View {

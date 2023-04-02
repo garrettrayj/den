@@ -11,12 +11,12 @@
 import Foundation
 
 extension Array where Element: Equatable {
-    var unique: [Element] {
-        var uniqueValues: [Element] = []
-        forEach { item in
-            guard !uniqueValues.contains(item) else { return }
-            uniqueValues.append(item)
+    func uniqueElements() -> [Element] {
+        var out = [Element]()
+        for element in self where !out.contains(element) {
+            out.append(element)
         }
-        return uniqueValues
+
+        return out
     }
 }

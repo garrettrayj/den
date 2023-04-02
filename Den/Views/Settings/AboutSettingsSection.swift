@@ -39,10 +39,9 @@ struct AboutSettingsSection: View {
             Text("About")
         } footer: {
             Text("© 2023 Garrett Johnson")
-                #if targetEnvironment(macCatalyst)
-                .padding(.top, 4)
-                .padding(.bottom)
-                #endif
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding()
+                .foregroundColor(Color(.tertiaryLabel))
         }
     }
 }
