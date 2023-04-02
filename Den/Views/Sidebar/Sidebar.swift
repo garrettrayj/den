@@ -12,7 +12,6 @@ import CoreData
 import SwiftUI
 
 struct Sidebar: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
@@ -33,22 +32,7 @@ struct Sidebar: View {
                     searchQuery: $searchQuery
                 )
                 TrendingNav(profile: profile)
-                Section {
-                    ForEach(profile.pagesArray) { page in
-                        PageNav(
-                            profile: profile,
-                            page: page
-                        )
-                    }
-                    .onDelete(perform: deletePage)
-                    .onMove(perform: movePage)
-                } header: {
-                    HStack {
-                        Text("Pages")
-                        Spacer()
-                        AddPageButton(profile: profile)
-                    }
-                }
+                PagesSection(profile: profile)
             }
         }
         .listStyle(.sidebar)
@@ -90,38 +74,5 @@ struct Sidebar: View {
             .buttonStyle(ToolbarButtonStyle())
             .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             .accessibilityIdentifier("edit-page-list-button")
-    }
-
-    private func movePage(from source: IndexSet, to destination: Int) {
-        var revisedItems = profile.pagesArray
-
-        // Change the order of the items in the array
-        revisedItems.move(fromOffsets: source, toOffset: destination)
-
-        // Update the userOrder attribute in revisedItems to persist the new order.
-        // This is done in reverse order to minimize changes to the indices.
-        for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1 ) {
-            revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
-        }
-
-        do {
-            try viewContext.save()
-            profile.objectWillChange.send()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-    }
-
-    private func deletePage(indices: IndexSet) {
-        indices.forEach {
-            viewContext.delete(profile.pagesArray[$0])
-        }
-
-        do {
-            try viewContext.save()
-            profile.objectWillChange.send()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
     }
 }

@@ -12,7 +12,6 @@ import CoreData
 import SwiftUI
 
 struct PageNav: View {
-    @ObservedObject var profile: Profile // Observed for state changes
     @ObservedObject var page: Page
 
     var body: some View {
