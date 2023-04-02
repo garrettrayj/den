@@ -27,6 +27,7 @@ struct RSSFeedUpdate {
         feedData.link = source.webpage
 
         if let sourceItems = source.items {
+            var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
             for rawItem in sourceItems.prefix(feed.wrappedItemLimit + AppDefaults.extraItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = rawItem.linkURL else {
@@ -35,8 +36,10 @@ struct RSSFeedUpdate {
                 }
 
                 // Continue if item already exists
-                if feedData.itemsArray.compactMap({ $0.link }).contains(itemLink) {
+                if existingItemLinks.contains(itemLink) {
                     continue
+                } else {
+                    existingItemLinks.append(itemLink)
                 }
 
                 let item = Item.create(moc: context, feedData: feedData)
