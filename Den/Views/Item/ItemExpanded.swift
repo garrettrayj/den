@@ -39,7 +39,6 @@ struct ItemExpanded: View {
                     .padding(.top, 4)
             }
         }
-        .fixedSize(horizontal: false, vertical: true)
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
