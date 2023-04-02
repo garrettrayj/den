@@ -59,6 +59,10 @@ struct PageView: View {
         .modifier(URLDropTargetModifier(page: page))
         .navigationTitle(page.displayName)
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                AddFeedButton(page: page)
+            }
+
             #if targetEnvironment(macCatalyst)
             ToolbarItemGroup {
                 PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)

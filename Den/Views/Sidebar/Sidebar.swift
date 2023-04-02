@@ -66,13 +66,9 @@ struct Sidebar: View {
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.displayName)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem {
                 editButton
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
-            }
-            ToolbarItem {
-                AddFeedButton(contentSelection: $contentSelection)
-                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)

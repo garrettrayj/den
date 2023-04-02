@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct AddFeedButton: View {
-    @Binding var contentSelection: ContentPanel?
+    var page: Page?
 
     var body: some View {
         Button {
-            if case .page(let page) = contentSelection {
+            if page != nil {
                 SubscriptionUtility.showSubscribe(page: page)
             } else {
                 SubscriptionUtility.showSubscribe()

@@ -77,7 +77,12 @@ struct ContentView: View {
                         }
                     case .feed(let feed):
                         if feed.managedObjectContext != nil {
-                            FeedView(feed: feed, profile: profile, refreshing: $refreshManager.refreshing, hideRead: $hideRead)
+                            FeedView(
+                                feed: feed,
+                                profile: profile,
+                                refreshing: $refreshManager.refreshing,
+                                hideRead: $hideRead
+                            )
                         } else {
                             SplashNote(title: "Feed Deleted", symbol: "slash.circle")
                         }

@@ -41,7 +41,7 @@ struct AboutSettingsSection: View {
             Text("© 2023 Garrett Johnson")
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
-                .foregroundColor(Color(.tertiaryLabel))
+                .foregroundColor(Color(.secondaryLabel))
         }
     }
 }

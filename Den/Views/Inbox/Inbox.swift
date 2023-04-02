@@ -33,6 +33,9 @@ struct Inbox: View {
     var body: some View {
         InboxLayout(profile: profile, hideRead: hideRead, previewStyle: previewStyle)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    AddFeedButton()
+                }
                 ToolbarItem {
                     PreviewStyleButton(previewStyle: $previewStyle)
                 }

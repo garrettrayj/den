@@ -23,6 +23,7 @@ struct AddPageButton: View {
             } label: {
                 Label("Add Page", systemImage: "plus").labelStyle(.titleAndIcon)
             }
+            .padding(8)
             .buttonStyle(.borderless)
             .accessibilityIdentifier("new-page-button")
         }
