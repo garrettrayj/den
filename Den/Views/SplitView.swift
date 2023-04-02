@@ -15,6 +15,7 @@ import SwiftUI
 struct SplitView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
@@ -25,7 +26,6 @@ struct SplitView: View {
 
     @State private var searchQuery: String = ""
     @State private var contentSelection: ContentPanel?
-    @State private var refreshing: Bool = false
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
@@ -40,7 +40,6 @@ struct SplitView: View {
             Sidebar(
                 profile: profile,
                 contentSelection: $contentSelection,
-                refreshing: $refreshing,
                 searchQuery: $searchQuery
             )
         } detail: {
@@ -54,7 +53,6 @@ struct SplitView: View {
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 useInbuiltBrowser: $useInbuiltBrowser,
-                refreshing: $refreshing,
                 searchQuery: $searchQuery
             )
         }
@@ -72,14 +70,14 @@ struct SplitView: View {
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .active:
-                if autoRefreshEnabled && !refreshing && (
+                if autoRefreshEnabled && (
                     autoRefreshDate == 0.0 ||
                     Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
                 ) {
                     Task {
                         guard let profile = activeProfile else { return }
                         Logger.main.debug("Performing automatic refresh for profile: \(profile.wrappedName)")
-                        await RefreshManager.refresh(profile: profile)
+                        await refreshManager.refresh(profile: profile)
                         autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
                     }
                 }
@@ -92,11 +90,9 @@ struct SplitView: View {
             showSubscribe = true
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-            refreshing = true
             Haptics.mediumImpactFeedbackGenerator.impactOccurred()
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
-            refreshing = false
             profile.objectWillChange.send()
             Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
         }
@@ -107,6 +103,7 @@ struct SplitView: View {
                 profile: activeProfile
             )
             .environment(\.colorScheme, colorScheme)
+            .environmentObject(refreshManager)
         }
         .tint(profile.tintColor)
     }

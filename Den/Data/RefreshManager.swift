@@ -11,8 +11,21 @@
 import CoreData
 import OSLog
 
-struct RefreshManager {
-    static func refresh(profile: Profile) {
+final class RefreshManager: ObservableObject {
+    @Published var refreshing: Bool = false
+
+    let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
+
+    public func refresh(profile: Profile) {
+        guard !refreshing else {
+            Logger.main.info("Refresh already in progress")
+            return
+        }
+        refreshing = true
+        defer {
+            refreshing = false
+        }
+
         var ops: [Operation] = []
 
         let analyzeOperation = AnalyzeOperation(profileObjectID: profile.objectID)
@@ -30,22 +43,31 @@ struct RefreshManager {
         }
 
         let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = min(4, ProcessInfo().activeProcessorCount)
+        queue.maxConcurrentOperationCount = maxConcurrency
         queue.addOperations(ops, waitUntilFinished: true)
 
         RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
         profile.objectWillChange.send()
     }
 
-    static func refresh(
+    public func refresh(
         profile: Profile,
-        container: NSPersistentContainer = PersistenceController.shared.container,
         session: URLSession = URLSession.shared
     ) async {
-        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
-
+        guard !refreshing else {
+            Logger.main.info("Refresh already in progress")
+            return
+        }
         DispatchQueue.main.async {
+            self.refreshing = true
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
+        }
+        defer {
+            DispatchQueue.main.async {
+                RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
+                NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
+                self.refreshing = false
+            }
         }
 
         var feedUpdateTasks: [FeedUpdateTask] = []
@@ -53,7 +75,6 @@ struct RefreshManager {
             if let url = feed.url {
                 feedUpdateTasks.append(
                     FeedUpdateTask(
-                        container: container,
                         feedObjectID: feed.objectID,
                         pageObjectID: feed.page?.objectID,
                         url: url,
@@ -80,20 +101,12 @@ struct RefreshManager {
             }
         )
 
-        await AnalyzeTask(container: container, profileObjectID: profile.objectID).execute()
-
-        DispatchQueue.main.async {
-            RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
-            NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
-        }
+        await AnalyzeTask(profileObjectID: profile.objectID).execute()
     }
 
-    static func refresh(feed: Feed) async {
-        let container = PersistenceController.shared.container
-
+    func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
-                container: container,
                 feedObjectID: feed.objectID,
                 pageObjectID: feed.page?.objectID,
                 url: url,

@@ -11,15 +11,14 @@
 import SwiftUI
 
 struct RefreshButton: View {
-    @ObservedObject var profile: Profile
+    @EnvironmentObject private var refreshManager: RefreshManager
 
-    @Binding var refreshing: Bool
+    @ObservedObject var profile: Profile
 
     var body: some View {
         Button {
             Task {
-                guard !refreshing else { return }
-                await RefreshManager.refresh(profile: profile)
+                await refreshManager.refresh(profile: profile)
             }
         } label: {
             Label("Refresh", systemImage: "arrow.clockwise")

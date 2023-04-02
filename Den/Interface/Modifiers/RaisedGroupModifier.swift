@@ -13,6 +13,7 @@ import SwiftUI
 struct RaisedGroupModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
+            .frame(maxWidth: .infinity, alignment: .topLeading)
             .background(Color(.secondarySystemGroupedBackground))
             .cornerRadius(8)
     }

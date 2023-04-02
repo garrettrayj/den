@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
@@ -23,7 +24,6 @@ struct ContentView: View {
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useInbuiltBrowser: Bool
-    @Binding var refreshing: Bool
     @Binding var searchQuery: String
 
     @AppStorage("HideRead") private var hideRead: Bool = false
@@ -33,20 +33,20 @@ struct ContentView: View {
             Group {
                 switch contentSelection ?? .welcome {
                 case .welcome:
-                    Welcome(profile: profile, refreshing: $refreshing)
+                    Welcome(profile: profile, refreshing: $refreshManager.refreshing)
                 case .search:
                     SearchView(profile: profile, query: searchQuery)
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
+                    Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
                 case .trends:
-                    Trending(profile: profile, hideRead: $hideRead, refreshing: $refreshing)
+                    Trending(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
                 case .page(let page):
                     if page.managedObjectContext != nil {
                         PageView(
                             page: page,
                             profile: profile,
                             hideRead: $hideRead,
-                            refreshing: $refreshing
+                            refreshing: $refreshManager.refreshing
                         )
                     } else {
                         SplashNote(title: "Page Deleted")
@@ -65,7 +65,7 @@ struct ContentView: View {
                 }
             }
             .background(Color(.systemGroupedBackground))
-            .disabled(refreshing)
+            .disabled(refreshManager.refreshing)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 Group {
                     switch detailPanel {
@@ -77,7 +77,7 @@ struct ContentView: View {
                         }
                     case .feed(let feed):
                         if feed.managedObjectContext != nil {
-                            FeedView(feed: feed, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                            FeedView(feed: feed, profile: profile, refreshing: $refreshManager.refreshing, hideRead: $hideRead)
                         } else {
                             SplashNote(title: "Feed Deleted", symbol: "slash.circle")
                         }
@@ -98,7 +98,7 @@ struct ContentView: View {
                             TrendView(
                                 trend: trend,
                                 profile: profile,
-                                refreshing: $refreshing,
+                                refreshing: $refreshManager.refreshing,
                                 hideRead: $hideRead
                             )
                         } else {
@@ -107,7 +107,7 @@ struct ContentView: View {
                     }
                 }
                 .background(Color(.systemGroupedBackground))
-                .disabled(refreshing)
+                .disabled(refreshManager.refreshing)
             }
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in
                 Group {
@@ -130,7 +130,7 @@ struct ContentView: View {
                     }
                 }
                 .background(Color(.systemGroupedBackground))
-                .disabled(refreshing)
+                .disabled(refreshManager.refreshing)
             }
         }
     }

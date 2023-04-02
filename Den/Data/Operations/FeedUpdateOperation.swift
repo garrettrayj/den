@@ -38,7 +38,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
     // swiftlint:disable function_body_length
     override func main() {
         start = CFAbsoluteTimeGetCurrent()
-        let feedRequest = URLRequest(url: feedURL)
+        let feedRequest = URLRequest(url: feedURL, timeoutInterval: AppDefaults.requestTimeout)
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
 
         feedTask = URLSession.shared.dataTask(
@@ -93,7 +93,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
                     }
 
                     if self.updateMeta, let webpage = feedData.link {
-                        let webpageRequest = URLRequest(url: webpage)
+                        let webpageRequest = URLRequest(url: webpage, timeoutInterval: AppDefaults.requestTimeout)
                         self.webpageTask = URLSession.shared.dataTask(
                             with: webpageRequest,
                             completionHandler: { [self] data, _, _ in

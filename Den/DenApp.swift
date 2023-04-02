@@ -22,6 +22,7 @@ struct DenApp: App {
     @AppStorage("LastCleanup") var lastCleanup: Double?
 
     @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var refreshManager = RefreshManager()
 
     @State private var activeProfile: Profile?
 
@@ -36,6 +37,7 @@ struct DenApp: App {
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
+            .environmentObject(refreshManager)
         }
         .commands {
             CommandGroup(after: .sidebar) {
@@ -43,7 +45,7 @@ struct DenApp: App {
                 Button {
                     Task {
                         guard let profile = activeProfile else { return }
-                        await RefreshManager.refresh(profile: profile)
+                        await refreshManager.refresh(profile: profile)
                     }
                 } label: {
                     Text("Refresh")
@@ -121,7 +123,7 @@ struct DenApp: App {
             return
         }
         Logger.main.info("Performing background refresh for profile: \(profile.wrappedName)")
-        RefreshManager.refresh(profile: profile)
+        refreshManager.refresh(profile: profile)
     }
 
     private func handleCleanup() {

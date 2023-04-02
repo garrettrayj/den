@@ -14,7 +14,6 @@ import OSLog
 import FeedKit
 
 struct FeedUpdateTask {
-    let container: NSPersistentContainer
     let feedObjectID: NSManagedObjectID
     let pageObjectID: NSManagedObjectID?
     let url: URL
@@ -26,7 +25,8 @@ struct FeedUpdateTask {
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpageMetadata: WebpageMetadata?
 
-        if let (data, _) = try? await URLSession.shared.data(from: url) {
+        let feedRequest = URLRequest(url: url, timeoutInterval: AppDefaults.requestTimeout)
+        if let (data, _) = try? await URLSession.shared.data(for: feedRequest) {
             parserResult = FeedParser(data: data).parse()
         }
 
@@ -35,13 +35,14 @@ struct FeedUpdateTask {
                 case .success(let parsedFeed) = parserResult,
                 let webpage = parsedFeed.webpage
             {
-                if let (webpageData, _) = try? await URLSession.shared.data(from: webpage) {
+                let webpageRequest = URLRequest(url: webpage, timeoutInterval: AppDefaults.requestTimeout)
+                if let (webpageData, _) = try? await URLSession.shared.data(for: webpageRequest) {
                     webpageMetadata = WebpageMetadata.from(webpage: webpage, data: webpageData)
                 }
             }
         }
 
-        await container.performBackgroundTask { context in
+        await PersistenceController.shared.container.performBackgroundTask { context in
             context.automaticallyMergesChangesFromParent = true
             context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
 

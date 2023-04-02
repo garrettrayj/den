@@ -11,11 +11,10 @@
 import CoreData
 
 struct AnalyzeTask {
-    unowned let container: NSPersistentContainer
     unowned let profileObjectID: NSManagedObjectID
 
     func execute() async {
-        await container.performBackgroundTask { context in
+        await PersistenceController.shared.container.performBackgroundTask { context in
             TrendAnalysis.run(context: context, profileObjectID: profileObjectID)
         }
     }

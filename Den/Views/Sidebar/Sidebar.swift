@@ -15,11 +15,11 @@ struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
     @Binding var contentSelection: ContentPanel?
-    @Binding var refreshing: Bool
     @Binding var searchQuery: String
 
     var body: some View {
@@ -59,32 +59,32 @@ struct Sidebar: View {
         .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)
         .refreshable {
             if networkMonitor.isConnected {
-                await RefreshManager.refresh(profile: profile)
+                await refreshManager.refresh(profile: profile)
             }
         }
         #endif
-        .disabled(refreshing)
+        .disabled(refreshManager.refreshing)
         .navigationTitle(profile.displayName)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 editButton
-                    .disabled(refreshing || profile.pagesArray.isEmpty)
+                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             }
             ToolbarItem {
                 AddFeedButton(contentSelection: $contentSelection)
-                    .disabled(refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
+                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                SettingsButton(listSelection: $contentSelection).disabled(refreshing)
+                SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
                 Spacer()
                 SidebarStatus(
                     profile: profile,
-                    refreshing: $refreshing,
+                    refreshing: $refreshManager.refreshing,
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                 )
                 Spacer()
-                RefreshButton(profile: profile, refreshing: $refreshing)
-                    .disabled(refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
+                RefreshButton(profile: profile)
+                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
             }
         }
     }
@@ -92,7 +92,7 @@ struct Sidebar: View {
     private var editButton: some View {
         EditButton()
             .buttonStyle(ToolbarButtonStyle())
-            .disabled(refreshing || profile.pagesArray.isEmpty)
+            .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             .accessibilityIdentifier("edit-page-list-button")
     }
 

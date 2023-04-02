@@ -14,6 +14,7 @@ import SwiftUI
 struct AddFeed: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var initialPageObjectID: NSManagedObjectID?
     @Binding var initialURLString: String
@@ -97,7 +98,7 @@ struct AddFeed: View {
             if urlIsValid == true {
                 addFeed()
                 Task {
-                    await RefreshManager.refresh(feed: newFeed!)
+                    await refreshManager.refresh(feed: newFeed!)
                     dismiss()
                 }
             }
