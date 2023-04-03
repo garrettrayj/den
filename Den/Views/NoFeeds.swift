@@ -17,11 +17,15 @@ struct NoFeeds: View {
         VStack(spacing: 16) {
             Spacer()
             Text("No Feeds").font(.title)
+            Button {
+                SubscriptionUtility.showSubscribe(page: page)
+            } label: {
+                Label("Add by Web Address", systemImage: "plus.circle")
+            }
+            .buttonStyle(.bordered)
             Text("""
-            Tap \(Image(systemName: "plus.circle")) to enter a web address, \
-            drag and drop a URL, \
-            open a \(Image(systemName: "dot.radiowaves.up.forward")) syndication link, \
-            or use the Feed Detector extension in Safari.
+            Or drag and drop URLs, or open syndication links, \
+            or use the Feed Detector Safari extension.
             """)
             .font(.body)
             .imageScale(.small)
@@ -30,6 +34,6 @@ struct NoFeeds: View {
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .padding()
+        .padding(24)
     }
 }

@@ -59,14 +59,11 @@ struct PageView: View {
         .modifier(URLDropTargetModifier(page: page))
         .navigationTitle(page.displayName)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                AddFeedButton(page: page)
-            }
-
             #if targetEnvironment(macCatalyst)
             ToolbarItemGroup {
                 PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
                 PreviewStyleButton(previewStyle: $previewStyle)
+                AddFeedButton(page: page)
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
@@ -78,6 +75,7 @@ struct PageView: View {
                 Menu {
                     PreviewStyleButton(previewStyle: $previewStyle)
                     PageLayoutPicker(pageLayout: $pageLayout)
+                    AddFeedButton(page: page)
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }

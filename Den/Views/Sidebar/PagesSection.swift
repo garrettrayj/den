@@ -24,10 +24,18 @@ struct PagesSection: View {
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)
         } header: {
-            HStack {
+            if editMode?.wrappedValue == .active {
+                Button {
+                    addPage()
+                } label: {
+                    Label("New Page", systemImage: "plus")
+                        .labelStyle(.titleAndIcon)
+                        .font(.footnote.weight(.medium))
+                }
+                .buttonStyle(.borderless)
+                .accessibilityIdentifier("new-page-button")
+            } else {
                 Text("Pages")
-                Spacer()
-                AddPageButton(profile: profile)
             }
         }
     }
@@ -60,6 +68,24 @@ struct PagesSection: View {
         do {
             try viewContext.save()
             profile.objectWillChange.send()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+
+    private func addPage() {
+        var pageName = "New Page"
+        var suffix = 2
+        while profile.pagesArray.contains(where: { $0.name == pageName }) {
+            pageName = "New Page \(suffix)"
+            suffix += 1
+        }
+
+        let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
+        newPage.wrappedName = pageName
+
+        do {
+            try viewContext.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

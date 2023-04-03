@@ -21,7 +21,9 @@ struct AddPageButton: View {
             Button {
                 addPage()
             } label: {
-                Label("Add Page", systemImage: "plus").labelStyle(.titleAndIcon)
+                Label("New Page", systemImage: "plus")
+                    .labelStyle(.titleAndIcon)
+                    .font(.footnote)
             }
             .padding(8)
             .buttonStyle(.borderless)

@@ -21,8 +21,10 @@ struct BlendLayout: View {
             scopeObject: page,
             readFilter: hideRead ? false : nil
         ) { items in
-            if items.isEmpty {
-                SplashNote(title: "Nothing Here", note: "Refresh to check for new items.")
+            if items.isEmpty && hideRead {
+                SplashNote(title: "No Unread", note: "Refresh to check for new items.")
+            } else if items.isEmpty && !hideRead {
+                SplashNote(title: "No Data", note: "Refresh to get items.")
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
