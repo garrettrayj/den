@@ -19,7 +19,7 @@ struct ItemView: View {
     @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
-        return CGFloat(800) * dynamicTypeSize.layoutScalingFactor
+        return CGFloat(700) * dynamicTypeSize.layoutScalingFactor
     }
 
     var body: some View {

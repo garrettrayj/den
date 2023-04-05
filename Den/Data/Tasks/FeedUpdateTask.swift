@@ -172,6 +172,7 @@ struct FeedUpdateTask {
                 )
                 updater.execute()
             }
+            feedData.metaFetched = .now
         }
     }
 }
