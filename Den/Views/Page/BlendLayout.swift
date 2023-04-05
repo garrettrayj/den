@@ -36,8 +36,6 @@ struct BlendLayout: View {
                             }
                         }.modifier(MainBoardModifier())
                     }
-                    .modifier(SafeAreaModifier(geometry: geometry))
-                    .edgesIgnoringSafeArea(.horizontal)
                 }
             }
         }
