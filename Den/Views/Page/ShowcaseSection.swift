@@ -15,21 +15,23 @@ struct ShowcaseSection: View {
 
     let items: [Item]
     let previewStyle: PreviewStyle
-    let width: CGFloat
+    let geometry: GeometryProxy
 
     var body: some View {
         Section {
             if feed.feedData == nil || feed.feedData?.error != nil {
                 FeedUnavailable(feedData: feed.feedData)
                     .padding()
+                    .modifier(SafeAreaModifier(geometry: geometry))
             } else if items.isEmpty {
                 AllRead()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(RaisedGroupModifier())
                     .padding()
+                    .modifier(SafeAreaModifier(geometry: geometry))
             } else {
                 BoardView(
-                    width: width,
+                    geometry: geometry,
                     list: items,
                     content: { item in
                         ItemActionView(item: item) {
@@ -41,7 +43,9 @@ struct ShowcaseSection: View {
                         }
                         .modifier(RaisedGroupModifier())
                     }
-                ).padding()
+                )
+                .padding(.vertical)
+                .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {
             NavigationLink(value: DetailPanel.feed(feed)) {
@@ -53,6 +57,7 @@ struct ShowcaseSection: View {
                     Spacer()
                     ButtonChevron()
                 }
+                .modifier(SafeAreaModifier(geometry: geometry))
             }
             .buttonStyle(PinnedHeaderButtonStyle())
             .accessibilityIdentifier("showcase-section-feed-button")

@@ -52,18 +52,12 @@ struct RSSItemLoad {
         item.link = source.linkURL
 
         if let author = source.dublinCore?.dcCreator {
-            let formattedAuthor = author
-                .replacingOccurrences(of: "\n", with: " ")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-
+            let formattedAuthor = author.preparingTitle()
             if formattedAuthor != "" {
                 item.author = formattedAuthor
             }
         } else if let author = source.author {
-            let formattedAuthor = author
-                .replacingOccurrences(of: "\n", with: " ")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-
+            let formattedAuthor = author.preparingTitle()
             if formattedAuthor != "" {
                 item.author = formattedAuthor
             }

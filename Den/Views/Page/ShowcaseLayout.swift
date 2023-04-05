@@ -33,12 +33,14 @@ struct ShowcaseLayout: View {
                                 feed: feed,
                                 items: items.forFeed(feed: feed),
                                 previewStyle: previewStyle,
-                                width: geometry.size.width
+                                geometry: geometry
                             )
                         }
-                    }.padding(.bottom)
+                    }
+                    .padding(.bottom)
                 }
             }
+            .edgesIgnoringSafeArea(.horizontal)
         }
     }
 }

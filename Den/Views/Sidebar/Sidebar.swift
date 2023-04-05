@@ -55,16 +55,18 @@ struct Sidebar: View {
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
-                Spacer()
-                SidebarStatus(
-                    profile: profile,
-                    refreshing: $refreshManager.refreshing,
-                    progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
-                )
-                Spacer()
-                RefreshButton(profile: profile)
-                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected)
+                HStack(spacing: 4) {
+                    SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
+                    SidebarStatus(
+                        profile: profile,
+                        refreshing: $refreshManager.refreshing,
+                        progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
+                    ).frame(maxWidth: .infinity)
+                    RefreshButton(profile: profile)
+                        .disabled(
+                            refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected
+                        )
+                }
             }
         }
     }

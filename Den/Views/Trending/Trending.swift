@@ -25,7 +25,7 @@ struct Trending: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
+        VStack {
             if profile.trends.isEmpty {
                 SplashNote(
                     title: "Nothing Trending",
@@ -34,11 +34,15 @@ struct Trending: View {
             } else if visibleTrends.isEmpty {
                 AllReadSplashNote()
             } else {
-                ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: visibleTrends) { trend in
-                        TrendBlock(trend: trend)
+                GeometryReader { geometry in
+                    ScrollView(.vertical) {
+                        BoardView(geometry: geometry, list: visibleTrends) { trend in
+                            TrendBlock(trend: trend)
+                        }
+                        .modifier(MainBoardModifier())
                     }
-                    .modifier(MainBoardModifier())
+                    .modifier(SafeAreaModifier(geometry: geometry))
+                    .edgesIgnoringSafeArea(.horizontal)
                 }
             }
         }

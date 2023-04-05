@@ -27,7 +27,7 @@ struct GadgetLayout: View {
                     ],
                     readFilter: hideRead ? false : nil
                 ) { items in
-                    BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
+                    BoardView(geometry: geometry, list: page.feedsArray) { feed in
                         Gadget(
                             feed: feed,
                             items: items.forFeed(feed: feed),
@@ -36,6 +36,8 @@ struct GadgetLayout: View {
                     }.modifier(MainBoardModifier())
                 }
             }
+            .modifier(SafeAreaModifier(geometry: geometry))
+            .edgesIgnoringSafeArea(.horizontal)
         }
     }
 }

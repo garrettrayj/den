@@ -48,10 +48,7 @@ struct JSONItemLoad {
         }
 
         if let author = source.author?.name {
-            let formattedAuthor = author
-                .replacingOccurrences(of: "\n", with: " ")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-
+            let formattedAuthor = author.preparingTitle()
             if formattedAuthor != "" {
                 item.author = formattedAuthor
             }

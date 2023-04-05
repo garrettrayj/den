@@ -58,6 +58,7 @@ extension String {
             .strippingTags()
             .replacingOccurrences(of: "\u{00A0}", with: " ") // NO-BREAK SPACE
             .replacingOccurrences(of: "\u{202F}", with: " ") // NARROW NO-BREAK SPACE
+            .replacingOccurrences(of: "\n", with: " ")
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 

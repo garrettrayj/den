@@ -63,10 +63,10 @@ struct SearchView: View {
                 SplashNote(title: "No items found for “\(query)”")
             } else {
                 ScrollView(.vertical) {
-                    BoardView(width: geometry.size.width, list: Array(searchResults)) { item in
+                    BoardView(geometry: geometry, list: Array(searchResults)) { item in
                         FeedItemExpanded(item: item)
                     }.modifier(MainBoardModifier())
-                }
+                }.edgesIgnoringSafeArea(.horizontal)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

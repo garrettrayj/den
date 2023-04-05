@@ -24,7 +24,8 @@ struct SidebarStatus: View {
             if refreshing {
                 ProgressView(progress).progressViewStyle(
                     BottomBarProgressViewStyle(profile: profile)
-                ).frame(width: 100)
+                )
+                .frame(maxWidth: 120)
             } else {
                 if profile.pagesArray.isEmpty {
                     Text("Profile Empty")
@@ -53,7 +54,8 @@ struct SidebarStatus: View {
             }
         }
         .font(.caption)
-        .lineLimit(1)
+        .lineLimit(2)
+        .multilineTextAlignment(.center)
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
             progress.completedUnitCount += 1
         }

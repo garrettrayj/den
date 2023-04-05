@@ -15,6 +15,10 @@ struct RaisedGroupModifier: ViewModifier {
         content
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .background(Color(.secondarySystemGroupedBackground))
+            #if targetEnvironment(macCatalyst)
             .cornerRadius(8)
+            #else
+            .cornerRadius(12)
+            #endif
     }
 }

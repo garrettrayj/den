@@ -41,9 +41,10 @@ struct FeedLayout: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())
                                         .padding()
+                                        .modifier(SafeAreaModifier(geometry: geometry))
                                 } else {
                                     BoardView(
-                                        width: geometry.size.width,
+                                        geometry: geometry,
                                         list: Array(items).previews()
                                     ) { item in
                                         ItemActionView(item: item) {
@@ -54,10 +55,15 @@ struct FeedLayout: View {
                                             }
                                         }
                                         .modifier(RaisedGroupModifier())
-                                    }.padding()
+                                    }
+                                    .padding(.vertical)
+                                    .modifier(SafeAreaModifier(geometry: geometry))
                                 }
                             } header: {
-                                Text("Latest").font(.title3).modifier(PinnedSectionHeaderModifier())
+                                Text("Latest")
+                                    .font(.title3)
+                                    .modifier(SafeAreaModifier(geometry: geometry))
+                                    .modifier(PinnedSectionHeaderModifier())
                             }
 
                             Section {
@@ -66,9 +72,10 @@ struct FeedLayout: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RaisedGroupModifier())
                                         .padding()
+                                        .modifier(SafeAreaModifier(geometry: geometry))
                                 } else {
                                     BoardView(
-                                        width: geometry.size.width,
+                                        geometry: geometry,
                                         list: Array(items).extras()
                                     ) { item in
                                         ItemActionView(item: item) {
@@ -79,17 +86,22 @@ struct FeedLayout: View {
                                             }
                                         }
                                         .modifier(RaisedGroupModifier())
-                                    }.padding()
+                                    }
+                                    .padding(.vertical)
+                                    .modifier(SafeAreaModifier(geometry: geometry))
                                 }
                             } header: {
-                                Text("More").font(.title3).modifier(PinnedSectionHeaderModifier())
+                                Text("More")
+                                    .font(.title3)
+                                    .modifier(SafeAreaModifier(geometry: geometry))
+                                    .modifier(PinnedSectionHeaderModifier())
                             }
                         }
                     }
                     Divider()
-                    metaSection
+                    metaSection.modifier(SafeAreaModifier(geometry: geometry))
                 }
-            }
+            }.edgesIgnoringSafeArea(.horizontal)
         }
     }
 

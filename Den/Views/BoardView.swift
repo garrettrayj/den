@@ -15,7 +15,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
 
     let content: (T) -> Content
     let list: [T]
-    let width: CGFloat
+    let geometry: GeometryProxy
 
     let spacing: CGFloat = 8
 
@@ -29,16 +29,17 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
                 }
             }
         }
+        .padding(.horizontal)
     }
 
-    init(width: CGFloat, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
-        self.width = width
+    init(geometry: GeometryProxy, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
+        self.geometry = geometry
         self.list = list
         self.content = content
     }
 
     private var columnData: [(Int, [T])] {
-        let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
+        let adjustedWidth = geometry.size.width / dynamicTypeSize.layoutScalingFactor
         let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 26))
         var gridArray: [(Int, [T])] = []
 

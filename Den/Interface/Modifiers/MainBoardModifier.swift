@@ -13,11 +13,10 @@ import SwiftUI
 struct MainBoardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding(.horizontal)
             #if targetEnvironment(macCatalyst)
             .padding(.top)
             #else
-            .padding(.top, 8)
+            .padding(.top, 4)
             #endif
             .padding(.bottom, 16 + 12)
     }

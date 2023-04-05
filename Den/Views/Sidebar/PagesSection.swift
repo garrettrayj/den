@@ -25,14 +25,10 @@ struct PagesSection: View {
             .onDelete(perform: deletePage)
         } header: {
             if editMode?.wrappedValue == .active {
-                Button {
+                Text("\(Image(systemName: "plus")) New Page").onTapGesture {
                     addPage()
-                } label: {
-                    Label("New Page", systemImage: "plus")
-                        .labelStyle(.titleAndIcon)
-                        .font(.footnote.weight(.medium))
                 }
-                .buttonStyle(.borderless)
+                .foregroundColor(.accentColor)
                 .accessibilityIdentifier("new-page-button")
             } else {
                 Text("Pages")

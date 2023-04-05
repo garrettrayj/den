@@ -33,7 +33,6 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
             }
             .font(.caption)
             .monospacedDigit()
-            .fixedSize()
 
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {

@@ -27,7 +27,7 @@ struct TrendLayout: View {
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
-                        BoardView(width: geometry.size.width, list: Array(items)) { item in
+                        BoardView(geometry: geometry, list: Array(items)) { item in
                             if previewStyle == .compressed {
                                 FeedItemCompressed(item: item)
                             } else {
@@ -35,6 +35,8 @@ struct TrendLayout: View {
                             }
                         }.modifier(MainBoardModifier())
                     }
+                    .modifier(SafeAreaModifier(geometry: geometry))
+                    .edgesIgnoringSafeArea(.horizontal)
                 }
             }
         }

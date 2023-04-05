@@ -39,9 +39,29 @@ struct DeckLayout: View {
                             )
                         }
                     }
+                    .safeAreaInset(edge: .leading, alignment: .top, spacing: 0) {
+                        if geometry.safeAreaInsets.leading > 0 {
+                            HStack {
+                                Text("M").font(.title3).hidden()
+                            }
+                            .modifier(PinnedSectionHeaderModifier())
+                            .padding(.top, geometry.safeAreaInsets.top)
+                            .frame(width: geometry.safeAreaInsets.leading)
+                        }
+                    }
+                    .safeAreaInset(edge: .trailing, alignment: .top, spacing: 0) {
+                        if geometry.safeAreaInsets.trailing > 0 {
+                            HStack {
+                                Text("M").font(.title3).hidden()
+                            }
+                            .modifier(PinnedSectionHeaderModifier())
+                            .padding(.top, geometry.safeAreaInsets.top)
+                            .frame(width: geometry.safeAreaInsets.trailing)
+                        }
+                    }
                 }
             }
-            .edgesIgnoringSafeArea([.bottom, .top])
+            .edgesIgnoringSafeArea(.all)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
         }
