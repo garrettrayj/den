@@ -58,12 +58,22 @@ struct PageView: View {
         }
         .modifier(URLDropTargetModifier(page: page))
         .navigationTitle(page.displayName)
-        .toolbar {
+        .toolbar(id: "page-toolbar") {
             #if targetEnvironment(macCatalyst)
-            ToolbarItemGroup {
+            ToolbarItem(id: "page-layout", placement: .primaryAction) {
+                Label {
+                    Text("Page Layout")
+                } icon: {
+                    PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented).labelStyle(.iconOnly)
+                }
+            }
+            ToolbarItem(id: "preview-style", placement: .primaryAction) {
                 PreviewStyleButton(previewStyle: $previewStyle)
-                PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
+            }
+            ToolbarItem(id: "add-feed", placement: .primaryAction) {
                 AddFeedButton(page: page)
+            }
+            ToolbarItem(id: "settings", placement: .primaryAction) {
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
@@ -71,10 +81,9 @@ struct PageView: View {
                 .accessibilityIdentifier("page-settings-button")
             }
             #else
-            ToolbarItem {
-                Menu {
+            ToolbarItem(id: "menu", placement: .primaryAction) {
+                Menu {                    PageLayoutPicker(pageLayout: $pageLayout)
                     PreviewStyleButton(previewStyle: $previewStyle)
-                    PageLayoutPicker(pageLayout: $pageLayout)
                     AddFeedButton(page: page)
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
@@ -88,7 +97,7 @@ struct PageView: View {
             }
             #endif
 
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
                 PageBottomBar(
                     page: page,
                     profile: profile,

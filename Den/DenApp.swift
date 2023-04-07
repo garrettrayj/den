@@ -40,6 +40,7 @@ struct DenApp: App {
             .environmentObject(refreshManager)
         }
         .commands {
+            ToolbarCommands()
             CommandGroup(after: .sidebar) {
                 Divider()
                 Button {

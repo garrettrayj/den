@@ -49,12 +49,12 @@ struct Sidebar: View {
         #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.displayName)
-        .toolbar {
-            ToolbarItem {
+        .toolbar(id: "sidebar") {
+            ToolbarItem(id: "edit", placement: .primaryAction) {
                 editButton
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             }
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
                 HStack(spacing: 4) {
                     SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
                     SidebarStatus(

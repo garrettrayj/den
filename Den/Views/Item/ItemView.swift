@@ -83,12 +83,11 @@ struct ItemView: View {
                 .padding()
             }
             .background(Color(.systemBackground).edgesIgnoringSafeArea(.all))
-            .toolbar {
-                ToolbarItem {
+            .toolbar(id: "item-toolbar") {
+                ToolbarItem(id: "share", placement: .primaryAction) {
                     ShareLink(item: item.link!).buttonStyle(ToolbarButtonStyle())
                 }
-
-                ToolbarItem(placement: .bottomBar) {
+                ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
                     HStack {
                         Spacer()
                         Button {

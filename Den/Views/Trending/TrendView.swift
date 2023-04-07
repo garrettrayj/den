@@ -40,11 +40,11 @@ struct TrendView: View {
     var body: some View {
         TrendLayout(trend: trend, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
             .navigationTitle(trend.wrappedTitle)
-            .toolbar {
-                ToolbarItem {
+            .toolbar(id: "trend-toolbar") {
+                ToolbarItem(id: "preview-style", placement: .primaryAction) {
                     PreviewStyleButton(previewStyle: $previewStyle)
                 }
-                ToolbarItem(placement: .bottomBar) {
+                ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
                     TrendBottomBar(
                         trend: trend,
                         profile: profile,
