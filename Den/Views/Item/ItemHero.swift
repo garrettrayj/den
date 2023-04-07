@@ -17,7 +17,7 @@ struct ItemHero: View {
 
     let item: Item
 
-    static let baseSize = CGSize(width: 800, height: 450)
+    static let baseSize = CGSize(width: 640, height: 360)
 
     private var scaledSize: CGSize {
         return CGSize(
@@ -63,7 +63,7 @@ struct ItemHero: View {
                 .modifier(ImageBorderModifier(cornerRadius: 4))
             }
             .aspectRatio(16/9, contentMode: .fill)
-        } else if CGFloat(item.imageWidth) < ItemHero.baseSize.width {
+        } else if CGFloat(item.imageWidth) < scaledSize.width {
             ImageDepression {
                 WebImage(
                     url: item.image,
@@ -73,14 +73,14 @@ struct ItemHero: View {
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
-                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .frame(
                     maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
                     maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
                 )
                 .modifier(ImageBorderModifier(cornerRadius: 4))
             }
-            .scaledToFit()
+            .scaledToFill()
         } else {
             WebImage(
                 url: item.image,

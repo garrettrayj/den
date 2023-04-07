@@ -34,21 +34,6 @@ struct ItemPreviewImage: View {
         )
     }
 
-    private var adjustedItemImageSize: CGSize {
-        // Small images scale with dynamic type size even though bluring is likely
-        if CGFloat(item.imageWidth) < scaledSize.width {
-            return CGSize(
-                width: CGFloat(item.imageWidth) * dynamicTypeSize.layoutScalingFactor,
-                height: CGFloat(item.imageHeight) * dynamicTypeSize.layoutScalingFactor
-            )
-        }
-
-        return CGSize(
-            width: CGFloat(item.imageWidth),
-            height: CGFloat(item.imageHeight)
-        )
-    }
-
     var body: some View {
         Group {
             if item.imageAspectRatio == nil {
@@ -75,11 +60,10 @@ struct ItemPreviewImage: View {
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
                         .indicator(.activity)
-                        .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                         .frame(
-                            maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
-                            maxHeight: adjustedItemImageSize.height > 0 ? min(adjustedItemImageSize.height, 400) : nil,
-                            alignment: .center
+                            maxHeight: scaledSize.height > 0 ? min(scaledSize.height, 400) : nil,
+                            alignment: .top
                         )
                         .clipped()
                         .modifier(ImageBorderModifier(cornerRadius: 4))
@@ -94,10 +78,10 @@ struct ItemPreviewImage: View {
                 .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
-                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                 .frame(
-                    maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
-                    maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
+                    maxWidth: scaledSize.width,
+                    maxHeight: scaledSize.height
                 )
                 .background(Color(.tertiarySystemFill))
                 .modifier(ImageBorderModifier())

@@ -18,9 +18,9 @@ struct ThumbnailModifier: ViewModifier {
         content
             .frame(width: width, height: height)
             .background(.tertiary)
-            .cornerRadius(6)
+            .cornerRadius(8)
             .overlay(
-                RoundedRectangle(cornerRadius: 6).stroke(.tertiary, lineWidth: 1)
+                RoundedRectangle(cornerRadius: 8).stroke(.tertiary, lineWidth: 1)
             )
             .accessibility(label: Text("Thumbnail"))
     }

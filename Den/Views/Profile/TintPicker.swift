@@ -17,13 +17,13 @@ struct TintPicker: View {
         Picker(selection: $tint) {
             Label("None", systemImage: "hexagon.fill")
                 .foregroundColor(.secondary)
-                .padding(.vertical, 8)
+                .modifier(FormRowModifier())
                 .tag(nil as String?)
 
             ForEach(TintOption.allCases, id: \.self) { tintOption in
                 Label(tintOption.rawValue, systemImage: "hexagon.fill")
                     .foregroundColor(tintOption.color)
-                    .padding(.vertical, 8)
+                    .modifier(FormRowModifier())
                     .tag(tintOption.rawValue as String?)
             }
         } label: {

@@ -19,7 +19,7 @@ struct ItemView: View {
     @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
-        return CGFloat(700) * dynamicTypeSize.layoutScalingFactor
+        return CGFloat(640) * dynamicTypeSize.layoutScalingFactor
     }
 
     var body: some View {
@@ -88,22 +88,24 @@ struct ItemView: View {
                     ShareLink(item: item.link!).buttonStyle(ToolbarButtonStyle())
                 }
 
-                ToolbarItemGroup(placement: .bottomBar) {
-                    Spacer()
-                    Button {
-                        if useInbuiltBrowser {
-                            SafariUtility.openLink(
-                                url: item.link,
-                                readerMode: item.feedData?.feed?.readerMode ?? false
-                            )
-                        } else {
-                            if let url = item.link { openURL(url) }
+                ToolbarItem(placement: .bottomBar) {
+                    HStack {
+                        Spacer()
+                        Button {
+                            if useInbuiltBrowser {
+                                SafariUtility.openLink(
+                                    url: item.link,
+                                    readerMode: item.feedData?.feed?.readerMode ?? false
+                                )
+                            } else {
+                                if let url = item.link { openURL(url) }
+                            }
+                        } label: {
+                            Label("Open in Browser", systemImage: "link.circle")
                         }
-                    } label: {
-                        Label("Open in Browser", systemImage: "link.circle")
+                        .buttonStyle(PlainToolbarButtonStyle())
+                        .accessibilityIdentifier("item-open-button")
                     }
-                    .buttonStyle(PlainToolbarButtonStyle())
-                    .accessibilityIdentifier("item-open-button")
                 }
             }
             .navigationBarTitleDisplayMode(.inline)

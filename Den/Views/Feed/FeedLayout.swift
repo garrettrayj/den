@@ -109,7 +109,7 @@ struct FeedLayout: View {
         Section {
             VStack(alignment: .center, spacing: 12) {
                 if let description = feed.feedData?.metaDescription {
-                    Text(description)
+                    Text(description).frame(maxWidth: 640)
                 }
 
                 if let linkDisplayString = feed.feedData?.linkDisplayString {
@@ -118,23 +118,29 @@ struct FeedLayout: View {
                             openURL(url)
                         }
                     } label: {
-                        Label("\(linkDisplayString)", systemImage: "globe").lineLimit(1)
+                        Label("\(linkDisplayString)", systemImage: "link").lineLimit(1)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("feed-link-button")
                 }
 
-                Button {
-                    openURL(feed.url!)
-                } label: {
-                    Label("\(feed.urlString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
+                if let feedURLString = feed.url?.absoluteString {
+                    Button {
+                        if let url = feed.url {
+                            openURL(url)
+                        }
+                    } label: {
+                        Label("\(feedURLString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("feed-url-button")
                 }
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("feed-copy-url-button")
 
                 if let copyright = feed.feedData?.copyright {
                     Text(copyright)
                 }
             }
+            .textSelection(.enabled)
             .font(.footnote)
             .imageScale(.small)
             .multilineTextAlignment(.center)

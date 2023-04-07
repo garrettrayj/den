@@ -104,7 +104,7 @@ struct DenApp: App {
         }
 
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.cleanup")
-        request.earliestBeginDate = .now + 15 * 60
+        request.earliestBeginDate = .now + 60 * 60
 
         do {
             try BGTaskScheduler.shared.submit(request)

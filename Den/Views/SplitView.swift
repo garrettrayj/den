@@ -74,11 +74,13 @@ struct SplitView: View {
                     autoRefreshDate == 0.0 ||
                     Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
                 ) {
-                    Task {
-                        guard let profile = activeProfile else { return }
-                        Logger.main.debug("Performing automatic refresh for profile: \(profile.wrappedName)")
-                        await refreshManager.refresh(profile: profile)
-                        autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        Task {
+                            guard let profile = activeProfile else { return }
+                            Logger.main.debug("Performing automatic refresh for profile: \(profile.wrappedName)")
+                            await refreshManager.refresh(profile: profile)
+                            autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
+                        }
                     }
                 }
             default: break

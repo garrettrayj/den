@@ -21,6 +21,6 @@ struct ImageDepression<Content: View>: View {
         .frame(maxWidth: .infinity)
         .padding(padding)
         .background(Color(.tertiarySystemFill))
-        .cornerRadius(6)
+        .cornerRadius(8)
     }
 }

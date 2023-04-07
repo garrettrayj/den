@@ -51,6 +51,7 @@ struct ItemThumbnailImage: View {
                 .frame(width: scaledSize.width, height: scaledSize.height)
                 .background(Color(.tertiarySystemFill))
                 .modifier(ImageBorderModifier())
+
         } else if let image = item.feedData?.image {
             WebImage(
                 url: image,
@@ -62,14 +63,13 @@ struct ItemThumbnailImage: View {
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                .modifier(ImageBorderModifier(cornerRadius: 4))
+                .modifier(ImageBorderModifier(cornerRadius: 6))
                 .padding(4)
                 .grayscale(isEnabled ? 0 : 1)
                 .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
                 .frame(width: scaledSize.width, height: scaledSize.height)
                 .background(Color(.tertiarySystemFill))
-                .cornerRadius(6)
+                .cornerRadius(8)
         }
-
     }
 }

@@ -29,6 +29,6 @@ struct SplashNote: View {
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(24)
+        .padding()
     }
 }

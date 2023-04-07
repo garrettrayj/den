@@ -34,7 +34,7 @@ body > :first-child > :first-child > :first-child {
 /* Embeds */
 
 img, picture {
-    border-radius: 6px;
+    border-radius: 8px;
     box-sizing: border-box;
     display: block;
     height: auto;
@@ -103,7 +103,7 @@ hr {
 
 blockquote {
     background: -apple-system-secondary-background;
-    border-radius: 6px;
+    border-radius: 8px;
     font: -apple-system-title3;
     font-family: inherit;
     margin: 1.25rem 0;
@@ -123,7 +123,7 @@ blockquote > :last-child {
 
 figure {
     background: -apple-system-secondary-background;
-    border-radius: 6px;
+    border-radius: 8px;
     font: -apple-system-caption1;
     font-family: inherit;
     margin: 1.25rem 0;

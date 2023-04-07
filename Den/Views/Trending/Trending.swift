@@ -46,7 +46,7 @@ struct Trending: View {
         }
         .navigationTitle("Trending")
         .toolbar {
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
                 TrendingBottomBar(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
             }
         }

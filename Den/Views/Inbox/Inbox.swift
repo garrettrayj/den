@@ -39,7 +39,7 @@ struct Inbox: View {
                 ToolbarItem {
                     AddFeedButton()
                 }
-                ToolbarItemGroup(placement: .bottomBar) {
+                ToolbarItem(placement: .bottomBar) {
                     InboxBottomBar(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
                 }
             }

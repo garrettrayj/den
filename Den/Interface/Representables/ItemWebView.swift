@@ -31,6 +31,7 @@ struct ItemWebView: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
+        webView.navigationDelegate = context.coordinator
         return
     }
 

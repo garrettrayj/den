@@ -30,6 +30,7 @@ struct ItemCompressed: View {
                 ItemThumbnailImage(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
         .padding(12)
     }
 }

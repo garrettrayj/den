@@ -42,9 +42,8 @@ struct DeckColumn: View {
                         .modifier(RaisedGroupModifier())
                     }
                 }
-                Spacer(minLength: 16)
             }
-            .padding(.top, 8)
+            .padding(.vertical, 8)
             .padding(.leading, 8)
             .padding(.leading, isFirst ? 8 : 0)
             .padding(.trailing, isLast ? 16 : 0)

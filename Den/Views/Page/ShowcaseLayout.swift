@@ -37,7 +37,6 @@ struct ShowcaseLayout: View {
                             )
                         }
                     }
-                    .padding(.bottom)
                 }
             }
             .edgesIgnoringSafeArea(.horizontal)

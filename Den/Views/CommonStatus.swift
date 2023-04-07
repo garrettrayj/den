@@ -35,7 +35,7 @@ struct CommonStatus: View {
                 ViewThatFits {
                     HStack(spacing: 4) {
                         updatedText
-                        Text("•").foregroundColor(Color(.secondaryLabel))
+                        Text("－").foregroundColor(Color(.secondaryLabel))
                         unreadText
                     }
                     VStack {

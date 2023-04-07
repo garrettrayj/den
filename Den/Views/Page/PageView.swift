@@ -61,8 +61,8 @@ struct PageView: View {
         .toolbar {
             #if targetEnvironment(macCatalyst)
             ToolbarItemGroup {
-                PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
                 PreviewStyleButton(previewStyle: $previewStyle)
+                PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
                 AddFeedButton(page: page)
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
@@ -88,7 +88,7 @@ struct PageView: View {
             }
             #endif
 
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
                 PageBottomBar(
                     page: page,
                     profile: profile,

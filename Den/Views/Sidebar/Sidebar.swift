@@ -54,7 +54,7 @@ struct Sidebar: View {
                 editButton
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             }
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
                 HStack(spacing: 4) {
                     SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
                     SidebarStatus(

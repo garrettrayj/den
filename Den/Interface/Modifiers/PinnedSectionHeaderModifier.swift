@@ -18,7 +18,7 @@ struct PinnedSectionHeaderModifier: ViewModifier {
             .padding(.vertical, 12)
             .background(
                 Color(.secondarySystemFill)
-                    .opacity(0.7)
+                    .opacity(0.6)
                     #if targetEnvironment(macCatalyst)
                     .background(.thickMaterial)
                     #else

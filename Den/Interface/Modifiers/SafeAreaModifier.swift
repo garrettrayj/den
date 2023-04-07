@@ -15,9 +15,6 @@ struct SafeAreaModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .onAppear {
-                print(geometry.safeAreaInsets)
-            }
             .safeAreaInset(edge: .leading, spacing: 0) {
                 if geometry.safeAreaInsets.leading > 0 {
                     VStack {}.frame(width: geometry.safeAreaInsets.leading)

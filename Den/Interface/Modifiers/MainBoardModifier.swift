@@ -18,6 +18,6 @@ struct MainBoardModifier: ViewModifier {
             #else
             .padding(.top, 4)
             #endif
-            .padding(.bottom, 16 + 12)
+            .padding(.bottom)
     }
 }

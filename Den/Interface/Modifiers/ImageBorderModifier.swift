@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ImageBorderModifier: ViewModifier {
-    var cornerRadius: CGFloat = 6
+    var cornerRadius: CGFloat = 8
 
     func body(content: Content) -> some View {
         content
