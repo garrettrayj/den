@@ -89,6 +89,7 @@ struct ItemView: View {
                 }
                 ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
                     HStack {
+                        Text("")
                         Spacer()
                         Button {
                             if useInbuiltBrowser {
