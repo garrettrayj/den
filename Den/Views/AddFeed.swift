@@ -72,13 +72,13 @@ struct AddFeed: View {
                         submitButtonSection
                     }
                     .navigationTitle("Add Feed")
-                    .toolbar {
-                        ToolbarItem {
+                    .toolbar(id: "add-feed") {
+                        ToolbarItem(id: "cancel", placement: .primaryAction) {
                             Button { dismiss() } label: {
                                 Label("Cancel", systemImage: "xmark.circle")
                             }
                             .buttonStyle(PlainToolbarButtonStyle())
-                            .accessibilityIdentifier("subscribe-cancel-button")
+                            .accessibilityIdentifier("add-feed-cancel-button")
                         }
                     }
                 }

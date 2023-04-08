@@ -71,8 +71,8 @@ struct SearchView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .navigationTitle("Search")
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
+        .toolbar(id: "search") {
+            ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
                 if query.isEmpty {
                     Text("Enter a word or phrase to look for in item titles.").font(.caption)
                 } else {

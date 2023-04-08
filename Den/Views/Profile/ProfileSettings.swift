@@ -37,8 +37,8 @@ struct ProfileSettings: View {
                 deleteSection
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
+        .toolbar(id: "profile-settings") {
+            ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
                 Button {
                     DispatchQueue.main.async {
                         appProfileID = profile.id?.uuidString
