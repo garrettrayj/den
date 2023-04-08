@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ShowcaseSection: View {
     @ObservedObject var feed: Feed
+    @ObservedObject var profile: Profile
 
     let items: [Item]
     let previewStyle: PreviewStyle
@@ -34,7 +35,7 @@ struct ShowcaseSection: View {
                     geometry: geometry,
                     list: items,
                     content: { item in
-                        ItemActionView(item: item) {
+                        ItemActionView(item: item, profile: profile) {
                             if previewStyle == .compressed {
                                 ItemCompressed(item: item)
                             } else {

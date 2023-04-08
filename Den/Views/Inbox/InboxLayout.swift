@@ -30,9 +30,9 @@ struct InboxLayout: View {
                     ScrollView(.vertical) {
                         BoardView(geometry: geometry, list: Array(items)) { item in
                             if previewStyle == .compressed {
-                                FeedItemCompressed(item: item)
+                                FeedItemCompressed(item: item, profile: profile)
                             } else {
-                                FeedItemExpanded(item: item)
+                                FeedItemExpanded(item: item, profile: profile)
                             }
                         }.modifier(MainBoardModifier())
                     }

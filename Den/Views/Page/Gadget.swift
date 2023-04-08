@@ -12,6 +12,7 @@ import SwiftUI
 
 struct Gadget: View {
     @ObservedObject var feed: Feed
+    @ObservedObject var profile: Profile
 
     let items: [Item]
     let previewStyle: PreviewStyle
@@ -40,7 +41,7 @@ struct Gadget: View {
             } else {
                 ForEach(items) { item in
                     Divider()
-                    ItemActionView(item: item) {
+                    ItemActionView(item: item, profile: profile) {
                         if previewStyle == .compressed {
                             ItemCompressed(item: item)
                         } else {

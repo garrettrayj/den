@@ -12,18 +12,17 @@ import SafariServices
 
 struct SafariUtility {
     static func openLink(
-        url: URL?,
+        url: URL,
+        controlTintColor: UIColor,
         readerMode: Bool = false
     ) {
-        guard
-            let url = url,
-            let rootViewController = WindowFinder.current()?.rootViewController
-        else { return }
+        guard let rootViewController = WindowFinder.current()?.rootViewController else { return }
 
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = readerMode
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
+        safariViewController.preferredControlTintColor = controlTintColor
 
         rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)

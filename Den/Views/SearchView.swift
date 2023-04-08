@@ -64,7 +64,7 @@ struct SearchView: View {
             } else {
                 ScrollView(.vertical) {
                     BoardView(geometry: geometry, list: Array(searchResults)) { item in
-                        FeedItemExpanded(item: item)
+                        FeedItemExpanded(item: item, profile: profile)
                     }.modifier(MainBoardModifier())
                 }.edgesIgnoringSafeArea(.horizontal)
             }

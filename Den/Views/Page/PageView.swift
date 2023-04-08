@@ -30,24 +30,28 @@ struct PageView: View {
                     case .deck:
                         DeckLayout(
                             page: page,
+                            profile: profile,
                             hideRead: hideRead,
                             previewStyle: previewStyle
                         )
                     case .blend:
                         BlendLayout(
                             page: page,
+                            profile: profile,
                             hideRead: hideRead,
                             previewStyle: previewStyle
                         )
                     case .showcase:
                         ShowcaseLayout(
                             page: page,
+                            profile: profile,
                             hideRead: hideRead,
                             previewStyle: previewStyle
                         )
                     case .gadgets:
                         GadgetLayout(
                             page: page,
+                            profile: profile,
                             hideRead: hideRead,
                             previewStyle: previewStyle
                         )

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct DeckLayout: View {
     @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
 
     let hideRead: Bool
     let previewStyle: PreviewStyle
@@ -31,6 +32,7 @@ struct DeckLayout: View {
                         ForEach(page.feedsArray) { feed in
                             DeckColumn(
                                 feed: feed,
+                                profile: profile,
                                 isFirst: page.feedsArray.first == feed,
                                 isLast: page.feedsArray.last == feed,
                                 items: items.forFeed(feed: feed),

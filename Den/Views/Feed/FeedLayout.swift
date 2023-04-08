@@ -47,7 +47,7 @@ struct FeedLayout: View {
                                         geometry: geometry,
                                         list: Array(items).previews()
                                     ) { item in
-                                        ItemActionView(item: item) {
+                                        ItemActionView(item: item, profile: profile) {
                                             if previewStyle == .compressed {
                                                 ItemCompressed(item: item)
                                             } else {
@@ -78,7 +78,7 @@ struct FeedLayout: View {
                                         geometry: geometry,
                                         list: Array(items).extras()
                                     ) { item in
-                                        ItemActionView(item: item) {
+                                        ItemActionView(item: item, profile: profile) {
                                             if previewStyle == .compressed {
                                                 ItemCompressed(item: item)
                                             } else {

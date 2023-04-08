@@ -77,11 +77,12 @@ struct RootView: View {
         }
         .preferredColorScheme(ColorScheme(uiStyle))
         .onChange(of: uiStyle) { _ in
+            // Update UI style override for system views, e.g., built-in Safari on iOS
             WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
         }
         .task {
-            guard let window = WindowFinder.current() else { return }
-            window.overrideUserInterfaceStyle = uiStyle
+            // Set initial UI style override for system views, e.g., built-in Safari on iOS
+            WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showCrashMessage = true

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct FeedItemCompressed: View {
     @ObservedObject var item: Item
+    @ObservedObject var profile: Profile
 
     var body: some View {
         if let feed = item.feedData?.feed {
@@ -32,7 +33,7 @@ struct FeedItemCompressed: View {
 
                 Divider()
 
-                ItemActionView(item: item) {
+                ItemActionView(item: item, profile: profile) {
                     ItemCompressed(item: item)
                 }
             }

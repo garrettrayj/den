@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ShowcaseLayout: View {
     @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
 
     let hideRead: Bool
     let previewStyle: PreviewStyle
@@ -31,6 +32,7 @@ struct ShowcaseLayout: View {
                         ForEach(page.feedsArray) { feed in
                             ShowcaseSection(
                                 feed: feed,
+                                profile: profile,
                                 items: items.forFeed(feed: feed),
                                 previewStyle: previewStyle,
                                 geometry: geometry

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct BlendLayout: View {
     @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
 
     let hideRead: Bool
     let previewStyle: PreviewStyle
@@ -30,9 +31,9 @@ struct BlendLayout: View {
                     ScrollView(.vertical) {
                         BoardView(geometry: geometry, list: Array(items)) { item in
                             if previewStyle == .compressed {
-                                FeedItemCompressed(item: item)
+                                FeedItemCompressed(item: item, profile: profile)
                             } else {
-                                FeedItemExpanded(item: item)
+                                FeedItemExpanded(item: item, profile: profile)
                             }
                         }.modifier(MainBoardModifier())
                     }

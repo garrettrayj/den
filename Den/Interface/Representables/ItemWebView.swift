@@ -107,7 +107,7 @@ struct ItemWebView: UIViewRepresentable {
                 #if targetEnvironment(macCatalyst)
                 UIApplication.shared.open(url)
                 #else
-                SafariUtility.openLink(url: url)
+                SafariUtility.openLink(url: url, controlTintColor: .tintColor)
                 #endif
             } else {
                 decisionHandler(.allow)

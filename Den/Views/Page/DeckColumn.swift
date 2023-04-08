@@ -14,6 +14,7 @@ struct DeckColumn: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var feed: Feed
+    @ObservedObject var profile: Profile
 
     let isFirst: Bool
     let isLast: Bool
@@ -32,7 +33,7 @@ struct DeckColumn: View {
                         .modifier(RaisedGroupModifier())
                 } else {
                     ForEach(items) { item in
-                        ItemActionView(item: item) {
+                        ItemActionView(item: item, profile: profile) {
                             if previewStyle == .compressed {
                                 ItemCompressed(item: item)
                             } else {

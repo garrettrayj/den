@@ -16,24 +16,27 @@ struct ItemActionView<Content: View>: View {
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var item: Item
+    @ObservedObject var profile: Profile
 
     @ViewBuilder var content: Content
 
     var body: some View {
         if item.feedData?.feed?.browserView == true {
             Button {
-                if useInbuiltBrowser {
-                    SafariUtility.openLink(
-                        url: item.link,
-                        readerMode: item.feedData?.feed?.readerMode ?? false
-                    )
-                } else {
-                    if let url = item.link {
+                if let url = item.link {
+                    if useInbuiltBrowser {
+                        SafariUtility.openLink(
+                            url: url,
+                            controlTintColor: profile.tintUIColor ?? .tintColor,
+                            readerMode: item.feedData?.feed?.readerMode ?? false
+                        )
+                    } else {
                         openURL(url)
                     }
-                }
-                Task {
-                    await HistoryUtility.markItemRead(item: item)
+
+                    Task {
+                        await HistoryUtility.markItemRead(item: item)
+                    }
                 }
             } label: {
                 content

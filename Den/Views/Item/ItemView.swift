@@ -92,13 +92,16 @@ struct ItemView: View {
                         Text("")
                         Spacer()
                         Button {
-                            if useInbuiltBrowser {
-                                SafariUtility.openLink(
-                                    url: item.link,
-                                    readerMode: item.feedData?.feed?.readerMode ?? false
-                                )
-                            } else {
-                                if let url = item.link { openURL(url) }
+                            if let url = item.link {
+                                if useInbuiltBrowser {
+                                    SafariUtility.openLink(
+                                        url: url,
+                                        controlTintColor: profile.tintUIColor ?? .tintColor,
+                                        readerMode: item.feedData?.feed?.readerMode ?? false
+                                    )
+                                } else {
+                                    openURL(url)
+                                }
                             }
                         } label: {
                             Label("Open in Browser", systemImage: "link.circle")

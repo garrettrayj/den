@@ -12,6 +12,7 @@ import SwiftUI
 
 struct GadgetLayout: View {
     @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
 
     let hideRead: Bool
     let previewStyle: PreviewStyle
@@ -30,6 +31,7 @@ struct GadgetLayout: View {
                     BoardView(geometry: geometry, list: page.feedsArray) { feed in
                         Gadget(
                             feed: feed,
+                            profile: profile,
                             items: items.forFeed(feed: feed),
                             previewStyle: previewStyle
                         )
