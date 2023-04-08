@@ -32,8 +32,8 @@ struct IconPicker: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Select Icon")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(id: "icon-picker") {
-                ToolbarItem(id: "close", placement: .primaryAction) {
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
                     Button {
                         dismiss()
                     } label: {

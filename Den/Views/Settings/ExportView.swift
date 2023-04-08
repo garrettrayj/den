@@ -31,8 +31,8 @@ struct ExportView: View {
                 }
             }
         }
-        .toolbar(id: "export") {
-            ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
                 Button {
                     exportOpml()
                 } label: {

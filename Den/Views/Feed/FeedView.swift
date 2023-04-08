@@ -37,18 +37,18 @@ struct FeedView: View {
 
     var body: some View {
         FeedLayout(feed: feed, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
-            .toolbar(id: "feed-toolbar") {
-                ToolbarItem(id: "preview-style", placement: .primaryAction) {
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
                     PreviewStyleButton(previewStyle: $previewStyle)
                 }
-                ToolbarItem(id: "settings", placement: .primaryAction) {
+                ToolbarItem(placement: .primaryAction) {
                     NavigationLink(value: DetailPanel.feedSettings(feed)) {
                         Label("Feed Settings", systemImage: "wrench")
                     }
                     .buttonStyle(ToolbarButtonStyle())
                     .accessibilityIdentifier("feed-settings-button")
                 }
-                ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
+                ToolbarItem(placement: .bottomBar) {
                     FeedBottomBar(
                         feed: feed,
                         profile: profile,

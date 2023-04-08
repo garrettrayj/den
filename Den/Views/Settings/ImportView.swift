@@ -40,9 +40,9 @@ struct ImportView: View {
         .frame(maxWidth: .infinity)
         .onDisappear(perform: reset)
         .navigationTitle("Import")
-        .toolbar(id: "import") {
+        .toolbar {
             if stage == .pickFile {
-                ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
+                ToolbarItem(placement: .bottomBar) {
                     Button(action: pickFile) {
                         Label("Select File", systemImage: "filemenu.and.cursorarrow")
                             .labelStyle(.titleAndIcon)
@@ -51,7 +51,7 @@ struct ImportView: View {
                     .accessibilityIdentifier("select-file-button")
                 }
             } else if stage == .folderSelection {
-                ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
+                ToolbarItem(placement: .bottomBar) {
                     Button(action: importSelected) {
                         Label("Import Pages", systemImage: "rectangle.stack.badge.plus")
                             .labelStyle(.titleAndIcon)

@@ -39,8 +39,8 @@ struct Welcome: View {
                 }
             }
         }
-        .toolbar(id: "welcome") {
-            ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
                 if profile.feedsArray.count == 1 {
                     Text("1 Feed").font(.caption)
                 } else {

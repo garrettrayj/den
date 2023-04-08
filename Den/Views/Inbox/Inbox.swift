@@ -32,14 +32,14 @@ struct Inbox: View {
 
     var body: some View {
         InboxLayout(profile: profile, hideRead: hideRead, previewStyle: previewStyle)
-            .toolbar(id: "inbox-toolbar") {
-                ToolbarItem(id: "preview-style", placement: .primaryAction) {
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
                     PreviewStyleButton(previewStyle: $previewStyle)
                 }
-                ToolbarItem(id: "add-feed", placement: .primaryAction) {
+                ToolbarItem(placement: .primaryAction) {
                     AddFeedButton()
                 }
-                ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
+                ToolbarItem(placement: .bottomBar) {
                     InboxBottomBar(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
                 }
             }
