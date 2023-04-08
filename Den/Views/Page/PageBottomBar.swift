@@ -33,7 +33,6 @@ struct PageBottomBar: View {
                     page.feedsArray.forEach { $0.objectWillChange.send() }
                 }
             }
-
         }
     }
 }

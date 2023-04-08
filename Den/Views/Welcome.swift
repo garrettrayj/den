@@ -15,21 +15,15 @@ struct Welcome: View {
 
     @Binding var refreshing: Bool
 
-    @State private var refreshedDate: Date?
-    @State private var refreshedRelativeString: String?
-    @State private var timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
-
     let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .named, unitsStyle: .wide)
 
     var body: some View {
         Group {
             if refreshing {
                 SplashNote(title: profile.displayName, note: "Checking for New Items…")
-            } else if let refreshedDate = refreshedDate, let refreshedRelativeString = refreshedRelativeString {
-                if -refreshedDate.timeIntervalSinceNow < 60 {
-                    SplashNote(title: profile.displayName, note: "Updated Just Now")
-                } else {
-                    SplashNote(title: profile.displayName, note: "Updated \(refreshedRelativeString)")
+            } else if refreshedLabel() != nil {
+                TimelineView(.everyMinute) { _ in
+                    SplashNote(title: profile.displayName, note: refreshedLabel())
                 }
             } else {
                 if profile.pagesArray.isEmpty {
@@ -49,27 +43,15 @@ struct Welcome: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            updateRefreshedDateAndRelativeString()
-        }
-        .onReceive(timer) { _ in
-            updateRefreshedDateAndRelativeString()
-        }
-        .onChange(of: refreshing) { _ in
-            updateRefreshedDateAndRelativeString()
-        }
-        .onDisappear {
-            timer.upstream.connect().cancel()
-        }
-        .onAppear {
-            timer = self.timer.upstream.autoconnect()
-        }
     }
 
-    private func updateRefreshedDateAndRelativeString() {
+    private func refreshedLabel() -> String? {
         if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-            self.refreshedDate = refreshedDate
-            self.refreshedRelativeString = refreshedDate.formatted(relativeDateStyle)
+            if -refreshedDate.timeIntervalSinceNow < 60 {
+                return "Updated Just Now"
+            }
+            return "Updated \(refreshedDate.formatted(relativeDateStyle))"
         }
+        return nil
     }
 }

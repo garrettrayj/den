@@ -20,7 +20,6 @@ struct CommonStatus: View {
 
     @State private var refreshedDate: Date?
     @State private var refreshedRelativeString: String?
-    @State private var timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
 
     let unreadCount: Int
     var unreadLabel = "Unread"
@@ -34,28 +33,24 @@ struct CommonStatus: View {
             } else {
                 ViewThatFits {
                     HStack(spacing: 4) {
-                        if
-                            let refreshedDate = refreshedDate,
-                            let refreshedRelativeString = refreshedRelativeString
-                        {
-                            if -refreshedDate.timeIntervalSinceNow < 60 {
-                                Text("Updated Just Now")
-                            } else {
-                                Text("Updated \(refreshedRelativeString)")
+                        if refreshedLabel() != nil {
+                            TimelineView(.everyMinute) { _ in
+                                if let refreshedLabel = refreshedLabel() {
+                                    HStack(spacing: 4) {
+                                        Text(refreshedLabel)
+                                        Text("－").foregroundColor(Color(.secondaryLabel))
+                                    }
+                                }
                             }
-                            Text("－").foregroundColor(Color(.secondaryLabel))
                         }
                         Text("\(unreadCount) \(unreadLabel)").foregroundColor(Color(.secondaryLabel))
                     }
                     VStack {
-                        if
-                            let refreshedDate = refreshedDate,
-                            let refreshedRelativeString = refreshedRelativeString
-                        {
-                            if -refreshedDate.timeIntervalSinceNow < 60 {
-                                Text("Updated Just Now")
-                            } else {
-                                Text("Updated \(refreshedRelativeString)")
+                        if refreshedLabel() != nil {
+                            TimelineView(.everyMinute) { _ in
+                                if let refreshedLabel = refreshedLabel() {
+                                    Text(refreshedLabel)
+                                }
                             }
                         }
                         Text("\(unreadCount) \(unreadLabel)").foregroundColor(Color(.secondaryLabel))
@@ -66,27 +61,15 @@ struct CommonStatus: View {
         .frame(maxWidth: .infinity)
         .font(.caption)
         .lineLimit(1)
-        .onReceive(timer) { _ in
-            updateRefreshedDateAndRelativeString()
-        }
-        .task {
-            updateRefreshedDateAndRelativeString()
-        }
-        .onChange(of: refreshing) { _ in
-            updateRefreshedDateAndRelativeString()
-        }
-        .onDisappear {
-            self.timer.upstream.connect().cancel()
-        }
-        .onAppear {
-            self.timer = self.timer.upstream.autoconnect()
-        }
     }
 
-    private func updateRefreshedDateAndRelativeString() {
+    private func refreshedLabel() -> String? {
         if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-            self.refreshedDate = refreshedDate
-            self.refreshedRelativeString = refreshedDate.formatted(relativeDateStyle)
+            if -refreshedDate.timeIntervalSinceNow < 60 {
+                return "Updated Just Now"
+            }
+            return "Updated \(refreshedDate.formatted(relativeDateStyle))"
         }
+        return nil
     }
 }

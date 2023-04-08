@@ -16,9 +16,6 @@ struct FeedStatus: View {
 
     let unreadCount: Int
 
-    @State private var refreshedRelativeString: String?
-    @State private var timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
-
     let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .numeric, unitsStyle: .wide)
 
     var body: some View {
@@ -28,28 +25,25 @@ struct FeedStatus: View {
             } else {
                 ViewThatFits {
                     HStack(spacing: 4) {
-                        if
-                            let refreshedDate = feed.feedData?.refreshed,
-                            let refreshedRelativeString = refreshedRelativeString
-                        {
-                            if -refreshedDate.timeIntervalSinceNow < 60 {
-                                Text("Updated Just Now")
-                            } else {
-                                Text("Updated \(refreshedRelativeString)")
+                        if refreshedLabel() != nil {
+                            TimelineView(.everyMinute) { _ in
+                                if let refreshedLabel = refreshedLabel() {
+                                    HStack(spacing: 4) {
+                                        Text(refreshedLabel)
+                                        Text("－").foregroundColor(Color(.secondaryLabel))
+                                    }
+                                }
                             }
-                            Text("－").foregroundColor(Color(.secondaryLabel))
                         }
                         Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
                     }
                     VStack {
-                        if
-                            let refreshedDate = feed.feedData?.refreshed,
-                            let refreshedRelativeString = refreshedRelativeString
-                        {
-                            if -refreshedDate.timeIntervalSinceNow < 60 {
-                                Text("Updated Just Now")
-                            } else {
-                                Text("Updated \(refreshedRelativeString)")
+                        if refreshedLabel() != nil {
+                            TimelineView(.everyMinute) { _ in
+                                if let refreshedLabel = refreshedLabel() {
+                                    Text(refreshedLabel)
+                                    Text("－").foregroundColor(Color(.secondaryLabel))
+                                }
                             }
                         }
                         Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
@@ -59,23 +53,15 @@ struct FeedStatus: View {
         }
         .font(.caption)
         .lineLimit(1)
-        .onReceive(timer) { _ in
-            updateRefreshedDateAndRelativeString()
-        }
-        .task {
-            updateRefreshedDateAndRelativeString()
-        }
-        .onDisappear {
-            self.timer.upstream.connect().cancel()
-        }
-        .onAppear {
-            self.timer = self.timer.upstream.autoconnect()
-        }
     }
 
-    private func updateRefreshedDateAndRelativeString() {
+    private func refreshedLabel() -> String? {
         if let refreshedDate = feed.feedData?.refreshed {
-            self.refreshedRelativeString = refreshedDate.formatted(relativeDateStyle)
+            if -refreshedDate.timeIntervalSinceNow < 60 {
+                return "Updated Just Now"
+            }
+            return "Updated \(refreshedDate.formatted(relativeDateStyle))"
         }
+        return nil
     }
 }
