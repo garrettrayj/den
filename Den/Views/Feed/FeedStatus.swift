@@ -28,13 +28,31 @@ struct FeedStatus: View {
             } else {
                 ViewThatFits {
                     HStack(spacing: 4) {
-                        updatedText
-                        Text("－").foregroundColor(Color(.secondaryLabel))
-                        unreadText
+                        if
+                            let refreshedDate = feed.feedData?.refreshed,
+                            let refreshedRelativeString = refreshedRelativeString
+                        {
+                            if -refreshedDate.timeIntervalSinceNow < 60 {
+                                Text("Updated Just Now")
+                            } else {
+                                Text("Updated \(refreshedRelativeString)")
+                            }
+                            Text("－").foregroundColor(Color(.secondaryLabel))
+                        }
+                        Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
                     }
                     VStack {
-                        updatedText
-                        unreadText
+                        if
+                            let refreshedDate = feed.feedData?.refreshed,
+                            let refreshedRelativeString = refreshedRelativeString
+                        {
+                            if -refreshedDate.timeIntervalSinceNow < 60 {
+                                Text("Updated Just Now")
+                            } else {
+                                Text("Updated \(refreshedRelativeString)")
+                            }
+                        }
+                        Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
                     }
                 }
             }
@@ -53,24 +71,6 @@ struct FeedStatus: View {
         .onAppear {
             self.timer = self.timer.upstream.autoconnect()
         }
-    }
-
-    @ViewBuilder
-    private var updatedText: some View {
-        if
-            let refreshedDate = feed.feedData?.refreshed,
-            let refreshedRelativeString = refreshedRelativeString
-        {
-            if -refreshedDate.timeIntervalSinceNow < 60 {
-                Text("Updated Just Now")
-            } else {
-                Text("Updated \(refreshedRelativeString)")
-            }
-        }
-    }
-
-    private var unreadText: some View {
-        Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
     }
 
     private func updateRefreshedDateAndRelativeString() {

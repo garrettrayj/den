@@ -55,13 +55,15 @@ struct Sidebar: View {
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             }
             ToolbarItem(id: "bottom-bar", placement: .bottomBar) {
-                HStack(spacing: 4) {
+                HStack {
                     SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
+                    Spacer()
                     SidebarStatus(
                         profile: profile,
                         refreshing: $refreshManager.refreshing,
                         progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
-                    ).frame(maxWidth: .infinity)
+                    )
+                    Spacer()
                     RefreshButton(profile: profile)
                         .disabled(
                             refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected

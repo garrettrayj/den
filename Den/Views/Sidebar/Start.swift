@@ -29,7 +29,7 @@ struct Start: View {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
             } label: {
-                Label("Add a New Page", systemImage: "plus")
+                Label("Add a New Page", systemImage: "plus").multilineTextAlignment(.leading)
             }
             .buttonStyle(.borderless)
             .accessibilityIdentifier("start-add-page-button")
@@ -38,7 +38,7 @@ struct Start: View {
                 loadDemo()
             } label: {
                 Label {
-                    Text("Load Demo Pages")
+                    Text("Load Demo Pages").multilineTextAlignment(.leading)
                 } icon: {
                     Image(systemName: "wand.and.stars")
                 }

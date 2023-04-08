@@ -25,7 +25,7 @@ struct SidebarStatus: View {
                 ProgressView(progress).progressViewStyle(
                     BottomBarProgressViewStyle(profile: profile)
                 )
-                .frame(maxWidth: 120)
+                .frame(maxWidth: 112)
             } else {
                 if profile.pagesArray.isEmpty {
                     Text("Profile Empty")
