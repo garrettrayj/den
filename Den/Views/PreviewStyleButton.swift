@@ -27,7 +27,7 @@ struct PreviewStyleButton: View {
                 Label("Compress", systemImage: "rectangle.compress.vertical")
             }
         }
-        .buttonStyle(ToolbarButtonStyle())
+        .modifier(ToolbarButtonModifier())
         .accessibilityIdentifier("preview-style-button")
     }
 }

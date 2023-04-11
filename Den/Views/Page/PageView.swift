@@ -64,24 +64,21 @@ struct PageView: View {
         .navigationTitle(page.displayName)
         .toolbar {
             #if targetEnvironment(macCatalyst)
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction) {
                 Label {
                     Text("Page Layout")
                 } icon: {
                     PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented).labelStyle(.iconOnly)
                 }
-            }
-            ToolbarItem(placement: .primaryAction) {
+                Spacer()
                 PreviewStyleButton(previewStyle: $previewStyle)
-            }
-            ToolbarItem(placement: .primaryAction) {
+                Spacer()
                 AddFeedButton(page: page)
-            }
-            ToolbarItem(placement: .primaryAction) {
+                Spacer()
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
-                .buttonStyle(ToolbarButtonStyle())
+                .modifier(ToolbarButtonModifier())
                 .accessibilityIdentifier("page-settings-button")
             }
             #else
@@ -92,7 +89,6 @@ struct PageView: View {
                     NavigationLink(value: DetailPanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
-                    .buttonStyle(ToolbarButtonStyle())
                     .accessibilityIdentifier("page-settings-button")
                 } label: {
                     Label("Page Menu", systemImage: "ellipsis.circle")

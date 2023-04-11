@@ -44,7 +44,7 @@ struct TrendView: View {
                 ToolbarItem(placement: .primaryAction) {
                     PreviewStyleButton(previewStyle: $previewStyle)
                 }
-                ToolbarItem(placement: .bottomBar) {
+                ToolbarItemGroup(placement: .bottomBar) {
                     TrendBottomBar(
                         trend: trend,
                         profile: profile,

@@ -18,31 +18,30 @@ struct Welcome: View {
     let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .named, unitsStyle: .wide)
 
     var body: some View {
-        Group {
-            if refreshing {
-                SplashNote(title: profile.displayName, note: "Checking for New Items…")
-            } else if refreshedLabel() != nil {
-                TimelineView(.everyMinute) { _ in
-                    SplashNote(title: profile.displayName, note: refreshedLabel())
+        welcomeNote
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    Text(profile.feedCountString).font(.caption)
                 }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+    }
+
+    @ViewBuilder
+    private var welcomeNote: some View {
+        if refreshing {
+            SplashNote(title: profile.displayName, note: "Checking for New Items…")
+        } else if refreshedLabel() != nil {
+            TimelineView(.everyMinute) { _ in
+                SplashNote(title: profile.displayName, note: refreshedLabel())
+            }
+        } else {
+            if profile.pagesArray.isEmpty {
+                SplashNote(title: profile.displayName, note: "Welcome! See the sidebar to begin.")
             } else {
-                if profile.pagesArray.isEmpty {
-                    SplashNote(title: profile.displayName, note: "Welcome! See the sidebar to begin.")
-                } else {
-                    SplashNote(title: profile.displayName, note: "Last refresh date unavailable.")
-                }
+                SplashNote(title: profile.displayName, note: "Last refresh date unavailable.")
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                if profile.feedsArray.count == 1 {
-                    Text("1 Feed").font(.caption)
-                } else {
-                    Text("\(profile.feedsArray.count) Feeds").font(.caption)
-                }
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
     }
 
     private func refreshedLabel() -> String? {

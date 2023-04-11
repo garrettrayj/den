@@ -27,20 +27,18 @@ struct TrendBottomBar: View {
 
     var body: some View {
         WithItems(scopeObject: trend) { items in
-            HStack {
-                FilterReadButton(hideRead: $hideRead) {
-                    trend.objectWillChange.send()
-                }
-                Spacer()
-                CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
-                Spacer()
-                ToggleReadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                    trend.objectWillChange.send()
-                    profile.objectWillChange.send()
-                    if hideRead {
-                        dismiss()
-                    }
+            FilterReadButton(hideRead: $hideRead) {
+                trend.objectWillChange.send()
+            }
+            Spacer()
+            CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
+            Spacer()
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                trend.objectWillChange.send()
+                profile.objectWillChange.send()
+                if hideRead {
+                    dismiss()
                 }
             }
         }

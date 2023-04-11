@@ -26,7 +26,7 @@ struct ItemView: View {
         GeometryReader { _ in
             ScrollView(.vertical) {
                 VStack {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 16) {
                         FeedTitleLabel(
                             title: item.feedTitle,
                             favicon: item.feedData?.favicon
@@ -34,86 +34,67 @@ struct ItemView: View {
                         .font(.title3)
                         .textSelection(.enabled)
 
-                        Group {
-                            Text(item.wrappedTitle)
-                                .font(.largeTitle)
-                                .textSelection(.enabled)
-                                .padding(.top, 8)
-                                .fixedSize(horizontal: false, vertical: true)
+                        Text(item.wrappedTitle)
+                            .font(.largeTitle)
+                            .textSelection(.enabled)
+                            .fixedSize(horizontal: false, vertical: true)
 
-                            ViewThatFits(in: .horizontal) {
-                                HStack(spacing: 4) {
-                                    Text(item.date.formatted(date: .long, time: .shortened))
-                                    if let author = item.author {
-                                        Text("•")
-                                        Text(author)
-                                    }
-                                }
-                                VStack(alignment: .leading) {
-                                    Text(item.date.formatted(date: .long, time: .shortened))
-                                    if let author = item.author {
-                                        Text(author)
-                                    }
-                                }
-                            }
-                            .font(.subheadline)
+                        ItemDateAuthor(item: item, dateStyle: .long, timeStyle: .shortened)
 
-                            if
-                                item.image != nil &&
-                                !(item.summary?.contains("<img") ?? false) &&
-                                !(item.body?.contains("<img") ?? false)
-                            {
-                                ItemHero(item: item).padding(.top, 8)
-                            }
-
-                            if item.body != nil || item.summary != nil {
-                                ItemWebView(
-                                    html: item.body ?? item.summary!,
-                                    title: item.wrappedTitle,
-                                    baseURL: item.link,
-                                    tint: profile.tintUIColor
-                                ).padding(.top, 8)
-                            }
+                        if
+                            item.image != nil &&
+                            !(item.summary?.contains("<img") ?? false) &&
+                            !(item.body?.contains("<img") ?? false)
+                        {
+                            ItemHero(item: item)
                         }
-                        .multilineTextAlignment(.leading)
+
+                        if item.body != nil || item.summary != nil {
+                            ItemWebView(
+                                html: item.body ?? item.summary!,
+                                title: item.wrappedTitle,
+                                baseURL: item.link,
+                                tint: profile.tintUIColor
+                            )
+                        }
                     }
+                    .multilineTextAlignment(.leading)
                     .frame(maxWidth: maxContentWidth)
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
+                .navigationBarTitleDisplayMode(.inline)
+                .task {
+                    await HistoryUtility.markItemRead(item: item)
+                }
             }
             .background(Color(.systemBackground).edgesIgnoringSafeArea(.all))
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    ShareLink(item: item.link!).buttonStyle(ToolbarButtonStyle())
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    HStack {
-                        Text("")
-                        Spacer()
-                        Button {
-                            if let url = item.link {
-                                if useInbuiltBrowser {
-                                    SafariUtility.openLink(
-                                        url: url,
-                                        controlTintColor: profile.tintUIColor ?? .tintColor,
-                                        readerMode: item.feedData?.feed?.readerMode ?? false
-                                    )
-                                } else {
-                                    openURL(url)
-                                }
-                            }
-                        } label: {
-                            Label("Open in Browser", systemImage: "link.circle")
-                        }
-                        .buttonStyle(PlainToolbarButtonStyle())
-                        .accessibilityIdentifier("item-open-button")
-                    }
-                }
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                ShareLink(item: item.link!)
+                    .modifier(ToolbarButtonModifier())
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .task {
-                await HistoryUtility.markItemRead(item: item)
+            ToolbarItemGroup(placement: .bottomBar) {
+                Text("")
+                Spacer()
+                Button {
+                    if let url = item.link {
+                        if useInbuiltBrowser {
+                            SafariUtility.openLink(
+                                url: url,
+                                controlTintColor: profile.tintUIColor ?? .tintColor,
+                                readerMode: item.feedData?.feed?.readerMode ?? false
+                            )
+                        } else {
+                            openURL(url)
+                        }
+                    }
+                } label: {
+                    Label("Open in Browser", systemImage: "link.circle")
+                }
+                .modifier(ToolbarButtonModifier())
+                .accessibilityIdentifier("item-open-button")
             }
         }
     }

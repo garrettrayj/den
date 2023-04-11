@@ -43,6 +43,14 @@ public class Profile: NSManagedObject {
         }
     }
 
+    public var feedCountString: String {
+        if self.feedsArray.count == 1 {
+            return "1 Feed"
+        } else {
+            return "\(self.feedsArray.count) Feeds"
+        }
+    }
+
     public var insecureFeeds: [Feed] {
         pagesArray.flatMap { page in
             return page.insecureFeeds

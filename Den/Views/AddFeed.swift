@@ -77,7 +77,7 @@ struct AddFeed: View {
                             Button { dismiss() } label: {
                                 Label("Cancel", systemImage: "xmark.circle")
                             }
-                            .buttonStyle(PlainToolbarButtonStyle())
+                            .modifier(ToolbarButtonModifier())
                             .accessibilityIdentifier("add-feed-cancel-button")
                         }
                     }

@@ -15,10 +15,13 @@ import SwiftUI
 struct ItemDateAuthor: View {
     let item: Item
 
+    var dateStyle: Date.FormatStyle.DateStyle = .abbreviated
+    var timeStyle: Date.FormatStyle.TimeStyle = .shortened
+
     var body: some View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 4) {
-                Text("\(item.date.formatted())")
+                Text("\(item.date.formatted(date: dateStyle, time: timeStyle))")
                 if let author = item.author {
                     Text("•")
                     Text(author)
@@ -26,7 +29,7 @@ struct ItemDateAuthor: View {
             }
 
             VStack(alignment: .leading) {
-                Text("\(item.date.formatted())")
+                Text("\(item.date.formatted(date: dateStyle, time: timeStyle))")
                 if let author = item.author {
                     Text(author)
                 }

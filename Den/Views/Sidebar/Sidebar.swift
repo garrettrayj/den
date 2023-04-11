@@ -54,28 +54,25 @@ struct Sidebar: View {
                 editButton
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             }
-            ToolbarItem(placement: .bottomBar) {
-                HStack {
-                    SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
-                    Spacer()
-                    SidebarStatus(
-                        profile: profile,
-                        refreshing: $refreshManager.refreshing,
-                        progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
+            ToolbarItemGroup(placement: .bottomBar) {
+                SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
+                Spacer()
+                SidebarStatus(
+                    profile: profile,
+                    refreshing: $refreshManager.refreshing,
+                    progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
+                )
+                Spacer()
+                RefreshButton(profile: profile)
+                    .disabled(
+                        refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected
                     )
-                    Spacer()
-                    RefreshButton(profile: profile)
-                        .disabled(
-                            refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected
-                        )
-                }
             }
         }
     }
 
     private var editButton: some View {
         EditButton()
-            .buttonStyle(ToolbarButtonStyle())
             .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             .accessibilityIdentifier("edit-page-list-button")
     }

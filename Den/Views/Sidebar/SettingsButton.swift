@@ -19,7 +19,7 @@ struct SettingsButton: View {
         } label: {
             Label("Settings", systemImage: "gear")
         }
-        .buttonStyle(PlainToolbarButtonStyle())
+        .modifier(ToolbarButtonModifier())
         .accessibilityIdentifier("settings-button")
     }
 }

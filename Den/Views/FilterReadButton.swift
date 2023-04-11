@@ -27,7 +27,7 @@ struct FilterReadButton: View {
                     : "line.3.horizontal.decrease.circle"
             )
         }
-        .buttonStyle(PlainToolbarButtonStyle())
+        .modifier(ToolbarButtonModifier())
         .accessibilityIdentifier("filter-read-button")
     }
 }

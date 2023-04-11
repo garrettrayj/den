@@ -47,7 +47,7 @@ struct ImportView: View {
                         Label("Select File", systemImage: "filemenu.and.cursorarrow")
                             .labelStyle(.titleAndIcon)
                     }
-                    .buttonStyle(PlainToolbarButtonStyle())
+                    .modifier(ToolbarButtonModifier())
                     .accessibilityIdentifier("select-file-button")
                 }
             } else if stage == .folderSelection {
@@ -56,7 +56,7 @@ struct ImportView: View {
                         Label("Import Pages", systemImage: "rectangle.stack.badge.plus")
                             .labelStyle(.titleAndIcon)
                     }
-                    .buttonStyle(PlainToolbarButtonStyle())
+                    .modifier(ToolbarButtonModifier())
                     .disabled(!(selectedFolders.count > 0))
                     .accessibilityIdentifier("import-button")
                 }

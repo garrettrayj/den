@@ -38,7 +38,7 @@ struct ToggleReadButton: View {
                 )
             }
         }
-        .buttonStyle(PlainToolbarButtonStyle())
+        .modifier(ToolbarButtonModifier())
         .accessibilityIdentifier("mark-all-read-button")
         .disabled(toggling)
     }

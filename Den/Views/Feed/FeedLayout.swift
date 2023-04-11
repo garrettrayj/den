@@ -26,7 +26,6 @@ struct FeedLayout: View {
                     if let heroImage = feed.feedData?.banner {
                         FeedHero(heroImage: heroImage)
                     }
-
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailable(feedData: feed.feedData, splashNote: true)
                     } else {

@@ -21,9 +21,13 @@ struct AddFeedButton: View {
                 SubscriptionUtility.showSubscribe()
             }
         } label: {
-            Label("Add Feed", systemImage: "plus.circle")
+            Label {
+                Text("Add Feed")
+            } icon: {
+                Image(systemName: "plus.circle")
+            }
         }
-        .buttonStyle(ToolbarButtonStyle())
+        .modifier(ToolbarButtonModifier())
         .accessibilityIdentifier("add-feed-button")
     }
 }

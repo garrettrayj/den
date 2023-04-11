@@ -73,12 +73,16 @@ struct SearchView: View {
         .navigationTitle("Search")
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                if query.isEmpty {
-                    Text("Enter a word or phrase to look for in item titles.").font(.caption)
-                } else {
-                    Text("Results for “\(query)”").font(.caption)
-                }
+                Text(statusString).font(.caption)
             }
+        }
+    }
+
+    private var statusString: String {
+        if query.isEmpty {
+            return "Enter a word or phrase to look for in item titles."
+        } else {
+            return "Results for “\(query)”"
         }
     }
 }

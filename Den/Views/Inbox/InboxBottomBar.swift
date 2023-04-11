@@ -23,19 +23,17 @@ struct InboxBottomBar: View {
 
     var body: some View {
         WithItems(scopeObject: profile) { items in
-            HStack {
-                FilterReadButton(hideRead: $hideRead) {
-                    profile.objectWillChange.send()
-                }
-                Spacer()
-                CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
-                Spacer()
-                ToggleReadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                    profile.objectWillChange.send()
-                    for page in profile.pagesArray {
-                        page.objectWillChange.send()
-                    }
+            FilterReadButton(hideRead: $hideRead) {
+                profile.objectWillChange.send()
+            }
+            Spacer()
+            CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
+            Spacer()
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                profile.objectWillChange.send()
+                for page in profile.pagesArray {
+                    page.objectWillChange.send()
                 }
             }
         }

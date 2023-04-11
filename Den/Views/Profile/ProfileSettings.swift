@@ -50,7 +50,7 @@ struct ProfileSettings: View {
                     Label("Switch", systemImage: "arrow.left.arrow.right")
                 }
                 .labelStyle(.titleAndIcon)
-                .buttonStyle(PlainToolbarButtonStyle())
+                .modifier(ToolbarButtonModifier())
                 .disabled(profile == activeProfile)
                 .accessibilityIdentifier("switch-to-profile-button")
             }
