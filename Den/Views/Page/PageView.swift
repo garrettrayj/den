@@ -97,7 +97,7 @@ struct PageView: View {
             }
             #endif
 
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .bottomBar) {
                 PageBottomBar(
                     page: page,
                     profile: profile,

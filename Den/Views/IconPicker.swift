@@ -66,7 +66,6 @@ struct IconPicker: View {
                             RoundedRectangle(cornerRadius: 4).strokeBorder(Color.accentColor, lineWidth: 2)
                         }
                     }
-
                     .aspectRatio(1, contentMode: .fit)
                     .onTapGesture {
                         page.wrappedSymbol = symbol.id

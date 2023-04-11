@@ -34,6 +34,6 @@ struct NoFeeds: View {
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .padding(24)
+        .padding()
     }
 }

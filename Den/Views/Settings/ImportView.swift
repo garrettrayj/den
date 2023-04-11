@@ -72,7 +72,7 @@ struct ImportView: View {
             to choose an OPML file to add feeds from. Pick pages to import next.
             """)
                 .multilineTextAlignment(.center)
-                .padding(24)
+                .padding()
             Spacer()
         }
     }

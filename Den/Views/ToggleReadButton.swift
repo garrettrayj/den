@@ -27,19 +27,13 @@ struct ToggleReadButton: View {
             if toggling {
                 ProgressView().progressViewStyle(CircularProgressViewStyle())
             } else if unreadCount == 0 {
-                Label(
-                    "Mark all unread",
-                    systemImage: "checkmark.circle.fill"
-                )
+                Label("Mark All Unread", systemImage: "checkmark.circle.fill")
             } else {
-                Label(
-                    "Mark all read",
-                    systemImage: "checkmark.circle"
-                )
+                Label("Mark All Read", systemImage: "checkmark.circle")
             }
         }
         .modifier(ToolbarButtonModifier())
-        .accessibilityIdentifier("mark-all-read-button")
+        .accessibilityIdentifier("toggle-read-button")
         .disabled(toggling)
     }
 }
