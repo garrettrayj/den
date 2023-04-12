@@ -76,25 +76,27 @@ struct ItemView: View {
                     .modifier(ToolbarButtonModifier())
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                Text("")
-                Spacer()
-                Button {
-                    if let url = item.link {
-                        if useInbuiltBrowser {
-                            SafariUtility.openLink(
-                                url: url,
-                                controlTintColor: profile.tintUIColor ?? .tintColor,
-                                readerMode: item.feedData?.feed?.readerMode ?? false
-                            )
-                        } else {
-                            openURL(url)
+                HStack {
+                    Text("")
+                    Spacer()
+                    Button {
+                        if let url = item.link {
+                            if useInbuiltBrowser {
+                                SafariUtility.openLink(
+                                    url: url,
+                                    controlTintColor: profile.tintUIColor ?? .tintColor,
+                                    readerMode: item.feedData?.feed?.readerMode ?? false
+                                )
+                            } else {
+                                openURL(url)
+                            }
                         }
+                    } label: {
+                        Label("Open in Browser", systemImage: "link.circle")
                     }
-                } label: {
-                    Label("Open in Browser", systemImage: "link.circle")
+                    .modifier(ToolbarButtonModifier())
+                    .accessibilityIdentifier("item-open-button")
                 }
-                .modifier(ToolbarButtonModifier())
-                .accessibilityIdentifier("item-open-button")
             }
         }
     }

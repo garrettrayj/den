@@ -53,20 +53,25 @@ struct Sidebar: View {
             ToolbarItem(placement: .primaryAction) {
                 editButton
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
+                    #if targetEnvironment(macCatalyst)
+                    .buttonStyle(.plain)
+                    #endif
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
-                Spacer()
-                SidebarStatus(
-                    profile: profile,
-                    refreshing: $refreshManager.refreshing,
-                    progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
-                )
-                Spacer()
-                RefreshButton(profile: profile)
-                    .disabled(
-                        refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected
+                HStack {
+                    SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
+                    Spacer()
+                    SidebarStatus(
+                        profile: profile,
+                        refreshing: $refreshManager.refreshing,
+                        progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                     )
+                    Spacer()
+                    RefreshButton(profile: profile)
+                        .disabled(
+                            refreshManager.refreshing || profile.pagesArray.isEmpty || !networkMonitor.isConnected
+                        )
+                }
             }
         }
     }

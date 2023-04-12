@@ -54,7 +54,6 @@ struct SidebarStatus: View {
             }
         }
         .font(.caption)
-        .lineLimit(2)
         .multilineTextAlignment(.center)
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
             progress.completedUnitCount += 1

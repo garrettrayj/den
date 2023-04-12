@@ -26,18 +26,20 @@ struct TrendingBottomBar: View {
     }
 
     var body: some View {
-        FilterReadButton(hideRead: $hideRead) { }
-        Spacer()
-        CommonStatus(
-            profile: profile,
-            refreshing: $refreshing,
-            unreadCount: unreadCount,
-            unreadLabel: "with Unread"
-        )
-        Spacer()
-        ToggleReadButton(unreadCount: unreadCount) {
-            await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-            profile.objectWillChange.send()
+        HStack {
+            FilterReadButton(hideRead: $hideRead) { }
+            Spacer()
+            CommonStatus(
+                profile: profile,
+                refreshing: $refreshing,
+                unreadCount: unreadCount,
+                unreadLabel: "with Unread"
+            )
+            Spacer()
+            ToggleReadButton(unreadCount: unreadCount) {
+                await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                profile.objectWillChange.send()
+            }
         }
     }
 }

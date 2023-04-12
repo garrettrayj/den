@@ -13,6 +13,10 @@ import SwiftUI
 struct BottomBarProgressViewStyle: ProgressViewStyle {
     @ObservedObject var profile: Profile
 
+    var feedCount: Int {
+        profile.feedsArray.count
+    }
+
     let height: CGFloat = 4
 
     #if targetEnvironment(macCatalyst)
@@ -22,28 +26,27 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
     #endif
 
     func makeBody(configuration: Configuration) -> some View {
-        VStack(spacing: spacing) {
-            HStack(spacing: 0) {
-                if let completed = configuration.fractionCompleted, completed < 1.0 {
-                    configuration.currentValueLabel
-                    Text(" Updated")
+        if let fractionCompleted = configuration.fractionCompleted {
+            VStack(spacing: spacing) {
+                if fractionCompleted < 1.0 {
+                    Text("\(Int(fractionCompleted * Double(feedCount))) of \(feedCount) Updated")
+                        .monospacedDigit()
                 } else {
                     Text("Analyzing…")
                 }
+
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(.quaternary)
+                        Capsule()
+                            .fill(.tint)
+                            .frame(width: (CGFloat(configuration.fractionCompleted ?? 0) > 1 ? 1 :
+                                            CGFloat(configuration.fractionCompleted ?? 0)) * geometry.size.width)
+                    }
+                    .frame(height: height)
+                }
             }
             .font(.caption)
-            .monospacedDigit()
-
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    Capsule().fill(.quaternary)
-                    Capsule()
-                        .fill(.tint)
-                        .frame(width: (CGFloat(configuration.fractionCompleted ?? 0) > 1 ? 1 :
-                                        CGFloat(configuration.fractionCompleted ?? 0)) * geometry.size.width)
-                }
-                .frame(height: height)
-            }
         }
     }
 }

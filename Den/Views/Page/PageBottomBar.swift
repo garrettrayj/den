@@ -20,16 +20,18 @@ struct PageBottomBar: View {
 
     var body: some View {
         WithItems(scopeObject: page) { items in
-            FilterReadButton(hideRead: $hideRead) {
-                page.objectWillChange.send()
-            }
-            Spacer()
-            CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
-            Spacer()
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                page.objectWillChange.send()
-                page.feedsArray.forEach { $0.objectWillChange.send() }
+            HStack {
+                FilterReadButton(hideRead: $hideRead) {
+                    page.objectWillChange.send()
+                }
+                Spacer()
+                CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
+                Spacer()
+                ToggleReadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    page.objectWillChange.send()
+                    page.feedsArray.forEach { $0.objectWillChange.send() }
+                }
             }
         }
     }
