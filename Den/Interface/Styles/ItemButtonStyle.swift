@@ -20,11 +20,11 @@ struct ItemButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .foregroundColor(
+            .foregroundStyle(
                 isEnabled ?
-                    read ? Color(.secondaryLabel) : Color(.label)
-                :
-                    read ? Color(.quaternaryLabel) : Color(.tertiaryLabel)
+                    read ? .secondary : .primary
+                    :
+                    .tertiary
             )
             .frame(maxWidth: .infinity)
             .background(Color(.quaternarySystemFill).opacity(isEnabled && hovering ? 1 : 0))

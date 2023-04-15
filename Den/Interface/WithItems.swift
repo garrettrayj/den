@@ -27,6 +27,7 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
         sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
         readFilter: Bool? = nil,
         includeExtras: Bool = false,
+        searchQuery: String = "",
         @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
     ) {
         self.scopeObject = scopeObject
@@ -70,6 +71,13 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
 
         if !includeExtras {
             predicates.append(NSPredicate(format: "extra = %@", NSNumber(value: false)))
+        }
+
+        if !searchQuery.isEmpty {
+            predicates.append(NSPredicate(
+                format: "title CONTAINS[c] %@",
+                "\(searchQuery)"
+            ))
         }
 
         let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: predicates)

@@ -27,9 +27,9 @@ struct AccentButtonStyle: ButtonStyle {
             .cornerRadius(8)
             .foregroundColor(
                 isEnabled ?
-                    configuration.isPressed ? Color.white.opacity(0.9) : Color.white
+                    configuration.isPressed ? .white.opacity(0.9) : .white
                     :
-                    Color.white.opacity(0.6)
+                    .white.opacity(0.6)
             )
     }
 }

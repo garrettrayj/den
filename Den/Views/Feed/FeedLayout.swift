@@ -90,7 +90,7 @@ struct FeedLayout: View {
                                     .modifier(SafeAreaModifier(geometry: geometry))
                                 }
                             } header: {
-                                Text("More")
+                                Text("Extra")
                                     .font(.title3)
                                     .modifier(SafeAreaModifier(geometry: geometry))
                                     .modifier(PinnedSectionHeaderModifier())

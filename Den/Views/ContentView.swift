@@ -35,7 +35,7 @@ struct ContentView: View {
                 case .welcome:
                     Welcome(profile: profile, refreshing: $refreshManager.refreshing)
                 case .search:
-                    SearchView(profile: profile, query: searchQuery)
+                    Search(profile: profile, query: searchQuery, hideRead: $hideRead)
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
                 case .trends:

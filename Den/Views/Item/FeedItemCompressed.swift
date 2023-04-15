@@ -14,6 +14,8 @@ struct FeedItemCompressed: View {
     @ObservedObject var item: Item
     @ObservedObject var profile: Profile
 
+    var showExtraTag: Bool = false
+
     var body: some View {
         if let feed = item.feedData?.feed {
             VStack(alignment: .leading, spacing: 0) {
@@ -25,6 +27,9 @@ struct FeedItemCompressed: View {
                             read: item.read
                         )
                         Spacer()
+                        if showExtraTag && item.extra {
+                            Text("Extra").font(.caption).foregroundColor(.secondary)
+                        }
                         ButtonChevron()
                     }
                 }

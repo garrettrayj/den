@@ -19,7 +19,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
         configuration.label
             .font(.title3)
             .foregroundColor(
-                isEnabled ? Color(.label) : Color(.secondaryLabel)
+                isEnabled ? .primary : .secondary
             )
             .padding(12)
             .background(Color(.quaternarySystemFill).opacity(isEnabled && hovering ? 1 : 0))

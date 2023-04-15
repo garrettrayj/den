@@ -21,7 +21,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .font(.title3)
-            .foregroundColor(isEnabled ? Color(.label) : Color(.secondaryLabel))
+            .foregroundColor(isEnabled ? .primary : .secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
             .padding(.leading, leadingPadding)
