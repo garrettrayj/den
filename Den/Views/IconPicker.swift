@@ -29,7 +29,7 @@ struct IconPicker: View {
                     }
                 }.padding(.bottom)
             }
-            .background(Color(.systemGroupedBackground))
+            .modifier(GroupedBackgroundModifier())
             .navigationTitle("Select Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -60,7 +60,7 @@ struct IconPicker: View {
 
                         Image(systemName: symbol.id)
                             .imageScale(.large)
-                            .foregroundColor(symbol.id == page.wrappedSymbol ? Color(.tintColor) : Color(.label))
+                            .foregroundColor(symbol.id == page.wrappedSymbol ? .accentColor : .primary)
 
                         if symbol.id == page.wrappedSymbol {
                             RoundedRectangle(cornerRadius: 4).strokeBorder(Color.accentColor, lineWidth: 2)

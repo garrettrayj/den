@@ -19,7 +19,7 @@ struct PageSettings: View {
 
     var body: some View {
         Form {
-            nameIconSection
+            nameSection
             iconSection
             feedsSection
         }
@@ -28,7 +28,7 @@ struct PageSettings: View {
         .onDisappear(perform: save)
     }
 
-    private var nameIconSection: some View {
+    private var nameSection: some View {
         Section(header: Text("Name").modifier(FirstFormHeaderModifier())) {
             TextField("Untitled", text: $page.wrappedName)
                 .modifier(FormRowModifier())
@@ -39,6 +39,7 @@ struct PageSettings: View {
                 IconPicker(page: page)
             }
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private var iconSection: some View {
@@ -50,7 +51,7 @@ struct PageSettings: View {
                     HStack {
                         Text("Select Icon")
                         Spacer()
-                        Image(systemName: "chevron.down").foregroundColor(Color(.secondaryLabel))
+                        Image(systemName: "chevron.down").foregroundColor(.secondary)
                     }
                 } icon: {
                     Image(systemName: page.wrappedSymbol)
@@ -64,13 +65,14 @@ struct PageSettings: View {
                 IconPicker(page: page)
             }
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private var feedsSection: some View {
         Section(header: Text("Feeds")) {
             if page.feedsArray.isEmpty {
                 Text("Page Emtpy")
-                    .foregroundColor(Color(.secondaryLabel))
+                    .foregroundColor(.secondary)
                     .modifier(FormRowModifier())
             } else {
                 ForEach(page.feedsArray) { feed in
@@ -83,6 +85,7 @@ struct PageSettings: View {
                 .onMove(perform: moveFeed)
             }
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private func save() {

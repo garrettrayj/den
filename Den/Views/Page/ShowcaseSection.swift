@@ -27,7 +27,7 @@ struct ShowcaseSection: View {
             } else if items.isEmpty {
                 AllRead()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .modifier(RaisedGroupModifier())
+                    .modifier(RoundedContainerModifier())
                     .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))
             } else {
@@ -42,7 +42,7 @@ struct ShowcaseSection: View {
                                 ItemExpanded(item: item)
                             }
                         }
-                        .modifier(RaisedGroupModifier())
+                        .modifier(RoundedContainerModifier())
                     }
                 )
                 .padding(.vertical)

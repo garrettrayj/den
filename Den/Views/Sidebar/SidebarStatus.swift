@@ -25,7 +25,6 @@ struct SidebarStatus: View {
                 ProgressView(progress).progressViewStyle(
                     BottomBarProgressViewStyle(profile: profile)
                 )
-                .frame(maxWidth: 112)
             } else {
                 if profile.pagesArray.isEmpty {
                     Text("Profile Empty")
@@ -49,7 +48,7 @@ struct SidebarStatus: View {
                 }
 
                 if !networkMonitor.isConnected {
-                    Text("Network Offline").foregroundColor(Color(.secondaryLabel))
+                    Text("Network Offline").foregroundColor(.secondary)
                 }
             }
         }

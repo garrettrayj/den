@@ -66,7 +66,7 @@ struct RootView: View {
                         .multilineTextAlignment(.center)
                         .font(.caption)
                     } else {
-                        Text("Loading…").foregroundColor(Color(.secondaryLabel)).onAppear { loadProfile() }
+                        Text("Loading…").foregroundColor(.secondary).onAppear { loadProfile() }
                     }
                     Spacer()
                 }

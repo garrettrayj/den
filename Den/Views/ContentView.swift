@@ -64,7 +64,7 @@ struct ContentView: View {
                     )
                 }
             }
-            .background(Color(.systemGroupedBackground))
+            .modifier(GroupedBackgroundModifier())
             .disabled(refreshManager.refreshing)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 Group {
@@ -111,7 +111,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                .background(Color(.systemGroupedBackground))
+                .modifier(GroupedBackgroundModifier())
                 .disabled(refreshManager.refreshing)
             }
             .navigationDestination(for: SettingsPanel.self) { settingsPanel in
@@ -134,7 +134,7 @@ struct ContentView: View {
                         SecurityView(profile: profile)
                     }
                 }
-                .background(Color(.systemGroupedBackground))
+                .modifier(GroupedBackgroundModifier())
                 .disabled(refreshManager.refreshing)
             }
         }

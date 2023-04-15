@@ -46,7 +46,7 @@ struct TrendBlock: View {
                             if let symbol = symbol {
                                 Image(systemName: symbol)
                                     .imageScale(.small)
-                                    .foregroundColor(Color(.tertiaryLabel))
+                                    .foregroundColor(.secondary)
                             }
                         }
                     }
@@ -63,18 +63,18 @@ struct TrendBlock: View {
                         \(trend.items.unread().count) unread
                         """)
                             .font(.footnote)
-                            .foregroundColor(Color(.secondaryLabel))
+                            .foregroundColor(.secondary)
                     } else {
                         Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
                             .font(.footnote)
-                            .foregroundColor(Color(.secondaryLabel))
+                            .foregroundColor(.secondary)
                     }
                 }
                 .padding(12)
-                .foregroundColor(trend.items.unread().isEmpty ? Color(.secondaryLabel) : Color(.label))
+                .foregroundColor(trend.items.unread().isEmpty ? .secondary : .primary)
             }
             .buttonStyle(HoverShadowButtonStyle())
         }
-        .modifier(RaisedGroupModifier())
+        .modifier(RoundedContainerModifier())
     }
 }

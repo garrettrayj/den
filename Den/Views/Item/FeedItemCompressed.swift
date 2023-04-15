@@ -42,7 +42,7 @@ struct FeedItemCompressed: View {
                     ItemCompressed(item: item)
                 }
             }
-            .modifier(RaisedGroupModifier())
+            .modifier(RoundedContainerModifier())
         }
     }
 }

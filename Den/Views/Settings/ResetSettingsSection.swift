@@ -49,7 +49,7 @@ struct ResetSettingsSection: View {
                     Spacer()
                     Text(cacheSizeFormatter.string(fromByteCount: cacheSize))
                         .font(.callout)
-                        .foregroundColor(Color(.secondaryLabel))
+                        .foregroundColor(.secondary)
                 }
             }
             .disabled(cacheSize == 0)
@@ -80,6 +80,7 @@ struct ResetSettingsSection: View {
         .task {
             await calculateCacheSize()
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private func emptyCache() async {

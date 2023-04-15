@@ -26,7 +26,7 @@ struct ProfilesListSection: View {
                         Text(profile.displayName)
                     } icon: {
                         Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
-                            .foregroundColor(profile.tintColor ?? Color(.secondaryLabel))
+                            .foregroundColor(profile.tintColor ?? .secondary)
                     }
                 }
                 .modifier(FormRowModifier())
@@ -44,6 +44,7 @@ struct ProfilesListSection: View {
         } header: {
             Text("Profiles").modifier(FirstFormHeaderModifier())
         }
+        .listRowBackground(ListRowBackground())
     }
 
     func addProfile() {

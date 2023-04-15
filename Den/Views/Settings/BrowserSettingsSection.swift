@@ -23,5 +23,6 @@ struct BrowserSettingsSection: View {
         } header: {
             Text("Links")
         }
+        .listRowBackground(ListRowBackground())
     }
 }

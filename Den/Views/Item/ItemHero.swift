@@ -91,7 +91,7 @@ struct ItemHero: View {
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                .background(Color(.tertiarySystemFill))
+                .background(.quaternary)
                 .modifier(ImageBorderModifier())
         }
     }

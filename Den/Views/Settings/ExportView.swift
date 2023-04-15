@@ -53,10 +53,10 @@ struct ExportView: View {
                 Button { self.togglePage(page) } label: {
                     Label {
                         HStack {
-                            Text(page.wrappedName).foregroundColor(Color(.label))
+                            Text(page.wrappedName).foregroundColor(.primary)
                             Spacer()
                             Text("\(page.feeds?.count ?? 0) feeds")
-                                .foregroundColor(Color(.secondaryLabel))
+                                .foregroundColor(.secondary)
                                 .font(.footnote)
                         }
                     } icon: {
@@ -72,6 +72,7 @@ struct ExportView: View {
                 .accessibilityIdentifier("export-toggle-page-button")
             }
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private var selectionSectionHeader: some View {

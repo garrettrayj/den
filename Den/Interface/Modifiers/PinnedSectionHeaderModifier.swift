@@ -16,14 +16,11 @@ struct PinnedSectionHeaderModifier: ViewModifier {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
-            .background(
-                Color(.secondarySystemFill)
-                    .opacity(0.6)
-                    #if targetEnvironment(macCatalyst)
-                    .background(.thickMaterial)
-                    #else
-                    .background(.regularMaterial)
-                    #endif
-            )
+            #if targetEnvironment(macCatalyst)
+            .background(.thickMaterial)
+            #else
+            .background(.regularMaterial)
+            #endif
+            .background(.tertiary.opacity(0.75))
     }
 }

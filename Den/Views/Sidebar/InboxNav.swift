@@ -30,7 +30,7 @@ struct InboxNav: View {
             } icon: {
                 Image(systemName: "tray")
             }
-            .foregroundColor(editMode?.wrappedValue.isEditing == true ? Color(.secondaryLabel) : nil)
+            .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
             .searchable(
                 text: $searchInput,
                 placement: .navigationBarDrawer(displayMode: .always)
@@ -40,8 +40,8 @@ struct InboxNav: View {
                 contentSelection = .search
             }
             .disabled(editMode?.wrappedValue == .active)
-            .accessibilityIdentifier("inbox-button")
-            .tag(ContentPanel.inbox)
         }
+        .accessibilityIdentifier("inbox-button")
+        .listRowBackground(ListRowBackground())
     }
 }

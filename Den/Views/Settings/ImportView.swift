@@ -84,10 +84,10 @@ struct ImportView: View {
                     Button { toggleFolder(folder) } label: {
                         Label {
                             HStack {
-                                Text(folder.name).foregroundColor(Color(.label))
+                                Text(folder.name).foregroundColor(.primary)
                                 Spacer()
                                 Text("\(folder.feeds.count) feeds")
-                                    .foregroundColor(Color(.secondaryLabel))
+                                    .foregroundColor(.secondary)
                                     .font(.footnote)
                             }
                         } icon: {
@@ -102,6 +102,7 @@ struct ImportView: View {
                     .accessibilityIdentifier("toggle-folder-button")
                 }
             }
+            .listRowBackground(ListRowBackground())
         }
     }
 

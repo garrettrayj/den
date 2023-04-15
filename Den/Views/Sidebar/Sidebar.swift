@@ -36,8 +36,8 @@ struct Sidebar: View {
             }
         }
         .listStyle(.sidebar)
+        .background(.thinMaterial)
         #if targetEnvironment(macCatalyst)
-        .background(.regularMaterial)
         .navigationSplitViewColumnWidth(240)
         #else
         .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)

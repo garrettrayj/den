@@ -33,12 +33,9 @@ struct SecurityView: View {
                 ForEach(profile.pagesWithInsecureFeeds) { page in
                     pageSection(page: page)
                 }
-
             }
         }
-        .onDisappear {
-            reset()
-        }
+        .onDisappear { reset() }
         .navigationTitle("Security")
     }
 
@@ -58,7 +55,7 @@ struct SecurityView: View {
         Section {
             if remediationInProgress == true {
                 Label {
-                    Text("Checking…").foregroundColor(Color(.secondaryLabel)).modifier(FormRowModifier())
+                    Text("Checking…").foregroundColor(.secondary).modifier(FormRowModifier())
                 } icon: {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
@@ -94,6 +91,7 @@ struct SecurityView: View {
         } footer: {
             Text("Feeds will be updated to use HTTPS when available.")
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private func pageSection(page: Page) -> some View {
@@ -105,17 +103,18 @@ struct SecurityView: View {
                         favicon: feed.feedData?.favicon
                     ).modifier(FormRowModifier())
                     Spacer()
-                    Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(Color(.secondaryLabel))
+                    Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(.secondary)
                     if failedRemediation.contains(feed.id) == true {
                         Image(systemName: "shield.slash").foregroundColor(Color(.systemRed))
                     } else {
-                        Image(systemName: "lock.open").foregroundColor(Color(.secondaryLabel))
+                        Image(systemName: "lock.open").foregroundColor(.secondary)
                     }
                 }
             }
         } header: {
             Text(page.displayName)
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private func reset() {

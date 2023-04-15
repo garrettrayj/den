@@ -21,11 +21,11 @@ struct FeedUnavailable: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(titleAndDescripition.0)
                 if let caption = titleAndDescripition.1 {
-                    Text(.init(caption)).font(.caption).foregroundColor(Color(.secondaryLabel))
+                    Text(.init(caption)).font(.caption).foregroundColor(.secondary)
                 }
             }
             .padding(12)
-            .modifier(RaisedGroupModifier())
+            .modifier(RoundedContainerModifier())
         }
     }
 

@@ -27,6 +27,8 @@ struct SettingsView: View {
             FeedsSettingsSection()
             #if !targetEnvironment(macCatalyst)
             BrowserSettingsSection(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+
+            .listRowBackground(Color.black)
             #endif
             AppearanceSettingsSection(uiStyle: $uiStyle)
             RefreshSettingsSection(

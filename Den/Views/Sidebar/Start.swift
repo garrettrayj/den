@@ -49,7 +49,7 @@ struct Start: View {
             #if targetEnvironment(macCatalyst)
             Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
                 .font(.footnote)
-                .foregroundColor(Color(.secondaryLabel))
+                .foregroundColor(.secondary)
                 .imageScale(.small)
                 .padding(.vertical)
             #endif
@@ -58,7 +58,7 @@ struct Start: View {
         } footer: {
             Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
                 .font(.footnote)
-                .foregroundColor(Color(.secondaryLabel))
+                .foregroundColor(.secondary)
                 .imageScale(.small)
                 .padding(.vertical, 4)
         }

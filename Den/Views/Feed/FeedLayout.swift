@@ -38,7 +38,7 @@ struct FeedLayout: View {
                                 if items.previews().isEmpty && hideRead == true {
                                     AllRead()
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .modifier(RaisedGroupModifier())
+                                        .modifier(RoundedContainerModifier())
                                         .padding()
                                         .modifier(SafeAreaModifier(geometry: geometry))
                                 } else {
@@ -53,7 +53,7 @@ struct FeedLayout: View {
                                                 ItemExpanded(item: item)
                                             }
                                         }
-                                        .modifier(RaisedGroupModifier())
+                                        .modifier(RoundedContainerModifier())
                                     }
                                     .padding(.vertical)
                                     .modifier(SafeAreaModifier(geometry: geometry))
@@ -69,7 +69,7 @@ struct FeedLayout: View {
                                 if items.extras().isEmpty {
                                     AllRead()
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                        .modifier(RaisedGroupModifier())
+                                        .modifier(RoundedContainerModifier())
                                         .padding()
                                         .modifier(SafeAreaModifier(geometry: geometry))
                                 } else {
@@ -84,7 +84,7 @@ struct FeedLayout: View {
                                                 ItemExpanded(item: item)
                                             }
                                         }
-                                        .modifier(RaisedGroupModifier())
+                                        .modifier(RoundedContainerModifier())
                                     }
                                     .padding(.vertical)
                                     .modifier(SafeAreaModifier(geometry: geometry))
@@ -100,7 +100,8 @@ struct FeedLayout: View {
                     Divider()
                     metaSection.modifier(SafeAreaModifier(geometry: geometry))
                 }
-            }.edgesIgnoringSafeArea(.horizontal)
+            }
+            .edgesIgnoringSafeArea(.horizontal)
         }
     }
 

@@ -30,23 +30,23 @@ struct FeedStatus: View {
                                 if let refreshedLabel = refreshedLabel() {
                                     HStack(spacing: 4) {
                                         Text(refreshedLabel)
-                                        Text("－").foregroundColor(Color(.secondaryLabel))
+                                        Text("－").foregroundColor(.secondary)
                                     }
                                 }
                             }
                         }
-                        Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
+                        Text("\(unreadCount) Unread").foregroundColor(.secondary)
                     }
                     VStack {
                         if refreshedLabel() != nil {
                             TimelineView(.everyMinute) { _ in
                                 if let refreshedLabel = refreshedLabel() {
                                     Text(refreshedLabel)
-                                    Text("－").foregroundColor(Color(.secondaryLabel))
+                                    Text("－").foregroundColor(.secondary)
                                 }
                             }
                         }
-                        Text("\(unreadCount) Unread").foregroundColor(Color(.secondaryLabel))
+                        Text("\(unreadCount) Unread").foregroundColor(.secondary)
                     }
                 }
             }

@@ -24,6 +24,7 @@ struct ItemWebView: UIViewRepresentable {
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
+        webView.isOpaque = false
 
         loadContent()
 

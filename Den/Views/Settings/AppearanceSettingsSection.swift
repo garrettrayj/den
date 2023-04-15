@@ -25,5 +25,6 @@ struct AppearanceSettingsSection: View {
             UIStylePickerView(uiStyle: $uiStyle)
             #endif
         }
+        .listRowBackground(ListRowBackground())
     }
 }

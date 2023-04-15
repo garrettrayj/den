@@ -40,7 +40,7 @@ struct AddFeed: View {
                     .buttonStyle(.bordered)
                     .accessibilityIdentifier("subscribe-cancel-button")
                 }
-                .foregroundColor(Color(.secondaryLabel))
+                .foregroundColor(.secondary)
             } else {
                 NavigationStack {
                     Form {
@@ -51,7 +51,7 @@ struct AddFeed: View {
                         } footer: {
                             Group {
                                 if let validationMessage = validationMessage {
-                                    Text(validationMessage).foregroundColor(Color(.systemRed))
+                                    Text(validationMessage).foregroundColor(.red)
                                 } else {
                                     Text(.init("""
                                     [RSS](https://validator.w3.org/feed/docs/rss2.html), \
@@ -64,10 +64,12 @@ struct AddFeed: View {
                             .font(.caption)
                             .padding(.top, 4)
                         }
+                        .listRowBackground(ListRowBackground())
 
                         Section {
                             pagePicker
                         }
+                        .listRowBackground(ListRowBackground())
 
                         submitButtonSection
                     }
@@ -85,7 +87,7 @@ struct AddFeed: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
+        .modifier(GroupedBackgroundModifier())
         .onAppear {
             urlString = initialURLString
             checkTargetPage()
@@ -135,11 +137,11 @@ struct AddFeed: View {
             if urlIsValid != nil {
                 if urlIsValid == true {
                     Image(systemName: "checkmark.circle")
-                        .foregroundColor(Color(.systemGreen))
+                        .foregroundColor(.green)
                         .fontWeight(.medium)
                 } else {
                     Image(systemName: "slash.circle")
-                        .foregroundColor(Color(.systemRed))
+                        .foregroundColor(.red)
                         .fontWeight(.medium)
                 }
             }

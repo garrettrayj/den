@@ -63,5 +63,6 @@ struct RefreshSettingsSection: View {
         } header: {
             Text("Refresh")
         }
+        .listRowBackground(ListRowBackground())
     }
 }

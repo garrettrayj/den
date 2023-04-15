@@ -52,6 +52,6 @@ struct Gadget: View {
                 }
             }
         }
-        .modifier(RaisedGroupModifier())
+        .modifier(RoundedContainerModifier())
     }
 }

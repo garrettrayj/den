@@ -108,5 +108,6 @@ struct SplitView: View {
             .environmentObject(refreshManager)
         }
         .tint(profile.tintColor)
+        .scrollContentBackground(.hidden)
     }
 }

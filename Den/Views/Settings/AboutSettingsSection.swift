@@ -19,7 +19,7 @@ struct AboutSettingsSection: View {
                 Text("Version")
                 Spacer()
                 Text("\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
-                    .foregroundColor(Color(.secondaryLabel))
+                    .foregroundColor(.secondary)
             }.modifier(FormRowModifier())
 
             Button {
@@ -41,7 +41,8 @@ struct AboutSettingsSection: View {
             Text("© 2023 Garrett Johnson")
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
-                .foregroundColor(Color(.secondaryLabel))
+                .foregroundColor(.secondary)
         }
+        .listRowBackground(ListRowBackground())
     }
 }

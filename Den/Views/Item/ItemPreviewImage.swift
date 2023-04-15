@@ -83,7 +83,7 @@ struct ItemPreviewImage: View {
                     maxWidth: scaledSize.width,
                     maxHeight: scaledSize.height
                 )
-                .background(Color(.tertiarySystemFill))
+                .background(.tertiary)
                 .modifier(ImageBorderModifier())
             }
         }

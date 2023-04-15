@@ -42,7 +42,7 @@ struct FeedItemExpanded: View {
                     ItemExpanded(item: item)
                 }
             }
-            .modifier(RaisedGroupModifier())
+            .modifier(RoundedContainerModifier())
         }
     }
 }

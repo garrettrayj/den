@@ -30,7 +30,7 @@ struct DeckColumn: View {
                 } else if items.isEmpty {
                     AllRead()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .modifier(RaisedGroupModifier())
+                        .modifier(RoundedContainerModifier())
                 } else {
                     ForEach(items) { item in
                         ItemActionView(item: item, profile: profile) {
@@ -40,7 +40,7 @@ struct DeckColumn: View {
                                 ItemExpanded(item: item)
                             }
                         }
-                        .modifier(RaisedGroupModifier())
+                        .modifier(RoundedContainerModifier())
                     }
                 }
             }

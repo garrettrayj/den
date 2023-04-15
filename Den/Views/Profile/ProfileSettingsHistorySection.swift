@@ -77,7 +77,7 @@ struct ProfileSettingsHistorySection: View {
                         }
                     }
                     .font(.callout)
-                    .foregroundColor(Color(.secondaryLabel))
+                    .foregroundColor(.secondary)
                 }
             }
             .disabled(historyCount == 0)
@@ -94,6 +94,7 @@ struct ProfileSettingsHistorySection: View {
                 .imageScale(.small)
             }
         }
+        .listRowBackground(ListRowBackground())
         .onChange(of: historyRentionDays) { _ in
             profile.wrappedHistoryRetention = historyRentionDays
             do {

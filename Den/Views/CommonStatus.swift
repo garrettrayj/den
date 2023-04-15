@@ -38,12 +38,12 @@ struct CommonStatus: View {
                                 if let refreshedLabel = refreshedLabel() {
                                     HStack(spacing: 4) {
                                         Text(refreshedLabel)
-                                        Text("－").foregroundColor(Color(.secondaryLabel))
+                                        Text("－").foregroundColor(.secondary)
                                     }
                                 }
                             }
                         }
-                        Text("\(unreadCount) \(unreadLabel)").foregroundColor(Color(.secondaryLabel))
+                        Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
                     }
                     VStack {
                         if refreshedLabel() != nil {
@@ -53,7 +53,7 @@ struct CommonStatus: View {
                                 }
                             }
                         }
-                        Text("\(unreadCount) \(unreadLabel)").foregroundColor(Color(.secondaryLabel))
+                        Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
                     }
                 }
             }

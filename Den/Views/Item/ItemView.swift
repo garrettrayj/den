@@ -19,7 +19,7 @@ struct ItemView: View {
     @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
-        return CGFloat(640) * dynamicTypeSize.layoutScalingFactor
+        CGFloat(740) * dynamicTypeSize.layoutScalingFactor
     }
 
     var body: some View {
@@ -63,12 +63,11 @@ struct ItemView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
+                .padding(.vertical, 8)
                 .navigationBarTitleDisplayMode(.inline)
-                .task {
-                    await HistoryUtility.markItemRead(item: item)
-                }
+                .task { await HistoryUtility.markItemRead(item: item) }
             }
-            .background(Color(.systemBackground).edgesIgnoringSafeArea(.all))
+            .background(.background)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {

@@ -42,6 +42,7 @@ struct FeedSettings: View {
                     }.accessibilityIdentifier("feed-delete-confirm-button")
                 }
             )
+            .listRowBackground(ListRowBackground())
             .accessibilityIdentifier("feed-delete-button")
         }
         .onDisappear(perform: save)
@@ -54,6 +55,7 @@ struct FeedSettings: View {
                 .modifier(FormRowModifier())
                 .modifier(TitleTextFieldModifier())
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private var previewsSection: some View {
@@ -96,6 +98,7 @@ struct FeedSettings: View {
         } header: {
             Text("Previews")
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private var organizeSection: some View {
@@ -112,6 +115,7 @@ struct FeedSettings: View {
         } header: {
             Text("Move")
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private var pagePicker: some View {

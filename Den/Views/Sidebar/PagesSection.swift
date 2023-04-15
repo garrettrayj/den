@@ -34,6 +34,7 @@ struct PagesSection: View {
                 Text("Pages")
             }
         }
+        .listRowBackground(ListRowBackground())
     }
 
     private func movePage(from source: IndexSet, to destination: Int) {

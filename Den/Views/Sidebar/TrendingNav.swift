@@ -23,7 +23,8 @@ struct TrendingNav: View {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
-        .foregroundColor(editMode?.wrappedValue.isEditing == true ? Color(.secondaryLabel) : nil)
+        .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
+        .listRowBackground(ListRowBackground())
         .accessibilityIdentifier("trends-button")
     }
 }

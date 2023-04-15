@@ -1,5 +1,5 @@
 //
-//  RaisedGroupModifier.swift
+//  RoundedContainerModifier.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/7/23.
@@ -10,11 +10,11 @@
 
 import SwiftUI
 
-struct RaisedGroupModifier: ViewModifier {
+struct RoundedContainerModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .background(Color(.secondarySystemGroupedBackground))
+            .modifier(GroupedContainerModifier())
             #if targetEnvironment(macCatalyst)
             .cornerRadius(8)
             #else

@@ -21,13 +21,13 @@ struct SearchStatus: View {
                 HStack(spacing: 4) {
                     statusText
                     if let unreadText = unreadText {
-                        Text("－ ") + unreadText.foregroundColor(Color(.secondaryLabel))
+                        Text("－ ") + unreadText.foregroundColor(.secondary)
                     }
                 }
                 VStack {
                     statusText
                     if let unreadText = unreadText {
-                        unreadText.foregroundColor(Color(.secondaryLabel))
+                        unreadText.foregroundColor(.secondary)
                     }
                 }
             }

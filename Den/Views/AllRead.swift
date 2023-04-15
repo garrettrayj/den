@@ -19,7 +19,7 @@ struct AllRead: View {
         } icon: {
             Image(systemName: "checkmark")
         }
-        .foregroundColor(Color(.secondaryLabel))
+        .foregroundColor(.secondary)
         .padding(12)
     }
 }

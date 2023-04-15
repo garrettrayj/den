@@ -30,10 +30,10 @@ struct FeedHero: View {
         .frame(maxWidth: .infinity, maxHeight: 240)
         .background(.ultraThinMaterial)
         .background {
-            Color(.systemBackground)
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
+                .background(.background)
         }
         .clipped()
     }
