@@ -22,12 +22,12 @@ struct InboxBottomBar: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: profile) { items in
-            HStack {
-                FilterReadButton(hideRead: $hideRead) {
-                    profile.objectWillChange.send()
-                }
-                Spacer()
+        HStack {
+            FilterReadButton(hideRead: $hideRead) {
+                profile.objectWillChange.send()
+            }
+            Spacer()
+            WithItems(scopeObject: profile) { items in
                 CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
                 Spacer()
                 ToggleReadButton(unreadCount: items.unread().count) {

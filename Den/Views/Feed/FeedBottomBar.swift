@@ -18,12 +18,12 @@ struct FeedBottomBar: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: feed, includeExtras: true) { items in
-            HStack {
-                FilterReadButton(hideRead: $hideRead) {
-                    feed.objectWillChange.send()
-                }
-                Spacer()
+        HStack {
+            FilterReadButton(hideRead: $hideRead) {
+                feed.objectWillChange.send()
+            }
+            Spacer()
+            WithItems(scopeObject: feed, includeExtras: true) { items in
                 FeedStatus(feed: feed, refreshing: $refreshing, unreadCount: items.unread().count)
                 Spacer()
                 ToggleReadButton(unreadCount: items.unread().count) {

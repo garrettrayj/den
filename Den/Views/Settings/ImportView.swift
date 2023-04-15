@@ -102,7 +102,7 @@ struct ImportView: View {
                     .accessibilityIdentifier("toggle-folder-button")
                 }
             }
-            .listRowBackground(ListRowBackground())
+            .modifier(ListRowModifier())
         }
     }
 

@@ -11,9 +11,15 @@
 import SwiftUI
 
 struct GroupedBackgroundModifier: ViewModifier {
+    @Environment(\.colorScheme) private var colorScheme
+
     func body(content: Content) -> some View {
         content
-            .background(.thinMaterial)
+            #if targetEnvironment(macCatalyst)
+            .background(.thinMaterial.opacity(colorScheme == .light ? 1 : 0))
             .background(.background)
+            #else
+            .background(Color(.systemGroupedBackground))
+            #endif
     }
 }

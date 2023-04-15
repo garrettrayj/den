@@ -31,7 +31,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             #else
             .background(.regularMaterial)
             #endif
-            .background(.tertiary.opacity(isEnabled && hovering ? 1 : 0.5))
+            .background(.primary.opacity(isEnabled && hovering ? 0.6 : 0.4))
             .onHover { hovered in
                 hovering = hovered
             }

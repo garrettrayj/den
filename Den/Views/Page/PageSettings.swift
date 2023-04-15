@@ -39,7 +39,7 @@ struct PageSettings: View {
                 IconPicker(page: page)
             }
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private var iconSection: some View {
@@ -65,7 +65,7 @@ struct PageSettings: View {
                 IconPicker(page: page)
             }
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private var feedsSection: some View {
@@ -85,7 +85,7 @@ struct PageSettings: View {
                 .onMove(perform: moveFeed)
             }
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private func save() {

@@ -91,7 +91,7 @@ struct SecurityView: View {
         } footer: {
             Text("Feeds will be updated to use HTTPS when available.")
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private func pageSection(page: Page) -> some View {
@@ -114,7 +114,7 @@ struct SecurityView: View {
         } header: {
             Text(page.displayName)
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private func reset() {

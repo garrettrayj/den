@@ -43,6 +43,6 @@ struct AboutSettingsSection: View {
                 .padding()
                 .foregroundColor(.secondary)
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 }

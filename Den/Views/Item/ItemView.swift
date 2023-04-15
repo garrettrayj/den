@@ -63,7 +63,6 @@ struct ItemView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
-                .padding(.vertical, 8)
                 .navigationBarTitleDisplayMode(.inline)
                 .task { await HistoryUtility.markItemRead(item: item) }
             }

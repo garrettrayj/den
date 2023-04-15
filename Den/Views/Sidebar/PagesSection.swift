@@ -34,7 +34,9 @@ struct PagesSection: View {
                 Text("Pages")
             }
         }
-        .listRowBackground(ListRowBackground())
+        #if !targetEnvironment(macCatalyst)
+        .modifier(ListRowModifier())
+        #endif
     }
 
     private func movePage(from source: IndexSet, to destination: Int) {

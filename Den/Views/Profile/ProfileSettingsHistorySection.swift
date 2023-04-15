@@ -94,7 +94,7 @@ struct ProfileSettingsHistorySection: View {
                 .imageScale(.small)
             }
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
         .onChange(of: historyRentionDays) { _ in
             profile.wrappedHistoryRetention = historyRentionDays
             do {

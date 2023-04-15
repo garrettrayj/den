@@ -64,12 +64,12 @@ struct AddFeed: View {
                             .font(.caption)
                             .padding(.top, 4)
                         }
-                        .listRowBackground(ListRowBackground())
+                        .modifier(ListRowModifier())
 
                         Section {
                             pagePicker
                         }
-                        .listRowBackground(ListRowBackground())
+                        .modifier(ListRowModifier())
 
                         submitButtonSection
                     }

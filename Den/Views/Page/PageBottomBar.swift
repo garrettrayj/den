@@ -19,12 +19,12 @@ struct PageBottomBar: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        WithItems(scopeObject: page) { items in
-            HStack {
-                FilterReadButton(hideRead: $hideRead) {
-                    page.objectWillChange.send()
-                }
-                Spacer()
+        HStack {
+            FilterReadButton(hideRead: $hideRead) {
+                page.objectWillChange.send()
+            }
+            Spacer()
+            WithItems(scopeObject: page) { items in
                 CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
                 Spacer()
                 ToggleReadButton(unreadCount: items.unread().count) {

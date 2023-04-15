@@ -14,7 +14,7 @@ struct FormRowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             #if targetEnvironment(macCatalyst)
-            .padding(.vertical, 8)
+            .padding(.vertical, 12)
             #else
             .padding(.vertical, 4)
             #endif

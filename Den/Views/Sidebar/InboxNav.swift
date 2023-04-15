@@ -42,6 +42,8 @@ struct InboxNav: View {
             .disabled(editMode?.wrappedValue == .active)
         }
         .accessibilityIdentifier("inbox-button")
-        .listRowBackground(ListRowBackground())
+        #if !targetEnvironment(macCatalyst)
+        .modifier(ListRowModifier())
+        #endif
     }
 }

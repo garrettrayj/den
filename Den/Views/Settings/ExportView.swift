@@ -72,7 +72,7 @@ struct ExportView: View {
                 .accessibilityIdentifier("export-toggle-page-button")
             }
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private var selectionSectionHeader: some View {

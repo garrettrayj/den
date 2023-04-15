@@ -99,6 +99,7 @@
 		6865576729EA4700000EBF37 /* GroupedBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576629EA4700000EBF37 /* GroupedBackgroundModifier.swift */; };
 		6865576929EA4F8E000EBF37 /* GroupedContainerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576829EA4F8E000EBF37 /* GroupedContainerModifier.swift */; };
 		6865576B29EA502E000EBF37 /* ListRowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576A29EA502E000EBF37 /* ListRowBackground.swift */; };
+		6865576D29EA8A4B000EBF37 /* ListRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576C29EA8A4B000EBF37 /* ListRowModifier.swift */; };
 		6868A306288E62250051D43E /* AllReadSplashNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A305288E62250051D43E /* AllReadSplashNote.swift */; };
 		6868A30C2894F98C0051D43E /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30B2894F98C0051D43E /* AppDefaults.swift */; };
 		6868A30E2895229D0051D43E /* ImageErrorPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30D2895229D0051D43E /* ImageErrorPlaceholder.swift */; };
@@ -380,6 +381,7 @@
 		6865576629EA4700000EBF37 /* GroupedBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedBackgroundModifier.swift; sourceTree = "<group>"; };
 		6865576829EA4F8E000EBF37 /* GroupedContainerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedContainerModifier.swift; sourceTree = "<group>"; };
 		6865576A29EA502E000EBF37 /* ListRowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowBackground.swift; sourceTree = "<group>"; };
+		6865576C29EA8A4B000EBF37 /* ListRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowModifier.swift; sourceTree = "<group>"; };
 		6868A305288E62250051D43E /* AllReadSplashNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReadSplashNote.swift; sourceTree = "<group>"; };
 		6868A30B2894F98C0051D43E /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		6868A30D2895229D0051D43E /* ImageErrorPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageErrorPlaceholder.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 				68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */,
 				68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */,
 				6865575B29E471B7000EBF37 /* ToolbarButtonModifer.swift */,
+				6865576C29EA8A4B000EBF37 /* ListRowModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1470,6 +1473,7 @@
 				687D9CB824A9CA2A00EB7F46 /* ItemCompressed.swift in Sources */,
 				68FC256F27640AA00073979F /* ItemExpanded.swift in Sources */,
 				68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */,
+				6865576D29EA8A4B000EBF37 /* ListRowModifier.swift in Sources */,
 				684D5A44249BC0CB00EACCC9 /* ImportDocumentPicker.swift in Sources */,
 				6829A4FE28C3CC8D00F75C5A /* BulkSelectionButtons.swift in Sources */,
 				683E3F4B293BC1AA00B16814 /* SettingsButton.swift in Sources */,

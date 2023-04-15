@@ -78,7 +78,7 @@ struct ProfileSettings: View {
         } header: {
             Text("Name").modifier(FirstFormHeaderModifier())
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private var tintSection: some View {
@@ -89,7 +89,7 @@ struct ProfileSettings: View {
         } header: {
             Text("Customization")
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private var deleteSection: some View {
@@ -113,7 +113,7 @@ struct ProfileSettings: View {
         }, message: {
             Text("All content within will be removed.")
         })
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private func delete() async {

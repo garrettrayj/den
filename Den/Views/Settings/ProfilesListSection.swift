@@ -44,7 +44,7 @@ struct ProfilesListSection: View {
         } header: {
             Text("Profiles").modifier(FirstFormHeaderModifier())
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     func addProfile() {

@@ -80,7 +80,7 @@ struct ResetSettingsSection: View {
         .task {
             await calculateCacheSize()
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 
     private func emptyCache() async {

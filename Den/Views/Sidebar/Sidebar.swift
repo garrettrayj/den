@@ -12,6 +12,7 @@ import CoreData
 import SwiftUI
 
 struct Sidebar: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
@@ -36,10 +37,11 @@ struct Sidebar: View {
             }
         }
         .listStyle(.sidebar)
-        .background(.thinMaterial)
         #if targetEnvironment(macCatalyst)
+        .background(.thinMaterial)
         .navigationSplitViewColumnWidth(240)
         #else
+        .background(.thinMaterial.opacity(colorScheme == .light ? 1 : 0))
         .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)
         .refreshable {
             if networkMonitor.isConnected {

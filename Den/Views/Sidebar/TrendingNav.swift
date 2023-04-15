@@ -24,7 +24,9 @@ struct TrendingNav: View {
             }
         }
         .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
-        .listRowBackground(ListRowBackground())
+        #if !targetEnvironment(macCatalyst)
+        .modifier(ListRowModifier())
+        #endif
         .accessibilityIdentifier("trends-button")
     }
 }

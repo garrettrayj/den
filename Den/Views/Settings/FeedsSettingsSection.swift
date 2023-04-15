@@ -31,6 +31,6 @@ struct FeedsSettingsSection: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("security-check-button")
         }
-        .listRowBackground(ListRowBackground())
+        .modifier(ListRowModifier())
     }
 }
