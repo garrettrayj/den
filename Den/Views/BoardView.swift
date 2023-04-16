@@ -18,9 +18,9 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     let geometry: GeometryProxy
 
     var body: some View {
-        HStack(alignment: .top) {
+        HStack(alignment: .top, spacing: 12) {
             ForEach(columnData, id: \.0) { _, columnObjects in
-                LazyVStack(alignment: .center) {
+                LazyVStack(alignment: .center, spacing: 12) {
                     ForEach(columnObjects) { object in
                         content(object)
                     }
@@ -38,7 +38,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
 
     private var columnData: [(Int, [T])] {
         let adjustedWidth = geometry.size.width / dynamicTypeSize.layoutScalingFactor
-        let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 26))
+        let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 27.5))
         var gridArray: [(Int, [T])] = []
 
         var currentCol: Int = 0

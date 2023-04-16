@@ -23,7 +23,6 @@ struct TrendingNav: View {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
-        .foregroundColor(editMode?.wrappedValue.isEditing == true ? .secondary : nil)
         #if !targetEnvironment(macCatalyst)
         .modifier(ListRowModifier())
         #endif

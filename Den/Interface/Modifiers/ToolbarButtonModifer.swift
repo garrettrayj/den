@@ -18,5 +18,6 @@ struct ToolbarButtonModifier: ViewModifier {
             #else
             .buttonStyle(.borderless)
             #endif
+            .fontWeight(.medium)
     }
 }

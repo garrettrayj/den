@@ -25,39 +25,36 @@ struct PageView: View {
             if page.feedsArray.isEmpty {
                 NoFeeds(page: page)
             } else {
-                Group {
-                    switch pageLayout {
-                    case .deck:
-                        DeckLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            previewStyle: previewStyle
-                        )
-                    case .blend:
-                        BlendLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            previewStyle: previewStyle
-                        )
-                    case .showcase:
-                        ShowcaseLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            previewStyle: previewStyle
-                        )
-                    case .gadgets:
-                        GadgetLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            previewStyle: previewStyle
-                        )
-                    }
+                switch pageLayout {
+                case .deck:
+                    DeckLayout(
+                        page: page,
+                        profile: profile,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
+                case .blend:
+                    BlendLayout(
+                        page: page,
+                        profile: profile,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
+                case .showcase:
+                    ShowcaseLayout(
+                        page: page,
+                        profile: profile,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
+                case .gadgets:
+                    GadgetLayout(
+                        page: page,
+                        profile: profile,
+                        hideRead: hideRead,
+                        previewStyle: previewStyle
+                    )
                 }
-                .id("ResetScrollView_\(page.id?.uuidString ?? "NoID")")
             }
         }
         .modifier(URLDropTargetModifier(page: page))
@@ -91,7 +88,7 @@ struct PageView: View {
                     }
                     .accessibilityIdentifier("page-settings-button")
                 } label: {
-                    Label("Page Menu", systemImage: "ellipsis.circle")
+                    Label("Page Menu", systemImage: "ellipsis.circle").fontWeight(.medium)
                 }
                 .accessibilityIdentifier("page-menu")
             }

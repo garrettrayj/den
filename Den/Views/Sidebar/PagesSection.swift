@@ -26,7 +26,7 @@ struct PagesSection: View {
         } header: {
             if editMode?.wrappedValue == .active {
                 Text("\(Image(systemName: "plus")) New Page").onTapGesture {
-                    addPage()
+                    withAnimation { addPage() }
                 }
                 .foregroundColor(.accentColor)
                 .accessibilityIdentifier("new-page-button")
@@ -73,10 +73,10 @@ struct PagesSection: View {
     }
 
     private func addPage() {
-        var pageName = "New Page"
+        var pageName = "Untitled"
         var suffix = 2
         while profile.pagesArray.contains(where: { $0.name == pageName }) {
-            pageName = "New Page \(suffix)"
+            pageName = "Untitled \(suffix)"
             suffix += 1
         }
 

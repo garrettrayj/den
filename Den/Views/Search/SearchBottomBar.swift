@@ -18,21 +18,19 @@ struct SearchBottomBar: View {
     var query: String
 
     var body: some View {
-        HStack {
-            FilterReadButton(hideRead: $hideRead) {
-                profile.objectWillChange.send()
-            }
+        FilterReadButton(hideRead: $hideRead) {
+            profile.objectWillChange.send()
+        }
+        Spacer()
+        WithItems(
+            scopeObject: profile,
+            includeExtras: true,
+            searchQuery: query
+        ) { items in
+            SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
             Spacer()
-            WithItems(
-                scopeObject: profile,
-                includeExtras: true,
-                searchQuery: query
-            ) { items in
-                SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
-                Spacer()
-                ToggleReadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                }
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
     }

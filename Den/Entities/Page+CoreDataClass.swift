@@ -81,7 +81,7 @@ public class Page: NSManagedObject {
         newPage.userOrder = prepend ?
             Int16(profile.pagesUserOrderMin - 1)
             : Int16(profile.pagesUserOrderMax + 1)
-        newPage.name = "New Page"
+        newPage.name = "Untitled"
         newPage.itemsPerFeed = Int16(4)
 
         return newPage

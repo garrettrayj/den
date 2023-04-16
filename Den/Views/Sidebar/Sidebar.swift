@@ -22,21 +22,27 @@ struct Sidebar: View {
     @Binding var contentSelection: ContentPanel?
     @Binding var searchQuery: String
 
+    @State private var searchInput: String = ""
+
     var body: some View {
         List(selection: $contentSelection) {
             if profile.pagesArray.isEmpty {
                 Start(profile: profile)
             } else {
-                InboxNav(
-                    profile: profile,
-                    contentSelection: $contentSelection,
-                    searchQuery: $searchQuery
-                )
+                InboxNav(profile: profile)
                 TrendingNav(profile: profile)
                 PagesSection(profile: profile)
             }
         }
         .listStyle(.sidebar)
+        .searchable(
+            text: $searchInput,
+            placement: .navigationBarDrawer(displayMode: .always)
+        )
+        .onSubmit(of: .search) {
+            searchQuery = searchInput
+            contentSelection = .search
+        }
         #if targetEnvironment(macCatalyst)
         .background(.thinMaterial)
         .navigationSplitViewColumnWidth(240)

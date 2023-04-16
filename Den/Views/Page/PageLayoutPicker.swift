@@ -47,6 +47,7 @@ struct PageLayoutPicker: View {
             .tag(PageLayout.deck)
             .accessibilityIdentifier("deck-layout-button")
         }
+        .fontWeight(.medium)
         .accessibilityIdentifier("page-layout-picker")
     }
 }

@@ -24,7 +24,7 @@ struct DeckColumn: View {
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(alignment: .leading, spacing: 8) {
+            LazyVStack(alignment: .leading, spacing: 12) {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
                 } else if items.isEmpty {
@@ -46,8 +46,9 @@ struct DeckColumn: View {
             }
             .padding(.vertical, 8)
             .padding(.leading, 8)
+            .padding(.trailing, 4)
             .padding(.leading, isFirst ? 8 : 0)
-            .padding(.trailing, isLast ? 16 : 0)
+            .padding(.trailing, isLast ? 12 : 0)
         }
         .safeAreaInset(edge: .top) {
             header.padding(.top, pageGeometry.safeAreaInsets.top)
@@ -70,7 +71,7 @@ struct DeckColumn: View {
                 ButtonChevron()
             }
             .padding(.leading, isFirst ? 8 : 0)
-            .padding(.trailing, isLast ? 16 : 0)
+            .padding(.trailing, isLast ? 12 : 0)
         }
         .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 8, trailingPadding: 16))
         .accessibilityIdentifier("deck-feed-button")

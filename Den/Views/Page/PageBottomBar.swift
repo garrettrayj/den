@@ -19,19 +19,17 @@ struct PageBottomBar: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        HStack {
-            FilterReadButton(hideRead: $hideRead) {
-                page.objectWillChange.send()
-            }
+        FilterReadButton(hideRead: $hideRead) {
+            page.objectWillChange.send()
+        }
+        Spacer()
+        WithItems(scopeObject: page) { items in
+            CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
             Spacer()
-            WithItems(scopeObject: page) { items in
-                CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
-                Spacer()
-                ToggleReadButton(unreadCount: items.unread().count) {
-                    await HistoryUtility.toggleReadUnread(items: Array(items))
-                    page.objectWillChange.send()
-                    page.feedsArray.forEach { $0.objectWillChange.send() }
-                }
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                page.objectWillChange.send()
+                page.feedsArray.forEach { $0.objectWillChange.send() }
             }
         }
     }

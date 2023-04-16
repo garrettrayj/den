@@ -30,19 +30,19 @@ struct AddFeed: View {
     @State private var newFeed: Feed?
 
     var body: some View {
-        Group {
-            if targetPage == nil || profile == nil {
-                VStack(spacing: 24) {
-                    Text("No Pages Available").font(.title2)
-                    Button { dismiss() } label: {
-                        Text("Cancel").font(.title3)
+        NavigationStack {
+            Group {
+                if targetPage == nil || profile == nil {
+                    VStack(spacing: 24) {
+                        Text("No Pages Available").font(.title2)
+                        Button { dismiss() } label: {
+                            Text("Cancel").font(.title3)
+                        }
+                        .buttonStyle(.bordered)
+                        .accessibilityIdentifier("subscribe-cancel-button")
                     }
-                    .buttonStyle(.bordered)
-                    .accessibilityIdentifier("subscribe-cancel-button")
-                }
-                .foregroundColor(.secondary)
-            } else {
-                NavigationStack {
+                    .foregroundColor(.secondary)
+                } else {
                     Form {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
@@ -73,25 +73,26 @@ struct AddFeed: View {
 
                         submitButtonSection
                     }
-                    .navigationTitle("Add Feed")
-                    .toolbar {
-                        ToolbarItem(placement: .primaryAction) {
-                            Button { dismiss() } label: {
-                                Label("Cancel", systemImage: "xmark.circle")
-                            }
-                            .modifier(ToolbarButtonModifier())
-                            .accessibilityIdentifier("add-feed-cancel-button")
-                        }
+                }
+            }
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Add Feed")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button { dismiss() } label: {
+                        Label("Cancel", systemImage: "xmark.circle")
                     }
+                    .modifier(ToolbarButtonModifier())
+                    .accessibilityIdentifier("add-feed-cancel-button")
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .modifier(GroupedBackgroundModifier())
         .onAppear {
             urlString = initialURLString
             checkTargetPage()
         }
+
     }
 
     private var submitButtonSection: some View {
