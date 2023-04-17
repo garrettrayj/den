@@ -23,6 +23,42 @@ struct ItemView: View {
     }
 
     var body: some View {
+        if item.managedObjectContext == nil {
+            SplashNote(title: "Item Deleted", symbol: "slash.circle")
+        } else {
+            itemLayout
+                .background(.background)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        ShareLink(item: item.link!)
+                            .modifier(ToolbarButtonModifier())
+                    }
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        Text("")
+                        Spacer()
+                        Button {
+                            if let url = item.link {
+                                if useInbuiltBrowser {
+                                    SafariUtility.openLink(
+                                        url: url,
+                                        controlTintColor: profile.tintUIColor ?? .tintColor,
+                                        readerMode: item.feedData?.feed?.readerMode ?? false
+                                    )
+                                } else {
+                                    openURL(url)
+                                }
+                            }
+                        } label: {
+                            Label("Open in Browser", systemImage: "link.circle")
+                        }
+                        .modifier(ToolbarButtonModifier())
+                        .accessibilityIdentifier("item-open-button")
+                    }
+                }
+        }
+    }
+
+    private var itemLayout: some View {
         GeometryReader { _ in
             ScrollView(.vertical) {
                 VStack {
@@ -65,34 +101,6 @@ struct ItemView: View {
                 .padding()
                 .navigationBarTitleDisplayMode(.inline)
                 .task { await HistoryUtility.markItemRead(item: item) }
-            }
-            .background(.background)
-        }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                ShareLink(item: item.link!)
-                    .modifier(ToolbarButtonModifier())
-            }
-            ToolbarItemGroup(placement: .bottomBar) {
-                Text("")
-                Spacer()
-                Button {
-                    if let url = item.link {
-                        if useInbuiltBrowser {
-                            SafariUtility.openLink(
-                                url: url,
-                                controlTintColor: profile.tintUIColor ?? .tintColor,
-                                readerMode: item.feedData?.feed?.readerMode ?? false
-                            )
-                        } else {
-                            openURL(url)
-                        }
-                    }
-                } label: {
-                    Label("Open in Browser", systemImage: "link.circle")
-                }
-                .modifier(ToolbarButtonModifier())
-                .accessibilityIdentifier("item-open-button")
             }
         }
     }

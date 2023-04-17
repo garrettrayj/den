@@ -17,8 +17,8 @@ struct HoverShadowButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .background(.thinMaterial.opacity(isEnabled && hovering ? 1 : 0))
-            .background(.quaternary.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.thickMaterial.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.tertiary.opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

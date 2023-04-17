@@ -70,68 +70,25 @@ struct ContentView: View {
                 Group {
                     switch detailPanel {
                     case .pageSettings(let page):
-                        if page.managedObjectContext != nil {
-                            PageSettings(page: page)
-                        } else {
-                            SplashNote(title: "Page Deleted", symbol: "slash.circle")
-                        }
+                        PageSettings(page: page)
                     case .feed(let feed):
-                        if feed.managedObjectContext != nil {
-                            FeedView(
-                                feed: feed,
-                                profile: profile,
-                                refreshing: $refreshManager.refreshing,
-                                hideRead: $hideRead
-                            )
-                        } else {
-                            SplashNote(title: "Feed Deleted", symbol: "slash.circle")
-                        }
-                    case .feedSettings(let feed):
-                        if feed.managedObjectContext != nil {
-                            FeedSettings(feed: feed)
-                        } else {
-                            SplashNote(title: "Feed Deleted", symbol: "slash.circle")
-                        }
-                    case .item(let item):
-                        if item.managedObjectContext != nil {
-                            ItemView(item: item, profile: profile)
-                        } else {
-                            SplashNote(title: "Item Deleted", symbol: "slash.circle")
-                        }
-                    case .trend(let trend):
-                        if trend.managedObjectContext != nil {
-                            TrendView(
-                                trend: trend,
-                                profile: profile,
-                                refreshing: $refreshManager.refreshing,
-                                hideRead: $hideRead
-                            )
-                        } else {
-                            SplashNote(title: "Trend Deleted", symbol: "slash.circle")
-                        }
-                    }
-                }
-                .modifier(GroupedBackgroundModifier())
-                .disabled(refreshManager.refreshing)
-            }
-            .navigationDestination(for: SettingsPanel.self) { settingsPanel in
-                Group {
-                    switch settingsPanel {
-                    case .profileSettings(let profile):
-                        ProfileSettings(
+                        FeedView(
+                            feed: feed,
                             profile: profile,
-                            contentSelection: $contentSelection,
-                            activeProfile: $activeProfile,
-                            appProfileID: $appProfileID,
-                            nameInput: profile.wrappedName,
-                            tintSelection: profile.tint
+                            refreshing: $refreshManager.refreshing,
+                            hideRead: $hideRead
                         )
-                    case .importFeeds:
-                        ImportView(profile: profile)
-                    case .exportFeeds:
-                        ExportView(profile: profile)
-                    case .security:
-                        SecurityView(profile: profile)
+                    case .feedSettings(let feed):
+                        FeedSettings(feed: feed)
+                    case .item(let item):
+                        ItemView(item: item, profile: profile)
+                    case .trend(let trend):
+                        TrendView(
+                            trend: trend,
+                            profile: profile,
+                            refreshing: $refreshManager.refreshing,
+                            hideRead: $hideRead
+                        )
                     }
                 }
                 .modifier(GroupedBackgroundModifier())

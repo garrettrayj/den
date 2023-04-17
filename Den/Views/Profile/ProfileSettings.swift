@@ -16,7 +16,6 @@ struct ProfileSettings: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var contentSelection: ContentPanel?
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
 
@@ -43,8 +42,8 @@ struct ProfileSettings: View {
                     DispatchQueue.main.async {
                         appProfileID = profile.id?.uuidString
                         activeProfile = profile
-                        contentSelection = nil
                         profile.objectWillChange.send()
+                        dismiss()
                     }
                 } label: {
                     Label("Switch", systemImage: "arrow.left.arrow.right")
@@ -131,7 +130,7 @@ struct ProfileSettings: View {
                 try context.save()
                 appProfileID = nil
                 activeProfile = nil
-                contentSelection = nil
+                dismiss()
             } catch let error as NSError {
                 CrashUtility.handleCriticalError(error)
             }

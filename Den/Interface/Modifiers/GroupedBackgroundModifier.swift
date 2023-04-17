@@ -16,10 +16,11 @@ struct GroupedBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             #if targetEnvironment(macCatalyst)
-            .background(.ultraThinMaterial.opacity(colorScheme == .light ? 1 : 0.5))
+            .background(.thinMaterial)
             .background(.background)
             #else
-            .background(Color(.systemGroupedBackground))
+            .background(.regularMaterial.opacity(colorScheme == .dark ? 0 : 1))
+            .background(.background)
             #endif
     }
 }

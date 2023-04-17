@@ -75,7 +75,7 @@ struct AddFeed: View {
                     }
                 }
             }
-            .background(Color(.systemGroupedBackground))
+            .modifier(GroupedBackgroundModifier())
             .navigationTitle("Add Feed")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

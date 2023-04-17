@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @EnvironmentObject private var refreshManager: RefreshManager
+
     @ObservedObject var profile: Profile
 
     @Binding var activeProfile: Profile?
@@ -42,5 +44,27 @@ struct SettingsView: View {
             AboutSettingsSection()
         }
         .navigationTitle("Settings")
+        .navigationDestination(for: SettingsPanel.self) { settingsPanel in
+            Group {
+                switch settingsPanel {
+                case .profileSettings(let profile):
+                    ProfileSettings(
+                        profile: profile,
+                        activeProfile: $activeProfile,
+                        appProfileID: $appProfileID,
+                        nameInput: profile.wrappedName,
+                        tintSelection: profile.tint
+                    )
+                case .importFeeds:
+                    ImportView(profile: profile)
+                case .exportFeeds:
+                    ExportView(profile: profile)
+                case .security:
+                    SecurityView(profile: profile)
+                }
+            }
+            .modifier(GroupedBackgroundModifier())
+            .disabled(refreshManager.refreshing)
+        }
     }
 }

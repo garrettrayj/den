@@ -18,14 +18,18 @@ struct PageSettings: View {
     @State private var showingIconPicker: Bool = false
 
     var body: some View {
-        Form {
-            nameSection
-            iconSection
-            feedsSection
+        if page.managedObjectContext == nil {
+            SplashNote(title: "Page Deleted", symbol: "slash.circle")
+        } else {
+            Form {
+                nameSection
+                iconSection
+                feedsSection
+            }
+            .environment(\.editMode, .constant(.active))
+            .navigationTitle("Page Settings")
+            .onDisappear(perform: save)
         }
-        .environment(\.editMode, .constant(.active))
-        .navigationTitle("Page Settings")
-        .onDisappear(perform: save)
     }
 
     private var nameSection: some View {

@@ -36,29 +36,33 @@ struct FeedView: View {
     }
 
     var body: some View {
-        FeedLayout(feed: feed, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
-            .toolbar {
-                ToolbarItemGroup(placement: .primaryAction) {
-                    PreviewStyleButton(previewStyle: $previewStyle)
-                    Spacer()
-                    NavigationLink(value: DetailPanel.feedSettings(feed)) {
-                        Label("Feed Settings", systemImage: "wrench")
+        if feed.managedObjectContext == nil {
+            SplashNote(title: "Feed Deleted", symbol: "slash.circle")
+        } else {
+            FeedLayout(feed: feed, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+                .toolbar {
+                    ToolbarItemGroup(placement: .primaryAction) {
+                        PreviewStyleButton(previewStyle: $previewStyle)
+                        Spacer()
+                        NavigationLink(value: DetailPanel.feedSettings(feed)) {
+                            Label("Feed Settings", systemImage: "wrench")
+                        }
+                        .modifier(ToolbarButtonModifier())
+                        .accessibilityIdentifier("feed-settings-button")
                     }
-                    .modifier(ToolbarButtonModifier())
-                    .accessibilityIdentifier("feed-settings-button")
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        FeedBottomBar(
+                            feed: feed,
+                            profile: profile,
+                            refreshing: $refreshing,
+                            hideRead: $hideRead
+                        )
+                    }
                 }
-                ToolbarItemGroup(placement: .bottomBar) {
-                    FeedBottomBar(
-                        feed: feed,
-                        profile: profile,
-                        refreshing: $refreshing,
-                        hideRead: $hideRead
-                    )
+                .onChange(of: feed.page) { _ in
+                    dismiss()
                 }
-            }
-            .onChange(of: feed.page) { _ in
-                dismiss()
-            }
-            .navigationTitle(feed.wrappedTitle)
+                .navigationTitle(feed.wrappedTitle)
+        }
     }
 }

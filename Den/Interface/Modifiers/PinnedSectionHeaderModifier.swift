@@ -21,6 +21,6 @@ struct PinnedSectionHeaderModifier: ViewModifier {
             #else
             .background(.regularMaterial)
             #endif
-            .background(.primary.opacity(0.4))
+            .background(.tertiary.opacity(0.5))
     }
 }

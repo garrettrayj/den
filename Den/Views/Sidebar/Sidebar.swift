@@ -43,11 +43,10 @@ struct Sidebar: View {
             searchQuery = searchInput
             contentSelection = .search
         }
+        .background(.ultraThinMaterial)
         #if targetEnvironment(macCatalyst)
-        .background(.thinMaterial)
         .navigationSplitViewColumnWidth(240)
         #else
-        .background(.thinMaterial.opacity(colorScheme == .light ? 1 : 0))
         .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)
         .refreshable {
             if networkMonitor.isConnected {

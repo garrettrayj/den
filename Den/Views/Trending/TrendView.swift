@@ -38,20 +38,24 @@ struct TrendView: View {
     }
 
     var body: some View {
-        TrendLayout(trend: trend, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
-            .navigationTitle(trend.wrappedTitle)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    PreviewStyleButton(previewStyle: $previewStyle)
+        if trend.managedObjectContext == nil {
+            SplashNote(title: "Trend Deleted", symbol: "slash.circle")
+        } else {
+            TrendLayout(trend: trend, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+                .navigationTitle(trend.wrappedTitle)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        PreviewStyleButton(previewStyle: $previewStyle)
+                    }
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        TrendBottomBar(
+                            trend: trend,
+                            profile: profile,
+                            refreshing: $refreshing,
+                            hideRead: $hideRead
+                        )
+                    }
                 }
-                ToolbarItemGroup(placement: .bottomBar) {
-                    TrendBottomBar(
-                        trend: trend,
-                        profile: profile,
-                        refreshing: $refreshing,
-                        hideRead: $hideRead
-                    )
-                }
-            }
+        }
     }
 }

@@ -19,34 +19,38 @@ struct FeedSettings: View {
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
-        Form {
-            titleSection
-            previewsSection
-            organizeSection
+        if feed.managedObjectContext == nil {
+            SplashNote(title: "Feed Deleted", symbol: "slash.circle")
+        } else {
+            Form {
+                titleSection
+                previewsSection
+                organizeSection
 
-            Button(role: .destructive) {
-                showingDeleteAlert = true
-            } label: {
-                Label("Delete", systemImage: "trash")
-                    .symbolRenderingMode(.multicolor)
-                    .modifier(FormRowModifier())
-            }
-            .alert(
-                "Delete \(feed.wrappedTitle)?",
-                isPresented: $showingDeleteAlert,
-                actions: {
-                    Button("Cancel", role: .cancel) { }
-                        .accessibilityIdentifier("feed-delete-cancel-button")
-                    Button("Delete", role: .destructive) {
-                        deleteFeed()
-                    }.accessibilityIdentifier("feed-delete-confirm-button")
+                Button(role: .destructive) {
+                    showingDeleteAlert = true
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                        .symbolRenderingMode(.multicolor)
+                        .modifier(FormRowModifier())
                 }
-            )
-            .modifier(ListRowModifier())
-            .accessibilityIdentifier("feed-delete-button")
+                .alert(
+                    "Delete \(feed.wrappedTitle)?",
+                    isPresented: $showingDeleteAlert,
+                    actions: {
+                        Button("Cancel", role: .cancel) { }
+                            .accessibilityIdentifier("feed-delete-cancel-button")
+                        Button("Delete", role: .destructive) {
+                            deleteFeed()
+                        }.accessibilityIdentifier("feed-delete-confirm-button")
+                    }
+                )
+                .modifier(ListRowModifier())
+                .accessibilityIdentifier("feed-delete-button")
+            }
+            .onDisappear(perform: save)
+            .navigationTitle("Feed Settings")
         }
-        .onDisappear(perform: save)
-        .navigationTitle("Feed Settings")
     }
 
     private var titleSection: some View {
