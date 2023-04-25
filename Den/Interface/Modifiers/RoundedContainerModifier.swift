@@ -14,7 +14,6 @@ struct RoundedContainerModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .modifier(GroupedContainerModifier())
             #if targetEnvironment(macCatalyst)
             .cornerRadius(8)
             #else

@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct ItemView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
     @Environment(\.openURL) private var openURL
@@ -19,7 +20,7 @@ struct ItemView: View {
     @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
-        CGFloat(740) * dynamicTypeSize.layoutScalingFactor
+        CGFloat(700) * dynamicTypeSize.layoutScalingFactor
     }
 
     var body: some View {
@@ -27,12 +28,19 @@ struct ItemView: View {
             SplashNote(title: "Item Deleted", symbol: "slash.circle")
         } else {
             itemLayout
-                .background(.background)
+                #if targetEnvironment(macCatalyst)
+                .background(.thinMaterial.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
+                .background(.background, ignoresSafeAreaEdges: .all)
+                #else
+                .background(.background, ignoresSafeAreaEdges: .all)
+                #endif
                 .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        ShareLink(item: item.link!)
-                            .modifier(ToolbarButtonModifier())
+                    if let link = item.link {
+                        ToolbarItem(placement: .primaryAction) {
+                            ShareLink(item: link).buttonStyle(ToolbarButtonStyle())
+                        }
                     }
+
                     ToolbarItemGroup(placement: .bottomBar) {
                         Text("")
                         Spacer()
@@ -51,7 +59,7 @@ struct ItemView: View {
                         } label: {
                             Label("Open in Browser", systemImage: "link.circle")
                         }
-                        .modifier(ToolbarButtonModifier())
+                        .buttonStyle(PlainToolbarButtonStyle())
                         .accessibilityIdentifier("item-open-button")
                     }
                 }
@@ -99,6 +107,7 @@ struct ItemView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
+                .padding(.vertical, 8)
                 .navigationBarTitleDisplayMode(.inline)
                 .task { await HistoryUtility.markItemRead(item: item) }
             }

@@ -14,7 +14,7 @@ struct ListRowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             #if targetEnvironment(macCatalyst)
-            .listRowBackground(Color.clear.modifier(GroupedContainerModifier()))
+            .listRowBackground(SecondaryGroupedBackground())
             #endif
     }
 }

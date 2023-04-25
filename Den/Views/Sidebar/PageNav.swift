@@ -12,13 +12,19 @@ import CoreData
 import SwiftUI
 
 struct PageNav: View {
+    @Environment(\.editMode) private var editMode
+
     @ObservedObject var page: Page
 
     var body: some View {
         NavigationLink(value: ContentPanel.page(page)) {
             Label {
-                WithItems(scopeObject: page, readFilter: false) { items in
-                    Text(page.displayName).lineLimit(1).badge(items.count)
+                if editMode?.wrappedValue.isEditing == true {
+                    Text(page.displayName).lineLimit(1)
+                } else {
+                    WithItems(scopeObject: page, readFilter: false) { items in
+                        Text(page.displayName).lineLimit(1).badge(items.count)
+                    }
                 }
             } icon: {
                 Image(systemName: page.wrappedSymbol)

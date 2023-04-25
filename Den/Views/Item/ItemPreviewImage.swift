@@ -46,6 +46,8 @@ struct ItemPreviewImage: View {
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
                         .indicator(.activity)
+                        .grayscale(isEnabled ? 0 : 1)
+                        .overlay(.background.opacity(item.read ? 0.5 : 0))
                         .modifier(ImageBorderModifier(cornerRadius: 4))
                         .scaledToFit()
                 }
@@ -60,6 +62,8 @@ struct ItemPreviewImage: View {
                         .resizable()
                         .placeholder { ImageErrorPlaceholder() }
                         .indicator(.activity)
+                        .grayscale(isEnabled ? 0 : 1)
+                        .overlay(.background.opacity(item.read ? 0.5 : 0))
                         .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                         .frame(
                             maxHeight: scaledSize.height > 0 ? min(scaledSize.height, 400) : nil,
@@ -78,16 +82,17 @@ struct ItemPreviewImage: View {
                 .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
+                .grayscale(isEnabled ? 0 : 1)
+                .overlay(.background.opacity(item.read ? 0.5 : 0))
                 .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                 .frame(
                     maxWidth: scaledSize.width,
                     maxHeight: scaledSize.height
                 )
-                .background(.tertiary)
+                .background(.quaternary)
                 .modifier(ImageBorderModifier())
             }
         }
-        .grayscale(isEnabled ? 0 : 1)
         .accessibility(label: Text("Preview Image"))
     }
 }

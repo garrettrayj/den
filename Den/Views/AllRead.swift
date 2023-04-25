@@ -13,13 +13,13 @@ import SwiftUI
 struct AllRead: View {
     var body: some View {
         Label {
-            HStack(spacing: 4) {
-                Text("All Read")
-            }
+            Text("All Read")
         } icon: {
             Image(systemName: "checkmark")
         }
         .foregroundColor(.secondary)
         .padding(12)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .background(SecondaryGroupedBackground())
     }
 }

@@ -23,7 +23,7 @@ struct RefreshButton: View {
         } label: {
             Label("Refresh", systemImage: "arrow.clockwise")
         }
-        .modifier(ToolbarButtonModifier())
+        .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("profile-refresh-button")
     }
 }

@@ -88,7 +88,6 @@
 			<outline text="Astronomy Now" title="Astronomy Now" type="rss" xmlUrl="https://astronomynow.com/feed/" />
 			<outline text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
 			<outline text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="https://www.esa.int/rssfeed/TopNews" />
-			<outline text="SpaceDaily.com" title="SpaceDaily.com" type="rss" xmlUrl="https://www.spacedaily.com/spacedaily.xml" />
 			<outline text="SatNews" title="SatNews" type="rss" xmlUrl="https://news.satnews.com/feed/" />
 			<outline text="BBC Sky at Night Magazine" title="BBC Sky at Night Magazine" type="rss" xmlUrl="https://www.skyatnightmagazine.com/feed/atom/" />
 		</outline>

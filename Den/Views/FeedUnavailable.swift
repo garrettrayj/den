@@ -25,6 +25,7 @@ struct FeedUnavailable: View {
                 }
             }
             .padding(12)
+            .background(SecondaryGroupedBackground())
             .modifier(RoundedContainerModifier())
         }
     }

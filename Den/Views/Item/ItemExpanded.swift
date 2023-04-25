@@ -28,7 +28,6 @@ struct ItemExpanded: View {
 
             if item.feedData?.feed?.showThumbnails == true && item.image != nil {
                 ItemPreviewImage(item: item)
-                    .overlay(.background.opacity(item.read ? 0.5 : 0))
                     .padding(.top, 4)
             }
 

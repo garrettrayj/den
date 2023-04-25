@@ -75,14 +75,14 @@ struct AddFeed: View {
                     }
                 }
             }
-            .modifier(GroupedBackgroundModifier())
+            .background(GroupedBackground())
             .navigationTitle("Add Feed")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button { dismiss() } label: {
                         Label("Cancel", systemImage: "xmark.circle")
                     }
-                    .modifier(ToolbarButtonModifier())
+                    .buttonStyle(PlainToolbarButtonStyle())
                     .accessibilityIdentifier("add-feed-cancel-button")
                 }
             }

@@ -22,12 +22,12 @@ struct PreviewStyleButton: View {
             }
         } label: {
             if previewStyle == .compressed {
-                Label("Expand", systemImage: "rectangle.expand.vertical")
+                Label("Expand Items", systemImage: "rectangle.expand.vertical")
             } else {
-                Label("Compress", systemImage: "rectangle.compress.vertical")
+                Label("Compress Items", systemImage: "rectangle.compress.vertical")
             }
         }
-        .modifier(ToolbarButtonModifier())
+        .buttonStyle(ToolbarButtonStyle())
         .accessibilityIdentifier("preview-style-button")
     }
 }

@@ -27,7 +27,7 @@ struct AddFeedButton: View {
                 Image(systemName: "plus.circle")
             }
         }
-        .modifier(ToolbarButtonModifier())
+        .buttonStyle(ToolbarButtonStyle())
         .accessibilityIdentifier("add-feed-button")
     }
 }

@@ -43,11 +43,11 @@ struct Sidebar: View {
             searchQuery = searchInput
             contentSelection = .search
         }
-        .background(.ultraThinMaterial)
+        .background(.ultraThinMaterial.opacity(colorScheme == .dark ? 0 : 1))
         #if targetEnvironment(macCatalyst)
-        .navigationSplitViewColumnWidth(240)
+        .navigationSplitViewColumnWidth(224)
         #else
-        .navigationSplitViewColumnWidth(240 * dynamicTypeSize.layoutScalingFactor)
+        .navigationSplitViewColumnWidth(264 * dynamicTypeSize.layoutScalingFactor)
         .refreshable {
             if networkMonitor.isConnected {
                 await refreshManager.refresh(profile: profile)
@@ -57,12 +57,11 @@ struct Sidebar: View {
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.displayName)
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                editButton
+            ToolbarItem {
+                EditButton()
+                    .buttonStyle(ToolbarButtonStyle())
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
-                    #if targetEnvironment(macCatalyst)
-                    .buttonStyle(.plain)
-                    #endif
+                    .accessibilityIdentifier("edit-page-list-button")
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 HStack {
@@ -81,11 +80,5 @@ struct Sidebar: View {
                 }
             }
         }
-    }
-
-    private var editButton: some View {
-        EditButton()
-            .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
-            .accessibilityIdentifier("edit-page-list-button")
     }
 }

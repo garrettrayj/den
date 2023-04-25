@@ -11,7 +11,8 @@
 import SwiftUI
 
 struct ItemButtonStyle: ButtonStyle {
-    @Environment(\.isEnabled) private var isEnabled: Bool
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let read: Bool
@@ -27,13 +28,9 @@ struct ItemButtonStyle: ButtonStyle {
                     .tertiary
             )
             .frame(maxWidth: .infinity)
-            .background(.thickMaterial.opacity(isEnabled && hovering ? 1 : 0))
-            .background(.tertiary.opacity(isEnabled && hovering ? 1 : 0))
+            .background(SecondaryGroupedBackground(highlight: isEnabled && hovering))
             .onHover { hovered in
                 hovering = hovered
-            }
-            .onDisappear {
-                hovering = false
             }
     }
 }

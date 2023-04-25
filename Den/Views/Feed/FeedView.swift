@@ -43,11 +43,10 @@ struct FeedView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .primaryAction) {
                         PreviewStyleButton(previewStyle: $previewStyle)
-                        Spacer()
                         NavigationLink(value: DetailPanel.feedSettings(feed)) {
                             Label("Feed Settings", systemImage: "wrench")
                         }
-                        .modifier(ToolbarButtonModifier())
+                        .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("feed-settings-button")
                     }
                     ToolbarItemGroup(placement: .bottomBar) {

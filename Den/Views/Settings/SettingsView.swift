@@ -63,7 +63,7 @@ struct SettingsView: View {
                     SecurityView(profile: profile)
                 }
             }
-            .modifier(GroupedBackgroundModifier())
+            .background(GroupedBackground())
             .disabled(refreshManager.refreshing)
         }
     }

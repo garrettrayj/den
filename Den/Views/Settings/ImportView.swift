@@ -41,22 +41,20 @@ struct ImportView: View {
         .onDisappear(perform: reset)
         .navigationTitle("Import")
         .toolbar {
-            if stage == .pickFile {
-                ToolbarItem(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
+                if stage == .pickFile {
                     Button(action: pickFile) {
                         Label("Select File", systemImage: "filemenu.and.cursorarrow")
                             .labelStyle(.titleAndIcon)
                     }
-                    .modifier(ToolbarButtonModifier())
+                    .buttonStyle(PlainToolbarButtonStyle())
                     .accessibilityIdentifier("select-file-button")
-                }
-            } else if stage == .folderSelection {
-                ToolbarItem(placement: .bottomBar) {
+                } else if stage == .folderSelection {
                     Button(action: importSelected) {
                         Label("Import Pages", systemImage: "rectangle.stack.badge.plus")
                             .labelStyle(.titleAndIcon)
                     }
-                    .modifier(ToolbarButtonModifier())
+                    .buttonStyle(PlainToolbarButtonStyle())
                     .disabled(!(selectedFolders.count > 0))
                     .accessibilityIdentifier("import-button")
                 }

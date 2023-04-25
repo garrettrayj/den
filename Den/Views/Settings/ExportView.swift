@@ -38,7 +38,7 @@ struct ExportView: View {
                 } label: {
                     Label("Export OPML", systemImage: "arrow.up.doc").labelStyle(.titleAndIcon)
                 }
-                .modifier(ToolbarButtonModifier())
+                .buttonStyle(PlainToolbarButtonStyle())
                 .disabled(selectedPages.isEmpty)
                 .accessibilityIdentifier("export-button")
             }

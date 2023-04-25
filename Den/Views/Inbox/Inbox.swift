@@ -35,7 +35,6 @@ struct Inbox: View {
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
                     PreviewStyleButton(previewStyle: $previewStyle)
-                    Spacer()
                     AddFeedButton()
                 }
                 ToolbarItemGroup(placement: .bottomBar) {

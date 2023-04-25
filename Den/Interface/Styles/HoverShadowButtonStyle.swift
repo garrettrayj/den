@@ -11,19 +11,15 @@
 import SwiftUI
 
 struct HoverShadowButtonStyle: ButtonStyle {
-    @Environment(\.isEnabled) private var isEnabled: Bool
+    @Environment(\.isEnabled) private var isEnabled
 
     @State private var hovering: Bool = false
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .background(.thickMaterial.opacity(isEnabled && hovering ? 1 : 0))
-            .background(.tertiary.opacity(isEnabled && hovering ? 1 : 0))
+            .background(SecondaryGroupedBackground(highlight: isEnabled && hovering))
             .onHover { hovered in
                 hovering = hovered
-            }
-            .onDisappear {
-                hovering = false
             }
     }
 }

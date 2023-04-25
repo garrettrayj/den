@@ -64,7 +64,7 @@ struct ContentView: View {
                     )
                 }
             }
-            .modifier(GroupedBackgroundModifier())
+            .background(GroupedBackground())
             .disabled(refreshManager.refreshing)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
                 Group {
@@ -91,7 +91,7 @@ struct ContentView: View {
                         )
                     }
                 }
-                .modifier(GroupedBackgroundModifier())
+                .background(GroupedBackground())
                 .disabled(refreshManager.refreshing)
             }
         }

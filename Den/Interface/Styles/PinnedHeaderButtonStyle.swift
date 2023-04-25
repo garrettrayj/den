@@ -11,7 +11,8 @@
 import SwiftUI
 
 struct PinnedHeaderButtonStyle: ButtonStyle {
-    @Environment(\.isEnabled) private var isEnabled: Bool
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.isEnabled) private var isEnabled
 
     @State private var hovering: Bool = false
 
@@ -26,18 +27,9 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .padding(.vertical, 12)
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
-            #if targetEnvironment(macCatalyst)
-            .background(.thickMaterial)
-            .background(.tertiary.opacity(isEnabled && hovering ? 1 : 0.6))
-            #else
-            .background(.regularMaterial)
-            .overlay(.quaternary.opacity(isEnabled && hovering ? 1 : 0.5))
-            #endif
+            .background(TertiaryGroupedBackground(highlight: isEnabled && hovering))
             .onHover { hovered in
                 hovering = hovered
-            }
-            .onDisappear {
-                hovering = false
             }
     }
 }

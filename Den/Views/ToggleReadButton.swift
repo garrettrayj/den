@@ -32,7 +32,7 @@ struct ToggleReadButton: View {
                 Label("Mark All Read", systemImage: "checkmark.circle")
             }
         }
-        .modifier(ToolbarButtonModifier())
+        .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("toggle-read-button")
         .disabled(toggling)
     }

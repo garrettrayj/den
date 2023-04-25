@@ -28,9 +28,7 @@ struct DeckColumn: View {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
                 } else if items.isEmpty {
-                    AllRead()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .modifier(RoundedContainerModifier())
+                    AllRead().modifier(RoundedContainerModifier())
                 } else {
                     ForEach(items) { item in
                         ItemActionView(item: item, profile: profile) {

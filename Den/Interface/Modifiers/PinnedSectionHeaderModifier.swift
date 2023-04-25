@@ -11,16 +11,13 @@
 import SwiftUI
 
 struct PinnedSectionHeaderModifier: ViewModifier {
+    @Environment(\.colorScheme) private var colorScheme
+
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
-            #if targetEnvironment(macCatalyst)
-            .background(.thickMaterial)
-            #else
-            .background(.regularMaterial)
-            #endif
-            .background(.tertiary.opacity(0.5))
+            .background(TertiaryGroupedBackground())
     }
 }

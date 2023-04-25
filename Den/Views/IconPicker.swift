@@ -29,7 +29,7 @@ struct IconPicker: View {
                     }
                 }.padding(.bottom)
             }
-            .modifier(GroupedBackgroundModifier())
+            .background(GroupedBackground())
             .navigationTitle("Select Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -39,7 +39,7 @@ struct IconPicker: View {
                     } label: {
                         Label("Close", systemImage: "xmark.circle")
                     }
-                    .modifier(ToolbarButtonModifier())
+                    .buttonStyle(PlainToolbarButtonStyle())
                 }
             }
         }

@@ -24,6 +24,7 @@ struct FeedLayout: View {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
                     if let heroImage = feed.feedData?.banner {
+                        Divider()
                         FeedHero(heroImage: heroImage)
                     }
                     if feed.feedData == nil || feed.feedData?.error != nil {
@@ -37,7 +38,6 @@ struct FeedLayout: View {
                             Section {
                                 if items.previews().isEmpty && hideRead == true {
                                     AllRead()
-                                        .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RoundedContainerModifier())
                                         .padding()
                                         .modifier(SafeAreaModifier(geometry: geometry))
@@ -68,7 +68,6 @@ struct FeedLayout: View {
                             Section {
                                 if items.extras().isEmpty {
                                     AllRead()
-                                        .frame(maxWidth: .infinity, alignment: .leading)
                                         .modifier(RoundedContainerModifier())
                                         .padding()
                                         .modifier(SafeAreaModifier(geometry: geometry))
@@ -112,28 +111,36 @@ struct FeedLayout: View {
                     Text(description).frame(maxWidth: 640)
                 }
 
-                if let linkDisplayString = feed.feedData?.linkDisplayString {
+                if let linkDisplayString = feed.feedData?.linkDisplayString, let url = feed.feedData?.link {
                     Button {
-                        if let url = feed.feedData?.link {
-                            openURL(url)
-                        }
+                        openURL(url)
                     } label: {
                         Label("\(linkDisplayString)", systemImage: "link").lineLimit(1)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.borderless)
                     .accessibilityIdentifier("feed-link-button")
                 }
 
-                if let feedURLString = feed.url?.absoluteString {
-                    Button {
-                        if let url = feed.url {
+                if let feedURLString = feed.url?.absoluteString, let url = feed.url {
+                    HStack {
+                        Button {
                             openURL(url)
+                        } label: {
+                            Label("\(feedURLString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
                         }
-                    } label: {
-                        Label("\(feedURLString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
+                        .buttonStyle(.borderless)
+                        .accessibilityIdentifier("feed-url-button")
+
+                        Button {
+                            UIPasteboard.general.url = url
+                        } label: {
+                            Label("Copy", systemImage: "doc.on.doc")
+                        }
+                        .labelStyle(.iconOnly)
+                        .buttonStyle(.borderless)
+                        .accessibilityIdentifier("copy-feed-url-button")
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("feed-url-button")
+
                 }
 
                 if let copyright = feed.feedData?.copyright {

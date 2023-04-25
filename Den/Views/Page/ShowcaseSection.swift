@@ -26,7 +26,6 @@ struct ShowcaseSection: View {
                     .modifier(SafeAreaModifier(geometry: geometry))
             } else if items.isEmpty {
                 AllRead()
-                    .frame(maxWidth: .infinity, alignment: .leading)
                     .modifier(RoundedContainerModifier())
                     .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))
