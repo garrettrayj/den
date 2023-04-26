@@ -1250,10 +1250,10 @@
 			projectRoot = "";
 			targets = (
 				68C41308247263C700D1DC7B /* Den */,
+				6860690D2831501B000068DE /* FeedDetector */,
 				68C4132E247263C700D1DC7B /* DenUITests */,
 				689EDC0826A3F46A0055811A /* Screenshots */,
 				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
-				6860690D2831501B000068DE /* FeedDetector */,
 			);
 		};
 /* End PBXProject section */
@@ -1637,7 +1637,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeedDetector/Info.plist;
@@ -1649,7 +1649,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.16.0;
+				MARKETING_VERSION = 1.16.1;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -1671,7 +1671,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FeedDetector/Info.plist;
@@ -1683,7 +1683,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.16.0;
+				MARKETING_VERSION = 1.16.1;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -1874,7 +1874,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1887,7 +1887,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.16.0;
+				MARKETING_VERSION = 1.16.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1907,7 +1907,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1920,7 +1920,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.16.0;
+				MARKETING_VERSION = 1.16.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

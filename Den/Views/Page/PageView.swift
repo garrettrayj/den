@@ -74,7 +74,7 @@ struct PageView: View {
                 .accessibilityIdentifier("page-settings-button")
             }
             #else
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItem {
                 Menu {
                     PreviewStyleButton(previewStyle: $previewStyle)
                     PageLayoutPicker(pageLayout: $pageLayout)
