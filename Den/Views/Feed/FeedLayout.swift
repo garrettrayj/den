@@ -44,7 +44,8 @@ struct FeedLayout: View {
                                 } else {
                                     BoardView(
                                         geometry: geometry,
-                                        list: Array(items).previews()
+                                        list: Array(items).previews(),
+                                        isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
                                             if previewStyle == .compressed {
@@ -74,7 +75,8 @@ struct FeedLayout: View {
                                 } else {
                                     BoardView(
                                         geometry: geometry,
-                                        list: Array(items).extras()
+                                        list: Array(items).extras(),
+                                        isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
                                             if previewStyle == .compressed {

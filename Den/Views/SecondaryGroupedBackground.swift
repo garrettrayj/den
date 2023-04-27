@@ -23,8 +23,8 @@ struct SecondaryGroupedBackground: View {
                     .background(.tertiary)
             } else {
                 Rectangle()
-                    .fill(.thickMaterial)
-                    .background(.tertiary)
+                    .fill(.ultraThickMaterial)
+                    .background(.quaternary)
             }
         } else {
             if highlight {

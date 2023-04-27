@@ -14,23 +14,29 @@ struct GroupedBackground: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
+        #if targetEnvironment(macCatalyst)
         if colorScheme == .dark {
             Rectangle()
-                #if targetEnvironment(macCatalyst)
-                .fill(.thinMaterial)
-                #else
-                .fill(.background)
-                #endif
+                .fill(.ultraThinMaterial)
+                .background(.background)
                 .edgesIgnoringSafeArea(.all)
         } else {
             Rectangle()
-                #if targetEnvironment(macCatalyst)
                 .fill(.regularMaterial)
-                #else
-                .fill(.regularMaterial)
-                .background(.quaternary)
-                #endif
+                .background(.background)
                 .edgesIgnoringSafeArea(.all)
         }
+        #else
+        if colorScheme == .dark {
+            Rectangle()
+                .fill(.background)
+                .edgesIgnoringSafeArea(.all)
+        } else {
+            Rectangle()
+                .fill(.regularMaterial)
+                .background(.quaternary)
+                .edgesIgnoringSafeArea(.all)
+        }
+        #endif
     }
 }

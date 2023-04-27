@@ -17,8 +17,8 @@ struct PlainToolbarButtonStyle: ButtonStyle {
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
-            .fontWeight(.medium)
             #if targetEnvironment(macCatalyst)
+            .fontWeight(.medium)
             .foregroundColor(
                 isEnabled ?
                     configuration.isPressed ?

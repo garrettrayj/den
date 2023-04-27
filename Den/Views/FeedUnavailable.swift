@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct FeedUnavailable: View {
+    @Environment(\.isEnabled) private var isEnabled
+
     let feedData: FeedData?
     var splashNote: Bool = false
 
@@ -21,12 +23,11 @@ struct FeedUnavailable: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(titleAndDescripition.0)
                 if let caption = titleAndDescripition.1 {
-                    Text(.init(caption)).font(.caption).foregroundColor(.secondary)
+                    Text(.init(caption)).font(.caption)
                 }
             }
-            .padding(12)
-            .background(SecondaryGroupedBackground())
-            .modifier(RoundedContainerModifier())
+            .foregroundColor(isEnabled ? .primary : .secondary)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 

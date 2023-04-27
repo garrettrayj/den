@@ -33,6 +33,7 @@ struct ShowcaseSection: View {
                 BoardView(
                     geometry: geometry,
                     list: items,
+                    isLazy: false,
                     content: { item in
                         ItemActionView(item: item, profile: profile) {
                             if previewStyle == .compressed {

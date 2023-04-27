@@ -16,7 +16,7 @@ struct ItemPreviewImage: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    let item: Item
+    @ObservedObject var item: Item
 
     static let baseSize = CGSize(width: 384, height: 216)
 

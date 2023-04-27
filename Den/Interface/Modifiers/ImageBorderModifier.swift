@@ -18,7 +18,7 @@ struct ImageBorderModifier: ViewModifier {
             .cornerRadius(cornerRadius)
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .strokeBorder(Color(.separator), lineWidth: 1)
+                    .strokeBorder(.quaternary, lineWidth: 1)
             )
     }
 }

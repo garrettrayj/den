@@ -21,8 +21,8 @@
 		</outline>
 		<outline text="US News" title="US News">
 			<outline text="PBS NewsHour " title="PBS NewsHour " type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
-			<outline text="msnbc.com" title="msnbc.com" type="rss" xmlUrl="https://www.msnbc.com/feeds/latest" />
 			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
+			<outline text="MSNBC Top Stories" title="MSNBC Top Stories" type="rss" xmlUrl="https://feeds.nbcnews.com/msnbc/public/news" />
 			<outline text="The Conversation" title="The Conversation" type="rss" xmlUrl="https://theconversation.com/us/home-page/articles.atom" />
 			<outline text="Axios" title="Axios" type="rss" xmlUrl="https://api.axios.com/feed/" />
 			<outline text="Washington Examiner" title="Washington Examiner" type="rss" xmlUrl="https://www.washingtonexaminer.com/news.rss" />

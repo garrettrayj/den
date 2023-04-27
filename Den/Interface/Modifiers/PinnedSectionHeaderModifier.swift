@@ -11,10 +11,11 @@
 import SwiftUI
 
 struct PinnedSectionHeaderModifier: ViewModifier {
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.isEnabled) private var isEnabled
 
     func body(content: Content) -> some View {
         content
+            .foregroundColor(isEnabled ? .primary : .secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)

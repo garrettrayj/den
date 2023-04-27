@@ -11,15 +11,15 @@
 import SwiftUI
 
 struct AllRead: View {
+    @Environment(\.isEnabled) private var isEnabled
+
     var body: some View {
         Label {
             Text("All Read")
         } icon: {
             Image(systemName: "checkmark")
         }
-        .foregroundColor(.secondary)
-        .padding(12)
-        .frame(maxWidth: .infinity, alignment: .topLeading)
-        .background(SecondaryGroupedBackground())
+        .foregroundColor(isEnabled ? .primary : .secondary)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

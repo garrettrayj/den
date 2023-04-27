@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct SplashNote: View {
+    @Environment(\.isEnabled) private var isEnabled
+
     let title: String
     var note: String?
     var symbol: String?
@@ -28,6 +30,7 @@ struct SplashNote: View {
             Spacer()
         }
         .multilineTextAlignment(.center)
+        .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
     }

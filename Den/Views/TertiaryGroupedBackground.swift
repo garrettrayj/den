@@ -23,10 +23,18 @@ struct TertiaryGroupedBackground: View {
             Rectangle().fill(.ultraThickMaterial).background(.secondary)
         }
         #else
-        if highlight {
-            Rectangle().fill(.thickMaterial).background(.secondary)
+        if colorScheme == .dark {
+            if highlight {
+                Rectangle().fill(.thickMaterial).background(.tertiary)
+            } else {
+                Rectangle().fill(.regularMaterial).background(.tertiary)
+            }
         } else {
-            Rectangle().fill(.regularMaterial).background(.secondary)
+            if highlight {
+                Rectangle().fill(.thickMaterial).background(.secondary)
+            } else {
+                Rectangle().fill(.regularMaterial).background(.secondary)
+            }
         }
         #endif
     }

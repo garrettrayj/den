@@ -44,15 +44,15 @@ struct PageView: View {
                     ShowcaseLayout(
                         page: page,
                         profile: profile,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
+                        hideRead: $hideRead,
+                        previewStyle: $previewStyle
                     )
                 case .gadgets:
                     GadgetLayout(
                         page: page,
                         profile: profile,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
+                        hideRead: $hideRead,
+                        previewStyle: $previewStyle
                     )
                 }
             }
@@ -84,7 +84,7 @@ struct PageView: View {
                     }
                     .accessibilityIdentifier("page-settings-button")
                 } label: {
-                    Label("Page Menu", systemImage: "ellipsis.circle").fontWeight(.medium)
+                    Label("Page Menu", systemImage: "ellipsis.circle")
                 }
                 .accessibilityIdentifier("page-menu")
             }

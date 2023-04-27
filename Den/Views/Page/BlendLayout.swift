@@ -23,7 +23,7 @@ struct BlendLayout: View {
             readFilter: hideRead ? false : nil
         ) { items in
             if items.isEmpty && hideRead {
-                SplashNote(title: "No Unread", note: "Refresh to check for new items.")
+                SplashNote(title: "All Read", note: "Refresh to check for new items.")
             } else if items.isEmpty && !hideRead {
                 SplashNote(title: "No Data", note: "Refresh to get items.")
             } else {
@@ -36,7 +36,7 @@ struct BlendLayout: View {
                                 FeedItemExpanded(item: item, profile: profile)
                             }
                         }.modifier(MainBoardModifier())
-                    }
+                    }.id("BlendLayoutSroll_\(page.id?.uuidString ?? "NoID")")
                 }
             }
         }

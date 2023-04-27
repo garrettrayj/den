@@ -14,8 +14,8 @@ struct GadgetLayout: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
-    let hideRead: Bool
-    let previewStyle: PreviewStyle
+    @Binding var hideRead: Bool
+    @Binding var previewStyle: PreviewStyle
 
     var body: some View {
         GeometryReader { geometry in
@@ -37,7 +37,7 @@ struct GadgetLayout: View {
                         )
                     }.modifier(MainBoardModifier())
                 }
-            }
+            }.id("GadgetLayoutSroll_\(page.id?.uuidString ?? "NoID")")
         }
     }
 }

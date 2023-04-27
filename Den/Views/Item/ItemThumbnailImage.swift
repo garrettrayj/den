@@ -53,23 +53,22 @@ struct ItemThumbnailImage: View {
                 .modifier(ImageBorderModifier())
 
         } else if let image = item.feedData?.image {
-            WebImage(
-                url: image,
-                options: [.decodeFirstFrameOnly, .delayPlaceholder],
-                context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-            )
+            ImageDepression(padding: 4) {
+                WebImage(
+                    url: image,
+                    options: [.decodeFirstFrameOnly, .delayPlaceholder],
+                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                )
                 .resizable()
                 .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                .modifier(ImageBorderModifier(cornerRadius: 6))
-                .padding(4)
                 .grayscale(isEnabled ? 0 : 1)
                 .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
-                .frame(width: scaledSize.width, height: scaledSize.height)
-                .background(.quaternary)
-                .cornerRadius(8)
+                .cornerRadius(6)
+            }
+            .frame(width: scaledSize.width, height: scaledSize.height)
         }
     }
 }

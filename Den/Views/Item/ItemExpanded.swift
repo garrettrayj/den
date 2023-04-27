@@ -33,14 +33,16 @@ struct ItemExpanded: View {
 
             if showTeaser {
                 Text(item.teaser!)
-                    .font(.body)
+                    #if !targetEnvironment(macCatalyst)
+                    .font(.caption)
+                    #endif
                     .lineLimit(6)
                     .padding(.top, 4)
             }
         }
-        .fixedSize(horizontal: false, vertical: true)
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
