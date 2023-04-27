@@ -14,7 +14,6 @@ struct FeedBottomBar: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
-    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -23,7 +22,7 @@ struct FeedBottomBar: View {
         }
         Spacer()
         WithItems(scopeObject: feed, includeExtras: true) { items in
-            FeedStatus(feed: feed, refreshing: $refreshing, unreadCount: items.unread().count)
+            FeedStatus(feed: feed, unreadCount: items.unread().count)
             Spacer()
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))

@@ -15,7 +15,6 @@ struct TrendLayout: View {
     @ObservedObject var profile: Profile
 
     let hideRead: Bool
-    let previewStyle: PreviewStyle
 
     var body: some View {
         WithItems(
@@ -28,10 +27,10 @@ struct TrendLayout: View {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
                         BoardView(geometry: geometry, list: Array(items)) { item in
-                            if previewStyle == .compressed {
-                                FeedItemCompressed(item: item, profile: profile)
-                            } else {
+                            if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
                                 FeedItemExpanded(item: item, profile: profile)
+                            } else {
+                                FeedItemCompressed(item: item, profile: profile)
                             }
                         }.modifier(MainBoardModifier())
                     }

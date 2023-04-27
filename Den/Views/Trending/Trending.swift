@@ -44,10 +44,16 @@ struct Trending: View {
                 }
             }
         }
-        .navigationTitle("Trending")
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
                 TrendingBottomBar(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+            }
+        }
+        .navigationTitle("Trending")
+        .navigationDestination(for: TrendingPanel.self) { panel in
+            switch panel {
+            case .trend(let trend):
+                TrendView(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
             }
         }
     }

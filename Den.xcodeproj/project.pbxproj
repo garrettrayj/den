@@ -56,9 +56,7 @@
 		6835737F295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */; };
 		6835738329601C0000843A8E /* BrowserSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738229601C0000843A8E /* BrowserSettingsSection.swift */; };
 		6835738529602A7F00843A8E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738429602A7F00843A8E /* Environment.swift */; };
-		6835738C29614C3A00843A8E /* ContentPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738B29614C3A00843A8E /* ContentPanel.swift */; };
-		6835738E29614C5600843A8E /* DetailPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738D29614C5600843A8E /* DetailPanel.swift */; };
-		6835739229614C6E00843A8E /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835739129614C6E00843A8E /* SettingsPanel.swift */; };
+		6835738E29614C5600843A8E /* Panels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738D29614C5600843A8E /* Panels.swift */; };
 		683573A0296372DA00843A8E /* WebAccessibleFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835739F296372DA00843A8E /* WebAccessibleFeed.swift */; };
 		683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CEC5F250966410005F305 /* Bundle+Extensions.swift */; };
 		683E3F45293BC02A00B16814 /* AddFeedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F44293BC02A00B16814 /* AddFeedButton.swift */; };
@@ -333,9 +331,7 @@
 		6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedHeaderButtonStyle.swift; sourceTree = "<group>"; };
 		6835738229601C0000843A8E /* BrowserSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserSettingsSection.swift; sourceTree = "<group>"; };
 		6835738429602A7F00843A8E /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		6835738B29614C3A00843A8E /* ContentPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentPanel.swift; sourceTree = "<group>"; };
-		6835738D29614C5600843A8E /* DetailPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPanel.swift; sourceTree = "<group>"; };
-		6835739129614C6E00843A8E /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
+		6835738D29614C5600843A8E /* Panels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panels.swift; sourceTree = "<group>"; };
 		6835739F296372DA00843A8E /* WebAccessibleFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAccessibleFeed.swift; sourceTree = "<group>"; };
 		683573A22963792900843A8E /* lint.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = lint.sh; sourceTree = "<group>"; };
 		683573A32963A0BA00843A8E /* NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NOTES.md; sourceTree = "<group>"; };
@@ -636,16 +632,6 @@
 			path = Transforms;
 			sourceTree = "<group>";
 		};
-		6835738A29614C2200843A8E /* Panels */ = {
-			isa = PBXGroup;
-			children = (
-				6835738B29614C3A00843A8E /* ContentPanel.swift */,
-				6835738D29614C5600843A8E /* DetailPanel.swift */,
-				6835739129614C6E00843A8E /* SettingsPanel.swift */,
-			);
-			path = Panels;
-			sourceTree = "<group>";
-		};
 		683B285327D54141009C0302 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,7 +747,7 @@
 		6880EBE427ABEDB600B479F4 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				6835738A29614C2200843A8E /* Panels */,
+				6835738D29614C5600843A8E /* Panels.swift */,
 				687C27962634A84600099FCA /* Modifiers */,
 				68B34A5C2486D2710066B215 /* Representables */,
 				688FD91B24780C800006A2DE /* Styles */,
@@ -1377,7 +1363,7 @@
 				681AEAF929954AC70054B084 /* FeedHero.swift in Sources */,
 				682591F829D807F100E5EF3B /* RSSFeedMetaUpdate.swift in Sources */,
 				685ABADA290F0BDC0080110A /* RSSFeedUpdate.swift in Sources */,
-				6835738E29614C5600843A8E /* DetailPanel.swift in Sources */,
+				6835738E29614C5600843A8E /* Panels.swift in Sources */,
 				68D486BE26C9896300AF5B59 /* IconPicker.swift in Sources */,
 				68FF63F02921C56E0012A275 /* PageBottomBar.swift in Sources */,
 				68FC25552758B2250073979F /* FeedUnavailable.swift in Sources */,
@@ -1446,7 +1432,6 @@
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				6832AF2C278B889300CFC8CA /* SplashNote.swift in Sources */,
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,
-				6835739229614C6E00843A8E /* SettingsPanel.swift in Sources */,
 				68FF63FA2921DCF20012A275 /* TrendBottomBar.swift in Sources */,
 				68AC3A172910EEB500D60273 /* WorkingTrend.swift in Sources */,
 				68B34A69248801660066B215 /* ExportDocumentPicker.swift in Sources */,
@@ -1523,7 +1508,6 @@
 				68B18958289B633E0002A7FE /* AccentButtonStyle.swift in Sources */,
 				680F495429AB59430083B664 /* Array+Extensions.swift in Sources */,
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
-				6835738C29614C3A00843A8E /* ContentPanel.swift in Sources */,
 				68B0AECF28BADE930079793D /* WindowFinder.swift in Sources */,
 				68B8E79A29CAC95300E9AF42 /* ImageDepression.swift in Sources */,
 				68701E01273E6A5400C6BB69 /* SubscriptionUtility.swift in Sources */,

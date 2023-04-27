@@ -24,6 +24,9 @@ struct PageView: View {
             if page.feedsArray.isEmpty {
                 NoFeeds(page: page)
             } else {
+                Group {
+
+                }
                 switch pageLayout {
                 case .deck:
                     DeckLayout(
@@ -53,7 +56,6 @@ struct PageView: View {
             }
         }
         .modifier(URLDropTargetModifier(page: page))
-        .navigationTitle(page.displayName)
         .toolbar {
             #if targetEnvironment(macCatalyst)
             ToolbarItem(placement: .secondaryAction) {
@@ -61,7 +63,7 @@ struct PageView: View {
             }
             ToolbarItemGroup(placement: .primaryAction) {
                 AddFeedButton(page: page)
-                NavigationLink(value: DetailPanel.pageSettings(page)) {
+                NavigationLink(value: PagePanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
                 }
                 .buttonStyle(ToolbarButtonStyle())
@@ -91,6 +93,25 @@ struct PageView: View {
                     refreshing: $refreshing,
                     hideRead: $hideRead
                 )
+            }
+        }
+        .navigationTitle(page.displayName)
+        .navigationDestination(for: DetailPanel.self) { detailPanel in
+            switch detailPanel {
+            case .feed(let feed):
+                FeedView(
+                    feed: feed,
+                    profile: profile,
+                    hideRead: $hideRead
+                )
+            case .item(let item):
+                ItemView(item: item, profile: profile)
+            }
+        }
+        .navigationDestination(for: PagePanel.self) { panel in
+            switch panel {
+            case .pageSettings:
+                PageSettings(page: page)
             }
         }
     }

@@ -26,5 +26,17 @@ struct Search: View {
                 }
             }
             .navigationTitle("Search")
+            .navigationDestination(for: DetailPanel.self) { detailPanel in
+                switch detailPanel {
+                case .feed(let feed):
+                    FeedView(
+                        feed: feed,
+                        profile: profile,
+                        hideRead: $hideRead
+                    )
+                case .item(let item):
+                    ItemView(item: item, profile: profile)
+                }
+            }
     }
 }

@@ -11,8 +11,9 @@
 import SwiftUI
 
 struct FeedStatus: View {
+    @EnvironmentObject private var refreshManager: RefreshManager
+
     @ObservedObject var feed: Feed
-    @Binding var refreshing: Bool
 
     let unreadCount: Int
 
@@ -20,7 +21,7 @@ struct FeedStatus: View {
 
     var body: some View {
         VStack {
-            if refreshing {
+            if refreshManager.refreshing {
                 Text("Checking for New Items…")
             } else {
                 ViewThatFits {

@@ -17,7 +17,6 @@ struct FeedView: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
-    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -27,7 +26,7 @@ struct FeedView: View {
             FeedLayout(feed: feed, profile: profile, hideRead: hideRead)
                 .toolbar {
                     ToolbarItemGroup(placement: .primaryAction) {
-                        NavigationLink(value: DetailPanel.feedSettings(feed)) {
+                        NavigationLink(value: FeedPanel.feedSettings(feed)) {
                             Label("Feed Settings", systemImage: "wrench")
                         }
                         .buttonStyle(ToolbarButtonStyle())
@@ -37,7 +36,6 @@ struct FeedView: View {
                         FeedBottomBar(
                             feed: feed,
                             profile: profile,
-                            refreshing: $refreshing,
                             hideRead: $hideRead
                         )
                     }
@@ -46,6 +44,20 @@ struct FeedView: View {
                     dismiss()
                 }
                 .navigationTitle(feed.wrappedTitle)
+                .navigationDestination(for: DetailPanel.self) { detailPanel in
+                    switch detailPanel {
+                    case .feed:
+                        EmptyView() // Not implemented
+                    case .item(let item):
+                        ItemView(item: item, profile: profile)
+                    }
+                }
+                .navigationDestination(for: FeedPanel.self) { panel in
+                    switch panel {
+                    case .feedSettings(let feed):
+                        FeedSettings(feed: feed)
+                    }
+                }
         }
     }
 }
