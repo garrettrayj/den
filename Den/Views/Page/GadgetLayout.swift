@@ -15,7 +15,6 @@ struct GadgetLayout: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var previewStyle: PreviewStyle
 
     var body: some View {
         GeometryReader { geometry in
@@ -32,8 +31,7 @@ struct GadgetLayout: View {
                         Gadget(
                             feed: feed,
                             profile: profile,
-                            items: items.forFeed(feed: feed),
-                            previewStyle: previewStyle
+                            items: items.forFeed(feed: feed)
                         )
                     }.modifier(MainBoardModifier())
                 }

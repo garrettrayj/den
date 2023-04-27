@@ -19,7 +19,6 @@ struct DeckColumn: View {
     let isFirst: Bool
     let isLast: Bool
     let items: [Item]
-    let previewStyle: PreviewStyle
     let pageGeometry: GeometryProxy
 
     var body: some View {
@@ -32,10 +31,10 @@ struct DeckColumn: View {
                 } else {
                     ForEach(items) { item in
                         ItemActionView(item: item, profile: profile) {
-                            if previewStyle == .compressed {
-                                ItemCompressed(item: item)
-                            } else {
+                            if feed.wrappedPreviewStyle == .expanded {
                                 ItemExpanded(item: item)
+                            } else {
+                                ItemCompressed(item: item)
                             }
                         }
                         .modifier(RoundedContainerModifier())

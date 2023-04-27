@@ -15,7 +15,6 @@ struct Gadget: View {
     @ObservedObject var profile: Profile
 
     let items: [Item]
-    let previewStyle: PreviewStyle
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -46,11 +45,7 @@ struct Gadget: View {
                 ForEach(items) { item in
                     Divider()
                     ItemActionView(item: item, profile: profile) {
-                        if previewStyle == .compressed {
-                            ItemCompressed(item: item)
-                        } else {
-                            ItemExpanded(item: item)
-                        }
+                        ItemCompressed(item: item)
                     }
                     .accessibilityIdentifier("gadget-item-button")
                 }

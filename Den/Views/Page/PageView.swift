@@ -18,7 +18,6 @@ struct PageView: View {
     @Binding var refreshing: Bool
 
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
-    @AppStorage("PagePreviewStyle_NoID") private var previewStyle = PreviewStyle.compressed
 
     var body: some View {
         VStack {
@@ -30,29 +29,25 @@ struct PageView: View {
                     DeckLayout(
                         page: page,
                         profile: profile,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
+                        hideRead: hideRead
                     )
                 case .blend:
                     BlendLayout(
                         page: page,
                         profile: profile,
-                        hideRead: hideRead,
-                        previewStyle: previewStyle
+                        hideRead: hideRead
                     )
                 case .showcase:
                     ShowcaseLayout(
                         page: page,
                         profile: profile,
-                        hideRead: $hideRead,
-                        previewStyle: $previewStyle
+                        hideRead: $hideRead
                     )
                 case .gadgets:
                     GadgetLayout(
                         page: page,
                         profile: profile,
-                        hideRead: $hideRead,
-                        previewStyle: $previewStyle
+                        hideRead: $hideRead
                     )
                 }
             }
@@ -65,7 +60,6 @@ struct PageView: View {
                 PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
             }
             ToolbarItemGroup(placement: .primaryAction) {
-                PreviewStyleButton(previewStyle: $previewStyle)
                 AddFeedButton(page: page)
                 NavigationLink(value: DetailPanel.pageSettings(page)) {
                     Label("Page Settings", systemImage: "wrench")
@@ -113,10 +107,6 @@ struct PageView: View {
         _pageLayout = AppStorage(
             wrappedValue: PageLayout.gadgets,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
-        )
-        _previewStyle = AppStorage(
-            wrappedValue: PreviewStyle.compressed,
-            "PagePreviewStyle_\(page.id?.uuidString ?? "NoID")"
         )
 
         self.page = page

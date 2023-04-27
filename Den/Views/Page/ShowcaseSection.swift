@@ -15,7 +15,6 @@ struct ShowcaseSection: View {
     @ObservedObject var profile: Profile
 
     let items: [Item]
-    let previewStyle: PreviewStyle
     let geometry: GeometryProxy
 
     var body: some View {
@@ -36,10 +35,10 @@ struct ShowcaseSection: View {
                     isLazy: false,
                     content: { item in
                         ItemActionView(item: item, profile: profile) {
-                            if previewStyle == .compressed {
-                                ItemCompressed(item: item)
-                            } else {
+                            if feed.wrappedPreviewStyle == .expanded {
                                 ItemExpanded(item: item)
+                            } else {
+                                ItemCompressed(item: item)
                             }
                         }
                         .modifier(RoundedContainerModifier())

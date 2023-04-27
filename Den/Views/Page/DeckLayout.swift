@@ -15,7 +15,6 @@ struct DeckLayout: View {
     @ObservedObject var profile: Profile
 
     let hideRead: Bool
-    let previewStyle: PreviewStyle
 
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +35,6 @@ struct DeckLayout: View {
                                 isFirst: page.feedsArray.first == feed,
                                 isLast: page.feedsArray.last == feed,
                                 items: items.forFeed(feed: feed),
-                                previewStyle: previewStyle,
                                 pageGeometry: geometry
                             )
                         }

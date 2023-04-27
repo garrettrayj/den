@@ -35,7 +35,7 @@ struct ContentView: View {
                 case .welcome:
                     Welcome(profile: profile, refreshing: $refreshManager.refreshing)
                 case .search:
-                    Search(profile: profile, query: searchQuery, hideRead: $hideRead)
+                    Search(profile: profile, hideRead: $hideRead, query: searchQuery)
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
                 case .trends:
@@ -64,36 +64,32 @@ struct ContentView: View {
                     )
                 }
             }
-            .background(GroupedBackground())
-            .disabled(refreshManager.refreshing)
             .navigationDestination(for: DetailPanel.self) { detailPanel in
-                Group {
-                    switch detailPanel {
-                    case .pageSettings(let page):
-                        PageSettings(page: page)
-                    case .feed(let feed):
-                        FeedView(
-                            feed: feed,
-                            profile: profile,
-                            refreshing: $refreshManager.refreshing,
-                            hideRead: $hideRead
-                        )
-                    case .feedSettings(let feed):
-                        FeedSettings(feed: feed)
-                    case .item(let item):
-                        ItemView(item: item, profile: profile)
-                    case .trend(let trend):
-                        TrendView(
-                            trend: trend,
-                            profile: profile,
-                            refreshing: $refreshManager.refreshing,
-                            hideRead: $hideRead
-                        )
-                    }
+                switch detailPanel {
+                case .pageSettings(let page):
+                    PageSettings(page: page)
+                case .feed(let feed):
+                    FeedView(
+                        feed: feed,
+                        profile: profile,
+                        refreshing: $refreshManager.refreshing,
+                        hideRead: $hideRead
+                    )
+                case .feedSettings(let feed):
+                    FeedSettings(feed: feed)
+                case .item(let item):
+                    ItemView(item: item, profile: profile)
+                case .trend(let trend):
+                    TrendView(
+                        trend: trend,
+                        profile: profile,
+                        refreshing: $refreshManager.refreshing,
+                        hideRead: $hideRead
+                    )
                 }
-                .background(GroupedBackground())
-                .disabled(refreshManager.refreshing)
             }
         }
+        .background(GroupedBackground())
+        .disabled(refreshManager.refreshing)
     }
 }

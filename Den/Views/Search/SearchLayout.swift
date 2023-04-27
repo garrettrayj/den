@@ -15,7 +15,6 @@ struct SearchLayout: View {
     @ObservedObject var profile: Profile
 
     let hideRead: Bool
-    let previewStyle: PreviewStyle
     let query: String
 
     var body: some View {
@@ -34,17 +33,17 @@ struct SearchLayout: View {
                 ) { items in
                     if items.isEmpty {
                         if hideRead {
-                            SplashNote(title: "No Unread Items")
+                            SplashNote(title: "No Unread Results")
                         } else {
                             SplashNote(title: "No Results")
                         }
                     } else {
                         ScrollView(.vertical) {
                             BoardView(geometry: geometry, list: Array(items)) { item in
-                                if previewStyle == .compressed {
-                                    FeedItemCompressed(item: item, profile: profile, showExtraTag: true)
+                                if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
+                                    FeedItemExpanded(item: item, profile: profile)
                                 } else {
-                                    FeedItemExpanded(item: item, profile: profile, showExtraTag: true)
+                                    FeedItemCompressed(item: item, profile: profile)
                                 }
                             }.modifier(MainBoardModifier())
                         }

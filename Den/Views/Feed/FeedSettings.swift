@@ -73,6 +73,16 @@ struct FeedSettings: View {
 
             #if targetEnvironment(macCatalyst)
             HStack {
+                Text("Preferred Style").modifier(FormRowModifier())
+                Spacer()
+                previewStylePicker.labelsHidden().scaledToFit()
+            }
+            #else
+            previewStylePicker
+            #endif
+
+            #if targetEnvironment(macCatalyst)
+            HStack {
                 Text("Show Thumbnails").modifier(FormRowModifier())
                 Spacer()
                 Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
@@ -120,6 +130,15 @@ struct FeedSettings: View {
             Text("Move")
         }
         .modifier(ListRowModifier())
+    }
+
+    private var previewStylePicker: some View {
+        Picker(selection: $feed.wrappedPreviewStyle) {
+            Text("Compressed").tag(PreviewStyle.compressed)
+            Text("Expanded").tag(PreviewStyle.expanded)
+        } label: {
+            Text("Preferred Style").modifier(FormRowModifier())
+        }
     }
 
     private var pagePicker: some View {

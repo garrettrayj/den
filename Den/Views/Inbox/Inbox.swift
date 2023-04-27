@@ -16,25 +16,10 @@ struct Inbox: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
 
-    @AppStorage("InboxPreviewStyle_NoID") private var previewStyle: PreviewStyle = PreviewStyle.compressed
-
-    init(profile: Profile, hideRead: Binding<Bool>, refreshing: Binding<Bool>) {
-        self.profile = profile
-
-        _hideRead = hideRead
-        _refreshing = refreshing
-
-        _previewStyle = AppStorage(
-            wrappedValue: PreviewStyle.compressed,
-            "InboxPreviewStyle_\(profile.id?.uuidString ?? "NoID")"
-        )
-    }
-
     var body: some View {
-        InboxLayout(profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+        InboxLayout(profile: profile, hideRead: hideRead)
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
-                    PreviewStyleButton(previewStyle: $previewStyle)
                     AddFeedButton()
                 }
                 ToolbarItemGroup(placement: .bottomBar) {

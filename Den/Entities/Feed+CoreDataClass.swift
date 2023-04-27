@@ -57,6 +57,15 @@ public class Feed: NSManagedObject {
         return "lock.slash"
     }
 
+    public var wrappedPreviewStyle: PreviewStyle {
+        get {
+            PreviewStyle(rawValue: Int(previewStyle)) ?? .compressed
+        }
+        set {
+            previewStyle = Int16(newValue.rawValue)
+        }
+    }
+
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         page: Page,

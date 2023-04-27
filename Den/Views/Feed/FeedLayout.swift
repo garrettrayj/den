@@ -17,7 +17,6 @@ struct FeedLayout: View {
     @ObservedObject var profile: Profile
 
     let hideRead: Bool
-    let previewStyle: PreviewStyle
 
     var body: some View {
         GeometryReader { geometry in
@@ -26,6 +25,7 @@ struct FeedLayout: View {
                     if let heroImage = feed.feedData?.banner {
                         Divider()
                         FeedHero(heroImage: heroImage)
+                        Divider()
                     }
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailable(feedData: feed.feedData, splashNote: true)
@@ -48,10 +48,10 @@ struct FeedLayout: View {
                                         isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
-                                            if previewStyle == .compressed {
-                                                ItemCompressed(item: item)
-                                            } else {
+                                            if feed.wrappedPreviewStyle == .expanded {
                                                 ItemExpanded(item: item)
+                                            } else {
+                                                ItemCompressed(item: item)
                                             }
                                         }
                                         .modifier(RoundedContainerModifier())
@@ -79,10 +79,10 @@ struct FeedLayout: View {
                                         isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
-                                            if previewStyle == .compressed {
-                                                ItemCompressed(item: item)
-                                            } else {
+                                            if feed.wrappedPreviewStyle == .expanded {
                                                 ItemExpanded(item: item)
+                                            } else {
+                                                ItemCompressed(item: item)
                                             }
                                         }
                                         .modifier(RoundedContainerModifier())
@@ -142,7 +142,6 @@ struct FeedLayout: View {
                         .buttonStyle(.borderless)
                         .accessibilityIdentifier("copy-feed-url-button")
                     }
-
                 }
 
                 if let copyright = feed.feedData?.copyright {

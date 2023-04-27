@@ -20,29 +20,13 @@ struct FeedView: View {
     @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
-    @AppStorage("FeedPreviewStyle_NoID") private var previewStyle = PreviewStyle.compressed
-
-    init(feed: Feed, profile: Profile, refreshing: Binding<Bool>, hideRead: Binding<Bool>) {
-        self.feed = feed
-        self.profile = profile
-
-        _refreshing = refreshing
-        _hideRead = hideRead
-
-        _previewStyle = AppStorage(
-            wrappedValue: PreviewStyle.compressed,
-            "FeedPreviewStyle_\(feed.id?.uuidString ?? "NoID")"
-        )
-    }
-
     var body: some View {
         if feed.managedObjectContext == nil {
             SplashNote(title: "Feed Deleted", symbol: "slash.circle")
         } else {
-            FeedLayout(feed: feed, profile: profile, hideRead: hideRead, previewStyle: previewStyle)
+            FeedLayout(feed: feed, profile: profile, hideRead: hideRead)
                 .toolbar {
                     ToolbarItemGroup(placement: .primaryAction) {
-                        PreviewStyleButton(previewStyle: $previewStyle)
                         NavigationLink(value: DetailPanel.feedSettings(feed)) {
                             Label("Feed Settings", systemImage: "wrench")
                         }
