@@ -13,12 +13,6 @@ import SwiftUI
 struct InboxBottomBar: View {
     @ObservedObject var profile: Profile
 
-    var refreshedDateTimeAgo: Date? {
-        guard let refreshed = RefreshedDateStorage.shared.getRefreshed(profile) else { return nil }
-        return refreshed
-    }
-
-    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -27,7 +21,7 @@ struct InboxBottomBar: View {
         }
         Spacer()
         WithItems(scopeObject: profile) { items in
-            CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
+            CommonStatus(profile: profile, unreadCount: items.unread().count)
             Spacer()
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))

@@ -14,7 +14,6 @@ struct TrendView: View {
     @ObservedObject var trend: Trend
     @ObservedObject var profile: Profile
 
-    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -29,7 +28,6 @@ struct TrendView: View {
                             TrendBottomBar(
                                 trend: trend,
                                 profile: profile,
-                                refreshing: $refreshing,
                                 hideRead: $hideRead
                             )
                         }

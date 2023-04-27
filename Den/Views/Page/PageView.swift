@@ -15,7 +15,6 @@ struct PageView: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
 
@@ -72,10 +71,9 @@ struct PageView: View {
             #else
             ToolbarItem {
                 Menu {
-                    PreviewStyleButton(previewStyle: $previewStyle)
                     PageLayoutPicker(pageLayout: $pageLayout)
                     AddFeedButton(page: page)
-                    NavigationLink(value: DetailPanel.pageSettings(page)) {
+                    NavigationLink(value: PagePanel.pageSettings(page)) {
                         Label("Page Settings", systemImage: "wrench")
                     }
                     .accessibilityIdentifier("page-settings-button")
@@ -90,7 +88,6 @@ struct PageView: View {
                 PageBottomBar(
                     page: page,
                     profile: profile,
-                    refreshing: $refreshing,
                     hideRead: $hideRead
                 )
             }
@@ -119,12 +116,9 @@ struct PageView: View {
     init(
         page: Page,
         profile: Profile,
-        hideRead: Binding<Bool>,
-        refreshing: Binding<Bool>
+        hideRead: Binding<Bool>
     ) {
         _hideRead = hideRead
-        _refreshing = refreshing
-
         _pageLayout = AppStorage(
             wrappedValue: PageLayout.gadgets,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"

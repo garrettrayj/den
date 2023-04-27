@@ -36,16 +36,15 @@ struct ContentView: View {
             case .search:
                 Search(profile: profile, hideRead: $hideRead, query: searchQuery)
             case .inbox:
-                Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
+                Inbox(profile: profile, hideRead: $hideRead)
             case .trends:
-                Trending(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
+                Trending(profile: profile, hideRead: $hideRead)
             case .page(let page):
                 if page.managedObjectContext != nil {
                     PageView(
                         page: page,
                         profile: profile,
-                        hideRead: $hideRead,
-                        refreshing: $refreshManager.refreshing
+                        hideRead: $hideRead
                     )
                 } else {
                     SplashNote(title: "Page Deleted")

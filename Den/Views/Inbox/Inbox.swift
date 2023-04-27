@@ -14,7 +14,6 @@ struct Inbox: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     var body: some View {
         InboxLayout(profile: profile, hideRead: hideRead)
@@ -23,7 +22,7 @@ struct Inbox: View {
                     AddFeedButton()
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
-                    InboxBottomBar(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                    InboxBottomBar(profile: profile, hideRead: $hideRead)
                 }
             }
             .navigationTitle("Inbox")

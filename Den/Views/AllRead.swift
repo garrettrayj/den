@@ -19,6 +19,7 @@ struct AllRead: View {
         } icon: {
             Image(systemName: "checkmark")
         }
+        .font(.callout)
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity, alignment: .leading)
     }

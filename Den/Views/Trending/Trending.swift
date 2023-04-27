@@ -15,7 +15,6 @@ struct Trending: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var refreshing: Bool
 
     var visibleTrends: [Trend] {
         if hideRead {
@@ -46,14 +45,14 @@ struct Trending: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                TrendingBottomBar(profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                TrendingBottomBar(profile: profile, hideRead: $hideRead)
             }
         }
         .navigationTitle("Trending")
         .navigationDestination(for: TrendingPanel.self) { panel in
             switch panel {
             case .trend(let trend):
-                TrendView(trend: trend, profile: profile, refreshing: $refreshing, hideRead: $hideRead)
+                TrendView(trend: trend, profile: profile, hideRead: $hideRead)
             }
         }
     }

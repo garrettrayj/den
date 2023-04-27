@@ -14,9 +14,9 @@ import SwiftUI
  Common bottom bar with relative updated time and unread count.
  */
 struct CommonStatus: View {
-    @ObservedObject var profile: Profile
+    @EnvironmentObject private var refreshManager: RefreshManager
 
-    @Binding var refreshing: Bool
+    @ObservedObject var profile: Profile
 
     @State private var refreshedDate: Date?
     @State private var refreshedRelativeString: String?
@@ -28,7 +28,7 @@ struct CommonStatus: View {
 
     var body: some View {
         VStack {
-            if refreshing {
+            if refreshManager.refreshing {
                 Text("Checking for New Items…")
             } else {
                 ViewThatFits {

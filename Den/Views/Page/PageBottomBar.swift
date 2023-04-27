@@ -15,7 +15,6 @@ struct PageBottomBar: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
-    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     var body: some View {
@@ -24,7 +23,7 @@ struct PageBottomBar: View {
         }
         Spacer()
         WithItems(scopeObject: page) { items in
-            CommonStatus(profile: profile, refreshing: $refreshing, unreadCount: items.unread().count)
+            CommonStatus(profile: profile, unreadCount: items.unread().count)
             Spacer()
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))

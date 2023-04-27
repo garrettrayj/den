@@ -16,6 +16,7 @@ struct SecondaryGroupedBackground: View {
     var highlight = false
 
     var body: some View {
+        #if targetEnvironment(macCatalyst)
         if colorScheme == .dark {
             if highlight {
                 Rectangle()
@@ -35,5 +36,26 @@ struct SecondaryGroupedBackground: View {
                 Rectangle().fill(.background)
             }
         }
+        #else
+        if colorScheme == .dark {
+            if highlight {
+                Rectangle()
+                    .fill(.regularMaterial)
+                    .background(.tertiary)
+            } else {
+                Rectangle()
+                    .fill(.thinMaterial)
+                    .background(.background)
+            }
+        } else {
+            if highlight {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .background(.background)
+            } else {
+                Rectangle().fill(.background)
+            }
+        }
+        #endif
     }
 }

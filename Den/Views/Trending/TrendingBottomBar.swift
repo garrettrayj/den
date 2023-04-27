@@ -14,7 +14,6 @@ import SwiftUI
 struct TrendingBottomBar: View {
     @ObservedObject var profile: Profile
 
-    @Binding var refreshing: Bool
     @Binding var hideRead: Bool
 
     var unreadCount: Int {
@@ -30,7 +29,6 @@ struct TrendingBottomBar: View {
         Spacer()
         CommonStatus(
             profile: profile,
-            refreshing: $refreshing,
             unreadCount: unreadCount,
             unreadLabel: "with Unread"
         )
