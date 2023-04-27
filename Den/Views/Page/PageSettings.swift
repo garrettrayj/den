@@ -27,6 +27,7 @@ struct PageSettings: View {
                 feedsSection
             }
             .environment(\.editMode, .constant(.active))
+            .background(GroupedBackground())
             .navigationTitle("Page Settings")
             .onDisappear(perform: save)
         }

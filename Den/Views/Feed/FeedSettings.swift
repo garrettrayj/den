@@ -48,6 +48,7 @@ struct FeedSettings: View {
                 .modifier(ListRowModifier())
                 .accessibilityIdentifier("feed-delete-button")
             }
+            .background(GroupedBackground())
             .onDisappear(perform: save)
             .navigationTitle("Feed Settings")
         }

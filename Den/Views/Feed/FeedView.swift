@@ -24,6 +24,7 @@ struct FeedView: View {
             SplashNote(title: "Feed Deleted", symbol: "slash.circle")
         } else {
             FeedLayout(feed: feed, profile: profile, hideRead: hideRead)
+                .background(GroupedBackground())
                 .toolbar {
                     ToolbarItemGroup(placement: .primaryAction) {
                         NavigationLink(value: FeedPanel.feedSettings(feed)) {

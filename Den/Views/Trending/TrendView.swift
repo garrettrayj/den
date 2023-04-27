@@ -23,6 +23,7 @@ struct TrendView: View {
                 SplashNote(title: "Trend Deleted", symbol: "slash.circle")
             } else {
                 TrendLayout(trend: trend, profile: profile, hideRead: hideRead)
+                    .background(GroupedBackground())
                     .toolbar {
                         ToolbarItemGroup(placement: .bottomBar) {
                             TrendBottomBar(

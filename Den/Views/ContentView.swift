@@ -30,39 +30,37 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
-                switch contentSelection ?? .welcome {
-                case .welcome:
-                    Welcome(profile: profile, refreshing: $refreshManager.refreshing)
-                case .search:
-                    Search(profile: profile, hideRead: $hideRead, query: searchQuery)
-                case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
-                case .trends:
-                    Trending(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
-                case .page(let page):
-                    if page.managedObjectContext != nil {
-                        PageView(
-                            page: page,
-                            profile: profile,
-                            hideRead: $hideRead,
-                            refreshing: $refreshManager.refreshing
-                        )
-                    } else {
-                        SplashNote(title: "Page Deleted")
-                    }
-                case .settings:
-                    SettingsView(
+            switch contentSelection ?? .welcome {
+            case .welcome:
+                Welcome(profile: profile, refreshing: $refreshManager.refreshing)
+            case .search:
+                Search(profile: profile, hideRead: $hideRead, query: searchQuery)
+            case .inbox:
+                Inbox(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
+            case .trends:
+                Trending(profile: profile, hideRead: $hideRead, refreshing: $refreshManager.refreshing)
+            case .page(let page):
+                if page.managedObjectContext != nil {
+                    PageView(
+                        page: page,
                         profile: profile,
-                        activeProfile: $activeProfile,
-                        appProfileID: $appProfileID,
-                        uiStyle: $uiStyle,
-                        autoRefreshEnabled: $autoRefreshEnabled,
-                        autoRefreshCooldown: $autoRefreshCooldown,
-                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        useInbuiltBrowser: $useInbuiltBrowser
+                        hideRead: $hideRead,
+                        refreshing: $refreshManager.refreshing
                     )
+                } else {
+                    SplashNote(title: "Page Deleted")
                 }
+            case .settings:
+                SettingsView(
+                    profile: profile,
+                    activeProfile: $activeProfile,
+                    appProfileID: $appProfileID,
+                    uiStyle: $uiStyle,
+                    autoRefreshEnabled: $autoRefreshEnabled,
+                    autoRefreshCooldown: $autoRefreshCooldown,
+                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                    useInbuiltBrowser: $useInbuiltBrowser
+                )
             }
         }
         .background(GroupedBackground())
