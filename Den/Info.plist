@@ -74,10 +74,8 @@
 			<key>UIWindowSceneSessionRoleApplication</key>
 			<array>
 				<dict>
-					<key>UISceneStoryboardFile</key>
-					<string>LaunchScreen</string>
 					<key>UISceneConfigurationName</key>
-					<string>Main</string>
+					<string></string>
 				</dict>
 			</array>
 		</dict>
