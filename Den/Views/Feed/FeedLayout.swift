@@ -48,7 +48,7 @@ struct FeedLayout: View {
                                         isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
-                                            if feed.wrappedPreviewStyle == .expanded {
+                                            if feed.cascadedPreviewStyle == .expanded {
                                                 ItemExpanded(item: item)
                                             } else {
                                                 ItemCompressed(item: item)
@@ -79,7 +79,7 @@ struct FeedLayout: View {
                                         isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
-                                            if feed.wrappedPreviewStyle == .expanded {
+                                            if feed.cascadedPreviewStyle == .expanded {
                                                 ItemExpanded(item: item)
                                             } else {
                                                 ItemCompressed(item: item)
@@ -119,7 +119,7 @@ struct FeedLayout: View {
                     } label: {
                         Label("\(linkDisplayString)", systemImage: "link").lineLimit(1)
                     }
-                    .buttonStyle(.borderless)
+                    .buttonStyle(.plain)
                     .accessibilityIdentifier("feed-link-button")
                 }
 
@@ -130,7 +130,7 @@ struct FeedLayout: View {
                         } label: {
                             Label("\(feedURLString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
                         }
-                        .buttonStyle(.borderless)
+                        .buttonStyle(.plain)
                         .accessibilityIdentifier("feed-url-button")
 
                         Button {
@@ -139,7 +139,7 @@ struct FeedLayout: View {
                             Label("Copy", systemImage: "doc.on.doc")
                         }
                         .labelStyle(.iconOnly)
-                        .buttonStyle(.borderless)
+                        .buttonStyle(.plain)
                         .accessibilityIdentifier("copy-feed-url-button")
                     }
                 }

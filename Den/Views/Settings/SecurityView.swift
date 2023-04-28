@@ -89,7 +89,7 @@ struct SecurityView: View {
             }
             .modifier(FirstFormHeaderModifier())
         } footer: {
-            Text("Feeds will be updated to use HTTPS when available.")
+            Text("Feeds will be updated to use HTTPS if available.")
         }
         .modifier(ListRowModifier())
     }

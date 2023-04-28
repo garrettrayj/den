@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
@@ -27,8 +28,21 @@ struct SettingsView: View {
         Form {
             ProfilesListSection(activeProfile: $activeProfile)
             FeedsSettingsSection()
+            Section {
+                PreviewSettings(
+                    itemLimit: $profile.wrappedItemLimit,
+                    previewStyle: $profile.wrappedPreviewStyle,
+                    hideImages: $profile.hideImages,
+                    hideTeasers: $profile.hideTeasers,
+                    browserView: $profile.browserView,
+                    readerMode: $profile.readerMode
+                )
+            } header: {
+                Text("Previews")
+            }
+            HistorySettingsSection(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             #if !targetEnvironment(macCatalyst)
-            BrowserSettingsSection(profile: profile, useInbuiltBrowser: $useInbuiltBrowser)
+            BrowserSettingsSection(useInbuiltBrowser: $useInbuiltBrowser)
             #endif
             AppearanceSettingsSection(uiStyle: $uiStyle)
             RefreshSettingsSection(
@@ -36,12 +50,22 @@ struct SettingsView: View {
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
+
             ResetSettingsSection(
                 activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
                 profile: profile
             )
             AboutSettingsSection()
+        }
+        .onDisappear {
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch let error {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            }
         }
         .navigationTitle("Settings")
         .navigationDestination(for: SettingsPanel.self) { settingsPanel in

@@ -26,8 +26,9 @@ struct ItemCompressed: View {
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
 
-            if item.feedData?.feed?.showThumbnails == true {
-                ItemThumbnailImage(item: item).opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
+            if item.feedData?.feed?.cascadedHideImages != true {
+                ItemThumbnailImage(item: item)
+                    .opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
             }
         }
         .padding(12)

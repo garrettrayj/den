@@ -40,7 +40,7 @@ struct SearchLayout: View {
                     } else {
                         ScrollView(.vertical) {
                             BoardView(geometry: geometry, list: Array(items)) { item in
-                                if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
+                                if item.feedData?.feed?.cascadedPreviewStyle == .expanded {
                                     FeedItemExpanded(item: item, profile: profile)
                                 } else {
                                     FeedItemCompressed(item: item, profile: profile)

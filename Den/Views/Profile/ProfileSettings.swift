@@ -29,10 +29,6 @@ struct ProfileSettings: View {
             Group {
                 nameSection
                 tintSection
-                ProfileSettingsHistorySection(
-                    profile: profile,
-                    historyRentionDays: profile.wrappedHistoryRetention
-                )
                 deleteSection
             }
         }
@@ -86,7 +82,7 @@ struct ProfileSettings: View {
                 profile.tint = newValue
             }
         } header: {
-            Text("Customization")
+            Text("Color")
         }
         .modifier(ListRowModifier())
     }

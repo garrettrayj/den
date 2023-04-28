@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct BrowserSettingsSection: View {
-    @ObservedObject var profile: Profile
-
     @Binding var useInbuiltBrowser: Bool
 
     var body: some View {

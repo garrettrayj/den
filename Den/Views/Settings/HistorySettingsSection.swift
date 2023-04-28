@@ -1,5 +1,5 @@
 //
-//  ProfileSettingsHistorySection.swift
+//  HistorySettingsSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/27/22.
@@ -11,9 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct ProfileSettingsHistorySection: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
+struct HistorySettingsSection: View {
     @ObservedObject var profile: Profile
 
     @State var historyRentionDays: Int
@@ -97,11 +95,6 @@ struct ProfileSettingsHistorySection: View {
         .modifier(ListRowModifier())
         .onChange(of: historyRentionDays) { _ in
             profile.wrappedHistoryRetention = historyRentionDays
-            do {
-                try viewContext.save()
-            } catch let error {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
         }
     }
 

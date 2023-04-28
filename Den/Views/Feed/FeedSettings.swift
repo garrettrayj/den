@@ -65,55 +65,32 @@ struct FeedSettings: View {
 
     private var previewsSection: some View {
         Section {
-            Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                Text("Limit: \(feed.wrappedItemLimit)").modifier(FormRowModifier())
-            }
-            .onChange(of: feed.itemLimit, perform: { _ in
-                Haptics.lightImpactFeedbackGenerator.impactOccurred()
-            })
-
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Preferred Style").modifier(FormRowModifier())
+                Text("Customize").modifier(FormRowModifier())
                 Spacer()
-                previewStylePicker.labelsHidden().scaledToFit()
+                Toggle("Customize", isOn: $feed.customPreviews).labelsHidden()
             }
             #else
-            previewStylePicker
-            #endif
-
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Text("Show Thumbnails").modifier(FormRowModifier())
-                Spacer()
-                Toggle("Show Thumbnails", isOn: $feed.showThumbnails).labelsHidden()
-            }
-            #else
-            Toggle(isOn: $feed.showThumbnails) {
-                Text("Show Thumbnails").modifier(FormRowModifier())
+            Toggle(isOn: $feed.customizeSettings) {
+                Text("Customize").modifier(FormRowModifier())
             }
             #endif
 
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Text("Open in Browser").modifier(FormRowModifier())
-                Spacer()
-                Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
+            if feed.customPreviews {
+                PreviewSettings(
+                    itemLimit: $feed.wrappedItemLimit,
+                    previewStyle: $feed.wrappedPreviewStyle,
+                    hideImages: $feed.hideImages,
+                    hideTeasers: $feed.hideTeasers,
+                    browserView: $feed.browserView,
+                    readerMode: $feed.readerMode
+                )
             }
-            #else
-            Toggle(isOn: $feed.browserView) {
-                Text("Open in Browser").modifier(FormRowModifier())
-            }
-            if feed.browserView {
-                Toggle(isOn: $feed.readerMode) {
-                    Text("Use Reader Mode").modifier(FormRowModifier())
-                }
-            }
-            #endif
+
         } header: {
             Text("Previews")
         }
-        .modifier(ListRowModifier())
     }
 
     private var organizeSection: some View {
@@ -131,15 +108,6 @@ struct FeedSettings: View {
             Text("Move")
         }
         .modifier(ListRowModifier())
-    }
-
-    private var previewStylePicker: some View {
-        Picker(selection: $feed.wrappedPreviewStyle) {
-            Text("Compressed").tag(PreviewStyle.compressed)
-            Text("Expanded").tag(PreviewStyle.expanded)
-        } label: {
-            Text("Preferred Style").modifier(FormRowModifier())
-        }
     }
 
     private var pagePicker: some View {
@@ -174,6 +142,7 @@ struct FeedSettings: View {
                     item.objectWillChange.send()
                 }
                 feed.objectWillChange.send()
+                feed.page?.profile?.objectWillChange.send()
             } catch let error as NSError {
                 CrashUtility.handleCriticalError(error)
             }

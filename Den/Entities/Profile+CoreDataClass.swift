@@ -37,6 +37,27 @@ public class Profile: NSManagedObject {
         return tintOption.color
     }
 
+    public var wrappedPreviewStyle: PreviewStyle {
+        get {
+            PreviewStyle(rawValue: Int(previewStyle)) ?? .compressed
+        }
+        set {
+            previewStyle = Int16(newValue.rawValue)
+        }
+    }
+
+    public var wrappedItemLimit: Int {
+        get {
+            if itemLimit == 0 {
+                itemLimit = Int16(AppDefaults.defaultItemLimit)
+            }
+            return Int(itemLimit)
+        }
+        set {
+            itemLimit = Int16(newValue)
+        }
+    }
+
     public var pagesWithInsecureFeeds: [Page] {
         pagesArray.filter { page in
             page.insecureFeeds.count > 0

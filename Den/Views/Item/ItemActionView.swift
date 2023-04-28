@@ -9,7 +9,6 @@
 //
 
 import SwiftUI
-import SafariServices
 
 struct ItemActionView<Content: View>: View {
     @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
@@ -21,7 +20,7 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        if item.feedData?.feed?.browserView == true {
+        if item.feedData?.feed?.cascadedBrowserView == true {
             Button {
                 if let url = item.link {
                     if useInbuiltBrowser {
