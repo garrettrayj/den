@@ -1196,8 +1196,9 @@
 		68C41301247263C700D1DC7B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Garrett Johnson";
 				TargetAttributes = {
 					6813FD072748DE1100EC88A5 = {
