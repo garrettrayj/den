@@ -20,7 +20,7 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        if item.feedData?.feed?.cascadedBrowserView == true {
+        if item.feedData?.feed?.browserView == true {
             Button {
                 if let url = item.link {
                     if useInbuiltBrowser {

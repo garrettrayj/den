@@ -14,7 +14,7 @@ enum ContentPanel: Hashable {
     case welcome
     case search
     case inbox
-    case trends
+    case trending
     case page(Page)
     case settings
 }
@@ -38,6 +38,9 @@ enum PagePanel: Hashable {
 
 enum SettingsPanel: Hashable {
     case profileSettings(Profile)
+}
+
+enum ProfileSettingsPanel: Hashable {
     case importFeeds
     case exportFeeds
     case security

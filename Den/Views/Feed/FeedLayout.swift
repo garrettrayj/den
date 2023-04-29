@@ -48,7 +48,7 @@ struct FeedLayout: View {
                                         isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
-                                            if feed.cascadedPreviewStyle == .expanded {
+                                            if feed.wrappedPreviewStyle == .expanded {
                                                 ItemExpanded(item: item)
                                             } else {
                                                 ItemCompressed(item: item)
@@ -79,7 +79,7 @@ struct FeedLayout: View {
                                         isLazy: false
                                     ) { item in
                                         ItemActionView(item: item, profile: profile) {
-                                            if feed.cascadedPreviewStyle == .expanded {
+                                            if feed.wrappedPreviewStyle == .expanded {
                                                 ItemExpanded(item: item)
                                             } else {
                                                 ItemCompressed(item: item)

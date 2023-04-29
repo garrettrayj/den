@@ -31,7 +31,7 @@ struct DeckColumn: View {
                 } else {
                     ForEach(items) { item in
                         ItemActionView(item: item, profile: profile) {
-                            if feed.cascadedPreviewStyle == .expanded {
+                            if feed.wrappedPreviewStyle == .expanded {
                                 ItemExpanded(item: item)
                             } else {
                                 ItemCompressed(item: item)

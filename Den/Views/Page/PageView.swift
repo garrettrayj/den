@@ -107,7 +107,7 @@ struct PageView: View {
         }
         .navigationDestination(for: PagePanel.self) { panel in
             switch panel {
-            case .pageSettings:
+            case .pageSettings(let page):
                 PageSettings(page: page)
             }
         }

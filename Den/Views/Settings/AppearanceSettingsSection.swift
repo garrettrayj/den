@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct AppearanceSettingsSection: View {
+    @ObservedObject var profile: Profile
+
     @Binding var uiStyle: UIUserInterfaceStyle
 
     var body: some View {

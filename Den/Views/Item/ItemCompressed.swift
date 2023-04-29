@@ -26,7 +26,7 @@ struct ItemCompressed: View {
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
 
-            if item.feedData?.feed?.cascadedHideImages != true {
+            if item.feedData?.feed?.hideImages != true {
                 ItemThumbnailImage(item: item)
                     .opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
             }

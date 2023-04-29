@@ -2,7 +2,6 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F5049e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="customPreviews" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideImages" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideTeasers" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -10,7 +9,11 @@
         <attribute name="previewLimit" optional="YES" attributeType="Integer 16" defaultValueString="4" usesScalarValueType="YES"/>
         <attribute name="previewStyle" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="showThumbnails" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="showThumbnails" optional="YES" attributeType="Boolean" usesScalarValueType="YES">
+            <userInfo>
+                <entry key="deprecated" value="true"/>
+            </userInfo>
+        </attribute>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
         <attribute name="userOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -103,15 +106,9 @@
         <userInfo/>
     </entity>
     <entity name="Profile" representedClassName="Profile" syncable="YES" codeGenerationType="category">
-        <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="hideImages" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="hideTeasers" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="historyRetention" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="itemLimit" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="previewStyle" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="readerMode" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="tint" optional="YES" attributeType="String"/>
         <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="History" inverseName="profile" inverseEntity="History"/>
         <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Page" inverseName="profile" inverseEntity="Page"/>

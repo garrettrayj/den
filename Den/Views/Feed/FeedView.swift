@@ -45,14 +45,6 @@ struct FeedView: View {
                     dismiss()
                 }
                 .navigationTitle(feed.wrappedTitle)
-                .navigationDestination(for: DetailPanel.self) { detailPanel in
-                    switch detailPanel {
-                    case .feed:
-                        EmptyView() // Not implemented
-                    case .item(let item):
-                        ItemView(item: item, profile: profile)
-                    }
-                }
                 .navigationDestination(for: FeedPanel.self) { panel in
                     switch panel {
                     case .feedSettings(let feed):

@@ -14,7 +14,7 @@ struct ItemExpanded: View {
     @ObservedObject var item: Item
 
     var showTeaser: Bool {
-        item.teaser != nil && item.teaser != "" && item.feedData?.feed?.cascadedHideTeasers != true
+        item.teaser != nil && item.teaser != "" && item.feedData?.feed?.hideTeasers != true
     }
 
     var body: some View {
@@ -26,7 +26,7 @@ struct ItemExpanded: View {
 
             ItemDateAuthor(item: item)
 
-            if item.feedData?.feed?.cascadedHideImages != true && item.image != nil {
+            if item.feedData?.feed?.hideImages != true && item.image != nil {
                 ItemPreviewImage(item: item).padding(.top, 4)
             }
 

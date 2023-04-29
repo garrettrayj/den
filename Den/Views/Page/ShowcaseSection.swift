@@ -35,7 +35,7 @@ struct ShowcaseSection: View {
                     isLazy: false,
                     content: { item in
                         ItemActionView(item: item, profile: profile) {
-                            if feed.cascadedPreviewStyle.rawValue == 1 {
+                            if feed.wrappedPreviewStyle.rawValue == 1 {
                                 ItemExpanded(item: item)
                             } else {
                                 ItemCompressed(item: item)

@@ -16,7 +16,7 @@ struct TrendingNav: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        NavigationLink(value: ContentPanel.trends) {
+        NavigationLink(value: ContentPanel.trending) {
             Label {
                 Text("Trending").lineLimit(1).badge(profile.trends.containingUnread().count)
             } icon: {

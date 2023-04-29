@@ -27,24 +27,10 @@ struct SettingsView: View {
     var body: some View {
         Form {
             ProfilesListSection(activeProfile: $activeProfile)
-            FeedsSettingsSection()
-            Section {
-                PreviewSettings(
-                    itemLimit: $profile.wrappedItemLimit,
-                    previewStyle: $profile.wrappedPreviewStyle,
-                    hideImages: $profile.hideImages,
-                    hideTeasers: $profile.hideTeasers,
-                    browserView: $profile.browserView,
-                    readerMode: $profile.readerMode
-                )
-            } header: {
-                Text("Previews")
-            }
-            HistorySettingsSection(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
             #if !targetEnvironment(macCatalyst)
             BrowserSettingsSection(useInbuiltBrowser: $useInbuiltBrowser)
             #endif
-            AppearanceSettingsSection(uiStyle: $uiStyle)
+            AppearanceSettingsSection(profile: profile, uiStyle: $uiStyle)
             RefreshSettingsSection(
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
@@ -75,16 +61,8 @@ struct SettingsView: View {
                     ProfileSettings(
                         profile: profile,
                         activeProfile: $activeProfile,
-                        appProfileID: $appProfileID,
-                        nameInput: profile.wrappedName,
-                        tintSelection: profile.tint
+                        appProfileID: $appProfileID
                     )
-                case .importFeeds:
-                    ImportView(profile: profile)
-                case .exportFeeds:
-                    ExportView(profile: profile)
-                case .security:
-                    SecurityView(profile: profile)
                 }
             }
             .background(GroupedBackground())

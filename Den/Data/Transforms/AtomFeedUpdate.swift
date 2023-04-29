@@ -28,7 +28,7 @@ struct AtomFeedUpdate {
 
         if let sourceItems = source.entries {
             var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
-            for sourceItem in sourceItems.prefix(feed.cascadedItemLimit + AppDefaults.extraItemLimit) {
+            for sourceItem in sourceItems.prefix(feed.wrappedItemLimit + AppDefaults.extraItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = sourceItem.linkURL else {
                     Logger.ingest.notice("Missing link for item.")

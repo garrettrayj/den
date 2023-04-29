@@ -26,6 +26,7 @@ struct ProfilesListSection: View {
                         Text(profile.displayName)
                     } icon: {
                         Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
+                            .foregroundColor(profile.tintColor)
                     }
                 }
                 .modifier(FormRowModifier())

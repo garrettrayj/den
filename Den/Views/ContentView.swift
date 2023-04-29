@@ -37,7 +37,7 @@ struct ContentView: View {
                 Search(profile: profile, hideRead: $hideRead, query: searchQuery)
             case .inbox:
                 Inbox(profile: profile, hideRead: $hideRead)
-            case .trends:
+            case .trending:
                 Trending(profile: profile, hideRead: $hideRead)
             case .page(let page):
                 if page.managedObjectContext != nil {

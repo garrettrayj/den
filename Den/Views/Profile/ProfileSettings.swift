@@ -19,9 +19,6 @@ struct ProfileSettings: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
 
-    @State var nameInput: String
-    @State var tintSelection: String?
-
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
@@ -29,7 +26,19 @@ struct ProfileSettings: View {
             Group {
                 nameSection
                 tintSection
+                FeedUtilitiesSection()
+                HistorySettingsSection(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
                 deleteSection
+            }
+        }
+        .onDisappear {
+            if profile.isDeleted { return }
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch let error {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
         }
         .toolbar {
@@ -51,23 +60,24 @@ struct ProfileSettings: View {
             }
         }
         .navigationTitle("Profile Settings")
-        .onDisappear {
-            if profile.isDeleted { return }
-            profile.wrappedName = nameInput
-
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch let error {
-                    CrashUtility.handleCriticalError(error as NSError)
+        .navigationDestination(for: ProfileSettingsPanel.self) { panel in
+            Group {
+                switch panel {
+                case .importFeeds:
+                    ImportView(profile: profile)
+                case .exportFeeds:
+                    ExportView(profile: profile)
+                case .security:
+                    SecurityView(profile: profile)
                 }
             }
+            .background(GroupedBackground())
         }
     }
 
     private var nameSection: some View {
         Section {
-            TextField("Name", text: $nameInput)
+            TextField("Name", text: $profile.wrappedName)
                 .modifier(FormRowModifier())
                 .modifier(TitleTextFieldModifier())
         } header: {
@@ -78,9 +88,7 @@ struct ProfileSettings: View {
 
     private var tintSection: some View {
         Section {
-            TintPicker(tint: $tintSelection).onChange(of: tintSelection) { newValue in
-                profile.tint = newValue
-            }
+            TintPicker(tint: $profile.tint)
         } header: {
             Text("Color")
         }

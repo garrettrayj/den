@@ -66,54 +66,6 @@ public class Feed: NSManagedObject {
         }
     }
 
-    public var cascadedItemLimit: Int {
-        if customPreviews {
-            return self.wrappedItemLimit
-        }
-
-        return self.page?.profile?.wrappedItemLimit ?? AppDefaults.defaultItemLimit
-    }
-
-    public var cascadedPreviewStyle: PreviewStyle {
-        if customPreviews {
-            return self.wrappedPreviewStyle
-        }
-
-        return self.page?.profile?.wrappedPreviewStyle ?? .compressed
-    }
-
-    public var cascadedHideImages: Bool {
-        if customPreviews {
-            return self.hideImages
-        }
-
-        return self.page?.profile?.hideImages ?? false
-    }
-
-    public var cascadedHideTeasers: Bool {
-        if customPreviews {
-            return self.hideTeasers
-        }
-
-        return self.page?.profile?.hideTeasers ?? false
-    }
-
-    public var cascadedBrowserView: Bool {
-        if customPreviews {
-            return self.browserView
-        }
-
-        return self.page?.profile?.browserView ?? false
-    }
-
-    public var cascadedReaderMode: Bool {
-        if customPreviews {
-            return self.readerMode
-        }
-
-        return self.page?.profile?.readerMode ?? false
-    }
-
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         page: Page,
@@ -124,7 +76,8 @@ public class Feed: NSManagedObject {
         feed.id = UUID()
         feed.page = page
         feed.url = url
-        feed.showThumbnails = true
+        feed.hideImages = false
+        feed.hideTeasers = false
         feed.itemLimit = Int16(AppDefaults.defaultItemLimit)
 
         if prepend {
