@@ -18,6 +18,8 @@ struct FeedLayout: View {
 
     let hideRead: Bool
 
+    let items: [Item]
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
@@ -30,72 +32,66 @@ struct FeedLayout: View {
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailable(feedData: feed.feedData, splashNote: true)
                     } else {
-                        WithItems(
-                            scopeObject: feed,
-                            readFilter: hideRead ? false : nil,
-                            includeExtras: true
-                        ) { items in
-                            Section {
-                                if items.previews().isEmpty && hideRead == true {
-                                    AllRead()
-                                        .modifier(RoundedContainerModifier())
-                                        .padding()
-                                        .modifier(SafeAreaModifier(geometry: geometry))
-                                } else {
-                                    BoardView(
-                                        geometry: geometry,
-                                        list: Array(items).previews(),
-                                        isLazy: false
-                                    ) { item in
-                                        ItemActionView(item: item, profile: profile) {
-                                            if feed.wrappedPreviewStyle == .expanded {
-                                                ItemExpanded(item: item)
-                                            } else {
-                                                ItemCompressed(item: item)
-                                            }
+                        Section {
+                            if items.previews().isEmpty && hideRead == true {
+                                AllRead()
+                                    .modifier(RoundedContainerModifier())
+                                    .padding()
+                                    .modifier(SafeAreaModifier(geometry: geometry))
+                            } else {
+                                BoardView(
+                                    geometry: geometry,
+                                    list: Array(items).previews(),
+                                    isLazy: false
+                                ) { item in
+                                    ItemActionView(item: item, profile: profile) {
+                                        if feed.wrappedPreviewStyle == .expanded {
+                                            ItemExpanded(item: item)
+                                        } else {
+                                            ItemCompressed(item: item)
                                         }
-                                        .modifier(RoundedContainerModifier())
                                     }
-                                    .padding(.vertical)
-                                    .modifier(SafeAreaModifier(geometry: geometry))
+                                    .modifier(RoundedContainerModifier())
                                 }
-                            } header: {
-                                Text("Latest")
-                                    .font(.title3)
-                                    .modifier(SafeAreaModifier(geometry: geometry))
-                                    .modifier(PinnedSectionHeaderModifier())
+                                .padding(.vertical)
+                                .modifier(SafeAreaModifier(geometry: geometry))
                             }
+                        } header: {
+                            Text("Latest")
+                                .font(.title3)
+                                .modifier(SafeAreaModifier(geometry: geometry))
+                                .modifier(PinnedSectionHeaderModifier())
+                        }
 
-                            Section {
-                                if items.extras().isEmpty {
-                                    AllRead()
-                                        .modifier(RoundedContainerModifier())
-                                        .padding()
-                                        .modifier(SafeAreaModifier(geometry: geometry))
-                                } else {
-                                    BoardView(
-                                        geometry: geometry,
-                                        list: Array(items).extras(),
-                                        isLazy: false
-                                    ) { item in
-                                        ItemActionView(item: item, profile: profile) {
-                                            if feed.wrappedPreviewStyle == .expanded {
-                                                ItemExpanded(item: item)
-                                            } else {
-                                                ItemCompressed(item: item)
-                                            }
+                        Section {
+                            if items.extras().isEmpty {
+                                AllRead()
+                                    .modifier(RoundedContainerModifier())
+                                    .padding()
+                                    .modifier(SafeAreaModifier(geometry: geometry))
+                            } else {
+                                BoardView(
+                                    geometry: geometry,
+                                    list: Array(items).extras(),
+                                    isLazy: false
+                                ) { item in
+                                    ItemActionView(item: item, profile: profile) {
+                                        if feed.wrappedPreviewStyle == .expanded {
+                                            ItemExpanded(item: item)
+                                        } else {
+                                            ItemCompressed(item: item)
                                         }
-                                        .modifier(RoundedContainerModifier())
                                     }
-                                    .padding(.vertical)
-                                    .modifier(SafeAreaModifier(geometry: geometry))
+                                    .modifier(RoundedContainerModifier())
                                 }
-                            } header: {
-                                Text("Extra")
-                                    .font(.title3)
-                                    .modifier(SafeAreaModifier(geometry: geometry))
-                                    .modifier(PinnedSectionHeaderModifier())
+                                .padding(.vertical)
+                                .modifier(SafeAreaModifier(geometry: geometry))
                             }
+                        } header: {
+                            Text("Extra")
+                                .font(.title3)
+                                .modifier(SafeAreaModifier(geometry: geometry))
+                                .modifier(PinnedSectionHeaderModifier())
                         }
                     }
                     Divider()

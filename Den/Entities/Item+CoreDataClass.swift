@@ -137,6 +137,18 @@ extension Collection where Element == Item {
         }
     }
 
+    func visibilityFiltered(_ readFilter: Bool?) -> [Item] {
+        self.filter { item in
+            if readFilter == false {
+                return item.read == false
+            } else if readFilter == true {
+                return item.read == true
+            }
+
+            return true
+        }
+    }
+
     func read() -> [Item] {
         self.filter { item in
             item.read == true

@@ -16,18 +16,18 @@ struct FeedBottomBar: View {
 
     @Binding var hideRead: Bool
 
+    let items: FetchedResults<Item>
+
     var body: some View {
         FilterReadButton(hideRead: $hideRead) {
             feed.objectWillChange.send()
         }
         Spacer()
-        WithItems(scopeObject: feed, includeExtras: true) { items in
-            FeedStatus(feed: feed, unreadCount: items.unread().count)
-            Spacer()
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                feed.objectWillChange.send()
-            }
+        FeedStatus(feed: feed, unreadCount: items.unread().count)
+        Spacer()
+        ToggleReadButton(unreadCount: items.unread().count) {
+            await HistoryUtility.toggleReadUnread(items: Array(items))
+            feed.objectWillChange.send()
         }
     }
 }
