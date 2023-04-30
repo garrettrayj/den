@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
@@ -36,22 +35,12 @@ struct SettingsView: View {
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
-
             ResetSettingsSection(
                 activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
                 profile: profile
             )
             AboutSettingsSection()
-        }
-        .onDisappear {
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch let error {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
         }
         .navigationTitle("Settings")
         .navigationDestination(for: SettingsPanel.self) { settingsPanel in

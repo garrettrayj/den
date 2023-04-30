@@ -42,7 +42,6 @@ struct FeedFavicon: View {
             context: [.imageThumbnailPixelSize: thumbnailPixelSize]
         )
             .resizable()
-            .purgeable(true)
             .placeholder {
                 Image(systemName: placeholderSymbol)
             }

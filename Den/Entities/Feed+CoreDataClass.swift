@@ -76,6 +76,7 @@ public class Feed: NSManagedObject {
         feed.id = UUID()
         feed.page = page
         feed.url = url
+        feed.wrappedPreviewStyle = .compressed
         feed.hideImages = false
         feed.hideTeasers = false
         feed.itemLimit = Int16(AppDefaults.defaultItemLimit)

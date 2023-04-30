@@ -8,8 +8,6 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Foundation
-
 import SwiftUI
 
 struct ItemDateAuthor: View {
@@ -21,7 +19,7 @@ struct ItemDateAuthor: View {
     var body: some View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 4) {
-                Text("\(item.date.formatted(date: dateStyle, time: timeStyle))")
+                Text("\(formattedDateString)")
                 if let author = item.author {
                     Text("•")
                     Text(author)
@@ -29,7 +27,7 @@ struct ItemDateAuthor: View {
             }
 
             VStack(alignment: .leading) {
-                Text("\(item.date.formatted(date: dateStyle, time: timeStyle))")
+                Text("\(formattedDateString)")
                 if let author = item.author {
                     Text(author)
                 }
@@ -37,5 +35,9 @@ struct ItemDateAuthor: View {
         }
         .font(.subheadline)
         .lineLimit(1)
+    }
+
+    private var formattedDateString: String {
+        item.date.formatted(date: dateStyle, time: timeStyle)
     }
 }

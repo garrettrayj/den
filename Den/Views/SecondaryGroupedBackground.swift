@@ -24,8 +24,7 @@ struct SecondaryGroupedBackground: View {
                     .background(.tertiary)
             } else {
                 Rectangle()
-                    .fill(.ultraThickMaterial)
-                    .background(.quaternary)
+                    .fill(.quaternary)
             }
         } else {
             if highlight {

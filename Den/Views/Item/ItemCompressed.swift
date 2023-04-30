@@ -16,12 +16,7 @@ struct ItemCompressed: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
-                Text(item.wrappedTitle)
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .lineLimit(6)
-                    .multilineTextAlignment(.leading)
-
+                ItemTitle(item: item)
                 ItemDateAuthor(item: item)
             }
             if item.feedData?.feed?.hideImages != true {
@@ -30,5 +25,6 @@ struct ItemCompressed: View {
             }
         }
         .padding(12)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }

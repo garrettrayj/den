@@ -38,6 +38,25 @@ struct ItemPreviewImage: View {
         Group {
             if item.imageAspectRatio == nil {
                 ImageDepression(padding: 8) {
+                    VStack {
+                        WebImage(
+                            url: item.image,
+                            options: [.delayPlaceholder, .lowPriority],
+                            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                        )
+                            .resizable()
+                            .placeholder { ImageErrorPlaceholder() }
+                            .indicator(.activity)
+                            .grayscale(isEnabled ? 0 : 1)
+                            .overlay(.background.opacity(item.read ? 0.5 : 0))
+                            .modifier(ImageBorderModifier(cornerRadius: 4))
+                            .scaledToFit()
+                    }
+                    .aspectRatio(16/9, contentMode: .fill)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+            } else if CGFloat(item.imageWidth) < scaledSize.width {
+                ImageDepression(padding: 8) {
                     WebImage(
                         url: item.image,
                         options: [.delayPlaceholder, .lowPriority],
@@ -48,11 +67,11 @@ struct ItemPreviewImage: View {
                         .indicator(.activity)
                         .grayscale(isEnabled ? 0 : 1)
                         .overlay(.background.opacity(item.read ? 0.5 : 0))
+                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                        .clipped()
                         .modifier(ImageBorderModifier(cornerRadius: 4))
-                        .scaledToFit()
                 }
-                .aspectRatio(16/9, contentMode: .fill)
-            } else if CGFloat(item.imageWidth) < scaledSize.width || item.imageAspectRatio! < 0.5 {
+            } else if item.imageAspectRatio! < 0.5 {
                 ImageDepression(padding: 8) {
                     WebImage(
                         url: item.image,
@@ -69,8 +88,6 @@ struct ItemPreviewImage: View {
                             maxHeight: scaledSize.height > 0 ? min(scaledSize.height, 400) : nil,
                             alignment: .top
                         )
-                        .clipped()
-                        .modifier(ImageBorderModifier(cornerRadius: 4))
                 }
             } else {
                 WebImage(
@@ -84,11 +101,7 @@ struct ItemPreviewImage: View {
                 .indicator(.activity)
                 .grayscale(isEnabled ? 0 : 1)
                 .overlay(.background.opacity(item.read ? 0.5 : 0))
-                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                .frame(
-                    maxWidth: scaledSize.width,
-                    maxHeight: scaledSize.height
-                )
+                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .background(.quaternary)
                 .modifier(ImageBorderModifier())
             }

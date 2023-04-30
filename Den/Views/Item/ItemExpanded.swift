@@ -19,18 +19,12 @@ struct ItemExpanded: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(item.wrappedTitle)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .lineLimit(6)
-                .fixedSize(horizontal: false, vertical: true)
+            ItemTitle(item: item)
 
             ItemDateAuthor(item: item)
 
             if item.feedData?.feed?.hideImages != true && item.image != nil {
-                ItemPreviewImage(item: item)
-                    .padding(.top, 4)
-                    .fixedSize(horizontal: false, vertical: true)
+                ItemPreviewImage(item: item).padding(.top, 4)
             }
 
             if showTeaser {
@@ -40,11 +34,11 @@ struct ItemExpanded: View {
                     #endif
                     .lineLimit(6)
                     .padding(.top, 4)
-                    .fixedSize(horizontal: false, vertical: true)
+
             }
         }
         .multilineTextAlignment(.leading)
-        .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
