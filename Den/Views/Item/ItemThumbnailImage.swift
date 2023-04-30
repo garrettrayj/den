@@ -44,10 +44,9 @@ struct ItemThumbnailImage: View {
                 .resizable()
                 .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
-                .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fill)
                 .grayscale(isEnabled ? 0 : 1)
-                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
+                .overlay(.background.opacity(item.read ? 0.5 : 0))
                 .frame(width: scaledSize.width, height: scaledSize.height)
                 .background(.quaternary)
                 .modifier(ImageBorderModifier())
@@ -65,7 +64,7 @@ struct ItemThumbnailImage: View {
                 .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .grayscale(isEnabled ? 0 : 1)
-                .opacity(isEnabled ? 1 : AppDefaults.dimmedImageOpacity)
+                .overlay(.background.opacity(item.read ? 0.5 : 0))
                 .cornerRadius(6)
             }
             .frame(width: scaledSize.width, height: scaledSize.height)

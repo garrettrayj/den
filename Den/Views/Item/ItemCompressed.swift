@@ -14,24 +14,21 @@ struct ItemCompressed: View {
     @ObservedObject var item: Item
 
     var body: some View {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.wrappedTitle)
                     .font(.headline)
                     .fontWeight(.semibold)
                     .lineLimit(6)
+                    .multilineTextAlignment(.leading)
 
                 ItemDateAuthor(item: item)
             }
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            .multilineTextAlignment(.leading)
-
             if item.feedData?.feed?.hideImages != true {
+                Spacer()
                 ItemThumbnailImage(item: item)
-                    .opacity(item.read ? AppDefaults.dimmedImageOpacity : 1.0)
             }
         }
         .padding(12)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }

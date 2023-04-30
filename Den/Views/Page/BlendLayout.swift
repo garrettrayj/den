@@ -35,7 +35,8 @@ struct BlendLayout: View {
                                 FeedItemCompressed(item: item, profile: profile)
                             }
                         }.modifier(MainBoardModifier())
-                    }.id("BlendLayoutSroll_\(page.id?.uuidString ?? "NoID")")
+                    }
+                    .id("BlendLayoutSroll_\(page.id?.uuidString ?? "NoID")")
                 }
             }
         }

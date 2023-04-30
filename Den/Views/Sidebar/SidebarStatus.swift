@@ -43,7 +43,7 @@ struct SidebarStatus: View {
                             #endif
                         }
                     }
-                    
+
                     if !networkMonitor.isConnected {
                         Text("Network Offline").foregroundColor(.secondary)
                     }

@@ -21,10 +21,17 @@ struct ShowcaseSection: View {
         Section {
             if feed.feedData == nil || feed.feedData?.error != nil {
                 FeedUnavailable(feedData: feed.feedData)
+                    .padding(12)
+                    .background(.ultraThickMaterial)
+                    .background(.quaternary)
+                    .modifier(RoundedContainerModifier())
                     .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))
             } else if items.isEmpty {
                 AllRead()
+                    .padding(12)
+                    .background(.ultraThickMaterial)
+                    .background(.quaternary)
                     .modifier(RoundedContainerModifier())
                     .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))

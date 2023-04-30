@@ -26,8 +26,16 @@ struct DeckColumn: View {
             LazyVStack(alignment: .leading, spacing: 12) {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
+                        .padding(12)
+                        .background(.ultraThickMaterial)
+                        .background(.quaternary)
+                        .modifier(RoundedContainerModifier())
                 } else if items.isEmpty {
                     AllRead()
+                        .padding(12)
+                        .background(.ultraThickMaterial)
+                        .background(.quaternary)
+                        .modifier(RoundedContainerModifier())
                 } else {
                     ForEach(items) { item in
                         ItemActionView(item: item, profile: profile) {
