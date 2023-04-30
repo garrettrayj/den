@@ -23,11 +23,14 @@ struct ItemExpanded: View {
                 .font(.headline)
                 .fontWeight(.semibold)
                 .lineLimit(6)
+                .fixedSize(horizontal: false, vertical: true)
 
             ItemDateAuthor(item: item)
 
             if item.feedData?.feed?.hideImages != true && item.image != nil {
-                ItemPreviewImage(item: item).padding(.top, 4)
+                ItemPreviewImage(item: item)
+                    .padding(.top, 4)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             if showTeaser {
@@ -37,11 +40,11 @@ struct ItemExpanded: View {
                     #endif
                     .lineLimit(6)
                     .padding(.top, 4)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }

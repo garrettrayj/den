@@ -45,7 +45,7 @@ struct ResetSettingsSection: View {
                 }
             } label: {
                 HStack {
-                    Text("Clear Cache")
+                    Label("Clear Cache", systemImage: "clear")
                     Spacer()
                     Text(cacheSizeFormatter.string(fromByteCount: cacheSize))
                         .font(.callout)
@@ -59,7 +59,11 @@ struct ResetSettingsSection: View {
             Button(role: .destructive) {
                 showingResetAlert = true
             } label: {
-                Text("Reset Everything").lineLimit(1)
+                Label {
+                    Text("Reset Everything").lineLimit(1)
+                } icon: {
+                    Image(systemName: "arrow.counterclockwise").foregroundColor(.red)
+                }
             }
             .modifier(FormRowModifier())
             .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {

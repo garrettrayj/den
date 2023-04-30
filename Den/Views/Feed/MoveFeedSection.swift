@@ -44,7 +44,7 @@ struct MoveFeedSection: View {
             Text("Page").modifier(FormRowModifier())
         }
         .onChange(of: feed.page) { [oldPage = feed.page] newPage in
-            self.feed.userOrder = newPage?.feedsUserOrderMax ?? 0 + 1
+            self.feed.userOrder = (newPage?.feedsUserOrderMax ?? 0) + 1
             NotificationCenter.default.post(
                 name: .feedRefreshed,
                 object: self.feed.objectID,

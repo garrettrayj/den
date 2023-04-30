@@ -12,6 +12,8 @@ import SwiftUI
 
 struct ImageDepression<Content: View>: View {
     var padding: CGFloat = 12
+
+    @ViewBuilder
     var content: () -> Content
 
     var body: some View {

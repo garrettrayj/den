@@ -102,6 +102,7 @@ struct AddFeed: View {
                 addFeed()
                 Task {
                     await refreshManager.refresh(feed: newFeed!)
+                    newFeed?.objectWillChange.send()
                     dismiss()
                 }
             }

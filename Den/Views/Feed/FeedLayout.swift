@@ -117,7 +117,7 @@ struct FeedLayout: View {
                     Button {
                         openURL(url)
                     } label: {
-                        Label("\(linkDisplayString)", systemImage: "link").lineLimit(1)
+                        Text(linkDisplayString).lineLimit(1)
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("feed-link-button")

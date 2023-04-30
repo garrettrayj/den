@@ -26,9 +26,7 @@ struct SidebarStatus: View {
                     BottomBarProgressViewStyle(profile: profile)
                 )
             } else {
-                if profile.pagesArray.isEmpty {
-                    Text("Profile Empty")
-                } else {
+                if !profile.pagesArray.isEmpty {
                     if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                         if refreshedDate.formatted(date: .complete, time: .omitted) ==
                             Date().formatted(date: .complete, time: .omitted) {
@@ -45,10 +43,10 @@ struct SidebarStatus: View {
                             #endif
                         }
                     }
-                }
-
-                if !networkMonitor.isConnected {
-                    Text("Network Offline").foregroundColor(.secondary)
+                    
+                    if !networkMonitor.isConnected {
+                        Text("Network Offline").foregroundColor(.secondary)
+                    }
                 }
             }
         }
