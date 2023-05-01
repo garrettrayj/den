@@ -17,7 +17,7 @@ struct Gadget: View {
     let items: [Item]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        LazyVStack(alignment: .leading, spacing: 0) {
             NavigationLink(value: DetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabel(

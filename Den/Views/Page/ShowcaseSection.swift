@@ -22,35 +22,28 @@ struct ShowcaseSection: View {
             if feed.feedData == nil || feed.feedData?.error != nil {
                 FeedUnavailable(feedData: feed.feedData)
                     .padding(12)
-                    .background(.ultraThickMaterial)
-                    .background(.quaternary)
+                    .background(QuaternaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                     .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))
             } else if items.isEmpty {
                 AllRead()
                     .padding(12)
-                    .background(.ultraThickMaterial)
-                    .background(.quaternary)
+                    .background(QuaternaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                     .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))
             } else {
-                BoardView(
-                    geometry: geometry,
-                    list: items,
-                    isLazy: false,
-                    content: { item in
-                        ItemActionView(item: item, profile: profile) {
-                            if feed.wrappedPreviewStyle.rawValue == 1 {
-                                ItemExpanded(item: item)
-                            } else {
-                                ItemCompressed(item: item)
-                            }
+                BoardView(geometry: geometry, list: items) { item in
+                    ItemActionView(item: item, profile: profile) {
+                        if feed.wrappedPreviewStyle.rawValue == 1 {
+                            ItemExpanded(item: item)
+                        } else {
+                            ItemCompressed(item: item)
                         }
-                        .modifier(RoundedContainerModifier())
                     }
-                )
+                    .modifier(RoundedContainerModifier())
+                }
                 .padding(.vertical)
                 .modifier(SafeAreaModifier(geometry: geometry))
             }

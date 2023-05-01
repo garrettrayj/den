@@ -27,14 +27,12 @@ struct DeckColumn: View {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
                         .padding(12)
-                        .background(.ultraThickMaterial)
-                        .background(.quaternary)
+                        .background(QuaternaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
                 } else if items.isEmpty {
                     AllRead()
                         .padding(12)
-                        .background(.ultraThickMaterial)
-                        .background(.quaternary)
+                        .background(QuaternaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
                 } else {
                     ForEach(items) { item in

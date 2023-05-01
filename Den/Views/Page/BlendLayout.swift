@@ -16,28 +16,25 @@ struct BlendLayout: View {
 
     let hideRead: Bool
 
+    let items: [Item]
+
     var body: some View {
-        WithItems(
-            scopeObject: page,
-            readFilter: hideRead ? false : nil
-        ) { items in
-            if items.isEmpty && hideRead {
-                SplashNote(title: "All Read", note: "Refresh to check for new items.")
-            } else if items.isEmpty && !hideRead {
-                SplashNote(title: "No Data", note: "Refresh to get items.")
-            } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        BoardView(geometry: geometry, list: Array(items)) { item in
-                            if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
-                                FeedItemExpanded(item: item, profile: profile)
-                            } else {
-                                FeedItemCompressed(item: item, profile: profile)
-                            }
-                        }.modifier(MainBoardModifier())
-                    }
-                    .id("BlendLayoutSroll_\(page.id?.uuidString ?? "NoID")")
+        if items.isEmpty && hideRead {
+            SplashNote(title: "All Read", note: "Refresh to check for new items.")
+        } else if items.isEmpty && !hideRead {
+            SplashNote(title: "No Data", note: "Refresh to get items.")
+        } else {
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    BoardView(geometry: geometry, list: items) { item in
+                        if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
+                            FeedItemExpanded(item: item, profile: profile)
+                        } else {
+                            FeedItemCompressed(item: item, profile: profile)
+                        }
+                    }.modifier(MainBoardModifier())
                 }
+                .id("BlendLayoutSroll_\(page.id?.uuidString ?? "NoID")")
             }
         }
     }

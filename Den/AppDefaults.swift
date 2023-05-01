@@ -11,7 +11,7 @@
 import Foundation
 
 struct AppDefaults {
-    static let defaultItemLimit: Int = 6
+    static let defaultItemLimit: Int = 8
     static let extraItemLimit: Int = 12
     static let dimmedImageOpacity: Double = 0.5
     static let requestTimeout: TimeInterval = 30

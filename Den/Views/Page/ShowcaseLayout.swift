@@ -14,28 +14,21 @@ struct ShowcaseLayout: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
+    let hideRead: Bool
+
+    let items: [Item]
 
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
-                WithItems(
-                    scopeObject: page,
-                    sortDescriptors: [
-                        NSSortDescriptor(keyPath: \Item.feedData?.id, ascending: false),
-                        NSSortDescriptor(keyPath: \Item.published, ascending: false)
-                    ],
-                    readFilter: hideRead ? false : nil
-                ) { items in
-                    LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                        ForEach(page.feedsArray) { feed in
-                            ShowcaseSection(
-                                feed: feed,
-                                profile: profile,
-                                items: items.forFeed(feed: feed),
-                                geometry: geometry
-                            )
-                        }
+                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
+                    ForEach(page.feedsArray) { feed in
+                        ShowcaseSection(
+                            feed: feed,
+                            profile: profile,
+                            items: items.forFeed(feed: feed),
+                            geometry: geometry
+                        )
                     }
                 }
             }

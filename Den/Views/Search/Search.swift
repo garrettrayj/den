@@ -19,24 +19,43 @@ struct Search: View {
     var query: String
 
     var body: some View {
-        SearchLayout(profile: profile, hideRead: hideRead, query: query)
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    SearchBottomBar(profile: profile, hideRead: $hideRead, query: query)
+        if query == "" {
+            SplashNote(
+                title: "Searching \(profile.wrappedName)",
+                symbol: "magnifyingglass"
+            )
+        } else {
+            WithItems(
+                scopeObject: profile,
+                includeExtras: true,
+                searchQuery: query
+            ) { items in
+                SearchLayout(
+                    profile: profile,
+                    hideRead: hideRead,
+                    query: query,
+                    items: items.visibilityFiltered(hideRead ? false : nil)
+                )
+                .toolbar {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        SearchBottomBar(profile: profile, hideRead: $hideRead, query: query)
+                    }
+                }
+                .navigationTitle("Search")
+                .navigationDestination(for: DetailPanel.self) { detailPanel in
+                    switch detailPanel {
+                    case .feed(let feed):
+                        FeedView(
+                            feed: feed,
+                            profile: profile,
+                            hideRead: $hideRead
+                        )
+                    case .item(let item):
+                        ItemView(item: item, profile: profile)
+                    }
                 }
             }
-            .navigationTitle("Search")
-            .navigationDestination(for: DetailPanel.self) { detailPanel in
-                switch detailPanel {
-                case .feed(let feed):
-                    FeedView(
-                        feed: feed,
-                        profile: profile,
-                        hideRead: $hideRead
-                    )
-                case .item(let item):
-                    ItemView(item: item, profile: profile)
-                }
-            }
+        }
+
     }
 }

@@ -16,24 +16,21 @@ struct TrendLayout: View {
 
     let hideRead: Bool
 
+    let items: [Item]
+
     var body: some View {
-        WithItems(
-            scopeObject: trend,
-            readFilter: hideRead ? false : nil
-        ) { items in
-            if items.isEmpty {
-                AllReadSplashNote()
-            } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        BoardView(geometry: geometry, list: Array(items)) { item in
-                            if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
-                                FeedItemExpanded(item: item, profile: profile)
-                            } else {
-                                FeedItemCompressed(item: item, profile: profile)
-                            }
-                        }.modifier(MainBoardModifier())
-                    }
+        if items.isEmpty {
+            AllReadSplashNote()
+        } else {
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    BoardView(geometry: geometry, list: items) { item in
+                        if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
+                            FeedItemExpanded(item: item, profile: profile)
+                        } else {
+                            FeedItemCompressed(item: item, profile: profile)
+                        }
+                    }.modifier(MainBoardModifier())
                 }
             }
         }

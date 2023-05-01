@@ -16,13 +16,18 @@ struct Inbox: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        InboxLayout(profile: profile, hideRead: hideRead)
+        WithItems(scopeObject: profile) { items in
+            InboxLayout(
+                profile: profile,
+                hideRead: hideRead,
+                items: items.visibilityFiltered(hideRead ? false : nil)
+            )
             .toolbar {
                 ToolbarItemGroup(placement: .primaryAction) {
                     AddFeedButton()
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
-                    InboxBottomBar(profile: profile, hideRead: $hideRead)
+                    InboxBottomBar(profile: profile, hideRead: $hideRead, items: items)
                 }
             }
             .navigationTitle("Inbox")
@@ -38,5 +43,6 @@ struct Inbox: View {
                     ItemView(item: item, profile: profile)
                 }
             }
+        }
     }
 }

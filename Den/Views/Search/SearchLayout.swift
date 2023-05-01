@@ -16,40 +16,27 @@ struct SearchLayout: View {
 
     let hideRead: Bool
     let query: String
+    let items: [Item]
 
     var body: some View {
-        GeometryReader { geometry in
-            if query == "" {
-                SplashNote(
-                    title: "Searching \(profile.wrappedName)",
-                    symbol: "magnifyingglass"
-                )
+        if items.isEmpty {
+            if hideRead {
+                SplashNote(title: "No Unread Results")
             } else {
-                WithItems(
-                    scopeObject: profile,
-                    readFilter: hideRead ? false : nil,
-                    includeExtras: true,
-                    searchQuery: query
-                ) { items in
-                    if items.isEmpty {
-                        if hideRead {
-                            SplashNote(title: "No Unread Results")
+                SplashNote(title: "No Results")
+            }
+        } else {
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    BoardView(geometry: geometry, list: items) { item in
+                        if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
+                            FeedItemExpanded(item: item, profile: profile)
                         } else {
-                            SplashNote(title: "No Results")
+                            FeedItemCompressed(item: item, profile: profile)
                         }
-                    } else {
-                        ScrollView(.vertical) {
-                            BoardView(geometry: geometry, list: Array(items)) { item in
-                                if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
-                                    FeedItemExpanded(item: item, profile: profile)
-                                } else {
-                                    FeedItemCompressed(item: item, profile: profile)
-                                }
-                            }.modifier(MainBoardModifier())
-                        }
-                        .edgesIgnoringSafeArea(.horizontal)
-                    }
+                    }.modifier(MainBoardModifier())
                 }
+                .edgesIgnoringSafeArea(.horizontal)
             }
         }
     }

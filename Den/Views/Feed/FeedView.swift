@@ -33,36 +33,35 @@ struct FeedView: View {
                     hideRead: hideRead,
                     items: items.visibilityFiltered(hideRead ? false : nil)
                 )
-                    .background(GroupedBackground())
-                    .toolbar {
-                        ToolbarItemGroup(placement: .primaryAction) {
-                            NavigationLink(value: FeedPanel.feedSettings(feed)) {
-                                Label("Feed Settings", systemImage: "wrench")
-                            }
-                            .buttonStyle(ToolbarButtonStyle())
-                            .accessibilityIdentifier("feed-settings-button")
+                .background(GroupedBackground())
+                .toolbar {
+                    ToolbarItemGroup(placement: .primaryAction) {
+                        NavigationLink(value: FeedPanel.feedSettings(feed)) {
+                            Label("Feed Settings", systemImage: "wrench")
                         }
-                        ToolbarItemGroup(placement: .bottomBar) {
-                            FeedBottomBar(
-                                feed: feed,
-                                profile: profile,
-                                hideRead: $hideRead,
-                                items: items
-                            )
-                        }
+                        .buttonStyle(ToolbarButtonStyle())
+                        .accessibilityIdentifier("feed-settings-button")
                     }
-                    .onChange(of: feed.page) { _ in
-                        dismiss()
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        FeedBottomBar(
+                            feed: feed,
+                            profile: profile,
+                            hideRead: $hideRead,
+                            items: items
+                        )
                     }
-                    .navigationTitle(feed.wrappedTitle)
-                    .navigationDestination(for: FeedPanel.self) { panel in
-                        switch panel {
-                        case .feedSettings(let feed):
-                            FeedSettings(feed: feed)
-                        }
+                }
+                .onChange(of: feed.page) { _ in
+                    dismiss()
+                }
+                .navigationTitle(feed.wrappedTitle)
+                .navigationDestination(for: FeedPanel.self) { panel in
+                    switch panel {
+                    case .feedSettings(let feed):
+                        FeedSettings(feed: feed)
                     }
+                }
             }
-
         }
     }
 }

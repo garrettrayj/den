@@ -15,20 +15,20 @@ struct InboxBottomBar: View {
 
     @Binding var hideRead: Bool
 
+    let items: FetchedResults<Item>
+
     var body: some View {
         FilterReadButton(hideRead: $hideRead) {
             profile.objectWillChange.send()
         }
         Spacer()
-        WithItems(scopeObject: profile) { items in
-            CommonStatus(profile: profile, unreadCount: items.unread().count)
-            Spacer()
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                profile.objectWillChange.send()
-                for page in profile.pagesArray {
-                    page.objectWillChange.send()
-                }
+        CommonStatus(profile: profile, unreadCount: items.unread().count)
+        Spacer()
+        ToggleReadButton(unreadCount: items.unread().count) {
+            await HistoryUtility.toggleReadUnread(items: Array(items))
+            profile.objectWillChange.send()
+            for page in profile.pagesArray {
+                page.objectWillChange.send()
             }
         }
     }

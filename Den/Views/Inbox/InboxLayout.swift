@@ -15,26 +15,23 @@ struct InboxLayout: View {
 
     let hideRead: Bool
 
+    let items: [Item]
+
     var body: some View {
-        WithItems(
-            scopeObject: profile,
-            readFilter: hideRead ? false : nil
-        ) { items in
-            if profile.feedsArray.isEmpty {
-                NoFeeds()
-            } else if items.isEmpty {
-                AllReadSplashNote()
-            } else {
-                GeometryReader { geometry in
-                    ScrollView(.vertical) {
-                        BoardView(geometry: geometry, list: Array(items)) { item in
-                            if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
-                                FeedItemExpanded(item: item, profile: profile)
-                            } else {
-                                FeedItemCompressed(item: item, profile: profile)
-                            }
-                        }.modifier(MainBoardModifier())
-                    }
+        if profile.feedsArray.isEmpty {
+            NoFeeds()
+        } else if items.isEmpty {
+            AllReadSplashNote()
+        } else {
+            GeometryReader { geometry in
+                ScrollView(.vertical) {
+                    BoardView(geometry: geometry, list: items) { item in
+                        if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
+                            FeedItemExpanded(item: item, profile: profile)
+                        } else {
+                            FeedItemCompressed(item: item, profile: profile)
+                        }
+                    }.modifier(MainBoardModifier())
                 }
             }
         }
