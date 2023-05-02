@@ -103,7 +103,7 @@ struct ItemPreviewImage: View {
                 .overlay(.background.opacity(item.read ? 0.5 : 0))
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .background(.quaternary)
-                .modifier(ImageBorderModifier())
+                .modifier(ImageBorderModifier(cornerRadius: 6))
             }
         }
         .accessibility(label: Text("Preview Image"))

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ImageDepression<Content: View>: View {
     var padding: CGFloat = 12
+    var cornerRadius: CGFloat = 6
 
     @ViewBuilder
     var content: () -> Content
@@ -23,6 +24,6 @@ struct ImageDepression<Content: View>: View {
         .frame(maxWidth: .infinity)
         .padding(padding)
         .background(.quaternary)
-        .cornerRadius(8)
+        .cornerRadius(cornerRadius)
     }
 }

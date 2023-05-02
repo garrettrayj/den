@@ -30,39 +30,76 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            switch contentSelection ?? .welcome {
-            case .welcome:
-                Welcome(profile: profile, refreshing: $refreshManager.refreshing)
-            case .search:
-                Search(profile: profile, hideRead: $hideRead, query: searchQuery)
-            case .inbox:
-                Inbox(profile: profile, hideRead: $hideRead)
-            case .trending:
-                Trending(profile: profile, hideRead: $hideRead)
-            case .page(let page):
-                if page.managedObjectContext != nil {
-                    PageView(
-                        page: page,
+            Group {
+                switch contentSelection ?? .welcome {
+                case .welcome:
+                    Welcome(profile: profile, refreshing: $refreshManager.refreshing)
+                case .search:
+                    Search(profile: profile, hideRead: $hideRead, query: searchQuery)
+                case .inbox:
+                    Inbox(profile: profile, hideRead: $hideRead)
+                case .trending:
+                    Trending(profile: profile, hideRead: $hideRead)
+                case .page(let page):
+                    if page.managedObjectContext != nil {
+                        PageView(
+                            page: page,
+                            profile: profile,
+                            hideRead: $hideRead
+                        )
+                    } else {
+                        SplashNote(title: "Page Deleted")
+                    }
+                case .settings:
+                    SettingsView(
                         profile: profile,
-                        hideRead: $hideRead
+                        activeProfile: $activeProfile,
+                        appProfileID: $appProfileID,
+                        uiStyle: $uiStyle,
+                        autoRefreshEnabled: $autoRefreshEnabled,
+                        autoRefreshCooldown: $autoRefreshCooldown,
+                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                        useInbuiltBrowser: $useInbuiltBrowser
                     )
-                } else {
-                    SplashNote(title: "Page Deleted")
                 }
-            case .settings:
-                SettingsView(
-                    profile: profile,
-                    activeProfile: $activeProfile,
-                    appProfileID: $appProfileID,
-                    uiStyle: $uiStyle,
-                    autoRefreshEnabled: $autoRefreshEnabled,
-                    autoRefreshCooldown: $autoRefreshCooldown,
-                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    useInbuiltBrowser: $useInbuiltBrowser
-                )
+            }
+            .background(GroupedBackground())
+            .disabled(refreshManager.refreshing)
+            .navigationDestination(for: DetailPanel.self) { panel in
+                Group {
+                    switch panel {
+                    case .feed(let feed):
+                        FeedView(
+                            feed: feed,
+                            profile: profile,
+                            hideRead: $hideRead
+                        )
+                    case .item(let item):
+                        ItemView(item: item, profile: profile)
+                    case .trend(let trend):
+                        TrendView(trend: trend, profile: profile, hideRead: $hideRead)
+                    case .pageSettings(let page):
+                        PageSettings(page: page)
+                    case .feedSettings(let feed):
+                        FeedSettings(feed: feed)
+                    case .profileSettings(let profile):
+                        ProfileSettings(
+                            profile: profile,
+                            activeProfile: $activeProfile,
+                            appProfileID: $appProfileID,
+                            tintSelection: profile.tint
+                        )
+                    case .importFeeds(let profile):
+                        ImportView(profile: profile)
+                    case .exportFeeds(let profile):
+                        ExportView(profile: profile)
+                    case .security(let profile):
+                        SecurityView(profile: profile)
+                    }
+                }
+                .background(GroupedBackground())
+                .disabled(refreshManager.refreshing)
             }
         }
-        .background(GroupedBackground())
-        .disabled(refreshManager.refreshing)
     }
 }

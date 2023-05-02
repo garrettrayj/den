@@ -43,19 +43,5 @@ struct SettingsView: View {
             AboutSettingsSection()
         }
         .navigationTitle("Settings")
-        .navigationDestination(for: SettingsPanel.self) { settingsPanel in
-            Group {
-                switch settingsPanel {
-                case .profileSettings(let profile):
-                    ProfileSettings(
-                        profile: profile,
-                        activeProfile: $activeProfile,
-                        appProfileID: $appProfileID
-                    )
-                }
-            }
-            .background(GroupedBackground())
-            .disabled(refreshManager.refreshing)
-        }
     }
 }

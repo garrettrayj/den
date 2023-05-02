@@ -49,7 +49,7 @@ struct ItemThumbnailImage: View {
                 .overlay(.background.opacity(item.read ? 0.5 : 0))
                 .frame(width: scaledSize.width, height: scaledSize.height)
                 .background(.quaternary)
-                .modifier(ImageBorderModifier())
+                .modifier(ImageBorderModifier(cornerRadius: 6))
 
         } else if let image = item.feedData?.image {
             ImageDepression(padding: 4) {
@@ -65,7 +65,7 @@ struct ItemThumbnailImage: View {
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .grayscale(isEnabled ? 0 : 1)
                 .overlay(.background.opacity(item.read ? 0.5 : 0))
-                .cornerRadius(6)
+                .cornerRadius(4)
             }
             .frame(width: scaledSize.width, height: scaledSize.height)
         }

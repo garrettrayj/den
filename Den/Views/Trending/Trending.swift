@@ -47,11 +47,5 @@ struct Trending: View {
             TrendingBottomBar(profile: profile, hideRead: $hideRead)
         }
         .navigationTitle("Trending")
-        .navigationDestination(for: TrendingPanel.self) { panel in
-            switch panel {
-            case .trend(let trend):
-                TrendView(trend: trend, profile: profile, hideRead: $hideRead)
-            }
-        }
     }
 }

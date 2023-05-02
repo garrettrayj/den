@@ -23,18 +23,17 @@ struct GroupedBackground: View {
         } else {
             Rectangle()
                 .fill(.regularMaterial)
-                .background(.background)
+                .background(Color(.systemGroupedBackground))
                 .edgesIgnoringSafeArea(.all)
         }
         #else
         if colorScheme == .dark {
             Rectangle()
-                .fill(.background)
+                .fill(Color(.systemGroupedBackground))
                 .edgesIgnoringSafeArea(.all)
         } else {
             Rectangle()
-                .fill(.regularMaterial)
-                .background(.quaternary)
+                .fill(Color(.systemGroupedBackground))
                 .edgesIgnoringSafeArea(.all)
         }
         #endif

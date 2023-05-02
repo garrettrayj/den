@@ -11,21 +11,23 @@
 import SwiftUI
 
 struct FeedUtilitiesSection: View {
+    @ObservedObject var profile: Profile
+
     var body: some View {
         Section(header: Text("Feeds")) {
-            NavigationLink(value: ProfileSettingsPanel.importFeeds) {
+            NavigationLink(value: DetailPanel.importFeeds(profile)) {
                 Text("Import")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
-            NavigationLink(value: ProfileSettingsPanel.exportFeeds) {
+            NavigationLink(value: DetailPanel.exportFeeds(profile)) {
                 Text("Export")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
-            NavigationLink(value: ProfileSettingsPanel.security) {
+            NavigationLink(value: DetailPanel.security(profile)) {
                 Text("Security")
             }
             .modifier(FormRowModifier())

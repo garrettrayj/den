@@ -47,7 +47,7 @@ struct Sidebar: View {
         .background(.ultraThinMaterial)
         .navigationSplitViewColumnWidth(224)
         #else
-        .background(.ultraThinMaterial.opacity(colorScheme == .dark ? 0 : 1))
+        .background(GroupedBackground())
         .navigationSplitViewColumnWidth(264 * dynamicTypeSize.layoutScalingFactor)
         .refreshable {
             if networkMonitor.isConnected {

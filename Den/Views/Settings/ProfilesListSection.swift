@@ -21,7 +21,7 @@ struct ProfilesListSection: View {
     var body: some View {
         Section {
             ForEach(profiles) { profile in
-                NavigationLink(value: SettingsPanel.profileSettings(profile)) {
+                NavigationLink(value: DetailPanel.profileSettings(profile)) {
                     Label {
                         Text(profile.displayName)
                     } icon: {

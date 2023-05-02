@@ -15,7 +15,7 @@ struct ExportView: View {
 
     @State private var selectedPages: [Page] = []
     @State private var isFilePickerShown = false
-    @State private var title: String = "Den Export \(Date().formatted())"
+    @State private var title: String = ""
 
     var body: some View {
         VStack {
@@ -23,13 +23,21 @@ struct ExportView: View {
                 SplashNote(title: "Profile Empty")
             } else {
                 Form {
-                    TextField("Untitled", text: $title)
-                        .modifier(FormRowModifier())
-                        .modifier(TitleTextFieldModifier())
+                    Section {
+                        TextField("Untitled", text: $title)
+                            .modifier(FormRowModifier())
+                            .modifier(TitleTextFieldModifier())
+                    } header: {
+                        Text("Title").modifier(FirstFormHeaderModifier())
+                    }
+                    .modifier(ListRowModifier())
 
                     pageListSection
                 }
             }
+        }
+        .onAppear {
+            title = "\(profile.displayName) \(Date().formatted())"
         }
         .toolbar {
             ToolbarItem(placement: .bottomBar) {

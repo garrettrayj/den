@@ -21,15 +21,15 @@ struct ProfileSettings: View {
 
     @State private var showingDeleteAlert: Bool = false
 
+    @State var tintSelection: String?
+
     var body: some View {
         Form {
-            Group {
-                nameSection
-                tintSection
-                FeedUtilitiesSection()
-                HistorySettingsSection(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
-                deleteSection
-            }
+            nameSection
+            tintSection
+            FeedUtilitiesSection(profile: profile)
+            HistorySettingsSection(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
+            deleteSection
         }
         .onDisappear {
             if profile.isDeleted { return }
@@ -60,19 +60,6 @@ struct ProfileSettings: View {
             }
         }
         .navigationTitle("Profile Settings")
-        .navigationDestination(for: ProfileSettingsPanel.self) { panel in
-            Group {
-                switch panel {
-                case .importFeeds:
-                    ImportView(profile: profile)
-                case .exportFeeds:
-                    ExportView(profile: profile)
-                case .security:
-                    SecurityView(profile: profile)
-                }
-            }
-            .background(GroupedBackground())
-        }
     }
 
     private var nameSection: some View {
@@ -88,9 +75,11 @@ struct ProfileSettings: View {
 
     private var tintSection: some View {
         Section {
-            TintPicker(tint: $profile.tint)
+            TintPicker(tint: $tintSelection).onChange(of: tintSelection) { newValue in
+                profile.tint = newValue
+            }
         } header: {
-            Text("Color")
+            Text("Customization")
         }
         .modifier(ListRowModifier())
     }

@@ -29,6 +29,7 @@ struct TintPicker: View {
         } label: {
             Text("Tint").modifier(FormRowModifier())
         }
+        .scrollContentBackground(.visible)
         .pickerStyle(.navigationLink)
         .accessibilityIdentifier("tint-picker")
     }
