@@ -35,15 +35,15 @@ struct ItemView: View {
                 .background(.background, ignoresSafeAreaEdges: .all)
                 #endif
                 .toolbar {
-                    if let link = item.link {
-                        ToolbarItem(placement: .primaryAction) {
+                    ToolbarItem(placement: .primaryAction) {
+                        if let link = item.link {
                             ShareLink(item: link).buttonStyle(ToolbarButtonStyle())
                         }
                     }
-
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        Text("")
+                    ToolbarItem(placement: .bottomBar) {
                         Spacer()
+                    }
+                    ToolbarItem(placement: .bottomBar) {
                         Button {
                             if let url = item.link {
                                 if useInbuiltBrowser {

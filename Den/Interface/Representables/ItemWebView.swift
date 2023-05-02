@@ -26,21 +26,10 @@ struct ItemWebView: UIViewRepresentable {
         webView.navigationDelegate = context.coordinator
         webView.isOpaque = false
 
-        loadContent()
-
         return webView
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        webView.navigationDelegate = context.coordinator
-        return
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator()
-    }
-
-    private func loadContent() {
         guard let html = html else { return }
 
         let htmlStart = """
@@ -64,6 +53,11 @@ struct ItemWebView: UIViewRepresentable {
             let userScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
             webView.configuration.userContentController.addUserScript(userScript)
         }
+        return
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
     }
 
     private func getStylesString() -> String? {

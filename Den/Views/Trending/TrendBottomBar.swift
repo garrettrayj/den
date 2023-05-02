@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct TrendBottomBar: View {
+struct TrendBottomBar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var trend: Trend
@@ -21,14 +21,18 @@ struct TrendBottomBar: View {
 
     let items: FetchedResults<Item>
 
-    var body: some View {
-        HStack {
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {
                 trend.objectWillChange.send()
             }
+        }
+        ToolbarItemGroup(placement: .bottomBar) {
             Spacer()
             CommonStatus(profile: profile, unreadCount: items.unread().count)
             Spacer()
+        }
+        ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 trend.objectWillChange.send()

@@ -67,7 +67,6 @@ struct Sidebar: View {
             ToolbarItem(placement: .bottomBar) {
                 SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
             }
-
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
                 SidebarStatus(
@@ -77,7 +76,6 @@ struct Sidebar: View {
                 )
                 Spacer()
             }
-
             ToolbarItem(placement: .bottomBar) {
                 RefreshButton(profile: profile)
                     .disabled(

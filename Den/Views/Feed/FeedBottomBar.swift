@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedBottomBar: View {
+struct FeedBottomBar: ToolbarContent {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
@@ -18,16 +18,22 @@ struct FeedBottomBar: View {
 
     let items: FetchedResults<Item>
 
-    var body: some View {
-        FilterReadButton(hideRead: $hideRead) {
-            feed.objectWillChange.send()
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead) {
+                feed.objectWillChange.send()
+            }
         }
-        Spacer()
-        FeedStatus(feed: feed, unreadCount: items.unread().count)
-        Spacer()
-        ToggleReadButton(unreadCount: items.unread().count) {
-            await HistoryUtility.toggleReadUnread(items: Array(items))
-            feed.objectWillChange.send()
+        ToolbarItemGroup(placement: .bottomBar) {
+            Spacer()
+            FeedStatus(feed: feed, unreadCount: items.unread().count)
+            Spacer()
+        }
+        ToolbarItem(placement: .bottomBar) {
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                feed.objectWillChange.send()
+            }
         }
     }
 }

@@ -29,14 +29,12 @@ struct TrendView: View {
                 )
                 .background(GroupedBackground())
                 .toolbar {
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        TrendBottomBar(
-                            trend: trend,
-                            profile: profile,
-                            hideRead: $hideRead,
-                            items: items
-                        )
-                    }
+                    TrendBottomBar(
+                        trend: trend,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        items: items
+                    )
                 }
                 .navigationTitle(trend.wrappedTitle)
                 .navigationDestination(for: DetailPanel.self) { detailPanel in

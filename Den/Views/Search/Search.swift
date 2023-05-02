@@ -37,9 +37,7 @@ struct Search: View {
                     items: items.visibilityFiltered(hideRead ? false : nil)
                 )
                 .toolbar {
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        SearchBottomBar(profile: profile, hideRead: $hideRead, query: query)
-                    }
+                    SearchBottomBar(profile: profile, hideRead: $hideRead, query: query, items: items)
                 }
                 .navigationTitle("Search")
                 .navigationDestination(for: DetailPanel.self) { detailPanel in
@@ -56,6 +54,5 @@ struct Search: View {
                 }
             }
         }
-
     }
 }

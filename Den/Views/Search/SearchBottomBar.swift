@@ -10,25 +10,26 @@
 
 import SwiftUI
 
-struct SearchBottomBar: View {
+struct SearchBottomBar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
     var query: String
+    let items: FetchedResults<Item>
 
-    var body: some View {
-        FilterReadButton(hideRead: $hideRead) {
-            profile.objectWillChange.send()
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead) {
+                profile.objectWillChange.send()
+            }
         }
-        Spacer()
-        WithItems(
-            scopeObject: profile,
-            includeExtras: true,
-            searchQuery: query
-        ) { items in
+        ToolbarItemGroup(placement: .bottomBar) {
+            Spacer()
             SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
             Spacer()
+        }
+        ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }

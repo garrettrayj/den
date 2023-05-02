@@ -35,21 +35,19 @@ struct FeedView: View {
                 )
                 .background(GroupedBackground())
                 .toolbar {
-                    ToolbarItemGroup(placement: .primaryAction) {
+                    ToolbarItem(placement: .primaryAction) {
                         NavigationLink(value: FeedPanel.feedSettings(feed)) {
                             Label("Feed Settings", systemImage: "wrench")
                         }
                         .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("feed-settings-button")
                     }
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        FeedBottomBar(
-                            feed: feed,
-                            profile: profile,
-                            hideRead: $hideRead,
-                            items: items
-                        )
-                    }
+                    FeedBottomBar(
+                        feed: feed,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        items: items
+                    )
                 }
                 .onChange(of: feed.page) { _ in
                     dismiss()

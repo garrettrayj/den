@@ -26,9 +26,7 @@ struct Inbox: View {
                 ToolbarItemGroup(placement: .primaryAction) {
                     AddFeedButton()
                 }
-                ToolbarItemGroup(placement: .bottomBar) {
-                    InboxBottomBar(profile: profile, hideRead: $hideRead, items: items)
-                }
+                InboxBottomBar(profile: profile, hideRead: $hideRead, items: items)
             }
             .navigationTitle("Inbox")
             .navigationDestination(for: DetailPanel.self) { detailPanel in

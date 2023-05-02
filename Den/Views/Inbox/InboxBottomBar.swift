@@ -10,25 +10,31 @@
 
 import SwiftUI
 
-struct InboxBottomBar: View {
+struct InboxBottomBar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
     let items: FetchedResults<Item>
 
-    var body: some View {
-        FilterReadButton(hideRead: $hideRead) {
-            profile.objectWillChange.send()
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead) {
+                profile.objectWillChange.send()
+            }
         }
-        Spacer()
-        CommonStatus(profile: profile, unreadCount: items.unread().count)
-        Spacer()
-        ToggleReadButton(unreadCount: items.unread().count) {
-            await HistoryUtility.toggleReadUnread(items: Array(items))
-            profile.objectWillChange.send()
-            for page in profile.pagesArray {
-                page.objectWillChange.send()
+        ToolbarItemGroup(placement: .bottomBar) {
+            Spacer()
+            CommonStatus(profile: profile, unreadCount: items.unread().count)
+            Spacer()
+        }
+        ToolbarItem(placement: .bottomBar) {
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                profile.objectWillChange.send()
+                for page in profile.pagesArray {
+                    page.objectWillChange.send()
+                }
             }
         }
     }

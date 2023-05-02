@@ -61,8 +61,10 @@ struct PageView: View {
                     ToolbarItem(placement: .secondaryAction) {
                         PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
                     }
-                    ToolbarItemGroup(placement: .primaryAction) {
+                    ToolbarItem(placement: .primaryAction) {
                         AddFeedButton(page: page)
+                    }
+                    ToolbarItem(placement: .primaryAction) {
                         NavigationLink(value: PagePanel.pageSettings(page)) {
                             Label("Page Settings", systemImage: "wrench")
                         }
@@ -85,14 +87,12 @@ struct PageView: View {
                     }
                     #endif
 
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        PageBottomBar(
-                            page: page,
-                            profile: profile,
-                            hideRead: $hideRead,
-                            items: items
-                        )
-                    }
+                    PageBottomBar(
+                        page: page,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        items: items
+                    )
                 }
                 .navigationTitle(page.displayName)
                 .navigationDestination(for: DetailPanel.self) { detailPanel in
