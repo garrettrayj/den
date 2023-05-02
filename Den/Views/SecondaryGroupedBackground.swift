@@ -39,12 +39,11 @@ struct SecondaryGroupedBackground: View {
         if colorScheme == .dark {
             if highlight {
                 Rectangle()
-                    .fill(.regularMaterial)
+                    .fill(.thinMaterial)
                     .background(.tertiary)
             } else {
                 Rectangle()
-                    .fill(.thinMaterial)
-                    .background(.background)
+                    .fill(.quaternary)
             }
         } else {
             if highlight {

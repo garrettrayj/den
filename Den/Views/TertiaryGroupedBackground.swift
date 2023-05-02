@@ -18,20 +18,20 @@ struct TertiaryGroupedBackground: View {
     var body: some View {
         #if targetEnvironment(macCatalyst)
         if highlight {
-            Rectangle().fill(.regularMaterial).background(.tertiary)
+            Rectangle().fill(.thickMaterial).background(.secondary)
         } else {
-            Rectangle().fill(.thickMaterial).background(.tertiary)
+            Rectangle().fill(.ultraThickMaterial).background(.secondary)
         }
         #else
         if colorScheme == .dark {
             if highlight {
-                Rectangle().fill(.thickMaterial).background(.tertiary)
+                Rectangle().fill(.thinMaterial).background(.secondary)
             } else {
-                Rectangle().fill(.regularMaterial).background(.tertiary)
+                Rectangle().fill(.regularMaterial).background(.secondary)
             }
         } else {
             if highlight {
-                Rectangle().fill(.thickMaterial).background(.secondary)
+                Rectangle().fill(.thinMaterial).background(.secondary)
             } else {
                 Rectangle().fill(.regularMaterial).background(.secondary)
             }

@@ -650,7 +650,6 @@
 			children = (
 				68C4FA252474927800D2C0D6 /* SettingsView.swift */,
 				68D9BA9728A6099600F1A3AD /* ProfilesListSection.swift */,
-				6829A4FD28C3CC8D00F75C5A /* BulkSelectionButtons.swift */,
 				6835738229601C0000843A8E /* BrowserSettingsSection.swift */,
 				68AC3A1E2916B26B00D60273 /* RefreshSettingsSection.swift */,
 				68D9BA9928A60A5200F1A3AD /* AppearanceSettingsSection.swift */,
@@ -1034,6 +1033,7 @@
 				68D9BA9B28A60B4900F1A3AD /* FeedUtilitiesSection.swift */,
 				68B34A5D2486D2AD0066B215 /* ImportView.swift */,
 				68B34A662487ED870066B215 /* ExportView.swift */,
+				6829A4FD28C3CC8D00F75C5A /* BulkSelectionButtons.swift */,
 				68E4274226D2C2BB00E496E3 /* SecurityView.swift */,
 				68352D1529B16C5F0073CEFD /* TintPicker.swift */,
 			);

@@ -35,7 +35,7 @@ struct PreviewsSection: View {
                 Text("Open in Browser").modifier(FormRowModifier())
             }
             .modifier(ListRowModifier())
-            if browserView {
+            if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
                     Text("Use Reader Mode").modifier(FormRowModifier())
                 }

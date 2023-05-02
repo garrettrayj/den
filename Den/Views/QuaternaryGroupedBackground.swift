@@ -11,9 +11,13 @@
 import SwiftUI
 
 struct QuaternaryGroupedBackground: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
-        Rectangle()
-            .fill(.regularMaterial)
-            .background(.quaternary)
+        if colorScheme == .dark {
+            Rectangle().fill(.quaternary)
+        } else {
+            Rectangle().fill(.quaternary.opacity(0.25))
+        }
     }
 }

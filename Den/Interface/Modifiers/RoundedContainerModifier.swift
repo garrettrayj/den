@@ -17,7 +17,7 @@ struct RoundedContainerModifier: ViewModifier {
             #if targetEnvironment(macCatalyst)
             .cornerRadius(8)
             #else
-            .cornerRadius(12)
+            .cornerRadius(10)
             #endif
     }
 }

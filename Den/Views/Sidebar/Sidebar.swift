@@ -64,19 +64,25 @@ struct Sidebar: View {
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
                     .accessibilityIdentifier("edit-page-list-button")
             }
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
                 SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
+            }
+
+            ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
                 SidebarStatus(
                     profile: profile,
                     refreshing: $refreshManager.refreshing,
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
-                ).frame(maxWidth: .infinity)
+                )
                 Spacer()
-                if !profile.pagesArray.isEmpty {
-                    RefreshButton(profile: profile)
-                        .disabled(refreshManager.refreshing || !networkMonitor.isConnected)
-                }
+            }
+
+            ToolbarItem(placement: .bottomBar) {
+                RefreshButton(profile: profile)
+                    .disabled(
+                        refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                    )
             }
         }
     }
