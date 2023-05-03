@@ -32,77 +32,84 @@ struct FeedLayout: View {
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailable(feedData: feed.feedData, splashNote: true)
                     } else {
-                        Section {
-                            if items.previews().isEmpty && hideRead == true {
-                                AllRead()
-                                    .padding(12)
-                                    .background(QuaternaryGroupedBackground())
-                                    .modifier(RoundedContainerModifier())
-                                    .padding()
-                                    .modifier(SafeAreaModifier(geometry: geometry))
-                            } else {
-                                BoardView(
-                                    geometry: geometry,
-                                    list: items.previews(),
-                                    isLazy: false
-                                ) { item in
-                                    ItemActionView(item: item, profile: profile) {
-                                        if feed.wrappedPreviewStyle == .expanded {
-                                            ItemExpanded(item: item)
-                                        } else {
-                                            ItemCompressed(item: item)
-                                        }
-                                    }
-                                    .modifier(RoundedContainerModifier())
-                                }
-                                .padding(.vertical)
-                                .modifier(SafeAreaModifier(geometry: geometry))
-                            }
-                        } header: {
-                            Text("Latest")
-                                .font(.title3)
-                                .modifier(SafeAreaModifier(geometry: geometry))
-                                .modifier(PinnedSectionHeaderModifier())
-                        }
-
-                        Section {
-                            if items.extras().isEmpty {
-                                AllRead()
-                                    .padding(12)
-                                    .background(QuaternaryGroupedBackground())
-                                    .modifier(RoundedContainerModifier())
-                                    .padding()
-                                    .modifier(SafeAreaModifier(geometry: geometry))
-                            } else {
-                                BoardView(
-                                    geometry: geometry,
-                                    list: items.extras(),
-                                    isLazy: false
-                                ) { item in
-                                    ItemActionView(item: item, profile: profile) {
-                                        if feed.wrappedPreviewStyle == .expanded {
-                                            ItemExpanded(item: item)
-                                        } else {
-                                            ItemCompressed(item: item)
-                                        }
-                                    }
-                                    .modifier(RoundedContainerModifier())
-                                }
-                                .padding(.vertical)
-                                .modifier(SafeAreaModifier(geometry: geometry))
-                            }
-                        } header: {
-                            Text("Extra")
-                                .font(.title3)
-                                .modifier(SafeAreaModifier(geometry: geometry))
-                                .modifier(PinnedSectionHeaderModifier())
-                        }
+                        latestSection(geometry: geometry)
+                        moreSection(geometry: geometry)
                     }
                     Divider()
                     metaSection.modifier(SafeAreaModifier(geometry: geometry))
                 }
             }
             .edgesIgnoringSafeArea(.horizontal)
+        }
+    }
+
+    private func latestSection(geometry: GeometryProxy) -> some View {
+        Section {
+            if items.previews().isEmpty && hideRead == true {
+                AllRead()
+                    .padding(12)
+                    .background(QuaternaryGroupedBackground())
+                    .modifier(RoundedContainerModifier())
+                    .padding()
+                    .modifier(SafeAreaModifier(geometry: geometry))
+            } else {
+                BoardView(
+                    geometry: geometry,
+                    list: items.previews(),
+                    isLazy: false
+                ) { item in
+                    ItemActionView(item: item, profile: profile) {
+                        if feed.wrappedPreviewStyle == .expanded {
+                            ItemExpanded(item: item)
+                        } else {
+                            ItemCompressed(item: item)
+                        }
+                    }
+                    .modifier(RoundedContainerModifier())
+                }
+                .padding(.vertical)
+                .modifier(SafeAreaModifier(geometry: geometry))
+            }
+        } header: {
+            Text("Latest")
+                .font(.title3)
+                .modifier(SafeAreaModifier(geometry: geometry))
+                .modifier(PinnedSectionHeaderModifier())
+        }
+    }
+
+    private func moreSection(geometry: GeometryProxy) -> some View {
+        Section {
+            if items.extras().isEmpty {
+                AllRead()
+                    .padding(12)
+                    .background(QuaternaryGroupedBackground())
+                    .modifier(RoundedContainerModifier())
+                    .padding()
+                    .modifier(SafeAreaModifier(geometry: geometry))
+            } else {
+                BoardView(
+                    geometry: geometry,
+                    list: items.extras(),
+                    isLazy: false
+                ) { item in
+                    ItemActionView(item: item, profile: profile) {
+                        if feed.wrappedPreviewStyle == .expanded {
+                            ItemExpanded(item: item)
+                        } else {
+                            ItemCompressed(item: item)
+                        }
+                    }
+                    .modifier(RoundedContainerModifier())
+                }
+                .padding(.vertical)
+                .modifier(SafeAreaModifier(geometry: geometry))
+            }
+        } header: {
+            Text("More")
+                .font(.title2)
+                .modifier(SafeAreaModifier(geometry: geometry))
+                .modifier(PinnedSectionHeaderModifier())
         }
     }
 
