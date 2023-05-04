@@ -44,7 +44,8 @@ struct Sidebar: View {
             contentSelection = .search
         }
         #if targetEnvironment(macCatalyst)
-        .background(.ultraThinMaterial)
+        .background(.ultraThickMaterial)
+        .background(.background)
         .navigationSplitViewColumnWidth(224)
         #else
         .background(GroupedBackground())

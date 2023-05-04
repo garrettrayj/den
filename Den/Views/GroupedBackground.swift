@@ -17,13 +17,13 @@ struct GroupedBackground: View {
         #if targetEnvironment(macCatalyst)
         if colorScheme == .dark {
             Rectangle()
-                .fill(.ultraThinMaterial)
+                .fill(.thinMaterial)
                 .background(.background)
                 .edgesIgnoringSafeArea(.all)
         } else {
             Rectangle()
-                .fill(.regularMaterial)
-                .background(Color(.systemGroupedBackground))
+                .fill(.thinMaterial)
+                .background(.background)
                 .edgesIgnoringSafeArea(.all)
         }
         #else

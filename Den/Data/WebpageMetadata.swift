@@ -41,7 +41,7 @@ struct WebpageMetadata {
         }
 
         if let ogImage = getMetaImage(in: document, relativeTo: webpage, property: "og:image") {
-            metadata.banners.append(RankedImage(url: ogImage, rank: 1))
+            metadata.banners.append(RankedImage(url: ogImage, rank: 2))
         }
 
         if let twitterImage = getMetaImage(in: document, relativeTo: webpage, property: "twitter:image") {

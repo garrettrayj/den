@@ -44,7 +44,12 @@ struct FeedFavicon: View {
             .resizable()
             .placeholder {
                 Image(systemName: placeholderSymbol)
+                    .resizable()
+                    .foregroundColor(.primary)
+                    .padding(2)
+
             }
+            .scaledToFit()
             .frame(width: scaledSize.width, height: scaledSize.height)
             .grayscale(isEnabled ? 0 : 1)
     }

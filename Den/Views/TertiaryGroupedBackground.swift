@@ -17,18 +17,10 @@ struct TertiaryGroupedBackground: View {
 
     var body: some View {
         #if targetEnvironment(macCatalyst)
-        if colorScheme == .dark {
-            if highlight {
-                Rectangle().fill(.thinMaterial).background(.tertiary)
-            } else {
-                Rectangle().fill(.ultraThickMaterial).background(.tertiary)
-            }
+        if highlight {
+            Rectangle().fill(.thickMaterial).background(.secondary)
         } else {
-            if highlight {
-                Rectangle().fill(.thickMaterial).background(.tertiary)
-            } else {
-                Rectangle().fill(.ultraThickMaterial).background(.tertiary)
-            }
+            Rectangle().fill(.ultraThickMaterial).background(.secondary)
         }
         #else
         if colorScheme == .dark {

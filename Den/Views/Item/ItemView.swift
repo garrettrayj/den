@@ -29,7 +29,7 @@ struct ItemView: View {
         } else {
             itemLayout
                 #if targetEnvironment(macCatalyst)
-                .background(.ultraThinMaterial.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
+                .background(.thinMaterial.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
                 .background(.background, ignoresSafeAreaEdges: .all)
                 #else
                 .background(.background, ignoresSafeAreaEdges: .all)
