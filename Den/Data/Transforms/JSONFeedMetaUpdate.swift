@@ -41,6 +41,8 @@ struct JSONFeedMetaUpdate {
 
         if let topBanner = webpageMetadata?.banners.topRanked?.url {
             feedData.banner = topBanner
+        } else if let topWebpageIcon = webpageMetadata?.icons.topRanked?.url {
+            feedData.banner = topWebpageIcon
         }
 
         if feedData.image == nil && feedData.banner != nil {

@@ -30,9 +30,9 @@ struct SecondaryGroupedBackground: View {
             if highlight {
                 Rectangle()
                     .fill(.ultraThinMaterial)
-                    .background(Color(.secondarySystemGroupedBackground))
+                    .background(.background)
             } else {
-                Rectangle().fill(Color(.secondarySystemGroupedBackground))
+                Rectangle().fill(.background)
             }
         }
         #else
@@ -43,16 +43,16 @@ struct SecondaryGroupedBackground: View {
                     .background(.tertiary)
             } else {
                 Rectangle()
-                    .fill(Color(.secondarySystemGroupedBackground))
+                    .fill(.background)
             }
         } else {
             if highlight {
                 Rectangle()
                     .fill(.ultraThinMaterial)
-                    .background(Color(.secondarySystemGroupedBackground))
+                    .background(.background)
             } else {
                 Rectangle()
-                    .fill(Color(.secondarySystemGroupedBackground))
+                    .fill(.background)
             }
         }
         #endif

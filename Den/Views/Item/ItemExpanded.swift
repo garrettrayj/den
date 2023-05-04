@@ -29,12 +29,13 @@ struct ItemExpanded: View {
 
             if showTeaser {
                 Text(item.teaser!)
-                    #if !targetEnvironment(macCatalyst)
-                    .font(.caption)
+                    #if targetEnvironment(macCatalyst)
+                    .font(.body)
+                    #else
+                    .font(.subheadline)
                     #endif
                     .lineLimit(6)
                     .padding(.top, 4)
-
             }
         }
         .multilineTextAlignment(.leading)

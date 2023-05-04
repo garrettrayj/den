@@ -20,6 +20,7 @@ struct AtomFeedMetaUpdate {
     let context: NSManagedObjectContext
     let webpageMetadata: WebpageMetadata?
 
+    // swiftlint:disable cyclomatic_complexity
     func execute() {
         if
             let urlString = source.icon,
@@ -41,6 +42,8 @@ struct AtomFeedMetaUpdate {
 
         if let topBanner = webpageMetadata?.banners.topRanked?.url {
             feedData.banner = topBanner
+        } else if let topWebpageIcon = webpageMetadata?.icons.topRanked?.url {
+            feedData.banner = topWebpageIcon
         }
 
         if feedData.image == nil && feedData.banner != nil {

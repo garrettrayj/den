@@ -28,9 +28,8 @@ struct GroupedBackground: View {
         }
         #else
         if colorScheme == .dark {
-            Rectangle()
-                .fill(Color(.systemGroupedBackground))
-                .edgesIgnoringSafeArea(.all)
+            // Dark mode system background lightens when window is split with another.
+            EmptyView()
         } else {
             Rectangle()
                 .fill(Color(.systemGroupedBackground))
