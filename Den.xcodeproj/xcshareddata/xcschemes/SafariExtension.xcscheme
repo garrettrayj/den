@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6860690D2831501B000068DE"
-               BuildableName = "Feed Detector.appex"
-               BlueprintName = "FeedDetector"
+               BuildableName = "Web Extension.appex"
+               BlueprintName = "WebExtension"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,14 +43,15 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
+         BundleIdentifier = "com.apple.Safari"
          FilePath = "/Applications/Safari.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
-            BuildableName = "Feed Detector.appex"
-            BlueprintName = "FeedDetector"
+            BuildableName = "Web Extension.appex"
+            BlueprintName = "WebExtension"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,8 +66,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
-            BuildableName = "Feed Detector.appex"
-            BlueprintName = "FeedDetector"
+            BuildableName = "Web Extension.appex"
+            BlueprintName = "WebExtension"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

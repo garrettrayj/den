@@ -95,7 +95,7 @@
 		686069372831501B000068DE /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 686068EA2831501B000068DE /* popup.html */; };
 		686069392831501B000068DE /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 686068EB2831501B000068DE /* popup.css */; };
 		6860693B2831501B000068DE /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 686068EC2831501B000068DE /* popup.js */; };
-		6860694C2831533E000068DE /* Feed Detector.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Feed Detector.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6860694C2831533E000068DE /* Den Web Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Den Web Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6865452C274A288A00BAE03E /* PinnedSectionHeaderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */; };
 		6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
@@ -280,7 +280,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6860694C2831533E000068DE /* Feed Detector.appex in Embed Foundation Extensions */,
+				6860694C2831533E000068DE /* Den Web Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,7 +378,7 @@
 		686068EA2831501B000068DE /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
 		686068EB2831501B000068DE /* popup.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
 		686068EC2831501B000068DE /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
-		6860690E2831501B000068DE /* Feed Detector.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Feed Detector.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6860690E2831501B000068DE /* Den Web Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Den Web Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		686069132831501B000068DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6860694B28315247000068DE /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
 		6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedSectionHeaderModifier.swift; sourceTree = "<group>"; };
@@ -712,7 +712,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		686069122831501B000068DE /* FeedDetector */ = {
+		686069122831501B000068DE /* WebExtension */ = {
 			isa = PBXGroup;
 			children = (
 				686068E32831501B000068DE /* SafariWebExtensionHandler.swift */,
@@ -720,7 +720,7 @@
 				686069132831501B000068DE /* Info.plist */,
 				6860694B28315247000068DE /* SafariExtension.entitlements */,
 			);
-			path = FeedDetector;
+			path = WebExtension;
 			sourceTree = "<group>";
 		};
 		6865575F29E7B417000EBF37 /* Search */ = {
@@ -872,7 +872,7 @@
 				68C41327247263C700D1DC7B /* DenTests */,
 				68C41332247263C700D1DC7B /* DenUITests */,
 				689EDC0A26A3F46A0055811A /* Screenshots */,
-				686069122831501B000068DE /* FeedDetector */,
+				686069122831501B000068DE /* WebExtension */,
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
@@ -891,7 +891,7 @@
 				68C4132F247263C700D1DC7B /* DenUITests.xctest */,
 				689EDC0926A3F46A0055811A /* Screenshots.xctest */,
 				6813FD082748DE1100EC88A5 /* SymbolLibrary */,
-				6860690E2831501B000068DE /* Feed Detector.appex */,
+				6860690E2831501B000068DE /* Den Web Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1117,9 +1117,9 @@
 			productReference = 6813FD082748DE1100EC88A5 /* SymbolLibrary */;
 			productType = "com.apple.product-type.tool";
 		};
-		6860690D2831501B000068DE /* FeedDetector */ = {
+		6860690D2831501B000068DE /* WebExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 686069472831501B000068DE /* Build configuration list for PBXNativeTarget "FeedDetector" */;
+			buildConfigurationList = 686069472831501B000068DE /* Build configuration list for PBXNativeTarget "WebExtension" */;
 			buildPhases = (
 				6860690A2831501B000068DE /* Sources */,
 				6860690B2831501B000068DE /* Frameworks */,
@@ -1129,9 +1129,9 @@
 			);
 			dependencies = (
 			);
-			name = FeedDetector;
+			name = WebExtension;
 			productName = "SafariExtension Extension (iOS)";
-			productReference = 6860690E2831501B000068DE /* Feed Detector.appex */;
+			productReference = 6860690E2831501B000068DE /* Den Web Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		689EDC0826A3F46A0055811A /* Screenshots */ = {
@@ -1252,7 +1252,7 @@
 			projectRoot = "";
 			targets = (
 				68C41308247263C700D1DC7B /* Den */,
-				6860690D2831501B000068DE /* FeedDetector */,
+				6860690D2831501B000068DE /* WebExtension */,
 				68C4132E247263C700D1DC7B /* DenUITests */,
 				689EDC0826A3F46A0055811A /* Screenshots */,
 				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
@@ -1575,7 +1575,7 @@
 /* Begin PBXTargetDependency section */
 		6860694E2831533E000068DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6860690D2831501B000068DE /* FeedDetector */;
+			target = 6860690D2831501B000068DE /* WebExtension */;
 			targetProxy = 6860694D2831533E000068DE /* PBXContainerItemProxy */;
 		};
 		689EDC0F26A3F46A0055811A /* PBXTargetDependency */ = {
@@ -1640,13 +1640,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WebExtension/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FeedDetector/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Feed Detector";
+				INFOPLIST_FILE = WebExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Den Web Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1654,13 +1654,13 @@
 					"@executable_path/../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.16.2;
+				MARKETING_VERSION = 1.16.3;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.feed-detector";
-				PRODUCT_NAME = "Feed Detector";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.web-extension";
+				PRODUCT_NAME = "Den Web Extension";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1674,13 +1674,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CODE_SIGN_ENTITLEMENTS = FeedDetector/SafariExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WebExtension/SafariExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 35;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = FeedDetector/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Feed Detector";
+				INFOPLIST_FILE = WebExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Den Web Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1688,13 +1688,13 @@
 					"@executable_path/../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.16.2;
+				MARKETING_VERSION = 1.16.3;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.feed-detector";
-				PRODUCT_NAME = "Feed Detector";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.web-extension";
+				PRODUCT_NAME = "Den Web Extension";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1998,7 +1998,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		686069472831501B000068DE /* Build configuration list for PBXNativeTarget "FeedDetector" */ = {
+		686069472831501B000068DE /* Build configuration list for PBXNativeTarget "WebExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				686069432831501B000068DE /* Debug */,
