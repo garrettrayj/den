@@ -28,6 +28,7 @@ struct FeedSettings: View {
                 .modifier(ListRowModifier())
 
                 PreviewsSection(feed: feed)
+                ViewOptionsSection(feed: feed)
                 MoveFeedSection(feed: feed)
                 DeleteFeedButton(feed: feed)
             }

@@ -16,32 +16,12 @@ struct PreviewsSection: View {
     var body: some View {
         Section {
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                Text("Item Limit: \(feed.wrappedItemLimit)").modifier(FormRowModifier())
+                Text("Limit: \(feed.wrappedItemLimit)").modifier(FormRowModifier())
             }
             .onChange(of: feed.wrappedItemLimit, perform: { _ in
                 Haptics.lightImpactFeedbackGenerator.impactOccurred()
             })
             .modifier(ListRowModifier())
-
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Text("Open in Browser").modifier(FormRowModifier())
-                Spacer()
-                Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
-            }
-            .modifier(ListRowModifier())
-            #else
-            Toggle(isOn: $feed.browserView) {
-                Text("Open in Browser").modifier(FormRowModifier())
-            }
-            .modifier(ListRowModifier())
-            if feed.browserView {
-                Toggle(isOn: $feed.readerMode) {
-                    Text("Use Reader Mode").modifier(FormRowModifier())
-                }
-                .modifier(ListRowModifier())
-            }
-            #endif
 
             #if targetEnvironment(macCatalyst)
             HStack {

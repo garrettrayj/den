@@ -55,22 +55,6 @@ struct ItemPreviewImage: View {
                     .aspectRatio(16/9, contentMode: .fill)
                     .fixedSize(horizontal: false, vertical: true)
                 }
-            } else if CGFloat(item.imageWidth) < scaledSize.width {
-                ImageDepression(padding: 8) {
-                    WebImage(
-                        url: item.image,
-                        options: [.delayPlaceholder, .lowPriority],
-                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-                    )
-                        .resizable()
-                        .placeholder { ImageErrorPlaceholder() }
-                        .indicator(.activity)
-                        .grayscale(isEnabled ? 0 : 1)
-                        .overlay(.background.opacity(item.read ? 0.5 : 0))
-                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                        .clipped()
-                        .modifier(ImageBorderModifier(cornerRadius: 4))
-                }
             } else if item.imageAspectRatio! < 0.5 {
                 ImageDepression(padding: 8) {
                     WebImage(
@@ -88,6 +72,22 @@ struct ItemPreviewImage: View {
                             maxHeight: scaledSize.height > 0 ? min(scaledSize.height, 400) : nil,
                             alignment: .top
                         )
+                }
+            } else if CGFloat(item.imageWidth) < scaledSize.width {
+                ImageDepression(padding: 8) {
+                    WebImage(
+                        url: item.image,
+                        options: [.delayPlaceholder, .lowPriority],
+                        context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+                    )
+                        .resizable()
+                        .placeholder { ImageErrorPlaceholder() }
+                        .indicator(.activity)
+                        .grayscale(isEnabled ? 0 : 1)
+                        .overlay(.background.opacity(item.read ? 0.5 : 0))
+                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                        .clipped()
+                        .modifier(ImageBorderModifier(cornerRadius: 4))
                 }
             } else {
                 WebImage(
