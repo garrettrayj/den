@@ -66,6 +66,7 @@ struct ItemThumbnailImage: View {
                 .grayscale(isEnabled ? 0 : 1)
                 .overlay(.background.opacity(item.read ? 0.5 : 0))
                 .cornerRadius(4)
+                .frame(width: scaledSize.width - 8, height: scaledSize.height - 8)
             }
             .frame(width: scaledSize.width, height: scaledSize.height)
         }
