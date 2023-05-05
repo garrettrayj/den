@@ -14,18 +14,10 @@ struct ItemTitle: View {
     let item: Item
 
     var body: some View {
-        titleText
+        Text(item.wrappedTitle)
             .imageScale(.small)
             .font(.headline)
             .lineLimit(6)
             .multilineTextAlignment(.leading)
-    }
-
-    private var titleText: some View {
-        if item.feedData?.feed?.browserView == true {
-            return Text("\(item.wrappedTitle) ") + Text("\(Image(systemName: "link"))").font(.callout)
-        }
-
-        return Text(item.wrappedTitle)
     }
 }

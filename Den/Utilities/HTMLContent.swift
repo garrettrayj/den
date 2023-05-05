@@ -40,7 +40,10 @@ final class HTMLContent {
     func sanitizedHTML() -> String? {
         guard
             let dirty: Document = try? SwiftSoup.parseBodyFragment(content),
-            let doc: Document = try? Cleaner(customWhitelist()).clean(dirty)
+            let doc: Document = try? Cleaner(
+                headWhitelist: .relaxed(),
+                bodyWhitelist: customWhitelist()
+            ).clean(dirty)
         else {
             return nil
         }

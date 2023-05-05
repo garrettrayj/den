@@ -20,32 +20,59 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        if item.feedData?.feed?.browserView == true {
-            Button {
-                if let url = item.link {
-                    if useInbuiltBrowser {
-                        SafariUtility.openLink(
-                            url: url,
-                            controlTintColor: profile.tintUIColor ?? .tintColor,
-                            readerMode: item.feedData?.feed?.readerMode ?? false
-                        )
-                    } else {
-                        openURL(url)
+        Group {
+            if item.feedData?.feed?.browserView == true {
+                Button {
+                    if let url = item.link {
+                        openInBrowser(url: url)
+                        Task {
+                            await HistoryUtility.markItemRead(item: item)
+                        }
                     }
-
-                    Task {
-                        await HistoryUtility.markItemRead(item: item)
-                    }
+                } label: {
+                    content
                 }
-            } label: {
-                content
+                .buttonStyle(ItemButtonStyle(read: item.read))
+            } else {
+                NavigationLink(value: DetailPanel.item(item)) {
+                    content
+                }
+                .buttonStyle(ItemButtonStyle(read: item.read))
             }
-            .buttonStyle(ItemButtonStyle(read: item.read))
+        }
+        .contextMenu {
+            if item.feedData?.feed?.browserView == true {
+                NavigationLink(value: DetailPanel.item(item)) {
+                    Text("View")
+                }
+            } else {
+                Button {
+                    if let url = item.link {
+                        openInBrowser(url: url)
+                        Task {
+                            await HistoryUtility.markItemRead(item: item)
+                        }
+                    }
+                } label: {
+                    Label("Open in Browser", systemImage: "link")
+                }
+            }
+
+            if let link = item.link {
+                ShareLink(item: link)
+            }
+        }
+    }
+
+    private func openInBrowser(url: URL) {
+        if useInbuiltBrowser {
+            SafariUtility.openLink(
+                url: url,
+                controlTintColor: profile.tintUIColor ?? .tintColor,
+                readerMode: item.feedData?.feed?.readerMode ?? false
+            )
         } else {
-            NavigationLink(value: DetailPanel.item(item)) {
-                content
-            }
-            .buttonStyle(ItemButtonStyle(read: item.read))
+            openURL(url)
         }
     }
 }

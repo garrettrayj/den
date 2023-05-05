@@ -19,7 +19,7 @@ struct ItemDateAuthor: View {
     var body: some View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 4) {
-                Text("\(formattedDateString)")
+                linkDateLine
                 if let author = item.author {
                     Text("•")
                     Text(author)
@@ -27,7 +27,7 @@ struct ItemDateAuthor: View {
             }
 
             VStack(alignment: .leading) {
-                Text("\(formattedDateString)")
+                linkDateLine
                 if let author = item.author {
                     Text(author)
                 }
@@ -35,6 +35,15 @@ struct ItemDateAuthor: View {
         }
         .font(.subheadline)
         .lineLimit(1)
+        .imageScale(.small)
+    }
+
+    private var linkDateLine: some View {
+        if item.feedData?.feed?.browserView == true {
+            return Text("\(formattedDateString) \(Image(systemName: "link"))")
+        }
+
+        return Text(formattedDateString)
     }
 
     private var formattedDateString: String {

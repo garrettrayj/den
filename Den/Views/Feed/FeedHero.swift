@@ -28,7 +28,7 @@ struct FeedHero: View {
         }
         .aspectRatio(16/9, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: 204)
-        .background(.ultraThinMaterial)
+        .background(.thinMaterial)
         .background {
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()

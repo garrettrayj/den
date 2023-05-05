@@ -129,12 +129,15 @@ struct AddFeed: View {
 
     private var feedUrlInput: some View {
         HStack {
-            TextField("https://example.com/feed.xml", text: $urlString)
-                .lineLimit(1)
-                .multilineTextAlignment(.leading)
-                .disableAutocorrection(true)
-                .textInputAutocapitalization(.never)
-                .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
+            // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
+            TextField(text: $urlString, prompt: Text("https⁣://example.com/feed.xml")) {
+                Text("Web Address")
+            }
+            .lineLimit(1)
+            .multilineTextAlignment(.leading)
+            .disableAutocorrection(true)
+            .textInputAutocapitalization(.never)
+            .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
 
             if urlIsValid != nil {
                 if urlIsValid == true {
@@ -206,12 +209,12 @@ struct AddFeed: View {
             return
         }
 
-        if self.urlString.prefix(7).lowercased() != "http://" && self.urlString.prefix(8).lowercased() != "https://" {
+        if urlString.prefix(7).lowercased() != "http://" && urlString.prefix(8).lowercased() != "https://" {
             self.failValidation(message: "Must begin with “http://” or “https://”")
             return
         }
 
-        guard let url = URL(string: self.urlString) else {
+        guard let url = URL(string: urlString) else {
             self.failValidation(message: "Could not be parsed")
             return
         }
