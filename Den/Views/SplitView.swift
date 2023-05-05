@@ -15,6 +15,7 @@ import SwiftUI
 struct SplitView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
@@ -42,6 +43,13 @@ struct SplitView: View {
                 contentSelection: $contentSelection,
                 searchQuery: $searchQuery
             )
+            #if !targetEnvironment(macCatalyst)
+            .refreshable {
+                if networkMonitor.isConnected, let profile = activeProfile {
+                    await refreshManager.refresh(profile: profile)
+                }
+            }
+            #endif
         } detail: {
             ContentView(
                 profile: profile,

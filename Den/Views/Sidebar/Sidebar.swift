@@ -44,17 +44,12 @@ struct Sidebar: View {
             contentSelection = .search
         }
         #if targetEnvironment(macCatalyst)
-        .background(.ultraThickMaterial)
+        .background(.thickMaterial)
         .background(.background)
         .navigationSplitViewColumnWidth(224)
         #else
         .background(GroupedBackground())
         .navigationSplitViewColumnWidth(264 * dynamicTypeSize.layoutScalingFactor)
-        .refreshable {
-            if networkMonitor.isConnected {
-                await refreshManager.refresh(profile: profile)
-            }
-        }
         #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.displayName)
