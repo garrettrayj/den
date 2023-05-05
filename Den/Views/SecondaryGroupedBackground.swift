@@ -43,7 +43,7 @@ struct SecondaryGroupedBackground: View {
                     .background(.tertiary)
             } else {
                 Rectangle()
-                    .fill(.background)
+                    .fill(Color(.secondarySystemGroupedBackground))
             }
         } else {
             if highlight {
