@@ -123,12 +123,12 @@ blockquote > :last-child {
 
 figure {
     background: -apple-system-secondary-background;
-    border-radius: 8px;
+    border-radius: 6px;
     font: -apple-system-caption1;
     font-family: inherit;
     margin: 1.25rem 0;
     overflow: hidden;
-    padding: 0.75rem;
+    padding: 8px;
 }
 
 figure img,

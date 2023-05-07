@@ -42,6 +42,7 @@ struct FeedItemExpanded: View {
                     ItemExpanded(item: item)
                 }
             }
+            .background(SecondaryGroupedBackground())
             .modifier(RoundedContainerModifier())
         }
     }

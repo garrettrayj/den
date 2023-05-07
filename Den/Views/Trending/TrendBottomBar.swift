@@ -27,11 +27,11 @@ struct TrendBottomBar: ToolbarContent {
                 trend.objectWillChange.send()
             }
         }
-        ToolbarItemGroup(placement: .bottomBar) {
-            Spacer()
+        ToolbarItem(placement: .bottomBar) { Spacer() }
+        ToolbarItem(placement: .bottomBar) {
             CommonStatus(profile: profile, unreadCount: items.unread().count)
-            Spacer()
         }
+        ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))

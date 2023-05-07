@@ -43,6 +43,7 @@ struct DeckColumn: View {
                                 ItemCompressed(item: item)
                             }
                         }
+                        .background(SecondaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
                     }
                 }

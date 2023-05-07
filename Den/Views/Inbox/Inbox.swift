@@ -23,7 +23,7 @@ struct Inbox: View {
                 items: items.visibilityFiltered(hideRead ? false : nil)
             )
             .toolbar {
-                ToolbarItemGroup(placement: .primaryAction) {
+                ToolbarItem {
                     AddFeedButton()
                 }
                 InboxBottomBar(profile: profile, hideRead: $hideRead, items: items)

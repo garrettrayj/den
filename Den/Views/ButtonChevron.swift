@@ -13,8 +13,9 @@ import SwiftUI
 struct ButtonChevron: View {
     var body: some View {
         Image(systemName: "chevron.forward")
-            .font(.callout)
+            .font(.body)
+            .fontWeight(.semibold)
             .imageScale(.small)
-            .foregroundColor(.secondary)
+            .foregroundStyle(.tertiary)
     }
 }

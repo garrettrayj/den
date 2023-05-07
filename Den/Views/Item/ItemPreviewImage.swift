@@ -35,7 +35,7 @@ struct ItemPreviewImage: View {
     }
 
     var body: some View {
-        Group {
+        ZStack {
             if item.imageAspectRatio == nil {
                 ImageDepression(padding: 8) {
                     VStack {

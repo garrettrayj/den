@@ -24,11 +24,11 @@ struct SearchBottomBar: ToolbarContent {
                 profile.objectWillChange.send()
             }
         }
-        ToolbarItemGroup(placement: .bottomBar) {
-            Spacer()
+        ToolbarItem(placement: .bottomBar) { Spacer() }
+        ToolbarItem(placement: .bottomBar) {
             SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
-            Spacer()
         }
+        ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))

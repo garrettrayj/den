@@ -30,7 +30,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            Group {
+            ZStack {
                 switch contentSelection ?? .welcome {
                 case .welcome:
                     Welcome(profile: profile, refreshing: $refreshManager.refreshing)
@@ -66,7 +66,7 @@ struct ContentView: View {
             .background(GroupedBackground())
             .disabled(refreshManager.refreshing)
             .navigationDestination(for: DetailPanel.self) { panel in
-                Group {
+                ZStack {
                     switch panel {
                     case .feed(let feed):
                         FeedView(

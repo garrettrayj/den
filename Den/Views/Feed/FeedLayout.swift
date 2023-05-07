@@ -63,6 +63,7 @@ struct FeedLayout: View {
                             ItemCompressed(item: item)
                         }
                     }
+                    .background(SecondaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                 }
                 .padding(.vertical)
@@ -98,6 +99,7 @@ struct FeedLayout: View {
                             ItemCompressed(item: item)
                         }
                     }
+                    .background(SecondaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                 }
                 .padding(.vertical)

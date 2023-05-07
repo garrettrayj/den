@@ -42,6 +42,7 @@ struct ShowcaseSection: View {
                             ItemCompressed(item: item)
                         }
                     }
+                    .background(SecondaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                 }
                 .padding(.vertical)

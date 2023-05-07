@@ -28,15 +28,15 @@ struct TrendingBottomBar: ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) { }
         }
-        ToolbarItemGroup(placement: .bottomBar) {
-            Spacer()
+        ToolbarItem(placement: .bottomBar) { Spacer() }
+        ToolbarItem(placement: .bottomBar) {
             CommonStatus(
                 profile: profile,
                 unreadCount: unreadCount,
                 unreadLabel: "with Unread"
             )
-            Spacer()
         }
+        ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: unreadCount) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)

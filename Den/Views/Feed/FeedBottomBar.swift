@@ -24,11 +24,11 @@ struct FeedBottomBar: ToolbarContent {
                 feed.objectWillChange.send()
             }
         }
-        ToolbarItemGroup(placement: .bottomBar) {
-            Spacer()
+        ToolbarItem(placement: .bottomBar) { Spacer() }
+        ToolbarItem(placement: .bottomBar) {
             FeedStatus(feed: feed, unreadCount: items.unread().count)
-            Spacer()
         }
+        ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))

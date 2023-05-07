@@ -28,7 +28,7 @@ struct ItemButtonStyle: ButtonStyle {
                     .tertiary
             )
             .frame(maxWidth: .infinity)
-            .background(SecondaryGroupedBackground(highlight: isEnabled && hovering))
+            .background(SecondaryGroupedHighlight().opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

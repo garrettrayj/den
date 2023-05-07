@@ -20,7 +20,7 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        Group {
+        ZStack {
             if item.feedData?.feed?.browserView == true {
                 Button {
                     if let url = item.link {
@@ -41,25 +41,30 @@ struct ItemActionView<Content: View>: View {
             }
         }
         .contextMenu {
-            if item.feedData?.feed?.browserView == true {
-                NavigationLink(value: DetailPanel.item(item)) {
-                    Text("View")
-                }
-            } else {
-                Button {
-                    if let url = item.link {
-                        openInBrowser(url: url)
+
+            if let link = item.link {
+                if item.feedData?.feed?.browserView == true {
+                    NavigationLink(value: DetailPanel.item(item)) {
+                        Text("View Item")
+                    }
+                } else {
+                    Button {
+                        openInBrowser(url: link)
                         Task {
                             await HistoryUtility.markItemRead(item: item)
                         }
+                    } label: {
+                        Label("Open in Browser", systemImage: "link")
                     }
-                } label: {
-                    Label("Open in Browser", systemImage: "link")
                 }
-            }
+                Divider()
 
-            if let link = item.link {
                 ShareLink(item: link)
+                Button {
+                    UIPasteboard.general.url = link
+                } label: {
+                    Label("Copy Link", systemImage: "doc.on.doc")
+                }
             }
         }
     }

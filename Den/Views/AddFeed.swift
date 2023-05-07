@@ -31,7 +31,7 @@ struct AddFeed: View {
 
     var body: some View {
         NavigationStack {
-            Group {
+            ZStack {
                 if targetPage == nil || profile == nil {
                     VStack(spacing: 24) {
                         Text("No Pages Available").font(.title2)
@@ -92,7 +92,6 @@ struct AddFeed: View {
             urlString = initialURLString
             checkTargetPage()
         }
-
     }
 
     private var submitButtonSection: some View {

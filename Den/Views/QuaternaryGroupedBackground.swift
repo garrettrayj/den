@@ -17,7 +17,7 @@ struct QuaternaryGroupedBackground: View {
         if colorScheme == .dark {
             Rectangle().fill(.quaternary)
         } else {
-            Rectangle().fill(.quaternary.opacity(0.25))
+            Rectangle().fill(.quaternary.opacity(0.3))
         }
     }
 }

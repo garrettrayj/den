@@ -63,15 +63,15 @@ struct Sidebar: View {
             ToolbarItem(placement: .bottomBar) {
                 SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
             }
-            ToolbarItemGroup(placement: .bottomBar) {
-                Spacer()
+            ToolbarItem(placement: .bottomBar) { Spacer() }
+            ToolbarItem(placement: .bottomBar) {
                 SidebarStatus(
                     profile: profile,
                     refreshing: $refreshManager.refreshing,
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                 )
-                Spacer()
             }
+            ToolbarItem(placement: .bottomBar) { Spacer() }
             ToolbarItem(placement: .bottomBar) {
                 RefreshButton(profile: profile)
                     .disabled(

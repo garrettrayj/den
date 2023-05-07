@@ -74,8 +74,7 @@ struct HistorySettingsSection: View {
                             Text("No entries")
                         }
                     }
-                    .font(.callout)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.primary)
                 }
             }
             .disabled(historyCount == 0)

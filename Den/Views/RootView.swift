@@ -26,7 +26,7 @@ struct RootView: View {
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
     var body: some View {
-        Group {
+        ZStack {
             if showCrashMessage {
                 CrashMessage()
             } else if let profile = activeProfile {

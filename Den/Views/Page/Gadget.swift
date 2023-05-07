@@ -35,12 +35,10 @@ struct Gadget: View {
                 Divider()
                 FeedUnavailable(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
                     .padding(12)
-                    .background(SecondaryGroupedBackground())
             } else if items.isEmpty {
                 Divider()
                 AllRead()
                     .padding(12)
-                    .background(SecondaryGroupedBackground())
             } else {
                 ForEach(items) { item in
                     Divider()
@@ -51,6 +49,7 @@ struct Gadget: View {
                 }
             }
         }
+        .background(SecondaryGroupedBackground())
         .modifier(RoundedContainerModifier())
     }
 }

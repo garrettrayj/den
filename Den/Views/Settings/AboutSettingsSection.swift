@@ -19,7 +19,6 @@ struct AboutSettingsSection: View {
                 Text("Version")
                 Spacer()
                 Text("\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
-                    .foregroundColor(.secondary)
             }.modifier(FormRowModifier())
 
             Button {
