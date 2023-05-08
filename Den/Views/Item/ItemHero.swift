@@ -17,7 +17,7 @@ struct ItemHero: View {
 
     let item: Item
 
-    static let baseSize = CGSize(width: 640, height: 360)
+    static let baseSize = CGSize(width: 700, height: 400)
 
     private var scaledSize: CGSize {
         return CGSize(
@@ -59,7 +59,6 @@ struct ItemHero: View {
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
-                .scaledToFit()
                 .modifier(ImageBorderModifier(cornerRadius: 4))
             }
             .aspectRatio(16/9, contentMode: .fill)

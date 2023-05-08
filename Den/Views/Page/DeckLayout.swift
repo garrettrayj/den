@@ -16,7 +16,7 @@ struct DeckLayout: View {
 
     let hideRead: Bool
 
-    let items: [Item]
+    let items: FetchedResults<Item>
 
     var body: some View {
         GeometryReader { geometry in
@@ -28,7 +28,7 @@ struct DeckLayout: View {
                             profile: profile,
                             isFirst: page.feedsArray.first == feed,
                             isLast: page.feedsArray.last == feed,
-                            items: items.forFeed(feed: feed),
+                            items: items.forFeed(feed: feed).visibilityFiltered(hideRead ? false : nil),
                             pageGeometry: geometry
                         )
                     }

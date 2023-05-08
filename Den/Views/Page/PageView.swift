@@ -30,28 +30,28 @@ struct PageView: View {
                             page: page,
                             profile: profile,
                             hideRead: hideRead,
-                            items: items.visibilityFiltered(hideRead ? false : nil)
+                            items: items
                         )
                     case .blend:
                         BlendLayout(
                             page: page,
                             profile: profile,
                             hideRead: hideRead,
-                            items: items.visibilityFiltered(hideRead ? false : nil)
+                            items: items
                         )
                     case .showcase:
                         ShowcaseLayout(
                             page: page,
                             profile: profile,
                             hideRead: hideRead,
-                            items: items.visibilityFiltered(hideRead ? false : nil)
+                            items: items
                         )
                     case .gadgets:
                         GadgetLayout(
                             page: page,
                             profile: profile,
                             hideRead: hideRead,
-                            items: items.visibilityFiltered(hideRead ? false : nil)
+                            items: items
                         )
                     }
                 }

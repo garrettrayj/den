@@ -16,7 +16,7 @@ struct GadgetLayout: View {
 
     let hideRead: Bool
 
-    let items: [Item]
+    let items: FetchedResults<Item>
 
     var body: some View {
         GeometryReader { geometry in
@@ -25,7 +25,7 @@ struct GadgetLayout: View {
                     Gadget(
                         feed: feed,
                         profile: profile,
-                        items: items.forFeed(feed: feed)
+                        items: items.forFeed(feed: feed).visibilityFiltered(hideRead ? false : nil)
                     )
                 }.modifier(MainBoardModifier())
             }.id("GadgetLayoutSroll_\(page.id?.uuidString ?? "NoID")")

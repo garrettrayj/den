@@ -27,9 +27,9 @@ final class RefreshedDateStorage: ObservableObject {
         return nil
     }
 
-    func setRefreshed(_ profile: Profile, date: Date) {
+    func setRefreshed(_ profile: Profile, date: Date?) {
         if let profileKey = getProfileKey(profile) {
-            UserDefaults.standard.set(date.timeIntervalSince1970, forKey: profileKey)
+            UserDefaults.standard.set(date?.timeIntervalSince1970 ?? nil, forKey: profileKey)
         }
     }
 }

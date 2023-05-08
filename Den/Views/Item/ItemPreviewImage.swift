@@ -45,6 +45,7 @@ struct ItemPreviewImage: View {
                             context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                         )
                             .resizable()
+                            .purgeable(true)
                             .placeholder { ImageErrorPlaceholder() }
                             .indicator(.activity)
                             .grayscale(isEnabled ? 0 : 1)
@@ -63,6 +64,7 @@ struct ItemPreviewImage: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
+                        .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
                         .indicator(.activity)
                         .grayscale(isEnabled ? 0 : 1)
@@ -81,6 +83,7 @@ struct ItemPreviewImage: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
+                        .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
                         .indicator(.activity)
                         .grayscale(isEnabled ? 0 : 1)

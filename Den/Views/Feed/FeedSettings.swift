@@ -27,8 +27,25 @@ struct FeedSettings: View {
                 }
                 .modifier(ListRowModifier())
 
+                Section {
+                    Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
+                        Text("Item Limit: \(feed.wrappedItemLimit)")
+                            .font(.callout)
+                            .modifier(FormRowModifier())
+                    }
+                    .onChange(of: feed.wrappedItemLimit, perform: { _ in
+                        Haptics.lightImpactFeedbackGenerator.impactOccurred()
+                    })
+                    .modifier(ListRowModifier())
+                } header: {
+                    Text("Latest")
+                } footer: {
+                    if feed.changedValues().keys.contains("itemLimit") {
+                        Text("Changes will be applied on next refresh.")
+                    }
+                }
+
                 PreviewsSection(feed: feed)
-                ViewOptionsSection(feed: feed)
                 MoveFeedSection(feed: feed)
                 DeleteFeedButton(feed: feed)
             }

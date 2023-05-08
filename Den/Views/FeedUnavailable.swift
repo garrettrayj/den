@@ -33,11 +33,11 @@ struct FeedUnavailable: View {
 
     var titleAndDescripition: (String, String?) {
         if feedData == nil {
-            return ("No Data", "Refresh to get items.")
+            return ("No Data", "Refresh to fetch content.")
         } else if let error = feedData?.error {
             return ("Refresh Error", error)
         } else if feedData!.itemsArray.isEmpty {
-            return ("Feed Empty", "No items.")
+            return ("Feed Empty", "No items to display.")
         } else {
             return ("Status Unavailable", nil)
         }

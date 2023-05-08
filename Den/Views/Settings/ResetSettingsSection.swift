@@ -123,6 +123,8 @@ struct ResetSettingsSection: View {
                 }
             }
         }
+
+        RefreshedDateStorage.shared.setRefreshed(profile, date: nil)
     }
 
     private func resetEverything() async {

@@ -137,7 +137,7 @@ figure iframe,
 figure object,
 figure video {
     border-radius: 4px;
-    margin: 0.75rem auto;
+    margin: 0.5rem auto;
 }
 
 figure > :first-child,

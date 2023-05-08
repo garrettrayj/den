@@ -16,17 +16,20 @@ struct BlendLayout: View {
 
     let hideRead: Bool
 
-    let items: [Item]
+    let items: FetchedResults<Item>
 
     var body: some View {
-        if items.isEmpty && hideRead {
-            SplashNote(title: "All Read", note: "Refresh to check for new items.")
-        } else if items.isEmpty && !hideRead {
-            SplashNote(title: "No Data", note: "Refresh to get items.")
+        if items.isEmpty {
+            SplashNote(title: "No Items")
+        } else if items.unread().isEmpty && hideRead {
+            AllReadSplashNote()
         } else {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
-                    BoardView(geometry: geometry, list: items) { item in
+                    BoardView(
+                        geometry: geometry,
+                        list: items.visibilityFiltered(hideRead ? false : nil)
+                    ) { item in
                         if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
                             FeedItemExpanded(item: item, profile: profile)
                         } else {

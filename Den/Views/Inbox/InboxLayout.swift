@@ -21,6 +21,8 @@ struct InboxLayout: View {
         if profile.feedsArray.isEmpty {
             NoFeeds()
         } else if items.isEmpty {
+            SplashNote(title: "No Items")
+        } else if items.unread().isEmpty && hideRead {
             AllReadSplashNote()
         } else {
             GeometryReader { geometry in

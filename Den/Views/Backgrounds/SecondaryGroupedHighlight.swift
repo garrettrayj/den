@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct SecondaryGroupedHighlight: View {
-    @Environment(\.colorScheme) private var colorScheme
-
     var body: some View {
-        Rectangle().fill(.thinMaterial).background(.quaternary)
+        Rectangle().fill(.ultraThinMaterial).background(.quaternary)
     }
 }

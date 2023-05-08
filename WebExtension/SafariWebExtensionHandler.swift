@@ -1,6 +1,6 @@
 //
 //  SafariWebExtensionHandler.swift
-//  FeedDetector
+//  WebExtension
 //
 //  Created by Garrett Johnson on 5/15/22.
 //  Copyright © 2022 Garrett Johnson

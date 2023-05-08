@@ -11,18 +11,12 @@
 import SwiftUI
 
 struct PreviewsSection: View {
+    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
+
     @ObservedObject var feed: Feed
 
     var body: some View {
         Section {
-            Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                Text("Limit: \(feed.wrappedItemLimit)").modifier(FormRowModifier())
-            }
-            .onChange(of: feed.wrappedItemLimit, perform: { _ in
-                Haptics.lightImpactFeedbackGenerator.impactOccurred()
-            })
-            .modifier(ListRowModifier())
-
             #if targetEnvironment(macCatalyst)
             HStack {
                 Text("Preferred Style").modifier(FormRowModifier())
@@ -64,8 +58,34 @@ struct PreviewsSection: View {
                 .modifier(ListRowModifier())
                 #endif
             }
+
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                Text("Open in Browser").modifier(FormRowModifier())
+                Spacer()
+                Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
+            }
+            .modifier(ListRowModifier())
+            #else
+            Toggle(isOn: $feed.browserView) {
+                Text("Open in Browser").modifier(FormRowModifier())
+            }
+            .modifier(ListRowModifier())
+            if feed.browserView {
+                Toggle(isOn: $feed.readerMode) {
+                    Text("Enter Reader Mode").modifier(FormRowModifier())
+                }
+                .modifier(ListRowModifier())
+            }
+            #endif
         } header: {
             Text("Previews")
+        } footer: {
+            #if !targetEnvironment(macCatalyst)
+            if useInbuiltBrowser == false {
+                Text("System web browser in use. \"Enter Reader Mode\" will be ignored.")
+            }
+            #endif
         }
     }
 }

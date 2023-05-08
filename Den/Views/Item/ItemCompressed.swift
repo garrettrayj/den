@@ -24,6 +24,7 @@ struct ItemCompressed: View {
                 ItemThumbnailImage(item: item)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
         .fixedSize(horizontal: false, vertical: true)
     }

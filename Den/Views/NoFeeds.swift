@@ -24,8 +24,8 @@ struct NoFeeds: View {
             }
             .buttonStyle(.bordered)
             Text("""
-            Or drag and drop URLs, or open syndication links, \
-            or use the Feed Detector Safari extension.
+            Or drag and drop a feed URL, or open a syndication link, \
+            or use the web extension to discover feeds on websites.
             """)
             .font(.body)
             .imageScale(.small)
