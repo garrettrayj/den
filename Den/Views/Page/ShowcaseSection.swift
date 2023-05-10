@@ -35,11 +35,11 @@ struct ShowcaseSection: View {
                     .modifier(SafeAreaModifier(geometry: geometry))
             } else {
                 BoardView(geometry: geometry, list: items) { item in
-                    ItemActionView(item: item, profile: profile) {
+                    ItemActionView(item: item, feed: feed, profile: profile) {
                         if feed.wrappedPreviewStyle.rawValue == 1 {
-                            ItemExpanded(item: item)
+                            ItemExpanded(item: item, feed: feed)
                         } else {
-                            ItemCompressed(item: item)
+                            ItemCompressed(item: item, feed: feed)
                         }
                     }
                     .background(SecondaryGroupedBackground())

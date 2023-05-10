@@ -19,83 +19,87 @@ struct PageView: View {
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
 
     var body: some View {
-        WithItems(scopeObject: page) { items in
-            ZStack {
-                if page.feedsArray.isEmpty {
-                    NoFeeds(page: page)
-                } else {
-                    switch pageLayout {
-                    case .deck:
-                        DeckLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
-                    case .blend:
-                        BlendLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
-                    case .showcase:
-                        ShowcaseLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
-                    case .gadgets:
-                        GadgetLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
+        if page.managedObjectContext != nil {
+            WithItems(scopeObject: page) { items in
+                Group {
+                    if page.feedsArray.isEmpty {
+                        NoFeeds(page: page)
+                    } else {
+                        switch pageLayout {
+                        case .deck:
+                            DeckLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        case .blend:
+                            BlendLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        case .showcase:
+                            ShowcaseLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        case .gadgets:
+                            GadgetLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        }
                     }
                 }
-            }
-            .modifier(URLDropTargetModifier(page: page))
-            .toolbar {
-                #if targetEnvironment(macCatalyst)
-                ToolbarItem {
-                    AddFeedButton(page: page)
-                }
-                ToolbarItem {
-                    NavigationLink(value: DetailPanel.pageSettings(page)) {
-                        Label("Page Settings", systemImage: "wrench")
-                    }
-                    .buttonStyle(ToolbarButtonStyle())
-                    .accessibilityIdentifier("page-settings-button")
-                }
-                ToolbarItem(placement: .secondaryAction) {
-                    PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
-                }
-                #else
-                ToolbarItem {
-                    Menu {
-                        PageLayoutPicker(pageLayout: $pageLayout)
+                .modifier(URLDropTargetModifier(page: page))
+                .toolbar {
+                    #if targetEnvironment(macCatalyst)
+                    ToolbarItem {
                         AddFeedButton(page: page)
+                    }
+                    ToolbarItem {
                         NavigationLink(value: DetailPanel.pageSettings(page)) {
                             Label("Page Settings", systemImage: "wrench")
                         }
+                        .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("page-settings-button")
-                    } label: {
-                        Label("Page Menu", systemImage: "ellipsis.circle")
                     }
-                    .accessibilityIdentifier("page-menu")
-                }
-                #endif
+                    ToolbarItem(placement: .secondaryAction) {
+                        PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
+                    }
+                    #else
+                    ToolbarItem {
+                        Menu {
+                            PageLayoutPicker(pageLayout: $pageLayout)
+                            AddFeedButton(page: page)
+                            NavigationLink(value: DetailPanel.pageSettings(page)) {
+                                Label("Page Settings", systemImage: "wrench")
+                            }
+                            .accessibilityIdentifier("page-settings-button")
+                        } label: {
+                            Label("Page Menu", systemImage: "ellipsis.circle")
+                        }
+                        .accessibilityIdentifier("page-menu")
+                    }
+                    #endif
 
-                PageBottomBar(
-                    page: page,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items
-                )
+                    PageBottomBar(
+                        page: page,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        items: items
+                    )
+                }
+                .navigationTitle(page.displayName)
             }
-            .navigationTitle(page.displayName)
+        } else {
+            SplashNote(title: "Page Deleted")
         }
     }
 

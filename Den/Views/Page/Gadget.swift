@@ -42,8 +42,8 @@ struct Gadget: View {
             } else {
                 ForEach(items) { item in
                     Divider()
-                    ItemActionView(item: item, profile: profile) {
-                        ItemCompressed(item: item)
+                    ItemActionView(item: item, feed: feed, profile: profile) {
+                        ItemCompressed(item: item, feed: feed)
                     }
                     .accessibilityIdentifier("gadget-item-button")
                 }

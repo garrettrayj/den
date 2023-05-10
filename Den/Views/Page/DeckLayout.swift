@@ -28,7 +28,7 @@ struct DeckLayout: View {
                             profile: profile,
                             isFirst: page.feedsArray.first == feed,
                             isLast: page.feedsArray.last == feed,
-                            items: items.forFeed(feed: feed).visibilityFiltered(hideRead ? false : nil),
+                            items: items.visibilityFiltered(hideRead ? false : nil).forFeed(feed: feed),
                             pageGeometry: geometry
                         )
                     }

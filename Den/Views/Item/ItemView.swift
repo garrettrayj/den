@@ -17,6 +17,7 @@ struct ItemView: View {
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var item: Item
+    @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
@@ -50,7 +51,7 @@ struct ItemView: View {
                                     SafariUtility.openLink(
                                         url: url,
                                         controlTintColor: profile.tintUIColor ?? .tintColor,
-                                        readerMode: item.feedData?.feed?.readerMode ?? false
+                                        readerMode: feed.readerMode
                                     )
                                 } else {
                                     openURL(url)
@@ -83,7 +84,7 @@ struct ItemView: View {
                             .textSelection(.enabled)
                             .fixedSize(horizontal: false, vertical: true)
 
-                        ItemDateAuthor(item: item, dateStyle: .long, timeStyle: .shortened)
+                        ItemDateAuthor(item: item, feed: feed, dateStyle: .long, timeStyle: .shortened)
 
                         if
                             item.image != nil &&

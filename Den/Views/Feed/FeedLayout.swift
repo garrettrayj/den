@@ -56,11 +56,11 @@ struct FeedLayout: View {
                     list: items.previews(),
                     isLazy: false
                 ) { item in
-                    ItemActionView(item: item, profile: profile) {
+                    ItemActionView(item: item, feed: feed, profile: profile) {
                         if feed.wrappedPreviewStyle == .expanded {
-                            ItemExpanded(item: item)
+                            ItemExpanded(item: item, feed: feed)
                         } else {
-                            ItemCompressed(item: item)
+                            ItemCompressed(item: item, feed: feed)
                         }
                     }
                     .background(SecondaryGroupedBackground())
@@ -92,11 +92,11 @@ struct FeedLayout: View {
                     list: items.extras(),
                     isLazy: false
                 ) { item in
-                    ItemActionView(item: item, profile: profile) {
+                    ItemActionView(item: item, feed: feed, profile: profile) {
                         if feed.wrappedPreviewStyle == .expanded {
-                            ItemExpanded(item: item)
+                            ItemExpanded(item: item, feed: feed)
                         } else {
-                            ItemCompressed(item: item)
+                            ItemCompressed(item: item, feed: feed)
                         }
                     }
                     .background(SecondaryGroupedBackground())

@@ -12,38 +12,37 @@ import SwiftUI
 
 struct FeedItemCompressed: View {
     @ObservedObject var item: Item
+    @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
     var showExtraTag: Bool = false
 
     var body: some View {
-        if let feed = item.feedData?.feed {
-            VStack(alignment: .leading, spacing: 0) {
-                NavigationLink(value: DetailPanel.feed(feed)) {
-                    HStack {
-                        FeedTitleLabel(
-                            title: item.feedData?.feed?.wrappedTitle ?? "Untitled",
-                            favicon: item.feedData?.favicon,
-                            read: item.read
-                        )
-                        Spacer()
-                        if showExtraTag && item.extra {
-                            Text("Extra").font(.caption).foregroundColor(.secondary)
-                        }
-                        ButtonChevron()
+        VStack(alignment: .leading, spacing: 0) {
+            NavigationLink(value: DetailPanel.feed(feed)) {
+                HStack {
+                    FeedTitleLabel(
+                        title: feed.wrappedTitle,
+                        favicon: item.feedData?.favicon,
+                        read: item.read
+                    )
+                    Spacer()
+                    if showExtraTag && item.extra {
+                        Text("Extra").font(.caption).foregroundColor(.secondary)
                     }
-                }
-                .buttonStyle(FeedTitleButtonStyle())
-                .accessibilityIdentifier("item-feed-button")
-
-                Divider()
-
-                ItemActionView(item: item, profile: profile) {
-                    ItemCompressed(item: item)
+                    ButtonChevron()
                 }
             }
-            .background(SecondaryGroupedBackground())
-            .modifier(RoundedContainerModifier())
+            .buttonStyle(FeedTitleButtonStyle())
+            .accessibilityIdentifier("item-feed-button")
+
+            Divider()
+
+            ItemActionView(item: item, feed: feed, profile: profile) {
+                ItemCompressed(item: item, feed: feed)
+            }
         }
+        .background(SecondaryGroupedBackground())
+        .modifier(RoundedContainerModifier())
     }
 }

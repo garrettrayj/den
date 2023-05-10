@@ -15,13 +15,14 @@ struct ItemActionView<Content: View>: View {
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var item: Item
+    @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
     @ViewBuilder var content: Content
 
     var body: some View {
-        ZStack {
-            if item.feedData?.feed?.browserView == true {
+        Group {
+            if feed.browserView == true {
                 Button {
                     if let url = item.link {
                         openInBrowser(url: url)
@@ -41,9 +42,8 @@ struct ItemActionView<Content: View>: View {
             }
         }
         .contextMenu {
-
             if let link = item.link {
-                if item.feedData?.feed?.browserView == true {
+                if feed.browserView == true {
                     NavigationLink(value: DetailPanel.item(item)) {
                         Text("View Item")
                     }
@@ -74,7 +74,7 @@ struct ItemActionView<Content: View>: View {
             SafariUtility.openLink(
                 url: url,
                 controlTintColor: profile.tintUIColor ?? .tintColor,
-                readerMode: item.feedData?.feed?.readerMode ?? false
+                readerMode: feed.readerMode
             )
         } else {
             openURL(url)

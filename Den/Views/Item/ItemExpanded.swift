@@ -12,18 +12,19 @@ import SwiftUI
 
 struct ItemExpanded: View {
     @ObservedObject var item: Item
+    @ObservedObject var feed: Feed
 
     var showTeaser: Bool {
-        item.teaser != nil && item.teaser != "" && item.feedData?.feed?.hideTeasers != true
+        item.teaser != nil && item.teaser != "" && feed.hideTeasers != true
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             ItemTitle(item: item)
 
-            ItemDateAuthor(item: item)
+            ItemDateAuthor(item: item, feed: feed)
 
-            if item.feedData?.feed?.hideImages != true && item.image != nil {
+            if feed.hideImages != true && item.image != nil {
                 ItemPreviewImage(item: item).padding(.top, 4)
             }
 
@@ -37,6 +38,5 @@ struct ItemExpanded: View {
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }

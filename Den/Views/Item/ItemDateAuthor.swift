@@ -11,7 +11,8 @@
 import SwiftUI
 
 struct ItemDateAuthor: View {
-    let item: Item
+    @ObservedObject var item: Item
+    @ObservedObject var feed: Feed
 
     var dateStyle: Date.FormatStyle.DateStyle = .abbreviated
     var timeStyle: Date.FormatStyle.TimeStyle = .shortened
@@ -39,7 +40,7 @@ struct ItemDateAuthor: View {
     }
 
     private var linkDateLine: some View {
-        if item.feedData?.feed?.browserView == true {
+        if feed.browserView == true {
             return Text("\(formattedDateString) \(Image(systemName: "link"))")
         }
 

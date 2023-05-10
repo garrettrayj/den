@@ -20,7 +20,7 @@ struct Inbox: View {
             InboxLayout(
                 profile: profile,
                 hideRead: hideRead,
-                items: items.visibilityFiltered(hideRead ? false : nil)
+                items: items
             )
             .toolbar {
                 ToolbarItem {

@@ -36,11 +36,11 @@ struct DeckColumn: View {
                         .modifier(RoundedContainerModifier())
                 } else {
                     ForEach(items) { item in
-                        ItemActionView(item: item, profile: profile) {
+                        ItemActionView(item: item, feed: feed, profile: profile) {
                             if feed.wrappedPreviewStyle == .expanded {
-                                ItemExpanded(item: item)
+                                ItemExpanded(item: item, feed: feed)
                             } else {
-                                ItemCompressed(item: item)
+                                ItemCompressed(item: item, feed: feed)
                             }
                         }
                         .background(SecondaryGroupedBackground())

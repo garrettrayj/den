@@ -30,10 +30,12 @@ struct BlendLayout: View {
                         geometry: geometry,
                         list: items.visibilityFiltered(hideRead ? false : nil)
                     ) { item in
-                        if item.feedData?.feed?.wrappedPreviewStyle == .expanded {
-                            FeedItemExpanded(item: item, profile: profile)
-                        } else {
-                            FeedItemCompressed(item: item, profile: profile)
+                        if let feed = item.feedData?.feed {
+                            if feed.wrappedPreviewStyle == .expanded {
+                                FeedItemExpanded(item: item, feed: feed, profile: profile)
+                            } else {
+                                FeedItemCompressed(item: item, feed: feed, profile: profile)
+                            }
                         }
                     }.modifier(MainBoardModifier())
                 }

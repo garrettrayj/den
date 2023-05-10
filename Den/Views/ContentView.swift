@@ -75,7 +75,9 @@ struct ContentView: View {
                             hideRead: $hideRead
                         )
                     case .item(let item):
-                        ItemView(item: item, profile: profile)
+                        if let feed = item.feedData?.feed {
+                            ItemView(item: item, feed: feed, profile: profile)
+                        }
                     case .trend(let trend):
                         TrendView(trend: trend, profile: profile, hideRead: $hideRead)
                     case .pageSettings(let page):

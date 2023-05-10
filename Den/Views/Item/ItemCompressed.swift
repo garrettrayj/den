@@ -12,20 +12,20 @@ import SwiftUI
 
 struct ItemCompressed: View {
     @ObservedObject var item: Item
+    @ObservedObject var feed: Feed
 
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
                 ItemTitle(item: item)
-                ItemDateAuthor(item: item)
+                ItemDateAuthor(item: item, feed: feed)
             }
-            if item.feedData?.feed?.hideImages != true {
+            if feed.hideImages != true {
                 Spacer()
                 ItemThumbnailImage(item: item)
             }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
-        .fixedSize(horizontal: false, vertical: true)
     }
 }
