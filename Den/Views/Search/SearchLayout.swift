@@ -14,7 +14,7 @@ import SwiftUI
 struct SearchLayout: View {
     @ObservedObject var profile: Profile
 
-    let hideRead: Bool
+    @Binding var hideRead: Bool
     let query: String
     let items: [Item]
 

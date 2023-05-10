@@ -13,7 +13,8 @@ import SwiftUI
 
 struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
     let content: (FetchedResults<Item>) -> Content
-    let scopeObject: ScopeObject
+
+    @ObservedObject var scopeObject: ScopeObject
 
     @FetchRequest(sortDescriptors: [])
     private var items: FetchedResults<Item>
@@ -30,8 +31,8 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
         searchQuery: String = "",
         @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
     ) {
-        self.scopeObject = scopeObject
         self.content = content
+        self.scopeObject = scopeObject
 
         var predicates: [NSPredicate] = []
 

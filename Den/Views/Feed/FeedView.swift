@@ -30,7 +30,7 @@ struct FeedView: View {
                 FeedLayout(
                     feed: feed,
                     profile: profile,
-                    hideRead: hideRead,
+                    hideRead: $hideRead,
                     items: items.visibilityFiltered(hideRead ? false : nil)
                 )
                 .background(GroupedBackground())

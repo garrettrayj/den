@@ -18,9 +18,6 @@ struct CommonStatus: View {
 
     @ObservedObject var profile: Profile
 
-    @State private var refreshedDate: Date?
-    @State private var refreshedRelativeString: String?
-
     let unreadCount: Int
     var unreadLabel = "Unread"
 

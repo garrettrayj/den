@@ -23,8 +23,7 @@ struct FeedItemExpanded: View {
                 HStack {
                     FeedTitleLabel(
                         title: feed.wrappedTitle,
-                        favicon: item.feedData?.favicon,
-                        read: item.read
+                        favicon: item.feedData?.favicon
                     )
                     Spacer()
                     if showExtraTag && item.extra {

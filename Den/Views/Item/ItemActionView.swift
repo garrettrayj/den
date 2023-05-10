@@ -21,7 +21,7 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        Group {
+        ZStack {
             if feed.browserView == true {
                 Button {
                     if let url = item.link {

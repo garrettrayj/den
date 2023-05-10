@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ItemTitle: View {
-    let item: Item
+    @ObservedObject var item: Item
 
     var body: some View {
         Text(item.wrappedTitle)

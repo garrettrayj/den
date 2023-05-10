@@ -14,8 +14,6 @@ struct FeedTitleLabel: View {
     let title: String
     let favicon: URL?
 
-    var read: Bool?
-
     var body: some View {
         Label {
             Text(title).lineLimit(1)

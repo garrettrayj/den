@@ -32,7 +32,7 @@ struct Search: View {
             ) { items in
                 SearchLayout(
                     profile: profile,
-                    hideRead: hideRead,
+                    hideRead: $hideRead,
                     query: query,
                     items: items.visibilityFiltered(hideRead ? false : nil)
                 )

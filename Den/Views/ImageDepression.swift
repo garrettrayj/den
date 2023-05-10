@@ -14,8 +14,7 @@ struct ImageDepression<Content: View>: View {
     var padding: CGFloat = 8
     var cornerRadius: CGFloat = 6
 
-    @ViewBuilder
-    var content: () -> Content
+    let content: () -> Content
 
     var body: some View {
         VStack(spacing: 0) {

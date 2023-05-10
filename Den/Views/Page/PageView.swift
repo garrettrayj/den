@@ -21,7 +21,7 @@ struct PageView: View {
     var body: some View {
         if page.managedObjectContext != nil {
             WithItems(scopeObject: page) { items in
-                Group {
+                ZStack {
                     if page.feedsArray.isEmpty {
                         NoFeeds(page: page)
                     } else {
