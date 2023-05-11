@@ -39,7 +39,7 @@ struct Welcome: View {
             if profile.pagesArray.isEmpty {
                 SplashNote(title: profile.displayName, note: "Welcome! See the sidebar to begin.")
             } else {
-                SplashNote(title: profile.displayName, note: "Last refresh date unavailable.")
+                SplashNote(title: profile.displayName)
             }
         }
     }

@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6860690D2831501B000068DE"
-               BuildableName = "Web Extension.appex"
+               BuildableName = "Den Web Extension.appex"
                BlueprintName = "WebExtension"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
@@ -50,7 +50,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
-            BuildableName = "Web Extension.appex"
+            BuildableName = "Den Web Extension.appex"
             BlueprintName = "WebExtension"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
-            BuildableName = "Web Extension.appex"
+            BuildableName = "Den Web Extension.appex"
             BlueprintName = "WebExtension"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>

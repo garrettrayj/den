@@ -26,7 +26,7 @@ struct RootView: View {
     @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
     var body: some View {
-        ZStack {
+        Group {
             if showCrashMessage {
                 CrashMessage()
             } else if let profile = activeProfile {
@@ -51,11 +51,11 @@ struct RootView: View {
                     // While this isn't an ideal introduction to the app, it resolves a glaring bug.
                     // Trying to automatically create profiles has always led to duplicates historically.
                     if profileLoadAttempts > 3 {
-                        Text("Profile Not Found")
+                        Text("No Profiles Found")
                         Button {
                             activateProfile(ProfileUtility.createDefaultProfile(context: viewContext))
                         } label: {
-                            Text("Create New Profile")
+                            Text("Create a New Profile")
                         }
                         .buttonStyle(AccentButtonStyle())
                         .accessibilityIdentifier("create-profile-button")
@@ -64,7 +64,7 @@ struct RootView: View {
                         Please wait a minute.
                         """)
                         .multilineTextAlignment(.center)
-                        .font(.caption)
+                        .font(.footnote)
                     } else {
                         Text("Loading…").foregroundColor(.secondary).onAppear { loadProfile() }
                     }

@@ -31,7 +31,10 @@ struct FeedLayout: View {
                         FeedUnavailable(feedData: feed.feedData, splashNote: true)
                     } else {
                         latestSection(geometry: geometry)
-                        moreSection(geometry: geometry)
+
+                        if !items.extras().isEmpty {
+                            moreSection(geometry: geometry)
+                        }
                     }
                     Divider()
                     metaSection.modifier(SafeAreaModifier(geometry: geometry))
