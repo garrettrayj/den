@@ -35,7 +35,7 @@ struct ItemActionView<Content: View>: View {
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
             } else {
-                NavigationLink(value: DetailPanel.item(item)) {
+                NavigationLink(value: SubDetailPanel.item(item)) {
                     content
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
@@ -44,7 +44,7 @@ struct ItemActionView<Content: View>: View {
         .contextMenu {
             if let link = item.link {
                 if feed.browserView == true {
-                    NavigationLink(value: DetailPanel.item(item)) {
+                    NavigationLink(value: SubDetailPanel.item(item)) {
                         Text("View Item")
                     }
                 } else {

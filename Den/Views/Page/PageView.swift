@@ -64,7 +64,7 @@ struct PageView: View {
                         AddFeedButton(page: page)
                     }
                     ToolbarItem {
-                        NavigationLink(value: DetailPanel.pageSettings(page)) {
+                        NavigationLink(value: SubDetailPanel.pageSettings(page)) {
                             Label("Page Settings", systemImage: "wrench")
                         }
                         .buttonStyle(ToolbarButtonStyle())
@@ -78,7 +78,7 @@ struct PageView: View {
                         Menu {
                             PageLayoutPicker(pageLayout: $pageLayout)
                             AddFeedButton(page: page)
-                            NavigationLink(value: DetailPanel.pageSettings(page)) {
+                            NavigationLink(value: SubDetailPanel.pageSettings(page)) {
                                 Label("Page Settings", systemImage: "wrench")
                             }
                             .accessibilityIdentifier("page-settings-button")

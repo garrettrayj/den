@@ -19,7 +19,7 @@ enum ContentPanel: Hashable {
     case settings
 }
 
-enum DetailPanel: Hashable {
+enum SubDetailPanel: Hashable {
     case feed(Feed)
     case item(Item)
     case trend(Trend)

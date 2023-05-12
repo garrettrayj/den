@@ -36,7 +36,7 @@ struct FeedView: View {
                 .background(GroupedBackground())
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
-                        NavigationLink(value: DetailPanel.feedSettings(feed)) {
+                        NavigationLink(value: SubDetailPanel.feedSettings(feed)) {
                             Label("Feed Settings", systemImage: "wrench")
                         }
                         .buttonStyle(ToolbarButtonStyle())

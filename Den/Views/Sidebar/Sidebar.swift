@@ -59,19 +59,15 @@ struct Sidebar: View {
                     .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
                     .accessibilityIdentifier("edit-page-list-button")
             }
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .bottomBar) {
                 SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
-            }
-            ToolbarItem(placement: .bottomBar) { Spacer() }
-            ToolbarItem(placement: .bottomBar) {
+                Spacer()
                 SidebarStatus(
                     profile: profile,
                     refreshing: $refreshManager.refreshing,
                     progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                 )
-            }
-            ToolbarItem(placement: .bottomBar) { Spacer() }
-            ToolbarItem(placement: .bottomBar) {
+                Spacer()
                 RefreshButton(profile: profile)
                     .disabled(
                         refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty

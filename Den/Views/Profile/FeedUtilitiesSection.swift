@@ -15,19 +15,19 @@ struct FeedUtilitiesSection: View {
 
     var body: some View {
         Section(header: Text("Feeds")) {
-            NavigationLink(value: DetailPanel.importFeeds(profile)) {
+            NavigationLink(value: SubDetailPanel.importFeeds(profile)) {
                 Text("Import")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
-            NavigationLink(value: DetailPanel.exportFeeds(profile)) {
+            NavigationLink(value: SubDetailPanel.exportFeeds(profile)) {
                 Text("Export")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
-            NavigationLink(value: DetailPanel.security(profile)) {
+            NavigationLink(value: SubDetailPanel.security(profile)) {
                 Text("Security")
             }
             .modifier(FormRowModifier())

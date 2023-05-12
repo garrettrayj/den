@@ -19,7 +19,7 @@ struct FeedItemCompressed: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            NavigationLink(value: DetailPanel.feed(feed)) {
+            NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabel(
                         title: feed.wrappedTitle,

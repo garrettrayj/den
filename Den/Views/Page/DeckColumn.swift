@@ -68,7 +68,7 @@ struct DeckColumn: View {
     }
 
     private var header: some View {
-        NavigationLink(value: DetailPanel.feed(feed)) {
+        NavigationLink(value: SubDetailPanel.feed(feed)) {
             HStack {
                 FeedTitleLabel(title: feed.wrappedTitle, favicon: feed.feedData?.favicon)
                 Spacer()

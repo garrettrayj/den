@@ -66,7 +66,7 @@ struct ContentView: View {
             .background(GroupedBackground())
             .tint(profile.tintColor)
             .disabled(refreshManager.refreshing)
-            .navigationDestination(for: DetailPanel.self) { panel in
+            .navigationDestination(for: SubDetailPanel.self) { panel in
                 ZStack {
                     switch panel {
                     case .feed(let feed):

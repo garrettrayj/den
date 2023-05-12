@@ -36,8 +36,8 @@ struct ItemView: View {
                 .background(.background, ignoresSafeAreaEdges: .all)
                 #endif
                 .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        if let link = item.link {
+                    if let link = item.link {
+                        ToolbarItem(placement: .primaryAction) {
                             ShareLink(item: link).buttonStyle(ToolbarButtonStyle())
                         }
                     }

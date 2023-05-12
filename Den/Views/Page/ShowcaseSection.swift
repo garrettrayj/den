@@ -49,7 +49,7 @@ struct ShowcaseSection: View {
                 .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {
-            NavigationLink(value: DetailPanel.feed(feed)) {
+            NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabel(
                         title: feed.wrappedTitle,
