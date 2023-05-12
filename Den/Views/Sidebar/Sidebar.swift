@@ -60,18 +60,20 @@ struct Sidebar: View {
                     .accessibilityIdentifier("edit-page-list-button")
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
-                Spacer()
-                SidebarStatus(
-                    profile: profile,
-                    refreshing: $refreshManager.refreshing,
-                    progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
-                )
-                Spacer()
-                RefreshButton(profile: profile)
-                    .disabled(
-                        refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                HStack {
+                    SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
+                    Spacer()
+                    SidebarStatus(
+                        profile: profile,
+                        refreshing: $refreshManager.refreshing,
+                        progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                     )
+                    Spacer()
+                    RefreshButton(profile: profile)
+                        .disabled(
+                            refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                        )
+                }
             }
         }
     }
