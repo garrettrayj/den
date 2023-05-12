@@ -17,7 +17,7 @@ struct PageNav: View {
     @ObservedObject var page: Page
 
     var body: some View {
-        NavigationLink(value: ContentPanel.page(page)) {
+        NavigationLink(value: DetailPanel.page(page)) {
             Label {
                 if editMode?.wrappedValue.isEditing == true {
                     Text(page.displayName).lineLimit(1)

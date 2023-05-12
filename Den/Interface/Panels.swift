@@ -10,7 +10,7 @@
 
 import Foundation
 
-enum ContentPanel: Hashable {
+enum DetailPanel: Hashable {
     case welcome
     case search
     case inbox

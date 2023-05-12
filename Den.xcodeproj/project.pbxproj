@@ -45,7 +45,7 @@
 		6825920329D82BD500E5EF3B /* TrendAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6825920229D82BD500E5EF3B /* TrendAnalysis.swift */; };
 		6825920929D89CBD00E5EF3B /* HistoryCleanupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6825920829D89CBD00E5EF3B /* HistoryCleanupOperation.swift */; };
 		6825920B29D89CCB00E5EF3B /* DataCleanupOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6825920A29D89CCB00E5EF3B /* DataCleanupOperation.swift */; };
-		6829A4FC28C2744900F75C5A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A4FB28C2744900F75C5A /* ContentView.swift */; };
+		6829A4FC28C2744900F75C5A /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A4FB28C2744900F75C5A /* DetailView.swift */; };
 		6829A4FE28C3CC8D00F75C5A /* BulkSelectionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A4FD28C3CC8D00F75C5A /* BulkSelectionButtons.swift */; };
 		6829A50C28C6479900F75C5A /* AllRead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A50B28C6479900F75C5A /* AllRead.swift */; };
 		682A349728E2B38E004CD90E /* URLDropTargetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */; };
@@ -327,7 +327,7 @@
 		6825920229D82BD500E5EF3B /* TrendAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendAnalysis.swift; sourceTree = "<group>"; };
 		6825920829D89CBD00E5EF3B /* HistoryCleanupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCleanupOperation.swift; sourceTree = "<group>"; };
 		6825920A29D89CCB00E5EF3B /* DataCleanupOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCleanupOperation.swift; sourceTree = "<group>"; };
-		6829A4FB28C2744900F75C5A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6829A4FB28C2744900F75C5A /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		6829A4FD28C3CC8D00F75C5A /* BulkSelectionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkSelectionButtons.swift; sourceTree = "<group>"; };
 		6829A50B28C6479900F75C5A /* AllRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRead.swift; sourceTree = "<group>"; };
 		682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDropTargetModifier.swift; sourceTree = "<group>"; };
@@ -970,7 +970,7 @@
 				68C41315247263C700D1DC7B /* RootView.swift */,
 				680649832A0E491000B6E6E7 /* LoadProfile.swift */,
 				68FC2566275E07E20073979F /* Sidebar */,
-				6829A4FB28C2744900F75C5A /* ContentView.swift */,
+				6829A4FB28C2744900F75C5A /* DetailView.swift */,
 				68ADABC224A21F2500BE41E2 /* Welcome.swift */,
 				68FF63FB2921DD060012A275 /* Inbox */,
 				68F56B3B286F5C01006EC915 /* Trending */,
@@ -1566,7 +1566,7 @@
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
 				68B526A4298F001800D4B927 /* WebpageMetadata.swift in Sources */,
 				68C4FA262474927800D2C0D6 /* SettingsView.swift in Sources */,
-				6829A4FC28C2744900F75C5A /* ContentView.swift in Sources */,
+				6829A4FC28C2744900F75C5A /* DetailView.swift in Sources */,
 				687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */,
 				68CE2C3D28CEEBF000ED1CF9 /* ItemHero.swift in Sources */,
 				68D9BAA428A60DF300F1A3AD /* AboutSettingsSection.swift in Sources */,

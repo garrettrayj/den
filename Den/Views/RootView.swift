@@ -26,7 +26,7 @@ struct RootView: View {
 
     @State private var showCrashMessage = false
     @State private var searchQuery: String = ""
-    @State private var contentSelection: ContentPanel?
+    @State private var contentSelection: DetailPanel?
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
@@ -68,7 +68,7 @@ struct RootView: View {
             }
         } detail: {
             if let profile = activeProfile, profile.managedObjectContext != nil {
-                ContentView(
+                DetailView(
                     profile: profile,
                     activeProfile: $activeProfile,
                     appProfileID: $appProfileID,

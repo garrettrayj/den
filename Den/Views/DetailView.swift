@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DetailView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/2/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DetailView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var refreshManager: RefreshManager
 
@@ -18,7 +18,7 @@ struct ContentView: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    @Binding var contentSelection: ContentPanel?
+    @Binding var contentSelection: DetailPanel?
     @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int

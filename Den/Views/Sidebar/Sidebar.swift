@@ -19,7 +19,7 @@ struct Sidebar: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var contentSelection: ContentPanel?
+    @Binding var contentSelection: DetailPanel?
     @Binding var searchQuery: String
 
     @State private var searchInput: String = ""

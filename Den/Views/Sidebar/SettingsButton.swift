@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct SettingsButton: View {
-    @Binding var listSelection: ContentPanel?
+    @Binding var listSelection: DetailPanel?
 
     var body: some View {
         Button {

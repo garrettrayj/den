@@ -15,7 +15,7 @@ struct InboxNav: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        NavigationLink(value: ContentPanel.inbox) {
+        NavigationLink(value: DetailPanel.inbox) {
             WithItems(scopeObject: profile, readFilter: false) { items in
                 Label {
                     Text("Inbox").lineLimit(1).badge(items.count)
