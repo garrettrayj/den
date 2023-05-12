@@ -87,7 +87,9 @@ struct ResetSettingsSection: View {
     }
 
     private func emptyCache() async {
-        await SDImageCache.shared.clear(with: .all)
+        SDImageCache.shared.clearMemory()
+
+        await SDImageCache.shared.clearDiskOnCompletion()
 
         URLCache.shared.removeAllCachedResponses()
     }

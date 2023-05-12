@@ -23,7 +23,7 @@
 		<outline text="US News" title="US News">
 			<outline text="PBS NewsHour " title="PBS NewsHour " type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
 			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
-			<outline text="MSNBC Top Stories" title="MSNBC Top Stories" type="rss" xmlUrl="https://feeds.nbcnews.com/msnbc/public/news" />
+			<outline text="MSNBC" title="MSNBC" type="rss" xmlUrl="https://feeds.nbcnews.com/msnbc/public/news" />
 			<outline text="The Conversation" title="The Conversation" type="rss" xmlUrl="https://theconversation.com/us/home-page/articles.atom" />
 			<outline text="Axios" title="Axios" type="rss" xmlUrl="https://api.axios.com/feed/" />
 			<outline text="Washington Examiner" title="Washington Examiner" type="rss" xmlUrl="https://www.washingtonexaminer.com/news.rss" />
@@ -35,7 +35,6 @@
 			<outline text="Los Angeles Times" title="Los Angeles Times" type="rss" xmlUrl="https://www.latimes.com/index.rss" />
 			<outline text="Miami Herald" title="Miami Herald" type="rss" xmlUrl="https://feeds.mcclatchy.com/miamiherald/stories" />
 			<outline text="The Intercept" title="The Intercept" type="rss" xmlUrl="https://theintercept.com/feed/?lang=en" />
-			<outline text="RealClearPolitics" title="RealClearPolitics" type="rss" xmlUrl="https://www.realclearpolitics.com/index.xml" />
 			<outline text="Center for Public Integrity" title="Center for Public Integrity" type="rss" xmlUrl="https://publicintegrity.org/feed/" />
 			<outline text="ProPublica" title="ProPublica" type="rss" xmlUrl="https://feeds.propublica.org/propublica/main" />
 			<outline text="Reason.com" title="Reason.com" type="rss" xmlUrl="https://reason.com/feed/" />
@@ -81,12 +80,13 @@
 			<outline text="Sci-News.com" title="Sci-News.com" type="rss" xmlUrl="https://feeds.feedburner.com/BreakingScienceNews?format=xml" />
 		</outline>
 		<outline text="Space" title="Space">
-			<outline text="NASA Blogs" title="NASA Blogs" type="rss" xmlUrl="https://blogs.nasa.gov/feed/" />
-			<outline text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
-			<outline text="Space Explored" title="Space Explored" type="rss" xmlUrl="https://spaceexplored.com/feed/" />
+			<outline text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed" />
 			<outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed" />
 			<outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
 			<outline text="Spaceflight Now" title="Spaceflight Now" type="rss" xmlUrl="https://spaceflightnow.com/feed/" />
+			<outline text="Space Explored" title="Space Explored" type="rss" xmlUrl="https://spaceexplored.com/feed/" />
+			<outline text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
+			<outline text="NASA Blogs" title="NASA Blogs" type="rss" xmlUrl="https://blogs.nasa.gov/feed/" />
 			<outline text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="https://www.esa.int/rssfeed/TopNews" />
 			<outline text="SatNews" title="SatNews" type="rss" xmlUrl="https://news.satnews.com/feed/" />
 			<outline text="EarthSky" title="EarthSky" type="rss" xmlUrl="https://earthsky.org/feed" />
