@@ -14,7 +14,7 @@ import OSLog
 final class RefreshManager: ObservableObject {
     @Published var refreshing: Bool = false
 
-    let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
+    let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
 
     public func refresh(profile: Profile) {
         guard !refreshing else {

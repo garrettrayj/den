@@ -31,7 +31,7 @@ struct FeedView: View {
                     feed: feed,
                     profile: profile,
                     hideRead: $hideRead,
-                    items: items.visibilityFiltered(hideRead ? false : nil)
+                    items: items
                 )
                 .background(GroupedBackground())
                 .toolbar {

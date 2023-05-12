@@ -47,7 +47,6 @@ struct ItemPreviewImage: View {
                             .resizable()
                             .purgeable(true)
                             .placeholder { ImageErrorPlaceholder() }
-                            .indicator(.activity)
                             .grayscale(isEnabled ? 0 : 1)
                             .overlay(.background.opacity(item.read ? 0.5 : 0))
                             .modifier(ImageBorderModifier(cornerRadius: 4))
@@ -66,7 +65,6 @@ struct ItemPreviewImage: View {
                         .resizable()
                         .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
-                        .indicator(.activity)
                         .grayscale(isEnabled ? 0 : 1)
                         .overlay(.background.opacity(item.read ? 0.5 : 0))
                         .aspectRatio(item.imageAspectRatio, contentMode: .fit)
@@ -85,7 +83,6 @@ struct ItemPreviewImage: View {
                         .resizable()
                         .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
-                        .indicator(.activity)
                         .grayscale(isEnabled ? 0 : 1)
                         .overlay(.background.opacity(item.read ? 0.5 : 0))
                         .aspectRatio(item.imageAspectRatio, contentMode: .fit)
@@ -101,7 +98,6 @@ struct ItemPreviewImage: View {
                 .resizable()
                 .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
-                .indicator(.activity)
                 .grayscale(isEnabled ? 0 : 1)
                 .overlay(.background.opacity(item.read ? 0.5 : 0))
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)

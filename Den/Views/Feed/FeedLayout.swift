@@ -18,7 +18,9 @@ struct FeedLayout: View {
 
     @Binding var hideRead: Bool
 
-    let items: [Item]
+    @State var urlCopied: Bool = false
+
+    let items: FetchedResults<Item>
 
     var body: some View {
         GeometryReader { geometry in
@@ -46,7 +48,7 @@ struct FeedLayout: View {
 
     private func latestSection(geometry: GeometryProxy) -> some View {
         Section {
-            if items.previews().isEmpty && hideRead == true {
+            if items.visibilityFiltered(hideRead ? false : nil).previews().isEmpty && hideRead == true {
                 AllRead()
                     .padding(12)
                     .background(QuaternaryGroupedBackground())
@@ -82,7 +84,7 @@ struct FeedLayout: View {
 
     private func moreSection(geometry: GeometryProxy) -> some View {
         Section {
-            if items.extras().isEmpty {
+            if items.visibilityFiltered(hideRead ? false : nil).extras().isEmpty {
                 AllRead()
                     .padding(12)
                     .background(QuaternaryGroupedBackground())
@@ -134,24 +136,18 @@ struct FeedLayout: View {
                 }
 
                 if let feedURLString = feed.url?.absoluteString, let url = feed.url {
-                    HStack {
-                        Button {
-                            openURL(url)
-                        } label: {
-                            Label("\(feedURLString)", systemImage: "dot.radiowaves.up.forward").lineLimit(1)
+                    Button {
+                        UIPasteboard.general.url = url
+                        urlCopied = true
+                    } label: {
+                        Text(feedURLString).lineLimit(1)
+                        Label("Copy", systemImage: "doc.on.doc").labelStyle(.iconOnly)
+                        if urlCopied {
+                            Text("Copied").foregroundColor(.secondary)
                         }
-                        .buttonStyle(.plain)
-                        .accessibilityIdentifier("feed-url-button")
-
-                        Button {
-                            UIPasteboard.general.url = url
-                        } label: {
-                            Label("Copy", systemImage: "doc.on.doc")
-                        }
-                        .labelStyle(.iconOnly)
-                        .buttonStyle(.plain)
-                        .accessibilityIdentifier("copy-feed-url-button")
                     }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("copy-feed-url-button")
                 }
 
                 if let copyright = feed.feedData?.copyright {

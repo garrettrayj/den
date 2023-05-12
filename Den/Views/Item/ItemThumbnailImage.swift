@@ -61,7 +61,6 @@ struct ItemThumbnailImage: View {
                 .resizable()
                 .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
-                .indicator(.activity)
                 .aspectRatio(item.imageAspectRatio, contentMode: .fit)
                 .grayscale(isEnabled ? 0 : 1)
                 .overlay(.background.opacity(item.read ? 0.5 : 0))
