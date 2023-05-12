@@ -43,13 +43,12 @@ struct Sidebar: View {
             searchQuery = searchInput
             contentSelection = .search
         }
+        .tint(profile.tintColor)
         #if targetEnvironment(macCatalyst)
         .background(.thickMaterial)
         .background(.background)
-        .navigationSplitViewColumnWidth(224)
         #else
         .background(GroupedBackground())
-        .navigationSplitViewColumnWidth(264 * dynamicTypeSize.layoutScalingFactor)
         #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.displayName)
