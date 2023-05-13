@@ -29,7 +29,7 @@ struct LoadProfile: View {
             // It usually takes 30 to 40 seconds to sort things out and recover profiles from the cloud.
             // While this isn't an ideal introduction to the app, it resolves a glaring bug.
             // Trying to automatically create profiles has always led to duplicates historically.
-            if profileLoadAttempts > 3 {
+            if profileLoadAttempts > 2 {
                 Text("No Profiles Found")
                 Button {
                     activateProfile(ProfileUtility.createDefaultProfile(context: viewContext))
@@ -52,6 +52,13 @@ struct LoadProfile: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 24)
         .padding(.bottom)
+        #if targetEnvironment(macCatalyst)
+        .background(.thickMaterial)
+        .background(.background)
+        #else
+        .background(GroupedBackground())
+        .toolbar(.hidden, for: .navigationBar)
+        #endif
     }
 
     private func load() {

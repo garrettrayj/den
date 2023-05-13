@@ -36,11 +36,7 @@ struct Welcome: View {
                 SplashNote(title: profile.displayName, note: refreshedLabel())
             }
         } else {
-            if profile.pagesArray.isEmpty {
-                SplashNote(title: profile.displayName, note: "See the sidebar to begin.")
-            } else {
-                SplashNote(title: profile.displayName)
-            }
+            SplashNote(title: profile.displayName)
         }
     }
 

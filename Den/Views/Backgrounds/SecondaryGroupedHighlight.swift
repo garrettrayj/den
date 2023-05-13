@@ -17,7 +17,7 @@ struct SecondaryGroupedHighlight: View {
         if colorScheme == .dark {
             Rectangle().fill(.regularMaterial).background(.tertiary)
         } else {
-            Rectangle().fill(.thickMaterial).background(.tertiary)
+            Rectangle().fill(.ultraThickMaterial).background(.tertiary)
         }
     }
 }

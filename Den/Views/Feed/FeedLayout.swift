@@ -22,6 +22,10 @@ struct FeedLayout: View {
 
     let items: FetchedResults<Item>
 
+    private var filteredItems: [Item] {
+        items.visibilityFiltered(hideRead ? false : nil)
+    }
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
@@ -48,7 +52,7 @@ struct FeedLayout: View {
 
     private func latestSection(geometry: GeometryProxy) -> some View {
         Section {
-            if items.visibilityFiltered(hideRead ? false : nil).previews().isEmpty && hideRead == true {
+            if filteredItems.previews().isEmpty && hideRead == true {
                 AllRead()
                     .padding(12)
                     .background(QuaternaryGroupedBackground())
@@ -58,7 +62,7 @@ struct FeedLayout: View {
             } else {
                 BoardView(
                     geometry: geometry,
-                    list: items.previews(),
+                    list: filteredItems.previews(),
                     isLazy: false
                 ) { item in
                     ItemActionView(item: item, feed: feed, profile: profile) {
@@ -84,7 +88,7 @@ struct FeedLayout: View {
 
     private func moreSection(geometry: GeometryProxy) -> some View {
         Section {
-            if items.visibilityFiltered(hideRead ? false : nil).extras().isEmpty {
+            if filteredItems.extras().isEmpty {
                 AllRead()
                     .padding(12)
                     .background(QuaternaryGroupedBackground())
@@ -94,7 +98,7 @@ struct FeedLayout: View {
             } else {
                 BoardView(
                     geometry: geometry,
-                    list: items.extras(),
+                    list: filteredItems.extras(),
                     isLazy: false
                 ) { item in
                     ItemActionView(item: item, feed: feed, profile: profile) {

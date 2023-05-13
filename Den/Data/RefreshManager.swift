@@ -14,8 +14,6 @@ import OSLog
 final class RefreshManager: ObservableObject {
     @Published var refreshing: Bool = false
 
-    let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
-
     public func refresh(profile: Profile) {
         guard !refreshing else {
             Logger.main.info("Refresh already in progress")
@@ -43,7 +41,7 @@ final class RefreshManager: ObservableObject {
         }
 
         let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = maxConcurrency
+        queue.maxConcurrentOperationCount = min(3, ProcessInfo().activeProcessorCount)
         queue.addOperations(ops, waitUntilFinished: true)
 
         RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
@@ -83,6 +81,8 @@ final class RefreshManager: ObservableObject {
                 )
             }
         }
+
+        let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
 
         _ = await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
                 var working: Int = 0

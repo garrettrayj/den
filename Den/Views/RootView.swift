@@ -80,6 +80,10 @@ struct RootView: View {
                     useInbuiltBrowser: $useInbuiltBrowser,
                     searchQuery: $searchQuery
                 )
+            } else {
+                ZStack {}
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(GroupedBackground())
             }
         }
         .environment(\.useInbuiltBrowser, useInbuiltBrowser)
