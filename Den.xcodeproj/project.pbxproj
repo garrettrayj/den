@@ -292,6 +292,7 @@
 /* Begin PBXFileReference section */
 		54F8EA4729B418A600955BB6 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		68014D5D27BD83850017E2CB /* ItemDateAuthor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDateAuthor.swift; sourceTree = "<group>"; };
+		680206B12A10A33000AC3FC5 /* WindowSize.scpt */ = {isa = PBXFileReference; lastKnownFileType = text; path = WindowSize.scpt; sourceTree = "<group>"; };
 		6806497C2A0678F900B6E6E7 /* SecondaryGroupedHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryGroupedHighlight.swift; sourceTree = "<group>"; };
 		680649802A083DF000B6E6E7 /* TertiaryGroupedHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryGroupedHighlight.swift; sourceTree = "<group>"; };
 		680649832A0E491000B6E6E7 /* LoadProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadProfile.swift; sourceTree = "<group>"; };
@@ -848,6 +849,7 @@
 				6880E1E426B4508A00A8E3E8 /* PadScreenshots.swift */,
 				689EDC0B26A3F46A0055811A /* PhoneScreenshots.swift */,
 				6880EBE827AC45FE00B479F4 /* XCUIElement+Extensions.swift */,
+				680206B12A10A33000AC3FC5 /* WindowSize.scpt */,
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
