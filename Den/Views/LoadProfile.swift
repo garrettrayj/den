@@ -16,7 +16,6 @@ struct LoadProfile: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    @Binding var columnVisibility: NavigationSplitViewVisibility
 
     @State private var profileLoadAttempts = 0
 

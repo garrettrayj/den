@@ -43,7 +43,6 @@ struct Sidebar: View {
             searchQuery = searchInput
             contentSelection = .search
         }
-        .tint(profile.tintColor)
         #if targetEnvironment(macCatalyst)
         .background(.thickMaterial)
         .background(.background)

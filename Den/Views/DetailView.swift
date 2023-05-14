@@ -64,7 +64,6 @@ struct DetailView: View {
                 }
             }
             .background(GroupedBackground())
-            .tint(profile.tintColor)
             .disabled(refreshManager.refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 ZStack {
@@ -101,7 +100,6 @@ struct DetailView: View {
                     }
                 }
                 .background(GroupedBackground())
-                .tint(profile.tintColor)
                 .disabled(refreshManager.refreshing)
             }
         }
