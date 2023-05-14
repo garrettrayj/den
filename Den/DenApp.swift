@@ -81,7 +81,7 @@ struct DenApp: App {
 
     private func scheduleRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
-        request.earliestBeginDate = .now + 60 * 60
+        request.earliestBeginDate = .now + 30 * 60
 
         do {
             try BGTaskScheduler.shared.submit(request)
@@ -104,7 +104,7 @@ struct DenApp: App {
         }
 
         let request = BGProcessingTaskRequest(identifier: "net.devsci.den.cleanup")
-        request.earliestBeginDate = .now + 60 * 60
+        request.earliestBeginDate = .now + 30 * 60
 
         do {
             try BGTaskScheduler.shared.submit(request)

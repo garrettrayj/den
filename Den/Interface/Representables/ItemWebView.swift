@@ -25,7 +25,9 @@ struct ItemWebView: UIViewRepresentable {
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
         webView.isOpaque = false
-        webView.isInspectable = true
+        if #available(macCatalyst 16.4, iOS 16.4, *) {
+            webView.isInspectable = true
+        }
 
         return webView
     }
