@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct AllRead: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     var body: some View {
         Label {
             Text("All Read")
@@ -20,7 +18,7 @@ struct AllRead: View {
             Image(systemName: "checkmark")
         }
         .font(.callout)
-        .foregroundColor(isEnabled ? .primary : .secondary)
+        .foregroundColor(.secondary)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
