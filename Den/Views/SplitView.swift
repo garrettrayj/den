@@ -53,7 +53,7 @@ struct SplitView: View {
             #else
             .navigationSplitViewColumnWidth(264 * dynamicTypeSize.layoutScalingFactor)
             .refreshable {
-                if networkMonitor.isConnected {
+                if let profile = activeProfile, networkMonitor.isConnected {
                     await refreshManager.refresh(profile: profile)
                 }
             }
