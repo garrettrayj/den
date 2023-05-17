@@ -8,36 +8,35 @@ A news app made for clear and intuitive browsing.
 - Cloud synchronized profiles
 - RSS, Atom, and JSON Feed format support
 - OPML import and export
-- Feed Detector browser extension
+- Web browser extension
 - and much more...
 
 <img src="Screenshots/Images/iPad Pro (12.9-inch) (5th generation)/en/light/01-GadgetsView.png" alt="iPad screenshot" width="800" />
 
-## Installation
+## Install
 
-Buy [Den for RSS on the App Store](https://apps.apple.com/us/app/den-for-rss/id1528917651) to get both iOS and Mac versions with automatic updates.
+Get [Den for RSS](https://apps.apple.com/us/app/den-for-rss/id1528917651) on the App Store to keep up with the latest version with automatic updates or build and install yourself with Xcode. (see below)
 
 ## Connect
 
 * [Follow the RSS feed](https://den.io/feed.rss) to keep up with news and announcements.
-* [Join the Discord](https://discord.gg/NS9hMrYrnt) to chat and get see what's going on behind the scenes.
+* [Join the Discord](https://discord.gg/NS9hMrYrnt) to chat and get a peak behind the scenes.
 * [Start a Discussion](https://github.com/garrettrayj/den/discussions/new) to share an idea or ask a question.
 * [Create an Issue](https://github.com/garrettrayj/den/issues/new) to report a bug or request an enhancement.
-* [Email the developer](mailto:garrett@devsci.net) anytime for anything.
+* [Email the Developer](mailto:garrett@devsci.net) for support or anything else.
 
-## Development Quickstart
+## Develop
 
-1. Clone the project from GitHub
-2. Open in Xcode
+1. Clone or download the source code
+2. Open the project in Xcode
 3. Update development team settings
 4. Select the "Den" scheme and device
-5. Run the scheme
+5. Click play to build and start the app
 
 ### Extras
 
 1. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results. `brew install chargepoint/xcparse/xcparse`
 2. [swiftlint](https://github.com/realm/SwiftLint) to check code formatting. `brew install swiftlint`
-
 
 ---
 

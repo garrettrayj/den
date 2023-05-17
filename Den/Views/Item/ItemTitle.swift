@@ -19,6 +19,5 @@ struct ItemTitle: View {
             .font(.headline)
             .lineLimit(6)
             .multilineTextAlignment(.leading)
-            .fixedSize(horizontal: false, vertical: true)
     }
 }

@@ -21,6 +21,7 @@ struct ItemExpanded: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             ItemTitle(item: item)
+                .fixedSize(horizontal: false, vertical: true)
 
             ItemDateAuthor(item: item, feed: feed)
 
