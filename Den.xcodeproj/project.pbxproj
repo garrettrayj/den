@@ -674,7 +674,6 @@
 				6835738229601C0000843A8E /* BrowserSettingsSection.swift */,
 				68AC3A1E2916B26B00D60273 /* RefreshSettingsSection.swift */,
 				68D9BA9928A60A5200F1A3AD /* AppearanceSettingsSection.swift */,
-				681F0C252933F4C10037C609 /* HistorySettingsSection.swift */,
 				68D9BAA128A60CBE00F1A3AD /* ResetSettingsSection.swift */,
 				68D9BAA328A60DF300F1A3AD /* AboutSettingsSection.swift */,
 				68F6FBAA29AF9217001F74B9 /* UIStylePickerView.swift */,
@@ -992,7 +991,6 @@
 				68E58F2629B6B30A00C18A87 /* CommonStatus.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				6885C42126D37259002C41B0 /* FeedTitleLabel.swift */,
-				68D486BD26C9896300AF5B59 /* IconPicker.swift */,
 				6832AF2B278B889300CFC8CA /* SplashNote.swift */,
 				68FC25542758B2250073979F /* FeedUnavailable.swift */,
 				6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */,
@@ -1051,6 +1049,7 @@
 				6832AF252789419700CFC8CA /* ProfileSettings.swift */,
 				68352D1529B16C5F0073CEFD /* TintPicker.swift */,
 				68D9BA9B28A60B4900F1A3AD /* FeedUtilitiesSection.swift */,
+				681F0C252933F4C10037C609 /* HistorySettingsSection.swift */,
 				68B34A5D2486D2AD0066B215 /* ImportView.swift */,
 				68B34A662487ED870066B215 /* ExportView.swift */,
 				6829A4FD28C3CC8D00F75C5A /* BulkSelectionButtons.swift */,
@@ -1102,6 +1101,7 @@
 				68B526A1298E3B2000D4B927 /* DeckColumn.swift */,
 				68ED798229C29A8B00D85B4F /* BlendLayout.swift */,
 				688FD917247750350006A2DE /* PageSettings.swift */,
+				68D486BD26C9896300AF5B59 /* IconPicker.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";

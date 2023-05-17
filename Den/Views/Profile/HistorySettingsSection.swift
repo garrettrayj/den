@@ -24,7 +24,7 @@ struct HistorySettingsSection: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Keep History").modifier(FormRowModifier())
+                Text("Keep").modifier(FormRowModifier())
                 Spacer()
                 Picker(selection: $historyRentionDays) {
                     Text("Forever").tag(0 as Int)
@@ -35,7 +35,7 @@ struct HistorySettingsSection: View {
                     Text("Two Weeks").tag(14 as Int)
                     Text("One Week").tag(7 as Int)
                 } label: {
-                    Text("Keep History")
+                    Text("Keep")
                 }
                 .labelsHidden()
                 .scaledToFit()
@@ -50,18 +50,18 @@ struct HistorySettingsSection: View {
                 Text("Two Weeks").tag(14 as Int)
                 Text("One Week").tag(7 as Int)
             } label: {
-                Text("Keep History").modifier(FormRowModifier())
+                Text("Keep").modifier(FormRowModifier())
             }
             #endif
 
             Button {
                 Task {
-                    await resetHistory()
+                    await clear()
                 }
                 profile.objectWillChange.send()
             } label: {
                 HStack {
-                    Text("Clear History")
+                    Text("Clear")
                     Spacer()
                     Group {
                         if historyCount > 0 {
@@ -74,7 +74,7 @@ struct HistorySettingsSection: View {
                             Text("No entries")
                         }
                     }
-                    .foregroundColor(.primary)
+                    .foregroundColor(.secondary)
                 }
             }
             .disabled(historyCount == 0)
@@ -97,7 +97,7 @@ struct HistorySettingsSection: View {
         }
     }
 
-    private func resetHistory() async {
+    private func clear() async {
         let container = PersistenceController.shared.container
 
         await container.performBackgroundTask { context in

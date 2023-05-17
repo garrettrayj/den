@@ -28,7 +28,10 @@ struct ProfileSettings: View {
             nameSection
             tintSection
             FeedUtilitiesSection(profile: profile)
-            HistorySettingsSection(profile: profile, historyRentionDays: profile.wrappedHistoryRetention)
+            HistorySettingsSection(
+                profile: profile,
+                historyRentionDays: profile.wrappedHistoryRetention
+            )
             deleteSection
         }
         .onDisappear {

@@ -30,7 +30,7 @@ struct IconPicker: View {
                 }.padding(.bottom)
             }
             .background(GroupedBackground())
-            .navigationTitle("Select Icon")
+            .navigationTitle("Choose Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
