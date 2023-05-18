@@ -17,19 +17,9 @@ struct SearchStatus: View {
 
     var body: some View {
         VStack {
-            ViewThatFits {
-                HStack(spacing: 4) {
-                    statusText
-                    if let unreadText = unreadText {
-                        Text("－ ") + unreadText.foregroundColor(.secondary)
-                    }
-                }
-                VStack {
-                    statusText
-                    if let unreadText = unreadText {
-                        unreadText.foregroundColor(.secondary)
-                    }
-                }
+            statusText
+            if let unreadText = unreadText {
+                unreadText.foregroundColor(.secondary)
             }
         }
         .font(.caption)
@@ -40,7 +30,11 @@ struct SearchStatus: View {
         if query.isEmpty {
             return Text("Enter a search term.")
         } else {
-            return Text("Found \(totalCount) results for “\(query)”")
+            if totalCount == 1 {
+                return Text("Found \(totalCount) result for “\(query)”")
+            } else {
+                return Text("Found \(totalCount) results for “\(query)”")
+            }
         }
     }
 

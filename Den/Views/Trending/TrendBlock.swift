@@ -39,17 +39,7 @@ struct TrendBlock: View {
         VStack {
             NavigationLink(value: SubDetailPanel.trend(trend)) {
                 VStack(alignment: .leading, spacing: 12) {
-                    HStack(alignment: .top, spacing: 8) {
-                        Text(trend.wrappedTitle).font(.title).lineLimit(1)
-                        Spacer()
-                        HStack {
-                            if let symbol = symbol {
-                                Image(systemName: symbol)
-                                    .imageScale(.small)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                    }
+                    Text(trend.wrappedTitle).font(.title).lineLimit(1)
 
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
                         ForEach(uniqueFaviconURLs, id: \.self) { url in
@@ -57,18 +47,21 @@ struct TrendBlock: View {
                         }
                     }.opacity(trend.hasUnread ? 1.0 : AppDefaults.dimmedImageOpacity)
 
-                    if trend.hasUnread {
-                        Text("""
-                        \(trend.items.count) items in \(trend.feeds.count) feeds, \
-                        \(trend.items.unread().count) unread
-                        """)
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                    } else {
-                        Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
+                    HStack {
+                        if let symbol = symbol {
+                            Image(systemName: symbol).imageScale(.small)
+                        }
+                        if trend.hasUnread {
+                            Text("""
+                            \(trend.items.count) items in \(trend.feeds.count) feeds, \
+                            \(trend.items.unread().count) unread
+                            """)
+                        } else {
+                            Text("\(trend.items.count) items in \(trend.feeds.count) feeds")
+                        }
                     }
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
                 }
                 .padding(12)
                 .foregroundColor(trend.items.unread().isEmpty ? .secondary : .primary)

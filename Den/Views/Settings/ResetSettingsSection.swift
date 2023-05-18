@@ -48,6 +48,7 @@ struct ResetSettingsSection: View {
                     Label("Clear Cache", systemImage: "clear")
                     Spacer()
                     Text(cacheSizeFormatter.string(fromByteCount: cacheSize))
+                        .font(.callout)
                         .foregroundColor(.secondary)
                 }
             }

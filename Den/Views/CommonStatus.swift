@@ -28,31 +28,14 @@ struct CommonStatus: View {
             if refreshManager.refreshing {
                 Text("Checking for New Items…")
             } else {
-                ViewThatFits {
-                    HStack(spacing: 4) {
-                        if refreshedLabel() != nil {
-                            TimelineView(.everyMinute) { _ in
-                                if let refreshedLabel = refreshedLabel() {
-                                    HStack(spacing: 4) {
-                                        Text(refreshedLabel)
-                                        Text("－").foregroundColor(.secondary)
-                                    }
-                                }
-                            }
+                if refreshedLabel() != nil {
+                    TimelineView(.everyMinute) { _ in
+                        if let refreshedLabel = refreshedLabel() {
+                            Text(refreshedLabel)
                         }
-                        Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
-                    }
-                    VStack {
-                        if refreshedLabel() != nil {
-                            TimelineView(.everyMinute) { _ in
-                                if let refreshedLabel = refreshedLabel() {
-                                    Text(refreshedLabel)
-                                }
-                            }
-                        }
-                        Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
                     }
                 }
+                Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
             }
         }
         .frame(maxWidth: .infinity)

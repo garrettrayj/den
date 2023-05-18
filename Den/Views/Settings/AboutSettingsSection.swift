@@ -19,8 +19,10 @@ struct AboutSettingsSection: View {
                 Text("Version")
                 Spacer()
                 Text("\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                    .font(.callout)
                     .foregroundColor(.secondary)
-            }.modifier(FormRowModifier())
+            }
+            .modifier(FormRowModifier())
 
             Button {
                 guard let url = URL(string: "https://den.io") else { return }

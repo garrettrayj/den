@@ -66,14 +66,15 @@ struct HistorySettingsSection: View {
                     Group {
                         if historyCount > 0 {
                             if historyCount > 1 {
-                                Text("\(historyCount) entries")
+                                Text("\(historyCount) records")
                             } else {
-                                Text("\(historyCount) entry")
+                                Text("\(historyCount) record")
                             }
                         } else {
-                            Text("No entries")
+                            Text("No records")
                         }
                     }
+                    .font(.callout)
                     .foregroundColor(.secondary)
                 }
             }

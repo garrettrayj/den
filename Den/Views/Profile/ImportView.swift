@@ -66,8 +66,7 @@ struct ImportView: View {
         VStack {
             Spacer()
             Text("""
-            Tap \(Image(systemName: "filemenu.and.cursorarrow")) Select File \
-            to choose an OPML file to add feeds from. Pick pages to import next.
+            First choose an OPML file to add feeds from. Pick pages to import next.
             """)
                 .multilineTextAlignment(.center)
                 .padding()
