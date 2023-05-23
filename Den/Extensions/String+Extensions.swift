@@ -19,10 +19,6 @@ extension String {
         case tail
     }
 
-    var containsWhitespace: Bool {
-        return(self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil)
-    }
-
     /**
      Adapted from https://gist.github.com/budidino/8585eecd55fd4284afaaef762450f98e#gistcomment-2270476
      */
@@ -40,6 +36,10 @@ extension String {
         case .tail:
             return self.prefix(limit) + leader
         }
+    }
+
+    var containsWhitespace: Bool {
+        return(self.rangeOfCharacter(from: .whitespacesAndNewlines) != nil)
     }
 
     func strippingTags() -> String {
@@ -69,21 +69,6 @@ extension String {
             .union(.illegalCharacters)
             .union(.controlCharacters)
 
-        return self
-            .components(separatedBy: invalidCharacters)
-            .joined(separator: "-")
-    }
-
-    func removingCharacters(in charactersSet: CharacterSet) -> String {
-        var filtered = self
-        while true {
-            if let forbiddenCharRange = filtered.rangeOfCharacter(from: charactersSet) {
-                filtered.removeSubrange(forbiddenCharRange)
-            } else {
-                break
-            }
-        }
-
-        return filtered
+        return self.components(separatedBy: invalidCharacters).joined(separator: "-")
     }
 }

@@ -19,42 +19,42 @@ struct PageView: View {
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
 
     var body: some View {
-        if page.managedObjectContext != nil {
+        if page.managedObjectContext == nil {
+            SplashNote(title: "Page Deleted")
+        } else if page.feedsArray.isEmpty {
+            NoFeeds(page: page)
+        } else {
             WithItems(scopeObject: page) { items in
                 ZStack {
-                    if page.feedsArray.isEmpty {
-                        NoFeeds(page: page)
-                    } else {
-                        switch pageLayout {
-                        case .deck:
-                            DeckLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: hideRead,
-                                items: items
-                            )
-                        case .blend:
-                            BlendLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: hideRead,
-                                items: items
-                            )
-                        case .showcase:
-                            ShowcaseLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: hideRead,
-                                items: items
-                            )
-                        case .gadgets:
-                            GadgetLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: hideRead,
-                                items: items
-                            )
-                        }
+                    switch pageLayout {
+                    case .deck:
+                        DeckLayout(
+                            page: page,
+                            profile: profile,
+                            hideRead: hideRead,
+                            items: items
+                        )
+                    case .blend:
+                        BlendLayout(
+                            page: page,
+                            profile: profile,
+                            hideRead: hideRead,
+                            items: items
+                        )
+                    case .showcase:
+                        ShowcaseLayout(
+                            page: page,
+                            profile: profile,
+                            hideRead: hideRead,
+                            items: items
+                        )
+                    case .gadgets:
+                        GadgetLayout(
+                            page: page,
+                            profile: profile,
+                            hideRead: hideRead,
+                            items: items
+                        )
                     }
                 }
                 .modifier(URLDropTargetModifier(page: page))
@@ -98,8 +98,6 @@ struct PageView: View {
                 }
                 .navigationTitle(page.displayName)
             }
-        } else {
-            SplashNote(title: "Page Deleted")
         }
     }
 

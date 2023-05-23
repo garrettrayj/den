@@ -9,7 +9,6 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct URLDropTargetModifier: ViewModifier {
     var page: Page?

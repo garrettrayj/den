@@ -8,7 +8,6 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Foundation
 import OSLog
 
 extension Logger {
