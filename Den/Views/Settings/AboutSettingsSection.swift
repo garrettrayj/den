@@ -42,7 +42,7 @@ struct AboutSettingsSection: View {
         } footer: {
             Text("© 2023 Garrett Johnson")
                 .frame(maxWidth: .infinity, alignment: .center)
-                .padding(8)
+                .padding()
                 .foregroundColor(.secondary)
         }
         .modifier(ListRowModifier())

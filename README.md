@@ -21,7 +21,6 @@ Get [Den for RSS](https://apps.apple.com/us/app/den-for-rss/id1528917651) on the
 
 * [Follow the RSS feed](https://den.io/feed.rss) to keep up with news and announcements.
 * [Join the Discord](https://discord.gg/NS9hMrYrnt) to chat and get a peak behind the scenes.
-* [Start a Discussion](https://github.com/garrettrayj/den/discussions/new) to share an idea or ask a question.
 * [Create an Issue](https://github.com/garrettrayj/den/issues/new) to report a bug or request an enhancement.
 * [Email the Developer](mailto:garrett@devsci.net) for support or anything else.
 
