@@ -6,4 +6,4 @@ The latest version is supported with security updates.
 
 ## Reporting a Vulnerability
 
-Vulnerabilities should be reported with an issue on GitHub.
+[Create an issue on GitHub](https://github.com/garrettrayj/den/issues/new) or [email the developer](mailto:garrett@devsci.net) to report a vulnerability.
