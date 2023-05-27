@@ -40,7 +40,7 @@ struct Gadget: View {
                 AllRead()
                     .padding(12)
             } else {
-                LazyVStack(spacing: 0) {
+                VStack(spacing: 0) {
                     ForEach(items) { item in
                         Divider()
                         ItemActionView(item: item, feed: feed, profile: profile) {

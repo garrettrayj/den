@@ -34,7 +34,7 @@ struct ShowcaseSection: View {
                     .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))
             } else {
-                BoardView(geometry: geometry, list: items) { item in
+                BoardView(geometry: geometry, list: items, lazy: false) { item in
                     ItemActionView(item: item, feed: feed, profile: profile) {
                         if feed.wrappedPreviewStyle.rawValue == 1 {
                             ItemExpanded(item: item, feed: feed)
