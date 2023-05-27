@@ -62,8 +62,7 @@ struct FeedLayout: View {
             } else {
                 BoardView(
                     geometry: geometry,
-                    list: filteredItems.previews(),
-                    isLazy: false
+                    list: filteredItems.previews()
                 ) { item in
                     ItemActionView(item: item, feed: feed, profile: profile) {
                         if feed.wrappedPreviewStyle == .expanded {
@@ -98,8 +97,7 @@ struct FeedLayout: View {
             } else {
                 BoardView(
                     geometry: geometry,
-                    list: filteredItems.extras(),
-                    isLazy: false
+                    list: filteredItems.extras()
                 ) { item in
                     ItemActionView(item: item, feed: feed, profile: profile) {
                         if feed.wrappedPreviewStyle == .expanded {

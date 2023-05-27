@@ -21,7 +21,6 @@ struct ItemExpanded: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             ItemTitle(item: item)
-                .fixedSize(horizontal: false, vertical: true)
 
             ItemDateAuthor(item: item, feed: feed)
 
@@ -34,11 +33,11 @@ struct ItemExpanded: View {
                     .font(.callout)
                     .lineLimit(6)
                     .padding(.top, 4)
-                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }

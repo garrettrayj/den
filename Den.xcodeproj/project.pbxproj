@@ -428,7 +428,6 @@
 		6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemButtonStyle.swift; sourceTree = "<group>"; };
 		6887D40825B35B83004A170D /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
-		6889968A29CE8787006AF632 /* DenAppIcon.sketch */ = {isa = PBXFileReference; lastKnownFileType = file; path = DenAppIcon.sketch; sourceTree = "<group>"; };
 		688FD917247750350006A2DE /* PageSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageSettings.swift; sourceTree = "<group>"; };
 		688FD930247A34830006A2DE /* FeedSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSettings.swift; sourceTree = "<group>"; };
 		68922A642969D78A00C9A276 /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
@@ -898,7 +897,6 @@
 				683573A32963A0BA00843A8E /* NOTES.md */,
 				68A807ED2944843800944D2C /* Makefile */,
 				683573A22963792900843A8E /* lint.sh */,
-				6889968A29CE8787006AF632 /* DenAppIcon.sketch */,
 			);
 			sourceTree = "<group>";
 		};

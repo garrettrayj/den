@@ -64,10 +64,10 @@ struct FeedUpdateTask {
                 )
             case .failure:
                 feedData.error = """
-                Could not parse content from [\(feed.urlString)](\(feed.urlString))
+                Unable to parse content from [\(feed.urlString)](\(feed.urlString)).
                 """
             case .none:
-                feedData.error = "Unable to fetch data from [\(feed.urlString)](\(feed.urlString))"
+                feedData.error = "Unable to fetch data from [\(feed.urlString)](\(feed.urlString))."
             }
 
             // Cleanup old items

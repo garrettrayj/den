@@ -17,7 +17,7 @@ struct Gadget: View {
     let items: [Item]
 
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabel(
@@ -40,12 +40,14 @@ struct Gadget: View {
                 AllRead()
                     .padding(12)
             } else {
-                ForEach(items) { item in
-                    Divider()
-                    ItemActionView(item: item, feed: feed, profile: profile) {
-                        ItemCompressed(item: item, feed: feed)
+                LazyVStack(spacing: 0) {
+                    ForEach(items) { item in
+                        Divider()
+                        ItemActionView(item: item, feed: feed, profile: profile) {
+                            ItemCompressed(item: item, feed: feed)
+                        }
+                        .accessibilityIdentifier("gadget-item-button")
                     }
-                    .accessibilityIdentifier("gadget-item-button")
                 }
             }
         }
