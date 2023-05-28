@@ -79,12 +79,13 @@ struct ItemView: View {
                         .font(.title3)
                         .textSelection(.enabled)
 
-                        Text(item.wrappedTitle)
-                            .font(.largeTitle)
-                            .textSelection(.enabled)
-                            .fixedSize(horizontal: false, vertical: true)
-
                         VStack(alignment: .leading, spacing: 4) {
+                            Text(item.wrappedTitle)
+                                .font(.largeTitle)
+                                .textSelection(.enabled)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(.bottom, 4)
+
                             if let author = item.author {
                                 Text(author).font(.subheadline).lineLimit(2)
                             }
