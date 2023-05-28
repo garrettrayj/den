@@ -37,5 +37,6 @@ struct ItemCompressed: View {
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding(12)
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
