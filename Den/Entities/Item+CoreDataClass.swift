@@ -27,11 +27,6 @@ public class Item: NSManagedObject {
     }
 
     @objc
-    public var day: String {
-        date.formatted(date: .complete, time: .omitted)
-    }
-
-    @objc
     public var date: Date {
         published ?? ingested ?? Date(timeIntervalSince1970: 0)
     }

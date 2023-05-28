@@ -15,7 +15,6 @@ struct ItemTitle: View {
 
     var body: some View {
         Text(item.wrappedTitle)
-            .imageScale(.small)
             .font(.headline)
             .lineLimit(6)
             .multilineTextAlignment(.leading)

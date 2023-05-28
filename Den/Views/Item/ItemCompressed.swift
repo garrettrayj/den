@@ -15,14 +15,26 @@ struct ItemCompressed: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 4) {
-                ItemTitle(item: item)
-                ItemDateAuthor(item: item, feed: feed)
-            }
-            if feed.hideImages != true {
-                Spacer()
-                ItemThumbnailImage(item: item)
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.wrappedTitle)
+                        .font(.headline)
+                        .lineLimit(6)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    if let author = item.author {
+                        Text(author).font(.subheadline).lineLimit(2)
+                    }
+
+                    PublishedDateActionLine(item: item, feed: feed).font(.caption2)
+                }
+
+                if feed.hideImages != true {
+                    Spacer()
+                    ItemThumbnailImage(item: item)
+                }
             }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)

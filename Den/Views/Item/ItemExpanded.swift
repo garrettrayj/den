@@ -22,7 +22,11 @@ struct ItemExpanded: View {
         VStack(alignment: .leading, spacing: 4) {
             ItemTitle(item: item)
 
-            ItemDateAuthor(item: item, feed: feed)
+            if let author = item.author {
+                Text(author).font(.subheadline).lineLimit(2)
+            }
+
+            PublishedDateActionLine(item: item, feed: feed).font(.caption2)
 
             if feed.hideImages != true && item.image != nil {
                 ItemPreviewImage(item: item).padding(.top, 4)

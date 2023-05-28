@@ -79,12 +79,22 @@ struct ItemView: View {
                         .font(.title3)
                         .textSelection(.enabled)
 
-                        Text(item.wrappedTitle)
-                            .font(.largeTitle)
-                            .textSelection(.enabled)
-                            .fixedSize(horizontal: false, vertical: true)
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(item.wrappedTitle)
+                                .font(.largeTitle)
+                                .textSelection(.enabled)
+                                .fixedSize(horizontal: false, vertical: true)
 
-                        ItemDateAuthor(item: item, feed: feed, dateStyle: .long, timeStyle: .shortened)
+                            if let author = item.author {
+                                Text(author).font(.subheadline).lineLimit(2)
+                            }
+
+                            TimelineView(.everyMinute) { _ in
+                                Text("\(item.date.formatted(date: .complete, time: .shortened)) ") +
+                                Text("(\(item.date.formatted(.relative(presentation: .numeric))))")
+                            }
+                            .font(.caption2)
+                        }
 
                         if
                             item.image != nil &&
