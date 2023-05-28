@@ -24,7 +24,7 @@ struct ItemCompressed: View {
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    if let author = item.author {
+                    if feed.hideBylines == false, let author = item.author {
                         Text(author).font(.subheadline).lineLimit(2)
                     }
 

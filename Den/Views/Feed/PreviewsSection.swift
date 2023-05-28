@@ -15,18 +15,55 @@ struct PreviewsSection: View {
 
     @ObservedObject var feed: Feed
 
+    @State var showHideTeaserOption: Bool = false
+
     var body: some View {
         Section {
-            #if targetEnvironment(macCatalyst)
             HStack {
                 Text("Preferred Style").modifier(FormRowModifier())
                 Spacer()
                 PreviewStylePicker(previewStyle: $feed.wrappedPreviewStyle)
                     .pickerStyle(.segmented)
                     .scaledToFit()
-            }.modifier(ListRowModifier())
+            }
+            .modifier(ListRowModifier())
+            .task {
+                showHideTeaserOption = feed.wrappedPreviewStyle == .expanded
+            }
+            .onChange(of: feed.wrappedPreviewStyle) { _ in
+                withAnimation {
+                    showHideTeaserOption = feed.wrappedPreviewStyle == .expanded
+                }
+            }
+
+            if showHideTeaserOption {
+                #if targetEnvironment(macCatalyst)
+                HStack {
+                    Text("Hide Teasers").modifier(FormRowModifier())
+                    Spacer()
+                    Toggle("Hide Teasers", isOn: $feed.hideTeasers).labelsHidden()
+                }
+                .modifier(ListRowModifier())
+                #else
+                Toggle(isOn: $feed.hideTeasers) {
+                    Text("Hide Teasers").modifier(FormRowModifier())
+                }
+                .modifier(ListRowModifier())
+                #endif
+            }
+
+            #if targetEnvironment(macCatalyst)
+            HStack {
+                Text("Hide Bylines").modifier(FormRowModifier())
+                Spacer()
+                Toggle("Hide Bylines", isOn: $feed.hideBylines).labelsHidden()
+            }
+            .modifier(ListRowModifier())
             #else
-            PreviewStylePicker(previewStyle: $feed.wrappedPreviewStyle).modifier(ListRowModifier())
+            Toggle(isOn: $feed.hideBylines) {
+                Text("Hide Bylines").modifier(FormRowModifier())
+            }
+            .modifier(ListRowModifier())
             #endif
 
             #if targetEnvironment(macCatalyst)
@@ -42,22 +79,6 @@ struct PreviewsSection: View {
             }
             .modifier(ListRowModifier())
             #endif
-
-            if feed.wrappedPreviewStyle == .expanded {
-                #if targetEnvironment(macCatalyst)
-                HStack {
-                    Text("Hide Teasers").modifier(FormRowModifier())
-                    Spacer()
-                    Toggle("Hide Teasers", isOn: $feed.hideTeasers).labelsHidden()
-                }
-                .modifier(ListRowModifier())
-                #else
-                Toggle(isOn: $feed.hideTeasers) {
-                    Text("Hide Teasers").modifier(FormRowModifier())
-                }
-                .modifier(ListRowModifier())
-                #endif
-            }
 
             #if targetEnvironment(macCatalyst)
             HStack {

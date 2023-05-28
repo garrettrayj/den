@@ -22,7 +22,7 @@ struct ItemExpanded: View {
         VStack(alignment: .leading, spacing: 4) {
             ItemTitle(item: item)
 
-            if let author = item.author {
+            if feed.hideBylines == false, let author = item.author {
                 Text(author).font(.subheadline).lineLimit(2)
             }
 
