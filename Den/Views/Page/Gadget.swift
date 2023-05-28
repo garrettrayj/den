@@ -35,11 +35,12 @@ struct Gadget: View {
                 Divider()
                 FeedUnavailable(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
                     .padding(12)
-            } else if items.isEmpty {
+            }
+
+            if items.isEmpty && feed.feedData != nil && feed.feedData?.error == nil {
                 Divider()
-                AllRead()
-                    .padding(12)
-            } else {
+                AllRead().padding(12)
+            } else if !items.isEmpty {
                 VStack(spacing: 0) {
                     ForEach(items) { item in
                         Divider()

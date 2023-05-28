@@ -15,8 +15,8 @@ struct PreviewStylePicker: View {
 
     var body: some View {
         Picker(selection: $previewStyle) {
-            Label("Compressed", systemImage: "compress").tag(PreviewStyle.compressed)
-            Label("Expanded", systemImage: "expand").tag(PreviewStyle.expanded)
+            Label("Compressed", systemImage: "rectangle.compress.vertical").tag(PreviewStyle.compressed)
+            Label("Expanded", systemImage: "rectangle.expand.vertical").tag(PreviewStyle.expanded)
         } label: {
             Text("Preferred Style").modifier(FormRowModifier())
         }

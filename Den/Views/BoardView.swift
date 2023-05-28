@@ -32,7 +32,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
                         ForEach(columnObjects) { object in
                             content(object)
                         }
-                    }
+                    }.frame(maxWidth: .infinity)
                 }
             }
         }

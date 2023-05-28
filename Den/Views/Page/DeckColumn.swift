@@ -29,7 +29,9 @@ struct DeckColumn: View {
                         .padding(12)
                         .background(QuaternaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
-                } else if items.isEmpty {
+                }
+
+                if items.isEmpty {
                     AllRead()
                         .padding(12)
                         .background(QuaternaryGroupedBackground())

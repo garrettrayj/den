@@ -33,15 +33,19 @@ struct FeedLayout: View {
                     if let heroImage = feed.feedData?.banner {
                         FeedHero(heroImage: heroImage)
                     }
+
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailable(feedData: feed.feedData, splashNote: true)
-                    } else {
-                        latestSection(geometry: geometry)
-
-                        if !items.extras().isEmpty {
-                            moreSection(geometry: geometry)
-                        }
                     }
+
+                    if !items.previews().isEmpty {
+                        latestSection(geometry: geometry)
+                    }
+
+                    if !items.extras().isEmpty {
+                        moreSection(geometry: geometry)
+                    }
+
                     Divider()
                     metaSection.modifier(SafeAreaModifier(geometry: geometry))
                 }

@@ -19,35 +19,39 @@ struct ShowcaseSection: View {
 
     var body: some View {
         Section {
-            if feed.feedData == nil || feed.feedData?.error != nil {
-                FeedUnavailable(feedData: feed.feedData)
-                    .padding(12)
-                    .background(QuaternaryGroupedBackground())
-                    .modifier(RoundedContainerModifier())
-                    .padding()
-                    .modifier(SafeAreaModifier(geometry: geometry))
-            } else if items.isEmpty {
-                AllRead()
-                    .padding(12)
-                    .background(QuaternaryGroupedBackground())
-                    .modifier(RoundedContainerModifier())
-                    .padding()
-                    .modifier(SafeAreaModifier(geometry: geometry))
-            } else {
-                BoardView(geometry: geometry, list: items, lazy: false) { item in
-                    ItemActionView(item: item, feed: feed, profile: profile) {
-                        if feed.wrappedPreviewStyle.rawValue == 1 {
-                            ItemExpanded(item: item, feed: feed)
-                        } else {
-                            ItemCompressed(item: item, feed: feed)
-                        }
-                    }
-                    .background(SecondaryGroupedBackground())
-                    .modifier(RoundedContainerModifier())
+            VStack(alignment: .leading, spacing: 12) {
+                if feed.feedData == nil || feed.feedData?.error != nil {
+                    FeedUnavailable(feedData: feed.feedData)
+                        .padding(12)
+                        .background(QuaternaryGroupedBackground())
+                        .modifier(RoundedContainerModifier())
+                        .padding(.horizontal)
+                        .modifier(SafeAreaModifier(geometry: geometry))
                 }
-                .padding(.vertical)
-                .modifier(SafeAreaModifier(geometry: geometry))
-            }
+
+                if items.isEmpty && feed.feedData != nil  && feed.feedData?.error == nil {
+                    AllRead()
+                        .padding(12)
+                        .background(QuaternaryGroupedBackground())
+                        .modifier(RoundedContainerModifier())
+                        .padding(.horizontal)
+                        .modifier(SafeAreaModifier(geometry: geometry))
+                } else if !items.isEmpty {
+                    BoardView(geometry: geometry, list: items, lazy: false) { item in
+                        ItemActionView(item: item, feed: feed, profile: profile) {
+                            if feed.wrappedPreviewStyle.rawValue == 1 {
+                                ItemExpanded(item: item, feed: feed)
+                            } else {
+                                ItemCompressed(item: item, feed: feed)
+                            }
+                        }
+                        .background(SecondaryGroupedBackground())
+                        .modifier(RoundedContainerModifier())
+                    }
+                    .modifier(SafeAreaModifier(geometry: geometry))
+                }
+            }.padding(.vertical)
+
         } header: {
             NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {
