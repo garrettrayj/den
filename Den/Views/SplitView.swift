@@ -37,7 +37,7 @@ struct SplitView: View {
 
     @AppStorage("AutoRefreshEnabled") private var autoRefreshEnabled: Bool = false
     @AppStorage("AutoRefreshCooldown") private var autoRefreshCooldown: Int = 30
-    @AppStorage("UseInbuiltBrowser") private var useInbuiltBrowser: Bool = true
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
     @AppStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
 
     var body: some View {
@@ -68,12 +68,12 @@ struct SplitView: View {
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                useInbuiltBrowser: $useInbuiltBrowser,
+                useSystemBrowser: $useSystemBrowser,
                 searchQuery: $searchQuery
             )
         }
         .tint(profile.tintColor)
-        .environment(\.useInbuiltBrowser, useInbuiltBrowser)
+        .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
             if case .page(let page) = contentSelection {
                 SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)

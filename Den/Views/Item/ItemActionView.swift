@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var item: Item
@@ -65,14 +65,14 @@ struct ItemActionView<Content: View>: View {
     }
 
     private func openInBrowser(url: URL) {
-        if useInbuiltBrowser {
+        if useSystemBrowser {
+            openURL(url)
+        } else {
             SafariUtility.openLink(
                 url: url,
                 controlTintColor: profile.tintUIColor ?? .tintColor,
                 readerMode: feed.readerMode
             )
-        } else {
-            openURL(url)
         }
     }
 }

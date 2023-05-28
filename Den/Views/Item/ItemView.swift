@@ -13,7 +13,7 @@ import SwiftUI
 struct ItemView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var item: Item
@@ -47,14 +47,14 @@ struct ItemView: View {
                     ToolbarItem(placement: .bottomBar) {
                         Button {
                             if let url = item.link {
-                                if useInbuiltBrowser {
+                                if useSystemBrowser {
+                                    openURL(url)
+                                } else {
                                     SafariUtility.openLink(
                                         url: url,
                                         controlTintColor: profile.tintUIColor ?? .tintColor,
                                         readerMode: feed.readerMode
                                     )
-                                } else {
-                                    openURL(url)
                                 }
                             }
                         } label: {
@@ -79,12 +79,12 @@ struct ItemView: View {
                         .font(.title3)
                         .textSelection(.enabled)
 
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(item.wrappedTitle)
-                                .font(.largeTitle)
-                                .textSelection(.enabled)
-                                .fixedSize(horizontal: false, vertical: true)
+                        Text(item.wrappedTitle)
+                            .font(.largeTitle)
+                            .textSelection(.enabled)
+                            .fixedSize(horizontal: false, vertical: true)
 
+                        VStack(alignment: .leading, spacing: 4) {
                             if let author = item.author {
                                 Text(author).font(.subheadline).lineLimit(2)
                             }
@@ -92,8 +92,7 @@ struct ItemView: View {
                             TimelineView(.everyMinute) { _ in
                                 Text("\(item.date.formatted(date: .complete, time: .shortened)) ") +
                                 Text("(\(item.date.formatted(.relative(presentation: .numeric))))")
-                            }
-                            .font(.caption2)
+                            }.font(.caption2)
                         }
 
                         if

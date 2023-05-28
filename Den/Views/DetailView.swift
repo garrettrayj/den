@@ -23,7 +23,7 @@ struct DetailView: View {
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var useInbuiltBrowser: Bool
+    @Binding var useSystemBrowser: Bool
     @Binding var searchQuery: String
 
     @AppStorage("HideRead") private var hideRead: Bool = false
@@ -59,7 +59,7 @@ struct DetailView: View {
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        useInbuiltBrowser: $useInbuiltBrowser
+                        useSystemBrowser: $useSystemBrowser
                     )
                 }
             }

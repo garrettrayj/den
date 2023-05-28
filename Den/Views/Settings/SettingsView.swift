@@ -21,15 +21,15 @@ struct SettingsView: View {
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var useInbuiltBrowser: Bool
+    @Binding var useSystemBrowser: Bool
 
     var body: some View {
         Form {
             ProfilesListSection(activeProfile: $activeProfile)
-            #if !targetEnvironment(macCatalyst)
-            BrowserSettingsSection(useInbuiltBrowser: $useInbuiltBrowser)
-            #endif
             AppearanceSettingsSection(profile: profile, uiStyle: $uiStyle)
+            #if !targetEnvironment(macCatalyst)
+            BrowserSettingsSection(useSystemBrowser: $useSystemBrowser)
+            #endif
             RefreshSettingsSection(
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,

@@ -11,13 +11,13 @@
 import CoreData
 import SwiftUI
 
-private struct UseInbuiltBrowserKey: EnvironmentKey {
+private struct UseSystemBrowserKey: EnvironmentKey {
     static let defaultValue: Bool = true
 }
 
 extension EnvironmentValues {
-    var useInbuiltBrowser: Bool {
-        get { self[UseInbuiltBrowserKey.self] }
-        set { self[UseInbuiltBrowserKey.self] = newValue }
+    var useSystemBrowser: Bool {
+        get { self[UseSystemBrowserKey.self] }
+        set { self[UseSystemBrowserKey.self] = newValue }
     }
 }

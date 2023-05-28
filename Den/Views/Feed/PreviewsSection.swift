@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct PreviewsSection: View {
-    @Environment(\.useInbuiltBrowser) private var useInbuiltBrowser
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var feed: Feed
 
@@ -103,7 +103,7 @@ struct PreviewsSection: View {
             Text("Previews")
         } footer: {
             #if !targetEnvironment(macCatalyst)
-            if useInbuiltBrowser == false {
+            if useSystemBrowser == true {
                 Text("System web browser in use. \"Enter Reader Mode\" will be ignored.")
             }
             #endif

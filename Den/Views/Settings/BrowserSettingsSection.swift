@@ -11,12 +11,12 @@
 import SwiftUI
 
 struct BrowserSettingsSection: View {
-    @Binding var useInbuiltBrowser: Bool
+    @Binding var useSystemBrowser: Bool
 
     var body: some View {
         Section {
-            Toggle(isOn: $useInbuiltBrowser) {
-                Text("Use Built-in Browser").modifier(FormRowModifier())
+            Toggle(isOn: $useSystemBrowser) {
+                Text("Use System Web Browser").modifier(FormRowModifier())
             }
         } header: {
             Text("Links")
