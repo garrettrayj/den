@@ -43,28 +43,23 @@ struct ItemActionView<Content: View>: View {
         }
         .contextMenu {
             if let link = item.link {
-                if feed.browserView == true {
-                    NavigationLink(value: SubDetailPanel.item(item)) {
-                        Text("View Item")
-                    }
-                } else {
-                    Button {
-                        openInBrowser(url: link)
-                        Task {
-                            await HistoryUtility.markItemRead(item: item)
-                        }
-                    } label: {
-                        Label("Open in Browser", systemImage: "link")
-                    }
+                NavigationLink(value: SubDetailPanel.item(item)) {
+                    Text("Go to Item")
                 }
-                Divider()
-
-                ShareLink(item: link)
+                Button {
+                    openInBrowser(url: link)
+                    Task {
+                        await HistoryUtility.markItemRead(item: item)
+                    }
+                } label: {
+                    Label("Open in Browser", systemImage: "link")
+                }
                 Button {
                     UIPasteboard.general.url = link
                 } label: {
                     Label("Copy Link", systemImage: "doc.on.doc")
                 }
+                ShareLink(item: link)
             }
         }
     }
