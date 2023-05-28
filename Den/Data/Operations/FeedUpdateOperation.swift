@@ -59,7 +59,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
                     let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedID)
                     feedData.refreshed = .now
                     guard let data = data else {
-                        feedData.error = "Unable to fetch data from [\(feed.urlString)](\(feed.urlString))"
+                        feedData.error = RefreshError.request.rawValue
                         self.save(context: context, feed: feed)
                         self.finish()
                         return
@@ -137,6 +137,8 @@ final class FeedUpdateOperation: AsynchronousOperation {
     ) {
         switch parserResult {
         case .success(let parsedFeed):
+            feedData.error = nil
+
             switch parsedFeed {
             case let .atom(parsedFeed):
                 let updater = AtomFeedUpdate(
@@ -164,7 +166,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
                 updater.execute()
             }
         case .failure:
-            feedData.error = "Unable to parse content from [\(feed.urlString)](\(feed.urlString))"
+            feedData.error = RefreshError.parsing.rawValue
             return
         }
     }

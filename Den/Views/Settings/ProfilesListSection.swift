@@ -37,7 +37,11 @@ struct ProfilesListSection: View {
                     addProfile()
                 }
             } label: {
-                Label("Add Profile", systemImage: "plus")
+                Label {
+                    Text("Add Profile")
+                } icon: {
+                    Image(systemName: "plus")
+                }
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("add-profile-button")

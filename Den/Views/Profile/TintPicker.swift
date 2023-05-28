@@ -15,10 +15,14 @@ struct TintPicker: View {
 
     var body: some View {
         Picker(selection: $tint) {
-            Label("None", systemImage: "hexagon.fill")
-                .foregroundColor(.secondary)
-                .modifier(FormRowModifier())
-                .tag(nil as String?)
+            Label {
+                Text("None")
+            } icon: {
+                Image(systemName: "hexagon.fill")
+            }
+            .foregroundColor(.secondary)
+            .modifier(FormRowModifier())
+            .tag(nil as String?)
 
             ForEach(TintOption.allCases, id: \.self) { tintOption in
                 Label(tintOption.rawValue, systemImage: "hexagon.fill")

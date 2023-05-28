@@ -26,7 +26,7 @@ struct ItemView: View {
 
     var body: some View {
         if item.managedObjectContext == nil {
-            SplashNote(title: "Item Deleted", symbol: "slash.circle")
+            SplashNote(title: Text("Item Deleted"), symbol: "slash.circle")
         } else {
             itemLayout
                 #if targetEnvironment(macCatalyst)

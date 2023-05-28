@@ -18,7 +18,7 @@ struct TrendView: View {
 
     var body: some View {
         if trend.managedObjectContext == nil {
-            SplashNote(title: "Trend Deleted", symbol: "slash.circle")
+            SplashNote(title: Text("Trend Deleted"), symbol: "slash.circle")
         } else {
             WithItems(scopeObject: trend) { items in
                 TrendLayout(

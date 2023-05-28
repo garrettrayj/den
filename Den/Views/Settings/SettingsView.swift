@@ -42,6 +42,6 @@ struct SettingsView: View {
             )
             AboutSettingsSection()
         }
-        .navigationTitle("Settings")
+        .navigationTitle(Text("Settings"))
     }
 }

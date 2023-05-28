@@ -19,7 +19,7 @@ struct PageSettings: View {
 
     var body: some View {
         if page.managedObjectContext == nil {
-            SplashNote(title: "Page Deleted", symbol: "slash.circle")
+            SplashNote(title: Text("Page Deleted"), symbol: "slash.circle")
         } else {
             Form {
                 nameSection
@@ -28,7 +28,7 @@ struct PageSettings: View {
             }
             .environment(\.editMode, .constant(.active))
             .background(GroupedBackground())
-            .navigationTitle("Page Settings")
+            .navigationTitle(Text("Page Settings"))
             .onDisappear(perform: save)
         }
     }

@@ -62,12 +62,11 @@ struct FeedUpdateTask {
                     context: context,
                     webpageMetadata: webpageMetadata
                 )
+                feedData.error = nil
             case .failure:
-                feedData.error = """
-                Unable to parse content from [\(feed.urlString)](\(feed.urlString))
-                """
+                feedData.error = RefreshError.parsing.rawValue
             case .none:
-                feedData.error = "Unable to fetch data from [\(feed.urlString)](\(feed.urlString))"
+                feedData.error = RefreshError.request.rawValue
             }
 
             // Cleanup old items

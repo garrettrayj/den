@@ -35,7 +35,11 @@ struct FeedLayout: View {
                     }
 
                     if feed.feedData == nil || feed.feedData?.error != nil {
-                        FeedUnavailable(feedData: feed.feedData, splashNote: true)
+                        FeedUnavailable(
+                            feedData: feed.feedData,
+                            titleFont: .title,
+                            subtitleFont: .body
+                        ).padding()
                     }
 
                     if !items.previews().isEmpty {
@@ -149,7 +153,13 @@ struct FeedLayout: View {
                         urlCopied = true
                     } label: {
                         Text(feedURLString).lineLimit(1)
-                        Label("Copy", systemImage: "doc.on.doc").labelStyle(.iconOnly)
+                        Label {
+                            Text("Copy")
+                        } icon: {
+                            Image(systemName: "doc.on.doc")
+                        }
+                        .labelStyle(.iconOnly)
+
                         if urlCopied {
                             Text("Copied").foregroundColor(.secondary)
                         }

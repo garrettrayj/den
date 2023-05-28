@@ -13,10 +13,16 @@ import FeedKit
 import OSLog
 import SwiftUI
 
+public enum RefreshError: String {
+    case request
+    case parsing
+}
+
 @objc(FeedData)
 public class FeedData: NSManagedObject {
-    struct FeedIngestMeta {
-        var thumbnails: [URL] = []
+    public var wrappedError: RefreshError? {
+        guard let error = error else { return nil }
+        return RefreshError(rawValue: error)
     }
 
     public var feed: Feed? {

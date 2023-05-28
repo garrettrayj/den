@@ -20,7 +20,7 @@ struct PageView: View {
 
     var body: some View {
         if page.managedObjectContext == nil {
-            SplashNote(title: "Page Deleted")
+            SplashNote(title: Text("Page Deleted"))
         } else if page.feedsArray.isEmpty {
             NoFeeds(page: page)
         } else {
@@ -65,7 +65,11 @@ struct PageView: View {
                     }
                     ToolbarItem {
                         NavigationLink(value: SubDetailPanel.pageSettings(page)) {
-                            Label("Page Settings", systemImage: "wrench")
+                            Label {
+                                Text("Page Settings")
+                            } icon: {
+                                Image(systemName: "wrench")
+                            }
                         }
                         .buttonStyle(ToolbarButtonStyle())
                         .accessibilityIdentifier("page-settings-button")
@@ -79,11 +83,19 @@ struct PageView: View {
                             PageLayoutPicker(pageLayout: $pageLayout)
                             AddFeedButton(page: page)
                             NavigationLink(value: SubDetailPanel.pageSettings(page)) {
-                                Label("Page Settings", systemImage: "wrench")
+                                Label {
+                                    Text("Page Settings")
+                                } icon: {
+                                    Image(systemName: "wrench")
+                                }
                             }
                             .accessibilityIdentifier("page-settings-button")
                         } label: {
-                            Label("Page Menu", systemImage: "ellipsis.circle")
+                            Label {
+                                Text("Page Menu")
+                            } icon: {
+                                Image(systemName: "ellipsis.circle")
+                            }
                         }
                         .accessibilityIdentifier("page-menu")
                     }

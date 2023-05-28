@@ -45,7 +45,11 @@ struct ResetSettingsSection: View {
                 }
             } label: {
                 HStack {
-                    Label("Clear Cache", systemImage: "clear")
+                    Label {
+                        Text("Clear Cache")
+                    } icon: {
+                        Image(systemName: "clear")
+                    }
                     Spacer()
                     Text(cacheSizeFormatter.string(fromByteCount: cacheSize))
                         .font(.callout)

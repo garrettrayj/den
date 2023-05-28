@@ -28,7 +28,7 @@ struct Inbox: View {
                 }
                 InboxBottomBar(profile: profile, hideRead: $hideRead, items: items)
             }
-            .navigationTitle("Inbox")
+            .navigationTitle(Text("Inbox"))
         }
     }
 }

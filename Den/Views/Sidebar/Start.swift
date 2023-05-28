@@ -29,7 +29,11 @@ struct Start: View {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
             } label: {
-                Label("Add a New Page", systemImage: "plus").multilineTextAlignment(.leading)
+                Label {
+                    Text("New Page").multilineTextAlignment(.leading)
+                } icon: {
+                    Image(systemName: "plus")
+                }
             }
             .buttonStyle(.borderless)
             .accessibilityIdentifier("start-add-page-button")

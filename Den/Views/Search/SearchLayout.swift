@@ -21,9 +21,9 @@ struct SearchLayout: View {
     var body: some View {
         if items.isEmpty {
             if hideRead {
-                SplashNote(title: "No Unread Results")
+                SplashNote(title: Text("No Unread Results"))
             } else {
-                SplashNote(title: "No Results")
+                SplashNote(title: Text("No Results"))
             }
         } else {
             GeometryReader { geometry in

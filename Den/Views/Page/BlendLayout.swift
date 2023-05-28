@@ -20,7 +20,7 @@ struct BlendLayout: View {
 
     var body: some View {
         if items.isEmpty {
-            SplashNote(title: "No Items")
+            SplashNote(title: Text("No Items"))
         } else if items.unread().isEmpty && hideRead {
             AllReadSplashNote()
         } else {

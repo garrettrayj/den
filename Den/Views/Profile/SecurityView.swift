@@ -36,7 +36,7 @@ struct SecurityView: View {
             }
         }
         .onDisappear { reset() }
-        .navigationTitle("Security")
+        .navigationTitle(Text("Security"))
     }
 
     private var allClearSummary: some View {

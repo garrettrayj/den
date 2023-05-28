@@ -12,6 +12,6 @@ import SwiftUI
 
 struct AllReadSplashNote: View {
     var body: some View {
-        SplashNote(title: "All Read", symbol: "checkmark")
+        SplashNote(title: Text("All Read"), symbol: "checkmark")
     }
 }

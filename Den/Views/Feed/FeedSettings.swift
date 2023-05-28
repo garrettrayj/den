@@ -17,7 +17,7 @@ struct FeedSettings: View {
 
     var body: some View {
         if feed.managedObjectContext == nil {
-            SplashNote(title: "Feed Deleted", symbol: "slash.circle")
+            SplashNote(title: Text("Feed Deleted"), symbol: "slash.circle")
         } else {
             Form {
                 Section(header: Text("Title").modifier(FirstFormHeaderModifier())) {
@@ -51,7 +51,7 @@ struct FeedSettings: View {
             }
             .background(GroupedBackground())
             .onDisappear(perform: save)
-            .navigationTitle("Feed Settings")
+            .navigationTitle(Text("Feed Settings"))
         }
     }
 

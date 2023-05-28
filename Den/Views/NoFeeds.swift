@@ -20,7 +20,11 @@ struct NoFeeds: View {
             Button {
                 SubscriptionUtility.showSubscribe(page: page)
             } label: {
-                Label("Add by Web Address", systemImage: "plus.circle")
+                Label {
+                    Text("Add by Web Address")
+                } icon: {
+                    Image(systemName: "plus.circle")
+                }
             }
             .buttonStyle(.bordered)
             Text("""

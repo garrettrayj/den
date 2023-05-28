@@ -17,7 +17,11 @@ struct SettingsButton: View {
         Button {
             listSelection = .settings
         } label: {
-            Label("Settings", systemImage: "gear")
+            Label {
+                Text("Settings")
+            } icon: {
+                Image(systemName: "gear")
+            }
         }
         .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("settings-button")

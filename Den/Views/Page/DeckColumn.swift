@@ -31,12 +31,12 @@ struct DeckColumn: View {
                         .modifier(RoundedContainerModifier())
                 }
 
-                if items.isEmpty {
+                if items.isEmpty && feed.feedData != nil && feed.feedData?.error == nil {
                     AllRead()
                         .padding(12)
                         .background(QuaternaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
-                } else {
+                } else if !items.isEmpty {
                     ForEach(items) { item in
                         ItemActionView(item: item, feed: feed, profile: profile) {
                             if feed.wrappedPreviewStyle == .expanded {

@@ -13,8 +13,8 @@ import SwiftUI
 struct SplashNote: View {
     @Environment(\.isEnabled) private var isEnabled
 
-    let title: String
-    var note: String?
+    let title: Text
+    var note: Text?
     var symbol: String?
 
     var body: some View {
@@ -23,9 +23,9 @@ struct SplashNote: View {
             if let symbol = symbol {
                 Image(systemName: symbol).font(.system(size: 28))
             }
-            Text(title).font(.title)
+            title.font(.title)
             if let note = note {
-                Text(.init(note))
+                note
             }
             Spacer()
         }

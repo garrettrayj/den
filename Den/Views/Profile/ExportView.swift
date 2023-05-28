@@ -20,7 +20,7 @@ struct ExportView: View {
     var body: some View {
         VStack {
             if profile.feedsArray.isEmpty {
-                SplashNote(title: "Profile Empty")
+                SplashNote(title: Text("Profile Empty"))
             } else {
                 Form {
                     Section {
@@ -44,14 +44,19 @@ struct ExportView: View {
                 Button {
                     exportOpml()
                 } label: {
-                    Label("Export OPML", systemImage: "arrow.up.doc").labelStyle(.titleAndIcon)
+                    Label {
+                        Text("Export OPML")
+                    } icon: {
+                        Image(systemName: "arrow.up.doc")
+                    }
+                    .labelStyle(.titleAndIcon)
                 }
                 .buttonStyle(PlainToolbarButtonStyle())
                 .disabled(selectedPages.isEmpty)
                 .accessibilityIdentifier("export-button")
             }
         }
-        .navigationTitle("Export")
+        .navigationTitle(Text("Export"))
     }
 
     private var pageListSection: some View {

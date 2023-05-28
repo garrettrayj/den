@@ -41,15 +41,11 @@ struct DetailView: View {
                 case .trending:
                     Trending(profile: profile, hideRead: $hideRead)
                 case .page(let page):
-                    if page.managedObjectContext != nil {
-                        PageView(
-                            page: page,
-                            profile: profile,
-                            hideRead: $hideRead
-                        )
-                    } else {
-                        SplashNote(title: "Page Deleted")
-                    }
+                    PageView(
+                        page: page,
+                        profile: profile,
+                        hideRead: $hideRead
+                    )
                 case .settings:
                     SettingsView(
                         profile: profile,

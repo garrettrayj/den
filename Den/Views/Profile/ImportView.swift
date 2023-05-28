@@ -39,20 +39,28 @@ struct ImportView: View {
         }
         .frame(maxWidth: .infinity)
         .onDisappear(perform: reset)
-        .navigationTitle("Import")
+        .navigationTitle(Text("Import"))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 if stage == .pickFile {
                     Button(action: pickFile) {
-                        Label("Select File", systemImage: "filemenu.and.cursorarrow")
-                            .labelStyle(.titleAndIcon)
+                        Label {
+                            Text("Select File")
+                        } icon: {
+                            Image(systemName: "filemenu.and.cursorarrow")
+                        }
+                        .labelStyle(.titleAndIcon)
                     }
                     .buttonStyle(PlainToolbarButtonStyle())
                     .accessibilityIdentifier("select-file-button")
                 } else if stage == .folderSelection {
                     Button(action: importSelected) {
-                        Label("Import Pages", systemImage: "rectangle.stack.badge.plus")
-                            .labelStyle(.titleAndIcon)
+                        Label {
+                            Text("Import Pages")
+                        } icon: {
+                            Image(systemName: "rectangle.stack.badge.plus")
+                        }
+                        .labelStyle(.titleAndIcon)
                     }
                     .buttonStyle(PlainToolbarButtonStyle())
                     .disabled(!(selectedFolders.count > 0))
@@ -105,15 +113,15 @@ struct ImportView: View {
 
     private var errorStage: some View {
         SplashNote(
-            title: "Import Error",
-            note: "The operation did not complete successfully."
+            title: Text("Import Error"),
+            note: Text("The operation did not complete successfully.")
         )
     }
 
     private var completeStage: some View {
         SplashNote(
-            title: "Import Complete",
-            note: "\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile."
+            title: Text("Import Complete"),
+            note: Text("\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile.")
         )
     }
 

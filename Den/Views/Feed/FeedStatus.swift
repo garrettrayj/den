@@ -24,10 +24,12 @@ struct FeedStatus: View {
             if refreshManager.refreshing {
                 Text("Checking for New Items…")
             } else {
-                if refreshedLabel() != nil {
+                if let refreshedDate = feed.feedData?.refreshed {
                     TimelineView(.everyMinute) { _ in
-                        if let refreshedLabel = refreshedLabel() {
-                            Text(refreshedLabel)
+                        if -refreshedDate.timeIntervalSinceNow < 60 {
+                            Text("Updated Just Now")
+                        } else {
+                            Text("Updated \(refreshedDate.formatted(relativeDateStyle))")
                         }
                     }
                 }
@@ -36,15 +38,5 @@ struct FeedStatus: View {
         }
         .font(.caption)
         .lineLimit(1)
-    }
-
-    private func refreshedLabel() -> String? {
-        if let refreshedDate = feed.feedData?.refreshed {
-            if -refreshedDate.timeIntervalSinceNow < 60 {
-                return "Updated Just Now"
-            }
-            return "Updated \(refreshedDate.formatted(relativeDateStyle))"
-        }
-        return nil
     }
 }

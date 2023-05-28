@@ -11,35 +11,30 @@
 import SwiftUI
 
 struct FeedUnavailable: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     let feedData: FeedData?
-    var splashNote: Bool = false
+
+    var titleFont: Font = .body
+    var subtitleFont: Font = .caption
 
     var body: some View {
-        if splashNote {
-            SplashNote(title: titleAndDescripition.0, note: titleAndDescripition.1)
-        } else {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(titleAndDescripition.0)
-                if let caption = titleAndDescripition.1 {
-                    Text(.init(caption)).font(.caption)
+        VStack(spacing: 4) {
+            if feedData == nil {
+                Text("No Data").font(titleFont)
+                Text("Refresh to fetch content.").font(subtitleFont)
+            } else if let error = feedData?.wrappedError {
+                Text("Refresh Error").font(titleFont)
+                if error == .request {
+                    Text("Unable to fetch content.").font(subtitleFont)
+                } else {
+                    Text("Unable to parse content.").font(subtitleFont)
                 }
+            } else if feedData!.itemsArray.isEmpty {
+                Text("Feed Empty").font(titleFont)
+                Text("No items to display.").font(subtitleFont)
+            } else {
+                Text("Status Unavailable").font(titleFont)
             }
-            .foregroundColor(isEnabled ? .primary : .secondary)
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
-    }
-
-    var titleAndDescripition: (String, String?) {
-        if feedData == nil {
-            return ("No Data", "Refresh to fetch content.")
-        } else if let error = feedData?.error {
-            return ("Refresh Error", error)
-        } else if feedData!.itemsArray.isEmpty {
-            return ("Feed Empty", "No items to display.")
-        } else {
-            return ("Status Unavailable", nil)
-        }
+        .frame(maxWidth: .infinity)
     }
 }

@@ -12,13 +12,8 @@ import SwiftUI
 
 struct AllRead: View {
     var body: some View {
-        Label {
-            Text("All Read")
-        } icon: {
-            Image(systemName: "checkmark")
-        }
-        .font(.callout)
-        .foregroundColor(.secondary)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        Text("All Read")
+            .foregroundColor(.secondary)
+            .frame(maxWidth: .infinity)
     }
 }

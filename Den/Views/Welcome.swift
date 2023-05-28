@@ -30,13 +30,16 @@ struct Welcome: View {
     @ViewBuilder
     private var welcomeNote: some View {
         if refreshing {
-            SplashNote(title: profile.displayName, note: "Checking for New Items…")
-        } else if refreshedLabel() != nil {
+            SplashNote(
+                title: Text(profile.displayName),
+                note: Text("Checking for New Items…")
+            )
+        } else if let refreshedLabel = refreshedLabel() {
             TimelineView(.everyMinute) { _ in
-                SplashNote(title: profile.displayName, note: refreshedLabel())
+                SplashNote(title: Text(profile.displayName), note: Text(refreshedLabel))
             }
         } else {
-            SplashNote(title: profile.displayName)
+            SplashNote(title: Text(profile.displayName))
         }
     }
 

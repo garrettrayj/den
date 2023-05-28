@@ -52,12 +52,20 @@ struct ItemActionView<Content: View>: View {
                         await HistoryUtility.markItemRead(item: item)
                     }
                 } label: {
-                    Label("Open in Browser", systemImage: "link")
+                    Label {
+                        Text("Open in Browser")
+                    } icon: {
+                        Image(systemName: "link")
+                    }
                 }
                 Button {
                     UIPasteboard.general.url = link
                 } label: {
-                    Label("Copy Link", systemImage: "doc.on.doc")
+                    Label {
+                        Text("Copy Link")
+                    } icon: {
+                        Image(systemName: "doc.on.doc")
+                    }
                 }
                 ShareLink(item: link)
             }

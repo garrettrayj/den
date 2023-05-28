@@ -30,14 +30,18 @@ struct IconPicker: View {
                 }.padding(.bottom)
             }
             .background(GroupedBackground())
-            .navigationTitle("Choose Icon")
+            .navigationTitle(Text("Choose Icon"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         dismiss()
                     } label: {
-                        Label("Close", systemImage: "xmark.circle")
+                        Label {
+                            Text("Close")
+                        } icon: {
+                            Image(systemName: "xmark.circle")
+                        }
                     }
                     .buttonStyle(PlainToolbarButtonStyle())
                 }

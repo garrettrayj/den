@@ -21,7 +21,11 @@ struct RefreshButton: View {
                 await refreshManager.refresh(profile: profile)
             }
         } label: {
-            Label("Refresh", systemImage: "arrow.clockwise")
+            Label {
+                Text("Refresh")
+            } icon: {
+                Image(systemName: "arrow.clockwise")
+            }
         }
         .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("profile-refresh-button")

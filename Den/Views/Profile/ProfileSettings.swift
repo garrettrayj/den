@@ -54,7 +54,11 @@ struct ProfileSettings: View {
                         dismiss()
                     }
                 } label: {
-                    Label("Switch", systemImage: "arrow.left.arrow.right")
+                    Label {
+                        Text("Switch")
+                    } icon: {
+                        Image(systemName: "arrow.left.arrow.right")
+                    }
                 }
                 .labelStyle(.titleAndIcon)
                 .buttonStyle(PlainToolbarButtonStyle())
@@ -62,7 +66,7 @@ struct ProfileSettings: View {
                 .accessibilityIdentifier("switch-to-profile-button")
             }
         }
-        .navigationTitle("Profile Settings")
+        .navigationTitle(Text("Profile Settings"))
     }
 
     private var nameSection: some View {
@@ -92,9 +96,13 @@ struct ProfileSettings: View {
             Button(role: .destructive) {
                 showingDeleteAlert = true
             } label: {
-                Label("Delete", systemImage: "trash")
-                    .symbolRenderingMode(.multicolor)
-                    .modifier(FormRowModifier())
+                Label {
+                    Text("Delete")
+                } icon: {
+                    Image(systemName: "trash")
+                }
+                .symbolRenderingMode(.multicolor)
+                .modifier(FormRowModifier())
             }
             .accessibilityIdentifier("delete-profile-button")
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {

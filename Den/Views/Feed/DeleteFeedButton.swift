@@ -22,9 +22,13 @@ struct DeleteFeedButton: View {
         Button(role: .destructive) {
             showingDeleteAlert = true
         } label: {
-            Label("Delete", systemImage: "trash")
-                .symbolRenderingMode(.multicolor)
-                .modifier(FormRowModifier())
+            Label {
+                Text("Delete")
+            } icon: {
+                Image(systemName: "trash")
+            }
+            .symbolRenderingMode(.multicolor)
+            .modifier(FormRowModifier())
         }
         .alert(
             "Delete \(feed.wrappedTitle)?",
