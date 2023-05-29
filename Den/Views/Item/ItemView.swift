@@ -91,11 +91,11 @@ struct ItemView: View {
                             }
 
                             TimelineView(.everyMinute) { _ in
-                                Text(verbatim: """
-                                    \(item.date.formatted(date: .complete, time: .shortened)) \
-                                    (\(item.date.formatted(.relative(presentation: .numeric))))
-                                """)
-                            }.font(.caption2)
+                                HStack {
+                                    Text(verbatim: item.date.formatted(date: .complete, time: .shortened))
+                                    Text(verbatim: "(\(item.date.formatted(.relative(presentation: .numeric))))")
+                                }.font(.caption2)
+                            }
                         }
 
                         if
