@@ -24,7 +24,7 @@ struct BulkSelectionButtons: View {
                 Button(action: selectAll) { Text("All") }
                     .disabled(allSelected)
                     .accessibilityIdentifier("select-all-button")
-                Text("/").foregroundColor(.secondary)
+                Text(verbatim: "/").foregroundColor(.secondary)
                 Button(action: selectNone) { Text("None") }
                     .disabled(noneSelected)
                     .accessibilityIdentifier("select-none-button")

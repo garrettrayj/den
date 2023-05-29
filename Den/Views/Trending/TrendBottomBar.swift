@@ -29,7 +29,7 @@ struct TrendBottomBar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
-            CommonStatus(profile: profile, unreadCount: items.unread().count)
+            CommonStatus(profile: profile, unreadLabel: Text("\(items.unread().count) Unread"))
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {

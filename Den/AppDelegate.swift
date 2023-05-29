@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         resetUserDefaultsIfNeeded()
         setupImageHandling()
 
+        WindowFinder.current()?.frame = UIScreen.main.bounds
+
         return true
     }
 

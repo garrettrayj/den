@@ -23,7 +23,11 @@ struct ProfilesListSection: View {
             ForEach(profiles) { profile in
                 NavigationLink(value: SubDetailPanel.profileSettings(profile)) {
                     Label {
-                        Text(profile.displayName)
+                        if let name = profile.displayName {
+                            Text(name)
+                        } else {
+                            Text("Untitled")
+                        }
                     } icon: {
                         Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
                             .foregroundColor(profile.tintColor)

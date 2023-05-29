@@ -22,7 +22,7 @@ struct FeedItemCompressed: View {
             NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabel(
-                        title: feed.wrappedTitle,
+                        title: feed.displayTitle,
                         favicon: item.feedData?.favicon
                     )
                     Spacer()

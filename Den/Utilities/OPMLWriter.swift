@@ -33,7 +33,7 @@ final class OPMLWriter {
         pages.forEach { page in
             let outline = body.addChild(
                 name: "outline",
-                attributes: ["text": page.wrappedName, "title": page.wrappedName]
+                attributes: ["text": page.name ?? "Untitled", "title": page.name ?? "Untitled"]
             )
             page.feedsArray.forEach { feed in
                 let attributes = [

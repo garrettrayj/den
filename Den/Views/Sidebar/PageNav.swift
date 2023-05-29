@@ -20,15 +20,24 @@ struct PageNav: View {
         NavigationLink(value: DetailPanel.page(page)) {
             Label {
                 if editMode?.wrappedValue.isEditing == true {
-                    Text(page.displayName).lineLimit(1)
+                    if let pageName = page.displayName {
+                        Text(pageName)
+                    } else {
+                        Text("Untitled")
+                    }
                 } else {
                     WithItems(scopeObject: page, readFilter: false) { items in
-                        Text(page.displayName).lineLimit(1).badge(items.count)
+                        if let pageName = page.displayName {
+                            Text(pageName).badge(items.count)
+                        } else {
+                            Text("Untitled").badge(items.count)
+                        }
                     }
                 }
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
+            .lineLimit(1)
         }
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
             if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {

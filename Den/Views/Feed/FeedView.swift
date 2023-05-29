@@ -56,7 +56,7 @@ struct FeedView: View {
                 .onChange(of: feed.page) { _ in
                     dismiss()
                 }
-                .navigationTitle(feed.wrappedTitle)
+                .navigationTitle(feed.displayTitle == nil ? Text("Untitled") : Text(feed.displayTitle!))
             }
         }
     }

@@ -26,17 +26,12 @@ struct PublishedDateActionLine: View {
 
     var body: some View {
         TimelineView(.everyMinute) { _ in
-            if feed.browserView == true {
-                Text("\(formattedDateString)") +
-                Text("  \(Image(systemName: "link"))")
-            } else {
-                Text(formattedDateString)
+            HStack {
+                Text(verbatim: dateFormatter.string(from: item.date))
+                if feed.browserView == true {
+                    Image(systemName: "link").imageScale(.small)
+                }
             }
         }
-        .imageScale(.small)
-    }
-
-    private var formattedDateString: String {
-        dateFormatter.string(from: item.date)
     }
 }

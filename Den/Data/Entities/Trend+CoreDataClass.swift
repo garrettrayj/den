@@ -12,10 +12,6 @@ import CoreData
 
 @objc(Trend)
 public class Trend: NSManagedObject {
-    var wrappedTitle: String {
-        title ?? "Untitled"
-    }
-
     var trendItemsArray: [TrendItem] {
         trendItems?.allObjects as? [TrendItem] ?? []
     }

@@ -11,14 +11,19 @@
 import SwiftUI
 
 struct FeedTitleLabel: View {
-    let title: String
+    let title: String?
     let favicon: URL?
 
     var body: some View {
         Label {
-            Text(title).lineLimit(1)
+            if let title = title {
+                Text(title)
+            } else {
+                Text("Untitled")
+            }
         } icon: {
             FeedFavicon(url: favicon)
         }
+        .lineLimit(1)
     }
 }

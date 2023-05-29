@@ -37,7 +37,7 @@ struct ExportView: View {
             }
         }
         .onAppear {
-            title = "\(profile.displayName) \(Date().formatted())"
+            title = "\(profile.wrappedName) \(Date().formatted())"
         }
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
@@ -68,9 +68,13 @@ struct ExportView: View {
                         HStack {
                             Text(page.wrappedName).foregroundColor(.primary)
                             Spacer()
-                            Text("\(page.feeds?.count ?? 0) feeds")
-                                .foregroundColor(.secondary)
-                                .font(.footnote)
+                            if page.feedsArray.count == 1 {
+                                Text("1 Feed")
+                                    .foregroundColor(.secondary).font(.footnote)
+                            } else {
+                                Text("\(page.feedsArray.count) Feeds")
+                                    .foregroundColor(.secondary).font(.footnote)
+                            }
                         }
                     } icon: {
                         if self.selectedPages.contains(page) {

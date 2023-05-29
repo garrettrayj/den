@@ -27,24 +27,9 @@
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3" build-num="14E222b"/>
     </header>
     <body>
-      <trans-unit id="%@" xml:space="preserve">
-        <source>%@</source>
-        <target>%@</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="%@ " xml:space="preserve">
-        <source>%@ </source>
-        <target>%@ </target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="%@ %@" xml:space="preserve">
-        <source>%1$@ %2$@</source>
-        <target>%1$@ %2$@</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="%@ (%@)" xml:space="preserve">
-        <source>%1$@ (%2$@)</source>
-        <target>%1$@ (%2$@)</target>
+      <trans-unit id="%@ Feeds" xml:space="preserve">
+        <source>%@ Feeds</source>
+        <target>%@ Feeds</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ New Page" xml:space="preserve">
@@ -52,19 +37,14 @@
         <target>%@ New Page</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="%@ Records" xml:space="preserve">
+        <source>%@ Records</source>
+        <target>%@ Records</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="%@ Unread" xml:space="preserve">
         <source>%@ Unread</source>
         <target>%@ Unread</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="%@ feed is using an insecure web address." xml:space="preserve">
-        <source>%@ feed is using an insecure web address.</source>
-        <target>%@ feed is using an insecure web address.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="%@ feeds" xml:space="preserve">
-        <source>%@ feeds</source>
-        <target>%@ feeds</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="%@ feeds use insecure web addresses." xml:space="preserve">
@@ -92,24 +72,24 @@
         <target>%1$@ pages with %2$@ feeds added to profile.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ record" xml:space="preserve">
-        <source>%@ record</source>
-        <target>%@ record</target>
+      <trans-unit id="%@ with Unread" xml:space="preserve">
+        <source>%@ with Unread</source>
+        <target>%@ with Unread</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="%@ records" xml:space="preserve">
-        <source>%@ records</source>
-        <target>%@ records</target>
+      <trans-unit id="1 Feed" xml:space="preserve">
+        <source>1 Feed</source>
+        <target>1 Feed</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="(%@)" xml:space="preserve">
-        <source>(%@)</source>
-        <target>(%@)</target>
+      <trans-unit id="1 Record" xml:space="preserve">
+        <source>1 Record</source>
+        <target>1 Record</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="/" xml:space="preserve">
-        <source>/</source>
-        <target>/</target>
+      <trans-unit id="1 feed uses an insecure web address." xml:space="preserve">
+        <source>1 feed uses an insecure web address.</source>
+        <target>1 feed uses an insecure web address.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="A critical error occurred. Restart to try again." xml:space="preserve">
@@ -157,9 +137,9 @@
         <target>All content within will be removed.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="All feeds have secure web addresses." xml:space="preserve">
-        <source>All feeds have secure web addresses.</source>
-        <target>All feeds have secure web addresses.</target>
+      <trans-unit id="All feeds use secure web addresses." xml:space="preserve">
+        <source>All feeds use secure web addresses.</source>
+        <target>All feeds use secure web addresses.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="All profiles will be removed. Default settings will be restored." xml:space="preserve">
@@ -192,19 +172,19 @@
         <target>Cancel</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Cannot be blank" xml:space="preserve">
+        <source>Cannot be blank</source>
+        <target>Cannot be blank</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Changes will be applied on next refresh." xml:space="preserve">
         <source>Changes will be applied on next refresh.</source>
         <target>Changes will be applied on next refresh.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Check for a secure option" xml:space="preserve">
-        <source>Check for a secure option</source>
-        <target>Check for a secure option</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Check for secure options" xml:space="preserve">
-        <source>Check for secure options</source>
-        <target>Check for secure options</target>
+      <trans-unit id="Check for HTTPS" xml:space="preserve">
+        <source>Check for HTTPS</source>
+        <target>Check for HTTPS</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Checking for New Items…" xml:space="preserve">
@@ -212,19 +192,9 @@
         <target>Checking for New Items…</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="Checking…" xml:space="preserve">
-        <source>Checking…</source>
-        <target>Checking…</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="Choose Icon" xml:space="preserve">
         <source>Choose Icon</source>
         <target>Choose Icon</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="Choose Icon…" xml:space="preserve">
-        <source>Choose Icon…</source>
-        <target>Choose Icon…</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Clear" xml:space="preserve">
@@ -262,6 +232,11 @@
         <target>Copy Link</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Could not be parsed" xml:space="preserve">
+        <source>Could not be parsed</source>
+        <target>Could not be parsed</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Create a New Profile" xml:space="preserve">
         <source>Create a New Profile</source>
         <target>Create a New Profile</target>
@@ -290,6 +265,11 @@
       <trans-unit id="Enter Reader Mode" xml:space="preserve">
         <source>Enter Reader Mode</source>
         <target>Enter Reader Mode</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Enter a RSS, Atom, or JSON Feed URL." xml:space="preserve">
+        <source>Enter a RSS, Atom, or JSON Feed URL.</source>
+        <target>Enter a RSS, Atom, or JSON Feed URL.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Enter a search term." xml:space="preserve">
@@ -477,9 +457,9 @@
         <target>Loading…</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="M" xml:space="preserve">
-        <source>M</source>
-        <target>M</target>
+      <trans-unit id="Looking for HTTPS versions…" xml:space="preserve">
+        <source>Looking for HTTPS versions…</source>
+        <target>Looking for HTTPS versions…</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Mark All Read" xml:space="preserve">
@@ -500,6 +480,16 @@
       <trans-unit id="Move" xml:space="preserve">
         <source>Move</source>
         <target>Move</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Must begin with “http://” or “https://”" xml:space="preserve">
+        <source>Must begin with “http://” or “https://”</source>
+        <target>Must begin with “http://” or “https://”</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Must not contain spaces" xml:space="preserve">
+        <source>Must not contain spaces</source>
+        <target>Must not contain spaces</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
@@ -565,11 +555,6 @@
       <trans-unit id="No items to display." xml:space="preserve">
         <source>No items to display.</source>
         <target>No items to display.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="No records" xml:space="preserve">
-        <source>No records</source>
-        <target>No records</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="None" xml:space="preserve">
@@ -680,6 +665,16 @@
       <trans-unit id="Pull to Refresh" xml:space="preserve">
         <source>Pull to Refresh</source>
         <target>Pull to Refresh</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Recovery Period: %@ hours" xml:space="preserve">
+        <source>Recovery Period: %@ hours</source>
+        <target>Recovery Period: %@ hours</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Recovery Period: %@ minutes" xml:space="preserve">
+        <source>Recovery Period: %@ minutes</source>
+        <target>Recovery Period: %@ minutes</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Refresh" xml:space="preserve">
@@ -827,6 +822,16 @@
         <target>Unable to parse content.</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
+      <trans-unit id="Unopenable" xml:space="preserve">
+        <source>Unopenable</source>
+        <target>Unopenable</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Untitled" xml:space="preserve">
+        <source>Untitled</source>
+        <target>Untitled</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
       <trans-unit id="Updated %@" xml:space="preserve">
         <source>Updated %@</source>
         <target>Updated %@</target>
@@ -867,11 +872,6 @@
         <target>When Activated</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
-      <trans-unit id="[RSS](https://validator.w3.org/feed/docs/rss2.html), [Atom](https://validator.w3.org/feed/docs/atom.html), and [JSON Feed](https://www.jsonfeed.org/version/1.1/) supported." xml:space="preserve">
-        <source>[RSS](https://validator.w3.org/feed/docs/rss2.html), [Atom](https://validator.w3.org/feed/docs/atom.html), and [JSON Feed](https://www.jsonfeed.org/version/1.1/) supported.</source>
-        <target>[RSS](https://validator.w3.org/feed/docs/rss2.html), [Atom](https://validator.w3.org/feed/docs/atom.html), and [JSON Feed](https://www.jsonfeed.org/version/1.1/) supported.</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
       <trans-unit id="https://den.io" xml:space="preserve">
         <source>https://den.io</source>
         <target>https://den.io</target>
@@ -880,26 +880,6 @@
       <trans-unit id="https⁣://example.com/feed.xml" xml:space="preserve">
         <source>https⁣://example.com/feed.xml</source>
         <target>https⁣://example.com/feed.xml</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="  %@" xml:space="preserve">
-        <source>  %@</source>
-        <target>  %@</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="© 2023 Garrett Johnson" xml:space="preserve">
-        <source>© 2023 Garrett Johnson</source>
-        <target>© 2023 Garrett Johnson</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="• Recovery Period: %@ hours" xml:space="preserve">
-        <source>• Recovery Period: %@ hours</source>
-        <target>• Recovery Period: %@ hours</target>
-        <note>No comment provided by engineer.</note>
-      </trans-unit>
-      <trans-unit id="• Recovery Period: %@ minutes" xml:space="preserve">
-        <source>• Recovery Period: %@ minutes</source>
-        <target>• Recovery Period: %@ minutes</target>
         <note>No comment provided by engineer.</note>
       </trans-unit>
     </body>

@@ -51,12 +51,17 @@ struct RefreshSettingsSection: View {
                     in: 10...24 * 60,
                     step: autoRefreshCooldown >= 120 ? 60 : 10
                 ) {
-                    if autoRefreshCooldown >= 120 {
-                        Text("• Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
-                            .modifier(FormRowModifier())
-                    } else {
-                        Text("• Recovery Period: \(autoRefreshCooldown) minutes")
-                            .modifier(FormRowModifier())
+                    HStack {
+                        Text(verbatim: "- ")
+                        if autoRefreshCooldown >= 120 {
+                            Text("Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                                .font(.callout)
+                                .modifier(FormRowModifier())
+                        } else {
+                            Text("Recovery Period: \(autoRefreshCooldown) minutes")
+                                .font(.callout)
+                                .modifier(FormRowModifier())
+                        }
                     }
                 }
             }

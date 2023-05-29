@@ -64,14 +64,10 @@ struct HistorySettingsSection: View {
                     Text("Clear")
                     Spacer()
                     Group {
-                        if historyCount > 0 {
-                            if historyCount > 1 {
-                                Text("\(historyCount) records")
-                            } else {
-                                Text("\(historyCount) record")
-                            }
+                        if historyCount == 1 {
+                            Text("1 Record")
                         } else {
-                            Text("No records")
+                            Text("\(historyCount) Records")
                         }
                     }
                     .font(.callout)
@@ -85,10 +81,11 @@ struct HistorySettingsSection: View {
             Text("History")
         } footer: {
             if historyRentionDays == 0 || historyRentionDays > 90 || historyCount > 100_000 {
-                (
-                    Text("\(Image(systemName: "exclamationmark.triangle")) ") +
+                Label {
                     Text("Retaining history for long periods may adversely affect performance.")
-                )
+                } icon: {
+                    Image(systemName: "exclamationmark.triangle")
+                }
                 .imageScale(.small)
             }
         }

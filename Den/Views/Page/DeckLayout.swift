@@ -36,7 +36,7 @@ struct DeckLayout: View {
                 .safeAreaInset(edge: .leading, alignment: .top, spacing: 0) {
                     if geometry.safeAreaInsets.leading > 0 {
                         HStack {
-                            Text("M").font(.title3).hidden()
+                            Text(verbatim: "M").font(.title3).hidden()
                         }
                         .modifier(PinnedSectionHeaderModifier())
                         .padding(.top, geometry.safeAreaInsets.top)
@@ -46,7 +46,7 @@ struct DeckLayout: View {
                 .safeAreaInset(edge: .trailing, alignment: .top, spacing: 0) {
                     if geometry.safeAreaInsets.trailing > 0 {
                         HStack {
-                            Text("M").font(.title3).hidden()
+                            Text(verbatim: "M").font(.title3).hidden()
                         }
                         .modifier(PinnedSectionHeaderModifier())
                         .padding(.top, geometry.safeAreaInsets.top)

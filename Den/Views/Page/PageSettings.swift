@@ -54,7 +54,7 @@ struct PageSettings: View {
             } label: {
                 Label {
                     HStack {
-                        Text("Choose Icon…")
+                        Text("Choose Icon")
                         Spacer()
                         Image(systemName: "chevron.down").foregroundColor(.secondary)
                     }
@@ -82,7 +82,7 @@ struct PageSettings: View {
             } else {
                 ForEach(page.feedsArray) { feed in
                     FeedTitleLabel(
-                        title: feed.wrappedTitle,
+                        title: feed.displayTitle,
                         favicon: feed.feedData?.favicon
                     ).modifier(FormRowModifier())
                 }

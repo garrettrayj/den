@@ -22,11 +22,6 @@ public class Item: NSManagedObject {
     }
 
     @objc
-    public var feedTitle: String {
-        feedData?.feed?.wrappedTitle ?? "Untitled"
-    }
-
-    @objc
     public var date: Date {
         published ?? ingested ?? Date(timeIntervalSince1970: 0)
     }

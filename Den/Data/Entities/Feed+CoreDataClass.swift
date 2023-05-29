@@ -12,8 +12,12 @@ import CoreData
 
 @objc(Feed)
 public class Feed: NSManagedObject {
+    public var displayTitle: String? {
+        wrappedTitle == "" ? nil : wrappedTitle
+    }
+
     public var wrappedTitle: String {
-        get {title ?? "Untitled"}
+        get {title ?? ""}
         set {title = newValue}
     }
 

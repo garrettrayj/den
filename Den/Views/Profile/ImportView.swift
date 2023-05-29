@@ -91,9 +91,13 @@ struct ImportView: View {
                             HStack {
                                 Text(folder.name).foregroundColor(.primary)
                                 Spacer()
-                                Text("\(folder.feeds.count) feeds")
-                                    .foregroundColor(.secondary)
-                                    .font(.footnote)
+                                if folder.feeds.count == 1 {
+                                    Text("1 Feed")
+                                        .foregroundColor(.secondary).font(.footnote)
+                                } else {
+                                    Text("\(folder.feeds.count) Feeds")
+                                        .foregroundColor(.secondary).font(.footnote)
+                                }
                             }
                         } icon: {
                             if selectedFolders.contains(folder) {

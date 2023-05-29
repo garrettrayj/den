@@ -73,7 +73,7 @@ struct ItemView: View {
                 VStack {
                     VStack(alignment: .leading, spacing: 16) {
                         FeedTitleLabel(
-                            title: item.feedTitle,
+                            title: item.feedData?.feed?.displayTitle,
                             favicon: item.feedData?.favicon
                         )
                         .font(.title3)
@@ -91,8 +91,10 @@ struct ItemView: View {
                             }
 
                             TimelineView(.everyMinute) { _ in
-                                Text("\(item.date.formatted(date: .complete, time: .shortened)) ") +
-                                Text("(\(item.date.formatted(.relative(presentation: .numeric))))")
+                                Text(verbatim: """
+                                    \(item.date.formatted(date: .complete, time: .shortened)) \
+                                    (\(item.date.formatted(.relative(presentation: .numeric))))
+                                """)
                             }.font(.caption2)
                         }
 

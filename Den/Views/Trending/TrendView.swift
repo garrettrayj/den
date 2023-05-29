@@ -36,7 +36,7 @@ struct TrendView: View {
                         items: items
                     )
                 }
-                .navigationTitle(trend.wrappedTitle)
+                .navigationTitle(trend.title == nil ? Text("Untitled") : Text(trend.title!))
             }
         }
     }

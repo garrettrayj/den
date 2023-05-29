@@ -50,7 +50,7 @@ struct Sidebar: View {
         .background(GroupedBackground())
         #endif
         .disabled(refreshManager.refreshing)
-        .navigationTitle(profile.displayName)
+        .navigationTitle(profile.displayName == nil ? Text("Untitled") : Text(profile.displayName!))
         .toolbar {
             ToolbarItem {
                 EditButton()

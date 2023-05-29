@@ -18,7 +18,7 @@ struct AboutSettingsSection: View {
             HStack {
                 Text("Version")
                 Spacer()
-                Text("\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
+                Text(verbatim: "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
@@ -40,7 +40,7 @@ struct AboutSettingsSection: View {
         } header: {
             Text("About")
         } footer: {
-            Text("© 2023 Garrett Johnson")
+            Text(verbatim: "© 2023 Garrett Johnson")
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
                 .foregroundColor(.secondary)

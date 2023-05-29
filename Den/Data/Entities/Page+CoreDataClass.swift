@@ -12,12 +12,12 @@ import CoreData
 
 @objc(Page)
 public class Page: NSManagedObject {
-    public var displayName: String {
-        name == nil || name == "" ? "Untitled" : name!
+    public var displayName: String? {
+        wrappedName == "" ? nil : wrappedName
     }
 
     public var wrappedName: String {
-        get { name ?? "Untitled" }
+        get { name ?? "" }
         set { name = newValue }
     }
 

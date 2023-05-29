@@ -11,6 +11,14 @@
 import CoreData
 import SwiftUI
 
+enum FeedURLValidationMessage {
+    case cannotBeBlank
+    case mustNotContainSpaces
+    case mustBeginWithHTTP
+    case parseError
+    case unopenable
+}
+
 struct AddFeed: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -25,7 +33,7 @@ struct AddFeed: View {
     @State private var targetPage: Page?
     @State private var urlIsValid: Bool?
     @State private var validationAttempts: Int = 0
-    @State private var validationMessage: String?
+    @State private var validationMessage: FeedURLValidationMessage?
     @State private var loading: Bool = false
     @State private var newFeed: Feed?
 
@@ -51,14 +59,22 @@ struct AddFeed: View {
                         } footer: {
                             Group {
                                 if let validationMessage = validationMessage {
-                                    Text(validationMessage).foregroundColor(.red)
+                                    Group {
+                                        switch validationMessage {
+                                        case .cannotBeBlank:
+                                            Text("Cannot be blank")
+                                        case .mustNotContainSpaces:
+                                            Text("Must not contain spaces")
+                                        case .mustBeginWithHTTP:
+                                            Text("Must begin with “http://” or “https://”")
+                                        case .parseError:
+                                            Text("Could not be parsed")
+                                        case .unopenable:
+                                            Text("Unopenable")
+                                        }
+                                    }.foregroundColor(.red)
                                 } else {
-                                    Text(.init("""
-                                    [RSS](https://validator.w3.org/feed/docs/rss2.html), \
-                                    [Atom](https://validator.w3.org/feed/docs/atom.html), \
-                                    and [JSON Feed](https://www.jsonfeed.org/version/1.1/) \
-                                    supported.
-                                    """))
+                                    Text("Enter a RSS, Atom, or JSON Feed URL.")
                                 }
                             }
                             .font(.caption)
@@ -203,27 +219,27 @@ struct AddFeed: View {
         urlString = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if urlString == "" {
-            self.failValidation(message: "Cannot be blank")
+            self.failValidation(message: .cannotBeBlank)
             return
         }
 
         if urlString.containsWhitespace {
-            self.failValidation(message: "Must not contain spaces")
+            self.failValidation(message: .mustNotContainSpaces)
             return
         }
 
         if urlString.prefix(7).lowercased() != "http://" && urlString.prefix(8).lowercased() != "https://" {
-            self.failValidation(message: "Must begin with “http://” or “https://”")
+            self.failValidation(message: .mustBeginWithHTTP)
             return
         }
 
         guard let url = URL(string: urlString) else {
-            self.failValidation(message: "Could not be parsed")
+            self.failValidation(message: .parseError)
             return
         }
 
         if !UIApplication.shared.canOpenURL(url) {
-            self.failValidation(message: "Unopenable")
+            self.failValidation(message: .unopenable)
             return
         }
 
@@ -246,7 +262,7 @@ struct AddFeed: View {
         }
     }
 
-    private func failValidation(message: String) {
+    private func failValidation(message: FeedURLValidationMessage) {
         urlIsValid = false
         validationMessage = message
 

@@ -72,7 +72,7 @@ struct LoadProfile: View {
                 profile.managedObjectContext != nil
             {
                 activateProfile(profile)
-                Logger.main.info("\(profile.displayName) profile loaded")
+                Logger.main.info("\(profile.wrappedName) profile loaded")
             } else {
                 let attempt = NumberFormatter.localizedString(
                     from: profileLoadAttempts as NSNumber,

@@ -39,7 +39,14 @@ struct TrendBlock: View {
         VStack {
             NavigationLink(value: SubDetailPanel.trend(trend)) {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(trend.wrappedTitle).font(.title).lineLimit(1)
+                    Group {
+                        if let title = trend.title {
+                            Text(title)
+                        } else {
+                            Text("Untitled")
+                        }
+                    }
+                    .font(.title).lineLimit(1)
 
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
                         ForEach(uniqueFaviconURLs, id: \.self) { url in

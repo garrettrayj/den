@@ -18,8 +18,8 @@ public class Profile: NSManagedObject {
         set { name = newValue }
     }
 
-    public var displayName: String {
-        name == nil || name == "" ? "Untitled" : name!
+    public var displayName: String? {
+        wrappedName == "" ? nil : name
     }
 
     public var wrappedHistoryRetention: Int {
@@ -40,14 +40,6 @@ public class Profile: NSManagedObject {
     public var pagesWithInsecureFeeds: [Page] {
         pagesArray.filter { page in
             page.insecureFeeds.count > 0
-        }
-    }
-
-    public var feedCountString: String {
-        if self.feedsArray.count == 1 {
-            return "1 Feed"
-        } else {
-            return "\(self.feedsArray.count) Feeds"
         }
     }
 
@@ -85,7 +77,7 @@ public class Profile: NSManagedObject {
 
         var predicates: [AreInIncreasingOrder] = []
         predicates.append({ $0.items.count > $1.items.count })
-        predicates.append({ $0.wrappedTitle < $1.wrappedTitle })
+        predicates.append({ $0.title ?? "" < $1.title ?? "" })
 
         return values.sorted { lhs, rhs in
             for predicate in predicates {

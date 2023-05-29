@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct FeedUnavailable: View {
+    @Environment(\.isEnabled) var isEnabled
+
     let feedData: FeedData?
 
     var titleFont: Font = .body
@@ -35,6 +37,7 @@ struct FeedUnavailable: View {
                 Text("Status Unavailable").font(titleFont)
             }
         }
+        .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity)
     }
 }

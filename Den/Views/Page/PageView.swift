@@ -108,7 +108,7 @@ struct PageView: View {
                         items: items
                     )
                 }
-                .navigationTitle(page.displayName)
+                .navigationTitle(page.displayName == nil ? Text("Untitled") : Text(page.displayName!))
             }
         }
     }

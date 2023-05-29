@@ -41,7 +41,7 @@ struct SecurityView: View {
 
     private var allClearSummary: some View {
         Section {
-            Text("All feeds have secure web addresses.").modifier(FormRowModifier())
+            Text("All feeds use secure web addresses.").modifier(FormRowModifier())
         } header: {
             Label {
                 Text("No Problems")
@@ -55,7 +55,7 @@ struct SecurityView: View {
         Section {
             if remediationInProgress == true {
                 Label {
-                    Text("Checking…").foregroundColor(.secondary).modifier(FormRowModifier())
+                    Text("Looking for HTTPS versions…").foregroundColor(.secondary).modifier(FormRowModifier())
                 } icon: {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
@@ -64,13 +64,7 @@ struct SecurityView: View {
                     remedyInsecureUrls()
                 } label: {
                     Label {
-                        Group {
-                            if insecureFeedCount == 1 {
-                                Text("Check for a secure option")
-                            } else {
-                                Text("Check for secure options")
-                            }
-                        }.modifier(FormRowModifier())
+                        Text("Check for HTTPS").modifier(FormRowModifier())
                     } icon: {
                         Image(systemName: "bolt.shield")
                     }
@@ -80,7 +74,7 @@ struct SecurityView: View {
         } header: {
             Label {
                 if insecureFeedCount == 1 {
-                    Text("\(insecureFeedCount) feed is using an insecure web address.")
+                    Text("1 feed uses an insecure web address.")
                 } else {
                     Text("\(insecureFeedCount) feeds use insecure web addresses.")
                 }
@@ -99,7 +93,7 @@ struct SecurityView: View {
             ForEach(page.insecureFeeds) { feed in
                 HStack {
                     FeedTitleLabel(
-                        title: feed.wrappedTitle,
+                        title: feed.displayTitle,
                         favicon: feed.feedData?.favicon
                     ).modifier(FormRowModifier())
                     Spacer()
@@ -112,7 +106,11 @@ struct SecurityView: View {
                 }
             }
         } header: {
-            Text(page.displayName)
+            if let pageName = page.displayName {
+                Text(pageName)
+            } else {
+                Text("Untitled")
+            }
         }
         .modifier(ListRowModifier())
     }

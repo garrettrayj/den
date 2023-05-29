@@ -18,8 +18,7 @@ struct CommonStatus: View {
 
     @ObservedObject var profile: Profile
 
-    let unreadCount: Int
-    var unreadLabel = "Unread"
+    var unreadLabel: Text
 
     let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .numeric, unitsStyle: .wide)
 
@@ -35,7 +34,7 @@ struct CommonStatus: View {
                         }
                     }
                 }
-                Text("\(unreadCount) \(unreadLabel)").foregroundColor(.secondary)
+                unreadLabel.foregroundColor(.secondary)
             }
         }
         .frame(maxWidth: .infinity)

@@ -21,7 +21,11 @@ struct Welcome: View {
         welcomeNote
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
-                    Text(profile.feedCountString).font(.caption)
+                    if profile.feedsArray.count == 1 {
+                        Text("1 Feed").font(.caption)
+                    } else {
+                        Text("\(profile.feedsArray.count) Feeds").font(.caption)
+                    }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -31,15 +35,15 @@ struct Welcome: View {
     private var welcomeNote: some View {
         if refreshing {
             SplashNote(
-                title: Text(profile.displayName),
+                title: Text(profile.wrappedName),
                 note: Text("Checking for New Items…")
             )
         } else if let refreshedLabel = refreshedLabel() {
             TimelineView(.everyMinute) { _ in
-                SplashNote(title: Text(profile.displayName), note: Text(refreshedLabel))
+                SplashNote(title: Text(profile.wrappedName), note: Text(refreshedLabel))
             }
         } else {
-            SplashNote(title: Text(profile.displayName))
+            SplashNote(title: Text(profile.wrappedName))
         }
     }
 

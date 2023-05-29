@@ -31,7 +31,7 @@ struct DeleteFeedButton: View {
             .modifier(FormRowModifier())
         }
         .alert(
-            "Delete \(feed.wrappedTitle)?",
+            "Delete Feed?",
             isPresented: $showingDeleteAlert,
             actions: {
                 Button("Cancel", role: .cancel) { }
