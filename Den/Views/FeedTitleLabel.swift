@@ -11,16 +11,12 @@
 import SwiftUI
 
 struct FeedTitleLabel: View {
-    let title: String?
+    let title: Text?
     let favicon: URL?
 
     var body: some View {
         Label {
-            if let title = title {
-                Text(title)
-            } else {
-                Text("Untitled")
-            }
+            title ?? Text("Untitled")
         } icon: {
             FeedFavicon(url: favicon)
         }

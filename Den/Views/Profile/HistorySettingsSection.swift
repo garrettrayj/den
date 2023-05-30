@@ -42,15 +42,15 @@ struct HistorySettingsSection: View {
             }
             #else
             Picker(selection: $historyRentionDays) {
-                Text("Forever").tag(0 as Int)
-                Text("One Year").tag(365 as Int)
-                Text("Six Months").tag(182 as Int)
-                Text("Three Months").tag(90 as Int)
-                Text("One Month").tag(30 as Int)
-                Text("Two Weeks").tag(14 as Int)
-                Text("One Week").tag(7 as Int)
+                Text("Forever", comment: "History retention duration").tag(0 as Int)
+                Text("One Year", comment: "History retention duration").tag(365 as Int)
+                Text("Six Months", comment: "History retention duration").tag(182 as Int)
+                Text("Three Months", comment: "History retention duration").tag(90 as Int)
+                Text("One Month", comment: "History retention duration").tag(30 as Int)
+                Text("Two Weeks", comment: "History retention duration").tag(14 as Int)
+                Text("One Week", comment: "History retention duration").tag(7 as Int)
             } label: {
-                Text("Keep").modifier(FormRowModifier())
+                Text("Keep", comment: "History retention picker label").modifier(FormRowModifier())
             }
             #endif
 
@@ -61,13 +61,13 @@ struct HistorySettingsSection: View {
                 profile.objectWillChange.send()
             } label: {
                 HStack {
-                    Text("Clear")
+                    Text("Clear", comment: "Button label")
                     Spacer()
                     Group {
                         if historyCount == 1 {
-                            Text("1 Record")
+                            Text("1 Record", comment: "History count singular")
                         } else {
-                            Text("\(historyCount) Records")
+                            Text("\(historyCount) Records", comment: "History count plural")
                         }
                     }
                     .font(.callout)
@@ -78,11 +78,14 @@ struct HistorySettingsSection: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("clear-history-button")
         } header: {
-            Text("History")
+            Text("History", comment: "Profile settings section header")
         } footer: {
             if historyRentionDays == 0 || historyRentionDays > 90 || historyCount > 100_000 {
                 Label {
-                    Text("Retaining history for long periods may adversely affect performance.")
+                    Text(
+                        "Retaining history for long periods may adversely affect performance.",
+                        comment: "History settings caution note"
+                    )
                 } icon: {
                     Image(systemName: "exclamationmark.triangle")
                 }

@@ -20,7 +20,7 @@ struct PageView: View {
 
     var body: some View {
         if page.managedObjectContext == nil {
-            SplashNote(title: Text("Page Deleted"))
+            SplashNote(title: Text("Page Deleted", comment: "Object removed message"))
         } else if page.feedsArray.isEmpty {
             NoFeeds(page: page)
         } else {
@@ -66,7 +66,7 @@ struct PageView: View {
                     ToolbarItem {
                         NavigationLink(value: SubDetailPanel.pageSettings(page)) {
                             Label {
-                                Text("Page Settings")
+                                Text("Page Settings", comment: "Navigation bar button label")
                             } icon: {
                                 Image(systemName: "wrench")
                             }
@@ -84,7 +84,7 @@ struct PageView: View {
                             AddFeedButton(page: page)
                             NavigationLink(value: SubDetailPanel.pageSettings(page)) {
                                 Label {
-                                    Text("Page Settings")
+                                    Text("Page Settings", comment: "Button label")
                                 } icon: {
                                     Image(systemName: "wrench")
                                 }
@@ -92,7 +92,7 @@ struct PageView: View {
                             .accessibilityIdentifier("page-settings-button")
                         } label: {
                             Label {
-                                Text("Page Menu")
+                                Text("Page Menu", comment: "Menu label")
                             } icon: {
                                 Image(systemName: "ellipsis.circle")
                             }
@@ -108,7 +108,7 @@ struct PageView: View {
                         items: items
                     )
                 }
-                .navigationTitle(page.displayName == nil ? Text("Untitled") : Text(page.displayName!))
+                .navigationTitle(page.nameText)
             }
         }
     }

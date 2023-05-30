@@ -22,12 +22,12 @@ struct FeedItemCompressed: View {
             NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabel(
-                        title: feed.displayTitle,
+                        title: feed.titleText,
                         favicon: item.feedData?.favicon
                     )
                     Spacer()
                     if showExtraTag && item.extra {
-                        Text("Extra").font(.caption).foregroundColor(.secondary)
+                        ExtraTag()
                     }
                     ButtonChevron()
                 }

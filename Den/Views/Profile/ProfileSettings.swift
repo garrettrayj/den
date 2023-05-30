@@ -55,7 +55,7 @@ struct ProfileSettings: View {
                     }
                 } label: {
                     Label {
-                        Text("Switch")
+                        Text("Switch", comment: "Button label")
                     } icon: {
                         Image(systemName: "arrow.left.arrow.right")
                     }
@@ -66,7 +66,7 @@ struct ProfileSettings: View {
                 .accessibilityIdentifier("switch-to-profile-button")
             }
         }
-        .navigationTitle(Text("Profile Settings"))
+        .navigationTitle(Text("Profile Settings", comment: "Navigation title"))
     }
 
     private var nameSection: some View {
@@ -75,7 +75,7 @@ struct ProfileSettings: View {
                 .modifier(FormRowModifier())
                 .modifier(TitleTextFieldModifier())
         } header: {
-            Text("Name").modifier(FirstFormHeaderModifier())
+            Text("Name", comment: "Profile settings section header").modifier(FirstFormHeaderModifier())
         }
         .modifier(ListRowModifier())
     }
@@ -86,7 +86,7 @@ struct ProfileSettings: View {
                 profile.tint = newValue
             }
         } header: {
-            Text("Customization")
+            Text("Customization", comment: "Profile settings section header")
         }
         .modifier(ListRowModifier())
     }
@@ -97,7 +97,7 @@ struct ProfileSettings: View {
                 showingDeleteAlert = true
             } label: {
                 Label {
-                    Text("Delete")
+                    Text("Delete", comment: "Button label")
                 } icon: {
                     Image(systemName: "trash")
                 }
@@ -106,6 +106,7 @@ struct ProfileSettings: View {
             }
             .accessibilityIdentifier("delete-profile-button")
         }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
+
             Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
             Button("Delete", role: .destructive) {
                 Task {
@@ -114,7 +115,7 @@ struct ProfileSettings: View {
                 dismiss()
             }.accessibilityIdentifier("delete-profile-confirm-button")
         }, message: {
-            Text("All content within will be removed.")
+            Text("All content within will be removed.", comment: "Alert message")
         })
         .modifier(ListRowModifier())
     }

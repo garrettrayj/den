@@ -17,23 +17,17 @@ struct FeedStatus: View {
 
     let unreadCount: Int
 
-    let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .numeric, unitsStyle: .wide)
-
     var body: some View {
         VStack {
             if refreshManager.refreshing {
-                Text("Checking for New Items…")
+                Text("Checking for New Items…", comment: "Bottom bar status")
             } else {
                 if let refreshedDate = feed.feedData?.refreshed {
                     TimelineView(.everyMinute) { _ in
-                        if -refreshedDate.timeIntervalSinceNow < 60 {
-                            Text("Updated Just Now")
-                        } else {
-                            Text("Updated \(refreshedDate.formatted(relativeDateStyle))")
-                        }
+                        RelativeRefreshedDate(date: refreshedDate)
                     }
                 }
-                Text("\(unreadCount) Unread").foregroundColor(.secondary)
+                Text("\(unreadCount) Unread", comment: "Bottom bar status").foregroundColor(.secondary)
             }
         }
         .font(.caption)

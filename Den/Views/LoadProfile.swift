@@ -29,22 +29,32 @@ struct LoadProfile: View {
             // While this isn't an ideal introduction to the app, it resolves a glaring bug.
             // Trying to automatically create profiles has always led to duplicates historically.
             if profileLoadAttempts > 2 {
-                Text("No Profiles Found")
+                Text(
+                    "No Profiles Found",
+                    comment: """
+                    Header for launch view shown to new users and \
+                    returning users waiting on profile(s) to sync
+                    """
+                )
                 Button {
                     activateProfile(ProfileUtility.createDefaultProfile(context: viewContext))
                 } label: {
-                    Text("Create a New Profile")
+                    Text("Create a New Profile", comment: "Launch view button label")
                 }
                 .buttonStyle(AccentButtonStyle())
                 .accessibilityIdentifier("create-profile-button")
                 Text("""
                 If you have used the app before then synchronization could be in progress. \
                 Please wait a minute.
-                """)
+                """, comment: "Launch view help note")
                 .multilineTextAlignment(.center)
                 .font(.footnote)
             } else {
-                Text("Loading…").foregroundColor(.secondary).onAppear { load() }
+                Text(
+                    "Loading…",
+                    comment: "Launch view label shown during initial profile load attempts"
+                )
+                .foregroundColor(.secondary).onAppear { load() }
             }
             Spacer()
         }

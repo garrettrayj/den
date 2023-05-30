@@ -38,7 +38,14 @@ struct ItemView: View {
                 .toolbar {
                     if let link = item.link {
                         ToolbarItem(placement: .primaryAction) {
-                            ShareLink(item: link).buttonStyle(ToolbarButtonStyle())
+                            ShareLink(item: link) {
+                                Label {
+                                    Text("Share…", comment: "Toolbar button label")
+                                } icon: {
+                                    Image(systemName: "square.and.arrow.up")
+                                }
+                            }
+                            .buttonStyle(ToolbarButtonStyle())
                         }
                     }
                     ToolbarItem(placement: .bottomBar) {
@@ -58,7 +65,11 @@ struct ItemView: View {
                                 }
                             }
                         } label: {
-                            Label("Open in Browser", systemImage: "link.circle")
+                            Label {
+                                Text("Open in Browser", comment: "Toolbar button label")
+                            } icon: {
+                                Image(systemName: "link.circle")
+                            }
                         }
                         .buttonStyle(PlainToolbarButtonStyle())
                         .accessibilityIdentifier("item-open-button")
@@ -73,7 +84,7 @@ struct ItemView: View {
                 VStack {
                     VStack(alignment: .leading, spacing: 16) {
                         FeedTitleLabel(
-                            title: item.feedData?.feed?.displayTitle,
+                            title: item.feedData?.feed?.titleText,
                             favicon: item.feedData?.favicon
                         )
                         .font(.title3)

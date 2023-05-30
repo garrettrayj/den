@@ -16,7 +16,7 @@ struct TintPicker: View {
     var body: some View {
         Picker(selection: $tint) {
             Label {
-                Text("None")
+                Text("None", comment: "Tint option")
             } icon: {
                 Image(systemName: "hexagon.fill")
             }
@@ -25,13 +25,17 @@ struct TintPicker: View {
             .tag(nil as String?)
 
             ForEach(TintOption.allCases, id: \.self) { tintOption in
-                Label(tintOption.rawValue, systemImage: "hexagon.fill")
-                    .foregroundColor(tintOption.color)
-                    .modifier(FormRowModifier())
-                    .tag(tintOption.rawValue as String?)
+                Label {
+                    tintOption.labelText
+                } icon: {
+                    Image(systemName: "hexagon.fill")
+                }
+                .foregroundColor(tintOption.color)
+                .modifier(FormRowModifier())
+                .tag(tintOption.rawValue as String?)
             }
         } label: {
-            Text("Tint").modifier(FormRowModifier())
+            Text("Tint", comment: "Picker label").modifier(FormRowModifier())
         }
         .scrollContentBackground(.visible)
         .pickerStyle(.navigationLink)

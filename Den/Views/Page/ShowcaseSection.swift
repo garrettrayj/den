@@ -55,7 +55,7 @@ struct ShowcaseSection: View {
             NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {
                     FeedTitleLabel(
-                        title: feed.displayTitle,
+                        title: feed.titleText,
                         favicon: feed.feedData?.favicon
                     )
                     Spacer()

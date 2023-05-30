@@ -29,10 +29,13 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
         if let fractionCompleted = configuration.fractionCompleted {
             VStack(spacing: spacing) {
                 if fractionCompleted < 1.0 {
-                    Text("\(Int(fractionCompleted * Double(feedCount))) of \(feedCount) Updated")
+                    Text(
+                        "\(Int(fractionCompleted * Double(feedCount))) of \(feedCount) Updated",
+                        comment: "Progress label shown while feeds are being refreshed"
+                    )
                         .monospacedDigit()
                 } else {
-                    Text("Analyzing…")
+                    Text("Analyzing…", comment: "Progress label shown while trending groups are calculated")
                 }
 
                 GeometryReader { geometry in

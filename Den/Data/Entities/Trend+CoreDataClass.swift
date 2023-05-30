@@ -9,9 +9,18 @@
 //
 
 import CoreData
+import SwiftUI
 
 @objc(Trend)
 public class Trend: NSManagedObject {
+    var titleText: Text {
+        if let title = title {
+            return Text(title)
+        } else {
+            return Text("Untitled", comment: "Default trend title")
+        }
+    }
+
     var trendItemsArray: [TrendItem] {
         trendItems?.allObjects as? [TrendItem] ?? []
     }

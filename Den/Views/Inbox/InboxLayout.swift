@@ -21,7 +21,7 @@ struct InboxLayout: View {
         if profile.feedsArray.isEmpty {
             NoFeeds()
         } else if items.isEmpty {
-            SplashNote(title: Text("No Items"))
+            SplashNote(title: Text("No Items", comment: "Inbox empty note"))
         } else if items.unread().isEmpty && hideRead {
             AllReadSplashNote()
         } else {

@@ -22,7 +22,7 @@ struct MoveFeedSection: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Page").modifier(FormRowModifier())
+                Text("Page", comment: "Picker label").modifier(FormRowModifier())
                 Spacer()
                 pagePicker.labelsHidden().scaledToFit()
             }
@@ -30,7 +30,7 @@ struct MoveFeedSection: View {
             pagePicker
             #endif
         } header: {
-            Text("Move")
+            Text("Move", comment: "Feed settings section header")
         }
         .modifier(ListRowModifier())
     }
@@ -41,7 +41,7 @@ struct MoveFeedSection: View {
                 Text(page.wrappedName).tag(page as Page?)
             }
         } label: {
-            Text("Page").modifier(FormRowModifier())
+            Text("Page", comment: "Picker label").modifier(FormRowModifier())
         }
         .onChange(of: feed.page) { [oldPage = feed.page] newPage in
             self.feed.userOrder = (newPage?.feedsUserOrderMax ?? 0) + 1

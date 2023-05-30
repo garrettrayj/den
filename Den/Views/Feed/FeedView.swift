@@ -21,7 +21,7 @@ struct FeedView: View {
 
     var body: some View {
         if feed.managedObjectContext == nil {
-            SplashNote(title: Text("Feed Deleted"), symbol: "slash.circle")
+            SplashNote(title: Text("Feed Deleted", comment: "Object removed message"), symbol: "slash.circle")
         } else {
             WithItems(
                 scopeObject: feed,
@@ -38,7 +38,7 @@ struct FeedView: View {
                     ToolbarItem(placement: .primaryAction) {
                         NavigationLink(value: SubDetailPanel.feedSettings(feed)) {
                             Label {
-                                Text("Feed Settings")
+                                Text("Feed Settings", comment: "Button label")
                             } icon: {
                                 Image(systemName: "wrench")
                             }
@@ -56,7 +56,7 @@ struct FeedView: View {
                 .onChange(of: feed.page) { _ in
                     dismiss()
                 }
-                .navigationTitle(feed.displayTitle == nil ? Text("Untitled") : Text(feed.displayTitle!))
+                .navigationTitle(feed.titleText)
             }
         }
     }

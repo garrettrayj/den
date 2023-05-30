@@ -27,7 +27,7 @@ struct RefreshSettingsSection: View {
             }
             #else
             Toggle(isOn: $backgroundRefreshEnabled) {
-                Text("In Background").modifier(FormRowModifier())
+                Text("In Background", comment: "Refresh option toggle label").modifier(FormRowModifier())
             }
             #endif
 
@@ -41,7 +41,7 @@ struct RefreshSettingsSection: View {
             }
             #else
             Toggle(isOn: $autoRefreshEnabled) {
-                Text("When Activated").modifier(FormRowModifier())
+                Text("When Activated", comment: "Refresh option toggle label").modifier(FormRowModifier())
             }
             #endif
 
@@ -54,11 +54,17 @@ struct RefreshSettingsSection: View {
                     HStack {
                         Text(verbatim: "- ")
                         if autoRefreshCooldown >= 120 {
-                            Text("Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours")
+                            Text(
+                                "Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours",
+                                comment: "Auto refresh cooldown stepper label (hours)"
+                            )
                                 .font(.callout)
                                 .modifier(FormRowModifier())
                         } else {
-                            Text("Recovery Period: \(autoRefreshCooldown) minutes")
+                            Text(
+                                "Recovery Period: \(autoRefreshCooldown) minutes",
+                                comment: "Auto refresh cooldown stepper label (minutes)"
+                            )
                                 .font(.callout)
                                 .modifier(FormRowModifier())
                         }
@@ -66,7 +72,7 @@ struct RefreshSettingsSection: View {
                 }
             }
         } header: {
-            Text("Refresh")
+            Text("Refresh", comment: "Setting section header")
         }
         .modifier(ListRowModifier())
     }

@@ -23,11 +23,7 @@ struct ProfilesListSection: View {
             ForEach(profiles) { profile in
                 NavigationLink(value: SubDetailPanel.profileSettings(profile)) {
                     Label {
-                        if let name = profile.displayName {
-                            Text(name)
-                        } else {
-                            Text("Untitled")
-                        }
+                        profile.nameText
                     } icon: {
                         Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
                             .foregroundColor(profile.tintColor)
@@ -42,7 +38,7 @@ struct ProfilesListSection: View {
                 }
             } label: {
                 Label {
-                    Text("Add Profile")
+                    Text("Add Profile", comment: "Button label")
                 } icon: {
                     Image(systemName: "plus")
                 }
@@ -50,7 +46,7 @@ struct ProfilesListSection: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("add-profile-button")
         } header: {
-            Text("Profiles").modifier(FirstFormHeaderModifier())
+            Text("Profiles", comment: "Settings section header").modifier(FirstFormHeaderModifier())
         }
         .modifier(ListRowModifier())
     }

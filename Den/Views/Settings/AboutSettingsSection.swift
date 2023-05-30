@@ -16,7 +16,7 @@ struct AboutSettingsSection: View {
     var body: some View {
         Section {
             HStack {
-                Text("Version")
+                Text("Version", comment: "About row label")
                 Spacer()
                 Text(verbatim: "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                     .font(.callout)
@@ -29,16 +29,16 @@ struct AboutSettingsSection: View {
                 openURL(url)
             } label: {
                 HStack {
-                    Text("Website")
+                    Text("Website", comment: "About row label")
                     Spacer()
-                    Text("https://den.io")
+                    Text(verbatim: "https://den.io")
                 }
             }
             .buttonStyle(.plain)
             .modifier(FormRowModifier())
             .accessibilityIdentifier("website-button")
         } header: {
-            Text("About")
+            Text("About", comment: "Settings section header")
         } footer: {
             Text(verbatim: "© 2023 Garrett Johnson")
                 .frame(maxWidth: .infinity, alignment: .center)

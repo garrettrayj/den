@@ -22,9 +22,13 @@ struct Welcome: View {
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     if profile.feedsArray.count == 1 {
-                        Text("1 Feed").font(.caption)
+                        Text("1 Feed", comment: "Welcome view feed count (singular)").font(.caption)
                     } else {
-                        Text("\(profile.feedsArray.count) Feeds").font(.caption)
+                        Text(
+                            "\(profile.feedsArray.count) Feeds",
+                            comment: "Welcome view feed count (zero or plural)"
+                        )
+                        .font(.caption)
                     }
                 }
             }
@@ -36,24 +40,27 @@ struct Welcome: View {
         if refreshing {
             SplashNote(
                 title: Text(profile.wrappedName),
-                note: Text("Checking for New Items…")
+                note: Text("Checking for New Items…", comment: "Welcome view refreshing status text")
             )
-        } else if let refreshedLabel = refreshedLabel() {
+        } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
             TimelineView(.everyMinute) { _ in
-                SplashNote(title: Text(profile.wrappedName), note: Text(refreshedLabel))
+                if -refreshedDate.timeIntervalSinceNow < 60 {
+                    SplashNote(
+                        title: profile.nameText,
+                        note: Text("Updated Just Now", comment: "Updated in the last minute")
+                    )
+                } else {
+                    SplashNote(
+                        title: profile.nameText,
+                        note: Text(
+                            "Updated \(refreshedDate.formatted(relativeDateStyle))",
+                            comment: "Updated more than a minute ago"
+                        )
+                    )
+                }
             }
         } else {
-            SplashNote(title: Text(profile.wrappedName))
+            SplashNote(title: profile.nameText)
         }
-    }
-
-    private func refreshedLabel() -> String? {
-        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-            if -refreshedDate.timeIntervalSinceNow < 60 {
-                return "Updated Just Now"
-            }
-            return "Updated \(refreshedDate.formatted(relativeDateStyle))"
-        }
-        return nil
     }
 }

@@ -20,19 +20,13 @@ struct CommonStatus: View {
 
     var unreadLabel: Text
 
-    let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .numeric, unitsStyle: .wide)
-
     var body: some View {
         VStack {
             if refreshManager.refreshing {
                 Text("Checking for New Items…")
             } else {
-                if refreshedLabel() != nil {
-                    TimelineView(.everyMinute) { _ in
-                        if let refreshedLabel = refreshedLabel() {
-                            Text(refreshedLabel)
-                        }
-                    }
+                if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                    RelativeRefreshedDate(date: refreshedDate)
                 }
                 unreadLabel.foregroundColor(.secondary)
             }
@@ -40,15 +34,5 @@ struct CommonStatus: View {
         .frame(maxWidth: .infinity)
         .font(.caption)
         .lineLimit(1)
-    }
-
-    private func refreshedLabel() -> String? {
-        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-            if -refreshedDate.timeIntervalSinceNow < 60 {
-                return "Updated Just Now"
-            }
-            return "Updated \(refreshedDate.formatted(relativeDateStyle))"
-        }
-        return nil
     }
 }

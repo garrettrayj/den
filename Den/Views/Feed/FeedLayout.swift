@@ -87,7 +87,7 @@ struct FeedLayout: View {
                 .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {
-            Text("Latest")
+            Text("Latest", comment: "Feed view section header")
                 .font(.title3)
                 .modifier(SafeAreaModifier(geometry: geometry))
                 .modifier(PinnedSectionHeaderModifier())
@@ -123,7 +123,7 @@ struct FeedLayout: View {
                 .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {
-            Text("More")
+            Text("More", comment: "Feed view section header")
                 .font(.title2)
                 .modifier(SafeAreaModifier(geometry: geometry))
                 .modifier(PinnedSectionHeaderModifier())
@@ -154,14 +154,14 @@ struct FeedLayout: View {
                     } label: {
                         Text(feedURLString).lineLimit(1)
                         Label {
-                            Text("Copy")
+                            Text("Copy", comment: "Button label")
                         } icon: {
                             Image(systemName: "doc.on.doc")
                         }
                         .labelStyle(.iconOnly)
 
                         if urlCopied {
-                            Text("Copied").foregroundColor(.secondary)
+                            Text("Copied", comment: "Copied to pasteboard message").foregroundColor(.secondary)
                         }
                     }
                     .buttonStyle(.plain)

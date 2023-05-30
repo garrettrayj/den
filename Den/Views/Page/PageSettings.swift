@@ -19,7 +19,7 @@ struct PageSettings: View {
 
     var body: some View {
         if page.managedObjectContext == nil {
-            SplashNote(title: Text("Page Deleted"), symbol: "slash.circle")
+            SplashNote(title: Text("Page Deleted", comment: "Object removed message"), symbol: "slash.circle")
         } else {
             Form {
                 nameSection
@@ -28,7 +28,7 @@ struct PageSettings: View {
             }
             .environment(\.editMode, .constant(.active))
             .background(GroupedBackground())
-            .navigationTitle(Text("Page Settings"))
+            .navigationTitle(Text("Page Settings", comment: "Navigation title"))
             .onDisappear(perform: save)
         }
     }
@@ -48,13 +48,13 @@ struct PageSettings: View {
     }
 
     private var iconSection: some View {
-        Section(header: Text("Icon")) {
+        Section(header: Text("Icon", comment: "Page settings section header")) {
             Button {
                 showingIconPicker = true
             } label: {
                 Label {
                     HStack {
-                        Text("Choose Icon")
+                        Text("Choose Icon", comment: "Button label")
                         Spacer()
                         Image(systemName: "chevron.down").foregroundColor(.secondary)
                     }
@@ -74,15 +74,15 @@ struct PageSettings: View {
     }
 
     private var feedsSection: some View {
-        Section(header: Text("Feeds")) {
+        Section(header: Text("Feeds", comment: "Page settings section header")) {
             if page.feedsArray.isEmpty {
-                Text("Page Emtpy")
+                Text("Page Emtpy", comment: "Page settings feeds empty message")
                     .foregroundColor(.secondary)
                     .modifier(FormRowModifier())
             } else {
                 ForEach(page.feedsArray) { feed in
                     FeedTitleLabel(
-                        title: feed.displayTitle,
+                        title: feed.titleText,
                         favicon: feed.feedData?.favicon
                     ).modifier(FormRowModifier())
                 }

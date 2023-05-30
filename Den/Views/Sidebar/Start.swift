@@ -30,7 +30,8 @@ struct Start: View {
                 }
             } label: {
                 Label {
-                    Text("New Page").multilineTextAlignment(.leading)
+                    Text("New Page", comment: "Button to create an initial blank page")
+                        .multilineTextAlignment(.leading)
                 } icon: {
                     Image(systemName: "plus")
                 }
@@ -42,7 +43,11 @@ struct Start: View {
                 loadDemo()
             } label: {
                 Label {
-                    Text("Load Demo Pages").multilineTextAlignment(.leading)
+                    Text(
+                        "Load Demo Feeds",
+                        comment: "Button to load an initial selection of pages/feeds"
+                    )
+                    .multilineTextAlignment(.leading)
                 } icon: {
                     Image(systemName: "wand.and.stars")
                 }
@@ -51,21 +56,28 @@ struct Start: View {
             .accessibilityIdentifier("load-demo-button")
 
             #if targetEnvironment(macCatalyst)
-            Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
+            importGuidanceText
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .imageScale(.small)
                 .padding(.vertical)
             #endif
         } header: {
-            Text("Get Started")
+            Text("Get Started", comment: "Header for tutuorial shown when profile is new or empty")
         } footer: {
-            Text("Or import feeds in \(Image(systemName: "gear")) Settings.")
+            importGuidanceText
                 .font(.footnote)
                 .foregroundColor(.secondary)
                 .imageScale(.small)
                 .padding(.vertical, 4)
         }
+    }
+
+    private var importGuidanceText: Text {
+        Text(
+            "Or import feeds in \(Image(systemName: "gear")) Settings.",
+            comment: "Getting started options import guidance note"
+        )
     }
 
     private func loadDemo() {

@@ -16,16 +16,18 @@ struct AppearanceSettingsSection: View {
     @Binding var uiStyle: UIUserInterfaceStyle
 
     var body: some View {
-        Section(header: Text("Appearance")) {
+        Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Theme").modifier(FormRowModifier())
+                Text("Theme", comment: "Picker label").modifier(FormRowModifier())
                 Spacer()
                 UIStylePickerView(uiStyle: $uiStyle).labelsHidden().scaledToFit()
             }
             #else
             UIStylePickerView(uiStyle: $uiStyle)
             #endif
+        } header: {
+            Text("Appearance", comment: "Settings section header")
         }
         .modifier(ListRowModifier())
     }

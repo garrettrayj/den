@@ -9,11 +9,16 @@
 //
 
 import CoreData
+import SwiftUI
 
 @objc(Feed)
 public class Feed: NSManagedObject {
-    public var displayTitle: String? {
-        wrappedTitle == "" ? nil : wrappedTitle
+    public var titleText: Text {
+        if wrappedTitle == "" {
+            return Text("Untitled", comment: "Default feed title")
+        } else {
+            return Text(wrappedTitle)
+        }
     }
 
     public var wrappedTitle: String {

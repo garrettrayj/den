@@ -30,7 +30,7 @@ struct IconPicker: View {
                 }.padding(.bottom)
             }
             .background(GroupedBackground())
-            .navigationTitle(Text("Choose Icon"))
+            .navigationTitle(Text("Choose Icon", comment: "Navigation title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -38,7 +38,7 @@ struct IconPicker: View {
                         dismiss()
                     } label: {
                         Label {
-                            Text("Close")
+                            Text("Close", comment: "Button label")
                         } icon: {
                             Image(systemName: "xmark.circle")
                         }

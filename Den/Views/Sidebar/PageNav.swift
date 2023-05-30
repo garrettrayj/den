@@ -20,18 +20,10 @@ struct PageNav: View {
         NavigationLink(value: DetailPanel.page(page)) {
             Label {
                 if editMode?.wrappedValue.isEditing == true {
-                    if let pageName = page.displayName {
-                        Text(pageName)
-                    } else {
-                        Text("Untitled")
-                    }
+                    page.nameText
                 } else {
                     WithItems(scopeObject: page, readFilter: false) { items in
-                        if let pageName = page.displayName {
-                            Text(pageName).badge(items.count)
-                        } else {
-                            Text("Untitled").badge(items.count)
-                        }
+                        page.nameText.badge(items.count)
                     }
                 }
             } icon: {

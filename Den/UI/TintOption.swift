@@ -25,6 +25,35 @@ enum TintOption: String, CaseIterable {
     case pink   = "Pink"
     case brown  = "Brown"
 
+    var labelText: Text {
+        switch self {
+        case .red:
+            return Text("Red", comment: "Tint option")
+        case .orange:
+            return Text("Orange", comment: "Tint option")
+        case .yellow:
+            return Text("Yellow", comment: "Tint option")
+        case .green:
+            return Text("Green", comment: "Tint option")
+        case .mint:
+            return Text("Mint", comment: "Tint option")
+        case .teal:
+            return Text("Teal", comment: "Tint option")
+        case .cyan:
+            return Text("Cyan", comment: "Tint option")
+        case .blue:
+            return Text("Blue", comment: "Tint option")
+        case .indigo:
+            return Text("Indigo", comment: "Tint option")
+        case .purple:
+            return Text("Purple", comment: "Tint option")
+        case .pink:
+            return Text("Pink", comment: "Tint option")
+        case .brown:
+            return Text("Brown", comment: "Tint option")
+        }
+    }
+
     var uiColor: UIColor {
         switch self {
         case .red:

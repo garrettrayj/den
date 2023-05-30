@@ -18,8 +18,11 @@ public class Profile: NSManagedObject {
         set { name = newValue }
     }
 
-    public var displayName: String? {
-        wrappedName == "" ? nil : name
+    public var nameText: Text {
+        if wrappedName == "" {
+            return Text("Untitled", comment: "Default profile name text")
+        }
+        return Text(wrappedName)
     }
 
     public var wrappedHistoryRetention: Int {

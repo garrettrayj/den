@@ -25,13 +25,17 @@ struct PagesSection: View {
             .onDelete(perform: deletePage)
         } header: {
             if editMode?.wrappedValue == .active {
-                Text("\(Image(systemName: "plus")) New Page").onTapGesture {
+                Text(
+                    "\(Image(systemName: "plus")) New Page",
+                    comment: "Button label"
+                )
+                .onTapGesture {
                     withAnimation { addPage() }
                 }
                 .foregroundColor(.accentColor)
                 .accessibilityIdentifier("new-page-button")
             } else {
-                Text("Pages")
+                Text("Pages", comment: "Sidebar section header")
             }
         }
         #if !targetEnvironment(macCatalyst)

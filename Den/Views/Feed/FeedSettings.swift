@@ -17,19 +17,25 @@ struct FeedSettings: View {
 
     var body: some View {
         if feed.managedObjectContext == nil {
-            SplashNote(title: Text("Feed Deleted"), symbol: "slash.circle")
+            SplashNote(title: Text("Feed Deleted", comment: "Object removed message"), symbol: "slash.circle")
         } else {
             Form {
-                Section(header: Text("Title").modifier(FirstFormHeaderModifier())) {
+
+                Section {
                     TextField("Title", text: $feed.wrappedTitle)
                         .modifier(FormRowModifier())
                         .modifier(TitleTextFieldModifier())
+                } header: {
+                    Text("Title", comment: "Feed settings section header").modifier(FirstFormHeaderModifier())
                 }
                 .modifier(ListRowModifier())
 
                 Section {
                     Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                        Text("Item Limit: \(feed.wrappedItemLimit)")
+                        Text(
+                            "Item Limit: \(feed.wrappedItemLimit)",
+                            comment: "Stepper label"
+                        )
                             .font(.callout)
                             .modifier(FormRowModifier())
                     }
@@ -38,7 +44,7 @@ struct FeedSettings: View {
                     })
                     .modifier(ListRowModifier())
                 } header: {
-                    Text("Latest")
+                    Text("Latest", comment: "Feed settings section header")
                 } footer: {
                     if feed.changedValues().keys.contains("itemLimit") {
                         Text("Changes will be applied on next refresh.")
@@ -51,7 +57,7 @@ struct FeedSettings: View {
             }
             .background(GroupedBackground())
             .onDisappear(perform: save)
-            .navigationTitle(Text("Feed Settings"))
+            .navigationTitle(Text("Feed Settings", comment: "Navigation title"))
         }
     }
 

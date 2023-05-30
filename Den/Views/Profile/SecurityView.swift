@@ -93,7 +93,7 @@ struct SecurityView: View {
             ForEach(page.insecureFeeds) { feed in
                 HStack {
                     FeedTitleLabel(
-                        title: feed.displayTitle,
+                        title: feed.titleText,
                         favicon: feed.feedData?.favicon
                     ).modifier(FormRowModifier())
                     Spacer()
@@ -106,11 +106,7 @@ struct SecurityView: View {
                 }
             }
         } header: {
-            if let pageName = page.displayName {
-                Text(pageName)
-            } else {
-                Text("Untitled")
-            }
+            page.nameText
         }
         .modifier(ListRowModifier())
     }

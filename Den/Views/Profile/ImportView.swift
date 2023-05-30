@@ -39,13 +39,13 @@ struct ImportView: View {
         }
         .frame(maxWidth: .infinity)
         .onDisappear(perform: reset)
-        .navigationTitle(Text("Import"))
+        .navigationTitle(Text("Import", comment: "Navigation title"))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 if stage == .pickFile {
                     Button(action: pickFile) {
                         Label {
-                            Text("Select File")
+                            Text("Select File", comment: "Button label")
                         } icon: {
                             Image(systemName: "filemenu.and.cursorarrow")
                         }
@@ -56,7 +56,7 @@ struct ImportView: View {
                 } else if stage == .folderSelection {
                     Button(action: importSelected) {
                         Label {
-                            Text("Import Pages")
+                            Text("Import Pages", comment: "Button label")
                         } icon: {
                             Image(systemName: "rectangle.stack.badge.plus")
                         }
@@ -73,11 +73,12 @@ struct ImportView: View {
     private var pickFileStage: some View {
         VStack {
             Spacer()
-            Text("""
-            First choose an OPML file to add feeds from. Pick pages to import next.
-            """)
-                .multilineTextAlignment(.center)
-                .padding()
+            Text(
+                "First choose an OPML file to add feeds from. Pick pages to import next.",
+                comment: "Guidance note"
+            )
+            .multilineTextAlignment(.center)
+            .padding()
             Spacer()
         }
     }
@@ -92,10 +93,10 @@ struct ImportView: View {
                                 Text(folder.name).foregroundColor(.primary)
                                 Spacer()
                                 if folder.feeds.count == 1 {
-                                    Text("1 Feed")
+                                    Text("1 Feed", comment: "Feed count singular")
                                         .foregroundColor(.secondary).font(.footnote)
                                 } else {
-                                    Text("\(folder.feeds.count) Feeds")
+                                    Text("\(folder.feeds.count) Feeds", comment: "Feed count plural")
                                         .foregroundColor(.secondary).font(.footnote)
                                 }
                             }
@@ -117,15 +118,18 @@ struct ImportView: View {
 
     private var errorStage: some View {
         SplashNote(
-            title: Text("Import Error"),
-            note: Text("The operation did not complete successfully.")
+            title: Text("Import Error", comment: "Import status header"),
+            note: Text("The operation did not complete successfully.", comment: "Import status message")
         )
     }
 
     private var completeStage: some View {
         SplashNote(
-            title: Text("Import Complete"),
-            note: Text("\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile.")
+            title: Text("Import Complete", comment: "Import status header"),
+            note: Text(
+                "\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile.",
+                comment: "Import status message"
+            )
         )
     }
 

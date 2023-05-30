@@ -18,7 +18,9 @@ struct TrendingNav: View {
     var body: some View {
         NavigationLink(value: DetailPanel.trending) {
             Label {
-                Text("Trending").lineLimit(1).badge(profile.trends.containingUnread().count)
+                Text("Trending", comment: "Sidebar button label")
+                    .lineLimit(1)
+                    .badge(profile.trends.containingUnread().count)
             } icon: {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
