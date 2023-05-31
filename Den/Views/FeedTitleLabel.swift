@@ -16,7 +16,7 @@ struct FeedTitleLabel: View {
 
     var body: some View {
         Label {
-            title ?? Text("Untitled")
+            title ?? Text("Untitled", comment: "Default feed title")
         } icon: {
             FeedFavicon(url: favicon)
         }

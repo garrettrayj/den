@@ -16,12 +16,12 @@ struct NoFeeds: View {
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
-            Text("No Feeds").font(.title)
+            Text("No Feeds", comment: "Empty view/page header").font(.title)
             Button {
                 SubscriptionUtility.showSubscribe(page: page)
             } label: {
                 Label {
-                    Text("Add by Web Address")
+                    Text("Add by Web Address", comment: "Button label")
                 } icon: {
                     Image(systemName: "plus.circle")
                 }
@@ -30,7 +30,7 @@ struct NoFeeds: View {
             Text("""
             Or drag and drop a feed URL, or open a syndication link, \
             or use the web extension to discover feeds on websites.
-            """)
+            """, comment: "Empty view/page guidance")
             .font(.body)
             .imageScale(.small)
             .padding(.horizontal)

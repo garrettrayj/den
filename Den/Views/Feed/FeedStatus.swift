@@ -20,14 +20,14 @@ struct FeedStatus: View {
     var body: some View {
         VStack {
             if refreshManager.refreshing {
-                Text("Checking for New Items…", comment: "Bottom bar status")
+                Text("Checking for New Items…", comment: "Status message")
             } else {
                 if let refreshedDate = feed.feedData?.refreshed {
                     TimelineView(.everyMinute) { _ in
                         RelativeRefreshedDate(date: refreshedDate)
                     }
                 }
-                Text("\(unreadCount) Unread", comment: "Bottom bar status").foregroundColor(.secondary)
+                Text("\(unreadCount) Unread", comment: "Status message").foregroundColor(.secondary)
             }
         }
         .font(.caption)

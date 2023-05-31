@@ -21,7 +21,7 @@ struct Search: View {
     var body: some View {
         if query == "" {
             SplashNote(
-                title: Text("Searching \(profile.wrappedName)"),
+                title: Text("Searching \(profile.wrappedName)", comment: "Searching profile empty query message"),
                 symbol: "magnifyingglass"
             )
         } else {
@@ -39,7 +39,7 @@ struct Search: View {
                 .toolbar {
                     SearchBottomBar(profile: profile, hideRead: $hideRead, query: query, items: items)
                 }
-                .navigationTitle(Text("Search"))
+                .navigationTitle(Text("Search", comment: "Navigation title"))
             }
         }
     }

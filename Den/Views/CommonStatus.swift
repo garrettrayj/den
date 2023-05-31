@@ -23,7 +23,7 @@ struct CommonStatus: View {
     var body: some View {
         VStack {
             if refreshManager.refreshing {
-                Text("Checking for New Items…")
+                Text("Checking for New Items…", comment: "Status message")
             } else {
                 if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                     RelativeRefreshedDate(date: refreshedDate)

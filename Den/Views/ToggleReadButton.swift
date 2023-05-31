@@ -28,13 +28,13 @@ struct ToggleReadButton: View {
                 ProgressView().progressViewStyle(CircularProgressViewStyle())
             } else if unreadCount == 0 {
                 Label {
-                    Text("Mark All Unread")
+                    Text("Mark All Unread", comment: "Button label")
                 } icon: {
                     Image(systemName: "checkmark.circle.fill")
                 }
             } else {
                 Label {
-                    Text("Mark All Read")
+                    Text("Mark All Read", comment: "Button label")
                 } icon: {
                     Image(systemName: "checkmark.circle")
                 }

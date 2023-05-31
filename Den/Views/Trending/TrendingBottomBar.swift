@@ -32,7 +32,7 @@ struct TrendingBottomBar: ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             CommonStatus(
                 profile: profile,
-                unreadLabel: Text("\(unreadCount) with Unread", comment: "Trending list status note")
+                unreadLabel: Text("\(unreadCount) with Unread", comment: "Status message")
             )
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }

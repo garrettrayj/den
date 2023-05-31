@@ -74,7 +74,7 @@ struct PageSettings: View {
     }
 
     private var feedsSection: some View {
-        Section(header: Text("Feeds", comment: "Page settings section header")) {
+        Section {
             if page.feedsArray.isEmpty {
                 Text("Page Emtpy", comment: "Page settings feeds empty message")
                     .foregroundColor(.secondary)
@@ -89,6 +89,8 @@ struct PageSettings: View {
                 .onDelete(perform: deleteFeed)
                 .onMove(perform: moveFeed)
             }
+        } header: {
+            Text("Feeds", comment: "Page settings section header")
         }
         .modifier(ListRowModifier())
     }

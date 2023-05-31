@@ -20,7 +20,7 @@ struct ExportView: View {
     var body: some View {
         VStack {
             if profile.feedsArray.isEmpty {
-                SplashNote(title: Text("Profile Empty"))
+                SplashNote(title: Text("Profile Empty", comment: "Export view message"))
             } else {
                 Form {
                     Section {
@@ -28,7 +28,7 @@ struct ExportView: View {
                             .modifier(FormRowModifier())
                             .modifier(TitleTextFieldModifier())
                     } header: {
-                        Text("Title").modifier(FirstFormHeaderModifier())
+                        Text("Title", comment: "Export section header").modifier(FirstFormHeaderModifier())
                     }
                     .modifier(ListRowModifier())
 
@@ -45,7 +45,7 @@ struct ExportView: View {
                     exportOpml()
                 } label: {
                     Label {
-                        Text("Export OPML")
+                        Text("Export OPML", comment: "Button label")
                     } icon: {
                         Image(systemName: "arrow.up.doc")
                     }
@@ -56,7 +56,7 @@ struct ExportView: View {
                 .accessibilityIdentifier("export-button")
             }
         }
-        .navigationTitle(Text("Export"))
+        .navigationTitle(Text("Export", comment: "Navigation title"))
     }
 
     private var pageListSection: some View {
@@ -69,10 +69,10 @@ struct ExportView: View {
                             Text(page.wrappedName).foregroundColor(.primary)
                             Spacer()
                             if page.feedsArray.count == 1 {
-                                Text("1 Feed")
+                                Text("1 Feed", comment: "Feed count (singular)")
                                     .foregroundColor(.secondary).font(.footnote)
                             } else {
-                                Text("\(page.feedsArray.count) Feeds")
+                                Text("\(page.feedsArray.count) Feeds", comment: "Feed count (plural)")
                                     .foregroundColor(.secondary).font(.footnote)
                             }
                         }

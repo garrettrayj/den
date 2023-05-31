@@ -42,9 +42,9 @@ struct AddFeed: View {
             ZStack {
                 if targetPage == nil || profile == nil {
                     VStack(spacing: 24) {
-                        Text("No Pages Available").font(.title2)
+                        Text("No Pages Available", comment: "Add Feed view error message").font(.title2)
                         Button { dismiss() } label: {
-                            Text("Cancel").font(.title3)
+                            Text("Cancel", comment: "Button label").font(.title3)
                         }
                         .buttonStyle(.bordered)
                         .accessibilityIdentifier("subscribe-cancel-button")
@@ -55,26 +55,29 @@ struct AddFeed: View {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
                         } header: {
-                            Text("Web Address")
+                            Text("Web Address", comment: "Feed URL field section label")
                         } footer: {
                             Group {
                                 if let validationMessage = validationMessage {
                                     Group {
                                         switch validationMessage {
                                         case .cannotBeBlank:
-                                            Text("Cannot be blank")
+                                            Text("Cannot be blank", comment: "Feed URL validation message")
                                         case .mustNotContainSpaces:
-                                            Text("Must not contain spaces")
+                                            Text("Must not contain spaces", comment: "Feed URL validation message")
                                         case .mustBeginWithHTTP:
-                                            Text("Must begin with “http://” or “https://”")
+                                            Text(
+                                                "Must begin with “http://” or “https://”",
+                                                comment: "Feed URL validation message"
+                                            )
                                         case .parseError:
-                                            Text("Could not be parsed")
+                                            Text("Could not be parsed", comment: "Feed URL validation message")
                                         case .unopenable:
-                                            Text("Unopenable")
+                                            Text("Unopenable", comment: "Feed URL validation message")
                                         }
                                     }.foregroundColor(.red)
                                 } else {
-                                    Text("Enter a RSS, Atom, or JSON Feed URL.")
+                                    Text("Enter a RSS, Atom, or JSON Feed URL.", comment: "Feed URL input guidance")
                                 }
                             }
                             .font(.caption)
@@ -83,7 +86,7 @@ struct AddFeed: View {
                         .modifier(ListRowModifier())
 
                         Section {
-                            pagePicker
+                            PagePicker(profile: profile!, selection: $targetPage)
                         }
                         .modifier(ListRowModifier())
 
@@ -92,12 +95,12 @@ struct AddFeed: View {
                 }
             }
             .background(GroupedBackground())
-            .navigationTitle(Text("Add Feed"))
+            .navigationTitle(Text("Add Feed", comment: "Navigation title"))
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button { dismiss() } label: {
                         Label {
-                            Text("Cancel")
+                            Text("Cancel", comment: "Button label")
                         } icon: {
                             Image(systemName: "xmark.circle")
                         }
@@ -127,7 +130,7 @@ struct AddFeed: View {
             }
         } label: {
             Label {
-                Text("Add to \(targetPage?.wrappedName ?? "…")")
+                Text("Add to \(targetPage?.wrappedName ?? "…")", comment: "Button label")
             } icon: {
                 if loading {
                     ProgressView()
@@ -149,8 +152,11 @@ struct AddFeed: View {
     private var feedUrlInput: some View {
         HStack {
             // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
-            TextField(text: $urlString, prompt: Text("https⁣://example.com/feed.xml")) {
-                Text("Web Address")
+            TextField(
+                text: $urlString,
+                prompt: Text("https⁣://example.com/feed.xml", comment: "Feed URL field prompt")
+            ) {
+                Text("Web Address", comment: "Feed URL field label")
             }
             .lineLimit(1)
             .multilineTextAlignment(.leading)
@@ -170,32 +176,6 @@ struct AddFeed: View {
                 }
             }
         }
-    }
-
-    private var pagePicker: some View {
-        #if targetEnvironment(macCatalyst)
-        HStack {
-            Text("Page").modifier(FormRowModifier())
-            Spacer()
-            Picker(selection: $targetPage) {
-                ForEach(profile!.pagesArray) { page in
-                    Text(page.wrappedName).tag(page as Page?)
-                }
-            } label: {
-                Text("Page")
-            }
-            .labelsHidden()
-            .scaledToFit()
-        }
-        #else
-        Picker(selection: $targetPage) {
-            ForEach(profile!.pagesArray) { page in
-                Text(page.wrappedName).tag(page as Page?)
-            }
-        } label: {
-            Text("Page").modifier(FormRowModifier())
-        }
-        #endif
     }
 
     private func checkTargetPage() {

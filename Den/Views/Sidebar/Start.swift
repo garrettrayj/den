@@ -30,7 +30,7 @@ struct Start: View {
                 }
             } label: {
                 Label {
-                    Text("New Page", comment: "Button to create an initial blank page")
+                    Text("New Page", comment: "Button label")
                         .multilineTextAlignment(.leading)
                 } icon: {
                     Image(systemName: "plus")
@@ -45,7 +45,7 @@ struct Start: View {
                 Label {
                     Text(
                         "Load Demo Feeds",
-                        comment: "Button to load an initial selection of pages/feeds"
+                        comment: "Button label"
                     )
                     .multilineTextAlignment(.leading)
                 } icon: {
@@ -63,7 +63,7 @@ struct Start: View {
                 .padding(.vertical)
             #endif
         } header: {
-            Text("Get Started", comment: "Header for tutuorial shown when profile is new or empty")
+            Text("Get Started", comment: "Sidebar section header")
         } footer: {
             importGuidanceText
                 .font(.footnote)
@@ -76,7 +76,7 @@ struct Start: View {
     private var importGuidanceText: Text {
         Text(
             "Or import feeds in \(Image(systemName: "gear")) Settings.",
-            comment: "Getting started options import guidance note"
+            comment: "Getting started guidance"
         )
     }
 

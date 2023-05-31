@@ -20,42 +20,26 @@ struct MoveFeedSection: View {
 
     var body: some View {
         Section {
-            #if targetEnvironment(macCatalyst)
-            HStack {
-                Text("Page", comment: "Picker label").modifier(FormRowModifier())
-                Spacer()
-                pagePicker.labelsHidden().scaledToFit()
+            if let profile = feed.page?.profile {
+                PagePicker(profile: profile, selection: $feed.page)
+                    .onChange(of: feed.page) { [oldPage = feed.page] newPage in
+                        self.feed.userOrder = (newPage?.feedsUserOrderMax ?? 0) + 1
+                        NotificationCenter.default.post(
+                            name: .feedRefreshed,
+                            object: self.feed.objectID,
+                            userInfo: ["pageObjectID": oldPage?.objectID as Any]
+                        )
+                        NotificationCenter.default.post(
+                            name: .feedRefreshed,
+                            object: self.feed.objectID,
+                            userInfo: ["pageObjectID": newPage?.objectID as Any]
+                        )
+                        dismiss()
+                    }
             }
-            #else
-            pagePicker
-            #endif
         } header: {
             Text("Move", comment: "Feed settings section header")
         }
         .modifier(ListRowModifier())
-    }
-
-    private var pagePicker: some View {
-        Picker(selection: $feed.page) {
-            ForEach(feed.page?.profile?.pagesArray ?? []) { page in
-                Text(page.wrappedName).tag(page as Page?)
-            }
-        } label: {
-            Text("Page", comment: "Picker label").modifier(FormRowModifier())
-        }
-        .onChange(of: feed.page) { [oldPage = feed.page] newPage in
-            self.feed.userOrder = (newPage?.feedsUserOrderMax ?? 0) + 1
-            NotificationCenter.default.post(
-                name: .feedRefreshed,
-                object: self.feed.objectID,
-                userInfo: ["pageObjectID": oldPage?.objectID as Any]
-            )
-            NotificationCenter.default.post(
-                name: .feedRefreshed,
-                object: self.feed.objectID,
-                userInfo: ["pageObjectID": newPage?.objectID as Any]
-            )
-            dismiss()
-        }
     }
 }

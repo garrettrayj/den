@@ -30,7 +30,7 @@
       <trans-unit id="%@ Feeds" xml:space="preserve">
         <source>%@ Feeds</source>
         <target>%@ Feeds</target>
-        <note>Feed count plural
+        <note>Feed count (plural)
    Welcome view feed count (zero or plural)</note>
       </trans-unit>
       <trans-unit id="%@ New Page" xml:space="preserve">
@@ -46,14 +46,12 @@
       <trans-unit id="%@ Unread" xml:space="preserve">
         <source>%@ Unread</source>
         <target>%@ Unread</target>
-        <note>Bottom bar status
-   Status message
-   Trend status message</note>
+        <note>Status message</note>
       </trans-unit>
       <trans-unit id="%@ feeds use insecure web addresses." xml:space="preserve">
         <source>%@ feeds use insecure web addresses.</source>
         <target>%@ feeds use insecure web addresses.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Security warning (plural)</note>
       </trans-unit>
       <trans-unit id="%@ items in %@ feeds" xml:space="preserve">
         <source>%1$@ items in %2$@ feeds</source>
@@ -78,12 +76,12 @@
       <trans-unit id="%@ with Unread" xml:space="preserve">
         <source>%@ with Unread</source>
         <target>%@ with Unread</target>
-        <note>Trending list status note</note>
+        <note>Status message</note>
       </trans-unit>
       <trans-unit id="1 Feed" xml:space="preserve">
         <source>1 Feed</source>
         <target>1 Feed</target>
-        <note>Feed count singular
+        <note>Feed count (singular)
    Welcome view feed count (singular)</note>
       </trans-unit>
       <trans-unit id="1 Record" xml:space="preserve">
@@ -94,12 +92,12 @@
       <trans-unit id="1 feed uses an insecure web address." xml:space="preserve">
         <source>1 feed uses an insecure web address.</source>
         <target>1 feed uses an insecure web address.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Security warning (singualar)</note>
       </trans-unit>
       <trans-unit id="A critical error occurred. Restart to try again." xml:space="preserve">
         <source>A critical error occurred. Restart to try again.</source>
         <target>A critical error occurred. Restart to try again.</target>
-        <note>No comment provided by engineer.</note>
+        <note>App crashed guidance</note>
       </trans-unit>
       <trans-unit id="About" xml:space="preserve">
         <source>About</source>
@@ -109,7 +107,9 @@
       <trans-unit id="Add Feed" xml:space="preserve">
         <source>Add Feed</source>
         <target>Add Feed</target>
-        <note>Menu bar button label</note>
+        <note>Button label
+   Menu bar button label
+   Navigation title</note>
       </trans-unit>
       <trans-unit id="Add Profile" xml:space="preserve">
         <source>Add Profile</source>
@@ -119,22 +119,22 @@
       <trans-unit id="Add by Web Address" xml:space="preserve">
         <source>Add by Web Address</source>
         <target>Add by Web Address</target>
-        <note>No comment provided by engineer.</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="Add to %@" xml:space="preserve">
         <source>Add to %@</source>
         <target>Add to %@</target>
-        <note>No comment provided by engineer.</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="All" xml:space="preserve">
         <source>All</source>
         <target>All</target>
-        <note>No comment provided by engineer.</note>
+        <note>Bulk select button label</note>
       </trans-unit>
       <trans-unit id="All Read" xml:space="preserve">
         <source>All Read</source>
         <target>All Read</target>
-        <note>No comment provided by engineer.</note>
+        <note>No unread items message</note>
       </trans-unit>
       <trans-unit id="All content within will be removed." xml:space="preserve">
         <source>All content within will be removed.</source>
@@ -144,7 +144,7 @@
       <trans-unit id="All feeds use secure web addresses." xml:space="preserve">
         <source>All feeds use secure web addresses.</source>
         <target>All feeds use secure web addresses.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Security view all-clear message</note>
       </trans-unit>
       <trans-unit id="All profiles will be removed. Default settings will be restored." xml:space="preserve">
         <source>All profiles will be removed. Default settings will be restored.</source>
@@ -164,7 +164,7 @@
       <trans-unit id="Application Error" xml:space="preserve">
         <source>Application Error</source>
         <target>Application Error</target>
-        <note>No comment provided by engineer.</note>
+        <note>App crashed header</note>
       </trans-unit>
       <trans-unit id="Blend" xml:space="preserve">
         <source>Blend</source>
@@ -189,22 +189,22 @@
       <trans-unit id="Cannot be blank" xml:space="preserve">
         <source>Cannot be blank</source>
         <target>Cannot be blank</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL validation message</note>
       </trans-unit>
       <trans-unit id="Changes will be applied on next refresh." xml:space="preserve">
         <source>Changes will be applied on next refresh.</source>
         <target>Changes will be applied on next refresh.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Item limit changed notice</note>
       </trans-unit>
-      <trans-unit id="Check for HTTPS" xml:space="preserve">
-        <source>Check for HTTPS</source>
-        <target>Check for HTTPS</target>
-        <note>No comment provided by engineer.</note>
+      <trans-unit id="Check for Secure Alternatives" xml:space="preserve">
+        <source>Check for Secure Alternatives</source>
+        <target>Check for Secure Alternatives</target>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="Checking for New Items…" xml:space="preserve">
         <source>Checking for New Items…</source>
         <target>Checking for New Items…</target>
-        <note>Bottom bar status
+        <note>Status message
    Welcome view refreshing status text</note>
       </trans-unit>
       <trans-unit id="Choose Icon" xml:space="preserve">
@@ -251,12 +251,12 @@
       <trans-unit id="Could not be parsed" xml:space="preserve">
         <source>Could not be parsed</source>
         <target>Could not be parsed</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL validation message</note>
       </trans-unit>
       <trans-unit id="Create a New Profile" xml:space="preserve">
         <source>Create a New Profile</source>
         <target>Create a New Profile</target>
-        <note>Launch view button label</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="Customization" xml:space="preserve">
         <source>Customization</source>
@@ -291,12 +291,12 @@
       <trans-unit id="Enter a RSS, Atom, or JSON Feed URL." xml:space="preserve">
         <source>Enter a RSS, Atom, or JSON Feed URL.</source>
         <target>Enter a RSS, Atom, or JSON Feed URL.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL input guidance</note>
       </trans-unit>
       <trans-unit id="Enter a search term." xml:space="preserve">
         <source>Enter a search term.</source>
         <target>Enter a search term.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Search guidance</note>
       </trans-unit>
       <trans-unit id="Expanded" xml:space="preserve">
         <source>Expanded</source>
@@ -306,12 +306,13 @@
       <trans-unit id="Export" xml:space="preserve">
         <source>Export</source>
         <target>Export</target>
-        <note>Button label</note>
+        <note>Button label
+   Navigation title</note>
       </trans-unit>
       <trans-unit id="Export OPML" xml:space="preserve">
         <source>Export OPML</source>
         <target>Export OPML</target>
-        <note>No comment provided by engineer.</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="Extra" xml:space="preserve">
         <source>Extra</source>
@@ -326,7 +327,7 @@
       <trans-unit id="Feed Empty" xml:space="preserve">
         <source>Feed Empty</source>
         <target>Feed Empty</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable header</note>
       </trans-unit>
       <trans-unit id="Feed Settings" xml:space="preserve">
         <source>Feed Settings</source>
@@ -343,12 +344,17 @@
       <trans-unit id="Feeds will be updated to use HTTPS if available." xml:space="preserve">
         <source>Feeds will be updated to use HTTPS if available.</source>
         <target>Feeds will be updated to use HTTPS if available.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Security check guidance</note>
+      </trans-unit>
+      <trans-unit id="Filter Read" xml:space="preserve">
+        <source>Filter Read</source>
+        <target>Filter Read</target>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="First choose an OPML file to add feeds from. Pick pages to import next." xml:space="preserve">
         <source>First choose an OPML file to add feeds from. Pick pages to import next.</source>
         <target>First choose an OPML file to add feeds from. Pick pages to import next.</target>
-        <note>Guidance note</note>
+        <note>Import guidance message</note>
       </trans-unit>
       <trans-unit id="Forever" xml:space="preserve">
         <source>Forever</source>
@@ -358,12 +364,12 @@
       <trans-unit id="Found %@ result for “%@”" xml:space="preserve">
         <source>Found %1$@ result for “%2$@”</source>
         <target>Found %1$@ result for “%2$@”</target>
-        <note>No comment provided by engineer.</note>
+        <note>Search status (singular)</note>
       </trans-unit>
       <trans-unit id="Found %@ results for “%@”" xml:space="preserve">
         <source>Found %1$@ results for “%2$@”</source>
         <target>Found %1$@ results for “%2$@”</target>
-        <note>No comment provided by engineer.</note>
+        <note>Search status (plural)</note>
       </trans-unit>
       <trans-unit id="Gadgets" xml:space="preserve">
         <source>Gadgets</source>
@@ -373,7 +379,7 @@
       <trans-unit id="Get Started" xml:space="preserve">
         <source>Get Started</source>
         <target>Get Started</target>
-        <note>Header for tutuorial shown when profile is new or empty</note>
+        <note>Sidebar section header</note>
       </trans-unit>
       <trans-unit id="Go to Item" xml:space="preserve">
         <source>Go to Item</source>
@@ -413,7 +419,7 @@
       <trans-unit id="If you have used the app before then synchronization could be in progress. Please wait a minute." xml:space="preserve">
         <source>If you have used the app before then synchronization could be in progress. Please wait a minute.</source>
         <target>If you have used the app before then synchronization could be in progress. Please wait a minute.</target>
-        <note>Launch view help note</note>
+        <note>Launch view guidance note</note>
       </trans-unit>
       <trans-unit id="Import" xml:space="preserve">
         <source>Import</source>
@@ -454,7 +460,7 @@
       <trans-unit id="Item Deleted" xml:space="preserve">
         <source>Item Deleted</source>
         <target>Item Deleted</target>
-        <note>No comment provided by engineer.</note>
+        <note>Object removed message</note>
       </trans-unit>
       <trans-unit id="Item Limit: %@" xml:space="preserve">
         <source>Item Limit: %@</source>
@@ -485,27 +491,27 @@
       <trans-unit id="Load Demo Feeds" xml:space="preserve">
         <source>Load Demo Feeds</source>
         <target>Load Demo Feeds</target>
-        <note>Button to load an initial selection of pages/feeds</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="Loading…" xml:space="preserve">
         <source>Loading…</source>
         <target>Loading…</target>
-        <note>Launch view label shown during initial profile load attempts</note>
+        <note>Launch view status message</note>
       </trans-unit>
       <trans-unit id="Looking for HTTPS versions…" xml:space="preserve">
         <source>Looking for HTTPS versions…</source>
         <target>Looking for HTTPS versions…</target>
-        <note>No comment provided by engineer.</note>
+        <note>Security check in-progress message</note>
       </trans-unit>
       <trans-unit id="Mark All Read" xml:space="preserve">
         <source>Mark All Read</source>
         <target>Mark All Read</target>
-        <note>No comment provided by engineer.</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="Mark All Unread" xml:space="preserve">
         <source>Mark All Unread</source>
         <target>Mark All Unread</target>
-        <note>No comment provided by engineer.</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="Mint" xml:space="preserve">
         <source>Mint</source>
@@ -525,12 +531,12 @@
       <trans-unit id="Must begin with “http://” or “https://”" xml:space="preserve">
         <source>Must begin with “http://” or “https://”</source>
         <target>Must begin with “http://” or “https://”</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL validation message</note>
       </trans-unit>
       <trans-unit id="Must not contain spaces" xml:space="preserve">
         <source>Must not contain spaces</source>
         <target>Must not contain spaces</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL validation message</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
@@ -545,17 +551,17 @@
       <trans-unit id="New Page" xml:space="preserve">
         <source>New Page</source>
         <target>New Page</target>
-        <note>Button to create an initial blank page</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="No Data" xml:space="preserve">
         <source>No Data</source>
         <target>No Data</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable header</note>
       </trans-unit>
       <trans-unit id="No Feeds" xml:space="preserve">
         <source>No Feeds</source>
         <target>No Feeds</target>
-        <note>No comment provided by engineer.</note>
+        <note>Empty view/page header</note>
       </trans-unit>
       <trans-unit id="No Items" xml:space="preserve">
         <source>No Items</source>
@@ -566,27 +572,27 @@
       <trans-unit id="No Pages Available" xml:space="preserve">
         <source>No Pages Available</source>
         <target>No Pages Available</target>
-        <note>No comment provided by engineer.</note>
+        <note>Add Feed view error message</note>
       </trans-unit>
       <trans-unit id="No Problems" xml:space="preserve">
         <source>No Problems</source>
         <target>No Problems</target>
-        <note>No comment provided by engineer.</note>
+        <note>Security view all-clear header</note>
       </trans-unit>
       <trans-unit id="No Profiles Found" xml:space="preserve">
         <source>No Profiles Found</source>
         <target>No Profiles Found</target>
-        <note>Header for launch view shown to new users and returning users waiting on profile(s) to sync</note>
+        <note>Launch view status message</note>
       </trans-unit>
       <trans-unit id="No Results" xml:space="preserve">
         <source>No Results</source>
         <target>No Results</target>
-        <note>No comment provided by engineer.</note>
+        <note>Search empty message</note>
       </trans-unit>
       <trans-unit id="No Unread Results" xml:space="preserve">
         <source>No Unread Results</source>
         <target>No Unread Results</target>
-        <note>No comment provided by engineer.</note>
+        <note>Search empty message</note>
       </trans-unit>
       <trans-unit id="No common subjects were found in item titles." xml:space="preserve">
         <source>No common subjects were found in item titles.</source>
@@ -596,12 +602,13 @@
       <trans-unit id="No items to display." xml:space="preserve">
         <source>No items to display.</source>
         <target>No items to display.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable note</note>
       </trans-unit>
       <trans-unit id="None" xml:space="preserve">
         <source>None</source>
         <target>None</target>
-        <note>Tint option</note>
+        <note>Bulk select button label
+   Tint option</note>
       </trans-unit>
       <trans-unit id="Nothing Trending" xml:space="preserve">
         <source>Nothing Trending</source>
@@ -633,12 +640,12 @@
       <trans-unit id="Or drag and drop a feed URL, or open a syndication link, or use the web extension to discover feeds on websites." xml:space="preserve">
         <source>Or drag and drop a feed URL, or open a syndication link, or use the web extension to discover feeds on websites.</source>
         <target>Or drag and drop a feed URL, or open a syndication link, or use the web extension to discover feeds on websites.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Empty view/page guidance</note>
       </trans-unit>
       <trans-unit id="Or import feeds in %@ Settings." xml:space="preserve">
         <source>Or import feeds in %@ Settings.</source>
         <target>Or import feeds in %@ Settings.</target>
-        <note>Getting started options import guidance note</note>
+        <note>Getting started guidance</note>
       </trans-unit>
       <trans-unit id="Orange" xml:space="preserve">
         <source>Orange</source>
@@ -706,7 +713,7 @@
       <trans-unit id="Profile Empty" xml:space="preserve">
         <source>Profile Empty</source>
         <target>Profile Empty</target>
-        <note>No comment provided by engineer.</note>
+        <note>Export view message</note>
       </trans-unit>
       <trans-unit id="Profile Settings" xml:space="preserve">
         <source>Profile Settings</source>
@@ -731,12 +738,12 @@
       <trans-unit id="Recovery Period: %@ hours" xml:space="preserve">
         <source>Recovery Period: %@ hours</source>
         <target>Recovery Period: %@ hours</target>
-        <note>Auto refresh cooldown stepper label (hours)</note>
+        <note>Cooldown stepper label (hours)</note>
       </trans-unit>
       <trans-unit id="Recovery Period: %@ minutes" xml:space="preserve">
         <source>Recovery Period: %@ minutes</source>
         <target>Recovery Period: %@ minutes</target>
-        <note>Auto refresh cooldown stepper label (minutes)</note>
+        <note>Cooldown stepper label (minutes)</note>
       </trans-unit>
       <trans-unit id="Red" xml:space="preserve">
         <source>Red</source>
@@ -753,12 +760,12 @@
       <trans-unit id="Refresh Error" xml:space="preserve">
         <source>Refresh Error</source>
         <target>Refresh Error</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable header</note>
       </trans-unit>
       <trans-unit id="Refresh to fetch content." xml:space="preserve">
         <source>Refresh to fetch content.</source>
         <target>Refresh to fetch content.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable note</note>
       </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
@@ -779,22 +786,23 @@
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
         <target>Search</target>
-        <note>No comment provided by engineer.</note>
+        <note>Navigation title</note>
       </trans-unit>
       <trans-unit id="Searching %@" xml:space="preserve">
         <source>Searching %@</source>
         <target>Searching %@</target>
-        <note>No comment provided by engineer.</note>
+        <note>Searching profile empty query message</note>
       </trans-unit>
       <trans-unit id="Security" xml:space="preserve">
         <source>Security</source>
         <target>Security</target>
-        <note>Button label</note>
+        <note>Button label
+   Navigation title</note>
       </trans-unit>
       <trans-unit id="Select" xml:space="preserve">
         <source>Select</source>
         <target>Select</target>
-        <note>No comment provided by engineer.</note>
+        <note>Bulk select controls label</note>
       </trans-unit>
       <trans-unit id="Select File" xml:space="preserve">
         <source>Select File</source>
@@ -826,7 +834,7 @@
       <trans-unit id="Status Unavailable" xml:space="preserve">
         <source>Status Unavailable</source>
         <target>Status Unavailable</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable header</note>
       </trans-unit>
       <trans-unit id="Switch" xml:space="preserve">
         <source>Switch</source>
@@ -876,7 +884,8 @@
       <trans-unit id="Title" xml:space="preserve">
         <source>Title</source>
         <target>Title</target>
-        <note>Feed settings section header</note>
+        <note>Export section header
+   Feed settings section header</note>
       </trans-unit>
       <trans-unit id="Trend Deleted" xml:space="preserve">
         <source>Trend Deleted</source>
@@ -897,17 +906,17 @@
       <trans-unit id="Unable to fetch content." xml:space="preserve">
         <source>Unable to fetch content.</source>
         <target>Unable to fetch content.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable note</note>
       </trans-unit>
       <trans-unit id="Unable to parse content." xml:space="preserve">
         <source>Unable to parse content.</source>
         <target>Unable to parse content.</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed unavailable note</note>
       </trans-unit>
       <trans-unit id="Unopenable" xml:space="preserve">
         <source>Unopenable</source>
         <target>Unopenable</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL validation message</note>
       </trans-unit>
       <trans-unit id="Untitled" xml:space="preserve">
         <source>Untitled</source>
@@ -921,12 +930,14 @@
         <source>Updated %@</source>
         <target>Updated %@</target>
         <note>Profile status updated date shown on days other than same day
+   Relative date text if greater than one minute ago
    Updated more than a minute ago</note>
       </trans-unit>
       <trans-unit id="Updated Just Now" xml:space="preserve">
         <source>Updated Just Now</source>
         <target>Updated Just Now</target>
-        <note>Updated in the last minute</note>
+        <note>Relative date text if less than one minute ago
+   Updated in the last minute</note>
       </trans-unit>
       <trans-unit id="Updated at %@" xml:space="preserve">
         <source>Updated at %@</source>
@@ -946,7 +957,8 @@
       <trans-unit id="Web Address" xml:space="preserve">
         <source>Web Address</source>
         <target>Web Address</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL field label
+   Feed URL field section label</note>
       </trans-unit>
       <trans-unit id="Website" xml:space="preserve">
         <source>Website</source>
@@ -966,7 +978,7 @@
       <trans-unit id="https⁣://example.com/feed.xml" xml:space="preserve">
         <source>https⁣://example.com/feed.xml</source>
         <target>https⁣://example.com/feed.xml</target>
-        <note>No comment provided by engineer.</note>
+        <note>Feed URL field prompt</note>
       </trans-unit>
     </body>
   </file>

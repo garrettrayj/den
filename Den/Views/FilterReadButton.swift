@@ -20,12 +20,15 @@ struct FilterReadButton: View {
             hideRead.toggle()
             callback()
         } label: {
-            Label(
-                "Filter Read",
-                systemImage: hideRead ?
-                    "line.3.horizontal.decrease.circle.fill"
-                    : "line.3.horizontal.decrease.circle"
-            )
+            Label {
+                Text("Filter Read", comment: "Button label")
+            } icon: {
+                Image(
+                    systemName: hideRead ?
+                      "line.3.horizontal.decrease.circle.fill"
+                      : "line.3.horizontal.decrease.circle"
+                )
+            }
         }
         .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("filter-read-button")

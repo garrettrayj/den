@@ -17,9 +17,12 @@ struct RelativeRefreshedDate: View {
 
     var body: some View {
         if -date.timeIntervalSinceNow < 60 {
-            Text("Updated Just Now")
+            Text("Updated Just Now", comment: "Relative date text if less than one minute ago")
         } else {
-            Text("Updated \(date.formatted(relativeDateStyle))")
+            Text(
+                "Updated \(date.formatted(relativeDateStyle))",
+                comment: "Relative date text if greater than one minute ago"
+            )
         }
     }
 }

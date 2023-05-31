@@ -12,7 +12,7 @@ import SwiftUI
 
 struct AllRead: View {
     var body: some View {
-        Text("All Read")
+        Text("All Read", comment: "No unread items message")
             .foregroundColor(.secondary)
             .frame(maxWidth: .infinity)
     }

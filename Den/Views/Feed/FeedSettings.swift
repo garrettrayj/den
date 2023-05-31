@@ -47,7 +47,10 @@ struct FeedSettings: View {
                     Text("Latest", comment: "Feed settings section header")
                 } footer: {
                     if feed.changedValues().keys.contains("itemLimit") {
-                        Text("Changes will be applied on next refresh.")
+                        Text(
+                            "Changes will be applied on next refresh.",
+                            comment: "Item limit changed notice"
+                        )
                     }
                 }
 

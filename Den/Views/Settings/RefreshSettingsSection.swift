@@ -56,14 +56,14 @@ struct RefreshSettingsSection: View {
                         if autoRefreshCooldown >= 120 {
                             Text(
                                 "Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours",
-                                comment: "Auto refresh cooldown stepper label (hours)"
+                                comment: "Cooldown stepper label (hours)"
                             )
                                 .font(.callout)
                                 .modifier(FormRowModifier())
                         } else {
                             Text(
                                 "Recovery Period: \(autoRefreshCooldown) minutes",
-                                comment: "Auto refresh cooldown stepper label (minutes)"
+                                comment: "Cooldown stepper label (minutes)"
                             )
                                 .font(.callout)
                                 .modifier(FormRowModifier())

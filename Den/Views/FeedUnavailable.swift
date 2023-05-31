@@ -21,20 +21,20 @@ struct FeedUnavailable: View {
     var body: some View {
         VStack(spacing: 4) {
             if feedData == nil {
-                Text("No Data").font(titleFont)
-                Text("Refresh to fetch content.").font(subtitleFont)
+                Text("No Data", comment: "Feed unavailable header").font(titleFont)
+                Text("Refresh to fetch content.", comment: "Feed unavailable note").font(subtitleFont)
             } else if let error = feedData?.wrappedError {
-                Text("Refresh Error").font(titleFont)
+                Text("Refresh Error", comment: "Feed unavailable header").font(titleFont)
                 if error == .request {
-                    Text("Unable to fetch content.").font(subtitleFont)
+                    Text("Unable to fetch content.", comment: "Feed unavailable note").font(subtitleFont)
                 } else {
-                    Text("Unable to parse content.").font(subtitleFont)
+                    Text("Unable to parse content.", comment: "Feed unavailable note").font(subtitleFont)
                 }
             } else if feedData!.itemsArray.isEmpty {
-                Text("Feed Empty").font(titleFont)
-                Text("No items to display.").font(subtitleFont)
+                Text("Feed Empty", comment: "Feed unavailable header").font(titleFont)
+                Text("No items to display.", comment: "Feed unavailable note").font(subtitleFont)
             } else {
-                Text("Status Unavailable").font(titleFont)
+                Text("Status Unavailable", comment: "Feed unavailable header").font(titleFont)
             }
         }
         .foregroundColor(isEnabled ? .primary : .secondary)
