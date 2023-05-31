@@ -885,7 +885,6 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
-				6862A5972A2585B7000CAB19 /* Localizations */,
 				68922A642969D78A00C9A276 /* .github */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
@@ -895,6 +894,7 @@
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
+				6862A5972A2585B7000CAB19 /* Localizations */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
 				683573A32963A0BA00843A8E /* NOTES.md */,
 				68A807ED2944843800944D2C /* Makefile */,
@@ -1653,7 +1653,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WebExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Den Web Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Garrett Johnson";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1689,7 +1689,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WebExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Den Web Extension";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Garrett Johnson. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Garrett Johnson";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
