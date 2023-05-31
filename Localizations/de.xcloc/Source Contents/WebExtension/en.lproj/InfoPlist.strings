@@ -1,0 +1,6 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "Den Web Extension";
+/* Bundle name */
+"CFBundleName" = "Den Web Extension";
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2023 Garrett Johnson";

@@ -76,7 +76,7 @@
       </trans-unit>
       <trans-unit id="A critical error occurred. Restart to try again." xml:space="preserve">
         <source>A critical error occurred. Restart to try again.</source>
-        <note>App crashed guidance</note>
+        <note>Crash view guidance</note>
       </trans-unit>
       <trans-unit id="About" xml:space="preserve">
         <source>About</source>
@@ -129,9 +129,9 @@
         <source>Appearance</source>
         <note>Settings section header</note>
       </trans-unit>
-      <trans-unit id="Application Error" xml:space="preserve">
-        <source>Application Error</source>
-        <note>App crashed header</note>
+      <trans-unit id="Application Crashed" xml:space="preserve">
+        <source>Application Crashed</source>
+        <note>Crash view title</note>
       </trans-unit>
       <trans-unit id="Blend" xml:space="preserve">
         <source>Blend</source>
@@ -646,7 +646,8 @@
       </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
-        <note>Navigation title</note>
+        <note>Navigation title
+   Search field prompt</note>
       </trans-unit>
       <trans-unit id="Searching %@" xml:space="preserve">
         <source>Searching %@</source>

@@ -1237,6 +1237,7 @@
 				"en-GB",
 				Base,
 				"en-AU",
+				de,
 			);
 			mainGroup = 68C41300247263C700D1DC7B;
 			packageReferences = (

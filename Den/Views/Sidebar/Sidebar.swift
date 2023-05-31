@@ -37,7 +37,8 @@ struct Sidebar: View {
         .listStyle(.sidebar)
         .searchable(
             text: $searchInput,
-            placement: .navigationBarDrawer(displayMode: .always)
+            placement: .navigationBarDrawer(displayMode: .always),
+            prompt: Text("Search", comment: "Search field prompt")
         )
         .onSubmit(of: .search) {
             searchQuery = searchInput

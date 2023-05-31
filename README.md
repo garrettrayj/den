@@ -36,6 +36,7 @@ Get [Den for RSS](https://apps.apple.com/us/app/den-for-rss/id1528917651) on the
 
 1. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results. `brew install chargepoint/xcparse/xcparse`
 2. [swiftlint](https://github.com/realm/SwiftLint) to check code formatting. `brew install swiftlint`
+3. [localazy](https://localazy.com/docs/cli/the-basics) for localization management. `brew tap localazy/tools && brew install localazy`
 
 ---
 
