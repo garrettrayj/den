@@ -100,7 +100,7 @@ struct PreviewsSection: View {
             }
             #endif
         } header: {
-            Text("Previews", comment: "Feed settings previews section header")
+            Text("Previews", comment: "Feed settings section header")
         } footer: {
             #if !targetEnvironment(macCatalyst)
             if useSystemBrowser == true {

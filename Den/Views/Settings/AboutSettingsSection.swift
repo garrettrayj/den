@@ -16,7 +16,7 @@ struct AboutSettingsSection: View {
     var body: some View {
         Section {
             HStack {
-                Text("Version", comment: "About row label")
+                Text("Version", comment: "Info label")
                 Spacer()
                 Text(verbatim: "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                     .font(.callout)
@@ -29,7 +29,7 @@ struct AboutSettingsSection: View {
                 openURL(url)
             } label: {
                 HStack {
-                    Text("Website", comment: "About row label")
+                    Text("Website", comment: "Button label")
                     Spacer()
                     Text(verbatim: "https://den.io")
                 }

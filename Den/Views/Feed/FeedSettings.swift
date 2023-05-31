@@ -20,11 +20,12 @@ struct FeedSettings: View {
             SplashNote(title: Text("Feed Deleted", comment: "Object removed message"), symbol: "slash.circle")
         } else {
             Form {
-
                 Section {
-                    TextField("Title", text: $feed.wrappedTitle)
-                        .modifier(FormRowModifier())
-                        .modifier(TitleTextFieldModifier())
+                    TextField(text: $feed.wrappedTitle, prompt: Text("Untitled", comment: "Text field prompt")) {
+                        Text("Title", comment: "Text field label")
+                    }
+                    .modifier(FormRowModifier())
+                    .modifier(TitleTextFieldModifier())
                 } header: {
                     Text("Title", comment: "Feed settings section header").modifier(FirstFormHeaderModifier())
                 }

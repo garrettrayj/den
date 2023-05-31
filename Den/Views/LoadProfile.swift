@@ -34,7 +34,8 @@ struct LoadProfile: View {
                     comment: "Launch view status message"
                 )
                 Button {
-                    activateProfile(ProfileUtility.createDefaultProfile(context: viewContext))
+                    let profile = ProfileUtility.createDefaultProfile(context: viewContext)
+                    activateProfile(profile)
                 } label: {
                     Text("Create a New Profile", comment: "Button label")
                 }

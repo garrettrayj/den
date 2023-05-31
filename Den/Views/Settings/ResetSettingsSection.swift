@@ -70,31 +70,36 @@ struct ResetSettingsSection: View {
                 }
             }
             .modifier(FormRowModifier())
-            .alert("Reset Everything?", isPresented: $showingResetAlert, actions: {
-                Button(role: .cancel) {
-                    // pass
-                } label: {
-                    Text("Cancel", comment: "Button label")
-                }
-                .accessibilityIdentifier("reset-cancel-button")
-
-                Button(role: .destructive) {
-                    Task {
-                        await resetEverything()
-                        sleep(1)
-                        await calculateCacheSize()
+            .alert(
+                Text("Reset Everything?", comment: "Alert title"),
+                isPresented: $showingResetAlert,
+                actions: {
+                    Button(role: .cancel) {
+                        // pass
+                    } label: {
+                        Text("Cancel", comment: "Button label")
                     }
-                    dismiss()
-                } label: {
-                    Text("Reset", comment: "Button label")
+                    .accessibilityIdentifier("reset-cancel-button")
+
+                    Button(role: .destructive) {
+                        Task {
+                            await resetEverything()
+                            sleep(1)
+                            await calculateCacheSize()
+                        }
+                        dismiss()
+                    } label: {
+                        Text("Reset", comment: "Button label")
+                    }
+                    .accessibilityIdentifier("reset-confirm-button")
+                },
+                message: {
+                    Text(
+                        "All profiles will be removed. Default settings will be restored.",
+                        comment: "Alert message"
+                    )
                 }
-                .accessibilityIdentifier("reset-confirm-button")
-            }, message: {
-                Text(
-                    "All profiles will be removed. Default settings will be restored.",
-                    comment: "Alert message"
-                )
-            })
+            )
             .accessibilityIdentifier("reset-button")
         }
         .task {

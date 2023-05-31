@@ -24,9 +24,11 @@ struct ExportView: View {
             } else {
                 Form {
                     Section {
-                        TextField("Untitled", text: $title)
-                            .modifier(FormRowModifier())
-                            .modifier(TitleTextFieldModifier())
+                        TextField(text: $title) {
+                            Text("Title", comment: "Text field label")
+                        }
+                        .modifier(FormRowModifier())
+                        .modifier(TitleTextFieldModifier())
                     } header: {
                         Text("Title", comment: "Export section header").modifier(FirstFormHeaderModifier())
                     }

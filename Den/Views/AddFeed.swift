@@ -55,29 +55,44 @@ struct AddFeed: View {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
                         } header: {
-                            Text("Web Address", comment: "Feed URL field section label")
+                            Text("Web Address", comment: "Feed URL text field section label")
                         } footer: {
                             Group {
                                 if let validationMessage = validationMessage {
                                     Group {
                                         switch validationMessage {
                                         case .cannotBeBlank:
-                                            Text("Cannot be blank", comment: "Feed URL validation message")
+                                            Text(
+                                                "Cannot be blank",
+                                                comment: "Feed URL text field validation message"
+                                            )
                                         case .mustNotContainSpaces:
-                                            Text("Must not contain spaces", comment: "Feed URL validation message")
+                                            Text(
+                                                "Must not contain spaces",
+                                                comment: "Feed URL text field validation message"
+                                            )
                                         case .mustBeginWithHTTP:
                                             Text(
                                                 "Must begin with “http://” or “https://”",
-                                                comment: "Feed URL validation message"
+                                                comment: "Feed URL text field validation message"
                                             )
                                         case .parseError:
-                                            Text("Could not be parsed", comment: "Feed URL validation message")
+                                            Text(
+                                                "Could not be parsed",
+                                                comment: "Feed URL text field validation message"
+                                            )
                                         case .unopenable:
-                                            Text("Unopenable", comment: "Feed URL validation message")
+                                            Text(
+                                                "Unopenable",
+                                                comment: "Feed URL text field validation message"
+                                            )
                                         }
                                     }.foregroundColor(.red)
                                 } else {
-                                    Text("Enter a RSS, Atom, or JSON Feed URL.", comment: "Feed URL input guidance")
+                                    Text(
+                                        "Enter a RSS, Atom, or JSON Feed URL.",
+                                        comment: "Feed URL text field guidance"
+                                    )
                                 }
                             }
                             .font(.caption)
@@ -154,9 +169,9 @@ struct AddFeed: View {
             // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
             TextField(
                 text: $urlString,
-                prompt: Text("https⁣://example.com/feed.xml", comment: "Feed URL field prompt")
+                prompt: Text("https⁣://example.com/feed.xml", comment: "Feed URL text field prompt")
             ) {
-                Text("Web Address", comment: "Feed URL field label")
+                Text("Web Address", comment: "Feed URL text field label")
             }
             .lineLimit(1)
             .multilineTextAlignment(.leading)

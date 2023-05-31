@@ -71,9 +71,11 @@ struct ProfileSettings: View {
 
     private var nameSection: some View {
         Section {
-            TextField("Name", text: $profile.wrappedName)
-                .modifier(FormRowModifier())
-                .modifier(TitleTextFieldModifier())
+            TextField(text: $profile.wrappedName, prompt: Text("Untitled", comment: "Text field prompt")) {
+                Text("Name", comment: "Text field label")
+            }
+            .modifier(FormRowModifier())
+            .modifier(TitleTextFieldModifier())
         } header: {
             Text("Name", comment: "Profile settings section header").modifier(FirstFormHeaderModifier())
         }
@@ -105,18 +107,31 @@ struct ProfileSettings: View {
                 .modifier(FormRowModifier())
             }
             .accessibilityIdentifier("delete-profile-button")
-        }.alert("Delete Profile?", isPresented: $showingDeleteAlert, actions: {
-
-            Button("Cancel", role: .cancel) { }.accessibilityIdentifier("delete-profile-cancel-button")
-            Button("Delete", role: .destructive) {
-                Task {
-                    await delete()
+        }.alert(
+            Text("Delete Profile?", comment: "Alert title"),
+            isPresented: $showingDeleteAlert,
+            actions: {
+                Button(role: .cancel) {
+                    // Pass
+                } label: {
+                    Text("Cancel", comment: "Button label")
                 }
-                dismiss()
-            }.accessibilityIdentifier("delete-profile-confirm-button")
-        }, message: {
-            Text("All content within will be removed.", comment: "Alert message")
-        })
+                .accessibilityIdentifier("delete-profile-cancel-button")
+
+                Button(role: .destructive) {
+                    Task {
+                        await delete()
+                    }
+                    dismiss()
+                } label: {
+                    Text("Delete", comment: "Button label")
+                }
+                .accessibilityIdentifier("delete-profile-confirm-button")
+            },
+            message: {
+                Text("All content within will be removed.", comment: "Alert message")
+            }
+        )
         .modifier(ListRowModifier())
     }
 

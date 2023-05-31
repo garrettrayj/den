@@ -99,7 +99,7 @@
     <entity name="Page" representedClassName="Page" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="itemsPerFeed" attributeType="Integer 16" minValueString="1" defaultValueString="5" usesScalarValueType="YES"/>
-        <attribute name="name" attributeType="String" defaultValueString="New Desk"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
         <attribute name="userOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="feeds" optional="YES" toMany="YES" maxCount="100" deletionRule="Cascade" destinationEntity="Feed" inverseName="page" inverseEntity="Feed"/>

@@ -31,14 +31,22 @@ struct DeleteFeedButton: View {
             .modifier(FormRowModifier())
         }
         .alert(
-            "Delete Feed?",
+            Text("Delete Feed?", comment: "Alert title"),
             isPresented: $showingDeleteAlert,
             actions: {
-                Button("Cancel", role: .cancel) { }
-                    .accessibilityIdentifier("feed-delete-cancel-button")
-                Button("Delete", role: .destructive) {
+                Button(role: .cancel) {
+                    // Pass
+                } label: {
+                    Text("Cancel", comment: "Button label")
+                }
+                .accessibilityIdentifier("feed-delete-cancel-button")
+
+                Button(role: .destructive) {
                     deleteFeed()
-                }.accessibilityIdentifier("feed-delete-confirm-button")
+                } label: {
+                    Text("Delete", comment: "Button label")
+                }
+                .accessibilityIdentifier("feed-delete-confirm-button")
             }
         )
         .modifier(ListRowModifier())

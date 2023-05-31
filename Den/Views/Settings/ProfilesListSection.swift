@@ -52,15 +52,7 @@ struct ProfilesListSection: View {
     }
 
     func addProfile() {
-        var profileName = "New Profile"
-        var suffix = 2
-        while profiles.contains(where: { $0.name == profileName }) {
-            profileName = "New Profile \(suffix)"
-            suffix += 1
-        }
-
         let profile = Profile.create(in: viewContext)
-        profile.name = profileName
 
         do {
             try viewContext.save()

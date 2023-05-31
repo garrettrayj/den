@@ -25,10 +25,11 @@ struct PagesSection: View {
             .onDelete(perform: deletePage)
         } header: {
             if editMode?.wrappedValue == .active {
-                Text(
-                    "\(Image(systemName: "plus")) New Page",
-                    comment: "Button label"
-                )
+                Label {
+                    Text("New Page", comment: "Button label")
+                } icon: {
+                    Image(systemName: "plus")
+                }
                 .onTapGesture {
                     withAnimation { addPage() }
                 }
@@ -77,15 +78,7 @@ struct PagesSection: View {
     }
 
     private func addPage() {
-        var pageName = "Untitled"
-        var suffix = 2
-        while profile.pagesArray.contains(where: { $0.name == pageName }) {
-            pageName = "Untitled \(suffix)"
-            suffix += 1
-        }
-
-        let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
-        newPage.wrappedName = pageName
+        _ = Page.create(in: viewContext, profile: profile, prepend: true)
 
         do {
             try viewContext.save()

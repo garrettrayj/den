@@ -15,7 +15,7 @@ import SwiftUI
 public class Page: NSManagedObject {
     public var nameText: Text {
         if wrappedName == "" {
-            return Text("Untitled", comment: "Default page name text")
+            return Text("Untitled", comment: "Default page name")
         }
         return Text(wrappedName)
     }
@@ -85,7 +85,6 @@ public class Page: NSManagedObject {
         newPage.userOrder = prepend ?
             Int16(profile.pagesUserOrderMin - 1)
             : Int16(profile.pagesUserOrderMax + 1)
-        newPage.name = "Untitled"
         newPage.itemsPerFeed = Int16(4)
 
         return newPage

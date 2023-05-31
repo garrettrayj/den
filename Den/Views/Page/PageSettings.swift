@@ -34,10 +34,17 @@ struct PageSettings: View {
     }
 
     private var nameSection: some View {
-        Section(header: Text("Name").modifier(FirstFormHeaderModifier())) {
-            TextField("Untitled", text: $page.wrappedName)
-                .modifier(FormRowModifier())
-                .modifier(TitleTextFieldModifier())
+        Section {
+            TextField(
+                text: $page.wrappedName,
+                prompt: Text("Untitled", comment: "Text field prompt")
+            ) {
+                Text("Name", comment: "Text field label")
+            }
+            .modifier(FormRowModifier())
+            .modifier(TitleTextFieldModifier())
+        } header: {
+            Text("Name", comment: "Page settings section header").modifier(FirstFormHeaderModifier())
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
@@ -48,7 +55,7 @@ struct PageSettings: View {
     }
 
     private var iconSection: some View {
-        Section(header: Text("Icon", comment: "Page settings section header")) {
+        Section {
             Button {
                 showingIconPicker = true
             } label: {
@@ -64,6 +71,8 @@ struct PageSettings: View {
             }
             .buttonStyle(.borderless)
             .modifier(FormRowModifier())
+        } header: {
+            Text("Icon", comment: "Page settings section header")
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
@@ -76,7 +85,7 @@ struct PageSettings: View {
     private var feedsSection: some View {
         Section {
             if page.feedsArray.isEmpty {
-                Text("Page Emtpy", comment: "Page settings feeds empty message")
+                Text("Page Empty", comment: "Page settings feeds empty message")
                     .foregroundColor(.secondary)
                     .modifier(FormRowModifier())
             } else {

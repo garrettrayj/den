@@ -29,10 +29,6 @@
         <note>Feed count (plural)
    Welcome view feed count (zero or plural)</note>
       </trans-unit>
-      <trans-unit id="%@ New Page" xml:space="preserve">
-        <source>%@ New Page</source>
-        <note>Button label</note>
-      </trans-unit>
       <trans-unit id="%@ Records" xml:space="preserve">
         <source>%@ Records</source>
         <note>History count plural</note>
@@ -155,7 +151,7 @@
       </trans-unit>
       <trans-unit id="Cannot be blank" xml:space="preserve">
         <source>Cannot be blank</source>
-        <note>Feed URL validation message</note>
+        <note>Feed URL text field validation message</note>
       </trans-unit>
       <trans-unit id="Changes will be applied on next refresh." xml:space="preserve">
         <source>Changes will be applied on next refresh.</source>
@@ -205,7 +201,7 @@
       </trans-unit>
       <trans-unit id="Could not be parsed" xml:space="preserve">
         <source>Could not be parsed</source>
-        <note>Feed URL validation message</note>
+        <note>Feed URL text field validation message</note>
       </trans-unit>
       <trans-unit id="Create a New Profile" xml:space="preserve">
         <source>Create a New Profile</source>
@@ -231,13 +227,21 @@
         <source>Delete</source>
         <note>Button label</note>
       </trans-unit>
+      <trans-unit id="Delete Feed?" xml:space="preserve">
+        <source>Delete Feed?</source>
+        <note>Alert title</note>
+      </trans-unit>
+      <trans-unit id="Delete Profile?" xml:space="preserve">
+        <source>Delete Profile?</source>
+        <note>Alert title</note>
+      </trans-unit>
       <trans-unit id="Enter Reader Mode" xml:space="preserve">
         <source>Enter Reader Mode</source>
         <note>Toggle label</note>
       </trans-unit>
       <trans-unit id="Enter a RSS, Atom, or JSON Feed URL." xml:space="preserve">
         <source>Enter a RSS, Atom, or JSON Feed URL.</source>
-        <note>Feed URL input guidance</note>
+        <note>Feed URL text field guidance</note>
       </trans-unit>
       <trans-unit id="Enter a search term." xml:space="preserve">
         <source>Enter a search term.</source>
@@ -430,15 +434,17 @@
       </trans-unit>
       <trans-unit id="Must begin with “http://” or “https://”" xml:space="preserve">
         <source>Must begin with “http://” or “https://”</source>
-        <note>Feed URL validation message</note>
+        <note>Feed URL text field validation message</note>
       </trans-unit>
       <trans-unit id="Must not contain spaces" xml:space="preserve">
         <source>Must not contain spaces</source>
-        <note>Feed URL validation message</note>
+        <note>Feed URL text field validation message</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
-        <note>Profile settings section header</note>
+        <note>Page settings section header
+   Profile settings section header
+   Text field label</note>
       </trans-unit>
       <trans-unit id="Network Offline" xml:space="preserve">
         <source>Network Offline</source>
@@ -536,8 +542,8 @@
         <source>Page Deleted</source>
         <note>Object removed message</note>
       </trans-unit>
-      <trans-unit id="Page Emtpy" xml:space="preserve">
-        <source>Page Emtpy</source>
+      <trans-unit id="Page Empty" xml:space="preserve">
+        <source>Page Empty</source>
         <note>Page settings feeds empty message</note>
       </trans-unit>
       <trans-unit id="Page Menu" xml:space="preserve">
@@ -573,7 +579,7 @@
       </trans-unit>
       <trans-unit id="Previews" xml:space="preserve">
         <source>Previews</source>
-        <note>Feed settings previews section header</note>
+        <note>Feed settings section header</note>
       </trans-unit>
       <trans-unit id="Profile Empty" xml:space="preserve">
         <source>Profile Empty</source>
@@ -597,11 +603,11 @@
       </trans-unit>
       <trans-unit id="Recovery Period: %@ hours" xml:space="preserve">
         <source>Recovery Period: %@ hours</source>
-        <note>Cooldown stepper label (hours)</note>
+        <note>Stepper label (hours)</note>
       </trans-unit>
       <trans-unit id="Recovery Period: %@ minutes" xml:space="preserve">
         <source>Recovery Period: %@ minutes</source>
-        <note>Cooldown stepper label (minutes)</note>
+        <note>Stepper label (minutes)</note>
       </trans-unit>
       <trans-unit id="Red" xml:space="preserve">
         <source>Red</source>
@@ -629,6 +635,10 @@
       <trans-unit id="Reset Everything" xml:space="preserve">
         <source>Reset Everything</source>
         <note>Button label</note>
+      </trans-unit>
+      <trans-unit id="Reset Everything?" xml:space="preserve">
+        <source>Reset Everything?</source>
+        <note>Alert title</note>
       </trans-unit>
       <trans-unit id="Retaining history for long periods may adversely affect performance." xml:space="preserve">
         <source>Retaining history for long periods may adversely affect performance.</source>
@@ -716,7 +726,8 @@
       <trans-unit id="Title" xml:space="preserve">
         <source>Title</source>
         <note>Export section header
-   Feed settings section header</note>
+   Feed settings section header
+   Text field label</note>
       </trans-unit>
       <trans-unit id="Trend Deleted" xml:space="preserve">
         <source>Trend Deleted</source>
@@ -741,14 +752,15 @@
       </trans-unit>
       <trans-unit id="Unopenable" xml:space="preserve">
         <source>Unopenable</source>
-        <note>Feed URL validation message</note>
+        <note>Feed URL text field validation message</note>
       </trans-unit>
       <trans-unit id="Untitled" xml:space="preserve">
         <source>Untitled</source>
         <note>Default feed title
-   Default page name text
-   Default profile name text
-   Default trend title</note>
+   Default page name
+   Default profile name
+   Default trend title
+   Text field prompt</note>
       </trans-unit>
       <trans-unit id="Updated %@" xml:space="preserve">
         <source>Updated %@</source>
@@ -771,16 +783,16 @@
       </trans-unit>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
-        <note>About row label</note>
+        <note>Info label</note>
       </trans-unit>
       <trans-unit id="Web Address" xml:space="preserve">
         <source>Web Address</source>
-        <note>Feed URL field label
-   Feed URL field section label</note>
+        <note>Feed URL text field label
+   Feed URL text field section label</note>
       </trans-unit>
       <trans-unit id="Website" xml:space="preserve">
         <source>Website</source>
-        <note>About row label</note>
+        <note>Button label</note>
       </trans-unit>
       <trans-unit id="When Activated" xml:space="preserve">
         <source>When Activated</source>
@@ -792,7 +804,7 @@
       </trans-unit>
       <trans-unit id="https⁣://example.com/feed.xml" xml:space="preserve">
         <source>https⁣://example.com/feed.xml</source>
-        <note>Feed URL field prompt</note>
+        <note>Feed URL text field prompt</note>
       </trans-unit>
     </body>
   </file>
@@ -810,7 +822,7 @@
         <note>Bundle name</note>
       </trans-unit>
       <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
-        <source>Copyright © 2022 Garrett Johnson. All rights reserved.</source>
+        <source>Copyright © 2023 Garrett Johnson</source>
         <note>Copyright (human-readable)</note>
       </trans-unit>
     </body>

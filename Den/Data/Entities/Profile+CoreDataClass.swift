@@ -20,7 +20,7 @@ public class Profile: NSManagedObject {
 
     public var nameText: Text {
         if wrappedName == "" {
-            return Text("Untitled", comment: "Default profile name text")
+            return Text("Untitled", comment: "Default profile name")
         }
         return Text(wrappedName)
     }

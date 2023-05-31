@@ -21,40 +21,42 @@ struct PageView: View {
     var body: some View {
         if page.managedObjectContext == nil {
             SplashNote(title: Text("Page Deleted", comment: "Object removed message"))
-        } else if page.feedsArray.isEmpty {
-            NoFeeds(page: page)
         } else {
             WithItems(scopeObject: page) { items in
                 ZStack {
-                    switch pageLayout {
-                    case .deck:
-                        DeckLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
-                    case .blend:
-                        BlendLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
-                    case .showcase:
-                        ShowcaseLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
-                    case .gadgets:
-                        GadgetLayout(
-                            page: page,
-                            profile: profile,
-                            hideRead: hideRead,
-                            items: items
-                        )
+                    if page.feedsArray.isEmpty {
+                        NoFeeds(page: page)
+                    } else {
+                        switch pageLayout {
+                        case .deck:
+                            DeckLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        case .blend:
+                            BlendLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        case .showcase:
+                            ShowcaseLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        case .gadgets:
+                            GadgetLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: hideRead,
+                                items: items
+                            )
+                        }
                     }
                 }
                 .modifier(URLDropTargetModifier(page: page))
