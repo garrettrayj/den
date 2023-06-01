@@ -395,6 +395,7 @@
 		6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeRefreshedDate.swift; sourceTree = "<group>"; };
 		6862A59B2A25C0C3000CAB19 /* ExtraTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraTag.swift; sourceTree = "<group>"; };
 		6862A59D2A26D90F000CAB19 /* PagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagePicker.swift; sourceTree = "<group>"; };
+		6862A59F2A28109C000CAB19 /* localazy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localazy.json; sourceTree = "<group>"; };
 		6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedSectionHeaderModifier.swift; sourceTree = "<group>"; };
 		6865452D274AAB2A00BAE03E /* TitleTextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldModifier.swift; sourceTree = "<group>"; };
 		6865452F274AC3B600BAE03E /* PageSymbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSymbols.plist; sourceTree = "<group>"; };
@@ -888,6 +889,7 @@
 				68922A642969D78A00C9A276 /* .github */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
+				6862A59F2A28109C000CAB19 /* localazy.json */,
 				68C4130B247263C700D1DC7B /* Den */,
 				686069122831501B000068DE /* WebExtension */,
 				689EDC0A26A3F46A0055811A /* Screenshots */,
@@ -1235,9 +1237,7 @@
 			knownRegions = (
 				en,
 				"en-GB",
-				Base,
 				"en-AU",
-				de,
 			);
 			mainGroup = 68C41300247263C700D1DC7B;
 			packageReferences = (
