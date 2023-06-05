@@ -71,6 +71,8 @@ struct ExportView: View {
                             page.nameText.foregroundColor(.primary)
                             Spacer()
                             FeedCount(count: page.feedsArray.count)
+                                .foregroundColor(.secondary)
+                                .font(.footnote)
                         }
                     } icon: {
                         if self.selectedPages.contains(page) {

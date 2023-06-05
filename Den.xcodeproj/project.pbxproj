@@ -112,7 +112,6 @@
 		6865576329E7BF60000EBF37 /* SearchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576229E7BF60000EBF37 /* SearchStatus.swift */; };
 		6865576D29EA8A4B000EBF37 /* ListRowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576C29EA8A4B000EBF37 /* ListRowModifier.swift */; };
 		6865A78A2A2AEAB900CA04C0 /* FeedCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865A7892A2AEAB900CA04C0 /* FeedCount.swift */; };
-		6865A78C2A2AEBCD00CA04C0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6865A78B2A2AEBCD00CA04C0 /* Localizable.stringsdict */; };
 		6868A306288E62250051D43E /* AllReadSplashNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A305288E62250051D43E /* AllReadSplashNote.swift */; };
 		6868A30C2894F98C0051D43E /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30B2894F98C0051D43E /* AppDefaults.swift */; };
 		6868A30E2895229D0051D43E /* ImageErrorPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30D2895229D0051D43E /* ImageErrorPlaceholder.swift */; };
@@ -406,7 +405,6 @@
 		6865576229E7BF60000EBF37 /* SearchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStatus.swift; sourceTree = "<group>"; };
 		6865576C29EA8A4B000EBF37 /* ListRowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowModifier.swift; sourceTree = "<group>"; };
 		6865A7892A2AEAB900CA04C0 /* FeedCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCount.swift; sourceTree = "<group>"; };
-		6865A78B2A2AEBCD00CA04C0 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		6868A305288E62250051D43E /* AllReadSplashNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllReadSplashNote.swift; sourceTree = "<group>"; };
 		6868A30B2894F98C0051D43E /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		6868A30D2895229D0051D43E /* ImageErrorPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageErrorPlaceholder.swift; sourceTree = "<group>"; };
@@ -931,7 +929,6 @@
 				68C41317247263C700D1DC7B /* Assets.xcassets */,
 				68F56B74288BFCCC006EC915 /* Den.xcdatamodel */,
 				68C4131F247263C700D1DC7B /* Info.plist */,
-				6865A78B2A2AEBCD00CA04C0 /* Localizable.stringsdict */,
 				6862A5902A23EEE4000CAB19 /* Localizable.strings */,
 				6880EBE527ABEE7900B479F4 /* Data */,
 				68D58E6124922FE5007ED1AC /* Utilities */,
@@ -1298,7 +1295,6 @@
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
 				68F56B73287B4B26006EC915 /* WebViewStyles.css in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
-				6865A78C2A2AEBCD00CA04C0 /* Localizable.stringsdict in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
 				6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */,
 				6862A5982A2585B7000CAB19 /* Localizations in Resources */,

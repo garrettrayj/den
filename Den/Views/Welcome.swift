@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct Welcome: View {
+    @Environment(\.isEnabled) private var isEnabled
+
     @ObservedObject var profile: Profile
 
     @Binding var refreshing: Bool
@@ -18,49 +20,22 @@ struct Welcome: View {
     let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .named, unitsStyle: .wide)
 
     var body: some View {
-        welcomeNote
-            .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    if profile.feedsArray.count == 1 {
-                        Text("1 Feed", comment: "Welcome view feed count (singular)").font(.caption)
-                    } else {
-                        Text(
-                            "\(profile.feedsArray.count) Feeds",
-                            comment: "Welcome view feed count (zero or plural)"
-                        )
-                        .font(.caption)
-                    }
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-    }
-
-    @ViewBuilder
-    private var welcomeNote: some View {
-        if refreshing {
-            SplashNote(
-                title: Text(profile.wrappedName),
-                note: Text("Checking for New Items…", comment: "Welcome view refreshing status text")
-            )
-        } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-            TimelineView(.everyMinute) { _ in
-                if -refreshedDate.timeIntervalSinceNow < 60 {
-                    SplashNote(
-                        title: profile.nameText,
-                        note: Text("Updated Just Now", comment: "Updated in the last minute")
-                    )
-                } else {
-                    SplashNote(
-                        title: profile.nameText,
-                        note: Text(
-                            "Updated \(refreshedDate.formatted(relativeDateStyle))",
-                            comment: "Updated more than a minute ago"
-                        )
-                    )
-                }
-            }
-        } else {
-            SplashNote(title: profile.nameText)
+        VStack {
+            profile.nameText.font(.largeTitle)
         }
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                CommonStatus(
+                    profile: profile,
+                    secondaryMessage: FeedCount(count: profile.feedsArray.count)
+                )
+            }
+        }
+        .multilineTextAlignment(.center)
+        .foregroundColor(isEnabled ? .primary : .secondary)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
+        .background(GroupedBackground())
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

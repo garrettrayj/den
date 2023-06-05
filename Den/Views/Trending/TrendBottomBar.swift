@@ -31,7 +31,7 @@ struct TrendBottomBar: ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             CommonStatus(
                 profile: profile,
-                unreadLabel: Text("\(items.unread().count) Unread", comment: "Status message")
+                secondaryMessage: Text("\(items.unread().count) Unread", comment: "Status message")
             )
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }

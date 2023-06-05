@@ -16,13 +16,15 @@ struct RelativeRefreshedDate: View {
     let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .numeric, unitsStyle: .wide)
 
     var body: some View {
-        if -date.timeIntervalSinceNow < 60 {
-            Text("Updated Just Now", comment: "Relative date text if less than one minute ago")
-        } else {
-            Text(
-                "Updated \(date.formatted(relativeDateStyle))",
-                comment: "Relative date text if greater than one minute ago"
-            )
+        TimelineView(.everyMinute) { _ in
+            if -date.timeIntervalSinceNow < 60 {
+                Text("Updated Just Now", comment: "Relative date text if less than one minute ago")
+            } else {
+                Text(
+                    "Updated \(date.formatted(relativeDateStyle))",
+                    comment: "Relative date text if greater than one minute ago"
+                )
+            }
         }
     }
 }

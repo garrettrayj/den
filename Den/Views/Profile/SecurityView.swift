@@ -66,7 +66,6 @@ struct SecurityView: View {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
             } else {
-
                 Button {
                     remedyInsecureUrls()
                 } label: {

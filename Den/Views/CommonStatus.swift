@@ -13,12 +13,12 @@ import SwiftUI
 /**
  Common bottom bar with relative updated time and unread count.
  */
-struct CommonStatus: View {
+struct CommonStatus<Content: View>: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
-    var unreadLabel: Text
+    var secondaryMessage: Content
 
     var body: some View {
         VStack {
@@ -28,7 +28,7 @@ struct CommonStatus: View {
                 if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                     RelativeRefreshedDate(date: refreshedDate)
                 }
-                unreadLabel.foregroundColor(.secondary)
+                secondaryMessage.foregroundColor(.secondary)
             }
         }
         .frame(maxWidth: .infinity)

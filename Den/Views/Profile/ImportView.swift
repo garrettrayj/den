@@ -93,6 +93,8 @@ struct ImportView: View {
                                 Text(folder.name).foregroundColor(.primary)
                                 Spacer()
                                 FeedCount(count: folder.feeds.count)
+                                    .foregroundColor(.secondary)
+                                    .font(.footnote)
                             }
                         } icon: {
                             if selectedFolders.contains(folder) {
