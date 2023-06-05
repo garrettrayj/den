@@ -4,7 +4,21 @@
         "description": "The display name for the extension."
     },
     "extension_description": {
-        "message": "Shows syndication feeds found in webpage metadata.",
+        "message": "Shows available syndication feeds.",
         "description": "Description of what the extension does."
+    },
+    "no_results": {
+        "message": "No Feeds Found",
+        "description": "Shown when the extension is activated, but no feeds were detected."
+    },
+    "copied": {
+        "message": "Copied “$URL$”",
+        "description": "Shown when the user copies a feed URL to the pasteboard.",
+        "placeholders": {
+            "url" : {
+                "content" : "$1",
+                "example" : "https://den.io/feed.rss"
+            }
+        }
     }
 }

@@ -9,6 +9,8 @@ function scanActiveTab() {
             browser.tabs.sendMessage(tabs[0].id, {"subject": "sense", "sender": "popup"}).then(results => {
                 if (results.data.length > 0) {
                     createResultsList(results.data)
+                } else {
+                    document.getElementById("no-results-message").innerHTML = browser.i18n.getMessage("no_results")
                 }
             });
         });
@@ -55,7 +57,7 @@ function createResultRow(result) {
     
     var openBtn = document.createElement("button");
     openBtn.classList.add('open-btn')
-    openBtn.innerHTML = '<i class="open-icon"></i>'
+    openBtn.innerHTML = '<i id="open-icon"></i>'
     openBtn.onclick = function() {
         window.open("den:" + result.url);
     }
@@ -67,7 +69,7 @@ function createResultRow(result) {
     
     var copyBtn = document.createElement("button");
     copyBtn.classList.add('copy-btn')
-    copyBtn.innerHTML = '<i class="copy-icon"></i>'
+    copyBtn.innerHTML = '<i id="copy-icon"></i>'
     copyBtn.onclick = function(e) {
         pasteboardCopy(result.url)
     }
@@ -82,9 +84,11 @@ function createResultRow(result) {
 function pasteboardCopy(text) {
     navigator.clipboard.writeText(text);
     
+    let copiedMessage = browser.i18n.getMessage("copied", text)
+    
     var status = document.createElement("div")
     status.classList.add("status")
-    status.innerHTML = '<div>Copied &ldquo;</div><div class="subject">' + text + "</div><div>&rdquo;</div>";
+    status.innerHTML = copiedMessage
     
     const statuses = document.getElementsByClassName("status")
     var i = 0;
