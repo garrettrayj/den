@@ -22,7 +22,7 @@ struct PagePicker: View {
             Spacer()
             Picker(selection: $selection) {
                 ForEach(profile.pagesArray) { page in
-                    Text(page.wrappedName).tag(page as Page?)
+                    page.nameText.tag(page as Page?)
                 }
             } label: {
                 Text("Page")
@@ -33,7 +33,7 @@ struct PagePicker: View {
         #else
         Picker(selection: $selection) {
             ForEach(profile.pagesArray) { page in
-                Text(page.wrappedName).tag(page as Page?)
+                page.nameText.tag(page as Page?)
             }
         } label: {
             Text("Page", comment: "Picker label").modifier(FormRowModifier())

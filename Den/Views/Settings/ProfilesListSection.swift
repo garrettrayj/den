@@ -52,7 +52,7 @@ struct ProfilesListSection: View {
     }
 
     func addProfile() {
-        let profile = Profile.create(in: viewContext)
+        _ = Profile.create(in: viewContext)
 
         do {
             try viewContext.save()

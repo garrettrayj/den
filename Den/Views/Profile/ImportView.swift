@@ -92,13 +92,7 @@ struct ImportView: View {
                             HStack {
                                 Text(folder.name).foregroundColor(.primary)
                                 Spacer()
-                                if folder.feeds.count == 1 {
-                                    Text("1 Feed", comment: "Feed count (singular)")
-                                        .foregroundColor(.secondary).font(.footnote)
-                                } else {
-                                    Text("\(folder.feeds.count) Feeds", comment: "Feed count (plural)")
-                                        .foregroundColor(.secondary).font(.footnote)
-                                }
+                                FeedCount(count: folder.feeds.count)
                             }
                         } icon: {
                             if selectedFolders.contains(folder) {

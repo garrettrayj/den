@@ -68,15 +68,9 @@ struct ExportView: View {
                 Button { self.togglePage(page) } label: {
                     Label {
                         HStack {
-                            Text(page.wrappedName).foregroundColor(.primary)
+                            page.nameText.foregroundColor(.primary)
                             Spacer()
-                            if page.feedsArray.count == 1 {
-                                Text("1 Feed", comment: "Feed count (singular)")
-                                    .foregroundColor(.secondary).font(.footnote)
-                            } else {
-                                Text("\(page.feedsArray.count) Feeds", comment: "Feed count (plural)")
-                                    .foregroundColor(.secondary).font(.footnote)
-                            }
+                            FeedCount(count: page.feedsArray.count)
                         }
                     } icon: {
                         if self.selectedPages.contains(page) {
