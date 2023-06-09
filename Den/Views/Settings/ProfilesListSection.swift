@@ -38,7 +38,7 @@ struct ProfilesListSection: View {
                 }
             } label: {
                 Label {
-                    Text("Add Profile", comment: "Button label")
+                    Text("Add Profile", comment: "Button label.")
                 } icon: {
                     Image(systemName: "plus")
                 }
@@ -46,7 +46,7 @@ struct ProfilesListSection: View {
             .modifier(FormRowModifier())
             .accessibilityIdentifier("add-profile-button")
         } header: {
-            Text("Profiles", comment: "Settings section header").modifier(FirstFormHeaderModifier())
+            Text("Profiles", comment: "Settings section header.").modifier(FirstFormHeaderModifier())
         }
         .modifier(ListRowModifier())
     }

@@ -44,7 +44,7 @@ struct ItemActionView<Content: View>: View {
         .contextMenu {
             if let link = item.link {
                 NavigationLink(value: SubDetailPanel.item(item)) {
-                    Text("Go to Item", comment: "Context menu button label")
+                    Text("Go to Item", comment: "Context menu button label.")
                 }
                 Button {
                     openInBrowser(url: link)
@@ -53,7 +53,7 @@ struct ItemActionView<Content: View>: View {
                     }
                 } label: {
                     Label {
-                        Text("Open in Browser", comment: "Context menu button label")
+                        Text("Open in Browser", comment: "Context menu button label.")
                     } icon: {
                         Image(systemName: "link")
                     }
@@ -62,14 +62,14 @@ struct ItemActionView<Content: View>: View {
                     UIPasteboard.general.url = link
                 } label: {
                     Label {
-                        Text("Copy Link", comment: "Context menu button label")
+                        Text("Copy Link", comment: "Context menu button label.")
                     } icon: {
                         Image(systemName: "doc.on.doc")
                     }
                 }
                 ShareLink(item: link) {
                     Label {
-                        Text("Share…", comment: "Context menu button label")
+                        Text("Share…", comment: "Context menu button label.")
                     } icon: {
                         Image(systemName: "square.and.arrow.up")
                     }

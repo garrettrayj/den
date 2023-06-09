@@ -31,26 +31,26 @@ struct LoadProfile: View {
             if profileLoadAttempts > 2 {
                 Text(
                     "No Profiles Found",
-                    comment: "Launch view status message"
+                    comment: "Launch status message."
                 )
                 Button {
                     let profile = ProfileUtility.createDefaultProfile(context: viewContext)
                     activateProfile(profile)
                 } label: {
-                    Text("Create a New Profile", comment: "Button label")
+                    Text("Create a New Profile", comment: "Button label.")
                 }
                 .buttonStyle(AccentButtonStyle())
                 .accessibilityIdentifier("create-profile-button")
                 Text("""
                 If you have used the app before then synchronization could be in progress. \
                 Please wait a minute.
-                """, comment: "Launch view guidance note")
+                """, comment: "Launch guidance message.")
                 .multilineTextAlignment(.center)
                 .font(.footnote)
             } else {
                 Text(
                     "Loading…",
-                    comment: "Launch view status message"
+                    comment: "Launch status message."
                 )
                 .foregroundColor(.secondary).onAppear { load() }
             }

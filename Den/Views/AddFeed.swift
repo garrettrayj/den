@@ -42,9 +42,9 @@ struct AddFeed: View {
             ZStack {
                 if targetPage == nil || profile == nil {
                     VStack(spacing: 24) {
-                        Text("No Pages Available", comment: "Add Feed view error message").font(.title2)
+                        Text("No Pages Available", comment: "Add Feed error message.").font(.title2)
                         Button { dismiss() } label: {
-                            Text("Cancel", comment: "Button label").font(.title3)
+                            Text("Cancel", comment: "Button label.").font(.title3)
                         }
                         .buttonStyle(.bordered)
                         .accessibilityIdentifier("subscribe-cancel-button")
@@ -55,7 +55,7 @@ struct AddFeed: View {
                         Section {
                             feedUrlInput.modifier(FormRowModifier())
                         } header: {
-                            Text("Web Address", comment: "Feed URL text field section label")
+                            Text("Web Address", comment: "URL field section label.")
                         } footer: {
                             Group {
                                 if let validationMessage = validationMessage {
@@ -63,35 +63,35 @@ struct AddFeed: View {
                                         switch validationMessage {
                                         case .cannotBeBlank:
                                             Text(
-                                                "Cannot be blank",
-                                                comment: "Feed URL text field validation message"
+                                                "Web address cannot be blank.",
+                                                comment: "URL field validation message."
                                             )
                                         case .mustNotContainSpaces:
                                             Text(
-                                                "Must not contain spaces",
-                                                comment: "Feed URL text field validation message"
+                                                "Web address must not contain spaces.",
+                                                comment: "URL field validation message."
                                             )
                                         case .mustBeginWithHTTP:
                                             Text(
-                                                "Must begin with “http://” or “https://”",
-                                                comment: "Feed URL text field validation message"
+                                                "Web address must begin with “http://” or “https://”.",
+                                                comment: "URL field validation message."
                                             )
                                         case .parseError:
                                             Text(
-                                                "Could not be parsed",
-                                                comment: "Feed URL text field validation message"
+                                                "Web address could not be parsed.",
+                                                comment: "URL field validation message."
                                             )
                                         case .unopenable:
                                             Text(
-                                                "Unopenable",
-                                                comment: "Feed URL text field validation message"
+                                                "Web address is unopenable.",
+                                                comment: "URL field validation message."
                                             )
                                         }
                                     }.foregroundColor(.red)
                                 } else {
                                     Text(
                                         "Enter a RSS, Atom, or JSON Feed URL.",
-                                        comment: "Feed URL text field guidance"
+                                        comment: "URL field guidance message."
                                     )
                                 }
                             }
@@ -110,12 +110,12 @@ struct AddFeed: View {
                 }
             }
             .background(GroupedBackground())
-            .navigationTitle(Text("Add Feed", comment: "Navigation title"))
+            .navigationTitle(Text("Add Feed", comment: "Navigation title."))
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button { dismiss() } label: {
                         Label {
-                            Text("Cancel", comment: "Button label")
+                            Text("Cancel", comment: "Button label.")
                         } icon: {
                             Image(systemName: "xmark.circle")
                         }
@@ -145,7 +145,7 @@ struct AddFeed: View {
             }
         } label: {
             Label {
-                Text("Add to \(targetPage?.wrappedName ?? "…")", comment: "Button label")
+                Text("Add to \(targetPage?.wrappedName ?? "…")", comment: "Button label.")
             } icon: {
                 if loading {
                     ProgressView()
@@ -169,9 +169,9 @@ struct AddFeed: View {
             // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
             TextField(
                 text: $urlString,
-                prompt: Text("https⁣://example.com/feed.xml", comment: "Feed URL text field prompt")
+                prompt: Text("https⁣://example.com/feed.xml", comment: "Feed URL text field prompt.")
             ) {
-                Text("Web Address", comment: "Feed URL text field label")
+                Text("Web Address", comment: "Feed URL text field label.")
             }
             .lineLimit(1)
             .multilineTextAlignment(.leading)

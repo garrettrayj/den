@@ -27,7 +27,7 @@ struct RefreshSettingsSection: View {
             }
             #else
             Toggle(isOn: $backgroundRefreshEnabled) {
-                Text("In Background", comment: "Refresh option toggle label").modifier(FormRowModifier())
+                Text("In Background", comment: "Refresh option toggle label.").modifier(FormRowModifier())
             }
             #endif
 
@@ -41,7 +41,7 @@ struct RefreshSettingsSection: View {
             }
             #else
             Toggle(isOn: $autoRefreshEnabled) {
-                Text("When Activated", comment: "Refresh option toggle label").modifier(FormRowModifier())
+                Text("When Activated", comment: "Refresh option toggle label.").modifier(FormRowModifier())
             }
             #endif
 
@@ -56,14 +56,14 @@ struct RefreshSettingsSection: View {
                         if autoRefreshCooldown >= 120 {
                             Text(
                                 "Recovery Period: \(String(format: "%g", Float(autoRefreshCooldown) / 60)) hours",
-                                comment: "Stepper label (hours)"
+                                comment: "Stepper label."
                             )
                                 .font(.callout)
                                 .modifier(FormRowModifier())
                         } else {
                             Text(
                                 "Recovery Period: \(autoRefreshCooldown) minutes",
-                                comment: "Stepper label (minutes)"
+                                comment: "Stepper label."
                             )
                                 .font(.callout)
                                 .modifier(FormRowModifier())
@@ -72,7 +72,7 @@ struct RefreshSettingsSection: View {
                 }
             }
         } header: {
-            Text("Refresh", comment: "Setting section header")
+            Text("Refresh", comment: "Setting section header.")
         }
         .modifier(ListRowModifier())
     }

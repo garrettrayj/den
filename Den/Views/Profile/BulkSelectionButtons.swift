@@ -18,14 +18,14 @@ struct BulkSelectionButtons: View {
 
     var body: some View {
         HStack(alignment: .bottom) {
-            Text("Select", comment: "Bulk select controls label")
+            Text("Select", comment: "Bulk select controls label.")
             Spacer()
             HStack {
-                Button(action: selectAll) { Text("All", comment: "Bulk select button label") }
+                Button(action: selectAll) { Text("All", comment: "Bulk select button label.") }
                     .disabled(allSelected)
                     .accessibilityIdentifier("select-all-button")
                 Text(verbatim: "/").foregroundColor(.secondary)
-                Button(action: selectNone) { Text("None", comment: "Bulk select button label") }
+                Button(action: selectNone) { Text("None", comment: "Bulk select button label.") }
                     .disabled(noneSelected)
                     .accessibilityIdentifier("select-none-button")
             }

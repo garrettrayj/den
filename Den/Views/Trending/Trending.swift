@@ -27,8 +27,8 @@ struct Trending: View {
         VStack {
             if profile.trends.isEmpty {
                 SplashNote(
-                    title: Text("Nothing Trending", comment: "Trending empty header"),
-                    note: Text("No common subjects were found in item titles.", comment: "Trending empty note")
+                    title: Text("Nothing Trending", comment: "Trending empty header."),
+                    note: Text("No common subjects were found in item titles.", comment: "Trending empty message.")
                 )
             } else if visibleTrends.isEmpty {
                 AllReadSplashNote()
@@ -46,6 +46,6 @@ struct Trending: View {
         .toolbar {
             TrendingBottomBar(profile: profile, hideRead: $hideRead)
         }
-        .navigationTitle(Text("Trending", comment: "Navigation title"))
+        .navigationTitle(Text("Trending", comment: "Navigation title."))
     }
 }

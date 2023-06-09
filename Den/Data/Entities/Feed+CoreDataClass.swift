@@ -15,7 +15,7 @@ import SwiftUI
 public class Feed: NSManagedObject {
     public var titleText: Text {
         if wrappedTitle == "" {
-            return Text("Untitled", comment: "Default feed title")
+            return Text("Untitled", comment: "Default feed title.")
         } else {
             return Text(wrappedTitle)
         }

@@ -23,7 +23,7 @@ struct DeleteFeedButton: View {
             showingDeleteAlert = true
         } label: {
             Label {
-                Text("Delete", comment: "Button label")
+                Text("Delete", comment: "Button label.")
             } icon: {
                 Image(systemName: "trash")
             }
@@ -31,20 +31,20 @@ struct DeleteFeedButton: View {
             .modifier(FormRowModifier())
         }
         .alert(
-            Text("Delete Feed?", comment: "Alert title"),
+            Text("Delete Feed?", comment: "Alert title."),
             isPresented: $showingDeleteAlert,
             actions: {
                 Button(role: .cancel) {
                     // Pass
                 } label: {
-                    Text("Cancel", comment: "Button label")
+                    Text("Cancel", comment: "Button label.")
                 }
                 .accessibilityIdentifier("feed-delete-cancel-button")
 
                 Button(role: .destructive) {
                     deleteFeed()
                 } label: {
-                    Text("Delete", comment: "Button label")
+                    Text("Delete", comment: "Button label.")
                 }
                 .accessibilityIdentifier("feed-delete-confirm-button")
             }

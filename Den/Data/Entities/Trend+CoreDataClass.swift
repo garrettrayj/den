@@ -17,7 +17,7 @@ public class Trend: NSManagedObject {
         if let title = title {
             return Text(title)
         } else {
-            return Text("Untitled", comment: "Default trend title")
+            return Text("Untitled", comment: "Default trend title.")
         }
     }
 

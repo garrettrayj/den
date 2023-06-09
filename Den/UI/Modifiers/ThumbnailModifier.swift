@@ -22,6 +22,6 @@ struct ThumbnailModifier: ViewModifier {
             .overlay(
                 RoundedRectangle(cornerRadius: 8).stroke(.tertiary, lineWidth: 1)
             )
-            .accessibility(label: Text("Thumbnail", comment: "Thumbnail image accessibility label"))
+            .accessibility(label: Text("Thumbnail", comment: "Accessibility label."))
     }
 }

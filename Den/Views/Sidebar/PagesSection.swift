@@ -26,7 +26,7 @@ struct PagesSection: View {
         } header: {
             if editMode?.wrappedValue == .active {
                 Label {
-                    Text("New Page", comment: "Button label")
+                    Text("New Page", comment: "Button label.")
                 } icon: {
                     Image(systemName: "plus")
                 }
@@ -36,7 +36,7 @@ struct PagesSection: View {
                 .foregroundColor(.accentColor)
                 .accessibilityIdentifier("new-page-button")
             } else {
-                Text("Pages", comment: "Sidebar section header")
+                Text("Pages", comment: "Sidebar section header.")
             }
         }
         #if !targetEnvironment(macCatalyst)

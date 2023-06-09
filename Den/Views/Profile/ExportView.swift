@@ -20,17 +20,17 @@ struct ExportView: View {
     var body: some View {
         VStack {
             if profile.feedsArray.isEmpty {
-                SplashNote(title: Text("Profile Empty", comment: "Export view message"))
+                SplashNote(title: Text("Profile Empty", comment: "Export status message."))
             } else {
                 Form {
                     Section {
                         TextField(text: $title) {
-                            Text("Title", comment: "Text field label")
+                            Text("Title", comment: "Text field label.")
                         }
                         .modifier(FormRowModifier())
                         .modifier(TitleTextFieldModifier())
                     } header: {
-                        Text("Title", comment: "Export section header").modifier(FirstFormHeaderModifier())
+                        Text("Title", comment: "Export section header.").modifier(FirstFormHeaderModifier())
                     }
                     .modifier(ListRowModifier())
 
@@ -47,7 +47,7 @@ struct ExportView: View {
                     exportOpml()
                 } label: {
                     Label {
-                        Text("Export OPML", comment: "Button label")
+                        Text("Export OPML", comment: "Button label.")
                     } icon: {
                         Image(systemName: "arrow.up.doc")
                     }
@@ -58,7 +58,7 @@ struct ExportView: View {
                 .accessibilityIdentifier("export-button")
             }
         }
-        .navigationTitle(Text("Export", comment: "Navigation title"))
+        .navigationTitle(Text("Export", comment: "Navigation title."))
     }
 
     private var pageListSection: some View {

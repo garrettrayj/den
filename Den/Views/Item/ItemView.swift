@@ -26,7 +26,7 @@ struct ItemView: View {
 
     var body: some View {
         if item.managedObjectContext == nil {
-            SplashNote(title: Text("Item Deleted", comment: "Object removed message"), symbol: "slash.circle")
+            SplashNote(title: Text("Item Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             itemLayout
                 #if targetEnvironment(macCatalyst)
@@ -40,7 +40,7 @@ struct ItemView: View {
                         ToolbarItem(placement: .primaryAction) {
                             ShareLink(item: link) {
                                 Label {
-                                    Text("Share…", comment: "Toolbar button label")
+                                    Text("Share…", comment: "Toolbar button label.")
                                 } icon: {
                                     Image(systemName: "square.and.arrow.up")
                                 }
@@ -66,7 +66,7 @@ struct ItemView: View {
                             }
                         } label: {
                             Label {
-                                Text("Open in Browser", comment: "Toolbar button label")
+                                Text("Open in Browser", comment: "Toolbar button label.")
                             } icon: {
                                 Image(systemName: "link.circle")
                             }

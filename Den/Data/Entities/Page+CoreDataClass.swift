@@ -15,7 +15,7 @@ import SwiftUI
 public class Page: NSManagedObject {
     public var nameText: Text {
         if wrappedName == "" {
-            return Text("Untitled", comment: "Default page name")
+            return Text("Untitled", comment: "Default page name.")
         }
         return Text(wrappedName)
     }

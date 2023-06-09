@@ -36,7 +36,7 @@ struct PagePicker: View {
                 page.nameText.tag(page as Page?)
             }
         } label: {
-            Text("Page", comment: "Picker label").modifier(FormRowModifier())
+            Text("Page", comment: "Picker label.").modifier(FormRowModifier())
         }
         #endif
     }

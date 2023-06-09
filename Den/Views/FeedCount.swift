@@ -14,12 +14,10 @@ struct FeedCount: View {
     let count: Int
 
     var body: some View {
-        if count == 0 {
-            Text("No Feeds", comment: "Feed count (zero)")
-        } else if count == 1 {
-            Text("1 Feed", comment: "Feed count (singular)")
+        if count == 1 {
+            Text("1 Feed", comment: "Feed count (singular).")
         } else {
-            Text("\(count) Feeds", comment: "Feed count (plural)")
+            Text("\(count) Feeds", comment: "Feed count (plural/other).")
         }
     }
 }

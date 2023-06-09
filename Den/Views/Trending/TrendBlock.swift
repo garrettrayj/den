@@ -51,17 +51,10 @@ struct TrendBlock: View {
                         if let symbol = symbol {
                             Image(systemName: symbol).imageScale(.small)
                         }
-                        if trend.hasUnread {
-                            Text("""
-                            \(trend.items.count) items in \(trend.feeds.count) feeds, \
-                            \(trend.items.unread().count) unread
-                            """, comment: "Trend block info message (has unread items)")
-                        } else {
-                            Text(
-                                "\(trend.items.count) items in \(trend.feeds.count) feeds",
-                                comment: "Trend block info message (no unread items)"
-                            )
-                        }
+                        Text("""
+                        \(trend.items.count) items in \(trend.feeds.count) feeds. \
+                        \(trend.items.unread().count) unread
+                        """, comment: "Trend block status message.")
                     }
                     .font(.footnote)
                     .foregroundColor(.secondary)

@@ -18,7 +18,7 @@ struct TrendingNav: View {
     var body: some View {
         NavigationLink(value: DetailPanel.trending) {
             Label {
-                Text("Trending", comment: "Sidebar button label")
+                Text("Trending", comment: "Button label.")
                     .lineLimit(1)
                     .badge(profile.trends.containingUnread().count)
             } icon: {

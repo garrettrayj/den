@@ -19,7 +19,7 @@ struct AppearanceSettingsSection: View {
         Section {
             #if targetEnvironment(macCatalyst)
             HStack {
-                Text("Theme", comment: "Picker label").modifier(FormRowModifier())
+                Text("Theme", comment: "Picker label.").modifier(FormRowModifier())
                 Spacer()
                 UIStylePickerView(uiStyle: $uiStyle).labelsHidden().scaledToFit()
             }
@@ -27,7 +27,7 @@ struct AppearanceSettingsSection: View {
             UIStylePickerView(uiStyle: $uiStyle)
             #endif
         } header: {
-            Text("Appearance", comment: "Settings section header")
+            Text("Appearance", comment: "Settings section header.")
         }
         .modifier(ListRowModifier())
     }

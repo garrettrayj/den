@@ -12,6 +12,6 @@ import SwiftUI
 
 struct AllReadSplashNote: View {
     var body: some View {
-        SplashNote(title: Text("All Read", comment: "No unread items message"), symbol: "checkmark")
+        SplashNote(title: Text("All Read", comment: "No unread items message."), symbol: "checkmark")
     }
 }

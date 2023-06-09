@@ -13,8 +13,8 @@ import SwiftUI
 struct CrashMessage: View {
     var body: some View {
         SplashNote(
-            title: Text("Application Crashed", comment: "Crash view title"),
-            note: Text("A critical error occurred. Restart to try again.", comment: "Crash view guidance"),
+            title: Text("Application Crashed", comment: "Crash view title."),
+            note: Text("A critical error occurred. Restart to try again.", comment: "Crash view guidance."),
             symbol: "xmark.octagon"
         )
     }

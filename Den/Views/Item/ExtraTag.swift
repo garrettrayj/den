@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ExtraTag: View {
     var body: some View {
-        Text("Extra", comment: "Extra item tag")
+        Text("Extra", comment: "Extra item tag.")
             .font(.caption)
             .foregroundColor(.secondary)
     }

@@ -22,7 +22,7 @@ struct RefreshButton: View {
             }
         } label: {
             Label {
-                Text("Refresh", comment: "Button label")
+                Text("Refresh", comment: "Button label.")
             } icon: {
                 Image(systemName: "arrow.clockwise")
             }

@@ -16,19 +16,21 @@ struct SearchLayout: View {
 
     @Binding var hideRead: Bool
     let query: String
-    let items: [Item]
+    let items: FetchedResults<Item>
+    
+    var visibilityFilteredItems: [Item] {
+        items.visibilityFiltered(hideRead ? false : nil)
+    }
 
     var body: some View {
         if items.isEmpty {
-            if hideRead {
-                SplashNote(title: Text("No Unread Results", comment: "Search empty message"))
-            } else {
-                SplashNote(title: Text("No Results", comment: "Search empty message"))
-            }
+            SplashNote(title: Text("No Results", comment: "Search results empty message."))
+        } else if hideRead && visibilityFilteredItems.isEmpty {
+            SplashNote(title: Text("No Unread Results", comment: "Search results empty message."))
         } else {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
-                    BoardView(geometry: geometry, list: items) { item in
+                    BoardView(geometry: geometry, list: visibilityFilteredItems) { item in
                         if let feed = item.feedData?.feed {
                             if feed.wrappedPreviewStyle == .expanded {
                                 FeedItemExpanded(item: item, feed: feed, profile: profile)

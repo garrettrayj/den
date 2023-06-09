@@ -31,11 +31,11 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                 if fractionCompleted < 1.0 {
                     Text(
                         "\(Int(fractionCompleted * Double(feedCount))) of \(feedCount) Updated",
-                        comment: "Progress label shown while feeds are being refreshed"
+                        comment: "Refresh in-progress label."
                     )
                         .monospacedDigit()
                 } else {
-                    Text("Analyzing…", comment: "Progress label shown while trending groups are calculated")
+                    Text("Analyzing…", comment: "Tend calculations in-progress label.")
                 }
 
                 GeometryReader { geometry in

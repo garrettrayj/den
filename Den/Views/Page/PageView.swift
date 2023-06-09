@@ -20,7 +20,7 @@ struct PageView: View {
 
     var body: some View {
         if page.managedObjectContext == nil {
-            SplashNote(title: Text("Page Deleted", comment: "Object removed message"))
+            SplashNote(title: Text("Page Deleted", comment: "Object removed message."))
         } else {
             WithItems(scopeObject: page) { items in
                 ZStack {
@@ -68,7 +68,7 @@ struct PageView: View {
                     ToolbarItem {
                         NavigationLink(value: SubDetailPanel.pageSettings(page)) {
                             Label {
-                                Text("Page Settings", comment: "Navigation bar button label")
+                                Text("Page Settings", comment: "Button label.")
                             } icon: {
                                 Image(systemName: "wrench")
                             }
@@ -86,7 +86,7 @@ struct PageView: View {
                             AddFeedButton(page: page)
                             NavigationLink(value: SubDetailPanel.pageSettings(page)) {
                                 Label {
-                                    Text("Page Settings", comment: "Button label")
+                                    Text("Page Settings", comment: "Button label.")
                                 } icon: {
                                     Image(systemName: "wrench")
                                 }
@@ -94,7 +94,7 @@ struct PageView: View {
                             .accessibilityIdentifier("page-settings-button")
                         } label: {
                             Label {
-                                Text("Page Menu", comment: "Menu label")
+                                Text("Page Menu", comment: "Menu label.")
                             } icon: {
                                 Image(systemName: "ellipsis.circle")
                             }

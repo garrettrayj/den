@@ -34,7 +34,7 @@ struct ResetSettingsSection: View {
     }
 
     var body: some View {
-        Section(header: Text("Reset", comment: "Settings section header")) {
+        Section(header: Text("Reset", comment: "Settings section header.")) {
             Button {
                 Task {
                     await resetFeeds(profile: profile)
@@ -46,7 +46,7 @@ struct ResetSettingsSection: View {
             } label: {
                 HStack {
                     Label {
-                        Text("Clear Cache", comment: "Button label")
+                        Text("Clear Cache", comment: "Button label.")
                     } icon: {
                         Image(systemName: "clear")
                     }
@@ -64,20 +64,20 @@ struct ResetSettingsSection: View {
                 showingResetAlert = true
             } label: {
                 Label {
-                    Text("Reset Everything", comment: "Button label").lineLimit(1)
+                    Text("Reset Everything", comment: "Button label.").lineLimit(1)
                 } icon: {
                     Image(systemName: "arrow.counterclockwise").foregroundColor(.red)
                 }
             }
             .modifier(FormRowModifier())
             .alert(
-                Text("Reset Everything?", comment: "Alert title"),
+                Text("Reset Everything?", comment: "Alert title."),
                 isPresented: $showingResetAlert,
                 actions: {
                     Button(role: .cancel) {
                         // pass
                     } label: {
-                        Text("Cancel", comment: "Button label")
+                        Text("Cancel", comment: "Button label.")
                     }
                     .accessibilityIdentifier("reset-cancel-button")
 
@@ -89,14 +89,14 @@ struct ResetSettingsSection: View {
                         }
                         dismiss()
                     } label: {
-                        Text("Reset", comment: "Button label")
+                        Text("Reset", comment: "Button label.")
                     }
                     .accessibilityIdentifier("reset-confirm-button")
                 },
                 message: {
                     Text(
                         "All profiles will be removed. Default settings will be restored.",
-                        comment: "Alert message"
+                        comment: "Alert message."
                     )
                 }
             )

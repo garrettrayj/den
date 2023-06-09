@@ -21,7 +21,7 @@ struct FilterReadButton: View {
             callback()
         } label: {
             Label {
-                Text("Filter Read", comment: "Button label")
+                Text("Filter Read", comment: "Button label.")
             } icon: {
                 Image(
                     systemName: hideRead ?

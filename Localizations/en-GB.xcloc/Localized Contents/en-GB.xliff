@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Den/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3" build-num="14E222b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5160n"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -21,797 +21,783 @@
   </file>
   <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en-GB" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3" build-num="14E222b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5160n"/>
     </header>
     <body>
       <trans-unit id="%@ Feeds" xml:space="preserve">
         <source>%@ Feeds</source>
-        <note>Feed count (plural)
-   Welcome view feed count (zero or plural)</note>
+        <note>Feed count (plural/other).</note>
       </trans-unit>
       <trans-unit id="%@ Records" xml:space="preserve">
         <source>%@ Records</source>
-        <note>History count plural</note>
+        <note>History count (plural).</note>
       </trans-unit>
       <trans-unit id="%@ Unread" xml:space="preserve">
         <source>%@ Unread</source>
-        <note>Status message</note>
+        <note>Status message.</note>
       </trans-unit>
       <trans-unit id="%@ feeds use insecure web addresses." xml:space="preserve">
         <source>%@ feeds use insecure web addresses.</source>
-        <note>Security warning (plural)</note>
+        <note>Security warning (plural).</note>
       </trans-unit>
-      <trans-unit id="%@ items in %@ feeds" xml:space="preserve">
-        <source>%1$@ items in %2$@ feeds</source>
-        <note>Trend block info message (no unread items)</note>
-      </trans-unit>
-      <trans-unit id="%@ items in %@ feeds, %@ unread" xml:space="preserve">
-        <source>%1$@ items in %2$@ feeds, %3$@ unread</source>
-        <note>Trend block info message (has unread items)</note>
+      <trans-unit id="%@ items in %@ feeds. %@ unread" xml:space="preserve">
+        <source>%1$@ items in %2$@ feeds. %3$@ unread</source>
+        <note>Trend block status message.</note>
       </trans-unit>
       <trans-unit id="%@ of %@ Updated" xml:space="preserve">
         <source>%1$@ of %2$@ Updated</source>
-        <note>Progress label shown while feeds are being refreshed</note>
+        <note>Refresh in-progress label.</note>
       </trans-unit>
       <trans-unit id="%@ pages with %@ feeds added to profile." xml:space="preserve">
         <source>%1$@ pages with %2$@ feeds added to profile.</source>
-        <note>Import status message</note>
+        <note>Import status message.</note>
       </trans-unit>
       <trans-unit id="%@ with Unread" xml:space="preserve">
         <source>%@ with Unread</source>
-        <note>Status message</note>
+        <note>Status message.</note>
       </trans-unit>
       <trans-unit id="1 Feed" xml:space="preserve">
         <source>1 Feed</source>
-        <note>Feed count (singular)
-   Welcome view feed count (singular)</note>
+        <note>Feed count (singular).</note>
       </trans-unit>
       <trans-unit id="1 Record" xml:space="preserve">
         <source>1 Record</source>
-        <note>History count singular</note>
+        <note>History count (singular).</note>
       </trans-unit>
       <trans-unit id="1 feed uses an insecure web address." xml:space="preserve">
         <source>1 feed uses an insecure web address.</source>
-        <note>Security warning (singualar)</note>
+        <note>Security warning (singualar).</note>
       </trans-unit>
       <trans-unit id="A critical error occurred. Restart to try again." xml:space="preserve">
         <source>A critical error occurred. Restart to try again.</source>
-        <note>Crash view guidance</note>
+        <note>Crash view guidance.</note>
       </trans-unit>
       <trans-unit id="About" xml:space="preserve">
         <source>About</source>
-        <note>Settings section header</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Add Feed" xml:space="preserve">
         <source>Add Feed</source>
-        <note>Button label
-   Menu bar button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.
+   System toolbar button label.</note>
       </trans-unit>
       <trans-unit id="Add Profile" xml:space="preserve">
         <source>Add Profile</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Add by Web Address" xml:space="preserve">
         <source>Add by Web Address</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Add to %@" xml:space="preserve">
         <source>Add to %@</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="All" xml:space="preserve">
         <source>All</source>
-        <note>Bulk select button label</note>
+        <note>Bulk select button label.</note>
       </trans-unit>
       <trans-unit id="All Read" xml:space="preserve">
         <source>All Read</source>
-        <note>No unread items message</note>
-      </trans-unit>
-      <trans-unit id="All content within will be removed." xml:space="preserve">
-        <source>All content within will be removed.</source>
-        <note>Alert message</note>
+        <note>No unread items message.</note>
       </trans-unit>
       <trans-unit id="All feeds use secure web addresses." xml:space="preserve">
         <source>All feeds use secure web addresses.</source>
-        <note>Security view all-clear message</note>
+        <note>Security check all-clear message.</note>
+      </trans-unit>
+      <trans-unit id="All profile content (pages, feeds, history, etc.) will be removed." xml:space="preserve">
+        <source>All profile content (pages, feeds, history, etc.) will be removed.</source>
+        <note>Alert message.</note>
       </trans-unit>
       <trans-unit id="All profiles will be removed. Default settings will be restored." xml:space="preserve">
         <source>All profiles will be removed. Default settings will be restored.</source>
-        <note>Alert message</note>
+        <note>Alert message.</note>
       </trans-unit>
       <trans-unit id="Analyzing…" xml:space="preserve">
         <source>Analyzing…</source>
         <target>Analysing…</target>
-        <note>Progress label shown while trending groups are calculated</note>
+        <note>Tend calculations in-progress label.</note>
       </trans-unit>
       <trans-unit id="Appearance" xml:space="preserve">
         <source>Appearance</source>
-        <note>Settings section header</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Application Crashed" xml:space="preserve">
         <source>Application Crashed</source>
-        <note>Crash view title</note>
+        <note>Crash view title.</note>
       </trans-unit>
       <trans-unit id="Blend" xml:space="preserve">
         <source>Blend</source>
-        <note>Layout option label</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Blue" xml:space="preserve">
         <source>Blue</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Brown" xml:space="preserve">
         <source>Brown</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
-        <note>Button label</note>
-      </trans-unit>
-      <trans-unit id="Cannot be blank" xml:space="preserve">
-        <source>Cannot be blank</source>
-        <note>Feed URL text field validation message</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Changes will be applied on next refresh." xml:space="preserve">
         <source>Changes will be applied on next refresh.</source>
-        <note>Item limit changed notice</note>
+        <note>Item limit changed notice.</note>
       </trans-unit>
       <trans-unit id="Check for Secure Alternatives" xml:space="preserve">
         <source>Check for Secure Alternatives</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Checking for New Items…" xml:space="preserve">
         <source>Checking for New Items…</source>
-        <note>Status message
-   Welcome view refreshing status text</note>
+        <note>Status message.</note>
       </trans-unit>
       <trans-unit id="Choose Icon" xml:space="preserve">
         <source>Choose Icon</source>
-        <note>Button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Clear" xml:space="preserve">
         <source>Clear</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Clear Cache" xml:space="preserve">
         <source>Clear Cache</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Close" xml:space="preserve">
         <source>Close</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Compressed" xml:space="preserve">
         <source>Compressed</source>
-        <note>Picker option</note>
+        <note>Picker option.</note>
       </trans-unit>
       <trans-unit id="Copied" xml:space="preserve">
         <source>Copied</source>
-        <note>Copied to pasteboard message</note>
+        <note>Copied to pasteboard message.</note>
       </trans-unit>
       <trans-unit id="Copy" xml:space="preserve">
         <source>Copy</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Copy Link" xml:space="preserve">
         <source>Copy Link</source>
-        <note>Context menu button label</note>
+        <note>Context menu button label.</note>
       </trans-unit>
-      <trans-unit id="Could not be parsed" xml:space="preserve">
-        <source>Could not be parsed</source>
-        <note>Feed URL text field validation message</note>
+      <trans-unit id="Could not fetch data." xml:space="preserve">
+        <source>Could not fetch data.</source>
+        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="Create a New Profile" xml:space="preserve">
         <source>Create a New Profile</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Customization" xml:space="preserve">
         <source>Customization</source>
-        <note>Profile settings section header</note>
+        <note>Profile settings section header.</note>
       </trans-unit>
       <trans-unit id="Cyan" xml:space="preserve">
         <source>Cyan</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Dark" xml:space="preserve">
         <source>Dark</source>
-        <note>Theme picker option</note>
+        <note>Theme picker option.</note>
       </trans-unit>
       <trans-unit id="Deck" xml:space="preserve">
         <source>Deck</source>
-        <note>Layout option label</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Delete" xml:space="preserve">
         <source>Delete</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Delete Feed?" xml:space="preserve">
         <source>Delete Feed?</source>
-        <note>Alert title</note>
+        <note>Alert title.</note>
       </trans-unit>
       <trans-unit id="Delete Profile?" xml:space="preserve">
         <source>Delete Profile?</source>
-        <note>Alert title</note>
+        <note>Alert title.</note>
       </trans-unit>
       <trans-unit id="Enter Reader Mode" xml:space="preserve">
         <source>Enter Reader Mode</source>
-        <note>Toggle label</note>
+        <note>Toggle label.</note>
       </trans-unit>
       <trans-unit id="Enter a RSS, Atom, or JSON Feed URL." xml:space="preserve">
         <source>Enter a RSS, Atom, or JSON Feed URL.</source>
-        <note>Feed URL text field guidance</note>
+        <note>URL field guidance message.</note>
       </trans-unit>
       <trans-unit id="Enter a search term." xml:space="preserve">
         <source>Enter a search term.</source>
-        <note>Search guidance</note>
+        <note>Search guidance.</note>
       </trans-unit>
       <trans-unit id="Expanded" xml:space="preserve">
         <source>Expanded</source>
-        <note>Picker option</note>
+        <note>Picker option.</note>
       </trans-unit>
       <trans-unit id="Export" xml:space="preserve">
         <source>Export</source>
-        <note>Button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Export OPML" xml:space="preserve">
         <source>Export OPML</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Extra" xml:space="preserve">
         <source>Extra</source>
-        <note>Extra item tag</note>
+        <note>Extra item tag.</note>
       </trans-unit>
       <trans-unit id="Feed Deleted" xml:space="preserve">
         <source>Feed Deleted</source>
-        <note>Object removed message</note>
+        <note>Object removed message.</note>
       </trans-unit>
       <trans-unit id="Feed Empty" xml:space="preserve">
         <source>Feed Empty</source>
-        <note>Feed unavailable header</note>
+        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="Feed Settings" xml:space="preserve">
         <source>Feed Settings</source>
-        <note>Button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.</note>
+      </trans-unit>
+      <trans-unit id="Feed Unavailable" xml:space="preserve">
+        <source>Feed Unavailable</source>
+        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="Feeds" xml:space="preserve">
         <source>Feeds</source>
-        <note>Page settings section header
-   Profile settings section header</note>
+        <note>Page settings section header.
+   Profile settings section header.</note>
       </trans-unit>
       <trans-unit id="Feeds will be updated to use HTTPS if available." xml:space="preserve">
         <source>Feeds will be updated to use HTTPS if available.</source>
-        <note>Security check guidance</note>
+        <note>Security check guidance.</note>
       </trans-unit>
       <trans-unit id="Filter Read" xml:space="preserve">
         <source>Filter Read</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="First choose an OPML file to add feeds from. Pick pages to import next." xml:space="preserve">
         <source>First choose an OPML file to add feeds from. Pick pages to import next.</source>
-        <note>Import guidance message</note>
+        <note>Import guidance message.</note>
       </trans-unit>
       <trans-unit id="Forever" xml:space="preserve">
         <source>Forever</source>
-        <note>History retention duration</note>
+        <note>History retention duration option.</note>
       </trans-unit>
       <trans-unit id="Found %@ result for “%@”" xml:space="preserve">
         <source>Found %1$@ result for “%2$@”</source>
-        <note>Search status (singular)</note>
+        <note>Search status (singular).</note>
       </trans-unit>
       <trans-unit id="Found %@ results for “%@”" xml:space="preserve">
         <source>Found %1$@ results for “%2$@”</source>
-        <note>Search status (plural)</note>
+        <note>Search status (plural).</note>
       </trans-unit>
       <trans-unit id="Gadgets" xml:space="preserve">
         <source>Gadgets</source>
-        <note>Layout option label</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Get Started" xml:space="preserve">
         <source>Get Started</source>
-        <note>Sidebar section header</note>
+        <note>Sidebar section header.</note>
       </trans-unit>
       <trans-unit id="Go to Item" xml:space="preserve">
         <source>Go to Item</source>
-        <note>Context menu button label</note>
+        <note>Context menu button label.</note>
       </trans-unit>
       <trans-unit id="Green" xml:space="preserve">
         <source>Green</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Hide Bylines" xml:space="preserve">
         <source>Hide Bylines</source>
-        <note>Toggle label</note>
+        <note>Toggle label.</note>
       </trans-unit>
       <trans-unit id="Hide Images" xml:space="preserve">
         <source>Hide Images</source>
-        <note>Toggle label</note>
+        <note>Toggle label.</note>
       </trans-unit>
       <trans-unit id="Hide Teasers" xml:space="preserve">
         <source>Hide Teasers</source>
-        <note>Toggle label</note>
+        <note>Toggle label.</note>
       </trans-unit>
       <trans-unit id="History" xml:space="preserve">
         <source>History</source>
-        <note>Profile settings section header</note>
+        <note>Profile settings section header.</note>
       </trans-unit>
       <trans-unit id="Icon" xml:space="preserve">
         <source>Icon</source>
-        <note>Page settings section header</note>
+        <note>Page settings section header.</note>
       </trans-unit>
       <trans-unit id="If you have used the app before then synchronization could be in progress. Please wait a minute." xml:space="preserve">
         <source>If you have used the app before then synchronization could be in progress. Please wait a minute.</source>
-        <note>Launch view guidance note</note>
+        <note>Launch guidance message.</note>
       </trans-unit>
       <trans-unit id="Import" xml:space="preserve">
         <source>Import</source>
-        <note>Button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Import Complete" xml:space="preserve">
         <source>Import Complete</source>
-        <note>Import status header</note>
+        <note>Import status header.</note>
       </trans-unit>
       <trans-unit id="Import Error" xml:space="preserve">
         <source>Import Error</source>
-        <note>Import status header</note>
+        <note>Import status header.</note>
       </trans-unit>
       <trans-unit id="Import Pages" xml:space="preserve">
         <source>Import Pages</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="In Background" xml:space="preserve">
         <source>In Background</source>
-        <note>Refresh option toggle label</note>
+        <note>Refresh option toggle label.</note>
       </trans-unit>
       <trans-unit id="Inbox" xml:space="preserve">
         <source>Inbox</source>
-        <note>Sidebar button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Indigo" xml:space="preserve">
         <source>Indigo</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Item Deleted" xml:space="preserve">
         <source>Item Deleted</source>
-        <note>Object removed message</note>
+        <note>Object removed message.</note>
       </trans-unit>
       <trans-unit id="Item Limit: %@" xml:space="preserve">
         <source>Item Limit: %@</source>
-        <note>Stepper label</note>
+        <note>Stepper label.</note>
       </trans-unit>
       <trans-unit id="Keep" xml:space="preserve">
         <source>Keep</source>
-        <note>History retention picker label</note>
+        <note>History retention picker label.</note>
       </trans-unit>
       <trans-unit id="Latest" xml:space="preserve">
         <source>Latest</source>
-        <note>Feed settings section header
-   Feed view section header</note>
+        <note>Feed settings section header.
+   Feed view section header.</note>
       </trans-unit>
       <trans-unit id="Light" xml:space="preserve">
         <source>Light</source>
-        <note>Theme picker option</note>
+        <note>Theme picker option.</note>
       </trans-unit>
       <trans-unit id="Links" xml:space="preserve">
         <source>Links</source>
-        <note>Settings section header</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Load Demo Feeds" xml:space="preserve">
         <source>Load Demo Feeds</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Loading…" xml:space="preserve">
         <source>Loading…</source>
-        <note>Launch view status message</note>
+        <note>Launch status message.</note>
       </trans-unit>
       <trans-unit id="Looking for HTTPS versions…" xml:space="preserve">
         <source>Looking for HTTPS versions…</source>
-        <note>Security check in-progress message</note>
+        <note>Security check in-progress message.</note>
       </trans-unit>
       <trans-unit id="Mark All Read" xml:space="preserve">
         <source>Mark All Read</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Mark All Unread" xml:space="preserve">
         <source>Mark All Unread</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Mint" xml:space="preserve">
         <source>Mint</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="More" xml:space="preserve">
         <source>More</source>
-        <note>Feed view section header</note>
+        <note>Feed view section header.</note>
       </trans-unit>
       <trans-unit id="Move" xml:space="preserve">
         <source>Move</source>
-        <note>Feed settings section header</note>
-      </trans-unit>
-      <trans-unit id="Must begin with “http://” or “https://”" xml:space="preserve">
-        <source>Must begin with “http://” or “https://”</source>
-        <note>Feed URL text field validation message</note>
-      </trans-unit>
-      <trans-unit id="Must not contain spaces" xml:space="preserve">
-        <source>Must not contain spaces</source>
-        <note>Feed URL text field validation message</note>
+        <note>Feed settings section header.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
-        <note>Page settings section header
-   Profile settings section header
-   Text field label</note>
+        <note>Page settings section header.
+   Profile settings section header.
+   Text field label.</note>
       </trans-unit>
       <trans-unit id="Network Offline" xml:space="preserve">
         <source>Network Offline</source>
-        <note>Sidebar status message</note>
+        <note>Sidebar status message.</note>
       </trans-unit>
       <trans-unit id="New Page" xml:space="preserve">
         <source>New Page</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="No Data" xml:space="preserve">
         <source>No Data</source>
-        <note>Feed unavailable header</note>
+        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="No Feeds" xml:space="preserve">
         <source>No Feeds</source>
-        <note>Empty view/page header</note>
+        <note>Empty page header.</note>
       </trans-unit>
       <trans-unit id="No Items" xml:space="preserve">
         <source>No Items</source>
-        <note>Inbox empty note
-   Layout empty message</note>
+        <note>Inbox empty header.
+   Layout empty message.</note>
       </trans-unit>
       <trans-unit id="No Pages Available" xml:space="preserve">
         <source>No Pages Available</source>
-        <note>Add Feed view error message</note>
+        <note>Add Feed error message.</note>
       </trans-unit>
       <trans-unit id="No Problems" xml:space="preserve">
         <source>No Problems</source>
-        <note>Security view all-clear header</note>
+        <note>Security check all-clear header.</note>
       </trans-unit>
       <trans-unit id="No Profiles Found" xml:space="preserve">
         <source>No Profiles Found</source>
-        <note>Launch view status message</note>
+        <note>Launch status message.</note>
       </trans-unit>
       <trans-unit id="No Results" xml:space="preserve">
         <source>No Results</source>
-        <note>Search empty message</note>
+        <note>Search results empty message.</note>
       </trans-unit>
       <trans-unit id="No Unread Results" xml:space="preserve">
         <source>No Unread Results</source>
-        <note>Search empty message</note>
+        <note>Search results empty message.</note>
       </trans-unit>
       <trans-unit id="No common subjects were found in item titles." xml:space="preserve">
         <source>No common subjects were found in item titles.</source>
-        <note>Trending empty note</note>
-      </trans-unit>
-      <trans-unit id="No items to display." xml:space="preserve">
-        <source>No items to display.</source>
-        <note>Feed unavailable note</note>
+        <note>Trending empty message.</note>
       </trans-unit>
       <trans-unit id="None" xml:space="preserve">
         <source>None</source>
-        <note>Bulk select button label
-   Tint option</note>
+        <note>Bulk select button label.
+   Tint color option.</note>
       </trans-unit>
       <trans-unit id="Nothing Trending" xml:space="preserve">
         <source>Nothing Trending</source>
-        <note>Trending empty header</note>
+        <note>Trending empty header.</note>
       </trans-unit>
       <trans-unit id="One Month" xml:space="preserve">
         <source>One Month</source>
-        <note>History retention duration</note>
+        <note>History retention duration option.</note>
       </trans-unit>
       <trans-unit id="One Week" xml:space="preserve">
         <source>One Week</source>
-        <note>History retention duration</note>
+        <note>History retention duration option.</note>
       </trans-unit>
       <trans-unit id="One Year" xml:space="preserve">
         <source>One Year</source>
-        <note>History retention duration</note>
+        <note>History retention duration option.</note>
       </trans-unit>
       <trans-unit id="Open in Browser" xml:space="preserve">
         <source>Open in Browser</source>
-        <note>Context menu button label
-   Toggle label
-   Toolbar button label</note>
+        <note>Context menu button label.
+   Toggle label.
+   Toolbar button label.</note>
       </trans-unit>
       <trans-unit id="Or drag and drop a feed URL, or open a syndication link, or use the web extension to discover feeds on websites." xml:space="preserve">
         <source>Or drag and drop a feed URL, or open a syndication link, or use the web extension to discover feeds on websites.</source>
-        <note>Empty view/page guidance</note>
+        <note>Empty page guidance.</note>
       </trans-unit>
       <trans-unit id="Or import feeds in %@ Settings." xml:space="preserve">
         <source>Or import feeds in %@ Settings.</source>
-        <note>Getting started guidance</note>
+        <note>Sidebar guidance message.</note>
       </trans-unit>
       <trans-unit id="Orange" xml:space="preserve">
         <source>Orange</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Page" xml:space="preserve">
         <source>Page</source>
-        <note>Picker label</note>
+        <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Page Deleted" xml:space="preserve">
         <source>Page Deleted</source>
-        <note>Object removed message</note>
+        <note>Object removed message.</note>
       </trans-unit>
       <trans-unit id="Page Empty" xml:space="preserve">
         <source>Page Empty</source>
-        <note>Page settings feeds empty message</note>
+        <note>Page settings feeds empty message.</note>
       </trans-unit>
       <trans-unit id="Page Menu" xml:space="preserve">
         <source>Page Menu</source>
-        <note>Menu label</note>
+        <note>Menu label.</note>
       </trans-unit>
       <trans-unit id="Page Settings" xml:space="preserve">
         <source>Page Settings</source>
-        <note>Button label
-   Navigation bar button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Pages" xml:space="preserve">
         <source>Pages</source>
-        <note>Sidebar section header</note>
+        <note>Sidebar section header.</note>
       </trans-unit>
       <trans-unit id="Pink" xml:space="preserve">
         <source>Pink</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Preferred Style" xml:space="preserve">
         <source>Preferred Style</source>
-        <note>Feed preview style picker label
-   Picker label</note>
+        <note>Feed preview style picker label.
+   Picker label.</note>
       </trans-unit>
       <trans-unit id="Press %@ + R to Refresh" xml:space="preserve">
         <source>Press %@ + R to Refresh</source>
-        <note>Mac shortcut guidance note shown if last refreshed date is unknown</note>
+        <note>Mac shortcut guidance message.</note>
       </trans-unit>
       <trans-unit id="Preview Image" xml:space="preserve">
         <source>Preview Image</source>
-        <note>Accessibility label</note>
+        <note>Accessibility label.</note>
       </trans-unit>
       <trans-unit id="Previews" xml:space="preserve">
         <source>Previews</source>
-        <note>Feed settings section header</note>
+        <note>Feed settings section header.</note>
       </trans-unit>
       <trans-unit id="Profile Empty" xml:space="preserve">
         <source>Profile Empty</source>
-        <note>Export view message</note>
+        <note>Export status message.</note>
       </trans-unit>
       <trans-unit id="Profile Settings" xml:space="preserve">
         <source>Profile Settings</source>
-        <note>Navigation title</note>
+        <note>Navigation title.</note>
       </trans-unit>
       <trans-unit id="Profiles" xml:space="preserve">
         <source>Profiles</source>
-        <note>Settings section header</note>
+        <note>Settings section header.</note>
       </trans-unit>
       <trans-unit id="Pull to Refresh" xml:space="preserve">
         <source>Pull to Refresh</source>
-        <note>iOS shortcut guidance note shown if last refreshed date is unknown</note>
+        <note>iOS shortcut guidance message.</note>
       </trans-unit>
       <trans-unit id="Purple" xml:space="preserve">
         <source>Purple</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Recovery Period: %@ hours" xml:space="preserve">
         <source>Recovery Period: %@ hours</source>
-        <note>Stepper label (hours)</note>
+        <note>Stepper label.</note>
       </trans-unit>
       <trans-unit id="Recovery Period: %@ minutes" xml:space="preserve">
         <source>Recovery Period: %@ minutes</source>
-        <note>Stepper label (minutes)</note>
+        <note>Stepper label.</note>
       </trans-unit>
       <trans-unit id="Red" xml:space="preserve">
         <source>Red</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="Refresh" xml:space="preserve">
         <source>Refresh</source>
-        <note>Button label
-   Menu bar button label
-   Setting section header</note>
+        <note>Button label.
+   Setting section header.
+   System toolbar button label.</note>
       </trans-unit>
-      <trans-unit id="Refresh Error" xml:space="preserve">
-        <source>Refresh Error</source>
-        <note>Feed unavailable header</note>
+      <trans-unit id="Refresh Failed" xml:space="preserve">
+        <source>Refresh Failed</source>
+        <note>Feed unavailable message.</note>
       </trans-unit>
-      <trans-unit id="Refresh to fetch content." xml:space="preserve">
-        <source>Refresh to fetch content.</source>
-        <note>Feed unavailable note</note>
+      <trans-unit id="Refresh to get content." xml:space="preserve">
+        <source>Refresh to get content.</source>
+        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
-        <note>Button label
-   Settings section header</note>
+        <note>Button label.
+   Settings section header.</note>
       </trans-unit>
       <trans-unit id="Reset Everything" xml:space="preserve">
         <source>Reset Everything</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Reset Everything?" xml:space="preserve">
         <source>Reset Everything?</source>
-        <note>Alert title</note>
+        <note>Alert title.</note>
       </trans-unit>
       <trans-unit id="Retaining history for long periods may adversely affect performance." xml:space="preserve">
         <source>Retaining history for long periods may adversely affect performance.</source>
-        <note>History settings caution note</note>
+        <note>History settings caution message.</note>
       </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
-        <note>Navigation title
-   Search field prompt</note>
+        <note>Navigation title.
+   Search field prompt.</note>
       </trans-unit>
       <trans-unit id="Searching %@" xml:space="preserve">
         <source>Searching %@</source>
-        <note>Searching profile empty query message</note>
+        <note>Empty search query message.</note>
       </trans-unit>
       <trans-unit id="Security" xml:space="preserve">
         <source>Security</source>
-        <note>Button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Select" xml:space="preserve">
         <source>Select</source>
-        <note>Bulk select controls label</note>
+        <note>Bulk select controls label.</note>
       </trans-unit>
       <trans-unit id="Select File" xml:space="preserve">
         <source>Select File</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Settings" xml:space="preserve">
         <source>Settings</source>
-        <note>Button label
-   Navigation title</note>
+        <note>Button label.
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Share…" xml:space="preserve">
         <source>Share…</source>
-        <note>Context menu button label
-   Toolbar button label</note>
+        <note>Context menu button label.
+   Toolbar button label.</note>
       </trans-unit>
       <trans-unit id="Showcase" xml:space="preserve">
         <source>Showcase</source>
-        <note>Layout option label</note>
+        <note>Layout option label.</note>
       </trans-unit>
       <trans-unit id="Six Months" xml:space="preserve">
         <source>Six Months</source>
-        <note>History retention duration</note>
-      </trans-unit>
-      <trans-unit id="Status Unavailable" xml:space="preserve">
-        <source>Status Unavailable</source>
-        <note>Feed unavailable header</note>
+        <note>History retention duration option.</note>
       </trans-unit>
       <trans-unit id="Switch" xml:space="preserve">
         <source>Switch</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="System" xml:space="preserve">
         <source>System</source>
-        <note>Theme picker option</note>
+        <note>Theme picker option.</note>
       </trans-unit>
       <trans-unit id="System web browser in use. &quot;Enter Reader Mode&quot; will be ignored." xml:space="preserve">
         <source>System web browser in use. "Enter Reader Mode" will be ignored.</source>
-        <note>Feed settings reader mode guidance note</note>
+        <note>Feed settings reader mode guidance note.</note>
       </trans-unit>
       <trans-unit id="Teal" xml:space="preserve">
         <source>Teal</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="The operation did not complete successfully." xml:space="preserve">
         <source>The operation did not complete successfully.</source>
-        <note>Import status message</note>
+        <note>Import status message.</note>
       </trans-unit>
       <trans-unit id="Theme" xml:space="preserve">
         <source>Theme</source>
-        <note>Picker label</note>
+        <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Three Months" xml:space="preserve">
         <source>Three Months</source>
-        <note>History retention duration</note>
+        <note>History retention duration option.</note>
       </trans-unit>
       <trans-unit id="Thumbnail" xml:space="preserve">
         <source>Thumbnail</source>
-        <note>Thumbnail image accessibility label</note>
+        <note>Accessibility label.</note>
       </trans-unit>
       <trans-unit id="Tint" xml:space="preserve">
         <source>Tint</source>
-        <note>Picker label</note>
+        <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Title" xml:space="preserve">
         <source>Title</source>
-        <note>Export section header
-   Feed settings section header
-   Text field label</note>
+        <note>Export section header.
+   Feed settings section header.
+   Text field label.</note>
       </trans-unit>
       <trans-unit id="Trend Deleted" xml:space="preserve">
         <source>Trend Deleted</source>
-        <note>Object removed message</note>
+        <note>Object removed message.</note>
       </trans-unit>
       <trans-unit id="Trending" xml:space="preserve">
         <source>Trending</source>
-        <note>Navigation title
-   Sidebar button label</note>
+        <note>Button label.
+   Navigation title.</note>
       </trans-unit>
       <trans-unit id="Two Weeks" xml:space="preserve">
         <source>Two Weeks</source>
-        <note>History retention duration</note>
-      </trans-unit>
-      <trans-unit id="Unable to fetch content." xml:space="preserve">
-        <source>Unable to fetch content.</source>
-        <note>Feed unavailable note</note>
+        <note>History retention duration option.</note>
       </trans-unit>
       <trans-unit id="Unable to parse content." xml:space="preserve">
         <source>Unable to parse content.</source>
-        <note>Feed unavailable note</note>
-      </trans-unit>
-      <trans-unit id="Unopenable" xml:space="preserve">
-        <source>Unopenable</source>
-        <note>Feed URL text field validation message</note>
+        <note>Feed unavailable message.</note>
       </trans-unit>
       <trans-unit id="Untitled" xml:space="preserve">
         <source>Untitled</source>
-        <note>Default feed title
-   Default page name
-   Default profile name
-   Default trend title
-   Text field prompt</note>
+        <note>Default feed title.
+   Default page name.
+   Default profile name.
+   Default trend title.
+   Text field prompt.</note>
       </trans-unit>
       <trans-unit id="Updated %@" xml:space="preserve">
         <source>Updated %@</source>
-        <note>Profile status updated date shown on days other than same day
-   Relative date text if greater than one minute ago
-   Updated more than a minute ago</note>
+        <note>Updated date display for times greater than one minute ago.
+   Updated date status message.</note>
       </trans-unit>
       <trans-unit id="Updated Just Now" xml:space="preserve">
         <source>Updated Just Now</source>
-        <note>Relative date text if less than one minute ago
-   Updated in the last minute</note>
+        <note>Updated date display for times less than one minute ago.</note>
       </trans-unit>
       <trans-unit id="Updated at %@" xml:space="preserve">
         <source>Updated at %@</source>
-        <note>Profile status updated time shown on same day</note>
+        <note>Updated time status message.</note>
       </trans-unit>
       <trans-unit id="Use System Web Browser" xml:space="preserve">
         <source>Use System Web Browser</source>
-        <note>Toggle label</note>
+        <note>Toggle label.</note>
       </trans-unit>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
-        <note>Info label</note>
+        <note>Info label.</note>
       </trans-unit>
       <trans-unit id="Web Address" xml:space="preserve">
         <source>Web Address</source>
-        <note>Feed URL text field label
-   Feed URL text field section label</note>
+        <note>Feed URL text field label.
+   URL field section label.</note>
+      </trans-unit>
+      <trans-unit id="Web address cannot be blank." xml:space="preserve">
+        <source>Web address cannot be blank.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Web address could not be parsed." xml:space="preserve">
+        <source>Web address could not be parsed.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Web address is unopenable." xml:space="preserve">
+        <source>Web address is unopenable.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Web address must begin with “http://” or “https://”." xml:space="preserve">
+        <source>Web address must begin with “http://” or “https://”.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Web address must not contain spaces." xml:space="preserve">
+        <source>Web address must not contain spaces.</source>
+        <note>URL field validation message.</note>
       </trans-unit>
       <trans-unit id="Website" xml:space="preserve">
         <source>Website</source>
-        <note>Button label</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="When Activated" xml:space="preserve">
         <source>When Activated</source>
-        <note>Refresh option toggle label</note>
+        <note>Refresh option toggle label.</note>
       </trans-unit>
       <trans-unit id="Yellow" xml:space="preserve">
         <source>Yellow</source>
-        <note>Tint option</note>
+        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="https⁣://example.com/feed.xml" xml:space="preserve">
         <source>https⁣://example.com/feed.xml</source>
-        <note>Feed URL text field prompt</note>
+        <note>Feed URL text field prompt.</note>
       </trans-unit>
     </body>
   </file>
   <file original="WebExtension/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3" build-num="14E222b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5160n"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">

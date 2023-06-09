@@ -27,7 +27,7 @@ struct InboxBottomBar: ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             CommonStatus(
                 profile: profile,
-                secondaryMessage: Text("\(items.unread().count) Unread", comment: "Status message")
+                secondaryMessage: Text("\(items.unread().count) Unread", comment: "Status message.")
             )
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }

@@ -15,28 +15,28 @@ struct FeedUnavailable: View {
 
     let feedData: FeedData?
 
-    var titleFont: Font = .body
-    var subtitleFont: Font = .caption
-
     var body: some View {
         VStack(spacing: 4) {
             if feedData == nil {
-                Text("No Data", comment: "Feed unavailable header").font(titleFont)
-                Text("Refresh to fetch content.", comment: "Feed unavailable note").font(subtitleFont)
+                Text("No Data", comment: "Feed unavailable message.")
+                Text("Refresh to get content.", comment: "Feed unavailable message.").font(.caption)
             } else if let error = feedData?.wrappedError {
-                Text("Refresh Error", comment: "Feed unavailable header").font(titleFont)
+                Image(systemName: "exclamationmark.triangle").imageScale(.large).padding(.bottom, 4)
+                Text("Refresh Failed", comment: "Feed unavailable message.")
                 if error == .request {
-                    Text("Unable to fetch content.", comment: "Feed unavailable note").font(subtitleFont)
+                    Text("Could not fetch data.", comment: "Feed unavailable message.")
+                        .font(.caption)
                 } else {
-                    Text("Unable to parse content.", comment: "Feed unavailable note").font(subtitleFont)
+                    Text("Unable to parse content.", comment: "Feed unavailable message.")
+                        .font(.caption)
                 }
             } else if feedData!.itemsArray.isEmpty {
-                Text("Feed Empty", comment: "Feed unavailable header").font(titleFont)
-                Text("No items to display.", comment: "Feed unavailable note").font(subtitleFont)
+                Text("Feed Empty", comment: "Feed unavailable message.")
             } else {
-                Text("Status Unavailable", comment: "Feed unavailable header").font(titleFont)
+                Text("Feed Unavailable", comment: "Feed unavailable message.")
             }
         }
+        .multilineTextAlignment(.center)
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity)
     }

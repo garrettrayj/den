@@ -36,18 +36,18 @@ struct SecurityView: View {
             }
         }
         .onDisappear { reset() }
-        .navigationTitle(Text("Security", comment: "Navigation title"))
+        .navigationTitle(Text("Security", comment: "Navigation title."))
     }
 
     private var allClearSummary: some View {
         Section {
             Text(
                 "All feeds use secure web addresses.",
-                comment: "Security view all-clear message"
+                comment: "Security check all-clear message."
             ).modifier(FormRowModifier())
         } header: {
             Label {
-                Text("No Problems", comment: "Security view all-clear header")
+                Text("No Problems", comment: "Security check all-clear header.")
             } icon: {
                 Image(systemName: "checkmark.shield")
             }.modifier(FirstFormHeaderModifier())
@@ -60,7 +60,7 @@ struct SecurityView: View {
                 Label {
                     Text(
                         "Looking for HTTPS versions…",
-                        comment: "Security check in-progress message"
+                        comment: "Security check in-progress message."
                     ).foregroundColor(.secondary).modifier(FormRowModifier())
                 } icon: {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
@@ -72,7 +72,7 @@ struct SecurityView: View {
                     Label {
                         Text(
                             "Check for Secure Alternatives",
-                            comment: "Button label"
+                            comment: "Button label."
                         ).modifier(FormRowModifier())
                     } icon: {
                         Image(systemName: "bolt.shield")
@@ -85,12 +85,12 @@ struct SecurityView: View {
                 if insecureFeedCount == 1 {
                     Text(
                         "1 feed uses an insecure web address.",
-                        comment: "Security warning (singualar)"
+                        comment: "Security warning (singualar)."
                     )
                 } else {
                     Text(
                         "\(insecureFeedCount) feeds use insecure web addresses.",
-                        comment: "Security warning (plural)"
+                        comment: "Security warning (plural)."
                     )
                 }
             } icon: {
@@ -98,7 +98,7 @@ struct SecurityView: View {
             }
             .modifier(FirstFormHeaderModifier())
         } footer: {
-            Text("Feeds will be updated to use HTTPS if available.", comment: "Security check guidance")
+            Text("Feeds will be updated to use HTTPS if available.", comment: "Security check guidance.")
         }
         .modifier(ListRowModifier())
     }

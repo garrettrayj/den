@@ -18,7 +18,7 @@ struct SettingsButton: View {
             listSelection = .settings
         } label: {
             Label {
-                Text("Settings", comment: "Button label")
+                Text("Settings", comment: "Button label.")
             } icon: {
                 Image(systemName: "gear")
             }

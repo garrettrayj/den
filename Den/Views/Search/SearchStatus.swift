@@ -28,12 +28,12 @@ struct SearchStatus: View {
 
     private var statusText: Text {
         if query.isEmpty {
-            return Text("Enter a search term.", comment: "Search guidance")
+            return Text("Enter a search term.", comment: "Search guidance.")
         } else {
             if totalCount == 1 {
-                return Text("Found \(totalCount) result for “\(query)”", comment: "Search status (singular)")
+                return Text("Found \(totalCount) result for “\(query)”", comment: "Search status (singular).")
             } else {
-                return Text("Found \(totalCount) results for “\(query)”", comment: "Search status (plural)")
+                return Text("Found \(totalCount) results for “\(query)”", comment: "Search status (plural).")
             }
         }
     }
@@ -42,7 +42,7 @@ struct SearchStatus: View {
         if query.isEmpty || totalCount == 0 {
             return nil
         } else {
-            return Text("\(unreadCount) Unread", comment: "Status message")
+            return Text("\(unreadCount) Unread", comment: "Status message.")
         }
     }
 }

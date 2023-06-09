@@ -55,7 +55,7 @@ struct ProfileSettings: View {
                     }
                 } label: {
                     Label {
-                        Text("Switch", comment: "Button label")
+                        Text("Switch", comment: "Button label.")
                     } icon: {
                         Image(systemName: "arrow.left.arrow.right")
                     }
@@ -66,18 +66,18 @@ struct ProfileSettings: View {
                 .accessibilityIdentifier("switch-to-profile-button")
             }
         }
-        .navigationTitle(Text("Profile Settings", comment: "Navigation title"))
+        .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
     }
 
     private var nameSection: some View {
         Section {
-            TextField(text: $profile.wrappedName, prompt: Text("Untitled", comment: "Text field prompt")) {
-                Text("Name", comment: "Text field label")
+            TextField(text: $profile.wrappedName, prompt: Text("Untitled", comment: "Text field prompt.")) {
+                Text("Name", comment: "Text field label.")
             }
             .modifier(FormRowModifier())
             .modifier(TitleTextFieldModifier())
         } header: {
-            Text("Name", comment: "Profile settings section header").modifier(FirstFormHeaderModifier())
+            Text("Name", comment: "Profile settings section header.").modifier(FirstFormHeaderModifier())
         }
         .modifier(ListRowModifier())
     }
@@ -88,7 +88,7 @@ struct ProfileSettings: View {
                 profile.tint = newValue
             }
         } header: {
-            Text("Customization", comment: "Profile settings section header")
+            Text("Customization", comment: "Profile settings section header.")
         }
         .modifier(ListRowModifier())
     }
@@ -99,7 +99,7 @@ struct ProfileSettings: View {
                 showingDeleteAlert = true
             } label: {
                 Label {
-                    Text("Delete", comment: "Button label")
+                    Text("Delete", comment: "Button label.")
                 } icon: {
                     Image(systemName: "trash")
                 }
@@ -108,13 +108,13 @@ struct ProfileSettings: View {
             }
             .accessibilityIdentifier("delete-profile-button")
         }.alert(
-            Text("Delete Profile?", comment: "Alert title"),
+            Text("Delete Profile?", comment: "Alert title."),
             isPresented: $showingDeleteAlert,
             actions: {
                 Button(role: .cancel) {
                     // Pass
                 } label: {
-                    Text("Cancel", comment: "Button label")
+                    Text("Cancel", comment: "Button label.")
                 }
                 .accessibilityIdentifier("delete-profile-cancel-button")
 
@@ -124,12 +124,15 @@ struct ProfileSettings: View {
                     }
                     dismiss()
                 } label: {
-                    Text("Delete", comment: "Button label")
+                    Text("Delete", comment: "Button label.")
                 }
                 .accessibilityIdentifier("delete-profile-confirm-button")
             },
             message: {
-                Text("All content within will be removed.", comment: "Alert message")
+                Text(
+                    "All profile content (pages, feeds, history, etc.) will be removed.",
+                    comment: "Alert message."
+                )
             }
         )
         .modifier(ListRowModifier())

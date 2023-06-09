@@ -39,13 +39,13 @@ struct ImportView: View {
         }
         .frame(maxWidth: .infinity)
         .onDisappear(perform: reset)
-        .navigationTitle(Text("Import", comment: "Navigation title"))
+        .navigationTitle(Text("Import", comment: "Navigation title."))
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 if stage == .pickFile {
                     Button(action: pickFile) {
                         Label {
-                            Text("Select File", comment: "Button label")
+                            Text("Select File", comment: "Button label.")
                         } icon: {
                             Image(systemName: "filemenu.and.cursorarrow")
                         }
@@ -56,7 +56,7 @@ struct ImportView: View {
                 } else if stage == .folderSelection {
                     Button(action: importSelected) {
                         Label {
-                            Text("Import Pages", comment: "Button label")
+                            Text("Import Pages", comment: "Button label.")
                         } icon: {
                             Image(systemName: "rectangle.stack.badge.plus")
                         }
@@ -75,7 +75,7 @@ struct ImportView: View {
             Spacer()
             Text(
                 "First choose an OPML file to add feeds from. Pick pages to import next.",
-                comment: "Import guidance message"
+                comment: "Import guidance message."
             )
             .multilineTextAlignment(.center)
             .padding()
@@ -114,17 +114,17 @@ struct ImportView: View {
 
     private var errorStage: some View {
         SplashNote(
-            title: Text("Import Error", comment: "Import status header"),
-            note: Text("The operation did not complete successfully.", comment: "Import status message")
+            title: Text("Import Error", comment: "Import status header."),
+            note: Text("The operation did not complete successfully.", comment: "Import status message.")
         )
     }
 
     private var completeStage: some View {
         SplashNote(
-            title: Text("Import Complete", comment: "Import status header"),
+            title: Text("Import Complete", comment: "Import status header."),
             note: Text(
                 "\(pagesImported.count) pages with \(feedsImported.count) feeds added to profile.",
-                comment: "Import status message"
+                comment: "Import status message."
             )
         )
     }

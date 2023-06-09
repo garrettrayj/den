@@ -14,21 +14,21 @@ struct FeedUtilitiesSection: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        Section(header: Text("Feeds", comment: "Profile settings section header")) {
+        Section(header: Text("Feeds", comment: "Profile settings section header.")) {
             NavigationLink(value: SubDetailPanel.importFeeds(profile)) {
-                Text("Import", comment: "Button label")
+                Text("Import", comment: "Button label.")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("import-button")
 
             NavigationLink(value: SubDetailPanel.exportFeeds(profile)) {
-                Text("Export", comment: "Button label")
+                Text("Export", comment: "Button label.")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("export-button")
 
             NavigationLink(value: SubDetailPanel.security(profile)) {
-                Text("Security", comment: "Button label")
+                Text("Security", comment: "Button label.")
             }
             .modifier(FormRowModifier())
             .accessibilityIdentifier("security-check-button")

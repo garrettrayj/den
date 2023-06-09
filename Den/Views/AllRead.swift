@@ -12,8 +12,12 @@ import SwiftUI
 
 struct AllRead: View {
     var body: some View {
-        Text("All Read", comment: "No unread items message")
-            .foregroundColor(.secondary)
-            .frame(maxWidth: .infinity)
+        Label {
+            Text("All Read", comment: "No unread items message.")
+        } icon: {
+            Image(systemName: "checkmark").imageScale(.small)
+        }
+        .foregroundColor(.secondary)
+        .frame(maxWidth: .infinity)
     }
 }

@@ -48,7 +48,7 @@ struct DenApp: App {
                         await refreshManager.refresh(profile: profile)
                     }
                 } label: {
-                    Text("Refresh", comment: "Menu bar button label")
+                    Text("Refresh", comment: "System toolbar button label.")
                 }
                 .keyboardShortcut("r", modifiers: [.command])
             }
@@ -56,7 +56,7 @@ struct DenApp: App {
                 Button {
                     SubscriptionUtility.showSubscribe()
                 } label: {
-                    Text("Add Feed", comment: "Menu bar button label")
+                    Text("Add Feed", comment: "System toolbar button label.")
                 }
                 .keyboardShortcut("d", modifiers: [.command])
             }

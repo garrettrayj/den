@@ -16,17 +16,17 @@ struct PreviewStylePicker: View {
     var body: some View {
         Picker(selection: $previewStyle) {
             Label {
-                Text("Compressed", comment: "Picker option")
+                Text("Compressed", comment: "Picker option.")
             } icon: {
                 Image(systemName: "rectangle.compress.vertical")
             }.tag(PreviewStyle.compressed)
             Label {
-                Text("Expanded", comment: "Picker option")
+                Text("Expanded", comment: "Picker option.")
             } icon: {
                 Image(systemName: "rectangle.expand.vertical")
             }.tag(PreviewStyle.expanded)
         } label: {
-            Text("Preferred Style", comment: "Picker label").modifier(FormRowModifier())
+            Text("Preferred Style", comment: "Picker label.").modifier(FormRowModifier())
         }
     }
 }

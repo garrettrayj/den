@@ -16,7 +16,7 @@ struct PageLayoutPicker: View {
     var body: some View {
         Picker("Page Layout", selection: $pageLayout) {
             Label {
-                Text("Gadgets", comment: "Layout option label")
+                Text("Gadgets", comment: "Layout option label.")
             } icon: {
                 Image(systemName: "rectangle.grid.3x2")
             }
@@ -24,7 +24,7 @@ struct PageLayoutPicker: View {
             .accessibilityIdentifier("gadgets-layout-button")
 
             Label {
-                Text("Blend", comment: "Layout option label")
+                Text("Blend", comment: "Layout option label.")
             } icon: {
                 Image(systemName: "square.grid.3x3")
             }
@@ -32,7 +32,7 @@ struct PageLayoutPicker: View {
             .accessibilityIdentifier("blend-layout-button")
 
             Label {
-                Text("Showcase", comment: "Layout option label")
+                Text("Showcase", comment: "Layout option label.")
             } icon: {
                 Image(systemName: "square.grid.3x1.below.line.grid.1x2")
             }
@@ -40,7 +40,7 @@ struct PageLayoutPicker: View {
             .accessibilityIdentifier("showcase-layout-button")
 
             Label {
-                Text("Deck", comment: "Layout option label")
+                Text("Deck", comment: "Layout option label.")
             } icon: {
                 Image(systemName: "rectangle.split.3x1")
             }

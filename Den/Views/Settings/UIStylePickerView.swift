@@ -15,11 +15,11 @@ struct UIStylePickerView: View {
 
     var body: some View {
         Picker(selection: $uiStyle) {
-            Text("System", comment: "Theme picker option").tag(UIUserInterfaceStyle.unspecified)
-            Text("Light", comment: "Theme picker option").tag(UIUserInterfaceStyle.light)
-            Text("Dark", comment: "Theme picker option").tag(UIUserInterfaceStyle.dark)
+            Text("System", comment: "Theme picker option.").tag(UIUserInterfaceStyle.unspecified)
+            Text("Light", comment: "Theme picker option.").tag(UIUserInterfaceStyle.light)
+            Text("Dark", comment: "Theme picker option.").tag(UIUserInterfaceStyle.dark)
         } label: {
-            Text("Theme", comment: "Picker label")
+            Text("Theme", comment: "Picker label.")
         }
         .accessibilityIdentifier("ui-style-picker")
     }

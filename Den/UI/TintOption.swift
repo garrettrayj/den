@@ -28,29 +28,29 @@ enum TintOption: String, CaseIterable {
     var labelText: Text {
         switch self {
         case .red:
-            return Text("Red", comment: "Tint option")
+            return Text("Red", comment: "Tint color option.")
         case .orange:
-            return Text("Orange", comment: "Tint option")
+            return Text("Orange", comment: "Tint color option.")
         case .yellow:
-            return Text("Yellow", comment: "Tint option")
+            return Text("Yellow", comment: "Tint color option.")
         case .green:
-            return Text("Green", comment: "Tint option")
+            return Text("Green", comment: "Tint color option.")
         case .mint:
-            return Text("Mint", comment: "Tint option")
+            return Text("Mint", comment: "Tint color option.")
         case .teal:
-            return Text("Teal", comment: "Tint option")
+            return Text("Teal", comment: "Tint color option.")
         case .cyan:
-            return Text("Cyan", comment: "Tint option")
+            return Text("Cyan", comment: "Tint color option.")
         case .blue:
-            return Text("Blue", comment: "Tint option")
+            return Text("Blue", comment: "Tint color option.")
         case .indigo:
-            return Text("Indigo", comment: "Tint option")
+            return Text("Indigo", comment: "Tint color option.")
         case .purple:
-            return Text("Purple", comment: "Tint option")
+            return Text("Purple", comment: "Tint color option.")
         case .pink:
-            return Text("Pink", comment: "Tint option")
+            return Text("Pink", comment: "Tint color option.")
         case .brown:
-            return Text("Brown", comment: "Tint option")
+            return Text("Brown", comment: "Tint color option.")
         }
     }
 

@@ -1,24 +1,14 @@
 {
     "extension_name": {
-        "message": "Den for RSS",
-        "description": "The display name for the extension."
+        "message": "Den for RSS"
     },
     "extension_description": {
-        "message": "Shows available syndication feeds.",
-        "description": "Description of what the extension does."
+        "message": "Detects syndication feeds."
     },
     "no_results": {
-        "message": "No Feeds Found",
-        "description": "Shown when the extension is activated, but no feeds were detected."
+        "message": "No Feeds Found"
     },
     "copied": {
-        "message": "Copied “$URL$”",
-        "description": "Shown when the user copies a feed URL to the pasteboard.",
-        "placeholders": {
-            "url" : {
-                "content" : "$1",
-                "example" : "https://den.io/feed.rss"
-            }
-        }
+        "message": "Copied “$URL$”"
     }
 }

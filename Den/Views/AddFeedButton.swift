@@ -22,7 +22,7 @@ struct AddFeedButton: View {
             }
         } label: {
             Label {
-                Text("Add Feed", comment: "Button label")
+                Text("Add Feed", comment: "Button label.")
             } icon: {
                 Image(systemName: "plus.circle")
             }

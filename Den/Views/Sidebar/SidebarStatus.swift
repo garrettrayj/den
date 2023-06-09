@@ -18,6 +18,16 @@ struct SidebarStatus: View {
     @Binding var refreshing: Bool
 
     let progress: Progress
+    
+    let dateFormatter: DateFormatter = {
+        let relativeDateFormatter = DateFormatter()
+        relativeDateFormatter.timeStyle = .none
+        relativeDateFormatter.dateStyle = .medium
+        relativeDateFormatter.locale = .current
+        relativeDateFormatter.doesRelativeDateFormatting = true
+
+        return relativeDateFormatter
+    }()
 
     var body: some View {
         VStack {
@@ -32,12 +42,12 @@ struct SidebarStatus: View {
                             Date().formatted(date: .complete, time: .omitted) {
                             Text(
                                 "Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))",
-                                comment: "Profile status updated time shown on same day"
+                                comment: "Updated time status message."
                             )
                         } else {
                             Text(
-                                "Updated \(refreshedDate.formatted(date: .abbreviated, time: .omitted))",
-                                comment: "Profile status updated date shown on days other than same day"
+                                "Updated \(dateFormatter.string(from: refreshedDate))",
+                                comment: "Updated date status message."
                             )
                         }
                     } else {
@@ -45,19 +55,19 @@ struct SidebarStatus: View {
                             #if targetEnvironment(macCatalyst)
                             Text(
                                 "Press \(Image(systemName: "command")) + R to Refresh",
-                                comment: "Mac shortcut guidance note shown if last refreshed date is unknown"
+                                comment: "Mac shortcut guidance message."
                             ).imageScale(.small)
                             #else
                             Text(
                                 "Pull to Refresh",
-                                comment: "iOS shortcut guidance note shown if last refreshed date is unknown"
+                                comment: "iOS shortcut guidance message."
                             )
                             #endif
                         }
                     }
 
                     if !networkMonitor.isConnected {
-                        Text("Network Offline", comment: "Sidebar status message").foregroundColor(.secondary)
+                        Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
                     }
                 }
             }

@@ -17,17 +17,17 @@ struct FeedSettings: View {
 
     var body: some View {
         if feed.managedObjectContext == nil {
-            SplashNote(title: Text("Feed Deleted", comment: "Object removed message"), symbol: "slash.circle")
+            SplashNote(title: Text("Feed Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             Form {
                 Section {
-                    TextField(text: $feed.wrappedTitle, prompt: Text("Untitled", comment: "Text field prompt")) {
-                        Text("Title", comment: "Text field label")
+                    TextField(text: $feed.wrappedTitle, prompt: Text("Untitled", comment: "Text field prompt.")) {
+                        Text("Title", comment: "Text field label.")
                     }
                     .modifier(FormRowModifier())
                     .modifier(TitleTextFieldModifier())
                 } header: {
-                    Text("Title", comment: "Feed settings section header").modifier(FirstFormHeaderModifier())
+                    Text("Title", comment: "Feed settings section header.").modifier(FirstFormHeaderModifier())
                 }
                 .modifier(ListRowModifier())
 
@@ -35,7 +35,7 @@ struct FeedSettings: View {
                     Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                         Text(
                             "Item Limit: \(feed.wrappedItemLimit)",
-                            comment: "Stepper label"
+                            comment: "Stepper label."
                         )
                             .font(.callout)
                             .modifier(FormRowModifier())
@@ -45,12 +45,12 @@ struct FeedSettings: View {
                     })
                     .modifier(ListRowModifier())
                 } header: {
-                    Text("Latest", comment: "Feed settings section header")
+                    Text("Latest", comment: "Feed settings section header.")
                 } footer: {
                     if feed.changedValues().keys.contains("itemLimit") {
                         Text(
                             "Changes will be applied on next refresh.",
-                            comment: "Item limit changed notice"
+                            comment: "Item limit changed notice."
                         )
                     }
                 }
@@ -61,7 +61,7 @@ struct FeedSettings: View {
             }
             .background(GroupedBackground())
             .onDisappear(perform: save)
-            .navigationTitle(Text("Feed Settings", comment: "Navigation title"))
+            .navigationTitle(Text("Feed Settings", comment: "Navigation title."))
         }
     }
 

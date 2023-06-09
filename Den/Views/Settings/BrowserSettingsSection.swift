@@ -16,10 +16,10 @@ struct BrowserSettingsSection: View {
     var body: some View {
         Section {
             Toggle(isOn: $useSystemBrowser) {
-                Text("Use System Web Browser", comment: "Toggle label").modifier(FormRowModifier())
+                Text("Use System Web Browser", comment: "Toggle label.").modifier(FormRowModifier())
             }
         } header: {
-            Text("Links", comment: "Settings section header")
+            Text("Links", comment: "Settings section header.")
         }
         .modifier(ListRowModifier())
     }

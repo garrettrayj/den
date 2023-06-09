@@ -105,6 +105,6 @@ struct ItemPreviewImage: View {
                 .modifier(ImageBorderModifier(cornerRadius: 6))
             }
         }
-        .accessibility(label: Text("Preview Image", comment: "Accessibility label"))
+        .accessibility(label: Text("Preview Image", comment: "Accessibility label."))
     }
 }

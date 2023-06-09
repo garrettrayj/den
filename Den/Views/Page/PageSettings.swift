@@ -19,7 +19,7 @@ struct PageSettings: View {
 
     var body: some View {
         if page.managedObjectContext == nil {
-            SplashNote(title: Text("Page Deleted", comment: "Object removed message"), symbol: "slash.circle")
+            SplashNote(title: Text("Page Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             Form {
                 nameSection
@@ -28,7 +28,7 @@ struct PageSettings: View {
             }
             .environment(\.editMode, .constant(.active))
             .background(GroupedBackground())
-            .navigationTitle(Text("Page Settings", comment: "Navigation title"))
+            .navigationTitle(Text("Page Settings", comment: "Navigation title."))
             .onDisappear(perform: save)
         }
     }
@@ -37,14 +37,14 @@ struct PageSettings: View {
         Section {
             TextField(
                 text: $page.wrappedName,
-                prompt: Text("Untitled", comment: "Text field prompt")
+                prompt: Text("Untitled", comment: "Text field prompt.")
             ) {
-                Text("Name", comment: "Text field label")
+                Text("Name", comment: "Text field label.")
             }
             .modifier(FormRowModifier())
             .modifier(TitleTextFieldModifier())
         } header: {
-            Text("Name", comment: "Page settings section header").modifier(FirstFormHeaderModifier())
+            Text("Name", comment: "Page settings section header.").modifier(FirstFormHeaderModifier())
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
@@ -61,7 +61,7 @@ struct PageSettings: View {
             } label: {
                 Label {
                     HStack {
-                        Text("Choose Icon", comment: "Button label")
+                        Text("Choose Icon", comment: "Button label.")
                         Spacer()
                         Image(systemName: "chevron.down").foregroundColor(.secondary)
                     }
@@ -72,7 +72,7 @@ struct PageSettings: View {
             .buttonStyle(.borderless)
             .modifier(FormRowModifier())
         } header: {
-            Text("Icon", comment: "Page settings section header")
+            Text("Icon", comment: "Page settings section header.")
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
@@ -85,7 +85,7 @@ struct PageSettings: View {
     private var feedsSection: some View {
         Section {
             if page.feedsArray.isEmpty {
-                Text("Page Empty", comment: "Page settings feeds empty message")
+                Text("Page Empty", comment: "Page settings feeds empty message.")
                     .foregroundColor(.secondary)
                     .modifier(FormRowModifier())
             } else {
@@ -99,7 +99,7 @@ struct PageSettings: View {
                 .onMove(perform: moveFeed)
             }
         } header: {
-            Text("Feeds", comment: "Page settings section header")
+            Text("Feeds", comment: "Page settings section header.")
         }
         .modifier(ListRowModifier())
     }
