@@ -40,12 +40,12 @@ struct TrendBlock: View {
             NavigationLink(value: SubDetailPanel.trend(trend)) {
                 VStack(alignment: .leading, spacing: 12) {
                     trend.titleText.font(.title).lineLimit(1)
-
+                    
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
                         ForEach(uniqueFaviconURLs, id: \.self) { url in
                             FeedFavicon(url: url)
                         }
-                    }.opacity(trend.hasUnread ? 1.0 : AppDefaults.dimmedImageOpacity)
+                    }.opacity(trend.hasUnread ? 1.0 : 0.5)
 
                     HStack {
                         if let symbol = symbol {

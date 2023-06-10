@@ -64,12 +64,13 @@ struct ResetSettingsSection: View {
                 showingResetAlert = true
             } label: {
                 Label {
-                    Text("Reset Everything", comment: "Button label.").lineLimit(1)
+                    Text("Reset Everything", comment: "Button label.")
+                        .lineLimit(1)
+                        .modifier(FormRowModifier())
                 } icon: {
                     Image(systemName: "arrow.counterclockwise").foregroundColor(.red)
                 }
             }
-            .modifier(FormRowModifier())
             .alert(
                 Text("Reset Everything?", comment: "Alert title."),
                 isPresented: $showingResetAlert,
@@ -164,11 +165,10 @@ struct ResetSettingsSection: View {
                     }
                     context.delete(profile)
                 }
-                let defaultProfile = ProfileUtility.createDefaultProfile(context: context)
                 try context.save()
 
-                activeProfile = defaultProfile
-                appProfileID = defaultProfile.id?.uuidString
+                activeProfile = nil
+                appProfileID = nil
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
