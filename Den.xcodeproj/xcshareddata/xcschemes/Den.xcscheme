@@ -42,26 +42,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "68C41323247263C700D1DC7B"
-               BuildableName = "DenTests.xctest"
-               BlueprintName = "DenTests"
-               ReferencedContainer = "container:Den.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "68C4132E247263C700D1DC7B"
-               BuildableName = "DenUITests.xctest"
-               BlueprintName = "DenUITests"
-               ReferencedContainer = "container:Den.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "689EDC0826A3F46A0055811A"
                BuildableName = "Screenshots.xctest"
                BlueprintName = "Screenshots"

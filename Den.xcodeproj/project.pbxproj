@@ -259,13 +259,6 @@
 			remoteGlobalIDString = 68C41308247263C700D1DC7B;
 			remoteInfo = Den;
 		};
-		68C41330247263C700D1DC7B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 68C41301247263C700D1DC7B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 68C41308247263C700D1DC7B;
-			remoteInfo = Den;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -483,7 +476,6 @@
 		68C41317247263C700D1DC7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68C4131A247263C700D1DC7B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		68C4131F247263C700D1DC7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		68C4132F247263C700D1DC7B /* DenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C41341247263D800D1DC7B /* Den.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Den.entitlements; sourceTree = "<group>"; };
 		68C413452472773100D1DC7B /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		68C4134A24727F2B00D1DC7B /* Gadget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gadget.swift; sourceTree = "<group>"; };
@@ -576,13 +568,6 @@
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
 				681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		68C4132C247263C700D1DC7B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,7 +893,6 @@
 			isa = PBXGroup;
 			children = (
 				68C41309247263C700D1DC7B /* Den.app */,
-				68C4132F247263C700D1DC7B /* DenUITests.xctest */,
 				689EDC0926A3F46A0055811A /* Screenshots.xctest */,
 				6813FD082748DE1100EC88A5 /* SymbolLibrary */,
 				6860690E2831501B000068DE /* Den Web Extension.appex */,
@@ -1182,24 +1166,6 @@
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
 			productType = "com.apple.product-type.application";
 		};
-		68C4132E247263C700D1DC7B /* DenUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 68C4133E247263C700D1DC7B /* Build configuration list for PBXNativeTarget "DenUITests" */;
-			buildPhases = (
-				68C4132B247263C700D1DC7B /* Sources */,
-				68C4132C247263C700D1DC7B /* Frameworks */,
-				68C4132D247263C700D1DC7B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				68C41331247263C700D1DC7B /* PBXTargetDependency */,
-			);
-			name = DenUITests;
-			productName = DenUITests;
-			productReference = 68C4132F247263C700D1DC7B /* DenUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1223,10 +1189,6 @@
 					};
 					68C41308247263C700D1DC7B = {
 						CreatedOnToolsVersion = 11.4.1;
-					};
-					68C4132E247263C700D1DC7B = {
-						CreatedOnToolsVersion = 11.4.1;
-						TestTargetID = 68C41308247263C700D1DC7B;
 					};
 				};
 			};
@@ -1256,7 +1218,6 @@
 			targets = (
 				68C41308247263C700D1DC7B /* Den */,
 				6860690D2831501B000068DE /* WebExtension */,
-				68C4132E247263C700D1DC7B /* DenUITests */,
 				689EDC0826A3F46A0055811A /* Screenshots */,
 				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
 			);
@@ -1300,13 +1261,6 @@
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
 				6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		68C4132D247263C700D1DC7B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1570,13 +1524,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		68C4132B247263C700D1DC7B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1589,11 +1536,6 @@
 			isa = PBXTargetDependency;
 			target = 68C41308247263C700D1DC7B /* Den */;
 			targetProxy = 689EDC0E26A3F46A0055811A /* PBXContainerItemProxy */;
-		};
-		68C41331247263C700D1DC7B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 68C41308247263C700D1DC7B /* Den */;
-			targetProxy = 68C41330247263C700D1DC7B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1954,56 +1896,6 @@
 			};
 			name = Release;
 		};
-		68C4133F247263C700D1DC7B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N7TC759VWV;
-				INFOPLIST_FILE = DenUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.DenUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Den;
-			};
-			name = Debug;
-		};
-		68C41340247263C700D1DC7B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N7TC759VWV;
-				INFOPLIST_FILE = DenUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
-				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.DenUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Den;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2048,15 +1940,6 @@
 			buildConfigurations = (
 				68C41339247263C700D1DC7B /* Debug */,
 				68C4133A247263C700D1DC7B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		68C4133E247263C700D1DC7B /* Build configuration list for PBXNativeTarget "DenUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				68C4133F247263C700D1DC7B /* Debug */,
-				68C41340247263C700D1DC7B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

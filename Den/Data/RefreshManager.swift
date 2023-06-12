@@ -41,7 +41,7 @@ final class RefreshManager: ObservableObject {
         }
 
         let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = min(3, ProcessInfo().activeProcessorCount)
+        queue.maxConcurrentOperationCount = min(4, ProcessInfo().activeProcessorCount)
         queue.addOperations(ops, waitUntilFinished: true)
 
         RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
@@ -82,7 +82,7 @@ final class RefreshManager: ObservableObject {
             }
         }
 
-        let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
+        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
 
         _ = await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
                 var working: Int = 0
