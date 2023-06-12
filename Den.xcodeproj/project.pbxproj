@@ -50,7 +50,6 @@
 		6829A4FE28C3CC8D00F75C5A /* BulkSelectionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A4FD28C3CC8D00F75C5A /* BulkSelectionButtons.swift */; };
 		6829A50C28C6479900F75C5A /* AllRead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A50B28C6479900F75C5A /* AllRead.swift */; };
 		682A349728E2B38E004CD90E /* URLDropTargetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */; };
-		682A34A028E57E67004CD90E /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349F28E57E67004CD90E /* Haptics.swift */; };
 		683041B227542E2000BE7631 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B127542E2000BE7631 /* BoardView.swift */; };
 		683041B627543CE900BE7631 /* ShowcaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSection.swift */; };
 		6830D46829F41FB200737FB1 /* ToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6830D46629F41FB200737FB1 /* ToolbarButtonStyle.swift */; };
@@ -328,7 +327,6 @@
 		6829A4FD28C3CC8D00F75C5A /* BulkSelectionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulkSelectionButtons.swift; sourceTree = "<group>"; };
 		6829A50B28C6479900F75C5A /* AllRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRead.swift; sourceTree = "<group>"; };
 		682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDropTargetModifier.swift; sourceTree = "<group>"; };
-		682A349F28E57E67004CD90E /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		683041B127542E2000BE7631 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		683041B527543CE900BE7631 /* ShowcaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSection.swift; sourceTree = "<group>"; };
 		6830D46629F41FB200737FB1 /* ToolbarButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarButtonStyle.swift; sourceTree = "<group>"; };
@@ -765,7 +763,6 @@
 				68B34A5C2486D2710066B215 /* Representables */,
 				688FD91B24780C800006A2DE /* Styles */,
 				6835738D29614C5600843A8E /* Panels.swift */,
-				682A349F28E57E67004CD90E /* Haptics.swift */,
 				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
 				680F494F29AA56BE0083B664 /* WithItems.swift */,
 				68F6FB9A29ADDC83001F74B9 /* PreviewStyle.swift */,
@@ -1357,7 +1354,6 @@
 				683E3F47293BC18C00B16814 /* SidebarStatus.swift in Sources */,
 				68B34A672487ED870066B215 /* ExportView.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
-				682A34A028E57E67004CD90E /* Haptics.swift in Sources */,
 				68352D1829B187180073CEFD /* TintOption.swift in Sources */,
 				6825920929D89CBD00E5EF3B /* HistoryCleanupOperation.swift in Sources */,
 				68AC3A1B2910EF3A00D60273 /* DataTaskOperation.swift in Sources */,

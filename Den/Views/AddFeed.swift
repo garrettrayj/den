@@ -261,7 +261,7 @@ struct AddFeed: View {
         urlIsValid = false
         validationMessage = message
 
-        Haptics.notificationFeedbackGenerator.notificationOccurred(.error)
+        UINotificationFeedbackGenerator().notificationOccurred(.error)
         withAnimation(.default) { validationAttempts += 1 }
     }
 }

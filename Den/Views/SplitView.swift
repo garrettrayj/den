@@ -109,11 +109,11 @@ struct SplitView: View {
             showSubscribe = true
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
-            Haptics.mediumImpactFeedbackGenerator.impactOccurred()
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
             profile.objectWillChange.send()
-            Haptics.notificationFeedbackGenerator.notificationOccurred(.success)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
         .sheet(isPresented: $showSubscribe) {
             AddFeed(

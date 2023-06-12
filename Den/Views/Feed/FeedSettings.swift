@@ -41,7 +41,7 @@ struct FeedSettings: View {
                             .modifier(FormRowModifier())
                     }
                     .onChange(of: feed.wrappedItemLimit, perform: { _ in
-                        Haptics.lightImpactFeedbackGenerator.impactOccurred()
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                     })
                     .modifier(ListRowModifier())
                 } header: {
