@@ -18,16 +18,25 @@ struct FeedStatus: View {
     let unreadCount: Int
 
     var body: some View {
-        VStack {
+        Group {
             if refreshManager.refreshing {
                 Text("Checking for New Items…", comment: "Status message.")
             } else {
-                if let refreshedDate = feed.feedData?.refreshed {
-                    TimelineView(.everyMinute) { _ in
-                        RelativeRefreshedDate(date: refreshedDate)
+                ViewThatFits {
+                    HStack(spacing: 0) {
+                        if let refreshedDate = feed.feedData?.refreshed {
+                            RelativeRefreshedDate(date: refreshedDate)
+                            Text(verbatim: " - ").foregroundColor(.secondary)
+                        }
+                        Text("\(unreadCount) Unread", comment: "Status message.").foregroundColor(.secondary)
+                    }
+                    VStack {
+                        if let refreshedDate = feed.feedData?.refreshed {
+                            RelativeRefreshedDate(date: refreshedDate)
+                        }
+                        Text("\(unreadCount) Unread", comment: "Status message.").foregroundColor(.secondary)
                     }
                 }
-                Text("\(unreadCount) Unread", comment: "Status message.").foregroundColor(.secondary)
             }
         }
         .font(.caption)

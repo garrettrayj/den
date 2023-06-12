@@ -16,10 +16,19 @@ struct SearchStatus: View {
     let query: String
 
     var body: some View {
-        VStack {
-            statusText
-            if let unreadText = unreadText {
-                unreadText.foregroundColor(.secondary)
+        ViewThatFits {
+            HStack(spacing: 0) {
+                statusText
+                if let unreadText = unreadText {
+                    Text(verbatim: " - ").foregroundColor(.secondary)
+                    unreadText.foregroundColor(.secondary)
+                }
+            }
+            VStack {
+                statusText
+                if let unreadText = unreadText {
+                    unreadText.foregroundColor(.secondary)
+                }
             }
         }
         .font(.caption)

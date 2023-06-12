@@ -21,14 +21,25 @@ struct CommonStatus<Content: View>: View {
     var secondaryMessage: Content
 
     var body: some View {
-        VStack {
+        Group {
             if refreshManager.refreshing {
                 Text("Checking for New Items…", comment: "Status message.")
             } else {
-                if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                    RelativeRefreshedDate(date: refreshedDate)
+                ViewThatFits {
+                    HStack(spacing: 0) {
+                        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                            RelativeRefreshedDate(date: refreshedDate)
+                        }
+                        Text(verbatim: " - ").foregroundColor(.secondary)
+                        secondaryMessage.foregroundColor(.secondary)
+                    }
+                    VStack {
+                        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                            RelativeRefreshedDate(date: refreshedDate)
+                        }
+                        secondaryMessage.foregroundColor(.secondary)
+                    }
                 }
-                secondaryMessage.foregroundColor(.secondary)
             }
         }
         .frame(maxWidth: .infinity)
