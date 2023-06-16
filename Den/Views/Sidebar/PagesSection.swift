@@ -12,7 +12,9 @@ import SwiftUI
 
 struct PagesSection: View {
     @Environment(\.managedObjectContext) private var viewContext
+    #if os(iOS)
     @Environment(\.editMode) private var editMode
+    #endif
 
     @ObservedObject var profile: Profile
 
@@ -24,6 +26,9 @@ struct PagesSection: View {
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)
         } header: {
+            #if os(macOS)
+            Text("Pages", comment: "Sidebar section header.")
+            #else
             if editMode?.wrappedValue == .active {
                 Label {
                     Text("New Page", comment: "Button label.")
@@ -38,8 +43,9 @@ struct PagesSection: View {
             } else {
                 Text("Pages", comment: "Sidebar section header.")
             }
+            #endif
         }
-        #if !targetEnvironment(macCatalyst)
+        #if os(iOS)
         .modifier(ListRowModifier())
         #endif
     }

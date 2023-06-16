@@ -24,7 +24,7 @@ struct AddFeedButton: View {
             Label {
                 Text("Add Feed", comment: "Button label.")
             } icon: {
-                Image(systemName: "plus.circle")
+                Image(systemName: "plus")
             }
         }
         .buttonStyle(ToolbarButtonStyle())

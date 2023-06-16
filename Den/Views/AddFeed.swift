@@ -38,94 +38,82 @@ struct AddFeed: View {
     @State private var newFeed: Feed?
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                if targetPage == nil || profile == nil {
-                    VStack(spacing: 24) {
-                        Text("No Pages Available", comment: "Add Feed error message.").font(.title2)
-                        Button { dismiss() } label: {
-                            Text("Cancel", comment: "Button label.").font(.title3)
-                        }
-                        .buttonStyle(.bordered)
-                        .accessibilityIdentifier("subscribe-cancel-button")
-                    }
-                    .foregroundColor(.secondary)
-                } else {
-                    Form {
-                        Section {
-                            feedUrlInput.modifier(FormRowModifier())
-                        } header: {
-                            Text("Web Address", comment: "URL field section label.")
-                        } footer: {
-                            Group {
-                                if let validationMessage = validationMessage {
-                                    Group {
-                                        switch validationMessage {
-                                        case .cannotBeBlank:
-                                            Text(
-                                                "Web address cannot be blank.",
-                                                comment: "URL field validation message."
-                                            )
-                                        case .mustNotContainSpaces:
-                                            Text(
-                                                "Web address must not contain spaces.",
-                                                comment: "URL field validation message."
-                                            )
-                                        case .mustBeginWithHTTP:
-                                            Text(
-                                                "Web address must begin with “http://” or “https://”.",
-                                                comment: "URL field validation message."
-                                            )
-                                        case .parseError:
-                                            Text(
-                                                "Web address could not be parsed.",
-                                                comment: "URL field validation message."
-                                            )
-                                        case .unopenable:
-                                            Text(
-                                                "Web address is unopenable.",
-                                                comment: "URL field validation message."
-                                            )
-                                        }
-                                    }.foregroundColor(.red)
-                                } else {
-                                    Text(
-                                        "Enter a RSS, Atom, or JSON Feed URL.",
-                                        comment: "URL field guidance message."
-                                    )
-                                }
-                            }
-                            .font(.caption)
-                            .padding(.top, 4)
-                        }
-                        .modifier(ListRowModifier())
-
-                        Section {
-                            PagePicker(profile: profile!, selection: $targetPage)
-                        }
-                        .modifier(ListRowModifier())
-
-                        submitButtonSection
+        VStack(spacing: 16) {
+            HStack(alignment: .top) {
+                Text("New Feed").font(.title)
+                Spacer()
+                Button { dismiss() } label: {
+                    Label {
+                        Text("Cancel", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "xmark.circle")
                     }
                 }
+                .buttonStyle(.borderless)
+                .accessibilityIdentifier("add-feed-cancel-button")
             }
-            .background(GroupedBackground())
-            .navigationTitle(Text("Add Feed", comment: "Navigation title."))
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button { dismiss() } label: {
-                        Label {
-                            Text("Cancel", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "xmark.circle")
+            
+            if targetPage == nil || profile == nil {
+                Text("No Pages Available", comment: "Add Feed error message.")
+                    .font(.title2)
+                    .foregroundColor(.secondary)
+            } else {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Web Address", comment: "URL field section label.")
+                    feedUrlInput
+                    VStack {
+                        Group {
+                            if let validationMessage = validationMessage {
+                                Group {
+                                    switch validationMessage {
+                                    case .cannotBeBlank:
+                                        Text(
+                                            "Web address cannot be blank.",
+                                            comment: "URL field validation message."
+                                        )
+                                    case .mustNotContainSpaces:
+                                        Text(
+                                            "Web address must not contain spaces.",
+                                            comment: "URL field validation message."
+                                        )
+                                    case .mustBeginWithHTTP:
+                                        Text(
+                                            "Web address must begin with “http://” or “https://”.",
+                                            comment: "URL field validation message."
+                                        )
+                                    case .parseError:
+                                        Text(
+                                            "Web address could not be parsed.",
+                                            comment: "URL field validation message."
+                                        )
+                                    case .unopenable:
+                                        Text(
+                                            "Web address is unopenable.",
+                                            comment: "URL field validation message."
+                                        )
+                                    }
+                                }.foregroundColor(.red)
+                            } else {
+                                Text(
+                                    "Enter a RSS, Atom, or JSON Feed URL.",
+                                    comment: "URL field guidance message."
+                                )
+                            }
                         }
+                        .font(.caption)
+                        .padding(.top, 4)
                     }
-                    .buttonStyle(PlainToolbarButtonStyle())
-                    .accessibilityIdentifier("add-feed-cancel-button")
                 }
+                
+                PagePicker(profile: profile!, selection: $targetPage).scaledToFit()
+
+                submitButtonSection
             }
         }
+        .frame(minWidth: 600)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(20)
+        .background(GroupedBackground())
         .onAppear {
             urlString = initialURLString
             checkTargetPage()
@@ -176,7 +164,9 @@ struct AddFeed: View {
             .lineLimit(1)
             .multilineTextAlignment(.leading)
             .disableAutocorrection(true)
+            #if os(iOS)
             .textInputAutocapitalization(.never)
+            #endif
             .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
 
             if urlIsValid != nil {
@@ -233,10 +223,12 @@ struct AddFeed: View {
             return
         }
 
+        #if os(iOS)
         if !UIApplication.shared.canOpenURL(url) {
             self.failValidation(message: .unopenable)
             return
         }
+        #endif
 
         urlIsValid = true
     }
@@ -261,7 +253,10 @@ struct AddFeed: View {
         urlIsValid = false
         validationMessage = message
 
+        #if os(iOS)
         UINotificationFeedbackGenerator().notificationOccurred(.error)
+        #endif
+        
         withAnimation(.default) { validationAttempts += 1 }
     }
 }

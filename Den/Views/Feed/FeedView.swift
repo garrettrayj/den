@@ -35,18 +35,7 @@ struct FeedView: View {
                 )
                 .background(GroupedBackground())
                 .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        NavigationLink(value: SubDetailPanel.feedSettings(feed)) {
-                            Label {
-                                Text("Feed Settings", comment: "Button label.")
-                            } icon: {
-                                Image(systemName: "wrench")
-                            }
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .accessibilityIdentifier("feed-settings-button")
-                    }
-                    FeedBottomBar(
+                    FeedToolbar(
                         feed: feed,
                         profile: profile,
                         hideRead: $hideRead,

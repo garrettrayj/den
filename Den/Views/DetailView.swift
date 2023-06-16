@@ -19,12 +19,12 @@ struct DetailView: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
     @Binding var contentSelection: DetailPanel?
-    @Binding var uiStyle: UIUserInterfaceStyle
     @Binding var autoRefreshEnabled: Bool
     @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useSystemBrowser: Bool
     @Binding var searchQuery: String
+    @Binding var userColorScheme: UserColorScheme
 
     @AppStorage("HideRead") private var hideRead: Bool = false
 
@@ -47,15 +47,15 @@ struct DetailView: View {
                         hideRead: $hideRead
                     )
                 case .settings:
-                    SettingsView(
+                    SettingsList(
                         profile: profile,
                         activeProfile: $activeProfile,
                         appProfileID: $appProfileID,
-                        uiStyle: $uiStyle,
                         autoRefreshEnabled: $autoRefreshEnabled,
                         autoRefreshCooldown: $autoRefreshCooldown,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        useSystemBrowser: $useSystemBrowser
+                        useSystemBrowser: $useSystemBrowser,
+                        userColorScheme: $userColorScheme
                     )
                 }
             }

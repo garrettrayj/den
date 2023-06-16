@@ -37,8 +37,6 @@ struct MoveFeedSection: View {
                         dismiss()
                     }
             }
-        } header: {
-            Text("Move", comment: "Feed settings section header.")
         }
         .modifier(ListRowModifier())
     }

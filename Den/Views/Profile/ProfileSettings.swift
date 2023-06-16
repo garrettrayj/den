@@ -45,6 +45,7 @@ struct ProfileSettings: View {
             }
         }
         .toolbar {
+            #if os(iOS)
             ToolbarItem(placement: .bottomBar) {
                 Button {
                     DispatchQueue.main.async {
@@ -65,6 +66,7 @@ struct ProfileSettings: View {
                 .disabled(profile == activeProfile)
                 .accessibilityIdentifier("switch-to-profile-button")
             }
+            #endif
         }
         .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
     }

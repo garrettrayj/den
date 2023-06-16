@@ -55,7 +55,7 @@ struct Start: View {
             .buttonStyle(.borderless)
             .accessibilityIdentifier("load-demo-button")
 
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             importGuidanceText
                 .font(.footnote)
                 .foregroundColor(.secondary)

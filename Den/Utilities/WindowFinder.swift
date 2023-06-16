@@ -10,6 +10,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct WindowFinder {
     static func current() -> UIWindow? {
         guard let scene = UIApplication.shared.connectedScenes.first,
@@ -21,3 +22,4 @@ struct WindowFinder {
         return window
     }
 }
+#endif

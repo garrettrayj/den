@@ -1,5 +1,5 @@
 //
-//  InboxBottomBar.swift
+//  InboxToolbar.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct InboxBottomBar: ToolbarContent {
+struct InboxToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
@@ -18,17 +18,36 @@ struct InboxBottomBar: ToolbarContent {
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            CommonStatus(profile: profile)
+        }
+        ToolbarItem {
+            FilterReadButton(hideRead: $hideRead) {
+                profile.objectWillChange.send()
+            }
+            .buttonStyle(ToolbarButtonStyle())
+        }
+        ToolbarItem {
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                profile.objectWillChange.send()
+                for page in profile.pagesArray {
+                    page.objectWillChange.send()
+                }
+            }
+            .buttonStyle(ToolbarButtonStyle())
+        }
+        #else
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {
                 profile.objectWillChange.send()
             }
+            .buttonStyle(PlainToolbarButtonStyle())
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
-            CommonStatus(
-                profile: profile,
-                secondaryMessage: Text("\(items.unread().count) Unread", comment: "Status message.")
-            )
+            CommonStatus(profile: profile)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -39,6 +58,8 @@ struct InboxBottomBar: ToolbarContent {
                     page.objectWillChange.send()
                 }
             }
+            .buttonStyle(PlainToolbarButtonStyle())
         }
+        #endif
     }
 }

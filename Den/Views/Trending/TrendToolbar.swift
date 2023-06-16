@@ -1,5 +1,5 @@
 //
-//  TrendBottomBar.swift
+//  TrendToolbar.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct TrendBottomBar: ToolbarContent {
+struct TrendToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
 
     @ObservedObject var trend: Trend
@@ -22,6 +22,26 @@ struct TrendBottomBar: ToolbarContent {
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
+        #if os(macOS)
+        ToolbarItem {
+            CommonStatus(profile: profile)
+        }
+        ToolbarItem {
+            FilterReadButton(hideRead: $hideRead) {
+                trend.objectWillChange.send()
+            }.buttonStyle(ToolbarButtonStyle())
+        }
+        ToolbarItem {
+            ToggleReadButton(unreadCount: items.unread().count) {
+                await HistoryUtility.toggleReadUnread(items: Array(items))
+                trend.objectWillChange.send()
+                profile.objectWillChange.send()
+                if hideRead {
+                    dismiss()
+                }
+            }.buttonStyle(ToolbarButtonStyle())
+        }
+        #else
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {
                 trend.objectWillChange.send()
@@ -29,10 +49,7 @@ struct TrendBottomBar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
-            CommonStatus(
-                profile: profile,
-                secondaryMessage: Text("\(items.unread().count) Unread", comment: "Status message.")
-            )
+            CommonStatus(profile: profile)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -45,5 +62,6 @@ struct TrendBottomBar: ToolbarContent {
                 }
             }
         }
+        #endif
     }
 }

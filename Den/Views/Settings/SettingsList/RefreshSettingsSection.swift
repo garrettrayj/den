@@ -17,7 +17,7 @@ struct RefreshSettingsSection: View {
 
     var body: some View {
         Section {
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             HStack {
                 Text("In Background").modifier(FormRowModifier())
                 Spacer()
@@ -31,7 +31,7 @@ struct RefreshSettingsSection: View {
             }
             #endif
 
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             HStack {
                 Text("When Activated").modifier(FormRowModifier())
                 Spacer()

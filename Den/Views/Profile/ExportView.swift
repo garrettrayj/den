@@ -42,6 +42,7 @@ struct ExportView: View {
             title = "\(profile.wrappedName) \(Date().formatted())"
         }
         .toolbar {
+            #if os(iOS)
             ToolbarItem(placement: .bottomBar) {
                 Button {
                     exportOpml()
@@ -57,6 +58,7 @@ struct ExportView: View {
                 .disabled(selectedPages.isEmpty)
                 .accessibilityIdentifier("export-button")
             }
+            #endif
         }
         .navigationTitle(Text("Export", comment: "Navigation title."))
     }
@@ -128,6 +130,7 @@ struct ExportView: View {
     }
 
     private func exportOpml() {
+        #if os(iOS)
         let exportPages: [Page] = profile.pagesArray.compactMap { page in
             if selectedPages.contains(page) {
                 return page
@@ -148,5 +151,6 @@ struct ExportView: View {
         {
             rootViewController.present(picker.viewController, animated: true)
         }
+        #endif
     }
 }

@@ -30,7 +30,6 @@ struct FilterReadButton: View {
                 )
             }
         }
-        .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("filter-read-button")
     }
 }

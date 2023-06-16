@@ -25,7 +25,10 @@ struct ImportView: View {
     @State private var pickedURL: URL?
     @State private var feedsImported: [Feed] = []
     @State private var pagesImported: [Page] = []
+    
+    #if os(iOS)
     @State private var documentPicker: ImportDocumentPicker?
+    #endif
 
     var body: some View {
         VStack {
@@ -41,6 +44,7 @@ struct ImportView: View {
         .onDisappear(perform: reset)
         .navigationTitle(Text("Import", comment: "Navigation title."))
         .toolbar {
+            #if os(iOS)
             ToolbarItem(placement: .bottomBar) {
                 if stage == .pickFile {
                     Button(action: pickFile) {
@@ -67,6 +71,7 @@ struct ImportView: View {
                     .accessibilityIdentifier("import-button")
                 }
             }
+            #endif
         }
     }
 
@@ -207,6 +212,7 @@ struct ImportView: View {
      so we do it this way instead of in a UIViewControllerRepresentable
      */
     private func pickFile() {
+        #if os(iOS)
         self.documentPicker = ImportDocumentPicker(callback: { urls in
             guard let url = urls.first else { return }
             pickedURL = url
@@ -224,5 +230,6 @@ struct ImportView: View {
         {
             rootViewController.present(pickerViewController, animated: true)
         }
+        #endif
     }
 }

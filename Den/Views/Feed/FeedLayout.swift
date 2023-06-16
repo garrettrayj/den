@@ -150,7 +150,9 @@ struct FeedLayout: View {
 
                 if let feedURLString = feed.url?.absoluteString, let url = feed.url {
                     Button {
+                        #if os(iOS)
                         UIPasteboard.general.url = url
+                        #endif
                         urlCopied = true
                     } label: {
                         Text(feedURLString).lineLimit(1)

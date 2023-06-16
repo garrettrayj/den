@@ -13,7 +13,7 @@ import SwiftUI
 struct MainBoardModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             .padding(.top)
             #endif
             .padding(.bottom)

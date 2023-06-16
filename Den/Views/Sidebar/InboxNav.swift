@@ -25,7 +25,7 @@ struct InboxNav: View {
             }
         }
         .accessibilityIdentifier("inbox-button")
-        #if !targetEnvironment(macCatalyst)
+        #if os(iOS)
         .modifier(ListRowModifier())
         #endif
     }

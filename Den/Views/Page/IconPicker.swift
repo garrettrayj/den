@@ -31,7 +31,6 @@ struct IconPicker: View {
             }
             .background(GroupedBackground())
             .navigationTitle(Text("Choose Icon", comment: "Navigation title."))
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {

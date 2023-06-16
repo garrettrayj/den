@@ -16,7 +16,7 @@ struct SecondaryGroupedBackground: View {
     var highlight = false
 
     var body: some View {
-        #if targetEnvironment(macCatalyst)
+        #if os(macOS)
         if colorScheme == .dark {
             Rectangle().fill(.quaternary)
         } else {

@@ -22,11 +22,15 @@ struct PageSettings: View {
             SplashNote(title: Text("Page Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             Form {
-                nameSection
-                iconSection
-                feedsSection
+                List {
+                    nameSection
+                    iconSection
+                    feedsSection
+                }
             }
+            #if os(iOS)
             .environment(\.editMode, .constant(.active))
+            #endif
             .background(GroupedBackground())
             .navigationTitle(Text("Page Settings", comment: "Navigation title."))
             .onDisappear(perform: save)
@@ -43,8 +47,6 @@ struct PageSettings: View {
             }
             .modifier(FormRowModifier())
             .modifier(TitleTextFieldModifier())
-        } header: {
-            Text("Name", comment: "Page settings section header.").modifier(FirstFormHeaderModifier())
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
@@ -71,8 +73,6 @@ struct PageSettings: View {
             }
             .buttonStyle(.borderless)
             .modifier(FormRowModifier())
-        } header: {
-            Text("Icon", comment: "Page settings section header.")
         }
         .sheet(isPresented: $showingIconPicker) {
             NavigationStack {
@@ -90,10 +90,18 @@ struct PageSettings: View {
                     .modifier(FormRowModifier())
             } else {
                 ForEach(page.feedsArray) { feed in
-                    FeedTitleLabel(
-                        title: feed.titleText,
-                        favicon: feed.feedData?.favicon
-                    ).modifier(FormRowModifier())
+                    HStack {
+                        FeedTitleLabel(
+                            title: feed.titleText,
+                            favicon: feed.feedData?.favicon
+                        ).modifier(FormRowModifier())
+                        Spacer()
+                        #if os(macOS)
+                        Image(systemName: "line.3.horizontal")
+                            .imageScale(.large)
+                            .foregroundStyle(.tertiary)
+                        #endif
+                    }
                 }
                 .onDelete(perform: deleteFeed)
                 .onMove(perform: moveFeed)
@@ -142,6 +150,13 @@ struct PageSettings: View {
         // This is done in reverse to minimize changes to the indices.
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
+        }
+        
+        do {
+            try viewContext.save()
+            page.objectWillChange.send()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 }

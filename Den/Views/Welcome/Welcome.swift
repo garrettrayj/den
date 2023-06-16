@@ -24,18 +24,12 @@ struct Welcome: View {
             profile.nameText.font(.largeTitle)
         }
         .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                CommonStatus(
-                    profile: profile,
-                    secondaryMessage: FeedCount(count: profile.feedsArray.count)
-                )
-            }
+            WelcomeToolbar(profile: profile)
         }
         .multilineTextAlignment(.center)
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
         .background(GroupedBackground())
-        .navigationBarTitleDisplayMode(.inline)
     }
 }

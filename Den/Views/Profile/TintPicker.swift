@@ -16,7 +16,7 @@ struct TintPicker: View {
     var body: some View {
         Picker(selection: $tint) {
             Label {
-                Text("None", comment: "Tint color option.")
+                Text("No Tint", comment: "Tint color option.")
             } icon: {
                 Image(systemName: "hexagon.fill")
             }
@@ -38,7 +38,9 @@ struct TintPicker: View {
             Text("Tint", comment: "Picker label.").modifier(FormRowModifier())
         }
         .scrollContentBackground(.visible)
+        #if os(iOS)
         .pickerStyle(.navigationLink)
+        #endif
         .accessibilityIdentifier("tint-picker")
     }
 }

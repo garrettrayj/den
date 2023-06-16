@@ -10,9 +10,9 @@
 
 import SwiftUI
 
-extension UIColor {
+extension Color {
     var hexString: String {
-        let components = self.cgColor.components
+        let components = self.cgColor?.components
         let red = components?[safe: 0] ?? 0.0
         let green = components?[safe: 1] ?? 0.0
         let blue = components?[safe: 2] ?? 0.0

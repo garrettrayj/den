@@ -23,10 +23,7 @@ struct Inbox: View {
                 items: items
             )
             .toolbar {
-                ToolbarItem {
-                    AddFeedButton()
-                }
-                InboxBottomBar(profile: profile, hideRead: $hideRead, items: items)
+                InboxToolbar(profile: profile, hideRead: $hideRead, items: items)
             }
             .navigationTitle(Text("Inbox"))
         }

@@ -22,7 +22,7 @@ struct HistorySettingsSection: View {
 
     var body: some View {
         Section {
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             HStack {
                 Text("Keep").modifier(FormRowModifier())
                 Spacer()

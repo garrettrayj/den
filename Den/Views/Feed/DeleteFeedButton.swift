@@ -28,7 +28,6 @@ struct DeleteFeedButton: View {
                 Image(systemName: "trash")
             }
             .symbolRenderingMode(.multicolor)
-            .modifier(FormRowModifier())
         }
         .alert(
             Text("Delete Feed?", comment: "Alert title."),

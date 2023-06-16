@@ -29,51 +29,14 @@ struct ItemView: View {
             SplashNote(title: Text("Item Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             itemLayout
-                #if targetEnvironment(macCatalyst)
+                #if os(macOS)
                 .background(.thinMaterial.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
                 .background(.background, ignoresSafeAreaEdges: .all)
                 #else
                 .background(.background, ignoresSafeAreaEdges: .all)
                 #endif
                 .toolbar {
-                    if let link = item.link {
-                        ToolbarItem(placement: .primaryAction) {
-                            ShareLink(item: link) {
-                                Label {
-                                    Text("Share…", comment: "Toolbar button label.")
-                                } icon: {
-                                    Image(systemName: "square.and.arrow.up")
-                                }
-                            }
-                            .buttonStyle(ToolbarButtonStyle())
-                        }
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Button {
-                            if let url = item.link {
-                                if useSystemBrowser {
-                                    openURL(url)
-                                } else {
-                                    SafariUtility.openLink(
-                                        url: url,
-                                        controlTintColor: profile.tintUIColor ?? .tintColor,
-                                        readerMode: feed.readerMode
-                                    )
-                                }
-                            }
-                        } label: {
-                            Label {
-                                Text("Open in Browser", comment: "Toolbar button label.")
-                            } icon: {
-                                Image(systemName: "link.circle")
-                            }
-                        }
-                        .buttonStyle(PlainToolbarButtonStyle())
-                        .accessibilityIdentifier("item-open-button")
-                    }
+                    ItemToolbar(item: item, feed: feed, profile: profile)
                 }
         }
     }
@@ -122,7 +85,7 @@ struct ItemView: View {
                                 html: item.body ?? item.summary!,
                                 title: item.wrappedTitle,
                                 baseURL: item.link,
-                                tint: profile.tintUIColor
+                                tint: profile.tintColor
                             )
                         }
                     }
@@ -132,7 +95,6 @@ struct ItemView: View {
                 .frame(maxWidth: .infinity)
                 .padding()
                 .padding(.vertical, 8)
-                .navigationBarTitleDisplayMode(.inline)
                 .task { await HistoryUtility.markItemRead(item: item) }
             }
         }

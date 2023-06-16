@@ -13,6 +13,8 @@ import OSLog
 
 final class RefreshManager: ObservableObject {
     @Published var refreshing: Bool = false
+    
+    var progress: Progress = Progress()
 
     public func refresh(profile: Profile) {
         guard !refreshing else {

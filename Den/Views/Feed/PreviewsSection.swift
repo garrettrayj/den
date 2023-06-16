@@ -25,6 +25,7 @@ struct PreviewsSection: View {
                 PreviewStylePicker(previewStyle: $feed.wrappedPreviewStyle)
                     .pickerStyle(.segmented)
                     .scaledToFit()
+                    .labelsHidden()
             }
             .modifier(ListRowModifier())
             .task {
@@ -37,7 +38,7 @@ struct PreviewsSection: View {
             }
 
             if showHideTeaserOption {
-                #if targetEnvironment(macCatalyst)
+                #if os(macOS)
                 HStack {
                     Text("Hide Teasers", comment: "Toggle label.").modifier(FormRowModifier())
                     Spacer()
@@ -52,7 +53,7 @@ struct PreviewsSection: View {
                 #endif
             }
 
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             HStack {
                 Text("Hide Bylines", comment: "Toggle label.").modifier(FormRowModifier())
                 Spacer()
@@ -66,7 +67,7 @@ struct PreviewsSection: View {
             .modifier(ListRowModifier())
             #endif
 
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             HStack {
                 Text("Hide Images", comment: "Toggle label.").modifier(FormRowModifier())
                 Spacer()
@@ -80,7 +81,7 @@ struct PreviewsSection: View {
             .modifier(ListRowModifier())
             #endif
 
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             HStack {
                 Text("Open in Browser", comment: "Toggle label.").modifier(FormRowModifier())
                 Spacer()
@@ -99,10 +100,8 @@ struct PreviewsSection: View {
                 .modifier(ListRowModifier())
             }
             #endif
-        } header: {
-            Text("Previews", comment: "Feed settings section header.")
         } footer: {
-            #if !targetEnvironment(macCatalyst)
+            #if os(iOS)
             if useSystemBrowser == true {
                 Text(
                     "System web browser in use. \"Enter Reader Mode\" will be ignored.",

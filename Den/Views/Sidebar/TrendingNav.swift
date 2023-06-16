@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct TrendingNav: View {
-    @Environment(\.editMode) private var editMode
-
     @ObservedObject var profile: Profile
 
     var body: some View {
@@ -25,7 +23,7 @@ struct TrendingNav: View {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
-        #if !targetEnvironment(macCatalyst)
+        #if os(iOS)
         .modifier(ListRowModifier())
         #endif
         .accessibilityIdentifier("trends-button")

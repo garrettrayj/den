@@ -13,7 +13,7 @@ import SwiftUI
 struct FirstFormHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             .listRowInsets(EdgeInsets(top: 24, leading: 16, bottom: 8, trailing: 16))
             #endif
     }

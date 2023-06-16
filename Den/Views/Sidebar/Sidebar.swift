@@ -14,6 +14,7 @@ import SwiftUI
 struct Sidebar: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
 
@@ -29,30 +30,54 @@ struct Sidebar: View {
             if profile.pagesArray.isEmpty {
                 Start(profile: profile)
             } else {
-                InboxNav(profile: profile)
-                TrendingNav(profile: profile)
+                AllSection(profile: profile)
                 PagesSection(profile: profile)
             }
         }
+        #if os(macOS)
+        .safeAreaInset(edge: .bottom, alignment: .leading) {
+            Button {
+                withAnimation {
+                    _ = Page.create(in: viewContext, profile: profile, prepend: true)
+
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            } label: {
+                Label {
+                    Text("New Page", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "plus.circle").imageScale(.medium)
+                }
+                .font(.body)
+                .accessibilityIdentifier("new-page-button")
+            }
+            .buttonStyle(.borderless)
+            .foregroundStyle(.secondary)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+        }
+        #endif
         .listStyle(.sidebar)
         .searchable(
             text: $searchInput,
-            placement: .navigationBarDrawer(displayMode: .always),
+            placement: .sidebar,
             prompt: Text("Search", comment: "Search field prompt.")
         )
         .onSubmit(of: .search) {
             searchQuery = searchInput
             contentSelection = .search
         }
-        #if targetEnvironment(macCatalyst)
-        .background(.thickMaterial)
-        .background(.background)
-        #else
+        #if os(iOS)
         .background(GroupedBackground())
         #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.nameText)
         .toolbar {
+            #if os(iOS)
             ToolbarItem {
                 EditButton()
                     .buttonStyle(ToolbarButtonStyle())
@@ -73,10 +98,36 @@ struct Sidebar: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 RefreshButton(profile: profile)
+                    .buttonStyle(PlainToolbarButtonStyle())
                     .disabled(
                         refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                     )
             }
+            #else
+            ToolbarItem {
+                RefreshButton(profile: profile)
+                    .buttonStyle(ToolbarButtonStyle())
+                    .disabled(
+                        refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                    )
+            }
+            ToolbarItem {
+                if case .page(let page) = contentSelection {
+                    AddFeedButton(page: page)
+                        .buttonStyle(ToolbarButtonStyle())
+                        .disabled(
+                            refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                        )
+                } else {
+                    AddFeedButton()
+                        .buttonStyle(ToolbarButtonStyle())
+                        .disabled(
+                            refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                        )
+                }
+                
+            }
+            #endif
         }
     }
 }

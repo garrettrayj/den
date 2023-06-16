@@ -27,7 +27,6 @@ struct RefreshButton: View {
                 Image(systemName: "arrow.clockwise")
             }
         }
-        .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("profile-refresh-button")
     }
 }

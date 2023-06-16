@@ -14,7 +14,16 @@ struct GroupedBackground: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        #if targetEnvironment(macCatalyst)
+        #if os(iOS)
+        if colorScheme == .dark {
+            // Dark mode system background lightens when window is split with another.
+            EmptyView()
+        } else {
+            Rectangle()
+                .fill(Color(.systemGroupedBackground))
+                .edgesIgnoringSafeArea(.all)
+        }
+        #else
         if colorScheme == .dark {
             Rectangle()
                 .fill(.thinMaterial)
@@ -24,15 +33,6 @@ struct GroupedBackground: View {
             Rectangle()
                 .fill(.ultraThinMaterial)
                 .background(.background)
-                .edgesIgnoringSafeArea(.all)
-        }
-        #else
-        if colorScheme == .dark {
-            // Dark mode system background lightens when window is split with another.
-            EmptyView()
-        } else {
-            Rectangle()
-                .fill(Color(.systemGroupedBackground))
                 .edgesIgnoringSafeArea(.all)
         }
         #endif

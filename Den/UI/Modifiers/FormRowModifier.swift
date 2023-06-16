@@ -13,7 +13,7 @@ import SwiftUI
 struct FormRowModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             .padding(.vertical, 12)
             #else
             .padding(.vertical, 4)

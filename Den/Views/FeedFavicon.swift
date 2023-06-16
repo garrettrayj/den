@@ -13,6 +13,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedFavicon: View {
+    @Environment(\.displayScale) private var displayScale
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -30,8 +31,8 @@ struct FeedFavicon: View {
 
     private var thumbnailPixelSize: CGSize {
         CGSize(
-            width: scaledSize.width * UIScreen.main.scale,
-            height: scaledSize.height * UIScreen.main.scale
+            width: scaledSize.width * displayScale,
+            height: scaledSize.height * displayScale
         )
     }
 

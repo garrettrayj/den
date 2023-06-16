@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
+#if os(iOS)
 import MobileCoreServices
 import SwiftUI
 
@@ -47,3 +48,4 @@ extension ImportDocumentPicker: UIDocumentPickerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 }
+#endif

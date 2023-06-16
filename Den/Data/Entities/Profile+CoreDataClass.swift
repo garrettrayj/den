@@ -30,11 +30,6 @@ public class Profile: NSManagedObject {
         set { historyRetention = Int16(newValue) }
     }
 
-    public var tintUIColor: UIColor? {
-        guard let tint = tint, let tintOption = TintOption(rawValue: tint) else { return nil }
-        return tintOption.uiColor
-    }
-
     public var tintColor: Color? {
         guard let tint = tint, let tintOption = TintOption(rawValue: tint) else { return nil }
         return tintOption.color

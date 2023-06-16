@@ -13,37 +13,49 @@ import SwiftUI
 /**
  Common bottom bar with relative updated time and unread count.
  */
-struct CommonStatus<Content: View>: View {
+struct CommonStatus: View {
     @EnvironmentObject private var refreshManager: RefreshManager
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
-
-    var secondaryMessage: Content
+    
+    @State var progress: Progress = Progress()
+    
+    init(profile: Profile) {
+        self.profile = profile
+        self.progress.totalUnitCount = Int64(profile.feedsArray.count)
+    }
 
     var body: some View {
-        Group {
-            if refreshManager.refreshing {
-                Text("Checking for New Items…", comment: "Status message.")
-            } else {
-                ViewThatFits {
-                    HStack(spacing: 0) {
-                        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                            RelativeRefreshedDate(date: refreshedDate)
-                        }
-                        Text(verbatim: " - ").foregroundColor(.secondary)
-                        secondaryMessage.foregroundColor(.secondary)
-                    }
-                    VStack {
-                        if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                            RelativeRefreshedDate(date: refreshedDate)
-                        }
-                        secondaryMessage.foregroundColor(.secondary)
-                    }
-                }
+        VStack {
+            if !networkMonitor.isConnected {
+                Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
+            } else if  refreshManager.refreshing {
+                Text("Updating…", comment: "Refresh in-progress label.")
+                ProgressView(progress)
+                    .progressViewStyle(.linear)
+                    .labelsHidden()
+                    #if os(macOS)
+                    .frame(height: 8)
+                    #else
+                    .frame(height: 4)
+                    #endif
+            } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                RelativeRefreshedDate(date: refreshedDate)
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(minWidth: 100)
         .font(.caption)
         .lineLimit(1)
+        .padding(.horizontal, 8)
+        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+            progress.completedUnitCount += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
+            progress.completedUnitCount += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished)) { _ in
+            progress.completedUnitCount = 0
+        }
     }
 }

@@ -11,10 +11,10 @@
 import SwiftUI
 
 struct SidebarStatus: View {
-    @EnvironmentObject var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
-
+    
     @Binding var refreshing: Bool
 
     let progress: Progress
@@ -31,47 +31,29 @@ struct SidebarStatus: View {
 
     var body: some View {
         VStack {
-            if refreshing {
-                ProgressView(progress).progressViewStyle(
-                    BottomBarProgressViewStyle(profile: profile)
-                )
+            if !networkMonitor.isConnected {
+                Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
+            } else if refreshing {
+                Text("Updating…", comment: "Refresh in-progress label.")
+                ProgressView(progress).progressViewStyle(.linear).labelsHidden()
             } else {
-                if !profile.pagesArray.isEmpty {
-                    if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                        if refreshedDate.formatted(date: .complete, time: .omitted) ==
-                            Date().formatted(date: .complete, time: .omitted) {
-                            Text(
-                                "Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))",
-                                comment: "Updated time status message."
-                            )
-                        } else {
-                            Text(
-                                "Updated \(dateFormatter.string(from: refreshedDate))",
-                                comment: "Updated date status message."
-                            )
-                        }
+                if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                    if refreshedDate.formatted(date: .complete, time: .omitted) ==
+                        Date().formatted(date: .complete, time: .omitted) {
+                        Text(
+                            "Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))",
+                            comment: "Updated time status message."
+                        )
                     } else {
-                        if networkMonitor.isConnected {
-                            #if targetEnvironment(macCatalyst)
-                            Text(
-                                "Press \(Image(systemName: "command")) + R to Refresh",
-                                comment: "Mac shortcut guidance message."
-                            ).imageScale(.small)
-                            #else
-                            Text(
-                                "Pull to Refresh",
-                                comment: "iOS shortcut guidance message."
-                            )
-                            #endif
-                        }
-                    }
-
-                    if !networkMonitor.isConnected {
-                        Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
+                        Text(
+                            "Updated \(dateFormatter.string(from: refreshedDate))",
+                            comment: "Updated date status message."
+                        )
                     }
                 }
             }
         }
+        .frame(minWidth: 100)
         .font(.caption)
         .multilineTextAlignment(.center)
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in

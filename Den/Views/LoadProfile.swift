@@ -58,7 +58,9 @@ struct LoadProfile: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.horizontal, 24)
         .padding(.bottom)
+        #if os(iOS)
         .toolbar(.hidden, for: .navigationBar)
+        #endif
     }
 
     private func load() {

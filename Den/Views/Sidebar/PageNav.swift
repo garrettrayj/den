@@ -12,13 +12,20 @@ import CoreData
 import SwiftUI
 
 struct PageNav: View {
+    #if os(iOS)
     @Environment(\.editMode) private var editMode
+    #endif
 
     @ObservedObject var page: Page
 
     var body: some View {
         NavigationLink(value: DetailPanel.page(page)) {
             Label {
+                #if os(macOS)
+                WithItems(scopeObject: page, readFilter: false) { items in
+                    page.nameText.badge(items.count)
+                }
+                #else
                 if editMode?.wrappedValue.isEditing == true {
                     page.nameText
                 } else {
@@ -26,10 +33,12 @@ struct PageNav: View {
                         page.nameText.badge(items.count)
                     }
                 }
+                #endif
             } icon: {
                 Image(systemName: page.wrappedSymbol)
             }
             .lineLimit(1)
+            
         }
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
             if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {

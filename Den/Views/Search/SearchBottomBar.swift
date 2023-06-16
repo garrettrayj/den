@@ -19,6 +19,7 @@ struct SearchBottomBar: ToolbarContent {
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
+        #if os(iOS)
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {
                 profile.objectWillChange.send()
@@ -34,5 +35,8 @@ struct SearchBottomBar: ToolbarContent {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
+        #else
+        ToolbarItem {}
+        #endif
     }
 }

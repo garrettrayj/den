@@ -59,7 +59,9 @@ struct ItemActionView<Content: View>: View {
                     }
                 }
                 Button {
+                    #if os(iOS)
                     UIPasteboard.general.url = link
+                    #endif
                 } label: {
                     Label {
                         Text("Copy Link", comment: "Context menu button label.")
@@ -84,7 +86,7 @@ struct ItemActionView<Content: View>: View {
         } else {
             SafariUtility.openLink(
                 url: url,
-                controlTintColor: profile.tintUIColor ?? .tintColor,
+                controlTintColor: profile.tintColor ?? .accentColor,
                 readerMode: feed.readerMode
             )
         }

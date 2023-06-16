@@ -14,7 +14,7 @@ struct TertiaryGroupedBackground: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        #if targetEnvironment(macCatalyst)
+        #if os(macOS)
         if colorScheme == .dark {
             Rectangle().fill(.ultraThickMaterial).background(.secondary)
         } else {

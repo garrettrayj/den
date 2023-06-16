@@ -19,10 +19,9 @@ struct RootView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
+    @Binding var userColorScheme: UserColorScheme
 
     @State private var showCrashMessage = false
-
-    @AppStorage("UIStyle") private var uiStyle = UIUserInterfaceStyle.unspecified
 
     var body: some View {
         Group {
@@ -32,7 +31,7 @@ struct RootView: View {
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     appProfileID: $appProfileID,
                     activeProfile: $activeProfile,
-                    uiStyle: $uiStyle
+                    userColorScheme: $userColorScheme
                 )
             } else {
                 LoadProfile(
@@ -41,23 +40,14 @@ struct RootView: View {
                 )
             }
         }
+        .preferredColorScheme(.dark)
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showCrashMessage = true
         }
         .sheet(isPresented: $showCrashMessage) {
             CrashMessage()
-                .preferredColorScheme(ColorScheme(uiStyle))
                 .interactiveDismissDisabled()
         }
         .scrollContentBackground(.hidden)
-        .preferredColorScheme(ColorScheme(uiStyle))
-        .onChange(of: uiStyle) { _ in
-            // Update UI style override for system views, e.g., built-in Safari on iOS
-            WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
-        }
-        .task {
-            // Set initial UI style override for system views, e.g., built-in Safari on iOS
-            WindowFinder.current()?.overrideUserInterfaceStyle = uiStyle
-        }
     }
 }

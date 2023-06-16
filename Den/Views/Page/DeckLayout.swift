@@ -56,8 +56,10 @@ struct DeckLayout: View {
             }
             .id("DeckLayoutSroll_\(page.id?.uuidString ?? "NoID")")
             .edgesIgnoringSafeArea(.all)
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
+            #endif
         }
     }
 }

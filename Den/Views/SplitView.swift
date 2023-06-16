@@ -14,7 +14,6 @@ import SwiftUI
 
 struct SplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -26,7 +25,7 @@ struct SplitView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
-    @Binding var uiStyle: UIUserInterfaceStyle
+    @Binding var userColorScheme: UserColorScheme
 
     @State private var searchQuery: String = ""
     @State private var contentSelection: DetailPanel?
@@ -48,7 +47,7 @@ struct SplitView: View {
                 searchQuery: $searchQuery
             )
             // Column width is set by initial sidebar view
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             .navigationSplitViewColumnWidth(224)
             #else
             .navigationSplitViewColumnWidth(264 * dynamicTypeSize.layoutScalingFactor)
@@ -64,15 +63,14 @@ struct SplitView: View {
                 activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
                 contentSelection: $contentSelection,
-                uiStyle: $uiStyle,
                 autoRefreshEnabled: $autoRefreshEnabled,
                 autoRefreshCooldown: $autoRefreshCooldown,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 useSystemBrowser: $useSystemBrowser,
-                searchQuery: $searchQuery
+                searchQuery: $searchQuery,
+                userColorScheme: $userColorScheme
             )
         }
-        .tint(profile.tintColor)
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
             if case .page(let page) = contentSelection {
@@ -109,11 +107,15 @@ struct SplitView: View {
             showSubscribe = true
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+            #if os(iOS)
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            #endif
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
             profile.objectWillChange.send()
+            #if os(iOS)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
+            #endif
         }
         .sheet(isPresented: $showSubscribe) {
             AddFeed(
@@ -122,7 +124,6 @@ struct SplitView: View {
                 profile: activeProfile
             )
             .tint(profile.tintColor)
-            .preferredColorScheme(colorScheme)
             .environmentObject(refreshManager)
         }
     }

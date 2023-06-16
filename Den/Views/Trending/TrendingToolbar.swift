@@ -1,5 +1,5 @@
 //
-//  TrendingBottomBar.swift
+//  TrendingToolbar.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct TrendingBottomBar: ToolbarContent {
+struct TrendingToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
@@ -25,22 +25,35 @@ struct TrendingBottomBar: ToolbarContent {
     }
 
     var body: some ToolbarContent {
-        ToolbarItem(placement: .bottomBar) {
+        #if os(macOS)
+        ToolbarItem {
+            CommonStatus(profile: profile)
+        }
+        ToolbarItem {
             FilterReadButton(hideRead: $hideRead) { }
+                .buttonStyle(ToolbarButtonStyle())
+        }
+        ToolbarItem {
+            ToggleReadButton(unreadCount: unreadCount) {
+                await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                profile.objectWillChange.send()
+            }.buttonStyle(ToolbarButtonStyle())
+        }
+        #else
+        ToolbarItem(placement: .bottomBar) {
+            FilterReadButton(hideRead: $hideRead) { }.buttonStyle(PlainToolbarButtonStyle())
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
-            CommonStatus(
-                profile: profile,
-                secondaryMessage: Text("\(unreadCount) with Unread", comment: "Status message.")
-            )
+            CommonStatus(profile: profile)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: unreadCount) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 profile.objectWillChange.send()
-            }
+            }.buttonStyle(PlainToolbarButtonStyle())
         }
+        #endif
     }
 }

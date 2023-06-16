@@ -29,7 +29,7 @@ struct TrendView: View {
                 )
                 .background(GroupedBackground())
                 .toolbar {
-                    TrendBottomBar(
+                    TrendToolbar(
                         trend: trend,
                         profile: profile,
                         hideRead: $hideRead,

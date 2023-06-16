@@ -12,30 +12,15 @@ import Combine
 import SwiftUI
 import WebKit
 
-struct ItemWebView: UIViewRepresentable {
+struct ItemWebView {
+    @Environment(\.openURL) private var openURL
+    
     var html: String?
     var title: String
     var baseURL: URL?
-    var tint: UIColor?
+    var tint: Color?
 
     @State var webView = CustomWebView(frame: .zero, configuration: WKWebViewConfiguration())
-
-    func makeUIView(context: Context) -> WKWebView {
-        webView.scrollView.isScrollEnabled = false
-        webView.scrollView.bounces = false
-        webView.navigationDelegate = context.coordinator
-        webView.isOpaque = false
-        if #available(macCatalyst 16.4, iOS 16.4, *) {
-            webView.isInspectable = true
-        }
-
-        return webView
-    }
-
-    func updateUIView(_ webView: WKWebView, context: Context) {
-        loadContent()
-        return
-    }
 
     func makeCoordinator() -> Coordinator {
         Coordinator()
@@ -71,7 +56,10 @@ struct ItemWebView: UIViewRepresentable {
         guard
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             let cssString = try? String(contentsOfFile: path)
-                .replacingOccurrences(of: "$TINT_COLOR", with: tint?.hexString ?? UIColor.tintColor.hexString)
+                .replacingOccurrences(
+                    of: "$TINT_COLOR",
+                    with: tint?.hexString ?? Color.accentColor.hexString
+                )
                 .components(separatedBy: .newlines).joined()
         else { return nil }
 
@@ -86,6 +74,19 @@ struct ItemWebView: UIViewRepresentable {
                 after: .init(.now() + 0.1),
                 interval: 1
             ) {
+                
+                webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
+                    if complete != nil {
+                        webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, error) in
+                            
+                            guard let height = height as? CGFloat else { return }
+                            webView.frame.size.height = height
+                            webView.removeConstraints(webView.constraints)
+                            webView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                        })
+                    }
+                })
+                
                 webView.invalidateIntrinsicContentSize()
             }
         }
@@ -106,10 +107,10 @@ struct ItemWebView: UIViewRepresentable {
             {
                 decisionHandler(.cancel)
 
-                #if targetEnvironment(macCatalyst)
-                UIApplication.shared.open(url)
+                #if os(macOS)
+                SafariUtility.openLink(url: url, controlTintColor: .accentColor)
                 #else
-                SafariUtility.openLink(url: url, controlTintColor: .tintColor)
+                SafariUtility.openLink(url: url, controlTintColor: .accentColor)
                 #endif
             } else {
                 decisionHandler(.allow)
@@ -130,8 +131,45 @@ struct ItemWebView: UIViewRepresentable {
             fatalError("init(coder:) has not been implemented")
         }
 
+        #if os(iOS)
         override var intrinsicContentSize: CGSize {
-            return self.scrollView.contentSize
+            self.scrollView.contentSize
         }
+        #endif
     }
 }
+
+#if os(iOS)
+extension ItemWebView: UIViewRepresentable {
+    func makeUIView(context: Context) -> WKWebView {
+        webView.scrollView.isScrollEnabled = false
+        webView.scrollView.bounces = false
+        webView.navigationDelegate = context.coordinator
+        webView.isOpaque = false
+        if #available(macCatalyst 16.4, iOS 16.4, *) {
+            webView.isInspectable = true
+        }
+
+        return webView
+    }
+
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        loadContent()
+        return
+    }
+}
+#else
+extension ItemWebView: NSViewRepresentable {
+    func makeNSView(context: Context) -> WKWebView {
+        webView.navigationDelegate = context.coordinator
+        webView.isInspectable = true
+
+        return webView
+    }
+
+    func updateNSView(_ webView: WKWebView, context: Context) {
+        loadContent()
+        return
+    }
+}
+#endif

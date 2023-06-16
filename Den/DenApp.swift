@@ -11,15 +11,21 @@ import CoreData
 import OSLog
 import SwiftUI
 import BackgroundTasks
+import SDWebImage
+import SDWebImageWebPCoder
+import SDWebImageSVGCoder
 
 @main
 struct DenApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("AppProfileID") var appProfileID: String?
     @AppStorage("LastCleanup") var lastCleanup: Double?
+    @AppStorage("AutoRefreshEnabled") private var autoRefreshEnabled: Bool = false
+    @AppStorage("AutoRefreshCooldown") private var autoRefreshCooldown: Int = 30
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
+    @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
 
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
@@ -33,13 +39,42 @@ struct DenApp: App {
             RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 appProfileID: $appProfileID,
-                activeProfile: $activeProfile
+                activeProfile: $activeProfile,
+                userColorScheme: $userColorScheme
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
             .environmentObject(refreshManager)
+            .preferredColorScheme(userColorScheme.colorScheme)
+            .tint(activeProfile?.tintColor)
         }
         .commands {
+            CommandGroup(replacing: .newItem) {
+                Button {
+                    SubscriptionUtility.showSubscribe()
+                } label: {
+                    Text("New Feed", comment: "System toolbar button label.")
+                }
+                .keyboardShortcut("n", modifiers: [.command])
+                
+                Button {
+                    guard let profile = activeProfile else { return }
+                    _ = Page.create(
+                        in: persistenceController.container.viewContext,
+                        profile: profile,
+                        prepend: true
+                    )
+                    do {
+                        try persistenceController.container.viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                } label: {
+                    Text("New Page", comment: "System toolbar button label.")
+                }
+                .keyboardShortcut("n", modifiers: [.command, .shift])
+            }
+            
             CommandGroup(after: .sidebar) {
                 Divider()
                 Button {
@@ -52,33 +87,70 @@ struct DenApp: App {
                 }
                 .keyboardShortcut("r", modifiers: [.command])
             }
-            CommandGroup(after: .importExport) {
+            
+            CommandGroup(replacing: .importExport) {
                 Button {
-                    SubscriptionUtility.showSubscribe()
+                    // TODO
                 } label: {
-                    Text("Add Feed", comment: "System toolbar button label.")
+                    Text("Import", comment: "System toolbar button label.")
                 }
-                .keyboardShortcut("d", modifiers: [.command])
+                Button {
+                    // TODO
+                } label: {
+                    Text("Export", comment: "System toolbar button label.")
+                }
             }
         }
+        #if os(iOS)
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh()
         }
         .backgroundTask(.appRefresh("net.devsci.den.cleanup")) {
             await handleCleanup()
         }
+        #endif
         .onChange(of: scenePhase) { phase in
             switch phase {
+            case .active:
+                setupImageHandling()
             case .background:
+                #if os(iOS)
                 if backgroundRefreshEnabled {
                     scheduleRefresh()
                 }
                 scheduleCleanup()
+                #endif
             default: break
             }
         }
+        
+        #if os(macOS)
+        Settings {
+            if let profile = activeProfile {
+                SettingsTabs(
+                    profile: profile,
+                    activeProfile: $activeProfile,
+                    appProfileID: $appProfileID,
+                    autoRefreshEnabled: $autoRefreshEnabled,
+                    autoRefreshCooldown: $autoRefreshCooldown,
+                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                    useSystemBrowser: $useSystemBrowser,
+                    userColorScheme: $userColorScheme
+                )
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .preferredColorScheme(userColorScheme.colorScheme)
+                .tint(activeProfile?.tintColor)
+            }
+        }
+        #endif
+    }
+    
+    init() {
+        setupImageHandling()
+        resetUserDefaultsIfNeeded()
     }
 
+    #if os(iOS)
     private func scheduleRefresh() {
         let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
         request.earliestBeginDate = .now + 30 * 60
@@ -117,7 +189,7 @@ struct DenApp: App {
         }
         // Break here to simulate background task
     }
-
+    
     private func handleRefresh() {
         guard let profile = activeProfile else {
             return
@@ -130,5 +202,25 @@ struct DenApp: App {
         let queue = OperationQueue()
         queue.addOperations([HistoryCleanupOperation(), DataCleanupOperation()], waitUntilFinished: true)
         lastCleanup = Date.now.timeIntervalSince1970
+    }
+    #endif
+    
+    private func setupImageHandling() {
+        // Add additional image format support
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+        SDImageCodersManager.shared.addCoder(SDImageWebPCoder.shared)
+
+        // Explicit list of accepted image types so servers may decide what to respond with
+        let imageAcceptHeader: String  = ImageMIMEType.allCases.map({ mimeType in
+            mimeType.rawValue
+        }).joined(separator: ",")
+        SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
+    }
+
+    private func resetUserDefaultsIfNeeded() {
+        if CommandLine.arguments.contains("-in-memory") {
+            let domain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+        }
     }
 }

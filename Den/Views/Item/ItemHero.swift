@@ -14,6 +14,7 @@ import SDWebImageSwiftUI
 
 struct ItemHero: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.displayScale) private var displayScale
 
     let item: Item
 
@@ -28,8 +29,8 @@ struct ItemHero: View {
 
     private var thumbnailPixelSize: CGSize {
         CGSize(
-            width: scaledSize.width * UIScreen.main.scale,
-            height: scaledSize.height * UIScreen.main.scale
+            width: scaledSize.width * displayScale,
+            height: scaledSize.height * displayScale
         )
     }
 

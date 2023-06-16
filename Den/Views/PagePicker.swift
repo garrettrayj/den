@@ -16,7 +16,7 @@ struct PagePicker: View {
     @Binding var selection: Page?
 
     var body: some View {
-        #if targetEnvironment(macCatalyst)
+        #if os(macOS)
         HStack {
             Text("Page").modifier(FormRowModifier())
             Spacer()

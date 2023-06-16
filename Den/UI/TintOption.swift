@@ -53,37 +53,33 @@ enum TintOption: String, CaseIterable {
             return Text("Brown", comment: "Tint color option.")
         }
     }
-
-    var uiColor: UIColor {
+    
+    var color: Color {
         switch self {
         case .red:
-            return .systemRed
+            return .red
         case .orange:
-            return .systemOrange
+            return .orange
         case .yellow:
-            return .systemYellow
+            return .yellow
         case .green:
-            return .systemGreen
+            return .green
         case .mint:
-            return .systemMint
+            return .mint
         case .teal:
-            return .systemTeal
+            return .teal
         case .cyan:
-            return .systemCyan
+            return .cyan
         case .blue:
-            return .systemBlue
+            return .blue
         case .indigo:
-            return .systemIndigo
+            return .indigo
         case .purple:
-            return .systemPurple
+            return .purple
         case .pink:
-            return .systemPink
+            return .pink
         case .brown:
-            return .systemBrown
+            return .brown
         }
-    }
-
-    var color: Color {
-        Color(self.uiColor)
     }
 }

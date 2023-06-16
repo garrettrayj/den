@@ -61,52 +61,11 @@ struct PageView: View {
                 }
                 .modifier(URLDropTargetModifier(page: page))
                 .toolbar {
-                    #if targetEnvironment(macCatalyst)
-                    ToolbarItem {
-                        AddFeedButton(page: page)
-                    }
-                    ToolbarItem {
-                        NavigationLink(value: SubDetailPanel.pageSettings(page)) {
-                            Label {
-                                Text("Page Settings", comment: "Button label.")
-                            } icon: {
-                                Image(systemName: "wrench")
-                            }
-                        }
-                        .buttonStyle(ToolbarButtonStyle())
-                        .accessibilityIdentifier("page-settings-button")
-                    }
-                    ToolbarItem(placement: .secondaryAction) {
-                        PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
-                    }
-                    #else
-                    ToolbarItem {
-                        Menu {
-                            PageLayoutPicker(pageLayout: $pageLayout)
-                            AddFeedButton(page: page)
-                            NavigationLink(value: SubDetailPanel.pageSettings(page)) {
-                                Label {
-                                    Text("Page Settings", comment: "Button label.")
-                                } icon: {
-                                    Image(systemName: "wrench")
-                                }
-                            }
-                            .accessibilityIdentifier("page-settings-button")
-                        } label: {
-                            Label {
-                                Text("Page Menu", comment: "Menu label.")
-                            } icon: {
-                                Image(systemName: "ellipsis.circle")
-                            }
-                        }
-                        .accessibilityIdentifier("page-menu")
-                    }
-                    #endif
-
-                    PageBottomBar(
+                    PageToolbar(
                         page: page,
                         profile: profile,
                         hideRead: $hideRead,
+                        pageLayout: $pageLayout,
                         items: items
                     )
                 }

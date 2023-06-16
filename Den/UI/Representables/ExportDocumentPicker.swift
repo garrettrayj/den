@@ -10,6 +10,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct ExportDocumentPicker: UIViewControllerRepresentable {
     var viewController: UIDocumentPickerViewController
 
@@ -35,15 +36,16 @@ struct ExportDocumentPicker: UIViewControllerRepresentable {
 
     class Coordinator: NSObject, UIDocumentPickerDelegate {
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             controller.dismiss(animated: true) {}
             #endif
         }
 
         func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-            #if targetEnvironment(macCatalyst)
+            #if os(macOS)
             controller.dismiss(animated: true) {}
             #endif
         }
     }
 }
+#endif
