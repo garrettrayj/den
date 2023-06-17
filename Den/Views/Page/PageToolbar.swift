@@ -17,6 +17,7 @@ struct PageToolbar: ToolbarContent {
 
     @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
+    @Binding var showingSettings: Bool
 
     let items: FetchedResults<Item>
 
@@ -29,7 +30,7 @@ struct PageToolbar: ToolbarContent {
             PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.inline)
         }
         ToolbarItem {
-            PageSettingsButton(page: page).buttonStyle(ToolbarButtonStyle())
+            PageSettingsButton(showingSettings: $showingSettings).buttonStyle(ToolbarButtonStyle())
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead) {
@@ -50,7 +51,7 @@ struct PageToolbar: ToolbarContent {
             Menu {
                 PageLayoutPicker(pageLayout: $pageLayout)
                 AddFeedButton(page: page)
-                PageSettingsButton(page: page)
+                PageSettingsButton(showingSettings: $showingSettings)
             } label: {
                 Label {
                     Text("Page Menu", comment: "Menu label.")

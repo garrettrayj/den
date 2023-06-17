@@ -11,16 +11,11 @@
 import SwiftUI
 
 struct PageSettingsButton: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @ObservedObject var page: Page
-    
-    @State private var showSettings: Bool = false
+    @Binding var showingSettings: Bool
 
     var body: some View {
         Button {
-            showSettings = true
+            showingSettings = true
         } label: {
             Label {
                 Text("Page Settings", comment: "Button label.")
@@ -29,19 +24,5 @@ struct PageSettingsButton: View {
             }
         }
         .accessibilityIdentifier("page-settings-button")
-        .sheet(
-            isPresented: $showSettings,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
-        ) {
-            PageSettingsSheet(page: page)
-        }
     }
 }

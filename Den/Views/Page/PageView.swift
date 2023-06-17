@@ -11,12 +11,15 @@
 import SwiftUI
 
 struct PageView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
 
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
+    
+    @State private var showingSettings: Bool = false
 
     var body: some View {
         if page.managedObjectContext == nil {
@@ -66,10 +69,25 @@ struct PageView: View {
                         profile: profile,
                         hideRead: $hideRead,
                         pageLayout: $pageLayout,
+                        showingSettings: $showingSettings,
                         items: items
                     )
                 }
                 .navigationTitle(page.nameText)
+                .sheet(
+                    isPresented: $showingSettings,
+                    onDismiss: {
+                        if viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    }
+                ) {
+                    PageSettingsSheet(page: page)
+                }
             }
         }
     }
