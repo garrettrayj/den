@@ -20,7 +20,7 @@ struct PreviewsSection: View {
     var body: some View {
         Section {
             HStack {
-                Text("Preferred Style", comment: "Feed preview style picker label.").modifier(FormRowModifier())
+                Text("Preferred Style", comment: "Feed preview style picker label.")
                 Spacer()
                 PreviewStylePicker(previewStyle: $feed.wrappedPreviewStyle)
                     .pickerStyle(.segmented)
@@ -40,14 +40,14 @@ struct PreviewsSection: View {
             if showHideTeaserOption {
                 #if os(macOS)
                 HStack {
-                    Text("Hide Teasers", comment: "Toggle label.").modifier(FormRowModifier())
+                    Text("Hide Teasers", comment: "Toggle label.")
                     Spacer()
                     Toggle("Hide Teasers", isOn: $feed.hideTeasers).labelsHidden()
                 }
                 .modifier(ListRowModifier())
                 #else
                 Toggle(isOn: $feed.hideTeasers) {
-                    Text("Hide Teasers", comment: "Toggle label.").modifier(FormRowModifier())
+                    Text("Hide Teasers", comment: "Toggle label.")
                 }
                 .modifier(ListRowModifier())
                 #endif
@@ -55,51 +55,53 @@ struct PreviewsSection: View {
 
             #if os(macOS)
             HStack {
-                Text("Hide Bylines", comment: "Toggle label.").modifier(FormRowModifier())
+                Text("Hide Bylines", comment: "Toggle label.")
                 Spacer()
                 Toggle("Hide Bylines", isOn: $feed.hideBylines).labelsHidden()
             }
             .modifier(ListRowModifier())
             #else
             Toggle(isOn: $feed.hideBylines) {
-                Text("Hide Bylines", comment: "Toggle label.").modifier(FormRowModifier())
+                Text("Hide Bylines", comment: "Toggle label.")
             }
             .modifier(ListRowModifier())
             #endif
 
             #if os(macOS)
             HStack {
-                Text("Hide Images", comment: "Toggle label.").modifier(FormRowModifier())
+                Text("Hide Images", comment: "Toggle label.")
                 Spacer()
                 Toggle("Hide Images", isOn: $feed.hideImages).labelsHidden()
             }
             .modifier(ListRowModifier())
             #else
             Toggle(isOn: $feed.hideImages) {
-                Text("Hide Images", comment: "Toggle label.").modifier(FormRowModifier())
+                Text("Hide Images", comment: "Toggle label.")
             }
             .modifier(ListRowModifier())
             #endif
 
             #if os(macOS)
             HStack {
-                Text("Open in Browser", comment: "Toggle label.").modifier(FormRowModifier())
+                Text("Open in Browser", comment: "Toggle label.")
                 Spacer()
                 Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
             }
             .modifier(ListRowModifier())
             #else
             Toggle(isOn: $feed.browserView) {
-                Text("Open in Browser", comment: "Toggle label.").modifier(FormRowModifier())
+                Text("Open in Browser", comment: "Toggle label.")
             }
             .modifier(ListRowModifier())
             if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
-                    Text("Enter Reader Mode", comment: "Toggle label.").modifier(FormRowModifier())
+                    Text("Enter Reader Mode", comment: "Toggle label.")
                 }
                 .modifier(ListRowModifier())
             }
             #endif
+        } header: {
+            Text("Previews")
         } footer: {
             #if os(iOS)
             if useSystemBrowser == true {

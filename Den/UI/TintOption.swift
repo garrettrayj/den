@@ -1,5 +1,5 @@
 //
-//  ColorPalette.swift
+//  TintOption.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/2/23.
@@ -8,10 +8,9 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import Foundation
 import SwiftUI
 
-enum TintOption: String, CaseIterable {
+public enum TintOption: String, CaseIterable {
     case red    = "Red"
     case orange = "Orange"
     case yellow = "Yellow"

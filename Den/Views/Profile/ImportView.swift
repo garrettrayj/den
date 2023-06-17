@@ -109,7 +109,7 @@ struct ImportView: View {
                             }
                         }.lineLimit(1)
                     }
-                    .modifier(FormRowModifier())
+                    
                     .accessibilityIdentifier("toggle-folder-button")
                 }
             }

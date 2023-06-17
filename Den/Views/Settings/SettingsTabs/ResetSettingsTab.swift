@@ -56,7 +56,7 @@ struct ResetSettingsTab: View {
                 }
             }
             .disabled(cacheSize == 0)
-            .modifier(FormRowModifier())
+            
             .accessibilityIdentifier("clear-cache-button")
 
             Button(role: .destructive) {

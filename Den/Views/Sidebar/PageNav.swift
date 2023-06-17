@@ -12,6 +12,7 @@ import CoreData
 import SwiftUI
 
 struct PageNav: View {
+    @Environment(\.managedObjectContext) private var viewContext
     #if os(iOS)
     @Environment(\.editMode) private var editMode
     #endif
@@ -46,6 +47,18 @@ struct PageNav: View {
             }
         }
         .modifier(URLDropTargetModifier(page: page))
+        .contextMenu {
+            Button {
+                viewContext.delete(page)
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            } label: {
+                Text("Delete", comment: "Context menu button label.")
+            }
+        }
         .accessibilityIdentifier("page-button")
     }
 }

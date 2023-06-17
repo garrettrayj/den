@@ -11,18 +11,18 @@
 import SwiftUI
 
 struct TintPicker: View {
-    @Binding var tint: String?
+    @Binding var tintSelection: TintOption?
 
     var body: some View {
-        Picker(selection: $tint) {
+        Picker(selection: $tintSelection) {
             Label {
                 Text("No Tint", comment: "Tint color option.")
             } icon: {
                 Image(systemName: "hexagon.fill")
             }
             .foregroundColor(.secondary)
-            .modifier(FormRowModifier())
-            .tag(nil as String?)
+            
+            .tag(nil as TintOption?)
 
             ForEach(TintOption.allCases, id: \.self) { tintOption in
                 Label {
@@ -31,12 +31,14 @@ struct TintPicker: View {
                     Image(systemName: "hexagon.fill")
                 }
                 .foregroundColor(tintOption.color)
-                .modifier(FormRowModifier())
-                .tag(tintOption.rawValue as String?)
+                
+                .tag(tintOption as TintOption?)
             }
         } label: {
-            Text("Tint", comment: "Picker label.").modifier(FormRowModifier())
+            Text("Tint", comment: "Picker label.").frame(maxWidth: .infinity, alignment: .leading)
         }
+        .padding(.vertical, 4)
+        .tint(tintSelection?.color)
         .scrollContentBackground(.visible)
         #if os(iOS)
         .pickerStyle(.navigationLink)

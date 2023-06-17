@@ -19,7 +19,7 @@ struct RefreshSettingsSection: View {
         Section {
             #if os(macOS)
             HStack {
-                Text("In Background").modifier(FormRowModifier())
+                Text("In Background")
                 Spacer()
                 Toggle(isOn: $backgroundRefreshEnabled) {
                     Text("In Background")
@@ -27,13 +27,13 @@ struct RefreshSettingsSection: View {
             }
             #else
             Toggle(isOn: $backgroundRefreshEnabled) {
-                Text("In Background", comment: "Refresh option toggle label.").modifier(FormRowModifier())
+                Text("In Background", comment: "Refresh option toggle label.")
             }
             #endif
 
             #if os(macOS)
             HStack {
-                Text("When Activated").modifier(FormRowModifier())
+                Text("When Activated")
                 Spacer()
                 Toggle(isOn: $autoRefreshEnabled) {
                     Text("When Activated")
@@ -41,7 +41,7 @@ struct RefreshSettingsSection: View {
             }
             #else
             Toggle(isOn: $autoRefreshEnabled) {
-                Text("When Activated", comment: "Refresh option toggle label.").modifier(FormRowModifier())
+                Text("When Activated", comment: "Refresh option toggle label.")
             }
             #endif
 
@@ -59,14 +59,14 @@ struct RefreshSettingsSection: View {
                                 comment: "Stepper label."
                             )
                                 .font(.callout)
-                                .modifier(FormRowModifier())
+                                
                         } else {
                             Text(
                                 "Recovery Period: \(autoRefreshCooldown) minutes",
                                 comment: "Stepper label."
                             )
                                 .font(.callout)
-                                .modifier(FormRowModifier())
+                                
                         }
                     }
                 }

@@ -76,16 +76,11 @@ struct DetailView: View {
                         }
                     case .trend(let trend):
                         TrendView(trend: trend, profile: profile, hideRead: $hideRead)
-                    case .pageSettings(let page):
-                        PageSettings(page: page)
-                    case .feedSettings(let feed):
-                        FeedSettings(feed: feed)
                     case .profileSettings(let profile):
                         ProfileSettings(
                             profile: profile,
                             activeProfile: $activeProfile,
-                            appProfileID: $appProfileID,
-                            tintSelection: profile.tint
+                            appProfileID: $appProfileID
                         )
                     case .importFeeds(let profile):
                         ImportView(profile: profile)

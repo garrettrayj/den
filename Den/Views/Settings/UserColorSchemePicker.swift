@@ -19,7 +19,7 @@ struct UserColorSchemePicker: View {
             Text("Light", comment: "User color scheme picker option.").tag(UserColorScheme.light)
             Text("Dark", comment: "User color scheme picker option.").tag(UserColorScheme.dark)
         } label: {
-            Text("Theme", comment: "Picker label.").modifier(FormRowModifier())
+            Text("Theme", comment: "Picker label.")
         }
     }
 }

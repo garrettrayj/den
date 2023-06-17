@@ -38,8 +38,7 @@ struct ProfilesSettingsTabDetail: View {
                     }
                 }
                 
-                TintPicker(tint: $profile.tint)
-                    .scaledToFit()
+                TintPicker(tintSelection: $profile.tintOption)
                     .onChange(of: profile.tint) { _ in
                         if viewContext.hasChanges {
                             do {

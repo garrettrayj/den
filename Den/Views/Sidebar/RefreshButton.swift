@@ -21,10 +21,20 @@ struct RefreshButton: View {
                 await refreshManager.refresh(profile: profile)
             }
         } label: {
-            Label {
-                Text("Refresh", comment: "Button label.")
-            } icon: {
-                Image(systemName: "arrow.clockwise")
+            if refreshManager.refreshing {
+                Label {
+                    Text("Updating…", comment: "Progress view label.")
+                } icon: {
+                    ProgressView()
+                        .scaleEffect(0.5)
+                        .frame(width: 18)
+                }
+            } else {
+                Label {
+                    Text("Refresh", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "arrow.clockwise")
+                }
             }
         }
         .accessibilityIdentifier("profile-refresh-button")

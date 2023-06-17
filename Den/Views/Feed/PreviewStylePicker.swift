@@ -26,7 +26,7 @@ struct PreviewStylePicker: View {
                 Image(systemName: "rectangle.expand.vertical")
             }.tag(PreviewStyle.expanded)
         } label: {
-            Text("Preferred Style", comment: "Picker label.").modifier(FormRowModifier())
+            Text("Preferred Style", comment: "Picker label.")
         }
     }
 }

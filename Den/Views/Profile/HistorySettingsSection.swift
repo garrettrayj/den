@@ -24,7 +24,7 @@ struct HistorySettingsSection: View {
         Section {
             #if os(macOS)
             HStack {
-                Text("Keep").modifier(FormRowModifier())
+                Text("Keep")
                 Spacer()
                 Picker(selection: $historyRentionDays) {
                     Text("Forever").tag(0 as Int)
@@ -50,7 +50,7 @@ struct HistorySettingsSection: View {
                 Text("Two Weeks", comment: "History retention duration option.").tag(14 as Int)
                 Text("One Week", comment: "History retention duration option.").tag(7 as Int)
             } label: {
-                Text("Keep", comment: "History retention picker label.").modifier(FormRowModifier())
+                Text("Keep", comment: "History retention picker label.")
             }
             #endif
 
@@ -75,7 +75,7 @@ struct HistorySettingsSection: View {
                 }
             }
             .disabled(historyCount == 0)
-            .modifier(FormRowModifier())
+            
             .accessibilityIdentifier("clear-history-button")
         } header: {
             Text("History", comment: "Profile settings section header.")

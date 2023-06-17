@@ -38,27 +38,15 @@ struct AddFeed: View {
     @State private var newFeed: Feed?
 
     var body: some View {
-        VStack(spacing: 16) {
-            HStack(alignment: .top) {
-                Text("New Feed").font(.title)
-                Spacer()
-                Button { dismiss() } label: {
-                    Label {
-                        Text("Cancel", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "xmark.circle")
-                    }
-                }
-                .buttonStyle(.borderless)
-                .accessibilityIdentifier("add-feed-cancel-button")
-            }
+        VStack(spacing: 20) {
+            Text("New Feed").font(.title)
             
             if targetPage == nil || profile == nil {
                 Text("No Pages Available", comment: "Add Feed error message.")
                     .font(.title2)
                     .foregroundColor(.secondary)
             } else {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(spacing: 8) {
                     Text("Web Address", comment: "URL field section label.")
                     feedUrlInput
                     VStack {
@@ -105,14 +93,24 @@ struct AddFeed: View {
                     }
                 }
                 
-                PagePicker(profile: profile!, selection: $targetPage).scaledToFit()
+                PagePicker(profile: profile!, selection: $targetPage).scaledToFit().labelsHidden()
 
                 submitButtonSection
+                
+                Button { dismiss() } label: {
+                    Label {
+                        Text("Cancel", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "xmark.circle")
+                    }
+                }
+                .buttonStyle(.borderless)
+                .accessibilityIdentifier("add-feed-cancel-button")
             }
         }
-        .frame(minWidth: 600)
+        .frame(minWidth: 400)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(20)
+        .padding(24)
         .background(GroupedBackground())
         .onAppear {
             urlString = initialURLString
@@ -133,7 +131,7 @@ struct AddFeed: View {
             }
         } label: {
             Label {
-                Text("Add to \(targetPage?.wrappedName ?? "…")", comment: "Button label.")
+                Text("Add to \(targetPage?.nameText ?? Text("…"))", comment: "Button label.")
             } icon: {
                 if loading {
                     ProgressView()
@@ -144,43 +142,31 @@ struct AddFeed: View {
                     Image(systemName: "note.text.badge.plus")
                 }
             }
+            .padding(8)
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color.clear)
         .disabled(!(urlString.count > 0) || loading)
-        .buttonStyle(AccentButtonStyle())
+        .buttonStyle(.borderedProminent)
         .accessibilityIdentifier("subscribe-submit-button")
     }
 
     private var feedUrlInput: some View {
-        HStack {
-            // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
-            TextField(
-                text: $urlString,
-                prompt: Text("https⁣://example.com/feed.xml", comment: "Feed URL text field prompt.")
-            ) {
-                Text("Web Address", comment: "Feed URL text field label.")
-            }
-            .lineLimit(1)
-            .multilineTextAlignment(.leading)
-            .disableAutocorrection(true)
-            #if os(iOS)
-            .textInputAutocapitalization(.never)
-            #endif
-            .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
-
-            if urlIsValid != nil {
-                if urlIsValid == true {
-                    Image(systemName: "checkmark.circle")
-                        .foregroundColor(.green)
-                        .fontWeight(.medium)
-                } else {
-                    Image(systemName: "slash.circle")
-                        .foregroundColor(.red)
-                        .fontWeight(.medium)
-                }
-            }
+        // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
+        TextField(
+            text: $urlString,
+            prompt: Text("https⁣://example.com/feed.xml", comment: "Feed URL text field prompt.")
+        ) {
+            Text("Web Address", comment: "Feed URL text field label.")
         }
+        .lineLimit(1)
+        .multilineTextAlignment(.center)
+        .disableAutocorrection(true)
+        #if os(iOS)
+        .textInputAutocapitalization(.never)
+        #endif
+        .modifier(ShakeModifier(animatableData: CGFloat(validationAttempts)))
+        .padding(.horizontal)
     }
 
     private func checkTargetPage() {

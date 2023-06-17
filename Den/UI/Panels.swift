@@ -23,8 +23,6 @@ enum SubDetailPanel: Hashable {
     case feed(Feed)
     case item(Item)
     case trend(Trend)
-    case feedSettings(Feed)
-    case pageSettings(Page)
     case profileSettings(Profile)
     case importFeeds(Profile)
     case exportFeeds(Profile)

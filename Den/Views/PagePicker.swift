@@ -16,28 +16,12 @@ struct PagePicker: View {
     @Binding var selection: Page?
 
     var body: some View {
-        #if os(macOS)
-        HStack {
-            Text("Page").modifier(FormRowModifier())
-            Spacer()
-            Picker(selection: $selection) {
-                ForEach(profile.pagesArray) { page in
-                    page.nameText.tag(page as Page?)
-                }
-            } label: {
-                Text("Page")
-            }
-            .labelsHidden()
-            .scaledToFit()
-        }
-        #else
         Picker(selection: $selection) {
             ForEach(profile.pagesArray) { page in
                 page.nameText.tag(page as Page?)
             }
         } label: {
-            Text("Page", comment: "Picker label.").modifier(FormRowModifier())
+            Text("Page", comment: "Picker label.")
         }
-        #endif
     }
 }

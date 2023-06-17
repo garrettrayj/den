@@ -1,8 +1,8 @@
 //
-//  DeleteFeedSection.swift
+//  DeletePageButton.swift
 //  Den
 //
-//  Created by Garrett Johnson on 4/29/23.
+//  Created by Garrett Johnson on 6/17/23.
 //  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -10,11 +10,11 @@
 
 import SwiftUI
 
-struct DeleteFeedButton: View {
+struct DeletePageButton: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var feed: Feed
+    @ObservedObject var page: Page
 
     @State private var showingAlert: Bool = false
 
@@ -28,9 +28,10 @@ struct DeleteFeedButton: View {
                 Image(systemName: "trash")
             }
             .symbolRenderingMode(.multicolor)
+            .fixedSize(horizontal: true, vertical: true)
         }
         .alert(
-            Text("Delete Feed?", comment: "Alert title."),
+            Text("Delete Page?", comment: "Alert title."),
             isPresented: $showingAlert,
             actions: {
                 Button(role: .cancel) {
@@ -48,18 +49,21 @@ struct DeleteFeedButton: View {
                 .accessibilityIdentifier("feed-delete-confirm-button")
             }
         )
-        .accessibilityIdentifier("delete-feed-button")
+        .accessibilityIdentifier("delete-page-button")
     }
 
     private func performDelete() {
-        if let feedData = feed.feedData {
-            viewContext.delete(feedData)
+        page.feedsArray.forEach { feed in
+            if let feedData = feed.feedData {
+                viewContext.delete(feedData)
+            }
+            viewContext.delete(feed)
         }
-        viewContext.delete(feed)
-
+        viewContext.delete(page)
+        
         do {
             try viewContext.save()
-            feed.page?.profile?.objectWillChange.send()
+            page.profile?.objectWillChange.send()
             dismiss()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)

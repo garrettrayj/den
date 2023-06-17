@@ -29,7 +29,7 @@ struct ProfilesSettingsListSection: View {
                             .foregroundColor(profile.tintColor)
                     }
                 }
-                .modifier(FormRowModifier())
+                
                 .accessibilityIdentifier("profile-button")
             }
             Button {
@@ -43,7 +43,7 @@ struct ProfilesSettingsListSection: View {
                     Image(systemName: "plus")
                 }
             }
-            .modifier(FormRowModifier())
+            
             .accessibilityIdentifier("add-profile-button")
         } header: {
             Text("Profiles", comment: "Settings section header.").modifier(FirstFormHeaderModifier())

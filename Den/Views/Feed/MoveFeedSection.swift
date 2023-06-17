@@ -16,8 +16,6 @@ struct MoveFeedSection: View {
 
     @ObservedObject var feed: Feed
 
-    @State private var showingDeleteAlert: Bool = false
-
     var body: some View {
         Section {
             if let profile = feed.page?.profile {
@@ -37,7 +35,8 @@ struct MoveFeedSection: View {
                         dismiss()
                     }
             }
+        } header: {
+            Text("Move", comment: "Feed settings section header.")
         }
-        .modifier(ListRowModifier())
     }
 }

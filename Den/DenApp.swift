@@ -46,7 +46,6 @@ struct DenApp: App {
             .environmentObject(networkMonitor)
             .environmentObject(refreshManager)
             .preferredColorScheme(userColorScheme.colorScheme)
-            .tint(activeProfile?.tintColor)
         }
         .commands {
             CommandGroup(replacing: .newItem) {
@@ -139,7 +138,6 @@ struct DenApp: App {
                 )
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .preferredColorScheme(userColorScheme.colorScheme)
-                .tint(activeProfile?.tintColor)
             }
         }
         #endif

@@ -27,7 +27,7 @@ struct ExportView: View {
                         TextField(text: $title) {
                             Text("Title", comment: "Text field label.")
                         }
-                        .modifier(FormRowModifier())
+                        
                         .modifier(TitleTextFieldModifier())
                     } header: {
                         Text("Title", comment: "Export section header.").modifier(FirstFormHeaderModifier())
@@ -84,7 +84,7 @@ struct ExportView: View {
                         }
                     }.lineLimit(1)
                 }
-                .modifier(FormRowModifier())
+                
                 .onAppear { self.selectedPages.append(page) }
                 .accessibilityIdentifier("export-toggle-page-button")
             }

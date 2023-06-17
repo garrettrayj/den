@@ -39,7 +39,7 @@ struct ProfilesSettingsTab: View {
                     }
                     .listStyle(.sidebar)
                     .frame(maxWidth: 160, maxHeight: .infinity)
-                    .safeAreaInset(edge: .bottom) {
+                    .safeAreaInset(edge: .bottom, alignment: .leading) {
                         Button {
                             withAnimation {
                                 addProfile()

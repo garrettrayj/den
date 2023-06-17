@@ -34,6 +34,16 @@ public class Profile: NSManagedObject {
         guard let tint = tint, let tintOption = TintOption(rawValue: tint) else { return nil }
         return tintOption.color
     }
+    
+    public var tintOption: TintOption? {
+        get {
+            guard let tint = tint else { return nil }
+            return TintOption(rawValue: tint)
+        }
+        set {
+            tint = newValue?.rawValue
+        }
+    }
 
     public var pagesWithInsecureFeeds: [Page] {
         pagesArray.filter { page in

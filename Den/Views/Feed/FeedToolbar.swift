@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct FeedToolbar: ToolbarContent {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
@@ -24,15 +26,7 @@ struct FeedToolbar: ToolbarContent {
             FeedStatus(feed: feed, unreadCount: items.unread().count)
         }
         ToolbarItem {
-            NavigationLink(value: SubDetailPanel.feedSettings(feed)) {
-                Label {
-                    Text("Feed Settings", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "wrench")
-                }
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("feed-settings-button")
+            FeedSettingsButton(feed: feed)
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead) {
@@ -49,15 +43,7 @@ struct FeedToolbar: ToolbarContent {
         }
         #else
         ToolbarItem {
-            NavigationLink(value: SubDetailPanel.feedSettings(feed)) {
-                Label {
-                    Text("Feed Settings", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "wrench")
-                }
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("feed-settings-button")
+            FeedSettingsButton(feed: feed).buttonStyle(ToolbarButtonStyle())
         }
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {

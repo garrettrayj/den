@@ -25,10 +25,13 @@ struct ToggleReadButton: View {
             }
         } label: {
             if toggling {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .scaleEffect(0.6)
-                    .frame(width: 20)
+                Label {
+                    Text("Updating…", comment: "Progress view label.")
+                } icon: {
+                    ProgressView()
+                        .scaleEffect(0.5)
+                        .frame(width: 20)
+                }
             } else if unreadCount == 0 {
                 Label {
                     Text("Mark All Unread", comment: "Button label.")

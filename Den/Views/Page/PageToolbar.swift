@@ -29,15 +29,7 @@ struct PageToolbar: ToolbarContent {
             PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.inline)
         }
         ToolbarItem {
-            NavigationLink(value: SubDetailPanel.pageSettings(page)) {
-                Label {
-                    Text("Page Settings", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "wrench")
-                }
-            }
-            .buttonStyle(ToolbarButtonStyle())
-            .accessibilityIdentifier("page-settings-button")
+            PageSettingsButton(page: page).buttonStyle(ToolbarButtonStyle())
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead) {
@@ -58,14 +50,7 @@ struct PageToolbar: ToolbarContent {
             Menu {
                 PageLayoutPicker(pageLayout: $pageLayout)
                 AddFeedButton(page: page)
-                NavigationLink(value: SubDetailPanel.pageSettings(page)) {
-                    Label {
-                        Text("Page Settings", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "wrench")
-                    }
-                }
-                .accessibilityIdentifier("page-settings-button")
+                PageSettingsButton(page: page)
             } label: {
                 Label {
                     Text("Page Menu", comment: "Menu label.")

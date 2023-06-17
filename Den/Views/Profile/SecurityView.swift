@@ -44,7 +44,7 @@ struct SecurityView: View {
             Text(
                 "All feeds use secure web addresses.",
                 comment: "Security check all-clear message."
-            ).modifier(FormRowModifier())
+            )
         } header: {
             Label {
                 Text("No Problems", comment: "Security check all-clear header.")
@@ -61,7 +61,7 @@ struct SecurityView: View {
                     Text(
                         "Looking for HTTPS versions…",
                         comment: "Security check in-progress message."
-                    ).foregroundColor(.secondary).modifier(FormRowModifier())
+                    ).foregroundColor(.secondary)
                 } icon: {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
@@ -73,7 +73,7 @@ struct SecurityView: View {
                         Text(
                             "Check for Secure Alternatives",
                             comment: "Button label."
-                        ).modifier(FormRowModifier())
+                        )
                     } icon: {
                         Image(systemName: "bolt.shield")
                     }
@@ -110,7 +110,7 @@ struct SecurityView: View {
                     FeedTitleLabel(
                         title: feed.titleText,
                         favicon: feed.feedData?.favicon
-                    ).modifier(FormRowModifier())
+                    )
                     Spacer()
                     Text(feed.urlString).font(.caption).lineLimit(1).foregroundColor(.secondary)
                     if failedRemediation.contains(feed.id) == true {

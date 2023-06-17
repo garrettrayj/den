@@ -57,7 +57,7 @@ struct ResetSettingsSection: View {
                 }
             }
             .disabled(cacheSize == 0)
-            .modifier(FormRowModifier())
+            
             .accessibilityIdentifier("clear-cache-button")
 
             Button(role: .destructive) {
@@ -66,7 +66,7 @@ struct ResetSettingsSection: View {
                 Label {
                     Text("Reset Everything", comment: "Button label.")
                         .lineLimit(1)
-                        .modifier(FormRowModifier())
+                        
                 } icon: {
                     Image(systemName: "arrow.counterclockwise").foregroundColor(.red)
                 }

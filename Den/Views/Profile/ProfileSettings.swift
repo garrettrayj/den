@@ -21,8 +21,6 @@ struct ProfileSettings: View {
 
     @State private var showingDeleteAlert: Bool = false
 
-    @State var tintSelection: String?
-
     var body: some View {
         Form {
             nameSection
@@ -76,7 +74,7 @@ struct ProfileSettings: View {
             TextField(text: $profile.wrappedName, prompt: Text("Untitled", comment: "Text field prompt.")) {
                 Text("Name", comment: "Text field label.")
             }
-            .modifier(FormRowModifier())
+            
             .modifier(TitleTextFieldModifier())
         } header: {
             Text("Name", comment: "Profile settings section header.").modifier(FirstFormHeaderModifier())
@@ -86,9 +84,7 @@ struct ProfileSettings: View {
 
     private var tintSection: some View {
         Section {
-            TintPicker(tint: $tintSelection).onChange(of: tintSelection) { newValue in
-                profile.tint = newValue
-            }
+            TintPicker(tintSelection: $profile.tintOption)
         } header: {
             Text("Customization", comment: "Profile settings section header.")
         }
@@ -106,7 +102,7 @@ struct ProfileSettings: View {
                     Image(systemName: "trash")
                 }
                 .symbolRenderingMode(.multicolor)
-                .modifier(FormRowModifier())
+                
             }
             .accessibilityIdentifier("delete-profile-button")
         }.alert(

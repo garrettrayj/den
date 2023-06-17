@@ -71,6 +71,7 @@ struct SplitView: View {
                 userColorScheme: $userColorScheme
             )
         }
+        .tint(profile.tintColor)
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
             if case .page(let page) = contentSelection {

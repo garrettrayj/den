@@ -13,6 +13,7 @@ import SwiftUI
 
 struct FeedView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
@@ -42,10 +43,8 @@ struct FeedView: View {
                         items: items
                     )
                 }
-                .onChange(of: feed.page) { _ in
-                    dismiss()
-                }
                 .navigationTitle(feed.titleText)
+                
             }
         }
     }
