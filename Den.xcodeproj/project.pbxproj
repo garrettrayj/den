@@ -680,7 +680,7 @@
 		683B285327D54141009C0302 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				687FEEDD2A3B86C20042977E /* SettingsList */,
+				687FEEDD2A3B86C20042977E /* SettingsSheet */,
 				687FEEDC2A3B869B0042977E /* SettingsTabs */,
 				68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */,
 				687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */,
@@ -800,7 +800,7 @@
 			path = SettingsTabs;
 			sourceTree = "<group>";
 		};
-		687FEEDD2A3B86C20042977E /* SettingsList */ = {
+		687FEEDD2A3B86C20042977E /* SettingsSheet */ = {
 			isa = PBXGroup;
 			children = (
 				68C4FA252474927800D2C0D6 /* SettingsList.swift */,
@@ -811,7 +811,7 @@
 				68D9BAA128A60CBE00F1A3AD /* ResetSettingsSection.swift */,
 				68D9BAA328A60DF300F1A3AD /* AboutSettingsSection.swift */,
 			);
-			path = SettingsList;
+			path = SettingsSheet;
 			sourceTree = "<group>";
 		};
 		6880EBE427ABEDB600B479F4 /* UI */ = {
