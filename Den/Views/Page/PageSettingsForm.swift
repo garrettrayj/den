@@ -43,7 +43,6 @@ struct PageSettingsForm: View {
                 }
             }
             
-            
             Button {
                 showIconPicker = true
             } label: {
@@ -58,6 +57,8 @@ struct PageSettingsForm: View {
             .navigationDestination(isPresented: $showIconPicker) {
                 IconPicker(symbolID: $page.wrappedSymbol)
             }
+            
+            DeletePageButton(page: page).buttonStyle(.plain)
         }
     }
 

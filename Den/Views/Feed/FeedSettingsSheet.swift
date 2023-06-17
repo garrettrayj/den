@@ -27,7 +27,7 @@ struct FeedSettingsSheet: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem {
                     Button {
                         dismiss()
                     } label: {
@@ -38,9 +38,6 @@ struct FeedSettingsSheet: View {
                         }
                     }
                     .buttonStyle(.borderless)
-                }
-                ToolbarItem(placement: .destructiveAction) {
-                    DeleteFeedButton(feed: feed).buttonStyle(.plain)
                 }
             }
             .frame(minWidth: 400, minHeight: 480)

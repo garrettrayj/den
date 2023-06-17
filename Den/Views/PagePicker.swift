@@ -14,6 +14,8 @@ struct PagePicker: View {
     @ObservedObject var profile: Profile
 
     @Binding var selection: Page?
+    
+    let labelText: Text
 
     var body: some View {
         Picker(selection: $selection) {
@@ -21,7 +23,11 @@ struct PagePicker: View {
                 page.nameText.tag(page as Page?)
             }
         } label: {
-            Text("Page", comment: "Picker label.")
+            Label {
+                labelText
+            } icon: {
+                Image(systemName: "folder")
+            }
         }
     }
 }

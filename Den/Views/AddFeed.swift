@@ -93,7 +93,13 @@ struct AddFeed: View {
                     }
                 }
                 
-                PagePicker(profile: profile!, selection: $targetPage).scaledToFit().labelsHidden()
+                PagePicker(
+                    profile: profile!,
+                    selection: $targetPage,
+                    labelText: Text("Page", comment: "Picker label.")
+                )
+                .scaledToFit()
+                .labelsHidden()
 
                 submitButtonSection
                 

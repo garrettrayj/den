@@ -26,7 +26,7 @@ public class Page: NSManagedObject {
     }
 
     public var wrappedSymbol: String {
-        get { symbol ?? "square.grid.2x2" }
+        get { symbol ?? "folder" }
         set { symbol = newValue }
     }
 

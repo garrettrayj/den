@@ -28,7 +28,7 @@ struct PageSettingsSheet: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem {
                     Button {
                         dismiss()
                     } label: {
@@ -38,9 +38,6 @@ struct PageSettingsSheet: View {
                             Image(systemName: "xmark.circle")
                         }
                     }.buttonStyle(.borderless)
-                }
-                ToolbarItem(placement: .destructiveAction) {
-                    DeletePageButton(page: page).buttonStyle(.plain)
                 }
             }
             .frame(minWidth: 400, minHeight: 480)

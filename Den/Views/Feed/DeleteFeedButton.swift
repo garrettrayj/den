@@ -23,7 +23,7 @@ struct DeleteFeedButton: View {
             showingAlert = true
         } label: {
             Label {
-                Text("Delete", comment: "Button label.")
+                Text("Delete", comment: "Button label.").fixedSize()
             } icon: {
                 Image(systemName: "trash")
             }

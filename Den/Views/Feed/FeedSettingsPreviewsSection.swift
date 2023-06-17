@@ -1,5 +1,5 @@
 //
-//  PreviewsSection.swift
+//  FeedSettingsPreviewsSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 4/27/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PreviewsSection: View {
+struct FeedSettingsPreviewsSection: View {
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var feed: Feed
@@ -19,6 +19,18 @@ struct PreviewsSection: View {
 
     var body: some View {
         Section {
+            Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
+                Text(
+                    "Latest Limit: \(feed.wrappedItemLimit)",
+                    comment: "Stepper label."
+                )
+            }
+            #if os(iOS)
+            .onChange(of: feed.wrappedItemLimit, perform: { _ in
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            })
+            #endif
+            
             HStack {
                 Text("Preferred Style", comment: "Feed preview style picker label.")
                 Spacer()
