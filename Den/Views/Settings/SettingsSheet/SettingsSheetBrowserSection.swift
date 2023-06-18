@@ -1,5 +1,5 @@
 //
-//  BrowserSettingsListSection.swift
+//  SettingsSheetBrowserSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/31/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct BrowserSettingsListSection: View {
+struct SettingsSheetBrowserSection: View {
     @Binding var useSystemBrowser: Bool
 
     var body: some View {

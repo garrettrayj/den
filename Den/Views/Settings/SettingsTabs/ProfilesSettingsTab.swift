@@ -15,6 +15,7 @@ struct ProfilesSettingsTab: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
+    @Binding var contentSelection: DetailPanel?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -60,11 +61,9 @@ struct ProfilesSettingsTab: View {
                             profile: profile,
                             appProfileID: $appProfileID,
                             activeProfile: $activeProfile,
-                            isActive: activeProfile == profile,
+                            contentSelection: $contentSelection,
                             deleteCallback: {
-                                DispatchQueue.main.async {
-                                    selectedProfile = profiles.first
-                                }
+                                selectedProfile = activeProfile
                             }
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

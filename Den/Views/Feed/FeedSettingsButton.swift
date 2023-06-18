@@ -16,11 +16,12 @@ struct FeedSettingsButton: View {
 
     @ObservedObject var feed: Feed
     
-    @State private var showSettings: Bool = false
+    @State private var showingSettings: Bool = false
 
     var body: some View {
+        
         Button {
-            showSettings = true
+            showingSettings = true
         } label: {
             Label {
                 Text("Feed Settings", comment: "Button label.")
@@ -31,7 +32,7 @@ struct FeedSettingsButton: View {
         .buttonStyle(ToolbarButtonStyle())
         .accessibilityIdentifier("feed-settings-button")
         .sheet(
-            isPresented: $showSettings,
+            isPresented: $showingSettings,
             onDismiss: {
                 if viewContext.hasChanges {
                     do {

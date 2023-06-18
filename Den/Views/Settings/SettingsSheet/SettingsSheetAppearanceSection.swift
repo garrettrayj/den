@@ -1,5 +1,5 @@
 //
-//  AppearanceSettingsListSection.swift
+//  SettingsSheetAppearanceSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/15/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct AppearanceSettingsListSection: View {
+struct SettingsSheetAppearanceSection: View {
     @Binding var userColorScheme: UserColorScheme
     
     var body: some View {

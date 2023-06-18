@@ -1,5 +1,5 @@
 //
-//  ProfilesSettingsListSection.swift
+//  SettingsSheetProfilesSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,10 +10,11 @@
 
 import SwiftUI
 
-struct ProfilesSettingsListSection: View {
+struct SettingsSheetProfilesSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var activeProfile: Profile?
+    @Binding var appProfileID: String?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -21,17 +22,13 @@ struct ProfilesSettingsListSection: View {
     var body: some View {
         Section {
             ForEach(profiles) { profile in
-                NavigationLink(value: SubDetailPanel.profileSettings(profile)) {
-                    Label {
-                        profile.nameText
-                    } icon: {
-                        Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
-                            .foregroundColor(profile.tintColor)
-                    }
-                }
-                
-                .accessibilityIdentifier("profile-button")
+                SettingsSheetProfilesSectionRow(
+                    profile: profile,
+                    appProfileID: $appProfileID,
+                    activeProfile: $activeProfile
+                )
             }
+            
             Button {
                 withAnimation {
                     addProfile()

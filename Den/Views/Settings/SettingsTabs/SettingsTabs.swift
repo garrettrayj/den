@@ -23,25 +23,23 @@ struct SettingsTabs: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
+    @Binding var contentSelection: DetailPanel?
     
     var body: some View {
         
         TabView {
             GeneralSettingsTab(
+                activeProfile: $activeProfile,
+                appProfileID: $appProfileID,
                 userColorScheme: $userColorScheme
             )
             .tabItem {
                 Label("General", systemImage: "gearshape")
             }
             
-            ProfilesSettingsTab(activeProfile: $activeProfile, appProfileID: $appProfileID)
+            ProfilesSettingsTab(activeProfile: $activeProfile, appProfileID: $appProfileID, contentSelection: $contentSelection)
             .tabItem {
                 Label("Profiles", systemImage: "person.crop.circle")
-            }
-            
-            ResetSettingsTab(activeProfile: $activeProfile, appProfileID: $appProfileID, profile: profile)
-            .tabItem {
-                Label("Reset", systemImage: "trash")
             }
         }
         .frame(minWidth: 480, minHeight: 260)

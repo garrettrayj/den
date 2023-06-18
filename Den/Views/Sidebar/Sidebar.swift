@@ -22,6 +22,7 @@ struct Sidebar: View {
 
     @Binding var contentSelection: DetailPanel?
     @Binding var searchQuery: String
+    @Binding var showingSettings: Bool
 
     @State private var searchInput: String = ""
 
@@ -85,7 +86,7 @@ struct Sidebar: View {
                     .accessibilityIdentifier("edit-page-list-button")
             }
             ToolbarItem(placement: .bottomBar) {
-                SettingsButton(listSelection: $contentSelection).disabled(refreshManager.refreshing)
+                SettingsButton(showingSettings: $showingSettings).disabled(refreshManager.refreshing)
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()

@@ -1,5 +1,5 @@
 //
-//  AboutSettingsSection.swift
+//  SettingsSheetAboutSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct AboutSettingsSection: View {
+struct SettingsSheetAboutSection: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {

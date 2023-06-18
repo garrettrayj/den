@@ -31,6 +31,7 @@ struct DenApp: App {
     @StateObject private var refreshManager = RefreshManager()
 
     @State private var activeProfile: Profile?
+    @State private var contentSelection: DetailPanel?
 
     let persistenceController = PersistenceController.shared
 
@@ -40,7 +41,8 @@ struct DenApp: App {
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 appProfileID: $appProfileID,
                 activeProfile: $activeProfile,
-                userColorScheme: $userColorScheme
+                userColorScheme: $userColorScheme,
+                contentSelection: $contentSelection
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
@@ -88,16 +90,10 @@ struct DenApp: App {
             }
             
             CommandGroup(replacing: .importExport) {
-                Button {
-                    // TODO
-                } label: {
-                    Text("Import", comment: "System toolbar button label.")
-                }
-                Button {
-                    // TODO
-                } label: {
-                    Text("Export", comment: "System toolbar button label.")
-                }
+                ImportButton(activeProfile: $activeProfile)
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                
+                ExportButton(activeProfile: $activeProfile)
             }
         }
         #if os(iOS)
@@ -134,7 +130,8 @@ struct DenApp: App {
                     autoRefreshCooldown: $autoRefreshCooldown,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     useSystemBrowser: $useSystemBrowser,
-                    userColorScheme: $userColorScheme
+                    userColorScheme: $userColorScheme,
+                    contentSelection: $contentSelection
                 )
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .preferredColorScheme(userColorScheme.colorScheme)

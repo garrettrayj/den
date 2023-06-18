@@ -11,14 +11,16 @@
 import SwiftUI
 
 struct DeleteProfileButton: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var profile: Profile
     
-    var callback: () -> () = {}
+    var callback: () -> Void
     
     var body: some View {
         Button(role: .destructive) {
             Task {
                 await delete()
+                callback()
             }
         } label: {
             Label {
@@ -27,6 +29,7 @@ struct DeleteProfileButton: View {
                 Image(systemName: "trash")
             }
         }
+        .symbolRenderingMode(.multicolor)
         .accessibilityIdentifier("delete-profile-button")
     }
     
@@ -42,7 +45,6 @@ struct DeleteProfileButton: View {
             }
             do {
                 try context.save()
-                callback()
             } catch let error as NSError {
                 CrashUtility.handleCriticalError(error)
             }

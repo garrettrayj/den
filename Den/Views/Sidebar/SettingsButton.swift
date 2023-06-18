@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct SettingsButton: View {
-    @Binding var listSelection: DetailPanel?
+    @Binding var showingSettings: Bool
 
     var body: some View {
         Button {
-            listSelection = .settings
+            showingSettings = true
         } label: {
             Label {
                 Text("Settings", comment: "Button label.")
@@ -23,7 +23,6 @@ struct SettingsButton: View {
                 Image(systemName: "gear")
             }
         }
-        .buttonStyle(PlainToolbarButtonStyle())
         .accessibilityIdentifier("settings-button")
     }
 }

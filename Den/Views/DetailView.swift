@@ -19,12 +19,7 @@ struct DetailView: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
     @Binding var contentSelection: DetailPanel?
-    @Binding var autoRefreshEnabled: Bool
-    @Binding var autoRefreshCooldown: Int
-    @Binding var backgroundRefreshEnabled: Bool
-    @Binding var useSystemBrowser: Bool
     @Binding var searchQuery: String
-    @Binding var userColorScheme: UserColorScheme
 
     @AppStorage("HideRead") private var hideRead: Bool = false
 
@@ -46,17 +41,6 @@ struct DetailView: View {
                         profile: profile,
                         hideRead: $hideRead
                     )
-                case .settings:
-                    SettingsList(
-                        profile: profile,
-                        activeProfile: $activeProfile,
-                        appProfileID: $appProfileID,
-                        autoRefreshEnabled: $autoRefreshEnabled,
-                        autoRefreshCooldown: $autoRefreshCooldown,
-                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        useSystemBrowser: $useSystemBrowser,
-                        userColorScheme: $userColorScheme
-                    )
                 }
             }
             .background(GroupedBackground())
@@ -76,18 +60,6 @@ struct DetailView: View {
                         }
                     case .trend(let trend):
                         TrendView(trend: trend, profile: profile, hideRead: $hideRead)
-                    case .profileSettings(let profile):
-                        ProfileSettings(
-                            profile: profile,
-                            activeProfile: $activeProfile,
-                            appProfileID: $appProfileID
-                        )
-                    case .importFeeds(let profile):
-                        ImportView(profile: profile)
-                    case .exportFeeds(let profile):
-                        ExportView(profile: profile)
-                    case .security(let profile):
-                        SecurityView(profile: profile)
                     }
                 }
                 .background(GroupedBackground())

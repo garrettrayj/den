@@ -35,7 +35,7 @@ struct TintPicker: View {
                 .tag(tintOption as TintOption?)
             }
         } label: {
-            Text("Tint", comment: "Picker label.").frame(maxWidth: .infinity, alignment: .leading)
+            Text("Custom Tint", comment: "Picker label.").frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.vertical, 4)
         .tint(tintSelection?.color)

@@ -16,15 +16,10 @@ enum DetailPanel: Hashable {
     case inbox
     case trending
     case page(Page)
-    case settings
 }
 
 enum SubDetailPanel: Hashable {
     case feed(Feed)
     case item(Item)
     case trend(Trend)
-    case profileSettings(Profile)
-    case importFeeds(Profile)
-    case exportFeeds(Profile)
-    case security(Profile)
 }

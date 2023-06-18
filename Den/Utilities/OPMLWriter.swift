@@ -1,5 +1,5 @@
 //
-//  OPMLWriter.swift
+//  OPMLGenerator.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/28/20.
@@ -13,18 +13,18 @@ import SwiftUI
 
 import AEXML
 
-final class OPMLWriter {
+final class OPMLGenerator {
     let title: String
-    private var pages: [Page]
+    let pages: [Page]
 
     init(title: String, pages: [Page]) {
         self.title = title
         self.pages = pages
     }
-
-    func writeToFile() -> URL {
-        let opmlDocument = AEXMLDocument()
-        let root = opmlDocument.addChild(name: "opml", attributes: ["version": "1.0"])
+    
+    var document: AEXMLDocument {
+        let document = AEXMLDocument()
+        let root = document.addChild(name: "opml", attributes: ["version": "1.0"])
 
         let head = root.addChild(name: "head")
         head.addChild(name: "title", value: title)
@@ -45,14 +45,17 @@ final class OPMLWriter {
                 outline.addChild(name: "outline", attributes: attributes)
             }
         }
+        
+        return document
+    }
+    
+    func getData() -> Data? {
+        document.xml.data(using: .utf8)
+    }
 
-        let directoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        let fileURL = directoryURL
-            .appendingPathComponent(title.sanitizedForFileName())
-            .appendingPathExtension("opml")
-
+    func writeToFile(url: URL) {
         do {
-            try opmlDocument.xml.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+            try document.xml.write(to: url, atomically: true, encoding: String.Encoding.utf8)
         } catch {
             // failed to write file – bad permissions, bad filename, missing permissions,
             // or more likely it can't be converted to the encoding
@@ -61,7 +64,5 @@ final class OPMLWriter {
             or more likely it can't be converted to the encoding.
             """)
         }
-
-        return fileURL
     }
 }

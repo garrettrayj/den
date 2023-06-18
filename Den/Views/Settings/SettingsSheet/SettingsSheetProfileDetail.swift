@@ -1,8 +1,8 @@
 //
-//  ProfilesSettingsTabDetail.swift
+//  SettingsSheetProfileDetail.swift
 //  Den
 //
-//  Created by Garrett Johnson on 6/14/23.
+//  Created by Garrett Johnson on 6/17/23.
 //  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ProfilesSettingsTabDetail: View {
+struct SettingsSheetProfileDetail: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -18,17 +18,13 @@ struct ProfilesSettingsTabDetail: View {
     
     @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
-    @Binding var contentSelection: DetailPanel?
-    
-    var deleteCallback: () -> Void
     
     var body: some View {
         Form {
-            List {
+            Section {
                 TextField(text: $profile.wrappedName, prompt: profile.nameText) {
                     Text("Name", comment: "Text field label.")
                 }
-                .font(.title)
                 .onChange(of: profile.wrappedName) { _ in
                     if viewContext.hasChanges {
                         do {
@@ -38,7 +34,11 @@ struct ProfilesSettingsTabDetail: View {
                         }
                     }
                 }
-                
+            } header: {
+                Text("Name", comment: "Profile settings section header.")
+            }
+            
+            Section {
                 TintPicker(tintSelection: $profile.tintOption)
                     .onChange(of: profile.tint) { _ in
                         if viewContext.hasChanges {
@@ -50,30 +50,35 @@ struct ProfilesSettingsTabDetail: View {
                         }
                     }
             }
-            .safeAreaInset(edge: .bottom) {
-                HStack {
-                    DeleteProfileButton(profile: profile, callback: deleteCallback)
-                        .disabled(profile == activeProfile)
-                    Spacer()
-                    Button {
-                        DispatchQueue.main.async {
-                            appProfileID = profile.id?.uuidString
-                            activeProfile = profile
-                            profile.objectWillChange.send()
-                            contentSelection = nil
-                        }
-                    } label: {
-                        Label {
-                            Text("Switch", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "arrow.left.arrow.right")
-                        }
+            
+            DeleteProfileButton(profile: profile, callback: { dismiss() })
+                .disabled(profile == activeProfile)
+        }
+        .formStyle(.grouped)
+        .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
+        .toolbar {
+            #if os(iOS)
+            ToolbarItem {
+                Button {
+                    DispatchQueue.main.async {
+                        appProfileID = profile.id?.uuidString
+                        activeProfile = profile
+                        profile.objectWillChange.send()
                     }
-                    .disabled(profile == activeProfile)
-                    .accessibilityIdentifier("switch-profile-button")
+                    dismiss()
+                } label: {
+                    Label {
+                        Text("Switch", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "arrow.left.arrow.right")
+                    }
                 }
-                .padding(8)
+                .labelStyle(.titleAndIcon)
+                .buttonStyle(.borderless)
+                .disabled(profile == activeProfile)
+                .accessibilityIdentifier("switch-profile-button")
             }
+            #endif
         }
     }
 }

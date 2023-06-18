@@ -26,16 +26,15 @@ struct SplitView: View {
     @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
+    @Binding var contentSelection: DetailPanel?
 
     @State private var searchQuery: String = ""
-    @State private var contentSelection: DetailPanel?
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    @State private var showingSettings: Bool = false
 
-    @AppStorage("AutoRefreshEnabled") private var autoRefreshEnabled: Bool = false
-    @AppStorage("AutoRefreshCooldown") private var autoRefreshCooldown: Int = 30
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
     @AppStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
 
@@ -44,7 +43,8 @@ struct SplitView: View {
             Sidebar(
                 profile: profile,
                 contentSelection: $contentSelection,
-                searchQuery: $searchQuery
+                searchQuery: $searchQuery,
+                showingSettings: $showingSettings
             )
             // Column width is set by initial sidebar view
             #if os(macOS)
@@ -63,12 +63,7 @@ struct SplitView: View {
                 activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
                 contentSelection: $contentSelection,
-                autoRefreshEnabled: $autoRefreshEnabled,
-                autoRefreshCooldown: $autoRefreshCooldown,
-                backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                useSystemBrowser: $useSystemBrowser,
-                searchQuery: $searchQuery,
-                userColorScheme: $userColorScheme
+                searchQuery: $searchQuery
             )
         }
         .tint(profile.tintColor)
@@ -83,25 +78,6 @@ struct SplitView: View {
         .modifier(
             URLDropTargetModifier()
         )
-        .onChange(of: scenePhase) { phase in
-            switch phase {
-            case .active:
-                if autoRefreshEnabled && (
-                    autoRefreshDate == 0.0 ||
-                    Date(timeIntervalSinceReferenceDate: autoRefreshDate) < .now - Double(autoRefreshCooldown) * 60
-                ) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        Task {
-                            guard let profile = activeProfile else { return }
-                            Logger.main.debug("Performing automatic refresh for profile: \(profile.wrappedName)")
-                            await refreshManager.refresh(profile: profile)
-                            autoRefreshDate = Date.now.timeIntervalSinceReferenceDate
-                        }
-                    }
-                }
-            default: break
-            }
-        }
         .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
             subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
             subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
@@ -126,6 +102,27 @@ struct SplitView: View {
             )
             .tint(profile.tintColor)
             .environmentObject(refreshManager)
+        }
+        .sheet(
+            isPresented: $showingSettings,
+            onDismiss: {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            }
+        ) {
+            SettingsSheet(
+                profile: profile,
+                activeProfile: $activeProfile,
+                appProfileID: $appProfileID,
+                backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                useSystemBrowser: $useSystemBrowser,
+                userColorScheme: $userColorScheme
+            )
         }
     }
 }

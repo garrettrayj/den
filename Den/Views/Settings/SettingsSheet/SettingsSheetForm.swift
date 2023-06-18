@@ -1,5 +1,5 @@
 //
-//  SettingsList.swift
+//  SettingsSheetForm.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/19/20.
@@ -10,37 +10,40 @@
 
 import SwiftUI
 
-struct SettingsList: View {
+struct SettingsSheetForm: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    @Binding var autoRefreshEnabled: Bool
-    @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
 
     var body: some View {
         Form {
-            ProfilesSettingsListSection(activeProfile: $activeProfile)
-            AppearanceSettingsListSection(userColorScheme: $userColorScheme)
+            SettingsSheetProfilesSection(activeProfile: $activeProfile, appProfileID: $appProfileID)
+            
+            Section {
+                ImportButton(activeProfile: $activeProfile)
+                ExportButton(activeProfile: $activeProfile)
+            } header: {
+                Text("OPML")
+            }
+            
+            SettingsSheetAppearanceSection(userColorScheme: $userColorScheme)
             #if os(iOS)
-            BrowserSettingsListSection(useSystemBrowser: $useSystemBrowser)
+            SettingsSheetBrowserSection(useSystemBrowser: $useSystemBrowser)
             #endif
-            RefreshSettingsSection(
-                autoRefreshEnabled: $autoRefreshEnabled,
-                autoRefreshCooldown: $autoRefreshCooldown,
+            SettingsSheetRefreshSection(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled
             )
-            ResetSettingsSection(
+            SettingsSheetResetSection(
                 activeProfile: $activeProfile,
-                appProfileID: $appProfileID,
-                profile: profile
+                appProfileID: $appProfileID
             )
-            AboutSettingsSection()
+            SettingsSheetAboutSection()
         }
         .navigationTitle(Text("Settings", comment: "Navigation title."))
     }
