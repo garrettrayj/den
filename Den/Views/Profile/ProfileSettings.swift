@@ -18,20 +18,38 @@ struct ProfileSettings: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
+    
+    var deleteCallback: () -> Void
 
     @State private var showingDeleteAlert: Bool = false
 
     var body: some View {
         Form {
-            nameSection
-            tintSection
-            FeedUtilitiesSection(profile: profile)
+            TextField(text: $profile.wrappedName, prompt: Text("Untitled", comment: "Text field prompt.")) {
+                Label {
+                    Text("Name", comment: "Text field label.")
+                } icon: {
+                    Image(systemName: "character.cursor.ibeam")
+                }
+            }
+            
+            TintPicker(tintSelection: $profile.tintOption)
+            
             HistorySettingsSection(
                 profile: profile,
                 historyRentionDays: profile.wrappedHistoryRetention
             )
-            deleteSection
+            
+            #if os(iOS)
+            Section {
+                DeleteProfileButton(profile: profile) {
+                    dismiss()
+                }
+                .disabled(activeProfile == profile)
+            }
+            #endif
         }
+        .formStyle(.grouped)
         .onDisappear {
             if profile.isDeleted { return }
             if viewContext.hasChanges {
@@ -67,94 +85,33 @@ struct ProfileSettings: View {
             #endif
         }
         .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
-    }
-
-    private var nameSection: some View {
-        Section {
-            TextField(text: $profile.wrappedName, prompt: Text("Untitled", comment: "Text field prompt.")) {
-                Text("Name", comment: "Text field label.")
-            }
-            
-            .modifier(TitleTextFieldModifier())
-        } header: {
-            Text("Name", comment: "Profile settings section header.").modifier(FirstFormHeaderModifier())
-        }
-        .modifier(ListRowModifier())
-    }
-
-    private var tintSection: some View {
-        Section {
-            TintPicker(tintSelection: $profile.tintOption)
-        } header: {
-            Text("Customization", comment: "Profile settings section header.")
-        }
-        .modifier(ListRowModifier())
-    }
-
-    private var deleteSection: some View {
-        Section {
-            Button(role: .destructive) {
-                showingDeleteAlert = true
-            } label: {
-                Label {
-                    Text("Delete", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "trash")
-                }
-                .symbolRenderingMode(.multicolor)
+        #if os(macOS)
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                DeleteProfileButton(profile: profile, callback: deleteCallback)
+                    .buttonStyle(.bordered)
+                    .disabled(profile == activeProfile)
                 
-            }
-            .accessibilityIdentifier("delete-profile-button")
-        }.alert(
-            Text("Delete Profile?", comment: "Alert title."),
-            isPresented: $showingDeleteAlert,
-            actions: {
-                Button(role: .cancel) {
-                    // Pass
-                } label: {
-                    Text("Cancel", comment: "Button label.")
-                }
-                .accessibilityIdentifier("delete-profile-cancel-button")
-
-                Button(role: .destructive) {
-                    Task {
-                        await delete()
+                Spacer()
+                Button {
+                    DispatchQueue.main.async {
+                        appProfileID = profile.id?.uuidString
+                        activeProfile = profile
+                        profile.objectWillChange.send()
                     }
-                    dismiss()
                 } label: {
-                    Text("Delete", comment: "Button label.")
+                    Label {
+                        Text("Switch", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "arrow.left.arrow.right")
+                    }
                 }
-                .accessibilityIdentifier("delete-profile-confirm-button")
-            },
-            message: {
-                Text(
-                    "All profile content (pages, feeds, history, etc.) will be removed.",
-                    comment: "Alert message."
-                )
+                .buttonStyle(.borderedProminent)
+                .disabled(profile == activeProfile)
+                .accessibilityIdentifier("switch-profile-button")
             }
-        )
-        .modifier(ListRowModifier())
-    }
-
-    private func delete() async {
-        let container = PersistenceController.shared.container
-
-        await container.performBackgroundTask { context in
-            if let toDelete = context.object(with: profile.objectID) as? Profile {
-                for feedData in toDelete.feedsArray.compactMap({$0.feedData}) {
-                    context.delete(feedData)
-                }
-                context.delete(toDelete)
-            }
-
-            do {
-                try context.save()
-                appProfileID = nil
-                activeProfile = nil
-                dismiss()
-            } catch let error as NSError {
-                CrashUtility.handleCriticalError(error)
-            }
+            .padding(12)
         }
+        #endif
     }
 }

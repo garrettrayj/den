@@ -23,66 +23,63 @@ struct ProfilesSettingsTab: View {
     @State private var selectedProfile: Profile?
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                #if os(macOS)
-                HSplitView {
-                    List(selection: $selectedProfile) {
-                        ForEach(profiles, id: \.self) { profile in
-                            Label {
-                                profile.nameText
-                            } icon: {
-                                Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
-                                    .foregroundColor(profile.tintColor)
-                            }
-                            .tag(profile as Profile?)
+        VStack {
+            #if os(macOS)
+            HSplitView {
+                List(selection: $selectedProfile) {
+                    ForEach(profiles, id: \.self) { profile in
+                        Label {
+                            profile.nameText
+                        } icon: {
+                            Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
+                                .foregroundColor(profile.tintColor)
                         }
-                    }
-                    .listStyle(.sidebar)
-                    .frame(maxWidth: 160, maxHeight: .infinity)
-                    .safeAreaInset(edge: .bottom, alignment: .leading) {
-                        Button {
-                            withAnimation {
-                                addProfile()
-                            }
-                        } label: {
-                            Label {
-                                Text("New Profile", comment: "Button label.").lineLimit(1)
-                            } icon: {
-                                Image(systemName: "plus.circle")
-                            }
-                        }
-                        .accessibilityIdentifier("new-profile-button")
-                        .padding(8)
-                    }
-                    
-                    if let profile = selectedProfile {
-                        ProfilesSettingsTabDetail(
-                            profile: profile,
-                            appProfileID: $appProfileID,
-                            activeProfile: $activeProfile,
-                            contentSelection: $contentSelection,
-                            deleteCallback: {
-                                selectedProfile = activeProfile
-                            }
-                        )
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .tag(profile as Profile?)
                     }
                 }
-                .cornerRadius(8)
-                #endif
+                .listStyle(.sidebar)
+                .frame(maxWidth: 160, maxHeight: .infinity)
+                .safeAreaInset(edge: .bottom, alignment: .leading) {
+                    Button {
+                        withAnimation {
+                            addProfile()
+                        }
+                    } label: {
+                        Label {
+                            Text("New Profile", comment: "Button label.").lineLimit(1)
+                        } icon: {
+                            Image(systemName: "plus.circle")
+                        }
+                    }
+                    .accessibilityIdentifier("new-profile-button")
+                    .padding(12)
+                }
+                
+                if let profile = selectedProfile {
+                    ProfileSettings(
+                        profile: profile,
+                        activeProfile: $activeProfile,
+                        appProfileID: $appProfileID,
+                        deleteCallback: {
+                            selectedProfile = activeProfile
+                        }
+                    )
+                    .scrollContentBackground(.hidden)
+                    .background(.background)
+                }
             }
-            .padding()
-            .frame(width: geometry.size.width, height: geometry.size.height)
-            .onAppear {
-                selectedProfile = activeProfile
-            }
+            .cornerRadius(8)
+            #endif
+        }
+        .padding()
+        .onAppear {
+            selectedProfile = activeProfile
         }
     }
 
     func addProfile() {
         _ = Profile.create(in: viewContext)
-
+        
         do {
             try viewContext.save()
         } catch let error as NSError {

@@ -22,25 +22,6 @@ struct HistorySettingsSection: View {
 
     var body: some View {
         Section {
-            #if os(macOS)
-            HStack {
-                Text("Keep")
-                Spacer()
-                Picker(selection: $historyRentionDays) {
-                    Text("Forever").tag(0 as Int)
-                    Text("One Year").tag(365 as Int)
-                    Text("Six Months").tag(182 as Int)
-                    Text("Three Months").tag(90 as Int)
-                    Text("One Month").tag(30 as Int)
-                    Text("Two Weeks").tag(14 as Int)
-                    Text("One Week").tag(7 as Int)
-                } label: {
-                    Text("Keep")
-                }
-                .labelsHidden()
-                .scaledToFit()
-            }
-            #else
             Picker(selection: $historyRentionDays) {
                 Text("Forever", comment: "History retention duration option.").tag(0 as Int)
                 Text("One Year", comment: "History retention duration option.").tag(365 as Int)
@@ -50,35 +31,33 @@ struct HistorySettingsSection: View {
                 Text("Two Weeks", comment: "History retention duration option.").tag(14 as Int)
                 Text("One Week", comment: "History retention duration option.").tag(7 as Int)
             } label: {
-                Text("Keep", comment: "History retention picker label.")
+                Text("Keep History", comment: "History retention picker label.")
             }
-            #endif
 
             Button {
                 Task {
                     await clear()
                 }
-                profile.objectWillChange.send()
             } label: {
-                HStack {
-                    Text("Clear", comment: "Button label.")
-                    Spacer()
-                    Group {
-                        if historyCount == 1 {
-                            Text("1 Record", comment: "History count (singular).")
-                        } else {
-                            Text("\(historyCount) Records", comment: "History count (plural).")
+                Label {
+                    HStack {
+                        Text("Clear History", comment: "Button label.")
+                        Spacer()
+                        Group {
+                            if historyCount == 1 {
+                                Text("1 Record", comment: "History count (singular).")
+                            } else {
+                                Text("\(historyCount) Records", comment: "History count (plural).")
+                            }
                         }
                     }
-                    .font(.callout)
-                    .foregroundColor(.secondary)
+                } icon: {
+                    Image(systemName: "clear")
                 }
             }
+            .buttonStyle(.borderless)
             .disabled(historyCount == 0)
-            
             .accessibilityIdentifier("clear-history-button")
-        } header: {
-            Text("History", comment: "Profile settings section header.")
         } footer: {
             if historyRentionDays == 0 || historyRentionDays > 90 || historyCount > 100_000 {
                 Label {
@@ -92,7 +71,6 @@ struct HistorySettingsSection: View {
                 .imageScale(.small)
             }
         }
-        .modifier(ListRowModifier())
         .onChange(of: historyRentionDays) { _ in
             profile.wrappedHistoryRetention = historyRentionDays
         }

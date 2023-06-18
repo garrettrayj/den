@@ -26,7 +26,6 @@ struct SettingsTabs: View {
     @Binding var contentSelection: DetailPanel?
     
     var body: some View {
-        
         TabView {
             GeneralSettingsTab(
                 activeProfile: $activeProfile,
@@ -42,7 +41,7 @@ struct SettingsTabs: View {
                 Label("Profiles", systemImage: "person.crop.circle")
             }
         }
-        .frame(minWidth: 480, minHeight: 260)
+        .frame(minWidth: 480, minHeight: 320)
     }
 }
  

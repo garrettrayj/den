@@ -23,7 +23,7 @@ struct SettingsSheetForm: View {
 
     var body: some View {
         Form {
-            SettingsSheetProfilesSection(activeProfile: $activeProfile, appProfileID: $appProfileID)
+            ProfilesSettingsSection(activeProfile: $activeProfile, appProfileID: $appProfileID)
             
             Section {
                 ImportButton(activeProfile: $activeProfile)
@@ -32,18 +32,43 @@ struct SettingsSheetForm: View {
                 Text("OPML")
             }
             
-            SettingsSheetAppearanceSection(userColorScheme: $userColorScheme)
+            Section {
+                UserColorSchemePicker(userColorScheme: $userColorScheme)
+            } header: {
+                Text("Appearance", comment: "Settings section header.")
+            }
+            
             #if os(iOS)
-            SettingsSheetBrowserSection(useSystemBrowser: $useSystemBrowser)
+            Section {
+                Toggle(isOn: $useSystemBrowser) {
+                    Text("Use System Web Browser", comment: "Toggle label.")
+                }
+            } header: {
+                Text("Links", comment: "Settings section header.")
+            }
             #endif
-            SettingsSheetRefreshSection(
-                backgroundRefreshEnabled: $backgroundRefreshEnabled
-            )
-            SettingsSheetResetSection(
-                activeProfile: $activeProfile,
-                appProfileID: $appProfileID
-            )
-            SettingsSheetAboutSection()
+            
+            Section {
+                Toggle(isOn: $backgroundRefreshEnabled) {
+                    Text("In Background", comment: "Refresh option toggle label.")
+                }
+            } header: {
+                Text("Refresh", comment: "Setting section header.")
+            }
+            
+            Section {
+                ClearCacheButton().buttonStyle(.borderless)
+                
+                ResetEverythingButton(
+                    activeProfile: $activeProfile,
+                    appProfileID: $appProfileID
+                )
+                .buttonStyle(.plain)
+            } header: {
+                Text("Reset", comment: "Settings section header.")
+            }
+            
+            SettingsAboutSection()
         }
         .navigationTitle(Text("Settings", comment: "Navigation title."))
     }

@@ -78,6 +78,9 @@ struct SplitView: View {
         .modifier(
             URLDropTargetModifier()
         )
+        .onChange(of: activeProfile) { _ in
+            contentSelection = nil
+        }
         .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
             subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
             subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID

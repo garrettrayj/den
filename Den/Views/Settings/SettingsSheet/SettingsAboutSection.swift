@@ -1,5 +1,5 @@
 //
-//  SettingsSheetAboutSection.swift
+//  SettingsAboutSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SettingsSheetAboutSection: View {
+struct SettingsAboutSection: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
@@ -45,6 +45,5 @@ struct SettingsSheetAboutSection: View {
                 .padding()
                 .foregroundColor(.secondary)
         }
-        .modifier(ListRowModifier())
     }
 }

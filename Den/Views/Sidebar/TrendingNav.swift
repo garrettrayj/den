@@ -23,9 +23,6 @@ struct TrendingNav: View {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
-        #if os(iOS)
-        .modifier(ListRowModifier())
-        #endif
         .accessibilityIdentifier("trends-button")
     }
 }

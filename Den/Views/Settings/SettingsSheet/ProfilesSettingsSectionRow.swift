@@ -1,5 +1,5 @@
 //
-//  SettingsSheetProfilesSectionRow.swift
+//  ProfilesSettingsSectionRow.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/17/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SettingsSheetProfilesSectionRow: View {
+struct ProfilesSettingsSectionRow: View {
     @Environment(\.dismiss) private var dismiss
     
     @ObservedObject var profile: Profile
@@ -32,10 +32,11 @@ struct SettingsSheetProfilesSectionRow: View {
             }
         }
         .navigationDestination(isPresented: $showingDetail) {
-            SettingsSheetProfileDetail(
+            ProfileSettings(
                 profile: profile,
+                activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
-                activeProfile: $activeProfile
+                deleteCallback: {}
             )
         }
     }

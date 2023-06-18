@@ -16,12 +16,11 @@ struct DeleteProfileButton: View {
     
     var callback: () -> Void
     
+    @State private var showingAlert = false
+    
     var body: some View {
         Button(role: .destructive) {
-            Task {
-                await delete()
-                callback()
-            }
+            showingAlert = true
         } label: {
             Label {
                 Text("Delete", comment: "Button label.")
@@ -29,6 +28,34 @@ struct DeleteProfileButton: View {
                 Image(systemName: "trash")
             }
         }
+        .alert(
+            Text("Delete Profile?", comment: "Alert title."),
+            isPresented: $showingAlert,
+            actions: {
+                Button(role: .cancel) {
+                    // Pass
+                } label: {
+                    Text("Cancel", comment: "Button label.")
+                }
+                .accessibilityIdentifier("delete-profile-cancel-button")
+
+                Button(role: .destructive) {
+                    Task {
+                        await delete()
+                        callback()
+                    }
+                } label: {
+                    Text("Delete", comment: "Button label.")
+                }
+                .accessibilityIdentifier("delete-profile-confirm-button")
+            },
+            message: {
+                Text(
+                    "All profile content (pages, feeds, history, etc.) will be removed.",
+                    comment: "Alert message."
+                )
+            }
+        )
         .symbolRenderingMode(.multicolor)
         .accessibilityIdentifier("delete-profile-button")
     }

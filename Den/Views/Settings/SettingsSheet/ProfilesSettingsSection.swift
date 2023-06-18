@@ -1,5 +1,5 @@
 //
-//  SettingsSheetProfilesSection.swift
+//  ProfilesSettingsSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/11/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SettingsSheetProfilesSection: View {
+struct ProfilesSettingsSection: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var activeProfile: Profile?
@@ -22,7 +22,7 @@ struct SettingsSheetProfilesSection: View {
     var body: some View {
         Section {
             ForEach(profiles) { profile in
-                SettingsSheetProfilesSectionRow(
+                ProfilesSettingsSectionRow(
                     profile: profile,
                     appProfileID: $appProfileID,
                     activeProfile: $activeProfile
@@ -45,7 +45,6 @@ struct SettingsSheetProfilesSection: View {
         } header: {
             Text("Profiles", comment: "Settings section header.").modifier(FirstFormHeaderModifier())
         }
-        .modifier(ListRowModifier())
     }
 
     func addProfile() {

@@ -25,8 +25,5 @@ struct InboxNav: View {
             }
         }
         .accessibilityIdentifier("inbox-button")
-        #if os(iOS)
-        .modifier(ListRowModifier())
-        #endif
     }
 }

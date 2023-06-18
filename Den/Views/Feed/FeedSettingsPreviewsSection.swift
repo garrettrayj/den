@@ -39,7 +39,6 @@ struct FeedSettingsPreviewsSection: View {
                     .scaledToFit()
                     .labelsHidden()
             }
-            .modifier(ListRowModifier())
             .task {
                 showHideTeaserOption = feed.wrappedPreviewStyle == .expanded
             }
@@ -56,12 +55,10 @@ struct FeedSettingsPreviewsSection: View {
                     Spacer()
                     Toggle("Hide Teasers", isOn: $feed.hideTeasers).labelsHidden()
                 }
-                .modifier(ListRowModifier())
                 #else
                 Toggle(isOn: $feed.hideTeasers) {
                     Text("Hide Teasers", comment: "Toggle label.")
                 }
-                .modifier(ListRowModifier())
                 #endif
             }
 
@@ -71,12 +68,10 @@ struct FeedSettingsPreviewsSection: View {
                 Spacer()
                 Toggle("Hide Bylines", isOn: $feed.hideBylines).labelsHidden()
             }
-            .modifier(ListRowModifier())
             #else
             Toggle(isOn: $feed.hideBylines) {
                 Text("Hide Bylines", comment: "Toggle label.")
             }
-            .modifier(ListRowModifier())
             #endif
 
             #if os(macOS)
@@ -85,12 +80,10 @@ struct FeedSettingsPreviewsSection: View {
                 Spacer()
                 Toggle("Hide Images", isOn: $feed.hideImages).labelsHidden()
             }
-            .modifier(ListRowModifier())
             #else
             Toggle(isOn: $feed.hideImages) {
                 Text("Hide Images", comment: "Toggle label.")
             }
-            .modifier(ListRowModifier())
             #endif
 
             #if os(macOS)
@@ -99,17 +92,14 @@ struct FeedSettingsPreviewsSection: View {
                 Spacer()
                 Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
             }
-            .modifier(ListRowModifier())
             #else
             Toggle(isOn: $feed.browserView) {
                 Text("Open in Browser", comment: "Toggle label.")
             }
-            .modifier(ListRowModifier())
             if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
                     Text("Enter Reader Mode", comment: "Toggle label.")
                 }
-                .modifier(ListRowModifier())
             }
             #endif
         } header: {

@@ -45,9 +45,6 @@ struct PagesSection: View {
             }
             #endif
         }
-        #if os(iOS)
-        .modifier(ListRowModifier())
-        #endif
     }
 
     private func movePage(from source: IndexSet, to destination: Int) {

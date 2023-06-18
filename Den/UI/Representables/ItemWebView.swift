@@ -55,13 +55,13 @@ struct ItemWebView {
     private func getStylesString() -> String? {
         guard
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
-            let cssString = try? String(contentsOfFile: path)
-                .replacingOccurrences(
-                    of: "$TINT_COLOR",
-                    with: tint?.hexString ?? Color.accentColor.hexString
-                )
-                .components(separatedBy: .newlines).joined()
+            var cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
         else { return nil }
+        
+        cssString = cssString.replacingOccurrences(
+            of: "$TINT_COLOR",
+            with: tint?.hexString ?? Color.accentColor.hexString ?? "#000000"
+        )
 
         return cssString
     }
@@ -130,6 +130,13 @@ struct ItemWebView {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+        
+        #if os(macOS)
+        override func scrollWheel(with theEvent: NSEvent) {
+            nextResponder?.scrollWheel(with: theEvent)
+            return
+        }
+        #endif
 
         #if os(iOS)
         override var intrinsicContentSize: CGSize {
