@@ -15,6 +15,7 @@ struct Sidebar: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.managedObjectContext) private var viewContext
+    
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
 
@@ -24,7 +25,7 @@ struct Sidebar: View {
     @Binding var searchQuery: String
     @Binding var showingSettings: Bool
 
-    @State private var searchInput: String = ""
+    @State private var searchInput = ""
 
     var body: some View {
         List(selection: $contentSelection) {
@@ -88,13 +89,17 @@ struct Sidebar: View {
             ToolbarItem(placement: .bottomBar) {
                 SettingsButton(showingSettings: $showingSettings).disabled(refreshManager.refreshing)
             }
-            ToolbarItemGroup(placement: .bottomBar) {
+            ToolbarItem(placement: .bottomBar) {
                 Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
                 SidebarStatus(
                     profile: profile,
-                    refreshing: $refreshManager.refreshing,
-                    progress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
+                    refreshing: $refreshManager.refreshing
                 )
+                .frame(maxWidth: .infinity)
+            }
+            ToolbarItem(placement: .bottomBar) {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {

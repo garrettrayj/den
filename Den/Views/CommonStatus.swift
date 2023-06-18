@@ -19,27 +19,12 @@ struct CommonStatus: View {
 
     @ObservedObject var profile: Profile
     
-    @State var progress: Progress = Progress()
-    
-    init(profile: Profile) {
-        self.profile = profile
-        self.progress.totalUnitCount = Int64(profile.feedsArray.count)
-    }
-
     var body: some View {
         VStack {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
             } else if  refreshManager.refreshing {
-                Text("Updating…", comment: "Refresh in-progress label.")
-                ProgressView(progress)
-                    .progressViewStyle(.linear)
-                    .labelsHidden()
-                    #if os(macOS)
-                    .frame(height: 8)
-                    #else
-                    .frame(height: 4)
-                    #endif
+                Text("Checking for New Items…", comment: "Refresh in-progress label.")
             } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                 RelativeRefreshedDate(date: refreshedDate)
             }
@@ -48,14 +33,5 @@ struct CommonStatus: View {
         .font(.caption)
         .lineLimit(1)
         .padding(.horizontal, 8)
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-            progress.completedUnitCount += 1
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
-            progress.completedUnitCount += 1
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished)) { _ in
-            progress.completedUnitCount = 0
-        }
     }
 }
