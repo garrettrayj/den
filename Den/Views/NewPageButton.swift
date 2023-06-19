@@ -17,16 +17,18 @@ struct NewPageButton: View {
 
     var body: some View {
         Button {
-            guard let profile = activeProfile else { return }
-            _ = Page.create(
-                in: viewContext,
-                profile: profile,
-                prepend: true
-            )
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+            Task {
+                guard let profile = activeProfile else { return }
+                _ = Page.create(
+                    in: viewContext,
+                    profile: profile,
+                    prepend: true
+                )
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
             }
         } label: {
             Label {
@@ -35,6 +37,7 @@ struct NewPageButton: View {
                 Image(systemName: "plus.circle")
             }
         }
+        .accessibilityIdentifier("new-page-button")
         .keyboardShortcut("n", modifiers: [.command, .shift])
     }
 }

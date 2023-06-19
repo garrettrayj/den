@@ -35,7 +35,7 @@ struct PageToolbar: ToolbarContent {
             PageSettingsButton(showingSettings: $showingSettings)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead) { }
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
@@ -62,10 +62,7 @@ struct PageToolbar: ToolbarContent {
         }
 
         ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead) {
-                page.objectWillChange.send()
-            }
-
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {

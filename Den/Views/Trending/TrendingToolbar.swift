@@ -30,8 +30,7 @@ struct TrendingToolbar: ToolbarContent {
             CommonStatus(profile: profile)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead) { }
-
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: unreadCount) {
@@ -41,7 +40,7 @@ struct TrendingToolbar: ToolbarContent {
         }
         #else
         ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead) { }
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {

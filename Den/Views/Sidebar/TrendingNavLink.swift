@@ -1,5 +1,5 @@
 //
-//  TrendingNav.swift
+//  TrendingNavLink.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/30/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TrendingNav: View {
+struct TrendingNavLink: View {
     @ObservedObject var profile: Profile
 
     var body: some View {

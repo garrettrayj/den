@@ -49,7 +49,7 @@ struct SidebarToolbar: ToolbarContent {
             Spacer()
         }
         ToolbarItem(placement: .bottomBar) {
-            RefreshButton(profile: profile)
+            RefreshButton(activeProfile: .constant(profile))
                 .disabled(
                     refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                 )

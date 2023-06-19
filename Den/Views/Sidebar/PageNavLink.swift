@@ -1,5 +1,5 @@
 //
-//  PageNav.swift
+//  PageNavLink.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.
@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct PageNav: View {
+struct PageNavLink: View {
     @Environment(\.managedObjectContext) private var viewContext
     #if os(iOS)
     @Environment(\.editMode) private var editMode

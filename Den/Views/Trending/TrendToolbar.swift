@@ -27,9 +27,7 @@ struct TrendToolbar: ToolbarContent {
             CommonStatus(profile: profile)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead) {
-                trend.objectWillChange.send()
-            }
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
@@ -43,9 +41,7 @@ struct TrendToolbar: ToolbarContent {
         }
         #else
         ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead) {
-                trend.objectWillChange.send()
-            }
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {

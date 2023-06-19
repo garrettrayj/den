@@ -18,36 +18,15 @@ struct Start: View {
 
     var body: some View {
         Section {
-            Button {
-                _ = Page.create(in: viewContext, profile: profile, prepend: true)
-                do {
-                    try viewContext.save()
-                    DispatchQueue.main.async {
-                        profile.objectWillChange.send()
-                    }
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            } label: {
-                Label {
-                    Text("New Page", comment: "Button label.")
-                        .multilineTextAlignment(.leading)
-                } icon: {
-                    Image(systemName: "plus")
-                }
-            }
-            .buttonStyle(.borderless)
-            .accessibilityIdentifier("start-add-page-button")
+            NewPageButton(activeProfile: .constant(profile))
+                .buttonStyle(.borderless)
 
             Button {
-                loadDemo()
+                Task { loadDemo() }
             } label: {
                 Label {
-                    Text(
-                        "Load Demo Feeds",
-                        comment: "Button label."
-                    )
-                    .multilineTextAlignment(.leading)
+                    Text("Load Demo Feeds", comment: "Button label.")
+                        .multilineTextAlignment(.leading)
                 } icon: {
                     Image(systemName: "wand.and.stars")
                 }
@@ -115,9 +94,7 @@ struct Start: View {
         do {
             try viewContext.save()
         } catch let error as NSError {
-            DispatchQueue.main.async {
-                CrashUtility.handleCriticalError(error)
-            }
+            CrashUtility.handleCriticalError(error)
         }
     }
 }

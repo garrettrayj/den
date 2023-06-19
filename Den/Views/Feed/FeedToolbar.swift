@@ -29,10 +29,7 @@ struct FeedToolbar: ToolbarContent {
             FeedSettingsButton(feed: feed)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead) {
-                feed.objectWillChange.send()
-            }
-
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
@@ -46,9 +43,7 @@ struct FeedToolbar: ToolbarContent {
             FeedSettingsButton(feed: feed)
         }
         ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead) {
-                feed.objectWillChange.send()
-            }
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {

@@ -1,5 +1,5 @@
 //
-//  InboxNav.swift
+//  InboxNavLink.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/30/22.
@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct InboxNav: View {
+struct InboxNavLink: View {
     @ObservedObject var profile: Profile
 
     var body: some View {

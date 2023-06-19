@@ -21,9 +21,7 @@ struct SearchToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(iOS)
         ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead) {
-                profile.objectWillChange.send()
-            }
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -40,7 +38,7 @@ struct SearchToolbar: ToolbarContent {
             SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead) { }
+            FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {

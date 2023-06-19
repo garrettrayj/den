@@ -13,12 +13,9 @@ import SwiftUI
 struct FilterReadButton: View {
     @Binding var hideRead: Bool
 
-    let callback: () -> Void
-
     var body: some View {
         Button {
             hideRead.toggle()
-            callback()
         } label: {
             Label {
                 Text("Filter Read", comment: "Button label.")

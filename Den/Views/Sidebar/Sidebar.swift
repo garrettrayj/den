@@ -35,11 +35,13 @@ struct Sidebar: View {
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, alignment: .leading) {
-            NewPageButton(activeProfile: .constant(profile))
-                .buttonStyle(.borderless)
-                .foregroundStyle(.secondary)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 12)
+            if !profile.pagesArray.isEmpty {
+                NewPageButton(activeProfile: .constant(profile))
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(.secondary)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
+            }
         }
         #endif
         .listStyle(.sidebar)

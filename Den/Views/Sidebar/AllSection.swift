@@ -15,8 +15,8 @@ struct AllSection: View {
 
     var body: some View {
         Section {
-            InboxNav(profile: profile)
-            TrendingNav(profile: profile)
+            InboxNavLink(profile: profile)
+            TrendingNavLink(profile: profile)
         } header: {
             #if os(macOS)
             Text("All Feeds", comment: "Sidebar section header.")
