@@ -56,8 +56,11 @@ struct ItemActionView<Content: View>: View {
                     OpenInBrowserLabel()
                 }
                 Button {
-                    #if os(iOS)
-                    UIPasteboard.general.url = link
+                    #if os(macOS)
+                    NSPasteboard.general.prepareForNewContents()
+                    NSPasteboard.general.setString(link.absoluteString, forType: .string)
+                    #else
+                    UIPasteboard.general.string = link.absoluteString
                     #endif
                 } label: {
                     Label {

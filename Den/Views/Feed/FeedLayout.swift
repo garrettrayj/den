@@ -84,7 +84,6 @@ struct FeedLayout: View {
                     .background(SecondaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                 }
-                .padding(.vertical)
                 .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {
@@ -120,7 +119,6 @@ struct FeedLayout: View {
                     .background(SecondaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                 }
-                .padding(.vertical)
                 .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {
@@ -148,10 +146,13 @@ struct FeedLayout: View {
                     .accessibilityIdentifier("feed-link-button")
                 }
 
-                if let feedURLString = feed.url?.absoluteString, let url = feed.url {
+                if let feedURLString = feed.url?.absoluteString {
                     Button {
-                        #if os(iOS)
-                        UIPasteboard.general.url = url
+                        #if os(macOS)
+                        NSPasteboard.general.prepareForNewContents()
+                        NSPasteboard.general.setString(feedURLString, forType: .string)
+                        #else
+                        UIPasteboard.general.string = feedURLString
                         #endif
                         urlCopied = true
                     } label: {

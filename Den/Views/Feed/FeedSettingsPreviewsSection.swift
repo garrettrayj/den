@@ -49,53 +49,24 @@ struct FeedSettingsPreviewsSection: View {
             }
 
             if showHideTeaserOption {
-                #if os(macOS)
-                HStack {
-                    Text("Hide Teasers", comment: "Toggle label.")
-                    Spacer()
-                    Toggle("Hide Teasers", isOn: $feed.hideTeasers).labelsHidden()
-                }
-                #else
                 Toggle(isOn: $feed.hideTeasers) {
                     Text("Hide Teasers", comment: "Toggle label.")
                 }
-                #endif
             }
 
-            #if os(macOS)
-            HStack {
-                Text("Hide Bylines", comment: "Toggle label.")
-                Spacer()
-                Toggle("Hide Bylines", isOn: $feed.hideBylines).labelsHidden()
-            }
-            #else
             Toggle(isOn: $feed.hideBylines) {
                 Text("Hide Bylines", comment: "Toggle label.")
             }
-            #endif
 
-            #if os(macOS)
-            HStack {
-                Text("Hide Images", comment: "Toggle label.")
-                Spacer()
-                Toggle("Hide Images", isOn: $feed.hideImages).labelsHidden()
-            }
-            #else
             Toggle(isOn: $feed.hideImages) {
                 Text("Hide Images", comment: "Toggle label.")
             }
-            #endif
-
-            #if os(macOS)
-            HStack {
-                Text("Open in Browser", comment: "Toggle label.")
-                Spacer()
-                Toggle("Open in Browser", isOn: $feed.browserView).labelsHidden()
-            }
-            #else
+            
             Toggle(isOn: $feed.browserView) {
                 Text("Open in Browser", comment: "Toggle label.")
             }
+
+            #if os(iOS)
             if feed.browserView {
                 Toggle(isOn: $feed.readerMode) {
                     Text("Enter Reader Mode", comment: "Toggle label.")

@@ -39,7 +39,6 @@ struct InboxLayout: View {
                             }
                         }
                     }
-                    .modifier(MainBoardModifier())
                 }
             }
         }

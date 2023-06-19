@@ -38,7 +38,6 @@ struct Trending: View {
                         BoardView(geometry: geometry, list: visibleTrends) { trend in
                             TrendBlock(trend: trend)
                         }
-                        .modifier(MainBoardModifier())
                     }
                 }
             }

@@ -28,7 +28,7 @@ struct ProfilesSettingsSection: View {
             }
             NewProfileButton()
         } header: {
-            Text("Profiles", comment: "Settings section header.").modifier(FirstFormHeaderModifier())
+            Text("Profiles", comment: "Settings section header.")
         }
     }
 }

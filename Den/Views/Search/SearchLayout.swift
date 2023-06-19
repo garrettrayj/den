@@ -39,7 +39,7 @@ struct SearchLayout: View {
                                 FeedItemCompressed(item: item, feed: feed, profile: profile)
                             }
                         }
-                    }.modifier(MainBoardModifier())
+                    }
                 }
                 .edgesIgnoringSafeArea(.horizontal)
             }

@@ -56,28 +56,26 @@ struct Start: View {
             .accessibilityIdentifier("load-demo-button")
 
             #if os(macOS)
-            importGuidanceText
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .imageScale(.small)
-                .padding(.vertical)
+            Text(
+                "Or import OPML with File > Import.",
+                comment: "Sidebar guidance message."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .padding(.vertical)
             #endif
         } header: {
             Text("Get Started", comment: "Sidebar section header.")
         } footer: {
-            importGuidanceText
-                .font(.footnote)
-                .foregroundColor(.secondary)
-                .imageScale(.small)
-                .padding(.vertical, 4)
+            Text(
+                "Or import OPML in \(Image(systemName: "gear")) Settings.",
+                comment: "Sidebar guidance message."
+            )
+            .font(.footnote)
+            .foregroundColor(.secondary)
+            .imageScale(.small)
+            .padding(.vertical, 4)
         }
-    }
-
-    private var importGuidanceText: Text {
-        Text(
-            "Or import feeds in \(Image(systemName: "gear")) Settings.",
-            comment: "Sidebar guidance message."
-        )
     }
 
     private func loadDemo() {

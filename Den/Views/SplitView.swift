@@ -46,9 +46,7 @@ struct SplitView: View {
                 showingSettings: $showingSettings
             )
             // Column width is set by initial sidebar view
-            #if os(macOS)
-            .navigationSplitViewColumnWidth(224)
-            #else
+            #if os(iOS)
             .navigationSplitViewColumnWidth(264 * dynamicTypeSize.layoutScalingFactor)
             .refreshable {
                 if let profile = activeProfile, networkMonitor.isConnected {
