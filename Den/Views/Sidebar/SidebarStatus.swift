@@ -17,6 +17,8 @@ struct SidebarStatus: View {
     
     @Binding var refreshing: Bool
 
+    @State private var progress = Progress()
+    
     let dateFormatter: DateFormatter = {
         let relativeDateFormatter = DateFormatter()
         relativeDateFormatter.timeStyle = .none
@@ -26,13 +28,21 @@ struct SidebarStatus: View {
 
         return relativeDateFormatter
     }()
+    
+    init(profile: Profile, refreshing: Binding<Bool>) {
+        self.profile = profile
+        _refreshing = refreshing
+        
+        self.progress.totalUnitCount = Int64(profile.feedsArray.count)
+    }
 
     var body: some View {
         VStack {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
             } else if refreshing {
-                Text("Updating…", comment: "Refresh in-progress label.")
+                ProgressView(progress)
+                    .progressViewStyle(BottomBarProgressViewStyle(profile: profile))
             } else {
                 if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                     if refreshedDate.formatted(date: .complete, time: .omitted) ==
@@ -52,5 +62,14 @@ struct SidebarStatus: View {
         }
         .font(.caption)
         .multilineTextAlignment(.center)
+        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
+            progress.completedUnitCount += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
+            progress.completedUnitCount += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished)) { _ in
+            progress.completedUnitCount = 0
+        }
     }
 }

@@ -23,7 +23,6 @@ struct GeneralSettingsTab: View {
                 Text("Appearance", comment: "Settings section header.")
             }
             
-            
             Section {
                 ClearCacheButton().buttonStyle(.borderless)
                 
@@ -35,8 +34,6 @@ struct GeneralSettingsTab: View {
             } header: {
                 Text("Reset", comment: "Settings section header.")
             }
-            
-            
         }
         .formStyle(.grouped)
     }

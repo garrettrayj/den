@@ -1,5 +1,5 @@
 //
-//  CircularDeterminateProgressViewStyle.swift
+//  PieProgressViewStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/18/23.
@@ -10,13 +10,13 @@
 
 import SwiftUI
 
-struct CircularDeterminateProgressViewStyle: ProgressViewStyle {
+struct PieProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         Circle()
-            .stroke(.tertiary, lineWidth: 1)
+            .stroke(.secondary, lineWidth: 1.5)
             .overlay {
                 PieShape(progress: configuration.fractionCompleted ?? 0)
-                    .fill(.secondary)
+                    .fill(.tertiary)
                     .padding(2)
             }
             .aspectRatio(1, contentMode: .fit)

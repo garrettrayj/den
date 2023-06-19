@@ -1,5 +1,5 @@
 //
-//  AddFeed.swift
+//  NewFeedSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/18/20.
@@ -19,7 +19,7 @@ enum FeedURLValidationMessage {
     case unopenable
 }
 
-struct AddFeed: View {
+struct NewFeedSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var refreshManager: RefreshManager

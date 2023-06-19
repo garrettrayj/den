@@ -84,7 +84,6 @@ struct ProfileSettings: View {
             }
             #endif
         }
-        .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
         #if os(macOS)
         .safeAreaInset(edge: .bottom) {
             HStack {

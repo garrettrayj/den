@@ -11,14 +11,10 @@
 import SwiftUI
 
 struct ItemView: View {
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.useSystemBrowser) private var useSystemBrowser
-    @Environment(\.openURL) private var openURL
 
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
         CGFloat(700) * dynamicTypeSize.layoutScalingFactor
@@ -29,14 +25,8 @@ struct ItemView: View {
             SplashNote(title: Text("Item Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             itemLayout
-                #if os(macOS)
-                .background(.thinMaterial.opacity(colorScheme == .dark ? 1 : 0), ignoresSafeAreaEdges: .all)
-                .background(.background, ignoresSafeAreaEdges: .all)
-                #else
-                .background(.background, ignoresSafeAreaEdges: .all)
-                #endif
                 .toolbar {
-                    ItemToolbar(item: item, feed: feed, profile: profile)
+                    ItemToolbar(item: item, feed: feed)
                 }
         }
     }
@@ -84,8 +74,7 @@ struct ItemView: View {
                             ItemWebView(
                                 html: item.body ?? item.summary!,
                                 title: item.wrappedTitle,
-                                baseURL: item.link,
-                                tint: profile.tintColor
+                                baseURL: item.link
                             )
                         }
                     }

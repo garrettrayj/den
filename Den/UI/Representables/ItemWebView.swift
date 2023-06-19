@@ -14,6 +14,7 @@ import WebKit
 
 struct ItemWebView {
     @Environment(\.openURL) private var openURL
+    @Environment(\.profileTint) private var profileTint
     
     var html: String?
     var title: String
@@ -60,7 +61,7 @@ struct ItemWebView {
         
         cssString = cssString.replacingOccurrences(
             of: "$TINT_COLOR",
-            with: tint?.hexString ?? Color.accentColor.hexString ?? "#000000"
+            with: profileTint.hexString ?? "blue"
         )
 
         return cssString
@@ -170,6 +171,7 @@ extension ItemWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.isInspectable = true
+        webView.setValue(false, forKey: "drawsBackground")
 
         return webView
     }

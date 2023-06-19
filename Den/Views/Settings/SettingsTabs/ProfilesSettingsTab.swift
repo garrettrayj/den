@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct ProfilesSettingsTab: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
     @Binding var contentSelection: DetailPanel?
@@ -40,19 +38,7 @@ struct ProfilesSettingsTab: View {
                 .listStyle(.sidebar)
                 .frame(maxWidth: 160, maxHeight: .infinity)
                 .safeAreaInset(edge: .bottom, alignment: .leading) {
-                    Button {
-                        withAnimation {
-                            addProfile()
-                        }
-                    } label: {
-                        Label {
-                            Text("New Profile", comment: "Button label.").lineLimit(1)
-                        } icon: {
-                            Image(systemName: "plus.circle")
-                        }
-                    }
-                    .accessibilityIdentifier("new-profile-button")
-                    .padding(12)
+                    NewProfileButton().padding(12)
                 }
                 
                 if let profile = selectedProfile {
@@ -74,16 +60,6 @@ struct ProfilesSettingsTab: View {
         .padding()
         .onAppear {
             selectedProfile = activeProfile
-        }
-    }
-
-    func addProfile() {
-        _ = Profile.create(in: viewContext)
-        
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            CrashUtility.handleCriticalError(error)
         }
     }
 }

@@ -139,7 +139,14 @@
 		687FEEF72A3E431E0042977E /* ImportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEF62A3E431E0042977E /* ImportButton.swift */; };
 		687FEEF92A3E4FE60042977E /* ExportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEF82A3E4FE60042977E /* ExportButton.swift */; };
 		687FEEFB2A3EE4E10042977E /* OPMLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEFA2A3EE4E10042977E /* OPMLFile.swift */; };
-		687FEEFD2A3F19E40042977E /* CircularDeterminateProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEFC2A3F19E40042977E /* CircularDeterminateProgressViewStyle.swift */; };
+		687FEEFD2A3F19E40042977E /* PieProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEFC2A3F19E40042977E /* PieProgressViewStyle.swift */; };
+		687FEEFF2A3F97260042977E /* NewProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEEFE2A3F97260042977E /* NewProfileButton.swift */; };
+		687FEF012A3F99D70042977E /* OpenInBrowserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF002A3F99D70042977E /* OpenInBrowserButton.swift */; };
+		687FEF032A3FA4D70042977E /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF022A3FA4D70042977E /* ShareButton.swift */; };
+		687FEF052A3FA56A0042977E /* OpenInBrowserLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF042A3FA56A0042977E /* OpenInBrowserLabel.swift */; };
+		687FEF082A3FAD610042977E /* BottomBarProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF062A3FAD610042977E /* BottomBarProgressViewStyle.swift */; };
+		687FEF0B2A3FAFB30042977E /* RefreshProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF0A2A3FAFB30042977E /* RefreshProgress.swift */; };
+		687FEF0D2A3FB0BC0042977E /* SidebarToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF0C2A3FB0BC0042977E /* SidebarToolbar.swift */; };
 		6880E1E526B4508A00A8E3E8 /* PadScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880E1E426B4508A00A8E3E8 /* PadScreenshots.swift */; };
 		6880E1E726B450B900A8E3E8 /* MacScreenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880E1E626B450B900A8E3E8 /* MacScreenshots.swift */; };
 		6880E1E926B4591900A8E3E8 /* ScreenshotTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6880E1E826B4591900A8E3E8 /* ScreenshotTestCase.swift */; };
@@ -192,7 +199,7 @@
 		68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C4131A247263C700D1DC7B /* Preview Assets.xcassets */; };
 		68C413462472773100D1DC7B /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C413452472773100D1DC7B /* PageView.swift */; };
 		68C4134B24727F2B00D1DC7B /* Gadget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4134A24727F2B00D1DC7B /* Gadget.swift */; };
-		68C4138224733D7D00D1DC7B /* AddFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* AddFeed.swift */; };
+		68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */; };
 		68C4FA262474927800D2C0D6 /* SettingsSheetForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4FA252474927800D2C0D6 /* SettingsSheetForm.swift */; };
 		68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */ = {isa = PBXBuildFile; fileRef = 68CAC50B292954C7002D9EB9 /* Demo.opml */; };
 		68CE2C3D28CEEBF000ED1CF9 /* ItemHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CE2C3C28CEEBF000ED1CF9 /* ItemHero.swift */; };
@@ -427,7 +434,14 @@
 		687FEEF62A3E431E0042977E /* ImportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportButton.swift; sourceTree = "<group>"; };
 		687FEEF82A3E4FE60042977E /* ExportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportButton.swift; sourceTree = "<group>"; };
 		687FEEFA2A3EE4E10042977E /* OPMLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLFile.swift; sourceTree = "<group>"; };
-		687FEEFC2A3F19E40042977E /* CircularDeterminateProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularDeterminateProgressViewStyle.swift; sourceTree = "<group>"; };
+		687FEEFC2A3F19E40042977E /* PieProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieProgressViewStyle.swift; sourceTree = "<group>"; };
+		687FEEFE2A3F97260042977E /* NewProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileButton.swift; sourceTree = "<group>"; };
+		687FEF002A3F99D70042977E /* OpenInBrowserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInBrowserButton.swift; sourceTree = "<group>"; };
+		687FEF022A3FA4D70042977E /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
+		687FEF042A3FA56A0042977E /* OpenInBrowserLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInBrowserLabel.swift; sourceTree = "<group>"; };
+		687FEF062A3FAD610042977E /* BottomBarProgressViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBarProgressViewStyle.swift; sourceTree = "<group>"; };
+		687FEF0A2A3FAFB30042977E /* RefreshProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshProgress.swift; sourceTree = "<group>"; };
+		687FEF0C2A3FB0BC0042977E /* SidebarToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarToolbar.swift; sourceTree = "<group>"; };
 		6880E1E426B4508A00A8E3E8 /* PadScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PadScreenshots.swift; sourceTree = "<group>"; };
 		6880E1E626B450B900A8E3E8 /* MacScreenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacScreenshots.swift; sourceTree = "<group>"; };
 		6880E1E826B4591900A8E3E8 /* ScreenshotTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTestCase.swift; sourceTree = "<group>"; };
@@ -485,7 +499,7 @@
 		68C41341247263D800D1DC7B /* Den.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Den.entitlements; sourceTree = "<group>"; };
 		68C413452472773100D1DC7B /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		68C4134A24727F2B00D1DC7B /* Gadget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gadget.swift; sourceTree = "<group>"; };
-		68C4138124733D7D00D1DC7B /* AddFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeed.swift; sourceTree = "<group>"; };
+		68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedSheet.swift; sourceTree = "<group>"; };
 		68C4FA252474927800D2C0D6 /* SettingsSheetForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheetForm.swift; sourceTree = "<group>"; };
 		68CAC50B292954C7002D9EB9 /* Demo.opml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Demo.opml; sourceTree = "<group>"; };
 		68CCE0A829450FFA00424850 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
@@ -666,6 +680,7 @@
 				687FEEDA2A3B830D0042977E /* UserColorSchemePicker.swift */,
 				687FEEF22A3DDCE10042977E /* ClearCacheButton.swift */,
 				687FEEF42A3DDCF30042977E /* ResetEverythingButton.swift */,
+				687FEEFE2A3F97260042977E /* NewProfileButton.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -838,7 +853,8 @@
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
 				6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */,
 				68F56B4D2872DD63006EC915 /* HoverShadowButtonStyle.swift */,
-				687FEEFC2A3F19E40042977E /* CircularDeterminateProgressViewStyle.swift */,
+				687FEEFC2A3F19E40042977E /* PieProgressViewStyle.swift */,
+				687FEF062A3FAD610042977E /* BottomBarProgressViewStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -981,7 +997,7 @@
 				6865575F29E7B417000EBF37 /* Search */,
 				680649822A083DFA00B6E6E7 /* Backgrounds */,
 				683E3F44293BC02A00B16814 /* AddFeedButton.swift */,
-				68C4138124733D7D00D1DC7B /* AddFeed.swift */,
+				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
 				687F488F269165EE00EA2498 /* CrashMessage.swift */,
 				68E58F2629B6B30A00C18A87 /* CommonStatus.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
@@ -1022,6 +1038,9 @@
 				68CE2C3C28CEEBF000ED1CF9 /* ItemHero.swift */,
 				6862A59B2A25C0C3000CAB19 /* ExtraTag.swift */,
 				68DA45152A39B2EF000A288B /* ItemToolbar.swift */,
+				687FEF002A3F99D70042977E /* OpenInBrowserButton.swift */,
+				687FEF042A3FA56A0042977E /* OpenInBrowserLabel.swift */,
+				687FEF022A3FA4D70042977E /* ShareButton.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1080,6 +1099,8 @@
 				683E3F48293BC19800B16814 /* RefreshButton.swift */,
 				683E3F4A293BC1AA00B16814 /* SettingsButton.swift */,
 				683E3F46293BC18C00B16814 /* SidebarStatus.swift */,
+				687FEF0A2A3FAFB30042977E /* RefreshProgress.swift */,
+				687FEF0C2A3FB0BC0042977E /* SidebarToolbar.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -1380,6 +1401,7 @@
 				6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */,
 				68F6FB9729ADDA41001F74B9 /* FeedItemCompressed.swift in Sources */,
 				683E3F49293BC19800B16814 /* RefreshButton.swift in Sources */,
+				687FEF032A3FA4D70042977E /* ShareButton.swift in Sources */,
 				68ED798129C29A7700D85B4F /* ShowcaseLayout.swift in Sources */,
 				6825920329D82BD500E5EF3B /* TrendAnalysis.swift in Sources */,
 				687FEEF32A3DDCE10042977E /* ClearCacheButton.swift in Sources */,
@@ -1400,6 +1422,7 @@
 				68B6CBE62910BD0E00B5E3AB /* AtomFeedUpdate.swift in Sources */,
 				681087C929FB74A900F2630C /* PreviewStylePicker.swift in Sources */,
 				68FC2563275E07770073979F /* Sidebar.swift in Sources */,
+				687FEF052A3FA56A0042977E /* OpenInBrowserLabel.swift in Sources */,
 				687FEED52A3AA8BF0042977E /* WelcomeToolbar.swift in Sources */,
 				684DFA0324BAC7680023D6DB /* MIMEType.swift in Sources */,
 				68F6FB9F29ADE0E2001F74B9 /* PageLayout.swift in Sources */,
@@ -1431,6 +1454,7 @@
 				68245E2D29B834AC0068D450 /* RoundedContainerModifier.swift in Sources */,
 				6865576129E7B429000EBF37 /* SearchBottomBar.swift in Sources */,
 				68FF63F82921DCE00012A275 /* TrendingToolbar.swift in Sources */,
+				687FEF0D2A3FB0BC0042977E /* SidebarToolbar.swift in Sources */,
 				680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */,
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
 				68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */,
@@ -1461,6 +1485,7 @@
 				681087CF29FD3E5100F2630C /* FeedSettingsGeneralSection.swift in Sources */,
 				680206B32A1150ED00AC3FC5 /* SplitView.swift in Sources */,
 				685ABADE290F187C0080110A /* FeedUpdateTask.swift in Sources */,
+				687FEF0B2A3FAFB30042977E /* RefreshProgress.swift in Sources */,
 				682591FA29D808B700E5EF3B /* JSONFeedMetaUpdate.swift in Sources */,
 				681F0C262933F4C10037C609 /* HistorySettingsSection.swift in Sources */,
 				680F495029AA56BE0083B664 /* WithItems.swift in Sources */,
@@ -1478,6 +1503,7 @@
 				68F56B452870C067006EC915 /* TrendBlock.swift in Sources */,
 				68ADABC324A21F2500BE41E2 /* Welcome.swift in Sources */,
 				681087CD29FD3D0400F2630C /* DeleteFeedButton.swift in Sources */,
+				687FEF012A3F99D70042977E /* OpenInBrowserButton.swift in Sources */,
 				680649812A083DF000B6E6E7 /* TertiaryGroupedHighlight.swift in Sources */,
 				683573A0296372DA00843A8E /* WebAccessibleFeed.swift in Sources */,
 				68A2188F29DC2E86005F42C7 /* SafeAreaModifier.swift in Sources */,
@@ -1502,6 +1528,7 @@
 				68998B852504C87400FDB6EE /* SearchLayout.swift in Sources */,
 				687F4890269165EE00EA2498 /* CrashMessage.swift in Sources */,
 				6830D46829F41FB200737FB1 /* ToolbarButtonStyle.swift in Sources */,
+				687FEF082A3FAD610042977E /* BottomBarProgressViewStyle.swift in Sources */,
 				6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */,
 				6825920B29D89CCB00E5EF3B /* DataCleanupOperation.swift in Sources */,
 				6845BD5824F90F450008B296 /* String+Extensions.swift in Sources */,
@@ -1523,7 +1550,7 @@
 				68B0AECF28BADE930079793D /* WindowFinder.swift in Sources */,
 				68B8E79A29CAC95300E9AF42 /* ImageDepression.swift in Sources */,
 				68701E01273E6A5400C6BB69 /* SubscriptionUtility.swift in Sources */,
-				68C4138224733D7D00D1DC7B /* AddFeed.swift in Sources */,
+				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,
 				687FEED22A3A57220042977E /* GeneralSettingsTab.swift in Sources */,
 				6865452E274AAB2A00BAE03E /* TitleTextFieldModifier.swift in Sources */,
 				68F56B71287ACD0B006EC915 /* ItemWebView.swift in Sources */,
@@ -1545,6 +1572,7 @@
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
 				68B526A4298F001800D4B927 /* WebpageMetadata.swift in Sources */,
 				68C4FA262474927800D2C0D6 /* SettingsSheetForm.swift in Sources */,
+				687FEEFF2A3F97260042977E /* NewProfileButton.swift in Sources */,
 				687FEEFB2A3EE4E10042977E /* OPMLFile.swift in Sources */,
 				68DA45162A39B2EF000A288B /* ItemToolbar.swift in Sources */,
 				6829A4FC28C2744900F75C5A /* DetailView.swift in Sources */,
@@ -1553,7 +1581,7 @@
 				68D9BAA428A60DF300F1A3AD /* SettingsAboutSection.swift in Sources */,
 				68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */,
 				684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */,
-				687FEEFD2A3F19E40042977E /* CircularDeterminateProgressViewStyle.swift in Sources */,
+				687FEEFD2A3F19E40042977E /* PieProgressViewStyle.swift in Sources */,
 				686067D9280CAF29000068DE /* ItemThumbnailImage.swift in Sources */,
 				68F6FB9B29ADDC83001F74B9 /* PreviewStyle.swift in Sources */,
 				6865452C274A288A00BAE03E /* PinnedSectionHeaderModifier.swift in Sources */,

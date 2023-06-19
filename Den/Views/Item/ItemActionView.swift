@@ -11,8 +11,9 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @Environment(\.useSystemBrowser) private var useSystemBrowser
     @Environment(\.openURL) private var openURL
+    @Environment(\.profileTint) private var profileTint
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
@@ -25,9 +26,9 @@ struct ItemActionView<Content: View>: View {
             if feed.browserView == true {
                 Button {
                     if let url = item.link {
-                        openInBrowser(url: url)
                         Task {
                             await HistoryUtility.markItemRead(item: item)
+                            openInBrowser(url: url)
                         }
                     }
                 } label: {
@@ -47,16 +48,12 @@ struct ItemActionView<Content: View>: View {
                     Text("Go to Item", comment: "Context menu button label.")
                 }
                 Button {
-                    openInBrowser(url: link)
                     Task {
                         await HistoryUtility.markItemRead(item: item)
+                        openInBrowser(url: link)
                     }
                 } label: {
-                    Label {
-                        Text("Open in Browser", comment: "Context menu button label.")
-                    } icon: {
-                        Image(systemName: "link")
-                    }
+                    OpenInBrowserLabel()
                 }
                 Button {
                     #if os(iOS)
@@ -69,26 +66,24 @@ struct ItemActionView<Content: View>: View {
                         Image(systemName: "doc.on.doc")
                     }
                 }
-                ShareLink(item: link) {
-                    Label {
-                        Text("Share…", comment: "Context menu button label.")
-                    } icon: {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                }
+                ShareButton(url: link)
             }
         }
     }
 
     private func openInBrowser(url: URL) {
-        if useSystemBrowser {
+        #if os(macOS)
+        openURL(url)
+        #else
+        if useSystemBrowser  {
             openURL(url)
         } else {
             SafariUtility.openLink(
                 url: url,
-                controlTintColor: profile.tintColor ?? .accentColor,
+                controlTintColor: profileTint,
                 readerMode: feed.readerMode
             )
         }
+        #endif
     }
 }

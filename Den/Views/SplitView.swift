@@ -36,7 +36,6 @@ struct SplitView: View {
     @State private var showingSettings: Bool = false
 
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
-    @AppStorage("AutoRefreshDate") private var autoRefreshDate: Double = 0.0
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -67,6 +66,7 @@ struct SplitView: View {
             )
         }
         .tint(profile.tintColor)
+        .environment(\.profileTint, profile.tintColor ?? .accentColor)
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
             if case .page(let page) = contentSelection {
@@ -98,7 +98,7 @@ struct SplitView: View {
             #endif
         }
         .sheet(isPresented: $showSubscribe) {
-            AddFeed(
+            NewFeedSheet(
                 initialPageObjectID: $subscribePageObjectID,
                 initialURLString: $subscribeURLString,
                 profile: activeProfile

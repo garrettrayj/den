@@ -38,6 +38,7 @@ struct ProfilesSettingsSectionRow: View {
                 appProfileID: $appProfileID,
                 deleteCallback: {}
             )
+            .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
         }
     }
 }

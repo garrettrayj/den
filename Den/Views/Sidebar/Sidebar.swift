@@ -12,11 +12,8 @@ import CoreData
 import SwiftUI
 
 struct Sidebar: View {
-    @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.managedObjectContext) private var viewContext
     
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
@@ -79,61 +76,11 @@ struct Sidebar: View {
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.nameText)
         .toolbar {
-            #if os(iOS)
-            ToolbarItem {
-                EditButton()
-                    .buttonStyle(ToolbarButtonStyle())
-                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
-                    .accessibilityIdentifier("edit-page-list-button")
-            }
-            ToolbarItem(placement: .bottomBar) {
-                SettingsButton(showingSettings: $showingSettings).disabled(refreshManager.refreshing)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                SidebarStatus(
-                    profile: profile,
-                    refreshing: $refreshManager.refreshing
-                )
-                .frame(maxWidth: .infinity)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                RefreshButton(profile: profile)
-                    .buttonStyle(PlainToolbarButtonStyle())
-                    .disabled(
-                        refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
-                    )
-            }
-            #else
-            ToolbarItem {
-                RefreshButton(profile: profile)
-                    .buttonStyle(ToolbarButtonStyle())
-                    .disabled(
-                        refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
-                    )
-            }
-            ToolbarItem {
-                if case .page(let page) = contentSelection {
-                    AddFeedButton(page: page)
-                        .buttonStyle(ToolbarButtonStyle())
-                        .disabled(
-                            refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
-                        )
-                } else {
-                    AddFeedButton()
-                        .buttonStyle(ToolbarButtonStyle())
-                        .disabled(
-                            refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
-                        )
-                }
-                
-            }
-            #endif
+            SidebarToolbar(
+                profile: profile,
+                showingSettings: $showingSettings,
+                contentSelection: $contentSelection
+            )
         }
     }
 }

@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct ProfilesSettingsSection: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
 
@@ -28,32 +26,9 @@ struct ProfilesSettingsSection: View {
                     activeProfile: $activeProfile
                 )
             }
-            
-            Button {
-                withAnimation {
-                    addProfile()
-                }
-            } label: {
-                Label {
-                    Text("Add Profile", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "plus")
-                }
-            }
-            
-            .accessibilityIdentifier("add-profile-button")
+            NewProfileButton()
         } header: {
             Text("Profiles", comment: "Settings section header.").modifier(FirstFormHeaderModifier())
-        }
-    }
-
-    func addProfile() {
-        _ = Profile.create(in: viewContext)
-
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            CrashUtility.handleCriticalError(error)
         }
     }
 }
