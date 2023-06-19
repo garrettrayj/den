@@ -18,10 +18,10 @@ struct SearchStatus: View {
     var body: some View {
         ViewThatFits {
             HStack(spacing: 0) {
-                statusText
                 if let unreadText = unreadText {
-                    Text(verbatim: " - ").foregroundColor(.secondary)
-                    unreadText.foregroundColor(.secondary)
+                    statusText + Text(verbatim: ", ") + unreadText
+                } else {
+                    statusText
                 }
             }
             VStack {
@@ -39,10 +39,21 @@ struct SearchStatus: View {
         if query.isEmpty {
             return Text("Enter a search term.", comment: "Search guidance.")
         } else {
-            if totalCount == 1 {
-                return Text("Found \(totalCount) result for “\(query)”", comment: "Search status (singular).")
+            if totalCount == 0 {
+                return Text(
+                    "No results found for “\(query)”",
+                    comment: "Search status (zero results)."
+                )
+            } else if totalCount == 1 {
+                return Text(
+                    "Found 1 result for “\(query)”",
+                    comment: "Search status (singular result)."
+                )
             } else {
-                return Text("Found \(totalCount) results for “\(query)”", comment: "Search status (plural).")
+                return Text(
+                    "Found \(totalCount) results for “\(query)”",
+                    comment: "Search status (plural results)."
+                )
             }
         }
     }

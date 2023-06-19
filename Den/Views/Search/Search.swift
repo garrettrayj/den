@@ -15,8 +15,7 @@ struct Search: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-
-    var query: String
+    @Binding var query: String
 
     var body: some View {
         if query == "" {
@@ -33,11 +32,11 @@ struct Search: View {
                 SearchLayout(
                     profile: profile,
                     hideRead: $hideRead,
-                    query: query,
+                    query: $query,
                     items: items
                 )
                 .toolbar {
-                    SearchBottomBar(profile: profile, hideRead: $hideRead, query: query, items: items)
+                    SearchToolbar(profile: profile, hideRead: $hideRead, query: $query, items: items)
                 }
                 .navigationTitle(Text("Search", comment: "Navigation title."))
             }

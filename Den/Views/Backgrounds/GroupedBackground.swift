@@ -26,8 +26,8 @@ struct GroupedBackground: View {
         #else
         if colorScheme == .dark {
             Rectangle()
-                .fill(.thinMaterial)
-                .background(.background)
+                .fill(.ultraThickMaterial)
+                .background(.quaternary)
                 .edgesIgnoringSafeArea(.all)
         } else {
             Rectangle()

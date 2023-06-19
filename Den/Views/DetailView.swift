@@ -30,7 +30,7 @@ struct DetailView: View {
                 case .welcome:
                     Welcome(profile: profile, refreshing: $refreshManager.refreshing)
                 case .search:
-                    Search(profile: profile, hideRead: $hideRead, query: searchQuery)
+                    Search(profile: profile, hideRead: $hideRead, query: $searchQuery)
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead)
                 case .trending:

@@ -17,11 +17,7 @@ struct SecondaryGroupedBackground: View {
 
     var body: some View {
         #if os(macOS)
-        if colorScheme == .dark {
-            Rectangle().fill(.quaternary)
-        } else {
-            Rectangle().fill(.background)
-        }
+        Rectangle().fill(.background)
         #else
         if colorScheme == .dark {
             Rectangle().fill(Color(.secondarySystemGroupedBackground))

@@ -28,6 +28,7 @@ struct ItemView: View {
                 .toolbar {
                     ItemToolbar(item: item, feed: feed)
                 }
+                .background(.background)
         }
     }
 
