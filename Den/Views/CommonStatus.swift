@@ -10,9 +10,6 @@
 
 import SwiftUI
 
-/**
- Common bottom bar with relative updated time and unread count.
- */
 struct CommonStatus: View {
     @EnvironmentObject private var refreshManager: RefreshManager
     @EnvironmentObject private var networkMonitor: NetworkMonitor
@@ -22,16 +19,16 @@ struct CommonStatus: View {
     var body: some View {
         VStack {
             if !networkMonitor.isConnected {
-                Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
+                Text("Network Offline", comment: "Status message.")
             } else if  refreshManager.refreshing {
                 Text("Checking for New Items…", comment: "Refresh in-progress label.")
             } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                 RelativeRefreshedDate(date: refreshedDate)
             }
         }
-        .frame(minWidth: 100)
         .font(.caption)
         .lineLimit(1)
+        .frame(minWidth: 100)
         .padding(.horizontal, 8)
     }
 }

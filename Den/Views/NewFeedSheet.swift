@@ -165,6 +165,7 @@ struct NewFeedSheet: View {
         ) {
             Text("Web Address", comment: "Feed URL text field label.")
         }
+        .textFieldStyle(.roundedBorder)
         .lineLimit(1)
         .multilineTextAlignment(.center)
         .disableAutocorrection(true)

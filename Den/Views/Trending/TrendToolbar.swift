@@ -29,7 +29,7 @@ struct TrendToolbar: ToolbarContent {
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead) {
                 trend.objectWillChange.send()
-            }.buttonStyle(ToolbarButtonStyle())
+            }
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
@@ -39,7 +39,7 @@ struct TrendToolbar: ToolbarContent {
                 if hideRead {
                     dismiss()
                 }
-            }.buttonStyle(ToolbarButtonStyle())
+            }
         }
         #else
         ToolbarItem(placement: .bottomBar) {

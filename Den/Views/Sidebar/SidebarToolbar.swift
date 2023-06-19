@@ -30,7 +30,7 @@ struct SidebarToolbar: ToolbarContent {
         #if os(iOS)
         ToolbarItem {
             EditButton()
-                .buttonStyle(ToolbarButtonStyle())
+                
                 .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
                 .accessibilityIdentifier("edit-page-list-button")
         }
@@ -51,7 +51,7 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) {
             RefreshButton(profile: profile)
-                .buttonStyle(PlainToolbarButtonStyle())
+                
                 .disabled(
                     refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                 )
@@ -62,7 +62,7 @@ struct SidebarToolbar: ToolbarContent {
                 RefreshProgress(totalUnitCount: profile.feedsArray.count)
             } else {
                 RefreshButton(profile: profile)
-                    .buttonStyle(ToolbarButtonStyle())
+                    
                     .disabled(
                         refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                     )
@@ -70,7 +70,7 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem {
             NewFeedButton(page: activePage)
-                .buttonStyle(ToolbarButtonStyle())
+                
                 .disabled(
                     refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                 )

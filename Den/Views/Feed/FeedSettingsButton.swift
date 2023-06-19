@@ -29,7 +29,7 @@ struct FeedSettingsButton: View {
                 Image(systemName: "wrench")
             }
         }
-        .buttonStyle(ToolbarButtonStyle())
+        
         .accessibilityIdentifier("feed-settings-button")
         .sheet(
             isPresented: $showingSettings,

@@ -32,23 +32,23 @@ struct FeedToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead) {
                 feed.objectWillChange.send()
             }
-            .buttonStyle(ToolbarButtonStyle())
+            
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()
             }
-            .buttonStyle(ToolbarButtonStyle())
+            
         }
         #else
         ToolbarItem {
-            FeedSettingsButton(feed: feed).buttonStyle(ToolbarButtonStyle())
+            FeedSettingsButton(feed: feed)
         }
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {
                 feed.objectWillChange.send()
-            }.buttonStyle(PlainToolbarButtonStyle())
+            }
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -59,7 +59,7 @@ struct FeedToolbar: ToolbarContent {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()
-            }.buttonStyle(PlainToolbarButtonStyle())
+            }
         }
         #endif
     }

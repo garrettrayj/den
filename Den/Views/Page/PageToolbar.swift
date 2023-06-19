@@ -29,16 +29,13 @@ struct PageToolbar: ToolbarContent {
             CommonStatus(profile: profile)
         }
         ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.inline)
+            PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
         }
         ToolbarItem {
-            PageSettingsButton(showingSettings: $showingSettings).buttonStyle(ToolbarButtonStyle())
+            PageSettingsButton(showingSettings: $showingSettings)
         }
         ToolbarItem {
-            FilterReadButton(hideRead: $hideRead) {
-                page.objectWillChange.send()
-            }
-            .buttonStyle(ToolbarButtonStyle())
+            FilterReadButton(hideRead: $hideRead) { }
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
@@ -46,7 +43,7 @@ struct PageToolbar: ToolbarContent {
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
             }
-            .buttonStyle(ToolbarButtonStyle())
+            
         }
         #else
         ToolbarItem {
@@ -68,7 +65,7 @@ struct PageToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead) {
                 page.objectWillChange.send()
             }
-            .buttonStyle(PlainToolbarButtonStyle())
+            
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -81,7 +78,7 @@ struct PageToolbar: ToolbarContent {
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
             }
-            .buttonStyle(PlainToolbarButtonStyle())
+            
         }
         #endif
     }

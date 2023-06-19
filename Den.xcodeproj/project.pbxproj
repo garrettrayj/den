@@ -49,8 +49,6 @@
 		682A349728E2B38E004CD90E /* URLDropTargetModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */; };
 		683041B227542E2000BE7631 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B127542E2000BE7631 /* BoardView.swift */; };
 		683041B627543CE900BE7631 /* ShowcaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSection.swift */; };
-		6830D46829F41FB200737FB1 /* ToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6830D46629F41FB200737FB1 /* ToolbarButtonStyle.swift */; };
-		6830D46929F41FB200737FB1 /* PlainToolbarButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6830D46729F41FB200737FB1 /* PlainToolbarButtonStyle.swift */; };
 		6830D46B29F4CEA100737FB1 /* GroupedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6830D46A29F4CEA100737FB1 /* GroupedBackground.swift */; };
 		6830D46D29F4CECF00737FB1 /* SecondaryGroupedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6830D46C29F4CECF00737FB1 /* SecondaryGroupedBackground.swift */; };
 		6830D46F29F4D2D900737FB1 /* TertiaryGroupedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6830D46E29F4D2D900737FB1 /* TertiaryGroupedBackground.swift */; };
@@ -336,8 +334,6 @@
 		682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDropTargetModifier.swift; sourceTree = "<group>"; };
 		683041B127542E2000BE7631 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		683041B527543CE900BE7631 /* ShowcaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSection.swift; sourceTree = "<group>"; };
-		6830D46629F41FB200737FB1 /* ToolbarButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarButtonStyle.swift; sourceTree = "<group>"; };
-		6830D46729F41FB200737FB1 /* PlainToolbarButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlainToolbarButtonStyle.swift; sourceTree = "<group>"; };
 		6830D46A29F4CEA100737FB1 /* GroupedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedBackground.swift; sourceTree = "<group>"; };
 		6830D46C29F4CECF00737FB1 /* SecondaryGroupedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryGroupedBackground.swift; sourceTree = "<group>"; };
 		6830D46E29F4D2D900737FB1 /* TertiaryGroupedBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryGroupedBackground.swift; sourceTree = "<group>"; };
@@ -844,8 +840,6 @@
 		688FD91B24780C800006A2DE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				6830D46629F41FB200737FB1 /* ToolbarButtonStyle.swift */,
-				6830D46729F41FB200737FB1 /* PlainToolbarButtonStyle.swift */,
 				68B18957289B633E0002A7FE /* AccentButtonStyle.swift */,
 				6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
@@ -1491,7 +1485,6 @@
 				68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */,
 				6830D46D29F4CECF00737FB1 /* SecondaryGroupedBackground.swift in Sources */,
 				683E3F4B293BC1AA00B16814 /* SettingsButton.swift in Sources */,
-				6830D46929F41FB200737FB1 /* PlainToolbarButtonStyle.swift in Sources */,
 				6832AF262789419700CFC8CA /* ProfileSettings.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
 				68DA45142A39B1DE000A288B /* AllSection.swift in Sources */,
@@ -1524,7 +1517,6 @@
 				681087D529FF1EE000F2630C /* QuaternaryGroupedBackground.swift in Sources */,
 				68998B852504C87400FDB6EE /* SearchLayout.swift in Sources */,
 				687F4890269165EE00EA2498 /* CrashMessage.swift in Sources */,
-				6830D46829F41FB200737FB1 /* ToolbarButtonStyle.swift in Sources */,
 				687FEF082A3FAD610042977E /* BottomBarProgressViewStyle.swift in Sources */,
 				6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */,
 				6825920B29D89CCB00E5EF3B /* DataCleanupOperation.swift in Sources */,

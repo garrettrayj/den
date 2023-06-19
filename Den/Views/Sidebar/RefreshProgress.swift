@@ -23,8 +23,7 @@ struct RefreshProgress: View {
             .labelsHidden()
             #if os(macOS)
             .scaleEffect(0.5)
-            .padding(.top, 2)
-            .frame(width: 30)
+            .frame(width: 34)
             #endif
             .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
                 progress.completedUnitCount += 1

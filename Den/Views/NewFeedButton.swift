@@ -23,7 +23,7 @@ struct NewFeedButton: View {
                 Image(systemName: "plus")
             }
         }
-        .buttonStyle(ToolbarButtonStyle())
+        
         .accessibilityIdentifier("new-feed-button")
     }
 }

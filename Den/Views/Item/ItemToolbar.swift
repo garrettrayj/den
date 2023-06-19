@@ -18,7 +18,7 @@ struct ItemToolbar: ToolbarContent {
         #if os(macOS)
         ToolbarItem {
             if let url = item.link {
-                OpenInBrowserButton(url: url).buttonStyle(ToolbarButtonStyle())
+                OpenInBrowserButton(url: url)
             }
         }
         #else
@@ -28,14 +28,14 @@ struct ItemToolbar: ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             if let url = item.link {
                 OpenInBrowserButton(url: url, readerMode: feed.readerMode)
-                    .buttonStyle(PlainToolbarButtonStyle())
+                    
             }
         }
         #endif
         
         ToolbarItem {
             if let url = item.link {
-                ShareButton(url: url).buttonStyle(ToolbarButtonStyle())
+                ShareButton(url: url)
             }
         }
     }

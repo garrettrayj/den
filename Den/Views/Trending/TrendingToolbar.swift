@@ -31,17 +31,17 @@ struct TrendingToolbar: ToolbarContent {
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead) { }
-                .buttonStyle(ToolbarButtonStyle())
+                
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: unreadCount) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 profile.objectWillChange.send()
-            }.buttonStyle(ToolbarButtonStyle())
+            }
         }
         #else
         ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead) { }.buttonStyle(PlainToolbarButtonStyle())
+            FilterReadButton(hideRead: $hideRead) { }
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -52,7 +52,7 @@ struct TrendingToolbar: ToolbarContent {
             ToggleReadButton(unreadCount: unreadCount) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 profile.objectWillChange.send()
-            }.buttonStyle(PlainToolbarButtonStyle())
+            }
         }
         #endif
     }

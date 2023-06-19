@@ -15,11 +15,7 @@ struct TertiaryGroupedBackground: View {
 
     var body: some View {
         #if os(macOS)
-        if colorScheme == .dark {
-            Rectangle().fill(.ultraThickMaterial).background(.secondary)
-        } else {
-            Rectangle().fill(.ultraThickMaterial).background(.tertiary)
-        }
+        Rectangle().fill(.ultraThickMaterial).overlay(.quaternary)
         #else
         if colorScheme == .dark {
             Rectangle().fill(.regularMaterial).background(.quaternary)

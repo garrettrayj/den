@@ -14,10 +14,6 @@ struct SecondaryGroupedHighlight: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        if colorScheme == .dark {
-            Rectangle().fill(.regularMaterial).background(.tertiary)
-        } else {
-            Rectangle().fill(.ultraThickMaterial).background(.tertiary)
-        }
+        Rectangle().fill(.ultraThinMaterial).overlay(.quaternary)
     }
 }

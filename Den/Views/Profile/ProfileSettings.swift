@@ -78,7 +78,7 @@ struct ProfileSettings: View {
                     }
                 }
                 .labelStyle(.titleAndIcon)
-                .buttonStyle(PlainToolbarButtonStyle())
+                
                 .disabled(profile == activeProfile)
                 .accessibilityIdentifier("switch-to-profile-button")
             }
