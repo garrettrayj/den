@@ -15,10 +15,6 @@ struct Welcome: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var refreshing: Bool
-
-    let relativeDateStyle: Date.RelativeFormatStyle = .relative(presentation: .named, unitsStyle: .wide)
-
     var body: some View {
         VStack {
             profile.nameText.font(.largeTitle)

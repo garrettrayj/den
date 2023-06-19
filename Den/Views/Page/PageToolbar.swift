@@ -29,7 +29,7 @@ struct PageToolbar: ToolbarContent {
             CommonStatus(profile: profile)
         }
         ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout).pickerStyle(.segmented)
+            PageLayoutPicker(pageLayout: $pageLayout).labelStyle(.titleAndIcon)
         }
         ToolbarItem {
             PageSettingsButton(showingSettings: $showingSettings)

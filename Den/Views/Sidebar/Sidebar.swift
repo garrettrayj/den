@@ -12,8 +12,6 @@ import CoreData
 import SwiftUI
 
 struct Sidebar: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile

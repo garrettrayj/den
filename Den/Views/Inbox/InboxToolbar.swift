@@ -36,6 +36,9 @@ struct InboxToolbar: ToolbarContent {
 
         }
         #else
+        ToolbarItem {
+            NewFeedButton()
+        }
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead)
         }

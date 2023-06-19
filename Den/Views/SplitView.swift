@@ -56,8 +56,6 @@ struct SplitView: View {
         } detail: {
             DetailView(
                 profile: profile,
-                activeProfile: $activeProfile,
-                appProfileID: $appProfileID,
                 detailPanel: $detailPanel,
                 searchQuery: $searchQuery
             )

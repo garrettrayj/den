@@ -51,36 +51,8 @@ struct NewFeedSheet: View {
                     feedUrlInput
                     VStack {
                         Group {
-                            if let validationMessage = validationMessage {
-                                Group {
-                                    switch validationMessage {
-                                    case .cannotBeBlank:
-                                        Text(
-                                            "Web address cannot be blank.",
-                                            comment: "URL field validation message."
-                                        )
-                                    case .mustNotContainSpaces:
-                                        Text(
-                                            "Web address must not contain spaces.",
-                                            comment: "URL field validation message."
-                                        )
-                                    case .mustBeginWithHTTP:
-                                        Text(
-                                            "Web address must begin with “http://” or “https://”.",
-                                            comment: "URL field validation message."
-                                        )
-                                    case .parseError:
-                                        Text(
-                                            "Web address could not be parsed.",
-                                            comment: "URL field validation message."
-                                        )
-                                    case .unopenable:
-                                        Text(
-                                            "Web address is unopenable.",
-                                            comment: "URL field validation message."
-                                        )
-                                    }
-                                }.foregroundColor(.red)
+                            if let validationMessageText = validationMessageText {
+                                validationMessageText.foregroundColor(.red)
                             } else {
                                 Text(
                                     "Enter a RSS, Atom, or JSON Feed URL.",
@@ -99,7 +71,6 @@ struct NewFeedSheet: View {
                     labelText: Text("Page", comment: "Picker label.")
                 )
                 .scaledToFit()
-                .labelsHidden()
 
                 submitButtonSection
 
@@ -123,13 +94,45 @@ struct NewFeedSheet: View {
             checkTargetPage()
         }
     }
+    
+    private var validationMessageText: Text? {
+        switch validationMessage {
+        case .cannotBeBlank:
+            Text(
+                "Web address cannot be blank.",
+                comment: "URL field validation message."
+            )
+        case .mustNotContainSpaces:
+            Text(
+                "Web address must not contain spaces.",
+                comment: "URL field validation message."
+            )
+        case .mustBeginWithHTTP:
+            Text(
+                "Web address must begin with “http://” or “https://”.",
+                comment: "URL field validation message."
+            )
+        case .parseError:
+            Text(
+                "Web address could not be parsed.",
+                comment: "URL field validation message."
+            )
+        case .unopenable:
+            Text(
+                "Web address is unopenable.",
+                comment: "URL field validation message."
+            )
+        case .none:
+            nil
+        }
+    }
 
     private var submitButtonSection: some View {
         Button {
             validateUrl()
             if urlIsValid == true {
-                addFeed()
                 Task {
+                    addFeed()
                     await refreshManager.refresh(feed: newFeed!)
                     newFeed?.objectWillChange.send()
                     dismiss()
@@ -138,17 +141,20 @@ struct NewFeedSheet: View {
         } label: {
             Label {
                 Text("Add to \(targetPage?.nameText ?? Text("…"))", comment: "Button label.")
+                    .padding(.vertical, 8)
             } icon: {
                 if loading {
                     ProgressView()
                         .progressViewStyle(.circular)
-                        .tint(Color.white)
-                        .padding(.trailing, 4)
+                        #if os(macOS)
+                        .scaleEffect(0.5)
+                        .frame(width: 16)
+                        #endif
                 } else {
                     Image(systemName: "note.text.badge.plus")
                 }
             }
-            .padding(8)
+            .padding(.horizontal, 8)
         }
         .frame(maxWidth: .infinity)
         .listRowBackground(Color.clear)

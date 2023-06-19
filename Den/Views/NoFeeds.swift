@@ -23,7 +23,7 @@ struct NoFeeds: View {
                 Label {
                     Text("Add by Web Address", comment: "Button label.")
                 } icon: {
-                    Image(systemName: "plus.circle")
+                    Image(systemName: "plus")
                 }
             }
             .buttonStyle(.bordered)

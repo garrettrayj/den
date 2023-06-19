@@ -11,13 +11,10 @@
 import SwiftUI
 
 struct DetailView: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
-    @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
     @Binding var detailPanel: DetailPanel?
     @Binding var searchQuery: String
 
@@ -28,7 +25,7 @@ struct DetailView: View {
             ZStack {
                 switch detailPanel ?? .welcome {
                 case .welcome:
-                    Welcome(profile: profile, refreshing: $refreshManager.refreshing)
+                    Welcome(profile: profile)
                 case .search:
                     Search(profile: profile, hideRead: $hideRead, query: $searchQuery)
                 case .inbox:
