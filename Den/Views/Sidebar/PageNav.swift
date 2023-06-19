@@ -39,7 +39,7 @@ struct PageNav: View {
                 Image(systemName: page.wrappedSymbol)
             }
             .lineLimit(1)
-            
+
         }
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
             if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {

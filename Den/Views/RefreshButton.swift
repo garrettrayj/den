@@ -13,11 +13,12 @@ import SwiftUI
 struct RefreshButton: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @ObservedObject var profile: Profile
-    
+    @Binding var activeProfile: Profile?
+
     var body: some View {
         Button {
             Task {
+                guard let profile = activeProfile else { return }
                 await refreshManager.refresh(profile: profile)
             }
         } label: {
@@ -27,6 +28,7 @@ struct RefreshButton: View {
                 Image(systemName: "arrow.clockwise")
             }
         }
-        .accessibilityIdentifier("profile-refresh-button")
+        .keyboardShortcut("r", modifiers: [.command])
+        .accessibilityIdentifier("refresh-button")
     }
 }

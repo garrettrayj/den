@@ -12,14 +12,14 @@ import SwiftUI
 
 struct ProfilesSettingsSectionRow: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     @ObservedObject var profile: Profile
-    
+
     @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
-    
+
     @State private var showingDetail: Bool = false
-    
+
     var body: some View {
         Button {
             showingDetail = true

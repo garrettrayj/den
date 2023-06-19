@@ -24,20 +24,20 @@ struct SettingsSheetForm: View {
     var body: some View {
         Form {
             ProfilesSettingsSection(activeProfile: $activeProfile, appProfileID: $appProfileID)
-            
+
             Section {
                 ImportButton(activeProfile: $activeProfile)
                 ExportButton(activeProfile: $activeProfile)
             } header: {
                 Text("OPML")
             }
-            
+
             Section {
                 UserColorSchemePicker(userColorScheme: $userColorScheme)
             } header: {
                 Text("Appearance", comment: "Settings section header.")
             }
-            
+
             #if os(iOS)
             Section {
                 Toggle(isOn: $useSystemBrowser) {
@@ -47,7 +47,7 @@ struct SettingsSheetForm: View {
                 Text("Links", comment: "Settings section header.")
             }
             #endif
-            
+
             Section {
                 Toggle(isOn: $backgroundRefreshEnabled) {
                     Text("In Background", comment: "Refresh option toggle label.")
@@ -55,10 +55,10 @@ struct SettingsSheetForm: View {
             } header: {
                 Text("Refresh", comment: "Setting section header.")
             }
-            
+
             Section {
                 ClearCacheButton().buttonStyle(.borderless)
-                
+
                 ResetEverythingButton(
                     activeProfile: $activeProfile,
                     appProfileID: $appProfileID
@@ -67,7 +67,7 @@ struct SettingsSheetForm: View {
             } header: {
                 Text("Reset", comment: "Settings section header.")
             }
-            
+
             SettingsAboutSection()
         }
         .navigationTitle(Text("Settings", comment: "Navigation title."))

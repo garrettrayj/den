@@ -13,12 +13,12 @@ import SwiftUI
 struct SidebarToolbar: ToolbarContent {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
-    
+
     @ObservedObject var profile: Profile
 
     @Binding var showingSettings: Bool
     @Binding var detailPanel: DetailPanel?
-    
+
     private var activePage: Page? {
         if case .page(let page) = detailPanel {
             return page
@@ -30,7 +30,6 @@ struct SidebarToolbar: ToolbarContent {
         #if os(iOS)
         ToolbarItem {
             EditButton()
-                
                 .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
                 .accessibilityIdentifier("edit-page-list-button")
         }
@@ -51,7 +50,6 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) {
             RefreshButton(profile: profile)
-                
                 .disabled(
                     refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                 )
@@ -61,8 +59,7 @@ struct SidebarToolbar: ToolbarContent {
             if refreshManager.refreshing {
                 RefreshProgress(totalUnitCount: profile.feedsArray.count)
             } else {
-                RefreshButton(profile: profile)
-                    
+                RefreshButton(activeProfile: .constant(profile))
                     .disabled(
                         refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                     )
@@ -70,7 +67,6 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem {
             NewFeedButton(page: activePage)
-                
                 .disabled(
                     refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                 )

@@ -13,12 +13,12 @@ import SDWebImage
 
 struct ResetEverythingButton: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    
+
     @State private var showingResetAlert = false
-    
+
     var body: some View {
         Button(role: .destructive) {
             showingResetAlert = true
@@ -58,7 +58,7 @@ struct ResetEverythingButton: View {
         )
         .accessibilityIdentifier("reset-button")
     }
-    
+
     private func emptyCache() async {
         SDImageCache.shared.clearMemory()
         await SDImageCache.shared.clearDiskOnCompletion()

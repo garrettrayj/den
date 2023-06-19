@@ -12,11 +12,11 @@ import SwiftUI
 
 struct RefreshProgress: View {
     @State private var progress = Progress()
-    
+
     init(totalUnitCount: Int) {
         self.progress.totalUnitCount = Int64(totalUnitCount)
     }
-    
+
     var body: some View {
         ProgressView(progress)
             .progressViewStyle(.circular)
@@ -36,4 +36,3 @@ struct RefreshProgress: View {
             }
     }
 }
-

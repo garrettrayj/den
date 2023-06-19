@@ -16,7 +16,6 @@ struct FeedSettingsSheet: View {
 
     @ObservedObject var feed: Feed
 
-
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {

@@ -15,7 +15,7 @@ import WebKit
 struct ItemWebView {
     @Environment(\.openURL) private var openURL
     @Environment(\.profileTint) private var profileTint
-    
+
     var html: String?
     var title: String
     var baseURL: URL?
@@ -58,7 +58,7 @@ struct ItemWebView {
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             var cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
         else { return nil }
-        
+
         cssString = cssString.replacingOccurrences(
             of: "$TINT_COLOR",
             with: profileTint.hexString ?? "blue"
@@ -75,11 +75,11 @@ struct ItemWebView {
                 after: .init(.now() + 0.1),
                 interval: 1
             ) {
-                
-                webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
+
+                webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, _) in
                     if complete != nil {
-                        webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, error) in
-                            
+                        webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, _) in
+
                             guard let height = height as? CGFloat else { return }
                             webView.frame.size.height = height
                             webView.removeConstraints(webView.constraints)
@@ -87,7 +87,7 @@ struct ItemWebView {
                         })
                     }
                 })
-                
+
                 webView.invalidateIntrinsicContentSize()
             }
         }
@@ -131,7 +131,7 @@ struct ItemWebView {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-        
+
         #if os(macOS)
         override func scrollWheel(with theEvent: NSEvent) {
             nextResponder?.scrollWheel(with: theEvent)

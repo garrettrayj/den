@@ -22,7 +22,6 @@ struct SettingsAboutSection: View {
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
-            
 
             Button {
                 guard let url = URL(string: "https://den.io") else { return }
@@ -35,7 +34,7 @@ struct SettingsAboutSection: View {
                 }
             }
             .buttonStyle(.plain)
-            
+
             .accessibilityIdentifier("website-button")
         } header: {
             Text("About", comment: "Settings section header.")

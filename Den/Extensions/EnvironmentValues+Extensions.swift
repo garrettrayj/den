@@ -24,7 +24,7 @@ extension EnvironmentValues {
         get { self[ProfileTintKey.self] }
         set { self[ProfileTintKey.self] = newValue }
     }
-    
+
     var useSystemBrowser: Bool {
         get { self[UseSystemBrowserKey.self] }
         set { self[UseSystemBrowserKey.self] = newValue }

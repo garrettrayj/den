@@ -52,7 +52,7 @@ public enum TintOption: String, CaseIterable {
             return Text("Brown", comment: "Tint color option.")
         }
     }
-    
+
     var color: Color {
         switch self {
         case .red:

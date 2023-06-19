@@ -14,7 +14,7 @@ struct PagePicker: View {
     @ObservedObject var profile: Profile
 
     @Binding var selection: Page?
-    
+
     let labelText: Text
 
     var body: some View {

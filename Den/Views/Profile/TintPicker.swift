@@ -21,7 +21,7 @@ struct TintPicker: View {
                 Image(systemName: "hexagon.fill")
             }
             .foregroundColor(.secondary)
-            
+
             .tag(nil as TintOption?)
 
             ForEach(TintOption.allCases, id: \.self) { tintOption in
@@ -31,7 +31,7 @@ struct TintPicker: View {
                     Image(systemName: "hexagon.fill")
                 }
                 .foregroundColor(tintOption.color)
-                
+
                 .tag(tintOption as TintOption?)
             }
         } label: {

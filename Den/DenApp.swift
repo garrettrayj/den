@@ -51,48 +51,18 @@ struct DenApp: App {
         }
         .commands {
             CommandGroup(replacing: .newItem) {
-                Button {
-                    SubscriptionUtility.showSubscribe()
-                } label: {
-                    Text("New Feed", comment: "System toolbar button label.")
-                }
-                .keyboardShortcut("n", modifiers: [.command])
-                
-                Button {
-                    guard let profile = activeProfile else { return }
-                    _ = Page.create(
-                        in: persistenceController.container.viewContext,
-                        profile: profile,
-                        prepend: true
-                    )
-                    do {
-                        try persistenceController.container.viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                } label: {
-                    Text("New Page", comment: "System toolbar button label.")
-                }
-                .keyboardShortcut("n", modifiers: [.command, .shift])
+                NewFeedButton()
+                NewPageButton(activeProfile: $activeProfile)
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
-            
             CommandGroup(after: .sidebar) {
                 Divider()
-                Button {
-                    Task {
-                        guard let profile = activeProfile else { return }
-                        await refreshManager.refresh(profile: profile)
-                    }
-                } label: {
-                    Text("Refresh", comment: "System toolbar button label.")
-                }
-                .keyboardShortcut("r", modifiers: [.command])
+                RefreshButton(activeProfile: $activeProfile)
+                    .environmentObject(refreshManager)
             }
-            
             CommandGroup(replacing: .importExport) {
                 ImportButton(activeProfile: $activeProfile)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                
                 ExportButton(activeProfile: $activeProfile)
             }
         }
@@ -118,7 +88,7 @@ struct DenApp: App {
             default: break
             }
         }
-        
+
         #if os(macOS)
         Settings {
             if let profile = activeProfile {
@@ -139,7 +109,7 @@ struct DenApp: App {
         }
         #endif
     }
-    
+
     init() {
         setupImageHandling()
         resetUserDefaultsIfNeeded()
@@ -184,7 +154,7 @@ struct DenApp: App {
         }
         // Break here to simulate background task
     }
-    
+
     private func handleRefresh() {
         guard let profile = activeProfile else {
             return
@@ -199,7 +169,7 @@ struct DenApp: App {
         lastCleanup = Date.now.timeIntervalSince1970
     }
     #endif
-    
+
     private func setupImageHandling() {
         // Add additional image format support
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)

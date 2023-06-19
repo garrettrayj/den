@@ -50,7 +50,7 @@ struct ShowcaseSection: View {
                     }
                     .modifier(SafeAreaModifier(geometry: geometry))
                 }
-            }.padding(.vertical)
+            }
         } header: {
             NavigationLink(value: SubDetailPanel.feed(feed)) {
                 HStack {

@@ -13,7 +13,7 @@ import SwiftUI
 
 struct PageToolbar: ToolbarContent {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -43,7 +43,7 @@ struct PageToolbar: ToolbarContent {
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
             }
-            
+
         }
         #else
         ToolbarItem {
@@ -60,12 +60,12 @@ struct PageToolbar: ToolbarContent {
             }
             .accessibilityIdentifier("page-menu")
         }
-        
+
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {
                 page.objectWillChange.send()
             }
-            
+
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -78,7 +78,7 @@ struct PageToolbar: ToolbarContent {
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
             }
-            
+
         }
         #endif
     }

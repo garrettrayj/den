@@ -12,17 +12,17 @@ import SwiftUI
 
 struct ImportButton: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @Binding var activeProfile: Profile?
-    
+
     @State private var showingImporter: Bool = false
-    
+
     var body: some View {
         Button {
             #if os(macOS)
             runModal()
             #endif
-            
+
             #if os(iOS)
             showingImporter = true
             #endif
@@ -38,28 +38,28 @@ struct ImportButton: View {
             guard let selectedFile: URL = try? result.get().first else { return }
             importXML(selectedFile)
         }
-        #endif   
+        #endif
     }
-    
+
     #if os(macOS)
     private func runModal() {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
         panel.canChooseDirectories = false
         panel.allowedContentTypes = [.init(importedAs: "public.opml"), .xml]
-        
+
         if panel.runModal() == .OK {
             guard let url = panel.url else { return }
             self.importXML(url)
         }
     }
     #endif
-    
+
     private func importXML(_ url: URL) {
         guard let profile = activeProfile else { return }
-        
+
         let opmlFolders =  OPMLReader(xmlURL: url).outlineFolders
-        
+
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profile)
             page.name = opmlFolder.name
@@ -68,7 +68,7 @@ struct ImportButton: View {
                 feed.title = opmlFeed.title
             }
         }
-        
+
         do {
             try viewContext.save()
         } catch let error as NSError {

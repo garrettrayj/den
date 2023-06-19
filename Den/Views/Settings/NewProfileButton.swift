@@ -17,7 +17,7 @@ struct NewProfileButton: View {
         Button {
             withAnimation {
                 _ = Profile.create(in: viewContext)
-                
+
                 do {
                     try viewContext.save()
                 } catch let error as NSError {

@@ -31,7 +31,7 @@ struct TrendingToolbar: ToolbarContent {
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead) { }
-                
+
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: unreadCount) {

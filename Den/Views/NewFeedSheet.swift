@@ -40,7 +40,7 @@ struct NewFeedSheet: View {
     var body: some View {
         VStack(spacing: 20) {
             Text("New Feed").font(.title)
-            
+
             if targetPage == nil || profile == nil {
                 Text("No Pages Available", comment: "Add Feed error message.")
                     .font(.title2)
@@ -92,7 +92,7 @@ struct NewFeedSheet: View {
                         .padding(.top, 4)
                     }
                 }
-                
+
                 PagePicker(
                     profile: profile!,
                     selection: $targetPage,
@@ -102,7 +102,7 @@ struct NewFeedSheet: View {
                 .labelsHidden()
 
                 submitButtonSection
-                
+
                 Button { dismiss() } label: {
                     Label {
                         Text("Cancel", comment: "Button label.")
@@ -249,7 +249,7 @@ struct NewFeedSheet: View {
         #if os(iOS)
         UINotificationFeedbackGenerator().notificationOccurred(.error)
         #endif
-        
+
         withAnimation(.default) { validationAttempts += 1 }
     }
 }

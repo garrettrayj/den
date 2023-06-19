@@ -13,7 +13,7 @@ import SDWebImage
 
 struct ClearCacheButton: View {
     @State private var cacheSize: Int64 = 0
-    
+
     let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = .useAll
@@ -23,7 +23,7 @@ struct ClearCacheButton: View {
 
         return formatter
     }()
-    
+
     var body: some View {
         Button {
             Task {
@@ -51,7 +51,7 @@ struct ClearCacheButton: View {
         .disabled(cacheSize == 0)
         .accessibilityIdentifier("clear-cache-button")
     }
-    
+
     private func emptyCache() async {
         SDImageCache.shared.clearMemory()
 

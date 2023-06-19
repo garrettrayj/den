@@ -13,7 +13,6 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) private var scenePhase
 
     @Binding var backgroundRefreshEnabled: Bool
@@ -42,14 +41,11 @@ struct RootView: View {
                 )
             }
         }
-        .preferredColorScheme(.dark)
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showCrashMessage = true
         }
         .sheet(isPresented: $showCrashMessage) {
-            CrashMessage()
-                .interactiveDismissDisabled()
+            CrashMessage().interactiveDismissDisabled()
         }
-        .scrollContentBackground(.hidden)
     }
 }

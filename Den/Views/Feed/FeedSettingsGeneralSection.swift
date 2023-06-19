@@ -25,7 +25,7 @@ struct FeedSettingsGeneralSection: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-            
+
             if let profile = feed.page?.profile {
                 PagePicker(
                     profile: profile,
@@ -47,7 +47,7 @@ struct FeedSettingsGeneralSection: View {
                     dismiss()
                 }
             }
-            
+
             DeleteFeedButton(feed: feed).buttonStyle(.plain)
         } footer: {
             if feed.changedValues().keys.contains("itemLimit") {

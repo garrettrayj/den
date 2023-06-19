@@ -17,7 +17,7 @@ struct ProfilesSettingsTab: View {
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
-    
+
     @State private var selectedProfile: Profile?
 
     var body: some View {
@@ -40,7 +40,7 @@ struct ProfilesSettingsTab: View {
                 .safeAreaInset(edge: .bottom, alignment: .leading) {
                     NewProfileButton().padding(12)
                 }
-                
+
                 if let profile = selectedProfile {
                     ProfileSettings(
                         profile: profile,

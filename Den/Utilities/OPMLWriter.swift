@@ -21,7 +21,7 @@ final class OPMLGenerator {
         self.title = title
         self.pages = pages
     }
-    
+
     var document: AEXMLDocument {
         let document = AEXMLDocument()
         let root = document.addChild(name: "opml", attributes: ["version": "1.0"])
@@ -45,10 +45,10 @@ final class OPMLGenerator {
                 outline.addChild(name: "outline", attributes: attributes)
             }
         }
-        
+
         return document
     }
-    
+
     func getData() -> Data? {
         document.xml.data(using: .utf8)
     }

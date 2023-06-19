@@ -14,7 +14,6 @@ import SwiftUI
 
 struct SplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @EnvironmentObject private var networkMonitor: NetworkMonitor

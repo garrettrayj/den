@@ -15,11 +15,11 @@ struct FeedSettingsButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
-    
+
     @State private var showingSettings: Bool = false
 
     var body: some View {
-        
+
         Button {
             showingSettings = true
         } label: {
@@ -29,7 +29,7 @@ struct FeedSettingsButton: View {
                 Image(systemName: "wrench")
             }
         }
-        
+
         .accessibilityIdentifier("feed-settings-button")
         .sheet(
             isPresented: $showingSettings,
@@ -47,4 +47,3 @@ struct FeedSettingsButton: View {
         }
     }
 }
-

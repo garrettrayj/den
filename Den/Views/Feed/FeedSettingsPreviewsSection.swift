@@ -30,7 +30,7 @@ struct FeedSettingsPreviewsSection: View {
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             })
             #endif
-            
+
             HStack {
                 Text("Preferred Style", comment: "Feed preview style picker label.")
                 Spacer()
@@ -61,7 +61,7 @@ struct FeedSettingsPreviewsSection: View {
             Toggle(isOn: $feed.hideImages) {
                 Text("Hide Images", comment: "Toggle label.")
             }
-            
+
             Toggle(isOn: $feed.browserView) {
                 Text("Open in Browser", comment: "Toggle label.")
             }

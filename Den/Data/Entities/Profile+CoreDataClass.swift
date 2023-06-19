@@ -34,7 +34,7 @@ public class Profile: NSManagedObject {
         guard let tint = tint, let tintOption = TintOption(rawValue: tint) else { return nil }
         return tintOption.color
     }
-    
+
     public var tintOption: TintOption? {
         get {
             guard let tint = tint else { return nil }

@@ -23,7 +23,7 @@ extension Color {
             return nil
         }
         #endif
-        
+
         let r = Float(components[0])
         let g = Float(components[1])
         let b = Float(components[2])

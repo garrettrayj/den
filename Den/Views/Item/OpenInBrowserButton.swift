@@ -14,16 +14,16 @@ struct OpenInBrowserButton: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.profileTint) private var profileTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
-    
+
     let url: URL
     var readerMode = false
-    
+
     var body: some View {
         Button {
             #if os(macOS)
             openURL(url)
             #else
-            if useSystemBrowser  {
+            if useSystemBrowser {
                 openURL(url)
             } else {
                 SafariUtility.openLink(

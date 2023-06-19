@@ -13,11 +13,11 @@ import SwiftUI
 struct DeleteProfileButton: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var profile: Profile
-    
+
     var callback: () -> Void
-    
+
     @State private var showingAlert = false
-    
+
     var body: some View {
         Button(role: .destructive) {
             showingAlert = true
@@ -59,7 +59,7 @@ struct DeleteProfileButton: View {
         .symbolRenderingMode(.multicolor)
         .accessibilityIdentifier("delete-profile-button")
     }
-    
+
     private func delete() async {
         let container = PersistenceController.shared.container
 

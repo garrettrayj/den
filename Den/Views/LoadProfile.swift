@@ -36,9 +36,9 @@ struct LoadProfile: View {
                 Button {
                     activateProfile(createDefaultProfile())
                 } label: {
-                    Text("Create a New Profile", comment: "Button label.")
+                    Text("Create a New Profile", comment: "Button label.").padding(8)
                 }
-                .buttonStyle(AccentButtonStyle())
+                .buttonStyle(.borderedProminent)
                 .accessibilityIdentifier("create-profile-button")
                 Text("""
                 If you have used the app before then synchronization could be in progress. \
@@ -95,7 +95,7 @@ struct LoadProfile: View {
         appProfileID = profile?.id?.uuidString
         activeProfile = profile
     }
-    
+
     private func createDefaultProfile() -> Profile {
         let profile = Profile.create(in: viewContext)
 

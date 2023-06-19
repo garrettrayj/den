@@ -12,7 +12,7 @@ import SwiftUI
 
 struct AllSection: View {
     @ObservedObject var profile: Profile
-    
+
     var body: some View {
         Section {
             InboxNav(profile: profile)

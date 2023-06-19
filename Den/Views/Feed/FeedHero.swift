@@ -14,7 +14,7 @@ import SDWebImageSwiftUI
 
 struct FeedHero: View {
     @Environment(\.colorScheme) private var colorScheme
-    
+
     let heroImage: URL
 
     var body: some View {

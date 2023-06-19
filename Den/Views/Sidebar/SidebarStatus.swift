@@ -14,11 +14,11 @@ struct SidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
-    
+
     @Binding var refreshing: Bool
 
     @State private var progress = Progress()
-    
+
     let dateFormatter: DateFormatter = {
         let relativeDateFormatter = DateFormatter()
         relativeDateFormatter.timeStyle = .none
@@ -28,11 +28,11 @@ struct SidebarStatus: View {
 
         return relativeDateFormatter
     }()
-    
+
     init(profile: Profile, refreshing: Binding<Bool>) {
         self.profile = profile
         _refreshing = refreshing
-        
+
         self.progress.totalUnitCount = Int64(profile.feedsArray.count)
     }
 

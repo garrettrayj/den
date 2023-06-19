@@ -28,11 +28,11 @@ struct ItemToolbar: ToolbarContent {
         ToolbarItem(placement: .bottomBar) {
             if let url = item.link {
                 OpenInBrowserButton(url: url, readerMode: feed.readerMode)
-                    
+
             }
         }
         #endif
-        
+
         ToolbarItem {
             if let url = item.link {
                 ShareButton(url: url)

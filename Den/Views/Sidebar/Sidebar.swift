@@ -13,7 +13,7 @@ import SwiftUI
 
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
@@ -35,29 +35,11 @@ struct Sidebar: View {
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom, alignment: .leading) {
-            Button {
-                withAnimation {
-                    _ = Page.create(in: viewContext, profile: profile, prepend: true)
-
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            } label: {
-                Label {
-                    Text("New Page", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "plus.circle").imageScale(.medium)
-                }
-                .font(.body)
-                .accessibilityIdentifier("new-page-button")
-            }
-            .buttonStyle(.borderless)
-            .foregroundStyle(.secondary)
-            .padding(.vertical, 8)
-            .padding(.horizontal, 12)
+            NewPageButton(activeProfile: .constant(profile))
+                .buttonStyle(.borderless)
+                .foregroundStyle(.secondary)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
         }
         #endif
         .listStyle(.sidebar)

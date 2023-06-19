@@ -26,7 +26,7 @@ struct InboxToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead) {
                 profile.objectWillChange.send()
             }
-            
+
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
@@ -36,14 +36,14 @@ struct InboxToolbar: ToolbarContent {
                     page.objectWillChange.send()
                 }
             }
-            
+
         }
         #else
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead) {
                 profile.objectWillChange.send()
             }
-            
+
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
@@ -58,7 +58,7 @@ struct InboxToolbar: ToolbarContent {
                     page.objectWillChange.send()
                 }
             }
-            
+
         }
         #endif
     }

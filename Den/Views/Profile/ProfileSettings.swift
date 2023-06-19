@@ -18,7 +18,7 @@ struct ProfileSettings: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    
+
     var deleteCallback: () -> Void
 
     @State private var showingDeleteAlert: Bool = false
@@ -32,14 +32,14 @@ struct ProfileSettings: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-            
+
             TintPicker(tintSelection: $profile.tintOption)
-            
+
             HistorySettingsSection(
                 profile: profile,
                 historyRentionDays: profile.wrappedHistoryRetention
             )
-            
+
             #if os(iOS)
             Section {
                 DeleteProfileButton(profile: profile) {
@@ -78,7 +78,7 @@ struct ProfileSettings: View {
                     }
                 }
                 .labelStyle(.titleAndIcon)
-                
+
                 .disabled(profile == activeProfile)
                 .accessibilityIdentifier("switch-to-profile-button")
             }
@@ -90,7 +90,7 @@ struct ProfileSettings: View {
                 DeleteProfileButton(profile: profile, callback: deleteCallback)
                     .buttonStyle(.bordered)
                     .disabled(profile == activeProfile)
-                
+
                 Spacer()
                 Button {
                     DispatchQueue.main.async {

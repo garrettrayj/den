@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ShareButton: View {
-    
+
     let url: URL
 
     var body: some View {
@@ -25,4 +25,3 @@ struct ShareButton: View {
         .accessibilityIdentifier("share-button")
     }
 }
-

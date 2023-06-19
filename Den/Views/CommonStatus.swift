@@ -15,7 +15,7 @@ struct CommonStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
-    
+
     var body: some View {
         VStack {
             if !networkMonitor.isConnected {

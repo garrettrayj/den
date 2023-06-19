@@ -23,4 +23,3 @@ struct UserColorSchemePicker: View {
         }
     }
 }
-

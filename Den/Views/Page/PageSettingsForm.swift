@@ -43,7 +43,7 @@ struct PageSettingsForm: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-            
+
             Button {
                 showIconPicker = true
             } label: {
@@ -66,7 +66,7 @@ struct PageSettingsForm: View {
             if page.feedsArray.isEmpty {
                 Text("Page Empty", comment: "Page settings feeds empty message.")
                     .foregroundColor(.secondary)
-                    
+
             } else {
                 List {
                     ForEach(page.feedsArray) { feed in
@@ -114,7 +114,7 @@ struct PageSettingsForm: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-        
+
         do {
             try viewContext.save()
             page.objectWillChange.send()

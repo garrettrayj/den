@@ -22,10 +22,10 @@ struct GeneralSettingsTab: View {
             } header: {
                 Text("Appearance", comment: "Settings section header.")
             }
-            
+
             Section {
                 ClearCacheButton().buttonStyle(.borderless)
-                
+
                 ResetEverythingButton(
                     activeProfile: $activeProfile,
                     appProfileID: $appProfileID

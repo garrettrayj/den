@@ -78,7 +78,7 @@ struct ItemActionView<Content: View>: View {
         #if os(macOS)
         openURL(url)
         #else
-        if useSystemBrowser  {
+        if useSystemBrowser {
             openURL(url)
         } else {
             SafariUtility.openLink(

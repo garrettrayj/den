@@ -15,7 +15,7 @@ struct SearchToolbar: ToolbarContent {
 
     @Binding var hideRead: Bool
     @Binding var query: String
-    
+
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {

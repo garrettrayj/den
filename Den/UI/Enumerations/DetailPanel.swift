@@ -1,5 +1,5 @@
 //
-//  Panels.swift
+//  DetailPanel.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/31/22.
@@ -16,10 +16,4 @@ enum DetailPanel: Hashable {
     case inbox
     case trending
     case page(Page)
-}
-
-enum SubDetailPanel: Hashable {
-    case feed(Feed)
-    case item(Item)
-    case trend(Trend)
 }

@@ -22,7 +22,6 @@ struct SettingsSheet: View {
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
 
-
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {

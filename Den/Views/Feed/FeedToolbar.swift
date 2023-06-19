@@ -12,7 +12,7 @@ import SwiftUI
 
 struct FeedToolbar: ToolbarContent {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
@@ -32,14 +32,14 @@ struct FeedToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead) {
                 feed.objectWillChange.send()
             }
-            
+
         }
         ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()
             }
-            
+
         }
         #else
         ToolbarItem {
