@@ -45,22 +45,6 @@ public class Profile: NSManagedObject {
         }
     }
 
-    public var pagesWithInsecureFeeds: [Page] {
-        pagesArray.filter { page in
-            page.insecureFeeds.count > 0
-        }
-    }
-
-    public var insecureFeeds: [Feed] {
-        pagesArray.flatMap { page in
-            return page.insecureFeeds
-        }
-    }
-
-    public var insecureFeedCount: Int {
-        insecureFeeds.count
-    }
-
     public var historyArray: [History] {
         get {
             guard

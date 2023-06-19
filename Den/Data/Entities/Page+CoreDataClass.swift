@@ -50,12 +50,6 @@ public class Page: NSManagedObject {
         }
     }
 
-    public var insecureFeeds: [Feed] {
-        feedsArray.filter { feed in
-            feed.url?.scheme != "https"
-        }
-    }
-
     public var feedsUserOrderMin: Int16 {
         feedsArray.reduce(0) { (result, feed) -> Int16 in
             if feed.userOrder < result {
