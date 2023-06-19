@@ -52,7 +52,7 @@ struct PageToolbar: ToolbarContent {
         ToolbarItem {
             Menu {
                 PageLayoutPicker(pageLayout: $pageLayout)
-                AddFeedButton(page: page)
+                NewFeedButton(page: page)
                 PageSettingsButton(showingSettings: $showingSettings)
             } label: {
                 Label {

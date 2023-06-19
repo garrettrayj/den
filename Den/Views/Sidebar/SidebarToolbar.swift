@@ -17,10 +17,10 @@ struct SidebarToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var showingSettings: Bool
-    @Binding var contentSelection: DetailPanel?
+    @Binding var detailPanel: DetailPanel?
     
     private var activePage: Page? {
-        if case .page(let page) = contentSelection {
+        if case .page(let page) = detailPanel {
             return page
         }
         return nil
@@ -69,7 +69,7 @@ struct SidebarToolbar: ToolbarContent {
             }
         }
         ToolbarItem {
-            AddFeedButton(page: activePage)
+            NewFeedButton(page: activePage)
                 .buttonStyle(ToolbarButtonStyle())
                 .disabled(
                     refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty

@@ -18,7 +18,7 @@ struct DetailView: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    @Binding var contentSelection: DetailPanel?
+    @Binding var detailPanel: DetailPanel?
     @Binding var searchQuery: String
 
     @AppStorage("HideRead") private var hideRead: Bool = false
@@ -26,7 +26,7 @@ struct DetailView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                switch contentSelection ?? .welcome {
+                switch detailPanel ?? .welcome {
                 case .welcome:
                     Welcome(profile: profile, refreshing: $refreshManager.refreshing)
                 case .search:

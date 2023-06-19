@@ -18,14 +18,14 @@ struct Sidebar: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var contentSelection: DetailPanel?
+    @Binding var detailPanel: DetailPanel?
     @Binding var searchQuery: String
     @Binding var showingSettings: Bool
 
     @State private var searchInput = ""
 
     var body: some View {
-        List(selection: $contentSelection) {
+        List(selection: $detailPanel) {
             if profile.pagesArray.isEmpty {
                 Start(profile: profile)
             } else {
@@ -68,7 +68,7 @@ struct Sidebar: View {
         )
         .onSubmit(of: .search) {
             searchQuery = searchInput
-            contentSelection = .search
+            detailPanel = .search
         }
         #if os(iOS)
         .background(GroupedBackground())
@@ -79,7 +79,7 @@ struct Sidebar: View {
             SidebarToolbar(
                 profile: profile,
                 showingSettings: $showingSettings,
-                contentSelection: $contentSelection
+                detailPanel: $detailPanel
             )
         }
     }

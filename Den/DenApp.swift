@@ -31,7 +31,7 @@ struct DenApp: App {
     @StateObject private var refreshManager = RefreshManager()
 
     @State private var activeProfile: Profile?
-    @State private var contentSelection: DetailPanel?
+    @State private var detailPanel: DetailPanel?
 
     let persistenceController = PersistenceController.shared
 
@@ -42,7 +42,7 @@ struct DenApp: App {
                 appProfileID: $appProfileID,
                 activeProfile: $activeProfile,
                 userColorScheme: $userColorScheme,
-                contentSelection: $contentSelection
+                detailPanel: $detailPanel
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
@@ -131,7 +131,7 @@ struct DenApp: App {
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     useSystemBrowser: $useSystemBrowser,
                     userColorScheme: $userColorScheme,
-                    contentSelection: $contentSelection
+                    detailPanel: $detailPanel
                 )
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .preferredColorScheme(userColorScheme.colorScheme)

@@ -23,7 +23,7 @@ struct SettingsTabs: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
-    @Binding var contentSelection: DetailPanel?
+    @Binding var detailPanel: DetailPanel?
     
     var body: some View {
         TabView {
@@ -36,7 +36,7 @@ struct SettingsTabs: View {
                 Label("General", systemImage: "gearshape")
             }
             
-            ProfilesSettingsTab(activeProfile: $activeProfile, appProfileID: $appProfileID, contentSelection: $contentSelection)
+            ProfilesSettingsTab(activeProfile: $activeProfile, appProfileID: $appProfileID, detailPanel: $detailPanel)
             .tabItem {
                 Label("Profiles", systemImage: "person.crop.circle")
             }

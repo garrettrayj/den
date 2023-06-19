@@ -26,7 +26,7 @@ struct SplitView: View {
     @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
-    @Binding var contentSelection: DetailPanel?
+    @Binding var detailPanel: DetailPanel?
 
     @State private var searchQuery: String = ""
     @State private var showSubscribe = false
@@ -41,7 +41,7 @@ struct SplitView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
                 profile: profile,
-                contentSelection: $contentSelection,
+                detailPanel: $detailPanel,
                 searchQuery: $searchQuery,
                 showingSettings: $showingSettings
             )
@@ -61,7 +61,7 @@ struct SplitView: View {
                 profile: profile,
                 activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
-                contentSelection: $contentSelection,
+                detailPanel: $detailPanel,
                 searchQuery: $searchQuery
             )
         }
@@ -69,7 +69,7 @@ struct SplitView: View {
         .environment(\.profileTint, profile.tintColor ?? .accentColor)
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
-            if case .page(let page) = contentSelection {
+            if case .page(let page) = detailPanel {
                 SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
             } else {
                 SubscriptionUtility.showSubscribe(for: url.absoluteString)
@@ -79,7 +79,7 @@ struct SplitView: View {
             URLDropTargetModifier()
         )
         .onChange(of: activeProfile) { _ in
-            contentSelection = nil
+            detailPanel = nil
         }
         .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
             subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""

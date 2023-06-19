@@ -1,5 +1,5 @@
 //
-//  AddFeedButton.swift
+//  NewFeedButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/3/22.
@@ -10,24 +10,20 @@
 
 import SwiftUI
 
-struct AddFeedButton: View {
+struct NewFeedButton: View {
     var page: Page?
 
     var body: some View {
         Button {
-            if page != nil {
-                SubscriptionUtility.showSubscribe(page: page)
-            } else {
-                SubscriptionUtility.showSubscribe()
-            }
+            SubscriptionUtility.showSubscribe(page: page)
         } label: {
             Label {
-                Text("Add Feed", comment: "Button label.")
+                Text("New Feed", comment: "Button label.")
             } icon: {
                 Image(systemName: "plus")
             }
         }
         .buttonStyle(ToolbarButtonStyle())
-        .accessibilityIdentifier("add-feed-button")
+        .accessibilityIdentifier("new-feed-button")
     }
 }

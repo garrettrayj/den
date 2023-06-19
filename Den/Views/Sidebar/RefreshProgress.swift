@@ -19,9 +19,12 @@ struct RefreshProgress: View {
     
     var body: some View {
         ProgressView(progress)
-            .progressViewStyle(PieProgressViewStyle())
+            .progressViewStyle(.circular)
+            .labelsHidden()
             #if os(macOS)
-            .frame(width: 30, height: 16)
+            .scaleEffect(0.5)
+            .padding(.top, 2)
+            .frame(width: 30)
             #endif
             .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
                 progress.completedUnitCount += 1
