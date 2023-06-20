@@ -39,7 +39,7 @@ struct SidebarStatus: View {
     var body: some View {
         VStack {
             if !networkMonitor.isConnected {
-                Text("Network Offline", comment: "Sidebar status message.").foregroundColor(.secondary)
+                Text("Network Offline", comment: "Status message.").foregroundColor(.secondary)
             } else if refreshing {
                 ProgressView(progress)
                     .progressViewStyle(BottomBarProgressViewStyle(profile: profile))

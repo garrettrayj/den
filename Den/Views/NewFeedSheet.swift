@@ -137,7 +137,7 @@ struct NewFeedSheet: View {
             }
         } label: {
             Label {
-                Text("Add to \(targetPage?.nameText ?? Text("…"))", comment: "Button label.")
+                Text("Add to \(targetPage?.nameText ?? Text(verbatim: "…"))", comment: "Button label.")
                     .padding(.vertical, 8)
             } icon: {
                 if loading {

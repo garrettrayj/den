@@ -17,7 +17,7 @@ struct FeedCount: View {
         if count == 1 {
             Text("1 Feed", comment: "Feed count (singular).")
         } else {
-            Text("\(count) Feeds", comment: "Feed count (plural/other).")
+            Text("\(count) Feeds", comment: "Feed count (zero/plural).")
         }
     }
 }

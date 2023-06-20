@@ -74,13 +74,13 @@ struct FeedSettingsPreviewsSection: View {
             }
             #endif
         } header: {
-            Text("Previews")
+            Text("Previews", comment: "Feed settings section header.")
         } footer: {
             #if os(iOS)
             if useSystemBrowser == true {
                 Text(
                     "System web browser in use. \"Enter Reader Mode\" will be ignored.",
-                    comment: "Feed settings reader mode guidance note."
+                    comment: "Feed settings reader mode guidance message."
                 )
             }
             #endif

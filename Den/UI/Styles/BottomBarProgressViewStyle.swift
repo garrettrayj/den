@@ -27,9 +27,9 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                         "\(Int(fractionCompleted * Double(feedCount))) of \(feedCount) Updated",
                         comment: "Refresh in-progress label."
                     )
-                        .monospacedDigit()
+                    .monospacedDigit()
                 } else {
-                    Text("Analyzing…", comment: "Tend calculations in-progress label.")
+                    Text("Analyzing…", comment: "Trending analysis in-progress label.")
                 }
 
                 GeometryReader { geometry in

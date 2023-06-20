@@ -27,7 +27,7 @@ struct ImportButton: View {
             showingImporter = true
             #endif
         } label: {
-            Text("Import", comment: "System toolbar button label.")
+            Text("Import", comment: "Button label.")
         }
         #if os(iOS)
         .fileImporter(
