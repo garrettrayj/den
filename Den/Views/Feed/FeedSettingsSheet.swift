@@ -18,7 +18,7 @@ struct FeedSettingsSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                if feed.managedObjectContext == nil || feed.isDeleted {
+                if feed.managedObjectContext == nil {
                     SplashNote(
                         title: Text("Feed Deleted", comment: "Object removed message."),
                         symbol: "slash.circle"
@@ -28,9 +28,21 @@ struct FeedSettingsSheet: View {
                 }
             }
             .toolbar {
+                #if os(macOS)
+                ToolbarItem(placement: .confirmationAction) {
+                    CloseButton(dismiss: dismiss)
+                }
+                ToolbarItem(placement: .destructiveAction) {
+                    DeleteFeedButton(feed: feed, dismiss: dismiss)
+                }
+                #else
                 ToolbarItem {
                     CloseButton(dismiss: dismiss)
                 }
+                ToolbarItem(placement: .topBarLeading) {
+                    DeleteFeedButton(feed: feed, dismiss: dismiss).buttonStyle(.borderless)
+                }
+                #endif
             }
             .frame(minWidth: 400, minHeight: 480)
         }

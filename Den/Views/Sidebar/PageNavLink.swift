@@ -49,6 +49,11 @@ struct PageNavLink: View {
         .modifier(URLDropTargetModifier(page: page))
         .contextMenu {
             Button {
+                page.feedsArray.forEach { feed in
+                    if let feedData = feed.feedData {
+                        viewContext.delete(feedData)
+                    }
+                }
                 viewContext.delete(page)
                 do {
                     try viewContext.save()
@@ -56,7 +61,7 @@ struct PageNavLink: View {
                     CrashUtility.handleCriticalError(error as NSError)
                 }
             } label: {
-                Text("Delete", comment: "Context menu button label.")
+                Text("Delete", comment: "Button label.")
             }
         }
         .accessibilityIdentifier("page-button")

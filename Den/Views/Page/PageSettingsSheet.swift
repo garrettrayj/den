@@ -21,16 +21,28 @@ struct PageSettingsSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                if page.managedObjectContext == nil || page.isDeleted {
+                if page.managedObjectContext == nil {
                     SplashNote(title: Text("Page Deleted", comment: "Object removed message."), symbol: "slash.circle")
                 } else {
                     PageSettingsForm(page: page)
                 }
             }
             .toolbar {
+                #if os(macOS)
+                ToolbarItem(placement: .confirmationAction) {
+                    CloseButton(dismiss: dismiss)
+                }
+                ToolbarItem(placement: .destructiveAction) {
+                    DeletePageButton(page: page, dismiss: dismiss)
+                }
+                #else
                 ToolbarItem {
                     CloseButton(dismiss: dismiss)
                 }
+                ToolbarItem(placement: .topBarLeading) {
+                    DeletePageButton(page: page, dismiss: dismiss).buttonStyle(.borderless)
+                }
+                #endif
             }
             .frame(minWidth: 400, minHeight: 480)
         }

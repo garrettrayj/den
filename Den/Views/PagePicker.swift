@@ -15,8 +15,6 @@ struct PagePicker: View {
 
     @Binding var selection: Page?
 
-    let labelText: Text
-
     var body: some View {
         Picker(selection: $selection) {
             ForEach(profile.pagesArray) { page in
@@ -24,7 +22,7 @@ struct PagePicker: View {
             }
         } label: {
             Label {
-                labelText
+                Text("Page", comment: "Picker label.")
             } icon: {
                 Image(systemName: "folder")
             }

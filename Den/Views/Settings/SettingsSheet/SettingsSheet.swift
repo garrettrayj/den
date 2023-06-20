@@ -25,7 +25,7 @@ struct SettingsSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                if profile.managedObjectContext == nil || profile.isDeleted {
+                if profile.managedObjectContext == nil {
                     SplashNote(title: Text("Profile Deleted", comment: "Object removed message."), symbol: "slash.circle")
                 } else {
                     SettingsSheetForm(

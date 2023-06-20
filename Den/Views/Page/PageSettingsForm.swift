@@ -36,11 +36,7 @@ struct PageSettingsForm: View {
                 text: $page.wrappedName,
                 prompt: Text("Untitled", comment: "Text field prompt.")
             ) {
-                Label {
-                    Text("Name", comment: "Text field label.")
-                } icon: {
-                    Image(systemName: "character.cursor.ibeam")
-                }
+                Text("Name", comment: "Text field label.")
             }
 
             Button {

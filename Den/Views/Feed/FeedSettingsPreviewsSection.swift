@@ -84,6 +84,13 @@ struct FeedSettingsPreviewsSection: View {
                 )
             }
             #endif
+            
+            if feed.changedValues().keys.contains("itemLimit") {
+                Text(
+                    "Latest limit change will be applied on next refresh.",
+                    comment: "Latest item limit changed notice."
+                )
+            }
         }
     }
 }

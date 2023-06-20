@@ -22,7 +22,7 @@ struct FeedView: View {
     @State private var showingSettings: Bool = false
 
     var body: some View {
-        if feed.managedObjectContext == nil || feed.isDeleted {
+        if feed.managedObjectContext == nil {
             SplashNote(title: Text("Feed Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             WithItems(

@@ -69,7 +69,13 @@ struct PagesSection: View {
 
     private func deletePage(indices: IndexSet) {
         indices.forEach {
-            viewContext.delete(profile.pagesArray[$0])
+            let page = profile.pagesArray[$0]
+            page.feedsArray.forEach { feed in
+                if let feedData = feed.feedData {
+                    viewContext.delete(feedData)
+                }
+            }
+            viewContext.delete(page)
         }
 
         do {
