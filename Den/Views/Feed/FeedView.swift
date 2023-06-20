@@ -22,21 +22,19 @@ struct FeedView: View {
     @State private var showingSettings: Bool = false
 
     var body: some View {
-        if feed.managedObjectContext == nil {
+        if feed.managedObjectContext == nil || feed.isDeleted {
             SplashNote(title: Text("Feed Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             WithItems(
                 scopeObject: feed,
                 includeExtras: true
             ) { items in
-                VStack {
-                    FeedLayout(
-                        feed: feed,
-                        profile: profile,
-                        hideRead: $hideRead,
-                        items: items
-                    )
-                }
+                FeedLayout(
+                    feed: feed,
+                    profile: profile,
+                    hideRead: $hideRead,
+                    items: items
+                )
                 .background(GroupedBackground())
                 .toolbar {
                     FeedToolbar(
@@ -51,11 +49,14 @@ struct FeedView: View {
                 .sheet(
                     isPresented: $showingSettings,
                     onDismiss: {
-                        if viewContext.hasChanges {
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
+                        DispatchQueue.main.async {
+                            if viewContext.hasChanges {
+                                do {
+                                    try viewContext.save()
+                                    profile.objectWillChange.send()
+                                } catch {
+                                    CrashUtility.handleCriticalError(error as NSError)
+                                }
                             }
                         }
                     }

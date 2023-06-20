@@ -20,7 +20,7 @@ struct ItemView: View {
     }
 
     var body: some View {
-        if item.managedObjectContext == nil {
+        if item.managedObjectContext == nil || item.isDeleted {
             SplashNote(title: Text("Item Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             itemLayout

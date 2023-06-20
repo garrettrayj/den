@@ -18,7 +18,7 @@ struct FeedSettingsSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                if feed.managedObjectContext == nil {
+                if feed.managedObjectContext == nil || feed.isDeleted {
                     SplashNote(
                         title: Text("Feed Deleted", comment: "Object removed message."),
                         symbol: "slash.circle"

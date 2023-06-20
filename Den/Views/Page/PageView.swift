@@ -22,7 +22,7 @@ struct PageView: View {
     @State private var showingSettings: Bool = false
 
     var body: some View {
-        if page.managedObjectContext == nil {
+        if page.managedObjectContext == nil || page.isDeleted {
             SplashNote(title: Text("Page Deleted", comment: "Object removed message."))
         } else {
             WithItems(scopeObject: page) { items in

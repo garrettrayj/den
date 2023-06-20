@@ -11,10 +11,8 @@
 import SwiftUI
 
 struct FeedSettingsForm: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
     @ObservedObject var feed: Feed
-
+    
     var body: some View {
         Form {
             FeedSettingsGeneralSection(feed: feed)
@@ -25,20 +23,5 @@ struct FeedSettingsForm: View {
         .navigationBarTitleDisplayMode(.inline)
         #endif
         .navigationTitle(Text("Feed Settings", comment: "Navigation title."))
-    }
-
-    private func save() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-                feed.feedData?.itemsArray.forEach { item in
-                    item.objectWillChange.send()
-                }
-                feed.objectWillChange.send()
-                feed.page?.profile?.objectWillChange.send()
-            } catch let error as NSError {
-                CrashUtility.handleCriticalError(error)
-            }
-        }
     }
 }

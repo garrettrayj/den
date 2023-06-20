@@ -599,8 +599,8 @@
 				681AEAF829954AC70054B084 /* FeedHero.swift */,
 				687FEEE22A3D7AE50042977E /* FeedSettingsSheet.swift */,
 				688FD930247A34830006A2DE /* FeedSettingsForm.swift */,
-				681087CA29FB7D1C00F2630C /* FeedSettingsPreviewsSection.swift */,
 				681087CE29FD3E5100F2630C /* FeedSettingsGeneralSection.swift */,
+				681087CA29FB7D1C00F2630C /* FeedSettingsPreviewsSection.swift */,
 				681087CC29FD3D0400F2630C /* DeleteFeedButton.swift */,
 				681087C829FB74A900F2630C /* PreviewStylePicker.swift */,
 			);

@@ -21,7 +21,7 @@ struct PageSettingsSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                if page.managedObjectContext == nil {
+                if page.managedObjectContext == nil || page.isDeleted {
                     SplashNote(title: Text("Page Deleted", comment: "Object removed message."), symbol: "slash.circle")
                 } else {
                     PageSettingsForm(page: page)

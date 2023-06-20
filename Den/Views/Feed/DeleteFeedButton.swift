@@ -33,38 +33,23 @@ struct DeleteFeedButton: View {
             Text("Delete Feed?", comment: "Alert title."),
             isPresented: $showingAlert,
             actions: {
-                Button(role: .cancel) {
-                    // Pass
-                } label: {
+                Button(role: .cancel) { } label: {
                     Text("Cancel", comment: "Button label.")
                 }
-                .accessibilityIdentifier("feed-delete-cancel-button")
+                .accessibilityIdentifier("cancel-button")
 
                 Button(role: .destructive) {
-                    performDelete()
+                    if let feedData = feed.feedData {
+                        viewContext.delete(feedData)
+                    }
+                    viewContext.delete(feed)
+                    dismiss()
                 } label: {
                     Text("Delete", comment: "Button label.")
                 }
-                .accessibilityIdentifier("feed-delete-confirm-button")
+                .accessibilityIdentifier("delete-confirm-button")
             }
         )
         .accessibilityIdentifier("delete-feed-button")
-    }
-
-    private func performDelete() {
-        if let feedData = feed.feedData {
-            viewContext.delete(feedData)
-        }
-        viewContext.delete(feed)
-
-        do {
-            try viewContext.save()
-            feed.page?.profile?.objectWillChange.send()
-            dismiss()
-            dismiss()
-            dismiss()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
     }
 }

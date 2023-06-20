@@ -25,7 +25,7 @@ struct ShowcaseSection: View {
                         .padding(12)
                         .background(QuaternaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
-                        .padding(.horizontal)
+                        .padding()
                         .modifier(SafeAreaModifier(geometry: geometry))
                 }
 
@@ -34,7 +34,7 @@ struct ShowcaseSection: View {
                         .padding(12)
                         .background(QuaternaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
-                        .padding(.horizontal)
+                        .padding()
                         .modifier(SafeAreaModifier(geometry: geometry))
                 } else if !items.isEmpty {
                     BoardView(geometry: geometry, list: items, lazy: false) { item in

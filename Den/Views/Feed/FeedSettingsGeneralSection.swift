@@ -32,19 +32,8 @@ struct FeedSettingsGeneralSection: View {
                     selection: $feed.page,
                     labelText: Text("Move To", comment: "Picker label.")
                 )
-                .onChange(of: feed.page) { [oldPage = feed.page] newPage in
+                .onChange(of: feed.page) { newPage in
                     self.feed.userOrder = (newPage?.feedsUserOrderMax ?? 0) + 1
-                    NotificationCenter.default.post(
-                        name: .feedRefreshed,
-                        object: self.feed.objectID,
-                        userInfo: ["pageObjectID": oldPage?.objectID as Any]
-                    )
-                    NotificationCenter.default.post(
-                        name: .feedRefreshed,
-                        object: self.feed.objectID,
-                        userInfo: ["pageObjectID": newPage?.objectID as Any]
-                    )
-                    dismiss()
                 }
             }
 
