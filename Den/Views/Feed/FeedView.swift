@@ -12,13 +12,14 @@ import CoreData
 import SwiftUI
 
 struct FeedView: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
+    
+    @State private var showingSettings: Bool = false
 
     var body: some View {
         if feed.managedObjectContext == nil {
@@ -28,23 +29,39 @@ struct FeedView: View {
                 scopeObject: feed,
                 includeExtras: true
             ) { items in
-                FeedLayout(
-                    feed: feed,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items
-                )
-                .background(GroupedBackground())
-                .toolbar {
-                    FeedToolbar(
+                VStack {
+                    FeedLayout(
                         feed: feed,
                         profile: profile,
                         hideRead: $hideRead,
                         items: items
                     )
                 }
+                .background(GroupedBackground())
+                .toolbar {
+                    FeedToolbar(
+                        feed: feed,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        showingSettings: $showingSettings,
+                        items: items
+                    )
+                }
                 .navigationTitle(feed.titleText)
-
+                .sheet(
+                    isPresented: $showingSettings,
+                    onDismiss: {
+                        if viewContext.hasChanges {
+                            do {
+                                try viewContext.save()
+                            } catch {
+                                CrashUtility.handleCriticalError(error as NSError)
+                            }
+                        }
+                    }
+                ) {
+                    FeedSettingsSheet(feed: feed)
+                }
             }
         }
     }

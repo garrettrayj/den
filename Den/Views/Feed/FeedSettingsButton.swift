@@ -11,17 +11,17 @@
 import SwiftUI
 
 struct FeedSettingsButton: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
-
     @ObservedObject var feed: Feed
-
-    @State private var showingSettings: Bool = false
+    
+    @Binding var showingSettings: Bool
 
     var body: some View {
-
         Button {
-            showingSettings = true
+            Task {
+                showingSettings = true
+                // Workaround for settings sheet not appearing on macOS
+                feed.objectWillChange.send()
+            }
         } label: {
             Label {
                 Text("Feed Settings", comment: "Button label.")
@@ -29,21 +29,6 @@ struct FeedSettingsButton: View {
                 Image(systemName: "wrench")
             }
         }
-
         .accessibilityIdentifier("feed-settings-button")
-        .sheet(
-            isPresented: $showingSettings,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
-        ) {
-            FeedSettingsSheet(feed: feed)
-        }
     }
 }

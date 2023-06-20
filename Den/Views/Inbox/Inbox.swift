@@ -19,7 +19,7 @@ struct Inbox: View {
         WithItems(scopeObject: profile) { items in
             InboxLayout(
                 profile: profile,
-                hideRead: hideRead,
+                hideRead: $hideRead,
                 items: items
             )
             .toolbar {

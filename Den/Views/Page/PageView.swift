@@ -35,28 +35,28 @@ struct PageView: View {
                             DeckLayout(
                                 page: page,
                                 profile: profile,
-                                hideRead: hideRead,
+                                hideRead: $hideRead,
                                 items: items
                             )
                         case .blend:
                             BlendLayout(
                                 page: page,
                                 profile: profile,
-                                hideRead: hideRead,
+                                hideRead: $hideRead,
                                 items: items
                             )
                         case .showcase:
                             ShowcaseLayout(
                                 page: page,
                                 profile: profile,
-                                hideRead: hideRead,
+                                hideRead: $hideRead,
                                 items: items
                             )
                         case .gadgets:
                             GadgetLayout(
                                 page: page,
                                 profile: profile,
-                                hideRead: hideRead,
+                                hideRead: $hideRead,
                                 items: items
                             )
                         }

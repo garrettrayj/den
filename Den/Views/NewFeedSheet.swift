@@ -39,7 +39,7 @@ struct NewFeedSheet: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("New Feed").font(.title)
+            Text("New Feed").font(.title).fontWeight(.semibold)
 
             if targetPage == nil || profile == nil {
                 Text("No Pages Available", comment: "Add Feed error message.")

@@ -17,36 +17,37 @@ struct ToggleReadButton: View {
     @State private var toggling = false
 
     var body: some View {
-        Button {
-            toggling = true
-            Task {
-                await toggleAll()
-                toggling = false
+        if toggling {
+            ProgressView()
+                #if os(macOS)
+                .scaleEffect(0.5)
+                .frame(width: 36)
+                #else
+                .frame(width: 26)
+                #endif
+        } else {
+            Button {
+                toggling = true
+                Task {
+                    await toggleAll()
+                    toggling = false
+                }
+            } label: {
+                if unreadCount == 0 {
+                    Label {
+                        Text("Mark All Unread", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "checkmark.circle.fill")
+                    }
+                } else {
+                    Label {
+                        Text("Mark All Read", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "checkmark.circle")
+                    }
+                }
             }
-        } label: {
-            if toggling {
-                Label {
-                    Text("Updating…", comment: "Progress view label.")
-                } icon: {
-                    ProgressView()
-                        .scaleEffect(0.5)
-                        .frame(width: 20)
-                }
-            } else if unreadCount == 0 {
-                Label {
-                    Text("Mark All Unread", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "checkmark.circle.fill")
-                }
-            } else {
-                Label {
-                    Text("Mark All Read", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "checkmark.circle")
-                }
-            }
+            .accessibilityIdentifier("toggle-read-button")
         }
-        .accessibilityIdentifier("toggle-read-button")
-        .disabled(toggling)
     }
 }

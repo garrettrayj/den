@@ -18,7 +18,7 @@ struct FeedLayout: View {
 
     @Binding var hideRead: Bool
 
-    @State var urlCopied: Bool = false
+    @State private var urlCopied: Bool = false
 
     let items: FetchedResults<Item>
 

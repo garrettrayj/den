@@ -24,7 +24,7 @@ struct TrendView: View {
                 TrendLayout(
                     trend: trend,
                     profile: profile,
-                    hideRead: hideRead,
+                    hideRead: $hideRead,
                     items: items.visibilityFiltered(hideRead ? false : nil)
                 )
                 .background(GroupedBackground())

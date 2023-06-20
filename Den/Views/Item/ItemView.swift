@@ -14,7 +14,6 @@ struct ItemView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
 
     var maxContentWidth: CGFloat {
         CGFloat(700) * dynamicTypeSize.layoutScalingFactor
@@ -26,7 +25,7 @@ struct ItemView: View {
         } else {
             itemLayout
                 .toolbar {
-                    ItemToolbar(item: item, feed: feed)
+                    ItemToolbar(item: item)
                 }
                 .background(.background)
         }

@@ -16,7 +16,7 @@ struct OpenInBrowserButton: View {
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     let url: URL
-    var readerMode = false
+    var readerMode: Bool?
 
     var body: some View {
         Button {

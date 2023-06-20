@@ -17,6 +17,7 @@ struct FeedToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
+    @Binding var showingSettings: Bool
 
     let items: FetchedResults<Item>
 
@@ -26,7 +27,7 @@ struct FeedToolbar: ToolbarContent {
             FeedStatus(feed: feed, unreadCount: items.unread().count)
         }
         ToolbarItem {
-            FeedSettingsButton(feed: feed)
+            FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
@@ -40,7 +41,7 @@ struct FeedToolbar: ToolbarContent {
         }
         #else
         ToolbarItem {
-            FeedSettingsButton(feed: feed)
+            FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
         }
         ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead)

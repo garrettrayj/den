@@ -14,7 +14,7 @@ struct ShowcaseLayout: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
-    let hideRead: Bool
+    @Binding var hideRead: Bool
 
     let items: FetchedResults<Item>
 

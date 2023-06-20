@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ItemToolbar: ToolbarContent {
     @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -27,7 +26,7 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) {
             if let url = item.link {
-                OpenInBrowserButton(url: url, readerMode: feed.readerMode)
+                OpenInBrowserButton(url: url, readerMode: item.feedData?.feed?.readerMode)
 
             }
         }

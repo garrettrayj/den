@@ -52,9 +52,7 @@ struct DetailView: View {
                             hideRead: $hideRead
                         )
                     case .item(let item):
-                        if let feed = item.feedData?.feed {
-                            ItemView(item: item, feed: feed)
-                        }
+                        ItemView(item: item)
                     case .trend(let trend):
                         TrendView(trend: trend, profile: profile, hideRead: $hideRead)
                     }
