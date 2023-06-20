@@ -12,7 +12,6 @@ import SwiftUI
 
 struct FeedSettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
 
@@ -20,23 +19,17 @@ struct FeedSettingsSheet: View {
         NavigationStack {
             VStack(spacing: 0) {
                 if feed.managedObjectContext == nil {
-                    SplashNote(title: Text("Feed Deleted", comment: "Object removed message."), symbol: "slash.circle")
+                    SplashNote(
+                        title: Text("Feed Deleted", comment: "Object removed message."),
+                        symbol: "slash.circle"
+                    )
                 } else {
                     FeedSettingsForm(feed: feed)
                 }
             }
             .toolbar {
                 ToolbarItem {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label {
-                            Text("Close", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "xmark.circle")
-                        }
-                    }
-                    .buttonStyle(.borderless)
+                    CloseButton(dismiss: dismiss)
                 }
             }
             .frame(minWidth: 400, minHeight: 480)

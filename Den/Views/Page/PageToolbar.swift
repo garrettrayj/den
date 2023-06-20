@@ -12,8 +12,6 @@ import CoreData
 import SwiftUI
 
 struct PageToolbar: ToolbarContent {
-    @Environment(\.managedObjectContext) private var viewContext
-
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -75,7 +73,6 @@ struct PageToolbar: ToolbarContent {
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
             }
-
         }
         #endif
     }

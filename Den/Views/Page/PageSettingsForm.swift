@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct PageSettingsForm: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page

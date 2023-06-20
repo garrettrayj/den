@@ -22,8 +22,6 @@ struct DenApp: App {
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("AppProfileID") var appProfileID: String?
     @AppStorage("LastCleanup") var lastCleanup: Double?
-    @AppStorage("AutoRefreshEnabled") private var autoRefreshEnabled: Bool = false
-    @AppStorage("AutoRefreshCooldown") private var autoRefreshCooldown: Int = 30
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
 
@@ -96,8 +94,6 @@ struct DenApp: App {
                     profile: profile,
                     activeProfile: $activeProfile,
                     appProfileID: $appProfileID,
-                    autoRefreshEnabled: $autoRefreshEnabled,
-                    autoRefreshCooldown: $autoRefreshCooldown,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     useSystemBrowser: $useSystemBrowser,
                     userColorScheme: $userColorScheme,

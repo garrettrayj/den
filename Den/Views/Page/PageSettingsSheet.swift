@@ -29,15 +29,7 @@ struct PageSettingsSheet: View {
             }
             .toolbar {
                 ToolbarItem {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label {
-                            Text("Close", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "xmark.circle")
-                        }
-                    }.buttonStyle(.borderless)
+                    CloseButton(dismiss: dismiss)
                 }
             }
             .frame(minWidth: 400, minHeight: 480)

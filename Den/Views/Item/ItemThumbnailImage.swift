@@ -51,7 +51,6 @@ struct ItemThumbnailImage: View {
                 .frame(width: scaledSize.width, height: scaledSize.height)
                 .background(.quaternary)
                 .modifier(ImageBorderModifier(cornerRadius: 6))
-
         } else if let image = item.feedData?.image {
             ImageDepression(padding: 4) {
                 WebImage(

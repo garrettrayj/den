@@ -70,16 +70,11 @@ struct DeckColumn: View {
     }
 
     private var header: some View {
-        NavigationLink(value: SubDetailPanel.feed(feed)) {
-            HStack {
-                FeedTitleLabel(title: feed.titleText, favicon: feed.feedData?.favicon)
-                Spacer()
-                ButtonChevron()
-            }
-            .padding(.leading, isFirst ? 8 : 0)
-            .padding(.trailing, isLast ? 12 : 0)
-        }
+        FeedNavLink(
+            feed: feed,
+            leadingPadding: isFirst ? 8 : 0,
+            trailingPadding: isLast ? 12 : 0
+        )
         .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 8, trailingPadding: 16))
-        .accessibilityIdentifier("deck-feed-button")
     }
 }

@@ -32,7 +32,6 @@ struct TrendLayout: View {
                                 FeedItemCompressed(item: item, feed: feed, profile: profile)
                             }
                         }
-
                     }
                 }
             }

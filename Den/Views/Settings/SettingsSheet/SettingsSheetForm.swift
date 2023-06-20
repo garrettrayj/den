@@ -11,10 +11,6 @@
 import SwiftUI
 
 struct SettingsSheetForm: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
-
-    @ObservedObject var profile: Profile
-
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool

@@ -62,7 +62,7 @@ struct ProfileSettings: View {
         }
         .toolbar {
             #if os(iOS)
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItem {
                 Button {
                     DispatchQueue.main.async {
                         appProfileID = profile.id?.uuidString
@@ -77,8 +77,8 @@ struct ProfileSettings: View {
                         Image(systemName: "arrow.left.arrow.right")
                     }
                 }
+                .buttonStyle(.borderless)
                 .labelStyle(.titleAndIcon)
-
                 .disabled(profile == activeProfile)
                 .accessibilityIdentifier("switch-to-profile-button")
             }

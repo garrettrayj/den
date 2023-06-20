@@ -18,22 +18,12 @@ struct Gadget: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            NavigationLink(value: SubDetailPanel.feed(feed)) {
-                HStack {
-                    FeedTitleLabel(
-                        title: feed.titleText,
-                        favicon: feed.feedData?.favicon
-                    )
-                    Spacer()
-                    ButtonChevron()
-                }
-            }
-            .buttonStyle(FeedTitleButtonStyle())
-            .accessibilityIdentifier("gadget-feed-button")
+            FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
 
             if feed.feedData == nil || feed.feedData?.error != nil {
                 Divider()
-                FeedUnavailable(feedData: feed.feedData).frame(maxWidth: .infinity, alignment: .leading)
+                FeedUnavailable(feedData: feed.feedData)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(12)
             }
 

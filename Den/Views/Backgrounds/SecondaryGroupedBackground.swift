@@ -13,8 +13,6 @@ import SwiftUI
 struct SecondaryGroupedBackground: View {
     @Environment(\.colorScheme) private var colorScheme
 
-    var highlight = false
-
     var body: some View {
         #if os(macOS)
         Rectangle().fill(.background)

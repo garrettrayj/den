@@ -24,10 +24,9 @@ struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var refreshManager: RefreshManager
 
+    @Binding var activeProfile: Profile?
     @Binding var initialPageObjectID: NSManagedObjectID?
     @Binding var initialURLString: String
-
-    let profile: Profile?
 
     @State private var urlString: String = ""
     @State private var targetPage: Page?
@@ -41,11 +40,7 @@ struct NewFeedSheet: View {
         VStack(spacing: 20) {
             Text("New Feed").font(.title).fontWeight(.semibold)
 
-            if targetPage == nil || profile == nil {
-                Text("No Pages Available", comment: "Add Feed error message.")
-                    .font(.title2)
-                    .foregroundColor(.secondary)
-            } else {
+            if let profile = activeProfile, targetPage != nil {
                 VStack(spacing: 8) {
                     Text("Web Address", comment: "URL field section label.")
                     feedUrlInput
@@ -66,7 +61,7 @@ struct NewFeedSheet: View {
                 }
 
                 PagePicker(
-                    profile: profile!,
+                    profile: profile,
                     selection: $targetPage,
                     labelText: Text("Page", comment: "Picker label.")
                 )
@@ -83,6 +78,8 @@ struct NewFeedSheet: View {
                 }
                 .buttonStyle(.borderless)
                 .accessibilityIdentifier("add-feed-cancel-button")
+            } else {
+                Text("No Pages Available", comment: "New Feed error message.").font(.title2)
             }
         }
         .frame(minWidth: 400)
@@ -185,12 +182,12 @@ struct NewFeedSheet: View {
     private func checkTargetPage() {
         if
             let pageObjectID = initialPageObjectID,
-            let destinationPage = profile!.pagesArray.first(where: { page in
+            let destinationPage = activeProfile?.pagesArray.first(where: { page in
                 page.objectID == pageObjectID
             }) {
            targetPage = destinationPage
         } else if
-            let firstPage = profile?.pagesArray.first
+            let firstPage = activeProfile?.pagesArray.first
         {
             targetPage = firstPage
         }

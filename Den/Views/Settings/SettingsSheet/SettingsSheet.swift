@@ -29,7 +29,6 @@ struct SettingsSheet: View {
                     SplashNote(title: Text("Profile Deleted", comment: "Object removed message."), symbol: "slash.circle")
                 } else {
                     SettingsSheetForm(
-                        profile: profile,
                         activeProfile: $activeProfile,
                         appProfileID: $appProfileID,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,

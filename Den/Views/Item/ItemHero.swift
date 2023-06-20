@@ -16,7 +16,7 @@ struct ItemHero: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.displayScale) private var displayScale
 
-    let item: Item
+    @ObservedObject var item: Item
 
     static let baseSize = CGSize(width: 700, height: 400)
 

@@ -30,12 +30,12 @@ struct FeedHero: View {
         }
         .aspectRatio(16/9, contentMode: .fit)
         .frame(maxWidth: .infinity, maxHeight: 204)
-        .background(.thinMaterial)
         .background {
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
-                .background(colorScheme == .dark ? .black : .white)
+                .background(.background)
+                .overlay(.thinMaterial)
         }
         .clipped()
     }

@@ -8,8 +8,8 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import SwiftUI
 import NaturalLanguage
+import SwiftUI
 
 struct TrendBlock: View {
     @ObservedObject var trend: Trend

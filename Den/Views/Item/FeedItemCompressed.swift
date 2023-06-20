@@ -19,21 +19,8 @@ struct FeedItemCompressed: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            NavigationLink(value: SubDetailPanel.feed(feed)) {
-                HStack {
-                    FeedTitleLabel(
-                        title: feed.titleText,
-                        favicon: item.feedData?.favicon
-                    )
-                    Spacer()
-                    if showExtraTag && item.extra {
-                        ExtraTag()
-                    }
-                    ButtonChevron()
-                }
-            }
-            .buttonStyle(FeedTitleButtonStyle())
-            .accessibilityIdentifier("item-feed-button")
+            FeedNavLink(feed: feed, showExtraTag: showExtraTag && item.extra)
+                .buttonStyle(FeedTitleButtonStyle())
 
             Divider()
 

@@ -17,8 +17,6 @@ struct SettingsTabs: View {
 
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    @Binding var autoRefreshEnabled: Bool
-    @Binding var autoRefreshCooldown: Int
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme

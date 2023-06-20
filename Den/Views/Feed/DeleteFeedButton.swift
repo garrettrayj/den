@@ -61,6 +61,8 @@ struct DeleteFeedButton: View {
             try viewContext.save()
             feed.page?.profile?.objectWillChange.send()
             dismiss()
+            dismiss()
+            dismiss()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }

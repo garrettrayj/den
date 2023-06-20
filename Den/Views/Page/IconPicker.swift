@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct IconPicker: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @Binding var symbolID: String
@@ -61,6 +60,5 @@ struct IconPicker: View {
             Label(category.title, systemImage: category.symbol)
                 .modifier(PinnedSectionHeaderModifier())
         }
-
     }
 }

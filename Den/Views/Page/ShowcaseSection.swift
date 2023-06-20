@@ -52,19 +52,9 @@ struct ShowcaseSection: View {
                 }
             }
         } header: {
-            NavigationLink(value: SubDetailPanel.feed(feed)) {
-                HStack {
-                    FeedTitleLabel(
-                        title: feed.titleText,
-                        favicon: feed.feedData?.favicon
-                    )
-                    Spacer()
-                    ButtonChevron()
-                }
+            FeedNavLink(feed: feed)
+                .buttonStyle(PinnedHeaderButtonStyle())
                 .modifier(SafeAreaModifier(geometry: geometry))
-            }
-            .buttonStyle(PinnedHeaderButtonStyle())
-            .accessibilityIdentifier("showcase-section-feed-button")
         }
     }
 }

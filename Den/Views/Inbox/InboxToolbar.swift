@@ -55,7 +55,6 @@ struct InboxToolbar: ToolbarContent {
                     page.objectWillChange.send()
                 }
             }
-
         }
         #endif
     }

@@ -94,9 +94,9 @@ struct SplitView: View {
         }
         .sheet(isPresented: $showSubscribe) {
             NewFeedSheet(
+                activeProfile: $activeProfile,
                 initialPageObjectID: $subscribePageObjectID,
-                initialURLString: $subscribeURLString,
-                profile: activeProfile
+                initialURLString: $subscribeURLString
             )
             .tint(profile.tintColor)
             .environmentObject(refreshManager)
