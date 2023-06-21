@@ -29,7 +29,7 @@ struct ItemView: View {
                     ItemToolbar(item: item)
                 }
                 #if os(macOS)
-                .background(SecondaryGroupedBackground())
+                .background(Color(.textBackgroundColor))
                 #else
                 .background(.background)
                 #endif

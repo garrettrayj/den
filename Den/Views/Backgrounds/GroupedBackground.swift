@@ -23,11 +23,12 @@ struct GroupedBackground: View {
         }
         #else
         if colorScheme == .dark {
-            EmptyView()
+            Rectangle()
+                .fill(.regularMaterial)
+                .edgesIgnoringSafeArea(.all)
         } else {
             Rectangle()
                 .fill(.ultraThinMaterial)
-                .background(.background)
                 .edgesIgnoringSafeArea(.all)
         }
         #endif
