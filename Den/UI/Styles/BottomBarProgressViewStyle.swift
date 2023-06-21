@@ -41,7 +41,7 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                                             CGFloat(configuration.fractionCompleted ?? 0)) * geometry.size.width)
                     }
                     .frame(height: height)
-                }.frame(maxWidth: 120)
+                }.frame(width: 132)
             }
             .font(.caption)
         }

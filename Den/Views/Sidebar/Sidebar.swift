@@ -53,7 +53,8 @@ struct Sidebar: View {
             detailPanel = .search
         }
         #if os(iOS)
-        .background(GroupedBackground())
+        .scrollContentBackground(.hidden)
+        .background(.thinMaterial)
         #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.nameText)

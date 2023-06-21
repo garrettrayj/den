@@ -32,6 +32,7 @@ struct SidebarToolbar: ToolbarContent {
             EditButton()
                 .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
                 .accessibilityIdentifier("edit-page-list-button")
+                .buttonStyle(.borderless)
         }
         ToolbarItem(placement: .bottomBar) {
             SettingsButton(showingSettings: $showingSettings).disabled(refreshManager.refreshing)

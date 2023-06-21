@@ -12,6 +12,7 @@ import SwiftUI
 
 struct FeedSettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
 
@@ -28,21 +29,26 @@ struct FeedSettingsSheet: View {
                 }
             }
             .toolbar {
-                #if os(macOS)
-                ToolbarItem(placement: .confirmationAction) {
-                    CloseButton(dismiss: dismiss)
-                }
                 ToolbarItem(placement: .destructiveAction) {
                     DeleteFeedButton(feed: feed, dismiss: dismiss)
                 }
-                #else
-                ToolbarItem {
-                    CloseButton(dismiss: dismiss)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(role: .cancel) {
+                        Task {
+                            viewContext.rollback()
+                            dismiss()
+                        }
+                    } label: {
+                        Text("Cancel", comment: "Button label.")
+                    }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    DeleteFeedButton(feed: feed, dismiss: dismiss).buttonStyle(.borderless)
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Save", comment: "Button label.")
+                    }
                 }
-                #endif
             }
             .frame(minWidth: 400, minHeight: 480)
         }

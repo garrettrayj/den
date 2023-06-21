@@ -28,21 +28,26 @@ struct PageSettingsSheet: View {
                 }
             }
             .toolbar {
-                #if os(macOS)
-                ToolbarItem(placement: .confirmationAction) {
-                    CloseButton(dismiss: dismiss)
-                }
                 ToolbarItem(placement: .destructiveAction) {
                     DeletePageButton(page: page, dismiss: dismiss)
                 }
-                #else
-                ToolbarItem {
-                    CloseButton(dismiss: dismiss)
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(role: .cancel) {
+                        Task {
+                            viewContext.rollback()
+                            dismiss()
+                        }
+                    } label: {
+                        Text("Cancel", comment: "Button label.")
+                    }
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    DeletePageButton(page: page, dismiss: dismiss).buttonStyle(.borderless)
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Save", comment: "Button label.")
+                    }
                 }
-                #endif
             }
             .frame(minWidth: 400, minHeight: 480)
         }

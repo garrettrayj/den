@@ -11,6 +11,7 @@ import CoreData
 import OSLog
 import SwiftUI
 import BackgroundTasks
+
 import SDWebImage
 import SDWebImageWebPCoder
 import SDWebImageSVGCoder
@@ -71,22 +72,18 @@ struct DenApp: App {
         .backgroundTask(.appRefresh("net.devsci.den.cleanup")) {
             await handleCleanup()
         }
-        #endif
         .onChange(of: scenePhase) { phase in
             switch phase {
-            case .active:
-                setupImageHandling()
             case .background:
-                #if os(iOS)
                 if backgroundRefreshEnabled {
                     scheduleRefresh()
                 }
                 scheduleCleanup()
-                #endif
             default: break
             }
         }
-
+        #endif
+        
         #if os(macOS)
         Settings {
             if let profile = activeProfile {

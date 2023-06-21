@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct ItemView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var item: Item
@@ -27,7 +28,11 @@ struct ItemView: View {
                 .toolbar {
                     ItemToolbar(item: item)
                 }
+                #if os(macOS)
+                .background(SecondaryGroupedBackground())
+                #else
                 .background(.background)
+                #endif
         }
     }
 

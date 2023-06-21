@@ -14,6 +14,6 @@ struct TertiaryGroupedHighlight: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        Rectangle().fill(.thinMaterial).overlay(.quaternary)
+        Rectangle().fill(.regularMaterial).overlay(.quaternary)
     }
 }

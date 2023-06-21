@@ -143,7 +143,6 @@
 		687FEF0D2A3FB0BC0042977E /* SidebarToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF0C2A3FB0BC0042977E /* SidebarToolbar.swift */; };
 		687FEF102A40A6890042977E /* SubDetailPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF0F2A40A6890042977E /* SubDetailPanel.swift */; };
 		687FEF122A40A87B0042977E /* NewPageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF112A40A87B0042977E /* NewPageButton.swift */; };
-		687FEF142A416ACB0042977E /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF132A416ACB0042977E /* CloseButton.swift */; };
 		687FEF162A416F2C0042977E /* FeedNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF152A416F2C0042977E /* FeedNavLink.swift */; };
 		687FEF182A421B190042977E /* WebAddressTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF172A421B190042977E /* WebAddressTextField.swift */; };
 		687FEF1A2A4227810042977E /* WebAddressValidationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEF192A4227810042977E /* WebAddressValidationMessage.swift */; };
@@ -437,7 +436,6 @@
 		687FEF0C2A3FB0BC0042977E /* SidebarToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarToolbar.swift; sourceTree = "<group>"; };
 		687FEF0F2A40A6890042977E /* SubDetailPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubDetailPanel.swift; sourceTree = "<group>"; };
 		687FEF112A40A87B0042977E /* NewPageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPageButton.swift; sourceTree = "<group>"; };
-		687FEF132A416ACB0042977E /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		687FEF152A416F2C0042977E /* FeedNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavLink.swift; sourceTree = "<group>"; };
 		687FEF172A421B190042977E /* WebAddressTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAddressTextField.swift; sourceTree = "<group>"; };
 		687FEF192A4227810042977E /* WebAddressValidationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAddressValidationMessage.swift; sourceTree = "<group>"; };
@@ -1019,7 +1017,6 @@
 				687FEEF62A3E431E0042977E /* ImportButton.swift */,
 				687FEEF82A3E4FE60042977E /* ExportButton.swift */,
 				687FEF112A40A87B0042977E /* NewPageButton.swift */,
-				687FEF132A416ACB0042977E /* CloseButton.swift */,
 				687FEF152A416F2C0042977E /* FeedNavLink.swift */,
 				687FEF172A421B190042977E /* WebAddressTextField.swift */,
 			);
@@ -1436,7 +1433,6 @@
 				68FF63F22921D88F0012A275 /* FeedToolbar.swift in Sources */,
 				68ED798329C29A8B00D85B4F /* BlendLayout.swift in Sources */,
 				6829A50C28C6479900F75C5A /* AllRead.swift in Sources */,
-				687FEF142A416ACB0042977E /* CloseButton.swift in Sources */,
 				687FEEF92A3E4FE60042977E /* ExportButton.swift in Sources */,
 				6880EBE327A8F63E00B479F4 /* LinkableItem.swift in Sources */,
 				685ECB1126EE611000A3B184 /* PageNavLink.swift in Sources */,

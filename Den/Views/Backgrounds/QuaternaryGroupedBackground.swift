@@ -14,10 +14,6 @@ struct QuaternaryGroupedBackground: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        if colorScheme == .dark {
-            Rectangle().fill(.quaternary)
-        } else {
-            Rectangle().fill(.quaternary.opacity(0.3))
-        }
+        Rectangle().fill(.quaternary.opacity(0.5))
     }
 }
