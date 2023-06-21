@@ -13,8 +13,8 @@ import SwiftUI
 import WebKit
 
 struct ItemWebView {
-    @Environment(\.openURL) private var openURL
     @Environment(\.profileTint) private var profileTint
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     var html: String?
     var title: String
@@ -109,9 +109,13 @@ struct ItemWebView {
                 decisionHandler(.cancel)
 
                 #if os(macOS)
-                SafariUtility.openLink(url: url, controlTintColor: .accentColor)
+                NSWorkspace.shared.open(url)
                 #else
-                SafariUtility.openLink(url: url, controlTintColor: .accentColor)
+                if useSystemBrowser {
+                    UIApplication.shared.open(url)
+                } else {
+                    SafariUtility.openLink(url: url, controlTintColor: .accentColor)
+                }
                 #endif
             } else {
                 decisionHandler(.allow)

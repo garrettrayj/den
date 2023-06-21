@@ -15,7 +15,6 @@ enum WebAddressValidationMessage {
     case mustNotContainSpaces
     case mustBeginWithHTTP
     case parseError
-    case unopenable
     
     var text: Text {
         switch self {
@@ -37,11 +36,6 @@ enum WebAddressValidationMessage {
         case .parseError:
             Text(
                 "Web address could not be parsed.",
-                comment: "URL field validation message."
-            )
-        case .unopenable:
-            Text(
-                "Web address is unopenable.",
                 comment: "URL field validation message."
             )
         }

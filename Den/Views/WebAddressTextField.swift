@@ -61,13 +61,6 @@ struct WebAddressTextField: View {
             return
         }
 
-        #if os(iOS)
-        if !UIApplication.shared.canOpenURL(url) {
-            self.failValidation(message: .unopenable)
-            return
-        }
-        #endif
-
         webAddress = fieldText
         isValid = true
     }
