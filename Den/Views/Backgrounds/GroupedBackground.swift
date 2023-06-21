@@ -22,15 +22,7 @@ struct GroupedBackground: View {
             Rectangle().fill(.thinMaterial).edgesIgnoringSafeArea(.all)
         }
         #else
-        if colorScheme == .dark {
-            Rectangle()
-                .fill(.regularMaterial)
-                .edgesIgnoringSafeArea(.all)
-        } else {
-            Rectangle()
-                .fill(.ultraThinMaterial)
-                .edgesIgnoringSafeArea(.all)
-        }
+        Rectangle().fill(.regularMaterial).edgesIgnoringSafeArea(.all)
         #endif
     }
 }

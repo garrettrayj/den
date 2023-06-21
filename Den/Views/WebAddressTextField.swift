@@ -56,7 +56,7 @@ struct WebAddressTextField: View {
             return
         }
 
-        guard let url = URL(string: fieldText) else {
+        if URL(string: fieldText) == nil {
             self.failValidation(message: .parseError)
             return
         }

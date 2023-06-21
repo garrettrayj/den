@@ -25,13 +25,12 @@ struct ItemView: View {
             SplashNote(title: Text("Item Deleted", comment: "Object removed message."), symbol: "slash.circle")
         } else {
             itemLayout
-                .toolbar {
-                    ItemToolbar(item: item)
-                }
+                .toolbar { ItemToolbar(item: item) }
                 #if os(macOS)
                 .background(Color(.textBackgroundColor))
                 #else
                 .background(.background)
+                .navigationBarTitleDisplayMode(.inline)
                 #endif
         }
     }
@@ -87,8 +86,8 @@ struct ItemView: View {
                     .frame(maxWidth: maxContentWidth)
                 }
                 .frame(maxWidth: .infinity)
-                .padding()
-                .padding(.vertical, 8)
+                .padding(.horizontal)
+                .padding(.vertical, 24)
                 .task { await HistoryUtility.markItemRead(item: item) }
             }
         }

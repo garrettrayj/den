@@ -21,7 +21,6 @@
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
 		680F495029AA56BE0083B664 /* WithItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F494F29AA56BE0083B664 /* WithItems.swift */; };
 		680F495229AB2A240083B664 /* RefreshedDateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F495129AB2A240083B664 /* RefreshedDateStorage.swift */; };
-		680F495629ABEF140083B664 /* ThumbnailModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680F495529ABEF140083B664 /* ThumbnailModifier.swift */; };
 		681087C929FB74A900F2630C /* PreviewStylePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087C829FB74A900F2630C /* PreviewStylePicker.swift */; };
 		681087CB29FB7D1C00F2630C /* FeedSettingsPreviewsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087CA29FB7D1C00F2630C /* FeedSettingsPreviewsSection.swift */; };
 		681087CD29FD3D0400F2630C /* DeleteFeedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087CC29FD3D0400F2630C /* DeleteFeedButton.swift */; };
@@ -176,7 +175,6 @@
 		68AC3A1B2910EF3A00D60273 /* DataTaskOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC3A192910EF3A00D60273 /* DataTaskOperation.swift */; };
 		68AC3A1D2910EF6E00D60273 /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC3A1C2910EF6E00D60273 /* AsynchronousOperation.swift */; };
 		68ADABC324A21F2500BE41E2 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ADABC224A21F2500BE41E2 /* Welcome.swift */; };
-		68B0AECF28BADE930079793D /* WindowFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B0AECE28BADE930079793D /* WindowFinder.swift */; };
 		68B1895A289B7B320002A7FE /* ItemPreviewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B18959289B7B320002A7FE /* ItemPreviewImage.swift */; };
 		68B34A6C24880ADE0066B215 /* AEXML in Frameworks */ = {isa = PBXBuildFile; productRef = 68B34A6B24880ADE0066B215 /* AEXML */; };
 		68B526A0298A352600D4B927 /* NoFeeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B5269F298A352600D4B927 /* NoFeeds.swift */; };
@@ -308,7 +306,6 @@
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680F494F29AA56BE0083B664 /* WithItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithItems.swift; sourceTree = "<group>"; };
 		680F495129AB2A240083B664 /* RefreshedDateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshedDateStorage.swift; sourceTree = "<group>"; };
-		680F495529ABEF140083B664 /* ThumbnailModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailModifier.swift; sourceTree = "<group>"; };
 		681087C829FB74A900F2630C /* PreviewStylePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStylePicker.swift; sourceTree = "<group>"; };
 		681087CA29FB7D1C00F2630C /* FeedSettingsPreviewsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSettingsPreviewsSection.swift; sourceTree = "<group>"; };
 		681087CC29FD3D0400F2630C /* DeleteFeedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFeedButton.swift; sourceTree = "<group>"; };
@@ -472,7 +469,6 @@
 		68AC3A192910EF3A00D60273 /* DataTaskOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskOperation.swift; sourceTree = "<group>"; };
 		68AC3A1C2910EF6E00D60273 /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
 		68ADABC224A21F2500BE41E2 /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
-		68B0AECE28BADE930079793D /* WindowFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFinder.swift; sourceTree = "<group>"; };
 		68B18959289B7B320002A7FE /* ItemPreviewImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewImage.swift; sourceTree = "<group>"; };
 		68B5269F298A352600D4B927 /* NoFeeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFeeds.swift; sourceTree = "<group>"; };
 		68B526A1298E3B2000D4B927 /* DeckColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckColumn.swift; sourceTree = "<group>"; };
@@ -759,7 +755,6 @@
 			children = (
 				6865452B274A288A00BAE03E /* PinnedSectionHeaderModifier.swift */,
 				682A349628E2B38E004CD90E /* URLDropTargetModifier.swift */,
-				680F495529ABEF140083B664 /* ThumbnailModifier.swift */,
 				68245E2C29B834AC0068D450 /* RoundedContainerModifier.swift */,
 				68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */,
 				68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */,
@@ -1058,7 +1053,6 @@
 				68D58E6824955321007ED1AC /* OPMLReader.swift */,
 				687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */,
 				6880EBDE27A8B5DE00B479F4 /* SymbolCollection.swift */,
-				68B0AECE28BADE930079793D /* WindowFinder.swift */,
 				68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */,
 			);
 			path = Utilities;
@@ -1503,7 +1497,6 @@
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
 				68DA45142A39B1DE000A288B /* AllSection.swift in Sources */,
 				68C41316247263C700D1DC7B /* RootView.swift in Sources */,
-				680F495629ABEF140083B664 /* ThumbnailModifier.swift in Sources */,
 				68F56B452870C067006EC915 /* TrendBlock.swift in Sources */,
 				68ADABC324A21F2500BE41E2 /* Welcome.swift in Sources */,
 				681087CD29FD3D0400F2630C /* DeleteFeedButton.swift in Sources */,
@@ -1548,7 +1541,6 @@
 				687FEEF52A3DDCF30042977E /* ResetEverythingButton.swift in Sources */,
 				688FD918247750350006A2DE /* PageSettingsForm.swift in Sources */,
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
-				68B0AECF28BADE930079793D /* WindowFinder.swift in Sources */,
 				68B8E79A29CAC95300E9AF42 /* ImageDepression.swift in Sources */,
 				68701E01273E6A5400C6BB69 /* SubscriptionUtility.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,

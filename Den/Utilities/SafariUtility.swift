@@ -18,8 +18,15 @@ struct SafariUtility {
         readerMode: Bool? = nil
     ) {
         #if os(iOS)
-        guard let rootViewController = WindowFinder.current()?.rootViewController else { return }
-
+        guard
+            let scene = UIApplication.shared.connectedScenes.first,
+            let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+            let window = windowSceneDelegate.window,
+            let rootViewController = window?.rootViewController
+        else {
+            return
+        }
+        
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = readerMode ?? false
 

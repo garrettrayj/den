@@ -24,7 +24,7 @@ struct ItemWebView {
     @State var webView = CustomWebView(frame: .zero, configuration: WKWebViewConfiguration())
 
     func makeCoordinator() -> Coordinator {
-        Coordinator()
+        Coordinator(useSystemBrowser: useSystemBrowser)
     }
 
     private func loadContent() {
@@ -68,14 +68,18 @@ struct ItemWebView {
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
+        let useSystemBrowser: Bool
         var cancellable: Cancellable?
+        
+        init(useSystemBrowser: Bool) {
+            self.useSystemBrowser = useSystemBrowser
+        }
 
         func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
             cancellable = DispatchQueue.main.schedule(
                 after: .init(.now() + 0.1),
                 interval: 1
             ) {
-
                 webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, _) in
                     if complete != nil {
                         webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, _) in
