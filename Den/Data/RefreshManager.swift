@@ -104,6 +104,7 @@ final class RefreshManager: ObservableObject {
         )
 
         await AnalyzeTask(profileObjectID: profile.objectID).execute()
+        await HistoryCleanupTask(profileObjectID: profile.objectID).execute()
     }
 
     func refresh(feed: Feed) async {

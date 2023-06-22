@@ -54,7 +54,7 @@ struct Sidebar: View {
         }
         #if os(iOS)
         .scrollContentBackground(.hidden)
-        .background(.thinMaterial)
+        .background(.regularMaterial)
         #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.nameText)

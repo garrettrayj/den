@@ -82,6 +82,11 @@
         <target>Add to %@</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Address" xml:space="preserve">
+        <source>Address</source>
+        <target>Address</target>
+        <note>Web address text field label.</note>
+      </trans-unit>
       <trans-unit id="All Feeds" xml:space="preserve">
         <source>All Feeds</source>
         <target>All Feeds</target>
@@ -117,6 +122,11 @@
         <target>Application Crashed</target>
         <note>Crash view title.</note>
       </trans-unit>
+      <trans-unit id="Arrows" xml:space="preserve">
+        <source>Arrows</source>
+        <target>Arrows</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
       <trans-unit id="Blend" xml:space="preserve">
         <source>Blend</source>
         <target>Blend</target>
@@ -136,11 +146,6 @@
         <source>Cancel</source>
         <target>Cancel</target>
         <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Changes will be applied on next refresh." xml:space="preserve">
-        <source>Changes will be applied on next refresh.</source>
-        <target>Changes will be applied on next refresh.</target>
-        <note>Item limit changed notice.</note>
       </trans-unit>
       <trans-unit id="Checking for New Items…" xml:space="preserve">
         <source>Checking for New Items…</source>
@@ -168,10 +173,25 @@
         <target>Close</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Commerce" xml:space="preserve">
+        <source>Commerce</source>
+        <target>Commerce</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
+      <trans-unit id="Communication" xml:space="preserve">
+        <source>Communication</source>
+        <target>Communication</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
       <trans-unit id="Compressed" xml:space="preserve">
         <source>Compressed</source>
         <target>Compressed</target>
         <note>Preview style picker option.</note>
+      </trans-unit>
+      <trans-unit id="Connectivity" xml:space="preserve">
+        <source>Connectivity</source>
+        <target>Connectivity</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Copied" xml:space="preserve">
         <source>Copied</source>
@@ -221,18 +241,32 @@
       <trans-unit id="Delete" xml:space="preserve">
         <source>Delete</source>
         <target>Delete</target>
-        <note>Button label.
-   Context menu button label.</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Delete Feed?" xml:space="preserve">
         <source>Delete Feed?</source>
         <target>Delete Feed?</target>
         <note>Alert title.</note>
       </trans-unit>
+      <trans-unit id="Delete Page?" xml:space="preserve">
+        <source>Delete Page?</source>
+        <target>Delete Page?</target>
+        <note>Alert title.</note>
+      </trans-unit>
       <trans-unit id="Delete Profile?" xml:space="preserve">
         <source>Delete Profile?</source>
         <target>Delete Profile?</target>
         <note>Alert title.</note>
+      </trans-unit>
+      <trans-unit id="Devices" xml:space="preserve">
+        <source>Devices</source>
+        <target>Devices</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
+      <trans-unit id="Editing" xml:space="preserve">
+        <source>Editing</source>
+        <target>Editing</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Enter Reader Mode" xml:space="preserve">
         <source>Enter Reader Mode</source>
@@ -315,6 +349,11 @@
         <target>Gadgets</target>
         <note>Page layout option label.</note>
       </trans-unit>
+      <trans-unit id="Gaming" xml:space="preserve">
+        <source>Gaming</source>
+        <target>Gaming</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
       <trans-unit id="Get Started" xml:space="preserve">
         <source>Get Started</source>
         <target>Get Started</target>
@@ -330,6 +369,11 @@
         <target>Green</target>
         <note>Tint color option.</note>
       </trans-unit>
+      <trans-unit id="Health" xml:space="preserve">
+        <source>Health</source>
+        <target>Health</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
       <trans-unit id="Hide Bylines" xml:space="preserve">
         <source>Hide Bylines</source>
         <target>Hide Bylines</target>
@@ -344,6 +388,11 @@
         <source>Hide Teasers</source>
         <target>Hide Teasers</target>
         <note>Toggle label.</note>
+      </trans-unit>
+      <trans-unit id="Human" xml:space="preserve">
+        <source>Human</source>
+        <target>Human</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="If you have used the app before then synchronization could be in progress. Please wait a minute." xml:space="preserve">
         <source>If you have used the app before then synchronization could be in progress. Please wait a minute.</source>
@@ -380,6 +429,11 @@
         <target>Keep History</target>
         <note>History retention picker label.</note>
       </trans-unit>
+      <trans-unit id="Keyboard" xml:space="preserve">
+        <source>Keyboard</source>
+        <target>Keyboard</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
       <trans-unit id="Latest" xml:space="preserve">
         <source>Latest</source>
         <target>Latest</target>
@@ -389,6 +443,11 @@
         <source>Latest Limit: %@</source>
         <target>Latest Limit: %@</target>
         <note>Stepper label.</note>
+      </trans-unit>
+      <trans-unit id="Latest limit change will be applied on next refresh." xml:space="preserve">
+        <source>Latest limit change will be applied on next refresh.</source>
+        <target>Latest limit change will be applied on next refresh.</target>
+        <note>Latest item limit changed notice.</note>
       </trans-unit>
       <trans-unit id="Light" xml:space="preserve">
         <source>Light</source>
@@ -420,6 +479,16 @@
         <target>Mark All Unread</target>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Math" xml:space="preserve">
+        <source>Math</source>
+        <target>Math</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
+      <trans-unit id="Media" xml:space="preserve">
+        <source>Media</source>
+        <target>Media</target>
+        <note>Page icon category label.</note>
+      </trans-unit>
       <trans-unit id="Mint" xml:space="preserve">
         <source>Mint</source>
         <target>Mint</target>
@@ -430,15 +499,15 @@
         <target>More</target>
         <note>Feed view section header.</note>
       </trans-unit>
-      <trans-unit id="Move To" xml:space="preserve">
-        <source>Move To</source>
-        <target>Move To</target>
-        <note>Picker label.</note>
-      </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
         <target>Name</target>
         <note>Text field label.</note>
+      </trans-unit>
+      <trans-unit id="Nature" xml:space="preserve">
+        <source>Nature</source>
+        <target>Nature</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Network Offline" xml:space="preserve">
         <source>Network Offline</source>
@@ -520,6 +589,11 @@
         <source>OPML</source>
         <target>OPML</target>
         <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Objects and Tools" xml:space="preserve">
+        <source>Objects and Tools</source>
+        <target>Objects and Tools</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="One Month" xml:space="preserve">
         <source>One Month</source>
@@ -681,6 +755,11 @@
         <target>Retaining history for long periods may adversely affect performance.</target>
         <note>History settings caution message.</note>
       </trans-unit>
+      <trans-unit id="Save" xml:space="preserve">
+        <source>Save</source>
+        <target>Save</target>
+        <note>Button label.</note>
+      </trans-unit>
       <trans-unit id="Search" xml:space="preserve">
         <source>Search</source>
         <target>Search</target>
@@ -697,6 +776,11 @@
         <target>Settings</target>
         <note>Button label.
    Navigation title.</note>
+      </trans-unit>
+      <trans-unit id="Shapes" xml:space="preserve">
+        <source>Shapes</source>
+        <target>Shapes</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Share…" xml:space="preserve">
         <source>Share…</source>
@@ -743,15 +827,20 @@
         <target>Three Months</target>
         <note>History retention duration option.</note>
       </trans-unit>
-      <trans-unit id="Thumbnail" xml:space="preserve">
-        <source>Thumbnail</source>
-        <target>Thumbnail</target>
-        <note>Accessibility label.</note>
+      <trans-unit id="Time" xml:space="preserve">
+        <source>Time</source>
+        <target>Time</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Title" xml:space="preserve">
         <source>Title</source>
         <target>Title</target>
         <note>Text field label.</note>
+      </trans-unit>
+      <trans-unit id="Transportation" xml:space="preserve">
+        <source>Transportation</source>
+        <target>Transportation</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Trend Deleted" xml:space="preserve">
         <source>Trend Deleted</source>
@@ -773,6 +862,11 @@
         <source>Unable to parse content.</source>
         <target>Unable to parse content.</target>
         <note>Feed unavailable message.</note>
+      </trans-unit>
+      <trans-unit id="Uncategorized" xml:space="preserve">
+        <source>Uncategorized</source>
+        <target>Uncategorized</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Untitled" xml:space="preserve">
         <source>Untitled</source>
@@ -809,25 +903,24 @@
         <target>Version</target>
         <note>Info label.</note>
       </trans-unit>
-      <trans-unit id="Web Address" xml:space="preserve">
-        <source>Web Address</source>
-        <target>Web Address</target>
-        <note>Feed URL text field label.
-   URL field section label.</note>
+      <trans-unit id="Weather" xml:space="preserve">
+        <source>Weather</source>
+        <target>Weather</target>
+        <note>Page icon category label.</note>
       </trans-unit>
       <trans-unit id="Web address cannot be blank." xml:space="preserve">
         <source>Web address cannot be blank.</source>
         <target>Web address cannot be blank.</target>
         <note>URL field validation message.</note>
       </trans-unit>
+      <trans-unit id="Web address change will be applied on next refresh." xml:space="preserve">
+        <source>Web address change will be applied on next refresh.</source>
+        <target>Web address change will be applied on next refresh.</target>
+        <note>Web address changed notice.</note>
+      </trans-unit>
       <trans-unit id="Web address could not be parsed." xml:space="preserve">
         <source>Web address could not be parsed.</source>
         <target>Web address could not be parsed.</target>
-        <note>URL field validation message.</note>
-      </trans-unit>
-      <trans-unit id="Web address is unopenable." xml:space="preserve">
-        <source>Web address is unopenable.</source>
-        <target>Web address is unopenable.</target>
         <note>URL field validation message.</note>
       </trans-unit>
       <trans-unit id="Web address must begin with “http://” or “https://”." xml:space="preserve">
@@ -853,7 +946,7 @@
       <trans-unit id="https⁣://example.com/feed.xml" xml:space="preserve">
         <source>https⁣://example.com/feed.xml</source>
         <target>https⁣://example.com/feed.xml</target>
-        <note>Feed URL text field prompt.</note>
+        <note>Web address text field prompt.</note>
       </trans-unit>
     </body>
   </file>

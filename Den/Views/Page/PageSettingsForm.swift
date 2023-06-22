@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct PageSettingsForm: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
@@ -78,22 +79,11 @@ struct PageSettingsForm: View {
                             #endif
                         }.padding(.vertical, 4)
                     }
-                    .onDelete(perform: deleteFeed)
                     .onMove(perform: moveFeed)
                 }
             }
         } header: {
             Text("Feeds", comment: "Page settings section header.")
-        }
-    }
-
-    private func deleteFeed(indices: IndexSet) {
-        indices.forEach {
-            let feed = page.feedsArray[$0]
-            if let feedData = feed.feedData {
-                viewContext.delete(feedData)
-            }
-            viewContext.delete(page.feedsArray[$0])
         }
     }
 
@@ -109,12 +99,7 @@ struct PageSettingsForm: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-
-        do {
-            try viewContext.save()
-            page.objectWillChange.send()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
+        
+        page.objectWillChange.send()
     }
 }

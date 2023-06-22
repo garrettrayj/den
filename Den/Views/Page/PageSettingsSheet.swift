@@ -35,6 +35,7 @@ struct PageSettingsSheet: View {
                     Button(role: .cancel) {
                         Task {
                             viewContext.rollback()
+                            page.objectWillChange.send()
                             dismiss()
                         }
                     } label: {

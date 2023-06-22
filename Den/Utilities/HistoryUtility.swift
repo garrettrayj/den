@@ -73,37 +73,46 @@ struct HistoryUtility {
             }
         }
     }
-
-    static func cleanupHistory(context: NSManagedObjectContext) {
-        do {
-            var itemsRemoved: Int = 0
-            let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
-            try profiles.forEach { profile in
-                if profile.historyRetention == 0 { return }
-                let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
-                fetchRequest.predicate = NSPredicate(
-                    format: "%K < %@",
-                    #keyPath(History.visited),
-                    historyRetentionStart as NSDate
-                )
-                fetchRequest.sortDescriptors = []
-
-                let fetchResults = try context.fetch(fetchRequest) as? [History]
-                fetchResults?.forEach { context.delete($0) }
-                itemsRemoved += fetchResults?.count ?? 0
-            }
-
-            if context.hasChanges {
-                do {
-                    try context.save()
-                    Logger.main.info("History cleanup finished. \(itemsRemoved) entries removed")
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
+    
+    static func removeExpired(context: NSManagedObjectContext, profile: Profile) throws {
+        if profile.historyRetention == 0 {
+            Logger.main.info("""
+            History cleanup skipped for profile: \(profile.wrappedName). \
+            Retention period is unlimited
+            """)
+            return
         }
+
+        let historyRetentionStart = Date() - Double(profile.historyRetention) * 24 * 60 * 60
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "History")
+        fetchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(
+                format: "%K < %@",
+                #keyPath(History.visited),
+                historyRetentionStart as NSDate
+            ),
+            NSPredicate(format: "%K = %@", #keyPath(History.profile), profile)
+        ])
+
+        // Create a batch delete request for the fetch request
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        // Specify the result of the NSBatchDeleteRequest
+        // should be the NSManagedObject IDs for the deleted objects
+        deleteRequest.resultType = .resultTypeObjectIDs
+
+        // Perform the batch delete
+        let batchDelete = try? context.execute(deleteRequest) as? NSBatchDeleteResult
+
+        guard let deleteResult = batchDelete?.result as? [NSManagedObjectID] else { return }
+
+        let deletedObjects: [AnyHashable: Any] = [NSDeletedObjectsKey: deleteResult]
+
+        // Merge the delete changes into the managed object context
+        NSManagedObjectContext.mergeChanges(
+            fromRemoteContextSave: deletedObjects,
+            into: [context]
+        )
+        Logger.main.info("History cleanup finished for profile: \(profile.wrappedName)")
     }
 }

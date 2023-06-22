@@ -26,6 +26,7 @@ struct FeedUpdateTask {
         var webpageMetadata: WebpageMetadata?
 
         let feedRequest = URLRequest(url: url, timeoutInterval: AppDefaults.requestTimeout)
+        
         if let (data, _) = try? await URLSession.shared.data(for: feedRequest) {
             parserResult = FeedParser(data: data).parse()
         }

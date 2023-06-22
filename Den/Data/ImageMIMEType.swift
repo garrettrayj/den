@@ -1,5 +1,5 @@
 //
-//  MIMETypes.swift
+//  ImageMIMEType.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/11/20.
