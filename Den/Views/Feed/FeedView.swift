@@ -22,48 +22,50 @@ struct FeedView: View {
     @State private var showingSettings: Bool = false
 
     var body: some View {
-        if feed.managedObjectContext == nil {
-            SplashNote(title: Text("Feed Deleted", comment: "Object removed message."), symbol: "slash.circle")
-        } else {
-            WithItems(
-                scopeObject: feed,
-                includeExtras: true
-            ) { items in
-                FeedLayout(
-                    feed: feed,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items
-                )
-                .background(GroupedBackground())
-                .toolbar {
-                    FeedToolbar(
+        Group {
+            if feed.managedObjectContext == nil || feed.isDeleted {
+                SplashNote(title: Text("Feed Deleted", comment: "Object removed message."))
+            } else {
+                WithItems(
+                    scopeObject: feed,
+                    includeExtras: true
+                ) { items in
+                    FeedLayout(
                         feed: feed,
                         profile: profile,
                         hideRead: $hideRead,
-                        showingSettings: $showingSettings,
                         items: items
                     )
-                }
-                .navigationTitle(feed.titleText)
-                .sheet(
-                    isPresented: $showingSettings,
-                    onDismiss: {
-                        DispatchQueue.main.async {
-                            if viewContext.hasChanges {
-                                do {
-                                    try viewContext.save()
-                                    profile.objectWillChange.send()
-                                } catch {
-                                    CrashUtility.handleCriticalError(error as NSError)
-                                }
-                            }
-                        }
+                    .background(GroupedBackground())
+                    .toolbar {
+                        FeedToolbar(
+                            feed: feed,
+                            profile: profile,
+                            hideRead: $hideRead,
+                            showingSettings: $showingSettings,
+                            items: items
+                        )
                     }
-                ) {
-                    FeedSettingsSheet(feed: feed)
+                    .navigationTitle(feed.titleText)
                 }
             }
+        }
+        .sheet(
+            isPresented: $showingSettings,
+            onDismiss: {
+                DispatchQueue.main.async {
+                    if viewContext.hasChanges {
+                        do {
+                            try viewContext.save()
+                            profile.objectWillChange.send()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    }
+                }
+            }
+        ) {
+            FeedSettingsSheet(feed: feed)
         }
     }
 }

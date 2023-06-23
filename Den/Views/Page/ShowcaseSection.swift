@@ -48,6 +48,7 @@ struct ShowcaseSection: View {
                         .background(SecondaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
                     }
+                    .padding()
                     .modifier(SafeAreaModifier(geometry: geometry))
                 }
             }

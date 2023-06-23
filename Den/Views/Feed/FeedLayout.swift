@@ -84,6 +84,7 @@ struct FeedLayout: View {
                     .background(SecondaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                 }
+                .padding()
                 .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {
@@ -119,6 +120,7 @@ struct FeedLayout: View {
                     .background(SecondaryGroupedBackground())
                     .modifier(RoundedContainerModifier())
                 }
+                .padding()
                 .modifier(SafeAreaModifier(geometry: geometry))
             }
         } header: {

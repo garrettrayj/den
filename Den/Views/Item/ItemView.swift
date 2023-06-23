@@ -22,7 +22,7 @@ struct ItemView: View {
 
     var body: some View {
         if item.managedObjectContext == nil {
-            SplashNote(title: Text("Item Deleted", comment: "Object removed message."), symbol: "slash.circle")
+            SplashNote(title: Text("Item Deleted", comment: "Object removed message."))
         } else {
             itemLayout
                 .toolbar { ItemToolbar(item: item) }

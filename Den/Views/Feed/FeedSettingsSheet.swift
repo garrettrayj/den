@@ -19,19 +19,17 @@ struct FeedSettingsSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                if feed.managedObjectContext == nil {
-                    SplashNote(
-                        title: Text("Feed Deleted", comment: "Object removed message."),
-                        symbol: "slash.circle"
-                    )
+                if feed.managedObjectContext == nil || feed.isDeleted {
+                    SplashNote(title: Text("Feed Deleted", comment: "Object removed message."))
                 } else {
                     FeedSettingsForm(feed: feed)
                 }
             }
+            .navigationTitle(Text("Feed Settings", comment: "Navigation title."))
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
-                ToolbarItem(placement: .destructiveAction) {
-                    DeleteFeedButton(feed: feed, dismiss: dismiss)
-                }
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
                         Task {

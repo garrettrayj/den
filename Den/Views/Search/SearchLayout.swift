@@ -40,6 +40,7 @@ struct SearchLayout: View {
                             }
                         }
                     }
+                    .modifier(MainBoardModifier())
                 }
                 .edgesIgnoringSafeArea(.horizontal)
             }

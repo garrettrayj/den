@@ -23,7 +23,11 @@ struct WebAddressTextField: View {
             text: $fieldText,
             prompt: Text("https⁣://example.com/feed.xml", comment: "Web address text field prompt.")
         ) {
-            Text("Address", comment: "Web address text field label.")
+            Label {
+                Text("Address", comment: "Web address text field label.")
+            } icon: {
+                Image(systemName: "globe")
+            }
         }
         .lineLimit(1)
         .disableAutocorrection(true)

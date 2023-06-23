@@ -36,7 +36,6 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
                 }
             }
         }
-        .padding()
     }
 
     init(geometry: GeometryProxy, list: [T], lazy: Bool = true, @ViewBuilder content: @escaping (T) -> Content) {

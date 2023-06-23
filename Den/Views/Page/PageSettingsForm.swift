@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct PageSettingsForm: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
@@ -26,9 +25,7 @@ struct PageSettingsForm: View {
         .formStyle(.grouped)
         #if os(iOS)
         .environment(\.editMode, .constant(.active))
-        .navigationBarTitleDisplayMode(.inline)
         #endif
-        .navigationTitle(Text("Page Settings", comment: "Navigation title."))
     }
 
     private var generalSection: some View {
@@ -37,7 +34,11 @@ struct PageSettingsForm: View {
                 text: $page.wrappedName,
                 prompt: Text("Untitled", comment: "Text field prompt.")
             ) {
-                Text("Name", comment: "Text field label.")
+                Label {
+                    Text("Name", comment: "Text field label.")
+                } icon: {
+                    Image(systemName: "character.cursor.ibeam")
+                }
             }
 
             Button {
@@ -54,6 +55,26 @@ struct PageSettingsForm: View {
             .navigationDestination(isPresented: $showIconPicker) {
                 IconPicker(symbolID: $page.wrappedSymbol)
             }
+            
+            Button(role: .destructive) {
+                Task {
+                    page.feedsArray.forEach { feed in
+                        if let feedData = feed.feedData {
+                            viewContext.delete(feedData)
+                        }
+                    }
+                    viewContext.delete(page)
+                }
+            } label: {
+                Label {
+                    Text("Delete", comment: "Button label.").fixedSize()
+                } icon: {
+                    Image(systemName: "trash")
+                }
+                .symbolRenderingMode(.multicolor)
+            }
+            .buttonStyle(.borderless)
+            .accessibilityIdentifier("delete-button")
         }
     }
 

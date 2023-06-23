@@ -28,6 +28,7 @@ struct GadgetLayout: View {
                         items: items.visibilityFiltered(hideRead ? false : nil).forFeed(feed: feed)
                     )
                 }
+                .modifier(MainBoardModifier())
             }.id("GadgetLayoutSroll_\(page.id?.uuidString ?? "NoID")")
         }
     }

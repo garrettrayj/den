@@ -33,6 +33,5 @@ struct SplashNote: View {
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
-        .background(GroupedBackground())
     }
 }

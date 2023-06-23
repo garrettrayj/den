@@ -38,6 +38,7 @@ struct BlendLayout: View {
                             }
                         }
                     }
+                    .modifier(MainBoardModifier())
                 }
                 .id("BlendLayoutSroll_\(page.id?.uuidString ?? "NoID")")
             }
