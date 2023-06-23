@@ -30,7 +30,7 @@ struct NewFeedSheet: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Text("New Feed").font(.title)
+            Text("New Feed").font(.largeTitle)
 
             if let profile = activeProfile, targetPage != nil {
                 VStack(spacing: 8) {
@@ -43,17 +43,14 @@ struct NewFeedSheet: View {
                     .multilineTextAlignment(.center)
                     .textFieldStyle(.roundedBorder)
                     
-                    Group {
-                        if let validationMessage = webAddressValidationMessage {
-                            validationMessage.text
-                        } else {
-                            Text(
-                                "Enter a RSS, Atom, or JSON Feed URL.",
-                                comment: "URL field guidance message."
-                            )
-                        }
+                    if let validationMessage = webAddressValidationMessage {
+                        validationMessage.text.font(.caption)
+                    } else {
+                        Text(
+                            "Enter a RSS, Atom, or JSON Feed URL.",
+                            comment: "URL field guidance message."
+                        ).font(.caption)
                     }
-                    .font(.caption)
                 }
 
                 PagePicker(
@@ -78,7 +75,6 @@ struct NewFeedSheet: View {
         .frame(minWidth: 400)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(24)
-        .background(GroupedBackground())
         .onAppear {
             webAddress = initialURLString
             checkTargetPage()

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct FeedSettingsForm: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.useSystemBrowser) private var useSystemBrowser
     
     @ObservedObject var feed: Feed
     
@@ -74,7 +75,7 @@ struct FeedSettingsForm: View {
                 validationMessage.text
             } else if feed.changedValues().keys.contains("url") {
                 Text(
-                    "Web address change will be applied on next refresh.",
+                    "Changed web address will be applied next refresh.",
                     comment: "Web address changed notice."
                 )
             }

@@ -24,7 +24,7 @@ struct ItemWebView {
     @State var webView = CustomWebView(frame: .zero, configuration: WKWebViewConfiguration())
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(useSystemBrowser: useSystemBrowser)
+        Coordinator(profileTint: profileTint, useSystemBrowser: useSystemBrowser)
     }
 
     private func loadContent() {
@@ -68,10 +68,13 @@ struct ItemWebView {
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
+        let profileTint: Color
         let useSystemBrowser: Bool
+        
         var cancellable: Cancellable?
         
-        init(useSystemBrowser: Bool) {
+        init(profileTint: Color, useSystemBrowser: Bool) {
+            self.profileTint = profileTint
             self.useSystemBrowser = useSystemBrowser
         }
 
@@ -118,7 +121,7 @@ struct ItemWebView {
                 if useSystemBrowser {
                     UIApplication.shared.open(url)
                 } else {
-                    SafariUtility.openLink(url: url, controlTintColor: .accentColor)
+                    SafariUtility.openLink(url: url, controlTintColor: profileTint)
                 }
                 #endif
             } else {
