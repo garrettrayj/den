@@ -18,7 +18,8 @@ struct FeedLayout: View {
 
     @Binding var hideRead: Bool
 
-    @State private var urlCopied: Bool = false
+    @State private var webpageCopied: Bool = false
+    @State private var feedAddressCopied: Bool = false
 
     let items: FetchedResults<Item>
 
@@ -138,40 +139,72 @@ struct FeedLayout: View {
                     Text(description).frame(maxWidth: 640)
                 }
 
-                if let linkDisplayString = feed.feedData?.linkDisplayString, let url = feed.feedData?.link {
-                    Button {
-                        openURL(url)
-                    } label: {
-                        Text(linkDisplayString).lineLimit(1)
+                if
+                    let linkDisplayString = feed.feedData?.link?.absoluteString,
+                    let url = feed.feedData?.link
+                {
+                    HStack {
+                        Button {
+                            openURL(url)
+                        } label: {
+                            Text(linkDisplayString).lineLimit(1)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("open-webpage-button")
+                        
+                        Button {
+                            PasteboardUtility.copyURL(url: url)
+                            webpageCopied = true
+                            feedAddressCopied = false
+                        } label: {
+                            Label {
+                                Text("Copy", comment: "Button label.")
+                            } icon: {
+                                Image(systemName: "doc.on.doc")
+                            }
+                            .labelStyle(.iconOnly)
+
+                            if webpageCopied {
+                                Text("Copied", comment: "Copied to pasteboard message.")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("copy-webpage-button")
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("feed-link-button")
+                    
                 }
 
-                if let feedURLString = feed.url?.absoluteString {
-                    Button {
-                        #if os(macOS)
-                        NSPasteboard.general.prepareForNewContents()
-                        NSPasteboard.general.setString(feedURLString, forType: .string)
-                        #else
-                        UIPasteboard.general.string = feedURLString
-                        #endif
-                        urlCopied = true
-                    } label: {
-                        Text(feedURLString).lineLimit(1)
-                        Label {
-                            Text("Copy", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "doc.on.doc")
+                if let url = feed.url {
+                    HStack {
+                        Button {
+                            openURL(url)
+                        } label: {
+                            Text(url.absoluteString).lineLimit(1)
                         }
-                        .labelStyle(.iconOnly)
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("open-feed-address-button")
+                        
+                        Button {
+                            PasteboardUtility.copyURL(url: url)
+                            feedAddressCopied = true
+                            webpageCopied = false
+                        } label: {
+                            Label {
+                                Text("Copy", comment: "Button label.")
+                            } icon: {
+                                Image(systemName: "doc.on.doc")
+                            }
+                            .labelStyle(.iconOnly)
 
-                        if urlCopied {
-                            Text("Copied", comment: "Copied to pasteboard message.").foregroundColor(.secondary)
+                            if feedAddressCopied {
+                                Text("Copied", comment: "Copied to pasteboard message.")
+                                    .foregroundColor(.secondary)
+                            }
                         }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("copy-feed-address-button")
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("copy-feed-url-button")
                 }
 
                 if let copyright = feed.feedData?.copyright {

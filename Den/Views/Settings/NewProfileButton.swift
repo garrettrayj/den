@@ -28,7 +28,7 @@ struct NewProfileButton: View {
             Label {
                 Text("New Profile", comment: "Button label.").lineLimit(1)
             } icon: {
-                Image(systemName: "plus.circle")
+                Image(systemName: "plus")
             }
         }
         .accessibilityIdentifier("new-profile-button")

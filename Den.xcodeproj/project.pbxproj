@@ -198,6 +198,7 @@
 		68D17EE22A43ECF500AF8A73 /* HistoryCleanupTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE12A43ECF500AF8A73 /* HistoryCleanupTask.swift */; };
 		68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */; };
 		68D17EE62A443AC700AF8A73 /* MainBoardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE52A443AC700AF8A73 /* MainBoardModifier.swift */; };
+		68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */; };
 		68D486BE26C9896300AF5B59 /* IconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D486BD26C9896300AF5B59 /* IconPicker.swift */; };
 		68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E6824955321007ED1AC /* OPMLReader.swift */; };
 		68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68D58E6A2498481A007ED1AC /* OPMLIcon.png */; };
@@ -494,6 +495,7 @@
 		68D17EE12A43ECF500AF8A73 /* HistoryCleanupTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCleanupTask.swift; sourceTree = "<group>"; };
 		68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIconCategory.swift; sourceTree = "<group>"; };
 		68D17EE52A443AC700AF8A73 /* MainBoardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardModifier.swift; sourceTree = "<group>"; };
+		68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardUtility.swift; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
 		68D58E6A2498481A007ED1AC /* OPMLIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OPMLIcon.png; sourceTree = "<group>"; };
@@ -1052,6 +1054,7 @@
 				687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */,
 				6880EBDE27A8B5DE00B479F4 /* SymbolLibrary.swift */,
 				68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */,
+				68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1430,6 +1433,7 @@
 				685ECB1126EE611000A3B184 /* PageNavLink.swift in Sources */,
 				6806497D2A0678F900B6E6E7 /* SecondaryGroupedHighlight.swift in Sources */,
 				68C413462472773100D1DC7B /* PageView.swift in Sources */,
+				68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */,
 				6830D46B29F4CEA100737FB1 /* GroupedBackground.swift in Sources */,
 				6865575E29E7B290000EBF37 /* Search.swift in Sources */,
 				6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */,

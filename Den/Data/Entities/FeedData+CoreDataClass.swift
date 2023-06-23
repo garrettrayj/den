@@ -44,20 +44,6 @@ public class FeedData: NSManagedObject {
         return items
     }
 
-    public var refreshedRelativeDateTimeString: String? {
-        guard let refreshed = refreshed else { return nil }
-        return refreshed.formatted(.relative(presentation: .numeric))
-    }
-
-    public var linkDisplayString: String? {
-        guard let link = link else { return nil }
-
-        return link.absoluteString
-            .replacingOccurrences(of: "http://", with: "")
-            .replacingOccurrences(of: "https://", with: "")
-            .trimmingCharacters(in: .init(charactersIn: "/"))
-    }
-
     static func create(in managedObjectContext: NSManagedObjectContext, feedId: UUID) -> FeedData {
         let newFeed = self.init(context: managedObjectContext)
         newFeed.id = UUID()
