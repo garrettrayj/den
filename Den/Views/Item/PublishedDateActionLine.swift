@@ -11,8 +11,8 @@
 import SwiftUI
 
 struct PublishedDateActionLine: View {
-    @ObservedObject var item: Item
-    @ObservedObject var feed: Feed
+    let date: Date
+    let browserView: Bool
 
     let dateFormatter: DateFormatter = {
         let relativeDateFormatter = DateFormatter()
@@ -27,8 +27,8 @@ struct PublishedDateActionLine: View {
     var body: some View {
         TimelineView(.everyMinute) { _ in
             HStack {
-                Text(verbatim: dateFormatter.string(from: item.date))
-                if feed.browserView == true {
+                Text(verbatim: dateFormatter.string(from: date))
+                if browserView == true {
                     Image(systemName: "link").imageScale(.small)
                 }
             }

@@ -27,12 +27,19 @@ struct ItemCompressed: View {
                     Text(author).font(.subheadline).lineLimit(2)
                 }
 
-                PublishedDateActionLine(item: item, feed: feed).font(.caption2)
+                PublishedDateActionLine(
+                    date: item.date,
+                    browserView: feed.browserView
+                ).font(.caption2)
             }
 
-            if feed.hideImages != true {
+            if feed.hideImages != true, let url = item.image {
                 Spacer()
-                ItemThumbnailImage(item: item)
+                ItemThumbnailImage(
+                    url: url,
+                    isRead: item.read,
+                    aspectRatio: item.imageAspectRatio
+                )
             }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)

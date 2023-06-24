@@ -17,7 +17,11 @@ struct ItemPreviewImage: View {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    @ObservedObject var item: Item
+    let url: URL
+    let isRead: Bool
+    let aspectRatio: CGFloat?
+    let width: CGFloat?
+    let height: CGFloat?
 
     static let baseSize = CGSize(width: 384, height: 216)
 
@@ -37,11 +41,11 @@ struct ItemPreviewImage: View {
 
     var body: some View {
         ZStack {
-            if item.imageAspectRatio == nil {
+            if aspectRatio == nil {
                 ImageDepression(padding: 8) {
                     VStack {
                         WebImage(
-                            url: item.image,
+                            url: url,
                             options: [.delayPlaceholder, .lowPriority],
                             context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                         )
@@ -49,17 +53,17 @@ struct ItemPreviewImage: View {
                             .purgeable(true)
                             .placeholder { ImageErrorPlaceholder() }
                             .grayscale(isEnabled ? 0 : 1)
-                            .overlay(.background.opacity(item.read ? 0.5 : 0))
+                            .overlay(.background.opacity(isRead ? 0.5 : 0))
                             .modifier(ImageBorderModifier(cornerRadius: 4))
                             .scaledToFit()
                     }
                     .aspectRatio(16/9, contentMode: .fill)
                     .fixedSize(horizontal: false, vertical: true)
                 }
-            } else if item.imageAspectRatio! < 0.5 {
+            } else if aspectRatio! < 0.5 {
                 ImageDepression(padding: 8) {
                     WebImage(
-                        url: item.image,
+                        url: url,
                         options: [.delayPlaceholder, .lowPriority],
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
@@ -67,17 +71,17 @@ struct ItemPreviewImage: View {
                         .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
                         .grayscale(isEnabled ? 0 : 1)
-                        .overlay(.background.opacity(item.read ? 0.5 : 0))
-                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                        .overlay(.background.opacity(isRead ? 0.5 : 0))
+                        .aspectRatio(aspectRatio, contentMode: .fit)
                         .frame(
                             maxHeight: scaledSize.height > 0 ? min(scaledSize.height, 400) : nil,
                             alignment: .top
                         )
                 }
-            } else if CGFloat(item.imageWidth) < scaledSize.width {
+            } else if let width = width, width < scaledSize.width {
                 ImageDepression(padding: 8) {
                     WebImage(
-                        url: item.image,
+                        url: url,
                         options: [.delayPlaceholder, .lowPriority],
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
@@ -85,14 +89,14 @@ struct ItemPreviewImage: View {
                         .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
                         .grayscale(isEnabled ? 0 : 1)
-                        .overlay(.background.opacity(item.read ? 0.5 : 0))
-                        .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                        .overlay(.background.opacity(isRead ? 0.5 : 0))
+                        .aspectRatio(aspectRatio, contentMode: .fit)
                         .clipped()
                         .modifier(ImageBorderModifier(cornerRadius: 4))
                 }
             } else {
                 WebImage(
-                    url: item.image,
+                    url: url,
                     options: [.delayPlaceholder, .lowPriority],
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
@@ -100,8 +104,8 @@ struct ItemPreviewImage: View {
                 .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
                 .grayscale(isEnabled ? 0 : 1)
-                .overlay(.background.opacity(item.read ? 0.5 : 0))
-                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+                .overlay(.background.opacity(isRead ? 0.5 : 0))
+                .aspectRatio(aspectRatio, contentMode: .fill)
                 .background(.quaternary)
                 .modifier(ImageBorderModifier(cornerRadius: 6))
             }

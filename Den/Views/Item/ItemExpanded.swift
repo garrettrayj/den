@@ -26,10 +26,19 @@ struct ItemExpanded: View {
                 Text(author).font(.subheadline).lineLimit(2)
             }
 
-            PublishedDateActionLine(item: item, feed: feed).font(.caption2)
+            PublishedDateActionLine(
+                date: item.date,
+                browserView: feed.browserView
+            ).font(.caption2)
 
-            if feed.hideImages != true && item.image != nil {
-                ItemPreviewImage(item: item).padding(.top, 4)
+            if feed.hideImages != true, let url = item.image {
+                ItemPreviewImage(
+                    url: url,
+                    isRead: item.read,
+                    aspectRatio: item.imageAspectRatio,
+                    width: CGFloat(item.imageWidth),
+                    height: CGFloat(item.imageHeight)
+                ).padding(.top, 4)
             }
 
             if showTeaser {

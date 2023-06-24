@@ -95,7 +95,7 @@ struct FeedUpdateTask {
             do {
                 try context.save()
                 let duration = CFAbsoluteTimeGetCurrent() - start
-                Logger.ingest.info("Feed updated in \(duration) seconds: \(feed.wrappedTitle)")
+                Logger.ingest.info("Feed updated in \(duration) seconds: \(feed.wrappedTitle, privacy: .public)")
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

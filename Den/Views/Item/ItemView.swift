@@ -32,6 +32,7 @@ struct ItemView: View {
                 .background(.background)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
+                .navigationTitle(Text(verbatim: ""))
         }
     }
 

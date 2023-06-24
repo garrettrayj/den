@@ -30,6 +30,8 @@ struct PageSettingsSheet: View {
             .navigationTitle(Text("Page Settings", comment: "Navigation title."))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            .scrollContentBackground(.hidden)
+            .background(GroupedBackground())
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

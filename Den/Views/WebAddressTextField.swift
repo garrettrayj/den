@@ -21,12 +21,12 @@ struct WebAddressTextField: View {
         // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
         TextField(
             text: $fieldText,
-            prompt: Text("https⁣://example.com/feed.xml", comment: "Web address text field prompt.")
+            prompt: Text("https⁣://example.com/feed", comment: "Web address text field prompt.")
         ) {
             Label {
                 Text("Address", comment: "Web address text field label.")
             } icon: {
-                Image(systemName: "globe")
+                Image(systemName: "dot.radiowaves.up.forward")
             }
         }
         .lineLimit(1)

@@ -182,7 +182,6 @@ extension ItemWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.isInspectable = true
-        webView.setValue(false, forKey: "drawsBackground")
 
         return webView
     }

@@ -28,6 +28,8 @@ struct FeedSettingsSheet: View {
             .navigationTitle(Text("Feed Settings", comment: "Navigation title."))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            .scrollContentBackground(.hidden)
+            .background(GroupedBackground())
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

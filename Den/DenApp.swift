@@ -65,7 +65,9 @@ struct DenApp: App {
                 ExportButton(activeProfile: $activeProfile)
             }
         }
-        #if os(iOS)
+        #if os(macOS)
+        .defaultSize(width: 1200, height: 800)
+        #else
         .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
             await handleRefresh()
         }

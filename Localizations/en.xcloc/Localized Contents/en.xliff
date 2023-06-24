@@ -87,6 +87,26 @@
         <target>Address</target>
         <note>Web address text field label.</note>
       </trans-unit>
+      <trans-unit id="Address cannot be blank." xml:space="preserve">
+        <source>Address cannot be blank.</source>
+        <target>Address cannot be blank.</target>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Address could not be parsed." xml:space="preserve">
+        <source>Address could not be parsed.</source>
+        <target>Address could not be parsed.</target>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Address must begin with “http://” or “https://”." xml:space="preserve">
+        <source>Address must begin with “http://” or “https://”.</source>
+        <target>Address must begin with “http://” or “https://”.</target>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Address must not contain spaces." xml:space="preserve">
+        <source>Address must not contain spaces.</source>
+        <target>Address must not contain spaces.</target>
+        <note>URL field validation message.</note>
+      </trans-unit>
       <trans-unit id="All Feeds" xml:space="preserve">
         <source>All Feeds</source>
         <target>All Feeds</target>
@@ -146,6 +166,11 @@
         <source>Cancel</source>
         <target>Cancel</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Changed web address will be applied next refresh." xml:space="preserve">
+        <source>Changed web address will be applied next refresh.</source>
+        <target>Changed web address will be applied next refresh.</target>
+        <note>Web address changed notice.</note>
       </trans-unit>
       <trans-unit id="Checking for New Items…" xml:space="preserve">
         <source>Checking for New Items…</source>
@@ -243,16 +268,6 @@
         <target>Delete</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Delete Feed?" xml:space="preserve">
-        <source>Delete Feed?</source>
-        <target>Delete Feed?</target>
-        <note>Alert title.</note>
-      </trans-unit>
-      <trans-unit id="Delete Page?" xml:space="preserve">
-        <source>Delete Page?</source>
-        <target>Delete Page?</target>
-        <note>Alert title.</note>
-      </trans-unit>
       <trans-unit id="Delete Profile?" xml:space="preserve">
         <source>Delete Profile?</source>
         <target>Delete Profile?</target>
@@ -273,9 +288,9 @@
         <target>Enter Reader Mode</target>
         <note>Toggle label.</note>
       </trans-unit>
-      <trans-unit id="Enter a RSS, Atom, or JSON Feed URL." xml:space="preserve">
-        <source>Enter a RSS, Atom, or JSON Feed URL.</source>
-        <target>Enter a RSS, Atom, or JSON Feed URL.</target>
+      <trans-unit id="Enter a RSS, Atom, or JSON Feed web address." xml:space="preserve">
+        <source>Enter a RSS, Atom, or JSON Feed web address.</source>
+        <target>Enter a RSS, Atom, or JSON Feed web address.</target>
         <note>URL field guidance message.</note>
       </trans-unit>
       <trans-unit id="Enter a search term." xml:space="preserve">
@@ -908,31 +923,6 @@
         <target>Weather</target>
         <note>Page icon category label.</note>
       </trans-unit>
-      <trans-unit id="Web address cannot be blank." xml:space="preserve">
-        <source>Web address cannot be blank.</source>
-        <target>Web address cannot be blank.</target>
-        <note>URL field validation message.</note>
-      </trans-unit>
-      <trans-unit id="Web address change will be applied on next refresh." xml:space="preserve">
-        <source>Web address change will be applied on next refresh.</source>
-        <target>Web address change will be applied on next refresh.</target>
-        <note>Web address changed notice.</note>
-      </trans-unit>
-      <trans-unit id="Web address could not be parsed." xml:space="preserve">
-        <source>Web address could not be parsed.</source>
-        <target>Web address could not be parsed.</target>
-        <note>URL field validation message.</note>
-      </trans-unit>
-      <trans-unit id="Web address must begin with “http://” or “https://”." xml:space="preserve">
-        <source>Web address must begin with “http://” or “https://”.</source>
-        <target>Web address must begin with “http://” or “https://”.</target>
-        <note>URL field validation message.</note>
-      </trans-unit>
-      <trans-unit id="Web address must not contain spaces." xml:space="preserve">
-        <source>Web address must not contain spaces.</source>
-        <target>Web address must not contain spaces.</target>
-        <note>URL field validation message.</note>
-      </trans-unit>
       <trans-unit id="Website" xml:space="preserve">
         <source>Website</source>
         <target>Website</target>
@@ -943,9 +933,9 @@
         <target>Yellow</target>
         <note>Tint color option.</note>
       </trans-unit>
-      <trans-unit id="https⁣://example.com/feed.xml" xml:space="preserve">
-        <source>https⁣://example.com/feed.xml</source>
-        <target>https⁣://example.com/feed.xml</target>
+      <trans-unit id="https⁣://example.com/feed" xml:space="preserve">
+        <source>https⁣://example.com/feed</source>
+        <target>https⁣://example.com/feed</target>
         <note>Web address text field prompt.</note>
       </trans-unit>
     </body>

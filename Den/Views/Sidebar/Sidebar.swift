@@ -12,7 +12,6 @@ import CoreData
 import SwiftUI
 
 struct Sidebar: View {
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
@@ -55,6 +54,7 @@ struct Sidebar: View {
         }
         #if os(iOS)
         .scrollContentBackground(.hidden)
+        .background(GroupedBackground())
         #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.nameText)

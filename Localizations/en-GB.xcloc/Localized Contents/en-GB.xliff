@@ -72,6 +72,22 @@
         <source>Address</source>
         <note>Web address text field label.</note>
       </trans-unit>
+      <trans-unit id="Address cannot be blank." xml:space="preserve">
+        <source>Address cannot be blank.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Address could not be parsed." xml:space="preserve">
+        <source>Address could not be parsed.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Address must begin with “http://” or “https://”." xml:space="preserve">
+        <source>Address must begin with “http://” or “https://”.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Address must not contain spaces." xml:space="preserve">
+        <source>Address must not contain spaces.</source>
+        <note>URL field validation message.</note>
+      </trans-unit>
       <trans-unit id="All Feeds" xml:space="preserve">
         <source>All Feeds</source>
         <note>Sidebar section header.</note>
@@ -120,6 +136,10 @@
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Changed web address will be applied next refresh." xml:space="preserve">
+        <source>Changed web address will be applied next refresh.</source>
+        <note>Web address changed notice.</note>
       </trans-unit>
       <trans-unit id="Checking for New Items…" xml:space="preserve">
         <source>Checking for New Items…</source>
@@ -198,14 +218,6 @@
         <source>Delete</source>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Delete Feed?" xml:space="preserve">
-        <source>Delete Feed?</source>
-        <note>Alert title.</note>
-      </trans-unit>
-      <trans-unit id="Delete Page?" xml:space="preserve">
-        <source>Delete Page?</source>
-        <note>Alert title.</note>
-      </trans-unit>
       <trans-unit id="Delete Profile?" xml:space="preserve">
         <source>Delete Profile?</source>
         <note>Alert title.</note>
@@ -222,8 +234,8 @@
         <source>Enter Reader Mode</source>
         <note>Toggle label.</note>
       </trans-unit>
-      <trans-unit id="Enter a RSS, Atom, or JSON Feed URL." xml:space="preserve">
-        <source>Enter a RSS, Atom, or JSON Feed URL.</source>
+      <trans-unit id="Enter a RSS, Atom, or JSON Feed web address." xml:space="preserve">
+        <source>Enter a RSS, Atom, or JSON Feed web address.</source>
         <note>URL field guidance message.</note>
       </trans-unit>
       <trans-unit id="Enter a search term." xml:space="preserve">
@@ -733,26 +745,6 @@
         <source>Weather</source>
         <note>Page icon category label.</note>
       </trans-unit>
-      <trans-unit id="Web address cannot be blank." xml:space="preserve">
-        <source>Web address cannot be blank.</source>
-        <note>URL field validation message.</note>
-      </trans-unit>
-      <trans-unit id="Web address change will be applied on next refresh." xml:space="preserve">
-        <source>Web address change will be applied on next refresh.</source>
-        <note>Web address changed notice.</note>
-      </trans-unit>
-      <trans-unit id="Web address could not be parsed." xml:space="preserve">
-        <source>Web address could not be parsed.</source>
-        <note>URL field validation message.</note>
-      </trans-unit>
-      <trans-unit id="Web address must begin with “http://” or “https://”." xml:space="preserve">
-        <source>Web address must begin with “http://” or “https://”.</source>
-        <note>URL field validation message.</note>
-      </trans-unit>
-      <trans-unit id="Web address must not contain spaces." xml:space="preserve">
-        <source>Web address must not contain spaces.</source>
-        <note>URL field validation message.</note>
-      </trans-unit>
       <trans-unit id="Website" xml:space="preserve">
         <source>Website</source>
         <note>Button label.</note>
@@ -761,8 +753,8 @@
         <source>Yellow</source>
         <note>Tint color option.</note>
       </trans-unit>
-      <trans-unit id="https⁣://example.com/feed.xml" xml:space="preserve">
-        <source>https⁣://example.com/feed.xml</source>
+      <trans-unit id="https⁣://example.com/feed" xml:space="preserve">
+        <source>https⁣://example.com/feed</source>
         <note>Web address text field prompt.</note>
       </trans-unit>
     </body>

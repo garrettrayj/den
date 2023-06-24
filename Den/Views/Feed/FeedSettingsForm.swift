@@ -38,12 +38,23 @@ struct FeedSettingsForm: View {
                 }
             }
             
-            WebAddressTextField(
-                isValid: $webAddressIsValid,
-                validationMessage: $webAddressValidationMessage,
-                webAddress: $feed.urlString,
-                fieldText: feed.urlString
-            )
+            LabeledContent {
+                WebAddressTextField(
+                    isValid: $webAddressIsValid,
+                    validationMessage: $webAddressValidationMessage,
+                    webAddress: $feed.urlString,
+                    fieldText: feed.urlString
+                )
+                .labelsHidden()
+                .scaledToFit()
+                .multilineTextAlignment(.trailing)
+            } label: {
+                Label {
+                    Text("Address", comment: "Web address text field label.")
+                } icon: {
+                    Image(systemName: "dot.radiowaves.up.forward")
+                }
+            }
 
             if let profile = feed.page?.profile {
                 PagePicker(
@@ -75,9 +86,9 @@ struct FeedSettingsForm: View {
                 validationMessage.text
             } else if feed.changedValues().keys.contains("url") {
                 Text(
-                    "Changed web address will be applied next refresh.",
+                    "Web address change will be applied on next refresh.",
                     comment: "Web address changed notice."
-                )
+                ).font(.footnote)
             }
         }
     }
@@ -146,7 +157,7 @@ struct FeedSettingsForm: View {
                 Text(
                     "System web browser in use. \"Enter Reader Mode\" will be ignored.",
                     comment: "Feed settings reader mode guidance message."
-                )
+                ).font(.footnote)
             }
             #endif
             
@@ -154,7 +165,7 @@ struct FeedSettingsForm: View {
                 Text(
                     "Latest limit change will be applied on next refresh.",
                     comment: "Latest item limit changed notice."
-                )
+                ).font(.footnote)
             }
         }
     }

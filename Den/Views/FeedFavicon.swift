@@ -19,8 +19,7 @@ struct FeedFavicon: View {
 
     let url: URL?
 
-    var placeholderSymbol: String = "dot.radiowaves.up.forward"
-    var baseSize = CGSize(width: 16, height: 16)
+    let baseSize = CGSize(width: 16, height: 16)
 
     private var scaledSize: CGSize {
         return CGSize(
@@ -42,17 +41,16 @@ struct FeedFavicon: View {
             options: [.decodeFirstFrameOnly],
             context: [.imageThumbnailPixelSize: thumbnailPixelSize]
         )
-            .resizable()
-            .purgeable(true)
-            .placeholder {
-                Image(systemName: placeholderSymbol)
-                    .resizable()
-                    .foregroundColor(.primary)
-                    .padding(2)
-
-            }
-            .scaledToFit()
-            .frame(width: scaledSize.width, height: scaledSize.height)
-            .grayscale(isEnabled ? 0 : 1)
+        .resizable()
+        .purgeable(true)
+        .placeholder {
+            Image(systemName: "dot.radiowaves.up.forward")
+                .resizable()
+                .foregroundColor(.primary)
+                .padding(2)
+        }
+        .scaledToFit()
+        .frame(width: scaledSize.width, height: scaledSize.height)
+        .grayscale(isEnabled ? 0 : 1)
     }
 }

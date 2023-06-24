@@ -16,13 +16,15 @@ struct ItemThumbnailImage: View {
     @Environment(\.displayScale) private var displayScale
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
-    @ObservedObject var item: Item
+    
+    let url: URL
+    let isRead: Bool
+    let aspectRatio: CGFloat?
 
     static let baseSize = CGSize(width: 64, height: 64)
 
     private var scaledSize: CGSize {
-        return CGSize(
+        CGSize(
             width: ItemThumbnailImage.baseSize.width * dynamicTypeSize.layoutScalingFactor,
             height: ItemThumbnailImage.baseSize.height * dynamicTypeSize.layoutScalingFactor
         )
@@ -36,38 +38,19 @@ struct ItemThumbnailImage: View {
     }
 
     var body: some View {
-        if let image = item.image {
-            WebImage(
-                url: image,
-                options: [.decodeFirstFrameOnly, .delayPlaceholder],
-                context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-            )
-                .resizable()
-                .purgeable(true)
-                .placeholder { ImageErrorPlaceholder() }
-                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                .grayscale(isEnabled ? 0 : 1)
-                .overlay(.background.opacity(item.read ? 0.5 : 0))
-                .frame(width: scaledSize.width, height: scaledSize.height)
-                .background(.quaternary)
-                .modifier(ImageBorderModifier(cornerRadius: 6))
-        } else if let image = item.feedData?.image {
-            ImageDepression(padding: 4) {
-                WebImage(
-                    url: image,
-                    options: [.decodeFirstFrameOnly, .delayPlaceholder],
-                    context: [.imageThumbnailPixelSize: thumbnailPixelSize]
-                )
-                .resizable()
-                .purgeable(true)
-                .placeholder { ImageErrorPlaceholder() }
-                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
-                .grayscale(isEnabled ? 0 : 1)
-                .overlay(.background.opacity(item.read ? 0.5 : 0))
-                .cornerRadius(4)
-                .frame(width: scaledSize.width - 8, height: scaledSize.height - 8)
-            }
-            .frame(width: scaledSize.width, height: scaledSize.height)
-        }
+        WebImage(
+            url: url,
+            options: [.decodeFirstFrameOnly, .delayPlaceholder],
+            context: [.imageThumbnailPixelSize: thumbnailPixelSize]
+        )
+        .resizable()
+        .purgeable(true)
+        .placeholder { ImageErrorPlaceholder() }
+        .aspectRatio(aspectRatio, contentMode: .fill)
+        .grayscale(isEnabled ? 0 : 1)
+        .overlay(.background.opacity(isRead ? 0.5 : 0))
+        .frame(width: scaledSize.width, height: scaledSize.height)
+        .background(.quaternary)
+        .modifier(ImageBorderModifier(cornerRadius: 6))
     }
 }

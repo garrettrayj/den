@@ -61,5 +61,6 @@ struct DetailView: View {
                 .disabled(refreshManager.refreshing)
             }
         }
+        .transition(.slide)
     }
 }

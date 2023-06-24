@@ -30,7 +30,7 @@ struct NewFeedSheet: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Text("New Feed").font(.largeTitle)
+            Text("New Feed").font(.largeTitle.weight(.semibold))
 
             if let profile = activeProfile, targetPage != nil {
                 VStack(spacing: 8) {
@@ -42,12 +42,13 @@ struct NewFeedSheet: View {
                     )
                     .multilineTextAlignment(.center)
                     .textFieldStyle(.roundedBorder)
+                    .padding(.horizontal)
                     
                     if let validationMessage = webAddressValidationMessage {
                         validationMessage.text.font(.caption)
                     } else {
                         Text(
-                            "Enter a RSS, Atom, or JSON Feed URL.",
+                            "Enter a RSS, Atom, or JSON Feed web address.",
                             comment: "URL field guidance message."
                         ).font(.caption)
                     }
@@ -79,6 +80,7 @@ struct NewFeedSheet: View {
             webAddress = initialURLString
             checkTargetPage()
         }
+        .background(GroupedBackground())
     }
 
     private var submitButtonSection: some View {
