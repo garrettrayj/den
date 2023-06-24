@@ -19,6 +19,7 @@ import SDWebImageSVGCoder
 @main
 struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.openURL) private var openURL
 
     @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
     @AppStorage("AppProfileID") var appProfileID: String?
@@ -63,6 +64,13 @@ struct DenApp: App {
                 ImportButton(activeProfile: $activeProfile)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 ExportButton(activeProfile: $activeProfile)
+            }
+            CommandGroup(replacing: .help) {
+                Button {
+                    openURL(URL(string: "https://den.io/help/")!)
+                } label: {
+                    Text("\(Bundle.main.name) Help", comment: "Button label.")
+                }
             }
         }
         #if os(macOS)

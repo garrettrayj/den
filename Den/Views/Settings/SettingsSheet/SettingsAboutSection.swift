@@ -15,31 +15,30 @@ struct SettingsAboutSection: View {
 
     var body: some View {
         Section {
-            HStack {
-                Text("Version", comment: "Info label.")
-                Spacer()
+            LabeledContent {
                 Text(verbatim: "\(Bundle.main.releaseVersionNumber) (\(Bundle.main.buildVersionNumber))")
                     .font(.callout)
                     .foregroundColor(.secondary)
-            }
-
-            Button {
-                guard let url = URL(string: "https://den.io") else { return }
-                openURL(url)
             } label: {
-                HStack {
-                    Text("Website", comment: "Button label.")
-                    Spacer()
+                Text("Version", comment: "Version info label.")
+            }
+            
+            LabeledContent {
+                Button {
+                    guard let url = URL(string: "https://den.io") else { return }
+                    openURL(url)
+                } label: {
                     Text(verbatim: "https://den.io")
                 }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("website-button")
+            } label: {
+                Text("Website", comment: "Website info label.")
             }
-            .buttonStyle(.plain)
-
-            .accessibilityIdentifier("website-button")
         } header: {
-            Text("About", comment: "Settings section header.")
+            Text("About \(Bundle.main.name)", comment: "Settings section header.")
         } footer: {
-            Text(verbatim: "© 2023 Garrett Johnson")
+            Text(verbatim: Bundle.main.copyright)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
                 .foregroundColor(.secondary)
