@@ -49,6 +49,7 @@ struct SettingsSheet: View {
                         }
                     }
                     .buttonStyle(.borderless)
+                    .accessibilityIdentifier("close-button")
                 }
             }
             .frame(minWidth: 400, minHeight: 480)
