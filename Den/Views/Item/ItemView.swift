@@ -60,7 +60,7 @@ struct ItemView: View {
                             }
 
                             TimelineView(.everyMinute) { _ in
-                                HStack {
+                                HStack(spacing: 4) {
                                     Text(verbatim: item.date.formatted(date: .complete, time: .shortened))
                                     Text(verbatim: "(\(item.date.formatted(.relative(presentation: .numeric))))")
                                 }.font(.caption2)
