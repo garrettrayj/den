@@ -75,24 +75,28 @@ img[align="left"] {
 
 h1 {
     font: -apple-system-title0;
+    font-weight: 600;
 }
 
 h2 {
     font: -apple-system-title1;
+    font-weight: 700;
 }
 
 h3 {
     font: -apple-system-title2;
+    font-weight: 700;
 }
 
 h4 {
     font: -apple-system-title3;
+    font-weight: 700;
 }
 
 /* Content Sectioning */
 
 p {
-    margin: 1rem 0;
+    margin: 1.25rem 0;
 }
 
 hr {
@@ -102,13 +106,13 @@ hr {
 /* Block Quotes */
 
 blockquote {
-    background: -apple-system-secondary-background;
+    background: rgba(160, 160, 160, 0.2);
     border-radius: 8px;
     font: -apple-system-title3;
     font-family: inherit;
-    margin: 1.25rem 0;
+    margin: 1.5rem 0;
     overflow: hidden;
-    padding: 1.5rem;
+    padding: 1.25rem;
 }
 
 blockquote > :first-child {
@@ -122,13 +126,13 @@ blockquote > :last-child {
 /* Figures */
 
 figure {
-    background: -apple-system-secondary-background;
+    background: rgba(160, 160, 160, 0.2);
     border-radius: 6px;
     font: -apple-system-caption1;
     font-family: inherit;
-    margin: 1.25rem 0;
+    margin: 1.5rem 0;
     overflow: hidden;
-    padding: 8px;
+    padding: 0.75rem;
 }
 
 figure img,
@@ -137,7 +141,7 @@ figure iframe,
 figure object,
 figure video {
     border-radius: 4px;
-    margin: 0.5rem auto;
+    margin: 0.5rem auto 0.75rem;
 }
 
 figure > :first-child,
@@ -158,6 +162,7 @@ figure blockquote {
 
 a {
     color: $TINT_COLOR;
+    text-decoration: none;
 }
 
 a:visited {
@@ -188,12 +193,14 @@ div:empty {
 /* Tables */
 
 table {
+    border-collapse: collapse;
     font: -apple-system-body;
-    font-family: inherit
+    font-family: inherit;
+    margin: 1.5rem auto;
 }
 
 table, th, td {
-    border: 1px solid -apple-system-separator;
+    border: 1px solid -apple-system-label;
 }
 
 td, th {

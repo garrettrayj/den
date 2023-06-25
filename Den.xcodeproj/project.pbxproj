@@ -185,6 +185,7 @@
 		68B6CBEC2910CA3000B5E3AB /* JSONItemLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B6CBEB2910CA3000B5E3AB /* JSONItemLoad.swift */; };
 		68B8E79829CABD5100E9AF42 /* ImageBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */; };
 		68B8E79A29CAC95300E9AF42 /* ImageDepression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B8E79929CAC95300E9AF42 /* ImageDepression.swift */; };
+		68BB256D2A48480A0082D890 /* WebViewStylesMac.css in Resources */ = {isa = PBXBuildFile; fileRef = 68BB256C2A48480A0082D890 /* WebViewStylesMac.css */; };
 		68BD683F2839626E0075EF45 /* ImageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BD683E2839626E0075EF45 /* ImageSelection.swift */; };
 		68C41316247263C700D1DC7B /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C41315247263C700D1DC7B /* RootView.swift */; };
 		68C41318247263C700D1DC7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68C41317247263C700D1DC7B /* Assets.xcassets */; };
@@ -478,6 +479,7 @@
 		68B6CBEB2910CA3000B5E3AB /* JSONItemLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONItemLoad.swift; sourceTree = "<group>"; };
 		68B8E79729CABD5100E9AF42 /* ImageBorderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBorderModifier.swift; sourceTree = "<group>"; };
 		68B8E79929CAC95300E9AF42 /* ImageDepression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDepression.swift; sourceTree = "<group>"; };
+		68BB256C2A48480A0082D890 /* WebViewStylesMac.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = WebViewStylesMac.css; sourceTree = "<group>"; };
 		68BD683E2839626E0075EF45 /* ImageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelection.swift; sourceTree = "<group>"; };
 		68C41309247263C700D1DC7B /* Den.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Den.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68C41315247263C700D1DC7B /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -699,6 +701,7 @@
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
 				68D58E6A2498481A007ED1AC /* OPMLIcon.png */,
 				68F56B72287AD73D006EC915 /* WebViewStyles.css */,
+				68BB256C2A48480A0082D890 /* WebViewStylesMac.css */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1302,6 +1305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
+				68BB256D2A48480A0082D890 /* WebViewStylesMac.css in Resources */,
 				68F56B73287B4B26006EC915 /* WebViewStyles.css in Resources */,
 				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
@@ -1673,6 +1677,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
@@ -1709,6 +1714,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
@@ -1894,7 +1900,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1907,13 +1913,14 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 1.16.5;
+				MARKETING_VERSION = 1.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
@@ -1928,7 +1935,7 @@
 				CODE_SIGN_ENTITLEMENTS = Den/Den.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Den/Preview Content\"";
 				DEVELOPMENT_TEAM = N7TC759VWV;
 				ENABLE_PREVIEWS = YES;
@@ -1941,13 +1948,14 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 1.16.5;
+				MARKETING_VERSION = 1.17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.devsci.den;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};

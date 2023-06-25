@@ -27,7 +27,7 @@ struct ItemView: View {
             itemLayout
                 .toolbar { ItemToolbar(item: item) }
                 #if os(macOS)
-                .background(Color(.textBackgroundColor))
+                .background(colorScheme == .dark ? Color.black : Color.white)
                 #else
                 .background(.background)
                 .navigationBarTitleDisplayMode(.inline)
@@ -50,13 +50,13 @@ struct ItemView: View {
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text(item.wrappedTitle)
-                                .font(.largeTitle)
+                                .font(.largeTitle.weight(.semibold))
                                 .textSelection(.enabled)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .padding(.bottom, 4)
 
                             if let author = item.author {
-                                Text(author).font(.subheadline).lineLimit(2)
+                                Text(author).font(.callout).lineLimit(2)
                             }
 
                             TimelineView(.everyMinute) { _ in
@@ -87,8 +87,7 @@ struct ItemView: View {
                     .frame(maxWidth: maxContentWidth)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal)
-                .padding(.vertical, 24)
+                .padding(24)
                 .task { await HistoryUtility.markItemRead(item: item) }
             }
         }

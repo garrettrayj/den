@@ -17,7 +17,7 @@ struct SidebarStatus: View {
 
     @Binding var refreshing: Bool
 
-    @State private var progress = Progress()
+    let progress = Progress()
 
     let dateFormatter: DateFormatter = {
         let relativeDateFormatter = DateFormatter()

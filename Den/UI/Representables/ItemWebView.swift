@@ -58,11 +58,19 @@ struct ItemWebView {
             let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
             var cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
         else { return nil }
-
+        
         cssString = cssString.replacingOccurrences(
             of: "$TINT_COLOR",
             with: profileTint.hexString ?? "blue"
         )
+        
+        #if os(macOS)
+        guard
+            let path = Bundle.main.path(forResource: "WebViewStylesMac", ofType: "css"),
+            var macStylesString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
+        else { return nil }
+        cssString += macStylesString
+        #endif
 
         return cssString
     }
@@ -182,6 +190,7 @@ extension ItemWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.isInspectable = true
+        webView.setValue(false, forKey: "drawsBackground")
 
         return webView
     }
