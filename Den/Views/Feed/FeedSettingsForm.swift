@@ -97,7 +97,7 @@ struct FeedSettingsForm: View {
         Section {
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
                 Text(
-                    "Latest Limit: \(feed.wrappedItemLimit)",
+                    "Preview Limit: \(feed.wrappedItemLimit)",
                     comment: "Stepper label."
                 )
             }

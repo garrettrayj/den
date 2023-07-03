@@ -31,48 +31,24 @@ struct ItemWebView {
         guard let html = html else { return }
 
         let htmlStart = """
-        <HTML><HEAD>\
+        <html><head>\
         <title>\(title)</title>\
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no\">\
-        </HEAD><BODY>
+        <style>\(getStylesString())</style>
+        </head><body>
         """
-        let htmlEnd = "</BODY></HTML>"
+        let htmlEnd = "</body></html>"
         let htmlString = "\(htmlStart)\(html)\(htmlEnd)"
 
         webView.loadHTMLString(htmlString, baseURL: baseURL)
-
-        if let cssString = getStylesString() {
-            let source = """
-            var style = document.createElement('style');
-            style.innerHTML = '\(cssString)';
-            document.head.appendChild(style);
-            """
-
-            let userScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-            webView.configuration.userContentController.addUserScript(userScript)
-        }
     }
 
-    private func getStylesString() -> String? {
-        guard
-            let path = Bundle.main.path(forResource: "WebViewStyles", ofType: "css"),
-            var cssString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
-        else { return nil }
-        
-        cssString = cssString.replacingOccurrences(
+    private func getStylesString() -> String {
+        let css = WebViewStyles.shared.css.replacingOccurrences(
             of: "$TINT_COLOR",
             with: profileTint.hexString ?? "blue"
         )
-        
-        #if os(macOS)
-        guard
-            let path = Bundle.main.path(forResource: "WebViewStylesMac", ofType: "css"),
-            var macStylesString = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()
-        else { return nil }
-        cssString += macStylesString
-        #endif
-
-        return cssString
+        return css
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {

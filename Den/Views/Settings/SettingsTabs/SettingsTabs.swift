@@ -38,7 +38,7 @@ struct SettingsTabs: View {
                 Label("Profiles", systemImage: "person.crop.circle")
             }
         }
-        .frame(minWidth: 480, minHeight: 320)
+        .frame(minWidth: 480, minHeight: 300)
     }
 }
 

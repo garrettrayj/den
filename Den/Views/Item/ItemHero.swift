@@ -51,7 +51,7 @@ struct ItemHero: View {
 
     var body: some View {
         if item.imageAspectRatio == nil {
-            ImageDepression {
+            ImageDepression(padding: 12) {
                 WebImage(
                     url: item.image,
                     options: [.delayPlaceholder],
@@ -64,7 +64,7 @@ struct ItemHero: View {
             }
             .aspectRatio(16/9, contentMode: .fill)
         } else if CGFloat(item.imageWidth) < scaledSize.width {
-            ImageDepression {
+            ImageDepression(padding: 12) {
                 WebImage(
                     url: item.image,
                     options: [.delayPlaceholder],

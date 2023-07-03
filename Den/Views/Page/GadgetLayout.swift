@@ -25,7 +25,8 @@ struct GadgetLayout: View {
                     Gadget(
                         feed: feed,
                         profile: profile,
-                        items: items.visibilityFiltered(hideRead ? false : nil).forFeed(feed: feed)
+                        items: items.forFeed(feed: feed),
+                        hideRead: hideRead
                     )
                 }
                 .modifier(MainBoardModifier())

@@ -15,11 +15,9 @@ struct FeedItemCompressed: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
-    var showExtraTag: Bool = false
-
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            FeedNavLink(feed: feed, showExtraTag: showExtraTag && item.extra)
+            FeedNavLink(feed: feed)
                 .buttonStyle(FeedTitleButtonStyle())
 
             Divider()

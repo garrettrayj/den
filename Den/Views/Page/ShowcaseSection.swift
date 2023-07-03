@@ -16,28 +16,26 @@ struct ShowcaseSection: View {
 
     let items: [Item]
     let geometry: GeometryProxy
-
+    let hideRead: Bool
+    
     var body: some View {
         Section {
             VStack(alignment: .leading, spacing: 12) {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
-                        .padding(12)
-                        .background(QuaternaryGroupedBackground())
-                        .modifier(RoundedContainerModifier())
-                        .padding()
                         .modifier(SafeAreaModifier(geometry: geometry))
-                }
-
-                if items.isEmpty && feed.feedData != nil  && feed.feedData?.error == nil {
+                } else if items.isEmpty {
+                    FeedEmpty()
+                        .modifier(SafeAreaModifier(geometry: geometry))
+                } else if items.unread().isEmpty && hideRead {
                     AllRead()
-                        .padding(12)
-                        .background(QuaternaryGroupedBackground())
-                        .modifier(RoundedContainerModifier())
-                        .padding()
                         .modifier(SafeAreaModifier(geometry: geometry))
                 } else if !items.isEmpty {
-                    BoardView(geometry: geometry, list: items, lazy: false) { item in
+                    BoardView(
+                        geometry: geometry,
+                        list: items.visibilityFiltered(hideRead ? false : nil),
+                        lazy: false
+                    ) { item in
                         ItemActionView(item: item, feed: feed, profile: profile) {
                             if feed.wrappedPreviewStyle.rawValue == 1 {
                                 ItemExpanded(item: item, feed: feed)

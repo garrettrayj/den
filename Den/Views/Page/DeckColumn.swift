@@ -20,24 +20,23 @@ struct DeckColumn: View {
     let isLast: Bool
     let items: [Item]
     let pageGeometry: GeometryProxy
+    let hideRead: Bool
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(alignment: .leading, spacing: 12) {
+            LazyVStack(alignment: .leading, spacing: 8) {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
-                        .padding(12)
-                        .background(QuaternaryGroupedBackground())
-                        .modifier(RoundedContainerModifier())
-                }
-
-                if items.isEmpty && feed.feedData != nil && feed.feedData?.error == nil {
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1.5))
+                        
+                } else if items.isEmpty {
+                    FeedEmpty()
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1.5))
+                } else if items.unread().isEmpty && hideRead {
                     AllRead()
-                        .padding(12)
-                        .background(QuaternaryGroupedBackground())
-                        .modifier(RoundedContainerModifier())
-                } else if !items.isEmpty {
-                    ForEach(items) { item in
+                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1.5))
+                } else {
+                    ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
                         ItemActionView(item: item, feed: feed, profile: profile) {
                             if feed.wrappedPreviewStyle == .expanded {
                                 ItemExpanded(item: item, feed: feed)
@@ -51,9 +50,9 @@ struct DeckColumn: View {
                 }
             }
             .padding(.vertical, 8)
-            .padding(.leading, 8)
+            .padding(.leading, 4)
             .padding(.trailing, 4)
-            .padding(.leading, isFirst ? 8 : 0)
+            .padding(.leading, isFirst ? 12 : 0)
             .padding(.trailing, isLast ? 12 : 0)
         }
         .safeAreaInset(edge: .top) {
@@ -72,9 +71,9 @@ struct DeckColumn: View {
     private var header: some View {
         FeedNavLink(
             feed: feed,
-            leadingPadding: isFirst ? 8 : 0,
+            leadingPadding: isFirst ? 12 : 0,
             trailingPadding: isLast ? 12 : 0
         )
-        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 8, trailingPadding: 16))
+        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 16, trailingPadding: 16))
     }
 }

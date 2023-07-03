@@ -15,6 +15,7 @@ struct Gadget: View {
     @ObservedObject var profile: Profile
 
     let items: [Item]
+    let hideRead: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -23,16 +24,15 @@ struct Gadget: View {
             if feed.feedData == nil || feed.feedData?.error != nil {
                 Divider()
                 FeedUnavailable(feedData: feed.feedData)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(12)
-            }
-
-            if items.isEmpty && feed.feedData != nil && feed.feedData?.error == nil {
+            } else if items.isEmpty {
                 Divider()
-                AllRead().padding(12)
-            } else if !items.isEmpty {
+                FeedEmpty()
+            } else if items.unread().isEmpty && hideRead {
+                Divider()
+                AllRead()
+            } else {
                 VStack(spacing: 0) {
-                    ForEach(items) { item in
+                    ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
                         Divider()
                         ItemActionView(item: item, feed: feed, profile: profile) {
                             ItemCompressed(item: item, feed: feed)

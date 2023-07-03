@@ -23,33 +23,41 @@ struct FeedLayout: View {
 
     let items: FetchedResults<Item>
 
-    private var filteredItems: [Item] {
-        items.visibilityFiltered(hideRead ? false : nil)
-    }
-
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
-                LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                    if let heroImage = feed.feedData?.banner {
-                        FeedHero(heroImage: heroImage)
-                    }
-
+                VStack(alignment: .leading, spacing: 0) {
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailable(feedData: feed.feedData)
-                            .padding(12)
-                            .background(QuaternaryGroupedBackground())
-                            .modifier(RoundedContainerModifier())
+                    } else {
+                        if let heroImage = feed.feedData?.banner {
+                            FeedHero(heroImage: heroImage)
+                            Divider()
+                        }
+                        
+                        if items.isEmpty {
+                            FeedEmpty()
+                        } else if items.unread().isEmpty && hideRead {
+                            AllRead()
+                                .modifier(SafeAreaModifier(geometry: geometry))
+                        } else {
+                            BoardView(
+                                geometry: geometry,
+                                list: items.visibilityFiltered(hideRead ? false : nil)
+                            ) { item in
+                                ItemActionView(item: item, feed: feed, profile: profile) {
+                                    if feed.wrappedPreviewStyle == .expanded {
+                                        ItemExpanded(item: item, feed: feed)
+                                    } else {
+                                        ItemCompressed(item: item, feed: feed)
+                                    }
+                                }
+                                .background(SecondaryGroupedBackground())
+                                .modifier(RoundedContainerModifier())
+                            }
                             .padding()
                             .modifier(SafeAreaModifier(geometry: geometry))
-                    }
-
-                    if !items.previews().isEmpty {
-                        latestSection(geometry: geometry)
-                    }
-
-                    if !items.extras().isEmpty {
-                        moreSection(geometry: geometry)
+                        }
                     }
 
                     Divider()
@@ -57,78 +65,6 @@ struct FeedLayout: View {
                 }
             }
             .edgesIgnoringSafeArea(.horizontal)
-        }
-    }
-
-    private func latestSection(geometry: GeometryProxy) -> some View {
-        Section {
-            if filteredItems.previews().isEmpty && hideRead == true {
-                AllRead()
-                    .padding(12)
-                    .background(QuaternaryGroupedBackground())
-                    .modifier(RoundedContainerModifier())
-                    .padding()
-                    .modifier(SafeAreaModifier(geometry: geometry))
-            } else {
-                BoardView(
-                    geometry: geometry,
-                    list: filteredItems.previews(),
-                    lazy: false
-                ) { item in
-                    ItemActionView(item: item, feed: feed, profile: profile) {
-                        if feed.wrappedPreviewStyle == .expanded {
-                            ItemExpanded(item: item, feed: feed)
-                        } else {
-                            ItemCompressed(item: item, feed: feed)
-                        }
-                    }
-                    .background(SecondaryGroupedBackground())
-                    .modifier(RoundedContainerModifier())
-                }
-                .padding()
-                .modifier(SafeAreaModifier(geometry: geometry))
-            }
-        } header: {
-            Text("Latest", comment: "Feed view section header.")
-                .font(.title3)
-                .modifier(SafeAreaModifier(geometry: geometry))
-                .modifier(PinnedSectionHeaderModifier())
-        }
-    }
-
-    private func moreSection(geometry: GeometryProxy) -> some View {
-        Section {
-            if filteredItems.extras().isEmpty {
-                AllRead()
-                    .padding(12)
-                    .background(QuaternaryGroupedBackground())
-                    .modifier(RoundedContainerModifier())
-                    .padding()
-                    .modifier(SafeAreaModifier(geometry: geometry))
-            } else {
-                BoardView(
-                    geometry: geometry,
-                    list: filteredItems.extras(),
-                    lazy: false
-                ) { item in
-                    ItemActionView(item: item, feed: feed, profile: profile) {
-                        if feed.wrappedPreviewStyle == .expanded {
-                            ItemExpanded(item: item, feed: feed)
-                        } else {
-                            ItemCompressed(item: item, feed: feed)
-                        }
-                    }
-                    .background(SecondaryGroupedBackground())
-                    .modifier(RoundedContainerModifier())
-                }
-                .padding()
-                .modifier(SafeAreaModifier(geometry: geometry))
-            }
-        } header: {
-            Text("More", comment: "Feed view section header.")
-                .font(.title2)
-                .modifier(SafeAreaModifier(geometry: geometry))
-                .modifier(PinnedSectionHeaderModifier())
         }
     }
 

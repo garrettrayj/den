@@ -26,8 +26,9 @@ struct ShowcaseLayout: View {
                         ShowcaseSection(
                             feed: feed,
                             profile: profile,
-                            items: items.visibilityFiltered(hideRead ? false : nil).forFeed(feed: feed),
-                            geometry: geometry
+                            items: items.forFeed(feed: feed),
+                            geometry: geometry,
+                            hideRead: hideRead
                         )
                     }
                 }

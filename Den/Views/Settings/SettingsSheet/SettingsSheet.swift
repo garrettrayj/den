@@ -52,7 +52,6 @@ struct SettingsSheet: View {
                     .accessibilityIdentifier("close-button")
                 }
             }
-            .frame(minWidth: 400, minHeight: 480)
         }
     }
 }

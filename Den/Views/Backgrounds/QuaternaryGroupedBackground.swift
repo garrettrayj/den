@@ -14,6 +14,6 @@ struct QuaternaryGroupedBackground: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        Rectangle().fill(.ultraThickMaterial)
+        Rectangle().fill(.ultraThickMaterial).background(.background)
     }
 }

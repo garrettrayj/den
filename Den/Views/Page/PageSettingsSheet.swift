@@ -55,7 +55,7 @@ struct PageSettingsSheet: View {
                     .accessibilityIdentifier("save-button")
                 }
             }
-            .frame(minWidth: 400, minHeight: 480)
+            .frame(minWidth: 370, minHeight: 492)
         }
     }
 }

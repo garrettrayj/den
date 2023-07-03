@@ -17,7 +17,7 @@ struct PinnedSectionHeaderModifier: ViewModifier {
         content
             .foregroundColor(isEnabled ? .primary : .secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 20)
+            .padding(.horizontal)
             .padding(.vertical, 12)
             .background(TertiaryGroupedBackground())
     }

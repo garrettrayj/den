@@ -13,8 +13,6 @@ import SwiftUI
 struct FeedNavLink: View {
     @ObservedObject var feed: Feed
     
-    var showExtraTag: Bool = false
-    
     // Padding properties to support deck page layout
     var leadingPadding: CGFloat = 0
     var trailingPadding: CGFloat = 0
@@ -27,9 +25,6 @@ struct FeedNavLink: View {
                     favicon: feed.feedData?.favicon
                 )
                 Spacer()
-                if showExtraTag {
-                    ExtraTag()
-                }
                 ButtonChevron()
             }
             .padding(.leading, leadingPadding)

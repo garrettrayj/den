@@ -39,5 +39,6 @@ struct FeedUnavailable: View {
         .multilineTextAlignment(.center)
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity)
+        .padding()
     }
 }
