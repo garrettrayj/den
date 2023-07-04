@@ -15,7 +15,7 @@ struct RoundedContainerModifier: ViewModifier {
         content
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .cornerRadius(8)
-            .shadow(color: .black.opacity(0.05), radius: 3, y: 1)
+            .shadow(color: .black.opacity(0.1), radius: 4)
 
     }
 }

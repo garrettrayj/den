@@ -14,6 +14,6 @@ struct SecondaryGroupedHighlight: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        Rectangle().fill(.regularMaterial).overlay(.quaternary.opacity(0.8))
+        Rectangle().fill(.quaternary)
     }
 }

@@ -35,8 +35,8 @@ struct Sidebar: View {
         .safeAreaInset(edge: .bottom, alignment: .leading) {
             if !profile.pagesArray.isEmpty {
                 NewPageButton(activeProfile: .constant(profile))
-                    .buttonStyle(.borderless)
-                    .foregroundStyle(.secondary)
+                    .buttonStyle(.plain)
+                    .font(.callout)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 12)
             }

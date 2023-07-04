@@ -87,7 +87,7 @@ struct ItemView: View {
                     .frame(maxWidth: maxContentWidth)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(24)
+                .padding(32)
                 .task { await HistoryUtility.markItemRead(item: item) }
             }
         }

@@ -15,7 +15,7 @@ struct SecondaryGroupedBackground: View {
 
     var body: some View {
         #if os(macOS)
-        Rectangle().fill(Color(.textBackgroundColor))
+        Rectangle().fill(.background)
         #else
         Rectangle().fill(Color(.secondarySystemGroupedBackground))
         #endif

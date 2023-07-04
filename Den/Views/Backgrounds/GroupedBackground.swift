@@ -22,7 +22,7 @@ struct GroupedBackground: View {
             Rectangle().fill(.thinMaterial).edgesIgnoringSafeArea(.all)
         }
         #else
-        Rectangle().fill(.regularMaterial).edgesIgnoringSafeArea(.all)
+        Rectangle().fill(Color(nsColor: .textBackgroundColor)).edgesIgnoringSafeArea(.all)
         #endif
     }
 }
