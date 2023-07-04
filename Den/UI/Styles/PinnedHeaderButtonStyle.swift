@@ -16,19 +16,14 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
 
     @State private var hovering: Bool = false
 
-    var leadingPadding: CGFloat = 28
-    var trailingPadding: CGFloat = 28
-
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .font(.title3)
             .foregroundColor(isEnabled ? .primary : .secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
-            .padding(.leading, leadingPadding)
-            .padding(.trailing, trailingPadding)
-            .background(TertiaryGroupedHighlight().opacity(isEnabled && hovering ? 1 : 0))
-            .background(TertiaryGroupedBackground())
+            .background(isEnabled && hovering ? .thickMaterial : .regularMaterial)
+            .background(.tertiary)
             .onHover { hovered in
                 hovering = hovered
             }

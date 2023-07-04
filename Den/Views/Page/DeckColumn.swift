@@ -44,14 +44,12 @@ struct DeckColumn: View {
                                 ItemCompressed(item: item, feed: feed)
                             }
                         }
-                        .background(SecondaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
                     }
                 }
             }
             .padding(.vertical, 8)
-            .padding(.leading, 4)
-            .padding(.trailing, 4)
+            .padding(.horizontal, 4)
             .padding(.leading, isFirst ? 12 : 0)
             .padding(.trailing, isLast ? 12 : 0)
         }
@@ -71,10 +69,9 @@ struct DeckColumn: View {
     private var header: some View {
         FeedNavLink(
             feed: feed,
-            leadingPadding: isFirst ? 12 : 0,
-            trailingPadding: isLast ? 12 : 0
+            leadingPadding: isFirst ? 32 : 20,
+            trailingPadding: isLast ? 32 : 20
         )
-        .buttonStyle(
-            PinnedHeaderButtonStyle(leadingPadding: 20, trailingPadding: 20))
+        .buttonStyle(PinnedHeaderButtonStyle())
     }
 }

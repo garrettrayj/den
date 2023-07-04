@@ -23,7 +23,6 @@ struct FeedItemCompressed: View {
                 ItemCompressed(item: item, feed: feed)
             }
         }
-        .background(SecondaryGroupedBackground())
         .modifier(RoundedContainerModifier())
     }
 }

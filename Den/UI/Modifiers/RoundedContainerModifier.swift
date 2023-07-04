@@ -14,8 +14,12 @@ struct RoundedContainerModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity, alignment: .topLeading)
+            #if os(macOS)
+            .background(.background)
+            #else
+            .background(Color(uiColor: .secondarySystemGroupedBackground))
+            #endif
             .cornerRadius(8)
             .shadow(color: .black.opacity(0.1), radius: 4)
-
     }
 }

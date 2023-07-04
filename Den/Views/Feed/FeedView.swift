@@ -36,7 +36,6 @@ struct FeedView: View {
                         hideRead: $hideRead,
                         items: items
                     )
-                    .background(GroupedBackground())
                     .toolbar {
                         FeedToolbar(
                             feed: feed,

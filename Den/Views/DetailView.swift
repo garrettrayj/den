@@ -40,7 +40,6 @@ struct DetailView: View {
                     )
                 }
             }
-            .background(GroupedBackground())
             .disabled(refreshManager.refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 ZStack {
@@ -57,7 +56,6 @@ struct DetailView: View {
                         TrendView(trend: trend, profile: profile, hideRead: $hideRead)
                     }
                 }
-                .background(GroupedBackground())
                 .disabled(refreshManager.refreshing)
             }
         }

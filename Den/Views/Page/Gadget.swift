@@ -42,7 +42,6 @@ struct Gadget: View {
                 }
             }
         }
-        .background(SecondaryGroupedBackground())
         .modifier(RoundedContainerModifier())
     }
 }

@@ -64,7 +64,6 @@ struct TrendBlock: View {
             }
             .buttonStyle(HoverShadowButtonStyle())
         }
-        .background(SecondaryGroupedBackground())
         .modifier(RoundedContainerModifier())
     }
 }

@@ -27,7 +27,6 @@ struct TrendView: View {
                     hideRead: $hideRead,
                     items: items.visibilityFiltered(hideRead ? false : nil)
                 )
-                .background(GroupedBackground())
                 .toolbar {
                     TrendToolbar(
                         trend: trend,

@@ -52,10 +52,6 @@ struct Sidebar: View {
             searchQuery = searchInput
             detailPanel = .search
         }
-        #if os(iOS)
-        .scrollContentBackground(.hidden)
-        .background(GroupedBackground())
-        #endif
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.nameText)
         .toolbar {

@@ -35,24 +35,19 @@ struct DeckLayout: View {
                     }
                 }
                 .safeAreaInset(edge: .leading, alignment: .top, spacing: 0) {
-                    if geometry.safeAreaInsets.leading > 0 {
-                        HStack {
-                            Text(verbatim: "M").font(.title3).hidden()
-                        }
-                        .modifier(PinnedSectionHeaderModifier())
-                        .padding(.top, geometry.safeAreaInsets.top)
+                    HStack { Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear) }
                         .frame(width: geometry.safeAreaInsets.leading)
-                    }
+                        .background(.regularMaterial)
+                        .background(.tertiary)
+                        .padding(.top, geometry.safeAreaInsets.top)
                 }
                 .safeAreaInset(edge: .trailing, alignment: .top, spacing: 0) {
-                    if geometry.safeAreaInsets.trailing > 0 {
-                        HStack {
-                            Text(verbatim: "M").font(.title3).hidden()
-                        }
-                        .modifier(PinnedSectionHeaderModifier())
-                        .padding(.top, geometry.safeAreaInsets.top)
+                    HStack {
+                        Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear) }
                         .frame(width: geometry.safeAreaInsets.trailing)
-                    }
+                        .background(.regularMaterial)
+                        .background(.tertiary)
+                        .padding(.top, geometry.safeAreaInsets.top)
                 }
             }
             .id("DeckLayoutSroll_\(page.id?.uuidString ?? "NoID")")

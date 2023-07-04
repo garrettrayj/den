@@ -43,7 +43,6 @@ struct ShowcaseSection: View {
                                 ItemCompressed(item: item, feed: feed)
                             }
                         }
-                        .background(SecondaryGroupedBackground())
                         .modifier(RoundedContainerModifier())
                     }
                     .padding()
@@ -51,7 +50,7 @@ struct ShowcaseSection: View {
                 }
             }
         } header: {
-            FeedNavLink(feed: feed)
+            FeedNavLink(feed: feed, leadingPadding: 16, trailingPadding: 16)
                 .buttonStyle(PinnedHeaderButtonStyle())
                 .modifier(SafeAreaModifier(geometry: geometry))
         }

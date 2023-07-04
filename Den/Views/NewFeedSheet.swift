@@ -80,7 +80,6 @@ struct NewFeedSheet: View {
             webAddress = initialURLString
             checkTargetPage()
         }
-        .background(GroupedBackground())
     }
 
     private var submitButtonSection: some View {
