@@ -88,10 +88,7 @@ struct PageSettingsForm: View {
                 List {
                     ForEach(page.feedsArray) { feed in
                         HStack {
-                            FeedTitleLabel(
-                                title: feed.titleText,
-                                favicon: feed.feedData?.favicon
-                            )
+                            FeedTitleLabel(feed: feed)
                             Spacer()
                             #if os(macOS)
                             Image(systemName: "line.3.horizontal")

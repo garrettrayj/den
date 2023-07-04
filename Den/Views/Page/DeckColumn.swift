@@ -74,6 +74,7 @@ struct DeckColumn: View {
             leadingPadding: isFirst ? 12 : 0,
             trailingPadding: isLast ? 12 : 0
         )
-        .buttonStyle(PinnedHeaderButtonStyle(leadingPadding: 16, trailingPadding: 16))
+        .buttonStyle(
+            PinnedHeaderButtonStyle(leadingPadding: 20, trailingPadding: 20))
     }
 }

@@ -17,11 +17,8 @@ struct FeedItemCompressed: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            FeedNavLink(feed: feed)
-                .buttonStyle(FeedTitleButtonStyle())
-
+            FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
-
             ItemActionView(item: item, feed: feed, profile: profile) {
                 ItemCompressed(item: item, feed: feed)
             }

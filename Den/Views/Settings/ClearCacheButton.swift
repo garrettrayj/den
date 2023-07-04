@@ -12,8 +12,10 @@ import SwiftUI
 import SDWebImage
 
 struct ClearCacheButton: View {
+    @Binding var activeProfile: Profile?
+    
     @State private var cacheSize: Int64 = 0
-
+    
     let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = .useAll
@@ -29,8 +31,8 @@ struct ClearCacheButton: View {
             Task {
                 await resetFeeds()
                 await emptyCache()
-                sleep(1)
                 await calculateCacheSize()
+                activeProfile?.objectWillChange.send()
             }
         } label: {
             HStack {
@@ -82,10 +84,7 @@ struct ClearCacheButton: View {
                 profile.trends.forEach { trend in
                     context.delete(trend)
                 }
-                DispatchQueue.main.async {
-                    RefreshedDateStorage.shared.setRefreshed(profile, date: nil)
-                    profile.objectWillChange.send()
-                }
+                RefreshedDateStorage.shared.setRefreshed(profile, date: nil)
             }
             if context.hasChanges {
                 do {

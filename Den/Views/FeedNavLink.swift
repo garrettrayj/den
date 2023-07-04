@@ -20,10 +20,7 @@ struct FeedNavLink: View {
     var body: some View {
         NavigationLink(value: SubDetailPanel.feed(feed)) {
             HStack {
-                FeedTitleLabel(
-                    title: feed.titleText,
-                    favicon: feed.feedData?.favicon
-                )
+                FeedTitleLabel(feed: feed)
                 Spacer()
                 ButtonChevron()
             }

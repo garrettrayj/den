@@ -21,7 +21,7 @@ struct ItemView: View {
     }
 
     var body: some View {
-        if item.managedObjectContext == nil {
+        if item.managedObjectContext == nil || item.feedData?.feed == nil {
             SplashNote(title: Text("Item Deleted", comment: "Object removed message."))
         } else {
             itemLayout
@@ -41,12 +41,9 @@ struct ItemView: View {
             ScrollView(.vertical) {
                 VStack {
                     VStack(alignment: .leading, spacing: 16) {
-                        FeedTitleLabel(
-                            title: item.feedData?.feed?.titleText,
-                            favicon: item.feedData?.favicon
-                        )
-                        .font(.title3)
-                        .textSelection(.enabled)
+                        FeedTitleLabel(feed: item.feedData!.feed!)
+                            .font(.title3)
+                            .textSelection(.enabled)
 
                         VStack(alignment: .leading, spacing: 4) {
                             Text(item.wrappedTitle)
@@ -87,7 +84,8 @@ struct ItemView: View {
                     .frame(maxWidth: maxContentWidth)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(32)
+                .padding(.horizontal)
+                .padding(.vertical, 24)
                 .task { await HistoryUtility.markItemRead(item: item) }
             }
         }
