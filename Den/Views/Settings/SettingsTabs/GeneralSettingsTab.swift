@@ -24,7 +24,7 @@ struct GeneralSettingsTab: View {
             }
 
             Section {
-                ClearCacheButton(activeProfile: $activeProfile).buttonStyle(.borderless)
+                ClearCacheButton(activeProfile: $activeProfile).buttonStyle(.plain)
 
                 ResetEverythingButton(
                     activeProfile: $activeProfile,

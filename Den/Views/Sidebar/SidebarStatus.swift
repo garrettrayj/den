@@ -45,18 +45,7 @@ struct SidebarStatus: View {
                     .progressViewStyle(BottomBarProgressViewStyle(profile: profile))
             } else {
                 if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                    if refreshedDate.formatted(date: .complete, time: .omitted) ==
-                        Date().formatted(date: .complete, time: .omitted) {
-                        Text(
-                            "Updated at \(refreshedDate.formatted(date: .omitted, time: .shortened))",
-                            comment: "Updated time status message."
-                        )
-                    } else {
-                        Text(
-                            "Updated \(dateFormatter.string(from: refreshedDate))",
-                            comment: "Updated date status message."
-                        )
-                    }
+                    RelativeRefreshedDate(date: refreshedDate)
                 }
             }
         }

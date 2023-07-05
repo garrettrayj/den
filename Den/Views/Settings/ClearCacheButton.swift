@@ -31,7 +31,7 @@ struct ClearCacheButton: View {
             Task {
                 await resetFeeds()
                 await emptyCache()
-                await calculateCacheSize()
+                cacheSize = 0
                 activeProfile?.objectWillChange.send()
             }
         } label: {
