@@ -25,11 +25,9 @@ struct ItemView: View {
             SplashNote(title: Text("Item Deleted", comment: "Object removed message."))
         } else {
             itemLayout
-                .toolbar { ItemToolbar(item: item) }
-                #if os(macOS)
-                .background(colorScheme == .dark ? Color.black : Color.white)
-                #else
                 .background(.background)
+                .toolbar { ItemToolbar(item: item) }
+                #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
                 .navigationTitle(Text(verbatim: ""))
