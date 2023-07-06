@@ -14,8 +14,6 @@ import OSLog
 final class RefreshManager: ObservableObject {
     @Published var refreshing: Bool = false
 
-    var progress: Progress = Progress()
-
     public func refresh(profile: Profile, timeout: Double) {
         guard !refreshing else {
             Logger.main.info("Refresh already in progress")

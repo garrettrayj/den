@@ -15,7 +15,9 @@ struct SubscriptionUtility {
         var userInfo: [String: Any] = [:]
 
         if let urlString = urlString {
-            userInfo["urlString"] = cleanURLString(urlString)
+            userInfo["urlString"] = urlString
+                .replacingOccurrences(of: "feed:", with: "")
+                .replacingOccurrences(of: "den:", with: "")
         }
 
         if let initialPageObjectID = page?.objectID {
@@ -25,11 +27,5 @@ struct SubscriptionUtility {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .showSubscribe, object: nil, userInfo: userInfo)
         }
-    }
-
-    static func cleanURLString(_ urlString: String) -> String {
-        urlString
-            .replacingOccurrences(of: "feed:", with: "")
-            .replacingOccurrences(of: "den:", with: "")
     }
 }
