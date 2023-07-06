@@ -14,12 +14,13 @@ struct RefreshButton: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var activeProfile: Profile?
+    @Binding var feedRefreshTimeout: Double
 
     var body: some View {
         Button {
             Task {
                 guard let profile = activeProfile else { return }
-                await refreshManager.refresh(profile: profile)
+                await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
             }
         } label: {
             Label {

@@ -40,10 +40,6 @@
         <source>%@ Records</source>
         <note>History count (plural).</note>
       </trans-unit>
-      <trans-unit id="%@ Unread" xml:space="preserve">
-        <source>%@ Unread</source>
-        <note>Status message.</note>
-      </trans-unit>
       <trans-unit id="%@ items in %@ feeds. %@ unread" xml:space="preserve">
         <source>%1$@ items in %2$@ feeds. %3$@ unread</source>
         <note>Trend block status message.</note>
@@ -596,7 +592,8 @@
       <trans-unit id="Refresh" xml:space="preserve">
         <source>Refresh</source>
         <note>Button label.
-   Setting section header.</note>
+   Setting section header.
+   Settings section header.</note>
       </trans-unit>
       <trans-unit id="Refresh Failed" xml:space="preserve">
         <source>Refresh Failed</source>
@@ -605,6 +602,10 @@
       <trans-unit id="Refresh to get content." xml:space="preserve">
         <source>Refresh to get content.</source>
         <note>Feed unavailable message.</note>
+      </trans-unit>
+      <trans-unit id="Request Timeout: %@" xml:space="preserve">
+        <source>Request Timeout: %@</source>
+        <note>Slider label.</note>
       </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>

@@ -18,6 +18,7 @@ struct SidebarToolbar: ToolbarContent {
 
     @Binding var showingSettings: Bool
     @Binding var detailPanel: DetailPanel?
+    @Binding var feedRefreshTimeout: Double
 
     private var activePage: Page? {
         if case .page(let page) = detailPanel {
@@ -50,7 +51,7 @@ struct SidebarToolbar: ToolbarContent {
             Spacer()
         }
         ToolbarItem(placement: .bottomBar) {
-            RefreshButton(activeProfile: .constant(profile))
+            RefreshButton(activeProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
                 .disabled(
                     refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                 )
@@ -60,7 +61,7 @@ struct SidebarToolbar: ToolbarContent {
             if refreshManager.refreshing {
                 RefreshProgress(totalUnitCount: profile.feedsArray.count)
             } else {
-                RefreshButton(activeProfile: .constant(profile))
+                RefreshButton(activeProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
                     .disabled(
                         refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                     )

@@ -21,11 +21,12 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openURL) private var openURL
 
-    @AppStorage("BackgroundRefreshEnabled") var backgroundRefreshEnabled: Bool = false
-    @AppStorage("AppProfileID") var appProfileID: String?
-    @AppStorage("LastCleanup") var lastCleanup: Double?
-    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
+    @AppStorage("AppProfileID") private var appProfileID: String?
+    @AppStorage("BackgroundRefreshEnabled") private var backgroundRefreshEnabled: Bool = false
+    @AppStorage("FeedRefreshTimeout") private var feedRefreshTimeout: Double = 30.0
+    @AppStorage("LastCleanup") private var lastCleanup: Double?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
+    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
@@ -42,7 +43,8 @@ struct DenApp: App {
                 appProfileID: $appProfileID,
                 activeProfile: $activeProfile,
                 userColorScheme: $userColorScheme,
-                detailPanel: $detailPanel
+                detailPanel: $detailPanel,
+                feedRefreshTimeout: $feedRefreshTimeout
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
@@ -57,7 +59,7 @@ struct DenApp: App {
             }
             CommandGroup(after: .sidebar) {
                 Divider()
-                RefreshButton(activeProfile: $activeProfile)
+                RefreshButton(activeProfile: $activeProfile, feedRefreshTimeout: $feedRefreshTimeout)
                     .environmentObject(refreshManager)
             }
             CommandGroup(replacing: .importExport) {
@@ -102,6 +104,7 @@ struct DenApp: App {
                     activeProfile: $activeProfile,
                     appProfileID: $appProfileID,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                    feedRefreshTimeout: $feedRefreshTimeout,
                     useSystemBrowser: $useSystemBrowser,
                     userColorScheme: $userColorScheme,
                     detailPanel: $detailPanel
@@ -163,7 +166,7 @@ struct DenApp: App {
             return
         }
         Logger.main.info("Performing background refresh for profile: \(profile.wrappedName)")
-        refreshManager.refresh(profile: profile)
+        refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
     }
 
     private func handleCleanup() {

@@ -16,7 +16,7 @@ final class RefreshManager: ObservableObject {
 
     var progress: Progress = Progress()
 
-    public func refresh(profile: Profile) {
+    public func refresh(profile: Profile, timeout: Double) {
         guard !refreshing else {
             Logger.main.info("Refresh already in progress")
             return
@@ -36,7 +36,8 @@ final class RefreshManager: ObservableObject {
             let op = FeedUpdateOperation(
                 feedURL: url,
                 feedObjectID: feed.objectID,
-                updateMeta: feed.needsMetaUpdate
+                updateMeta: feed.needsMetaUpdate,
+                timeout: timeout
             )
             analyzeOperation.addDependency(op)
             ops.append(op)
@@ -52,6 +53,7 @@ final class RefreshManager: ObservableObject {
 
     public func refresh(
         profile: Profile,
+        timeout: Double,
         session: URLSession = URLSession.shared
     ) async {
         guard !refreshing else {
@@ -78,7 +80,8 @@ final class RefreshManager: ObservableObject {
                         feedObjectID: feed.objectID,
                         pageObjectID: feed.page?.objectID,
                         url: url,
-                        updateMetadata: feed.needsMetaUpdate
+                        updateMetadata: feed.needsMetaUpdate,
+                        timeout: timeout
                     )
                 )
             }
@@ -107,13 +110,14 @@ final class RefreshManager: ObservableObject {
         await HistoryCleanupTask(profileObjectID: profile.objectID).execute()
     }
 
-    func refresh(feed: Feed) async {
+    func refresh(feed: Feed, timeout: Double) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
                 pageObjectID: feed.page?.objectID,
                 url: url,
-                updateMetadata: true
+                updateMetadata: true,
+                timeout: timeout
             )
             _ = await feedUpdateTask.execute()
         }

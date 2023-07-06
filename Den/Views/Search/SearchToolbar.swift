@@ -37,7 +37,7 @@ struct SearchToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {
-            SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
+            SearchStatus(resultCount: items.count, query: query)
         }
         ToolbarItem(placement: .bottomBar) { Spacer() }
         ToolbarItem(placement: .bottomBar) {

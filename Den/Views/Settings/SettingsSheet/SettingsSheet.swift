@@ -19,6 +19,7 @@ struct SettingsSheet: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
 
@@ -32,6 +33,7 @@ struct SettingsSheet: View {
                         activeProfile: $activeProfile,
                         appProfileID: $appProfileID,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                        feedRefreshTimeout: $feedRefreshTimeout,
                         useSystemBrowser: $useSystemBrowser,
                         userColorScheme: $userColorScheme
                     )

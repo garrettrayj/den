@@ -14,6 +14,7 @@ struct SettingsSheetForm: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
 
@@ -47,6 +48,11 @@ struct SettingsSheetForm: View {
             Section {
                 Toggle(isOn: $backgroundRefreshEnabled) {
                     Text("In Background", comment: "Refresh option toggle label.")
+                }
+                
+                VStack(alignment: .leading) {
+                    FeedRefreshTimeoutLabel(feedRefreshTimeout: $feedRefreshTimeout)
+                    FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
                 }
             } header: {
                 Text("Refresh", comment: "Setting section header.")

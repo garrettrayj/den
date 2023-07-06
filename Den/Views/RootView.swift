@@ -20,6 +20,7 @@ struct RootView: View {
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var detailPanel: DetailPanel?
+    @Binding var feedRefreshTimeout: Double
 
     @State private var showCrashMessage = false
 
@@ -32,7 +33,8 @@ struct RootView: View {
                     appProfileID: $appProfileID,
                     activeProfile: $activeProfile,
                     userColorScheme: $userColorScheme,
-                    detailPanel: $detailPanel
+                    detailPanel: $detailPanel,
+                    feedRefreshTimeout: $feedRefreshTimeout
                 )
             } else {
                 LoadProfile(

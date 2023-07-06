@@ -16,7 +16,7 @@ struct Welcome: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             profile.nameText.font(.largeTitle)
             Text("\(profile.feedsArray.count) Feeds")
         }

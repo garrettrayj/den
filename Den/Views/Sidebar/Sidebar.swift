@@ -19,6 +19,7 @@ struct Sidebar: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var searchQuery: String
     @Binding var showingSettings: Bool
+    @Binding var feedRefreshTimeout: Double
 
     @State private var searchInput = ""
 
@@ -58,7 +59,8 @@ struct Sidebar: View {
             SidebarToolbar(
                 profile: profile,
                 showingSettings: $showingSettings,
-                detailPanel: $detailPanel
+                detailPanel: $detailPanel,
+                feedRefreshTimeout: $feedRefreshTimeout
             )
         }
     }

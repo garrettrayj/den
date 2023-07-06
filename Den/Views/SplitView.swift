@@ -26,6 +26,7 @@ struct SplitView: View {
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var detailPanel: DetailPanel?
+    @Binding var feedRefreshTimeout: Double
 
     @State private var searchQuery: String = ""
     @State private var showSubscribe = false
@@ -42,7 +43,8 @@ struct SplitView: View {
                 profile: profile,
                 detailPanel: $detailPanel,
                 searchQuery: $searchQuery,
-                showingSettings: $showingSettings
+                showingSettings: $showingSettings,
+                feedRefreshTimeout: $feedRefreshTimeout
             )
             #if os(macOS)
             .navigationSplitViewColumnWidth(220)
@@ -50,7 +52,7 @@ struct SplitView: View {
             .navigationSplitViewColumnWidth(260 * dynamicTypeSize.layoutScalingFactor)
             .refreshable {
                 if let profile = activeProfile, networkMonitor.isConnected {
-                    await refreshManager.refresh(profile: profile)
+                    await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
                 }
             }
             #endif
@@ -96,6 +98,7 @@ struct SplitView: View {
         .sheet(isPresented: $showSubscribe) {
             NewFeedSheet(
                 activeProfile: $activeProfile,
+                feedRefreshTimeout: $feedRefreshTimeout,
                 initialPageObjectID: $subscribePageObjectID,
                 initialURLString: $subscribeURLString
             )
@@ -119,6 +122,7 @@ struct SplitView: View {
                 activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                feedRefreshTimeout: $feedRefreshTimeout,
                 useSystemBrowser: $useSystemBrowser,
                 userColorScheme: $userColorScheme
             )

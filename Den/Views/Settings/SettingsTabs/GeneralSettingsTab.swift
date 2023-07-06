@@ -13,6 +13,7 @@ import SwiftUI
 struct GeneralSettingsTab: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
+    @Binding var feedRefreshTimeout: Double
     @Binding var userColorScheme: UserColorScheme
 
     var body: some View {
@@ -21,6 +22,12 @@ struct GeneralSettingsTab: View {
                 UserColorSchemePicker(userColorScheme: $userColorScheme).pickerStyle(.segmented)
             } header: {
                 Text("Appearance", comment: "Settings section header.")
+            }
+            
+            Section {
+                FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
+            } header: {
+                Text("Refresh", comment: "Settings section header.")
             }
 
             Section {

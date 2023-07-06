@@ -17,15 +17,17 @@ final class FeedUpdateOperation: AsynchronousOperation {
     let feedURL: URL
     let feedObjectID: NSManagedObjectID
     let updateMeta: Bool
+    let timeout: TimeInterval
 
     private var feedTask: URLSessionTask?
     private var webpageTask: URLSessionTask?
     private var start: Double?
 
-    init(feedURL: URL, feedObjectID: NSManagedObjectID, updateMeta: Bool) {
+    init(feedURL: URL, feedObjectID: NSManagedObjectID, updateMeta: Bool, timeout: TimeInterval) {
         self.feedURL = feedURL
         self.feedObjectID = feedObjectID
         self.updateMeta = updateMeta
+        self.timeout = timeout
         super.init()
     }
 
@@ -38,7 +40,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
     // swiftlint:disable function_body_length
     override func main() {
         start = CFAbsoluteTimeGetCurrent()
-        let feedRequest = URLRequest(url: feedURL, timeoutInterval: AppDefaults.requestTimeout)
+        let feedRequest = URLRequest(url: feedURL, timeoutInterval: timeout)
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
 
         feedTask = URLSession.shared.dataTask(
@@ -93,7 +95,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
                     }
 
                     if self.updateMeta, let webpage = feedData.link {
-                        let webpageRequest = URLRequest(url: webpage, timeoutInterval: AppDefaults.requestTimeout)
+                        let webpageRequest = URLRequest(url: webpage, timeoutInterval: self.timeout)
                         self.webpageTask = URLSession.shared.dataTask(
                             with: webpageRequest,
                             completionHandler: { [self] data, _, _ in

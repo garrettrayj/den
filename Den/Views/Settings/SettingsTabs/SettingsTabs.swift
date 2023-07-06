@@ -18,6 +18,7 @@ struct SettingsTabs: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool
+    @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
     @Binding var detailPanel: DetailPanel?
@@ -27,6 +28,7 @@ struct SettingsTabs: View {
             GeneralSettingsTab(
                 activeProfile: $activeProfile,
                 appProfileID: $appProfileID,
+                feedRefreshTimeout: $feedRefreshTimeout,
                 userColorScheme: $userColorScheme
             )
             .tabItem {
@@ -38,6 +40,6 @@ struct SettingsTabs: View {
                 Label("Profiles", systemImage: "person.crop.circle")
             }
         }
-        .frame(minWidth: 480, minHeight: 300)
+        .frame(minWidth: 480, minHeight: 400)
     }
 }

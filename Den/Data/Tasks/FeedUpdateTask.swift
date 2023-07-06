@@ -18,6 +18,7 @@ struct FeedUpdateTask {
     let pageObjectID: NSManagedObjectID?
     let url: URL
     let updateMetadata: Bool
+    let timeout: TimeInterval
 
     // swiftlint:disable cyclomatic_complexity function_body_length
     func execute() async {
@@ -25,7 +26,7 @@ struct FeedUpdateTask {
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
         var webpageMetadata: WebpageMetadata?
 
-        let feedRequest = URLRequest(url: url, timeoutInterval: AppDefaults.requestTimeout)
+        let feedRequest = URLRequest(url: url, timeoutInterval: timeout)
 
         if let (data, _) = try? await URLSession.shared.data(for: feedRequest) {
             parserResult = FeedParser(data: data).parse()
@@ -36,7 +37,7 @@ struct FeedUpdateTask {
                 case .success(let parsedFeed) = parserResult,
                 let webpage = parsedFeed.webpage
             {
-                let webpageRequest = URLRequest(url: webpage, timeoutInterval: AppDefaults.requestTimeout)
+                let webpageRequest = URLRequest(url: webpage, timeoutInterval: timeout)
                 if let (webpageData, _) = try? await URLSession.shared.data(for: webpageRequest) {
                     webpageMetadata = WebpageMetadata.from(webpage: webpage, data: webpageData)
                 }

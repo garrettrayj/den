@@ -17,6 +17,7 @@ struct NewFeedSheet: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var activeProfile: Profile?
+    @Binding var feedRefreshTimeout: Double
     @Binding var initialPageObjectID: NSManagedObjectID?
     @Binding var initialURLString: String
 
@@ -85,7 +86,7 @@ struct NewFeedSheet: View {
         Button {
             Task {
                 addFeed()
-                await refreshManager.refresh(feed: newFeed!)
+                await refreshManager.refresh(feed: newFeed!, timeout: feedRefreshTimeout)
                 newFeed?.objectWillChange.send()
                 dismiss()
             }
