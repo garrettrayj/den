@@ -49,7 +49,7 @@ struct SettingsSheetForm: View {
                 Toggle(isOn: $backgroundRefreshEnabled) {
                     Text("In Background", comment: "Refresh option toggle label.")
                 }
-                
+
                 VStack(alignment: .leading) {
                     FeedRefreshTimeoutLabel(feedRefreshTimeout: $feedRefreshTimeout)
                     FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)

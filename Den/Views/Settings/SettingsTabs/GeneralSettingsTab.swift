@@ -23,7 +23,7 @@ struct GeneralSettingsTab: View {
             } header: {
                 Text("Appearance", comment: "Settings section header.")
             }
-            
+
             Section {
                 FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
             } header: {

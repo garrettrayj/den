@@ -12,7 +12,7 @@ import SwiftUI
 
 struct FeedRefreshTimeoutLabel: View {
     @Binding var feedRefreshTimeout: Double
-    
+
     var duration: Duration {
         .init(secondsComponent: Int64(feedRefreshTimeout), attosecondsComponent: 0)
     }
@@ -25,4 +25,3 @@ struct FeedRefreshTimeoutLabel: View {
         .lineLimit(1)
     }
 }
-
