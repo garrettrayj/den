@@ -79,7 +79,7 @@ struct FeedSettingsForm: View {
                 }
                 .symbolRenderingMode(.multicolor)
             }
-            .buttonStyle(.borderless)
+            .buttonStyle(.plain)
             .accessibilityIdentifier("delete-button")
         } footer: {
             if let validationMessage = webAddressValidationMessage {

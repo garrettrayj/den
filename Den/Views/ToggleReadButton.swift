@@ -20,7 +20,7 @@ struct ToggleReadButton: View {
         if toggling {
             ProgressView()
                 #if os(macOS)
-                .scaleEffect(0.5)
+                .scaleEffect(0.6)
                 .frame(width: 36)
                 #else
                 .frame(width: 26)
@@ -37,7 +37,7 @@ struct ToggleReadButton: View {
                     Label {
                         Text("Mark All Unread", comment: "Button label.")
                     } icon: {
-                        Image(systemName: "checkmark.circle.badge.xmark")
+                        Image(systemName: "checkmark.circle.badge.xmark.fill")
                     }
                 } else {
                     Label {

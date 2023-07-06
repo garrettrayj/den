@@ -17,8 +17,6 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
         profile.feedsArray.count
     }
 
-    let height: CGFloat = 6
-
     func makeBody(configuration: Configuration) -> some View {
         if let fractionCompleted = configuration.fractionCompleted {
             VStack {
@@ -31,16 +29,15 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                 } else {
                     Text("Analyzing…", comment: "Trending analysis in-progress label.")
                 }
-
+                
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         Capsule().fill(.quaternary)
                         Capsule()
                             .fill(.tint)
-                            .frame(width: (CGFloat(configuration.fractionCompleted ?? 0) > 1 ? 1 :
-                                            CGFloat(configuration.fractionCompleted ?? 0)) * geometry.size.width)
+                            .frame(width: fractionCompleted * geometry.size.width)
                     }
-                    .frame(height: height)
+                    .frame(height: 6)
                 }.frame(width: 132)
             }
             .font(.caption)

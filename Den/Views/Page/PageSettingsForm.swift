@@ -51,7 +51,7 @@ struct PageSettingsForm: View {
                     Image(systemName: page.wrappedSymbol)
                 }
             }
-            .buttonStyle(.borderless)
+            .buttonStyle(.plain)
             .navigationDestination(isPresented: $showIconPicker) {
                 IconPicker(symbolID: $page.wrappedSymbol)
             }
@@ -73,7 +73,7 @@ struct PageSettingsForm: View {
                 }
                 .symbolRenderingMode(.multicolor)
             }
-            .buttonStyle(.borderless)
+            .buttonStyle(.plain)
             .accessibilityIdentifier("delete-button")
         }
     }
