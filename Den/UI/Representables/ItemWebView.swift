@@ -65,28 +65,32 @@ struct ItemWebView {
         }
 
         func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-            cancellable = DispatchQueue.main.schedule(
-                after: .init(.now() + 0.1),
-                interval: 1
-            ) {
-                webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, _) in
-                    if complete != nil {
-                        webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, _) in
-
-                            guard let height = height as? CGFloat else { return }
-                            webView.frame.size.height = height
-                            webView.removeConstraints(webView.constraints)
-                            webView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                        })
-                    }
-                })
-
-                webView.invalidateIntrinsicContentSize()
+            self.refreshViewHeight(webView)
+            
+            // Schedule recurring height refresh to catch adjustments to content/page caused by JavaScript
+            if cancellable == nil {
+                cancellable = DispatchQueue.main.schedule(
+                    after: .init(.now() + 1),
+                    interval: 1
+                ) {
+                    self.refreshViewHeight(webView)
+                }
             }
         }
-
-        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-            cancellable?.cancel()
+        
+        func refreshViewHeight(_ webView: WKWebView) {
+            webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, _) in
+                if complete != nil {
+                    webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, _) in
+                        guard let height = height as? CGFloat else { return }
+                        webView.frame.size.height = height
+                        webView.removeConstraints(webView.constraints)
+                        webView.heightAnchor.constraint(equalToConstant: height).isActive = true
+                    })
+                }
+            })
+            
+            webView.invalidateIntrinsicContentSize()
         }
 
         func webView(
