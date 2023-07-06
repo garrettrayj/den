@@ -1,5 +1,5 @@
 //
-//  SafariUtility.swift
+//  BuiltInBrowser.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/10/22.
@@ -11,8 +11,8 @@
 import SafariServices
 import SwiftUI
 
-struct SafariUtility {
-    static func openLink(
+struct BuiltInBrowser {
+    static func openURL(
         url: URL,
         controlTintColor: Color,
         readerMode: Bool? = nil
@@ -35,6 +35,8 @@ struct SafariUtility {
 
         rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)
+        #else
+        assertionFailure("Built-in web browser is not available on macOS.")
         #endif
     }
 }

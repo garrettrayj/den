@@ -13,18 +13,18 @@ import SwiftUI
 import WebKit
 
 struct ItemWebView {
+    @Environment(\.openURL) private var openURL
     @Environment(\.profileTint) private var profileTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     var html: String?
     var title: String
     var baseURL: URL?
-    var tint: Color?
 
     @State var webView = CustomWebView(frame: .zero, configuration: WKWebViewConfiguration())
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(profileTint: profileTint, useSystemBrowser: useSystemBrowser)
+        Coordinator(profileTint: profileTint, useSystemBrowser: useSystemBrowser, openURL: openURL)
     }
 
     private func loadContent() {
@@ -54,12 +54,14 @@ struct ItemWebView {
     class Coordinator: NSObject, WKNavigationDelegate {
         let profileTint: Color
         let useSystemBrowser: Bool
+        let openURL: OpenURLAction
 
         var cancellable: Cancellable?
 
-        init(profileTint: Color, useSystemBrowser: Bool) {
+        init(profileTint: Color, useSystemBrowser: Bool, openURL: OpenURLAction) {
             self.profileTint = profileTint
             self.useSystemBrowser = useSystemBrowser
+            self.openURL = openURL
         }
 
         func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
@@ -100,12 +102,12 @@ struct ItemWebView {
                 decisionHandler(.cancel)
 
                 #if os(macOS)
-                NSWorkspace.shared.open(url)
+                openURL(url)
                 #else
                 if useSystemBrowser {
-                    UIApplication.shared.open(url)
+                    openURL(url)
                 } else {
-                    SafariUtility.openLink(url: url, controlTintColor: profileTint)
+                    BuiltInBrowser.openURL(url: url, controlTintColor: profileTint)
                 }
                 #endif
             } else {

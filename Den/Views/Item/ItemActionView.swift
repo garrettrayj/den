@@ -76,7 +76,7 @@ struct ItemActionView<Content: View>: View {
         if useSystemBrowser {
             openURL(url)
         } else {
-            SafariUtility.openLink(
+            BuiltInBrowser.openURL(
                 url: url,
                 controlTintColor: profileTint,
                 readerMode: feed.readerMode
