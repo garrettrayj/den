@@ -20,7 +20,7 @@ struct ToggleReadButton: View {
         if toggling {
             ProgressView()
                 #if os(macOS)
-                .scaleEffect(0.6)
+                .scaleEffect(0.5)
                 .frame(width: 36)
                 #else
                 .frame(width: 26)
