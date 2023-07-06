@@ -23,7 +23,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
             .background(isEnabled && hovering ? .thickMaterial : .regularMaterial)
-            .background(.tertiary)
+            .background(isEnabled && hovering ? .tertiary : .quaternary)
             .onHover { hovered in
                 hovering = hovered
             }
