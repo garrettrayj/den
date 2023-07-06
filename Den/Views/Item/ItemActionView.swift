@@ -56,12 +56,7 @@ struct ItemActionView<Content: View>: View {
                     OpenInBrowserLabel()
                 }
                 Button {
-                    #if os(macOS)
-                    NSPasteboard.general.prepareForNewContents()
-                    NSPasteboard.general.setString(link.absoluteString, forType: .string)
-                    #else
-                    UIPasteboard.general.string = link.absoluteString
-                    #endif
+                    PasteboardUtility.copyURL(url: link)
                 } label: {
                     Label {
                         Text("Copy Link", comment: "Context menu button label.")
