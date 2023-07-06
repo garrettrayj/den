@@ -76,9 +76,8 @@ final class FeedUpdateOperation: AsynchronousOperation {
                     )
 
                     // Cleanup old items
-                    let maxItems = feed.wrappedItemLimit + AppDefaults.extraItemLimit
-                    if feedData.itemsArray.count > maxItems {
-                        feedData.itemsArray.suffix(from: maxItems).forEach { item in
+                    if feedData.itemsArray.count > feed.extendedItemLimit {
+                        feedData.itemsArray.suffix(from: feed.extendedItemLimit).forEach { item in
                             feedData.removeFromItems(item)
                             context.delete(item)
                         }

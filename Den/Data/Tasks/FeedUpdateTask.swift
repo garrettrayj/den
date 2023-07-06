@@ -72,7 +72,7 @@ struct FeedUpdateTask {
             }
 
             // Cleanup old items
-            let maxItems = feed.wrappedItemLimit + AppDefaults.extraItemLimit
+            let maxItems = feed.extendedItemLimit
             if feedData.itemsArray.count > maxItems {
                 feedData.itemsArray.suffix(from: maxItems).forEach { item in
                     feedData.removeFromItems(item)

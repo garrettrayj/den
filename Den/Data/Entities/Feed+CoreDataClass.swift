@@ -34,6 +34,10 @@ public class Feed: NSManagedObject {
             itemLimit = Int16(newValue)
         }
     }
+    
+    public var extendedItemLimit: Int {
+        wrappedItemLimit + 16
+    }
 
     public var feedData: FeedData? {
         if let unwrappedValues = self.value(forKey: "feedData") as? [FeedData] {
@@ -86,7 +90,7 @@ public class Feed: NSManagedObject {
         feed.wrappedPreviewStyle = .compressed
         feed.hideImages = false
         feed.hideTeasers = false
-        feed.itemLimit = Int16(AppDefaults.defaultItemLimit)
+        feed.itemLimit = 6
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1
