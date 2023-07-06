@@ -41,20 +41,19 @@ struct FeedToolbar: ToolbarContent {
         }
         #else
         ToolbarItem {
-            FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
-        }
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            FeedStatus(feed: feed, unreadCount: items.unread().count)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                feed.objectWillChange.send()
+            Menu {
+                ToggleReadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    feed.objectWillChange.send()
+                }
+                FilterReadButton(hideRead: $hideRead)
+                FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
+            } label: {
+                Label {
+                    Text("Menu", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "ellipsis.circle")
+                }
             }
         }
         #endif

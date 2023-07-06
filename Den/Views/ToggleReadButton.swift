@@ -37,7 +37,7 @@ struct ToggleReadButton: View {
                     Label {
                         Text("Mark All Unread", comment: "Button label.")
                     } icon: {
-                        Image(systemName: "checkmark.circle.fill")
+                        Image(systemName: "checkmark.circle.badge.xmark")
                     }
                 } else {
                     Label {

@@ -14,24 +14,11 @@ struct ItemToolbar: ToolbarContent {
     @ObservedObject var item: Item
 
     var body: some ToolbarContent {
-        #if os(macOS)
         ToolbarItem {
             if let url = item.link {
                 OpenInBrowserButton(url: url)
             }
         }
-        #else
-        ToolbarItem(placement: .bottomBar) {
-            Spacer()
-        }
-        ToolbarItem(placement: .bottomBar) {
-            if let url = item.link {
-                OpenInBrowserButton(url: url, readerMode: item.feedData?.feed?.readerMode)
-
-            }
-        }
-        #endif
-
         ToolbarItem {
             if let url = item.link {
                 ShareButton(url: url)

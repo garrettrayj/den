@@ -33,26 +33,24 @@ struct InboxToolbar: ToolbarContent {
                     page.objectWillChange.send()
                 }
             }
-
         }
         #else
         ToolbarItem {
-            NewFeedButton()
-        }
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            CommonStatus(profile: profile)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                profile.objectWillChange.send()
-                for page in profile.pagesArray {
-                    page.objectWillChange.send()
+            Menu {
+                ToggleReadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    profile.objectWillChange.send()
+                    for page in profile.pagesArray {
+                        page.objectWillChange.send()
+                    }
+                }
+                FilterReadButton(hideRead: $hideRead)
+                NewFeedButton()
+            } label: {
+                Label {
+                    Text("Menu", comment: "Menu button label.")
+                } icon: {
+                    Image(systemName: "ellipsis.circle")
                 }
             }
         }

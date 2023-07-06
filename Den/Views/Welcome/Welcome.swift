@@ -18,9 +18,7 @@ struct Welcome: View {
     var body: some View {
         VStack {
             profile.nameText.font(.largeTitle)
-        }
-        .toolbar {
-            WelcomeToolbar(profile: profile)
+            Text("\(profile.feedsArray.count) Feeds")
         }
         .multilineTextAlignment(.center)
         .foregroundColor(isEnabled ? .primary : .secondary)

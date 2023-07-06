@@ -43,10 +43,8 @@ struct SidebarStatus: View {
             } else if refreshing {
                 ProgressView(progress)
                     .progressViewStyle(BottomBarProgressViewStyle(profile: profile))
-            } else {
-                if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
-                    RelativeRefreshedDate(date: refreshedDate)
-                }
+            } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+                RelativeRefreshedDate(date: refreshedDate)
             }
         }
         .font(.caption)

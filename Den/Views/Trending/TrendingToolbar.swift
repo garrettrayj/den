@@ -38,18 +38,19 @@ struct TrendingToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            CommonStatus(profile: profile)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            ToggleReadButton(unreadCount: unreadCount) {
-                await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
-                profile.objectWillChange.send()
+        ToolbarItem {
+            Menu {
+                ToggleReadButton(unreadCount: unreadCount) {
+                    await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                    profile.objectWillChange.send()
+                }
+                FilterReadButton(hideRead: $hideRead)
+            } label: {
+                Label {
+                    Text("Menu", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "ellipsis.circle")
+                }
             }
         }
         #endif

@@ -39,21 +39,22 @@ struct TrendToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            CommonStatus(profile: profile)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                trend.objectWillChange.send()
-                profile.objectWillChange.send()
-                if hideRead {
-                    dismiss()
+        ToolbarItem {
+            Menu {
+                ToggleReadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    trend.objectWillChange.send()
+                    profile.objectWillChange.send()
+                    if hideRead {
+                        dismiss()
+                    }
+                }
+                FilterReadButton(hideRead: $hideRead)
+            } label: {
+                Label {
+                    Text("Menu", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "ellipsis.circle")
                 }
             }
         }

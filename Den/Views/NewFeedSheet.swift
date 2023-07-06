@@ -30,7 +30,7 @@ struct NewFeedSheet: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Text("New Feed").font(.largeTitle.weight(.semibold))
+            Text("Add a New Feed", comment: "Sheet title.").font(.title.weight(.semibold))
 
             if let profile = activeProfile, targetPage != nil {
                 VStack(spacing: 8) {

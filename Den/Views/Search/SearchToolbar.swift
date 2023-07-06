@@ -19,28 +19,28 @@ struct SearchToolbar: ToolbarContent {
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
-        #if os(iOS)
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
+        #if os(macOS)
+        ToolbarItem {
             SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
         }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
+        ToolbarItem {
+            FilterReadButton(hideRead: $hideRead)
+        }
+        ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
         #else
-        ToolbarItem {
-            SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
-        }
-        ToolbarItem {
+        ToolbarItem(placement: .bottomBar) {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem {
+        ToolbarItem(placement: .bottomBar) { Spacer() }
+        ToolbarItem(placement: .bottomBar) {
+            SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
+        }
+        ToolbarItem(placement: .bottomBar) { Spacer() }
+        ToolbarItem(placement: .bottomBar) {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }

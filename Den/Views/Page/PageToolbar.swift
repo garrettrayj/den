@@ -46,33 +46,23 @@ struct PageToolbar: ToolbarContent {
         #else
         ToolbarItem {
             Menu {
+                ToggleReadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                    page.objectWillChange.send()
+                    page.feedsArray.forEach { $0.objectWillChange.send() }
+                }
+                FilterReadButton(hideRead: $hideRead)
                 PageLayoutPicker(pageLayout: $pageLayout)
-                NewFeedButton(page: page)
                 PageSettingsButton(showingSettings: $showingSettings)
+                NewFeedButton(page: page)
             } label: {
                 Label {
-                    Text("Page Menu", comment: "Menu label.")
+                    Text("Menu", comment: "Button label.")
                 } icon: {
                     Image(systemName: "ellipsis.circle")
                 }
             }
             .accessibilityIdentifier("page-menu")
-        }
-
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            CommonStatus(profile: profile)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
-                page.objectWillChange.send()
-                page.feedsArray.forEach { $0.objectWillChange.send() }
-            }
         }
         #endif
     }
