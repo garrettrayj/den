@@ -12,7 +12,7 @@ import SwiftUI
 
 struct FeedTitleLabel: View {
     @ObservedObject var feed: Feed
-    
+
     var body: some View {
         Label {
             feed.titleText

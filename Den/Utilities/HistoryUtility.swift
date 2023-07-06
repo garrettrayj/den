@@ -73,7 +73,7 @@ struct HistoryUtility {
             }
         }
     }
-    
+
     static func removeExpired(context: NSManagedObjectContext, profile: Profile) throws {
         if profile.historyRetention == 0 {
             Logger.main.info("""

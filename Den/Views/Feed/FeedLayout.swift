@@ -33,7 +33,7 @@ struct FeedLayout: View {
                             FeedHero(heroImage: heroImage)
                             Divider()
                         }
-                        
+
                         if items.isEmpty {
                             FeedEmpty()
                         } else if items.unread().isEmpty && hideRead {
@@ -96,7 +96,7 @@ struct FeedLayout: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("open-feed-address-button")
-                    
+
                     Button {
                         PasteboardUtility.copyURL(url: url)
                         feedAddressCopied = true

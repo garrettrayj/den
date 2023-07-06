@@ -30,7 +30,7 @@ enum PageIconCategory: String, CaseIterable {
     case shapes = "shapes"
     case arrows = "arrows"
     case math = "math"
-    
+
     var labelIcon: String {
         switch self {
         case .uncategorized:
@@ -73,7 +73,7 @@ enum PageIconCategory: String, CaseIterable {
             "x.squareroot"
         }
     }
-    
+
     var labelText: Text {
         switch self {
         case .uncategorized:
@@ -117,4 +117,3 @@ enum PageIconCategory: String, CaseIterable {
         }
     }
 }
-

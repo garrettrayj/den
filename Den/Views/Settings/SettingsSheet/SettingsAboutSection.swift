@@ -22,7 +22,7 @@ struct SettingsAboutSection: View {
             } label: {
                 Text("Version", comment: "Version info label.")
             }
-            
+
             LabeledContent {
                 Button {
                     guard let url = URL(string: "https://den.io") else { return }

@@ -41,4 +41,3 @@ struct SettingsTabs: View {
         .frame(minWidth: 480, minHeight: 300)
     }
 }
-

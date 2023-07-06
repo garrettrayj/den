@@ -26,11 +26,11 @@ struct FeedUpdateTask {
         var webpageMetadata: WebpageMetadata?
 
         let feedRequest = URLRequest(url: url, timeoutInterval: AppDefaults.requestTimeout)
-        
+
         if let (data, _) = try? await URLSession.shared.data(for: feedRequest) {
             parserResult = FeedParser(data: data).parse()
         }
-        
+
         if updateMetadata {
             if
                 case .success(let parsedFeed) = parserResult,
@@ -96,7 +96,7 @@ struct FeedUpdateTask {
                 try context.save()
                 let duration = CFAbsoluteTimeGetCurrent() - start
                 Logger.ingest.info("Feed updated in \(duration) seconds: \(feed.wrappedTitle, privacy: .public)")
-                
+
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(
                         name: .feedRefreshed,

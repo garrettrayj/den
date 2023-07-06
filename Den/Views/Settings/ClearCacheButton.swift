@@ -13,9 +13,9 @@ import SDWebImage
 
 struct ClearCacheButton: View {
     @Binding var activeProfile: Profile?
-    
+
     @State private var cacheSize: Int64 = 0
-    
+
     let cacheSizeFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = .useAll

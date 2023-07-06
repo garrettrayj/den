@@ -15,7 +15,7 @@ enum WebAddressValidationMessage {
     case mustNotContainSpaces
     case mustBeginWithHTTP
     case parseError
-    
+
     var text: Text {
         switch self {
         case .cannotBeBlank:
@@ -41,4 +41,3 @@ enum WebAddressValidationMessage {
         }
     }
 }
-

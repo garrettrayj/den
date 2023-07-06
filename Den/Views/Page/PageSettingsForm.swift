@@ -55,7 +55,7 @@ struct PageSettingsForm: View {
             .navigationDestination(isPresented: $showIconPicker) {
                 IconPicker(symbolID: $page.wrappedSymbol)
             }
-            
+
             Button(role: .destructive) {
                 Task {
                     page.feedsArray.forEach { feed in
@@ -117,7 +117,7 @@ struct PageSettingsForm: View {
         for reverseIndex in stride(from: revisedItems.count - 1, through: 0, by: -1) {
             revisedItems[reverseIndex].userOrder = Int16(reverseIndex)
         }
-        
+
         page.objectWillChange.send()
     }
 }

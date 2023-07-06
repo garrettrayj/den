@@ -20,7 +20,7 @@ struct IconPicker: View {
             }
         }
     }
-    
+
     #if os(macOS)
     let gridItem = GridItem(.adaptive(minimum: 32), spacing: 4, alignment: .center)
     #else
@@ -40,7 +40,7 @@ struct IconPicker: View {
                         Image(systemName: symbol.id)
                             .imageScale(.large)
                             .foregroundColor(symbol.id == symbolID ? .accentColor : .primary)
-                        
+
                         if symbol.id == symbolID {
                             RoundedRectangle(cornerRadius: 4).strokeBorder(Color.accentColor, lineWidth: 2)
                         }

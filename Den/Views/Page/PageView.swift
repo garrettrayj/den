@@ -57,7 +57,7 @@ struct PageView: View {
         ) {
             PageSettingsSheet(page: page)
         }
-        
+
     }
 
     init(
@@ -74,7 +74,7 @@ struct PageView: View {
         self.page = page
         self.profile = profile
     }
-    
+
     @ViewBuilder
     private func pageLayoutView(items: FetchedResults<Item>) -> some View {
         if page.feedsArray.isEmpty {

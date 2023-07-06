@@ -93,7 +93,7 @@ struct DenApp: App {
             }
         }
         #endif
-        
+
         #if os(macOS)
         Settings {
             if let profile = activeProfile {

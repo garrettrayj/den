@@ -16,7 +16,7 @@ struct ItemThumbnailImage: View {
     @Environment(\.displayScale) private var displayScale
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    
+
     let url: URL
     let isRead: Bool
     let aspectRatio: CGFloat?

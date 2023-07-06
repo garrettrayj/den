@@ -2,4 +2,6 @@
 "CFBundleDisplayName" = "Den";
 /* Bundle name */
 "CFBundleName" = "Den";
+/* Copyright (human-readable) */
+"NSHumanReadableCopyright" = "Copyright © 2023 Garrett Johnson";
 "OPML Document" = "OPML Document";

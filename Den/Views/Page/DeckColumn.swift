@@ -28,7 +28,7 @@ struct DeckColumn: View {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
                         .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5))
-                        
+
                 } else if items.isEmpty {
                     FeedEmpty()
                         .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5))

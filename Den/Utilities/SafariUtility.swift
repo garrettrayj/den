@@ -26,7 +26,7 @@ struct SafariUtility {
         else {
             return
         }
-        
+
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = readerMode ?? false
 

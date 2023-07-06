@@ -14,7 +14,7 @@ extension Bundle {
     var name: String {
         return infoDictionary!["CFBundleName"] as? String ?? "NA"
     }
-    
+
     var releaseVersionNumber: String {
         return infoDictionary?["CFBundleShortVersionString"] as? String ?? "NA"
     }
@@ -22,7 +22,7 @@ extension Bundle {
     var buildVersionNumber: String {
         return infoDictionary?["CFBundleVersion"] as? String ?? "0"
     }
-    
+
     var copyright: String {
         return infoDictionary?["NSHumanReadableCopyright"] as? String ?? "NA"
     }

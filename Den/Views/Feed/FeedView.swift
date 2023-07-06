@@ -18,7 +18,7 @@ struct FeedView: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    
+
     @State private var showingSettings: Bool = false
 
     var body: some View {

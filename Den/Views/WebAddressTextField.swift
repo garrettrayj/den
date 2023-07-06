@@ -16,7 +16,7 @@ struct WebAddressTextField: View {
     @Binding var webAddress: String
 
     @State var fieldText: String
-    
+
     var body: some View {
         // Note: Prompt text contains an invisible separator after "https" to prevent link coloring
         TextField(
@@ -38,7 +38,7 @@ struct WebAddressTextField: View {
             validate()
         }
     }
-    
+
     private func validate() {
         validationMessage = nil
         isValid = nil
@@ -68,7 +68,7 @@ struct WebAddressTextField: View {
         webAddress = fieldText
         isValid = true
     }
-    
+
     private func failValidation(message: WebAddressValidationMessage) {
         isValid = false
         validationMessage = message

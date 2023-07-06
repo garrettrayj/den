@@ -13,13 +13,13 @@ import SwiftUI
 struct FeedSettingsForm: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.useSystemBrowser) private var useSystemBrowser
-    
+
     @ObservedObject var feed: Feed
-    
+
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
     @State private var showHideTeaserOption: Bool = false
-    
+
     var body: some View {
         Form {
             generalSection
@@ -27,7 +27,7 @@ struct FeedSettingsForm: View {
         }
         .formStyle(.grouped)
     }
-    
+
     private var generalSection: some View {
         Section {
             TextField(text: $feed.wrappedTitle, prompt: Text("Untitled", comment: "Text field prompt.")) {
@@ -37,7 +37,7 @@ struct FeedSettingsForm: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-            
+
             LabeledContent {
                 WebAddressTextField(
                     isValid: $webAddressIsValid,
@@ -65,7 +65,7 @@ struct FeedSettingsForm: View {
                     self.feed.userOrder = (newPage?.feedsUserOrderMax ?? 0) + 1
                 }
             }
-            
+
             Button(role: .destructive) {
                 if let feedData = feed.feedData {
                     viewContext.delete(feedData)
@@ -92,7 +92,7 @@ struct FeedSettingsForm: View {
             }
         }
     }
-    
+
     private var previewsSection: some View {
         Section {
             Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
@@ -160,7 +160,7 @@ struct FeedSettingsForm: View {
                 ).font(.footnote)
             }
             #endif
-            
+
             if feed.changedValues().keys.contains("itemLimit") {
                 Text(
                     "Latest limit change will be applied on next refresh.",

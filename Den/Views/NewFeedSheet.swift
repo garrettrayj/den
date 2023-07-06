@@ -11,7 +11,6 @@
 import CoreData
 import SwiftUI
 
-
 struct NewFeedSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -43,7 +42,7 @@ struct NewFeedSheet: View {
                     .multilineTextAlignment(.center)
                     .textFieldStyle(.roundedBorder)
                     .padding(.horizontal)
-                    
+
                     if let validationMessage = webAddressValidationMessage {
                         validationMessage.text.font(.caption)
                     } else {

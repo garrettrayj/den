@@ -54,9 +54,9 @@ struct ItemWebView {
     class Coordinator: NSObject, WKNavigationDelegate {
         let profileTint: Color
         let useSystemBrowser: Bool
-        
+
         var cancellable: Cancellable?
-        
+
         init(profileTint: Color, useSystemBrowser: Bool) {
             self.profileTint = profileTint
             self.useSystemBrowser = useSystemBrowser

@@ -21,7 +21,7 @@ struct SearchToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            SearchStatus(unreadCount: items.unread().count, totalCount: items.count, query: query)
+            SearchStatus(resultCount: items.count, query: query)
         }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead)

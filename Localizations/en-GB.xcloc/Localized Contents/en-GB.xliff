@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Den/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5160n"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -13,6 +13,10 @@
         <source>Den</source>
         <note>Bundle name</note>
       </trans-unit>
+      <trans-unit id="NSHumanReadableCopyright" xml:space="preserve">
+        <source>Copyright © 2023 Garrett Johnson</source>
+        <note>Copyright (human-readable)</note>
+      </trans-unit>
       <trans-unit id="OPML Document" xml:space="preserve">
         <source>OPML Document</source>
         <note/>
@@ -21,12 +25,16 @@
   </file>
   <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en-GB" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5160n"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
     </header>
     <body>
       <trans-unit id="%@ Feeds" xml:space="preserve">
         <source>%@ Feeds</source>
         <note>Feed count (zero/plural).</note>
+      </trans-unit>
+      <trans-unit id="%@ Help" xml:space="preserve">
+        <source>%@ Help</source>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="%@ Records" xml:space="preserve">
         <source>%@ Records</source>
@@ -56,9 +64,13 @@
         <source>A critical error occurred. Restart to try again.</source>
         <note>Crash view guidance.</note>
       </trans-unit>
-      <trans-unit id="About" xml:space="preserve">
-        <source>About</source>
+      <trans-unit id="About %@" xml:space="preserve">
+        <source>About %@</source>
         <note>Settings section header.</note>
+      </trans-unit>
+      <trans-unit id="Add a New Feed" xml:space="preserve">
+        <source>Add a New Feed</source>
+        <note>Sheet title.</note>
       </trans-unit>
       <trans-unit id="Add by Web Address" xml:space="preserve">
         <source>Add by Web Address</source>
@@ -136,10 +148,6 @@
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
         <note>Button label.</note>
-      </trans-unit>
-      <trans-unit id="Changed web address will be applied next refresh." xml:space="preserve">
-        <source>Changed web address will be applied next refresh.</source>
-        <note>Web address changed notice.</note>
       </trans-unit>
       <trans-unit id="Checking for New Items…" xml:space="preserve">
         <source>Checking for New Items…</source>
@@ -222,6 +230,10 @@
         <source>Delete Profile?</source>
         <note>Alert title.</note>
       </trans-unit>
+      <trans-unit id="Den" xml:space="preserve">
+        <source>Den</source>
+        <note>Placeholder profile name.</note>
+      </trans-unit>
       <trans-unit id="Devices" xml:space="preserve">
         <source>Devices</source>
         <note>Page icon category label.</note>
@@ -250,17 +262,14 @@
         <source>Export</source>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Extra" xml:space="preserve">
-        <source>Extra</source>
-        <note>Extra item tag.</note>
-      </trans-unit>
       <trans-unit id="Feed Deleted" xml:space="preserve">
         <source>Feed Deleted</source>
         <note>Object removed message.</note>
       </trans-unit>
       <trans-unit id="Feed Empty" xml:space="preserve">
         <source>Feed Empty</source>
-        <note>Feed unavailable message.</note>
+        <note>Feed unavailable message.
+   No items message.</note>
       </trans-unit>
       <trans-unit id="Feed Settings" xml:space="preserve">
         <source>Feed Settings</source>
@@ -274,10 +283,6 @@
       <trans-unit id="Feeds" xml:space="preserve">
         <source>Feeds</source>
         <note>Page settings section header.</note>
-      </trans-unit>
-      <trans-unit id="Filter Read" xml:space="preserve">
-        <source>Filter Read</source>
-        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Forever" xml:space="preserve">
         <source>Forever</source>
@@ -323,6 +328,10 @@
         <source>Hide Images</source>
         <note>Toggle label.</note>
       </trans-unit>
+      <trans-unit id="Hide Read Items" xml:space="preserve">
+        <source>Hide Read Items</source>
+        <note>Button label.</note>
+      </trans-unit>
       <trans-unit id="Hide Teasers" xml:space="preserve">
         <source>Hide Teasers</source>
         <note>Toggle label.</note>
@@ -363,14 +372,6 @@
         <source>Keyboard</source>
         <note>Page icon category label.</note>
       </trans-unit>
-      <trans-unit id="Latest" xml:space="preserve">
-        <source>Latest</source>
-        <note>Feed view section header.</note>
-      </trans-unit>
-      <trans-unit id="Latest Limit: %@" xml:space="preserve">
-        <source>Latest Limit: %@</source>
-        <note>Stepper label.</note>
-      </trans-unit>
       <trans-unit id="Latest limit change will be applied on next refresh." xml:space="preserve">
         <source>Latest limit change will be applied on next refresh.</source>
         <note>Latest item limit changed notice.</note>
@@ -407,13 +408,14 @@
         <source>Media</source>
         <note>Page icon category label.</note>
       </trans-unit>
+      <trans-unit id="Menu" xml:space="preserve">
+        <source>Menu</source>
+        <note>Button label.
+   Menu button label.</note>
+      </trans-unit>
       <trans-unit id="Mint" xml:space="preserve">
         <source>Mint</source>
         <note>Tint color option.</note>
-      </trans-unit>
-      <trans-unit id="More" xml:space="preserve">
-        <source>More</source>
-        <note>Feed view section header.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
@@ -541,10 +543,6 @@
         <source>Page Layout</source>
         <note>Picker label.</note>
       </trans-unit>
-      <trans-unit id="Page Menu" xml:space="preserve">
-        <source>Page Menu</source>
-        <note>Menu label.</note>
-      </trans-unit>
       <trans-unit id="Page Settings" xml:space="preserve">
         <source>Page Settings</source>
         <note>Button label.
@@ -566,6 +564,10 @@
       <trans-unit id="Preview Image" xml:space="preserve">
         <source>Preview Image</source>
         <note>Accessibility label.</note>
+      </trans-unit>
+      <trans-unit id="Preview Limit: %@" xml:space="preserve">
+        <source>Preview Limit: %@</source>
+        <note>Stepper label.</note>
       </trans-unit>
       <trans-unit id="Previews" xml:space="preserve">
         <source>Previews</source>
@@ -647,6 +649,10 @@
         <source>Share…</source>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Show Read Items" xml:space="preserve">
+        <source>Show Read Items</source>
+        <note>Button label.</note>
+      </trans-unit>
       <trans-unit id="Showcase" xml:space="preserve">
         <source>Showcase</source>
         <note>Page layout option label.</note>
@@ -716,22 +722,16 @@
         <source>Untitled</source>
         <note>Default feed title.
    Default page name.
-   Default profile name.
    Default trend title.
    Text field prompt.</note>
       </trans-unit>
       <trans-unit id="Updated %@" xml:space="preserve">
         <source>Updated %@</source>
-        <note>Updated date display for times greater than one minute ago.
-   Updated date status message.</note>
+        <note>Updated date display for times greater than one minute ago.</note>
       </trans-unit>
       <trans-unit id="Updated Just Now" xml:space="preserve">
         <source>Updated Just Now</source>
         <note>Updated date display for times less than one minute ago.</note>
-      </trans-unit>
-      <trans-unit id="Updated at %@" xml:space="preserve">
-        <source>Updated at %@</source>
-        <note>Updated time status message.</note>
       </trans-unit>
       <trans-unit id="Use System Web Browser" xml:space="preserve">
         <source>Use System Web Browser</source>
@@ -739,15 +739,19 @@
       </trans-unit>
       <trans-unit id="Version" xml:space="preserve">
         <source>Version</source>
-        <note>Info label.</note>
+        <note>Version info label.</note>
       </trans-unit>
       <trans-unit id="Weather" xml:space="preserve">
         <source>Weather</source>
         <note>Page icon category label.</note>
       </trans-unit>
+      <trans-unit id="Web address change will be applied on next refresh." xml:space="preserve">
+        <source>Web address change will be applied on next refresh.</source>
+        <note>Web address changed notice.</note>
+      </trans-unit>
       <trans-unit id="Website" xml:space="preserve">
         <source>Website</source>
-        <note>Button label.</note>
+        <note>Website info label.</note>
       </trans-unit>
       <trans-unit id="Yellow" xml:space="preserve">
         <source>Yellow</source>
@@ -761,7 +765,7 @@
   </file>
   <file original="WebExtension/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5160n"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">

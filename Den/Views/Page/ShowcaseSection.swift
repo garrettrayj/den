@@ -17,7 +17,7 @@ struct ShowcaseSection: View {
     let items: [Item]
     let geometry: GeometryProxy
     let hideRead: Bool
-    
+
     var body: some View {
         Section {
             VStack(alignment: .leading, spacing: 12) {

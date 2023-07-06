@@ -12,7 +12,7 @@ import SwiftUI
 
 struct FeedSettingsButton: View {
     @ObservedObject var feed: Feed
-    
+
     @Binding var showingSettings: Bool
 
     var body: some View {

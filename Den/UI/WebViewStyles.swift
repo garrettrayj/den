@@ -12,9 +12,9 @@ import Foundation
 
 final class WebViewStyles {
     var css: String = ""
-    
+
     static let shared = WebViewStyles()
-    
+
     init() {
         if
             let path = Bundle.main.path(forResource: "WebView", ofType: "css"),
