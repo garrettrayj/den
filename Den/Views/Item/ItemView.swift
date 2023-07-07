@@ -72,7 +72,7 @@ struct ItemView: View {
 
                         if item.body != nil || item.summary != nil {
                             ItemWebView(
-                                html: item.body ?? item.summary!,
+                                content: item.body ?? item.summary!,
                                 title: item.wrappedTitle,
                                 baseURL: item.link
                             )

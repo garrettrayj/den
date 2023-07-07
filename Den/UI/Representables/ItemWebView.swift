@@ -17,30 +17,34 @@ struct ItemWebView {
     @Environment(\.profileTint) private var profileTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
-    var html: String?
+    var content: String
     var title: String
     var baseURL: URL?
-
-    @State var webView = CustomWebView(frame: .zero, configuration: WKWebViewConfiguration())
 
     func makeCoordinator() -> Coordinator {
         Coordinator(profileTint: profileTint, useSystemBrowser: useSystemBrowser, openURL: openURL)
     }
 
-    private func loadContent() {
-        guard let html = html else { return }
-
-        let htmlStart = """
-        <html><head>\
-        <title>\(title)</title>\
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no\">\
-        <style>\(getStylesString())</style>
-        </head><body>
+    var html: String {
         """
-        let htmlEnd = "</body></html>"
-        let htmlString = "\(htmlStart)\(html)\(htmlEnd)"
-
-        webView.loadHTMLString(htmlString, baseURL: baseURL)
+        <html>
+        <head>
+        <title>\(title)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no" />
+        <style>\(getStylesString())</style>
+        <script>
+            var observer = new MutationObserver(function(mutations) {
+                console.log('MUTATED');
+                window.webkit.messageHandlers.mutated.postMessage({ data: "mutated" });
+            });
+            observer.observe(document, { attributes: true, childList: true, subtree: true });
+        </script>
+        </head>
+        <body>
+        \(content)
+        </body>
+        </html>
+        """
     }
 
     private func getStylesString() -> String {
@@ -51,34 +55,19 @@ struct ItemWebView {
         return css
     }
 
-    class Coordinator: NSObject, WKNavigationDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         let profileTint: Color
         let useSystemBrowser: Bool
         let openURL: OpenURLAction
-
-        var cancellable: Cancellable?
 
         init(profileTint: Color, useSystemBrowser: Bool, openURL: OpenURLAction) {
             self.profileTint = profileTint
             self.useSystemBrowser = useSystemBrowser
             self.openURL = openURL
         }
-
-        func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-            self.refreshViewHeight(webView)
-            
-            // Schedule recurring height refresh to catch adjustments to content/page caused by JavaScript
-            if cancellable == nil {
-                cancellable = DispatchQueue.main.schedule(
-                    after: .init(.now() + 1),
-                    interval: 1
-                ) {
-                    self.refreshViewHeight(webView)
-                }
-            }
-        }
         
         func refreshViewHeight(_ webView: WKWebView) {
+            #if os(macOS)
             webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, _) in
                 if complete != nil {
                     webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, _) in
@@ -89,8 +78,15 @@ struct ItemWebView {
                     })
                 }
             })
-            
-            webView.invalidateIntrinsicContentSize()
+            #else
+            DispatchQueue.main.async {
+                webView.invalidateIntrinsicContentSize()
+            }
+            #endif
+        }
+        
+        func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+            self.refreshViewHeight(webView)
         }
 
         func webView(
@@ -118,21 +114,17 @@ struct ItemWebView {
                 decisionHandler(.allow)
             }
         }
-
-        deinit {
-            cancellable?.cancel()
+        
+        func userContentController(
+            _ userContentController: WKUserContentController,
+            didReceive message: WKScriptMessage
+        ) {
+            guard let webView = message.webView else { return }
+            refreshViewHeight(webView)
         }
     }
 
     class CustomWebView: WKWebView {
-        override init(frame: CGRect, configuration: WKWebViewConfiguration) {
-            super.init(frame: frame, configuration: configuration)
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
         #if os(macOS)
         override func scrollWheel(with theEvent: NSEvent) {
             nextResponder?.scrollWheel(with: theEvent)
@@ -151,6 +143,11 @@ struct ItemWebView {
 #if os(iOS)
 extension ItemWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController.add(context.coordinator, name: "mutated")
+        
+        let webView = CustomWebView(frame: .zero, configuration: configuration)
+        
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
@@ -158,27 +155,34 @@ extension ItemWebView: UIViewRepresentable {
         if #available(macCatalyst 16.4, iOS 16.4, *) {
             webView.isInspectable = true
         }
+        
+        webView.loadHTMLString(html, baseURL: baseURL)
 
         return webView
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        loadContent()
+        context.coordinator.refreshViewHeight(webView)
         return
     }
 }
 #else
 extension ItemWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController.add(context.coordinator, name: "mutated")
+        
+        let webView = CustomWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         webView.isInspectable = true
         webView.setValue(false, forKey: "drawsBackground")
+        
+        webView.loadHTMLString(html, baseURL: baseURL)
 
         return webView
     }
 
     func updateNSView(_ webView: WKWebView, context: Context) {
-        loadContent()
         return
     }
 }
