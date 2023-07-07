@@ -145,7 +145,7 @@ extension ItemWebView: UIViewRepresentable {
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
         webView.isOpaque = false
-        if #available(macCatalyst 16.4, iOS 16.4, *) {
+        if #available(iOS 16.4, *) {
             webView.isInspectable = true
         }
         

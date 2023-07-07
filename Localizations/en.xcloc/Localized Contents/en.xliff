@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Den/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5195k"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -29,7 +29,7 @@
   </file>
   <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5195k"/>
     </header>
     <body>
       <trans-unit id="%@ Feeds" xml:space="preserve">
@@ -384,6 +384,11 @@
         <source>Green</source>
         <target>Green</target>
         <note>Tint color option.</note>
+      </trans-unit>
+      <trans-unit id="HTTP Timeout: %@" xml:space="preserve">
+        <source>HTTP Timeout: %@</source>
+        <target>HTTP Timeout: %@</target>
+        <note>Slider label.</note>
       </trans-unit>
       <trans-unit id="Health" xml:space="preserve">
         <source>Health</source>
@@ -747,11 +752,6 @@
         <target>Refresh to get content.</target>
         <note>Feed unavailable message.</note>
       </trans-unit>
-      <trans-unit id="Request Timeout: %@" xml:space="preserve">
-        <source>Request Timeout: %@</source>
-        <target>Request Timeout: %@</target>
-        <note>Slider label.</note>
-      </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
         <target>Reset</target>
@@ -948,7 +948,7 @@
   </file>
   <file original="WebExtension/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5195k"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">

@@ -2,7 +2,7 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Den/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5195k"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">
@@ -25,7 +25,7 @@
   </file>
   <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en-GB" datatype="plaintext">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5195k"/>
     </header>
     <body>
       <trans-unit id="%@ Feeds" xml:space="preserve">
@@ -311,6 +311,10 @@
       <trans-unit id="Green" xml:space="preserve">
         <source>Green</source>
         <note>Tint color option.</note>
+      </trans-unit>
+      <trans-unit id="HTTP Timeout: %@" xml:space="preserve">
+        <source>HTTP Timeout: %@</source>
+        <note>Slider label.</note>
       </trans-unit>
       <trans-unit id="Health" xml:space="preserve">
         <source>Health</source>
@@ -603,10 +607,6 @@
         <source>Refresh to get content.</source>
         <note>Feed unavailable message.</note>
       </trans-unit>
-      <trans-unit id="Request Timeout: %@" xml:space="preserve">
-        <source>Request Timeout: %@</source>
-        <note>Slider label.</note>
-      </trans-unit>
       <trans-unit id="Reset" xml:space="preserve">
         <source>Reset</source>
         <note>Button label.
@@ -766,7 +766,7 @@
   </file>
   <file original="WebExtension/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5161b"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5195k"/>
     </header>
     <body>
       <trans-unit id="CFBundleDisplayName" xml:space="preserve">

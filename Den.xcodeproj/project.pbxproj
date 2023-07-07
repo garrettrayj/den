@@ -59,7 +59,6 @@
 		6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF524EBE49A0008B296 /* JSONFeed+Extensions.swift */; };
 		6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCF724EBE4AD0008B296 /* RSSFeed+Extensions.swift */; };
 		6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6845BCFD24EC00DA0008B296 /* FeedIcon.png */; };
-		6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6845BD0D24EFB2AC0008B296 /* .gitignore */; };
 		6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6845BD4D24F6824C0008B296 /* CloudKit.framework */; };
 		6845BD5824F90F450008B296 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BD5724F90F450008B296 /* String+Extensions.swift */; };
 		684DF9FF24B64AC20023D6DB /* RSSFeedItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DF9FE24B64AC20023D6DB /* RSSFeedItem+Extensions.swift */; };
@@ -80,7 +79,6 @@
 		6860693B2831501B000068DE /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 686068EC2831501B000068DE /* popup.js */; };
 		6860694C2831533E000068DE /* Den Web Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Den Web Extension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6862A5902A23EEE4000CAB19 /* Localizable.strings */; };
-		6862A5982A2585B7000CAB19 /* Localizations in Resources */ = {isa = PBXBuildFile; fileRef = 6862A5972A2585B7000CAB19 /* Localizations */; };
 		6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */; };
 		6862A59E2A26D90F000CAB19 /* PagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A59D2A26D90F000CAB19 /* PagePicker.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
@@ -1172,7 +1170,6 @@
 				68C41306247263C700D1DC7B /* Frameworks */,
 				68C41307247263C700D1DC7B /* Resources */,
 				6860694F2831533E000068DE /* Embed Foundation Extensions */,
-				683573A1296378FB00843A8E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1281,10 +1278,8 @@
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
 				68BB256D2A48480A0082D890 /* WebViewMac.css in Resources */,
 				68F56B73287B4B26006EC915 /* WebView.css in Resources */,
-				6845BD0E24EFB2AC0008B296 /* .gitignore in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
 				6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */,
-				6862A5982A2585B7000CAB19 /* Localizations in Resources */,
 				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
 				6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */,
@@ -1293,27 +1288,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		683573A1296378FB00843A8E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#\"${SRCROOT}\"/lint.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6813FD042748DE1100EC88A5 /* Sources */ = {
