@@ -19,22 +19,22 @@ enum WebAddressValidationMessage {
     var text: Text {
         switch self {
         case .cannotBeBlank:
-            Text(
+            return Text(
                 "Address cannot be blank.",
                 comment: "URL field validation message."
             )
         case .mustNotContainSpaces:
-            Text(
+            return Text(
                 "Address must not contain spaces.",
                 comment: "URL field validation message."
             )
         case .mustBeginWithHTTP:
-            Text(
+            return Text(
                 "Address must begin with “http://” or “https://”.",
                 comment: "URL field validation message."
             )
         case .parseError:
-            Text(
+            return Text(
                 "Address could not be parsed.",
                 comment: "URL field validation message."
             )

@@ -34,86 +34,86 @@ enum PageIconCategory: String, CaseIterable {
     var labelIcon: String {
         switch self {
         case .uncategorized:
-            "square.grid.2x2"
+            return "square.grid.2x2"
         case .communication:
-            "bubble.left"
+            return "bubble.left"
         case .weather:
-            "cloud.sun"
+            return "cloud.sun"
         case .objectsandtools:
-            "folder"
+            return "folder"
         case .devices:
-            "desktopcomputer"
+            return "desktopcomputer"
         case .gaming:
-            "gamecontroller"
+            return "gamecontroller"
         case .connectivity:
-            "antenna.radiowaves.left.and.right"
+            return "antenna.radiowaves.left.and.right"
         case .transportation:
-            "car"
+            return "car"
         case .human:
-            "person.crop.circle"
+            return "person.crop.circle"
         case .nature:
-            "leaf"
+            return "leaf"
         case .editing:
-            "slider.horizontal.3"
+            return "slider.horizontal.3"
         case .media:
-            "playpause"
+            return "playpause"
         case .keyboard:
-            "keyboard"
+            return "keyboard"
         case .commerce:
-            "cart"
+            return "cart"
         case .time:
-            "timer"
+            return "timer"
         case .health:
-            "heart"
+            return "heart"
         case .shapes:
-            "square.on.circle"
+            return "square.on.circle"
         case .arrows:
-            "arrow.right"
+            return "arrow.right"
         case .math:
-            "x.squareroot"
+            return "x.squareroot"
         }
     }
 
     var labelText: Text {
         switch self {
         case .uncategorized:
-            Text("Uncategorized", comment: "Page icon category label.")
+            return Text("Uncategorized", comment: "Page icon category label.")
         case .communication:
-            Text("Communication", comment: "Page icon category label.")
+            return Text("Communication", comment: "Page icon category label.")
         case .weather:
-            Text("Weather", comment: "Page icon category label.")
+            return Text("Weather", comment: "Page icon category label.")
         case .objectsandtools:
-            Text("Objects and Tools", comment: "Page icon category label.")
+            return Text("Objects and Tools", comment: "Page icon category label.")
         case .devices:
-            Text("Devices", comment: "Page icon category label.")
+            return Text("Devices", comment: "Page icon category label.")
         case .gaming:
-            Text("Gaming", comment: "Page icon category label.")
+            return Text("Gaming", comment: "Page icon category label.")
         case .connectivity:
-            Text("Connectivity", comment: "Page icon category label.")
+            return Text("Connectivity", comment: "Page icon category label.")
         case .transportation:
-            Text("Transportation", comment: "Page icon category label.")
+            return Text("Transportation", comment: "Page icon category label.")
         case .human:
-            Text("Human", comment: "Page icon category label.")
+            return Text("Human", comment: "Page icon category label.")
         case .nature:
-            Text("Nature", comment: "Page icon category label.")
+            return Text("Nature", comment: "Page icon category label.")
         case .editing:
-            Text("Editing", comment: "Page icon category label.")
+            return Text("Editing", comment: "Page icon category label.")
         case .media:
-            Text("Media", comment: "Page icon category label.")
+            return Text("Media", comment: "Page icon category label.")
         case .keyboard:
-            Text("Keyboard", comment: "Page icon category label.")
+            return Text("Keyboard", comment: "Page icon category label.")
         case .commerce:
-            Text("Commerce", comment: "Page icon category label.")
+            return Text("Commerce", comment: "Page icon category label.")
         case .time:
-            Text("Time", comment: "Page icon category label.")
+            return Text("Time", comment: "Page icon category label.")
         case .health:
-            Text("Health", comment: "Page icon category label.")
+            return Text("Health", comment: "Page icon category label.")
         case .shapes:
-            Text("Shapes", comment: "Page icon category label.")
+            return Text("Shapes", comment: "Page icon category label.")
         case .arrows:
-            Text("Arrows", comment: "Page icon category label.")
+            return Text("Arrows", comment: "Page icon category label.")
         case .math:
-            Text("Math", comment: "Page icon category label.")
+            return Text("Math", comment: "Page icon category label.")
         }
     }
 }
