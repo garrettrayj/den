@@ -34,7 +34,6 @@ struct ItemWebView {
         <style>\(getStylesString())</style>
         <script>
             var observer = new MutationObserver(function(mutations) {
-                console.log('MUTATED');
                 window.webkit.messageHandlers.mutated.postMessage({ data: "mutated" });
             });
             observer.observe(document, { attributes: true, childList: true, subtree: true });
@@ -79,7 +78,7 @@ struct ItemWebView {
                 }
             })
             #else
-            DispatchQueue.main.async {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 webView.invalidateIntrinsicContentSize()
             }
             #endif
