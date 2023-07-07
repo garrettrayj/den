@@ -62,6 +62,7 @@ struct SplitView: View {
                 detailPanel: $detailPanel,
                 searchQuery: $searchQuery
             )
+            .disabled(refreshManager.refreshing)
         }
         .tint(profile.tintColor)
         .environment(\.profileTint, profile.tintColor ?? .accentColor)
