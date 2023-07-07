@@ -75,7 +75,7 @@ struct LoadProfile: View {
                 profile.managedObjectContext != nil
             {
                 activateProfile(profile)
-                Logger.main.info("\(profile.wrappedName) profile loaded")
+                Logger.main.info("Profile loaded: \(profile.id?.uuidString ?? "", privacy: .public)")
             } else {
                 let attempt = NumberFormatter.localizedString(
                     from: profileLoadAttempts as NSNumber,

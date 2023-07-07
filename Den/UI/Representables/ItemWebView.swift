@@ -33,10 +33,15 @@ struct ItemWebView {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no" />
         <style>\(getStylesString())</style>
         <script>
-            var observer = new MutationObserver(function(mutations) {
-                window.webkit.messageHandlers.mutated.postMessage({ data: "mutated" });
+            const observer = new ResizeObserver(entries => {
+                for (const entry of entries) {
+                    window.webkit.messageHandlers.resized.postMessage(document.body.scrollHeight);
+                }
             });
-            observer.observe(document, { attributes: true, childList: true, subtree: true });
+        
+            window.addEventListener("DOMContentLoaded", (event) => {
+                observer.observe(document.body);
+            });
         </script>
         </head>
         <body>
@@ -63,29 +68,6 @@ struct ItemWebView {
             self.profileTint = profileTint
             self.useSystemBrowser = useSystemBrowser
             self.openURL = openURL
-        }
-        
-        func refreshViewHeight(_ webView: WKWebView) {
-            #if os(macOS)
-            webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, _) in
-                if complete != nil {
-                    webView.evaluateJavaScript("document.body.scrollHeight", completionHandler: { (height, _) in
-                        guard let height = height as? CGFloat else { return }
-                        webView.frame.size.height = height
-                        webView.removeConstraints(webView.constraints)
-                        webView.heightAnchor.constraint(equalToConstant: height).isActive = true
-                    })
-                }
-            })
-            #else
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                webView.invalidateIntrinsicContentSize()
-            }
-            #endif
-        }
-        
-        func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-            self.refreshViewHeight(webView)
         }
 
         func webView(
@@ -118,8 +100,20 @@ struct ItemWebView {
             _ userContentController: WKUserContentController,
             didReceive message: WKScriptMessage
         ) {
-            guard let webView = message.webView else { return }
-            refreshViewHeight(webView)
+            guard
+                let webView = message.webView,
+                let height = message.body as? CGFloat
+            else { return }
+            
+            #if os(macOS)
+            webView.frame.size.height = height
+            webView.removeConstraints(webView.constraints)
+            webView.heightAnchor.constraint(equalToConstant: height).isActive = true
+            #else
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                webView.invalidateIntrinsicContentSize()
+            }
+            #endif
         }
     }
 
@@ -143,7 +137,7 @@ struct ItemWebView {
 extension ItemWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
-        configuration.userContentController.add(context.coordinator, name: "mutated")
+        configuration.userContentController.add(context.coordinator, name: "resized")
         
         let webView = CustomWebView(frame: .zero, configuration: configuration)
         
@@ -161,7 +155,6 @@ extension ItemWebView: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        context.coordinator.refreshViewHeight(webView)
         return
     }
 }
@@ -169,7 +162,7 @@ extension ItemWebView: UIViewRepresentable {
 extension ItemWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
-        configuration.userContentController.add(context.coordinator, name: "mutated")
+        configuration.userContentController.add(context.coordinator, name: "resized")
         
         let webView = CustomWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
