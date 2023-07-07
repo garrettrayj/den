@@ -19,7 +19,7 @@ struct FeedRefreshTimeoutLabel: View {
 
     var body: some View {
         Text(
-            "Request Timeout: \(duration.formatted(.time(pattern: .minuteSecond)))",
+            "HTTP Timeout: \(duration.formatted(.time(pattern: .minuteSecond)))",
             comment: "Slider label."
         )
         .lineLimit(1)
