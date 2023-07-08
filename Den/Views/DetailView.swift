@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct DetailView: View {
+    @EnvironmentObject private var refreshManager: RefreshManager
+    
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
@@ -38,15 +40,19 @@ struct DetailView: View {
                     )
                 }
             }
+            .disabled(refreshManager.refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
-                switch panel {
-                case .feed(let feed):
-                    FeedView(feed: feed)
-                case .item(let item):
-                    ItemView(item: item)
-                case .trend(let trend):
-                    TrendView(trend: trend)
+                ZStack {
+                    switch panel {
+                    case .feed(let feed):
+                        FeedView(feed: feed)
+                    case .item(let item):
+                        ItemView(item: item)
+                    case .trend(let trend):
+                        TrendView(trend: trend)
+                    }
                 }
+                .disabled(refreshManager.refreshing)
             }
             .task {
                 if let navigationData {

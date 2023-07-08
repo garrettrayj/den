@@ -60,7 +60,6 @@ struct SplitView: View {
                 profile: profile,
                 detailPanel: $detailPanel
             )
-            .disabled(refreshManager.refreshing)
         }
         .tint(profile.tintColor)
         .environment(\.profileTint, profile.tintColor ?? .accentColor)
