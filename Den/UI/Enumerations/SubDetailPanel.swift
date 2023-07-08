@@ -14,18 +14,18 @@ enum SubDetailPanel: Hashable {
     case feed(Feed)
     case item(Item)
     case trend(Trend)
-    
+
     var panelID: String {
         switch self {
-        case .feed(_):
+        case .feed:
             return "feed"
-        case .item(_):
+        case .item:
             return "item"
-        case .trend(_):
+        case .trend:
             return "trend"
         }
     }
-    
+
     var objectID: String? {
         switch self {
         case .feed(let feed):
@@ -36,7 +36,7 @@ enum SubDetailPanel: Hashable {
             return trend.id?.uuidString
         }
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case panelID
         case objectID
@@ -48,19 +48,19 @@ extension SubDetailPanel: Decodable {
         case objectIDMissing
         case decodeFailed
     }
-    
+
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let panelID = try values.decode(String.self, forKey: .panelID)
-        
+
         guard values.contains(.objectID) else {
             throw DecodeError.objectIDMissing
         }
-        
+
         let objectID = try values.decode(String.self, forKey: .objectID)
         let predicate = NSPredicate(format: "id = %@", objectID)
         let context = PersistenceController.shared.container.viewContext
-        
+
         if panelID == "feed" {
             let request = Feed.fetchRequest()
             request.predicate = predicate
@@ -83,7 +83,7 @@ extension SubDetailPanel: Decodable {
                 return
             }
         }
-        
+
         throw DecodeError.decodeFailed
     }
 }

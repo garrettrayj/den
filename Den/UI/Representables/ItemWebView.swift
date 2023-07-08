@@ -38,7 +38,7 @@ struct ItemWebView {
                     window.webkit.messageHandlers.resized.postMessage(document.body.scrollHeight);
                 }
             });
-        
+
             window.addEventListener("DOMContentLoaded", (event) => {
                 observer.observe(document.body);
             });
@@ -95,7 +95,7 @@ struct ItemWebView {
                 decisionHandler(.allow)
             }
         }
-        
+
         func userContentController(
             _ userContentController: WKUserContentController,
             didReceive message: WKScriptMessage
@@ -104,7 +104,7 @@ struct ItemWebView {
                 let webView = message.webView,
                 let height = message.body as? CGFloat
             else { return }
-            
+
             #if os(macOS)
             webView.frame.size.height = height
             webView.removeConstraints(webView.constraints)
@@ -138,9 +138,9 @@ extension ItemWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.add(context.coordinator, name: "resized")
-        
+
         let webView = CustomWebView(frame: .zero, configuration: configuration)
-        
+
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.bounces = false
         webView.navigationDelegate = context.coordinator
@@ -148,7 +148,7 @@ extension ItemWebView: UIViewRepresentable {
         if #available(iOS 16.4, *) {
             webView.isInspectable = true
         }
-        
+
         webView.loadHTMLString(html, baseURL: baseURL)
 
         return webView
@@ -163,12 +163,12 @@ extension ItemWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.add(context.coordinator, name: "resized")
-        
+
         let webView = CustomWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         webView.isInspectable = true
         webView.setValue(false, forKey: "drawsBackground")
-        
+
         webView.loadHTMLString(html, baseURL: baseURL)
 
         return webView

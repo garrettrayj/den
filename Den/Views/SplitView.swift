@@ -26,15 +26,15 @@ struct SplitView: View {
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
-    
+
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    
+
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
     @SceneStorage("ShowingSettings") private var showingSettings: Bool = false
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
-    
+
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {

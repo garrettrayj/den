@@ -54,8 +54,7 @@ struct WebAddressTextField: View {
         }
 
         if trimmedInput.prefix(7).lowercased() != "http://"
-            && trimmedInput.prefix(8).lowercased() != "https://"
-        {
+            && trimmedInput.prefix(8).lowercased() != "https://" {
             self.failValidation(.mustBeginWithHTTP)
             return
         }

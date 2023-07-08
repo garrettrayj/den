@@ -40,7 +40,7 @@ public class Trend: NSManagedObject {
             hideRead ? item.read == false : true
         }
     }
-    
+
     public var profile: Profile? {
         let values = value(forKey: "profile") as? [Profile]
         if let unwrappedValues = values {

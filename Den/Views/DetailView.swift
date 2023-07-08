@@ -14,11 +14,11 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
-    
+
     @StateObject private var navigationStore = NavigationStore()
-    
+
     @SceneStorage("Navigation") private var navigationData: Data?
-    
+
     var body: some View {
         NavigationStack(path: $navigationStore.path) {
             ZStack {

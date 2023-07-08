@@ -32,7 +32,7 @@ struct DenApp: App {
     @StateObject private var refreshManager = RefreshManager()
 
     @State private var activeProfile: Profile?
-    
+
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {

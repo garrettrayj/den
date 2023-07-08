@@ -15,7 +15,7 @@ struct SearchLayout: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    
+
     let query: String
     let items: FetchedResults<Item>
 

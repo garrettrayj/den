@@ -16,7 +16,7 @@ enum DetailPanel: Hashable {
     case inbox
     case trending
     case page(Page)
-    
+
     var panelID: String {
         switch self {
         case .welcome:
@@ -27,27 +27,27 @@ enum DetailPanel: Hashable {
             return "inbox"
         case .trending:
             return "trending"
-        case .page(_):
+        case .page:
             return "page"
         }
     }
-    
+
     var pageID: String? {
         if case .page(let page) = self {
             return page.id?.uuidString
         }
-        
+
         return nil
     }
-    
+
     var searchQuery: String? {
         if case .search(let query) = self {
             return query
         }
-        
+
         return nil
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case panelID
         case pageID
@@ -60,7 +60,7 @@ extension DetailPanel: Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let panelID = try values.decode(String.self, forKey: .panelID)
         var detailPanel: DetailPanel = .welcome
-        
+
         if panelID == "inbox" {
             detailPanel = .inbox
         } else if panelID == "trending" {
@@ -70,16 +70,16 @@ extension DetailPanel: Decodable {
             detailPanel = .search(decodedSearchQuery)
         } else if panelID == "page" && values.contains(.pageID) {
             let decodedPageID = try values.decode(String.self, forKey: .pageID)
-            
+
             let request = Page.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedPageID)
-            
+
             let context = PersistenceController.shared.container.viewContext
             if let page = try? context.fetch(request).first {
                 detailPanel = .page(page)
             }
         }
-        
+
         self = detailPanel
     }
 }

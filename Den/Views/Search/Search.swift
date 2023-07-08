@@ -15,7 +15,7 @@ struct Search: View {
     @ObservedObject var profile: Profile
 
     let query: String
-    
+
     @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {

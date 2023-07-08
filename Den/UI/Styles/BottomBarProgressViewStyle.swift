@@ -29,7 +29,7 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
                 } else {
                     Text("Analyzing…", comment: "Trending analysis in-progress label.")
                 }
-                
+
                 GeometryReader { geometry in
                     ZStack(alignment: .leading) {
                         Capsule().fill(.quaternary)

@@ -118,8 +118,7 @@ struct NewFeedSheet: View {
             let pageID = initialPageID,
             let destinationPage = activeProfile?.pagesArray.first(where: { page in
                 page.id?.uuidString == pageID
-            })
-        {
+            }) {
             targetPage = destinationPage
         } else {
             targetPage = activeProfile?.pagesArray.first
