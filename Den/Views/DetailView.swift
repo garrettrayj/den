@@ -34,10 +34,7 @@ struct DetailView: View {
                 case .trending:
                     Trending(profile: profile)
                 case .page(let page):
-                    PageView(
-                        page: page,
-                        profile: profile
-                    )
+                    PageView(page: page, profile: profile)
                 }
             }
             .disabled(refreshManager.refreshing)
