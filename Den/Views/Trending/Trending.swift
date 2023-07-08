@@ -13,7 +13,7 @@ import SwiftUI
 struct Trending: View {
     @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var visibleTrends: [Trend] {
         if hideRead {

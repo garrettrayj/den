@@ -25,9 +25,8 @@ struct SplitView: View {
     @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
-    @Binding var detailPanel: DetailPanel?
     @Binding var feedRefreshTimeout: Double
-
+    
     @State private var searchQuery: String = ""
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
@@ -35,6 +34,8 @@ struct SplitView: View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var showingSettings: Bool = false
 
+    @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
+    
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {

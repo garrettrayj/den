@@ -21,7 +21,6 @@ struct SettingsTabs: View {
     @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
-    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
         TabView {
@@ -35,7 +34,7 @@ struct SettingsTabs: View {
                 Label("General", systemImage: "gearshape")
             }
 
-            ProfilesSettingsTab(activeProfile: $activeProfile, appProfileID: $appProfileID, detailPanel: $detailPanel)
+            ProfilesSettingsTab(activeProfile: $activeProfile, appProfileID: $appProfileID)
             .tabItem {
                 Label("Profiles", systemImage: "person.crop.circle")
             }

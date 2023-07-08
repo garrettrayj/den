@@ -15,9 +15,8 @@ struct FeedView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     @State private var showingSettings: Bool = false
 
@@ -25,7 +24,7 @@ struct FeedView: View {
         VStack {
             if feed.managedObjectContext == nil || feed.isDeleted {
                 SplashNote(title: Text("Feed Deleted", comment: "Object removed message."))
-            } else {
+            } else if let profile = feed.page?.profile {
                 WithItems(
                     scopeObject: feed,
                     includeExtras: true
@@ -56,7 +55,7 @@ struct FeedView: View {
                     if viewContext.hasChanges {
                         do {
                             try viewContext.save()
-                            profile.objectWillChange.send()
+                            feed.page?.profile?.objectWillChange.send()
                         } catch {
                             CrashUtility.handleCriticalError(error as NSError)
                         }

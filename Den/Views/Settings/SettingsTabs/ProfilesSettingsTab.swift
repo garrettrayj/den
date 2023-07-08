@@ -13,7 +13,6 @@ import SwiftUI
 struct ProfilesSettingsTab: View {
     @Binding var activeProfile: Profile?
     @Binding var appProfileID: String?
-    @Binding var detailPanel: DetailPanel?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>

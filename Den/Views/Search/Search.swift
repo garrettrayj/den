@@ -14,8 +14,9 @@ import SwiftUI
 struct Search: View {
     @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
     @Binding var query: String
+    
+    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         if query == "" {

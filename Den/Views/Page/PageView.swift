@@ -15,8 +15,7 @@ struct PageView: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
-
+    @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
 
     @State private var showingSettings: Bool = false
@@ -62,10 +61,8 @@ struct PageView: View {
 
     init(
         page: Page,
-        profile: Profile,
-        hideRead: Binding<Bool>
+        profile: Profile
     ) {
-        _hideRead = hideRead
         _pageLayout = AppStorage(
             wrappedValue: PageLayout.gadgets,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
