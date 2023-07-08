@@ -18,7 +18,7 @@ struct FeedSettingsForm: View {
 
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
-    @State private var showHideTeaserOption: Bool = false
+    @State private var showingHideTeaserOption: Bool = false
 
     var body: some View {
         Form {
@@ -115,15 +115,15 @@ struct FeedSettingsForm: View {
                     .labelsHidden()
             }
             .task {
-                showHideTeaserOption = feed.wrappedPreviewStyle == .expanded
+                showingHideTeaserOption = feed.wrappedPreviewStyle == .expanded
             }
             .onChange(of: feed.wrappedPreviewStyle) { _ in
                 withAnimation {
-                    showHideTeaserOption = feed.wrappedPreviewStyle == .expanded
+                    showingHideTeaserOption = feed.wrappedPreviewStyle == .expanded
                 }
             }
 
-            if showHideTeaserOption {
+            if showingHideTeaserOption {
                 Toggle(isOn: $feed.hideTeasers) {
                     Text("Hide Teasers", comment: "Toggle label.")
                 }

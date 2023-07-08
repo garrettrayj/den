@@ -15,7 +15,7 @@ struct PageSettingsForm: View {
 
     @ObservedObject var page: Page
 
-    @State private var showIconPicker: Bool = false
+    @State private var showingIconPicker: Bool = false
 
     var body: some View {
         Form {
@@ -42,7 +42,7 @@ struct PageSettingsForm: View {
             }
 
             Button {
-                showIconPicker = true
+                showingIconPicker = true
             } label: {
                 Label {
                     Text("Choose Icon", comment: "Button label.")
@@ -52,7 +52,7 @@ struct PageSettingsForm: View {
                 }
             }
             .buttonStyle(.plain)
-            .navigationDestination(isPresented: $showIconPicker) {
+            .navigationDestination(isPresented: $showingIconPicker) {
                 IconPicker(symbolID: $page.wrappedSymbol)
             }
 

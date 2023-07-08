@@ -16,8 +16,6 @@ struct PageSettingsSheet: View {
 
     @ObservedObject var page: Page
 
-    @State private var showingIconPicker: Bool = false
-
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
