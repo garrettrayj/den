@@ -20,14 +20,14 @@ struct URLDropTargetModifier: ViewModifier {
 
                 if provider.canLoadObject(ofClass: URL.self) {
                     _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
-                        SubscriptionUtility.showSubscribe(for: url?.absoluteString, page: page)
+                        NewFeedUtility.showSheet(for: url?.absoluteString, page: page)
                     })
                     return true
                 }
 
                 if provider.canLoadObject(ofClass: String.self) {
                     _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
-                        SubscriptionUtility.showSubscribe(for: droppedString, page: page)
+                        NewFeedUtility.showSheet(for: droppedString, page: page)
                     })
                     return true
                 }

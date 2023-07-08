@@ -67,9 +67,9 @@ struct SplitView: View {
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
             if case .page(let page) = detailPanel {
-                SubscriptionUtility.showSubscribe(for: url.absoluteString, page: page)
+                NewFeedUtility.showSheet(for: url.absoluteString, page: page)
             } else {
-                SubscriptionUtility.showSubscribe(for: url.absoluteString)
+                NewFeedUtility.showSheet(for: url.absoluteString)
             }
         }
         .modifier(

@@ -1,5 +1,5 @@
 //
-//  SubscriptionUtility.swift
+//  NewFeedUtility.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/12/21.
@@ -10,8 +10,8 @@
 
 import CoreData
 
-struct SubscriptionUtility {
-    static func showSubscribe(for urlString: String? = nil, page: Page? = nil) {
+struct NewFeedUtility {
+    static func showSheet(for urlString: String? = nil, page: Page? = nil) {
         var userInfo: [String: Any] = [:]
 
         if let urlString = urlString {

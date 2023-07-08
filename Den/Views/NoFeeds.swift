@@ -18,7 +18,7 @@ struct NoFeeds: View {
             Spacer()
             Text("No Feeds", comment: "Empty page header.").font(.title)
             Button {
-                SubscriptionUtility.showSubscribe(page: page)
+                NewFeedUtility.showSheet(page: page)
             } label: {
                 Label {
                     Text("Add by Web Address", comment: "Button label.")

@@ -15,7 +15,7 @@ struct NewFeedButton: View {
 
     var body: some View {
         Button {
-            SubscriptionUtility.showSubscribe(page: page)
+            NewFeedUtility.showSheet(page: page)
         } label: {
             Label {
                 Text("New Feed", comment: "Button label.")
