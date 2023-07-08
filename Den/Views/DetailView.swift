@@ -11,16 +11,16 @@
 import SwiftUI
 
 struct DetailView: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
-
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
     
-    @State private var path = NavigationPath()
+    @StateObject private var navigationStore = NavigationStore()
+    
+    @SceneStorage("Navigation") private var navigationData: Data?
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationStore.path) {
             ZStack {
                 switch detailPanel ?? .welcome {
                 case .welcome:
@@ -38,7 +38,6 @@ struct DetailView: View {
                     )
                 }
             }
-            .disabled(refreshManager.refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 switch panel {
                 case .feed(let feed):
@@ -49,9 +48,17 @@ struct DetailView: View {
                     TrendView(trend: trend)
                 }
             }
+            .task {
+                if let navigationData {
+                    navigationStore.restore(from: navigationData)
+                }
+                for await _ in navigationStore.$path.values {
+                    navigationData = navigationStore.encoded()
+                }
+            }
         }
         .onChange(of: detailPanel) { _ in
-            path.removeLast(path.count)
+            navigationStore.path.removeLast(navigationStore.path.count)
         }
     }
 }
