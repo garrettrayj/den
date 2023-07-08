@@ -20,8 +20,8 @@ struct SubscriptionUtility {
                 .replacingOccurrences(of: "den:", with: "")
         }
 
-        if let initialPageObjectID = page?.objectID {
-            userInfo["pageObjectID"] = initialPageObjectID
+        if let pageID = page?.id?.uuidString {
+            userInfo["pageID"] = pageID
         }
 
         DispatchQueue.main.async {

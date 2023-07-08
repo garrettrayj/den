@@ -27,11 +27,11 @@ struct SplitView: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
     
-    @State private var subscribePageObjectID: NSManagedObjectID?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
-    @SceneStorage("ShowSubscribe") private var showSubscribe: Bool = false
-    @SceneStorage("SubscribeURL") private var subscribeURLString: String = ""
+    @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
+    @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
+    @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
     @SceneStorage("ShowingSettings") private var showingSettings: Bool = false
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     
@@ -79,9 +79,9 @@ struct SplitView: View {
             detailPanel = nil
         }
         .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
-            subscribeURLString = notification.userInfo?["urlString"] as? String ?? ""
-            subscribePageObjectID = notification.userInfo?["pageObjectID"] as? NSManagedObjectID
-            showSubscribe = true
+            newFeedWebAddress = notification.userInfo?["urlString"] as? String ?? ""
+            newFeedPageID = notification.userInfo?["pageID"] as? String
+            showingNewFeedSheet = true
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
             #if os(iOS)
@@ -94,12 +94,12 @@ struct SplitView: View {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             #endif
         }
-        .sheet(isPresented: $showSubscribe) {
+        .sheet(isPresented: $showingNewFeedSheet) {
             NewFeedSheet(
                 activeProfile: $activeProfile,
-                feedRefreshTimeout: $feedRefreshTimeout,
-                initialPageObjectID: $subscribePageObjectID,
-                initialURLString: $subscribeURLString
+                webAddress: $newFeedWebAddress,
+                initialPageID: $newFeedPageID,
+                feedRefreshTimeout: $feedRefreshTimeout
             )
             .tint(profile.tintColor)
             .environmentObject(refreshManager)

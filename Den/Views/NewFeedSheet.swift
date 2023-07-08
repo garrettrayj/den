@@ -17,11 +17,10 @@ struct NewFeedSheet: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @Binding var activeProfile: Profile?
+    @Binding var webAddress: String
+    @Binding var initialPageID: String?
     @Binding var feedRefreshTimeout: Double
-    @Binding var initialPageObjectID: NSManagedObjectID?
-    @Binding var initialURLString: String
 
-    @State private var webAddress: String = ""
     @State private var targetPage: Page?
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
@@ -76,7 +75,7 @@ struct NewFeedSheet: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(24)
         .onAppear {
-            webAddress = initialURLString
+            webAddress = webAddress
             checkTargetPage()
         }
     }
@@ -116,15 +115,14 @@ struct NewFeedSheet: View {
 
     private func checkTargetPage() {
         if
-            let pageObjectID = initialPageObjectID,
+            let pageID = initialPageID,
             let destinationPage = activeProfile?.pagesArray.first(where: { page in
-                page.objectID == pageObjectID
-            }) {
-           targetPage = destinationPage
-        } else if
-            let firstPage = activeProfile?.pagesArray.first
+                page.id?.uuidString == pageID
+            })
         {
-            targetPage = firstPage
+            targetPage = destinationPage
+        } else {
+            targetPage = activeProfile?.pagesArray.first
         }
     }
 

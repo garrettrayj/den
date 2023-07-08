@@ -21,7 +21,7 @@ struct RootView: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
 
-    @State private var showCrashMessage = false
+    @State private var showingCrashMessage = false
 
     var body: some View {
         Group {
@@ -42,9 +42,9 @@ struct RootView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
-            showCrashMessage = true
+            showingCrashMessage = true
         }
-        .sheet(isPresented: $showCrashMessage) {
+        .sheet(isPresented: $showingCrashMessage) {
             CrashMessage().interactiveDismissDisabled()
         }
     }
