@@ -40,10 +40,9 @@ struct FeedSettingsForm: View {
 
             LabeledContent {
                 WebAddressTextField(
+                    text: $feed.urlString,
                     isValid: $webAddressIsValid,
-                    validationMessage: $webAddressValidationMessage,
-                    webAddress: $feed.urlString,
-                    fieldText: feed.urlString
+                    validationMessage: $webAddressValidationMessage
                 )
                 .labelsHidden()
                 .scaledToFit()

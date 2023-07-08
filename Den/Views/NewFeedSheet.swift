@@ -35,10 +35,9 @@ struct NewFeedSheet: View {
             if let profile = activeProfile, targetPage != nil {
                 VStack(spacing: 8) {
                     WebAddressTextField(
+                        text: $webAddress,
                         isValid: $webAddressIsValid,
-                        validationMessage: $webAddressValidationMessage,
-                        webAddress: $webAddress,
-                        fieldText: webAddress
+                        validationMessage: $webAddressValidationMessage
                     )
                     .multilineTextAlignment(.center)
                     .textFieldStyle(.roundedBorder)
@@ -131,7 +130,7 @@ struct NewFeedSheet: View {
 
     private func addFeed() {
         guard
-            let url = URL(string: webAddress),
+            let url = URL(string: webAddress.trimmingCharacters(in: .whitespacesAndNewlines)),
             let page = targetPage
         else { return }
 

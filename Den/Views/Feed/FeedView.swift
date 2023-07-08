@@ -18,7 +18,7 @@ struct FeedView: View {
 
     @AppStorage("HideRead") private var hideRead: Bool = false
 
-    @State private var showingSettings: Bool = false
+    @SceneStorage("ShowingFeedSettings") private var showingSettings: Bool = false
 
     var body: some View {
         VStack {

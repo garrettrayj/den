@@ -18,7 +18,7 @@ struct PageView: View {
     @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
 
-    @State private var showingSettings: Bool = false
+    @SceneStorage("ShowingPageSettings") private var showingSettings: Bool = false
 
     var body: some View {
         Group {

@@ -27,12 +27,12 @@ struct SplitView: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
     
-    @State private var showSubscribe = false
-    @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var showingSettings: Bool = false
-
+    
+    @SceneStorage("ShowSubscribe") private var showSubscribe: Bool = false
+    @SceneStorage("SubscribeURL") private var subscribeURLString: String = ""
+    @SceneStorage("ShowingSettings") private var showingSettings: Bool = false
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
