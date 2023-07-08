@@ -17,7 +17,6 @@ struct Sidebar: View {
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
-    @Binding var searchQuery: String
     @Binding var showingSettings: Bool
     @Binding var feedRefreshTimeout: Double
 
@@ -50,8 +49,12 @@ struct Sidebar: View {
             prompt: Text("Search", comment: "Search field prompt.")
         )
         .onSubmit(of: .search) {
-            searchQuery = searchInput
-            detailPanel = .search
+            detailPanel = .search(searchInput)
+        }
+        .task {
+            if case .search(let query) = detailPanel {
+                searchInput = query
+            }
         }
         .disabled(refreshManager.refreshing)
         .navigationTitle(profile.nameText)

@@ -14,7 +14,7 @@ import SwiftUI
 struct Search: View {
     @ObservedObject var profile: Profile
 
-    @Binding var query: String
+    let query: String
     
     @AppStorage("HideRead") private var hideRead: Bool = false
 
@@ -33,11 +33,11 @@ struct Search: View {
                 SearchLayout(
                     profile: profile,
                     hideRead: $hideRead,
-                    query: $query,
+                    query: query,
                     items: items
                 )
                 .toolbar {
-                    SearchToolbar(profile: profile, hideRead: $hideRead, query: $query, items: items)
+                    SearchToolbar(profile: profile, hideRead: $hideRead, query: query, items: items)
                 }
                 .navigationTitle(Text("Search", comment: "Navigation title."))
             }

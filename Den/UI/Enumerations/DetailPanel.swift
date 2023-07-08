@@ -12,7 +12,7 @@ import Foundation
 
 enum DetailPanel: Hashable {
     case welcome
-    case search
+    case search(String)
     case inbox
     case trending
     case page(Page)
@@ -40,9 +40,18 @@ enum DetailPanel: Hashable {
         return nil
     }
     
+    var searchQuery: String? {
+        if case .search(let query) = self {
+            return query
+        }
+        
+        return nil
+    }
+    
     enum CodingKeys: String, CodingKey {
         case panelID
         case pageID
+        case searchQuery
     }
 }
 
@@ -50,10 +59,16 @@ extension DetailPanel: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let panelID = try values.decode(String.self, forKey: .panelID)
-        
         var detailPanel: DetailPanel = .welcome
         
-        if values.contains(.pageID) {
+        if panelID == "inbox" {
+            detailPanel = .inbox
+        } else if panelID == "trending" {
+            detailPanel = .trending
+        } else if panelID == "search" && values.contains(.searchQuery) {
+            let decodedSearchQuery = try values.decode(String.self, forKey: .searchQuery)
+            detailPanel = .search(decodedSearchQuery)
+        } else if panelID == "page" && values.contains(.pageID) {
             let decodedPageID = try values.decode(String.self, forKey: .pageID)
             
             let request = Page.fetchRequest()
@@ -62,14 +77,6 @@ extension DetailPanel: Decodable {
             let context = PersistenceController.shared.container.viewContext
             if let page = try? context.fetch(request).first {
                 detailPanel = .page(page)
-            }
-        } else {
-            if panelID == "search" {
-                detailPanel = .search
-            } else if panelID == "inbox" {
-                detailPanel = .inbox
-            } else if panelID == "trending" {
-                detailPanel = .trending
             }
         }
         
@@ -82,6 +89,7 @@ extension DetailPanel: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(panelID, forKey: .panelID)
         try container.encode(pageID, forKey: .pageID)
+        try container.encode(searchQuery, forKey: .searchQuery)
     }
 }
 

@@ -27,7 +27,6 @@ struct SplitView: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
     
-    @State private var searchQuery: String = ""
     @State private var showSubscribe = false
     @State private var subscribeURLString: String = ""
     @State private var subscribePageObjectID: NSManagedObjectID?
@@ -43,7 +42,6 @@ struct SplitView: View {
             Sidebar(
                 profile: profile,
                 detailPanel: $detailPanel,
-                searchQuery: $searchQuery,
                 showingSettings: $showingSettings,
                 feedRefreshTimeout: $feedRefreshTimeout
             )
@@ -60,8 +58,7 @@ struct SplitView: View {
         } detail: {
             DetailView(
                 profile: profile,
-                detailPanel: $detailPanel,
-                searchQuery: $searchQuery
+                detailPanel: $detailPanel
             )
             .disabled(refreshManager.refreshing)
         }

@@ -14,8 +14,8 @@ struct SearchToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var query: String
-
+    
+    let query: String
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {

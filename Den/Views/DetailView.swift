@@ -16,7 +16,6 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
-    @Binding var searchQuery: String
     
     @State private var path = NavigationPath()
     
@@ -26,8 +25,8 @@ struct DetailView: View {
                 switch detailPanel ?? .welcome {
                 case .welcome:
                     Welcome(profile: profile)
-                case .search:
-                    Search(profile: profile, query: $searchQuery)
+                case .search(let query):
+                    Search(profile: profile, query: query)
                 case .inbox:
                     Inbox(profile: profile)
                 case .trending:
