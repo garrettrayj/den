@@ -30,7 +30,7 @@ struct DenApp: App {
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
 
-    @State private var activeProfile: Profile?
+    @State private var currentProfile: Profile?
     @State private var showingImporter: Bool = false
     @State private var showingExporter: Bool = false
 
@@ -40,7 +40,7 @@ struct DenApp: App {
         WindowGroup {
             RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                activeProfile: $activeProfile,
+                currentProfile: $currentProfile,
                 userColorScheme: $userColorScheme,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 showingImporter: $showingImporter,
@@ -54,16 +54,18 @@ struct DenApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {
                 NewFeedButton()
-                NewPageButton(activeProfile: $activeProfile)
+                NewPageButton(currentProfile: $currentProfile)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
             CommandGroup(after: .appSettings) {
-                ProfilePicker(activeProfile: $activeProfile)
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                if currentProfile?.managedObjectContext != nil {
+                    ProfilePicker(currentProfile: $currentProfile)
+                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                }
             }
             CommandGroup(after: .sidebar) {
                 Divider()
-                RefreshButton(activeProfile: $activeProfile, feedRefreshTimeout: $feedRefreshTimeout)
+                RefreshButton(currentProfile: $currentProfile, feedRefreshTimeout: $feedRefreshTimeout)
                     .environmentObject(refreshManager)
             }
             CommandGroup(replacing: .importExport) {
@@ -102,10 +104,10 @@ struct DenApp: App {
 
         #if os(macOS)
         Settings {
-            if let profile = activeProfile {
+            if let profile = currentProfile {
                 SettingsTabs(
                     profile: profile,
-                    activeProfile: $activeProfile,
+                    currentProfile: $currentProfile,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     feedRefreshTimeout: $feedRefreshTimeout,
                     useSystemBrowser: $useSystemBrowser,
@@ -164,7 +166,7 @@ struct DenApp: App {
     }
 
     private func handleRefresh() {
-        guard let profile = activeProfile else {
+        guard let profile = currentProfile else {
             return
         }
         Logger.main.info("Performing background refresh for profile: \(profile.wrappedName)")

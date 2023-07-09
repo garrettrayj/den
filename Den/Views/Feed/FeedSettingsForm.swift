@@ -105,6 +105,18 @@ struct FeedSettingsForm: View {
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             })
             #endif
+            
+            Toggle(isOn: $feed.browserView) {
+                Text("Open in Browser", comment: "Toggle label.")
+            }
+
+            #if os(iOS)
+            if feed.browserView {
+                Toggle(isOn: $feed.readerMode) {
+                    Text("Enter Reader Mode", comment: "Toggle label.")
+                }
+            }
+            #endif
 
             HStack {
                 Text("Preferred Style", comment: "Feed preview style picker label.")
@@ -136,18 +148,6 @@ struct FeedSettingsForm: View {
             Toggle(isOn: $feed.hideImages) {
                 Text("Hide Images", comment: "Toggle label.")
             }
-
-            Toggle(isOn: $feed.browserView) {
-                Text("Open in Browser", comment: "Toggle label.")
-            }
-
-            #if os(iOS)
-            if feed.browserView {
-                Toggle(isOn: $feed.readerMode) {
-                    Text("Enter Reader Mode", comment: "Toggle label.")
-                }
-            }
-            #endif
         } header: {
             Text("Previews", comment: "Feed settings section header.")
         } footer: {

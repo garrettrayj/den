@@ -16,20 +16,20 @@ struct PageLayoutPicker: View {
     var body: some View {
         Picker(selection: $pageLayout) {
             Label {
-                Text("Gadgets", comment: "Page layout option label.")
+                Text("Grouped", comment: "Page layout option label.")
             } icon: {
-                Image(systemName: "rectangle.grid.3x2")
+                Image(systemName: "rectangle.grid.2x2")
             }
-            .tag(PageLayout.gadgets)
-            .accessibilityIdentifier("gadgets-layout-button")
+            .tag(PageLayout.grouped)
+            .accessibilityIdentifier("grouped-layout-option")
 
             Label {
-                Text("Blend", comment: "Page layout option label.")
+                Text("Timeline", comment: "Page layout option label.")
             } icon: {
-                Image(systemName: "square.grid.3x3")
+                Image(systemName: "calendar.day.timeline.left")
             }
-            .tag(PageLayout.blend)
-            .accessibilityIdentifier("blend-layout-button")
+            .tag(PageLayout.timeline)
+            .accessibilityIdentifier("timeline-layout-option")
 
             Label {
                 Text("Showcase", comment: "Page layout option label.")
@@ -37,7 +37,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "square.grid.3x1.below.line.grid.1x2")
             }
             .tag(PageLayout.showcase)
-            .accessibilityIdentifier("showcase-layout-button")
+            .accessibilityIdentifier("showcase-layout-option")
 
             Label {
                 Text("Deck", comment: "Page layout option label.")
@@ -45,7 +45,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "rectangle.split.3x1")
             }
             .tag(PageLayout.deck)
-            .accessibilityIdentifier("deck-layout-button")
+            .accessibilityIdentifier("deck-layout-option")
         } label: {
             Text("Page Layout", comment: "Picker label.")
         }

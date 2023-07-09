@@ -14,8 +14,8 @@ import SwiftUI
 struct LoadProfile: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
+    @Binding var currentProfile: Profile?
+    @Binding var currentProfileID: String?
 
     @State private var profileLoadAttempts = 0
 
@@ -70,7 +70,7 @@ struct LoadProfile: View {
             if
                 let profiles = try viewContext.fetch(Profile.fetchRequest()) as? [Profile],
                 let profile =
-                    profiles.firstMatchingID(appProfileID ?? "") ??
+                    profiles.firstMatchingID(currentProfileID ?? "") ??
                     profiles.first,
                 profile.managedObjectContext != nil
             {
@@ -92,8 +92,8 @@ struct LoadProfile: View {
     }
 
     private func activateProfile(_ profile: Profile?) {
-        appProfileID = profile?.id?.uuidString
-        activeProfile = profile
+        currentProfileID = profile?.id?.uuidString
+        currentProfile = profile
     }
 
     private func createDefaultProfile() -> Profile {

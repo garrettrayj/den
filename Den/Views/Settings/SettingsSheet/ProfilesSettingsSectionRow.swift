@@ -15,13 +15,13 @@ struct ProfilesSettingsSectionRow: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
 
     var body: some View {
         NavigationLink {
             ProfileSettings(
                 profile: profile,
-                activeProfile: $activeProfile,
+                currentProfile: $currentProfile,
                 deleteCallback: {}
             )
             .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
@@ -29,7 +29,7 @@ struct ProfilesSettingsSectionRow: View {
             Label {
                 profile.nameText
             } icon: {
-                Image(systemName: profile == activeProfile ? "rhombus.fill" : "rhombus")
+                Image(systemName: profile == currentProfile ? "rhombus.fill" : "rhombus")
                     .foregroundColor(profile.tintColor)
             }
         }

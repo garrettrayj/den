@@ -13,12 +13,12 @@ import SwiftUI
 struct NewPageButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
 
     var body: some View {
         Button {
             Task {
-                guard let profile = activeProfile else { return }
+                guard let profile = currentProfile else { return }
                 _ = Page.create(
                     in: viewContext,
                     profile: profile,

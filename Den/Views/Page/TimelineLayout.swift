@@ -1,5 +1,5 @@
 //
-//  BlendLayout.swift
+//  TimelineLayout.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/15/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct BlendLayout: View {
+struct TimelineLayout: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -20,7 +20,7 @@ struct BlendLayout: View {
 
     var body: some View {
         if items.isEmpty {
-            SplashNote(title: Text("No Items", comment: "Blend page layout empty message."))
+            SplashNote(title: Text("No Items", comment: "Timeline page layout empty message."))
         } else if items.unread().isEmpty && hideRead {
             AllReadSplashNote()
         } else {
@@ -40,7 +40,7 @@ struct BlendLayout: View {
                     }
                     .modifier(MainBoardModifier())
                 }
-                .id("BlendLayoutSroll_\(page.id?.uuidString ?? "NoID")")
+                .id("TimelineLayoutSroll_\(page.id?.uuidString ?? "NoID")")
             }
         }
     }

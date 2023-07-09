@@ -12,7 +12,7 @@ import SwiftUI
 import SDWebImage
 
 struct ClearCacheButton: View {
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
 
     @State private var cacheSize: Int64 = 0
 
@@ -32,7 +32,7 @@ struct ClearCacheButton: View {
                 await resetFeeds()
                 await emptyCache()
                 cacheSize = 0
-                activeProfile?.objectWillChange.send()
+                currentProfile?.objectWillChange.send()
             }
         } label: {
             HStack {

@@ -16,7 +16,7 @@ struct PageView: View {
     @ObservedObject var profile: Profile
 
     @AppStorage("HideRead") private var hideRead: Bool = false
-    @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.gadgets
+    @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.grouped
 
     @SceneStorage("ShowingPageSettings") private var showingSettings: Bool = false
 
@@ -56,7 +56,6 @@ struct PageView: View {
         ) {
             PageSettingsSheet(page: page)
         }
-
     }
 
     init(
@@ -64,7 +63,7 @@ struct PageView: View {
         profile: Profile
     ) {
         _pageLayout = AppStorage(
-            wrappedValue: PageLayout.gadgets,
+            wrappedValue: PageLayout.grouped,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
         )
 
@@ -85,8 +84,8 @@ struct PageView: View {
                     hideRead: $hideRead,
                     items: items
                 )
-            case .blend:
-                BlendLayout(
+            case .timeline:
+                TimelineLayout(
                     page: page,
                     profile: profile,
                     hideRead: $hideRead,
@@ -99,8 +98,8 @@ struct PageView: View {
                     hideRead: $hideRead,
                     items: items
                 )
-            case .gadgets:
-                GadgetLayout(
+            case .grouped:
+                GroupedLayout(
                     page: page,
                     profile: profile,
                     hideRead: $hideRead,

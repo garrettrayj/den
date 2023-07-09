@@ -10,6 +10,7 @@
 
 import SwiftUI
 
+/// Feed display for the grouped page layout.
 struct Gadget: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile

@@ -27,7 +27,7 @@ struct PageToolbar: ToolbarContent {
             CommonStatus(profile: profile)
         }
         ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout)
+            PageLayoutPicker(pageLayout: $pageLayout).labelStyle(.iconOnly)
         }
         ToolbarItem {
             PageSettingsButton(showingSettings: $showingSettings)

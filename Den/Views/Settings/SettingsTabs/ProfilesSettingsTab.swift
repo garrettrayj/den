@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ProfilesSettingsTab: View {
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -27,7 +27,7 @@ struct ProfilesSettingsTab: View {
                         Label {
                             profile.nameText
                         } icon: {
-                            Image(systemName: profile == activeProfile ? "rhombus.fill" : "rhombus")
+                            Image(systemName: profile == currentProfile ? "rhombus.fill" : "rhombus")
                                 .foregroundColor(profile.tintColor)
                         }
                         .tag(profile as Profile?)
@@ -42,9 +42,9 @@ struct ProfilesSettingsTab: View {
                 if let profile = selectedProfile {
                     ProfileSettings(
                         profile: profile,
-                        activeProfile: $activeProfile,
+                        currentProfile: $currentProfile,
                         deleteCallback: {
-                            selectedProfile = activeProfile
+                            selectedProfile = currentProfile
                         }
                     )
                     .scrollContentBackground(.hidden)
@@ -56,7 +56,7 @@ struct ProfilesSettingsTab: View {
         }
         .padding()
         .onAppear {
-            selectedProfile = activeProfile
+            selectedProfile = currentProfile
         }
     }
 }

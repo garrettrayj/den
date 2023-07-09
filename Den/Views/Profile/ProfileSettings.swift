@@ -16,7 +16,7 @@ struct ProfileSettings: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
 
     var deleteCallback: () -> Void
 
@@ -44,7 +44,7 @@ struct ProfileSettings: View {
                 DeleteProfileButton(profile: profile) {
                     dismiss()
                 }
-                .disabled(activeProfile == profile)
+                .disabled(currentProfile == profile)
             }
             #endif
         }
@@ -64,12 +64,12 @@ struct ProfileSettings: View {
             HStack {
                 DeleteProfileButton(profile: profile, callback: deleteCallback)
                     .buttonStyle(.bordered)
-                    .disabled(profile == activeProfile)
+                    .disabled(profile == currentProfile)
 
                 Spacer()
                 Button {
                     DispatchQueue.main.async {
-                        activeProfile = profile
+                        currentProfile = profile
                         profile.objectWillChange.send()
                     }
                 } label: {
@@ -80,7 +80,7 @@ struct ProfileSettings: View {
                     }
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(profile == activeProfile)
+                .disabled(profile == currentProfile)
                 .accessibilityIdentifier("switch-profile-button")
             }
             .padding(12)

@@ -16,7 +16,7 @@ struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
     @Binding var showingImporter: Bool
@@ -24,15 +24,15 @@ struct RootView: View {
 
     @State private var showingCrashMessage = false
     
-    @AppStorage("AppProfileID") private var appProfileID: String?
+    @AppStorage("CurrentProfileID") private var currentProfileID: String?
 
     var body: some View {
         Group {
-            if let profile = activeProfile, profile.managedObjectContext != nil {
+            if let profile = currentProfile, profile.managedObjectContext != nil {
                 SplitView(
                     profile: profile,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    activeProfile: $activeProfile,
+                    currentProfile: $currentProfile,
                     userColorScheme: $userColorScheme,
                     feedRefreshTimeout: $feedRefreshTimeout,
                     showingImporter: $showingImporter,
@@ -40,13 +40,13 @@ struct RootView: View {
                 )
             } else {
                 LoadProfile(
-                    activeProfile: $activeProfile,
-                    appProfileID: $appProfileID
+                    currentProfile: $currentProfile,
+                    currentProfileID: $currentProfileID
                 )
             }
         }
-        .onChange(of: activeProfile) { _ in
-            appProfileID = activeProfile?.id?.uuidString
+        .onChange(of: currentProfile) { _ in
+            currentProfileID = currentProfile?.id?.uuidString
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showingCrashMessage = true

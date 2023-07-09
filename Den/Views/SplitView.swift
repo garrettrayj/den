@@ -23,13 +23,15 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
     @Binding var showingImporter: Bool
     @Binding var showingExporter: Bool
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    @State private var opmlFile: OPMLFile?
+    @State private var exporterIsPresented: Bool = false
 
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
@@ -43,7 +45,7 @@ struct SplitView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
                 profile: profile,
-                activeProfile: $activeProfile,
+                currentProfile: $currentProfile,
                 detailPanel: $detailPanel,
                 showingSettings: $showingSettings,
                 feedRefreshTimeout: $feedRefreshTimeout,
@@ -55,7 +57,7 @@ struct SplitView: View {
             #else
             .navigationSplitViewColumnWidth(260 * dynamicTypeSize.layoutScalingFactor)
             .refreshable {
-                if let profile = activeProfile, networkMonitor.isConnected {
+                if let profile = currentProfile, networkMonitor.isConnected {
                     await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
                 }
             }
@@ -79,7 +81,7 @@ struct SplitView: View {
         .modifier(
             URLDropTargetModifier()
         )
-        .onChange(of: activeProfile) { _ in
+        .onChange(of: currentProfile) { _ in
             detailPanel = nil
         }
         .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
@@ -100,7 +102,7 @@ struct SplitView: View {
         }
         .sheet(isPresented: $showingNewFeedSheet) {
             NewFeedSheet(
-                activeProfile: $activeProfile,
+                currentProfile: $currentProfile,
                 webAddress: $newFeedWebAddress,
                 initialPageID: $newFeedPageID,
                 feedRefreshTimeout: $feedRefreshTimeout
@@ -122,7 +124,7 @@ struct SplitView: View {
         ) {
             SettingsSheet(
                 profile: profile,
-                activeProfile: $activeProfile,
+                currentProfile: $currentProfile,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 useSystemBrowser: $useSystemBrowser,
@@ -138,13 +140,16 @@ struct SplitView: View {
             ImportExportUtility.importOPML(url: selectedFile, context: viewContext, profile: profile)
         }
         .fileExporter(
-            isPresented: $showingExporter,
-            document: ImportExportUtility.exportOPML(profile: profile),
+            isPresented: $exporterIsPresented,
+            document: opmlFile,
             contentType: UTType(importedAs: "public.opml"),
             defaultFilename: profile.exportTitle.sanitizedForFileName()
         ) { _ in
             // pass
         }
-        // .fileExporterFilenameLabel(Text(exportTitle))
+        .onChange(of: showingExporter) { _ in
+            opmlFile = ImportExportUtility.exportOPML(profile: profile)
+            exporterIsPresented = true
+        }
     }
 }

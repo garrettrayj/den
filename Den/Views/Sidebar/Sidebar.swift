@@ -20,7 +20,7 @@ struct Sidebar: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
     @Binding var detailPanel: DetailPanel?
     @Binding var showingSettings: Bool
     @Binding var feedRefreshTimeout: Double
@@ -42,7 +42,7 @@ struct Sidebar: View {
         #if os(macOS)
         .safeAreaInset(edge: .bottom, alignment: .leading) {
             if !profile.pagesArray.isEmpty {
-                NewPageButton(activeProfile: .constant(profile))
+                NewPageButton(currentProfile: .constant(profile))
                     .buttonStyle(.plain)
                     .font(.callout)
                     .padding(.vertical, 8)
@@ -71,7 +71,7 @@ struct Sidebar: View {
         .toolbar {
             SidebarToolbar(
                 profile: profile,
-                activeProfile: $activeProfile,
+                currentProfile: $currentProfile,
                 isEditing: $isEditing,
                 showingSettings: $showingSettings,
                 detailPanel: $detailPanel,

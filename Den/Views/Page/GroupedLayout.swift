@@ -1,5 +1,5 @@
 //
-//  GadgetLayout.swift
+//  GroupedLayout.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/15/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct GadgetLayout: View {
+struct GroupedLayout: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -30,7 +30,7 @@ struct GadgetLayout: View {
                     )
                 }
                 .modifier(MainBoardModifier())
-            }.id("GadgetLayoutSroll_\(page.id?.uuidString ?? "NoID")")
+            }.id("GroupedLayoutSroll_\(page.id?.uuidString ?? "NoID")")
         }
     }
 }

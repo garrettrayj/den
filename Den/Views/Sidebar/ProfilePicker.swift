@@ -11,17 +11,17 @@
 import SwiftUI
 
 struct ProfilePicker: View {
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
 
     var body: some View {
-        Picker(selection: $activeProfile) {
+        Picker(selection: $currentProfile) {
             ForEach(profiles) { profile in
                 profile.nameText
-                    .tag(profile as Profile?)
                     .accessibilityIdentifier("profile-picker-option")
+                    .tag(profile as Profile?)
             }
         } label: {
             Text("Profile", comment: "Picker label.")

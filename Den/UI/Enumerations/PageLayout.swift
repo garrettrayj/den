@@ -11,8 +11,8 @@
 import Foundation
 
 enum PageLayout: Int {
-    case gadgets  = 0
+    case grouped  = 0
     case showcase = 1
-    case blend    = 2
+    case timeline  = 2
     case deck     = 3
 }

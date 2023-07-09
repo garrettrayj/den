@@ -16,7 +16,7 @@ struct SettingsSheet: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
@@ -29,7 +29,7 @@ struct SettingsSheet: View {
                     SplashNote(title: Text("Profile Deleted", comment: "Object removed message."))
                 } else {
                     SettingsSheetForm(
-                        activeProfile: $activeProfile,
+                        currentProfile: $currentProfile,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         feedRefreshTimeout: $feedRefreshTimeout,
                         useSystemBrowser: $useSystemBrowser,

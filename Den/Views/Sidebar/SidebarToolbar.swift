@@ -16,7 +16,7 @@ struct SidebarToolbar: ToolbarContent {
 
     @ObservedObject var profile: Profile
 
-    @Binding var activeProfile: Profile?
+    @Binding var currentProfile: Profile?
     @Binding var isEditing: Bool
     @Binding var showingSettings: Bool
     @Binding var detailPanel: DetailPanel?
@@ -40,7 +40,7 @@ struct SidebarToolbar: ToolbarContent {
             if refreshManager.refreshing {
                 RefreshProgress(totalUnitCount: profile.feedsArray.count)
             } else {
-                RefreshButton(activeProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
+                RefreshButton(currentProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
                     .disabled(
                         refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                     )
@@ -60,7 +60,7 @@ struct SidebarToolbar: ToolbarContent {
         } else {
             ToolbarItem {
                 Menu {
-                    ProfilePicker(activeProfile: $activeProfile)
+                    ProfilePicker(currentProfile: $currentProfile)
                     Button {
                         withAnimation {
                             isEditing = true
@@ -102,7 +102,7 @@ struct SidebarToolbar: ToolbarContent {
                 refreshing: $refreshManager.refreshing
             )
             Spacer()
-            RefreshButton(activeProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
+            RefreshButton(currentProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
                 .disabled(
                     refreshManager.refreshing ||
                     !networkMonitor.isConnected ||
