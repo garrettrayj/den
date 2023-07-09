@@ -37,22 +37,36 @@ struct FeedToolbar: ToolbarContent {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()
             }
-
         }
         #else
-        ToolbarItem {
-            Menu {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            ToolbarItem {
+                Menu {
+                    ToggleReadButton(unreadCount: items.unread().count) {
+                        await HistoryUtility.toggleReadUnread(items: Array(items))
+                        feed.objectWillChange.send()
+                    }
+                    FilterReadButton(hideRead: $hideRead)
+                    FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
+                } label: {
+                    Label {
+                        Text("Menu", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+        } else {
+            ToolbarItem {
+                FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
+            }
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     feed.objectWillChange.send()
-                }
-                FilterReadButton(hideRead: $hideRead)
-                FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
-            } label: {
-                Label {
-                    Text("Menu", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "ellipsis.circle")
                 }
             }
         }

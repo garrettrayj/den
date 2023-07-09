@@ -102,8 +102,9 @@
 		6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDE29C95F6700E15154 /* TrendLayout.swift */; };
 		68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */; };
 		687C27792631F6A000099FCA /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687C27782631F6A000099FCA /* FileManager+Extensions.swift */; };
-		687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */; };
+		687D9CB024A8CABD00EB7F46 /* OPMLGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */; };
 		687D9CB824A9CA2A00EB7F46 /* ItemCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB724A9CA2A00EB7F46 /* ItemCompressed.swift */; };
+		687F22232A5A460300B76919 /* ImportExportUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F22222A5A460300B76919 /* ImportExportUtility.swift */; };
 		687F4890269165EE00EA2498 /* CrashMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F488F269165EE00EA2498 /* CrashMessage.swift */; };
 		687FEED22A3A57220042977E /* GeneralSettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED12A3A57220042977E /* GeneralSettingsTab.swift */; };
 		687FEED72A3B724B0042977E /* UserColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED62A3B724B0042977E /* UserColorScheme.swift */; };
@@ -389,8 +390,9 @@
 		6870EBDE29C95F6700E15154 /* TrendLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendLayout.swift; sourceTree = "<group>"; };
 		68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		687C27782631F6A000099FCA /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
-		687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLWriter.swift; sourceTree = "<group>"; };
+		687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLGenerator.swift; sourceTree = "<group>"; };
 		687D9CB724A9CA2A00EB7F46 /* ItemCompressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCompressed.swift; sourceTree = "<group>"; };
+		687F22222A5A460300B76919 /* ImportExportUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportUtility.swift; sourceTree = "<group>"; };
 		687F488F269165EE00EA2498 /* CrashMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashMessage.swift; sourceTree = "<group>"; };
 		687FEED12A3A57220042977E /* GeneralSettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsTab.swift; sourceTree = "<group>"; };
 		687FEED62A3B724B0042977E /* UserColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorScheme.swift; sourceTree = "<group>"; };
@@ -1028,8 +1030,9 @@
 				68701DFA273E57DB00C6BB69 /* HistoryUtility.swift */,
 				68701E00273E6A5400C6BB69 /* NewFeedUtility.swift */,
 				68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */,
+				687F22222A5A460300B76919 /* ImportExportUtility.swift */,
 				68D58E6824955321007ED1AC /* OPMLReader.swift */,
-				687D9CAF24A8CABD00EB7F46 /* OPMLWriter.swift */,
+				687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */,
 				6880EBDE27A8B5DE00B479F4 /* SymbolLibrary.swift */,
 				68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */,
 				68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */,
@@ -1416,6 +1419,7 @@
 				68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */,
 				68ED797F29C29A6800D85B4F /* GadgetLayout.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
+				687F22232A5A460300B76919 /* ImportExportUtility.swift in Sources */,
 				6832AF2C278B889300CFC8CA /* SplashNote.swift in Sources */,
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,
 				687FEEEB2A3DB1F30042977E /* SettingsSheet.swift in Sources */,
@@ -1457,7 +1461,7 @@
 				683573A0296372DA00843A8E /* WebAccessibleFeed.swift in Sources */,
 				68A2188F29DC2E86005F42C7 /* SafeAreaModifier.swift in Sources */,
 				6868A306288E62250051D43E /* AllReadSplashNote.swift in Sources */,
-				687D9CB024A8CABD00EB7F46 /* OPMLWriter.swift in Sources */,
+				687D9CB024A8CABD00EB7F46 /* OPMLGenerator.swift in Sources */,
 				688FD931247A34830006A2DE /* FeedSettingsForm.swift in Sources */,
 				6870EBDD29C9556500E15154 /* InboxLayout.swift in Sources */,
 				68A2188D29D9D4AE005F42C7 /* PagesSection.swift in Sources */,

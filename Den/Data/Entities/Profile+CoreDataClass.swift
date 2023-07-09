@@ -24,6 +24,10 @@ public class Profile: NSManagedObject {
         }
         return Text(wrappedName)
     }
+    
+    public var exportTitle: String {
+        "\(wrappedName) \(Date().formatted(date: .abbreviated, time: .shortened))"
+    }
 
     public var wrappedHistoryRetention: Int {
         get { Int(historyRetention) }

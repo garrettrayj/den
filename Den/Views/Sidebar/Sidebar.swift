@@ -12,15 +12,23 @@ import CoreData
 import SwiftUI
 
 struct Sidebar: View {
+    #if os(iOS)
+    @Environment(\.editMode) private var editMode
+    #endif
+    
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
+    @Binding var activeProfile: Profile?
     @Binding var detailPanel: DetailPanel?
     @Binding var showingSettings: Bool
     @Binding var feedRefreshTimeout: Double
+    @Binding var showingImporter: Bool
+    @Binding var showingExporter: Bool
 
     @State private var searchInput = ""
+    @State private var isEditing = false
 
     var body: some View {
         List(selection: $detailPanel) {
@@ -41,6 +49,8 @@ struct Sidebar: View {
                     .padding(.horizontal, 12)
             }
         }
+        #else
+        .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
         #endif
         .listStyle(.sidebar)
         .searchable(
@@ -61,9 +71,13 @@ struct Sidebar: View {
         .toolbar {
             SidebarToolbar(
                 profile: profile,
+                activeProfile: $activeProfile,
+                isEditing: $isEditing,
                 showingSettings: $showingSettings,
                 detailPanel: $detailPanel,
-                feedRefreshTimeout: $feedRefreshTimeout
+                feedRefreshTimeout: $feedRefreshTimeout,
+                showingImporter: $showingImporter,
+                showingExporter: $showingExporter
             )
         }
     }

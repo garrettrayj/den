@@ -38,18 +38,30 @@ struct TrendingToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem {
-            Menu {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            ToolbarItem {
+                Menu {
+                    ToggleReadButton(unreadCount: unreadCount) {
+                        await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
+                        profile.objectWillChange.send()
+                    }
+                    FilterReadButton(hideRead: $hideRead)
+                } label: {
+                    Label {
+                        Text("Menu", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+        } else {
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
                 ToggleReadButton(unreadCount: unreadCount) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                     profile.objectWillChange.send()
-                }
-                FilterReadButton(hideRead: $hideRead)
-            } label: {
-                Label {
-                    Text("Menu", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "ellipsis.circle")
                 }
             }
         }

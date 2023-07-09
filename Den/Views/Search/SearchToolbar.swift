@@ -32,17 +32,36 @@ struct SearchToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem(placement: .bottomBar) {
-            FilterReadButton(hideRead: $hideRead)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            SearchStatus(resultCount: items.count, query: query)
-        }
-        ToolbarItem(placement: .bottomBar) { Spacer() }
-        ToolbarItem(placement: .bottomBar) {
-            ToggleReadButton(unreadCount: items.unread().count) {
-                await HistoryUtility.toggleReadUnread(items: Array(items))
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            ToolbarItem {
+                Menu {
+                    ToggleReadButton(unreadCount: items.unread().count) {
+                        await HistoryUtility.toggleReadUnread(items: Array(items))
+                    }
+                    FilterReadButton(hideRead: $hideRead)
+                } label: {
+                    Label {
+                        Text("Menu", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                SearchStatus(resultCount: items.count, query: query)
+            }
+        } else {
+            ToolbarItem(placement: .bottomBar) {
+                SearchStatus(resultCount: items.count, query: query)
+            }
+
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
+                ToggleReadButton(unreadCount: items.unread().count) {
+                    await HistoryUtility.toggleReadUnread(items: Array(items))
+                }
             }
         }
         #endif

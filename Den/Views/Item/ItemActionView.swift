@@ -45,7 +45,7 @@ struct ItemActionView<Content: View>: View {
         .contextMenu {
             if let link = item.link {
                 NavigationLink(value: SubDetailPanel.item(item)) {
-                    Text("Go to Item", comment: "Context menu button label.")
+                    Text("Go to Item", comment: "Context Button label.")
                 }
                 Button {
                     Task {
@@ -59,7 +59,7 @@ struct ItemActionView<Content: View>: View {
                     PasteboardUtility.copyURL(url: link)
                 } label: {
                     Label {
-                        Text("Copy Link", comment: "Context menu button label.")
+                        Text("Copy Link", comment: "Context Button label.")
                     } icon: {
                         Image(systemName: "doc.on.doc")
                     }

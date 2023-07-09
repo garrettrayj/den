@@ -20,7 +20,7 @@ struct NewFeedButton: View {
             Label {
                 Text("New Feed", comment: "Button label.")
             } icon: {
-                Image(systemName: "plus")
+                Image(systemName: "plus.circle")
             }
         }
         .keyboardShortcut("n", modifiers: [.command])

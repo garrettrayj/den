@@ -23,13 +23,6 @@ struct SettingsSheetForm: View {
             ProfilesSettingsSection(activeProfile: $activeProfile, appProfileID: $appProfileID)
 
             Section {
-                ImportButton(activeProfile: $activeProfile)
-                ExportButton(activeProfile: $activeProfile)
-            } header: {
-                Text("OPML")
-            }
-
-            Section {
                 UserColorSchemePicker(userColorScheme: $userColorScheme)
             } header: {
                 Text("Appearance", comment: "Settings section header.")

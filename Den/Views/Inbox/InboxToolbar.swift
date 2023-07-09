@@ -35,22 +35,36 @@ struct InboxToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem {
-            Menu {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            ToolbarItem {
+                Menu {
+                    ToggleReadButton(unreadCount: items.unread().count) {
+                        await HistoryUtility.toggleReadUnread(items: Array(items))
+                        profile.objectWillChange.send()
+                        for page in profile.pagesArray {
+                            page.objectWillChange.send()
+                        }
+                    }
+                    FilterReadButton(hideRead: $hideRead)
+                } label: {
+                    Label {
+                        Text("Menu", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+        } else {
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     profile.objectWillChange.send()
                     for page in profile.pagesArray {
                         page.objectWillChange.send()
                     }
-                }
-                FilterReadButton(hideRead: $hideRead)
-                NewFeedButton()
-            } label: {
-                Label {
-                    Text("Menu", comment: "Menu button label.")
-                } icon: {
-                    Image(systemName: "ellipsis.circle")
                 }
             }
         }

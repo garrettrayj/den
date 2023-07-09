@@ -39,8 +39,31 @@ struct TrendToolbar: ToolbarContent {
             }
         }
         #else
-        ToolbarItem {
-            Menu {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            ToolbarItem {
+                Menu {
+                    ToggleReadButton(unreadCount: items.unread().count) {
+                        await HistoryUtility.toggleReadUnread(items: Array(items))
+                        trend.objectWillChange.send()
+                        profile.objectWillChange.send()
+                        if hideRead {
+                            dismiss()
+                        }
+                    }
+                    FilterReadButton(hideRead: $hideRead)
+                } label: {
+                    Label {
+                        Text("Menu", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                }
+            }
+        } else {
+            ToolbarItem {
+                FilterReadButton(hideRead: $hideRead)
+            }
+            ToolbarItem {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     trend.objectWillChange.send()
@@ -48,13 +71,6 @@ struct TrendToolbar: ToolbarContent {
                     if hideRead {
                         dismiss()
                     }
-                }
-                FilterReadButton(hideRead: $hideRead)
-            } label: {
-                Label {
-                    Text("Menu", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "ellipsis.circle")
                 }
             }
         }

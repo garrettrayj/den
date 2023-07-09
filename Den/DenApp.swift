@@ -32,6 +32,8 @@ struct DenApp: App {
     @StateObject private var refreshManager = RefreshManager()
 
     @State private var activeProfile: Profile?
+    @State private var showingImporter: Bool = false
+    @State private var showingExporter: Bool = false
 
     let persistenceController = PersistenceController.shared
 
@@ -42,7 +44,9 @@ struct DenApp: App {
                 appProfileID: $appProfileID,
                 activeProfile: $activeProfile,
                 userColorScheme: $userColorScheme,
-                feedRefreshTimeout: $feedRefreshTimeout
+                feedRefreshTimeout: $feedRefreshTimeout,
+                showingImporter: $showingImporter,
+                showingExporter: $showingExporter
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
@@ -61,9 +65,9 @@ struct DenApp: App {
                     .environmentObject(refreshManager)
             }
             CommandGroup(replacing: .importExport) {
-                ImportButton(activeProfile: $activeProfile)
+                ImportButton(showingImporter: $showingImporter)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                ExportButton(activeProfile: $activeProfile)
+                ExportButton(showingExporter: $showingExporter)
             }
             CommandGroup(replacing: .help) {
                 Button {

@@ -11,6 +11,7 @@
 import CoreData
 import OSLog
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct SplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -26,6 +27,8 @@ struct SplitView: View {
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
+    @Binding var showingImporter: Bool
+    @Binding var showingExporter: Bool
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
 
@@ -41,9 +44,12 @@ struct SplitView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
                 profile: profile,
+                activeProfile: $activeProfile,
                 detailPanel: $detailPanel,
                 showingSettings: $showingSettings,
-                feedRefreshTimeout: $feedRefreshTimeout
+                feedRefreshTimeout: $feedRefreshTimeout,
+                showingImporter: $showingImporter,
+                showingExporter: $showingExporter
             )
             #if os(macOS)
             .navigationSplitViewColumnWidth(220)
@@ -125,5 +131,22 @@ struct SplitView: View {
                 userColorScheme: $userColorScheme
             )
         }
+        .fileImporter(
+            isPresented: $showingImporter,
+            allowedContentTypes: [.init(importedAs: "public.opml"), .xml],
+            allowsMultipleSelection: false
+        ) { result in
+            guard let selectedFile: URL = try? result.get().first else { return }
+            ImportExportUtility.importOPML(url: selectedFile, context: viewContext, profile: profile)
+        }
+        .fileExporter(
+            isPresented: $showingExporter,
+            document: ImportExportUtility.exportOPML(profile: profile),
+            contentType: UTType(importedAs: "public.opml"),
+            defaultFilename: profile.exportTitle.sanitizedForFileName()
+        ) { _ in
+            // pass
+        }
+        // .fileExporterFilenameLabel(Text(exportTitle))
     }
 }
