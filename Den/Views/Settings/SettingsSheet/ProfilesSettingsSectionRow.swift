@@ -15,7 +15,6 @@ struct ProfilesSettingsSectionRow: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
 
     @State private var showingDetail: Bool = false
@@ -35,7 +34,6 @@ struct ProfilesSettingsSectionRow: View {
             ProfileSettings(
                 profile: profile,
                 activeProfile: $activeProfile,
-                appProfileID: $appProfileID,
                 deleteCallback: {}
             )
             .navigationTitle(Text("Profile Settings", comment: "Navigation title."))

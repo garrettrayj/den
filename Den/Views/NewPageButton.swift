@@ -34,7 +34,7 @@ struct NewPageButton: View {
             Label {
                 Text("New Page", comment: "Button label.")
             } icon: {
-                Image(systemName: "plus.circle")
+                Image(systemName: "folder.badge.plus")
             }
         }
         .accessibilityIdentifier("new-page-button")

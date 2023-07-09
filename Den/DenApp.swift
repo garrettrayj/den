@@ -21,7 +21,6 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openURL) private var openURL
 
-    @AppStorage("AppProfileID") private var appProfileID: String?
     @AppStorage("BackgroundRefreshEnabled") private var backgroundRefreshEnabled: Bool = false
     @AppStorage("FeedRefreshTimeout") private var feedRefreshTimeout: Double = 30.0
     @AppStorage("LastCleanup") private var lastCleanup: Double?
@@ -41,7 +40,6 @@ struct DenApp: App {
         WindowGroup {
             RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                appProfileID: $appProfileID,
                 activeProfile: $activeProfile,
                 userColorScheme: $userColorScheme,
                 feedRefreshTimeout: $feedRefreshTimeout,
@@ -57,6 +55,10 @@ struct DenApp: App {
             CommandGroup(replacing: .newItem) {
                 NewFeedButton()
                 NewPageButton(activeProfile: $activeProfile)
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            }
+            CommandGroup(after: .appSettings) {
+                ProfilePicker(activeProfile: $activeProfile)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
             CommandGroup(after: .sidebar) {
@@ -104,7 +106,6 @@ struct DenApp: App {
                 SettingsTabs(
                     profile: profile,
                     activeProfile: $activeProfile,
-                    appProfileID: $appProfileID,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     feedRefreshTimeout: $feedRefreshTimeout,
                     useSystemBrowser: $useSystemBrowser,

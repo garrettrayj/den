@@ -17,7 +17,6 @@ struct ProfileSettings: View {
     @ObservedObject var profile: Profile
 
     @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
 
     var deleteCallback: () -> Void
 
@@ -60,30 +59,6 @@ struct ProfileSettings: View {
                 }
             }
         }
-        .toolbar {
-            #if os(iOS)
-            ToolbarItem {
-                Button {
-                    DispatchQueue.main.async {
-                        appProfileID = profile.id?.uuidString
-                        activeProfile = profile
-                        profile.objectWillChange.send()
-                        dismiss()
-                    }
-                } label: {
-                    Label {
-                        Text("Switch", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "arrow.left.arrow.right")
-                    }
-                }
-                .buttonStyle(.borderless)
-                .labelStyle(.titleAndIcon)
-                .disabled(profile == activeProfile)
-                .accessibilityIdentifier("switch-to-profile-button")
-            }
-            #endif
-        }
         #if os(macOS)
         .safeAreaInset(edge: .bottom) {
             HStack {
@@ -94,7 +69,6 @@ struct ProfileSettings: View {
                 Spacer()
                 Button {
                     DispatchQueue.main.async {
-                        appProfileID = profile.id?.uuidString
                         activeProfile = profile
                         profile.objectWillChange.send()
                     }

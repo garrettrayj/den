@@ -17,7 +17,6 @@ struct SettingsSheet: View {
     @ObservedObject var profile: Profile
 
     @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
@@ -31,7 +30,6 @@ struct SettingsSheet: View {
                 } else {
                     SettingsSheetForm(
                         activeProfile: $activeProfile,
-                        appProfileID: $appProfileID,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         feedRefreshTimeout: $feedRefreshTimeout,
                         useSystemBrowser: $useSystemBrowser,

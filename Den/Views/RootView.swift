@@ -16,7 +16,6 @@ struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
@@ -24,6 +23,8 @@ struct RootView: View {
     @Binding var showingExporter: Bool
 
     @State private var showingCrashMessage = false
+    
+    @AppStorage("AppProfileID") private var appProfileID: String?
 
     var body: some View {
         Group {
@@ -31,7 +32,6 @@ struct RootView: View {
                 SplitView(
                     profile: profile,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    appProfileID: $appProfileID,
                     activeProfile: $activeProfile,
                     userColorScheme: $userColorScheme,
                     feedRefreshTimeout: $feedRefreshTimeout,
@@ -44,6 +44,9 @@ struct RootView: View {
                     appProfileID: $appProfileID
                 )
             }
+        }
+        .onChange(of: activeProfile) { _ in
+            appProfileID = activeProfile?.id?.uuidString
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showingCrashMessage = true

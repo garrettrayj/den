@@ -12,7 +12,6 @@ import SwiftUI
 
 struct GeneralSettingsTab: View {
     @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
     @Binding var feedRefreshTimeout: Double
     @Binding var userColorScheme: UserColorScheme
 
@@ -32,12 +31,7 @@ struct GeneralSettingsTab: View {
 
             Section {
                 ClearCacheButton(activeProfile: $activeProfile).buttonStyle(.plain)
-
-                ResetEverythingButton(
-                    activeProfile: $activeProfile,
-                    appProfileID: $appProfileID
-                )
-                .buttonStyle(.plain)
+                ResetEverythingButton(activeProfile: $activeProfile).buttonStyle(.plain)
             } header: {
                 Text("Reset", comment: "Settings section header.")
             }

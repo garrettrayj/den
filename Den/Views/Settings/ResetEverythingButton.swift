@@ -15,7 +15,6 @@ struct ResetEverythingButton: View {
     @Environment(\.dismiss) private var dismiss
 
     @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
 
     @State private var showingResetAlert = false
 
@@ -81,7 +80,6 @@ struct ResetEverythingButton: View {
                 try context.save()
 
                 activeProfile = nil
-                appProfileID = nil
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

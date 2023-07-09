@@ -23,7 +23,6 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var appProfileID: String?
     @Binding var activeProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
@@ -124,7 +123,6 @@ struct SplitView: View {
             SettingsSheet(
                 profile: profile,
                 activeProfile: $activeProfile,
-                appProfileID: $appProfileID,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 useSystemBrowser: $useSystemBrowser,

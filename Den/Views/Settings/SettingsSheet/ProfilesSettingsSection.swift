@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ProfilesSettingsSection: View {
     @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -22,7 +21,6 @@ struct ProfilesSettingsSection: View {
             ForEach(profiles) { profile in
                 ProfilesSettingsSectionRow(
                     profile: profile,
-                    appProfileID: $appProfileID,
                     activeProfile: $activeProfile
                 )
             }

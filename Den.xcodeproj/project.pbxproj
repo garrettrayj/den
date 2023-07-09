@@ -105,6 +105,7 @@
 		687D9CB024A8CABD00EB7F46 /* OPMLGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */; };
 		687D9CB824A9CA2A00EB7F46 /* ItemCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D9CB724A9CA2A00EB7F46 /* ItemCompressed.swift */; };
 		687F22232A5A460300B76919 /* ImportExportUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F22222A5A460300B76919 /* ImportExportUtility.swift */; };
+		687F22252A5A5CF900B76919 /* ProfilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F22242A5A5CF900B76919 /* ProfilePicker.swift */; };
 		687F4890269165EE00EA2498 /* CrashMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F488F269165EE00EA2498 /* CrashMessage.swift */; };
 		687FEED22A3A57220042977E /* GeneralSettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED12A3A57220042977E /* GeneralSettingsTab.swift */; };
 		687FEED72A3B724B0042977E /* UserColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687FEED62A3B724B0042977E /* UserColorScheme.swift */; };
@@ -393,6 +394,7 @@
 		687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLGenerator.swift; sourceTree = "<group>"; };
 		687D9CB724A9CA2A00EB7F46 /* ItemCompressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCompressed.swift; sourceTree = "<group>"; };
 		687F22222A5A460300B76919 /* ImportExportUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportUtility.swift; sourceTree = "<group>"; };
+		687F22242A5A5CF900B76919 /* ProfilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicker.swift; sourceTree = "<group>"; };
 		687F488F269165EE00EA2498 /* CrashMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashMessage.swift; sourceTree = "<group>"; };
 		687FEED12A3A57220042977E /* GeneralSettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsTab.swift; sourceTree = "<group>"; };
 		687FEED62A3B724B0042977E /* UserColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserColorScheme.swift; sourceTree = "<group>"; };
@@ -1078,6 +1080,7 @@
 				683E3F4A293BC1AA00B16814 /* SettingsButton.swift */,
 				683E3F46293BC18C00B16814 /* SidebarStatus.swift */,
 				687FEF0A2A3FAFB30042977E /* RefreshProgress.swift */,
+				687F22242A5A5CF900B76919 /* ProfilePicker.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -1497,6 +1500,7 @@
 				688FD918247750350006A2DE /* PageSettingsForm.swift in Sources */,
 				68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */,
 				68B8E79A29CAC95300E9AF42 /* ImageDepression.swift in Sources */,
+				687F22252A5A5CF900B76919 /* ProfilePicker.swift in Sources */,
 				68701E01273E6A5400C6BB69 /* NewFeedUtility.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,
 				687FEED22A3A57220042977E /* GeneralSettingsTab.swift in Sources */,

@@ -12,7 +12,6 @@ import SwiftUI
 
 struct SettingsSheetForm: View {
     @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
@@ -20,7 +19,7 @@ struct SettingsSheetForm: View {
 
     var body: some View {
         Form {
-            ProfilesSettingsSection(activeProfile: $activeProfile, appProfileID: $appProfileID)
+            ProfilesSettingsSection(activeProfile: $activeProfile)
 
             Section {
                 UserColorSchemePicker(userColorScheme: $userColorScheme)
@@ -53,12 +52,7 @@ struct SettingsSheetForm: View {
 
             Section {
                 ClearCacheButton(activeProfile: $activeProfile).buttonStyle(.borderless)
-
-                ResetEverythingButton(
-                    activeProfile: $activeProfile,
-                    appProfileID: $appProfileID
-                )
-                .buttonStyle(.plain)
+                ResetEverythingButton(activeProfile: $activeProfile).buttonStyle(.plain)
             } header: {
                 Text("Reset", comment: "Settings section header.")
             }

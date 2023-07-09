@@ -34,6 +34,9 @@ struct SidebarToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
+            NewFeedButton(page: activePage).disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
+        }
+        ToolbarItem {
             if refreshManager.refreshing {
                 RefreshProgress(totalUnitCount: profile.feedsArray.count)
             } else {
@@ -43,14 +46,7 @@ struct SidebarToolbar: ToolbarContent {
                     )
             }
         }
-        ToolbarItem {
-            NewFeedButton(page: activePage)
-                .disabled(
-                    refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
-                )
-        }
         #else
-        
         if isEditing {
             ToolbarItem {
                 Button {
@@ -64,6 +60,7 @@ struct SidebarToolbar: ToolbarContent {
         } else {
             ToolbarItem {
                 Menu {
+                    ProfilePicker(activeProfile: $activeProfile)
                     Button {
                         withAnimation {
                             isEditing = true

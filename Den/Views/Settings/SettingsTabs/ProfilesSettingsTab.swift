@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ProfilesSettingsTab: View {
     @Binding var activeProfile: Profile?
-    @Binding var appProfileID: String?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -44,7 +43,6 @@ struct ProfilesSettingsTab: View {
                     ProfileSettings(
                         profile: profile,
                         activeProfile: $activeProfile,
-                        appProfileID: $appProfileID,
                         deleteCallback: {
                             selectedProfile = activeProfile
                         }
