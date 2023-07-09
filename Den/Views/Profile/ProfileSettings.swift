@@ -32,7 +32,7 @@ struct ProfileSettings: View {
                 }
             }
 
-            TintPicker(tintSelection: $profile.tintOption)
+            ProfileColorPicker(selection: $profile.tintOption)
 
             HistorySettingsSection(
                 profile: profile,

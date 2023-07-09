@@ -43,8 +43,8 @@
 		683041B627543CE900BE7631 /* ShowcaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSection.swift */; };
 		6832AF262789419700CFC8CA /* ProfileSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF252789419700CFC8CA /* ProfileSettings.swift */; };
 		6832AF2C278B889300CFC8CA /* SplashNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2B278B889300CFC8CA /* SplashNote.swift */; };
-		68352D1629B16C5F0073CEFD /* TintPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* TintPicker.swift */; };
-		68352D1829B187180073CEFD /* TintOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* TintOption.swift */; };
+		68352D1629B16C5F0073CEFD /* ProfileColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */; };
+		68352D1829B187180073CEFD /* ProfileColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* ProfileColorOption.swift */; };
 		6835737F295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */; };
 		6835738529602A7F00843A8E /* EnvironmentValues+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738429602A7F00843A8E /* EnvironmentValues+Extensions.swift */; };
 		6835738E29614C5600843A8E /* DetailPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738D29614C5600843A8E /* DetailPanel.swift */; };
@@ -323,8 +323,8 @@
 		683041B527543CE900BE7631 /* ShowcaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSection.swift; sourceTree = "<group>"; };
 		6832AF252789419700CFC8CA /* ProfileSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettings.swift; sourceTree = "<group>"; };
 		6832AF2B278B889300CFC8CA /* SplashNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashNote.swift; sourceTree = "<group>"; };
-		68352D1529B16C5F0073CEFD /* TintPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintPicker.swift; sourceTree = "<group>"; };
-		68352D1729B187180073CEFD /* TintOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintOption.swift; sourceTree = "<group>"; };
+		68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorPicker.swift; sourceTree = "<group>"; };
+		68352D1729B187180073CEFD /* ProfileColorOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorOption.swift; sourceTree = "<group>"; };
 		6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedHeaderButtonStyle.swift; sourceTree = "<group>"; };
 		6835738429602A7F00843A8E /* EnvironmentValues+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Extensions.swift"; sourceTree = "<group>"; };
 		6835738D29614C5600843A8E /* DetailPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPanel.swift; sourceTree = "<group>"; };
@@ -781,7 +781,7 @@
 				687FEF0F2A40A6890042977E /* SubDetailPanel.swift */,
 				68F6FB9A29ADDC83001F74B9 /* PreviewStyle.swift */,
 				68F6FB9E29ADE0E2001F74B9 /* PageLayout.swift */,
-				68352D1729B187180073CEFD /* TintOption.swift */,
+				68352D1729B187180073CEFD /* ProfileColorOption.swift */,
 				687FEED62A3B724B0042977E /* UserColorScheme.swift */,
 				687FEF192A4227810042977E /* WebAddressValidationMessage.swift */,
 				68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */,
@@ -1046,7 +1046,7 @@
 			isa = PBXGroup;
 			children = (
 				6832AF252789419700CFC8CA /* ProfileSettings.swift */,
-				68352D1529B16C5F0073CEFD /* TintPicker.swift */,
+				68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */,
 				681F0C252933F4C10037C609 /* HistorySettingsSection.swift */,
 				68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */,
 			);
@@ -1372,7 +1372,7 @@
 				683E3F47293BC18C00B16814 /* SidebarStatus.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
 				687FEEF72A3E431E0042977E /* ImportButton.swift in Sources */,
-				68352D1829B187180073CEFD /* TintOption.swift in Sources */,
+				68352D1829B187180073CEFD /* ProfileColorOption.swift in Sources */,
 				6825920929D89CBD00E5EF3B /* HistoryCleanupOperation.swift in Sources */,
 				68AC3A1B2910EF3A00D60273 /* DataTaskOperation.swift in Sources */,
 				68BB25712A4A0B220082D890 /* FeedEmpty.swift in Sources */,
@@ -1518,7 +1518,7 @@
 				68FF63F62921DB900012A275 /* FilterReadButton.swift in Sources */,
 				689838CC291D88FE00FDC881 /* BuiltInBrowser.swift in Sources */,
 				68BB25772A568D880082D890 /* FeedRefreshTimeoutLabel.swift in Sources */,
-				68352D1629B16C5F0073CEFD /* TintPicker.swift in Sources */,
+				68352D1629B16C5F0073CEFD /* ProfileColorPicker.swift in Sources */,
 				68ED798529C29B2700D85B4F /* DeckLayout.swift in Sources */,
 				68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,

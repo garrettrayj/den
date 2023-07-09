@@ -15,17 +15,22 @@ struct Start: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
+    
+    @Binding var showingImporter: Bool
 
     var body: some View {
         Section {
             NewPageButton(activeProfile: .constant(profile))
                 .buttonStyle(.borderless)
 
+            ImportButton(showingImporter: $showingImporter)
+                .buttonStyle(.borderless)
+            
             Button {
                 Task { loadDemo() }
             } label: {
                 Label {
-                    Text("Load Demo Feeds", comment: "Button label.")
+                    Text("Load Demo", comment: "Button label.")
                         .multilineTextAlignment(.leading)
                 } icon: {
                     Image(systemName: "wand.and.stars")
@@ -33,27 +38,8 @@ struct Start: View {
             }
             .buttonStyle(.borderless)
             .accessibilityIdentifier("load-demo-button")
-
-            #if os(macOS)
-            Text(
-                "Or import OPML with File > Import.",
-                comment: "Sidebar guidance message."
-            )
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .padding(.vertical)
-            #endif
         } header: {
             Text("Get Started", comment: "Sidebar section header.")
-        } footer: {
-            Text(
-                "Or import OPML in \(Image(systemName: "gear")) Settings.",
-                comment: "Sidebar guidance message."
-            )
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .imageScale(.small)
-            .padding(.vertical, 4)
         }
     }
 

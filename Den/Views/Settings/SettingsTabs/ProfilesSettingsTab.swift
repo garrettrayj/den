@@ -27,7 +27,7 @@ struct ProfilesSettingsTab: View {
                         Label {
                             profile.nameText
                         } icon: {
-                            Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
+                            Image(systemName: profile == activeProfile ? "rhombus.fill" : "rhombus")
                                 .foregroundColor(profile.tintColor)
                         }
                         .tag(profile as Profile?)

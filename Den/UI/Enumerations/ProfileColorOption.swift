@@ -1,5 +1,5 @@
 //
-//  TintOption.swift
+//  ProfileColorOption.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/2/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-public enum TintOption: String, CaseIterable {
+public enum ProfileColorOption: String, CaseIterable {
     case red    = "Red"
     case orange = "Orange"
     case yellow = "Yellow"
@@ -27,29 +27,29 @@ public enum TintOption: String, CaseIterable {
     var labelText: Text {
         switch self {
         case .red:
-            return Text("Red", comment: "Tint color option.")
+            return Text("Red", comment: "Profile color option.")
         case .orange:
-            return Text("Orange", comment: "Tint color option.")
+            return Text("Orange", comment: "Profile color option.")
         case .yellow:
-            return Text("Yellow", comment: "Tint color option.")
+            return Text("Yellow", comment: "Profile color option.")
         case .green:
-            return Text("Green", comment: "Tint color option.")
+            return Text("Green", comment: "Profile color option.")
         case .mint:
-            return Text("Mint", comment: "Tint color option.")
+            return Text("Mint", comment: "Profile color option.")
         case .teal:
-            return Text("Teal", comment: "Tint color option.")
+            return Text("Teal", comment: "Profile color option.")
         case .cyan:
-            return Text("Cyan", comment: "Tint color option.")
+            return Text("Cyan", comment: "Profile color option.")
         case .blue:
-            return Text("Blue", comment: "Tint color option.")
+            return Text("Blue", comment: "Profile color option.")
         case .indigo:
-            return Text("Indigo", comment: "Tint color option.")
+            return Text("Indigo", comment: "Profile color option.")
         case .purple:
-            return Text("Purple", comment: "Tint color option.")
+            return Text("Purple", comment: "Profile color option.")
         case .pink:
-            return Text("Pink", comment: "Tint color option.")
+            return Text("Pink", comment: "Profile color option.")
         case .brown:
-            return Text("Brown", comment: "Tint color option.")
+            return Text("Brown", comment: "Profile color option.")
         }
     }
 

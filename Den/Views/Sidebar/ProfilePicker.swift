@@ -19,14 +19,9 @@ struct ProfilePicker: View {
     var body: some View {
         Picker(selection: $activeProfile) {
             ForEach(profiles) { profile in
-                Label {
-                    profile.nameText
-                } icon: {
-                    Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
-                        .foregroundColor(profile.tintColor)
-                }
-                .tag(profile as Profile?)
-                .accessibilityIdentifier("gadgets-layout-button")
+                profile.nameText
+                    .tag(profile as Profile?)
+                    .accessibilityIdentifier("profile-picker-option")
             }
         } label: {
             Text("Profile", comment: "Picker label.")

@@ -35,14 +35,14 @@ public class Profile: NSManagedObject {
     }
 
     public var tintColor: Color? {
-        guard let tint = tint, let tintOption = TintOption(rawValue: tint) else { return nil }
+        guard let tint = tint, let tintOption = ProfileColorOption(rawValue: tint) else { return nil }
         return tintOption.color
     }
 
-    public var tintOption: TintOption? {
+    public var tintOption: ProfileColorOption? {
         get {
             guard let tint = tint else { return nil }
-            return TintOption(rawValue: tint)
+            return ProfileColorOption(rawValue: tint)
         }
         set {
             tint = newValue?.rawValue

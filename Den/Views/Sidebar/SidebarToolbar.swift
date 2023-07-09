@@ -68,14 +68,18 @@ struct SidebarToolbar: ToolbarContent {
                     } label: {
                         Text("Edit Pages", comment: "Button label.")
                     }
-                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
+                    .disabled(profile.pagesArray.isEmpty)
                     .accessibilityIdentifier("edit-page-list-button")
                     .buttonStyle(.borderless)
                     
                     ImportButton(showingImporter: $showingImporter)
+                        .labelStyle(.titleOnly)
                         .buttonStyle(.borderless)
+                    
                     ExportButton(showingExporter: $showingExporter)
+                        .labelStyle(.titleOnly)
                         .buttonStyle(.borderless)
+                        .disabled(profile.pagesArray.isEmpty)
                     
                     SettingsButton(showingSettings: $showingSettings).disabled(refreshManager.refreshing)
                 } label: {
@@ -85,6 +89,7 @@ struct SidebarToolbar: ToolbarContent {
                         Image(systemName: "ellipsis.circle")
                     }
                 }
+                .disabled(refreshManager.refreshing)
             }
         }
         

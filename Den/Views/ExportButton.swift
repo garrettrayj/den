@@ -18,7 +18,11 @@ struct ExportButton: View {
         Button {
             showingExporter = true
         } label: {
-            Text("Export", comment: "Button label.")
+            Label {
+                Text("Export OPML", comment: "Button label.")
+            } icon: {
+                Image(systemName: "square.and.arrow.up")
+            }
         }
     }
 }

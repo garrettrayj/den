@@ -17,26 +17,21 @@ struct ProfilesSettingsSectionRow: View {
 
     @Binding var activeProfile: Profile?
 
-    @State private var showingDetail: Bool = false
-
     var body: some View {
-        Button {
-            showingDetail = true
-        } label: {
-            Label {
-                profile.nameText
-            } icon: {
-                Image(systemName: profile == activeProfile ? "hexagon.fill" : "hexagon")
-                    .foregroundColor(profile.tintColor)
-            }
-        }
-        .navigationDestination(isPresented: $showingDetail) {
+        NavigationLink {
             ProfileSettings(
                 profile: profile,
                 activeProfile: $activeProfile,
                 deleteCallback: {}
             )
             .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
+        } label: {
+            Label {
+                profile.nameText
+            } icon: {
+                Image(systemName: profile == activeProfile ? "rhombus.fill" : "rhombus")
+                    .foregroundColor(profile.tintColor)
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ struct Sidebar: View {
     var body: some View {
         List(selection: $detailPanel) {
             if profile.pagesArray.isEmpty {
-                Start(profile: profile)
+                Start(profile: profile, showingImporter: $showingImporter)
             } else {
                 AllSection(profile: profile)
                 PagesSection(profile: profile)

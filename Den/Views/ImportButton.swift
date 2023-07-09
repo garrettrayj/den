@@ -17,7 +17,11 @@ struct ImportButton: View {
         Button {
             showingImporter = true
         } label: {
-            Text("Import", comment: "Button label.")
+            Label {
+                Text("Import OPML", comment: "Button label.")
+            } icon: {
+                Image(systemName: "square.and.arrow.down")
+            }
         }
     }
 }
