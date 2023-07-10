@@ -76,6 +76,24 @@ public class Feed: NSManagedObject {
             previewStyle = Int16(newValue.rawValue)
         }
     }
+    
+    public var diagnosticsRowData: DiagnosticsRowData {
+        DiagnosticsRowData(
+            entity: self,
+            id: id?.uuidString ?? UUID().uuidString,
+            title: wrappedTitle,
+            page: page?.wrappedName ?? "",
+            address: urlString,
+            isSecure: urlString.contains("https") ? 1 : 0,
+            format: feedData?.format ?? "",
+            httpStatus: feedData?.httpStatus != nil ? String(feedData!.httpStatus) : "",
+            responseTime: feedData?.responseTime != nil ? Int(feedData!.responseTime * 1000) : 0,
+            server: feedData?.server ?? "",
+            cacheControl: feedData?.cacheControl ?? "",
+            age: feedData?.age ?? "",
+            eTag: feedData?.eTag ?? ""
+        )
+    }
 
     static func create(
         in managedObjectContext: NSManagedObjectContext,

@@ -28,7 +28,16 @@ struct FeedUpdateTask {
 
         let feedRequest = URLRequest(url: url, timeoutInterval: timeout)
 
-        if let (data, _) = try? await URLSession.shared.data(for: feedRequest) {
+        var feedResponse = FeedURLResponse()
+        if let (data, urlResponse) = try? await URLSession.shared.data(for: feedRequest) {
+            feedResponse.responseTime = Float(CFAbsoluteTimeGetCurrent() - start)
+            if let httpResponse = urlResponse as? HTTPURLResponse {
+                feedResponse.statusCode = Int16(httpResponse.statusCode)
+                feedResponse.server = httpResponse.value(forHTTPHeaderField: "Server")
+                feedResponse.cacheControl = httpResponse.value(forHTTPHeaderField: "Cache-Control")
+                feedResponse.age = httpResponse.value(forHTTPHeaderField: "Age")
+                feedResponse.eTag = httpResponse.value(forHTTPHeaderField: "ETag")
+            }
             parserResult = FeedParser(data: data).parse()
         }
 
@@ -54,6 +63,13 @@ struct FeedUpdateTask {
             else { return }
 
             let feedData = feed.feedData ?? FeedData.create(in: context, feedId: feedId)
+            feedData.refreshed = .now
+            feedData.responseTime = feedResponse.responseTime
+            feedData.httpStatus = feedResponse.statusCode
+            feedData.server = feedResponse.server
+            feedData.cacheControl = feedResponse.cacheControl
+            feedData.age = feedResponse.age
+            feedData.eTag = feedResponse.eTag
 
             switch parserResult {
             case .success(let parsedFeed):
@@ -91,8 +107,6 @@ struct FeedUpdateTask {
                 }
             }
 
-            feedData.refreshed = .now
-
             do {
                 try context.save()
                 let duration = CFAbsoluteTimeGetCurrent() - start
@@ -120,6 +134,7 @@ struct FeedUpdateTask {
     ) {
         switch parsedFeed {
         case let .atom(parsedFeed):
+            feedData.format = "Atom"
             let updater = AtomFeedUpdate(
                 feed: feed,
                 feedData: feedData,
@@ -128,6 +143,7 @@ struct FeedUpdateTask {
             )
             updater.execute()
         case let .rss(parsedFeed):
+            feedData.format = "RSS"
             let updater = RSSFeedUpdate(
                 feed: feed,
                 feedData: feedData,
@@ -136,6 +152,7 @@ struct FeedUpdateTask {
             )
             updater.execute()
         case let .json(parsedFeed):
+            feedData.format = "JSON Feed"
             let updater = JSONFeedUpdate(
                 feed: feed,
                 feedData: feedData,

@@ -25,16 +25,18 @@ struct DetailView: View {
         NavigationStack(path: $navigationStore.path) {
             ZStack {
                 switch detailPanel ?? .welcome {
-                case .welcome:
-                    Welcome(profile: profile)
-                case .search(let query):
-                    Search(profile: profile, query: query)
+                case .diagnostics:
+                    DiagnosticsTable(profile: profile)
                 case .inbox:
                     Inbox(profile: profile)
-                case .trending:
-                    Trending(profile: profile)
                 case .page(let page):
                     PageView(page: page, profile: profile)
+                case .search(let query):
+                    Search(profile: profile, query: query)
+                case .trending:
+                    Trending(profile: profile)
+                case .welcome:
+                    Welcome(profile: profile)
                 }
             }
             .disabled(refreshManager.refreshing)

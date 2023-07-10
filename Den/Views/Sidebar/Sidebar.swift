@@ -80,5 +80,8 @@ struct Sidebar: View {
                 showingExporter: $showingExporter
             )
         }
+        .contextMenu(menuItems: {
+            DiagnosticsButton()
+        })
     }
 }

@@ -11,24 +11,27 @@
 import Foundation
 
 enum DetailPanel: Hashable {
-    case welcome
-    case search(String)
+    case diagnostics
     case inbox
-    case trending
     case page(Page)
+    case search(String)
+    case trending
+    case welcome
 
     var panelID: String {
         switch self {
-        case .welcome:
-            return "welcome"
-        case .search:
-            return "search"
+        case .diagnostics:
+            return "diagnostics"
         case .inbox:
             return "inbox"
+        case .page(_):
+            return "page"
+        case .search(_):
+            return "search"
         case .trending:
             return "trending"
-        case .page:
-            return "page"
+        case .welcome:
+            return "welcome"
         }
     }
 
@@ -61,13 +64,10 @@ extension DetailPanel: Decodable {
         let panelID = try values.decode(String.self, forKey: .panelID)
         var detailPanel: DetailPanel = .welcome
 
-        if panelID == "inbox" {
+        if panelID == "diagnostics" {
+            detailPanel = .diagnostics
+        } else if panelID == "inbox" {
             detailPanel = .inbox
-        } else if panelID == "trending" {
-            detailPanel = .trending
-        } else if panelID == "search" && values.contains(.searchQuery) {
-            let decodedSearchQuery = try values.decode(String.self, forKey: .searchQuery)
-            detailPanel = .search(decodedSearchQuery)
         } else if panelID == "page" && values.contains(.pageID) {
             let decodedPageID = try values.decode(String.self, forKey: .pageID)
 
@@ -78,6 +78,11 @@ extension DetailPanel: Decodable {
             if let page = try? context.fetch(request).first {
                 detailPanel = .page(page)
             }
+        } else if panelID == "search" && values.contains(.searchQuery) {
+            let decodedSearchQuery = try values.decode(String.self, forKey: .searchQuery)
+            detailPanel = .search(decodedSearchQuery)
+        } else if panelID == "trending" {
+            detailPanel = .trending
         }
 
         self = detailPanel

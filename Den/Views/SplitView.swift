@@ -89,6 +89,9 @@ struct SplitView: View {
             newFeedPageID = notification.userInfo?["pageID"] as? String
             showingNewFeedSheet = true
         }
+        .onReceive(NotificationCenter.default.publisher(for: .showDiagnostics, object: nil)) { notification in
+            detailPanel = .diagnostics
+        }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
             #if os(iOS)
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -148,8 +151,10 @@ struct SplitView: View {
             // pass
         }
         .onChange(of: showingExporter) { _ in
-            opmlFile = ImportExportUtility.exportOPML(profile: profile)
-            exporterIsPresented = true
+            if showingExporter {
+                opmlFile = ImportExportUtility.exportOPML(profile: profile)
+            }
+            exporterIsPresented = showingExporter
         }
     }
 }

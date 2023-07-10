@@ -81,6 +81,8 @@ struct SidebarToolbar: ToolbarContent {
                         .buttonStyle(.borderless)
                         .disabled(profile.pagesArray.isEmpty)
                     
+                    DiagnosticsButton()
+                    
                     SettingsButton(showingSettings: $showingSettings).disabled(refreshManager.refreshing)
                 } label: {
                     Label {

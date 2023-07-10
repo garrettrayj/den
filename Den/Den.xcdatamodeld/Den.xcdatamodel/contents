@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G5027e" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22189.1" systemVersion="23A5286g" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideBylines" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -24,13 +24,17 @@
         </fetchedProperty>
     </entity>
     <entity name="FeedData" representedClassName="FeedData" syncable="YES" codeGenerationType="category">
+        <attribute name="age" optional="YES" attributeType="String"/>
         <attribute name="banner" optional="YES" attributeType="URI"/>
+        <attribute name="cacheControl" optional="YES" attributeType="String"/>
         <attribute name="copyright" optional="YES" attributeType="String"/>
         <attribute name="error" optional="YES" attributeType="String"/>
+        <attribute name="eTag" optional="YES" attributeType="String"/>
         <attribute name="favicon" optional="YES" attributeType="URI"/>
         <attribute name="faviconFile" optional="YES" attributeType="String"/>
         <attribute name="feedId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="feedTitle" optional="YES" attributeType="String"/>
+        <attribute name="format" optional="YES" attributeType="String"/>
         <attribute name="httpStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="icon" optional="YES" attributeType="URI"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -39,6 +43,8 @@
         <attribute name="metaDescription" optional="YES" attributeType="String"/>
         <attribute name="metaFetched" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="refreshed" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="responseTime" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="server" optional="YES" attributeType="String"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="feedData" inverseEntity="Item"/>
         <fetchedProperty name="feed" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="Feed" predicateString="id = $FETCH_SOURCE.feedId"/>

@@ -61,6 +61,7 @@ struct DenApp: App {
                 if currentProfile?.managedObjectContext != nil {
                     ProfilePicker(currentProfile: $currentProfile)
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    DiagnosticsButton()
                 }
             }
             CommandGroup(after: .sidebar) {

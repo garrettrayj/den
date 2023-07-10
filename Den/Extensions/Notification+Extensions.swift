@@ -18,4 +18,5 @@ extension Notification.Name {
 
     static let showSubscribe = Notification.Name("show-subscribe")
     static let showCrashMessage = Notification.Name("show-crash-message")
+    static let showDiagnostics = Notification.Name("show-diagnostics")
 }
