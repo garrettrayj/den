@@ -19,43 +19,43 @@ struct CompactDiagnosticsRow: View {
                 LabeledContent {
                     FeedTitleLabel(feed: data.entity)
                 } label: {
-                    Text("Feed")
+                    Text("Feed", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
-                    Text(data.page)
+                    Text("\(data.page)")
                 } label: {
-                    Text("Page")
+                    Text("Page", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
-                    Text(data.address)
+                    Text("\(data.address)")
                 } label: {
-                    Text("Address")
+                    Text("Address", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
-                    data.isSecure != 0 ? Text("Yes") : Text("No")
+                    data.isSecure == 1 ? Text("Yes") : Text("No")
                 } label: {
-                    Text("Is Secure")
+                    Text("Is Secure", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
-                    Text(data.format)
+                    Text("\(data.format)")
                 } label: {
-                    Text("Format")
+                    Text("Format", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
                     Text("\(data.responseTime) ms")
                 } label: {
-                    Text("Response Time")
+                    Text("Response Time", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
                     Text(verbatim: "\(data.httpStatus)")
                 } label: {
-                    Text("Status Code")
+                    Text("Status Code", comment: "Diagnostics header.")
                 }
             }
             
@@ -65,25 +65,25 @@ struct CompactDiagnosticsRow: View {
                         Text("\(data.age) s")
                     }
                 } label: {
-                    Text("Age")
+                    Text("Age", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
-                    Text(data.cacheControl)
+                    Text("\(data.cacheControl)")
                 } label: {
-                    Text("Cache Control")
+                    Text("Cache Control", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
-                    Text(data.eTag)
+                    Text("\(data.eTag)")
                 } label: {
-                    Text("ETag")
+                    Text("ETag", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
-                    Text(data.server)
+                    Text("\(data.server)")
                 } label: {
-                    Text("Server")
+                    Text("Server", comment: "Diagnostics header.")
                 }
             }
         }

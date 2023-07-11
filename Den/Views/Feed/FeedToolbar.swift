@@ -11,7 +11,9 @@
 import SwiftUI
 
 struct FeedToolbar: ToolbarContent {
+    #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile

@@ -11,7 +11,9 @@
 import SwiftUI
 
 struct DiagnosticsTable: View {
-    @Environment(\.horizontalSizeClass) var sizeCategory
+    #if !os(macOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
     
     @ObservedObject var profile: Profile
     
@@ -25,30 +27,34 @@ struct DiagnosticsTable: View {
         Table(data, sortOrder: $sortOrder) {
             Group {
                 TableColumn(
-                    Text("Feed", comment: "Diagnostics header."),
+                    "Feed",
                     value: \DiagnosticsRowData.title
                 ) { row in
-                    if (sizeCategory == .compact) {
+                    #if os(macOS)
+                    FeedTitleLabel(feed: row.entity)
+                    #else
+                    if (horizontalSizeClass == .compact) {
                         CompactDiagnosticsRow(data: row)
                     } else {
                         FeedTitleLabel(feed: row.entity)
                     }
+                    #endif
                 }.width(min: 160)
                 
                 TableColumn(
-                    Text("Page", comment: "Diagnostics header."),
+                    "Page",
                     value: \.page
                 ).width(min: 100)
                 
                 TableColumn(
-                    Text("Address", comment: "Diagnostics header."),
+                    "Address",
                     value: \.address
                 ) { row in
-                    Text(row.address)
+                    Text("\(row.address)")
                 }
                 
                 TableColumn(
-                    Text("Is Secure", comment: "Diagnostics header."),
+                    "Is Secure",
                     value: \.isSecure
                 ) { row in
                     if row.isSecure == 1 {
@@ -59,19 +65,19 @@ struct DiagnosticsTable: View {
                 }
                 
                 TableColumn(
-                    Text("Format", comment: "Diagnostics header."),
+                    "Format",
                     value: \.format
                 )
                 
                 TableColumn(
-                    Text("Response Time", comment: "Diagnostics header."),
+                    "Response Time",
                     value: \.responseTime
                 ) { row in
                     Text("\(row.responseTime) ms", comment: "Time display (milliseconds).")
                 }
                 
                 TableColumn(
-                    Text("Status Code", comment: "Diagnostics header."),
+                    "Status Code",
                     value: \DiagnosticsRowData.httpStatus
                 ) { row in
                     if row.httpStatus != -1 {
@@ -82,7 +88,7 @@ struct DiagnosticsTable: View {
             
             Group {
                 TableColumn(
-                    Text("Age", comment: "Diagnostics header."),
+                    "Age",
                     value: \DiagnosticsRowData.age
                 ) { row in
                     if row.age != -1 {
@@ -91,17 +97,17 @@ struct DiagnosticsTable: View {
                 }
                 
                 TableColumn(
-                    Text("Cache Control", comment: "Diagnostics header."),
+                    "Cache Control",
                     value: \.cacheControl
                 )
                 
                 TableColumn(
-                    Text("ETag", comment: "Diagnostics header."),
+                    "ETag",
                     value: \.eTag
                 )
                 
                 TableColumn(
-                    Text("Server", comment: "Diagnostics header."),
+                    "Server",
                     value: \.server
                 )
             }
