@@ -12,6 +12,8 @@ import CoreData
 import SwiftUI
 
 struct PageToolbar: ToolbarContent {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -43,7 +45,7 @@ struct PageToolbar: ToolbarContent {
             }
         }
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        if horizontalSizeClass == .compact {
             ToolbarItem {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {

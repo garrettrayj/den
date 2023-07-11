@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct FeedToolbar: ToolbarContent {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
@@ -39,7 +39,7 @@ struct FeedToolbar: ToolbarContent {
             }
         }
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        if horizontalSizeClass == .compact {
             ToolbarItem {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {

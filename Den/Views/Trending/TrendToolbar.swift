@@ -12,6 +12,7 @@ import SwiftUI
 
 struct TrendToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     @ObservedObject var trend: Trend
     @ObservedObject var profile: Profile
@@ -39,7 +40,7 @@ struct TrendToolbar: ToolbarContent {
             }
         }
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        if horizontalSizeClass == .compact {
             ToolbarItem {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {

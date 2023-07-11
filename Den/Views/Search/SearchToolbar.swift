@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct SearchToolbar: ToolbarContent {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
@@ -32,7 +34,7 @@ struct SearchToolbar: ToolbarContent {
             }
         }
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        if horizontalSizeClass == .compact {
             ToolbarItem {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {

@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct InboxToolbar: ToolbarContent {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
@@ -35,7 +37,7 @@ struct InboxToolbar: ToolbarContent {
             }
         }
         #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        if horizontalSizeClass == .compact {
             ToolbarItem {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {

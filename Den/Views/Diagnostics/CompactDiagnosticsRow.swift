@@ -19,43 +19,43 @@ struct CompactDiagnosticsRow: View {
                 LabeledContent {
                     FeedTitleLabel(feed: data.entity)
                 } label: {
-                    Text("Feed", comment: "Diagnostics header.")
+                    Text("Feed")
                 }
                 
                 LabeledContent {
                     Text(data.page)
                 } label: {
-                    Text("Page", comment: "Diagnostics header.")
+                    Text("Page")
                 }
                 
                 LabeledContent {
                     Text(data.address)
                 } label: {
-                    Text("Address", comment: "Diagnostics header.")
+                    Text("Address")
                 }
                 
                 LabeledContent {
                     data.isSecure != 0 ? Text("Yes") : Text("No")
                 } label: {
-                    Text("Is Secure", comment: "Diagnostics header.")
+                    Text("Is Secure")
                 }
                 
                 LabeledContent {
                     Text(data.format)
                 } label: {
-                    Text("Format", comment: "Diagnostics header.")
+                    Text("Format")
                 }
                 
                 LabeledContent {
                     Text("\(data.responseTime) ms")
                 } label: {
-                    Text("Response Time", comment: "Diagnostics header.")
+                    Text("Response Time")
                 }
                 
                 LabeledContent {
                     Text(data.httpStatus)
                 } label: {
-                    Text("Status Code", comment: "Diagnostics header.")
+                    Text("Status Code")
                 }
             }
             
@@ -65,25 +65,25 @@ struct CompactDiagnosticsRow: View {
                         Text("\(data.age) s")
                     }
                 } label: {
-                    Text("Age", comment: "Diagnostics header.")
+                    Text("Age")
                 }
                 
                 LabeledContent {
                     Text(data.cacheControl)
                 } label: {
-                    Text("Cache Control", comment: "Diagnostics header.")
+                    Text("Cache Control")
                 }
                 
                 LabeledContent {
                     Text(data.eTag)
                 } label: {
-                    Text("ETag", comment: "Diagnostics header.")
+                    Text("ETag")
                 }
                 
                 LabeledContent {
                     Text(data.server)
                 } label: {
-                    Text("Server", comment: "Diagnostics header.")
+                    Text("Server")
                 }
             }
         }
