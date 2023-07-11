@@ -52,10 +52,20 @@
         <target>%1$@ items in %2$@ feeds. %3$@ unread</target>
         <note>Trend block status message.</note>
       </trans-unit>
+      <trans-unit id="%@ ms" xml:space="preserve">
+        <source>%@ ms</source>
+        <target>%@ ms</target>
+        <note>Time display (milliseconds).</note>
+      </trans-unit>
       <trans-unit id="%@ of %@ Updated" xml:space="preserve">
         <source>%1$@ of %2$@ Updated</source>
         <target>%1$@ of %2$@ Updated</target>
         <note>Refresh in-progress label.</note>
+      </trans-unit>
+      <trans-unit id="%@ s" xml:space="preserve">
+        <source>%@ s</source>
+        <target>%@ s</target>
+        <note>Time display (seconds).</note>
       </trans-unit>
       <trans-unit id="1 Feed" xml:space="preserve">
         <source>1 Feed</source>
@@ -77,11 +87,6 @@
         <target>About %@</target>
         <note>Settings section header.</note>
       </trans-unit>
-      <trans-unit id="Add a New Feed" xml:space="preserve">
-        <source>Add a New Feed</source>
-        <target>Add a New Feed</target>
-        <note>Sheet title.</note>
-      </trans-unit>
       <trans-unit id="Add by Web Address" xml:space="preserve">
         <source>Add by Web Address</source>
         <target>Add by Web Address</target>
@@ -95,7 +100,8 @@
       <trans-unit id="Address" xml:space="preserve">
         <source>Address</source>
         <target>Address</target>
-        <note>Web address text field label.</note>
+        <note>Diagnostics header.
+   Web address text field label.</note>
       </trans-unit>
       <trans-unit id="Address cannot be blank." xml:space="preserve">
         <source>Address cannot be blank.</source>
@@ -116,6 +122,11 @@
         <source>Address must not contain spaces.</source>
         <target>Address must not contain spaces.</target>
         <note>URL field validation message.</note>
+      </trans-unit>
+      <trans-unit id="Age" xml:space="preserve">
+        <source>Age</source>
+        <target>Age</target>
+        <note>Diagnostics header.</note>
       </trans-unit>
       <trans-unit id="All Feeds" xml:space="preserve">
         <source>All Feeds</source>
@@ -157,20 +168,20 @@
         <target>Arrows</target>
         <note>Page icon category label.</note>
       </trans-unit>
-      <trans-unit id="Blend" xml:space="preserve">
-        <source>Blend</source>
-        <target>Blend</target>
-        <note>Page layout option label.</note>
-      </trans-unit>
       <trans-unit id="Blue" xml:space="preserve">
         <source>Blue</source>
         <target>Blue</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Brown" xml:space="preserve">
         <source>Brown</source>
         <target>Brown</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
+      </trans-unit>
+      <trans-unit id="Cache Control" xml:space="preserve">
+        <source>Cache Control</source>
+        <target>Cache Control</target>
+        <note>Diagnostics header.</note>
       </trans-unit>
       <trans-unit id="Cancel" xml:space="preserve">
         <source>Cancel</source>
@@ -202,6 +213,11 @@
         <source>Close</source>
         <target>Close</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Color" xml:space="preserve">
+        <source>Color</source>
+        <target>Color</target>
+        <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Commerce" xml:space="preserve">
         <source>Commerce</source>
@@ -236,7 +252,7 @@
       <trans-unit id="Copy Link" xml:space="preserve">
         <source>Copy Link</source>
         <target>Copy Link</target>
-        <note>Context menu button label.</note>
+        <note>Context Button label.</note>
       </trans-unit>
       <trans-unit id="Could not fetch data." xml:space="preserve">
         <source>Could not fetch data.</source>
@@ -248,15 +264,10 @@
         <target>Create a New Profile</target>
         <note>Button label.</note>
       </trans-unit>
-      <trans-unit id="Custom Tint" xml:space="preserve">
-        <source>Custom Tint</source>
-        <target>Custom Tint</target>
-        <note>Picker label.</note>
-      </trans-unit>
       <trans-unit id="Cyan" xml:space="preserve">
         <source>Cyan</source>
         <target>Cyan</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Dark" xml:space="preserve">
         <source>Dark</source>
@@ -267,6 +278,11 @@
         <source>Deck</source>
         <target>Deck</target>
         <note>Page layout option label.</note>
+      </trans-unit>
+      <trans-unit id="Default" xml:space="preserve">
+        <source>Default</source>
+        <target>Default</target>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Delete" xml:space="preserve">
         <source>Delete</source>
@@ -287,6 +303,26 @@
         <source>Devices</source>
         <target>Devices</target>
         <note>Page icon category label.</note>
+      </trans-unit>
+      <trans-unit id="Diagnostics" xml:space="preserve">
+        <source>Diagnostics</source>
+        <target>Diagnostics</target>
+        <note>Navigation title.</note>
+      </trans-unit>
+      <trans-unit id="Done" xml:space="preserve">
+        <source>Done</source>
+        <target>Done</target>
+        <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="ETag" xml:space="preserve">
+        <source>ETag</source>
+        <target>ETag</target>
+        <note>Diagnostics header.</note>
+      </trans-unit>
+      <trans-unit id="Edit Pages" xml:space="preserve">
+        <source>Edit Pages</source>
+        <target>Edit Pages</target>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Editing" xml:space="preserve">
         <source>Editing</source>
@@ -313,10 +349,15 @@
         <target>Expanded</target>
         <note>Preview style picker option.</note>
       </trans-unit>
-      <trans-unit id="Export" xml:space="preserve">
-        <source>Export</source>
-        <target>Export</target>
+      <trans-unit id="Export OPML" xml:space="preserve">
+        <source>Export OPML</source>
+        <target>Export OPML</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Feed" xml:space="preserve">
+        <source>Feed</source>
+        <target>Feed</target>
+        <note>Diagnostics header.</note>
       </trans-unit>
       <trans-unit id="Feed Deleted" xml:space="preserve">
         <source>Feed Deleted</source>
@@ -350,6 +391,11 @@
         <target>Forever</target>
         <note>History retention duration option.</note>
       </trans-unit>
+      <trans-unit id="Format" xml:space="preserve">
+        <source>Format</source>
+        <target>Format</target>
+        <note>Diagnostics header.</note>
+      </trans-unit>
       <trans-unit id="Found %@ results for “%@”" xml:space="preserve">
         <source>Found %1$@ results for “%2$@”</source>
         <target>Found %1$@ results for “%2$@”</target>
@@ -359,11 +405,6 @@
         <source>Found 1 result for “%@”</source>
         <target>Found 1 result for “%@”</target>
         <note>Search status (singular result).</note>
-      </trans-unit>
-      <trans-unit id="Gadgets" xml:space="preserve">
-        <source>Gadgets</source>
-        <target>Gadgets</target>
-        <note>Page layout option label.</note>
       </trans-unit>
       <trans-unit id="Gaming" xml:space="preserve">
         <source>Gaming</source>
@@ -378,12 +419,17 @@
       <trans-unit id="Go to Item" xml:space="preserve">
         <source>Go to Item</source>
         <target>Go to Item</target>
-        <note>Context menu button label.</note>
+        <note>Context Button label.</note>
       </trans-unit>
       <trans-unit id="Green" xml:space="preserve">
         <source>Green</source>
         <target>Green</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
+      </trans-unit>
+      <trans-unit id="Grouped" xml:space="preserve">
+        <source>Grouped</source>
+        <target>Grouped</target>
+        <note>Page layout option label.</note>
       </trans-unit>
       <trans-unit id="HTTP Timeout: %@" xml:space="preserve">
         <source>HTTP Timeout: %@</source>
@@ -425,9 +471,9 @@
         <target>If you have used the app before then synchronization could be in progress. Please wait a minute.</target>
         <note>Launch guidance message.</note>
       </trans-unit>
-      <trans-unit id="Import" xml:space="preserve">
-        <source>Import</source>
-        <target>Import</target>
+      <trans-unit id="Import OPML" xml:space="preserve">
+        <source>Import OPML</source>
+        <target>Import OPML</target>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="In Background" xml:space="preserve">
@@ -443,7 +489,12 @@
       <trans-unit id="Indigo" xml:space="preserve">
         <source>Indigo</source>
         <target>Indigo</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
+      </trans-unit>
+      <trans-unit id="Is Secure" xml:space="preserve">
+        <source>Is Secure</source>
+        <target>Is Secure</target>
+        <note>Diagnostics header.</note>
       </trans-unit>
       <trans-unit id="Item Deleted" xml:space="preserve">
         <source>Item Deleted</source>
@@ -475,9 +526,9 @@
         <target>Links</target>
         <note>Settings section header.</note>
       </trans-unit>
-      <trans-unit id="Load Demo Feeds" xml:space="preserve">
-        <source>Load Demo Feeds</source>
-        <target>Load Demo Feeds</target>
+      <trans-unit id="Load Demo" xml:space="preserve">
+        <source>Load Demo</source>
+        <target>Load Demo</target>
         <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Loading…" xml:space="preserve">
@@ -508,13 +559,12 @@
       <trans-unit id="Menu" xml:space="preserve">
         <source>Menu</source>
         <target>Menu</target>
-        <note>Button label.
-   Menu button label.</note>
+        <note>Button label.</note>
       </trans-unit>
       <trans-unit id="Mint" xml:space="preserve">
         <source>Mint</source>
         <target>Mint</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Name" xml:space="preserve">
         <source>Name</source>
@@ -534,7 +584,8 @@
       <trans-unit id="New Feed" xml:space="preserve">
         <source>New Feed</source>
         <target>New Feed</target>
-        <note>Button label.</note>
+        <note>Button label.
+   Sheet title.</note>
       </trans-unit>
       <trans-unit id="New Page" xml:space="preserve">
         <source>New Page</source>
@@ -545,6 +596,11 @@
         <source>New Profile</source>
         <target>New Profile</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="No" xml:space="preserve">
+        <source>No</source>
+        <target>No</target>
+        <note>Boolean value.</note>
       </trans-unit>
       <trans-unit id="No Data" xml:space="preserve">
         <source>No Data</source>
@@ -559,8 +615,8 @@
       <trans-unit id="No Items" xml:space="preserve">
         <source>No Items</source>
         <target>No Items</target>
-        <note>Blend page layout empty message.
-   Inbox empty header.</note>
+        <note>Inbox empty header.
+   Timeline page layout empty message.</note>
       </trans-unit>
       <trans-unit id="No Pages Available" xml:space="preserve">
         <source>No Pages Available</source>
@@ -576,11 +632,6 @@
         <source>No Results</source>
         <target>No Results</target>
         <note>Search results empty message.</note>
-      </trans-unit>
-      <trans-unit id="No Tint" xml:space="preserve">
-        <source>No Tint</source>
-        <target>No Tint</target>
-        <note>Tint color option.</note>
       </trans-unit>
       <trans-unit id="No Unread Results" xml:space="preserve">
         <source>No Unread Results</source>
@@ -601,11 +652,6 @@
         <source>Nothing Trending</source>
         <target>Nothing Trending</target>
         <note>Trending empty header.</note>
-      </trans-unit>
-      <trans-unit id="OPML" xml:space="preserve">
-        <source>OPML</source>
-        <target>OPML</target>
-        <note>No comment provided by engineer.</note>
       </trans-unit>
       <trans-unit id="Objects and Tools" xml:space="preserve">
         <source>Objects and Tools</source>
@@ -638,25 +684,16 @@
         <target>Or drag and drop a feed URL, or open a syndication link, or use the web extension to discover feeds on websites.</target>
         <note>Empty page guidance.</note>
       </trans-unit>
-      <trans-unit id="Or import OPML in %@ Settings." xml:space="preserve">
-        <source>Or import OPML in %@ Settings.</source>
-        <target>Or import OPML in %@ Settings.</target>
-        <note>Sidebar guidance message.</note>
-      </trans-unit>
-      <trans-unit id="Or import OPML with File &gt; Import." xml:space="preserve">
-        <source>Or import OPML with File &gt; Import.</source>
-        <target>Or import OPML with File &gt; Import.</target>
-        <note>Sidebar guidance message.</note>
-      </trans-unit>
       <trans-unit id="Orange" xml:space="preserve">
         <source>Orange</source>
         <target>Orange</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Page" xml:space="preserve">
         <source>Page</source>
         <target>Page</target>
-        <note>Picker label.</note>
+        <note>Diagnostics header.
+   Picker label.</note>
       </trans-unit>
       <trans-unit id="Page Deleted" xml:space="preserve">
         <source>Page Deleted</source>
@@ -687,7 +724,7 @@
       <trans-unit id="Pink" xml:space="preserve">
         <source>Pink</source>
         <target>Pink</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Preferred Style" xml:space="preserve">
         <source>Preferred Style</source>
@@ -710,6 +747,11 @@
         <target>Previews</target>
         <note>Feed settings section header.</note>
       </trans-unit>
+      <trans-unit id="Profile" xml:space="preserve">
+        <source>Profile</source>
+        <target>Profile</target>
+        <note>Picker label.</note>
+      </trans-unit>
       <trans-unit id="Profile Deleted" xml:space="preserve">
         <source>Profile Deleted</source>
         <target>Profile Deleted</target>
@@ -728,12 +770,12 @@
       <trans-unit id="Purple" xml:space="preserve">
         <source>Purple</source>
         <target>Purple</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Red" xml:space="preserve">
         <source>Red</source>
         <target>Red</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Refresh" xml:space="preserve">
         <source>Refresh</source>
@@ -768,6 +810,11 @@
         <target>Reset Everything?</target>
         <note>Alert title.</note>
       </trans-unit>
+      <trans-unit id="Response Time" xml:space="preserve">
+        <source>Response Time</source>
+        <target>Response Time</target>
+        <note>Diagnostics header.</note>
+      </trans-unit>
       <trans-unit id="Retaining history for long periods may adversely affect performance." xml:space="preserve">
         <source>Retaining history for long periods may adversely affect performance.</source>
         <target>Retaining history for long periods may adversely affect performance.</target>
@@ -788,6 +835,11 @@
         <source>Searching %@</source>
         <target>Searching %@</target>
         <note>Empty search query message.</note>
+      </trans-unit>
+      <trans-unit id="Server" xml:space="preserve">
+        <source>Server</source>
+        <target>Server</target>
+        <note>Diagnostics header.</note>
       </trans-unit>
       <trans-unit id="Settings" xml:space="preserve">
         <source>Settings</source>
@@ -820,6 +872,11 @@
         <target>Six Months</target>
         <note>History retention duration option.</note>
       </trans-unit>
+      <trans-unit id="Status Code" xml:space="preserve">
+        <source>Status Code</source>
+        <target>Status Code</target>
+        <note>Diagnostics header.</note>
+      </trans-unit>
       <trans-unit id="Switch" xml:space="preserve">
         <source>Switch</source>
         <target>Switch</target>
@@ -838,7 +895,7 @@
       <trans-unit id="Teal" xml:space="preserve">
         <source>Teal</source>
         <target>Teal</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
       </trans-unit>
       <trans-unit id="Theme" xml:space="preserve">
         <source>Theme</source>
@@ -854,6 +911,11 @@
         <source>Time</source>
         <target>Time</target>
         <note>Page icon category label.</note>
+      </trans-unit>
+      <trans-unit id="Timeline" xml:space="preserve">
+        <source>Timeline</source>
+        <target>Timeline</target>
+        <note>Page layout option label.</note>
       </trans-unit>
       <trans-unit id="Title" xml:space="preserve">
         <source>Title</source>
@@ -937,7 +999,12 @@
       <trans-unit id="Yellow" xml:space="preserve">
         <source>Yellow</source>
         <target>Yellow</target>
-        <note>Tint color option.</note>
+        <note>Profile color option.</note>
+      </trans-unit>
+      <trans-unit id="Yes" xml:space="preserve">
+        <source>Yes</source>
+        <target>Yes</target>
+        <note>Boolean value.</note>
       </trans-unit>
       <trans-unit id="https⁣://example.com/feed" xml:space="preserve">
         <source>https⁣://example.com/feed</source>

@@ -51,7 +51,11 @@ struct DiagnosticsTable: View {
                     Text("Is Secure", comment: "Diagnostics header."),
                     value: \.isSecure
                 ) { row in
-                    row.isSecure != 0 ? Text("Yes") : Text("No")
+                    if row.isSecure == 1 {
+                        Text("Yes", comment: "Boolean value.")
+                    } else {
+                        Text("No", comment: "Boolean value.")
+                    }
                 }
                 
                 TableColumn(
@@ -63,13 +67,17 @@ struct DiagnosticsTable: View {
                     Text("Response Time", comment: "Diagnostics header."),
                     value: \.responseTime
                 ) { row in
-                    Text("\(row.responseTime) ms")
+                    Text("\(row.responseTime) ms", comment: "Time display (milliseconds).")
                 }
                 
                 TableColumn(
                     Text("Status Code", comment: "Diagnostics header."),
-                    value: \.httpStatus
-                )
+                    value: \DiagnosticsRowData.httpStatus
+                ) { row in
+                    if row.httpStatus != -1 {
+                        Text(verbatim: "\(row.httpStatus)")
+                    }
+                }
             }
             
             Group {
@@ -77,8 +85,8 @@ struct DiagnosticsTable: View {
                     Text("Age", comment: "Diagnostics header."),
                     value: \DiagnosticsRowData.age
                 ) { row in
-                    if row.age != "" {
-                        Text("\(row.age) s")
+                    if row.age != -1 {
+                        Text("\(row.age) s", comment: "Time display (seconds).")
                     }
                 }
                 

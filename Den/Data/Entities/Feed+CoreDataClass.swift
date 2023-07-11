@@ -86,11 +86,11 @@ public class Feed: NSManagedObject {
             address: urlString,
             isSecure: urlString.contains("https") ? 1 : 0,
             format: feedData?.format ?? "",
-            httpStatus: feedData?.httpStatus != nil ? String(feedData!.httpStatus) : "",
+            httpStatus: Int(feedData?.httpStatus ?? -1),
             responseTime: feedData?.responseTime != nil ? Int(feedData!.responseTime * 1000) : 0,
             server: feedData?.server ?? "",
             cacheControl: feedData?.cacheControl ?? "",
-            age: feedData?.age ?? "",
+            age: Int(feedData?.age ?? "-1") ?? -1,
             eTag: feedData?.eTag ?? ""
         )
     }

@@ -19,10 +19,10 @@ public struct DiagnosticsRowData: Identifiable, Equatable {
     public var address: String
     public var isSecure: Int
     public var format: String
-    public var httpStatus: String
+    public var httpStatus: Int
     public var responseTime: Int
     public var server: String
     public var cacheControl: String
-    public var age: String
+    public var age: Int
     public var eTag: String
 }

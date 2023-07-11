@@ -53,7 +53,7 @@ struct CompactDiagnosticsRow: View {
                 }
                 
                 LabeledContent {
-                    Text(data.httpStatus)
+                    Text(verbatim: "\(data.httpStatus)")
                 } label: {
                     Text("Status Code")
                 }
@@ -61,7 +61,7 @@ struct CompactDiagnosticsRow: View {
             
             Group {
                 LabeledContent {
-                    if data.age != "" {
+                    if data.age != -1 {
                         Text("\(data.age) s")
                     }
                 } label: {
