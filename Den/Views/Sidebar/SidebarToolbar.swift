@@ -92,6 +92,7 @@ struct SidebarToolbar: ToolbarContent {
                     }
                 }
                 .disabled(refreshManager.refreshing)
+                .accessibilityIdentifier("app-menu")
             }
         }
         
