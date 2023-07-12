@@ -11,7 +11,7 @@ A news app made for clear and intuitive browsing.
 - Web browser extension
 - and much more...
 
-<img src="Screenshots/Images/iPad Pro (12.9-inch) (5th generation)/en/light/01-GadgetsView.png" alt="iPad screenshot" width="800" />
+<img src="Screenshots/Images/iPad Pro (12.9-inch) (5th generation)/en/light/01-GroupedView.png" alt="iPad screenshot" width="800" />
 
 ## Install
 
