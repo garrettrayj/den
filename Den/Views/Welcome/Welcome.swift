@@ -24,5 +24,12 @@ struct Welcome: View {
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
+        .toolbar {
+            #if os(macOS)
+            ToolbarItem {
+                CommonStatus(profile: profile)
+            }
+            #endif
+        }
     }
 }

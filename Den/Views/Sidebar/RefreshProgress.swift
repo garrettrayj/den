@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct RefreshProgress: View {
+    @Environment(\.displayScale) private var displayScale
     @State private var progress = Progress()
 
     init(totalUnitCount: Int) {
@@ -22,7 +23,7 @@ struct RefreshProgress: View {
             .progressViewStyle(.circular)
             .labelsHidden()
             #if os(macOS)
-            .scaleEffect(0.5)
+            .scaleEffect(1 / displayScale)
             .frame(width: 34)
             #endif
             .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in

@@ -18,9 +18,7 @@ struct AllSection: View {
             InboxNavLink(profile: profile)
             TrendingNavLink(profile: profile)
         } header: {
-            #if os(macOS)
             Text("All Feeds", comment: "Sidebar section header.")
-            #endif
         }
     }
 }

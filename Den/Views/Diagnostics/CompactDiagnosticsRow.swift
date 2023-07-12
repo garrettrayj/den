@@ -37,7 +37,7 @@ struct CompactDiagnosticsRow: View {
                 LabeledContent {
                     data.isSecure == 1 ? Text("Yes") : Text("No")
                 } label: {
-                    Text("Is Secure", comment: "Diagnostics header.")
+                    Text("Secure", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
@@ -49,13 +49,13 @@ struct CompactDiagnosticsRow: View {
                 LabeledContent {
                     Text("\(data.responseTime) ms")
                 } label: {
-                    Text("Response Time", comment: "Diagnostics header.")
+                    Text("Response", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {
                     Text(verbatim: "\(data.httpStatus)")
                 } label: {
-                    Text("Status Code", comment: "Diagnostics header.")
+                    Text("Status", comment: "Diagnostics header.")
                 }
             }
             

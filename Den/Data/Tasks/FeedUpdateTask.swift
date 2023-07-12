@@ -152,7 +152,7 @@ struct FeedUpdateTask {
             )
             updater.execute()
         case let .json(parsedFeed):
-            feedData.format = "JSON Feed"
+            feedData.format = "JSON"
             let updater = JSONFeedUpdate(
                 feed: feed,
                 feedData: feedData,

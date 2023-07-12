@@ -54,7 +54,7 @@ struct DiagnosticsTable: View {
                 }
                 
                 TableColumn(
-                    "Is Secure",
+                    "Secure",
                     value: \.isSecure
                 ) { row in
                     if row.isSecure == 1 {
@@ -62,28 +62,28 @@ struct DiagnosticsTable: View {
                     } else {
                         Text("No", comment: "Boolean value.")
                     }
-                }
+                }.width(max: 60)
                 
                 TableColumn(
                     "Format",
                     value: \.format
-                )
+                ).width(max: 60)
                 
                 TableColumn(
-                    "Response Time",
+                    "Response",
                     value: \.responseTime
                 ) { row in
                     Text("\(row.responseTime) ms", comment: "Time display (milliseconds).")
                 }
                 
                 TableColumn(
-                    "Status Code",
+                    "Status",
                     value: \DiagnosticsRowData.httpStatus
                 ) { row in
                     if row.httpStatus != -1 {
                         Text(verbatim: "\(row.httpStatus)")
                     }
-                }
+                }.width(max: 60)
             }
             
             Group {

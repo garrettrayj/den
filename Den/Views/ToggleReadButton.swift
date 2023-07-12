@@ -11,6 +11,7 @@
 import SwiftUI
 
 struct ToggleReadButton: View {
+    @Environment(\.displayScale) private var displayScale
     let unreadCount: Int
     let toggleAll: () async -> Void
 
@@ -20,10 +21,10 @@ struct ToggleReadButton: View {
         if toggling {
             ProgressView()
                 #if os(macOS)
-                .scaleEffect(0.5)
-                .frame(width: 36)
+                .scaleEffect(1 / displayScale)
+                .padding(2)
                 #else
-                .frame(width: 26)
+                .padding(8)
                 #endif
         } else {
             Button {
