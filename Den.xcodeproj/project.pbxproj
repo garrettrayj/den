@@ -209,6 +209,8 @@
 		68DA45182A3A3113000A288B /* ProfilesSettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA45172A3A3113000A288B /* ProfilesSettingsTab.swift */; };
 		68DA451C2A3A33CC000A288B /* DeleteProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */; };
 		68E58F2729B6B30A00C18A87 /* SimpleSidebarStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E58F2629B6B30A00C18A87 /* SimpleSidebarStatus.swift */; };
+		68E83BFC2A6004590014DC64 /* DenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFB2A6004590014DC64 /* DenUITests.swift */; };
+		68E83BFE2A6004590014DC64 /* LaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* LaunchUITests.swift */; };
 		68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */; };
 		68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */; };
 		68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */; };
@@ -257,6 +259,13 @@
 			remoteInfo = SafariExtension;
 		};
 		689EDC0E26A3F46A0055811A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 68C41301247263C700D1DC7B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 68C41308247263C700D1DC7B;
+			remoteInfo = Den;
+		};
+		68E83BFF2A6004590014DC64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 68C41301247263C700D1DC7B /* Project object */;
 			proxyType = 1;
@@ -506,6 +515,11 @@
 		68DA45172A3A3113000A288B /* ProfilesSettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesSettingsTab.swift; sourceTree = "<group>"; };
 		68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileButton.swift; sourceTree = "<group>"; };
 		68E58F2629B6B30A00C18A87 /* SimpleSidebarStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSidebarStatus.swift; sourceTree = "<group>"; };
+		68E83BF92A6004590014DC64 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		68E83BFB2A6004590014DC64 /* DenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenUITests.swift; sourceTree = "<group>"; };
+		68E83BFD2A6004590014DC64 /* LaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchUITests.swift; sourceTree = "<group>"; };
+		68E83C082A6015060014DC64 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		68E83C092A6016010014DC64 /* TestData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestData; sourceTree = "<group>"; };
 		68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContent.swift; sourceTree = "<group>"; };
 		68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -578,6 +592,13 @@
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
 				681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68E83BF62A6004590014DC64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -911,6 +932,7 @@
 		68C41300247263C700D1DC7B = {
 			isa = PBXGroup;
 			children = (
+				68E83C082A6015060014DC64 /* Makefile */,
 				68922A642969D78A00C9A276 /* .github */,
 				6845BD0D24EFB2AC0008B296 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
@@ -919,8 +941,10 @@
 				686069122831501B000068DE /* WebExtension */,
 				689EDC0A26A3F46A0055811A /* Screenshots */,
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,
+				68E83BFA2A6004590014DC64 /* UITests */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
+				68E83C092A6016010014DC64 /* TestData */,
 				6862A5972A2585B7000CAB19 /* Localizations */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
 				683573A32963A0BA00843A8E /* NOTES.md */,
@@ -936,6 +960,7 @@
 				689EDC0926A3F46A0055811A /* Screenshots.xctest */,
 				6813FD082748DE1100EC88A5 /* SymbolLibrary */,
 				6860690E2831501B000068DE /* Den Web Extension.appex */,
+				68E83BF92A6004590014DC64 /* UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1065,6 +1090,15 @@
 				68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		68E83BFA2A6004590014DC64 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+				68E83BFB2A6004590014DC64 /* DenUITests.swift */,
+				68E83BFD2A6004590014DC64 /* LaunchUITests.swift */,
+			);
+			path = UITests;
 			sourceTree = "<group>";
 		};
 		68F56B3B286F5C01006EC915 /* Trending */ = {
@@ -1213,6 +1247,24 @@
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
 			productType = "com.apple.product-type.application";
 		};
+		68E83BF82A6004590014DC64 /* UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 68E83C012A6004590014DC64 /* Build configuration list for PBXNativeTarget "UITests" */;
+			buildPhases = (
+				68E83BF52A6004590014DC64 /* Sources */,
+				68E83BF62A6004590014DC64 /* Frameworks */,
+				68E83BF72A6004590014DC64 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				68E83C002A6004590014DC64 /* PBXTargetDependency */,
+			);
+			name = UITests;
+			productName = DenUITests;
+			productReference = 68E83BF92A6004590014DC64 /* UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1220,7 +1272,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1330;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = "Garrett Johnson";
 				TargetAttributes = {
@@ -1236,6 +1288,10 @@
 					};
 					68C41308247263C700D1DC7B = {
 						CreatedOnToolsVersion = 11.4.1;
+					};
+					68E83BF82A6004590014DC64 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 68C41308247263C700D1DC7B;
 					};
 				};
 			};
@@ -1265,6 +1321,7 @@
 			targets = (
 				68C41308247263C700D1DC7B /* Den */,
 				6860690D2831501B000068DE /* WebExtension */,
+				68E83BF82A6004590014DC64 /* UITests */,
 				689EDC0826A3F46A0055811A /* Screenshots */,
 				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
 			);
@@ -1307,6 +1364,13 @@
 				68C4131B247263C700D1DC7B /* Preview Assets.xcassets in Resources */,
 				6845BCFE24EC00DA0008B296 /* FeedIcon.png in Resources */,
 				68C41318247263C700D1DC7B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		68E83BF72A6004590014DC64 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1554,6 +1618,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		68E83BF52A6004590014DC64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68E83BFE2A6004590014DC64 /* LaunchUITests.swift in Sources */,
+				68E83BFC2A6004590014DC64 /* DenUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1567,6 +1640,11 @@
 			isa = PBXTargetDependency;
 			target = 68C41308247263C700D1DC7B /* Den */;
 			targetProxy = 689EDC0E26A3F46A0055811A /* PBXContainerItemProxy */;
+		};
+		68E83C002A6004590014DC64 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 68C41308247263C700D1DC7B /* Den */;
+			targetProxy = 68E83BFF2A6004590014DC64 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1939,6 +2017,55 @@
 			};
 			name = Release;
 		};
+		68E83C022A6004590014DC64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N7TC759VWV;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "${inherited}";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = "${inherited}";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.ui-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Den;
+			};
+			name = Debug;
+		};
+		68E83C032A6004590014DC64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N7TC759VWV;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = "${inherited}";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = "${inherited}";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.devsci.den.ui-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Den;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1983,6 +2110,15 @@
 			buildConfigurations = (
 				68C41339247263C700D1DC7B /* Debug */,
 				68C4133A247263C700D1DC7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		68E83C012A6004590014DC64 /* Build configuration list for PBXNativeTarget "UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				68E83C022A6004590014DC64 /* Debug */,
+				68E83C032A6004590014DC64 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
