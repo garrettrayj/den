@@ -70,7 +70,7 @@ struct DiagnosticsTable: View {
                 ).width(max: 60)
                 
                 TableColumn(
-                    "Response",
+                    "Response Time",
                     value: \.responseTime
                 ) { row in
                     Text("\(row.responseTime) ms", comment: "Time display (milliseconds).")

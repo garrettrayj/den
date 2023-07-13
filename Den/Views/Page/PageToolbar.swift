@@ -28,9 +28,6 @@ struct PageToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            CommonStatus(profile: profile)
-        }
-        ToolbarItem {
             PageLayoutPicker(pageLayout: $pageLayout).labelStyle(.iconOnly)
         }
         ToolbarItem {

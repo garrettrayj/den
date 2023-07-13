@@ -19,7 +19,7 @@ struct BottomBarProgressViewStyle: ProgressViewStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         if let fractionCompleted = configuration.fractionCompleted {
-            VStack {
+            VStack(spacing: 4) {
                 if fractionCompleted < 1.0 {
                     Text(
                         "\(Int(fractionCompleted * Double(feedCount))) of \(feedCount) Updated",

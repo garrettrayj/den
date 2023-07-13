@@ -15,45 +15,28 @@ struct ProfileColorPicker: View {
 
     var body: some View {
         Picker(selection: $selection) {
-            Label {
-                Text("Default", comment: "Profile color option.")
-            } icon: {
-                #if !os(macOS)
-                Image(systemName: "paintbrush")
-                #endif
-            }
-            .foregroundColor(.secondary)
-            .tag(nil as ProfileColorOption?)
+            Text("Default", comment: "Profile color option.")
+                .foregroundStyle(.secondary)
+                .tag(nil as ProfileColorOption?)
 
             ForEach(ProfileColorOption.allCases, id: \.self) { option in
-                Label {
-                    option.labelText
-                } icon: {
-                    #if !os(macOS)
-                    Image(systemName: "paintbrush.fill")
-                    #endif
-                }
-                .foregroundColor(option.color)
-                .tag(option as ProfileColorOption?)
+                option.labelText
+                    .foregroundStyle(option.color)
+                    .tag(option as ProfileColorOption?)
             }
         } label: {
             Label {
                 Text("Color", comment: "Picker label.").frame(maxWidth: .infinity, alignment: .leading)
             } icon: {
-                #if os(macOS)
                 if let selection = selection {
                     Image(systemName: "paintbrush.fill").foregroundStyle(selection.color)
                 } else {
                     Image(systemName: "paintbrush")
                 }
-                #endif
             }
         }
         .tint(selection?.color)
         .scrollContentBackground(.visible)
-        #if os(iOS)
-        .pickerStyle(.navigationLink)
-        #endif
         .accessibilityIdentifier("profile-color-picker")
     }
 }

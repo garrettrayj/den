@@ -1,5 +1,5 @@
 //
-//  CommonStatus.swift
+//  SimpleSidebarStatus.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/6/23.
@@ -10,14 +10,14 @@
 
 import SwiftUI
 
-struct CommonStatus: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
+struct SimpleSidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
     var body: some View {
-        VStack {
+        Group {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Status message.")
             } else if  refreshManager.refreshing {
@@ -28,7 +28,6 @@ struct CommonStatus: View {
         }
         .font(.caption)
         .lineLimit(1)
-        .frame(minWidth: 100)
-        .padding(.horizontal, 8)
+        .foregroundStyle(.secondary)
     }
 }

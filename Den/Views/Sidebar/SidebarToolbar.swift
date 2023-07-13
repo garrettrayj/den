@@ -100,10 +100,7 @@ struct SidebarToolbar: ToolbarContent {
             NewFeedButton(page: activePage)
                 .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
             Spacer()
-            SidebarStatus(
-                profile: profile,
-                refreshing: $refreshManager.refreshing
-            )
+            BottomBarSidebarStatus(profile: profile)
             Spacer()
             RefreshButton(currentProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
                 .disabled(

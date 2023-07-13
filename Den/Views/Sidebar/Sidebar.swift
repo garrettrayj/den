@@ -35,7 +35,19 @@ struct Sidebar: View {
             if profile.pagesArray.isEmpty {
                 Start(profile: profile, showingImporter: $showingImporter)
             } else {
-                AllSection(profile: profile)
+                #if os(macOS)
+                Section {
+                    SimpleSidebarStatus(profile: profile)
+                    InboxNavLink(profile: profile)
+                    TrendingNavLink(profile: profile)
+                } header: {
+                    Text("All Feeds", comment: "Sidebar section header.")
+                }
+                #else
+                InboxNavLink(profile: profile)
+                TrendingNavLink(profile: profile)
+                #endif
+                
                 PagesSection(profile: profile)
             }
         }

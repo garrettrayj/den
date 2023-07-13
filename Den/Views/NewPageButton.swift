@@ -38,6 +38,6 @@ struct NewPageButton: View {
             }
         }
         .accessibilityIdentifier("new-page-button")
-        .keyboardShortcut("n", modifiers: [.command, .shift])
+        .keyboardShortcut("f", modifiers: [.command, .shift])
     }
 }

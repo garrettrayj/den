@@ -24,7 +24,7 @@ struct GeneralSettingsTab: View {
             }
 
             Section {
-                FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
+                FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout).scaledToFit()
             } header: {
                 Text("Refresh", comment: "Settings section header.")
             }

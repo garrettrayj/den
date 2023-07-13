@@ -26,9 +26,6 @@ struct FeedToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            FeedStatus(feed: feed, unreadCount: items.unread().count)
-        }
-        ToolbarItem {
             FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
         }
         ToolbarItem {

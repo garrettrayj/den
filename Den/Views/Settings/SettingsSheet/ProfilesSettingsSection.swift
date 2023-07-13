@@ -19,10 +19,21 @@ struct ProfilesSettingsSection: View {
     var body: some View {
         Section {
             ForEach(profiles) { profile in
-                ProfilesSettingsSectionRow(
-                    profile: profile,
-                    currentProfile: $currentProfile
-                )
+                NavigationLink {
+                    ProfileSettings(
+                        profile: profile,
+                        currentProfile: $currentProfile,
+                        deleteCallback: {}
+                    )
+                    .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
+                } label: {
+                    Label {
+                        profile.nameText
+                    } icon: {
+                        Image(systemName: profile == currentProfile ? "rhombus.fill" : "rhombus")
+                            .foregroundColor(profile.tintColor)
+                    }
+                }
             }
             NewProfileButton()
         } header: {

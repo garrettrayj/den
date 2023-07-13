@@ -52,7 +52,7 @@ struct DenApp: App {
             .preferredColorScheme(userColorScheme.colorScheme)
         }
         .commands {
-            CommandGroup(replacing: .newItem) {
+            CommandGroup(after: .newItem) {
                 NewFeedButton()
                 NewPageButton(currentProfile: $currentProfile)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)

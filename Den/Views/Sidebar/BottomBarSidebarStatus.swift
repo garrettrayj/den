@@ -1,5 +1,5 @@
 //
-//  SidebarStatus.swift
+//  BottomBarSidebarStatus.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/3/22.
@@ -10,28 +10,16 @@
 
 import SwiftUI
 
-struct SidebarStatus: View {
+struct BottomBarSidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
-    @Binding var refreshing: Bool
-
     let progress = Progress()
 
-    let dateFormatter: DateFormatter = {
-        let relativeDateFormatter = DateFormatter()
-        relativeDateFormatter.timeStyle = .none
-        relativeDateFormatter.dateStyle = .medium
-        relativeDateFormatter.locale = .current
-        relativeDateFormatter.doesRelativeDateFormatting = true
-
-        return relativeDateFormatter
-    }()
-
-    init(profile: Profile, refreshing: Binding<Bool>) {
+    init(profile: Profile) {
         self.profile = profile
-        _refreshing = refreshing
 
         self.progress.totalUnitCount = Int64(profile.feedsArray.count)
     }
@@ -40,7 +28,7 @@ struct SidebarStatus: View {
         VStack {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Status message.").foregroundColor(.secondary)
-            } else if refreshing {
+            } else if refreshManager.refreshing {
                 ProgressView(progress)
                     .progressViewStyle(BottomBarProgressViewStyle(profile: profile))
             } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {

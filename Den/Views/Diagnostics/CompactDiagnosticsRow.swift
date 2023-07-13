@@ -49,7 +49,7 @@ struct CompactDiagnosticsRow: View {
                 LabeledContent {
                     Text("\(data.responseTime) ms")
                 } label: {
-                    Text("Response", comment: "Diagnostics header.")
+                    Text("Response Time", comment: "Diagnostics header.")
                 }
                 
                 LabeledContent {

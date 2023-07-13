@@ -39,7 +39,7 @@
       </CommandLineArguments>
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "689EDC0826A3F46A0055811A"

@@ -30,9 +30,6 @@ struct TrendingToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            CommonStatus(profile: profile)
-        }
-        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
