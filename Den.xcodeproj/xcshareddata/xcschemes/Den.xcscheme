@@ -29,10 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "NO">
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-in-memory"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "-com.apple.CoreData.Logging.stderr 0"
             isEnabled = "YES">
          </CommandLineArgument>

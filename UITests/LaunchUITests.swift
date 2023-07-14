@@ -20,7 +20,7 @@ final class LaunchUITests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testShowsCreateProfileButton() throws {
+    func testLaunchCreateProfileButton() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launch()
@@ -39,7 +39,7 @@ final class LaunchUITests: XCTestCase {
         app.terminate()
     }
     
-    func testCreateProfile() throws {
+    func testLaunchCreateProfile() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launch()

@@ -23,6 +23,6 @@ struct TrendingNavLink: View {
                 Image(systemName: "chart.line.uptrend.xyaxis")
             }
         }
-        .accessibilityIdentifier("trends-button")
+        .accessibilityIdentifier("trending-button")
     }
 }
