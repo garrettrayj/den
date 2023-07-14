@@ -35,7 +35,6 @@ final class PerformanceUITests: XCTestCase {
                 let app = XCUIApplication()
                 app.launchArguments.append("-in-memory")
                 app.launch()
-                app.terminate()
             }
         }
     }

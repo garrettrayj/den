@@ -31,7 +31,9 @@ final class SearchUITests: XCTestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["create-profile-button"].tap()
-        
+        #if os(iOS)
+        app.swipeDown()
+        #endif
         let searchField = app.searchFields["Search"].firstMatch
         searchField.tap()
         searchField.typeText("Example")

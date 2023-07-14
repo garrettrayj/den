@@ -34,7 +34,9 @@ final class FeedUITests: XCTestCase {
         
         app.buttons["load-demo-button"].tap()
         app.buttons["Space"].tap()
+        #if os(iOS)
         app.tap()
+        #endif
         app.buttons["feed-button"].firstMatch.tap()
 
         let attachment = XCTAttachment(screenshot: app.screenshot())

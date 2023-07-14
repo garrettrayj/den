@@ -33,11 +33,15 @@ final class AppSettingsUITests: XCTestCase {
         app.buttons["create-profile-button"].tap()
         
         #if os(macOS)
-        app.menuButtons["settings"].tap()
+        app.menuBarItems["Den"].menuItems["Settings…"].tap()
+        if !app.staticTexts["General"].waitForExistence(timeout: 4) {
+            XCTFail("Settings window did not appear in time")
+        }
         #else
         app.buttons["app-menu"].tap()
         app.buttons["settings-button"].tap()
         #endif
+        
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "AppSettings"
