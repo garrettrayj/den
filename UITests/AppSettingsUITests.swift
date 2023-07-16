@@ -20,7 +20,7 @@ final class AppSettingsUITests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testLaunchCreateProfileButton() throws {
+    func testShowAppSettings() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launch()
@@ -34,15 +34,17 @@ final class AppSettingsUITests: XCTestCase {
         
         #if os(macOS)
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
-        if !app.staticTexts["General"].waitForExistence(timeout: 4) {
+        if !app.staticTexts["General"].waitForExistence(timeout: 2) {
             XCTFail("Settings window did not appear in time")
         }
         #else
         app.buttons["app-menu"].tap()
         app.buttons["settings-button"].tap()
+        if !app.buttons["close-button"].waitForExistence(timeout: 2) {
+            XCTFail("Settings sheet did not appear in time")
+        }
         #endif
         
-
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "AppSettings"
         attachment.lifetime = .keepAlways

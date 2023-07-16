@@ -11,15 +11,31 @@
 import XCTest
 
 final class DiagnosticsUITests: XCTestCase {
-
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        false
-    }
-
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
 
+    func testDiagnostics() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        #if os(macOS)
+        app.menuBarItems["Den"].menuItems["Diagnostics"].tap()
+        if !app.staticTexts["Diagnostics"].waitForExistence(timeout: 2) {
+            XCTFail("Diagnostics view did not appear in time")
+        }
+        #else
+        app.buttons["app-menu"].tap()
+        app.buttons["diagnostics-button"].tap()
+        app.tap()
+        #endif
+
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "Diagnostics"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    
     func testDiagnosticsEmpty() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
@@ -35,6 +51,9 @@ final class DiagnosticsUITests: XCTestCase {
         #if os(iOS)
         app.buttons["app-menu"].tap()
         app.buttons["diagnostics-button"].tap()
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            app.tap()
+        }
         #endif
 
         let attachment = XCTAttachment(screenshot: app.screenshot())

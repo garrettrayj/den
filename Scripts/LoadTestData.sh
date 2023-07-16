@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Install app data for tests. Used in Scheme > Test > Pre-actions.
+
+# Create logs folder
+logsFolder=${PROJECT_DIR}/Scripts/Logs
+mkdir -p $logsFolder
+
+# Create log file
+scriptNameWithExtension=$(basename "$0")
+scriptNameClean=${scriptNameWithExtension%.*}
+exec > "$logsFolder/$scriptNameClean.log" 2>&1
+set -o pipefail
+set -e
+
+runDate=$(date '+%Y-%m-%d %H:%M:%S')
+
+if [ "$__IS_NOT_MACOS" == "NO" ]
+then
+    echo "$runDate Load MacOS Test Data"
+    copyCommand="cp -a $PROJECT_DIR/TestData/en.xcappdata/AppData/. $HOME/Library/Containers/net.devsci.den/Data"
+    echo $copyCommand
+    exec $copyCommand
+else
+    echo "$runDate Load Simulator Test Data"
+    uuidRegex="([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
+    device=$(xcrun simctl list | grep Booted | grep -E -o -i $uuidRegex | head -1)
+    appContainer=$(xcrun simctl get_app_container $device net.devsci.den data)
+    
+    echo "Device:    $device"
+    echo "Container: $appContainer"
+    
+    copyCommand="cp -a $PROJECT_DIR/TestData/en.xcappdata/AppData/. $appContainer/"
+    echo $copyCommand
+    exec $copyCommand
+fi

@@ -35,7 +35,9 @@ final class FeedUITests: XCTestCase {
         app.buttons["load-demo-button"].tap()
         app.buttons["Space"].tap()
         #if os(iOS)
-        app.tap()
+        if UIDevice.current.userInterfaceIdiom == .pad && XCUIDevice.shared.orientation == .portrait {
+            app.tap()
+        }
         #endif
         app.buttons["feed-button"].firstMatch.tap()
 

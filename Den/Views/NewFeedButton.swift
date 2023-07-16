@@ -23,7 +23,7 @@ struct NewFeedButton: View {
                 Image(systemName: "plus.circle")
             }
         }
-        .keyboardShortcut("g", modifiers: [.command])
+        .keyboardShortcut("t", modifiers: [.command])
         .accessibilityIdentifier("new-feed-button")
     }
 }

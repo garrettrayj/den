@@ -11,7 +11,6 @@
 import XCTest
 
 final class LaunchUITests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         false
     }
@@ -20,7 +19,7 @@ final class LaunchUITests: XCTestCase {
         continueAfterFailure = false
     }
 
-    func testLaunchCreateProfileButton() throws {
+    func testLaunchShowsCreateProfileButton() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launch()
@@ -33,26 +32,6 @@ final class LaunchUITests: XCTestCase {
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "LaunchNoProfiles"
-        attachment.lifetime = .keepAlways
-        add(attachment)
-        
-        app.terminate()
-    }
-    
-    func testLaunchCreateProfile() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launch()
-
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
-        if !app.buttons["create-profile-button"].waitForExistence(timeout: 20) {
-            XCTFail("Create Profile button did not appear in time")
-        }
-        app.buttons["create-profile-button"].tap()
-
-        let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "NewProfile"
         attachment.lifetime = .keepAlways
         add(attachment)
         
