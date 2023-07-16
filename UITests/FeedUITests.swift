@@ -11,16 +11,57 @@
 import XCTest
 
 final class FeedUITests: XCTestCase {
-
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        false
-    }
-
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
-
-    func testFeedNoData() throws {
+    
+    func testFeedViewCompressed() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        app.buttons["Space"].tap()
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .pad && XCUIDevice.shared.orientation == .portrait {
+            app.tap()
+        }
+        #endif
+        app.buttons["feed-button"].firstMatch.tap()
+        
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "FeedViewCompressed"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+        
+        app.terminate()
+    }
+    
+    func testFeedSettings() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        app.buttons["Space"].tap()
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .pad && XCUIDevice.shared.orientation == .portrait {
+            app.tap()
+        }
+        #endif
+        app.buttons["feed-button"].firstMatch.tap()
+        
+        app.buttons["feed-settings-button"].firstMatch.tap()
+        
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "FeedSettings"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+        
+        app.terminate()
+    }
+    
+    func testFeedViewExpanded() throws {
+        
+    }
+    
+    func testFeedViewNoData() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launch()
@@ -41,8 +82,8 @@ final class FeedUITests: XCTestCase {
         #endif
         app.buttons["feed-button"].firstMatch.tap()
 
-        let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "FeedEmpty"
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "FeedViewNoData"
         attachment.lifetime = .keepAlways
         add(attachment)
         

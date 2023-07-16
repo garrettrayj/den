@@ -1,8 +1,8 @@
 //
-//  LaunchTests.swift
+//  AppSidebarUITests.swift
 //  UITests
 //
-//  Created by Garrett Johnson on 7/13/23.
+//  Created by Garrett Johnson on 7/16/23.
 //  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -10,16 +10,12 @@
 
 import XCTest
 
-final class LaunchUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        false
-    }
-
+final class AppSidebarUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
 
-    func testLaunchShowsCreateProfileButton() throws {
+    func testAppSidebarNoPages() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launch()
@@ -29,12 +25,15 @@ final class LaunchUITests: XCTestCase {
         if !app.buttons["create-profile-button"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
+        app.buttons["create-profile-button"].tap()
+        
 
-        let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "LaunchNoProfiles"
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "AppSidebarNoPages"
         attachment.lifetime = .keepAlways
         add(attachment)
         
         app.terminate()
     }
 }
+

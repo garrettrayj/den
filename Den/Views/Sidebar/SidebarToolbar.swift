@@ -34,8 +34,39 @@ struct SidebarToolbar: ToolbarContent {
     var body: some ToolbarContent {
         #if os(macOS)
         ToolbarItem {
-            NewFeedButton(page: activePage).disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
+            Menu {
+                ProfilePicker(currentProfile: $currentProfile)
+                
+                Divider()
+                
+                NewFeedButton(page: activePage)
+                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
+                
+                NewPageButton(currentProfile: $currentProfile)
+                
+                Divider()
+                
+                ImportButton(showingImporter: $showingImporter)
+                    .labelStyle(.titleOnly)
+                    .buttonStyle(.borderless)
+                
+                ExportButton(showingExporter: $showingExporter)
+                    .labelStyle(.titleOnly)
+                    .buttonStyle(.borderless)
+                    .disabled(profile.pagesArray.isEmpty)
+                
+                DiagnosticsButton()
+            } label: {
+                Label {
+                    Text("Menu", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "ellipsis.circle")
+                }
+            }
+            .disabled(refreshManager.refreshing)
+            .accessibilityIdentifier("app-menu")
         }
+    
         ToolbarItem {
             if refreshManager.refreshing {
                 RefreshProgress(totalUnitCount: profile.feedsArray.count)

@@ -50,6 +50,10 @@
             argument = "-com.apple.CoreData.Logging.stderr 0"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-disable-cloud"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <Testables>
          <TestableReference

@@ -51,17 +51,7 @@ struct Sidebar: View {
                 PagesSection(profile: profile)
             }
         }
-        #if os(macOS)
-        .safeAreaInset(edge: .bottom, alignment: .leading) {
-            if !profile.pagesArray.isEmpty {
-                NewPageButton(currentProfile: .constant(profile))
-                    .buttonStyle(.plain)
-                    .font(.callout)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-            }
-        }
-        #else
+        #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
         #endif
         .listStyle(.sidebar)

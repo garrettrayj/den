@@ -12,46 +12,58 @@ import CoreData
 import OSLog
 
 struct PersistenceController {
-    static let shared = PersistenceController(inMemory: CommandLine.arguments.contains("-in-memory"))
+    static let shared = PersistenceController(
+        inMemory: CommandLine.arguments.contains("-in-memory"),
+        disableCloud: CommandLine.arguments.contains("-disable-cloud")
+    )
+    
+    let cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
+        containerIdentifier: "iCloud.net.devsci.den"
+    )
 
+    let cloudStoreDescription: NSPersistentStoreDescription
+    let cloudStoreURL: URL
+    
+    let localStoreDescription: NSPersistentStoreDescription
+    let localStoreURL: URL
+    
     let container: NSPersistentContainer
 
-    init(inMemory: Bool = false) {
+    init(inMemory: Bool = false, disableCloud: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "Den")
 
         if inMemory {
-            let cloudStoreURL = URL(fileURLWithPath: "/dev/null/Den.sqlite")
-            let localStoreURL = URL(fileURLWithPath: "/dev/null/Den-Local.sqlite")
+            cloudStoreURL = URL(fileURLWithPath: "/dev/null/Den.sqlite")
+            localStoreURL = URL(fileURLWithPath: "/dev/null/Den-Local.sqlite")
 
             // Create Cloud store description without `cloudKitContainerOptions`
-            let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
+            cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
             cloudStoreDescription.configuration = "Cloud"
 
             // Create local store description
-            let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
+            localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
             localStoreDescription.configuration = "Local"
-
-            container.persistentStoreDescriptions = [cloudStoreDescription, localStoreDescription]
         } else {
             guard let appSupportDirectory = FileManager.default.appSupportDirectory else {
                 preconditionFailure("Storage directory not available")
             }
-            let cloudStoreURL = appSupportDirectory.appendingPathComponent("Den.sqlite")
-            let localStoreURL = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
+            cloudStoreURL = appSupportDirectory.appendingPathComponent("Den.sqlite")
+            localStoreURL = appSupportDirectory.appendingPathComponent("Den-Local.sqlite")
 
             // Create CloudKit-backed store description for syncing profile data
-            let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
+            cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
             cloudStoreDescription.configuration = "Cloud"
-            cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
-                containerIdentifier: "iCloud.net.devsci.den"
-            )
 
             // Create local store description for content and high churn data
-            let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
+            localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
             localStoreDescription.configuration = "Local"
-
-            container.persistentStoreDescriptions = [cloudStoreDescription, localStoreDescription]
         }
+        
+        if !disableCloud {
+            cloudStoreDescription.cloudKitContainerOptions = cloudKitContainerOptions
+        }
+        
+        container.persistentStoreDescriptions = [cloudStoreDescription, localStoreDescription]
 
         // Load both stores
         container.loadPersistentStores { _, error in

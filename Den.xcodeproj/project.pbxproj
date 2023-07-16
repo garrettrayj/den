@@ -202,6 +202,7 @@
 		68D17EE42A43F29100AF8A73 /* PageIconCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */; };
 		68D17EE62A443AC700AF8A73 /* MainBoardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE52A443AC700AF8A73 /* MainBoardModifier.swift */; };
 		68D17EE82A459E7000AF8A73 /* PasteboardUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */; };
+		68D286292A64223A007AD876 /* AppSidebarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D286282A64223A007AD876 /* AppSidebarUITests.swift */; };
 		68D486BE26C9896300AF5B59 /* IconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D486BD26C9896300AF5B59 /* IconPicker.swift */; };
 		68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E6824955321007ED1AC /* OPMLReader.swift */; };
 		68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68D58E6A2498481A007ED1AC /* OPMLIcon.png */; };
@@ -212,7 +213,7 @@
 		68DA45182A3A3113000A288B /* ProfilesSettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA45172A3A3113000A288B /* ProfilesSettingsTab.swift */; };
 		68DA451C2A3A33CC000A288B /* DeleteProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */; };
 		68E58F2729B6B30A00C18A87 /* SimpleSidebarStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E58F2629B6B30A00C18A87 /* SimpleSidebarStatus.swift */; };
-		68E83BFE2A6004590014DC64 /* LaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* LaunchUITests.swift */; };
+		68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */; };
 		68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */; };
 		68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */; };
 		68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */; };
@@ -509,6 +510,7 @@
 		68D17EE52A443AC700AF8A73 /* MainBoardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardModifier.swift; sourceTree = "<group>"; };
 		68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardUtility.swift; sourceTree = "<group>"; };
 		68D286272A634183007AD876 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		68D286282A64223A007AD876 /* AppSidebarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSidebarUITests.swift; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
 		68D58E6A2498481A007ED1AC /* OPMLIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OPMLIcon.png; sourceTree = "<group>"; };
@@ -520,7 +522,7 @@
 		68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileButton.swift; sourceTree = "<group>"; };
 		68E58F2629B6B30A00C18A87 /* SimpleSidebarStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSidebarStatus.swift; sourceTree = "<group>"; };
 		68E83BF92A6004590014DC64 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		68E83BFD2A6004590014DC64 /* LaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchUITests.swift; sourceTree = "<group>"; };
+		68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchUITests.swift; sourceTree = "<group>"; };
 		68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContent.swift; sourceTree = "<group>"; };
 		68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1088,7 +1090,9 @@
 		68E83BFA2A6004590014DC64 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
+				68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */,
 				687925A12A60C1DB00188A83 /* AppSettingsUITests.swift */,
+				68D286282A64223A007AD876 /* AppSidebarUITests.swift */,
 				6879259D2A60C1DB00188A83 /* DiagnosticsUITests.swift */,
 				687925A32A60C1DB00188A83 /* FeedUITests.swift */,
 				687925A02A60C1DB00188A83 /* InboxUITests.swift */,
@@ -1096,7 +1100,6 @@
 				6879259F2A60C1DB00188A83 /* PageUITests.swift */,
 				687925A22A60C1DB00188A83 /* SearchUITests.swift */,
 				6879259E2A60C1DB00188A83 /* TrendingUITests.swift */,
-				68E83BFD2A6004590014DC64 /* LaunchUITests.swift */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
@@ -1619,12 +1622,13 @@
 			files = (
 				687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */,
 				687925A52A60C1DB00188A83 /* DiagnosticsUITests.swift in Sources */,
+				68D286292A64223A007AD876 /* AppSidebarUITests.swift in Sources */,
 				687925A62A60C1DB00188A83 /* TrendingUITests.swift in Sources */,
 				687925A72A60C1DB00188A83 /* PageUITests.swift in Sources */,
 				687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */,
 				687925AB2A60C1DB00188A83 /* FeedUITests.swift in Sources */,
 				687925A82A60C1DB00188A83 /* InboxUITests.swift in Sources */,
-				68E83BFE2A6004590014DC64 /* LaunchUITests.swift in Sources */,
+				68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */,
 				687925A92A60C1DB00188A83 /* AppSettingsUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
