@@ -83,7 +83,7 @@ struct FeedLayout: View {
                         Text(linkDisplayString).lineLimit(1)
                     }
                     .buttonStyle(.plain)
-                    .accessibilityIdentifier("open-webpage-button")
+                    .accessibilityIdentifier("OpenWebpage")
                 }
             }
 
@@ -95,7 +95,7 @@ struct FeedLayout: View {
                         Text(url.absoluteString).lineLimit(1)
                     }
                     .buttonStyle(.plain)
-                    .accessibilityIdentifier("open-feed-address-button")
+                    .accessibilityIdentifier("OpenFeedAddress")
 
                     Button {
                         PasteboardUtility.copyURL(url: url)
@@ -114,7 +114,7 @@ struct FeedLayout: View {
                         }
                     }
                     .buttonStyle(.plain)
-                    .accessibilityIdentifier("copy-feed-address-button")
+                    .accessibilityIdentifier("CopyFeedAddress")
                 }
             }
 

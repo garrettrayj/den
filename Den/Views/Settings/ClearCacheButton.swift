@@ -51,7 +51,7 @@ struct ClearCacheButton: View {
             await calculateCacheSize()
         }
         .disabled(cacheSize == 0)
-        .accessibilityIdentifier("clear-cache-button")
+        .accessibilityIdentifier("ClearCache")
     }
 
     private func emptyCache() async {

@@ -49,7 +49,7 @@ struct SettingsSheet: View {
                         }
                     }
                     .buttonStyle(.borderless)
-                    .accessibilityIdentifier("close-button")
+                    .accessibilityIdentifier("Close")
                 }
             }
         }

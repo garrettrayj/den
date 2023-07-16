@@ -27,6 +27,6 @@ struct FeedNavLink: View {
             .padding(.leading, leadingPadding)
             .padding(.trailing, trailingPadding)
         }
-        .accessibilityIdentifier("feed-button")
+        .accessibilityIdentifier("FeedNavLink")
     }
 }

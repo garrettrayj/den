@@ -41,7 +41,7 @@ struct PageSettingsSheet: View {
                     } label: {
                         Text("Cancel", comment: "Button label.")
                     }
-                    .accessibilityIdentifier("cancel-button")
+                    .accessibilityIdentifier("Cancel")
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
@@ -49,7 +49,7 @@ struct PageSettingsSheet: View {
                     } label: {
                         Text("Save", comment: "Button label.")
                     }
-                    .accessibilityIdentifier("save-button")
+                    .accessibilityIdentifier("Save")
                 }
             }
             .frame(minWidth: 370, minHeight: 492)

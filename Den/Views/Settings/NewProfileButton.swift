@@ -31,6 +31,6 @@ struct NewProfileButton: View {
                 Image(systemName: "plus")
             }
         }
-        .accessibilityIdentifier("new-profile-button")
+        .accessibilityIdentifier("NewProfile")
     }
 }

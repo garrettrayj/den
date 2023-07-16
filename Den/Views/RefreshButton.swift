@@ -30,6 +30,6 @@ struct RefreshButton: View {
             }
         }
         .keyboardShortcut("r", modifiers: [.command])
-        .accessibilityIdentifier("refresh-button")
+        .accessibilityIdentifier("Refresh")
     }
 }

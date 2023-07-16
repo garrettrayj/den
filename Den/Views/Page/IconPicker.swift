@@ -49,7 +49,7 @@ struct IconPicker: View {
                     .onTapGesture {
                         symbolID = symbol.id
                     }
-                    .accessibilityIdentifier("select-icon-button")
+                    .accessibilityIdentifier("PageIconOption")
                 }
             }
         } header: {

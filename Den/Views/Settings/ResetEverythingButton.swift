@@ -37,7 +37,7 @@ struct ResetEverythingButton: View {
                 } label: {
                     Text("Cancel", comment: "Button label.")
                 }
-                .accessibilityIdentifier("reset-cancel-button")
+                .accessibilityIdentifier("CancelReset")
 
                 Button(role: .destructive) {
                     Task {
@@ -46,7 +46,7 @@ struct ResetEverythingButton: View {
                 } label: {
                     Text("Reset", comment: "Button label.")
                 }
-                .accessibilityIdentifier("reset-confirm-button")
+                .accessibilityIdentifier("ConfirmReset")
             },
             message: {
                 Text(
@@ -55,7 +55,7 @@ struct ResetEverythingButton: View {
                 )
             }
         )
-        .accessibilityIdentifier("reset-button")
+        .accessibilityIdentifier("ResetEverything")
     }
 
     private func emptyCache() async {

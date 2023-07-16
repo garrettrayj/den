@@ -24,6 +24,6 @@ struct InboxNavLink: View {
                 }
             }
         }
-        .accessibilityIdentifier("inbox-button")
+        .accessibilityIdentifier("Inbox")
     }
 }

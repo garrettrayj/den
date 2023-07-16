@@ -48,7 +48,7 @@ struct ToggleReadButton: View {
                     }
                 }
             }
-            .accessibilityIdentifier("toggle-read-button")
+            .accessibilityIdentifier("ToggleRead")
         }
     }
 }

@@ -31,6 +31,6 @@ struct FilterReadButton: View {
                 )
             }
         }
-        .accessibilityIdentifier("filter-read-button")
+        .accessibilityIdentifier("FilterRead")
     }
 }

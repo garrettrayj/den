@@ -57,7 +57,7 @@ struct HistorySettingsSection: View {
             }
             .buttonStyle(.borderless)
             .disabled(historyCount == 0)
-            .accessibilityIdentifier("clear-history-button")
+            .accessibilityIdentifier("ClearHistory")
         } footer: {
             if historyRentionDays == 0 || historyRentionDays > 90 || historyCount > 100_000 {
                 Label {

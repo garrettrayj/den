@@ -81,7 +81,7 @@ struct ProfileSettings: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(profile == currentProfile)
-                .accessibilityIdentifier("switch-profile-button")
+                .accessibilityIdentifier("SwitchToProfile")
             }
             .padding(12)
         }

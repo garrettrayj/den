@@ -21,6 +21,6 @@ struct DiagnosticsButton: View {
                 Image(systemName: "stethoscope")
             }
         }
-        .accessibilityIdentifier("diagnostics-button")
+        .accessibilityIdentifier("ShowDiagnostics")
     }
 }

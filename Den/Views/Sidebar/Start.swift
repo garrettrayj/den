@@ -37,7 +37,7 @@ struct Start: View {
                 }
             }
             .buttonStyle(.borderless)
-            .accessibilityIdentifier("load-demo-button")
+            .accessibilityIdentifier("LoadDemo")
         } header: {
             Text("Get Started", comment: "Sidebar section header.")
         }

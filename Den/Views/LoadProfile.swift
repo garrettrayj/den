@@ -39,7 +39,7 @@ struct LoadProfile: View {
                     Text("Create a New Profile", comment: "Button label.").padding(8)
                 }
                 .buttonStyle(.borderedProminent)
-                .accessibilityIdentifier("create-profile-button")
+                .accessibilityIdentifier("CreateProfile")
                 Text("""
                 If you have used the app before then synchronization could be in progress. \
                 Please wait a minute.

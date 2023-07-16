@@ -62,7 +62,7 @@ struct PageToolbar: ToolbarContent {
                         Image(systemName: "ellipsis.circle")
                     }
                 }
-                .accessibilityIdentifier("page-menu")
+                .accessibilityIdentifier("PageMenu")
             }
         } else {
             ToolbarItem {

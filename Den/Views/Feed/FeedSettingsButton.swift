@@ -29,6 +29,6 @@ struct FeedSettingsButton: View {
                 Image(systemName: "wrench")
             }
         }
-        .accessibilityIdentifier("feed-settings-button")
+        .accessibilityIdentifier("ShowFeedSettings")
     }
 }

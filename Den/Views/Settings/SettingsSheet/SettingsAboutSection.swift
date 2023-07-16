@@ -31,7 +31,7 @@ struct SettingsAboutSection: View {
                     Text(verbatim: "https://den.io")
                 }
                 .buttonStyle(.plain)
-                .accessibilityIdentifier("website-button")
+                .accessibilityIdentifier("OpenWebsite")
             } label: {
                 Text("Website", comment: "Website info label.")
             }

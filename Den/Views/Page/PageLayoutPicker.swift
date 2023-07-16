@@ -21,7 +21,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "rectangle.grid.2x2")
             }
             .tag(PageLayout.grouped)
-            .accessibilityIdentifier("grouped-layout-option")
+            .accessibilityIdentifier("GroupedLayout")
 
             Label {
                 Text("Timeline", comment: "Page layout option label.")
@@ -29,7 +29,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "calendar.day.timeline.left")
             }
             .tag(PageLayout.timeline)
-            .accessibilityIdentifier("timeline-layout-option")
+            .accessibilityIdentifier("TimelineLayout")
 
             Label {
                 Text("Showcase", comment: "Page layout option label.")
@@ -37,7 +37,7 @@ struct PageLayoutPicker: View {
                 Image(systemName: "square.grid.3x1.below.line.grid.1x2")
             }
             .tag(PageLayout.showcase)
-            .accessibilityIdentifier("showcase-layout-option")
+            .accessibilityIdentifier("ShowcaseLayout")
 
             Label {
                 Text("Deck", comment: "Page layout option label.")
@@ -45,11 +45,11 @@ struct PageLayoutPicker: View {
                 Image(systemName: "rectangle.split.3x1")
             }
             .tag(PageLayout.deck)
-            .accessibilityIdentifier("deck-layout-option")
+            .accessibilityIdentifier("DeckLayout")
         } label: {
             Text("Page Layout", comment: "Picker label.")
         }
         .fontWeight(.medium)
-        .accessibilityIdentifier("page-layout-picker")
+        .accessibilityIdentifier("PageLayoutPicker")
     }
 }

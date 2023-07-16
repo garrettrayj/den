@@ -64,7 +64,7 @@ struct SidebarToolbar: ToolbarContent {
                 }
             }
             .disabled(refreshManager.refreshing)
-            .accessibilityIdentifier("app-menu")
+            .accessibilityIdentifier("AppMenu")
         }
     
         ToolbarItem {
@@ -100,7 +100,7 @@ struct SidebarToolbar: ToolbarContent {
                         Text("Edit Pages", comment: "Button label.")
                     }
                     .disabled(profile.pagesArray.isEmpty)
-                    .accessibilityIdentifier("edit-page-list-button")
+                    .accessibilityIdentifier("EditPages")
                     .buttonStyle(.borderless)
                     
                     ImportButton(showingImporter: $showingImporter)
@@ -123,7 +123,7 @@ struct SidebarToolbar: ToolbarContent {
                     }
                 }
                 .disabled(refreshManager.refreshing)
-                .accessibilityIdentifier("app-menu")
+                .accessibilityIdentifier("AppMenu")
             }
         }
         

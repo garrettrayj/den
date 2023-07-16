@@ -22,6 +22,6 @@ struct ShareButton: View {
                 Image(systemName: "square.and.arrow.up")
             }
         }
-        .accessibilityIdentifier("share-button")
+        .accessibilityIdentifier("Share")
     }
 }

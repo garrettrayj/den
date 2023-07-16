@@ -23,6 +23,6 @@ struct PageSettingsButton: View {
                 Image(systemName: "wrench")
             }
         }
-        .accessibilityIdentifier("page-settings-button")
+        .accessibilityIdentifier("ShowPageSettings")
     }
 }

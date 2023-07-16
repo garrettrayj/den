@@ -74,7 +74,7 @@ struct PageSettingsForm: View {
                 .symbolRenderingMode(.multicolor)
             }
             .buttonStyle(.plain)
-            .accessibilityIdentifier("delete-button")
+            .accessibilityIdentifier("DeletePage")
         }
     }
 

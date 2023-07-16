@@ -37,6 +37,6 @@ struct ProfileColorPicker: View {
         }
         .tint(selection?.color)
         .scrollContentBackground(.visible)
-        .accessibilityIdentifier("profile-color-picker")
+        .accessibilityIdentifier("ProfileColorPicker")
     }
 }

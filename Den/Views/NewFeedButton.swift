@@ -24,6 +24,6 @@ struct NewFeedButton: View {
             }
         }
         .keyboardShortcut("t", modifiers: [.command])
-        .accessibilityIdentifier("new-feed-button")
+        .accessibilityIdentifier("NewFeed")
     }
 }

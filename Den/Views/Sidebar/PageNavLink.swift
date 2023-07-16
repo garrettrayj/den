@@ -63,6 +63,6 @@ struct PageNavLink: View {
                 Text("Delete", comment: "Button label.")
             }
         }
-        .accessibilityIdentifier("page-button")
+        .accessibilityIdentifier("PageNavLink")
     }
 }

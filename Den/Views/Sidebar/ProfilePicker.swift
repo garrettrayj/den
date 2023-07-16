@@ -20,12 +20,12 @@ struct ProfilePicker: View {
         Picker(selection: $currentProfile) {
             ForEach(profiles) { profile in
                 profile.nameText
-                    .accessibilityIdentifier("profile-picker-option")
+                    .accessibilityIdentifier("ProfileOption")
                     .tag(profile as Profile?)
             }
         } label: {
             Text("Profile", comment: "Picker label.")
         }
-        .accessibilityIdentifier("profile-picker")
+        .accessibilityIdentifier("ProfilePicker")
     }
 }

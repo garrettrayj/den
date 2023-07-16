@@ -37,7 +37,7 @@ struct DeleteProfileButton: View {
                 } label: {
                     Text("Cancel", comment: "Button label.")
                 }
-                .accessibilityIdentifier("delete-profile-cancel-button")
+                .accessibilityIdentifier("CancelDeleteProfile")
 
                 Button(role: .destructive) {
                     Task {
@@ -47,7 +47,7 @@ struct DeleteProfileButton: View {
                 } label: {
                     Text("Delete", comment: "Button label.")
                 }
-                .accessibilityIdentifier("delete-profile-confirm-button")
+                .accessibilityIdentifier("ConfirmDeleteProfile")
             },
             message: {
                 Text(
@@ -57,7 +57,7 @@ struct DeleteProfileButton: View {
             }
         )
         .symbolRenderingMode(.multicolor)
-        .accessibilityIdentifier("delete-profile-button")
+        .accessibilityIdentifier("delete-profile")
     }
 
     private func delete() async {

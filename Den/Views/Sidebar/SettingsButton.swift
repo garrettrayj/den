@@ -23,6 +23,6 @@ struct SettingsButton: View {
                 Image(systemName: "gear")
             }
         }
-        .accessibilityIdentifier("settings-button")
+        .accessibilityIdentifier("ShowSettings")
     }
 }

@@ -54,7 +54,7 @@ struct FeedToolbar: ToolbarContent {
                         Image(systemName: "ellipsis.circle")
                     }
                 }
-                .accessibilityIdentifier("feed-menu")
+                .accessibilityIdentifier("FeedMenu")
             }
         } else {
             ToolbarItem {

@@ -39,7 +39,7 @@ struct PagesSection: View {
                     withAnimation { addPage() }
                 }
                 .foregroundColor(.accentColor)
-                .accessibilityIdentifier("new-page-button")
+                .accessibilityIdentifier("NewPage")
             } else {
                 Text("Pages", comment: "Sidebar section header.")
             }

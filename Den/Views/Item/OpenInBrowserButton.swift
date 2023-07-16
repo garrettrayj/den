@@ -36,6 +36,6 @@ struct OpenInBrowserButton: View {
         } label: {
             OpenInBrowserLabel()
         }
-        .accessibilityIdentifier("open-in-browser-button")
+        .accessibilityIdentifier("OpenInBrowser")
     }
 }

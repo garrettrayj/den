@@ -38,7 +38,7 @@ struct Gadget: View {
                         ItemActionView(item: item, feed: feed, profile: profile) {
                             ItemCompressed(item: item, feed: feed)
                         }
-                        .accessibilityIdentifier("gadget-item-button")
+                        .accessibilityIdentifier("GadgetItem")
                     }
                 }
             }

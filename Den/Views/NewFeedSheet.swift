@@ -66,7 +66,7 @@ struct NewFeedSheet: View {
                 } label: {
                     Text("Cancel", comment: "Button label.")
                 }
-                .accessibilityIdentifier("cancel-button")
+                .accessibilityIdentifier("Cancel")
             } else {
                 Text("No Pages Available", comment: "New Feed error message.").font(.title2)
             }
@@ -110,7 +110,7 @@ struct NewFeedSheet: View {
         .listRowBackground(Color.clear)
         .disabled(loading || !(webAddressIsValid ?? false))
         .buttonStyle(.borderedProminent)
-        .accessibilityIdentifier("new-feed-submit-button")
+        .accessibilityIdentifier("SubmitNewFeed")
     }
 
     private func checkTargetPage() {
