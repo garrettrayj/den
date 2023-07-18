@@ -86,7 +86,7 @@ struct NewFeedSheet: View {
             Task {
                 addFeed()
                 await refreshManager.refresh(feed: newFeed!, timeout: feedRefreshTimeout)
-                newFeed?.objectWillChange.send()
+                newFeed?.page?.profile?.objectWillChange.send()
                 dismiss()
             }
         } label: {

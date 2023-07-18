@@ -21,6 +21,8 @@ struct SettingsSheet: View {
     @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
+    
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
         NavigationStack {
@@ -33,7 +35,8 @@ struct SettingsSheet: View {
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         feedRefreshTimeout: $feedRefreshTimeout,
                         useSystemBrowser: $useSystemBrowser,
-                        userColorScheme: $userColorScheme
+                        userColorScheme: $userColorScheme,
+                        profiles: profiles
                     )
                 }
             }

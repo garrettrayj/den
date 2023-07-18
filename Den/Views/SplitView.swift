@@ -17,7 +17,6 @@ struct SplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
@@ -28,8 +27,7 @@ struct SplitView: View {
     @Binding var feedRefreshTimeout: Double
     
     let profiles: FetchedResults<Profile>
-    
-    @State var refreshProgress: Progress
+    let refreshProgress: Progress = Progress()
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var exporterIsPresented: Bool = false
@@ -54,21 +52,16 @@ struct SplitView: View {
                 detailPanel: $detailPanel,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
                 showingSettings: $showingSettings,
-                profiles: profiles
+                profiles: profiles,
+                refreshProgress: refreshProgress
             )
             #if os(macOS)
             .navigationSplitViewColumnWidth(220)
             #else
             .navigationSplitViewColumnWidth(260 * dynamicTypeSize.layoutScalingFactor)
-            .refreshable {
-                if !refreshing && networkMonitor.isConnected {
-                    await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
-                }
-            }
             #endif
         } detail: {
             DetailView(
@@ -91,16 +84,16 @@ struct SplitView: View {
             URLDropTargetModifier(profile: profile)
         )
         .onChange(of: currentProfileID) { _ in
-            detailPanel = .welcome
+            detailPanel = nil
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+            refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
             refreshing = true
             #if os(iOS)
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             #endif
         }
         .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: profile.objectID)) { _ in
-            print("FEED REFRESHED!!!")
             refreshProgress.completedUnitCount += 1
         }
         .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed, object: profile.objectID)) { _ in
@@ -147,7 +140,8 @@ struct SplitView: View {
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 useSystemBrowser: $useSystemBrowser,
-                userColorScheme: $userColorScheme
+                userColorScheme: $userColorScheme,
+                profiles: profiles
             )
         }
         .fileImporter(

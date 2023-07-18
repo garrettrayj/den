@@ -11,7 +11,10 @@
 import SwiftUI
 
 struct ProfilesSettingsTab: View {
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name, order: .forward),
+        SortDescriptor(\.created, order: .forward)
+    ])
     private var profiles: FetchedResults<Profile>
 
     @State private var selectedProfile: Profile?

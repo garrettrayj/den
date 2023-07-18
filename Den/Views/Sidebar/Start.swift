@@ -64,12 +64,10 @@ struct Start: View {
 
         let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
 
-        var newPages: [Page] = []
         opmlReader.outlineFolders.forEach { opmlFolder in
             let page = Page.create(in: self.viewContext, profile: profile)
             page.name = opmlFolder.name
             page.symbol = symbolMap[opmlFolder.name]
-            newPages.append(page)
 
             opmlFolder.feeds.forEach { opmlFeed in
                 let feed = Feed.create(in: self.viewContext, page: page, url: opmlFeed.url)

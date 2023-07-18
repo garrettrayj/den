@@ -13,8 +13,7 @@ import SwiftUI
 struct ProfilesSettingsSection: View {
     @Binding var currentProfileID: String?
 
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
-    private var profiles: FetchedResults<Profile>
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
         Section {

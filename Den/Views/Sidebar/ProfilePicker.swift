@@ -22,7 +22,7 @@ struct ProfilePicker: View {
             }
             
             ForEach(profiles) { profile in
-                profile.nameText
+                ProfileLabel(profile: profile, currentProfileID: $currentProfileID)
                     .accessibilityIdentifier("ProfileOption")
                     .tag(profile.id?.uuidString)
             }

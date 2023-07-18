@@ -45,8 +45,7 @@ struct RootView: View {
                     currentProfileID: $currentProfileID,
                     userColorScheme: $userColorScheme,
                     feedRefreshTimeout: $feedRefreshTimeout,
-                    profiles: profiles,
-                    refreshProgress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
+                    profiles: profiles
                 )
             } else {
                 LoadProfile(

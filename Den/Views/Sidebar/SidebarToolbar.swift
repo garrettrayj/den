@@ -20,12 +20,12 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var feedRefreshTimeout: Double
     @Binding var isEditing: Bool
     @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingSettings: Bool
     
     let profiles: FetchedResults<Profile>
+    let refreshProgress: Progress
     
     private var activePage: Page? {
         if case .page(let page) = detailPanel {

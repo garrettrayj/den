@@ -15,6 +15,9 @@ struct Sidebar: View {
     #if os(iOS)
     @Environment(\.editMode) private var editMode
     #endif
+    
+    @EnvironmentObject private var networkMonitor: NetworkMonitor
+    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
@@ -22,7 +25,6 @@ struct Sidebar: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var feedRefreshTimeout: Double
     @Binding var refreshing: Bool
-    @Binding var refreshProgress: Progress
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingSettings: Bool
@@ -31,6 +33,7 @@ struct Sidebar: View {
     @State private var isEditing = false
     
     let profiles: FetchedResults<Profile>
+    let refreshProgress: Progress
 
     var body: some View {
         List(selection: $detailPanel) {
@@ -55,6 +58,11 @@ struct Sidebar: View {
         }
         #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
+        .refreshable {
+            if !refreshing && networkMonitor.isConnected {
+                await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+            }
+        }
         #endif
         .listStyle(.sidebar)
         .searchable(
@@ -80,11 +88,11 @@ struct Sidebar: View {
                 feedRefreshTimeout: $feedRefreshTimeout,
                 isEditing: $isEditing,
                 refreshing: $refreshing,
-                refreshProgress: $refreshProgress,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
                 showingSettings: $showingSettings,
-                profiles: profiles
+                profiles: profiles,
+                refreshProgress: refreshProgress
             )
         }
     }

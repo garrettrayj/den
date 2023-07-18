@@ -23,76 +23,82 @@ struct LoadProfile: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                VStack(spacing: 20) {
+                HStack {
                     Spacer()
-                    if profiles.isEmpty {
-                        Text("No Profiles Available").font(.title2)
-                    } else {
-                        Text("Choose Profile").font(.title2)
-                    }
-                    
-                    if profiles.isEmpty {
-                        VStack(spacing: 16) {
-                            ProgressView()
-                            Text("""
-                            If you have used the app before then synchronization could be in progress. \
-                            Please wait a minute.
-                            """, comment: "Launch guidance message.")
-                            .multilineTextAlignment(.center)
-                            .font(.footnote)
-                            
-                            Text(
-                                "If you're new or have disabled cloud sync then create a profile to begin.",
-                                comment: "Launch guidance message."
-                            )
-                            .multilineTextAlignment(.center)
-                            .font(.footnote)
+                    VStack(spacing: 20) {
+                        Spacer()
+                        if profiles.isEmpty {
+                            Text("No Profiles Available").font(.title2)
+                        } else {
+                            Text("Choose Profile").font(.title2)
                         }
-                        .padding()
-                    } else {
-                        VStack(spacing: 0) {
-                            ForEach(profiles) { profile in
-                                if profile != profiles.first {
-                                    Divider()
-                                }
-                                Button {
-                                    currentProfileID = profile.id?.uuidString
-                                } label: {
-                                    HStack {
-                                        ProfileLabel(profile: profile, currentProfileID: $currentProfileID)
-                                        Spacer()
-                                        ButtonChevron()
-                                    }
-                                    .font(.title3)
-                                    .padding()
-                                    .contentShape(Rectangle())
-                                }
-                                .buttonStyle(.plain)
+                        
+                        if profiles.isEmpty {
+                            VStack(spacing: 16) {
+                                ProgressView()
+                                Text("""
+                                If you have used the app before then synchronization could be in progress. \
+                                Please wait a minute.
+                                """, comment: "Launch guidance message.")
+                                .multilineTextAlignment(.center)
+                                .font(.footnote)
+                                
+                                Text(
+                                    "If you're new or have disabled cloud sync then create a profile to begin.",
+                                    comment: "Launch guidance message."
+                                )
+                                .multilineTextAlignment(.center)
+                                .font(.footnote)
                             }
+                            .padding()
+                        } else {
+                            VStack(spacing: 0) {
+                                ForEach(profiles) { profile in
+                                    if profile != profiles.first {
+                                        Divider()
+                                    }
+                                    Button {
+                                        currentProfileID = profile.id?.uuidString
+                                    } label: {
+                                        HStack {
+                                            ProfileLabel(profile: profile, currentProfileID: $currentProfileID)
+                                            Spacer()
+                                            ButtonChevron()
+                                        }
+                                        .font(.title3)
+                                        .padding()
+                                        .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(.plain)
+                                    .accessibilityIdentifier("SelectProfile")
+                                    .onAppear {
+                                        if profiles.count == 1 {
+                                            currentProfileID = profile.id?.uuidString
+                                        }
+                                    }
+                                }
+                            }
+                            .frame(maxWidth: 240)
+                            .background(.background)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
-                        .frame(maxWidth: 240)
-                        .background(.background)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        
+                        Button {
+                            _ = createDefaultProfile()
+                        } label: {
+                            Text("Create a New Profile", comment: "Button label.").padding(8)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .accessibilityIdentifier("CreateProfile")
+                        
+                        Spacer()
                     }
-                    
-                    Button {
-                        _ = createDefaultProfile()
-                    } label: {
-                        Text("Create a New Profile", comment: "Button label.").padding(8)
-                    }.buttonStyle(.borderedProminent)
-                    
+                    .padding()
                     Spacer()
                 }
-                .padding()
                 .frame(minHeight: geometry.size.height)
             }
-            .frame(maxWidth: .infinity)
-            .background(.thickMaterial)
-            .task {
-                if profiles.count == 1 {
-                    currentProfileID = profiles.first?.id?.uuidString
-                }
-            }
+            .background(.thickMaterial, ignoresSafeAreaEdges: .all)
         }
     }
 

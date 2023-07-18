@@ -16,10 +16,12 @@ struct SettingsSheetForm: View {
     @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
+    
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
         Form {
-            ProfilesSettingsSection(currentProfileID: $currentProfileID)
+            ProfilesSettingsSection(currentProfileID: $currentProfileID, profiles: profiles)
 
             Section {
                 UserColorSchemePicker(userColorScheme: $userColorScheme)

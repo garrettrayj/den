@@ -11,11 +11,6 @@
 import XCTest
 
 final class AppSettingsUITests: XCTestCase {
-
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        false
-    }
-
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -80,9 +75,9 @@ final class AppSettingsUITests: XCTestCase {
         }
         app.buttons["CreateProfile"].tap()
         
-        app.buttons["app-menu"].tap()
-        app.buttons["settings-button"].tap()
-        if !app.buttons["close-button"].waitForExistence(timeout: 2) {
+        app.buttons["AppMenu"].tap()
+        app.buttons["Settings"].tap()
+        if !app.buttons["Close"].waitForExistence(timeout: 2) {
             XCTFail("Settings sheet did not appear in time")
         }
         
@@ -90,8 +85,6 @@ final class AppSettingsUITests: XCTestCase {
         attachment.name = "AppSettings"
         attachment.lifetime = .keepAlways
         add(attachment)
-        
-        app.terminate()
     }
     #endif
 }

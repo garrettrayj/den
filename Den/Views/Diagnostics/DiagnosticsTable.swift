@@ -43,8 +43,10 @@ struct DiagnosticsTable: View {
                 
                 TableColumn(
                     "Page",
-                    value: \.page
-                ).width(min: 100)
+                    value: \DiagnosticsRowData.page
+                ) { row in
+                    row.entity.page?.nameText ?? Text("Not Available", comment: "Page name not available.")
+                }
                 
                 TableColumn(
                     "Address",

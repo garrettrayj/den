@@ -76,19 +76,14 @@ public class Page: NSManagedObject {
         let newPage = self.init(context: managedObjectContext)
         newPage.id = UUID()
         newPage.profile = profile
-        newPage.userOrder = prepend ?
-            Int16(profile.pagesUserOrderMin - 1)
-            : Int16(profile.pagesUserOrderMax + 1)
-        newPage.itemsPerFeed = Int16(4)
+        newPage.created = Date()
+        
+        if prepend {
+            newPage.userOrder = Int16(profile.pagesUserOrderMin - 1)
+        } else {
+            newPage.userOrder = Int16(profile.pagesUserOrderMax + 1)
+        }
 
         return newPage
-    }
-}
-
-extension Collection where Element == Page {
-    func firstMatchingUUIDString(uuidString: String) -> Page? {
-        self.first { page in
-            page.id?.uuidString == uuidString
-        }
     }
 }
