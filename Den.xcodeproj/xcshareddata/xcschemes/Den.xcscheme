@@ -98,8 +98,8 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-cloud-kit-disabled"
-            isEnabled = "NO">
+            argument = "-disable-cloud"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-in-memory"

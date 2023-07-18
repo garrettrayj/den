@@ -102,7 +102,6 @@ struct SidebarToolbar: ToolbarContent {
                     } label: {
                         Text("Edit Pages", comment: "Button label.")
                     }
-                    .disabled(profile.pagesArray.isEmpty)
                     .accessibilityIdentifier("EditPages")
                     .buttonStyle(.borderless)
                     
@@ -117,16 +116,16 @@ struct SidebarToolbar: ToolbarContent {
                     
                     DiagnosticsButton(detailPanel: $detailPanel)
                     
-                    SettingsButton(showingSettings: $showingSettings).disabled(refreshing)
+                    SettingsButton(showingSettings: $showingSettings)
                 } label: {
                     Label {
                         Text("Menu", comment: "Button label.")
                     } icon: {
                         Image(systemName: "ellipsis.circle")
                     }
+                    .accessibilityIdentifier("AppMenu")
                 }
                 .disabled(refreshing)
-                .accessibilityIdentifier("AppMenu")
             }
         }
         

@@ -17,44 +17,51 @@ final class FeedUITests: XCTestCase {
     
     func testFeedViewCompressed() throws {
         let app = XCUIApplication()
+        app.launchArguments.append("-disable-cloud")
         app.launch()
         
+        if !app.buttons["Space"].waitForExistence(timeout: 2) {
+            XCTFail("Space page nav link did not appear in time")
+        }
         app.buttons["Space"].tap()
         #if os(iOS)
-        if UIDevice.current.userInterfaceIdiom == .pad && XCUIDevice.shared.orientation == .portrait {
-            app.tap()
-        }
+        app.tap()
         #endif
-        app.buttons["feed-button"].firstMatch.tap()
+        app.buttons["FeedNavLink"].firstMatch.tap()
         
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "FeedViewCompressed"
         attachment.lifetime = .keepAlways
         add(attachment)
-        
-        app.terminate()
     }
     
     func testFeedSettings() throws {
         let app = XCUIApplication()
+        app.launchArguments.append("-disable-cloud")
         app.launch()
         
         app.buttons["Space"].tap()
-        #if os(iOS)
-        if UIDevice.current.userInterfaceIdiom == .pad && XCUIDevice.shared.orientation == .portrait {
-            app.tap()
+        
+        #if os(macOS)
+        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if XCUIDevice.shared.orientation.isPortrait {
+                app.tap()
+            } else {
+                app.buttons["ToggleSidebar"].tap()
+            }
         }
         #endif
-        app.buttons["feed-button"].firstMatch.tap()
         
-        app.buttons["feed-settings-button"].firstMatch.tap()
+        app.buttons["FeedNavLink"].firstMatch.tap()
+        
+        app.buttons["ShowFeedSettings"].firstMatch.tap()
         
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "FeedSettings"
         attachment.lifetime = .keepAlways
         add(attachment)
-        
-        app.terminate()
     }
     
     func testFeedViewExpanded() throws {
@@ -64,6 +71,7 @@ final class FeedUITests: XCTestCase {
     func testFeedViewNoData() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
+        app.launchArguments.append("-disable-cloud")
         app.launch()
 
         // Insert steps here to perform after app launch but before taking a screenshot,
@@ -73,20 +81,26 @@ final class FeedUITests: XCTestCase {
         }
         app.buttons["CreateProfile"].tap()
         
-        app.buttons["load-demo-button"].tap()
+        app.buttons["LoadDemo"].tap()
         app.buttons["Space"].tap()
-        #if os(iOS)
-        if UIDevice.current.userInterfaceIdiom == .pad && XCUIDevice.shared.orientation == .portrait {
-            app.tap()
+        
+        #if os(macOS)
+        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if XCUIDevice.shared.orientation.isPortrait {
+                app.tap()
+            } else {
+                app.buttons["ToggleSidebar"].tap()
+            }
         }
         #endif
-        app.buttons["feed-button"].firstMatch.tap()
+        
+        app.buttons["FeedNavLink"].firstMatch.tap()
 
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "FeedViewNoData"
         attachment.lifetime = .keepAlways
         add(attachment)
-        
-        app.terminate()
     }
 }

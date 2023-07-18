@@ -18,6 +18,7 @@ final class AppLaunchUITests: XCTestCase {
     func testAppLaunchNoProfile() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
+        app.launchArguments.append("-disable-cloud")
         app.launch()
 
         // Insert steps here to perform after app launch but before taking a screenshot,
@@ -30,7 +31,5 @@ final class AppLaunchUITests: XCTestCase {
         attachment.name = "AppLaunchNoProfile"
         attachment.lifetime = .keepAlways
         add(attachment)
-        
-        app.terminate()
     }
 }

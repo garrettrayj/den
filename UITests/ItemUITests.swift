@@ -36,8 +36,6 @@ final class ItemUITests: XCTestCase {
         attachment.name = "LaunchNoProfiles"
         attachment.lifetime = .keepAlways
         add(attachment)
-        
-        app.terminate()
     }
      */
 }

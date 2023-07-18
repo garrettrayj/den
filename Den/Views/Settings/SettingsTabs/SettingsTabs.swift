@@ -29,6 +29,7 @@ struct SettingsTabs: View {
                     Image(systemName: "gearshape")
                 }
             }
+            .accessibilityIdentifier("GeneralTab")
 
             ProfilesSettingsTab()
             .tabItem {
@@ -38,6 +39,7 @@ struct SettingsTabs: View {
                     Image(systemName: "person.crop.circle")
                 }
             }
+            .accessibilityIdentifier("ProfilesTab")
         }
         .frame(width: 560, height: 440)
     }
