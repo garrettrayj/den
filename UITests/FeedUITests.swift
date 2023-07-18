@@ -24,9 +24,19 @@ final class FeedUITests: XCTestCase {
             XCTFail("Space page nav link did not appear in time")
         }
         app.buttons["Space"].tap()
-        #if os(iOS)
-        app.tap()
+        
+        #if os(macOS)
+        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if XCUIDevice.shared.orientation.isPortrait {
+                app.tap()
+            } else {
+                app.buttons["ToggleSidebar"].tap()
+            }
+        }
         #endif
+        
         app.buttons["FeedNavLink"].firstMatch.tap()
         
         sleep(3)
