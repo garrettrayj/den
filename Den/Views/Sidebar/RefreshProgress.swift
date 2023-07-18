@@ -18,12 +18,6 @@ struct RefreshProgress: View {
     let progress: Progress
 
     var body: some View {
-        ProgressView(progress)
-            .progressViewStyle(.circular)
-            .labelsHidden()
-            #if os(macOS)
-            .scaleEffect(1 / displayScale)
-            .frame(width: 34)
-            #endif
+        EmptyView()
     }
 }

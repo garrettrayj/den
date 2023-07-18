@@ -36,28 +36,29 @@ struct SidebarToolbar: CustomizableToolbarContent {
 
     var body: some CustomizableToolbarContent {
         #if os(macOS)
+        ToolbarItem(id: "Refresh") {
+            RefreshButton(
+                profile: profile,
+                feedRefreshTimeout: $feedRefreshTimeout,
+                refreshing: $refreshing,
+                refreshProgress: refreshProgress
+            )
+            .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
+        }
+        
         ToolbarItem(id: "AppMenu") {
             Menu {
-                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
-                
+                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles).pickerStyle(.inline)
+        
                 Divider()
                 
                 NewFeedButton(profile: profile, page: activePage)
-                    .disabled(refreshing || profile.pagesArray.isEmpty)
-                
                 NewPageButton(profile: profile)
                 
                 Divider()
                 
                 ImportButton(showingImporter: $showingImporter)
-                    .labelStyle(.titleOnly)
-                    .buttonStyle(.borderless)
-                
                 ExportButton(showingExporter: $showingExporter)
-                    .labelStyle(.titleOnly)
-                    .buttonStyle(.borderless)
-                    .disabled(profile.pagesArray.isEmpty)
-                
                 DiagnosticsButton(detailPanel: $detailPanel)
             } label: {
                 Label {
@@ -66,23 +67,12 @@ struct SidebarToolbar: CustomizableToolbarContent {
                     Image(systemName: "ellipsis.circle")
                 }
             }
-            .disabled(refreshing)
+            .accessibilityElement()
             .accessibilityIdentifier("AppMenu")
-        }
-    
-        ToolbarItem(id: "Refresh") {
-            if refreshing {
-                RefreshProgress(profile: profile, progress: refreshProgress)
-            } else {
-                RefreshButton(profile: profile, feedRefreshTimeout: $feedRefreshTimeout)
-                    .disabled(
-                        refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
-                    )
-            }
         }
         #else
         if isEditing {
-            ToolbarItem {
+            ToolbarItem(id: "SidebarDone", placement: .primaryAction) {
                 Button {
                     withAnimation {
                         isEditing = false
@@ -92,7 +82,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                 }
             }
         } else {
-            ToolbarItem {
+            ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
                 Menu {
                     ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                     Button {
@@ -100,43 +90,44 @@ struct SidebarToolbar: CustomizableToolbarContent {
                             isEditing = true
                         }
                     } label: {
-                        Text("Edit Pages", comment: "Button label.")
+                        Label {
+                            Text("Edit Pages", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "pencil")
+                        }
                     }
                     .accessibilityIdentifier("EditPages")
                     .buttonStyle(.borderless)
-                    
-                    ImportButton(showingImporter: $showingImporter)
-                        .labelStyle(.titleOnly)
-                        .buttonStyle(.borderless)
-                    
-                    ExportButton(showingExporter: $showingExporter)
-                        .labelStyle(.titleOnly)
-                        .buttonStyle(.borderless)
-                        .disabled(profile.pagesArray.isEmpty)
-                    
                     DiagnosticsButton(detailPanel: $detailPanel)
-                    
                     SettingsButton(showingSettings: $showingSettings)
+                    ImportButton(showingImporter: $showingImporter)
+                    ExportButton(showingExporter: $showingExporter)
                 } label: {
                     Label {
-                        Text("Menu", comment: "Button label.")
+                        Text("App Menu", comment: "Menu label.")
                     } icon: {
                         Image(systemName: "ellipsis.circle")
                     }
-                    .accessibilityIdentifier("AppMenu")
                 }
-                .disabled(refreshing)
             }
         }
         
-        ToolbarItemGroup(placement: .bottomBar) {
+        ToolbarItem(id: "SidebarBottomNewFeed", placement: .bottomBar) {
             NewFeedButton(profile: profile, page: activePage)
                 .disabled(refreshing || profile.pagesArray.isEmpty)
-            Spacer()
+        }
+        
+        ToolbarItem(id: "SidebarStatus", placement: .status) {
             BottomBarSidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
-            Spacer()
-            RefreshButton(profile: profile, feedRefreshTimeout: $feedRefreshTimeout)
-                .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
+        }
+        
+        ToolbarItem(id: "SidebarBottomRefresh", placement: .bottomBar) {
+            RefreshButton(
+                profile: profile,
+                feedRefreshTimeout: $feedRefreshTimeout,
+                refreshing: $refreshing,
+                refreshProgress: refreshProgress
+            ).disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         #endif
     }

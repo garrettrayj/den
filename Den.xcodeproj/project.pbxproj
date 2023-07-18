@@ -1014,7 +1014,6 @@
 				68D9BA9D28A60BAE00F1A3AD /* Profile */,
 				6865575F29E7B417000EBF37 /* Search */,
 				687F22262A5B2BB700B76919 /* Diagnostics */,
-				683E3F48293BC19800B16814 /* RefreshButton.swift */,
 				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
 				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
 				687F488F269165EE00EA2498 /* CrashMessage.swift */,
@@ -1141,6 +1140,7 @@
 				683E3F46293BC18C00B16814 /* BottomBarSidebarStatus.swift */,
 				687FEF0A2A3FAFB30042977E /* RefreshProgress.swift */,
 				687F22242A5A5CF900B76919 /* ProfilePicker.swift */,
+				683E3F48293BC19800B16814 /* RefreshButton.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";

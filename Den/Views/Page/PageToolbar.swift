@@ -29,7 +29,7 @@ struct PageToolbar: CustomizableToolbarContent {
         #if os(macOS)
         ToolbarItem(id: "PageLayout") {
             PageLayoutPicker(pageLayout: $pageLayout)
-                .labelStyle(.iconOnly)
+                .pickerStyle(.inline)
         }
         ToolbarItem(id: "PageSettings") {
             PageSettingsButton(showingSettings: $showingSettings)
@@ -46,7 +46,7 @@ struct PageToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem {
+            ToolbarItem(id: "PageMenu", placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
@@ -66,16 +66,16 @@ struct PageToolbar: CustomizableToolbarContent {
                 .accessibilityIdentifier("PageMenu")
             }
         } else {
-            ToolbarItem {
+            ToolbarItem(id: "PageLayout", placement: .primaryAction) {
                 PageLayoutPicker(pageLayout: $pageLayout)
             }
-            ToolbarItem {
+            ToolbarItem(id: "PageSettings", placement: .primaryAction) {
                 PageSettingsButton(showingSettings: $showingSettings)
             }
-            ToolbarItem {
+            ToolbarItem(id: "PageFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem {
+            ToolbarItem(id: "PageToggleRead", placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     page.objectWillChange.send()

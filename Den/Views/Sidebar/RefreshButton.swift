@@ -11,11 +11,16 @@
 import SwiftUI
 
 struct RefreshButton: View {
+    @Environment(\.displayScale) private var displayScale
+    
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
     
     @Binding var feedRefreshTimeout: Double
+    @Binding var refreshing: Bool
+    
+    let refreshProgress: Progress
 
     var body: some View {
         Button {
@@ -26,7 +31,21 @@ struct RefreshButton: View {
             Label {
                 Text("Refresh", comment: "Button label.")
             } icon: {
+                #if os(macOS)
+                if refreshing {
+                    ProgressView(refreshProgress)
+                        .progressViewStyle(.circular)
+                        .labelsHidden()
+                        
+                        .scaleEffect(1 / displayScale)
+                        
+                        .frame(width: 16)
+                } else {
+                    Image(systemName: "arrow.clockwise")
+                }
+                #else
                 Image(systemName: "arrow.clockwise")
+                #endif
             }
         }
         .keyboardShortcut("r", modifiers: [.command])

@@ -37,7 +37,7 @@ struct InboxToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem {
+            ToolbarItem(id: "InboxMenu", placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
@@ -56,10 +56,10 @@ struct InboxToolbar: CustomizableToolbarContent {
                 }
             }
         } else {
-            ToolbarItem {
+            ToolbarItem(id: "InboxFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem {
+            ToolbarItem(id: "InboxToggleRead", placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     profile.objectWillChange.send()

@@ -39,7 +39,7 @@ struct FeedToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem {
+            ToolbarItem(id: "FeedMenu", placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
@@ -57,13 +57,13 @@ struct FeedToolbar: CustomizableToolbarContent {
                 .accessibilityIdentifier("FeedMenu")
             }
         } else {
-            ToolbarItem {
+            ToolbarItem(id: "FeedSettings", placement: .primaryAction) {
                 FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
             }
-            ToolbarItem {
+            ToolbarItem(id: "FeedFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem {
+            ToolbarItem(id: "FeedToggleRead", placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     feed.objectWillChange.send()

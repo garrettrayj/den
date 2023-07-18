@@ -14,12 +14,12 @@ struct ItemToolbar: CustomizableToolbarContent {
     @ObservedObject var item: Item
 
     var body: some CustomizableToolbarContent {
-        ToolbarItem(id: "ItemOpenInBrowser") {
+        ToolbarItem(id: "ItemOpenInBrowser", placement: .primaryAction) {
             if let url = item.link {
                 OpenInBrowserButton(url: url)
             }
         }
-        ToolbarItem(id: "ItemShare") {
+        ToolbarItem(id: "ItemShare", placement: .primaryAction) {
             if let url = item.link {
                 ShareButton(url: url)
             }

@@ -40,7 +40,7 @@ struct TrendingToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem {
+            ToolbarItem(id: "TrendingMenu", placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: unreadCount) {
                         await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
@@ -56,10 +56,10 @@ struct TrendingToolbar: CustomizableToolbarContent {
                 }
             }
         } else {
-            ToolbarItem {
+            ToolbarItem(id: "TrendingFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem {
+            ToolbarItem(id: "TrendingToggleRead", placement: .primaryAction) {
                 ToggleReadButton(unreadCount: unreadCount) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                     profile.objectWillChange.send()

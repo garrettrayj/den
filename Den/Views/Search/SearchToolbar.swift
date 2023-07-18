@@ -37,7 +37,7 @@ struct SearchToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem {
+            ToolbarItem(id: "SearchMenu", placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
@@ -51,22 +51,19 @@ struct SearchToolbar: CustomizableToolbarContent {
                     }
                 }
             }
-            ToolbarItem(placement: .bottomBar) {
-                SearchStatus(resultCount: items.count, query: query)
-            }
         } else {
-            ToolbarItem(placement: .bottomBar) {
-                SearchStatus(resultCount: items.count, query: query)
-            }
-
-            ToolbarItem {
+            ToolbarItem(id: "SearchFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem {
+            ToolbarItem(id: "SearchToggleRead", placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
+        }
+        
+        ToolbarItem(id: "SearchStatus", placement: .bottomBar) {
+            SearchStatus(resultCount: items.count, query: query)
         }
         #endif
     }
