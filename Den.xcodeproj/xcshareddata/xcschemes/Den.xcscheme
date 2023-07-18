@@ -65,6 +65,9 @@
                BlueprintName = "UITests"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
+            <DeviceAppData
+               resolvedPath = "../../TestData/en.xcappdata">
+            </DeviceAppData>
             <LocationScenarioReference
                identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
                referenceType = "1">
