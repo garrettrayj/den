@@ -16,14 +16,12 @@ final class AppSettingsUITests: XCTestCase {
     }
     
     #if os(macOS)
-    func testShowGeneralAppSettings() throws {
+    func testAppSettingsGeneralTab() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launchArguments.append("-disable-cloud")
         app.launch()
 
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
@@ -34,20 +32,18 @@ final class AppSettingsUITests: XCTestCase {
             XCTFail("General settings tab did not appear in time")
         }
         
-        let attachment = XCTAttachment(screenshot: app.screenshot())
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "AppSettingsGeneralTab"
         attachment.lifetime = .keepAlways
         add(attachment)
     }
     
-    func testShowProfilesAppSettings() throws {
+    func testAppSettingsProfilesTab() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launchArguments.append("-disable-cloud")
         app.launch()
 
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
@@ -61,20 +57,18 @@ final class AppSettingsUITests: XCTestCase {
             XCTFail("Profiles settings tab did not appear in time")
         }
         
-        let attachment = XCTAttachment(screenshot: app.screenshot())
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "AppSettingsProfilesTab"
         attachment.lifetime = .keepAlways
         add(attachment)
     }
     #else
-    func testShowAppSettings() throws {
+    func testAppSettingsSheet() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launchArguments.append("-disable-cloud")
         app.launch()
 
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create profile button did not appear in time")
         }
@@ -86,7 +80,7 @@ final class AppSettingsUITests: XCTestCase {
             XCTFail("Settings sheet did not appear in time")
         }
         
-        let attachment = XCTAttachment(screenshot: app.screenshot())
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "AppSettings"
         attachment.lifetime = .keepAlways
         add(attachment)

@@ -22,7 +22,7 @@ struct ItemActionView<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        ZStack {
+        Group {
             if feed.browserView == true {
                 Button {
                     if let url = item.link {
@@ -35,11 +35,13 @@ struct ItemActionView<Content: View>: View {
                     content
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
+                .accessibilityIdentifier("ItemAction")
             } else {
                 NavigationLink(value: SubDetailPanel.item(item)) {
                     content
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
+                .accessibilityIdentifier("ItemAction")
             }
         }
         .contextMenu {

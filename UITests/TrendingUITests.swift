@@ -44,7 +44,7 @@ final class TrendingUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.screenshot())
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "TrendingEmpty"
         attachment.lifetime = .keepAlways
         add(attachment)

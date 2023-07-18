@@ -21,14 +21,27 @@ final class AppLaunchUITests: XCTestCase {
         app.launchArguments.append("-disable-cloud")
         app.launch()
 
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
 
-        let attachment = XCTAttachment(screenshot: app.screenshot())
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "AppLaunchNoProfile"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    
+    func testAppLaunchOneProfile() throws {
+        let app = XCUIApplication()
+        app.launchArguments.append("-disable-cloud")
+        app.launch()
+
+        if !app.buttons["Inbox"].waitForExistence(timeout: 2) {
+            XCTFail("Inbox button did not appear in time")
+        }
+
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "AppLaunchOneProfile"
         attachment.lifetime = .keepAlways
         add(attachment)
     }

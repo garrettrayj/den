@@ -29,6 +29,8 @@ final class FeedUITests: XCTestCase {
         #endif
         app.buttons["FeedNavLink"].firstMatch.tap()
         
+        sleep(3)
+        
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "FeedViewCompressed"
         attachment.lifetime = .keepAlways
@@ -64,18 +66,12 @@ final class FeedUITests: XCTestCase {
         add(attachment)
     }
     
-    func testFeedViewExpanded() throws {
-        
-    }
-    
     func testFeedViewNoData() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launchArguments.append("-disable-cloud")
         app.launch()
-
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
+        
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }

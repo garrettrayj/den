@@ -11,13 +11,40 @@
 import XCTest
 
 final class SearchUITests: XCTestCase {
-
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        false
-    }
-
     override func setUpWithError() throws {
         continueAfterFailure = false
+    }
+    
+    func testSearch() throws {
+        let app = XCUIApplication()
+        app.launchArguments.append("-disable-cloud")
+        app.launch()
+        
+        #if os(iOS)
+        app.swipeDown()
+        #endif
+        
+        let searchField = app.searchFields["Search"].firstMatch
+        searchField.tap()
+        searchField.typeText("NASA")
+        searchField.typeText("\n")
+        
+        #if os(macOS)
+        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if XCUIDevice.shared.orientation.isPortrait {
+                app.tap()
+            } else {
+                app.buttons["ToggleSidebar"].tap()
+            }
+        }
+        #endif
+
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "Search"
+        attachment.lifetime = .keepAlways
+        add(attachment)
     }
 
     func testSearchEmpty() throws {
@@ -54,7 +81,7 @@ final class SearchUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.screenshot())
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "SearchNoResults"
         attachment.lifetime = .keepAlways
         add(attachment)

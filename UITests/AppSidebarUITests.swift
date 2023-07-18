@@ -21,8 +21,6 @@ final class AppSidebarUITests: XCTestCase {
         app.launchArguments.append("-disable-cloud")
         app.launch()
 
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
@@ -31,6 +29,29 @@ final class AppSidebarUITests: XCTestCase {
 
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "AppSidebarNoPages"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+    
+    func testAppSidebarAppMenu() throws {
+        let app = XCUIApplication()
+        app.launchArguments.append("-in-memory")
+        app.launchArguments.append("-disable-cloud")
+        app.launch()
+
+        if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
+            XCTFail("Create Profile button did not appear in time")
+        }
+        app.buttons["CreateProfile"].tap()
+        
+        #if os(macOS)
+        app.popUpButtons["AppMenu"].tap()
+        #else
+        app.buttons["AppMenu"].forceTap()
+        #endif
+
+        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
+        attachment.name = "AppSidebarAppMenu"
         attachment.lifetime = .keepAlways
         add(attachment)
     }
