@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TrendToolbar: ToolbarContent {
+struct TrendToolbar: CustomizableToolbarContent {
     @Environment(\.dismiss) private var dismiss
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -23,12 +23,12 @@ struct TrendToolbar: ToolbarContent {
 
     let items: FetchedResults<Item>
 
-    var body: some ToolbarContent {
+    var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem {
+        ToolbarItem(id: "TrendFilterRead") {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem {
+        ToolbarItem(id: "TrendToggleRead") {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 trend.objectWillChange.send()

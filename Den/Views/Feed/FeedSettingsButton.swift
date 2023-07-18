@@ -24,7 +24,7 @@ struct FeedSettingsButton: View {
             }
         } label: {
             Label {
-                Text("Feed Settings", comment: "Button label.")
+                Text("Configure", comment: "Button label.")
             } icon: {
                 Image(systemName: "wrench")
             }

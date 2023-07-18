@@ -36,7 +36,7 @@ struct Search: View {
                     query: query,
                     items: items
                 )
-                .toolbar {
+                .toolbar(id: "Search") {
                     SearchToolbar(profile: profile, hideRead: $hideRead, query: query, items: items)
                 }
                 .navigationTitle(Text("Search", comment: "Navigation title."))

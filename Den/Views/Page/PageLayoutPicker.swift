@@ -47,7 +47,7 @@ struct PageLayoutPicker: View {
             .tag(PageLayout.deck)
             .accessibilityIdentifier("DeckLayout")
         } label: {
-            Text("Page Layout", comment: "Picker label.")
+            Text("Layout", comment: "Picker label.")
         }
         .fontWeight(.medium)
         .accessibilityIdentifier("PageLayoutPicker")

@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct PageToolbar: ToolbarContent {
+struct PageToolbar: CustomizableToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -25,18 +25,19 @@ struct PageToolbar: ToolbarContent {
 
     let items: FetchedResults<Item>
 
-    var body: some ToolbarContent {
+    var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem {
-            PageLayoutPicker(pageLayout: $pageLayout).labelStyle(.iconOnly)
+        ToolbarItem(id: "PageLayout") {
+            PageLayoutPicker(pageLayout: $pageLayout)
+                .labelStyle(.iconOnly)
         }
-        ToolbarItem {
+        ToolbarItem(id: "PageSettings") {
             PageSettingsButton(showingSettings: $showingSettings)
         }
-        ToolbarItem {
+        ToolbarItem(id: "PageFilterRead") {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem {
+        ToolbarItem(id: "PageToggleRead") {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 page.objectWillChange.send()

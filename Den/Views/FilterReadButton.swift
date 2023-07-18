@@ -18,11 +18,7 @@ struct FilterReadButton: View {
             hideRead.toggle()
         } label: {
             Label {
-                if hideRead {
-                    Text("Show Read Items", comment: "Button label.")
-                } else {
-                    Text("Hide Read Items", comment: "Button label.")
-                }
+                Text("Filter", comment: "Button label.")
             } icon: {
                 Image(
                     systemName: hideRead ?

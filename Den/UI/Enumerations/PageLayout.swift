@@ -10,9 +10,9 @@
 
 import Foundation
 
-enum PageLayout: Int {
+enum PageLayout: Int, CaseIterable {
     case grouped  = 0
     case showcase = 1
-    case timeline  = 2
+    case timeline = 2
     case deck     = 3
 }

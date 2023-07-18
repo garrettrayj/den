@@ -45,6 +45,8 @@ struct DenApp: App {
             .preferredColorScheme(userColorScheme.colorScheme)
         }
         .commands {
+            ToolbarCommands()
+            SidebarCommands()
             CommandGroup(replacing: .help) {
                 Button {
                     openURL(URL(string: "https://den.io/help/")!)

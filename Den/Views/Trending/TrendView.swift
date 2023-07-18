@@ -26,7 +26,7 @@ struct TrendView: View {
                     hideRead: $hideRead,
                     items: items.visibilityFiltered(hideRead ? false : nil)
                 )
-                .toolbar {
+                .toolbar(id: "Trend") {
                     TrendToolbar(
                         trend: trend,
                         profile: profile,

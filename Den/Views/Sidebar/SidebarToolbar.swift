@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SidebarToolbar: ToolbarContent {
+struct SidebarToolbar: CustomizableToolbarContent {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
@@ -34,9 +34,9 @@ struct SidebarToolbar: ToolbarContent {
         return nil
     }
 
-    var body: some ToolbarContent {
+    var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem {
+        ToolbarItem(id: "AppMenu") {
             Menu {
                 ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                 
@@ -70,7 +70,7 @@ struct SidebarToolbar: ToolbarContent {
             .accessibilityIdentifier("AppMenu")
         }
     
-        ToolbarItem {
+        ToolbarItem(id: "Refresh") {
             if refreshing {
                 RefreshProgress(profile: profile, progress: refreshProgress)
             } else {

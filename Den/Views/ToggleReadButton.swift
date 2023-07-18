@@ -18,37 +18,25 @@ struct ToggleReadButton: View {
     @State private var toggling = false
 
     var body: some View {
-        if toggling {
-            ProgressView()
-                #if os(macOS)
-                .scaleEffect(1 / displayScale)
-                .padding(2)
-                #else
-                .padding(8)
-                #endif
-        } else {
-            Button {
-                toggling = true
-                Task {
-                    await toggleAll()
-                    toggling = false
-                }
-            } label: {
+        Button {
+            toggling = true
+            Task {
+                await toggleAll()
+                toggling = false
+            }
+        } label: {
+            
+            Label {
+                Text("Mark All", comment: "Button label.")
+            } icon: {
                 if unreadCount == 0 {
-                    Label {
-                        Text("Mark All Unread", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "checkmark.circle.fill")
-                    }
+                    Image(systemName: "checkmark.circle.fill")
                 } else {
-                    Label {
-                        Text("Mark All Read", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "checkmark.circle")
-                    }
+                    Image(systemName: "checkmark.circle")
                 }
             }
-            .accessibilityIdentifier("ToggleRead")
         }
+        .accessibilityIdentifier("ToggleRead")
+        
     }
 }

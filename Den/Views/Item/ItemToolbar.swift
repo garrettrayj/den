@@ -10,16 +10,16 @@
 
 import SwiftUI
 
-struct ItemToolbar: ToolbarContent {
+struct ItemToolbar: CustomizableToolbarContent {
     @ObservedObject var item: Item
 
-    var body: some ToolbarContent {
-        ToolbarItem {
+    var body: some CustomizableToolbarContent {
+        ToolbarItem(id: "ItemOpenInBrowser") {
             if let url = item.link {
                 OpenInBrowserButton(url: url)
             }
         }
-        ToolbarItem {
+        ToolbarItem(id: "ItemShare") {
             if let url = item.link {
                 ShareButton(url: url)
             }

@@ -26,19 +26,54 @@ struct PageView: View {
                 SplashNote(title: Text("Page Deleted", comment: "Object removed message."))
             } else {
                 WithItems(scopeObject: page) { items in
-                    pageLayoutView(items: items)
-                        .modifier(URLDropTargetModifier(profile: profile, page: page))
-                        .toolbar {
-                            PageToolbar(
-                                page: page,
-                                profile: profile,
-                                hideRead: $hideRead,
-                                pageLayout: $pageLayout,
-                                showingSettings: $showingSettings,
-                                items: items
-                            )
+                    ZStack {
+                        if page.feedsArray.isEmpty {
+                            NoFeeds(profile: profile, page: page)
+                        } else {
+                            switch pageLayout {
+                            case .deck:
+                                DeckLayout(
+                                    page: page,
+                                    profile: profile,
+                                    hideRead: $hideRead,
+                                    items: items
+                                )
+                            case .timeline:
+                                TimelineLayout(
+                                    page: page,
+                                    profile: profile,
+                                    hideRead: $hideRead,
+                                    items: items
+                                )
+                            case .showcase:
+                                ShowcaseLayout(
+                                    page: page,
+                                    profile: profile,
+                                    hideRead: $hideRead,
+                                    items: items
+                                )
+                            case .grouped:
+                                GroupedLayout(
+                                    page: page,
+                                    profile: profile,
+                                    hideRead: $hideRead,
+                                    items: items
+                                )
+                            }
                         }
-                        .navigationTitle(page.nameText)
+                    }
+                    .modifier(URLDropTargetModifier(profile: profile, page: page))
+                    .toolbar(id: "Page") {
+                        PageToolbar(
+                            page: page,
+                            profile: profile,
+                            hideRead: $hideRead,
+                            pageLayout: $pageLayout,
+                            showingSettings: $showingSettings,
+                            items: items
+                        )
+                    }
+                    .navigationTitle(page.nameText)
                 }
             }
         }
@@ -69,43 +104,5 @@ struct PageView: View {
 
         self.page = page
         self.profile = profile
-    }
-
-    @ViewBuilder
-    private func pageLayoutView(items: FetchedResults<Item>) -> some View {
-        if page.feedsArray.isEmpty {
-            NoFeeds(profile: profile, page: page)
-        } else {
-            switch pageLayout {
-            case .deck:
-                DeckLayout(
-                    page: page,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items
-                )
-            case .timeline:
-                TimelineLayout(
-                    page: page,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items
-                )
-            case .showcase:
-                ShowcaseLayout(
-                    page: page,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items
-                )
-            case .grouped:
-                GroupedLayout(
-                    page: page,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items
-                )
-            }
-        }
     }
 }

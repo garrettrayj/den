@@ -18,7 +18,7 @@ struct PageSettingsButton: View {
             showingSettings = true
         } label: {
             Label {
-                Text("Page Settings", comment: "Button label.")
+                Text("Configure", comment: "Button label.")
             } icon: {
                 Image(systemName: "wrench")
             }

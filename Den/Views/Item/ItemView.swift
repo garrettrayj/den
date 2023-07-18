@@ -26,7 +26,7 @@ struct ItemView: View {
         } else {
             itemLayout
                 .background(.background)
-                .toolbar { ItemToolbar(item: item) }
+                .toolbar(id: "Item") { ItemToolbar(item: item) }
                 #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif

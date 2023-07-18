@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct InboxToolbar: ToolbarContent {
+struct InboxToolbar: CustomizableToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -21,12 +21,12 @@ struct InboxToolbar: ToolbarContent {
 
     let items: FetchedResults<Item>
 
-    var body: some ToolbarContent {
+    var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem {
+        ToolbarItem(id: "InboxFilterRead") {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem {
+        ToolbarItem(id: "InboxToggleRead") {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 profile.objectWillChange.send()

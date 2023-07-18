@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedToolbar: ToolbarContent {
+struct FeedToolbar: CustomizableToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -23,15 +23,15 @@ struct FeedToolbar: ToolbarContent {
 
     let items: FetchedResults<Item>
 
-    var body: some ToolbarContent {
+    var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem {
+        ToolbarItem(id: "FeedSettings") {
             FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
         }
-        ToolbarItem {
+        ToolbarItem(id: "FeedFilterRead") {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem {
+        ToolbarItem(id: "FeedToggleRead") {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()

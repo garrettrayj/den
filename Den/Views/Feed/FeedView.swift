@@ -35,7 +35,7 @@ struct FeedView: View {
                         hideRead: $hideRead,
                         items: items
                     )
-                    .toolbar {
+                    .toolbar(id: "Feed") {
                         FeedToolbar(
                             feed: feed,
                             profile: profile,

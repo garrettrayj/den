@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SearchToolbar: ToolbarContent {
+struct SearchToolbar: CustomizableToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -22,15 +22,15 @@ struct SearchToolbar: ToolbarContent {
     let query: String
     let items: FetchedResults<Item>
 
-    var body: some ToolbarContent {
+    var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem {
+        ToolbarItem(id: "SearchStatus") {
             SearchStatus(resultCount: items.count, query: query)
         }
-        ToolbarItem {
+        ToolbarItem(id: "SearchFilterRead") {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem {
+        ToolbarItem(id: "SearchToggleRead") {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }

@@ -44,6 +44,7 @@ struct ItemActionView<Content: View>: View {
                 .accessibilityIdentifier("ItemAction")
             }
         }
+        .presentedWindowToolbarStyle(.unified(showsTitle: false))
         .contextMenu {
             if let link = item.link {
                 
