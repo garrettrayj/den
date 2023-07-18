@@ -32,11 +32,13 @@ final class SearchUITests: XCTestCase {
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular {
+                app.tap()
+            }
+        } else {
             if XCUIDevice.shared.orientation.isPortrait {
                 app.tap()
-            } else {
-                app.buttons["ToggleSidebar"].tap()
             }
         }
         #endif
@@ -47,7 +49,7 @@ final class SearchUITests: XCTestCase {
         add(attachment)
     }
 
-    func testSearchEmpty() throws {
+    func testSearchNoResults() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launchArguments.append("-disable-cloud")
@@ -72,11 +74,13 @@ final class SearchUITests: XCTestCase {
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular {
+                app.tap()
+            }
+        } else {
             if XCUIDevice.shared.orientation.isPortrait {
                 app.tap()
-            } else {
-                app.buttons["ToggleSidebar"].tap()
             }
         }
         #endif

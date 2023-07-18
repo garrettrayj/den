@@ -32,11 +32,15 @@ final class PageUITests: XCTestCase {
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular {
                 app.tap()
-            } else {
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.tap()
             }
         }
         #endif
@@ -52,16 +56,24 @@ final class PageUITests: XCTestCase {
         app.launchArguments.append("-disable-cloud")
         app.launch()
         
-        app.buttons["Space"].tap()
-        
         #if os(macOS)
+        app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
-            } else {
+            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
+                app.tap()
             }
         }
         #endif
@@ -76,23 +88,39 @@ final class PageUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments.append("-disable-cloud")
         app.launch()
-        
-        app.buttons["Space"].firstMatch.tap()
-        
+                
         #if os(macOS)
+        app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
-            } else {
+            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
+                app.tap()
             }
         }
         #endif
         
-        app.buttons["PageLayoutPicker"].tap()
+        #if os(macOS)
+        app.radioButtons["TimelineLayout"].tap()
+        #else
+        if app.windows.firstMatch.horizontalSizeClass == .compact {
+            app.buttons["PageMenu"].tap()
+        } else {
+            app.buttons["PageLayoutPicker"].tap()
+        }
         app.buttons["TimelineLayout"].tap()
+        #endif
 
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "PageTimelineLayout"
@@ -105,22 +133,38 @@ final class PageUITests: XCTestCase {
         app.launchArguments.append("-disable-cloud")
         app.launch()
         
-        app.buttons["Space"].firstMatch.tap()
-        
         #if os(macOS)
+        app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
-            } else {
+            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
+                app.tap()
             }
         }
         #endif
         
-        app.buttons["PageLayoutPicker"].tap()
+        #if os(macOS)
+        app.radioButtons["ShowcaseLayout"].tap()
+        #else
+        if app.windows.firstMatch.horizontalSizeClass == .compact {
+            app.buttons["PageMenu"].tap()
+        } else {
+            app.buttons["PageLayoutPicker"].tap()
+        }
         app.buttons["ShowcaseLayout"].tap()
+        #endif
 
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "PageShowcaseLayout"
@@ -133,22 +177,38 @@ final class PageUITests: XCTestCase {
         app.launchArguments.append("-disable-cloud")
         app.launch()
         
-        app.buttons["Space"].firstMatch.tap()
-        
         #if os(macOS)
+        app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
-            } else {
+            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
+                app.tap()
             }
         }
         #endif
         
-        app.buttons["PageLayoutPicker"].tap()
+        #if os(macOS)
+        app.radioButtons["DeckLayout"].tap()
+        #else
+        if app.windows.firstMatch.horizontalSizeClass == .compact {
+            app.buttons["PageMenu"].tap()
+        } else {
+            app.buttons["PageLayoutPicker"].tap()
+        }
         app.buttons["DeckLayout"].tap()
+        #endif
 
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "PageDeckLayout"
@@ -161,21 +221,35 @@ final class PageUITests: XCTestCase {
         app.launchArguments.append("-disable-cloud")
         app.launch()
         
-        app.buttons["Space"].firstMatch.tap()
-        
         #if os(macOS)
+        app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
-            } else {
+            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
+                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
+                app.tap()
             }
         }
         #endif
         
-        app.buttons["ShowPageSettings"].tap()
+        #if os(iOS)
+        if app.windows.firstMatch.horizontalSizeClass == .compact {
+            app.buttons["PageMenu"].tap()
+        }
+        #endif
+        
+        app.buttons["ConfigurePage"].firstMatch.tap()
 
         let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
         attachment.name = "PageSettings"

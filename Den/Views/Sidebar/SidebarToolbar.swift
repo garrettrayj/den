@@ -46,7 +46,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         
-        ToolbarItem(id: "AppMenu") {
+        ToolbarItem(id: "AppMenu", placement: .primaryAction) {
             Menu {
                 ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles).pickerStyle(.inline)
         
@@ -67,7 +67,6 @@ struct SidebarToolbar: CustomizableToolbarContent {
                     Image(systemName: "ellipsis.circle")
                 }
             }
-            .accessibilityElement()
             .accessibilityIdentifier("AppMenu")
         }
         #else
@@ -110,6 +109,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                         Image(systemName: "ellipsis.circle")
                     }
                 }
+                .accessibilityIdentifier("AppMenu")
             }
         }
         

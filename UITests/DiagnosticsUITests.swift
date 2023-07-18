@@ -31,11 +31,15 @@ final class DiagnosticsUITests: XCTestCase {
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular {
                 app.tap()
-            } else {
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.tap()
             }
         }
         #endif
@@ -72,11 +76,15 @@ final class DiagnosticsUITests: XCTestCase {
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            if XCUIDevice.shared.orientation.isPortrait {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .regular {
                 app.tap()
-            } else {
+            }
+        } else {
+            if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
+            } else {
+                app.tap()
             }
         }
         #endif
