@@ -12,8 +12,8 @@ import SwiftUI
 import SDWebImage
 
 struct ClearCacheButton: View {
-    @Binding var currentProfile: Profile?
-
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @State private var cacheSize: Int64 = 0
 
     let cacheSizeFormatter: ByteCountFormatter = {
@@ -32,7 +32,10 @@ struct ClearCacheButton: View {
                 await resetFeeds()
                 await emptyCache()
                 cacheSize = 0
-                currentProfile?.objectWillChange.send()
+                guard let profiles = try? viewContext.fetch(Profile.fetchRequest()) as [Profile] else {
+                    return
+                }
+                profiles.forEach { $0.objectWillChange.send() }
             }
         } label: {
             HStack {

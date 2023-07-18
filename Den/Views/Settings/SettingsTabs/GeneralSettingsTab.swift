@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct GeneralSettingsTab: View {
-    @Binding var currentProfile: Profile?
     @Binding var feedRefreshTimeout: Double
     @Binding var userColorScheme: UserColorScheme
 
@@ -24,14 +23,14 @@ struct GeneralSettingsTab: View {
             }
 
             Section {
-                FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout).scaledToFit()
+                FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
             } header: {
                 Text("Refresh", comment: "Settings section header.")
             }
 
             Section {
-                ClearCacheButton(currentProfile: $currentProfile).buttonStyle(.plain)
-                ResetEverythingButton(currentProfile: $currentProfile).buttonStyle(.plain)
+                ClearCacheButton().buttonStyle(.plain)
+                ResetEverythingButton().buttonStyle(.plain)
             } header: {
                 Text("Reset", comment: "Settings section header.")
             }

@@ -16,6 +16,7 @@ import FeedKit
 struct FeedUpdateTask {
     let feedObjectID: NSManagedObjectID
     let pageObjectID: NSManagedObjectID?
+    let profileObjectID: NSManagedObjectID?
     let url: URL
     let updateMetadata: Bool
     let timeout: TimeInterval
@@ -111,18 +112,18 @@ struct FeedUpdateTask {
                 try context.save()
                 let duration = CFAbsoluteTimeGetCurrent() - start
                 Logger.ingest.info("Feed updated in \(duration) seconds: \(feed.wrappedTitle, privacy: .public)")
-
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(
-                        name: .feedRefreshed,
-                        object: self.feedObjectID,
-                        userInfo: ["pageObjectID": pageObjectID as Any]
-                    )
-                }
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(
+                name: .feedRefreshed,
+                object: profileObjectID,
+                userInfo: ["pageObjectID": pageObjectID as Any, "feedObjectID": feedObjectID as Any]
+            )
+        } 
     }
 
     private func handleParsedFeed(

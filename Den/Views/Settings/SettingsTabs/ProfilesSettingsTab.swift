@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct ProfilesSettingsTab: View {
-    @Binding var currentProfile: Profile?
-
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
 
@@ -24,13 +22,15 @@ struct ProfilesSettingsTab: View {
             HSplitView {
                 List(selection: $selectedProfile) {
                     ForEach(profiles, id: \.self) { profile in
-                        Label {
-                            profile.nameText
-                        } icon: {
-                            Image(systemName: profile == currentProfile ? "rhombus.fill" : "rhombus")
-                                .foregroundColor(profile.tintColor)
-                        }
-                        .tag(profile as Profile?)
+                        ProfileLabel(profile: profile, currentProfileID: .constant(nil))
+                            .tag(profile as Profile?)
+                            .contextMenu(ContextMenu(menuItems: {
+                                DeleteProfileButton(
+                                    profile: profile,
+                                    callback: { selectedProfile = profiles.first },
+                                    showAlert: false
+                                )
+                            }))
                     }
                 }
                 .listStyle(.sidebar)
@@ -40,15 +40,11 @@ struct ProfilesSettingsTab: View {
                 }
 
                 if let profile = selectedProfile {
-                    ProfileSettings(
-                        profile: profile,
-                        currentProfile: $currentProfile,
-                        deleteCallback: {
-                            selectedProfile = currentProfile
-                        }
-                    )
-                    .scrollContentBackground(.hidden)
-                    .background(.background)
+                    ProfileSettings(profile: profile)
+                        .scrollContentBackground(.hidden)
+                        .background(.background)
+                } else {
+                    SplashNote(title: Text("Select a Profile", comment: "Profile settings tab guidance."))
                 }
             }
             .cornerRadius(8)
@@ -56,7 +52,7 @@ struct ProfilesSettingsTab: View {
         }
         .padding()
         .onAppear {
-            selectedProfile = currentProfile
+            selectedProfile = profiles.first
         }
     }
 }

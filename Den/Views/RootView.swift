@@ -16,37 +16,44 @@ struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var currentProfile: Profile?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
-    @Binding var showingImporter: Bool
-    @Binding var showingExporter: Bool
-
+    
     @State private var showingCrashMessage = false
     
-    @AppStorage("CurrentProfileID") private var currentProfileID: String?
+    @SceneStorage("CurrentProfileID") private var currentProfileID: String?
+    
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name, order: .forward),
+        SortDescriptor(\.created, order: .forward)
+    ])
+    private var profiles: FetchedResults<Profile>
+    
+    var currentProfile: Profile? {
+        guard let currentProfileID = currentProfileID else {
+            return nil
+        }
+        return profiles.firstMatchingID(currentProfileID)
+    }
 
     var body: some View {
         Group {
-            if let profile = currentProfile, profile.managedObjectContext != nil {
+            if let profile = currentProfile, profile.isDeleted == false, profile.managedObjectContext != nil {
                 SplitView(
                     profile: profile,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    currentProfile: $currentProfile,
+                    currentProfileID: $currentProfileID,
                     userColorScheme: $userColorScheme,
                     feedRefreshTimeout: $feedRefreshTimeout,
-                    showingImporter: $showingImporter,
-                    showingExporter: $showingExporter
+                    profiles: profiles,
+                    refreshProgress: Progress(totalUnitCount: Int64(profile.feedsArray.count))
                 )
             } else {
                 LoadProfile(
-                    currentProfile: $currentProfile,
-                    currentProfileID: $currentProfileID
+                    currentProfileID: $currentProfileID,
+                    profiles: profiles
                 )
             }
-        }
-        .onChange(of: currentProfile) { _ in
-            currentProfileID = currentProfile?.id?.uuidString
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
             showingCrashMessage = true

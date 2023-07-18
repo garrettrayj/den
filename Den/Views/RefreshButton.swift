@@ -13,13 +13,13 @@ import SwiftUI
 struct RefreshButton: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @Binding var currentProfile: Profile?
+    @ObservedObject var profile: Profile
+    
     @Binding var feedRefreshTimeout: Double
 
     var body: some View {
         Button {
             Task {
-                guard let profile = currentProfile else { return }
                 await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
             }
         } label: {

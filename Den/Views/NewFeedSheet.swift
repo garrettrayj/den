@@ -16,7 +16,8 @@ struct NewFeedSheet: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @Binding var currentProfile: Profile?
+    @ObservedObject var profile: Profile
+    
     @Binding var webAddress: String
     @Binding var initialPageID: String?
     @Binding var feedRefreshTimeout: Double
@@ -31,7 +32,7 @@ struct NewFeedSheet: View {
         VStack(spacing: 24) {
             Text("New Feed", comment: "Sheet title.").font(.title.weight(.semibold))
 
-            if let profile = currentProfile, targetPage != nil {
+            if targetPage != nil {
                 VStack(spacing: 8) {
                     WebAddressTextField(
                         text: $webAddress,
@@ -116,12 +117,12 @@ struct NewFeedSheet: View {
     private func checkTargetPage() {
         if
             let pageID = initialPageID,
-            let destinationPage = currentProfile?.pagesArray.first(where: { page in
+            let destinationPage = profile.pagesArray.first(where: { page in
                 page.id?.uuidString == pageID
             }) {
             targetPage = destinationPage
         } else {
-            targetPage = currentProfile?.pagesArray.first
+            targetPage = profile.pagesArray.first
         }
     }
 

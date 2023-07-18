@@ -12,11 +12,10 @@ import SwiftUI
 
 struct RefreshProgress: View {
     @Environment(\.displayScale) private var displayScale
-    @State private var progress = Progress()
-
-    init(totalUnitCount: Int) {
-        self.progress.totalUnitCount = Int64(totalUnitCount)
-    }
+    
+    @ObservedObject var profile: Profile
+    
+    let progress: Progress
 
     var body: some View {
         ProgressView(progress)
@@ -26,14 +25,5 @@ struct RefreshProgress: View {
             .scaleEffect(1 / displayScale)
             .frame(width: 34)
             #endif
-            .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed)) { _ in
-                progress.completedUnitCount += 1
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed)) { _ in
-                progress.completedUnitCount += 1
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .refreshFinished)) { _ in
-                progress.completedUnitCount = 0
-            }
     }
 }

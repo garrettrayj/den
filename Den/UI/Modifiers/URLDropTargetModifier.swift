@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct URLDropTargetModifier: ViewModifier {
+    @ObservedObject var profile: Profile
+    
     var page: Page?
 
     func body(content: Content) -> some View {
@@ -20,14 +22,14 @@ struct URLDropTargetModifier: ViewModifier {
 
                 if provider.canLoadObject(ofClass: URL.self) {
                     _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
-                        NewFeedUtility.showSheet(for: url?.absoluteString, page: page)
+                        NewFeedUtility.showSheet(for: url?.absoluteString, profile: profile, page: page)
                     })
                     return true
                 }
 
                 if provider.canLoadObject(ofClass: String.self) {
                     _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
-                        NewFeedUtility.showSheet(for: droppedString, page: page)
+                        NewFeedUtility.showSheet(for: droppedString, profile: profile, page: page)
                     })
                     return true
                 }

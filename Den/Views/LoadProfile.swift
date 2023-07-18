@@ -14,12 +14,89 @@ import SwiftUI
 struct LoadProfile: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var currentProfile: Profile?
     @Binding var currentProfileID: String?
+    
+    let profiles: FetchedResults<Profile>
 
     @State private var profileLoadAttempts = 0
-
+    
     var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 20) {
+                    Spacer()
+                    if profiles.isEmpty {
+                        Text("No Profiles Available").font(.title2)
+                    } else {
+                        Text("Choose Profile").font(.title2)
+                    }
+                    
+                    if profiles.isEmpty {
+                        VStack(spacing: 16) {
+                            ProgressView()
+                            Text("""
+                            If you have used the app before then synchronization could be in progress. \
+                            Please wait a minute.
+                            """, comment: "Launch guidance message.")
+                            .multilineTextAlignment(.center)
+                            .font(.footnote)
+                            
+                            Text(
+                                "If you're new or have disabled cloud sync then create a profile to begin.",
+                                comment: "Launch guidance message."
+                            )
+                            .multilineTextAlignment(.center)
+                            .font(.footnote)
+                        }
+                        .padding()
+                    } else {
+                        VStack(spacing: 0) {
+                            ForEach(profiles) { profile in
+                                if profile != profiles.first {
+                                    Divider()
+                                }
+                                Button {
+                                    currentProfileID = profile.id?.uuidString
+                                } label: {
+                                    HStack {
+                                        ProfileLabel(profile: profile, currentProfileID: $currentProfileID)
+                                        Spacer()
+                                        ButtonChevron()
+                                    }
+                                    .font(.title3)
+                                    .padding()
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                        .frame(maxWidth: 240)
+                        .background(.background)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
+                    
+                    Button {
+                        _ = createDefaultProfile()
+                    } label: {
+                        Text("Create a New Profile", comment: "Button label.").padding(8)
+                    }.buttonStyle(.borderedProminent)
+                    
+                    Spacer()
+                }
+                .padding()
+                .frame(minHeight: geometry.size.height)
+            }
+            .frame(maxWidth: .infinity)
+            .background(.thickMaterial)
+            .task {
+                if profiles.count == 1 {
+                    currentProfileID = profiles.first?.id?.uuidString
+                }
+            }
+        }
+    }
+
+    var oldbody: some View {
         VStack(spacing: 16) {
             Spacer()
             ProgressView()
@@ -66,34 +143,28 @@ struct LoadProfile: View {
     private func load() {
         profileLoadAttempts += 1
 
-        do {
-            if
-                let profiles = try viewContext.fetch(Profile.fetchRequest()) as? [Profile],
-                let profile =
-                    profiles.firstMatchingID(currentProfileID ?? "") ??
-                    profiles.first,
-                profile.managedObjectContext != nil
-            {
-                activateProfile(profile)
-                Logger.main.info("Profile loaded: \(profile.id?.uuidString ?? "", privacy: .public)")
-            } else {
-                let attempt = NumberFormatter.localizedString(
-                    from: profileLoadAttempts as NSNumber,
-                    number: .ordinal
-                )
-                Logger.main.info("Could not load profile on \(attempt) attempt. Trying again...")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    load()
-                }
+        if
+            let profile =
+                profiles.firstMatchingID(currentProfileID) ??
+                profiles.first,
+            profile.managedObjectContext != nil
+        {
+            activateProfile(profile)
+            Logger.main.info("Profile loaded: \(profile.id?.uuidString ?? "", privacy: .public)")
+        } else {
+            let attempt = NumberFormatter.localizedString(
+                from: profileLoadAttempts as NSNumber,
+                number: .ordinal
+            )
+            Logger.main.info("Could not load profile on \(attempt) attempt. Trying again...")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                load()
             }
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
         }
     }
 
     private func activateProfile(_ profile: Profile?) {
         currentProfileID = profile?.id?.uuidString
-        currentProfile = profile
     }
 
     private func createDefaultProfile() -> Profile {

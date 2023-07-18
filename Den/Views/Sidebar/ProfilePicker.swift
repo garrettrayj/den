@@ -11,17 +11,20 @@
 import SwiftUI
 
 struct ProfilePicker: View {
-    @Binding var currentProfile: Profile?
+    @Binding var currentProfileID: String?
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
-    private var profiles: FetchedResults<Profile>
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
-        Picker(selection: $currentProfile) {
+        Picker(selection: $currentProfileID) {
+            if currentProfileID == nil {
+                Text("None", comment: "Profile picker placeholder option.").tag(nil as String?)
+            }
+            
             ForEach(profiles) { profile in
                 profile.nameText
                     .accessibilityIdentifier("ProfileOption")
-                    .tag(profile as Profile?)
+                    .tag(profile.id?.uuidString)
             }
         } label: {
             Text("Profile", comment: "Picker label.")

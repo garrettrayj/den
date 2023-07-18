@@ -11,11 +11,13 @@
 import SwiftUI
 
 struct NewFeedButton: View {
+    @ObservedObject var profile: Profile
+    
     var page: Page?
 
     var body: some View {
         Button {
-            NewFeedUtility.showSheet(page: page)
+            NewFeedUtility.showSheet(profile: profile, page: page)
         } label: {
             Label {
                 Text("New Feed", comment: "Button label.")
@@ -23,7 +25,6 @@ struct NewFeedButton: View {
                 Image(systemName: "plus.circle")
             }
         }
-        .keyboardShortcut("t", modifiers: [.command])
         .accessibilityIdentifier("NewFeed")
     }
 }

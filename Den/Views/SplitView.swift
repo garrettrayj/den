@@ -23,16 +23,21 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var currentProfile: Profile?
+    @Binding var currentProfileID: String?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Double
-    @Binding var showingImporter: Bool
-    @Binding var showingExporter: Bool
-
+    
+    let profiles: FetchedResults<Profile>
+    
+    @State var refreshProgress: Progress
+    
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var opmlFile: OPMLFile?
     @State private var exporterIsPresented: Bool = false
-
+    @State private var opmlFile: OPMLFile?
+    @State private var refreshing: Bool = false
+    @State private var showingImporter: Bool = false
+    @State private var showingExporter: Bool = false
+    
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
@@ -45,19 +50,22 @@ struct SplitView: View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Sidebar(
                 profile: profile,
-                currentProfile: $currentProfile,
+                currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
-                showingSettings: $showingSettings,
                 feedRefreshTimeout: $feedRefreshTimeout,
+                refreshing: $refreshing,
+                refreshProgress: $refreshProgress,
+                showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
-                showingExporter: $showingExporter
+                showingSettings: $showingSettings,
+                profiles: profiles
             )
             #if os(macOS)
             .navigationSplitViewColumnWidth(220)
             #else
             .navigationSplitViewColumnWidth(260 * dynamicTypeSize.layoutScalingFactor)
             .refreshable {
-                if let profile = currentProfile, networkMonitor.isConnected {
+                if !refreshing && networkMonitor.isConnected {
                     await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
                 }
             }
@@ -65,7 +73,8 @@ struct SplitView: View {
         } detail: {
             DetailView(
                 profile: profile,
-                detailPanel: $detailPanel
+                detailPanel: $detailPanel,
+                refreshing: $refreshing
             )
         }
         .tint(profile.tintColor)
@@ -73,39 +82,46 @@ struct SplitView: View {
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
             if case .page(let page) = detailPanel {
-                NewFeedUtility.showSheet(for: url.absoluteString, page: page)
+                NewFeedUtility.showSheet(for: url.absoluteString, profile: profile, page: page)
             } else {
-                NewFeedUtility.showSheet(for: url.absoluteString)
+                NewFeedUtility.showSheet(for: url.absoluteString, profile: profile)
             }
         }
         .modifier(
-            URLDropTargetModifier()
+            URLDropTargetModifier(profile: profile)
         )
-        .onChange(of: currentProfile) { _ in
-            detailPanel = nil
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: nil)) { notification in
-            newFeedWebAddress = notification.userInfo?["urlString"] as? String ?? ""
-            newFeedPageID = notification.userInfo?["pageID"] as? String
-            showingNewFeedSheet = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .showDiagnostics, object: nil)) { notification in
-            detailPanel = .diagnostics
+        .onChange(of: currentProfileID) { _ in
+            detailPanel = .welcome
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
+            refreshing = true
             #if os(iOS)
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             #endif
         }
+        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: profile.objectID)) { _ in
+            print("FEED REFRESHED!!!")
+            refreshProgress.completedUnitCount += 1
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed, object: profile.objectID)) { _ in
+            refreshProgress.completedUnitCount += 1
+        }
         .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+            refreshing = false
+            refreshProgress.completedUnitCount = 0
             profile.objectWillChange.send()
             #if os(iOS)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             #endif
         }
+        .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: profile.objectID)) { notification in
+            newFeedWebAddress = notification.userInfo?["urlString"] as? String ?? ""
+            newFeedPageID = notification.userInfo?["pageID"] as? String
+            showingNewFeedSheet = true
+        }
         .sheet(isPresented: $showingNewFeedSheet) {
             NewFeedSheet(
-                currentProfile: $currentProfile,
+                profile: profile,
                 webAddress: $newFeedWebAddress,
                 initialPageID: $newFeedPageID,
                 feedRefreshTimeout: $feedRefreshTimeout
@@ -127,7 +143,7 @@ struct SplitView: View {
         ) {
             SettingsSheet(
                 profile: profile,
-                currentProfile: $currentProfile,
+                currentProfileID: $currentProfileID,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 useSystemBrowser: $useSystemBrowser,

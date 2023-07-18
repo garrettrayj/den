@@ -20,8 +20,9 @@ public class Profile: NSManagedObject {
 
     public var nameText: Text {
         if wrappedName == "" {
-            return Text("Den", comment: "Placeholder profile name.")
+            return Text("Den", comment: "Profile name placeholder.")
         }
+        
         return Text(wrappedName)
     }
     
@@ -122,14 +123,17 @@ public class Profile: NSManagedObject {
         let newProfile = self.init(context: managedObjectContext)
         newProfile.id = UUID()
         newProfile.historyRetention = 90
+        newProfile.created = Date()
 
         return newProfile
     }
 }
 
 extension Collection where Element == Profile {
-    func firstMatchingID(_ uuidString: String) -> Profile? {
-        self.first { profile in
+    func firstMatchingID(_ uuidString: String?) -> Profile? {
+        guard let uuidString = uuidString else { return nil }
+        
+        return self.first { profile in
             profile.id?.uuidString == uuidString
         }
     }

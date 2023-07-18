@@ -15,20 +15,22 @@ struct Sidebar: View {
     #if os(iOS)
     @Environment(\.editMode) private var editMode
     #endif
-    
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
-    @Binding var currentProfile: Profile?
+    @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
-    @Binding var showingSettings: Bool
     @Binding var feedRefreshTimeout: Double
-    @Binding var showingImporter: Bool
+    @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
     @Binding var showingExporter: Bool
-
+    @Binding var showingImporter: Bool
+    @Binding var showingSettings: Bool
+    
     @State private var searchInput = ""
     @State private var isEditing = false
+    
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
         List(selection: $detailPanel) {
@@ -37,7 +39,7 @@ struct Sidebar: View {
             } else {
                 #if os(macOS)
                 Section {
-                    SimpleSidebarStatus(profile: profile)
+                    SimpleSidebarStatus(profile: profile, refreshing: $refreshing)
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
                 } header: {
@@ -68,22 +70,22 @@ struct Sidebar: View {
                 searchInput = query
             }
         }
-        .disabled(refreshManager.refreshing)
+        .disabled(refreshing)
         .navigationTitle(profile.nameText)
         .toolbar {
             SidebarToolbar(
                 profile: profile,
-                currentProfile: $currentProfile,
-                isEditing: $isEditing,
-                showingSettings: $showingSettings,
+                currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
                 feedRefreshTimeout: $feedRefreshTimeout,
+                isEditing: $isEditing,
+                refreshing: $refreshing,
+                refreshProgress: $refreshProgress,
+                showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
-                showingExporter: $showingExporter
+                showingSettings: $showingSettings,
+                profiles: profiles
             )
         }
-        .contextMenu(menuItems: {
-            DiagnosticsButton()
-        })
     }
 }

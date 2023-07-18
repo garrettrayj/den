@@ -59,7 +59,9 @@ struct PersistenceController {
             localStoreDescription.configuration = "Local"
         }
         
-        if !disableCloud {
+        if disableCloud {
+            cloudStoreDescription.cloudKitContainerOptions = nil
+        } else {
             cloudStoreDescription.cloudKitContainerOptions = cloudKitContainerOptions
         }
         

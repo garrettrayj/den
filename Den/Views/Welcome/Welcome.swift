@@ -18,7 +18,12 @@ struct Welcome: View {
     var body: some View {
         VStack(spacing: 8) {
             profile.nameText.font(.largeTitle)
-            Text("\(profile.feedsArray.count) Feeds")
+            
+            if profile.feedsArray.count == 1 {
+                Text("1 Feed", comment: "Welcome feed count (singular).")
+            } else {
+                Text("\(profile.feedsArray.count) Feeds", comment: "Welcome feed count (zero/plural).")
+            }
         }
         .multilineTextAlignment(.center)
         .foregroundColor(isEnabled ? .primary : .secondary)

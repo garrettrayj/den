@@ -13,12 +13,11 @@ import SwiftUI
 struct NewPageButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @Binding var currentProfile: Profile?
+    @ObservedObject var profile: Profile
 
     var body: some View {
         Button {
             Task {
-                guard let profile = currentProfile else { return }
                 _ = Page.create(
                     in: viewContext,
                     profile: profile,
@@ -38,6 +37,5 @@ struct NewPageButton: View {
             }
         }
         .accessibilityIdentifier("NewPage")
-        .keyboardShortcut("t", modifiers: [.command, .shift])
     }
 }

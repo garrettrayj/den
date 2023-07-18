@@ -15,49 +15,66 @@ struct DeleteProfileButton: View {
     @ObservedObject var profile: Profile
 
     var callback: () -> Void
+    var showAlert: Bool = true
 
     @State private var showingAlert = false
 
     var body: some View {
-        Button(role: .destructive) {
-            showingAlert = true
-        } label: {
-            Label {
-                Text("Delete", comment: "Button label.")
-            } icon: {
-                Image(systemName: "trash")
+        if showAlert {
+            Button(role: .destructive) {
+                showingAlert = true
+            } label: {
+                Label {
+                    Text("Delete", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "trash")
+                }
+            }
+            .alert(
+                Text("Delete Profile?", comment: "Alert title."),
+                isPresented: $showingAlert,
+                actions: {
+                    Button(role: .cancel) {
+                        // Pass
+                    } label: {
+                        Text("Cancel", comment: "Button label.")
+                    }
+                    .accessibilityIdentifier("CancelDeleteProfile")
+
+                    Button(role: .destructive) {
+                        Task {
+                            await delete()
+                            callback()
+                        }
+                    } label: {
+                        Text("Delete", comment: "Button label.")
+                    }
+                    .accessibilityIdentifier("ConfirmDeleteProfile")
+                },
+                message: {
+                    Text(
+                        "All profile content (pages, feeds, history, etc.) will be removed.",
+                        comment: "Alert message."
+                    )
+                }
+            )
+            .symbolRenderingMode(.multicolor)
+            .accessibilityIdentifier("delete-profile")
+        } else {
+            // Simple button for context menus
+            Button(role: .destructive) {
+                Task {
+                    await delete()
+                    callback()
+                }
+            } label: {
+                Label {
+                    Text("Delete", comment: "Button label.")
+                } icon: {
+                    Image(systemName: "trash")
+                }
             }
         }
-        .alert(
-            Text("Delete Profile?", comment: "Alert title."),
-            isPresented: $showingAlert,
-            actions: {
-                Button(role: .cancel) {
-                    // Pass
-                } label: {
-                    Text("Cancel", comment: "Button label.")
-                }
-                .accessibilityIdentifier("CancelDeleteProfile")
-
-                Button(role: .destructive) {
-                    Task {
-                        await delete()
-                        callback()
-                    }
-                } label: {
-                    Text("Delete", comment: "Button label.")
-                }
-                .accessibilityIdentifier("ConfirmDeleteProfile")
-            },
-            message: {
-                Text(
-                    "All profile content (pages, feeds, history, etc.) will be removed.",
-                    comment: "Alert message."
-                )
-            }
-        )
-        .symbolRenderingMode(.multicolor)
-        .accessibilityIdentifier("delete-profile")
     }
 
     private func delete() async {

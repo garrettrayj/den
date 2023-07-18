@@ -12,18 +12,21 @@ import SwiftUI
 
 struct SidebarToolbar: ToolbarContent {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
-    @Binding var currentProfile: Profile?
-    @Binding var isEditing: Bool
-    @Binding var showingSettings: Bool
+    @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
     @Binding var feedRefreshTimeout: Double
-    @Binding var showingImporter: Bool
+    @Binding var isEditing: Bool
+    @Binding var refreshing: Bool
+    @Binding var refreshProgress: Progress
     @Binding var showingExporter: Bool
-
+    @Binding var showingImporter: Bool
+    @Binding var showingSettings: Bool
+    
+    let profiles: FetchedResults<Profile>
+    
     private var activePage: Page? {
         if case .page(let page) = detailPanel {
             return page
@@ -35,14 +38,14 @@ struct SidebarToolbar: ToolbarContent {
         #if os(macOS)
         ToolbarItem {
             Menu {
-                ProfilePicker(currentProfile: $currentProfile)
+                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                 
                 Divider()
                 
-                NewFeedButton(page: activePage)
-                    .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
+                NewFeedButton(profile: profile, page: activePage)
+                    .disabled(refreshing || profile.pagesArray.isEmpty)
                 
-                NewPageButton(currentProfile: $currentProfile)
+                NewPageButton(profile: profile)
                 
                 Divider()
                 
@@ -55,7 +58,7 @@ struct SidebarToolbar: ToolbarContent {
                     .buttonStyle(.borderless)
                     .disabled(profile.pagesArray.isEmpty)
                 
-                DiagnosticsButton()
+                DiagnosticsButton(detailPanel: $detailPanel)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")
@@ -63,17 +66,17 @@ struct SidebarToolbar: ToolbarContent {
                     Image(systemName: "ellipsis.circle")
                 }
             }
-            .disabled(refreshManager.refreshing)
+            .disabled(refreshing)
             .accessibilityIdentifier("AppMenu")
         }
     
         ToolbarItem {
-            if refreshManager.refreshing {
-                RefreshProgress(totalUnitCount: profile.feedsArray.count)
+            if refreshing {
+                RefreshProgress(profile: profile, progress: refreshProgress)
             } else {
-                RefreshButton(currentProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
+                RefreshButton(profile: profile, feedRefreshTimeout: $feedRefreshTimeout)
                     .disabled(
-                        refreshManager.refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
+                        refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty
                     )
             }
         }
@@ -91,7 +94,7 @@ struct SidebarToolbar: ToolbarContent {
         } else {
             ToolbarItem {
                 Menu {
-                    ProfilePicker(currentProfile: $currentProfile)
+                    ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                     Button {
                         withAnimation {
                             isEditing = true
@@ -112,9 +115,9 @@ struct SidebarToolbar: ToolbarContent {
                         .buttonStyle(.borderless)
                         .disabled(profile.pagesArray.isEmpty)
                     
-                    DiagnosticsButton()
+                    DiagnosticsButton(detailPanel: $detailPanel)
                     
-                    SettingsButton(showingSettings: $showingSettings).disabled(refreshManager.refreshing)
+                    SettingsButton(showingSettings: $showingSettings).disabled(refreshing)
                 } label: {
                     Label {
                         Text("Menu", comment: "Button label.")
@@ -122,23 +125,19 @@ struct SidebarToolbar: ToolbarContent {
                         Image(systemName: "ellipsis.circle")
                     }
                 }
-                .disabled(refreshManager.refreshing)
+                .disabled(refreshing)
                 .accessibilityIdentifier("AppMenu")
             }
         }
         
         ToolbarItemGroup(placement: .bottomBar) {
-            NewFeedButton(page: activePage)
-                .disabled(refreshManager.refreshing || profile.pagesArray.isEmpty)
+            NewFeedButton(profile: profile, page: activePage)
+                .disabled(refreshing || profile.pagesArray.isEmpty)
             Spacer()
-            BottomBarSidebarStatus(profile: profile)
+            BottomBarSidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
             Spacer()
-            RefreshButton(currentProfile: .constant(profile), feedRefreshTimeout: $feedRefreshTimeout)
-                .disabled(
-                    refreshManager.refreshing ||
-                    !networkMonitor.isConnected ||
-                    profile.pagesArray.isEmpty
-                )
+            RefreshButton(profile: profile, feedRefreshTimeout: $feedRefreshTimeout)
+                .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         #endif
     }

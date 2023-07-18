@@ -13,9 +13,7 @@ import SDWebImage
 
 struct ResetEverythingButton: View {
     @Environment(\.dismiss) private var dismiss
-
-    @Binding var currentProfile: Profile?
-
+    
     @State private var showingResetAlert = false
 
     var body: some View {
@@ -76,10 +74,9 @@ struct ResetEverythingButton: View {
                         context.delete(feedData)
                     }
                     context.delete(profile)
+                    profile.objectWillChange.send()
                 }
                 try context.save()
-
-                currentProfile = nil
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

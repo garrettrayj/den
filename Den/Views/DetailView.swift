@@ -11,11 +11,10 @@
 import SwiftUI
 
 struct DetailView: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
-    
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
+    @Binding var refreshing: Bool
 
     @StateObject private var navigationStore = NavigationStore()
 
@@ -39,7 +38,7 @@ struct DetailView: View {
                     Welcome(profile: profile)
                 }
             }
-            .disabled(refreshManager.refreshing)
+            .disabled(refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 ZStack {
                     switch panel {
@@ -51,7 +50,7 @@ struct DetailView: View {
                         TrendView(trend: trend)
                     }
                 }
-                .disabled(refreshManager.refreshing)
+                .disabled(refreshing)
             }
             .task {
                 if let navigationData {

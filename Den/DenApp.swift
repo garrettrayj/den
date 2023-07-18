@@ -30,21 +30,14 @@ struct DenApp: App {
     @StateObject private var networkMonitor = NetworkMonitor()
     @StateObject private var refreshManager = RefreshManager()
 
-    @State private var currentProfile: Profile?
-    @State private var showingImporter: Bool = false
-    @State private var showingExporter: Bool = false
-
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             RootView(
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                currentProfile: $currentProfile,
                 userColorScheme: $userColorScheme,
-                feedRefreshTimeout: $feedRefreshTimeout,
-                showingImporter: $showingImporter,
-                showingExporter: $showingExporter
+                feedRefreshTimeout: $feedRefreshTimeout
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
@@ -52,28 +45,6 @@ struct DenApp: App {
             .preferredColorScheme(userColorScheme.colorScheme)
         }
         .commands {
-            CommandGroup(after: .newItem) {
-                NewFeedButton()
-                NewPageButton(currentProfile: $currentProfile)
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            }
-            CommandGroup(after: .appSettings) {
-                if currentProfile?.managedObjectContext != nil {
-                    ProfilePicker(currentProfile: $currentProfile)
-                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                    DiagnosticsButton()
-                }
-            }
-            CommandGroup(after: .sidebar) {
-                Divider()
-                RefreshButton(currentProfile: $currentProfile, feedRefreshTimeout: $feedRefreshTimeout)
-                    .environmentObject(refreshManager)
-            }
-            CommandGroup(replacing: .importExport) {
-                ImportButton(showingImporter: $showingImporter)
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                ExportButton(showingExporter: $showingExporter)
-            }
             CommandGroup(replacing: .help) {
                 Button {
                     openURL(URL(string: "https://den.io/help/")!)
@@ -105,18 +76,14 @@ struct DenApp: App {
 
         #if os(macOS)
         Settings {
-            if let profile = currentProfile {
-                SettingsTabs(
-                    profile: profile,
-                    currentProfile: $currentProfile,
-                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    feedRefreshTimeout: $feedRefreshTimeout,
-                    useSystemBrowser: $useSystemBrowser,
-                    userColorScheme: $userColorScheme
-                )
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .preferredColorScheme(userColorScheme.colorScheme)
-            }
+            SettingsTabs(
+                backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                feedRefreshTimeout: $feedRefreshTimeout,
+                useSystemBrowser: $useSystemBrowser,
+                userColorScheme: $userColorScheme
+            )
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .preferredColorScheme(userColorScheme.colorScheme)
         }
         #endif
     }
@@ -167,11 +134,20 @@ struct DenApp: App {
     }
 
     private func handleRefresh() {
-        guard let profile = currentProfile else {
-            return
+        let container = persistenceController.container
+        container.performBackgroundTask { context in
+            do {
+                let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
+                for profile in profiles {
+                    Logger.main.info(
+                        "Performing background refresh for profile: \(profile.wrappedName, privacy: .public)"
+                    )
+                    refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+                }
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
         }
-        Logger.main.info("Performing background refresh for profile: \(profile.wrappedName)")
-        refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
     }
 
     private func handleCleanup() {

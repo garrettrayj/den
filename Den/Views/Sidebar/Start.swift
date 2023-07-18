@@ -20,7 +20,7 @@ struct Start: View {
 
     var body: some View {
         Section {
-            NewPageButton(currentProfile: .constant(profile))
+            NewPageButton(profile: profile)
                 .buttonStyle(.borderless)
 
             ImportButton(showingImporter: $showingImporter)

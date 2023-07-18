@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct ProfilesSettingsSection: View {
-    @Binding var currentProfile: Profile?
+    @Binding var currentProfileID: String?
 
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .forward)])
     private var profiles: FetchedResults<Profile>
@@ -20,19 +20,10 @@ struct ProfilesSettingsSection: View {
         Section {
             ForEach(profiles) { profile in
                 NavigationLink {
-                    ProfileSettings(
-                        profile: profile,
-                        currentProfile: $currentProfile,
-                        deleteCallback: {}
-                    )
-                    .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
+                    ProfileSettings(profile: profile)
+                        .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
                 } label: {
-                    Label {
-                        profile.nameText
-                    } icon: {
-                        Image(systemName: profile == currentProfile ? "rhombus.fill" : "rhombus")
-                            .foregroundColor(profile.tintColor)
-                    }
+                    ProfileLabel(profile: profile, currentProfileID: $currentProfileID)
                 }
             }
             NewProfileButton()

@@ -11,9 +11,11 @@
 import SwiftUI
 
 struct DiagnosticsButton: View {
+    @Binding var detailPanel: DetailPanel?
+    
     var body: some View {
         Button {
-            NotificationCenter.default.post(name: .showDiagnostics, object: nil, userInfo: nil)
+            detailPanel = .diagnostics
         } label: {
             Label {
                 Text("Diagnostics")

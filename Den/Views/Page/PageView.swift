@@ -27,7 +27,7 @@ struct PageView: View {
             } else {
                 WithItems(scopeObject: page) { items in
                     pageLayoutView(items: items)
-                        .modifier(URLDropTargetModifier(page: page))
+                        .modifier(URLDropTargetModifier(profile: profile, page: page))
                         .toolbar {
                             PageToolbar(
                                 page: page,
@@ -74,7 +74,7 @@ struct PageView: View {
     @ViewBuilder
     private func pageLayoutView(items: FetchedResults<Item>) -> some View {
         if page.feedsArray.isEmpty {
-            NoFeeds(page: page)
+            NoFeeds(profile: profile, page: page)
         } else {
             switch pageLayout {
             case .deck:

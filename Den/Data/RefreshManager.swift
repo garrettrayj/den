@@ -12,18 +12,8 @@ import CoreData
 import OSLog
 
 final class RefreshManager: ObservableObject {
-    @Published var refreshing: Bool = false
 
     public func refresh(profile: Profile, timeout: Double) {
-        guard !refreshing else {
-            Logger.main.info("Refresh already in progress")
-            return
-        }
-        refreshing = true
-        defer {
-            refreshing = false
-        }
-
         var ops: [Operation] = []
 
         let analyzeOperation = AnalyzeOperation(profileObjectID: profile.objectID)
@@ -54,19 +44,13 @@ final class RefreshManager: ObservableObject {
         timeout: Double,
         session: URLSession = URLSession.shared
     ) async {
-        guard !refreshing else {
-            Logger.main.info("Refresh already in progress")
-            return
-        }
         DispatchQueue.main.async {
-            self.refreshing = true
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
         }
         defer {
             DispatchQueue.main.async {
                 RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
                 NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
-                self.refreshing = false
             }
         }
 
@@ -77,6 +61,7 @@ final class RefreshManager: ObservableObject {
                     FeedUpdateTask(
                         feedObjectID: feed.objectID,
                         pageObjectID: feed.page?.objectID,
+                        profileObjectID: feed.page?.profile?.objectID,
                         url: url,
                         updateMetadata: feed.needsMetaUpdate,
                         timeout: timeout
@@ -113,6 +98,7 @@ final class RefreshManager: ObservableObject {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
                 pageObjectID: feed.page?.objectID,
+                profileObjectID: feed.page?.profile?.objectID,
                 url: url,
                 updateMetadata: true,
                 timeout: timeout

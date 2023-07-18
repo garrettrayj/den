@@ -11,11 +11,6 @@
 import SwiftUI
 
 struct SettingsTabs: View {
-    @EnvironmentObject private var refreshManager: RefreshManager
-
-    @ObservedObject var profile: Profile
-
-    @Binding var currentProfile: Profile?
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var feedRefreshTimeout: Double
     @Binding var useSystemBrowser: Bool
@@ -24,19 +19,26 @@ struct SettingsTabs: View {
     var body: some View {
         TabView {
             GeneralSettingsTab(
-                currentProfile: $currentProfile,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 userColorScheme: $userColorScheme
             )
             .tabItem {
-                Label("General", systemImage: "gearshape")
+                Label {
+                    Text("General", comment: "App settings tab.")
+                } icon: {
+                    Image(systemName: "gearshape")
+                }
             }
 
-            ProfilesSettingsTab(currentProfile: $currentProfile)
+            ProfilesSettingsTab()
             .tabItem {
-                Label("Profiles", systemImage: "person.crop.circle")
+                Label {
+                    Text("Profiles", comment: "App settings tab.")
+                } icon: {
+                    Image(systemName: "person.crop.circle")
+                }
             }
         }
-        .frame(minWidth: 480, minHeight: 400)
+        .frame(width: 560, height: 440)
     }
 }

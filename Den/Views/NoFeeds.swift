@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct NoFeeds: View {
+    @ObservedObject var profile: Profile
+    
     var page: Page?
 
     var body: some View {
@@ -18,7 +20,7 @@ struct NoFeeds: View {
             Spacer()
             Text("No Feeds", comment: "Empty page header.").font(.title)
             Button {
-                NewFeedUtility.showSheet(page: page)
+                NewFeedUtility.showSheet(profile: profile, page: page)
             } label: {
                 Label {
                     Text("Add by Web Address", comment: "Button label.")

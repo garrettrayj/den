@@ -12,15 +12,16 @@ import SwiftUI
 
 struct SimpleSidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
+    
+    @Binding var refreshing: Bool
 
     var body: some View {
         Group {
             if !networkMonitor.isConnected {
                 Text("Network Offline", comment: "Status message.")
-            } else if  refreshManager.refreshing {
+            } else if refreshing {
                 Text("Checking for New Items…", comment: "Refresh in-progress label.")
             } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
                 RelativeRefreshedDate(date: refreshedDate)

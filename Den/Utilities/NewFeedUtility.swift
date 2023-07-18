@@ -11,7 +11,7 @@
 import CoreData
 
 struct NewFeedUtility {
-    static func showSheet(for urlString: String? = nil, page: Page? = nil) {
+    static func showSheet(for urlString: String? = nil, profile: Profile, page: Page? = nil) {
         var userInfo: [String: Any] = [:]
 
         if let urlString = urlString {
@@ -25,7 +25,7 @@ struct NewFeedUtility {
         }
 
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .showSubscribe, object: nil, userInfo: userInfo)
+            NotificationCenter.default.post(name: .showSubscribe, object: profile.objectID, userInfo: userInfo)
         }
     }
 }

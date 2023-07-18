@@ -17,6 +17,7 @@ struct PageNavLink: View {
     @Environment(\.editMode) private var editMode
     #endif
 
+    @ObservedObject var profile: Profile
     @ObservedObject var page: Page
 
     var body: some View {
@@ -45,7 +46,7 @@ struct PageNavLink: View {
                 page.objectWillChange.send()
             }
         }
-        .modifier(URLDropTargetModifier(page: page))
+        .modifier(URLDropTargetModifier(profile: profile, page: page))
         .contextMenu {
             Button {
                 page.feedsArray.forEach { feed in

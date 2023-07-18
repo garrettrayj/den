@@ -43,10 +43,10 @@ final class DiagnosticsUITests: XCTestCase {
 
         // Insert steps here to perform after app launch but before taking a screenshot,
         // such as logging into a test account or navigating somewhere in the app
-        if !app.buttons["create-profile-button"].waitForExistence(timeout: 20) {
+        if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["create-profile-button"].tap()
+        app.buttons["CreateProfile"].tap()
         
         #if os(iOS)
         app.buttons["app-menu"].tap()

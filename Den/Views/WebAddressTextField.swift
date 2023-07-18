@@ -35,6 +35,11 @@ struct WebAddressTextField: View {
         .onChange(of: text) { _ in
             validate()
         }
+        .onAppear {
+            if text != "" {
+                validate()
+            }
+        }
     }
 
     private func validate() {
