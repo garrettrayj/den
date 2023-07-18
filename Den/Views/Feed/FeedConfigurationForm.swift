@@ -1,5 +1,5 @@
 //
-//  FeedSettingsForm.swift
+//  FeedConfigurationForm.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/23/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedSettingsForm: View {
+struct FeedConfigurationForm: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 

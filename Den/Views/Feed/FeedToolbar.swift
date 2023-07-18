@@ -26,7 +26,7 @@ struct FeedToolbar: CustomizableToolbarContent {
     var body: some CustomizableToolbarContent {
         #if os(macOS)
         ToolbarItem(id: "FeedSettings") {
-            FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
+            ConfigureFeedButton(feed: feed, showingSettings: $showingSettings)
         }
         ToolbarItem(id: "FeedFilterRead") {
             FilterReadButton(hideRead: $hideRead)
@@ -46,7 +46,7 @@ struct FeedToolbar: CustomizableToolbarContent {
                         feed.objectWillChange.send()
                     }
                     FilterReadButton(hideRead: $hideRead)
-                    FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
+                    ConfigureFeedButton(feed: feed, showingSettings: $showingSettings)
                 } label: {
                     Label {
                         Text("Menu", comment: "Button label.")
@@ -58,7 +58,7 @@ struct FeedToolbar: CustomizableToolbarContent {
             }
         } else {
             ToolbarItem(id: "FeedSettings", placement: .primaryAction) {
-                FeedSettingsButton(feed: feed, showingSettings: $showingSettings)
+                ConfigureFeedButton(feed: feed, showingSettings: $showingSettings)
             }
             ToolbarItem(id: "FeedFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)

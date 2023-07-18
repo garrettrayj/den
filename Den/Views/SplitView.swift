@@ -61,7 +61,7 @@ struct SplitView: View {
             #if os(macOS)
             .navigationSplitViewColumnWidth(220)
             #else
-            .navigationSplitViewColumnWidth(260 * dynamicTypeSize.layoutScalingFactor)
+            .navigationSplitViewColumnWidth(272 * dynamicTypeSize.layoutScalingFactor)
             #endif
         } detail: {
             DetailView(

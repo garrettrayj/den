@@ -63,7 +63,7 @@ struct FeedView: View {
                 }
             }
         ) {
-            FeedSettingsSheet(feed: feed)
+            FeedConfigurationSheet(feed: feed)
         }
     }
 }

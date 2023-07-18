@@ -1,5 +1,5 @@
 //
-//  PageSettingsSheet.swift
+//  PageConfigurationSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/16/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PageSettingsSheet: View {
+struct PageConfigurationSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -22,10 +22,10 @@ struct PageSettingsSheet: View {
                 if page.managedObjectContext == nil || page.isDeleted {
                     SplashNote(title: Text("Page Deleted", comment: "Object removed message."))
                 } else {
-                    PageSettingsForm(page: page)
+                    PageConfigurationForm(page: page)
                 }
             }
-            .navigationTitle(Text("Page Settings", comment: "Navigation title."))
+            .navigationTitle(Text("Page Configuration", comment: "Navigation title."))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)

@@ -1,5 +1,5 @@
 //
-//  PageSettingsButton.swift
+//  ConfigurePageButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/17/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PageSettingsButton: View {
+struct ConfigurePageButton: View {
     @Binding var showingSettings: Bool
 
     var body: some View {
@@ -20,9 +20,9 @@ struct PageSettingsButton: View {
             Label {
                 Text("Configure", comment: "Button label.")
             } icon: {
-                Image(systemName: "wrench")
+                Image(systemName: "hammer")
             }
         }
-        .accessibilityIdentifier("ShowPageSettings")
+        .accessibilityIdentifier("ConfigurePage")
     }
 }

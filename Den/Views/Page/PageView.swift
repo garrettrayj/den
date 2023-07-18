@@ -89,7 +89,7 @@ struct PageView: View {
                 }
             }
         ) {
-            PageSettingsSheet(page: page)
+            PageConfigurationSheet(page: page)
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  FeedSettingsButton.swift
+//  ConfigureFeedButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/17/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedSettingsButton: View {
+struct ConfigureFeedButton: View {
     @ObservedObject var feed: Feed
 
     @Binding var showingSettings: Bool
@@ -26,9 +26,9 @@ struct FeedSettingsButton: View {
             Label {
                 Text("Configure", comment: "Button label.")
             } icon: {
-                Image(systemName: "wrench")
+                Image(systemName: "hammer")
             }
         }
-        .accessibilityIdentifier("ShowFeedSettings")
+        .accessibilityIdentifier("ConfigureFeed")
     }
 }

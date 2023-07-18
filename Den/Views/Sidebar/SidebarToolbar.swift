@@ -85,6 +85,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
             ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
                 Menu {
                     ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
+                    
                     Button {
                         withAnimation {
                             isEditing = true
@@ -97,11 +98,11 @@ struct SidebarToolbar: CustomizableToolbarContent {
                         }
                     }
                     .accessibilityIdentifier("EditPages")
-                    .buttonStyle(.borderless)
-                    DiagnosticsButton(detailPanel: $detailPanel)
-                    SettingsButton(showingSettings: $showingSettings)
+                    
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
+                    DiagnosticsButton(detailPanel: $detailPanel)
+                    SettingsButton(showingSettings: $showingSettings)
                 } label: {
                     Label {
                         Text("App Menu", comment: "Menu label.")

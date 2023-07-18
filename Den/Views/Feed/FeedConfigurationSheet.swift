@@ -1,5 +1,5 @@
 //
-//  FeedSettingsSheet.swift
+//  FeedConfigurationSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/16/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedSettingsSheet: View {
+struct FeedConfigurationSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -22,10 +22,10 @@ struct FeedSettingsSheet: View {
                 if feed.managedObjectContext == nil || feed.isDeleted {
                     SplashNote(title: Text("Feed Deleted", comment: "Object removed message."))
                 } else {
-                    FeedSettingsForm(feed: feed)
+                    FeedConfigurationForm(feed: feed)
                 }
             }
-            .navigationTitle(Text("Feed Settings", comment: "Navigation title."))
+            .navigationTitle(Text("Feed Configuration", comment: "Navigation title."))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .scrollContentBackground(.hidden)

@@ -32,7 +32,7 @@ struct PageToolbar: CustomizableToolbarContent {
                 .pickerStyle(.inline)
         }
         ToolbarItem(id: "PageSettings") {
-            PageSettingsButton(showingSettings: $showingSettings)
+            ConfigurePageButton(showingSettings: $showingSettings)
         }
         ToolbarItem(id: "PageFilterRead") {
             FilterReadButton(hideRead: $hideRead)
@@ -55,7 +55,7 @@ struct PageToolbar: CustomizableToolbarContent {
                     }
                     FilterReadButton(hideRead: $hideRead)
                     PageLayoutPicker(pageLayout: $pageLayout)
-                    PageSettingsButton(showingSettings: $showingSettings)
+                    ConfigurePageButton(showingSettings: $showingSettings)
                 } label: {
                     Label {
                         Text("Menu", comment: "Button label.")
@@ -70,7 +70,7 @@ struct PageToolbar: CustomizableToolbarContent {
                 PageLayoutPicker(pageLayout: $pageLayout)
             }
             ToolbarItem(id: "PageSettings", placement: .primaryAction) {
-                PageSettingsButton(showingSettings: $showingSettings)
+                ConfigurePageButton(showingSettings: $showingSettings)
             }
             ToolbarItem(id: "PageFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
