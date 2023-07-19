@@ -11,6 +11,10 @@
 import XCTest
 
 final class SearchUITests: XCTestCase {
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
+    }
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -42,11 +46,8 @@ final class SearchUITests: XCTestCase {
             }
         }
         #endif
-
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "Search"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        
+        attachScreenshot(of: app.windows.firstMatch, named: "Search")
     }
 
     func testSearchNoResults() throws {
@@ -85,9 +86,6 @@ final class SearchUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "SearchNoResults"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "SearchNoResults")
     }
 }

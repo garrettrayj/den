@@ -32,6 +32,7 @@ then
     exec $copyCommand
 else
     echo "$runDate Load Simulator Test Data"
+    echo $PROJECT_DIR
     uuidRegex="([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})"
     device=$(xcrun simctl list | grep Booted | grep -E -o -i $uuidRegex | head -1)
     appContainer=$(xcrun simctl get_app_container $device net.devsci.den data)

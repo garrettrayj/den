@@ -11,6 +11,10 @@
 import XCTest
 
 final class DiagnosticsUITests: XCTestCase {
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
+    }
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -47,11 +51,8 @@ final class DiagnosticsUITests: XCTestCase {
         if !app.staticTexts["Diagnostics"].waitForExistence(timeout: 2) {
             XCTFail("Diagnostics header did not appear in time")
         }
-
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "Diagnostics"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        
+        attachScreenshot(of: app.windows.firstMatch, named: "Diagnostics")
     }
     
     func testDiagnosticsEmpty() throws {
@@ -93,9 +94,6 @@ final class DiagnosticsUITests: XCTestCase {
             XCTFail("Diagnostics header did not appear in time")
         }
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "DiagnosticsEmpty"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "Diagnostics")
     }
 }

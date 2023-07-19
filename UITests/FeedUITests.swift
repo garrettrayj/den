@@ -11,6 +11,10 @@
 import XCTest
 
 final class FeedUITests: XCTestCase {
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
+    }
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -44,12 +48,7 @@ final class FeedUITests: XCTestCase {
         
         app.buttons["FeedNavLink"].firstMatch.tap()
         
-        sleep(3)
-        
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "FeedViewCompressed"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "FeedViewCompressed")
     }
     
     func testFeedSettings() throws {
@@ -89,10 +88,7 @@ final class FeedUITests: XCTestCase {
         
         app.buttons["ConfigureFeed"].firstMatch.tap()
         
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "FeedConfiguration"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "FeedConfiguration")
     }
     
     func testFeedViewNoData() throws {
@@ -132,9 +128,6 @@ final class FeedUITests: XCTestCase {
         
         app.buttons["FeedNavLink"].firstMatch.tap()
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "FeedViewNoData"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "FeedViewNoData")
     }
 }

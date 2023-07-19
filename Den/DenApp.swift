@@ -92,7 +92,6 @@ struct DenApp: App {
 
     init() {
         setupImageHandling()
-        resetUserDefaultsIfNeeded()
     }
 
     #if os(iOS)
@@ -169,12 +168,5 @@ struct DenApp: App {
             mimeType.rawValue
         }).joined(separator: ",")
         SDWebImageDownloader.shared.setValue(imageAcceptHeader, forHTTPHeaderField: "Accept")
-    }
-
-    private func resetUserDefaultsIfNeeded() {
-        if CommandLine.arguments.contains("-in-memory") {
-            let domain = Bundle.main.bundleIdentifier!
-            UserDefaults.standard.removePersistentDomain(forName: domain)
-        }
     }
 }

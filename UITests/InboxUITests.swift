@@ -11,6 +11,10 @@
 import XCTest
 
 final class InboxUITests: XCTestCase {
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
+    }
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -38,10 +42,7 @@ final class InboxUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "InboxEmpty"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "Inbox")
     }
 
     func testInboxEmpty() throws {
@@ -75,9 +76,6 @@ final class InboxUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "InboxEmpty"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "InboxEmpty")
     }
 }

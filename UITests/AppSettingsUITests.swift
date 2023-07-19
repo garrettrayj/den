@@ -11,8 +11,8 @@
 import XCTest
 
 final class AppSettingsUITests: XCTestCase {
-    override func setUpWithError() throws {
-        continueAfterFailure = false
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
     }
     
     #if os(macOS)
@@ -32,10 +32,7 @@ final class AppSettingsUITests: XCTestCase {
             XCTFail("General settings tab did not appear in time")
         }
         
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "AppSettingsGeneralTab"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "AppSettingsGeneralTab")
     }
     
     func testAppSettingsProfilesTab() throws {
@@ -57,10 +54,7 @@ final class AppSettingsUITests: XCTestCase {
             XCTFail("Profiles settings tab did not appear in time")
         }
         
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "AppSettingsProfilesTab"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "AppSettingsProfilesTab")
     }
     #else
     func testAppSettingsSheet() throws {
@@ -80,10 +74,7 @@ final class AppSettingsUITests: XCTestCase {
             XCTFail("Settings sheet did not appear in time")
         }
         
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "AppSettings"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "AppSettings")
     }
     #endif
 }

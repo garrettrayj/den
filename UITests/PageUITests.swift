@@ -11,6 +11,10 @@
 import XCTest
 
 final class PageUITests: XCTestCase {
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
+    }
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -45,10 +49,7 @@ final class PageUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "PageEmpty"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "PageEmpty")
     }
     
     func testPageGroupedLayout() throws {
@@ -78,10 +79,7 @@ final class PageUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "PageGroupedLayout"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "PageGroupedLayout")
     }
     
     func testPageTimelineLayout() throws {
@@ -122,10 +120,7 @@ final class PageUITests: XCTestCase {
         app.buttons["TimelineLayout"].tap()
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "PageTimelineLayout"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "PageTimelineLayout")
     }
     
     func testPageShowcaseLayout() throws {
@@ -166,10 +161,7 @@ final class PageUITests: XCTestCase {
         app.buttons["ShowcaseLayout"].tap()
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "PageShowcaseLayout"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "PageShowcaseLayout")
     }
     
     func testPageDeckLayout() throws {
@@ -210,10 +202,7 @@ final class PageUITests: XCTestCase {
         app.buttons["DeckLayout"].tap()
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "PageDeckLayout"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "PageDeckLayout")
     }
     
     func testPageSettings() throws {
@@ -251,9 +240,6 @@ final class PageUITests: XCTestCase {
         
         app.buttons["ConfigurePage"].firstMatch.tap()
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "PageSettings"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "PageConfiguration")
     }
 }

@@ -73,6 +73,17 @@
                referenceType = "1">
             </LocationScenarioReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "68D2863D2A678EF0007AD876"
+               BuildableName = "DenUITests.xctest"
+               BlueprintName = "DenUITests"
+               ReferencedContainer = "container:Den.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -11,11 +11,15 @@
 import XCTest
 
 final class AppSidebarUITests: XCTestCase {
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
+    }
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
 
-    func testAppSidebarNoPages() throws {
+    func testAppSidebarGetStarted() throws {
         let app = XCUIApplication()
         app.launchArguments.append("-in-memory")
         app.launchArguments.append("-disable-cloud")
@@ -26,11 +30,7 @@ final class AppSidebarUITests: XCTestCase {
         }
         app.buttons["CreateProfile"].tap()
         
-
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "AppSidebarNoPages"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "AppSidebarGetStarted")
     }
     
     func testAppSidebarAppMenu() throws {
@@ -50,10 +50,7 @@ final class AppSidebarUITests: XCTestCase {
         app.buttons["AppMenu"].forceTap()
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "AppSidebarAppMenu"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "AppSidebarAppMenu")
     }
 }
 

@@ -11,6 +11,10 @@
 import XCTest
 
 final class TrendingUITests: XCTestCase {
+    override class var runsForEachTargetApplicationUIConfiguration: Bool {
+        true
+    }
+    
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
@@ -48,9 +52,6 @@ final class TrendingUITests: XCTestCase {
         }
         #endif
 
-        let attachment = XCTAttachment(screenshot: app.windows.firstMatch.screenshot())
-        attachment.name = "TrendingEmpty"
-        attachment.lifetime = .keepAlways
-        add(attachment)
+        attachScreenshot(of: app.windows.firstMatch, named: "TrendingEmpty")
     }
 }

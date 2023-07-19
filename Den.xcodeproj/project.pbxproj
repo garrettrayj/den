@@ -206,6 +206,9 @@
 		68D2862B2A6469E8007AD876 /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D2862A2A6469E8007AD876 /* ProfileLabel.swift */; };
 		68D286322A648910007AD876 /* CharacterSet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D286312A648910007AD876 /* CharacterSet+Extensions.swift */; };
 		68D286392A6653DD007AD876 /* XCUIElement+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D286372A6653B7007AD876 /* XCUIElement+Extensions.swift */; };
+		68D2864A2A6799DC007AD876 /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D286492A6799DC007AD876 /* XCTestCase+Extensions.swift */; };
+		68D2864C2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D2864B2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift */; };
+		68D2864E2A679C1B007AD876 /* XCUIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D2864D2A679C1B007AD876 /* XCUIDevice+Extensions.swift */; };
 		68D486BE26C9896300AF5B59 /* IconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D486BD26C9896300AF5B59 /* IconPicker.swift */; };
 		68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D58E6824955321007ED1AC /* OPMLReader.swift */; };
 		68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 68D58E6A2498481A007ED1AC /* OPMLIcon.png */; };
@@ -380,7 +383,6 @@
 		686069132831501B000068DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6860694B28315247000068DE /* SafariExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SafariExtension.entitlements; sourceTree = "<group>"; };
 		6862A5912A23EEE4000CAB19 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		6862A5942A23EF6B000CAB19 /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = "en-AU.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6862A5972A2585B7000CAB19 /* Localizations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Localizations; sourceTree = "<group>"; };
 		6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeRefreshedDate.swift; sourceTree = "<group>"; };
 		6862A59D2A26D90F000CAB19 /* PagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagePicker.swift; sourceTree = "<group>"; };
@@ -517,6 +519,9 @@
 		68D2862A2A6469E8007AD876 /* ProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
 		68D286312A648910007AD876 /* CharacterSet+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Extensions.swift"; sourceTree = "<group>"; };
 		68D286372A6653B7007AD876 /* XCUIElement+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Extensions.swift"; sourceTree = "<group>"; };
+		68D286492A6799DC007AD876 /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
+		68D2864B2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDeviceOrientation+Extensions.swift"; sourceTree = "<group>"; };
+		68D2864D2A679C1B007AD876 /* XCUIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
 		68D58E6A2498481A007ED1AC /* OPMLIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OPMLIcon.png; sourceTree = "<group>"; };
@@ -1107,6 +1112,9 @@
 				6879259F2A60C1DB00188A83 /* PageUITests.swift */,
 				687925A22A60C1DB00188A83 /* SearchUITests.swift */,
 				6879259E2A60C1DB00188A83 /* TrendingUITests.swift */,
+				68D2864B2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift */,
+				68D286492A6799DC007AD876 /* XCTestCase+Extensions.swift */,
+				68D2864D2A679C1B007AD876 /* XCUIDevice+Extensions.swift */,
 				68D286372A6653B7007AD876 /* XCUIElement+Extensions.swift */,
 			);
 			path = UITests;
@@ -1314,7 +1322,6 @@
 			knownRegions = (
 				en,
 				"en-GB",
-				"en-AU",
 				Base,
 			);
 			mainGroup = 68C41300247263C700D1DC7B;
@@ -1631,10 +1638,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68D2864C2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift in Sources */,
 				687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */,
 				687925A52A60C1DB00188A83 /* DiagnosticsUITests.swift in Sources */,
 				68D286292A64223A007AD876 /* AppSidebarUITests.swift in Sources */,
 				687925A62A60C1DB00188A83 /* TrendingUITests.swift in Sources */,
+				68D2864A2A6799DC007AD876 /* XCTestCase+Extensions.swift in Sources */,
+				68D2864E2A679C1B007AD876 /* XCUIDevice+Extensions.swift in Sources */,
 				687925A72A60C1DB00188A83 /* PageUITests.swift in Sources */,
 				68D286392A6653DD007AD876 /* XCUIElement+Extensions.swift in Sources */,
 				687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */,
@@ -1671,7 +1681,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				6862A5912A23EEE4000CAB19 /* en-GB */,
-				6862A5942A23EF6B000CAB19 /* en-AU */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
