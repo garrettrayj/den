@@ -38,7 +38,7 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if let profile = currentProfile, profile.isDeleted == false, profile.managedObjectContext != nil {
+            if let profile = currentProfile, profile.managedObjectContext != nil {
                 SplitView(
                     profile: profile,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,

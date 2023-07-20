@@ -67,14 +67,18 @@ struct ResetEverythingButton: View {
 
         let container = PersistenceController.shared.container
         await container.performBackgroundTask { context in
-            do {
-                let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
-                for profile in profiles {
-                    for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
-                        context.delete(feedData)
-                    }
-                    context.delete(profile)
+            guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else {
+                return
+            }
+            
+            for profile in profiles {
+                for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
+                    context.delete(feedData)
                 }
+                context.delete(profile)
+            }
+            
+            do {
                 try context.save()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)

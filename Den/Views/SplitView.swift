@@ -36,11 +36,14 @@ struct SplitView: View {
     @State private var showingImporter: Bool = false
     @State private var showingExporter: Bool = false
     
+    @StateObject private var navigationStore = NavigationStore()
+    
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
     @SceneStorage("ShowingProfileSettings") private var showingProfileSettings: Bool = false
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
+    @SceneStorage("Navigation") private var navigationData: Data?
 
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
@@ -67,7 +70,8 @@ struct SplitView: View {
             DetailView(
                 profile: profile,
                 detailPanel: $detailPanel,
-                refreshing: $refreshing
+                refreshing: $refreshing,
+                path: $navigationStore.path
             )
         }
         .tint(profile.tintColor)
@@ -83,8 +87,19 @@ struct SplitView: View {
         .modifier(
             URLDropTargetModifier(profile: profile)
         )
+        .task {
+            if let navigationData {
+                navigationStore.restore(from: navigationData)
+            }
+            for await _ in navigationStore.$path.values {
+                navigationData = navigationStore.encoded()
+            }
+        }
         .onChange(of: currentProfileID) { _ in
             detailPanel = nil
+        }
+        .onChange(of: detailPanel) { _ in
+            navigationStore.path.removeLast(navigationStore.path.count)
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
             refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)

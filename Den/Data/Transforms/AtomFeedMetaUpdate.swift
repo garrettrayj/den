@@ -18,7 +18,7 @@ struct AtomFeedMetaUpdate {
     let feedData: FeedData
     let source: AtomFeed
     let context: NSManagedObjectContext
-    let webpageMetadata: WebpageMetadata?
+    let webpageMetadata: WebpageMetadata.Results?
 
     // swiftlint:disable cyclomatic_complexity
     func execute() {

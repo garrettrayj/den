@@ -11,16 +11,9 @@
 import SwiftUI
 
 struct ProfileSettingsForm: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var profile: Profile
-    
-    @Binding var currentProfileID: String?
-    @Binding var backgroundRefreshEnabled: Bool
-    @Binding var feedRefreshTimeout: Int
-    @Binding var useSystemBrowser: Bool
-    @Binding var userColorScheme: UserColorScheme
 
     var body: some View {
         Form {
@@ -40,9 +33,8 @@ struct ProfileSettingsForm: View {
             )
 
             Section {
-                DeleteProfileButton(profile: profile) {
-                    dismiss()
-                }.buttonStyle(.plain)
+                ClearDataButton(profile: profile).buttonStyle(.borderless)
+                DeleteProfileButton(profile: profile).buttonStyle(.borderless)
             }
         }
         .formStyle(.grouped)

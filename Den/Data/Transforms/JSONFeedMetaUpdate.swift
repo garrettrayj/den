@@ -18,7 +18,7 @@ struct JSONFeedMetaUpdate {
     let feedData: FeedData
     let source: JSONFeed
     let context: NSManagedObjectContext
-    let webpageMetadata: WebpageMetadata?
+    let webpageMetadata: WebpageMetadata.Results?
 
     func execute() {
         if

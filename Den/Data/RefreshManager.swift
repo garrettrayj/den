@@ -70,7 +70,7 @@ final class RefreshManager: ObservableObject {
             }
         }
 
-        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
+        let maxConcurrency = min(2, ProcessInfo().activeProcessorCount)
 
         _ = await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
                 var working: Int = 0

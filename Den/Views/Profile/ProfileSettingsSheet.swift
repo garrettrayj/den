@@ -28,14 +28,7 @@ struct ProfileSettingsSheet: View {
                 if profile.managedObjectContext == nil {
                     SplashNote(title: Text("Profile Deleted", comment: "Object removed message."))
                 } else {
-                    ProfileSettingsForm(
-                        profile: profile,
-                        currentProfileID: $currentProfileID,
-                        backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                        feedRefreshTimeout: $feedRefreshTimeout,
-                        useSystemBrowser: $useSystemBrowser,
-                        userColorScheme: $userColorScheme
-                    )
+                    ProfileSettingsForm(profile: profile)
                 }
             }
             .navigationTitle(Text("Profile Settings", comment: "Navigation title."))

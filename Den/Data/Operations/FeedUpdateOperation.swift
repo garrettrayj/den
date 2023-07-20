@@ -98,7 +98,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
                         self.webpageTask = URLSession.shared.dataTask(
                             with: webpageRequest,
                             completionHandler: { [self] data, _, _ in
-                                let metadata = WebpageMetadata.from(webpage: webpage, data: data)
+                                let metadata = WebpageMetadata(webpage: webpage, data: data).results
                                 self.updateMetadata(
                                     feed: feed,
                                     feedData: feedData,
@@ -177,7 +177,7 @@ final class FeedUpdateOperation: AsynchronousOperation {
         feedData: FeedData,
         parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
         context: NSManagedObjectContext,
-        metadata: WebpageMetadata? = nil
+        metadata: WebpageMetadata.Results? = nil
     ) {
         switch parserResult {
         case .success(let parsedFeed):

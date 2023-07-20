@@ -12,51 +12,60 @@ import Foundation
 
 import SwiftSoup
 
-struct WebpageMetadata {
-    var favicons: [RankedImage] = []
-    var icons: [RankedImage] = []
-    var banners: [RankedImage] = []
-    var description: String?
-    var copyright: String?
+class WebpageMetadata {
+    struct Results {
+        var favicons: [RankedImage] = []
+        var icons: [RankedImage] = []
+        var banners: [RankedImage] = []
+        var description: String?
+        var copyright: String?
+    }
+    
+    var webpage: URL
+    var webpageDocument: Document?
 
-    static func from(webpage: URL, data: Data?) -> WebpageMetadata? {
-        guard
+    init(webpage: URL, data: Data?) {
+        self.webpage = webpage
+        
+        if
             let data = data,
             let htmlString = String(data: data, encoding: .utf8),
             let document = try? SwiftSoup.parse(htmlString)
-        else {
-            return nil
+        {
+            webpageDocument = document
         }
+    }
+    
+    var results: Results {
+        var metadata = Results()
 
-        var metadata = WebpageMetadata()
-
-        if let iconImage = getIconLinkImage(in: document, relativeTo: webpage) {
+        if let iconImage = getIconLinkImage(relativeTo: webpage) {
             metadata.favicons.append(RankedImage(url: iconImage, rank: 2))
         } else if let defaultFavicon = getDefaultFavicon(url: webpage) {
             metadata.favicons.append(RankedImage(url: defaultFavicon, rank: 1))
         }
 
-        if let appleTouchIcon = getAppleTouchIcon(in: document, relativeTo: webpage) {
+        if let appleTouchIcon = getAppleTouchIcon(relativeTo: webpage) {
             metadata.icons.append(RankedImage(url: appleTouchIcon, rank: 2))
         }
 
-        if let ogImage = getMetaImage(in: document, relativeTo: webpage, property: "og:image") {
+        if let ogImage = getMetaImage(relativeTo: webpage, property: "og:image") {
             metadata.banners.append(RankedImage(url: ogImage, rank: 2))
         }
 
-        if let twitterImage = getMetaImage(in: document, relativeTo: webpage, property: "twitter:image") {
+        if let twitterImage = getMetaImage(relativeTo: webpage, property: "twitter:image") {
             metadata.banners.append(RankedImage(url: twitterImage, rank: 1))
         }
 
-        metadata.description = getMetaContent(in: document, property: "description")
-        metadata.copyright = getMetaContent(in: document, property: "copyright")
+        metadata.description = getMetaContent(property: "description")
+        metadata.copyright = getMetaContent(property: "copyright")
 
         return metadata
     }
 
-    static private func getIconLinkImage(in document: Document, relativeTo: URL) -> URL? {
+    private func getIconLinkImage(relativeTo: URL) -> URL? {
         guard
-            let href = try? document.select("link[rel~=shortcut icon|icon]").attr("href"),
+            let href = try? webpageDocument?.select("link[rel~=shortcut icon|icon]").attr("href"),
             let url = URL(string: href, relativeTo: relativeTo)
         else {
             return nil
@@ -65,9 +74,9 @@ struct WebpageMetadata {
         return url
     }
 
-    static private func getAppleTouchIcon(in document: Document, relativeTo: URL) -> URL? {
+    private func getAppleTouchIcon(relativeTo: URL) -> URL? {
         guard
-            let el = try? document.select("link[rel='apple-touch-icon']"),
+            let el = try? webpageDocument?.select("link[rel='apple-touch-icon']"),
             let href = try? el.attr("href"),
             let url = URL(string: href, relativeTo: relativeTo)
         else {
@@ -77,9 +86,9 @@ struct WebpageMetadata {
         return url.absoluteURL
     }
 
-    static private func getMetaImage(in document: Document, relativeTo: URL, property: String) -> URL? {
+    private func getMetaImage(relativeTo: URL, property: String) -> URL? {
         guard
-            let el = try? document.select("meta[property='\(property)']"),
+            let el = try? webpageDocument?.select("meta[property='\(property)']"),
             let href = try? el.attr("content"),
             let url = URL(string: href, relativeTo: relativeTo)
         else {
@@ -89,7 +98,7 @@ struct WebpageMetadata {
         return url.absoluteURL
     }
 
-    static private func getDefaultFavicon(url webpage: URL) -> URL? {
+    private func getDefaultFavicon(url webpage: URL) -> URL? {
         var components = URLComponents(url: webpage, resolvingAgainstBaseURL: false)!
         components.path = "/favicon.ico"
 
@@ -100,9 +109,9 @@ struct WebpageMetadata {
         return nil
     }
 
-    static private func getMetaContent(in document: Document, property: String) -> String? {
+    private func getMetaContent(property: String) -> String? {
         guard
-            let el = try? document.select("meta[name='\(property)']"),
+            let el = try? webpageDocument?.select("meta[name='\(property)']"),
             let content = try? el.attr("content"),
             content != ""
         else {

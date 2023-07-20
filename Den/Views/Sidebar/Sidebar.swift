@@ -93,7 +93,6 @@ struct Sidebar: View {
         #if os(macOS)
         .safeAreaInset(edge: .bottom) {
             Menu {
-                
                 ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                     .pickerStyle(.inline)
                 NewProfileButton(currentProfileID: $currentProfileID)
@@ -108,6 +107,7 @@ struct Sidebar: View {
             .labelStyle(.titleAndIcon)
             .accessibilityIdentifier("ProfileMenu")
             .padding()
+            .disabled(refreshing)
         }
         #endif
     }

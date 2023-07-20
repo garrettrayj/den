@@ -217,6 +217,7 @@
 		68E6C5412A68E61C00CA46B2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5402A68E4D800CA46B2 /* Settings.bundle */; platformFilter = ios; };
 		68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5442A69127C00CA46B2 /* Acknowledgements.html */; };
 		68E6C5472A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5462A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md */; };
+		68E6C54C2A69D7C800CA46B2 /* ClearDataButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6C54B2A69D7C800CA46B2 /* ClearDataButton.swift */; };
 		68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */; };
 		68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */; };
 		68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */; };
@@ -522,6 +523,7 @@
 		68E6C5422A68EF2E00CA46B2 /* license_plist.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = license_plist.yml; sourceTree = "<group>"; };
 		68E6C5442A69127C00CA46B2 /* Acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Acknowledgements.html; sourceTree = "<group>"; };
 		68E6C5462A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ACKNOWLEDGEMENTS.md; sourceTree = "<group>"; };
+		68E6C54B2A69D7C800CA46B2 /* ClearDataButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearDataButton.swift; sourceTree = "<group>"; };
 		68E83BF92A6004590014DC64 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchUITests.swift; sourceTree = "<group>"; };
 		68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContent.swift; sourceTree = "<group>"; };
@@ -1062,12 +1064,16 @@
 		68D9BA9D28A60BAE00F1A3AD /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				687FEEFE2A3F97260042977E /* NewProfileButton.swift */,
+				68D2862A2A6469E8007AD876 /* ProfileLabel.swift */,
+				687F22242A5A5CF900B76919 /* ProfilePicker.swift */,
+				683E3F4A293BC1AA00B16814 /* ProfileSettingsButton.swift */,
 				687FEEEA2A3DB1F30042977E /* ProfileSettingsSheet.swift */,
 				68C4FA252474927800D2C0D6 /* ProfileSettingsForm.swift */,
 				68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */,
 				681F0C252933F4C10037C609 /* HistorySettingsSection.swift */,
+				68E6C54B2A69D7C800CA46B2 /* ClearDataButton.swift */,
 				68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */,
-				68D2862A2A6469E8007AD876 /* ProfileLabel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1116,12 +1122,9 @@
 				6868A3152895D20D0051D43E /* TrendingNavLink.swift */,
 				68A2188C29D9D4AE005F42C7 /* PagesSection.swift */,
 				685ECB1026EE611000A3B184 /* PageNavLink.swift */,
-				683E3F4A293BC1AA00B16814 /* ProfileSettingsButton.swift */,
 				68E58F2629B6B30A00C18A87 /* SimpleSidebarStatus.swift */,
 				683E3F46293BC18C00B16814 /* BottomBarSidebarStatus.swift */,
 				687FEF0A2A3FAFB30042977E /* RefreshProgress.swift */,
-				687F22242A5A5CF900B76919 /* ProfilePicker.swift */,
-				687FEEFE2A3F97260042977E /* NewProfileButton.swift */,
 				683E3F48293BC19800B16814 /* RefreshButton.swift */,
 			);
 			path = Sidebar;
@@ -1483,6 +1486,7 @@
 				687F22232A5A460300B76919 /* ImportExportUtility.swift in Sources */,
 				6832AF2C278B889300CFC8CA /* SplashNote.swift in Sources */,
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,
+				68E6C54C2A69D7C800CA46B2 /* ClearDataButton.swift in Sources */,
 				687FEEEB2A3DB1F30042977E /* ProfileSettingsSheet.swift in Sources */,
 				68FF63FA2921DCF20012A275 /* TrendToolbar.swift in Sources */,
 				68AC3A172910EEB500D60273 /* WorkingTrend.swift in Sources */,

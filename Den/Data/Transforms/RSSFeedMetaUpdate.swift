@@ -18,7 +18,7 @@ struct RSSFeedMetaUpdate {
     let feedData: FeedData
     let source: RSSFeed
     let context: NSManagedObjectContext
-    let webpageMetadata: WebpageMetadata?
+    let webpageMetadata: WebpageMetadata.Results?
 
     func execute() {
         // RSS images are not good in general, so prefer webpage meta for icon image

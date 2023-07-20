@@ -62,8 +62,10 @@ struct SidebarToolbar: CustomizableToolbarContent {
                     Text("Menu", comment: "Button label.")
                 } icon: {
                     Image(systemName: "ellipsis.circle")
-                }
+                }.labelStyle(.iconOnly)
             }
+            .labelStyle(.titleAndIcon)
+            .disabled(refreshing)
             .accessibilityIdentifier("SidebarMenu")
         }
         #else

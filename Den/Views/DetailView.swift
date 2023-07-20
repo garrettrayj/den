@@ -15,13 +15,10 @@ struct DetailView: View {
 
     @Binding var detailPanel: DetailPanel?
     @Binding var refreshing: Bool
-
-    @StateObject private var navigationStore = NavigationStore()
-
-    @SceneStorage("Navigation") private var navigationData: Data?
+    @Binding var path: NavigationPath
 
     var body: some View {
-        NavigationStack(path: $navigationStore.path) {
+        NavigationStack(path: $path) {
             ZStack {
                 switch detailPanel ?? .welcome {
                 case .diagnostics:
@@ -52,17 +49,6 @@ struct DetailView: View {
                 }
                 .disabled(refreshing)
             }
-            .task {
-                if let navigationData {
-                    navigationStore.restore(from: navigationData)
-                }
-                for await _ in navigationStore.$path.values {
-                    navigationData = navigationStore.encoded()
-                }
-            }
-        }
-        .onChange(of: detailPanel) { _ in
-            navigationStore.path.removeLast(navigationStore.path.count)
         }
     }
 }

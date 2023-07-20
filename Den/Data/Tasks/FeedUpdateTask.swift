@@ -25,7 +25,7 @@ struct FeedUpdateTask {
     func execute() async {
         let start = CFAbsoluteTimeGetCurrent()
         var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
-        var webpageMetadata: WebpageMetadata?
+        var webpageMetadata: WebpageMetadata.Results?
 
         let feedRequest = URLRequest(url: url, timeoutInterval: timeout)
 
@@ -49,13 +49,12 @@ struct FeedUpdateTask {
             {
                 let webpageRequest = URLRequest(url: webpage, timeoutInterval: timeout)
                 if let (webpageData, _) = try? await URLSession.shared.data(for: webpageRequest) {
-                    webpageMetadata = WebpageMetadata.from(webpage: webpage, data: webpageData)
+                    webpageMetadata = WebpageMetadata(webpage: webpage, data: webpageData).results
                 }
             }
         }
 
         await PersistenceController.shared.container.performBackgroundTask { context in
-            context.automaticallyMergesChangesFromParent = true
             context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
 
             guard
@@ -131,7 +130,7 @@ struct FeedUpdateTask {
         feed: Feed,
         feedData: FeedData,
         context: NSManagedObjectContext,
-        webpageMetadata: WebpageMetadata?
+        webpageMetadata: WebpageMetadata.Results?
     ) {
         switch parsedFeed {
         case let .atom(parsedFeed):
