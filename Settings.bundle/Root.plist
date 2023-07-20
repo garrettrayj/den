@@ -35,12 +35,12 @@
 			<string>HTTP Timeout</string>
 			<key>Titles</key>
 			<array>
-				<string>15 Seconds</string>
-				<string>30 Seconds</string>
-				<string>60 Seconds</string>
-				<string>90 Seconds</string>
-				<string>3 Minutes</string>
-				<string>5 Minutes</string>
+				<string>15 seconds</string>
+				<string>30 seconds</string>
+				<string>60 seconds</string>
+				<string>90 seconds</string>
+				<string>3 minutes</string>
+				<string>5 minutes</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -55,12 +55,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>Links</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
@@ -72,7 +66,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2023 Garrett Johnson</string>
+			<string>© Copyright 2023 Garrett Johnson</string>
 			<key>Title</key>
 			<string>About</string>
 			<key>Type</key>
@@ -85,16 +79,6 @@
 			<string>VersionPreference</string>
 			<key>Title</key>
 			<string>Version</string>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<string>https://den.io</string>
-			<key>Key</key>
-			<string>WebsitePreference</string>
-			<key>Title</key>
-			<string>Website</string>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
 		</dict>

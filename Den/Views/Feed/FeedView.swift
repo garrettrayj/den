@@ -18,7 +18,7 @@ struct FeedView: View {
 
     @AppStorage("HideRead") private var hideRead: Bool = false
 
-    @SceneStorage("ShowingFeedSettings") private var showingSettings: Bool = false
+    @SceneStorage("ShowingFeedConfiguration") private var showingFeedConfiguration: Bool = false
 
     var body: some View {
         VStack {
@@ -40,7 +40,7 @@ struct FeedView: View {
                             feed: feed,
                             profile: profile,
                             hideRead: $hideRead,
-                            showingSettings: $showingSettings,
+                            showingFeedConfiguration: $showingFeedConfiguration,
                             items: items
                         )
                     }
@@ -49,7 +49,7 @@ struct FeedView: View {
             }
         }
         .sheet(
-            isPresented: $showingSettings,
+            isPresented: $showingFeedConfiguration,
             onDismiss: {
                 DispatchQueue.main.async {
                     if viewContext.hasChanges {

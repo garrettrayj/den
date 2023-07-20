@@ -1,33 +1,37 @@
 //
-//  ProfileSettings.swift
+//  ProfileSettingsForm.swift
 //  Den
 //
-//  Created by Garrett Johnson on 1/7/22.
-//  Copyright © 2022 Garrett Johnson
+//  Created by Garrett Johnson on 5/19/20.
+//  Copyright © 2020 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
 //
 
 import SwiftUI
 
-struct ProfileSettings: View {
-    @Environment(\.managedObjectContext) private var viewContext
+struct ProfileSettingsForm: View {
     @Environment(\.dismiss) private var dismiss
-
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var profile: Profile
-
-    @State private var showingDeleteAlert: Bool = false
+    
+    @Binding var currentProfileID: String?
+    @Binding var backgroundRefreshEnabled: Bool
+    @Binding var feedRefreshTimeout: Int
+    @Binding var useSystemBrowser: Bool
+    @Binding var userColorScheme: UserColorScheme
 
     var body: some View {
         Form {
-            TextField(text: $profile.wrappedName, prompt: Text("Untitled", comment: "Text field prompt.")) {
+            TextField(text: $profile.wrappedName, prompt: Text("Den", comment: "Text field prompt.")) {
                 Label {
                     Text("Name", comment: "Text field label.")
                 } icon: {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-
+            
             ProfileColorPicker(selection: $profile.tintOption)
 
             HistorySettingsSection(
@@ -35,13 +39,11 @@ struct ProfileSettings: View {
                 historyRentionDays: profile.wrappedHistoryRetention
             )
 
-            #if os(iOS)
             Section {
                 DeleteProfileButton(profile: profile) {
                     dismiss()
-                }
+                }.buttonStyle(.plain)
             }
-            #endif
         }
         .formStyle(.grouped)
         .onDisappear {

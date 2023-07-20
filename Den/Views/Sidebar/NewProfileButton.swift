@@ -12,14 +12,16 @@ import SwiftUI
 
 struct NewProfileButton: View {
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @Binding var currentProfileID: String?
 
     var body: some View {
         Button {
             withAnimation {
-                _ = Profile.create(in: viewContext)
-
+                let newProfile = Profile.create(in: viewContext)
                 do {
                     try viewContext.save()
+                    currentProfileID = newProfile.id?.uuidString
                 } catch let error as NSError {
                     CrashUtility.handleCriticalError(error)
                 }
@@ -28,7 +30,7 @@ struct NewProfileButton: View {
             Label {
                 Text("New Profile", comment: "Button label.").lineLimit(1)
             } icon: {
-                Image(systemName: "plus")
+                Image(systemName: "person.crop.circle.badge.plus")
             }
         }
         .accessibilityIdentifier("NewProfile")

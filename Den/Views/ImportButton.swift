@@ -20,7 +20,7 @@ struct ImportButton: View {
             Label {
                 Text("Import OPML", comment: "Button label.")
             } icon: {
-                Image(systemName: "square.and.arrow.down")
+                Image(systemName: "arrow.down.doc")
             }
         }
     }

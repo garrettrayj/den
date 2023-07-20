@@ -1,5 +1,5 @@
 //
-//  SettingsSheet.swift
+//  ProfileSettingsSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/17/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SettingsSheet: View {
+struct ProfileSettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -21,8 +21,6 @@ struct SettingsSheet: View {
     @Binding var feedRefreshTimeout: Int
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
-    
-    let profiles: FetchedResults<Profile>
 
     var body: some View {
         NavigationStack {
@@ -30,31 +28,40 @@ struct SettingsSheet: View {
                 if profile.managedObjectContext == nil {
                     SplashNote(title: Text("Profile Deleted", comment: "Object removed message."))
                 } else {
-                    SettingsSheetForm(
+                    ProfileSettingsForm(
+                        profile: profile,
                         currentProfileID: $currentProfileID,
                         backgroundRefreshEnabled: $backgroundRefreshEnabled,
                         feedRefreshTimeout: $feedRefreshTimeout,
                         useSystemBrowser: $useSystemBrowser,
-                        userColorScheme: $userColorScheme,
-                        profiles: profiles
+                        userColorScheme: $userColorScheme
                     )
                 }
             }
+            .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(role: .cancel) {
+                        Task {
+                            viewContext.rollback()
+                            dismiss()
+                        }
+                    } label: {
+                        Text("Cancel", comment: "Button label.")
+                    }
+                    .accessibilityIdentifier("Cancel")
+                }
+                ToolbarItem(placement: .confirmationAction) {
                     Button {
                         dismiss()
                     } label: {
-                        Label {
-                            Text("Close", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "xmark.circle")
-                        }
+                        Text("Save", comment: "Button label.")
                     }
-                    .buttonStyle(.borderless)
-                    .accessibilityIdentifier("Close")
+                    .accessibilityIdentifier("Save")
                 }
             }
+            .frame(maxWidth: 360, minHeight: 280)
         }
+        .tint(profile.tintColor)
     }
 }

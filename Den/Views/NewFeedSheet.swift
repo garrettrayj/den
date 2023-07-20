@@ -70,6 +70,13 @@ struct NewFeedSheet: View {
                 .accessibilityIdentifier("Cancel")
             } else {
                 Text("No Pages Available", comment: "New Feed error message.").font(.title2)
+                
+                Button(role: .cancel) {
+                    dismiss()
+                } label: {
+                    Text("Dismiss", comment: "Button label.")
+                }
+                .accessibilityIdentifier("Cancel")
             }
         }
         .frame(minWidth: 400)

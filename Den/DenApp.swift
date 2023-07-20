@@ -78,10 +78,8 @@ struct DenApp: App {
 
         #if os(macOS)
         Settings {
-            SettingsTabs(
-                backgroundRefreshEnabled: $backgroundRefreshEnabled,
+            SettingsForm(
                 feedRefreshTimeout: $feedRefreshTimeout,
-                useSystemBrowser: $useSystemBrowser,
                 userColorScheme: $userColorScheme
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)

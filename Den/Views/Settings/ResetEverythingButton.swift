@@ -74,7 +74,6 @@ struct ResetEverythingButton: View {
                         context.delete(feedData)
                     }
                     context.delete(profile)
-                    profile.objectWillChange.send()
                 }
                 try context.save()
             } catch {

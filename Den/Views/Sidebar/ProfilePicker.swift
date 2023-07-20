@@ -23,7 +23,11 @@ struct ProfilePicker: View {
                     .accessibilityIdentifier("ProfileOption")
             }
         } label: {
-            Text("Profile", comment: "Picker label.")
+            Label {
+                Text("Choose Profile", comment: "Picker label.")
+            } icon: {
+                Image(systemName: "diamond.circle")
+            }
         }
     }
 }

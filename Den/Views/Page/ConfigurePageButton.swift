@@ -11,11 +11,11 @@
 import SwiftUI
 
 struct ConfigurePageButton: View {
-    @Binding var showingSettings: Bool
+    @Binding var showingPageConfiguration: Bool
 
     var body: some View {
         Button {
-            showingSettings = true
+            showingPageConfiguration = true
         } label: {
             Label {
                 Text("Configure", comment: "Button label.")

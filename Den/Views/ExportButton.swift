@@ -21,7 +21,7 @@ struct ExportButton: View {
             Label {
                 Text("Export OPML", comment: "Button label.")
             } icon: {
-                Image(systemName: "square.and.arrow.up")
+                Image(systemName: "arrow.up.doc")
             }
         }
     }

@@ -27,7 +27,7 @@ struct Sidebar: View {
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
-    @Binding var showingSettings: Bool
+    @Binding var showingProfileSettings: Bool
     
     @State private var searchInput = ""
     @State private var isEditing = false
@@ -85,10 +85,30 @@ struct Sidebar: View {
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
-                showingSettings: $showingSettings,
+                showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )
         }
+        #if os(macOS)
+        .safeAreaInset(edge: .bottom) {
+            Menu {
+                
+                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
+                    .pickerStyle(.inline)
+                NewProfileButton(currentProfileID: $currentProfileID)
+            } label: {
+                Label {
+                    profile.nameText
+                } icon: {
+                    Image(systemName: "person.crop.circle")
+                }
+            }
+            .menuStyle(.borderlessButton)
+            .labelStyle(.titleAndIcon)
+            .accessibilityIdentifier("ProfileMenu")
+            .padding()
+        }
+        #endif
     }
 }

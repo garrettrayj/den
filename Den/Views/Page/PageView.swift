@@ -18,7 +18,7 @@ struct PageView: View {
     @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.grouped
 
-    @SceneStorage("ShowingPageSettings") private var showingSettings: Bool = false
+    @SceneStorage("ShowingPageConfiguration") private var showingPageConfiguration: Bool = false
 
     var body: some View {
         Group {
@@ -69,7 +69,7 @@ struct PageView: View {
                             profile: profile,
                             hideRead: $hideRead,
                             pageLayout: $pageLayout,
-                            showingSettings: $showingSettings,
+                            showingPageConfiguration: $showingPageConfiguration,
                             items: items
                         )
                     }
@@ -78,7 +78,7 @@ struct PageView: View {
             }
         }
         .sheet(
-            isPresented: $showingSettings,
+            isPresented: $showingPageConfiguration,
             onDismiss: {
                 if viewContext.hasChanges {
                     do {

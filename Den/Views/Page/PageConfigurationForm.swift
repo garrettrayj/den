@@ -41,8 +41,8 @@ struct PageConfigurationForm: View {
                 }
             }
 
-            Button {
-                showingIconPicker = true
+            NavigationLink {
+                IconPicker(symbolID: $page.wrappedSymbol)
             } label: {
                 Label {
                     Text("Choose Icon", comment: "Button label.")
@@ -50,10 +50,6 @@ struct PageConfigurationForm: View {
                 } icon: {
                     Image(systemName: page.wrappedSymbol)
                 }
-            }
-            .buttonStyle(.plain)
-            .navigationDestination(isPresented: $showingIconPicker) {
-                IconPicker(symbolID: $page.wrappedSymbol)
             }
 
             Button(role: .destructive) {

@@ -13,14 +13,12 @@ import SwiftUI
 struct ConfigureFeedButton: View {
     @ObservedObject var feed: Feed
 
-    @Binding var showingSettings: Bool
+    @Binding var showingFeedConfiguration: Bool
 
     var body: some View {
         Button {
             Task {
-                showingSettings = true
-                // Workaround for settings sheet not appearing on macOS
-                feed.objectWillChange.send()
+                showingFeedConfiguration = true
             }
         } label: {
             Label {

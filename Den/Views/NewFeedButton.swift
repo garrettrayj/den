@@ -22,7 +22,7 @@ struct NewFeedButton: View {
             Label {
                 Text("New Feed", comment: "Button label.")
             } icon: {
-                Image(systemName: "plus.circle")
+                Image(systemName: "note.text.badge.plus")
             }
         }
         .accessibilityIdentifier("NewFeed")

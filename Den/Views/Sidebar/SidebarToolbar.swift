@@ -22,7 +22,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
-    @Binding var showingSettings: Bool
+    @Binding var showingProfileSettings: Bool
     
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress
@@ -46,12 +46,8 @@ struct SidebarToolbar: CustomizableToolbarContent {
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         
-        ToolbarItem(id: "AppMenu", placement: .primaryAction) {
+        ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
             Menu {
-                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles).pickerStyle(.inline)
-        
-                Divider()
-                
                 NewFeedButton(profile: profile, page: activePage)
                 NewPageButton(profile: profile)
                 
@@ -60,6 +56,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
                 DiagnosticsButton(detailPanel: $detailPanel)
+                ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")
@@ -67,7 +64,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                     Image(systemName: "ellipsis.circle")
                 }
             }
-            .accessibilityIdentifier("AppMenu")
+            .accessibilityIdentifier("SidebarMenu")
         }
         #else
         if isEditing {
@@ -83,8 +80,9 @@ struct SidebarToolbar: CustomizableToolbarContent {
         } else {
             ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
                 Menu {
-                    ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
-                    
+                    NewFeedButton(profile: profile, page: activePage)
+                    NewPageButton(profile: profile)
+                    Divider()
                     Button {
                         withAnimation {
                             isEditing = true
@@ -97,25 +95,33 @@ struct SidebarToolbar: CustomizableToolbarContent {
                         }
                     }
                     .accessibilityIdentifier("EditPages")
-                    
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
                     DiagnosticsButton(detailPanel: $detailPanel)
-                    SettingsButton(showingSettings: $showingSettings)
+                    ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
                 } label: {
                     Label {
-                        Text("App Menu", comment: "Menu label.")
+                        Text("Preferences", comment: "Menu label.")
                     } icon: {
                         Image(systemName: "ellipsis.circle")
                     }
                 }
-                .accessibilityIdentifier("AppMenu")
+                .accessibilityIdentifier("SidebarMenu")
             }
         }
         
-        ToolbarItem(id: "SidebarBottomNewFeed", placement: .bottomBar) {
-            NewFeedButton(profile: profile, page: activePage)
-                .disabled(refreshing || profile.pagesArray.isEmpty)
+        ToolbarItem(id: "ProfileMenu", placement: .bottomBar) {
+            Menu {
+                NewProfileButton(currentProfileID: $currentProfileID)
+                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
+            } label: {
+                Label {
+                    profile.nameText
+                } icon: {
+                    Image(systemName: "person.crop.circle")
+                }
+            }
+            .accessibilityIdentifier("ProfileMenu")
         }
         
         ToolbarItem(id: "SidebarStatus", placement: .status) {

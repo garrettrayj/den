@@ -26,24 +26,7 @@ struct PagesSection: View {
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)
         } header: {
-            #if os(macOS)
             Text("Pages", comment: "Sidebar section header.")
-            #else
-            if editMode?.wrappedValue == .active {
-                Label {
-                    Text("New Page", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "plus")
-                }
-                .onTapGesture {
-                    withAnimation { addPage() }
-                }
-                .foregroundColor(.accentColor)
-                .accessibilityIdentifier("NewPage")
-            } else {
-                Text("Pages", comment: "Sidebar section header.")
-            }
-            #endif
         }
     }
 

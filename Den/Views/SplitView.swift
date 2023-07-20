@@ -39,7 +39,7 @@ struct SplitView: View {
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
-    @SceneStorage("ShowingSettings") private var showingSettings: Bool = false
+    @SceneStorage("ShowingProfileSettings") private var showingProfileSettings: Bool = false
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
 
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
@@ -54,7 +54,7 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
-                showingSettings: $showingSettings,
+                showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )
@@ -123,7 +123,7 @@ struct SplitView: View {
             .environmentObject(refreshManager)
         }
         .sheet(
-            isPresented: $showingSettings,
+            isPresented: $showingProfileSettings,
             onDismiss: {
                 if viewContext.hasChanges {
                     do {
@@ -134,14 +134,13 @@ struct SplitView: View {
                 }
             }
         ) {
-            SettingsSheet(
+            ProfileSettingsSheet(
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 backgroundRefreshEnabled: $backgroundRefreshEnabled,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 useSystemBrowser: $useSystemBrowser,
-                userColorScheme: $userColorScheme,
-                profiles: profiles
+                userColorScheme: $userColorScheme
             )
         }
         .fileImporter(

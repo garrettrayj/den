@@ -65,8 +65,8 @@ struct LoadProfile: View {
                                             Spacer()
                                             ButtonChevron()
                                         }
-                                        .font(.title3)
-                                        .padding()
+                                        .padding(.horizontal)
+                                        .padding(.vertical, 12)
                                         .contentShape(Rectangle())
                                     }
                                     .buttonStyle(.plain)
