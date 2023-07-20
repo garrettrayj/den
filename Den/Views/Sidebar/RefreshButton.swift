@@ -17,7 +17,7 @@ struct RefreshButton: View {
 
     @ObservedObject var profile: Profile
     
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
     @Binding var refreshing: Bool
     
     let refreshProgress: Progress

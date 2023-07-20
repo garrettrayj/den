@@ -23,7 +23,7 @@ struct Sidebar: View {
 
     @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool

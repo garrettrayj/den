@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct FeedRefreshTimeoutLabel: View {
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
 
     var duration: Duration {
         .init(secondsComponent: Int64(feedRefreshTimeout), attosecondsComponent: 0)

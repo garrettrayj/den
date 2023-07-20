@@ -22,7 +22,7 @@ struct DenApp: App {
     @Environment(\.openURL) private var openURL
 
     @AppStorage("BackgroundRefreshEnabled") private var backgroundRefreshEnabled: Bool = false
-    @AppStorage("FeedRefreshTimeout") private var feedRefreshTimeout: Double = 30.0
+    @AppStorage("FeedRefreshTimeout") private var feedRefreshTimeout: Int = 30
     @AppStorage("LastCleanup") private var lastCleanup: Double?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false

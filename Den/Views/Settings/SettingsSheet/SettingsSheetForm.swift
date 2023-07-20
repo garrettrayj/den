@@ -13,7 +13,7 @@ import SwiftUI
 struct SettingsSheetForm: View {
     @Binding var currentProfileID: String?
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
     

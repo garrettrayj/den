@@ -8,4 +8,7 @@ test-data:
 	rm -rf ./TestData/en.xcappdata/AppData/Library/SplashBoard/
 	rm -rf ./TestData/en.xcappdata/AppData/Library/Saved Application State/
 
-.PHONY: screenshots
+acknowledgements:
+	licenseplist --markdown-path ACKNOWLEDGEMENTS.md
+
+.PHONY: *

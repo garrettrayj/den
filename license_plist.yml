@@ -1,0 +1,16 @@
+options:
+  outputPath: "./Settings.bundle"
+  prefix: LicensePlist
+  htmlPath: ./Den/Misc/Acknowledgements.html
+  markdownPath: ACKNOWLEDGEMENTS.md
+  addVersionNumbers: true
+  suppressOpeningDirectory: true
+  failIfMissingLicense: true
+  singlePage: true
+
+github:
+  - owner: mono0926
+    name: LicensePlist
+
+rename:
+  LicensePlist: License Plist

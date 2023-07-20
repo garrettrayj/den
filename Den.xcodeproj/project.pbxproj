@@ -219,6 +219,9 @@
 		68DA45182A3A3113000A288B /* ProfilesSettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA45172A3A3113000A288B /* ProfilesSettingsTab.swift */; };
 		68DA451C2A3A33CC000A288B /* DeleteProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */; };
 		68E58F2729B6B30A00C18A87 /* SimpleSidebarStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E58F2629B6B30A00C18A87 /* SimpleSidebarStatus.swift */; };
+		68E6C5412A68E61C00CA46B2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5402A68E4D800CA46B2 /* Settings.bundle */; platformFilter = ios; };
+		68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5442A69127C00CA46B2 /* Acknowledgements.html */; };
+		68E6C5472A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5462A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md */; };
 		68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */; };
 		68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */; };
 		68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */; };
@@ -379,7 +382,6 @@
 		6862A5972A2585B7000CAB19 /* Localizations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Localizations; sourceTree = "<group>"; };
 		6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeRefreshedDate.swift; sourceTree = "<group>"; };
 		6862A59D2A26D90F000CAB19 /* PagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagePicker.swift; sourceTree = "<group>"; };
-		6862A59F2A28109C000CAB19 /* localazy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = localazy.json; sourceTree = "<group>"; };
 		6865452F274AC3B600BAE03E /* PageSymbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSymbols.plist; sourceTree = "<group>"; };
 		6865575D29E7B290000EBF37 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		6865576029E7B429000EBF37 /* SearchToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchToolbar.swift; sourceTree = "<group>"; };
@@ -453,7 +455,6 @@
 		6887D40825B35B83004A170D /* History+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "History+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6887D41B25B6D016004A170D /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68895CFA2A62A0B700E25385 /* Scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Scripts; sourceTree = "<group>"; };
-		68895CFB2A62A0B700E25385 /* Screenshots */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Screenshots; sourceTree = "<group>"; };
 		68895CFD2A633FDB00E25385 /* en.xcappdata */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = en.xcappdata; path = TestData/en.xcappdata; sourceTree = "<group>"; };
 		68895CFE2A6340BE00E25385 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		688FD917247750350006A2DE /* PageConfigurationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageConfigurationForm.swift; sourceTree = "<group>"; };
@@ -527,6 +528,10 @@
 		68DA45172A3A3113000A288B /* ProfilesSettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilesSettingsTab.swift; sourceTree = "<group>"; };
 		68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileButton.swift; sourceTree = "<group>"; };
 		68E58F2629B6B30A00C18A87 /* SimpleSidebarStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSidebarStatus.swift; sourceTree = "<group>"; };
+		68E6C5402A68E4D800CA46B2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		68E6C5422A68EF2E00CA46B2 /* license_plist.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = license_plist.yml; sourceTree = "<group>"; };
+		68E6C5442A69127C00CA46B2 /* Acknowledgements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Acknowledgements.html; sourceTree = "<group>"; };
+		68E6C5462A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ACKNOWLEDGEMENTS.md; sourceTree = "<group>"; };
 		68E83BF92A6004590014DC64 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchUITests.swift; sourceTree = "<group>"; };
 		68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContent.swift; sourceTree = "<group>"; };
@@ -703,6 +708,7 @@
 		6845BCFC24EC004B0008B296 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				68E6C5442A69127C00CA46B2 /* Acknowledgements.html */,
 				68CAC50B292954C7002D9EB9 /* Demo.opml */,
 				6865452F274AC3B600BAE03E /* PageSymbols.plist */,
 				6845BCFD24EC00DA0008B296 /* FeedIcon.png */,
@@ -930,8 +936,8 @@
 				68922A642969D78A00C9A276 /* .github */,
 				68C4130B247263C700D1DC7B /* Den */,
 				6862A5972A2585B7000CAB19 /* Localizations */,
-				68895CFB2A62A0B700E25385 /* Screenshots */,
 				68895CFA2A62A0B700E25385 /* Scripts */,
+				68E6C5402A68E4D800CA46B2 /* Settings.bundle */,
 				6813FD092748DE1100EC88A5 /* SymbolLibrary */,
 				68895CFC2A633FBE00E25385 /* TestData */,
 				68D286522A6884AA007AD876 /* TestPlans */,
@@ -939,11 +945,12 @@
 				686069122831501B000068DE /* WebExtension */,
 				68D286272A634183007AD876 /* .gitignore */,
 				689EDBF8269188580055811A /* .swiftlint.yml */,
+				68E6C5462A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md */,
 				68895CFE2A6340BE00E25385 /* LICENSE.txt */,
+				68E6C5422A68EF2E00CA46B2 /* license_plist.yml */,
 				68A807ED2944843800944D2C /* Makefile */,
 				683573A32963A0BA00843A8E /* NOTES.md */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
-				6862A59F2A28109C000CAB19 /* localazy.json */,
 				68C4130A247263C700D1DC7B /* Products */,
 				6845BD4C24F6824C0008B296 /* Frameworks */,
 			);
@@ -1227,6 +1234,7 @@
 				68C41306247263C700D1DC7B /* Frameworks */,
 				68C41307247263C700D1DC7B /* Resources */,
 				6860694F2831533E000068DE /* Embed Foundation Extensions */,
+				68E6C5432A690B1E00CA46B2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1342,9 +1350,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68E6C5412A68E61C00CA46B2 /* Settings.bundle in Resources */,
 				68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */,
 				68BB256D2A48480A0082D890 /* WebViewMac.css in Resources */,
 				68F56B73287B4B26006EC915 /* WebView.css in Resources */,
+				68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */,
+				68E6C5472A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md in Resources */,
 				68D58E6B2498481A007ED1AC /* OPMLIcon.png in Resources */,
 				6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */,
 				68CAC50C292954C7002D9EB9 /* Demo.opml in Resources */,
@@ -1362,6 +1373,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		68E6C5432A690B1E00CA46B2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/UpdateSettingsBundle.sh\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6813FD042748DE1100EC88A5 /* Sources */ = {
@@ -1792,7 +1825,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1859,7 +1892,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct GeneralSettingsTab: View {
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
     @Binding var userColorScheme: UserColorScheme
 
     var body: some View {

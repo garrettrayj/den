@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Key</key>
+			<string>UserColorScheme</string>
+			<key>Title</key>
+			<string>Appearance</string>
+			<key>Titles</key>
+			<array>
+				<string>System</string>
+				<string>Light</string>
+				<string>Dark</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<integer>30</integer>
+			<key>Key</key>
+			<string>FeedRefreshTimeout</string>
+			<key>Title</key>
+			<string>HTTP Timeout</string>
+			<key>Titles</key>
+			<array>
+				<string>15 Seconds</string>
+				<string>30 Seconds</string>
+				<string>60 Seconds</string>
+				<string>90 Seconds</string>
+				<string>3 Minutes</string>
+				<string>5 Minutes</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<integer>15</integer>
+				<integer>30</integer>
+				<integer>60</integer>
+				<integer>90</integer>
+				<integer>180</integer>
+				<integer>300</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Links</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>UseSystemBrowser</string>
+			<key>Title</key>
+			<string>Use System Browser</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Copyright 2023 Garrett Johnson</string>
+			<key>Title</key>
+			<string>About</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>1.17.0 (40)</string>
+			<key>Key</key>
+			<string>VersionPreference</string>
+			<key>Title</key>
+			<string>Version</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>https://den.io</string>
+			<key>Key</key>
+			<string>WebsitePreference</string>
+			<key>Title</key>
+			<string>Website</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>LicensePlist</string>
+			<key>Title</key>
+			<string>Acknowledgements</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>

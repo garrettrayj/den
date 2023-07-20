@@ -24,7 +24,7 @@ struct SplitView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var currentProfileID: String?
     @Binding var userColorScheme: UserColorScheme
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
     
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress = Progress()

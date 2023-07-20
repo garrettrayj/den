@@ -12,7 +12,7 @@ import SwiftUI
 
 struct SettingsTabs: View {
     @Binding var backgroundRefreshEnabled: Bool
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
     @Binding var useSystemBrowser: Bool
     @Binding var userColorScheme: UserColorScheme
 

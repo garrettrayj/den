@@ -20,7 +20,7 @@ struct NewFeedSheet: View {
     
     @Binding var webAddress: String
     @Binding var initialPageID: String?
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
 
     @State private var targetPage: Page?
     @State private var webAddressIsValid: Bool?

@@ -13,7 +13,7 @@ import OSLog
 
 final class RefreshManager: ObservableObject {
 
-    public func refresh(profile: Profile, timeout: Double) {
+    public func refresh(profile: Profile, timeout: Int) {
         var ops: [Operation] = []
 
         let analyzeOperation = AnalyzeOperation(profileObjectID: profile.objectID)
@@ -25,7 +25,7 @@ final class RefreshManager: ObservableObject {
                 feedURL: url,
                 feedObjectID: feed.objectID,
                 updateMeta: feed.needsMetaUpdate,
-                timeout: timeout
+                timeout: Double(timeout)
             )
             analyzeOperation.addDependency(op)
             ops.append(op)
@@ -41,7 +41,7 @@ final class RefreshManager: ObservableObject {
 
     public func refresh(
         profile: Profile,
-        timeout: Double,
+        timeout: Int,
         session: URLSession = URLSession.shared
     ) async {
         DispatchQueue.main.async {
@@ -64,7 +64,7 @@ final class RefreshManager: ObservableObject {
                         profileObjectID: feed.page?.profile?.objectID,
                         url: url,
                         updateMetadata: feed.needsMetaUpdate,
-                        timeout: timeout
+                        timeout: Double(timeout)
                     )
                 )
             }
@@ -93,7 +93,7 @@ final class RefreshManager: ObservableObject {
         await HistoryCleanupTask(profileObjectID: profile.objectID).execute()
     }
 
-    func refresh(feed: Feed, timeout: Double) async {
+    func refresh(feed: Feed, timeout: Int) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
@@ -101,7 +101,7 @@ final class RefreshManager: ObservableObject {
                 profileObjectID: feed.page?.profile?.objectID,
                 url: url,
                 updateMetadata: true,
-                timeout: timeout
+                timeout: Double(timeout)
             )
             _ = await feedUpdateTask.execute()
         }

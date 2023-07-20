@@ -17,7 +17,7 @@ struct RootView: View {
 
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var userColorScheme: UserColorScheme
-    @Binding var feedRefreshTimeout: Double
+    @Binding var feedRefreshTimeout: Int
     
     @State private var showingCrashMessage = false
     
