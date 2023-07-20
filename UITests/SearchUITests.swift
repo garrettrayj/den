@@ -10,19 +10,9 @@
 
 import XCTest
 
-final class SearchUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-    
+final class SearchUITests: UITestCase {
     func testSearch() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
         
         #if os(iOS)
         app.swipeDown()
@@ -46,18 +36,28 @@ final class SearchUITests: XCTestCase {
             }
         }
         #endif
+
+        if !app
+            .staticTexts
+            .containing(NSPredicate(format: "label CONTAINS[c] %@", "results for “NASA”"))
+            .firstMatch
+            .waitForExistence(timeout: 2)
+        {
+            XCTFail()
+        }
         
+        // For unknown reasons, app.windows.firstMatch does not work on iOS in the specific
+        // situation of taking a screenshot of search results.
+        #if os(iOS)
+        attachScreenshot(of: app, named: "Search")
+        #else
         attachScreenshot(of: app.windows.firstMatch, named: "Search")
+        #endif
     }
-
+    
     func testSearchNoResults() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
 
-        // Insert steps here to perform after app launch but before taking a screenshot,
-        // such as logging into a test account or navigating somewhere in the app
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
@@ -80,12 +80,22 @@ final class SearchUITests: XCTestCase {
                 app.tap()
             }
         } else {
-            if XCUIDevice.shared.orientation.isPortrait {
+            if XCUIDevice.shared.orientation.isLandscape {
+                app.buttons["ToggleSidebar"].tap()
+            } else {
                 app.tap()
             }
         }
         #endif
+        
+        if !app.staticTexts["No results found for “Example”"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
 
+        #if os(iOS)
+        attachScreenshot(of: app, named: "SearchNoResults")
+        #else
         attachScreenshot(of: app.windows.firstMatch, named: "SearchNoResults")
+        #endif
     }
 }

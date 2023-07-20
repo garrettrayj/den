@@ -10,20 +10,9 @@
 
 import XCTest
 
-final class PageUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-
+final class PageUITests: UITestCase {
     func testPageEmpty() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
         
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
@@ -48,14 +37,16 @@ final class PageUITests: XCTestCase {
             }
         }
         #endif
+        
+        if !app.staticTexts["Untitled"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageEmpty")
     }
     
     func testPageGroupedLayout() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
         
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -78,14 +69,14 @@ final class PageUITests: XCTestCase {
             }
         }
         #endif
+        
+        sleep(3)
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageGroupedLayout")
     }
     
     func testPageTimelineLayout() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
                 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -119,14 +110,14 @@ final class PageUITests: XCTestCase {
         }
         app.buttons["TimelineLayout"].tap()
         #endif
+        
+        sleep(3)
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageTimelineLayout")
     }
     
     func testPageShowcaseLayout() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
         
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -160,14 +151,14 @@ final class PageUITests: XCTestCase {
         }
         app.buttons["ShowcaseLayout"].tap()
         #endif
+        
+        sleep(3)
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageShowcaseLayout")
     }
     
     func testPageDeckLayout() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
         
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -201,14 +192,14 @@ final class PageUITests: XCTestCase {
         }
         app.buttons["DeckLayout"].tap()
         #endif
+        
+        sleep(3)
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageDeckLayout")
     }
     
-    func testPageSettings() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+    func testPageConfiguration() throws {
+        let app = launchApp(inMemory: false)
         
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -239,6 +230,10 @@ final class PageUITests: XCTestCase {
         #endif
         
         app.buttons["ConfigurePage"].firstMatch.tap()
+        
+        if !app.staticTexts["Page Configuration"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageConfiguration")
     }

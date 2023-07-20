@@ -73,11 +73,6 @@ struct Sidebar: View {
         .onSubmit(of: .search) {
             detailPanel = .search(searchInput)
         }
-        .task {
-            if case .search(let query) = detailPanel {
-                searchInput = query
-            }
-        }
         .disabled(refreshing)
         .navigationTitle(profile.nameText)
         .toolbar(id: "Sidebar") {

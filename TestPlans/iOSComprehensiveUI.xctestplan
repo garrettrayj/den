@@ -1,0 +1,174 @@
+{
+  "configurations" : [
+    {
+      "id" : "30B6874F-8BFB-4ED1-9579-A1B60CD24FE5",
+      "name" : "en_US-Dark-Landscape",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-dark-appearance"
+          },
+          {
+            "argument" : "-landscape-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "7694141F-1E2B-4010-808C-FF9D09DB469F",
+      "name" : "en_US-Dark-Portrait",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-dark-appearance"
+          },
+          {
+            "argument" : "-portrait-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "2C2CA6B7-B5A6-4DC0-A76F-D5721FEA6A4D",
+      "name" : "en_US-Light-Landscape",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-light-appearance"
+          },
+          {
+            "argument" : "-landscape-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "4E0F9219-C0E2-49CE-A09A-DBCAAE28F1C5",
+      "name" : "en_US-Light-Portrait",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-light-appearance"
+          },
+          {
+            "argument" : "-portrait-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "CD6B410C-D38B-430C-8D95-64F25BDF8F6A",
+      "name" : "en_GB-Dark-Landscape",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-dark-appearance"
+          },
+          {
+            "argument" : "-landscape-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "GB"
+      }
+    },
+    {
+      "id" : "B354FBF6-5BF8-4C2D-9941-B7CB7E8C8056",
+      "name" : "en_GB-Dark-Portrait",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-dark-appearance"
+          },
+          {
+            "argument" : "-portrait-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "GB"
+      }
+    },
+    {
+      "id" : "7DFF13B7-457D-4D57-A6DC-22FA5BDAA752",
+      "name" : "en_GB-Light-Landscape",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-light-appearance"
+          },
+          {
+            "argument" : "-landscape-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "GB"
+      }
+    },
+    {
+      "id" : "BA43A04A-4466-454F-A6B2-A683BD5A067B",
+      "name" : "en_GB-Light-Portrait",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-light-appearance"
+          },
+          {
+            "argument" : "-portrait-orientation"
+          }
+        ],
+        "language" : "en",
+        "region" : "GB"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-disable-cloud"
+      }
+    ]
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Den.xcodeproj",
+        "identifier" : "68E83BF82A6004590014DC64",
+        "name" : "UITests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -10,17 +10,10 @@
 
 import XCTest
 
-final class AppSettingsUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
+final class AppSettingsUITests: UITestCase {
     #if os(macOS)
     func testAppSettingsGeneralTab() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
 
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
@@ -36,10 +29,7 @@ final class AppSettingsUITests: XCTestCase {
     }
     
     func testAppSettingsProfilesTab() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
 
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
@@ -58,10 +48,7 @@ final class AppSettingsUITests: XCTestCase {
     }
     #else
     func testAppSettingsSheet() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
 
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create profile button did not appear in time")

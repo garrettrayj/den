@@ -10,19 +10,9 @@
 
 import XCTest
 
-final class InboxUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-    
+final class InboxUITests: UITestCase {
     func testInbox() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
         
         app.buttons["InboxNavLink"].tap()
         
@@ -41,15 +31,16 @@ final class InboxUITests: XCTestCase {
             }
         }
         #endif
+        
+        if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
 
         attachScreenshot(of: app.windows.firstMatch, named: "Inbox")
     }
 
     func testInboxEmpty() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
 
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
@@ -75,6 +66,10 @@ final class InboxUITests: XCTestCase {
             }
         }
         #endif
+        
+        if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
 
         attachScreenshot(of: app.windows.firstMatch, named: "InboxEmpty")
     }

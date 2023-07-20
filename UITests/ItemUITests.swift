@@ -10,19 +10,9 @@
 
 import XCTest
 
-final class ItemUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-    
+final class ItemUITests: UITestCase {
     func testItemView() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()

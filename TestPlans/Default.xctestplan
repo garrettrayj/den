@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "9FA4D831-3DDF-4F31-8AFE-2155EFF59E01",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-disable-cloud"
+      },
+      {
+        "argument" : "-automatic-orientation"
+      }
+    ],
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "deviceAppDataReference" : {
+        "resolvedPath" : "..\/..\/TestData\/en.xcappdata"
+      },
+      "target" : {
+        "containerPath" : "container:Den.xcodeproj",
+        "identifier" : "68E83BF82A6004590014DC64",
+        "name" : "UITests"
+      }
+    }
+  ],
+  "version" : 1
+}

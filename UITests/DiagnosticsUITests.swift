@@ -10,24 +10,17 @@
 
 import XCTest
 
-final class DiagnosticsUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-
+final class DiagnosticsUITests: UITestCase {
     func testDiagnostics() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
         
         #if os(macOS)
         app.popUpButtons["AppMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
+        if !app.buttons["AppMenu"].waitForExistence(timeout: 4) {
+            XCTFail()
+        }
         app.buttons["AppMenu"].forceTap()
         app.buttons["Diagnostics"].tap()
         #endif
@@ -56,10 +49,7 @@ final class DiagnosticsUITests: XCTestCase {
     }
     
     func testDiagnosticsEmpty() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
 
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
@@ -70,6 +60,9 @@ final class DiagnosticsUITests: XCTestCase {
         app.popUpButtons["AppMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
+        if !app.buttons["AppMenu"].waitForExistence(timeout: 4) {
+            XCTFail()
+        }
         app.buttons["AppMenu"].forceTap()
         app.buttons["Diagnostics"].tap()
         #endif
@@ -94,6 +87,6 @@ final class DiagnosticsUITests: XCTestCase {
             XCTFail("Diagnostics header did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "Diagnostics")
+        attachScreenshot(of: app.windows.firstMatch, named: "DiagnosticsEmpty")
     }
 }

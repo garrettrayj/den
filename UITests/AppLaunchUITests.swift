@@ -10,20 +10,9 @@
 
 import XCTest
 
-final class AppLaunchUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-
+final class AppLaunchUITests: UITestCase {
     func testAppLaunchNoProfiles() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
 
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
@@ -33,9 +22,7 @@ final class AppLaunchUITests: XCTestCase {
     }
     
     func testAppLaunchOneProfile() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
 
         if !app.buttons["Inbox"].waitForExistence(timeout: 2) {
             XCTFail("Inbox button did not appear in time")

@@ -29,73 +29,66 @@ simulators=(
 # Save final screenshots into this folder (it will be created)
 targetFolder="$PWD/Screenshots"
 
-indexFile="$targetFolder/INDEX.md"
-
 function capture_mac {
     # Capture macOS screenshots
-    for language in "${languages[@]}"
-    do
-        for appearance in "${appearances[@]}"
-        do
-            rm -rf /tmp/DenDerivedData/Logs/Test
+    rm -rf /tmp/DenDerivedData/Logs/Test
 
-            xcodebuild \
-                -testLanguage $language \
-                -scheme $schemeName \
-                -project $projectName \
-                -derivedDataPath '/tmp/DenDerivedData/' \
-                build test
-
-            echo "🖼  Collecting macOS results..."
-            destination="$targetFolder/macOS/$language/$appearance"
-            mkdir -p "$destination"
-            find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$destination" \;
-            
-            # Remove UUID from screenshot filenames
-            for file ($destination/*.png(ND.)) {
-                new_name=${file/_1_*\.png/\.png}
-                mv -f "$file" "$new_name"
-            }
-        done
-    done
+    xcodebuild \
+        -project $projectName \
+        -scheme $schemeName \
+        -testPlan macOSComprehensiveUI \
+        -derivedDataPath '/tmp/DenDerivedData/' \
+        test
+        
+    echo "🖼  Collecting macOS results..."
+    destination="$targetFolder/macOS"
+    rm -rf "$destination"
+    mkdir -p "$destination"
+    find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$destination" \;
+    
+    # Remove UUID from screenshot filenames
+    for file ($destination/*.png(ND.)) {
+        new_name=${file/_1_*\.png/\.png}
+        mv -f "$file" "$new_name"
+    }
+    
     echo "✅  Mac Screenshots Done"
 }
 
 function capture_ios {
-    echo "# iOS\n\n" >> $indexFile
-
     # Capture iOS screenshots
     for simulator in "${simulators[@]}"
     do
-        echo "## $simulator\n\n" >> $indexFile
-    
         simulator_name="$simulator Screenshots"
         
         xcrun simctl create "$simulator_name" "$simulator"
         xcrun simctl boot "$simulator_name"
         
         xcodebuild \
-            -scheme $schemeName \
             -project $projectName \
+            -scheme $schemeName \
             -derivedDataPath '/tmp/DenDerivedData/' \
             -destination "platform=iOS Simulator,name=$simulator_name" \
-            build
+            build-for-testing
             
         xcrun simctl install "$simulator_name" /tmp/DenDerivedData/Build/Products/Debug-iphonesimulator/Den.app
+        
         __IS_NOT_MACOS="YES" PROJECT_DIR="$(pwd)/" ./Scripts/LoadTestData.sh
 
         rm -rf /tmp/DenDerivedData/Logs/Test
+        echo "📲  Building and running for $appearance $simulator in $language"
 
         # Build and Test
         xcodebuild \
-            -scheme $schemeName \
             -project $projectName \
+            -scheme $schemeName \
+            -testPlan Default \
             -derivedDataPath '/tmp/DenDerivedData/' \
             -destination "platform=iOS Simulator,name=$simulator_name" \
-            build test
+            test-without-building
             
         echo "🖼  Collecting Results..."
-        destination="$targetFolder/$simulator"
+        destination="$targetFolder/$simulator/$appearance"
         rm -rf "$destination"
         mkdir -p "$destination"
         find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$destination" \;
@@ -106,16 +99,17 @@ function capture_ios {
             mv -f "$file" "$new_name"
         }
         
-        # Remove UUID from screenshot filenames
+        # Expand filenames to directory paths
         for file ($destination/*.png(ND.)) {
-            new_name=${file/_1_*\.png/\.png}
-            mv -f "$file" "$new_name"
+            new_name="${file//-//}"
+            mkdir -p "$(dirname "$new_name")"
+            mv "${file}" "${new_name}"
         }
         
         xcrun simctl shutdown "$simulator_name"
         xcrun simctl delete "$simulator_name"
 
-        echo "✅  iOS Screenshots Done"
+        echo "✅  $simulator Screenshots Done"
     done
 }
 

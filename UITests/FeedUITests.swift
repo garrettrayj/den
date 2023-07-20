@@ -10,19 +10,9 @@
 
 import XCTest
 
-final class FeedUITests: XCTestCase {
-    override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
-    }
-    
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-    
+final class FeedUITests: UITestCase {
     func testFeedViewCompressed() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: false)
         
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -51,10 +41,8 @@ final class FeedUITests: XCTestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "FeedViewCompressed")
     }
     
-    func testFeedSettings() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+    func testFeedConfiguration() throws {
+        let app = launchApp(inMemory: false)
         
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -88,14 +76,15 @@ final class FeedUITests: XCTestCase {
         
         app.buttons["ConfigureFeed"].firstMatch.tap()
         
+        if !app.staticTexts["Feed Configuration"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
+        
         attachScreenshot(of: app.windows.firstMatch, named: "FeedConfiguration")
     }
     
     func testFeedViewNoData() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("-in-memory")
-        app.launchArguments.append("-disable-cloud")
-        app.launch()
+        let app = launchApp(inMemory: true)
         
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")

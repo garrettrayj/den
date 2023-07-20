@@ -1,0 +1,87 @@
+{
+  "configurations" : [
+    {
+      "id" : "3F43133D-0186-4100-862B-724AA885DD72",
+      "name" : "en_US-Dark",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-dark-appearance"
+          }
+        ],
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "F15C1CBE-4231-497D-AE8D-26B115DD981B",
+      "name" : "en_US-Light",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-light-appearance"
+          }
+        ],
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "6AD2E6EC-F6C9-435D-8BC8-F458E478619C",
+      "name" : "en_GB-Dark",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-dark-appearance"
+          }
+        ],
+        "language" : "en",
+        "region" : "GB"
+      }
+    },
+    {
+      "id" : "BF7D64C5-DA23-4946-8297-C002FCB41BB8",
+      "name" : "en_GB-Light",
+      "options" : {
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "-disable-cloud"
+          },
+          {
+            "argument" : "-light-appearance"
+          }
+        ],
+        "language" : "en",
+        "region" : "GB"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-disable-cloud"
+      }
+    ],
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Den.xcodeproj",
+        "identifier" : "68E83BF82A6004590014DC64",
+        "name" : "UITests"
+      }
+    }
+  ],
+  "version" : 1
+}
