@@ -43,7 +43,7 @@ public class FeedData: NSManagedObject {
 
         return items
     }
-    
+
     public var responseTimeString: String {
         responseTime > 0 ? String(responseTime) : "NA"
     }

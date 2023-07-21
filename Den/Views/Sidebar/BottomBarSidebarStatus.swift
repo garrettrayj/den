@@ -14,9 +14,9 @@ struct BottomBarSidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
-    
+
     let progress: Progress
-    
+
     @Binding var refreshing: Bool
 
     var body: some View {

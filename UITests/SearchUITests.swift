@@ -13,16 +13,16 @@ import XCTest
 final class SearchUITests: UITestCase {
     func testSearch() throws {
         let app = launchApp(inMemory: false)
-        
+
         #if os(iOS)
         app.swipeDown()
         #endif
-        
+
         let searchField = app.searchFields["Search"].firstMatch
         searchField.tap()
         searchField.typeText("NASA")
         searchField.typeText("\n")
-        
+
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
@@ -45,7 +45,7 @@ final class SearchUITests: UITestCase {
         {
             XCTFail()
         }
-        
+
         // For unknown reasons, app.windows.firstMatch does not work on iOS in the specific
         // situation of taking a screenshot of search results.
         #if os(iOS)
@@ -54,7 +54,7 @@ final class SearchUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "Search")
         #endif
     }
-    
+
     func testSearchNoResults() throws {
         let app = launchApp(inMemory: true)
 
@@ -62,16 +62,16 @@ final class SearchUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["CreateProfile"].tap()
-        
+
         #if os(iOS)
         app.swipeDown()
         #endif
-        
+
         let searchField = app.searchFields["Search"].firstMatch
         searchField.tap()
         searchField.typeText("Example")
         searchField.typeText("\n")
-        
+
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
@@ -87,7 +87,7 @@ final class SearchUITests: UITestCase {
             }
         }
         #endif
-        
+
         if !app.staticTexts["No results found for “Example”"].waitForExistence(timeout: 2) {
             XCTFail()
         }

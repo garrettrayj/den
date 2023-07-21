@@ -12,9 +12,9 @@ import SwiftUI
 
 struct ProfileLabel: View {
     @ObservedObject var profile: Profile
-    
+
     @Binding var currentProfileID: String?
-    
+
     var body: some View {
         Label {
             profile.nameText

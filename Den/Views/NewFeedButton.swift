@@ -12,7 +12,7 @@ import SwiftUI
 
 struct NewFeedButton: View {
     @ObservedObject var profile: Profile
-    
+
     var page: Page?
 
     var body: some View {

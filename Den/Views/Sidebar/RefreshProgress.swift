@@ -12,9 +12,9 @@ import SwiftUI
 
 struct RefreshProgress: View {
     @Environment(\.displayScale) private var displayScale
-    
+
     @ObservedObject var profile: Profile
-    
+
     let progress: Progress
 
     var body: some View {

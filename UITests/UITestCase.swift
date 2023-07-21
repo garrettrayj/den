@@ -19,14 +19,14 @@ class UITestCase: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
-    
+
     func launchApp(inMemory: Bool) -> XCUIApplication {
         if ProcessInfo.processInfo.arguments.contains("-dark-appearance") {
             XCUIDevice.shared.appearance = .dark
         } else if ProcessInfo.processInfo.arguments.contains("-light-appearance") {
             XCUIDevice.shared.appearance = .light
         }
-        
+
         if ProcessInfo.processInfo.arguments.contains("-landscape-orientation") {
             XCUIDevice.shared.orientation = .landscapeRight
         } else if ProcessInfo.processInfo.arguments.contains("-portrait-orientation") {
@@ -41,21 +41,21 @@ class UITestCase: XCTestCase {
             }
             #endif
         }
-        
+
         let app = XCUIApplication()
         if inMemory {
             app.launchArguments.append("-in-memory")
         }
         app.launch()
-        
+
         return app
     }
-    
+
     func attachScreenshot(of element: XCUIElement, named name: String) {
         let orientation = XCUIDevice.shared.orientation.name
         let appearance = XCUIDevice.shared.appearance.name
         let locale = Locale.current.identifier
-        
+
         let attachment = XCTAttachment(screenshot: element.screenshot())
         attachment.name = "\(locale)-\(appearance)-\(orientation)-\(name)"
         attachment.lifetime = .keepAlways

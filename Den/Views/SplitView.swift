@@ -25,19 +25,19 @@ struct SplitView: View {
     @Binding var currentProfileID: String?
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Int
-    
+
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress = Progress()
-    
+
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     @State private var exporterIsPresented: Bool = false
     @State private var opmlFile: OPMLFile?
     @State private var refreshing: Bool = false
     @State private var showingImporter: Bool = false
     @State private var showingExporter: Bool = false
-    
+
     @StateObject private var navigationStore = NavigationStore()
-    
+
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?

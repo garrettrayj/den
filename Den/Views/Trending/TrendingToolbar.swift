@@ -14,7 +14,7 @@ struct TrendingToolbar: CustomizableToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
-    
+
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool

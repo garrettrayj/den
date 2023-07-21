@@ -14,15 +14,15 @@ struct DiagnosticsTable: View {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
-    
+
     @ObservedObject var profile: Profile
-    
+
     @State var sortOrder = [KeyPathComparator(\DiagnosticsRowData.responseTime, order: .reverse)]
-    
+
     var data: [DiagnosticsRowData] {
         profile.feedsArray.map { $0.diagnosticsRowData }.sorted(using: sortOrder)
     }
-    
+
     var body: some View {
         Table(data, sortOrder: $sortOrder) {
             Group {
@@ -33,28 +33,28 @@ struct DiagnosticsTable: View {
                     #if os(macOS)
                     FeedTitleLabel(feed: row.entity)
                     #else
-                    if (horizontalSizeClass == .compact) {
+                    if horizontalSizeClass == .compact {
                         CompactDiagnosticsRow(data: row)
                     } else {
                         FeedTitleLabel(feed: row.entity)
                     }
                     #endif
                 }.width(min: 160)
-                
+
                 TableColumn(
                     "Page",
                     value: \DiagnosticsRowData.page
                 ) { row in
                     row.entity.page?.nameText ?? Text("Not Available", comment: "Page name not available.")
                 }
-                
+
                 TableColumn(
                     "Address",
                     value: \.address
                 ) { row in
                     Text("\(row.address)")
                 }
-                
+
                 TableColumn(
                     "Secure",
                     value: \.isSecure
@@ -65,19 +65,19 @@ struct DiagnosticsTable: View {
                         Text("No", comment: "Boolean value.")
                     }
                 }.width(max: 60)
-                
+
                 TableColumn(
                     "Format",
                     value: \.format
                 ).width(max: 60)
-                
+
                 TableColumn(
                     "Response Time",
                     value: \.responseTime
                 ) { row in
                     Text("\(row.responseTime) ms", comment: "Time display (milliseconds).")
                 }
-                
+
                 TableColumn(
                     "Status",
                     value: \DiagnosticsRowData.httpStatus
@@ -87,7 +87,7 @@ struct DiagnosticsTable: View {
                     }
                 }.width(max: 60)
             }
-            
+
             Group {
                 TableColumn(
                     "Age",
@@ -97,17 +97,17 @@ struct DiagnosticsTable: View {
                         Text("\(row.age) s", comment: "Time display (seconds).")
                     }
                 }
-                
+
                 TableColumn(
                     "Cache Control",
                     value: \.cacheControl
                 )
-                
+
                 TableColumn(
                     "ETag",
                     value: \.eTag
                 )
-                
+
                 TableColumn(
                     "Server",
                     value: \.server

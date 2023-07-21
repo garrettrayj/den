@@ -15,7 +15,7 @@ struct Start: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
-    
+
     @Binding var showingImporter: Bool
 
     var body: some View {
@@ -25,7 +25,7 @@ struct Start: View {
 
             ImportButton(showingImporter: $showingImporter)
                 .buttonStyle(.borderless)
-            
+
             Button {
                 Task { loadDemo() }
             } label: {

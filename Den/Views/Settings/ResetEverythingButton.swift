@@ -13,7 +13,7 @@ import SDWebImage
 
 struct ResetEverythingButton: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     @State private var showingResetAlert = false
 
     var body: some View {
@@ -70,14 +70,14 @@ struct ResetEverythingButton: View {
             guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else {
                 return
             }
-            
+
             for profile in profiles {
                 for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
                     context.delete(feedData)
                 }
                 context.delete(profile)
             }
-            
+
             do {
                 try context.save()
             } catch {

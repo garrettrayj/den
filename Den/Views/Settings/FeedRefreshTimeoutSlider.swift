@@ -12,7 +12,7 @@ import SwiftUI
 
 struct FeedRefreshTimeoutSlider: View {
     @Binding var feedRefreshTimeout: Int
-    
+
     @State private var duration: Double = 0
 
     var body: some View {

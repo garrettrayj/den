@@ -13,7 +13,7 @@ import XCTest
 final class FeedUITests: UITestCase {
     func testFeedViewCompressed() throws {
         let app = launchApp(inMemory: false)
-        
+
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
@@ -35,15 +35,15 @@ final class FeedUITests: UITestCase {
             }
         }
         #endif
-        
+
         app.buttons["FeedNavLink"].firstMatch.tap()
-        
+
         attachScreenshot(of: app.windows.firstMatch, named: "FeedViewCompressed")
     }
-    
+
     func testFeedConfiguration() throws {
         let app = launchApp(inMemory: false)
-        
+
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
@@ -65,34 +65,34 @@ final class FeedUITests: UITestCase {
             }
         }
         #endif
-        
+
         app.buttons["FeedNavLink"].firstMatch.tap()
-        
+
         #if os(iOS)
         if app.windows.firstMatch.horizontalSizeClass == .compact {
             app.buttons["FeedMenu"].tap()
         }
         #endif
-        
+
         app.buttons["ConfigureFeed"].firstMatch.tap()
-        
+
         if !app.staticTexts["Feed Configuration"].waitForExistence(timeout: 2) {
             XCTFail()
         }
-        
+
         attachScreenshot(of: app.windows.firstMatch, named: "FeedConfiguration")
     }
-    
+
     func testFeedViewNoData() throws {
         let app = launchApp(inMemory: true)
-        
+
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["CreateProfile"].tap()
-        
+
         app.buttons["LoadDemo"].tap()
-        
+
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
         app.buttons["Toggle Sidebar"].firstMatch.tap()
@@ -114,7 +114,7 @@ final class FeedUITests: UITestCase {
             }
         }
         #endif
-        
+
         app.buttons["FeedNavLink"].firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "FeedViewNoData")

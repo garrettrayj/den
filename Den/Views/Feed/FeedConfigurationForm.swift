@@ -105,7 +105,7 @@ struct FeedConfigurationForm: View {
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             })
             #endif
-            
+
             Toggle(isOn: $feed.browserView) {
                 Text("Open in Browser", comment: "Toggle label.")
             }

@@ -29,7 +29,7 @@ struct ImportExportUtility {
             CrashUtility.handleCriticalError(error)
         }
     }
-    
+
     static func exportOPML(profile: Profile) -> OPMLFile? {
         let generator = OPMLGenerator(title: profile.exportTitle, pages: profile.pagesArray)
         return OPMLFile(initialData: generator.getData() ?? Data())

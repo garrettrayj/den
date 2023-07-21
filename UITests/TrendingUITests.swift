@@ -18,11 +18,11 @@ final class TrendingUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["CreateProfile"].tap()
-        
+
         app.buttons["NewPage"].tap()
-        
+
         app.buttons["TrendingNavLink"].tap()
-        
+
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else

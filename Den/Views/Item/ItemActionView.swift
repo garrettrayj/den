@@ -46,7 +46,7 @@ struct ItemActionView<Content: View>: View {
         }
         .contextMenu {
             if let link = item.link {
-                
+
                 Button {
                     Task {
                         await HistoryUtility.toggleReadUnread(items: [item])
@@ -66,7 +66,7 @@ struct ItemActionView<Content: View>: View {
                         }
                     }
                 }
-                
+
                 NavigationLink(value: SubDetailPanel.item(item)) {
                     Label {
                         Text("Go to Item", comment: "Context Button label.")

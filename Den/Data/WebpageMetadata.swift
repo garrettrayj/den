@@ -20,13 +20,13 @@ class WebpageMetadata {
         var description: String?
         var copyright: String?
     }
-    
+
     var webpage: URL
     var webpageDocument: Document?
 
     init(webpage: URL, data: Data?) {
         self.webpage = webpage
-        
+
         if
             let data = data,
             let htmlString = String(data: data, encoding: .utf8),
@@ -35,7 +35,7 @@ class WebpageMetadata {
             webpageDocument = document
         }
     }
-    
+
     var results: Results {
         var metadata = Results()
 

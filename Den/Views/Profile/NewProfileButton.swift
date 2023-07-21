@@ -12,7 +12,7 @@ import SwiftUI
 
 struct NewProfileButton: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @Binding var currentProfileID: String?
 
     var body: some View {

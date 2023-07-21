@@ -35,9 +35,9 @@ final class ItemUITests: UITestCase {
             }
         }
         #endif
-        
+
         app.buttons["ItemAction"].firstMatch.tap()
-        
+
         sleep(3)
 
         attachScreenshot(of: app.windows.firstMatch, named: "ItemView")

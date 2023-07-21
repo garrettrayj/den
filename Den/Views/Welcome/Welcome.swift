@@ -18,7 +18,7 @@ struct Welcome: View {
     var body: some View {
         VStack(spacing: 8) {
             profile.nameText.font(.largeTitle)
-            
+
             if profile.feedsArray.count == 1 {
                 Text("1 Feed", comment: "Welcome feed count (singular).")
             } else {

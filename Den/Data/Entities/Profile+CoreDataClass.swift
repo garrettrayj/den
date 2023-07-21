@@ -22,10 +22,10 @@ public class Profile: NSManagedObject {
         if wrappedName == "" {
             return Text("Den", comment: "Profile name placeholder.")
         }
-        
+
         return Text(wrappedName)
     }
-    
+
     public var exportTitle: String {
         "\(wrappedName) \(Date().formatted(date: .abbreviated, time: .shortened))"
     }
@@ -132,7 +132,7 @@ public class Profile: NSManagedObject {
 extension Collection where Element == Profile {
     func firstMatchingID(_ uuidString: String?) -> Profile? {
         guard let uuidString = uuidString else { return nil }
-        
+
         return self.first { profile in
             profile.id?.uuidString == uuidString
         }

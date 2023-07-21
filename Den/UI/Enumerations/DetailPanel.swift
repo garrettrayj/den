@@ -24,9 +24,9 @@ enum DetailPanel: Hashable {
             return "diagnostics"
         case .inbox:
             return "inbox"
-        case .page(_):
+        case .page:
             return "page"
-        case .search(_):
+        case .search:
             return "search"
         case .trending:
             return "trending"

@@ -13,9 +13,9 @@ import XCTest
 final class InboxUITests: UITestCase {
     func testInbox() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["InboxNavLink"].tap()
-        
+
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
@@ -31,7 +31,7 @@ final class InboxUITests: UITestCase {
             }
         }
         #endif
-        
+
         if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
             XCTFail()
         }
@@ -46,11 +46,11 @@ final class InboxUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["CreateProfile"].tap()
-        
+
         app.buttons["NewPage"].tap()
-        
+
         app.buttons["InboxNavLink"].tap()
-        
+
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
@@ -66,7 +66,7 @@ final class InboxUITests: UITestCase {
             }
         }
         #endif
-        
+
         if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
             XCTFail()
         }

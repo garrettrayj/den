@@ -17,7 +17,7 @@ struct NewFeedSheet: View {
     @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
-    
+
     @Binding var webAddress: String
     @Binding var initialPageID: String?
     @Binding var feedRefreshTimeout: Int
@@ -70,7 +70,7 @@ struct NewFeedSheet: View {
                 .accessibilityIdentifier("Cancel")
             } else {
                 Text("No Pages Available", comment: "New Feed error message.").font(.title2)
-                
+
                 Button(role: .cancel) {
                     dismiss()
                 } label: {

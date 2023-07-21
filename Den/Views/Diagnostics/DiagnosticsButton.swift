@@ -12,7 +12,7 @@ import SwiftUI
 
 struct DiagnosticsButton: View {
     @Binding var detailPanel: DetailPanel?
-    
+
     var body: some View {
         Button {
             detailPanel = .diagnostics

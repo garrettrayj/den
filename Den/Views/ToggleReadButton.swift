@@ -25,7 +25,7 @@ struct ToggleReadButton: View {
                 toggling = false
             }
         } label: {
-            
+
             Label {
                 Text("Mark All", comment: "Button label.")
             } icon: {
@@ -37,6 +37,6 @@ struct ToggleReadButton: View {
             }
         }
         .accessibilityIdentifier("ToggleRead")
-        
+
     }
 }

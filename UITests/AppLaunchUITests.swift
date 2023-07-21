@@ -17,17 +17,17 @@ final class AppLaunchUITests: UITestCase {
         if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
-        
+
         attachScreenshot(of: app.windows.firstMatch, named: "AppLaunchNoProfiles")
     }
-    
+
     func testAppLaunchOneProfile() throws {
         let app = launchApp(inMemory: false)
 
         if !app.buttons["Inbox"].waitForExistence(timeout: 2) {
             XCTFail("Inbox button did not appear in time")
         }
-        
+
         attachScreenshot(of: app.windows.firstMatch, named: "AppLaunchOneProfile")
     }
 }

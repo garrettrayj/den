@@ -15,11 +15,11 @@ struct LoadProfile: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var currentProfileID: String?
-    
+
     let profiles: FetchedResults<Profile>
 
     @State private var profileLoadAttempts = 0
-    
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -32,7 +32,7 @@ struct LoadProfile: View {
                         } else {
                             Text("Choose Profile").font(.title2)
                         }
-                        
+
                         if profiles.isEmpty {
                             VStack(spacing: 16) {
                                 ProgressView()
@@ -42,7 +42,7 @@ struct LoadProfile: View {
                                 """, comment: "Launch guidance message.")
                                 .multilineTextAlignment(.center)
                                 .font(.footnote)
-                                
+
                                 Text(
                                     "If you're new or have disabled cloud sync then create a profile to begin.",
                                     comment: "Launch guidance message."
@@ -82,7 +82,7 @@ struct LoadProfile: View {
                             .background(.background)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
-                        
+
                         Button {
                             _ = createDefaultProfile()
                         } label: {
@@ -90,7 +90,7 @@ struct LoadProfile: View {
                         }
                         .buttonStyle(.borderedProminent)
                         .accessibilityIdentifier("CreateProfile")
-                        
+
                         Spacer()
                     }
                     .padding()

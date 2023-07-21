@@ -16,17 +16,17 @@ struct PersistenceController {
         inMemory: CommandLine.arguments.contains("-in-memory"),
         disableCloud: CommandLine.arguments.contains("-disable-cloud")
     )
-    
+
     let cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(
         containerIdentifier: "iCloud.net.devsci.den"
     )
 
     let cloudStoreDescription: NSPersistentStoreDescription
     let cloudStoreURL: URL
-    
+
     let localStoreDescription: NSPersistentStoreDescription
     let localStoreURL: URL
-    
+
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false, disableCloud: Bool = false) {
@@ -58,13 +58,13 @@ struct PersistenceController {
             localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
             localStoreDescription.configuration = "Local"
         }
-        
+
         if disableCloud {
             cloudStoreDescription.cloudKitContainerOptions = nil
         } else {
             cloudStoreDescription.cloudKitContainerOptions = cloudKitContainerOptions
         }
-        
+
         container.persistentStoreDescriptions = [cloudStoreDescription, localStoreDescription]
 
         // Load both stores

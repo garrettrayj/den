@@ -1,4 +1,13 @@
-#!/bin/zsh
+#!/bin/sh
+
+#  UpdateSettingBundle.sh
+#  Den
+#
+#  Created by Garrett Johnson on 7/20/23.
+#  Copyright © 2023 Garrett Johnson
+#
+#  SPDX-License-Identifier: MIT
+#
 
 version="$MARKETING_VERSION"
 build="$CURRENT_PROJECT_VERSION"

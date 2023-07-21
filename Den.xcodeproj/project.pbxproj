@@ -1207,6 +1207,7 @@
 				68C41307247263C700D1DC7B /* Resources */,
 				6860694F2831533E000068DE /* Embed Foundation Extensions */,
 				68E6C5432A690B1E00CA46B2 /* ShellScript */,
+				68E6C5522A6A455600CA46B2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1349,7 +1350,6 @@
 /* Begin PBXShellScriptBuildPhase section */
 		68E6C5432A690B1E00CA46B2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 12;
 			files = (
 			);
@@ -1360,11 +1360,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/Settings.bundle/LicensePlist.latest_result.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/UpdateAcknowledgements.sh\n";
+		};
+		68E6C5522A6A455600CA46B2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Settings.bundle/Root.plist",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/UpdateSettingsBundle.sh\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -77,7 +77,7 @@ public class Page: NSManagedObject {
         newPage.id = UUID()
         newPage.profile = profile
         newPage.created = Date()
-        
+
         if prepend {
             newPage.userOrder = Int16(profile.pagesUserOrderMin - 1)
         } else {

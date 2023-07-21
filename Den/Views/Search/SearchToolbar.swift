@@ -14,7 +14,7 @@ struct SearchToolbar: CustomizableToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
-    
+
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
@@ -61,7 +61,7 @@ struct SearchToolbar: CustomizableToolbarContent {
                 }
             }
         }
-        
+
         ToolbarItem(id: "SearchStatus", placement: .bottomBar) {
             SearchStatus(resultCount: items.count, query: query)
         }

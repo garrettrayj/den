@@ -13,7 +13,7 @@ import SDWebImage
 
 struct ClearImageCacheButton: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @State private var cacheSize: Int64 = 0
 
     let cacheSizeFormatter: ByteCountFormatter = {

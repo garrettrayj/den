@@ -5,5 +5,5 @@ options:
   markdownPath: ACKNOWLEDGEMENTS.md
   addVersionNumbers: true
   suppressOpeningDirectory: true
-  failIfMissingLicense: true
+  failIfMissingLicense: false
   singlePage: true

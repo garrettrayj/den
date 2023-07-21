@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ProfileSettingsForm: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @ObservedObject var profile: Profile
 
     var body: some View {
@@ -24,7 +24,7 @@ struct ProfileSettingsForm: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-            
+
             ProfileColorPicker(selection: $profile.tintOption)
 
             HistorySettingsSection(

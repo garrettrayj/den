@@ -14,7 +14,7 @@ struct SimpleSidebarStatus: View {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
-    
+
     @Binding var refreshing: Bool
 
     var body: some View {

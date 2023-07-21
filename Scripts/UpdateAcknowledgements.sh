@@ -1,9 +1,9 @@
 #!/bin/sh
 
-#  Lint.sh
+#  UpdateAcknowledgements.sh
 #  Den
 #
-#  Created by Garrett Johnson on 1/2/23.
+#  Created by Garrett Johnson on 7/20/23.
 #  Copyright © 2023 Garrett Johnson
 #
 #  SPDX-License-Identifier: MIT
@@ -27,8 +27,8 @@ exists()
     command -v "$1" >/dev/null 2>&1
 }
 
-if exists swiftlint; then
-    swiftlint --fix && swiftlint
+if exists license-plist && [ $CONFIGURATION = "Debug" ]; then
+    license-plist
 else
-    echo "warning: SwiftLint not installed. Run `brew install swiftlint`"
+    echo "warning: LicensePlist not installed. Run 'brew install licenseplist'"
 fi

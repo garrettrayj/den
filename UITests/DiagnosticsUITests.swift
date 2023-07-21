@@ -13,7 +13,7 @@ import XCTest
 final class DiagnosticsUITests: UITestCase {
     func testDiagnostics() throws {
         let app = launchApp(inMemory: false)
-        
+
         #if os(macOS)
         app.popUpButtons["AppMenu"].tap()
         app.menuItems["Diagnostics"].tap()
@@ -24,7 +24,7 @@ final class DiagnosticsUITests: UITestCase {
         app.buttons["AppMenu"].forceTap()
         app.buttons["Diagnostics"].tap()
         #endif
-        
+
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
@@ -40,14 +40,14 @@ final class DiagnosticsUITests: UITestCase {
             }
         }
         #endif
-        
+
         if !app.staticTexts["Diagnostics"].waitForExistence(timeout: 2) {
             XCTFail("Diagnostics header did not appear in time")
         }
-        
+
         attachScreenshot(of: app.windows.firstMatch, named: "Diagnostics")
     }
-    
+
     func testDiagnosticsEmpty() throws {
         let app = launchApp(inMemory: true)
 
@@ -55,7 +55,7 @@ final class DiagnosticsUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["CreateProfile"].tap()
-        
+
         #if os(macOS)
         app.popUpButtons["AppMenu"].tap()
         app.menuItems["Diagnostics"].tap()
@@ -66,7 +66,7 @@ final class DiagnosticsUITests: UITestCase {
         app.buttons["AppMenu"].forceTap()
         app.buttons["Diagnostics"].tap()
         #endif
-        
+
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
@@ -82,7 +82,7 @@ final class DiagnosticsUITests: UITestCase {
             }
         }
         #endif
-        
+
         if !app.staticTexts["Diagnostics"].waitForExistence(timeout: 2) {
             XCTFail("Diagnostics header did not appear in time")
         }

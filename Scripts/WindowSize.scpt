@@ -1,6 +1,6 @@
 #!/usr/bin/osascript
 
-#  WindowSize.applescript
+#  WindowSize.scpt
 #  Den
 #
 #  Created by Garrett Johnson on 5/13/23.

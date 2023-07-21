@@ -115,14 +115,14 @@ struct FeedUpdateTask {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
-        
+
         DispatchQueue.main.async {
             NotificationCenter.default.post(
                 name: .feedRefreshed,
                 object: profileObjectID,
                 userInfo: ["pageObjectID": pageObjectID as Any, "feedObjectID": feedObjectID as Any]
             )
-        } 
+        }
     }
 
     private func handleParsedFeed(

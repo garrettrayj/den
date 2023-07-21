@@ -76,7 +76,7 @@ public class Feed: NSManagedObject {
             previewStyle = Int16(newValue.rawValue)
         }
     }
-    
+
     public var diagnosticsRowData: DiagnosticsRowData {
         DiagnosticsRowData(
             entity: self,

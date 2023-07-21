@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ClearDataButton: View {
     @ObservedObject var profile: Profile
-    
+
     var body: some View {
         Button {
             Task {
@@ -28,22 +28,22 @@ struct ClearDataButton: View {
         }
         .accessibilityIdentifier("ClearData")
     }
-    
+
     private func clearData() async {
         let container = PersistenceController.shared.container
         await container.performBackgroundTask { context in
             guard let profile = context.object(with: profile.objectID) as? Profile else {
                 return
             }
-            
+
             for feedData in profile.feedsArray.compactMap({ $0.feedData }) {
                 context.delete(feedData)
             }
-            
+
             for trend in profile.trends {
                 context.delete(trend)
             }
-            
+
             do {
                 try context.save()
             } catch {

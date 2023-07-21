@@ -12,7 +12,7 @@ import SwiftUI
 
 struct URLDropTargetModifier: ViewModifier {
     @ObservedObject var profile: Profile
-    
+
     var page: Page?
 
     func body(content: Content) -> some View {

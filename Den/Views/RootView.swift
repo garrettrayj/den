@@ -18,17 +18,17 @@ struct RootView: View {
     @Binding var backgroundRefreshEnabled: Bool
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Int
-    
+
     @State private var showingCrashMessage = false
-    
+
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
-    
+
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name, order: .forward),
         SortDescriptor(\.created, order: .forward)
     ])
     private var profiles: FetchedResults<Profile>
-    
+
     var currentProfile: Profile? {
         guard let currentProfileID = currentProfileID else {
             return nil

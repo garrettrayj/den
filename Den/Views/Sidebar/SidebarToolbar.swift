@@ -23,10 +23,10 @@ struct SidebarToolbar: CustomizableToolbarContent {
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingProfileSettings: Bool
-    
+
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress
-    
+
     private var activePage: Page? {
         if case .page(let page) = detailPanel {
             return page
@@ -45,14 +45,14 @@ struct SidebarToolbar: CustomizableToolbarContent {
             )
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
-        
+
         ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
             Menu {
                 NewFeedButton(profile: profile, page: activePage)
                 NewPageButton(profile: profile)
-                
+
                 Divider()
-                
+
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
                 DiagnosticsButton(detailPanel: $detailPanel)
@@ -111,7 +111,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                 .accessibilityIdentifier("SidebarMenu")
             }
         }
-        
+
         ToolbarItem(id: "ProfileMenu", placement: .bottomBar) {
             Menu {
                 NewProfileButton(currentProfileID: $currentProfileID)
@@ -125,11 +125,11 @@ struct SidebarToolbar: CustomizableToolbarContent {
             }
             .accessibilityIdentifier("ProfileMenu")
         }
-        
+
         ToolbarItem(id: "SidebarStatus", placement: .status) {
             BottomBarSidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
         }
-        
+
         ToolbarItem(id: "SidebarBottomRefresh", placement: .bottomBar) {
             RefreshButton(
                 profile: profile,

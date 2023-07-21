@@ -15,7 +15,7 @@ struct Sidebar: View {
     #if os(iOS)
     @Environment(\.editMode) private var editMode
     #endif
-    
+
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     @EnvironmentObject private var refreshManager: RefreshManager
 
@@ -28,10 +28,10 @@ struct Sidebar: View {
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingProfileSettings: Bool
-    
+
     @State private var searchInput = ""
     @State private var isEditing = false
-    
+
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress
 
@@ -52,7 +52,7 @@ struct Sidebar: View {
                 InboxNavLink(profile: profile)
                 TrendingNavLink(profile: profile)
                 #endif
-                
+
                 PagesSection(profile: profile)
             }
         }
