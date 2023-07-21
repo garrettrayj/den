@@ -46,7 +46,7 @@ struct FeedToolbar: CustomizableToolbarContent {
                         feed.objectWillChange.send()
                     }
                     FilterReadButton(hideRead: $hideRead)
-                    ConfigureFeedButton(feed: feed, showingProfileSettings: $showingProfileSettings)
+                    ConfigureFeedButton(feed: feed, showingFeedConfiguration: $showingFeedConfiguration)
                 } label: {
                     Label {
                         Text("Menu", comment: "Button label.")
@@ -58,7 +58,7 @@ struct FeedToolbar: CustomizableToolbarContent {
             }
         } else {
             ToolbarItem(id: "FeedSettings", placement: .primaryAction) {
-                ConfigureFeedButton(feed: feed, showingProfileSettings: $showingProfileSettings)
+                ConfigureFeedButton(feed: feed, showingFeedConfiguration: $showingFeedConfiguration)
             }
             ToolbarItem(id: "FeedFilterRead", placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)

@@ -60,6 +60,7 @@ struct Sidebar: View {
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
         .refreshable {
             if !refreshing && networkMonitor.isConnected {
+                guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
                 await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
             }
         }
