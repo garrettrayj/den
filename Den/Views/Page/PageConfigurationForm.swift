@@ -69,7 +69,7 @@ struct PageConfigurationForm: View {
                 }
                 .symbolRenderingMode(.multicolor)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.borderless)
             .accessibilityIdentifier("DeletePage")
         }
     }

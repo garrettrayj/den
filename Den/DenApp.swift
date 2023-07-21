@@ -53,6 +53,19 @@ struct DenApp: App {
                 } label: {
                     Text("\(Bundle.main.name) Help", comment: "Button label.")
                 }
+                #if os(macOS)
+                Divider()
+                Button {
+                    if let url = Bundle.main.url(
+                        forResource: "Acknowledgements",
+                        withExtension: "html"
+                    ) {
+                        NSWorkspace.shared.open(url)
+                    }
+                } label: {
+                    Text("Acknowledgements", comment: "Button label.")
+                }
+                #endif
             }
         }
         #if os(macOS)

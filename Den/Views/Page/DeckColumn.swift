@@ -69,8 +69,8 @@ struct DeckColumn: View {
     private var header: some View {
         FeedNavLink(
             feed: feed,
-            leadingPadding: isFirst ? 32 : 20,
-            trailingPadding: isLast ? 32 : 20
+            leadingPadding: isFirst ? 16 : 20,
+            trailingPadding: isLast ? 16 : 20
         )
         .buttonStyle(PinnedHeaderButtonStyle())
     }

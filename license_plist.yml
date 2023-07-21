@@ -7,10 +7,3 @@ options:
   suppressOpeningDirectory: true
   failIfMissingLicense: true
   singlePage: true
-
-github:
-  - owner: mono0926
-    name: LicensePlist
-
-rename:
-  LicensePlist: License Plist

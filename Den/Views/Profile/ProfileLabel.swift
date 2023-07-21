@@ -21,11 +21,10 @@ struct ProfileLabel: View {
         } icon: {
             if profile.id?.uuidString == currentProfileID {
                 Image(systemName: "rhombus.fill")
-                    .foregroundStyle(profile.tintColor ?? .accentColor)
             } else {
                 Image(systemName: "rhombus")
-                    .foregroundStyle(profile.tintColor ?? .accentColor)
             }
         }
+        .foregroundStyle(profile.tintColor ?? .accentColor)
     }
 }

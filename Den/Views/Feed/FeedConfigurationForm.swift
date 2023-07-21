@@ -78,7 +78,7 @@ struct FeedConfigurationForm: View {
                 }
                 .symbolRenderingMode(.multicolor)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.borderless)
             .accessibilityIdentifier("DeleteFeed")
         } footer: {
             if let validationMessage = webAddressValidationMessage {

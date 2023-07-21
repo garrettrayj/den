@@ -16,8 +16,12 @@ struct SettingsForm: View {
 
     var body: some View {
         Form {
-            UserColorSchemePicker(userColorScheme: $userColorScheme).pickerStyle(.segmented)
-            FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
+            Section {
+                UserColorSchemePicker(userColorScheme: $userColorScheme).pickerStyle(.segmented)
+                FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
+            } header: {
+                Text("General", comment: "Settings section header.")
+            }
 
             Section {
                 ClearImageCacheButton().buttonStyle(.plain)

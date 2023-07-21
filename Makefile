@@ -9,6 +9,6 @@ test-data:
 	rm -rf ./TestData/en.xcappdata/AppData/Library/Saved Application State/
 
 acknowledgements:
-	licenseplist --markdown-path ACKNOWLEDGEMENTS.md
+	license-plist
 
 .PHONY: *
