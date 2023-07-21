@@ -32,6 +32,9 @@ struct ProfileSettingsSheet: View {
                 }
             }
             .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
@@ -53,7 +56,7 @@ struct ProfileSettingsSheet: View {
                     .accessibilityIdentifier("Save")
                 }
             }
-            .frame(maxWidth: 360, minHeight: 280)
+            .frame(minWidth: 370, minHeight: 300)
         }
         .tint(profile.tintColor)
     }

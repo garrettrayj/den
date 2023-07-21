@@ -41,15 +41,22 @@ struct PageConfigurationForm: View {
                 }
             }
 
-            NavigationLink {
-                IconPicker(symbolID: $page.wrappedSymbol)
+            Button {
+                showingIconPicker = true
             } label: {
                 Label {
-                    Text("Choose Icon", comment: "Button label.")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack {
+                        Text("Choose Icon", comment: "Button label.")
+                        Spacer()
+                        ButtonChevron()
+                    }
                 } icon: {
                     Image(systemName: page.wrappedSymbol)
                 }
+            }
+            .buttonStyle(.borderless)
+            .navigationDestination(isPresented: $showingIconPicker) {
+                IconPicker(symbolID: $page.wrappedSymbol)
             }
 
             Button(role: .destructive) {

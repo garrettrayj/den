@@ -28,7 +28,6 @@ struct PageConfigurationSheet: View {
             .navigationTitle(Text("Page Configuration", comment: "Navigation title."))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
-            .scrollContentBackground(.hidden)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -52,7 +51,7 @@ struct PageConfigurationSheet: View {
                     .accessibilityIdentifier("Save")
                 }
             }
-            .frame(minWidth: 370, minHeight: 492)
+            .frame(minWidth: 370, minHeight: 500)
         }
     }
 }

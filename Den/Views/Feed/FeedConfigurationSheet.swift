@@ -28,7 +28,6 @@ struct FeedConfigurationSheet: View {
             .navigationTitle(Text("Feed Configuration", comment: "Navigation title."))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
-            .scrollContentBackground(.hidden)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -51,7 +50,7 @@ struct FeedConfigurationSheet: View {
                     .accessibilityIdentifier("Save")
                 }
             }
-            .frame(minWidth: 370, minHeight: 492)
+            .frame(minWidth: 370, minHeight: 470)
         }
     }
 }

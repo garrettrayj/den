@@ -27,6 +27,9 @@ struct LoadProfile: View {
                     Spacer()
                     VStack(spacing: 24) {
                         Spacer()
+                        #if os(iOS)
+                        Spacer()
+                        #endif
                         if profiles.isEmpty {
                             ProgressView()
                             Text("No Profiles Available").font(.title3)
@@ -81,16 +84,20 @@ struct LoadProfile: View {
                             .background(.background)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         }
-                        
+                        #if os(iOS)
                         Spacer()
-
+                        #endif
                         Button {
                             _ = createDefaultProfile()
                         } label: {
-                            Text("Create a New Profile", comment: "Button label.").padding(8)
+                            Text("Create a New Profile", comment: "Button label.")
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 8)
                         }
                         .buttonStyle(.borderedProminent)
                         .accessibilityIdentifier("CreateProfile")
+                        
+                        Spacer()
                     }
                     .padding(32)
                     Spacer()

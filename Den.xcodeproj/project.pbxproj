@@ -218,7 +218,7 @@
 		68E6C5452A69127C00CA46B2 /* Acknowledgements.html in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5442A69127C00CA46B2 /* Acknowledgements.html */; };
 		68E6C5472A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5462A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md */; };
 		68E6C54C2A69D7C800CA46B2 /* ClearDataButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6C54B2A69D7C800CA46B2 /* ClearDataButton.swift */; };
-		68E6C5562A6A4BAB00CA46B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5552A6A4BAB00CA46B2 /* LaunchScreen.storyboard */; };
+		68E6C5562A6A4BAB00CA46B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5552A6A4BAB00CA46B2 /* LaunchScreen.storyboard */; platformFilter = ios; };
 		68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */; };
 		68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */; };
 		68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */; };
