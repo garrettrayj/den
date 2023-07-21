@@ -17,7 +17,7 @@ struct ProfileSettingsForm: View {
 
     var body: some View {
         Form {
-            TextField(text: $profile.wrappedName, prompt: Text("Den", comment: "Text field prompt.")) {
+            TextField(text: $profile.wrappedName, prompt: profile.nameText) {
                 Label {
                     Text("Name", comment: "Text field label.")
                 } icon: {

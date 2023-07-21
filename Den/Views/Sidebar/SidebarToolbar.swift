@@ -49,7 +49,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
         ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
             Menu {
                 NewFeedButton(profile: profile, page: activePage)
-                NewPageButton(profile: profile)
+                NewPageButton(profile: profile, detailPanel: $detailPanel)
 
                 Divider()
 
@@ -83,7 +83,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
             ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
                 Menu {
                     NewFeedButton(profile: profile, page: activePage)
-                    NewPageButton(profile: profile)
+                    NewPageButton(profile: profile, detailPanel: $detailPanel)
                     Divider()
                     Button {
                         withAnimation {
@@ -123,11 +123,12 @@ struct SidebarToolbar: CustomizableToolbarContent {
                     Image(systemName: "person.crop.circle")
                 }
             }
+            .disabled(refreshing)
             .accessibilityIdentifier("ProfileMenu")
         }
 
         ToolbarItem(id: "SidebarStatus", placement: .status) {
-            BottomBarSidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
+            SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
         }
 
         ToolbarItem(id: "SidebarBottomRefresh", placement: .bottomBar) {

@@ -16,18 +16,21 @@ struct Welcome: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 12) {
             profile.nameText.font(.largeTitle)
 
             if profile.feedsArray.count == 1 {
-                Text("1 Feed", comment: "Welcome feed count (singular).")
+                Text("1 Feed", comment: "Feed count (singular).")
             } else {
-                Text("\(profile.feedsArray.count) Feeds", comment: "Welcome feed count (zero/plural).")
+                Text("\(profile.feedsArray.count) Feeds", comment: "Feed count (zero/plural).")
             }
         }
         .multilineTextAlignment(.center)
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
+        #if os(iOS)
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+        #endif
     }
 }

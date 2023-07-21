@@ -36,9 +36,7 @@ struct RefreshButton: View {
                     ProgressView(refreshProgress)
                         .progressViewStyle(.circular)
                         .labelsHidden()
-
                         .scaleEffect(1 / displayScale)
-
                         .frame(width: 16)
                 } else {
                     Image(systemName: "arrow.clockwise")

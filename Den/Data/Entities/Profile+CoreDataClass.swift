@@ -20,7 +20,9 @@ public class Profile: NSManagedObject {
 
     public var nameText: Text {
         if wrappedName == "" {
-            return Text("Den", comment: "Profile name placeholder.")
+            if let hashID = hashID {
+                return Text("Den \(hashID)", comment: "Placeholder profile name.")
+            }
         }
 
         return Text(wrappedName)
@@ -120,11 +122,22 @@ public class Profile: NSManagedObject {
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {
+        let createdDate = Date()
+        
         let newProfile = self.init(context: managedObjectContext)
         newProfile.id = UUID()
         newProfile.historyRetention = 90
-        newProfile.created = Date()
-
+        newProfile.created = createdDate
+        
+        if let rawHashID = Int64(
+            String(describing: createdDate.timeIntervalSince1970)
+                .compactMap({ String($0) })
+                .suffix(3)
+                .joined()
+        ) {
+            newProfile.hashID = HashIdentifierUtility.shared.encode(rawHashID)
+        }
+        
         return newProfile
     }
 }

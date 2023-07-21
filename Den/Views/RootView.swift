@@ -19,8 +19,9 @@ struct RootView: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Int
 
+    @State private var currentProfile: Profile? = nil
     @State private var showingCrashMessage = false
-
+    
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
 
     @FetchRequest(sortDescriptors: [
@@ -28,13 +29,6 @@ struct RootView: View {
         SortDescriptor(\.created, order: .forward)
     ])
     private var profiles: FetchedResults<Profile>
-
-    var currentProfile: Profile? {
-        guard let currentProfileID = currentProfileID else {
-            return nil
-        }
-        return profiles.firstMatchingID(currentProfileID)
-    }
 
     var body: some View {
         Group {
@@ -52,6 +46,14 @@ struct RootView: View {
                     currentProfileID: $currentProfileID,
                     profiles: profiles
                 )
+            }
+        }
+        .onChange(of: currentProfileID) { _ in
+            // Hard rerender from root to fix profile refresh buttons and pull-to-refresh
+            // being stuck on previous profile after switch.
+            currentProfile = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                currentProfile = profiles.firstMatchingID(currentProfileID)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in

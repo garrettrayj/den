@@ -38,11 +38,10 @@ struct Sidebar: View {
     var body: some View {
         List(selection: $detailPanel) {
             if profile.pagesArray.isEmpty {
-                Start(profile: profile, showingImporter: $showingImporter)
+                Start(profile: profile, detailPanel: $detailPanel, showingImporter: $showingImporter)
             } else {
                 #if os(macOS)
                 Section {
-                    SimpleSidebarStatus(profile: profile, refreshing: $refreshing)
                     InboxNavLink(profile: profile)
                     TrendingNavLink(profile: profile)
                 } header: {
@@ -56,15 +55,6 @@ struct Sidebar: View {
                 PagesSection(profile: profile)
             }
         }
-        #if os(iOS)
-        .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
-        .refreshable {
-            if !refreshing && networkMonitor.isConnected {
-                guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
-                await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
-            }
-        }
-        #endif
         .listStyle(.sidebar)
         .searchable(
             text: $searchInput,
@@ -74,6 +64,15 @@ struct Sidebar: View {
         .onSubmit(of: .search) {
             detailPanel = .search(searchInput)
         }
+        #if os(iOS)
+        .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
+        .refreshable {
+            if !refreshing && networkMonitor.isConnected {
+                guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
+                await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+            }
+        }
+        #endif
         .disabled(refreshing)
         .navigationTitle(profile.nameText)
         .toolbar(id: "Sidebar") {
@@ -93,22 +92,26 @@ struct Sidebar: View {
         }
         #if os(macOS)
         .safeAreaInset(edge: .bottom) {
-            Menu {
-                ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
-                    .pickerStyle(.inline)
-                NewProfileButton(currentProfileID: $currentProfileID)
-            } label: {
-                Label {
-                    profile.nameText
-                } icon: {
-                    Image(systemName: "person.crop.circle")
+            VStack(alignment: .leading) {
+                Menu {
+                    ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
+                        .pickerStyle(.inline)
+                    NewProfileButton(currentProfileID: $currentProfileID)
+                } label: {
+                    Label {
+                        profile.nameText
+                    } icon: {
+                        Image(systemName: "person.crop.circle")
+                    }
                 }
+                .menuStyle(.borderlessButton)
+                .labelStyle(.titleAndIcon)
+                .accessibilityIdentifier("ProfileMenu")
+                .disabled(refreshing)
+                
+                SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
             }
-            .menuStyle(.borderlessButton)
-            .labelStyle(.titleAndIcon)
-            .accessibilityIdentifier("ProfileMenu")
             .padding()
-            .disabled(refreshing)
         }
         #endif
     }

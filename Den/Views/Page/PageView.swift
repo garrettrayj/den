@@ -21,7 +21,7 @@ struct PageView: View {
     @SceneStorage("ShowingPageConfiguration") private var showingPageConfiguration: Bool = false
 
     var body: some View {
-        Group {
+        ZStack {
             if page.managedObjectContext == nil || page.isDeleted {
                 SplashNote(title: Text("Page Deleted", comment: "Object removed message."))
             } else {
@@ -77,6 +77,9 @@ struct PageView: View {
                 }
             }
         }
+        #if os(iOS)
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+        #endif
         .sheet(
             isPresented: $showingPageConfiguration,
             onDismiss: {

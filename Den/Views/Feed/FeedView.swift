@@ -21,7 +21,7 @@ struct FeedView: View {
     @SceneStorage("ShowingFeedConfiguration") private var showingFeedConfiguration: Bool = false
 
     var body: some View {
-        VStack {
+        ZStack {
             if feed.managedObjectContext == nil || feed.isDeleted {
                 SplashNote(title: Text("Feed Deleted", comment: "Object removed message."))
             } else if let profile = feed.page?.profile {
@@ -48,6 +48,9 @@ struct FeedView: View {
                 }
             }
         }
+        #if os(iOS)
+        .background(Color(.systemGroupedBackground))
+        #endif
         .sheet(
             isPresented: $showingFeedConfiguration,
             onDismiss: {

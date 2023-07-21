@@ -19,11 +19,19 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .font(.title3)
-            .foregroundColor(isEnabled ? .primary : .secondary)
+            .foregroundStyle(isEnabled ? .primary : .secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
+            #if os(macOS)
             .background(isEnabled && hovering ? .thickMaterial : .regularMaterial)
             .background(isEnabled && hovering ? .tertiary : .quaternary)
+            #else
+            .background(
+                Rectangle()
+                    .fill(.regularMaterial)
+                    .overlay(.quaternary.opacity(isEnabled && hovering ? 0.7 : 0.5))
+            )
+            #endif
             .onHover { hovered in
                 hovering = hovered
             }

@@ -14,17 +14,16 @@ struct NewPageButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
+    
+    @Binding var detailPanel: DetailPanel?
 
     var body: some View {
         Button {
             Task {
-                _ = Page.create(
-                    in: viewContext,
-                    profile: profile,
-                    prepend: true
-                )
+                let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
                 do {
                     try viewContext.save()
+                    detailPanel = .page(newPage)
                 } catch {
                     CrashUtility.handleCriticalError(error as NSError)
                 }

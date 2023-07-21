@@ -17,14 +17,12 @@ struct NewProfileButton: View {
 
     var body: some View {
         Button {
-            withAnimation {
-                let newProfile = Profile.create(in: viewContext)
-                do {
-                    try viewContext.save()
-                    currentProfileID = newProfile.id?.uuidString
-                } catch let error as NSError {
-                    CrashUtility.handleCriticalError(error)
-                }
+            let newProfile = Profile.create(in: viewContext)
+            do {
+                try viewContext.save()
+                currentProfileID = newProfile.id?.uuidString
+            } catch let error as NSError {
+                CrashUtility.handleCriticalError(error)
             }
         } label: {
             Label {
