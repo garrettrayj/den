@@ -14,15 +14,15 @@ import WebKit
 
 struct ItemWebView {
     @Environment(\.openURL) private var openURL
-    @Environment(\.profileTint) private var profileTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     var content: String
     var title: String
     var baseURL: URL?
+    var tintColor: Color?
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(profileTint: profileTint, useSystemBrowser: useSystemBrowser, openURL: openURL)
+        Coordinator(tintColor: tintColor, useSystemBrowser: useSystemBrowser, openURL: openURL)
     }
 
     var html: String {
@@ -54,18 +54,18 @@ struct ItemWebView {
     private func getStylesString() -> String {
         let css = WebViewStyles.shared.css.replacingOccurrences(
             of: "$TINT_COLOR",
-            with: profileTint.hexString ?? "blue"
+            with: tintColor?.hexString ?? "blue"
         )
         return css
     }
 
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
-        let profileTint: Color
+        let tintColor: Color?
         let useSystemBrowser: Bool
         let openURL: OpenURLAction
 
-        init(profileTint: Color, useSystemBrowser: Bool, openURL: OpenURLAction) {
-            self.profileTint = profileTint
+        init(tintColor: Color?, useSystemBrowser: Bool, openURL: OpenURLAction) {
+            self.tintColor = tintColor
             self.useSystemBrowser = useSystemBrowser
             self.openURL = openURL
         }
@@ -88,7 +88,7 @@ struct ItemWebView {
                 if useSystemBrowser {
                     openURL(url)
                 } else {
-                    BuiltInBrowser.openURL(url: url, controlTintColor: profileTint)
+                    BuiltInBrowser.openURL(url: url, controlTintColor: tintColor)
                 }
                 #endif
             } else {

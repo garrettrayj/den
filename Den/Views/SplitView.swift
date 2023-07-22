@@ -75,7 +75,6 @@ struct SplitView: View {
             )
         }
         .tint(profile.tintColor)
-        .environment(\.profileTint, profile.tintColor ?? .accentColor)
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
             if case .page(let page) = detailPanel {
@@ -134,7 +133,6 @@ struct SplitView: View {
                 initialPageID: $newFeedPageID,
                 feedRefreshTimeout: $feedRefreshTimeout
             )
-            .tint(profile.tintColor)
             .environmentObject(refreshManager)
         }
         .sheet(

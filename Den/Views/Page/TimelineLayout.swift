@@ -20,7 +20,7 @@ struct TimelineLayout: View {
 
     var body: some View {
         if items.isEmpty {
-            SplashNote(title: Text("No Items", comment: "Timeline page layout empty message."))
+            SplashNote(Text("No Items", comment: "Timeline page layout empty message."))
         } else if items.unread().isEmpty && hideRead {
             AllReadSplashNote()
         } else {

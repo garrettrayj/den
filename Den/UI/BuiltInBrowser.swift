@@ -14,7 +14,7 @@ import SwiftUI
 struct BuiltInBrowser {
     static func openURL(
         url: URL,
-        controlTintColor: Color,
+        controlTintColor: Color?,
         readerMode: Bool? = nil
     ) {
         #if os(iOS)
@@ -31,7 +31,9 @@ struct BuiltInBrowser {
         config.entersReaderIfAvailable = readerMode ?? false
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
-        safariViewController.preferredControlTintColor = UIColor(controlTintColor)
+        if let tintColor = controlTintColor {
+            safariViewController.preferredControlTintColor = UIColor(tintColor)
+        }
 
         rootViewController.modalPresentationStyle = .fullScreen
         rootViewController.present(safariViewController, animated: true)

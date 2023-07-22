@@ -609,6 +609,7 @@
 		68014D5C27BC5CAB0017E2CB /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				6885C42126D37259002C41B0 /* FeedTitleLabel.swift */,
 				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
 				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
@@ -619,6 +620,7 @@
 				687FEEE22A3D7AE50042977E /* FeedConfigurationSheet.swift */,
 				688FD930247A34830006A2DE /* FeedConfigurationForm.swift */,
 				681087C829FB74A900F2630C /* PreviewStylePicker.swift */,
+				68FC25542758B2250073979F /* FeedUnavailable.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -965,12 +967,7 @@
 		68C413422472760400D1DC7B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				68C41315247263C700D1DC7B /* RootView.swift */,
-				680206B22A1150ED00AC3FC5 /* SplitView.swift */,
-				680649832A0E491000B6E6E7 /* LoadProfile.swift */,
-				6829A4FB28C2744900F75C5A /* DetailView.swift */,
 				68FC2566275E07E20073979F /* Sidebar */,
-				68ADABC224A21F2500BE41E2 /* Welcome.swift */,
 				68FF63FB2921DD060012A275 /* Inbox */,
 				68F56B3B286F5C01006EC915 /* Trending */,
 				68FC2567275E0D820073979F /* Page */,
@@ -980,11 +977,14 @@
 				6865575F29E7B417000EBF37 /* Search */,
 				687F22262A5B2BB700B76919 /* Diagnostics */,
 				683B285327D54141009C0302 /* Settings */,
+				68C41315247263C700D1DC7B /* RootView.swift */,
+				680206B22A1150ED00AC3FC5 /* SplitView.swift */,
+				680649832A0E491000B6E6E7 /* LoadProfile.swift */,
+				6829A4FB28C2744900F75C5A /* DetailView.swift */,
+				68ADABC224A21F2500BE41E2 /* Welcome.swift */,
 				687F488F269165EE00EA2498 /* CrashMessage.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
-				6885C42126D37259002C41B0 /* FeedTitleLabel.swift */,
 				6832AF2B278B889300CFC8CA /* SplashNote.swift */,
-				68FC25542758B2250073979F /* FeedUnavailable.swift */,
 				6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */,
 				68F56B482870C45B006EC915 /* FeedFavicon.swift */,
 				6868A305288E62250051D43E /* AllReadSplashNote.swift */,

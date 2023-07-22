@@ -12,11 +12,12 @@ import SwiftUI
 
 struct ItemToolbar: CustomizableToolbarContent {
     @ObservedObject var item: Item
+    @ObservedObject var profile: Profile
 
     var body: some CustomizableToolbarContent {
         ToolbarItem(id: "ItemOpenInBrowser", placement: .primaryAction) {
             if let url = item.link {
-                OpenInBrowserButton(url: url)
+                OpenInBrowserButton(url: url, tintColor: profile.tintColor)
             }
         }
         ToolbarItem(id: "ItemShare", placement: .primaryAction) {

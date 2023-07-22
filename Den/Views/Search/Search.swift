@@ -21,8 +21,13 @@ struct Search: View {
     var body: some View {
         if query == "" {
             SplashNote(
-                title: Text("Searching \(profile.wrappedName)", comment: "Empty search query message."),
-                symbol: "magnifyingglass"
+                Text("No Query", comment: "Search query empty title."),
+                caption: {
+                    Text(
+                        "Enter a term to search for in item titles.",
+                        comment: "Search query empty guidance."
+                    )
+                }
             )
         } else {
             WithItems(

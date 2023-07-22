@@ -45,7 +45,7 @@ struct DetailView: View {
                     case .feed(let feed):
                         FeedView(feed: feed)
                     case .item(let item):
-                        ItemView(item: item)
+                        ItemView(item: item, profile: profile)
                     case .trend(let trend):
                         TrendView(trend: trend)
                     }

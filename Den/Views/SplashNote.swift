@@ -10,28 +10,54 @@
 
 import SwiftUI
 
-struct SplashNote: View {
+struct SplashNote<CaptionContent: View, HatContent: View>: View {
     @Environment(\.isEnabled) private var isEnabled
 
     let title: Text
-    var note: Text?
-    var symbol: String?
-
+    var caption: CaptionContent?
+    var hat: HatContent?
+    
+    init(
+        _ title: Text,
+        caption: @escaping () -> CaptionContent?,
+        hat: @escaping () -> HatContent?
+    ) {
+        self.title = title
+        self.caption = caption()
+        self.hat = hat()
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
-            if let symbol = symbol {
-                Image(systemName: symbol).font(.system(size: 28))
-            }
+            hat.imageScale(.large)
             title.font(.title)
-            if let note = note {
-                note
-            }
+            caption
             Spacer()
         }
         .multilineTextAlignment(.center)
         .foregroundColor(isEnabled ? .primary : .secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
+    }
+}
+
+extension SplashNote where CaptionContent == Never, HatContent == Never {
+    init(_ title: Text) {
+        self.title = title
+    }
+}
+
+extension SplashNote where CaptionContent == Never {
+    init(_ title: Text, hat: @escaping () -> HatContent) {
+        self.title = title
+        self.hat = hat()
+    }
+}
+
+extension SplashNote where HatContent == Never {
+    init(_ title: Text, caption: @escaping () -> CaptionContent) {
+        self.title = title
+        self.caption = caption()
     }
 }

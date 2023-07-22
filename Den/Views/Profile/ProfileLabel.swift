@@ -25,8 +25,7 @@ struct ProfileLabel: View {
                 } else {
                     Image(systemName: "rhombus")
                 }
-            }.foregroundStyle(profile.tintColor ?? .accentColor)
-            
+            }.foregroundStyle(profile.tintColor ?? .primary)
         }
     }
 }

@@ -25,9 +25,9 @@ struct SearchLayout: View {
 
     var body: some View {
         if items.isEmpty {
-            SplashNote(title: Text("No Results", comment: "Search results empty message."))
+            SplashNote(Text("No Results", comment: "Search results empty message."))
         } else if hideRead && visibilityFilteredItems.isEmpty {
-            SplashNote(title: Text("No Unread Results", comment: "Search results empty message."))
+            SplashNote(Text("No Unread Results", comment: "Search results empty message."))
         } else {
             GeometryReader { geometry in
                 ScrollView(.vertical) {

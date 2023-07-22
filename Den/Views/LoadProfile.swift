@@ -43,11 +43,19 @@ struct LoadProfile: View {
                     Text("Choose Profile", comment: "Navigation title.")
             )
             .toolbar {
+                #if os(macOS)
                 ToolbarItem {
                     NewProfileButton(currentProfileID: $currentProfileID)
                         .labelStyle(.titleAndIcon)
                         .buttonStyle(.borderedProminent)
                 }
+                #else
+                ToolbarItem(placement: .bottomBar) {
+                    NewProfileButton(currentProfileID: $currentProfileID)
+                        .labelStyle(.titleAndIcon)
+                        .buttonStyle(.borderedProminent)
+                }
+                #endif
             }
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -98,7 +106,11 @@ struct LoadProfile: View {
                     }
                 }
                 .frame(maxWidth: 240)
+                #if os(macOS)
                 .background(.background)
+                #else
+                .background(Color(.secondarySystemGroupedBackground))
+                #endif
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             Spacer()

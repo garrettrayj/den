@@ -25,10 +25,12 @@ struct Trending: View {
     var body: some View {
         VStack {
             if profile.trends.isEmpty {
-                SplashNote(
-                    title: Text("Nothing Trending", comment: "Trending empty header."),
-                    note: Text("No common subjects were found in item titles.", comment: "Trending empty message.")
-                )
+                SplashNote(Text("Nothing Trending", comment: "Trending empty header."), caption: {
+                    Text(
+                        "No common subjects were found in item titles.",
+                        comment: "Trending empty message."
+                    )
+                })
             } else if visibleTrends.isEmpty {
                 AllReadSplashNote()
             } else {

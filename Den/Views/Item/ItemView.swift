@@ -15,6 +15,7 @@ struct ItemView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var item: Item
+    @ObservedObject var profile: Profile
 
     var maxContentWidth: CGFloat {
         CGFloat(700) * dynamicTypeSize.layoutScalingFactor
@@ -22,11 +23,11 @@ struct ItemView: View {
 
     var body: some View {
         if item.managedObjectContext == nil || item.feedData?.feed == nil {
-            SplashNote(title: Text("Item Deleted", comment: "Object removed message."))
+            SplashNote(Text("Item Deleted", comment: "Object removed message."))
         } else {
             itemLayout
                 .background(.background)
-                .toolbar(id: "Item") { ItemToolbar(item: item) }
+                .toolbar(id: "Item") { ItemToolbar(item: item, profile: profile) }
                 #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
@@ -74,7 +75,8 @@ struct ItemView: View {
                         ItemWebView(
                             content: item.body ?? item.summary!,
                             title: item.wrappedTitle,
-                            baseURL: item.link
+                            baseURL: item.link,
+                            tintColor: profile.tintColor
                         )
                     }
                 }

@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ItemActionView<Content: View>: View {
     @Environment(\.openURL) private var openURL
-    @Environment(\.profileTint) private var profileTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var item: Item
@@ -105,7 +104,7 @@ struct ItemActionView<Content: View>: View {
         } else {
             BuiltInBrowser.openURL(
                 url: url,
-                controlTintColor: profileTint,
+                controlTintColor: profile.tintColor,
                 readerMode: feed.readerMode
             )
         }
