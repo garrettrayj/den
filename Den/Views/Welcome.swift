@@ -17,6 +17,11 @@ struct Welcome: View {
 
     var body: some View {
         VStack(spacing: 12) {
+            Image(systemName: "rhombus.fill")
+                .foregroundStyle(.tint)
+                .imageScale(.large)
+                .scaleEffect(1.25)
+            
             profile.nameText.font(.largeTitle)
 
             if profile.feedsArray.count == 1 {

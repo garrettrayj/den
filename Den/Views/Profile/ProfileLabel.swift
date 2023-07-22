@@ -19,12 +19,14 @@ struct ProfileLabel: View {
         Label {
             profile.nameText
         } icon: {
-            if profile.id?.uuidString == currentProfileID {
-                Image(systemName: "rhombus.fill")
-            } else {
-                Image(systemName: "rhombus")
-            }
+            Group {
+                if profile.id?.uuidString == currentProfileID {
+                    Image(systemName: "rhombus.fill")
+                } else {
+                    Image(systemName: "rhombus")
+                }
+            }.foregroundStyle(profile.tintColor ?? .accentColor)
+            
         }
-        .foregroundStyle(profile.tintColor ?? .accentColor)
     }
 }

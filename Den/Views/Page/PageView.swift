@@ -77,9 +77,6 @@ struct PageView: View {
                 }
             }
         }
-        #if os(iOS)
-        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
-        #endif
         .sheet(
             isPresented: $showingPageConfiguration,
             onDismiss: {

@@ -16,26 +16,31 @@ struct TrendView: View {
     @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
-        if trend.managedObjectContext == nil {
-            SplashNote(title: Text("Trend Deleted", comment: "Object removed message."))
-        } else if let profile = trend.profile {
-            WithItems(scopeObject: trend) { items in
-                TrendLayout(
-                    trend: trend,
-                    profile: profile,
-                    hideRead: $hideRead,
-                    items: items.visibilityFiltered(hideRead ? false : nil)
-                )
-                .toolbar(id: "Trend") {
-                    TrendToolbar(
+        ZStack {
+            if trend.managedObjectContext == nil {
+                SplashNote(title: Text("Trend Deleted", comment: "Object removed message."))
+            } else if let profile = trend.profile {
+                WithItems(scopeObject: trend) { items in
+                    TrendLayout(
                         trend: trend,
                         profile: profile,
                         hideRead: $hideRead,
-                        items: items
+                        items: items.visibilityFiltered(hideRead ? false : nil)
                     )
+                    .toolbar(id: "Trend") {
+                        TrendToolbar(
+                            trend: trend,
+                            profile: profile,
+                            hideRead: $hideRead,
+                            items: items
+                        )
+                    }
+                    .navigationTitle(trend.titleText)
                 }
-                .navigationTitle(trend.titleText)
             }
         }
+        #if os(iOS)
+        .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+        #endif
     }
 }

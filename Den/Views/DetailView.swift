@@ -35,6 +35,9 @@ struct DetailView: View {
                     Welcome(profile: profile)
                 }
             }
+            #if os(iOS)
+            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+            #endif
             .disabled(refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 ZStack {

@@ -108,6 +108,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                         Image(systemName: "ellipsis.circle")
                     }
                 }
+                .disabled(refreshing)
                 .accessibilityIdentifier("SidebarMenu")
             }
         }

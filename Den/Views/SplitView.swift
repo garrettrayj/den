@@ -180,5 +180,7 @@ struct SplitView: View {
             }
             exporterIsPresented = showingExporter
         }
+        
+        .navigationTitle(profile.nameText)
     }
 }

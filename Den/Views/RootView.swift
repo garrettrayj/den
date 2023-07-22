@@ -50,9 +50,9 @@ struct RootView: View {
         }
         .onChange(of: currentProfileID) { _ in
             // Hard rerender from root to fix profile refresh buttons and pull-to-refresh
-            // being stuck on previous profile after switch.
+            // being stuck on previous profile after switching.
             currentProfile = nil
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.async {
                 currentProfile = profiles.firstMatchingID(currentProfileID)
             }
         }

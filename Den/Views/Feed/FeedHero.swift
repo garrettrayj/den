@@ -34,7 +34,7 @@ struct FeedHero: View {
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
-                .background(.background)
+                .background(colorScheme == .dark ? .black : .white)
                 .overlay(.thinMaterial)
         }
         .clipped()
