@@ -26,7 +26,10 @@ struct ProfileSettingsSheet: View {
         NavigationStack {
             VStack(spacing: 0) {
                 if profile.managedObjectContext == nil {
-                    SplashNote(Text("Profile Deleted", comment: "Object removed message."))
+                    SplashNote(
+                        Text("Profile Deleted", comment: "Object removed message."),
+                        icon: { Image(systemName: "xmark") }
+                    )
                 } else {
                     ProfileSettingsForm(profile: profile, currentProfileID: $currentProfileID)
                 }

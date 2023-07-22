@@ -1,5 +1,5 @@
 //
-//  LoadProfile.swift
+//  Landing.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/12/23.
@@ -11,7 +11,7 @@
 import OSLog
 import SwiftUI
 
-struct LoadProfile: View {
+struct Landing: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var currentProfileID: String?

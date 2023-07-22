@@ -21,20 +21,28 @@ struct DeckColumn: View {
     let items: [Item]
     let pageGeometry: GeometryProxy
     let hideRead: Bool
+    
+    var borderedRoundedRectangle: some View {
+        RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5)
+    }
+    
+    let minCardHeight: CGFloat = 100
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading, spacing: 8) {
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5))
-
+                        .frame(minHeight: minCardHeight, alignment: .center)
+                        .background(borderedRoundedRectangle)
                 } else if items.isEmpty {
                     FeedEmpty()
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5))
+                        .frame(minHeight: minCardHeight, alignment: .center)
+                        .background(borderedRoundedRectangle)
                 } else if items.unread().isEmpty && hideRead {
                     AllRead()
-                        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5))
+                        .frame(minHeight: minCardHeight, alignment: .center)
+                        .background(borderedRoundedRectangle)
                 } else {
                     ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
                         ItemActionView(item: item, feed: feed, profile: profile) {

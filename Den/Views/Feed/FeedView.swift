@@ -23,7 +23,10 @@ struct FeedView: View {
     var body: some View {
         ZStack {
             if feed.managedObjectContext == nil || feed.isDeleted {
-                SplashNote(Text("Feed Deleted", comment: "Object removed message."))
+                SplashNote(
+                    Text("Feed Deleted", comment: "Object removed message."),
+                    icon: { Image(systemName: "xmark") }
+                )
             } else if let profile = feed.page?.profile {
                 WithItems(
                     scopeObject: feed,

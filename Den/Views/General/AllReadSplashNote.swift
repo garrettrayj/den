@@ -13,7 +13,8 @@ import SwiftUI
 struct AllReadSplashNote: View {
     var body: some View {
         SplashNote(
-            Text("All Read", comment: "No unread items message.")
+            Text("All Read", comment: "No unread items message."),
+            icon: { Image(systemName: "checkmark") }
         )
     }
 }

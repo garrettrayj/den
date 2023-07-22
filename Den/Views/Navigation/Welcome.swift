@@ -19,7 +19,7 @@ struct Welcome: View {
         SplashNote(
             profile.nameText,
             caption: { FeedCount(count: profile.feedsArray.count) },
-            hat: { Image(systemName: "rhombus.fill").foregroundStyle(.tint) }
+            icon: { Image(systemName: "rhombus.fill").foregroundStyle(.tint) }
         )
     }
 }

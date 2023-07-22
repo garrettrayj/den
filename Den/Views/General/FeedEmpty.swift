@@ -12,9 +12,6 @@ import SwiftUI
 
 struct FeedEmpty: View {
     var body: some View {
-        Text("Feed Empty", comment: "No items message.")
-            .foregroundColor(.secondary)
-            .frame(maxWidth: .infinity)
-            .padding()
+        CardNote(Text("Feed Empty", comment: "No items message."))
     }
 }

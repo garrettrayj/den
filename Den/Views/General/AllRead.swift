@@ -12,9 +12,9 @@ import SwiftUI
 
 struct AllRead: View {
     var body: some View {
-        Text("All Read", comment: "No unread items message.")
-            .foregroundColor(.secondary)
-            .frame(maxWidth: .infinity)
-            .padding()
+        CardNote(
+            Text("All Read", comment: "No unread items message."),
+            icon: { Image(systemName: "checkmark") }
+        )
     }
 }

@@ -17,12 +17,12 @@ struct SafeAreaModifier: ViewModifier {
         content
             .safeAreaInset(edge: .leading, spacing: 0) {
                 if geometry.safeAreaInsets.leading > 0 {
-                    VStack {}.frame(width: geometry.safeAreaInsets.leading)
+                    ZStack {}.frame(width: geometry.safeAreaInsets.leading)
                 }
             }
             .safeAreaInset(edge: .trailing, spacing: 0) {
                 if geometry.safeAreaInsets.trailing > 0 {
-                    VStack {}.frame(width: geometry.safeAreaInsets.trailing)
+                    ZStack {}.frame(width: geometry.safeAreaInsets.trailing)
                 }
             }
     }

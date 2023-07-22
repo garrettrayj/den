@@ -20,7 +20,10 @@ struct PageConfigurationSheet: View {
         NavigationStack {
             VStack(spacing: 0) {
                 if page.managedObjectContext == nil || page.isDeleted {
-                    SplashNote(Text("Page Deleted", comment: "Object removed message."))
+                    SplashNote(
+                        Text("Page Deleted", comment: "Object removed message."),
+                        icon: { Image(systemName: "xmark") }
+                    )
                 } else {
                     PageConfigurationForm(page: page)
                 }

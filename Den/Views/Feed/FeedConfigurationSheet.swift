@@ -20,7 +20,10 @@ struct FeedConfigurationSheet: View {
         NavigationStack {
             VStack(spacing: 0) {
                 if feed.managedObjectContext == nil || feed.isDeleted {
-                    SplashNote(Text("Feed Deleted", comment: "Object removed message."))
+                    SplashNote(
+                        Text("Feed Deleted", comment: "Object removed message."),
+                        icon: { Image(systemName: "xmark") }
+                    )
                 } else {
                     FeedConfigurationForm(feed: feed)
                 }

@@ -23,7 +23,10 @@ struct ItemView: View {
 
     var body: some View {
         if item.managedObjectContext == nil || item.feedData?.feed == nil {
-            SplashNote(Text("Item Deleted", comment: "Object removed message."))
+            SplashNote(
+                Text("Item Deleted", comment: "Object removed message."),
+                icon: { Image(systemName: "xmark") }
+            )
         } else {
             itemLayout
                 .background(.background)

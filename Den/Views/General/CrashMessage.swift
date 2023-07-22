@@ -19,7 +19,7 @@ struct CrashMessage: View {
                 "A critical error occurred. Restart to try again.",
                 comment: "Crash view guidance."
             )
-        } hat: {
+        } icon: {
             Image(systemName: "xmark.octagon")
         }
     }

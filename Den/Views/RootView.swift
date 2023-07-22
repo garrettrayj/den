@@ -41,7 +41,7 @@ struct RootView: View {
                     profiles: profiles
                 )
             } else {
-                LoadProfile(
+                Landing(
                     currentProfileID: $currentProfileID,
                     profiles: profiles
                 )

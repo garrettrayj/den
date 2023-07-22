@@ -18,6 +18,7 @@ struct NoFeeds: View {
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
+            Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1).imageScale(.large)
             Text("No Feeds", comment: "Empty page header.").font(.title)
             Button {
                 NewFeedUtility.showSheet(profile: profile, page: page)
@@ -40,6 +41,6 @@ struct NoFeeds: View {
         }
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .padding()
+        .padding(32)
     }
 }

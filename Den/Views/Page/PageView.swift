@@ -23,7 +23,10 @@ struct PageView: View {
     var body: some View {
         ZStack {
             if page.managedObjectContext == nil || page.isDeleted {
-                SplashNote(Text("Page Deleted", comment: "Object removed message."))
+                SplashNote(
+                    Text("Page Deleted", comment: "Object removed message."),
+                    icon: { Image(systemName: "xmark") }
+                )
             } else {
                 WithItems(scopeObject: page) { items in
                     ZStack {
