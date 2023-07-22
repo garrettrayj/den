@@ -41,11 +41,6 @@ struct PageNavLink: View {
             }
             .lineLimit(1)
         }
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: nil)) { notification in
-            if page.objectID == notification.userInfo?["pageObjectID"] as? NSManagedObjectID {
-                page.objectWillChange.send()
-            }
-        }
         .modifier(URLDropTargetModifier(profile: profile, page: page))
         .contextMenu {
             Button {

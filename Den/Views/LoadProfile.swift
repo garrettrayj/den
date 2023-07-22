@@ -95,11 +95,6 @@ struct LoadProfile: View {
                         }
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("SelectProfile")
-                        .onAppear {
-                            if profiles.count == 1 {
-                                currentProfileID = profile.id?.uuidString
-                            }
-                        }
                     }
                 }
                 .frame(maxWidth: 240)
@@ -109,33 +104,6 @@ struct LoadProfile: View {
             Spacer()
         }
         .padding()
-    }
-
-    private func load() {
-        profileLoadAttempts += 1
-
-        if
-            let profile =
-                profiles.firstMatchingID(currentProfileID) ??
-                profiles.first,
-            profile.managedObjectContext != nil
-        {
-            activateProfile(profile)
-            Logger.main.info("Profile loaded: \(profile.id?.uuidString ?? "", privacy: .public)")
-        } else {
-            let attempt = NumberFormatter.localizedString(
-                from: profileLoadAttempts as NSNumber,
-                number: .ordinal
-            )
-            Logger.main.info("Could not load profile on \(attempt) attempt. Trying again...")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                load()
-            }
-        }
-    }
-
-    private func activateProfile(_ profile: Profile?) {
-        currentProfileID = profile?.id?.uuidString
     }
 
     private func createProfile() -> Profile {

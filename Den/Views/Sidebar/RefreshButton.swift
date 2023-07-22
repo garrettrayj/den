@@ -15,17 +15,19 @@ struct RefreshButton: View {
 
     @EnvironmentObject private var refreshManager: RefreshManager
 
-    @ObservedObject var profile: Profile
-
+    @Binding var currentProfileID: String?
     @Binding var feedRefreshTimeout: Int
     @Binding var refreshing: Bool
 
     let refreshProgress: Progress
+    let profiles: FetchedResults<Profile>
 
     var body: some View {
         Button {
             Task {
-                await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+                if let profile = profiles.firstMatchingID(currentProfileID) {
+                    await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+                }
             }
         } label: {
             Label {

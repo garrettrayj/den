@@ -31,6 +31,7 @@ struct ProfilePicker: View {
             } icon: {
                 Image(systemName: "diamond.circle")
             }
+            .foregroundStyle(.tint)
         }
     }
 }

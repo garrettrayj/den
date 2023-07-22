@@ -19,7 +19,6 @@ struct RootView: View {
     @Binding var userColorScheme: UserColorScheme
     @Binding var feedRefreshTimeout: Int
 
-    @State private var currentProfile: Profile? = nil
     @State private var showingCrashMessage = false
     
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
@@ -32,7 +31,7 @@ struct RootView: View {
 
     var body: some View {
         Group {
-            if let profile = currentProfile, profile.managedObjectContext != nil {
+            if let profile = profiles.firstMatchingID(currentProfileID) {
                 SplitView(
                     profile: profile,
                     backgroundRefreshEnabled: $backgroundRefreshEnabled,
@@ -46,14 +45,6 @@ struct RootView: View {
                     currentProfileID: $currentProfileID,
                     profiles: profiles
                 )
-            }
-        }
-        .onChange(of: currentProfileID) { _ in
-            // Hard rerender from root to fix profile refresh buttons and pull-to-refresh
-            // being stuck on previous profile after switching.
-            currentProfile = nil
-            DispatchQueue.main.async {
-                currentProfile = profiles.firstMatchingID(currentProfileID)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in

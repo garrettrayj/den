@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct DeleteProfileButton: View {
-    @Environment(\.dismiss) private var dismiss
-    
     @ObservedObject var profile: Profile
+    
+    @Binding var currentProfileID: String?
 
     @State private var showingAlert = false
 
@@ -41,7 +41,7 @@ struct DeleteProfileButton: View {
                 Button(role: .destructive) {
                     Task {
                         await delete()
-                        dismiss()
+                        currentProfileID = nil
                     }
                 } label: {
                     Text("Delete", comment: "Button label.")

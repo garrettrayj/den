@@ -11,9 +11,12 @@
 import SwiftUI
 
 struct ProfileSettingsForm: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
+    
+    @Binding var currentProfileID: String?
 
     var body: some View {
         Form {
@@ -34,7 +37,10 @@ struct ProfileSettingsForm: View {
 
             Section {
                 ClearDataButton(profile: profile).buttonStyle(.borderless)
-                DeleteProfileButton(profile: profile).buttonStyle(.borderless)
+                DeleteProfileButton(
+                    profile: profile,
+                    currentProfileID: $currentProfileID
+                ).buttonStyle(.borderless)
             }
         }
         .formStyle(.grouped)

@@ -609,6 +609,8 @@
 		68014D5C27BC5CAB0017E2CB /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
+				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
 				68701DE2273BD42D00C6BB69 /* FeedView.swift */,
 				6870EBDA29C9556400E15154 /* FeedLayout.swift */,
 				68FF63F12921D88F0012A275 /* FeedToolbar.swift */,
@@ -978,8 +980,6 @@
 				6865575F29E7B417000EBF37 /* Search */,
 				687F22262A5B2BB700B76919 /* Diagnostics */,
 				683B285327D54141009C0302 /* Settings */,
-				683E3F44293BC02A00B16814 /* NewFeedButton.swift */,
-				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
 				687F488F269165EE00EA2498 /* CrashMessage.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				6885C42126D37259002C41B0 /* FeedTitleLabel.swift */,

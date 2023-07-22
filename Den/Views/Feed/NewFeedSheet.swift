@@ -115,18 +115,13 @@ struct NewFeedSheet: View {
                 dismiss()
             }
         } label: {
-            Label {
-                Text(
-                    "Add to \(targetPage?.nameText ?? Text(verbatim: "…"))",
-                    comment: "Button label."
-                )
-            } icon: {
-                Image(systemName: "note.text.badge.plus")
-            }
-            .foregroundStyle(.primary)
+            Text(
+                "Add to \(targetPage?.nameText ?? Text(verbatim: "…"))",
+                comment: "Button label."
+            )
         }
-        .disabled(loading || !(webAddressIsValid ?? false))
         .buttonStyle(.borderedProminent)
+        .disabled(loading || !(webAddressIsValid ?? false))
         .accessibilityIdentifier("SubmitNewFeed")
     }
 

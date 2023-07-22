@@ -38,10 +38,11 @@ struct SidebarToolbar: CustomizableToolbarContent {
         #if os(macOS)
         ToolbarItem(id: "Refresh") {
             RefreshButton(
-                profile: profile,
+                currentProfileID: $currentProfileID,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 refreshing: $refreshing,
-                refreshProgress: refreshProgress
+                refreshProgress: refreshProgress,
+                profiles: profiles
             )
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
@@ -134,10 +135,11 @@ struct SidebarToolbar: CustomizableToolbarContent {
 
         ToolbarItem(id: "SidebarBottomRefresh", placement: .bottomBar) {
             RefreshButton(
-                profile: profile,
+                currentProfileID: $currentProfileID,
                 feedRefreshTimeout: $feedRefreshTimeout,
                 refreshing: $refreshing,
-                refreshProgress: refreshProgress
+                refreshProgress: refreshProgress,
+                profiles: profiles
             ).disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         #endif
