@@ -85,7 +85,7 @@ struct PageConfigurationForm: View {
         Section {
             if page.feedsArray.isEmpty {
                 Text("Page Empty", comment: "Page settings feeds empty message.")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
 
             } else {
                 List {

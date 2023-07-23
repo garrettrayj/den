@@ -46,7 +46,7 @@ struct FeedFavicon: View {
         .placeholder {
             Image(systemName: "dot.radiowaves.up.forward")
                 .resizable()
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
                 .padding(2)
         }
         .scaledToFit()

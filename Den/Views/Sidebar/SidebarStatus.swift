@@ -30,7 +30,7 @@ struct SidebarStatus: View {
     var body: some View {
         Group {
             if !networkMonitor.isConnected {
-                Text("Network Offline", comment: "Status message.").foregroundColor(.secondary)
+                Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
             } else if refreshing {
                 ProgressView(progress).progressViewStyle(RefreshProgressViewStyle(profile: profile))
             } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {

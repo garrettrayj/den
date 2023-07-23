@@ -23,7 +23,7 @@ struct ResetEverythingButton: View {
             Label {
                 Text("Reset Everything", comment: "Button label.").lineLimit(1)
             } icon: {
-                Image(systemName: "arrow.counterclockwise").foregroundColor(.red)
+                Image(systemName: "arrow.counterclockwise").foregroundStyle(.red)
             }
         }
         .alert(

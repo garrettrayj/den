@@ -110,7 +110,7 @@ struct FeedLayout: View {
 
                         if feedAddressCopied {
                             Text("Copied", comment: "Copied to pasteboard message.")
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                         }
                     }
                     .buttonStyle(.plain)

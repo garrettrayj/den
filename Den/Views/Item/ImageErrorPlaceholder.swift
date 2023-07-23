@@ -17,7 +17,7 @@ struct ImageErrorPlaceholder: View {
         HStack {
             Image(systemName: "photo")
                 .imageScale(imageScale)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
                 .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

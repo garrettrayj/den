@@ -19,7 +19,7 @@ struct FeedTitleButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .font(.title3)
-            .foregroundColor(
+            .foregroundStyle(
                 isEnabled ? .primary : .secondary
             )
             .padding(.horizontal)

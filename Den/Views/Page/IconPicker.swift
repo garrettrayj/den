@@ -37,14 +37,15 @@ struct IconPicker: View {
                 ForEach(SymbolLibrary.shared.categorySymbols(categoryID: category.rawValue)) { symbol in
                     ZStack {
                         RoundedRectangle(cornerRadius: 4).fill(.background)
-                        Image(systemName: symbol.id)
-                            .imageScale(.large)
-                            .foregroundColor(symbol.id == symbolID ? .accentColor : .primary)
-
+                        
                         if symbol.id == symbolID {
-                            RoundedRectangle(cornerRadius: 4).strokeBorder(Color.accentColor, lineWidth: 2)
+                            Image(systemName: symbol.id).foregroundStyle(.tint)
+                            RoundedRectangle(cornerRadius: 4).strokeBorder(.tint, lineWidth: 2)
+                        } else {
+                            Image(systemName: symbol.id)
                         }
                     }
+                    .imageScale(.large)
                     .aspectRatio(1, contentMode: .fit)
                     .onTapGesture {
                         symbolID = symbol.id

@@ -42,7 +42,7 @@ struct ClearImageCacheButton: View {
                 Spacer()
                 Text(verbatim: cacheSizeFormatter.string(fromByteCount: cacheSize))
                     .font(.callout)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
         .task {

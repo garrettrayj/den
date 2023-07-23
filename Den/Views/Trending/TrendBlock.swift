@@ -57,10 +57,10 @@ struct TrendBlock: View {
                         """, comment: "Trend block status message.")
                     }
                     .font(.footnote)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                 }
                 .padding(12)
-                .foregroundColor(trend.items.unread().isEmpty ? .secondary : .primary)
+                .foregroundStyle(trend.items.unread().isEmpty ? .secondary : .primary)
             }
             .buttonStyle(HoverShadowButtonStyle())
         }
