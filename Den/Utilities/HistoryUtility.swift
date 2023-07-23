@@ -77,9 +77,10 @@ struct HistoryUtility {
     static func removeExpired(context: NSManagedObjectContext, profile: Profile) throws {
         if profile.historyRetention == 0 {
             Logger.main.info("""
-            History cleanup skipped for profile: \(profile.wrappedName). \
-            Retention period is unlimited
+            History cleanup skipped for profile with unlimited retention: \
+            \(profile.id?.uuidString ?? "Unknown", privacy: .public)
             """)
+
             return
         }
 
@@ -113,6 +114,10 @@ struct HistoryUtility {
             fromRemoteContextSave: deletedObjects,
             into: [context]
         )
-        Logger.main.info("History cleanup finished")
+        
+        Logger.main.info("""
+        History cleanup finished for profile: \
+        \(profile.id?.uuidString ?? "Unknown", privacy: .public)
+        """)
     }
 }

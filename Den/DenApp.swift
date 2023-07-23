@@ -43,6 +43,9 @@ struct DenApp: App {
             .environmentObject(networkMonitor)
             .environmentObject(refreshManager)
             .preferredColorScheme(userColorScheme.colorScheme)
+            .task {
+                performCleanup()
+            }
         }
         .commands {
             ToolbarCommands()
@@ -70,23 +73,6 @@ struct DenApp: App {
         }
         #if os(macOS)
         .defaultSize(width: 1200, height: 800)
-        #else
-        .backgroundTask(.appRefresh("net.devsci.den.refresh")) {
-            await handleRefresh()
-        }
-        .backgroundTask(.appRefresh("net.devsci.den.cleanup")) {
-            await handleCleanup()
-        }
-        .onChange(of: scenePhase) { phase in
-            switch phase {
-            case .background:
-                if backgroundRefreshEnabled {
-                    scheduleRefresh()
-                }
-                scheduleCleanup()
-            default: break
-            }
-        }
         #endif
 
         #if os(macOS)
@@ -105,69 +91,28 @@ struct DenApp: App {
         setupImageHandling()
     }
 
-    #if os(iOS)
-    private func scheduleRefresh() {
-        let request = BGAppRefreshTaskRequest(identifier: "net.devsci.den.refresh")
-        request.earliestBeginDate = .now + 30 * 60
-
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            Logger.main.info("""
-            Refresh task scheduled with earliest begin date: \
-            \(request.earliestBeginDate?.formatted() ?? "NA")
-            """)
-        } catch {
-            Logger.main.warning("Failed to schedule refresh task: \(error)")
-        }
-        // Break here to simulate background task
-    }
-
-    private func scheduleCleanup() {
-        if
-            let lastCleaned = lastCleanup,
-            Date(timeIntervalSince1970: lastCleaned) + 7 * 24 * 60 * 60 > .now
-        {
+    private func performCleanup() {
+        if let lastCleaned = lastCleanup {
+            let nextCleanup = Date(timeIntervalSince1970: lastCleaned) + 7 * 24 * 60 * 60
+            if nextCleanup > .now {
+                Logger.main.debug("Next cleanup after: \(nextCleanup.formatted(), privacy: .public)")
+            }
             return
         }
-
-        let request = BGProcessingTaskRequest(identifier: "net.devsci.den.cleanup")
-        request.earliestBeginDate = .now + 30 * 60
-
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            Logger.main.info("""
-            Cleanup task scheduled with earliest begin date: \
-            \(request.earliestBeginDate?.formatted() ?? "NA")
-            """)
-        } catch {
-            Logger.main.warning("Failed to schedule cleanup task: \(error)")
-        }
-        // Break here to simulate background task
-    }
-
-    private func handleRefresh() {
-        let container = persistenceController.container
-        container.performBackgroundTask { context in
-            do {
-                let profiles = try context.fetch(Profile.fetchRequest()) as [Profile]
-                for profile in profiles {
-                    Logger.main.info(
-                        "Performing background refresh for profile: \(profile.wrappedName, privacy: .public)"
-                    )
-                    refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
-                }
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+        
+        persistenceController.container.performBackgroundTask { context in
+            guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else { return }
+            for profile in profiles {
+                try? HistoryUtility.removeExpired(context: context, profile: profile)
             }
+            
+            try? CleanupUtility.purgeOrphans(context: context)
+            
+            try? context.save()
         }
-    }
-
-    private func handleCleanup() {
-        let queue = OperationQueue()
-        queue.addOperations([HistoryCleanupOperation(), DataCleanupOperation()], waitUntilFinished: true)
+        
         lastCleanup = Date.now.timeIntervalSince1970
     }
-    #endif
 
     private func setupImageHandling() {
         // Add additional image format support

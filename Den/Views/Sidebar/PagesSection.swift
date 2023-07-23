@@ -12,10 +12,6 @@ import SwiftUI
 
 struct PagesSection: View {
     @Environment(\.managedObjectContext) private var viewContext
-    #if os(iOS)
-    @Environment(\.editMode) private var editMode
-    #endif
-
     @ObservedObject var profile: Profile
 
     var body: some View {

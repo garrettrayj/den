@@ -12,33 +12,6 @@ import CoreData
 import OSLog
 
 final class RefreshManager: ObservableObject {
-
-    public func refresh(profile: Profile, timeout: Int) {
-        var ops: [Operation] = []
-
-        let analyzeOperation = AnalyzeOperation(profileObjectID: profile.objectID)
-        ops.append(analyzeOperation)
-
-        for feed in profile.feedsArray {
-            guard let url = feed.url else { continue }
-            let op = FeedUpdateOperation(
-                feedURL: url,
-                feedObjectID: feed.objectID,
-                updateMeta: feed.needsMetaUpdate,
-                timeout: Double(timeout)
-            )
-            analyzeOperation.addDependency(op)
-            ops.append(op)
-        }
-
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = min(3, ProcessInfo().activeProcessorCount)
-        queue.addOperations(ops, waitUntilFinished: true)
-
-        RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
-        profile.objectWillChange.send()
-    }
-
     public func refresh(
         profile: Profile,
         timeout: Int,
@@ -91,7 +64,6 @@ final class RefreshManager: ObservableObject {
         )
 
         await AnalyzeTask(profileObjectID: profile.objectID).execute()
-        await HistoryCleanupTask(profileObjectID: profile.objectID).execute()
     }
 
     func refresh(feed: Feed, timeout: Int) async {
