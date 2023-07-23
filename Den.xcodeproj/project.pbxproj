@@ -219,7 +219,6 @@
 		68E6C5562A6A4BAB00CA46B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E6C5552A6A4BAB00CA46B2 /* LaunchScreen.storyboard */; platformFilter = ios; };
 		68E6C5592A6B0F4A00CA46B2 /* HashIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6C5572A6B0F4A00CA46B2 /* HashIds.swift */; };
 		68E6C55A2A6B0F4A00CA46B2 /* HashIdentifierUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6C5582A6B0F4A00CA46B2 /* HashIdentifierUtility.swift */; };
-		68E6C5602A6C7C3600CA46B2 /* NoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6C55F2A6C7C3600CA46B2 /* NoItems.swift */; };
 		68E6C5622A6C86D300CA46B2 /* CardNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E6C5612A6C86D300CA46B2 /* CardNote.swift */; };
 		68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */; };
 		68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */; };
@@ -528,7 +527,6 @@
 		68E6C5552A6A4BAB00CA46B2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68E6C5572A6B0F4A00CA46B2 /* HashIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIds.swift; sourceTree = "<group>"; };
 		68E6C5582A6B0F4A00CA46B2 /* HashIdentifierUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashIdentifierUtility.swift; sourceTree = "<group>"; };
-		68E6C55F2A6C7C3600CA46B2 /* NoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoItems.swift; sourceTree = "<group>"; };
 		68E6C5612A6C86D300CA46B2 /* CardNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNote.swift; sourceTree = "<group>"; };
 		68E83BF92A6004590014DC64 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchUITests.swift; sourceTree = "<group>"; };
@@ -1068,7 +1066,6 @@
 				68FF63F52921DB900012A275 /* FilterReadButton.swift */,
 				68B8E79929CAC95300E9AF42 /* ImageDepression.swift */,
 				68B5269F298A352600D4B927 /* NoFeeds.swift */,
-				68E6C55F2A6C7C3600CA46B2 /* NoItems.swift */,
 				6862A59D2A26D90F000CAB19 /* PagePicker.swift */,
 				68D2862A2A6469E8007AD876 /* ProfileLabel.swift */,
 				6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */,
@@ -1544,7 +1541,6 @@
 				687FEF122A40A87B0042977E /* NewPageButton.swift in Sources */,
 				687FEEFF2A3F97260042977E /* NewProfileButton.swift in Sources */,
 				68B526A0298A352600D4B927 /* NoFeeds.swift in Sources */,
-				68E6C5602A6C7C3600CA46B2 /* NoItems.swift in Sources */,
 				686C384227405FA900662D84 /* Notification+Extensions.swift in Sources */,
 				687FEF012A3F99D70042977E /* OpenInBrowserButton.swift in Sources */,
 				687FEF052A3FA56A0042977E /* OpenInBrowserLabel.swift in Sources */,

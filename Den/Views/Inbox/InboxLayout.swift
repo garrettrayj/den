@@ -24,7 +24,7 @@ struct InboxLayout: View {
             SplashNote(
                 Text("Inbox Empty", comment: "Splash note title."),
                 caption: { Text("Refresh to check for new items.", comment: "Splash note caption.") },
-                icon: { Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1) }
+                icon: { Image(systemName: "tray") }
             )
         } else if items.unread().isEmpty && hideRead {
             AllReadSplashNote()

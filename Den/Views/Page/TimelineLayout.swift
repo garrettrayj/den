@@ -20,7 +20,10 @@ struct TimelineLayout: View {
 
     var body: some View {
         if items.isEmpty {
-            NoItems()
+            SplashNote(
+                Text("No Items", comment: "No available items message."),
+                icon: { Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1) }
+            )
         } else if items.unread().isEmpty && hideRead {
             AllReadSplashNote()
         } else {

@@ -13,25 +13,47 @@ import OSLog
 
 import FeedKit
 
-struct FeedUpdateTask {
+class FeedUpdateTask {
     let feedObjectID: NSManagedObjectID
     let pageObjectID: NSManagedObjectID?
     let profileObjectID: NSManagedObjectID?
     let url: URL
-    let updateMetadata: Bool
+    let updateMeta: Bool
     let timeout: TimeInterval
+    
+    private var parsedSuccessfully: Bool = false
+    private var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
+    private var start: Double?
+    private var webpage: URL?
+    
+    init(
+        feedObjectID: NSManagedObjectID,
+        pageObjectID: NSManagedObjectID?,
+        profileObjectID: NSManagedObjectID?,
+        url: URL,
+        updateMeta: Bool,
+        timeout: TimeInterval
+    ) {
+        self.feedObjectID = feedObjectID
+        self.pageObjectID = pageObjectID
+        self.profileObjectID = profileObjectID
+        self.url = url
+        self.updateMeta = updateMeta
+        self.timeout = timeout
+    }
 
     // swiftlint:disable cyclomatic_complexity function_body_length
     func execute() async {
-        let start = CFAbsoluteTimeGetCurrent()
-        var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
-        var webpageMetadata: WebpageMetadata.Results?
-
+        start = CFAbsoluteTimeGetCurrent()
+        
+        let context = PersistenceController.shared.container.newBackgroundContext()
+        context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
+        
         let feedRequest = URLRequest(url: url, timeoutInterval: timeout)
 
         var feedResponse = FeedURLResponse()
         if let (data, urlResponse) = try? await URLSession.shared.data(for: feedRequest) {
-            feedResponse.responseTime = Float(CFAbsoluteTimeGetCurrent() - start)
+            feedResponse.responseTime = Float(CFAbsoluteTimeGetCurrent() - start!)
             if let httpResponse = urlResponse as? HTTPURLResponse {
                 feedResponse.statusCode = Int16(httpResponse.statusCode)
                 feedResponse.server = httpResponse.value(forHTTPHeaderField: "Server")
@@ -42,21 +64,7 @@ struct FeedUpdateTask {
             parserResult = FeedParser(data: data).parse()
         }
 
-        if updateMetadata {
-            if
-                case .success(let parsedFeed) = parserResult,
-                let webpage = parsedFeed.webpage
-            {
-                let webpageRequest = URLRequest(url: webpage, timeoutInterval: timeout)
-                if let (webpageData, _) = try? await URLSession.shared.data(for: webpageRequest) {
-                    webpageMetadata = WebpageMetadata(webpage: webpage, data: webpageData).results
-                }
-            }
-        }
-
-        await PersistenceController.shared.container.performBackgroundTask { context in
-            context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
-
+        await context.perform {
             guard
                 let feed = context.object(with: self.feedObjectID) as? Feed,
                 let feedId = feed.id
@@ -71,21 +79,12 @@ struct FeedUpdateTask {
             feedData.age = feedResponse.age
             feedData.eTag = feedResponse.eTag
 
-            switch parserResult {
-            case .success(let parsedFeed):
-                handleParsedFeed(
-                    parsedFeed: parsedFeed,
-                    feed: feed,
-                    feedData: feedData,
-                    context: context,
-                    webpageMetadata: webpageMetadata
-                )
-                feedData.error = nil
-            case .failure:
-                feedData.error = RefreshError.parsing.rawValue
-            case .none:
-                feedData.error = RefreshError.request.rawValue
-            }
+            self.updateFeed(
+                feed: feed,
+                feedData: feedData,
+                parserResult: self.parserResult,
+                context: context
+            )
 
             // Cleanup old items
             let maxItems = feed.extendedItemLimit
@@ -107,62 +106,106 @@ struct FeedUpdateTask {
                 }
             }
 
-            do {
-                try context.save()
-                let duration = CFAbsoluteTimeGetCurrent() - start
-                Logger.ingest.info("Feed updated in \(duration) seconds: \(feed.wrappedTitle, privacy: .public)")
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
+            if !self.updateMeta || !self.parsedSuccessfully {
+                self.save(context: context, feed: feed)
+            }
+        }
+        
+        if updateMeta && parsedSuccessfully {
+            var webpageMetadata: WebpageMetadata.Results?
+            if let webpage = webpage {
+                let webpageRequest = URLRequest(url: webpage, timeoutInterval: timeout)
+                if let (webpageData, _) = try? await URLSession.shared.data(for: webpageRequest) {
+                    webpageMetadata = WebpageMetadata(webpage: webpage, data: webpageData).results
+                }
+            }
+            
+            await context.perform {
+                guard
+                    let feed = context.object(with: self.feedObjectID) as? Feed,
+                    let feedData = feed.feedData
+                else { return }
+                
+                self.updateFeedMeta(
+                    feed: feed,
+                    feedData: feedData,
+                    parserResult: self.parserResult!,
+                    context: context,
+                    metadata: webpageMetadata
+                )
+                
+                self.save(context: context, feed: feed)
             }
         }
 
         DispatchQueue.main.async {
             NotificationCenter.default.post(
                 name: .feedRefreshed,
-                object: profileObjectID,
-                userInfo: ["pageObjectID": pageObjectID as Any, "feedObjectID": feedObjectID as Any]
+                object: self.profileObjectID,
+                userInfo: [
+                    "pageObjectID": self.pageObjectID as Any,
+                    "feedObjectID": self.feedObjectID as Any
+                ]
             )
         }
     }
-
-    private func handleParsedFeed(
-        parsedFeed: FeedKit.Feed,
+    
+    private func updateFeed(
         feed: Feed,
         feedData: FeedData,
-        context: NSManagedObjectContext,
-        webpageMetadata: WebpageMetadata.Results?
+        parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?,
+        context: NSManagedObjectContext
     ) {
-        switch parsedFeed {
-        case let .atom(parsedFeed):
-            feedData.format = "Atom"
-            let updater = AtomFeedUpdate(
-                feed: feed,
-                feedData: feedData,
-                source: parsedFeed,
-                context: context
-            )
-            updater.execute()
-        case let .rss(parsedFeed):
-            feedData.format = "RSS"
-            let updater = RSSFeedUpdate(
-                feed: feed,
-                feedData: feedData,
-                source: parsedFeed,
-                context: context
-            )
-            updater.execute()
-        case let .json(parsedFeed):
-            feedData.format = "JSON"
-            let updater = JSONFeedUpdate(
-                feed: feed,
-                feedData: feedData,
-                source: parsedFeed,
-                context: context
-            )
-            updater.execute()
-        }
+        switch parserResult {
+        case .success(let parsedFeed):
+            self.parsedSuccessfully = true
+            self.webpage = parsedFeed.webpage
+            
+            feedData.error = nil
 
-        if updateMetadata {
+            switch parsedFeed {
+            case let .atom(parsedFeed):
+                let updater = AtomFeedUpdate(
+                    feed: feed,
+                    feedData: feedData,
+                    source: parsedFeed,
+                    context: context
+                )
+                updater.execute()
+            case let .rss(parsedFeed):
+                let updater = RSSFeedUpdate(
+                    feed: feed,
+                    feedData: feedData,
+                    source: parsedFeed,
+                    context: context
+                )
+                updater.execute()
+            case let .json(parsedFeed):
+                let updater = JSONFeedUpdate(
+                    feed: feed,
+                    feedData: feedData,
+                    source: parsedFeed,
+                    context: context
+                )
+                updater.execute()
+            }
+        case .failure:
+            feedData.error = RefreshError.parsing.rawValue
+            return
+        case .none:
+            feedData.error = RefreshError.request.rawValue
+        }
+    }
+
+    private func updateFeedMeta(
+        feed: Feed,
+        feedData: FeedData,
+        parserResult: Result<FeedKit.Feed, FeedKit.ParserError>,
+        context: NSManagedObjectContext,
+        metadata: WebpageMetadata.Results? = nil
+    ) {
+        switch parserResult {
+        case .success(let parsedFeed):
             switch parsedFeed {
             case let .atom(parsedFeed):
                 let updater = AtomFeedMetaUpdate(
@@ -170,7 +213,7 @@ struct FeedUpdateTask {
                     feedData: feedData,
                     source: parsedFeed,
                     context: context,
-                    webpageMetadata: webpageMetadata
+                    webpageMetadata: metadata
                 )
                 updater.execute()
             case let .rss(parsedFeed):
@@ -179,7 +222,7 @@ struct FeedUpdateTask {
                     feedData: feedData,
                     source: parsedFeed,
                     context: context,
-                    webpageMetadata: webpageMetadata
+                    webpageMetadata: metadata
                 )
                 updater.execute()
             case let .json(parsedFeed):
@@ -188,11 +231,30 @@ struct FeedUpdateTask {
                     feedData: feedData,
                     source: parsedFeed,
                     context: context,
-                    webpageMetadata: webpageMetadata
+                    webpageMetadata: metadata
                 )
                 updater.execute()
             }
             feedData.metaFetched = .now
+        case .failure:
+            return
+        }
+    }
+    
+    private func save(context: NSManagedObjectContext, feed: Feed) {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
+        }
+        
+        if let start = start {
+            let duration = CFAbsoluteTimeGetCurrent() - start
+            Logger.ingest.info(
+                "Feed updated in \(duration) seconds: \(feed.wrappedTitle, privacy: .public)"
+            )
         }
     }
 }

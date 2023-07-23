@@ -64,14 +64,14 @@ final class RefreshManager: ObservableObject {
                         pageObjectID: feed.page?.objectID,
                         profileObjectID: feed.page?.profile?.objectID,
                         url: url,
-                        updateMetadata: feed.needsMetaUpdate,
+                        updateMeta: feed.needsMetaUpdate,
                         timeout: Double(timeout)
                     )
                 )
             }
         }
 
-        let maxConcurrency = min(3, ProcessInfo().activeProcessorCount)
+        let maxConcurrency = min(4, ProcessInfo().activeProcessorCount)
 
         _ = await withTaskGroup(of: Void.self, returning: Void.self, body: { taskGroup in
                 var working: Int = 0
@@ -101,7 +101,7 @@ final class RefreshManager: ObservableObject {
                 pageObjectID: feed.page?.objectID,
                 profileObjectID: feed.page?.profile?.objectID,
                 url: url,
-                updateMetadata: true,
+                updateMeta: true,
                 timeout: Double(timeout)
             )
             _ = await feedUpdateTask.execute()
