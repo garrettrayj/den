@@ -15,6 +15,20 @@ struct ItemToolbar: CustomizableToolbarContent {
     @ObservedObject var profile: Profile
 
     var body: some CustomizableToolbarContent {
+        // Same buttons, but primaryAction placement causes the app to crash on macOS
+        // and no placement causes the buttons to be combined into a menu on iOS.
+        #if os(macOS)
+        ToolbarItem(id: "ItemOpenInBrowser") {
+            if let url = item.link {
+                OpenInBrowserButton(url: url, tintColor: profile.tintColor)
+            }
+        }
+        ToolbarItem(id: "ItemShare") {
+            if let url = item.link {
+                ShareButton(url: url)
+            }
+        }
+        #else
         ToolbarItem(id: "ItemOpenInBrowser", placement: .primaryAction) {
             if let url = item.link {
                 OpenInBrowserButton(url: url, tintColor: profile.tintColor)
@@ -25,5 +39,6 @@ struct ItemToolbar: CustomizableToolbarContent {
                 ShareButton(url: url)
             }
         }
+        #endif
     }
 }

@@ -72,7 +72,7 @@ struct FeedConfigurationForm: View {
                 viewContext.delete(feed)
             } label: {
                 Label {
-                    Text("Delete", comment: "Button label.").fixedSize()
+                    Text("Delete Feed", comment: "Button label.").fixedSize()
                 } icon: {
                     Image(systemName: "trash")
                 }
