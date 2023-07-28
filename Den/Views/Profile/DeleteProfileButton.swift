@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct DeleteProfileButton: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var profile: Profile
     
     @Binding var currentProfileID: String?
@@ -39,10 +41,7 @@ struct DeleteProfileButton: View {
                 .accessibilityIdentifier("CancelDeleteProfile")
 
                 Button(role: .destructive) {
-                    Task {
-                        await delete()
-                        currentProfileID = nil
-                    }
+                    delete()
                 } label: {
                     Text("Delete", comment: "Button label.")
                 }
@@ -59,21 +58,13 @@ struct DeleteProfileButton: View {
         .accessibilityIdentifier("DeleteProfile")
     }
 
-    private func delete() async {
-        let container = PersistenceController.shared.container
-
-        await container.performBackgroundTask { context in
-            if let toDelete = context.object(with: profile.objectID) as? Profile {
-                for feedData in toDelete.feedsArray.compactMap({$0.feedData}) {
-                    context.delete(feedData)
-                }
-                context.delete(toDelete)
-            }
-            do {
-                try context.save()
-            } catch let error as NSError {
-                CrashUtility.handleCriticalError(error)
-            }
+    private func delete() {
+        for feedData in profile.feedsArray.compactMap({$0.feedData}) {
+            viewContext.delete(feedData)
         }
+        for trend in profile.trends {
+            viewContext.delete(trend)
+        }
+        viewContext.delete(profile)
     }
 }

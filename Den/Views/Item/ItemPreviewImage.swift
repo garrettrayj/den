@@ -105,7 +105,7 @@ struct ItemPreviewImage: View {
                 .placeholder { ImageErrorPlaceholder() }
                 .grayscale(isEnabled ? 0 : 1)
                 .overlay(.background.opacity(isRead ? 0.5 : 0))
-                .aspectRatio(aspectRatio, contentMode: .fill)
+                .aspectRatio(aspectRatio, contentMode: .fit)
                 .background(.quaternary)
                 .modifier(ImageBorderModifier(cornerRadius: 6))
             }

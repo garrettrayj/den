@@ -57,11 +57,12 @@ final class RefreshManager: ObservableObject {
                     working += 1
                 }
                 await taskGroup.waitForAll()
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
-                }
             }
         )
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
+        }
 
         await AnalyzeTask(profileObjectID: profile.objectID).execute()
     }

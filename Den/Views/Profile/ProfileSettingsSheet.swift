@@ -24,8 +24,8 @@ struct ProfileSettingsSheet: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                if profile.managedObjectContext == nil {
+            ZStack {
+                if profile.managedObjectContext == nil || profile.isDeleted {
                     SplashNote(
                         Text("Profile Deleted", comment: "Object removed message."),
                         icon: { Image(systemName: "xmark") }
