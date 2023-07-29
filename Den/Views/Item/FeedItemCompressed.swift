@@ -23,7 +23,5 @@ struct FeedItemCompressed: View {
                 ItemCompressed(item: item, feed: feed)
             }
         }
-        .modifier(RoundedContainerModifier())
-        .fixedSize(horizontal: false, vertical: true)
-    }
+        .modifier(RoundedContainerModifier())    }
 }

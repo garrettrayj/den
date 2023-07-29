@@ -44,7 +44,6 @@ struct ItemThumbnailImage: View {
             context: [.imageThumbnailPixelSize: thumbnailPixelSize]
         )
         .resizable()
-        .purgeable(true)
         .placeholder { ImageErrorPlaceholder() }
         .aspectRatio(aspectRatio, contentMode: .fill)
         .grayscale(isEnabled ? 0 : 1)

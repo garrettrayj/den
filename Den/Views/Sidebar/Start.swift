@@ -28,7 +28,7 @@ struct Start: View {
                 .buttonStyle(.borderless)
 
             Button {
-                Task { loadDemo() }
+                loadDemo()
             } label: {
                 Label {
                     Text("Load Demo", comment: "Button label.")

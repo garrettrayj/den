@@ -50,7 +50,6 @@ struct ItemPreviewImage: View {
                             context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                         )
                             .resizable()
-                            .purgeable(true)
                             .placeholder { ImageErrorPlaceholder() }
                             .grayscale(isEnabled ? 0 : 1)
                             .overlay(.background.opacity(isRead ? 0.5 : 0))
@@ -67,7 +66,6 @@ struct ItemPreviewImage: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
-                        .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
                         .grayscale(isEnabled ? 0 : 1)
                         .overlay(.background.opacity(isRead ? 0.5 : 0))
@@ -85,7 +83,6 @@ struct ItemPreviewImage: View {
                         context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                     )
                         .resizable()
-                        .purgeable(true)
                         .placeholder { ImageErrorPlaceholder() }
                         .grayscale(isEnabled ? 0 : 1)
                         .overlay(.background.opacity(isRead ? 0.5 : 0))
@@ -100,7 +97,6 @@ struct ItemPreviewImage: View {
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
                 .resizable()
-                .purgeable(true)
                 .placeholder { ImageErrorPlaceholder() }
                 .grayscale(isEnabled ? 0 : 1)
                 .overlay(.background.opacity(isRead ? 0.5 : 0))

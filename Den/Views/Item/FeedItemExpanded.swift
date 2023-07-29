@@ -27,6 +27,5 @@ struct FeedItemExpanded: View {
             }
         }
         .modifier(RoundedContainerModifier())
-        .fixedSize(horizontal: false, vertical: true)
     }
 }

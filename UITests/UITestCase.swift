@@ -46,6 +46,8 @@ class UITestCase: XCTestCase {
         let app = XCUIApplication()
         if inMemory {
             app.launchArguments.append("-in-memory")
+        } else {
+            app.launchArguments.append("-disable-cloud")
         }
         app.launch()
 
