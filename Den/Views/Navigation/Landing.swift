@@ -115,7 +115,7 @@ struct Landing: View {
             }
             Spacer()
         }
-        .padding()
+        .padding(32)
     }
 
     private func createProfile() -> Profile {

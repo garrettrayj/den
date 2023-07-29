@@ -13,15 +13,17 @@ import XCTest
 final class DiagnosticsUITests: UITestCase {
     func testDiagnostics() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.popUpButtons["AppMenu"].tap()
+        app.popUpbuttons["SidebarMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
-        if !app.buttons["AppMenu"].waitForExistence(timeout: 4) {
+        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 4) {
             XCTFail()
         }
-        app.buttons["AppMenu"].forceTap()
+        app.buttons["SidebarMenu"].forceTap()
         app.buttons["Diagnostics"].tap()
         #endif
 
@@ -51,19 +53,19 @@ final class DiagnosticsUITests: UITestCase {
     func testDiagnosticsEmpty() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
         #if os(macOS)
-        app.popUpButtons["AppMenu"].tap()
+        app.popUpbuttons["SidebarMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
-        if !app.buttons["AppMenu"].waitForExistence(timeout: 4) {
+        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 4) {
             XCTFail()
         }
-        app.buttons["AppMenu"].forceTap()
+        app.buttons["SidebarMenu"].forceTap()
         app.buttons["Diagnostics"].tap()
         #endif
 

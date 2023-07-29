@@ -90,7 +90,7 @@ THE SOFTWARE.
 			<key>License</key>
 			<string>MIT</string>
 			<key>Title</key>
-			<string>SDWebImage (5.16.0)</string>
+			<string>SDWebImage (5.17.0)</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -177,7 +177,7 @@ THE SOFTWARE.
 			<key>License</key>
 			<string>MIT</string>
 			<key>Title</key>
-			<string>SDWebImageWebPCoder (0.12.0)</string>
+			<string>SDWebImageWebPCoder (0.13.0)</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

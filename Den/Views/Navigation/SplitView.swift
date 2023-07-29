@@ -90,7 +90,7 @@ struct SplitView: View {
             if let navigationData {
                 navigationStore.restore(from: navigationData)
             }
-            for await _ in navigationStore.$path.values {
+            for await _ in navigationStore.$path.values.map({ $0.count }) {
                 navigationData = navigationStore.encoded()
             }
         }

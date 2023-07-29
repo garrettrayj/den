@@ -14,14 +14,22 @@ final class TrendingUITests: UITestCase {
     func testTrendingEmpty() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
         app.buttons["NewPage"].tap()
+        
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            if app.windows.firstMatch.horizontalSizeClass == .compact {
+                app.navigationBars.firstMatch.buttons.firstMatch.tap()
+            }
+        }
+        #endif
 
-        app.buttons["TrendingNavLink"].tap()
+        app.staticTexts["TrendingNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()

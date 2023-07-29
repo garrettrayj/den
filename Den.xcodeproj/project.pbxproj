@@ -499,7 +499,7 @@
 		68D2864D2A679C1B007AD876 /* XCUIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIDevice+Extensions.swift"; sourceTree = "<group>"; };
 		68D2864F2A68740F007AD876 /* UITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestCase.swift; sourceTree = "<group>"; };
 		68D286512A687A58007AD876 /* iOSComprehensiveUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = iOSComprehensiveUI.xctestplan; path = TestPlans/iOSComprehensiveUI.xctestplan; sourceTree = SOURCE_ROOT; };
-		68D286532A68A080007AD876 /* Default.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Default.xctestplan; sourceTree = "<group>"; };
+		68D286532A68A080007AD876 /* Development.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Development.xctestplan; sourceTree = "<group>"; };
 		68D286542A68A5DF007AD876 /* macOSComprehensiveUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = macOSComprehensiveUI.xctestplan; sourceTree = "<group>"; };
 		68D486BD26C9896300AF5B59 /* IconPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPicker.swift; sourceTree = "<group>"; };
 		68D58E6824955321007ED1AC /* OPMLReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLReader.swift; sourceTree = "<group>"; };
@@ -982,7 +982,7 @@
 		68D286522A6884AA007AD876 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
-				68D286532A68A080007AD876 /* Default.xctestplan */,
+				68D286532A68A080007AD876 /* Development.xctestplan */,
 				68D286512A687A58007AD876 /* iOSComprehensiveUI.xctestplan */,
 				68D286542A68A5DF007AD876 /* macOSComprehensiveUI.xctestplan */,
 			);

@@ -13,6 +13,8 @@ import XCTest
 final class FeedUITests: UITestCase {
     func testFeedViewCompressed() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -43,6 +45,8 @@ final class FeedUITests: UITestCase {
 
     func testFeedConfiguration() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -73,6 +77,10 @@ final class FeedUITests: UITestCase {
             app.buttons["FeedMenu"].tap()
         }
         #endif
+        
+        if !app.buttons["ConfigureFeed"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
 
         app.buttons["ConfigureFeed"].firstMatch.tap()
 
@@ -86,10 +94,10 @@ final class FeedUITests: UITestCase {
     func testFeedViewNoData() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
         app.buttons["LoadDemo"].tap()
 

@@ -15,10 +15,10 @@ final class AppSettingsUITests: UITestCase {
     func testAppSettingsGeneralTab() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
         if !app.staticTexts["General"].waitForExistence(timeout: 2) {
@@ -31,10 +31,10 @@ final class AppSettingsUITests: UITestCase {
     func testAppSettingsProfilesTab() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 20) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
         app.menuBarItems["Den"].menuItems["Settings…"].tap()
 
@@ -50,14 +50,14 @@ final class AppSettingsUITests: UITestCase {
     func testAppSettingsSheet() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
-        app.buttons["AppMenu"].forceTap()
-        app.buttons["Settings"].tap()
-        if !app.buttons["Close"].waitForExistence(timeout: 2) {
+        app.buttons["SidebarMenu"].forceTap()
+        app.buttons["ShowProfileSettings"].tap()
+        if !app.buttons["Cancel"].waitForExistence(timeout: 4) {
             XCTFail("Settings sheet did not appear in time")
         }
 

@@ -49,7 +49,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## SDWebImage (5.16.0)
+## SDWebImage (5.17.0)
 
 Copyright (c) 2009-2020 Olivier Poitrey rs@dailymotion.com
  
@@ -119,7 +119,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## SDWebImageWebPCoder (0.12.0)
+## SDWebImageWebPCoder (0.13.0)
 
 Copyright (c) 2018 Bogdan Poplauschi
 

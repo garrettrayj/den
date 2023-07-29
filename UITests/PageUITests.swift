@@ -14,14 +14,13 @@ final class PageUITests: UITestCase {
     func testPageEmpty() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
         app.buttons["NewPage"].tap()
-        app.buttons["PageNavLink"].firstMatch.tap()
-
+        
         #if os(macOS)
         app.buttons["Toggle Sidebar"].firstMatch.tap()
         #else
@@ -47,6 +46,8 @@ final class PageUITests: UITestCase {
 
     func testPageGroupedLayout() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -77,6 +78,8 @@ final class PageUITests: UITestCase {
 
     func testPageTimelineLayout() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -118,6 +121,8 @@ final class PageUITests: UITestCase {
 
     func testPageShowcaseLayout() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -159,6 +164,8 @@ final class PageUITests: UITestCase {
 
     func testPageDeckLayout() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -200,6 +207,8 @@ final class PageUITests: UITestCase {
 
     func testPageConfiguration() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
@@ -228,6 +237,10 @@ final class PageUITests: UITestCase {
             app.buttons["PageMenu"].tap()
         }
         #endif
+        
+        if !app.buttons["ConfigurePage"].waitForExistence(timeout: 2) {
+            XCTFail()
+        }
 
         app.buttons["ConfigurePage"].firstMatch.tap()
 

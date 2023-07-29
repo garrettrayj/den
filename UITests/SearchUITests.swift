@@ -13,6 +13,8 @@ import XCTest
 final class SearchUITests: UITestCase {
     func testSearch() throws {
         let app = launchApp(inMemory: false)
+        
+        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(iOS)
         app.swipeDown()
@@ -58,10 +60,10 @@ final class SearchUITests: UITestCase {
     func testSearchNoResults() throws {
         let app = launchApp(inMemory: true)
 
-        if !app.buttons["CreateProfile"].waitForExistence(timeout: 2) {
+        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["CreateProfile"].tap()
+        app.buttons["NewProfile"].tap()
 
         #if os(iOS)
         app.swipeDown()
@@ -80,9 +82,7 @@ final class SearchUITests: UITestCase {
                 app.tap()
             }
         } else {
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
+            if XCUIDevice.shared.orientation.isPortrait {
                 app.tap()
             }
         }
