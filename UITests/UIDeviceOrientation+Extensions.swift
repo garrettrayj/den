@@ -10,6 +10,7 @@
 
 import XCTest
 
+#if os(iOS)
 extension UIDeviceOrientation {
     var name: String {
         switch self {
@@ -32,3 +33,4 @@ extension UIDeviceOrientation {
         }
     }
 }
+#endif

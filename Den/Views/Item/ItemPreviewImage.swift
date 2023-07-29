@@ -58,7 +58,6 @@ struct ItemPreviewImage: View {
                             .scaledToFit()
                     }
                     .aspectRatio(16/9, contentMode: .fill)
-                    .fixedSize(horizontal: false, vertical: true)
                 }
             } else if aspectRatio! < 0.5 {
                 ImageDepression(padding: 8) {

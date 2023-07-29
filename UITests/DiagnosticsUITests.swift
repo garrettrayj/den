@@ -17,7 +17,7 @@ final class DiagnosticsUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.popUpbuttons["SidebarMenu"].tap()
+        app.popUpButtons["SidebarMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 4) {
@@ -28,7 +28,7 @@ final class DiagnosticsUITests: UITestCase {
         #endif
 
         #if os(macOS)
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular {
@@ -56,10 +56,10 @@ final class DiagnosticsUITests: UITestCase {
         if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["NewProfile"].tap()
+        app.buttons["NewProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.popUpbuttons["SidebarMenu"].tap()
+        app.popUpButtons["SidebarMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 4) {
@@ -70,7 +70,7 @@ final class DiagnosticsUITests: UITestCase {
         #endif
 
         #if os(macOS)
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular {

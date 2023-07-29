@@ -24,5 +24,6 @@ struct FeedItemCompressed: View {
             }
         }
         .modifier(RoundedContainerModifier())
+        .fixedSize(horizontal: false, vertical: true)
     }
 }

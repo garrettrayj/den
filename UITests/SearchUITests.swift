@@ -26,7 +26,7 @@ final class SearchUITests: UITestCase {
         searchField.typeText("\n")
 
         #if os(macOS)
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular {
@@ -41,7 +41,11 @@ final class SearchUITests: UITestCase {
 
         if !app
             .staticTexts
+            #if os(macOS)
+            .containing(NSPredicate(format: "value CONTAINS[c] %@", "results for “NASA”"))
+            #else
             .containing(NSPredicate(format: "label CONTAINS[c] %@", "results for “NASA”"))
+            #endif
             .firstMatch
             .waitForExistence(timeout: 2)
         {
@@ -63,7 +67,7 @@ final class SearchUITests: UITestCase {
         if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["NewProfile"].tap()
+        app.buttons["NewProfile"].firstMatch.tap()
 
         #if os(iOS)
         app.swipeDown()
@@ -75,7 +79,7 @@ final class SearchUITests: UITestCase {
         searchField.typeText("\n")
 
         #if os(macOS)
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular {

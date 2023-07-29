@@ -17,12 +17,12 @@ final class PageUITests: UITestCase {
         if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["NewProfile"].tap()
+        app.buttons["NewProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
         
         #if os(macOS)
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular {
@@ -51,7 +51,7 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
@@ -83,7 +83,7 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
@@ -126,7 +126,7 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
@@ -169,7 +169,7 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
@@ -212,7 +212,7 @@ final class PageUITests: UITestCase {
 
         #if os(macOS)
         app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {

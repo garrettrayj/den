@@ -19,7 +19,7 @@ final class InboxUITests: UITestCase {
         app.staticTexts["InboxNavLink"].tap()
 
         #if os(macOS)
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular {
@@ -47,7 +47,7 @@ final class InboxUITests: UITestCase {
         if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["NewProfile"].tap()
+        app.buttons["NewProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
         
@@ -62,7 +62,7 @@ final class InboxUITests: UITestCase {
         app.staticTexts["InboxNavLink"].tap()
 
         #if os(macOS)
-        app.buttons["Toggle Sidebar"].firstMatch.tap()
+        app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular {

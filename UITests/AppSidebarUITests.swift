@@ -17,7 +17,7 @@ final class AppSidebarUITests: UITestCase {
         if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["NewProfile"].tap()
+        app.buttons["NewProfile"].firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "AppSidebarGetStarted")
     }
@@ -28,10 +28,10 @@ final class AppSidebarUITests: UITestCase {
         if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
             XCTFail("Create Profile button did not appear in time")
         }
-        app.buttons["NewProfile"].tap()
+        app.buttons["NewProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.popUpbuttons["SidebarMenu"].tap()
+        app.popUpButtons["SidebarMenu"].tap()
         #else
         app.buttons["SidebarMenu"].forceTap()
         #endif
