@@ -17,7 +17,6 @@ struct Sidebar: View {
     #endif
 
     @EnvironmentObject private var networkMonitor: NetworkMonitor
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
@@ -26,6 +25,7 @@ struct Sidebar: View {
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
+    @Binding var showingNewFeedSheet: Bool
     @Binding var showingProfileSettings: Bool
 
     @State private var searchInput = ""
@@ -77,6 +77,7 @@ struct Sidebar: View {
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
+                showingNewFeedSheet: $showingNewFeedSheet,
                 showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress

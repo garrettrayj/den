@@ -30,7 +30,7 @@ public class Profile: NSManagedObject {
         if wrappedName != "" {
             return "\(wrappedName) \(Date().formatted(date: .abbreviated, time: .shortened))"
         }
-        
+
         return "\(Date().formatted(date: .abbreviated, time: .shortened))"
     }
 

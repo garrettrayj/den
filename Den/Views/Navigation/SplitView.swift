@@ -17,8 +17,6 @@ struct SplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    @EnvironmentObject private var refreshManager: RefreshManager
-
     @ObservedObject var profile: Profile
 
     @Binding var backgroundRefreshEnabled: Bool
@@ -56,6 +54,7 @@ struct SplitView: View {
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
+                showingNewFeedSheet: $showingNewFeedSheet,
                 showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress
@@ -76,15 +75,31 @@ struct SplitView: View {
         .tint(profile.tintColor)
         .environment(\.useSystemBrowser, useSystemBrowser)
         .onOpenURL { url in
-            if case .page(let page) = detailPanel {
-                NewFeedUtility.showSheet(for: url.absoluteString, profile: profile, page: page)
-            } else {
-                NewFeedUtility.showSheet(for: url.absoluteString, profile: profile)
-            }
+            handleNewFeed(urlString: url.absoluteString)
         }
-        .modifier(
-            URLDropTargetModifier(profile: profile)
-        )
+        .onDrop(of: [.url, .text], isTargeted: nil, perform: { providers in
+            guard let provider: NSItemProvider = providers.first else { return false }
+
+            if provider.canLoadObject(ofClass: URL.self) {
+                _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
+                    if let url = url {
+                        handleNewFeed(urlString: url.absoluteString)
+                    }
+                })
+                return true
+            }
+
+            if provider.canLoadObject(ofClass: String.self) {
+                _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
+                    if let droppedString = droppedString {
+                        handleNewFeed(urlString: droppedString)
+                    }
+                })
+                return true
+            }
+
+            return false
+        })
         .task {
             if let navigationData {
                 navigationStore.restore(from: navigationData)
@@ -120,13 +135,6 @@ struct SplitView: View {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             #endif
         }
-        .onReceive(
-            NotificationCenter.default.publisher(for: .showSubscribe, object: profile.objectID)
-        ) { notification in
-            newFeedWebAddress = notification.userInfo?["urlString"] as? String ?? ""
-            newFeedPageID = notification.userInfo?["pageID"] as? String
-            showingNewFeedSheet = true
-        }
         .sheet(isPresented: $showingNewFeedSheet) {
             NewFeedSheet(
                 profile: profile,
@@ -134,7 +142,6 @@ struct SplitView: View {
                 initialPageID: $newFeedPageID,
                 feedRefreshTimeout: $feedRefreshTimeout
             )
-            .environmentObject(refreshManager)
         }
         .sheet(
             isPresented: $showingProfileSettings,
@@ -191,5 +198,19 @@ struct SplitView: View {
             }
         }
         .navigationTitle(profile.nameText)
+    }
+
+
+    private func handleNewFeed(urlString: String) {
+        let cleanedURLString = urlString
+            .replacingOccurrences(of: "feed:", with: "")
+            .replacingOccurrences(of: "den:", with: "")
+
+        if case .page(let page) = detailPanel {
+            newFeedPageID = page.id?.uuidString
+        }
+
+        newFeedWebAddress = cleanedURLString
+        showingNewFeedSheet = true
     }
 }

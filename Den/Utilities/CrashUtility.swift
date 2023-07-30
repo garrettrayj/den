@@ -17,7 +17,7 @@ struct CrashUtility {
         let formatted = self.formatErrorMessage(anError)
         Logger.main.critical("\(formatted)")
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .showCrashMessage, object: nil)
+            NotificationCenter.default.post(name: .appCrashed, object: nil)
         }
     }
 

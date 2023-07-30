@@ -11,7 +11,7 @@
 import CoreData
 import OSLog
 
-final class RefreshManager: ObservableObject {
+final class RefreshManager {
     static public func refresh(
         profile: Profile,
         timeout: Int,

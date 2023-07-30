@@ -44,7 +44,7 @@ struct RootView: View {
                 Landing(currentProfileID: $currentProfileID, profiles: profiles)
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
+        .onReceive(NotificationCenter.default.publisher(for: .appCrashed, object: nil)) { _ in
             showingCrashMessage = true
         }
         .sheet(isPresented: $showingCrashMessage) {

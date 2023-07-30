@@ -11,13 +11,11 @@
 import SwiftUI
 
 struct NewFeedButton: View {
-    @ObservedObject var profile: Profile
-
-    var page: Page?
+    @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
         Button {
-            NewFeedUtility.showSheet(profile: profile, page: page)
+            showingNewFeedSheet = true
         } label: {
             Label {
                 Text("New Feed", comment: "Button label.")

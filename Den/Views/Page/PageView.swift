@@ -65,7 +65,6 @@ struct PageView: View {
                             }
                         }
                     }
-                    .modifier(URLDropTargetModifier(profile: profile, page: page))
                     .toolbar(id: "Page") {
                         PageToolbar(
                             page: page,

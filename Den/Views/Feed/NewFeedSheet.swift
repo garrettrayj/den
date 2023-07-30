@@ -14,7 +14,6 @@ import SwiftUI
 struct NewFeedSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var refreshManager: RefreshManager
 
     @ObservedObject var profile: Profile
 
@@ -57,7 +56,6 @@ struct NewFeedSheet: View {
                             }
                         }
                         .font(.caption)
-                        .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity)
                     }
 

@@ -21,6 +21,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
+    @Binding var showingNewFeedSheet: Bool
     @Binding var showingProfileSettings: Bool
 
     let profiles: FetchedResults<Profile>
@@ -45,7 +46,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
 
         ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
             Menu {
-                NewFeedButton(profile: profile, page: activePage)
+                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                 NewPageButton(profile: profile, detailPanel: $detailPanel)
 
                 Divider()

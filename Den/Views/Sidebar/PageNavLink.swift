@@ -40,7 +40,6 @@ struct PageNavLink: View {
         }
         .tag(DetailPanel.page(page))
         .lineLimit(1)
-        .modifier(URLDropTargetModifier(profile: profile, page: page))
         .contextMenu {
             Button {
                 page.feedsArray.forEach { feed in
