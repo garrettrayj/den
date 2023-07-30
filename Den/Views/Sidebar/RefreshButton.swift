@@ -44,6 +44,7 @@ struct RefreshButton: View {
                 }
             }
             .keyboardShortcut("r", modifiers: [.command], localization: .withoutMirroring)
+            .accessibilityIdentifier("Refresh")
         }
     }
 }

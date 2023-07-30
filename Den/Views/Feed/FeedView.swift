@@ -53,7 +53,6 @@ struct FeedView: View {
         #if os(iOS)
         .background(Color(.systemGroupedBackground))
         #endif
-
         .sheet(
             isPresented: $showingFeedConfiguration,
             onDismiss: {

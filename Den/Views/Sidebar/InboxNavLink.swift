@@ -24,6 +24,5 @@ struct InboxNavLink: View {
             .tag(DetailPanel.inbox)
             .accessibilityIdentifier("InboxNavLink")
         }
-
     }
 }

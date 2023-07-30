@@ -17,7 +17,6 @@ struct PageToolbar: CustomizableToolbarContent {
     #endif
 
     @ObservedObject var page: Page
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout

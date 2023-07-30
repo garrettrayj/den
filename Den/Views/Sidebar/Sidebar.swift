@@ -16,8 +16,6 @@ struct Sidebar: View {
     @Environment(\.editMode) private var editMode
     #endif
 
-    @EnvironmentObject private var networkMonitor: NetworkMonitor
-
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?

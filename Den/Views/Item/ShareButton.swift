@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct ShareButton: View {
-
     let url: URL
 
     var body: some View {

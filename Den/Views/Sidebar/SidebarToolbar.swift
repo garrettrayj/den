@@ -80,7 +80,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
         } else {
             ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
                 Menu {
-                    NewFeedButton(profile: profile, page: activePage)
+                    NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                     NewPageButton(profile: profile, detailPanel: $detailPanel)
                     Divider()
                     Button {

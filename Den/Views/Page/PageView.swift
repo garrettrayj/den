@@ -14,7 +14,7 @@ struct PageView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
-    
+
     @Binding var showingNewFeedSheet: Bool
 
     @AppStorage("HideRead") private var hideRead: Bool = false
@@ -70,7 +70,6 @@ struct PageView: View {
                     .toolbar(id: "Page") {
                         PageToolbar(
                             page: page,
-                            profile: profile,
                             hideRead: $hideRead,
                             pageLayout: $pageLayout,
                             showingPageConfiguration: $showingPageConfiguration,
@@ -110,7 +109,7 @@ struct PageView: View {
 
         self.page = page
         self.profile = profile
-        
+
         _showingNewFeedSheet = showingNewFeedSheet
     }
 }

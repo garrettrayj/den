@@ -15,8 +15,6 @@ struct SearchToolbar: CustomizableToolbarContent {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
 
-    @ObservedObject var profile: Profile
-
     @Binding var hideRead: Bool
 
     let query: String

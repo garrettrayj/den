@@ -45,7 +45,6 @@ struct ItemActionView<Content: View>: View {
         }
         .contextMenu {
             if let link = item.link {
-
                 Button {
                     Task {
                         await HistoryUtility.toggleReadUnread(items: [item])

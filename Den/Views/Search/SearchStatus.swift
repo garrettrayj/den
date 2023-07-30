@@ -15,9 +15,7 @@ struct SearchStatus: View {
     let query: String
 
     var body: some View {
-        statusText
-            .font(.caption)
-            .lineLimit(1)
+        statusText.font(.caption).lineLimit(1)
     }
 
     private var statusText: Text {

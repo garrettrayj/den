@@ -17,7 +17,6 @@ struct PageNavLink: View {
     @Environment(\.editMode) private var editMode
     #endif
 
-    @ObservedObject var profile: Profile
     @ObservedObject var page: Page
 
     var body: some View {

@@ -87,12 +87,12 @@ struct ItemHero: View {
                 options: [.delayPlaceholder],
                 context: [.imageThumbnailPixelSize: thumbnailPixelSize]
             )
-                .resizable()
-                .placeholder { ImageErrorPlaceholder() }
-                .indicator(.activity)
-                .aspectRatio(item.imageAspectRatio, contentMode: .fill)
-                .background(.quaternary)
-                .modifier(ImageBorderModifier())
+            .resizable()
+            .placeholder { ImageErrorPlaceholder() }
+            .indicator(.activity)
+            .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+            .background(.quaternary)
+            .modifier(ImageBorderModifier())
         }
     }
 }

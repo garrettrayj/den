@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct Welcome: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var profile: Profile
 
     var body: some View {

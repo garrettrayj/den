@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct ToggleReadButton: View {
-    @Environment(\.displayScale) private var displayScale
     let unreadCount: Int
     let toggleAll: () async -> Void
 

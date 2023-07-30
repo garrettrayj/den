@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct ItemView: View {
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @ObservedObject var item: Item

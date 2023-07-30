@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct ProfileSettingsForm: View {
-    @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile

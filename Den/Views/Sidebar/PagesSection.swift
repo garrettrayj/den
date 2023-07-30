@@ -12,12 +12,13 @@ import SwiftUI
 
 struct PagesSection: View {
     @Environment(\.managedObjectContext) private var viewContext
+
     @ObservedObject var profile: Profile
 
     var body: some View {
         Section {
             ForEach(profile.pagesArray) { page in
-                PageNavLink(profile: profile, page: page)
+                PageNavLink(page: page)
             }
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)

@@ -12,8 +12,6 @@ import SwiftUI
 import SDWebImage
 
 struct ResetEverythingButton: View {
-    @Environment(\.dismiss) private var dismiss
-
     @State private var showingResetAlert = false
 
     var body: some View {
