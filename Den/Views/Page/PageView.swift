@@ -90,10 +90,11 @@ struct PageView: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
+            },
+            content: {
+                PageConfigurationSheet(page: page)
             }
-        ) {
-            PageConfigurationSheet(page: page)
-        }
+        )
     }
 
     init(

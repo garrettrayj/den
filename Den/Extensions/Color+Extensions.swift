@@ -24,19 +24,30 @@ extension Color {
         }
         #endif
 
-        let r = Float(components[0])
-        let g = Float(components[1])
-        let b = Float(components[2])
-        var a = Float(1.0)
+        let red = Float(components[0])
+        let green = Float(components[1])
+        let blue = Float(components[2])
+        var alpha = Float(1.0)
 
         if components.count >= 4 {
-            a = Float(components[3])
+            alpha = Float(components[3])
         }
 
-        if a != Float(1.0) {
-            return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
+        if alpha != Float(1.0) {
+            return String(
+                format: "%02lX%02lX%02lX%02lX",
+                lroundf(red * 255),
+                lroundf(green * 255),
+                lroundf(blue * 255),
+                lroundf(alpha * 255)
+            )
         } else {
-            return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+            return String(
+                format: "%02lX%02lX%02lX",
+                lroundf(red * 255),
+                lroundf(green * 255),
+                lroundf(blue * 255)
+            )
         }
     }
 }

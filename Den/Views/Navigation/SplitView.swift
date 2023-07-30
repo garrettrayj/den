@@ -120,7 +120,9 @@ struct SplitView: View {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             #endif
         }
-        .onReceive(NotificationCenter.default.publisher(for: .showSubscribe, object: profile.objectID)) { notification in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .showSubscribe, object: profile.objectID)
+        ) { notification in
             newFeedWebAddress = notification.userInfo?["urlString"] as? String ?? ""
             newFeedPageID = notification.userInfo?["pageID"] as? String
             showingNewFeedSheet = true
@@ -144,17 +146,18 @@ struct SplitView: View {
                         CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
+            },
+            content: {
+                ProfileSettingsSheet(
+                    profile: profile,
+                    currentProfileID: $currentProfileID,
+                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
+                    feedRefreshTimeout: $feedRefreshTimeout,
+                    useSystemBrowser: $useSystemBrowser,
+                    userColorScheme: $userColorScheme
+                )
             }
-        ) {
-            ProfileSettingsSheet(
-                profile: profile,
-                currentProfileID: $currentProfileID,
-                backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                feedRefreshTimeout: $feedRefreshTimeout,
-                useSystemBrowser: $useSystemBrowser,
-                userColorScheme: $userColorScheme
-            )
-        }
+        )
         .fileImporter(
             isPresented: $showingImporter,
             allowedContentTypes: [.init(importedAs: "public.opml"), .xml],

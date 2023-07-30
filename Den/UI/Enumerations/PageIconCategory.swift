@@ -11,25 +11,26 @@
 import SwiftUI
 
 enum PageIconCategory: String, CaseIterable {
-    case uncategorized = "uncategorized"
-    case communication = "communication"
-    case weather = "weather"
-    case objectsandtools = "objectsandtools"
-    case devices = "devices"
-    case gaming = "gaming"
-    case connectivity = "connectivity"
-    case transportation = "transportation"
-    case human = "human"
-    case nature = "nature"
-    case editing = "editing"
-    case media = "media"
-    case keyboard = "keyboard"
-    case commerce = "commerce"
-    case time = "time"
-    case health = "health"
-    case shapes = "shapes"
-    case arrows = "arrows"
-    case math = "math"
+    // Note: String enum values can be omitted when they are equal to the enumcase name.
+    case uncategorized
+    case communication
+    case weather
+    case objectsandtools
+    case devices
+    case gaming
+    case connectivity
+    case transportation
+    case human
+    case nature
+    case editing
+    case media
+    case keyboard
+    case commerce
+    case time
+    case health
+    case shapes
+    case arrows
+    case math
 
     var labelIcon: String {
         switch self {

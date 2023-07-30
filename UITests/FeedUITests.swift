@@ -21,7 +21,8 @@ final class FeedUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -53,7 +54,8 @@ final class FeedUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -79,13 +81,13 @@ final class FeedUITests: UITestCase {
         #endif
 
         if !app.buttons["ConfigureFeed"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Configure feed button did not appear in time")
         }
 
         app.buttons["ConfigureFeed"].firstMatch.tap()
 
         if !app.staticTexts["Feed Configuration"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Feed configuration title did not appear in time")
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "FeedConfiguration")
@@ -106,7 +108,8 @@ final class FeedUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {

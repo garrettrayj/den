@@ -38,7 +38,7 @@ final class PageUITests: UITestCase {
         #endif
 
         if !app.staticTexts["Untitled"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Page title did not appear in time")
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageEmpty")
@@ -54,7 +54,8 @@ final class PageUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -86,7 +87,8 @@ final class PageUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -129,7 +131,8 @@ final class PageUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -172,7 +175,8 @@ final class PageUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -215,7 +219,8 @@ final class PageUITests: UITestCase {
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular && app.windows.firstMatch.verticalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass == .regular &&
+                app.windows.firstMatch.verticalSizeClass == .compact {
                 app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -239,13 +244,13 @@ final class PageUITests: UITestCase {
         #endif
 
         if !app.buttons["ConfigurePage"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Configure page button did not appear in time")
         }
 
         app.buttons["ConfigurePage"].firstMatch.tap()
 
         if !app.staticTexts["Page Configuration"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Page configuration title did not appear in time")
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "PageConfiguration")

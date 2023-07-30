@@ -35,7 +35,7 @@ final class InboxUITests: UITestCase {
         #endif
 
         if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Inbox title did not appear in time")
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "Inbox")
@@ -78,7 +78,7 @@ final class InboxUITests: UITestCase {
         #endif
 
         if !app.staticTexts["Inbox"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Inbox title did not appear in time")
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "InboxEmpty")

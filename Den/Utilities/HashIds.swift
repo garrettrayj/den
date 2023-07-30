@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 //
 //  HashIds.swift
 //  http://hashids.org

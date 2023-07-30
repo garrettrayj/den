@@ -20,8 +20,8 @@ final class DiagnosticsUITests: UITestCase {
         app.popUpButtons["SidebarMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
-        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 4) {
-            XCTFail()
+        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
+            XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
         app.buttons["Diagnostics"].tap()
@@ -62,8 +62,8 @@ final class DiagnosticsUITests: UITestCase {
         app.popUpButtons["SidebarMenu"].tap()
         app.menuItems["Diagnostics"].tap()
         #else
-        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 4) {
-            XCTFail()
+        if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
+            XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
         app.buttons["Diagnostics"].tap()

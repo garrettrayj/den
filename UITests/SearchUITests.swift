@@ -49,7 +49,7 @@ final class SearchUITests: UITestCase {
             .firstMatch
             .waitForExistence(timeout: 2)
         {
-            XCTFail()
+            XCTFail("Search status did not appear in time")
         }
 
         // For unknown reasons, app.windows.firstMatch does not work on iOS in the specific
@@ -93,7 +93,7 @@ final class SearchUITests: UITestCase {
         #endif
 
         if !app.staticTexts["No results found for “Example”"].waitForExistence(timeout: 2) {
-            XCTFail()
+            XCTFail("Search status did not appear in time")
         }
 
         #if os(iOS)
