@@ -10,7 +10,7 @@
 #
 
 # Create logs folder
-logsFolder=${PROJECT_DIR}/Scripts/Logs
+logsFolder="${PROJECT_DIR}/Scripts/Logs"
 mkdir -p $logsFolder
 
 # Create log file
@@ -28,7 +28,7 @@ exists()
 }
 
 if exists license-plist && [ $CONFIGURATION = "Debug" ]; then
-    license-plist
+    license-plist --config-path "$PROJECT_DIR/license_plist.yml"
 else
     echo "warning: LicensePlist not installed. Run 'brew install licenseplist'"
 fi

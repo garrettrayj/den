@@ -7,7 +7,7 @@
 #  Copyright © 2021 Garrett Johnson
 #
 #  SPDX-License-Identifier: MIT
-#
+
 set -e
 
 # The Xcode project to create screenshots for
@@ -27,7 +27,7 @@ simulators=(
 )
 
 # Save final screenshots into this folder (it will be created)
-targetFolder="$PWD/Screenshots"
+targetFolder="$HOME/Desktop/DenScreenshots"
 
 function capture_mac {
     # Capture macOS screenshots
@@ -78,17 +78,16 @@ function capture_ios {
         rm -rf /tmp/DenDerivedData/Logs/Test
         echo "📲  Building and running for $appearance $simulator in $language"
 
-        # Build and Test
         xcodebuild \
             -project $projectName \
             -scheme $schemeName \
-            -testPlan Default \
+            -testPlan Development \
             -derivedDataPath '/tmp/DenDerivedData/' \
             -destination "platform=iOS Simulator,name=$simulator_name" \
             test-without-building
             
         echo "🖼  Collecting Results..."
-        destination="$targetFolder/$simulator/$appearance"
+        destination="$targetFolder/$simulator"
         rm -rf "$destination"
         mkdir -p "$destination"
         find /tmp/DenDerivedData/Logs/Test -maxdepth 1 -type d -exec xcparse screenshots {} "$destination" \;

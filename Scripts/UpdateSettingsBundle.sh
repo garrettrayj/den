@@ -7,7 +7,6 @@
 #  Copyright © 2023 Garrett Johnson
 #
 #  SPDX-License-Identifier: MIT
-#
 
 version="$MARKETING_VERSION"
 build="$CURRENT_PROJECT_VERSION"

@@ -453,7 +453,6 @@
 		689EDBF8269188580055811A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		68A2188C29D9D4AE005F42C7 /* PagesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesSection.swift; sourceTree = "<group>"; };
 		68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeAreaModifier.swift; sourceTree = "<group>"; };
-		68A807ED2944843800944D2C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		68AC3A162910EEB500D60273 /* WorkingTrend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkingTrend.swift; sourceTree = "<group>"; };
 		68ADABC224A21F2500BE41E2 /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		68B18959289B7B320002A7FE /* ItemPreviewImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPreviewImage.swift; sourceTree = "<group>"; };
@@ -887,7 +886,6 @@
 				68E6C5462A69129B00CA46B2 /* ACKNOWLEDGEMENTS.md */,
 				68895CFE2A6340BE00E25385 /* LICENSE.txt */,
 				68E6C5422A68EF2E00CA46B2 /* license_plist.yml */,
-				68A807ED2944843800944D2C /* Makefile */,
 				683573A32963A0BA00843A8E /* NOTES.md */,
 				6845BD0F24EFB38C0008B296 /* README.md */,
 				68C4130A247263C700D1DC7B /* Products */,
@@ -916,7 +914,6 @@
 				6880EBE427ABEDB600B479F4 /* UI */,
 				68D58E6124922FE5007ED1AC /* Utilities */,
 				68C413422472760400D1DC7B /* Views */,
-				68C41315247263C700D1DC7B /* RootView.swift */,
 				68C41317247263C700D1DC7B /* Assets.xcassets */,
 				68C41341247263D800D1DC7B /* Den.entitlements */,
 				68F56B74288BFCCC006EC915 /* Den.xcdatamodel */,
@@ -952,6 +949,7 @@
 				683B285327D54141009C0302 /* Settings */,
 				68FC2566275E07E20073979F /* Sidebar */,
 				68F56B3B286F5C01006EC915 /* Trending */,
+				68C41315247263C700D1DC7B /* RootView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
