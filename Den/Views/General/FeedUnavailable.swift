@@ -25,11 +25,11 @@ struct FeedUnavailable: View {
                     },
                     icon: { Image(systemName: "bolt.horizontal") }
                 )
-            } else if let error = feedData?.wrappedError {
+            } else if feedData?.wrappedError != nil {
                 CardNote(
                     Text("Refresh Failed", comment: "Feed unavailable message."),
                     caption: {
-                        if error == .request {
+                        if feedData?.wrappedError == .request {
                             Text("Could not fetch data.", comment: "Feed unavailable message.")
                         } else {
                             Text("Unable to parse content.", comment: "Feed unavailable message.")

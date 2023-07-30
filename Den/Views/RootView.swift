@@ -41,10 +41,7 @@ struct RootView: View {
                     profiles: profiles
                 )
             } else {
-                Landing(
-                    currentProfileID: $currentProfileID,
-                    profiles: profiles
-                )
+                Landing(currentProfileID: $currentProfileID, profiles: profiles)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .showCrashMessage, object: nil)) { _ in
