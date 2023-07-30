@@ -21,11 +21,11 @@ struct DeckColumn: View {
     let items: [Item]
     let pageGeometry: GeometryProxy
     let hideRead: Bool
-    
+
     var borderedRoundedRectangle: some View {
         RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5)
     }
-    
+
     let minCardHeight: CGFloat = 100
 
     var body: some View {

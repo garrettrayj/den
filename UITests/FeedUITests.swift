@@ -13,7 +13,7 @@ import XCTest
 final class FeedUITests: UITestCase {
     func testFeedViewCompressed() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
@@ -45,7 +45,7 @@ final class FeedUITests: UITestCase {
 
     func testFeedConfiguration() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
@@ -77,7 +77,7 @@ final class FeedUITests: UITestCase {
             app.buttons["FeedMenu"].tap()
         }
         #endif
-        
+
         if !app.buttons["ConfigureFeed"].waitForExistence(timeout: 2) {
             XCTFail()
         }

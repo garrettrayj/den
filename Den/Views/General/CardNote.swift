@@ -16,7 +16,7 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
     let title: Text
     var caption: CaptionContent?
     var icon: IconContent?
-    
+
     init(
         _ title: Text,
         caption: @escaping () -> CaptionContent?,
@@ -26,7 +26,7 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
         self.caption = caption()
         self.icon = icon()
     }
-    
+
     var body: some View {
         VStack(spacing: 8) {
             icon

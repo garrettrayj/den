@@ -13,7 +13,7 @@ import XCTest
 final class InboxUITests: UITestCase {
     func testInbox() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         app.staticTexts["InboxNavLink"].tap()
@@ -50,7 +50,7 @@ final class InboxUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
-        
+
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .compact {
@@ -58,7 +58,7 @@ final class InboxUITests: UITestCase {
             }
         }
         #endif
-        
+
         app.staticTexts["InboxNavLink"].tap()
 
         #if os(macOS)

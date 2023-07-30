@@ -20,7 +20,7 @@ final class TrendingUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
-        
+
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .compact {

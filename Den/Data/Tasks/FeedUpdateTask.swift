@@ -20,12 +20,12 @@ class FeedUpdateTask {
     let url: URL
     let updateMeta: Bool
     let timeout: TimeInterval
-    
+
     private var parsedSuccessfully: Bool = false
     private var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
     private var start: Double?
     private var webpage: URL?
-    
+
     init(
         feedObjectID: NSManagedObjectID,
         pageObjectID: NSManagedObjectID?,
@@ -45,10 +45,10 @@ class FeedUpdateTask {
     // swiftlint:disable cyclomatic_complexity function_body_length
     func execute() async {
         start = CFAbsoluteTimeGetCurrent()
-        
+
         let context = PersistenceController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
-        
+
         let feedRequest = URLRequest(url: url, timeoutInterval: timeout)
 
         var feedResponse = FeedURLResponse()
@@ -110,7 +110,7 @@ class FeedUpdateTask {
                 self.save(context: context, feed: feed)
             }
         }
-        
+
         if updateMeta && parsedSuccessfully {
             var webpageMetadata: WebpageMetadata.Results?
             if let webpage = webpage {
@@ -119,13 +119,13 @@ class FeedUpdateTask {
                     webpageMetadata = WebpageMetadata(webpage: webpage, data: webpageData).results
                 }
             }
-            
+
             await context.perform {
                 guard
                     let feed = context.object(with: self.feedObjectID) as? Feed,
                     let feedData = feed.feedData
                 else { return }
-                
+
                 self.updateFeedMeta(
                     feed: feed,
                     feedData: feedData,
@@ -133,7 +133,7 @@ class FeedUpdateTask {
                     context: context,
                     metadata: webpageMetadata
                 )
-                
+
                 self.save(context: context, feed: feed)
             }
         }
@@ -149,7 +149,7 @@ class FeedUpdateTask {
             )
         }
     }
-    
+
     private func updateFeed(
         feed: Feed,
         feedData: FeedData,
@@ -160,13 +160,13 @@ class FeedUpdateTask {
         case .success(let parsedFeed):
             self.parsedSuccessfully = true
             self.webpage = parsedFeed.webpage
-            
+
             feedData.error = nil
 
             switch parsedFeed {
             case let .atom(parsedFeed):
                 feedData.format = "Atom"
-                
+
                 let updater = AtomFeedUpdate(
                     feed: feed,
                     feedData: feedData,
@@ -176,7 +176,7 @@ class FeedUpdateTask {
                 updater.execute()
             case let .rss(parsedFeed):
                 feedData.format = "RSS"
-                
+
                 let updater = RSSFeedUpdate(
                     feed: feed,
                     feedData: feedData,
@@ -186,7 +186,7 @@ class FeedUpdateTask {
                 updater.execute()
             case let .json(parsedFeed):
                 feedData.format = "JSON"
-                
+
                 let updater = JSONFeedUpdate(
                     feed: feed,
                     feedData: feedData,
@@ -246,7 +246,7 @@ class FeedUpdateTask {
             return
         }
     }
-    
+
     private func save(context: NSManagedObjectContext, feed: Feed) {
         if context.hasChanges {
             do {
@@ -255,7 +255,7 @@ class FeedUpdateTask {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         }
-        
+
         if let start = start {
             let duration = CFAbsoluteTimeGetCurrent() - start
             Logger.ingest.info(

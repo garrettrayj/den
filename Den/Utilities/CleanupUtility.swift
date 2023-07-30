@@ -19,16 +19,16 @@ struct CleanupUtility {
             orphanedFeedDatas += 1
             context.delete(feedData)
         }
-        
+
         var orphanedTrends = 0
         let trends = try context.fetch(Trend.fetchRequest()) as [Trend]
         for trend in trends where trend.profile == nil {
             orphanedTrends += 1
             context.delete(trend)
         }
-        
+
         try context.save()
-        
+
         Logger.main.info("""
         Cleanup complete. Purged \(orphanedFeedDatas) FeedData records \
         and \(orphanedTrends) Trends.

@@ -62,7 +62,7 @@ struct Landing: View {
             #endif
         }
     }
-    
+
     private var loadingLayout: some View {
         VStack(spacing: 24) {
             Spacer()

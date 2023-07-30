@@ -20,7 +20,7 @@ final class PageUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
-        
+
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
@@ -46,7 +46,7 @@ final class PageUITests: UITestCase {
 
     func testPageGroupedLayout() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
@@ -78,7 +78,7 @@ final class PageUITests: UITestCase {
 
     func testPageTimelineLayout() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
@@ -121,7 +121,7 @@ final class PageUITests: UITestCase {
 
     func testPageShowcaseLayout() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
@@ -164,7 +164,7 @@ final class PageUITests: UITestCase {
 
     func testPageDeckLayout() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
@@ -207,7 +207,7 @@ final class PageUITests: UITestCase {
 
     func testPageConfiguration() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
@@ -237,7 +237,7 @@ final class PageUITests: UITestCase {
             app.buttons["PageMenu"].tap()
         }
         #endif
-        
+
         if !app.buttons["ConfigurePage"].waitForExistence(timeout: 2) {
             XCTFail()
         }

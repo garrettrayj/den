@@ -37,7 +37,7 @@ struct IconPicker: View {
                 ForEach(SymbolLibrary.shared.categorySymbols(categoryID: category.rawValue)) { symbol in
                     ZStack {
                         RoundedRectangle(cornerRadius: 4).fill(.background)
-                        
+
                         if symbol.id == symbolID {
                             Image(systemName: symbol.id).foregroundStyle(.tint)
                             RoundedRectangle(cornerRadius: 4).strokeBorder(.tint, lineWidth: 2)

@@ -20,7 +20,7 @@ struct RootView: View {
     @Binding var feedRefreshTimeout: Int
 
     @State private var showingCrashMessage = false
-    
+
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
 
     @FetchRequest(sortDescriptors: [

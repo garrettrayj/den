@@ -15,7 +15,7 @@ struct ProfileSettingsForm: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
-    
+
     @Binding var currentProfileID: String?
 
     var body: some View {

@@ -123,12 +123,12 @@ public class Profile: NSManagedObject {
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {
         let createdDate = Date()
-        
+
         let newProfile = self.init(context: managedObjectContext)
         newProfile.id = UUID()
         newProfile.historyRetention = 90
         newProfile.created = createdDate
-        
+
         if let rawHashID = Int64(
             String(describing: createdDate.timeIntervalSince1970)
                 .compactMap({ String($0) })
@@ -137,7 +137,7 @@ public class Profile: NSManagedObject {
         ) {
             newProfile.hashID = HashIdentifierUtility.shared.encode(rawHashID)
         }
-        
+
         return newProfile
     }
 }

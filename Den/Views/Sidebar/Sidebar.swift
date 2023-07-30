@@ -100,7 +100,7 @@ struct Sidebar: View {
                 .labelStyle(.titleAndIcon)
                 .accessibilityIdentifier("ProfileMenu")
                 .disabled(refreshing)
-                
+
                 SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
             }
             .padding()

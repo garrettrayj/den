@@ -13,7 +13,7 @@ import XCTest
 final class DiagnosticsUITests: UITestCase {
     func testDiagnostics() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)

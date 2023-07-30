@@ -13,7 +13,7 @@ import XCTest
 final class SearchUITests: UITestCase {
     func testSearch() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(iOS)

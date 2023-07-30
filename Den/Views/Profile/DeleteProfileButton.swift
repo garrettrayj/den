@@ -12,9 +12,9 @@ import SwiftUI
 
 struct DeleteProfileButton: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @ObservedObject var profile: Profile
-    
+
     @Binding var currentProfileID: String?
 
     @State private var showingAlert = false

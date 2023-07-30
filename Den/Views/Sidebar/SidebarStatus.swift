@@ -18,11 +18,11 @@ struct SidebarStatus: View {
     let progress: Progress
 
     @Binding var refreshing: Bool
-    
+
     var refreshedCount: Int {
         Int(progress.fractionCompleted * Double(profile.feedsArray.count))
     }
-    
+
     var feedCount: Int {
         profile.feedsArray.count
     }

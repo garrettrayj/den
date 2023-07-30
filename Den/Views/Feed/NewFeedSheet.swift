@@ -65,7 +65,7 @@ struct NewFeedSheet: View {
                         profile: profile,
                         selection: $targetPage
                     )
-                    
+
                     #if os(iOS)
                     Section {
                         HStack {
@@ -92,7 +92,7 @@ struct NewFeedSheet: View {
                     submitButton
                 }
                 #endif
-                
+
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
                         dismiss()

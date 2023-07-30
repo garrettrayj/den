@@ -20,7 +20,7 @@ final class RefreshManager: ObservableObject {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
         }
-        
+
         defer {
             RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
             DispatchQueue.main.async {
@@ -59,7 +59,7 @@ final class RefreshManager: ObservableObject {
                 await taskGroup.waitForAll()
             }
         )
-        
+
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
         }

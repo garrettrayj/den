@@ -97,18 +97,18 @@ struct DenApp: App {
             }
             return
         }
-        
+
         persistenceController.container.performBackgroundTask { context in
             guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else { return }
             for profile in profiles {
                 try? HistoryUtility.removeExpired(context: context, profile: profile)
             }
-            
+
             try? CleanupUtility.purgeOrphans(context: context)
-            
+
             try? context.save()
         }
-        
+
         lastCleanup = Date.now.timeIntervalSince1970
     }
 

@@ -114,7 +114,7 @@ struct HistoryUtility {
             fromRemoteContextSave: deletedObjects,
             into: [context]
         )
-        
+
         Logger.main.info("""
         History cleanup finished for profile: \
         \(profile.id?.uuidString ?? "Unknown", privacy: .public)

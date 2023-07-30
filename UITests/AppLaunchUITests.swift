@@ -23,7 +23,7 @@ final class AppLaunchUITests: UITestCase {
 
     func testAppLaunchOneProfile() throws {
         let app = launchApp(inMemory: false)
-        
+
         app.buttons["SelectProfile"].firstMatch.tap()
 
         if !app.staticTexts["InboxNavLink"].waitForExistence(timeout: 10) {
