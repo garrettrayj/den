@@ -11,8 +11,6 @@ A news app made for clear and intuitive browsing.
 - Web browser extension
 - and much more...
 
-<img src="Screenshots/Images/iPad Pro (12.9-inch) (5th generation)/en/light/01-GroupedView.png" alt="iPad screenshot" width="800" />
-
 ## Install
 
 Get [Den for RSS](https://apps.apple.com/us/app/den-for-rss/id1528917651) on the App Store to keep up with the latest version with automatic updates or build and install yourself with Xcode. (see below)
@@ -34,10 +32,11 @@ Get [Den for RSS](https://apps.apple.com/us/app/den-for-rss/id1528917651) on the
 
 ### Extras
 
-1. [xcparse](https://github.com/ChargePoint/xcparse) to extract screenshots from test results. `brew install chargepoint/xcparse/xcparse`
-2. [swiftlint](https://github.com/realm/SwiftLint) to check code formatting. `brew install swiftlint`
-3. [localazy](https://localazy.com/docs/cli/the-basics) for localization management. `brew tap localazy/tools && brew install localazy`
+1. [xcparse](https://github.com/ChargePoint/xcparse) for extracting screenshots from test results. `brew install chargepoint/xcparse/xcparse`
+2. [SwiftLint](https://github.com/realm/SwiftLint) for checking code formatting. `brew install swiftlint`
+3. [LicensePlist](https://github.com/mono0926/LicensePlist) for updating acknowledgements. `brew install licenseplist`
+3. [Localazy](https://localazy.com/docs/cli/the-basics) for localization management. `brew tap localazy/tools && brew install localazy`
 
 ---
 
-&copy; 2023 Garrett Johnson
+Copyright &copy; 2023 Garrett Johnson
