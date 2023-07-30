@@ -14,6 +14,8 @@ struct PageView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
+    
+    @Binding var showingNewFeedSheet: Bool
 
     @AppStorage("HideRead") private var hideRead: Bool = false
     @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.grouped
@@ -31,7 +33,7 @@ struct PageView: View {
                 WithItems(scopeObject: page) { items in
                     ZStack {
                         if page.feedsArray.isEmpty {
-                            NoFeeds(profile: profile, page: page)
+                            NoFeeds(showingNewFeedSheet: $showingNewFeedSheet)
                         } else {
                             switch pageLayout {
                             case .deck:
@@ -98,7 +100,8 @@ struct PageView: View {
 
     init(
         page: Page,
-        profile: Profile
+        profile: Profile,
+        showingNewFeedSheet: Binding<Bool>
     ) {
         _pageLayout = AppStorage(
             wrappedValue: PageLayout.grouped,
@@ -107,5 +110,7 @@ struct PageView: View {
 
         self.page = page
         self.profile = profile
+        
+        _showingNewFeedSheet = showingNewFeedSheet
     }
 }

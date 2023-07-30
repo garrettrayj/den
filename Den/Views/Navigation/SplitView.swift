@@ -69,7 +69,8 @@ struct SplitView: View {
                 profile: profile,
                 detailPanel: $detailPanel,
                 refreshing: $refreshing,
-                path: $navigationStore.path
+                path: $navigationStore.path,
+                showingNewFeedSheet: $showingNewFeedSheet
             )
         }
         .tint(profile.tintColor)

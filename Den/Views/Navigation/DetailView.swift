@@ -16,6 +16,7 @@ struct DetailView: View {
     @Binding var detailPanel: DetailPanel?
     @Binding var refreshing: Bool
     @Binding var path: NavigationPath
+    @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -24,9 +25,9 @@ struct DetailView: View {
                 case .diagnostics:
                     DiagnosticsTable(profile: profile)
                 case .inbox:
-                    Inbox(profile: profile)
+                    Inbox(profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
                 case .page(let page):
-                    PageView(page: page, profile: profile)
+                    PageView(page: page, profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
                 case .search(let query):
                     Search(profile: profile, query: query)
                 case .trending:

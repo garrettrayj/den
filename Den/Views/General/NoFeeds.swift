@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct NoFeeds: View {
-    @ObservedObject var profile: Profile
-
-    var page: Page?
+    @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
         VStack(spacing: 16) {
@@ -21,7 +19,7 @@ struct NoFeeds: View {
             Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1).imageScale(.large)
             Text("No Feeds", comment: "Empty page header.").font(.title)
             Button {
-                NewFeedUtility.showSheet(profile: profile, page: page)
+                showingNewFeedSheet = true
             } label: {
                 Label {
                     Text("Add by Web Address", comment: "Button label.")

@@ -90,7 +90,6 @@
 		68701DF3273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */; };
 		68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DF6273E51AC00C6BB69 /* CrashUtility.swift */; };
 		68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701DFA273E57DB00C6BB69 /* HistoryUtility.swift */; };
-		68701E01273E6A5400C6BB69 /* NewFeedUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68701E00273E6A5400C6BB69 /* NewFeedUtility.swift */; };
 		6870EBDC29C9556500E15154 /* FeedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDA29C9556400E15154 /* FeedLayout.swift */; };
 		6870EBDD29C9556500E15154 /* InboxLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDB29C9556400E15154 /* InboxLayout.swift */; };
 		6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDE29C95F6700E15154 /* TrendLayout.swift */; };
@@ -378,7 +377,6 @@
 		68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTitleButtonStyle.swift; sourceTree = "<group>"; };
 		68701DF6273E51AC00C6BB69 /* CrashUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashUtility.swift; sourceTree = "<group>"; };
 		68701DFA273E57DB00C6BB69 /* HistoryUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUtility.swift; sourceTree = "<group>"; };
-		68701E00273E6A5400C6BB69 /* NewFeedUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedUtility.swift; sourceTree = "<group>"; };
 		6870EBDA29C9556400E15154 /* FeedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedLayout.swift; sourceTree = "<group>"; };
 		6870EBDB29C9556400E15154 /* InboxLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxLayout.swift; sourceTree = "<group>"; };
 		6870EBDE29C95F6700E15154 /* TrendLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendLayout.swift; sourceTree = "<group>"; };
@@ -987,7 +985,6 @@
 				68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */,
 				687F22222A5A460300B76919 /* ImportExportUtility.swift */,
 				68B6CBDD290F2E7C00B5E3AB /* MediaTypeUtility.swift */,
-				68701E00273E6A5400C6BB69 /* NewFeedUtility.swift */,
 				687D9CAF24A8CABD00EB7F46 /* OPMLGenerator.swift */,
 				68D58E6824955321007ED1AC /* OPMLReader.swift */,
 				68D17EE72A459E7000AF8A73 /* PasteboardUtility.swift */,
@@ -1509,7 +1506,6 @@
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
 				683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,
-				68701E01273E6A5400C6BB69 /* NewFeedUtility.swift in Sources */,
 				687FEF122A40A87B0042977E /* NewPageButton.swift in Sources */,
 				687FEEFF2A3F97260042977E /* NewProfileButton.swift in Sources */,
 				68B526A0298A352600D4B927 /* NoFeeds.swift in Sources */,
