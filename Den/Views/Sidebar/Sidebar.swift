@@ -23,7 +23,6 @@ struct Sidebar: View {
 
     @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
-    @Binding var feedRefreshTimeout: Int
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
@@ -66,12 +65,6 @@ struct Sidebar: View {
         }
         #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))
-        .refreshable {
-            guard !refreshing && networkMonitor.isConnected else { return }
-            if let profile = profiles.firstMatchingID(currentProfileID) {
-                await refreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
-            }
-        }
         #endif
         .disabled(refreshing)
         .navigationTitle(profile.nameText)
@@ -80,7 +73,6 @@ struct Sidebar: View {
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
-                feedRefreshTimeout: $feedRefreshTimeout,
                 isEditing: $isEditing,
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,

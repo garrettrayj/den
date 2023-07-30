@@ -110,7 +110,7 @@ struct NewFeedSheet: View {
         Button {
             Task {
                 addFeed()
-                await refreshManager.refresh(feed: newFeed!, timeout: feedRefreshTimeout)
+                await RefreshManager.refresh(feed: newFeed!, timeout: feedRefreshTimeout)
                 newFeed?.page?.profile?.objectWillChange.send()
                 dismiss()
             }

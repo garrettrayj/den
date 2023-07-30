@@ -53,7 +53,6 @@ struct SplitView: View {
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
-                feedRefreshTimeout: $feedRefreshTimeout,
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
@@ -178,7 +177,6 @@ struct SplitView: View {
             }
             exporterIsPresented = showingExporter
         }
-        
         .navigationTitle(profile.nameText)
     }
 }

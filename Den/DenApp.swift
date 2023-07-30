@@ -28,7 +28,6 @@ struct DenApp: App {
     @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     @StateObject private var networkMonitor = NetworkMonitor()
-    @StateObject private var refreshManager = RefreshManager()
 
     let persistenceController = PersistenceController.shared
 
@@ -41,7 +40,6 @@ struct DenApp: App {
             )
             .environment(\.managedObjectContext, persistenceController.container.viewContext)
             .environmentObject(networkMonitor)
-            .environmentObject(refreshManager)
             .preferredColorScheme(userColorScheme.colorScheme)
             .task {
                 performCleanup()

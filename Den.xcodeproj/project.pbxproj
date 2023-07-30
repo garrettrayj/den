@@ -916,6 +916,7 @@
 				6880EBE427ABEDB600B479F4 /* UI */,
 				68D58E6124922FE5007ED1AC /* Utilities */,
 				68C413422472760400D1DC7B /* Views */,
+				68C41315247263C700D1DC7B /* RootView.swift */,
 				68C41317247263C700D1DC7B /* Assets.xcassets */,
 				68C41341247263D800D1DC7B /* Den.entitlements */,
 				68F56B74288BFCCC006EC915 /* Den.xcdatamodel */,
@@ -951,7 +952,6 @@
 				683B285327D54141009C0302 /* Settings */,
 				68FC2566275E07E20073979F /* Sidebar */,
 				68F56B3B286F5C01006EC915 /* Trending */,
-				68C41315247263C700D1DC7B /* RootView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

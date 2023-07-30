@@ -17,7 +17,6 @@ struct SidebarToolbar: CustomizableToolbarContent {
 
     @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
-    @Binding var feedRefreshTimeout: Int
     @Binding var isEditing: Bool
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
@@ -38,11 +37,8 @@ struct SidebarToolbar: CustomizableToolbarContent {
         #if os(macOS)
         ToolbarItem(id: "Refresh") {
             RefreshButton(
-                currentProfileID: $currentProfileID,
-                feedRefreshTimeout: $feedRefreshTimeout,
                 refreshing: $refreshing,
-                refreshProgress: refreshProgress,
-                profiles: profiles
+                refreshProgress: refreshProgress
             )
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
@@ -135,11 +131,8 @@ struct SidebarToolbar: CustomizableToolbarContent {
 
         ToolbarItem(id: "SidebarBottomRefresh", placement: .bottomBar) {
             RefreshButton(
-                currentProfileID: $currentProfileID,
-                feedRefreshTimeout: $feedRefreshTimeout,
                 refreshing: $refreshing,
-                refreshProgress: refreshProgress,
-                profiles: profiles
+                refreshProgress: refreshProgress
             ).disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
         #endif

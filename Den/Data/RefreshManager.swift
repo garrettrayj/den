@@ -12,7 +12,7 @@ import CoreData
 import OSLog
 
 final class RefreshManager: ObservableObject {
-    public func refresh(
+    static public func refresh(
         profile: Profile,
         timeout: Int,
         session: URLSession = URLSession.shared
@@ -67,7 +67,7 @@ final class RefreshManager: ObservableObject {
         await AnalyzeTask(profileObjectID: profile.objectID).execute()
     }
 
-    func refresh(feed: Feed, timeout: Int) async {
+    static func refresh(feed: Feed, timeout: Int) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
