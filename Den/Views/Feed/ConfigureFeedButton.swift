@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct ConfigureFeedButton: View {
-    @ObservedObject var feed: Feed
-
     @Binding var showingFeedConfiguration: Bool
 
     var body: some View {

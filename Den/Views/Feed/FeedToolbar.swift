@@ -16,7 +16,6 @@ struct FeedToolbar: CustomizableToolbarContent {
     #endif
 
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
     @Binding var showingFeedConfiguration: Bool
@@ -26,7 +25,7 @@ struct FeedToolbar: CustomizableToolbarContent {
     var body: some CustomizableToolbarContent {
         #if os(macOS)
         ToolbarItem(id: "FeedSettings") {
-            ConfigureFeedButton(feed: feed, showingFeedConfiguration: $showingFeedConfiguration)
+            ConfigureFeedButton(showingFeedConfiguration: $showingFeedConfiguration)
         }
         ToolbarItem(id: "FeedFilterRead") {
             FilterReadButton(hideRead: $hideRead)

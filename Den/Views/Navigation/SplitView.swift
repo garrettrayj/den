@@ -201,7 +201,6 @@ struct SplitView: View {
         .navigationTitle(profile.nameText)
     }
 
-
     private func handleNewFeed(urlString: String) {
         let cleanedURLString = urlString
             .replacingOccurrences(of: "feed:", with: "")

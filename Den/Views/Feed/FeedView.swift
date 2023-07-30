@@ -41,7 +41,6 @@ struct FeedView: View {
                     .toolbar(id: "Feed") {
                         FeedToolbar(
                             feed: feed,
-                            profile: profile,
                             hideRead: $hideRead,
                             showingFeedConfiguration: $showingFeedConfiguration,
                             items: items
