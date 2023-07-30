@@ -185,6 +185,11 @@ struct SplitView: View {
             }
             exporterIsPresented = showingExporter
         }
+        .onChange(of: exporterIsPresented) { _ in
+            if !exporterIsPresented {
+                showingExporter = false
+            }
+        }
         .navigationTitle(profile.nameText)
     }
 }
