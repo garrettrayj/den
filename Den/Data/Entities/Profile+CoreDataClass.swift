@@ -20,16 +20,18 @@ public class Profile: NSManagedObject {
 
     public var nameText: Text {
         if wrappedName == "" {
-            if let hashID = hashID {
-                return Text("Den \(hashID)", comment: "Placeholder profile name.")
-            }
+            return Text("Den", comment: "Placeholder profile name.")
         }
 
         return Text(wrappedName)
     }
 
     public var exportTitle: String {
-        "\(wrappedName) \(Date().formatted(date: .abbreviated, time: .shortened))"
+        if wrappedName != "" {
+            return "\(wrappedName) \(Date().formatted(date: .abbreviated, time: .shortened))"
+        }
+        
+        return "\(Date().formatted(date: .abbreviated, time: .shortened))"
     }
 
     public var wrappedHistoryRetention: Int {
@@ -128,15 +130,6 @@ public class Profile: NSManagedObject {
         newProfile.id = UUID()
         newProfile.historyRetention = 90
         newProfile.created = createdDate
-
-        if let rawHashID = Int64(
-            String(describing: createdDate.timeIntervalSince1970)
-                .compactMap({ String($0) })
-                .suffix(3)
-                .joined()
-        ) {
-            newProfile.hashID = HashIdentifierUtility.shared.encode(rawHashID)
-        }
 
         return newProfile
     }
