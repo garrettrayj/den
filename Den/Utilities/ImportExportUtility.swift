@@ -12,7 +12,7 @@ import CoreData
 
 struct ImportExportUtility {
     static func importOPML(url: URL, context: NSManagedObjectContext, profile: Profile) {
-        let opmlFolders =  OPMLReader(xmlURL: url).outlineFolders
+        let opmlFolders = OPMLReader(xmlURL: url).outlineFolders
 
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: context, profile: profile)

@@ -164,7 +164,12 @@ struct SplitView: View {
             allowsMultipleSelection: false
         ) { result in
             guard let selectedFile: URL = try? result.get().first else { return }
-            ImportExportUtility.importOPML(url: selectedFile, context: viewContext, profile: profile)
+            if selectedFile.startAccessingSecurityScopedResource() {
+                defer { selectedFile.stopAccessingSecurityScopedResource() }
+                ImportExportUtility.importOPML(url: selectedFile, context: viewContext, profile: profile)
+            } else {
+                // Handle denied access
+            }
         }
         .fileExporter(
             isPresented: $exporterIsPresented,
