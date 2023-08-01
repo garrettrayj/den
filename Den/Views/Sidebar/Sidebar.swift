@@ -96,7 +96,6 @@ struct Sidebar: View {
                     }
                 }
                 .menuStyle(.borderlessButton)
-                .labelStyle(.titleAndIcon)
                 .accessibilityIdentifier("ProfileMenu")
                 .disabled(refreshing)
 

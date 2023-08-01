@@ -46,23 +46,23 @@ struct SidebarToolbar: CustomizableToolbarContent {
 
         ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
             Menu {
-                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                NewPageButton(profile: profile, detailPanel: $detailPanel)
-
-                Divider()
-
-                ImportButton(showingImporter: $showingImporter)
-                ExportButton(showingExporter: $showingExporter)
-                DiagnosticsButton(detailPanel: $detailPanel)
-                ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
+                Group {
+                    NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
+                    NewPageButton(profile: profile, detailPanel: $detailPanel)
+                    Divider()
+                    ImportButton(showingImporter: $showingImporter)
+                    ExportButton(showingExporter: $showingExporter)
+                    DiagnosticsButton(detailPanel: $detailPanel)
+                    ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
+                }
+                .labelStyle(.titleAndIcon)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")
                 } icon: {
                     Image(systemName: "ellipsis.circle")
-                }.labelStyle(.iconOnly)
+                }
             }
-            .labelStyle(.titleAndIcon)
             .disabled(refreshing)
             .accessibilityIdentifier("SidebarMenu")
         }

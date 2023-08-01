@@ -12,35 +12,36 @@ import CoreData
 import SwiftUI
 
 struct PageNavLink: View {
-    @Environment(\.managedObjectContext) private var viewContext
     #if os(iOS)
     @Environment(\.editMode) private var editMode
     #endif
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
     // Observe profile so badge cound updates after refresh
     @ObservedObject var profile: Profile
 
     var body: some View {
-        Label {
-            #if os(macOS)
-            WithItems(scopeObject: page, readFilter: false) { items in
-                page.nameText.badge(items.count)
-            }
-            #else
-            if editMode?.wrappedValue.isEditing == true {
-                page.nameText
-            } else {
+        NavigationLink(value: DetailPanel.page(page)) {
+            Label {
+                #if os(macOS)
                 WithItems(scopeObject: page, readFilter: false) { items in
                     page.nameText.badge(items.count)
                 }
+                #else
+                if editMode?.wrappedValue.isEditing == true {
+                    page.nameText
+                } else {
+                    WithItems(scopeObject: page, readFilter: false) { items in
+                        page.nameText.badge(items.count)
+                    }
+                }
+                #endif
+            } icon: {
+                Image(systemName: page.wrappedSymbol)
             }
-            #endif
-        } icon: {
-            Image(systemName: page.wrappedSymbol)
+            .lineLimit(1)
         }
-        .tag(DetailPanel.page(page))
-        .lineLimit(1)
         .contextMenu {
             Button {
                 page.feedsArray.forEach { feed in
