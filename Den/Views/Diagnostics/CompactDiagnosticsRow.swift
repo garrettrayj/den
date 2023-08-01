@@ -23,13 +23,13 @@ struct CompactDiagnosticsRow: View {
                 }
 
                 LabeledContent {
-                    Text("\(data.page)")
+                    Text(verbatim: "\(data.page)")
                 } label: {
                     Text("Page", comment: "Diagnostics header.")
                 }
 
                 LabeledContent {
-                    Text("\(data.address)")
+                    Text(verbatim: "\(data.address)")
                 } label: {
                     Text("Address", comment: "Diagnostics header.")
                 }
@@ -41,7 +41,7 @@ struct CompactDiagnosticsRow: View {
                 }
 
                 LabeledContent {
-                    Text("\(data.format)")
+                    Text(verbatim: "\(data.format)")
                 } label: {
                     Text("Format", comment: "Diagnostics header.")
                 }
@@ -69,19 +69,19 @@ struct CompactDiagnosticsRow: View {
                 }
 
                 LabeledContent {
-                    Text("\(data.cacheControl)")
+                    Text(verbatim: "\(data.cacheControl)")
                 } label: {
                     Text("Cache Control", comment: "Diagnostics header.")
                 }
 
                 LabeledContent {
-                    Text("\(data.eTag)")
+                    Text(verbatim: "\(data.eTag)")
                 } label: {
                     Text("ETag", comment: "Diagnostics header.")
                 }
 
                 LabeledContent {
-                    Text("\(data.server)")
+                    Text(verbatim: "\(data.server)")
                 } label: {
                     Text("Server", comment: "Diagnostics header.")
                 }

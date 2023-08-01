@@ -18,6 +18,8 @@ struct PageNavLink: View {
     #endif
 
     @ObservedObject var page: Page
+    // Observe profile so badge cound updates after refresh
+    @ObservedObject var profile: Profile
 
     var body: some View {
         Label {

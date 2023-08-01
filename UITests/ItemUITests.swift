@@ -17,16 +17,16 @@ final class ItemUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
+        app.staticTexts["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
             if XCUIDevice.shared.orientation.isLandscape {

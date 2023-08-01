@@ -52,7 +52,7 @@ struct DiagnosticsTable: View {
                     "Address",
                     value: \.address
                 ) { row in
-                    Text("\(row.address)")
+                    Text(verbatim: "\(row.address)")
                 }
 
                 TableColumn(

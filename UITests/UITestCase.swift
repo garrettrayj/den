@@ -62,7 +62,7 @@ class UITestCase: XCTestCase {
         let name = "\(locale)-\(appearance)-\(name)"
         #else
         let orientation = XCUIDevice.shared.orientation.name
-        let name = "\(locale)-\(appearance)-\(orientation)-\(name)"
+        let name = "\(locale)+\(appearance)+\(orientation)+\(name)"
         #endif
 
         let attachment = XCTAttachment(screenshot: element.screenshot())

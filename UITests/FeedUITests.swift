@@ -17,29 +17,32 @@ final class FeedUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.outlines["Sidebar"].cells.element(boundBy: 10).tap()
+        app.staticTexts["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
             } else {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.tap()
             }
         }
         #endif
 
         app.buttons["FeedNavLink"].firstMatch.tap()
+        
+        if !app.staticTexts["Universe Today"].waitForExistence(timeout: 2) {
+            XCTFail("Feed title did not appear in time")
+        }
 
         attachScreenshot(of: app.windows.firstMatch, named: "FeedViewCompressed")
     }
@@ -56,17 +59,16 @@ final class FeedUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.buttons["ToggleSidebar"].tap()
             } else {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
                 app.tap()
             }
         }
@@ -76,7 +78,7 @@ final class FeedUITests: UITestCase {
 
         #if os(iOS)
         if app.windows.firstMatch.horizontalSizeClass == .compact {
-            app.buttons["FeedMenu"].tap()
+            app.buttons["FeedMenu"].forceTap()
         }
         #endif
 
@@ -110,17 +112,17 @@ final class FeedUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 6).tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.collectionViews["Sidebar"].cells.element(boundBy: 8).tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
             if XCUIDevice.shared.orientation.isLandscape {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
+                app.staticTexts["Space"].tap()
                 app.buttons["ToggleSidebar"].tap()
             } else {
-                app.collectionViews.firstMatch.cells.element(boundBy: 8).tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             }
         }

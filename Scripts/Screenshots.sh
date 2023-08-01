@@ -20,10 +20,10 @@ schemeName="Den"
 # Copy/Paste new names from Xcode's "Devices and Simulators" window or from `xcrun simctl list`.
 simulators=(
     "iPhone 12 Pro Max"
-    #"iPhone 14 Pro Max"
-    #"iPhone 8 Plus"
-    #"iPad Pro (12.9-inch) (5th generation)"
-    #"iPad Pro (12.9-inch) (2nd generation)"
+    "iPhone 14 Pro Max"
+    "iPhone 8 Plus"
+    "iPad Pro (12.9-inch) (5th generation)"
+    "iPad Pro (12.9-inch) (2nd generation)"
 )
 
 # Save final screenshots into this folder (it will be created)
@@ -100,7 +100,7 @@ function capture_ios {
         
         # Expand filenames to directory paths
         for file ($destination/*.png(ND.)) {
-            new_name="${file//-//}"
+            new_name="${file//+//}"
             mkdir -p "$(dirname "$new_name")"
             mv "${file}" "${new_name}"
         }
