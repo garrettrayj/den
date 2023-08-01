@@ -50,19 +50,19 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.staticTexts["Space"].tap()
+        app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.buttons["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -82,19 +82,19 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.staticTexts["Space"].tap()
+        app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.buttons["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -125,19 +125,19 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.staticTexts["Space"].tap()
+        app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.buttons["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -168,19 +168,19 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.staticTexts["Space"].tap()
+        app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.buttons["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -211,19 +211,19 @@ final class PageUITests: UITestCase {
         app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
-        app.staticTexts["Space"].tap()
+        app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.staticTexts["Space"].tap()
+                app.buttons["Space"].tap()
             }
         } else {
-            app.staticTexts["Space"].tap()
+            app.buttons["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
