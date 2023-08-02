@@ -15,7 +15,7 @@ final class ProfileSettingsUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         app.buttons["SelectProfile"].firstMatch.tap()
-        
+
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
         app.menuItems["ShowProfileSettings"].tap()
