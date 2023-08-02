@@ -51,8 +51,10 @@ struct RootView: View {
             CrashMessage().interactiveDismissDisabled()
         }
         .refreshable {
-            guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
-            await RefreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+            await Task {
+                guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
+                await RefreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+            }.value
         }
     }
 }
