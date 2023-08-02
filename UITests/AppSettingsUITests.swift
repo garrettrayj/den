@@ -12,7 +12,7 @@ import XCTest
 
 final class AppSettingsUITests: UITestCase {
     #if os(macOS)
-    func testAppSettingsGeneralTab() throws {
+    func testAppSettings() throws {
         let app = launchApp(inMemory: true)
 
         if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
@@ -26,23 +26,6 @@ final class AppSettingsUITests: UITestCase {
         }
 
         attachScreenshot(of: app.windows.firstMatch, named: "AppSettingsGeneralTab")
-    }
-    #else
-    func testAppSettingsSheet() throws {
-        let app = launchApp(inMemory: true)
-
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
-            XCTFail("Create profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
-
-        app.buttons["SidebarMenu"].forceTap()
-        app.buttons["ShowProfileSettings"].tap()
-        if !app.buttons["Cancel"].waitForExistence(timeout: 4) {
-            XCTFail("Settings sheet did not appear in time")
-        }
-
-        attachScreenshot(of: app.windows.firstMatch, named: "AppSettings")
     }
     #endif
 }

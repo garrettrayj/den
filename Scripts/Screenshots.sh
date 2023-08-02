@@ -32,11 +32,15 @@ targetFolder="$HOME/Desktop/DenScreenshots"
 function capture_mac {
     # Capture macOS screenshots
     rm -rf /tmp/DenDerivedData/Logs/Test
+    
+    rm -rf "$HOME/Library/Containers/net.devsci.den/Data/*"
+
+    cp -a "./TestData/en.xcappdata/AppData/." "$HOME/Library/Containers/net.devsci.den/Data"
 
     xcodebuild \
         -project $projectName \
         -scheme $schemeName \
-        -testPlan macOSComprehensiveUI \
+        -testPlan Marketing \
         -derivedDataPath '/tmp/DenDerivedData/' \
         test
         
@@ -81,7 +85,7 @@ function capture_ios {
         xcodebuild \
             -project $projectName \
             -scheme $schemeName \
-            -testPlan Development \
+            -testPlan Marketing \
             -derivedDataPath '/tmp/DenDerivedData/' \
             -destination "platform=iOS Simulator,name=$simulator_name" \
             test-without-building
@@ -114,7 +118,7 @@ function capture_ios {
 
 start_time=$SECONDS
 
-capture_ios
+capture_mac
 
 elapsed=$(( SECONDS - start_time ))
 

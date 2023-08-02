@@ -1,0 +1,44 @@
+{
+  "configurations" : [
+    {
+      "id" : "47265C97-3081-466A-B7B6-ECC18718C2A2",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-automatic-orientation"
+      }
+    ],
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "AppLaunchUITests\/testAppLaunchNoProfiles()",
+        "AppLaunchUITests\/testAppLaunchOneProfile()",
+        "AppSettingsUITests",
+        "AppSidebarUITests",
+        "DiagnosticsUITests",
+        "FeedUITests\/testFeedViewNoData()",
+        "InboxUITests",
+        "PageUITests\/testPageEmpty()",
+        "PageUITests\/testPageGroupedLayout()",
+        "PageUITests\/testPageShowcaseLayout()",
+        "SearchUITests\/testSearchNoResults()",
+        "TrendingUITests",
+        "UITestCase"
+      ],
+      "target" : {
+        "containerPath" : "container:Den.xcodeproj",
+        "identifier" : "68E83BF82A6004590014DC64",
+        "name" : "UITests"
+      }
+    }
+  ],
+  "version" : 1
+}

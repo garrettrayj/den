@@ -116,7 +116,7 @@ final class PageUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageTimelineLayout")
+        attachScreenshot(of: app.windows.firstMatch, named: "02-PageTimelineLayout")
     }
 
     func testPageShowcaseLayout() throws {
@@ -202,7 +202,7 @@ final class PageUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageDeckLayout")
+        attachScreenshot(of: app.windows.firstMatch, named: "03-PageDeckLayout")
     }
 
     func testPageConfiguration() throws {
@@ -248,6 +248,6 @@ final class PageUITests: UITestCase {
             XCTFail("Page configuration title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageConfiguration")
+        attachScreenshot(of: app.windows.firstMatch, named: "04-PageConfiguration")
     }
 }

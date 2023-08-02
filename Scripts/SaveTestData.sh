@@ -20,4 +20,4 @@ cp -a /tmp/TestData/en.xcappdata/AppData/Library/Application\ Support/Den/ ./Tes
 
 cp -a /tmp/TestData/en.xcappdata/AppData/Library/Preferences/ ./TestData/en.xcappdata/AppData/Library/Preferences/
 
-cp -a /tmp/TestData/en.xcappdata/AppData/Library/Saved\ Application \State/ ./TestData/en.xcappdata/AppData/Library/Saved\ Application \State/
+cp -a /tmp/TestData/en.xcappdata/AppData/Library/Saved\ Application\ State/ ./TestData/en.xcappdata/AppData/Library/Saved\ Application\ State/

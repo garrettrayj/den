@@ -32,4 +32,27 @@ final class AppLaunchUITests: UITestCase {
 
         attachScreenshot(of: app.windows.firstMatch, named: "AppLaunchOneProfile")
     }
+
+    func testPosterScreenshot() throws {
+        let app = launchApp(inMemory: false)
+
+        app.buttons["SelectProfile"].firstMatch.tap()
+
+        if !app.buttons["InboxNavLink"].waitForExistence(timeout: 10) {
+            XCTFail("Inbox button did not appear in time")
+        }
+
+        #if os(macOS)
+        app.buttons["Space"].tap()
+        #else
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            app.buttons["Space"].tap()
+        }
+        #endif
+
+        // Wait for images to load
+        sleep(3)
+
+        attachScreenshot(of: app.windows.firstMatch, named: "01-AppPoster")
+    }
 }

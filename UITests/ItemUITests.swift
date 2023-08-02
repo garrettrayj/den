@@ -43,6 +43,6 @@ final class ItemUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "ItemView")
+        attachScreenshot(of: app.windows.firstMatch, named: "07-ItemView")
     }
 }

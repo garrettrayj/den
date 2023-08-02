@@ -92,6 +92,7 @@
 		6870EBDC29C9556500E15154 /* FeedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDA29C9556400E15154 /* FeedLayout.swift */; };
 		6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDE29C95F6700E15154 /* TrendLayout.swift */; };
 		68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */; };
+		6872F4A12A79CCF400C51EC8 /* ProfileSettingsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872F49E2A79CCF400C51EC8 /* ProfileSettingsUITests.swift */; };
 		687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259C2A60C1DB00188A83 /* ItemUITests.swift */; };
 		687925A52A60C1DB00188A83 /* DiagnosticsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259D2A60C1DB00188A83 /* DiagnosticsUITests.swift */; };
 		687925A62A60C1DB00188A83 /* TrendingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259E2A60C1DB00188A83 /* TrendingUITests.swift */; };
@@ -297,6 +298,7 @@
 		680649832A0E491000B6E6E7 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		680744BF28E95CD80008A09D /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 		6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedKitFeed+Extensions.swift"; sourceTree = "<group>"; };
+		680B13432A79D2F40001AA39 /* Marketing.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Marketing.xctestplan; sourceTree = "<group>"; };
 		680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Page+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeedData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 		6870EBDA29C9556400E15154 /* FeedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedLayout.swift; sourceTree = "<group>"; };
 		6870EBDE29C95F6700E15154 /* TrendLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendLayout.swift; sourceTree = "<group>"; };
 		68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
+		6872F49E2A79CCF400C51EC8 /* ProfileSettingsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsUITests.swift; sourceTree = "<group>"; };
 		6879259C2A60C1DB00188A83 /* ItemUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemUITests.swift; sourceTree = "<group>"; };
 		6879259D2A60C1DB00188A83 /* DiagnosticsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagnosticsUITests.swift; sourceTree = "<group>"; };
 		6879259E2A60C1DB00188A83 /* TrendingUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingUITests.swift; sourceTree = "<group>"; };
@@ -770,10 +773,10 @@
 				68B34A5C2486D2710066B215 /* Representables */,
 				688FD91B24780C800006A2DE /* Styles */,
 				689838CB291D88FE00FDC881 /* BuiltInBrowser.swift */,
+				68906F8E2A78F58900803350 /* NavigationStore.swift */,
 				68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */,
 				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
 				68BB256E2A48C4970082D890 /* WebViewStyles.swift */,
-				68906F8E2A78F58900803350 /* NavigationStore.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 		68D286522A6884AA007AD876 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
+				680B13432A79D2F40001AA39 /* Marketing.xctestplan */,
 				68D286532A68A080007AD876 /* Development.xctestplan */,
 				68D286512A687A58007AD876 /* iOSComprehensiveUI.xctestplan */,
 				68D286542A68A5DF007AD876 /* macOSComprehensiveUI.xctestplan */,
@@ -1059,6 +1063,7 @@
 				687925A02A60C1DB00188A83 /* InboxUITests.swift */,
 				6879259C2A60C1DB00188A83 /* ItemUITests.swift */,
 				6879259F2A60C1DB00188A83 /* PageUITests.swift */,
+				6872F49E2A79CCF400C51EC8 /* ProfileSettingsUITests.swift */,
 				687925A22A60C1DB00188A83 /* SearchUITests.swift */,
 				6879259E2A60C1DB00188A83 /* TrendingUITests.swift */,
 				68D2864B2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift */,
@@ -1503,6 +1508,7 @@
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
 				68D17EE62A443AC700AF8A73 /* MainBoardModifier.swift in Sources */,
 				68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */,
+				68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */,
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
 				683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,
@@ -1574,7 +1580,6 @@
 				6880EBDF27A8B5DE00B479F4 /* SymbolLibrary.swift in Sources */,
 				68ED798329C29A8B00D85B4F /* TimelineLayout.swift in Sources */,
 				68FF63F42921D9C50012A275 /* ToggleReadButton.swift in Sources */,
-				68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */,
 				68F56B77288C0D1A006EC915 /* Trend+CoreDataClass.swift in Sources */,
 				6825920329D82BD500E5EF3B /* TrendAnalysis.swift in Sources */,
 				68F56B452870C067006EC915 /* TrendBlock.swift in Sources */,
@@ -1610,6 +1615,7 @@
 				687925A82A60C1DB00188A83 /* InboxUITests.swift in Sources */,
 				687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */,
 				687925A72A60C1DB00188A83 /* PageUITests.swift in Sources */,
+				6872F4A12A79CCF400C51EC8 /* ProfileSettingsUITests.swift in Sources */,
 				687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */,
 				687925A62A60C1DB00188A83 /* TrendingUITests.swift in Sources */,
 				68D2864C2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift in Sources */,
@@ -1639,8 +1645,8 @@
 		6862A5902A23EEE4000CAB19 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6862A5912A23EEE4000CAB19 /* en-GB */,
 				68906F8D2A78B92F00803350 /* en-AU */,
+				6862A5912A23EEE4000CAB19 /* en-GB */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

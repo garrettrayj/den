@@ -66,6 +66,9 @@
          <TestPlanReference
             reference = "container:TestPlans/macOSComprehensiveUI.xctestplan">
          </TestPlanReference>
+         <TestPlanReference
+            reference = "container:TestPlans/Marketing.xctestplan">
+         </TestPlanReference>
       </TestPlans>
       <Testables>
          <TestableReference

@@ -52,12 +52,16 @@ final class SearchUITests: UITestCase {
             XCTFail("Search status did not appear in time")
         }
 
-        // For unknown reasons, app.windows.firstMatch does not work on iOS in the specific
+        // For unknown reasons, app.windows.firstMatch does not work on iPhone in the specific
         // situation of taking a screenshot of search results.
         #if os(iOS)
-        attachScreenshot(of: app, named: "Search")
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            attachScreenshot(of: app, named: "08-Search")
+        } else {
+            attachScreenshot(of: app.windows.firstMatch, named: "08-Search")
+        }
         #else
-        attachScreenshot(of: app.windows.firstMatch, named: "Search")
+        attachScreenshot(of: app.windows.firstMatch, named: "08-Search")
         #endif
     }
 
@@ -97,7 +101,11 @@ final class SearchUITests: UITestCase {
         }
 
         #if os(iOS)
-        attachScreenshot(of: app, named: "SearchNoResults")
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            attachScreenshot(of: app, named: "SearchNoResults")
+        } else {
+            attachScreenshot(of: app.windows.firstMatch, named: "SearchNoResults")
+        }
         #else
         attachScreenshot(of: app.windows.firstMatch, named: "SearchNoResults")
         #endif

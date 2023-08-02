@@ -156,9 +156,7 @@
   "defaultOptions" : {
     "codeCoverage" : false,
     "commandLineArgumentEntries" : [
-      {
-        "argument" : "-disable-cloud"
-      }
+
     ]
   },
   "testTargets" : [

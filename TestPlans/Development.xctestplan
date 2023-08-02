@@ -12,9 +12,6 @@
     "codeCoverage" : false,
     "commandLineArgumentEntries" : [
       {
-        "argument" : "-disable-cloud"
-      },
-      {
         "argument" : "-automatic-orientation"
       }
     ],
