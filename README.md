@@ -6,32 +6,26 @@ Inspired by personalized start pages past, Den is for creating simple dashboards
 
 ## Features
 
-Multi-Platform
-: Built for Mac, iPad, and iPhone.
-
-Adaptable Page Layouts
-: Four options to choose from, all designed to scale from phone to desktop.
-
-Cloud Sync
-: Feeds, history, and settings on all your devices without signing up for yet another account.
-
-RSS, Atom, and JSON Feed
-: Support for the formats used by most feeds.
-
-Import and Export
-: Backup and restore feeds using common OPML files.
-
-Trending
-: Browse by common subjects found through natural language processing.
-
-Search
-: Find the latest on a topic by looking for keywords in titles.
-
-Web Extension
-: Discover feeds on webpages with the companion browser extension.
-
-Diagnostics
-: View feed response times and cache settings.
+<dl>
+<dt>Multi-Platform</dt>
+<dd>Built for Mac, iPad, and iPhone.</dd>
+<dt>Adaptable Page Layouts</dt>
+<dd>Four options to choose from, all designed to scale from phone to desktop.</dd>
+<dt>Cloud Sync</dt>
+<dd>Feeds, history, and settings on all your devices without signing up for yet another account.</dd>
+<dt>RSS, Atom, and JSON Feed</dt>
+<dd>Support for the formats used by most feeds.</dd>
+<dt>Import and Export</dt>
+<dd>Backup and restore feeds using common OPML files.</dd>
+<dt>Trending</dt>
+<dd>Browse by common subjects found through natural language processing.</dd>
+<dt>Search</dt>
+<dd>Find the latest on a topic by looking for keywords in titles.</dd>
+<dt>Web Extension</dt>
+<dd>Discover feeds on webpages with the companion browser extension.</dd>
+<dt>Diagnostics</dt>
+<dd>View feed response times and cache settings.</dd>
+</dl>
 
 ## Installation
 
