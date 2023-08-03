@@ -61,7 +61,7 @@ final class RefreshManager {
         )
 
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .pagesRefreshed, object: profile.objectID)
+            NotificationCenter.default.post(name: .refreshProgressed, object: profile.objectID)
         }
 
         await AnalyzeTask(profileObjectID: profile.objectID).execute()

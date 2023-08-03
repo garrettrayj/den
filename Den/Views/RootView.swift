@@ -50,11 +50,5 @@ struct RootView: View {
         .sheet(isPresented: $showingCrashMessage) {
             CrashMessage().interactiveDismissDisabled()
         }
-        .refreshable {
-            await Task {
-                guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
-                await RefreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
-            }.value
-        }
     }
 }

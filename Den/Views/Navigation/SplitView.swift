@@ -75,6 +75,12 @@ struct SplitView: View {
         }
         .tint(profile.tintColor)
         .environment(\.useSystemBrowser, useSystemBrowser)
+        .refreshable {
+            await Task {
+                guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
+                await RefreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+            }.value
+        }
         .onOpenURL { url in
             handleNewFeed(urlString: url.absoluteString)
         }
@@ -122,13 +128,14 @@ struct SplitView: View {
             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             #endif
         }
-        .onReceive(NotificationCenter.default.publisher(for: .feedRefreshed, object: profile.objectID)) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshProgressed, object: profile.objectID)
+        ) { _ in
             refreshProgress.completedUnitCount += 1
         }
-        .onReceive(NotificationCenter.default.publisher(for: .pagesRefreshed, object: profile.objectID)) { _ in
-            refreshProgress.completedUnitCount += 1
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: .refreshFinished, object: profile.objectID)
+        ) { _ in
             refreshing = false
             refreshProgress.completedUnitCount = 0
             profile.objectWillChange.send()

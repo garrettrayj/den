@@ -140,7 +140,7 @@ class FeedUpdateTask {
 
         DispatchQueue.main.async {
             NotificationCenter.default.post(
-                name: .feedRefreshed,
+                name: .refreshProgressed,
                 object: self.profileObjectID,
                 userInfo: [
                     "pageObjectID": self.pageObjectID as Any,
