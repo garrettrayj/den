@@ -2,7 +2,7 @@
 
 Create custom landscape views of what's happening with a modern aggregator app made for skimming.
 
-<img src="Screenshot.png" alt="Screenshot" />
+<img src="Screenshot.png" alt="Screenshot" border="1" />
 
 Inspired by personalized start pages past, Den is for creating simple dashboards to follow the sources that matter to you. It's made for people who need to keep up-to-date with feeds that aren't always available in other apps and want more control over what they read. The flexible organization tools and broadsheet layouts are tailored especially for information mavens. Academics, doctors, engineers, investors, journalists, scientists, and professionals who keep an eye on niche news wires will find a lot to like. That said, anyone fed up with excessive ads and manipulative algorithms can enjoy the minimalist, content-focused, design and uncompromising approach to privacy.
 
