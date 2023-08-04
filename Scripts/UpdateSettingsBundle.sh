@@ -8,6 +8,17 @@
 #
 #  SPDX-License-Identifier: MIT
 
+# Create logs folder
+logsFolder="${PROJECT_DIR}/Scripts/Logs"
+mkdir -p $logsFolder
+
+# Create log file
+scriptNameWithExtension=$(basename "$0")
+scriptNameClean=${scriptNameWithExtension%.*}
+exec > "$logsFolder/$scriptNameClean.log" 2>&1
+set -o pipefail
+set -e
+
 version="$MARKETING_VERSION"
 build="$CURRENT_PROJECT_VERSION"
 
