@@ -15,16 +15,16 @@ import Sparkle
 
 struct CheckForUpdatesView: View {
     @ObservedObject private var updaterViewModel: UpdaterViewModel
-    
+
     private let updater: SPUUpdater
-    
+
     init(updater: SPUUpdater) {
         self.updater = updater
-        
+
         // Create our view model for our CheckForUpdatesView
         self.updaterViewModel = UpdaterViewModel(updater: updater)
     }
-    
+
     var body: some View {
         Button("Check for Updates…", action: updater.checkForUpdates)
             .disabled(!updaterViewModel.canCheckForUpdates)

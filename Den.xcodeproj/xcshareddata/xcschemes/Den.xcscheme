@@ -164,7 +164,7 @@
    <ArchiveAction
       buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
-      <PostActions>
+      <PreActions>
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
@@ -181,6 +181,6 @@
                </EnvironmentBuildable>
             </ActionContent>
          </ExecutionAction>
-      </PostActions>
+      </PreActions>
    </ArchiveAction>
 </Scheme>
