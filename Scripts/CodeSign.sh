@@ -26,10 +26,10 @@ entitlements="$PROJECT_DIR/Scripts/Sparkle.entitlements"
 
 if [ "$__IS_NOT_MACOS" == "NO" ]
 then
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --entitlements "$entitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/XPCServices/Installer.xpc"
+    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --entitlements "$entitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/XPCServices/Installer.xpc"
 
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --entitlements "$entitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Autoupdate"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --entitlements "$entitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Updater.app"
+    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --entitlements "$entitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Autoupdate"
+    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --entitlements "$entitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Updater.app"
 
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime "$BUILT_PRODUCTS_DIR/Sparkle.framework"
+    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp "$BUILT_PRODUCTS_DIR/Sparkle.framework"
 fi
