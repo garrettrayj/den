@@ -28,9 +28,9 @@ sparkleFramework="$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/Sparkle.framework"
 if [ "$__IS_NOT_MACOS" == "NO" ]
 then
     # Sign for Xcode Cloud archive process
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/XPCServices/Installer.xpc"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/Autoupdate"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/Updater.app"
+    codesign -f -s "$EXPANDED_CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/XPCServices/Installer.xpc"
+    codesign -f -s "$EXPANDED_CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/Autoupdate"
+    codesign -f -s "$EXPANDED_CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/Updater.app"
     
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose "$sparkleFramework"
+    codesign -f -s "$EXPANDED_CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose "$sparkleFramework"
 fi
