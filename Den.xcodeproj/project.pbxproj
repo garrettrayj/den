@@ -73,7 +73,7 @@
 		686069372831501B000068DE /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 686068EA2831501B000068DE /* popup.html */; };
 		686069392831501B000068DE /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 686068EB2831501B000068DE /* popup.css */; };
 		6860693B2831501B000068DE /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 686068EC2831501B000068DE /* popup.js */; };
-		6860694C2831533E000068DE /* Den Web Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Den Web Extension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6860694C2831533E000068DE /* Den Web Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6860690E2831501B000068DE /* Den Web Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6862A5902A23EEE4000CAB19 /* Localizable.strings */; };
 		6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */; };
 		6862A59E2A26D90F000CAB19 /* PagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A59D2A26D90F000CAB19 /* PagePicker.swift */; };
@@ -1201,6 +1201,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				683537D22A7F83BE00A5DBEF /* PBXTargetDependency */,
 				6860694E2831533E000068DE /* PBXTargetDependency */,
 			);
 			name = Den;
@@ -1642,9 +1643,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		683537D22A7F83BE00A5DBEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilters = (
+				macos,
+			);
+			productRef = 683537D12A7F83BE00A5DBEF /* Sparkle */;
+		};
 		6860694E2831533E000068DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilter = ios;
 			target = 6860690D2831501B000068DE /* WebExtension */;
 			targetProxy = 6860694D2831533E000068DE /* PBXContainerItemProxy */;
 		};
@@ -2178,6 +2185,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 681DE1082922D02200D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
 			productName = SDWebImageWebPCoder;
+		};
+		683537D12A7F83BE00A5DBEF /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 680B13482A7F42990001AA39 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
 		};
 		6897D52526B91C0100833DDA /* HTMLEntities */ = {
 			isa = XCSwiftPackageProductDependency;
