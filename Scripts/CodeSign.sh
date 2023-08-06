@@ -11,10 +11,20 @@
 #  Sign Sparkle components
 #
 
-codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime Sparkle.framework/Versions/B/XPCServices/Installer.xpc
-codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --entitlements Entitlements/Downloader.entitlements Sparkle.framework/Versions/B/XPCServices/Downloader.xpc
+# Create logs folder
+logsFolder="${PROJECT_DIR}/Scripts/Logs"
+mkdir -p $logsFolder
 
-codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime Sparkle.framework/Versions/B/Autoupdate
-codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime Sparkle.framework/Versions/B/Updater.app
+# Create log file
+scriptNameWithExtension=$(basename "$0")
+scriptNameClean=${scriptNameWithExtension%.*}
+exec > "$logsFolder/$scriptNameClean.log" 2>&1
+set -o pipefail
+set -e
 
-codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime Sparkle.framework
+codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/XPCServices/Installer.xpc"
+
+codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Autoupdate"
+codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Updater.app"
+
+codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime "$BUILT_PRODUCTS_DIR/Sparkle.framework"

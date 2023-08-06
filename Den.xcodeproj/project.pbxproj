@@ -14,7 +14,6 @@
 		680649842A0E491000B6E6E7 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680649832A0E491000B6E6E7 /* Landing.swift */; };
 		680744C028E95CD80008A09D /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680744BF28E95CD80008A09D /* Start.swift */; };
 		6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6809EFCA24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift */; };
-		680B134A2A7F42990001AA39 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = 680B13492A7F42990001AA39 /* Sparkle */; };
 		680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DC24D29F2200196F6D /* Page+CoreDataClass.swift */; };
 		680E57E824D29F2200196F6D /* FeedData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57DE24D29F2200196F6D /* FeedData+CoreDataClass.swift */; };
 		680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E57E024D29F2200196F6D /* Item+CoreDataClass.swift */; };
@@ -41,6 +40,7 @@
 		6832AF2C278B889300CFC8CA /* SplashNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2B278B889300CFC8CA /* SplashNote.swift */; };
 		68352D1629B16C5F0073CEFD /* ProfileColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */; };
 		68352D1829B187180073CEFD /* ProfileColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* ProfileColorOption.swift */; };
+		683537D62A7F90AD00A5DBEF /* Sparkle in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = 683537D52A7F90AD00A5DBEF /* Sparkle */; };
 		6835737F295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */; };
 		6835738529602A7F00843A8E /* EnvironmentValues+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738429602A7F00843A8E /* EnvironmentValues+Extensions.swift */; };
 		6835738E29614C5600843A8E /* DetailPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738D29614C5600843A8E /* DetailPanel.swift */; };
@@ -576,7 +576,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				680B134A2A7F42990001AA39 /* Sparkle in Frameworks */,
+				683537D62A7F90AD00A5DBEF /* Sparkle in Frameworks */,
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
 				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
@@ -1197,11 +1197,11 @@
 				68C41307247263C700D1DC7B /* Resources */,
 				6860694F2831533E000068DE /* Embed Foundation Extensions */,
 				68906F822A761D1F00803350 /* ShellScript */,
+				683537D72A7F94AF00A5DBEF /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				683537D22A7F83BE00A5DBEF /* PBXTargetDependency */,
 				6860694E2831533E000068DE /* PBXTargetDependency */,
 			);
 			name = Den;
@@ -1213,7 +1213,7 @@
 				68EE91EA28D54C66000C00D2 /* SDWebImageSwiftUI */,
 				681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */,
 				681DE1092922D02200D2F7B2 /* SDWebImageWebPCoder */,
-				680B13492A7F42990001AA39 /* Sparkle */,
+				683537D52A7F90AD00A5DBEF /* Sparkle */,
 			);
 			productName = Den;
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
@@ -1342,6 +1342,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		683537D72A7F94AF00A5DBEF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Scripts/CodeSign.sh\n";
+		};
 		68906F822A761D1F00803350 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -1643,13 +1661,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		683537D22A7F83BE00A5DBEF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilters = (
-				macos,
-			);
-			productRef = 683537D12A7F83BE00A5DBEF /* Sparkle */;
-		};
 		6860694E2831533E000068DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6860690D2831501B000068DE /* WebExtension */;
@@ -2171,11 +2182,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		680B13492A7F42990001AA39 /* Sparkle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 680B13482A7F42990001AA39 /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
-		};
 		681DE1062922CFD400D2F7B2 /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 681DE1052922CFD400D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
@@ -2186,7 +2192,7 @@
 			package = 681DE1082922D02200D2F7B2 /* XCRemoteSwiftPackageReference "SDWebImageWebPCoder" */;
 			productName = SDWebImageWebPCoder;
 		};
-		683537D12A7F83BE00A5DBEF /* Sparkle */ = {
+		683537D52A7F90AD00A5DBEF /* Sparkle */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 680B13482A7F42990001AA39 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;

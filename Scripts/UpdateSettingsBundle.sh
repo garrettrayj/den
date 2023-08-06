@@ -19,6 +19,8 @@ exec > "$logsFolder/$scriptNameClean.log" 2>&1
 set -o pipefail
 set -e
 
+printenv
+
 version="$MARKETING_VERSION"
 build="$CURRENT_PROJECT_VERSION"
 
