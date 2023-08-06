@@ -23,19 +23,14 @@ set -o pipefail
 set -e
 
 sparkleEntitlements="$PROJECT_DIR/Scripts/Sparkle.entitlements"
-sparkleFramework="$BUILT_PRODUCTS_DIR/Den.app/Contents/Frameworks/Sparkle.framework"
+sparkleFramework="$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/Sparkle.framework"
 
 if [ "$__IS_NOT_MACOS" == "NO" ]
 then
-    # Sign for debug
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/XPCServices/Installer.xpc"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Autoupdate"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$BUILT_PRODUCTS_DIR/Sparkle.framework/Versions/B/Updater.app"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose "$BUILT_PRODUCTS_DIR/Sparkle.framework"
-
     # Sign for Xcode Cloud archive process
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/B/XPCServices/Installer.xpc"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/B/Autoupdate"
-    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/B/Updater.app"
+    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/XPCServices/Installer.xpc"
+    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/Autoupdate"
+    codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose --entitlements "$sparkleEntitlements" "$sparkleFramework/Versions/Current/Updater.app"
+    
     codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime --timestamp --force --verbose "$sparkleFramework"
 fi
