@@ -1197,7 +1197,7 @@
 				68C41307247263C700D1DC7B /* Resources */,
 				6860694F2831533E000068DE /* Embed Foundation Extensions */,
 				68906F822A761D1F00803350 /* ShellScript */,
-				683537D72A7F94AF00A5DBEF /* ShellScript */,
+				683537D82A7FA5D800A5DBEF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1342,7 +1342,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		683537D72A7F94AF00A5DBEF /* ShellScript */ = {
+		683537D82A7FA5D800A5DBEF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -1359,6 +1359,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/CodeSign.sh\n";
+			showEnvVarsInLog = 0;
 		};
 		68906F822A761D1F00803350 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
