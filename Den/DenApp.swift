@@ -10,11 +10,13 @@
 import CoreData
 import OSLog
 import SwiftUI
-import BackgroundTasks
 
 import SDWebImage
 import SDWebImageWebPCoder
 import SDWebImageSVGCoder
+#if os(macOS)
+import Sparkle
+#endif
 
 @main
 struct DenApp: App {
@@ -30,6 +32,10 @@ struct DenApp: App {
     @StateObject private var networkMonitor = NetworkMonitor()
 
     let persistenceController = PersistenceController.shared
+
+    #if os(macOS)
+    private let updaterController: SPUStandardUpdaterController
+    #endif
 
     var body: some Scene {
         WindowGroup {
@@ -48,6 +54,11 @@ struct DenApp: App {
         .commands {
             ToolbarCommands()
             SidebarCommands()
+            #if os(macOS)
+            CommandGroup(after: .appInfo) {
+                CheckForUpdatesView(updater: updaterController.updater)
+            }
+            #endif
             CommandGroup(replacing: .help) {
                 Button {
                     openURL(URL(string: "https://den.io/help/")!)
@@ -86,6 +97,13 @@ struct DenApp: App {
     }
 
     init() {
+        #if os(macOS)
+        updaterController = SPUStandardUpdaterController(
+            startingUpdater: true,
+            updaterDelegate: nil,
+            userDriverDelegate: nil
+        )
+        #endif
         setupImageHandling()
     }
 
@@ -103,9 +121,7 @@ struct DenApp: App {
             for profile in profiles {
                 try? HistoryUtility.removeExpired(context: context, profile: profile)
             }
-
             try? CleanupUtility.purgeOrphans(context: context)
-
             try? context.save()
         }
 

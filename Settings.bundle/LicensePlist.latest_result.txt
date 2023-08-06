@@ -12,6 +12,8 @@ name: SDWebImageSwiftUI, nameSpecified: SDWebImageSwiftUI, owner: SDWebImage, ve
 
 name: SDWebImageWebPCoder, nameSpecified: SDWebImageWebPCoder, owner: SDWebImage, version: 0.13.0, source: https://github.com/SDWebImage/SDWebImageWebPCoder
 
+name: Sparkle, nameSpecified: Sparkle, owner: sparkle-project, version: 2.4.2, source: https://github.com/sparkle-project/Sparkle
+
 name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 4.0.1, source: https://github.com/Kitura/swift-html-entities
 
 name: SwiftSoup, nameSpecified: SwiftSoup, owner: scinfu, version: 2.6.1, source: https://github.com/scinfu/SwiftSoup

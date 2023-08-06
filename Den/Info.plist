@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SUFeedURL</key>
+	<string>https://den.io/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>auZb4LLMreOKV5ILcESR0cV2zeZZClHhcNjyjTIy0eA=</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>net.devsci.den.cleanup</string>
@@ -65,6 +69,8 @@
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2023 Garrett Johnson</string>
+	<key>SUEnableInstallerLauncherService</key>
+	<true/>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIApplicationSceneManifest</key>
