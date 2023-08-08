@@ -100,11 +100,13 @@ struct FeedConfigurationForm: View {
                     comment: "Stepper label."
                 )
             }
-            #if os(iOS)
-            .onChange(of: feed.wrappedItemLimit) {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            .sensoryFeedback(trigger: feed.wrappedItemLimit) { oldValue, newValue in
+                if newValue > oldValue {
+                    return .increase
+                } else {
+                    return .decrease
+                }
             }
-            #endif
 
             Toggle(isOn: $feed.browserView) {
                 Text("Open in Browser", comment: "Toggle label.")

@@ -127,9 +127,6 @@ struct SplitView: View {
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
             refreshProgress.totalUnitCount = Int64(profile.feedsArray.count)
             refreshing = true
-            #if os(iOS)
-            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-            #endif
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .refreshProgressed, object: profile.objectID)
@@ -142,9 +139,13 @@ struct SplitView: View {
             refreshing = false
             refreshProgress.completedUnitCount = 0
             profile.objectWillChange.send()
-            #if os(iOS)
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-            #endif
+        }
+        .sensoryFeedback(trigger: refreshing) { _, newValue in
+            if newValue == true {
+                return .start
+            } else {
+                return .success
+            }
         }
         .sheet(isPresented: $showingNewFeedSheet) {
             NewFeedSheet(
