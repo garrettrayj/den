@@ -11,43 +11,15 @@
 import SwiftUI
 
 extension Color {
-    var hexString: String? {
-        #if os(macOS)
-        let nsColor = NSColor(self)
-        guard let components = nsColor.cgColor.components, components.count >= 3 else {
-            return nil
-        }
-        #else
-        let uiColor = UIColor(self)
-        guard let components = uiColor.cgColor.components, components.count >= 3 else {
-            return nil
-        }
-        #endif
+    public func hexString(environment: EnvironmentValues) -> String {
+        let resolvedColor = self.resolve(in: environment)
 
-        let red = Float(components[0])
-        let green = Float(components[1])
-        let blue = Float(components[2])
-        var alpha = Float(1.0)
-
-        if components.count >= 4 {
-            alpha = Float(components[3])
-        }
-
-        if alpha != Float(1.0) {
-            return String(
-                format: "%02lX%02lX%02lX%02lX",
-                lroundf(red * 255),
-                lroundf(green * 255),
-                lroundf(blue * 255),
-                lroundf(alpha * 255)
-            )
-        } else {
-            return String(
-                format: "%02lX%02lX%02lX",
-                lroundf(red * 255),
-                lroundf(green * 255),
-                lroundf(blue * 255)
-            )
-        }
+        return String(
+            format: "#%02lX%02lX%02lX%02lX",
+            lroundf(resolvedColor.red * 255),
+            lroundf(resolvedColor.green * 255),
+            lroundf(resolvedColor.blue * 255),
+            lroundf(resolvedColor.opacity * 255)
+        )
     }
 }

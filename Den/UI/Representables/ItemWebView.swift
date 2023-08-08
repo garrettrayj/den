@@ -13,6 +13,7 @@ import SwiftUI
 import WebKit
 
 struct ItemWebView {
+    @Environment(\.self) private var environment
     @Environment(\.openURL) private var openURL
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
@@ -51,10 +52,14 @@ struct ItemWebView {
         """
     }
 
+    var tintColorCSSValue: String {
+        tintColor?.hexString(environment: environment) ?? "-webkit-link"
+    }
+
     private func getStylesString() -> String {
         let css = WebViewStyles.shared.css.replacingOccurrences(
             of: "$TINT_COLOR",
-            with: tintColor?.hexString ?? "blue"
+            with: tintColorCSSValue
         )
         return css
     }
