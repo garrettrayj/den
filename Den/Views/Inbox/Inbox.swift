@@ -33,7 +33,7 @@ struct Inbox: View {
                         Text("Refresh to check for new items.", comment: "Content unavailable description.")
                     }
                 } else if items.unread().isEmpty && hideRead {
-                    AllReadSplashNote()
+                    AllRead(largeDisplay: true)
                 } else {
                     GeometryReader { geometry in
                         ScrollView(.vertical) {

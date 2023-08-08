@@ -17,7 +17,7 @@ struct RoundedContainerModifier: ViewModifier {
             #if os(macOS)
             .background(.background)
             #else
-            .background(Color(uiColor: .secondarySystemGroupedBackground))
+            .background(Color(.secondarySystemGroupedBackground))
             #endif
             .cornerRadius(8)
             .shadow(color: .black.opacity(0.1), radius: 4)

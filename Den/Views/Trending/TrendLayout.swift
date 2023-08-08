@@ -20,7 +20,7 @@ struct TrendLayout: View {
 
     var body: some View {
         if items.isEmpty {
-            AllReadSplashNote()
+            AllRead(largeDisplay: true)
         } else {
             GeometryReader { geometry in
                 ScrollView(.vertical) {

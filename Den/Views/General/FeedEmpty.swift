@@ -11,7 +11,19 @@
 import SwiftUI
 
 struct FeedEmpty: View {
+    var largeDisplay: Bool = false
+    
     var body: some View {
-        CardNote(Text("Feed Empty", comment: "No items message."))
+        if largeDisplay {
+            ContentUnavailableView {
+                Label {
+                    Text("Feed Empty", comment: "Content unavailable title.")
+                } icon: {
+                    Image(systemName: "circle.slash")
+                }
+            }.frame(maxWidth: .infinity)
+        } else {
+            CardNote(Text("Feed Empty", comment: "No items message."))
+        }
     }
 }

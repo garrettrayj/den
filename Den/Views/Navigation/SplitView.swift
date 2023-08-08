@@ -72,6 +72,9 @@ struct SplitView: View {
                 path: $navigationStore.path,
                 showingNewFeedSheet: $showingNewFeedSheet
             )
+            #if os(iOS)
+            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+            #endif
         }
         .tint(profile.tintColor)
         .environment(\.useSystemBrowser, useSystemBrowser)

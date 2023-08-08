@@ -27,7 +27,7 @@ struct FeedLayout: View {
             ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 0) {
                     if feed.feedData == nil || feed.feedData?.error != nil {
-                        FeedUnavailable(feedData: feed.feedData)
+                        FeedUnavailable(feedData: feed.feedData, largeDisplay: true)
                     } else {
                         if let heroImage = feed.feedData?.banner {
                             FeedHero(heroImage: heroImage)
@@ -35,10 +35,9 @@ struct FeedLayout: View {
                         }
 
                         if items.isEmpty {
-                            FeedEmpty()
+                            FeedEmpty(largeDisplay: true).frame(maxWidth: .infinity, alignment: .center)
                         } else if items.unread().isEmpty && hideRead {
-                            AllRead()
-                                .modifier(SafeAreaModifier(geometry: geometry))
+                            AllRead(largeDisplay: true)
                         } else {
                             BoardView(
                                 geometry: geometry,

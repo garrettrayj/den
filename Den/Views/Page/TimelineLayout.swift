@@ -28,7 +28,7 @@ struct TimelineLayout: View {
                 }
             }
         } else if items.unread().isEmpty && hideRead {
-            AllReadSplashNote()
+            AllRead(largeDisplay: true)
         } else {
             GeometryReader { geometry in
                 ScrollView(.vertical) {

@@ -11,16 +11,30 @@
 import SwiftUI
 
 struct FeedUnavailable: View {
-    @Environment(\.isEnabled) var isEnabled
-
     let feedData: FeedData?
+    
+    var largeDisplay: Bool = false
 
     var body: some View {
-        CardNote(
-            title,
-            caption: { caption },
-            icon: { icon }
-        )
+        if largeDisplay {
+            ContentUnavailableView {
+                Label {
+                    title
+                } icon: {
+                    icon
+                }
+            } description: {
+                caption
+            }
+            .frame(maxWidth: .infinity)
+        } else {
+            CardNote(
+                title,
+                caption: { caption },
+                icon: { icon }
+            )
+        }
+        
     }
 
     var title: Text {
@@ -55,7 +69,7 @@ struct FeedUnavailable: View {
         } else if feedData?.wrappedError != nil {
             return Image(systemName: "exclamationmark.triangle")
         } else if feedData!.itemsArray.isEmpty {
-            return Image(systemName: "circle.slash" )
+            return Image(systemName: "circle.slash")
         } else {
             return Image(systemName: "questionmark.diamond" )
         }

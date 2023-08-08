@@ -29,13 +29,13 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
 
     var body: some View {
         VStack(spacing: 8) {
-            icon
+            icon.foregroundStyle(.tertiary).fontWeight(.bold).imageScale(.large)
             VStack {
-                title
+                title.fontWeight(.medium)
                 caption.font(.caption)
-            }
+            }.foregroundStyle(.secondary)
         }
-        .foregroundStyle(isEnabled ? .primary : .secondary)
+        
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

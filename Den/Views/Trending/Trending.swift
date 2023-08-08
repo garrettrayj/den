@@ -38,7 +38,7 @@ struct Trending: View {
                     )
                 }
             } else if visibleTrends.isEmpty {
-                AllReadSplashNote()
+                AllRead(largeDisplay: true)
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
