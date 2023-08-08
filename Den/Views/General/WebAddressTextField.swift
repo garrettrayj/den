@@ -32,7 +32,7 @@ struct WebAddressTextField: View {
         #if os(iOS)
         .textInputAutocapitalization(.never)
         #endif
-        .onChange(of: text) { _ in
+        .onChange(of: text) {
             validate()
         }
         .onAppear {

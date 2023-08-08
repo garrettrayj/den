@@ -25,16 +25,18 @@ struct Trending: View {
     var body: some View {
         VStack {
             if profile.trends.isEmpty {
-                SplashNote(
-                    Text("Nothing Trending", comment: "Trending empty header."),
-                    caption: {
-                        Text(
-                            "No common subjects were found in item titles.",
-                            comment: "Trending empty message."
-                        )
-                    },
-                    icon: { Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1) }
-                )
+                ContentUnavailableView {
+                    Label {
+                        Text("Nothing Trending", comment: "Trending empty title.")
+                    } icon: {
+                        Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1)
+                    }
+                } description: {
+                    Text(
+                        "No common subjects were found in item titles.",
+                        comment: "Trending empty description."
+                    )
+                }
             } else if visibleTrends.isEmpty {
                 AllReadSplashNote()
             } else {

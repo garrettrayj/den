@@ -31,7 +31,6 @@ struct GroupedLayout: View {
                 }
                 .modifier(MainBoardModifier())
             }
-            .id("GroupedLayoutSroll_\(page.id?.uuidString ?? "NoID")")
         }
     }
 }

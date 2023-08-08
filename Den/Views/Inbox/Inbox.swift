@@ -23,11 +23,15 @@ struct Inbox: View {
                 if profile.feedsArray.isEmpty {
                     NoFeeds(showingNewFeedSheet: $showingNewFeedSheet)
                 } else if items.isEmpty {
-                    SplashNote(
-                        Text("Inbox Empty", comment: "Splash note title."),
-                        caption: { Text("Refresh to check for new items.", comment: "Splash note caption.") },
-                        icon: { Image(systemName: "tray") }
-                    )
+                    ContentUnavailableView {
+                        Label {
+                            Text("Inbox Empty", comment: "Content unavailable title.")
+                        } icon: {
+                            Image(systemName: "tray")
+                        }
+                    } description: {
+                        Text("Refresh to check for new items.", comment: "Content unavailable description.")
+                    }
                 } else if items.unread().isEmpty && hideRead {
                     AllReadSplashNote()
                 } else {

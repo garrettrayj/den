@@ -72,7 +72,7 @@ struct PageConfigurationForm: View {
                 Label {
                     Text("Delete Page", comment: "Button label.").fixedSize()
                 } icon: {
-                    Image(systemName: "trash")
+                    Image(systemName: "folder.badge.minus")
                 }
                 .symbolRenderingMode(.multicolor)
             }

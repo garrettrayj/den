@@ -23,7 +23,7 @@ struct FeedRefreshTimeoutSlider: View {
                 FeedRefreshTimeoutLabel(feedRefreshTimeout: $feedRefreshTimeout)
             }
         )
-        .onChange(of: duration) { _ in
+        .onChange(of: duration) {
             feedRefreshTimeout = Int(duration)
         }
         .task {

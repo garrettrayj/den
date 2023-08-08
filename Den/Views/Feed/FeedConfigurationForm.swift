@@ -60,8 +60,8 @@ struct FeedConfigurationForm: View {
                     profile: profile,
                     selection: $feed.page
                 )
-                .onChange(of: feed.page) { newPage in
-                    self.feed.userOrder = (newPage?.feedsUserOrderMax ?? 0) + 1
+                .onChange(of: feed.page) {
+                    self.feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
                 }
             }
 
@@ -74,7 +74,7 @@ struct FeedConfigurationForm: View {
                 Label {
                     Text("Delete Feed", comment: "Button label.").fixedSize()
                 } icon: {
-                    Image(systemName: "trash")
+                    Image(systemName: "minus.square")
                 }
                 .symbolRenderingMode(.multicolor)
             }
@@ -101,9 +101,9 @@ struct FeedConfigurationForm: View {
                 )
             }
             #if os(iOS)
-            .onChange(of: feed.wrappedItemLimit, perform: { _ in
+            .onChange(of: feed.wrappedItemLimit) {
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            })
+            }
             #endif
 
             Toggle(isOn: $feed.browserView) {
@@ -129,7 +129,7 @@ struct FeedConfigurationForm: View {
             .task {
                 showingHideTeaserOption = feed.wrappedPreviewStyle == .expanded
             }
-            .onChange(of: feed.wrappedPreviewStyle) { _ in
+            .onChange(of: feed.wrappedPreviewStyle) {
                 withAnimation {
                     showingHideTeaserOption = feed.wrappedPreviewStyle == .expanded
                 }

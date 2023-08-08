@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct DeckLayout: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -32,30 +34,48 @@ struct DeckLayout: View {
                             pageGeometry: geometry,
                             hideRead: hideRead
                         )
+                        .containerRelativeFrame(
+                            .horizontal,
+                            count: columnCount(width: geometry.size.width),
+                            spacing: 0
+                        )
                     }
                 }
-                .safeAreaInset(edge: .leading, alignment: .top, spacing: 0) {
-                    HStack { Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear) }
-                        .frame(width: geometry.safeAreaInsets.leading)
-                        .background(.regularMaterial)
-                        .background(.tertiary)
-                        .padding(.top, geometry.safeAreaInsets.top)
-                }
-                .safeAreaInset(edge: .trailing, alignment: .top, spacing: 0) {
-                    HStack {
-                        Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear) }
-                        .frame(width: geometry.safeAreaInsets.trailing)
-                        .background(.regularMaterial)
-                        .background(.tertiary)
-                        .padding(.top, geometry.safeAreaInsets.top)
-                }
+                .scrollTargetLayout()
             }
-            .id("DeckLayoutSroll_\(page.id?.uuidString ?? "NoID")")
+            .safeAreaPadding(.leading, geometry.safeAreaInsets.leading + 12)
+            .safeAreaPadding(.trailing, geometry.safeAreaInsets.trailing + 12)
+            .scrollTargetBehavior(.viewAligned)
+            .scrollClipDisabled()
             .edgesIgnoringSafeArea(.all)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             #endif
         }
+        .background(alignment: .topLeading) { horizontalSpacer }
+        .background(alignment: .topTrailing) { horizontalSpacer }
+    }
+    
+    private var horizontalSpacer: some View {
+        HStack {
+            Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear)
+        }
+        .frame(width: 12)
+        #if os(macOS)
+        .background(.regularMaterial)
+        .background(.quaternary)
+        #else
+        .background(
+            Rectangle()
+                .fill(.regularMaterial)
+                .overlay(.quaternary.opacity(0.5))
+        )
+        #endif
+    }
+    
+    private func columnCount(width: CGFloat) -> Int {
+        let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
+        return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 27.2))
     }
 }

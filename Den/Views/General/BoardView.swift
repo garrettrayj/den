@@ -16,33 +16,23 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     let content: (T) -> Content
     let list: [T]
     let geometry: GeometryProxy
-    let lazy: Bool
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             ForEach(columnData, id: \.0) { _, columnObjects in
-                if lazy {
-                    LazyVStack(alignment: .center, spacing: 8) {
-                        ForEach(columnObjects) { object in
-                            content(object)
-                        }
+                LazyVStack(alignment: .center, spacing: 8) {
+                    ForEach(columnObjects) { object in
+                        content(object)
                     }
-                } else {
-                    VStack(alignment: .center, spacing: 8) {
-                        ForEach(columnObjects) { object in
-                            content(object)
-                        }
-                    }.frame(maxWidth: .infinity)
                 }
             }
         }
     }
 
-    init(geometry: GeometryProxy, list: [T], lazy: Bool = true, @ViewBuilder content: @escaping (T) -> Content) {
+    init(geometry: GeometryProxy, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
         self.geometry = geometry
         self.list = list
         self.content = content
-        self.lazy = lazy
     }
 
     private var columnData: [(Int, [T])] {

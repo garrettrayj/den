@@ -37,7 +37,6 @@
 		6829A50C28C6479900F75C5A /* AllRead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A50B28C6479900F75C5A /* AllRead.swift */; };
 		683041B227542E2000BE7631 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B127542E2000BE7631 /* BoardView.swift */; };
 		683041B627543CE900BE7631 /* ShowcaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSection.swift */; };
-		6832AF2C278B889300CFC8CA /* SplashNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6832AF2B278B889300CFC8CA /* SplashNote.swift */; };
 		68352D1629B16C5F0073CEFD /* ProfileColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */; };
 		68352D1829B187180073CEFD /* ProfileColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* ProfileColorOption.swift */; };
 		683537D62A7F90AD00A5DBEF /* Sparkle in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = 683537D52A7F90AD00A5DBEF /* Sparkle */; };
@@ -45,6 +44,7 @@
 		6835738529602A7F00843A8E /* EnvironmentValues+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738429602A7F00843A8E /* EnvironmentValues+Extensions.swift */; };
 		6835738E29614C5600843A8E /* DetailPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738D29614C5600843A8E /* DetailPanel.swift */; };
 		683573A0296372DA00843A8E /* WebAccessibleFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835739F296372DA00843A8E /* WebAccessibleFeed.swift */; };
+		6835F5EE2A82061B001FCCDF /* ColumnHeaderButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835F5ED2A82061B001FCCDF /* ColumnHeaderButtonStyle.swift */; };
 		683CEC60250966410005F305 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683CEC5F250966410005F305 /* Bundle+Extensions.swift */; };
 		683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F44293BC02A00B16814 /* NewFeedButton.swift */; };
 		683E3F47293BC18C00B16814 /* SidebarStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E3F46293BC18C00B16814 /* SidebarStatus.swift */; };
@@ -325,13 +325,13 @@
 		6829A50B28C6479900F75C5A /* AllRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRead.swift; sourceTree = "<group>"; };
 		683041B127542E2000BE7631 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		683041B527543CE900BE7631 /* ShowcaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSection.swift; sourceTree = "<group>"; };
-		6832AF2B278B889300CFC8CA /* SplashNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashNote.swift; sourceTree = "<group>"; };
 		68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorPicker.swift; sourceTree = "<group>"; };
 		68352D1729B187180073CEFD /* ProfileColorOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorOption.swift; sourceTree = "<group>"; };
 		6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedHeaderButtonStyle.swift; sourceTree = "<group>"; };
 		6835738429602A7F00843A8E /* EnvironmentValues+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Extensions.swift"; sourceTree = "<group>"; };
 		6835738D29614C5600843A8E /* DetailPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPanel.swift; sourceTree = "<group>"; };
 		6835739F296372DA00843A8E /* WebAccessibleFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAccessibleFeed.swift; sourceTree = "<group>"; };
+		6835F5ED2A82061B001FCCDF /* ColumnHeaderButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnHeaderButtonStyle.swift; sourceTree = "<group>"; };
 		683CEC5F250966410005F305 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		683E3F44293BC02A00B16814 /* NewFeedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeedButton.swift; sourceTree = "<group>"; };
 		683E3F46293BC18C00B16814 /* SidebarStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarStatus.swift; sourceTree = "<group>"; };
@@ -820,6 +820,7 @@
 		688FD91B24780C800006A2DE /* Styles */ = {
 			isa = PBXGroup;
 			children = (
+				6835F5ED2A82061B001FCCDF /* ColumnHeaderButtonStyle.swift */,
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
 				68F56B4D2872DD63006EC915 /* HoverShadowButtonStyle.swift */,
 				6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */,
@@ -1043,7 +1044,6 @@
 				6862A59D2A26D90F000CAB19 /* PagePicker.swift */,
 				68D2862A2A6469E8007AD876 /* ProfileLabel.swift */,
 				6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */,
-				6832AF2B278B889300CFC8CA /* SplashNote.swift */,
 				68FF63F32921D9C50012A275 /* ToggleReadButton.swift */,
 				687FEF172A421B190042977E /* WebAddressTextField.swift */,
 				680F494F29AA56BE0083B664 /* WithItems.swift */,
@@ -1544,6 +1544,7 @@
 				68B6CBDE290F2E7C00B5E3AB /* MediaTypeUtility.swift in Sources */,
 				68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */,
 				68ED797B29BD97DE00D85B4F /* NetworkMonitor.swift in Sources */,
+				6835F5EE2A82061B001FCCDF /* ColumnHeaderButtonStyle.swift in Sources */,
 				683E3F45293BC02A00B16814 /* NewFeedButton.swift in Sources */,
 				68C4138224733D7D00D1DC7B /* NewFeedSheet.swift in Sources */,
 				687FEF122A40A87B0042977E /* NewPageButton.swift in Sources */,
@@ -1606,7 +1607,6 @@
 				68FC2563275E07770073979F /* Sidebar.swift in Sources */,
 				683E3F47293BC18C00B16814 /* SidebarStatus.swift in Sources */,
 				687FEF0D2A3FB0BC0042977E /* SidebarToolbar.swift in Sources */,
-				6832AF2C278B889300CFC8CA /* SplashNote.swift in Sources */,
 				680206B32A1150ED00AC3FC5 /* SplitView.swift in Sources */,
 				680744C028E95CD80008A09D /* Start.swift in Sources */,
 				6845BD5824F90F450008B296 /* String+Extensions.swift in Sources */,
@@ -1866,8 +1866,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.17.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1928,8 +1928,8 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.17.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

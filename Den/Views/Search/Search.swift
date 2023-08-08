@@ -19,32 +19,37 @@ struct Search: View {
     @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
-        if query == "" {
-            SplashNote(
-                Text("No Query", comment: "Search query empty title."),
-                caption: {
+        ZStack {
+            if query == "" {
+                ContentUnavailableView {
+                    Label {
+                        Text("No Query", comment: "Search query empty title.")
+                    } icon: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                } description: {
                     Text(
-                        "Enter a term to search for in item titles.",
+                        "Enter a term to search item titles.",
                         comment: "Search query empty guidance."
                     )
                 }
-            )
-        } else {
-            WithItems(
-                scopeObject: profile,
-                includeExtras: true,
-                searchQuery: query
-            ) { items in
-                SearchLayout(
-                    profile: profile,
-                    hideRead: $hideRead,
-                    query: query,
-                    items: items
-                )
-                .toolbar(id: "Search") {
-                    SearchToolbar(hideRead: $hideRead, query: query, items: items)
+            } else {
+                WithItems(
+                    scopeObject: profile,
+                    includeExtras: true,
+                    searchQuery: query
+                ) { items in
+                    SearchLayout(
+                        profile: profile,
+                        hideRead: $hideRead,
+                        query: query,
+                        items: items
+                    )
+                    .toolbar(id: "Search") {
+                        SearchToolbar(hideRead: $hideRead, query: query, items: items)
+                    }
+                    .navigationTitle(Text("Search", comment: "Navigation title."))
                 }
-                .navigationTitle(Text("Search", comment: "Navigation title."))
             }
         }
     }

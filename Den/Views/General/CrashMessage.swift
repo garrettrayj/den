@@ -12,15 +12,17 @@ import SwiftUI
 
 struct CrashMessage: View {
     var body: some View {
-        SplashNote(
-            Text("Application Crashed", comment: "Crash view title.")
-        ) {
+        ContentUnavailableView {
+            Label {
+                Text("Application Crashed", comment: "Crash view title.")
+            } icon: {
+                Image(systemName: "xmark.octagon")
+            }
+        } description: {
             Text(
                 "A critical error occurred. Restart to try again.",
                 comment: "Crash view guidance."
             )
-        } icon: {
-            Image(systemName: "xmark.octagon")
         }
     }
 }

@@ -22,9 +22,6 @@ struct SearchToolbar: CustomizableToolbarContent {
 
     var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "SearchStatus") {
-            SearchStatus(resultCount: items.count, query: query)
-        }
         ToolbarItem(id: "SearchFilterRead") {
             FilterReadButton(hideRead: $hideRead)
         }
@@ -58,10 +55,6 @@ struct SearchToolbar: CustomizableToolbarContent {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }
-        }
-
-        ToolbarItem(id: "SearchStatus", placement: .bottomBar) {
-            SearchStatus(resultCount: items.count, query: query)
         }
         #endif
     }

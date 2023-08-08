@@ -26,7 +26,7 @@ struct DeleteProfileButton: View {
             Label {
                 Text("Delete Profile", comment: "Button label.").fixedSize()
             } icon: {
-                Image(systemName: "person.crop.circle.badge.xmark")
+                Image(systemName: "person.crop.circle.badge.minus")
             }
         }
         .alert(

@@ -12,9 +12,14 @@ import SwiftUI
 
 struct AllReadSplashNote: View {
     var body: some View {
-        SplashNote(
-            Text("All Read", comment: "No unread items message."),
-            icon: { Image(systemName: "checkmark") }
-        )
+        ContentUnavailableView {
+            Label {
+                Text("All Read")
+            } icon: {
+                Image(systemName: "checkmark").symbolVariant(.circle)
+            }
+        } description: {
+            Text("Turn off filtering to show hidden items.")
+        }
     }
 }

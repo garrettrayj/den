@@ -71,7 +71,7 @@ struct HistorySettingsSection: View {
                 .imageScale(.small)
             }
         }
-        .onChange(of: historyRentionDays) { _ in
+        .onChange(of: historyRentionDays) {
             profile.wrappedHistoryRetention = historyRentionDays
         }
     }

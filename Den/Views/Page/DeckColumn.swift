@@ -56,18 +56,12 @@ struct DeckColumn: View {
                     }
                 }
             }
-            .padding(.vertical, 8)
-            .padding(.horizontal, 4)
-            .padding(.leading, isFirst ? 12 : 0)
-            .padding(.trailing, isLast ? 12 : 0)
         }
+        .contentMargins(.horizontal, 4)
+        .contentMargins(.bottom, pageGeometry.safeAreaInsets.bottom + 8)
         .safeAreaInset(edge: .top) {
-            header.padding(.top, pageGeometry.safeAreaInsets.top)
+            header.padding(.top, pageGeometry.safeAreaInsets.top).padding(.bottom, 8)
         }
-        .safeAreaInset(edge: .bottom) {
-            EmptyView().frame(height: pageGeometry.safeAreaInsets.bottom)
-        }
-        .frame(width: columnWidth)
     }
 
     private var columnWidth: CGFloat {
@@ -77,8 +71,8 @@ struct DeckColumn: View {
     private var header: some View {
         FeedNavLink(
             feed: feed,
-            leadingPadding: isFirst ? 16 : 20,
-            trailingPadding: isLast ? 16 : 20
+            leadingPadding: 20,
+            trailingPadding: 20
         )
         .buttonStyle(PinnedHeaderButtonStyle())
     }

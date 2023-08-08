@@ -26,10 +26,13 @@ struct ProfileSettingsSheet: View {
         NavigationStack {
             ZStack {
                 if profile.managedObjectContext == nil || profile.isDeleted {
-                    SplashNote(
-                        Text("Profile Deleted", comment: "Object removed message."),
-                        icon: { Image(systemName: "xmark") }
-                    )
+                    ContentUnavailableView {
+                        Label {
+                            Text("Profile Deleted", comment: "Object removed message.")
+                        } icon: {
+                            Image(systemName: "trash")
+                        }
+                    }
                 } else {
                     ProfileSettingsForm(profile: profile, currentProfileID: $currentProfileID)
                 }

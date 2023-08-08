@@ -115,10 +115,10 @@ struct SplitView: View {
                 navigationData = navigationStore.encoded()
             }
         }
-        .onChange(of: currentProfileID) { _ in
+        .onChange(of: currentProfileID) {
             detailPanel = nil
         }
-        .onChange(of: detailPanel) { _ in
+        .onChange(of: detailPanel) {
             navigationStore.path.removeLast(navigationStore.path.count)
         }
         .onReceive(NotificationCenter.default.publisher(for: .refreshStarted, object: profile.objectID)) { _ in
@@ -194,13 +194,13 @@ struct SplitView: View {
         ) { _ in
             // pass
         }
-        .onChange(of: showingExporter) { _ in
+        .onChange(of: showingExporter) {
             if showingExporter {
                 opmlFile = ImportExportUtility.exportOPML(profile: profile)
             }
             exporterIsPresented = showingExporter
         }
-        .onChange(of: exporterIsPresented) { _ in
+        .onChange(of: exporterIsPresented) {
             if !exporterIsPresented {
                 showingExporter = false
             }

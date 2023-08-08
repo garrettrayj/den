@@ -18,10 +18,13 @@ struct TrendView: View {
     var body: some View {
         ZStack {
             if trend.managedObjectContext == nil {
-                SplashNote(
-                    Text("Trend Deleted", comment: "Object removed message."),
-                    icon: { Image(systemName: "xmark") }
-                )
+                ContentUnavailableView {
+                    Label {
+                        Text("Trend Deleted", comment: "Object removed message.")
+                    } icon: {
+                        Image(systemName: "trash")
+                    }
+                }
             } else if let profile = trend.profile {
                 WithItems(scopeObject: trend) { items in
                     TrendLayout(

@@ -14,10 +14,14 @@ struct Welcome: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        SplashNote(
-            profile.nameText,
-            caption: { FeedCount(count: profile.feedsArray.count) },
-            icon: { Image(systemName: "rhombus.fill").foregroundStyle(.tint) }
-        )
+        ContentUnavailableView {
+            Label {
+                profile.nameText
+            } icon: {
+                Image(systemName: "rhombus.fill").foregroundStyle(.tint)
+            }
+        } description: {
+            FeedCount(count: profile.feedsArray.count)
+        }
     }
 }

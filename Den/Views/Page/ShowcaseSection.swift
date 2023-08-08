@@ -33,8 +33,7 @@ struct ShowcaseSection: View {
                 } else if !items.isEmpty {
                     BoardView(
                         geometry: geometry,
-                        list: items.visibilityFiltered(hideRead ? false : nil),
-                        lazy: false
+                        list: items.visibilityFiltered(hideRead ? false : nil)
                     ) { item in
                         ItemActionView(item: item, feed: feed, profile: profile) {
                             if feed.wrappedPreviewStyle.rawValue == 1 {
@@ -50,7 +49,7 @@ struct ShowcaseSection: View {
                 }
             }
         } header: {
-            FeedNavLink(feed: feed, leadingPadding: 16, trailingPadding: 16)
+            FeedNavLink(feed: feed, leadingPadding: 32, trailingPadding: 32)
                 .buttonStyle(PinnedHeaderButtonStyle())
                 .modifier(SafeAreaModifier(geometry: geometry))
         }
