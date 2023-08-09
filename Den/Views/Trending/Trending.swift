@@ -29,7 +29,7 @@ struct Trending: View {
                     Label {
                         Text("Nothing Trending", comment: "Trending empty title.")
                     } icon: {
-                        Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1)
+                        Image(systemName: "chart.line.downtrend.xyaxis")
                     }
                 } description: {
                     Text(

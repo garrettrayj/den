@@ -12,14 +12,14 @@ import SwiftUI
 
 struct FeedEmpty: View {
     var largeDisplay: Bool = false
-    
+
     var body: some View {
         if largeDisplay {
             ContentUnavailableView {
                 Label {
                     Text("Feed Empty", comment: "Content unavailable title.")
                 } icon: {
-                    Image(systemName: "circle.slash")
+                    Image(systemName: "square.slash")
                 }
             }.frame(maxWidth: .infinity)
         } else {

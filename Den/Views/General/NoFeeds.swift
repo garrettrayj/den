@@ -16,7 +16,7 @@ struct NoFeeds: View {
     var body: some View {
         VStack(spacing: 16) {
             Spacer()
-            Image(systemName: "circle.slash").scaleEffect(x: -1, y: 1).imageScale(.large)
+            Image(systemName: "rectangle.slash").imageScale(.large)
             Text("No Feeds", comment: "Empty page header.").font(.title)
             Button {
                 showingNewFeedSheet = true

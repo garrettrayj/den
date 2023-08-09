@@ -12,7 +12,7 @@ import SwiftUI
 
 struct AllRead: View {
     var largeDisplay: Bool = false
-    
+
     var body: some View {
         if largeDisplay {
             ContentUnavailableView {

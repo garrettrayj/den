@@ -12,7 +12,7 @@ import SwiftUI
 
 struct FeedUnavailable: View {
     let feedData: FeedData?
-    
+
     var largeDisplay: Bool = false
 
     var body: some View {
@@ -34,7 +34,6 @@ struct FeedUnavailable: View {
                 icon: { icon }
             )
         }
-        
     }
 
     var title: Text {
@@ -42,8 +41,6 @@ struct FeedUnavailable: View {
             return Text("No Data", comment: "Feed unavailable message.")
         } else if feedData?.wrappedError != nil {
             return Text("Refresh Failed", comment: "Feed unavailable message.")
-        } else if feedData!.itemsArray.isEmpty {
-            return Text("Feed Empty", comment: "Feed unavailable message.")
         } else {
             return Text("Feed Unavailable", comment: "Feed unavailable message.")
         }
@@ -68,8 +65,6 @@ struct FeedUnavailable: View {
             return Image(systemName: "bolt.horizontal")
         } else if feedData?.wrappedError != nil {
             return Image(systemName: "exclamationmark.triangle")
-        } else if feedData!.itemsArray.isEmpty {
-            return Image(systemName: "circle.slash")
         } else {
             return Image(systemName: "questionmark.diamond" )
         }

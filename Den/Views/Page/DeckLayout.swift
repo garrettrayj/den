@@ -12,7 +12,7 @@ import SwiftUI
 
 struct DeckLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    
+
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -56,7 +56,7 @@ struct DeckLayout: View {
         .background(alignment: .topLeading) { horizontalSpacer }
         .background(alignment: .topTrailing) { horizontalSpacer }
     }
-    
+
     private var horizontalSpacer: some View {
         HStack {
             Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear)
@@ -73,7 +73,7 @@ struct DeckLayout: View {
         )
         #endif
     }
-    
+
     private func columnCount(width: CGFloat) -> Int {
         let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
         return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 27.2))
