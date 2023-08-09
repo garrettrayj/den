@@ -28,22 +28,22 @@ struct SearchLayout: View {
             if items.isEmpty {
                 ContentUnavailableView {
                     Label {
-                        Text("No Results for “\(query)”")
+                        Text("No Results for “\(query)”", comment: "No search results message title.")
                     } icon: {
                         Image(systemName: "magnifyingglass")
                     }
                 } description: {
-                    Text("Check the spelling or try a new search.")
+                    Text("Check the spelling or try a new search.", comment: "No search results guidance.")
                 }
             } else if hideRead && visibilityFilteredItems.isEmpty {
                 ContentUnavailableView {
                     Label {
-                        Text("No Unread Results for\n“\(query)”")
+                        Text("No Unread Results for\n“\(query)”", comment: "No unread search results title.")
                     } icon: {
                         Image(systemName: "magnifyingglass")
                     }
                 } description: {
-                    Text("Turn off filtering to show hidden items.")
+                    Text("Turn off filtering to show hidden items.", comment: "No unread search results guidance.")
                 }
             } else {
                 GeometryReader { geometry in

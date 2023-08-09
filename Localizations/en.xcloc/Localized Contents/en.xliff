@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Den/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5209g"/>
+    </header>
+    <body>
+      <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
+        <source>Loading...</source>
+        <target state="new">Loading...</target>
+        <note>Class = "UILabel"; text = "Loading..."; ObjectID = "GJd-Yh-RWb";</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="Den/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5209g"/>
@@ -136,7 +148,8 @@
       <trans-unit id="All Read" xml:space="preserve">
         <source>All Read</source>
         <target>All Read</target>
-        <note>No unread items message.</note>
+        <note>All read message title.
+   No unread items message.</note>
       </trans-unit>
       <trans-unit id="All profile content (pages, feeds, history, etc.) will be removed." xml:space="preserve">
         <source>All profile content (pages, feeds, history, etc.) will be removed.</source>
@@ -187,6 +200,11 @@
         <source>Cancel</source>
         <target>Cancel</target>
         <note>Button label.</note>
+      </trans-unit>
+      <trans-unit id="Check the spelling or try a new search." xml:space="preserve">
+        <source>Check the spelling or try a new search.</source>
+        <target>Check the spelling or try a new search.</target>
+        <note>No search results guidance.</note>
       </trans-unit>
       <trans-unit id="Choose Icon" xml:space="preserve">
         <source>Choose Icon</source>
@@ -354,14 +372,9 @@
         <target>Enter a RSS, Atom, or JSON Feed URL.</target>
         <note>URL field guidance message.</note>
       </trans-unit>
-      <trans-unit id="Enter a search term." xml:space="preserve">
-        <source>Enter a search term.</source>
-        <target>Enter a search term.</target>
-        <note>Search guidance.</note>
-      </trans-unit>
-      <trans-unit id="Enter a term to search for in item titles." xml:space="preserve">
-        <source>Enter a term to search for in item titles.</source>
-        <target>Enter a term to search for in item titles.</target>
+      <trans-unit id="Enter a term to search item titles." xml:space="preserve">
+        <source>Enter a term to search item titles.</source>
+        <target>Enter a term to search item titles.</target>
         <note>Search query empty guidance.</note>
       </trans-unit>
       <trans-unit id="Expanded" xml:space="preserve">
@@ -392,7 +405,7 @@
       <trans-unit id="Feed Empty" xml:space="preserve">
         <source>Feed Empty</source>
         <target>Feed Empty</target>
-        <note>Feed unavailable message.
+        <note>Content unavailable title.
    No items message.</note>
       </trans-unit>
       <trans-unit id="Feed Unavailable" xml:space="preserve">
@@ -419,16 +432,6 @@
         <source>Format</source>
         <target>Format</target>
         <note>Diagnostics header.</note>
-      </trans-unit>
-      <trans-unit id="Found %@ results for “%@”" xml:space="preserve">
-        <source>Found %1$@ results for “%2$@”</source>
-        <target>Found %1$@ results for “%2$@”</target>
-        <note>Search status (plural results).</note>
-      </trans-unit>
-      <trans-unit id="Found 1 result for “%@”" xml:space="preserve">
-        <source>Found 1 result for “%@”</source>
-        <target>Found 1 result for “%@”</target>
-        <note>Search status (singular result).</note>
       </trans-unit>
       <trans-unit id="Gaming" xml:space="preserve">
         <source>Gaming</source>
@@ -513,7 +516,7 @@
       <trans-unit id="Inbox Empty" xml:space="preserve">
         <source>Inbox Empty</source>
         <target>Inbox Empty</target>
-        <note>Splash note title.</note>
+        <note>Content unavailable title.</note>
       </trans-unit>
       <trans-unit id="Indigo" xml:space="preserve">
         <source>Indigo</source>
@@ -639,7 +642,7 @@
       <trans-unit id="No Items" xml:space="preserve">
         <source>No Items</source>
         <target>No Items</target>
-        <note>No available items message.</note>
+        <note>Content unavailable title.</note>
       </trans-unit>
       <trans-unit id="No Pages Available" xml:space="preserve">
         <source>No Pages Available</source>
@@ -656,25 +659,22 @@
         <target>No Query</target>
         <note>Search query empty title.</note>
       </trans-unit>
-      <trans-unit id="No Results" xml:space="preserve">
-        <source>No Results</source>
-        <target>No Results</target>
-        <note>Search results empty message.</note>
+      <trans-unit id="No Results for “%@”" xml:space="preserve">
+        <source>No Results for “%@”</source>
+        <target>No Results for “%@”</target>
+        <note>No search results message title.</note>
       </trans-unit>
-      <trans-unit id="No Unread Results" xml:space="preserve">
-        <source>No Unread Results</source>
-        <target>No Unread Results</target>
-        <note>Search results empty message.</note>
+      <trans-unit id="No Unread Results for&#10;“%@”" xml:space="preserve">
+        <source>No Unread Results for
+“%@”</source>
+        <target>No Unread Results for
+“%@”</target>
+        <note>No unread search results title.</note>
       </trans-unit>
       <trans-unit id="No common subjects were found in item titles." xml:space="preserve">
         <source>No common subjects were found in item titles.</source>
         <target>No common subjects were found in item titles.</target>
-        <note>Trending empty message.</note>
-      </trans-unit>
-      <trans-unit id="No results found for “%@”" xml:space="preserve">
-        <source>No results found for “%@”</source>
-        <target>No results found for “%@”</target>
-        <note>Search status (zero results).</note>
+        <note>Trending empty description.</note>
       </trans-unit>
       <trans-unit id="Not Available" xml:space="preserve">
         <source>Not Available</source>
@@ -684,7 +684,7 @@
       <trans-unit id="Nothing Trending" xml:space="preserve">
         <source>Nothing Trending</source>
         <target>Nothing Trending</target>
-        <note>Trending empty header.</note>
+        <note>Trending empty title.</note>
       </trans-unit>
       <trans-unit id="Objects and Tools" xml:space="preserve">
         <source>Objects and Tools</source>
@@ -828,7 +828,7 @@
       <trans-unit id="Refresh to check for new items." xml:space="preserve">
         <source>Refresh to check for new items.</source>
         <target>Refresh to check for new items.</target>
-        <note>Splash note caption.</note>
+        <note>Content unavailable description.</note>
       </trans-unit>
       <trans-unit id="Refresh to fetch items." xml:space="preserve">
         <source>Refresh to fetch items.</source>
@@ -962,6 +962,12 @@
         <target>Trending</target>
         <note>Button label.
    Navigation title.</note>
+      </trans-unit>
+      <trans-unit id="Turn off filtering to show hidden items." xml:space="preserve">
+        <source>Turn off filtering to show hidden items.</source>
+        <target>Turn off filtering to show hidden items.</target>
+        <note>All read message guidance.
+   No unread search results guidance.</note>
       </trans-unit>
       <trans-unit id="Two Weeks" xml:space="preserve">
         <source>Two Weeks</source>

@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Den/Base.lproj/LaunchScreen.storyboard" source-language="en" target-language="en-AU" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5209g"/>
+    </header>
+    <body>
+      <trans-unit id="GJd-Yh-RWb.text" xml:space="preserve">
+        <source>Loading...</source>
+        <note>Class = "UILabel"; text = "Loading..."; ObjectID = "GJd-Yh-RWb";</note>
+      </trans-unit>
+    </body>
+  </file>
   <file original="Den/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="en-AU">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5209g"/>
@@ -23,7 +34,7 @@
       </trans-unit>
     </body>
   </file>
-  <file original="Den/en.lproj/Localizable.strings" datatype="plaintext" source-language="en" target-language="en-AU">
+  <file original="Den/en.lproj/Localizable.strings" source-language="en" target-language="en-AU" datatype="plaintext">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.0" build-num="15A5209g"/>
     </header>
@@ -111,7 +122,8 @@
       </trans-unit>
       <trans-unit id="All Read" xml:space="preserve">
         <source>All Read</source>
-        <note>No unread items message.</note>
+        <note>All read message title.
+   No unread items message.</note>
       </trans-unit>
       <trans-unit id="All profile content (pages, feeds, history, etc.) will be removed." xml:space="preserve">
         <source>All profile content (pages, feeds, history, etc.) will be removed.</source>
@@ -123,7 +135,7 @@
       </trans-unit>
       <trans-unit id="Analyzing…" xml:space="preserve">
         <source>Analyzing…</source>
-        <target state="translated">Analysing…</target>
+        <target>Analysing…</target>
         <note>Status message.</note>
       </trans-unit>
       <trans-unit id="Appearance" xml:space="preserve">
@@ -154,6 +166,10 @@
         <source>Cancel</source>
         <note>Button label.</note>
       </trans-unit>
+      <trans-unit id="Check the spelling or try a new search." xml:space="preserve">
+        <source>Check the spelling or try a new search.</source>
+        <note>No search results guidance.</note>
+      </trans-unit>
       <trans-unit id="Choose Icon" xml:space="preserve">
         <source>Choose Icon</source>
         <note>Button label.</note>
@@ -177,7 +193,7 @@
       </trans-unit>
       <trans-unit id="Color" xml:space="preserve">
         <source>Color</source>
-        <target state="translated">Colour</target>
+        <target>Colour</target>
         <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Commerce" xml:space="preserve">
@@ -288,12 +304,8 @@
         <source>Enter a RSS, Atom, or JSON Feed URL.</source>
         <note>URL field guidance message.</note>
       </trans-unit>
-      <trans-unit id="Enter a search term." xml:space="preserve">
-        <source>Enter a search term.</source>
-        <note>Search guidance.</note>
-      </trans-unit>
-      <trans-unit id="Enter a term to search for in item titles." xml:space="preserve">
-        <source>Enter a term to search for in item titles.</source>
+      <trans-unit id="Enter a term to search item titles." xml:space="preserve">
+        <source>Enter a term to search item titles.</source>
         <note>Search query empty guidance.</note>
       </trans-unit>
       <trans-unit id="Expanded" xml:space="preserve">
@@ -318,7 +330,7 @@
       </trans-unit>
       <trans-unit id="Feed Empty" xml:space="preserve">
         <source>Feed Empty</source>
-        <note>Feed unavailable message.
+        <note>Content unavailable title.
    No items message.</note>
       </trans-unit>
       <trans-unit id="Feed Unavailable" xml:space="preserve">
@@ -340,14 +352,6 @@
       <trans-unit id="Format" xml:space="preserve">
         <source>Format</source>
         <note>Diagnostics header.</note>
-      </trans-unit>
-      <trans-unit id="Found %@ results for “%@”" xml:space="preserve">
-        <source>Found %1$@ results for “%2$@”</source>
-        <note>Search status (plural results).</note>
-      </trans-unit>
-      <trans-unit id="Found 1 result for “%@”" xml:space="preserve">
-        <source>Found 1 result for “%@”</source>
-        <note>Search status (singular result).</note>
       </trans-unit>
       <trans-unit id="Gaming" xml:space="preserve">
         <source>Gaming</source>
@@ -399,7 +403,7 @@
       </trans-unit>
       <trans-unit id="If you have used the app before then synchronization could be in progress. Please wait a minute." xml:space="preserve">
         <source>If you have used the app before then synchronization could be in progress. Please wait a minute.</source>
-        <target state="translated">If you have used the app before then synchronisation could be in progress. Please wait a minute.</target>
+        <target>If you have used the app before then synchronisation could be in progress. Please wait a minute.</target>
         <note>Launch guidance message.</note>
       </trans-unit>
       <trans-unit id="If you're new or have cloud sync disabled then create a profile to begin." xml:space="preserve">
@@ -416,7 +420,7 @@
       </trans-unit>
       <trans-unit id="Inbox Empty" xml:space="preserve">
         <source>Inbox Empty</source>
-        <note>Splash note title.</note>
+        <note>Content unavailable title.</note>
       </trans-unit>
       <trans-unit id="Indigo" xml:space="preserve">
         <source>Indigo</source>
@@ -517,7 +521,7 @@
       </trans-unit>
       <trans-unit id="No Items" xml:space="preserve">
         <source>No Items</source>
-        <note>No available items message.</note>
+        <note>Content unavailable title.</note>
       </trans-unit>
       <trans-unit id="No Pages Available" xml:space="preserve">
         <source>No Pages Available</source>
@@ -531,21 +535,18 @@
         <source>No Query</source>
         <note>Search query empty title.</note>
       </trans-unit>
-      <trans-unit id="No Results" xml:space="preserve">
-        <source>No Results</source>
-        <note>Search results empty message.</note>
+      <trans-unit id="No Results for “%@”" xml:space="preserve">
+        <source>No Results for “%@”</source>
+        <note>No search results message title.</note>
       </trans-unit>
-      <trans-unit id="No Unread Results" xml:space="preserve">
-        <source>No Unread Results</source>
-        <note>Search results empty message.</note>
+      <trans-unit id="No Unread Results for&#10;“%@”" xml:space="preserve">
+        <source>No Unread Results for
+“%@”</source>
+        <note>No unread search results title.</note>
       </trans-unit>
       <trans-unit id="No common subjects were found in item titles." xml:space="preserve">
         <source>No common subjects were found in item titles.</source>
-        <note>Trending empty message.</note>
-      </trans-unit>
-      <trans-unit id="No results found for “%@”" xml:space="preserve">
-        <source>No results found for “%@”</source>
-        <note>Search status (zero results).</note>
+        <note>Trending empty description.</note>
       </trans-unit>
       <trans-unit id="Not Available" xml:space="preserve">
         <source>Not Available</source>
@@ -553,7 +554,7 @@
       </trans-unit>
       <trans-unit id="Nothing Trending" xml:space="preserve">
         <source>Nothing Trending</source>
-        <note>Trending empty header.</note>
+        <note>Trending empty title.</note>
       </trans-unit>
       <trans-unit id="Objects and Tools" xml:space="preserve">
         <source>Objects and Tools</source>
@@ -669,7 +670,7 @@
       </trans-unit>
       <trans-unit id="Refresh to check for new items." xml:space="preserve">
         <source>Refresh to check for new items.</source>
-        <note>Splash note caption.</note>
+        <note>Content unavailable description.</note>
       </trans-unit>
       <trans-unit id="Refresh to fetch items." xml:space="preserve">
         <source>Refresh to fetch items.</source>
@@ -777,6 +778,11 @@
         <source>Trending</source>
         <note>Button label.
    Navigation title.</note>
+      </trans-unit>
+      <trans-unit id="Turn off filtering to show hidden items." xml:space="preserve">
+        <source>Turn off filtering to show hidden items.</source>
+        <note>All read message guidance.
+   No unread search results guidance.</note>
       </trans-unit>
       <trans-unit id="Two Weeks" xml:space="preserve">
         <source>Two Weeks</source>

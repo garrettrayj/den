@@ -17,12 +17,12 @@ struct AllRead: View {
         if largeDisplay {
             ContentUnavailableView {
                 Label {
-                    Text("All Read")
+                    Text("All Read", comment: "All read message title.")
                 } icon: {
                     Image(systemName: "checkmark.circle")
                 }
             } description: {
-                Text("Turn off filtering to show hidden items.")
+                Text("Turn off filtering to show hidden items.", comment: "All read message guidance.")
             }
             .frame(maxWidth: .infinity)
         } else {

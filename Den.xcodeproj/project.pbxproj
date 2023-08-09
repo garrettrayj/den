@@ -79,7 +79,6 @@
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
 		6865575E29E7B290000EBF37 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865575D29E7B290000EBF37 /* Search.swift */; };
 		6865576129E7B429000EBF37 /* SearchToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576029E7B429000EBF37 /* SearchToolbar.swift */; };
-		6865576329E7BF60000EBF37 /* SearchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576229E7BF60000EBF37 /* SearchStatus.swift */; };
 		6865A78A2A2AEAB900CA04C0 /* FeedCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865A7892A2AEAB900CA04C0 /* FeedCount.swift */; };
 		6868A30E2895229D0051D43E /* ImageErrorPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A30D2895229D0051D43E /* ImageErrorPlaceholder.swift */; };
 		6868A3142895CA860051D43E /* InboxNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868A3132895CA860051D43E /* InboxNavLink.swift */; };
@@ -368,7 +367,6 @@
 		6865452F274AC3B600BAE03E /* PageSymbols.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PageSymbols.plist; sourceTree = "<group>"; };
 		6865575D29E7B290000EBF37 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		6865576029E7B429000EBF37 /* SearchToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchToolbar.swift; sourceTree = "<group>"; };
-		6865576229E7BF60000EBF37 /* SearchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStatus.swift; sourceTree = "<group>"; };
 		6865A7892A2AEAB900CA04C0 /* FeedCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCount.swift; sourceTree = "<group>"; };
 		6868A30D2895229D0051D43E /* ImageErrorPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageErrorPlaceholder.swift; sourceTree = "<group>"; };
 		6868A3132895CA860051D43E /* InboxNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxNavLink.swift; sourceTree = "<group>"; };
@@ -726,7 +724,6 @@
 			children = (
 				6865575D29E7B290000EBF37 /* Search.swift */,
 				68998B842504C87400FDB6EE /* SearchLayout.swift */,
-				6865576229E7BF60000EBF37 /* SearchStatus.swift */,
 				6865576029E7B429000EBF37 /* SearchToolbar.swift */,
 			);
 			path = Search;
@@ -1590,7 +1587,6 @@
 				68A2188F29DC2E86005F42C7 /* SafeAreaModifier.swift in Sources */,
 				6865575E29E7B290000EBF37 /* Search.swift in Sources */,
 				68998B852504C87400FDB6EE /* SearchLayout.swift in Sources */,
-				6865576329E7BF60000EBF37 /* SearchStatus.swift in Sources */,
 				6865576129E7B429000EBF37 /* SearchToolbar.swift in Sources */,
 				687FEED22A3A57220042977E /* SettingsForm.swift in Sources */,
 				687FEF032A3FA4D70042977E /* ShareButton.swift in Sources */,
