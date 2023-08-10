@@ -21,7 +21,7 @@ struct ClearDataButton: View {
             }
         } label: {
             Label {
-                Text("Clear Data", comment: "Button label.").fixedSize()
+                Text("Clear Data", comment: "Button label.")
             } icon: {
                 Image(systemName: "clear")
             }

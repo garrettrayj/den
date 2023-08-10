@@ -33,7 +33,7 @@ struct ClearImageCacheButton: View {
         } label: {
             HStack {
                 Label {
-                    Text("Clear Image Cache", comment: "Button label.").fixedSize()
+                    Text("Clear Image Cache", comment: "Button label.")
                 } icon: {
                     Image(systemName: "clear")
                 }

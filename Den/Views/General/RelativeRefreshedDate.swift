@@ -26,6 +26,5 @@ struct RelativeRefreshedDate: View {
                 )
             }
         }
-        .fixedSize()
     }
 }

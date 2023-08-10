@@ -16,6 +16,6 @@ struct ButtonChevron: View {
             .font(.body)
             .fontWeight(.semibold)
             .imageScale(.small)
-            .foregroundStyle(.tertiary)
+            .foregroundStyle(.fill)
     }
 }

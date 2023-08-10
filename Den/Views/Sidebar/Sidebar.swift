@@ -95,7 +95,9 @@ struct Sidebar: View {
                         Image(systemName: "person.crop.circle")
                     }
                 }
+                .labelStyle(.titleAndIcon)
                 .menuStyle(.borderlessButton)
+                .menuIndicator(.hidden)
                 .accessibilityIdentifier("ProfileMenu")
                 .disabled(refreshing)
 

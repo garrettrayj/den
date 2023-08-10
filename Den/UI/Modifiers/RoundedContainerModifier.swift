@@ -15,7 +15,7 @@ struct RoundedContainerModifier: ViewModifier {
         content
             .frame(maxWidth: .infinity, alignment: .topLeading)
             #if os(macOS)
-            .background(.background)
+            .background(.background.quaternary)
             #else
             .background(Color(.secondarySystemGroupedBackground))
             #endif

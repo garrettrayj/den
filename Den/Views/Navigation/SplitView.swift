@@ -59,9 +59,7 @@ struct SplitView: View {
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )
-            #if os(macOS)
-            .navigationSplitViewColumnWidth(220)
-            #else
+            #if os(iOS)
             .navigationSplitViewColumnWidth(272 * dynamicTypeSize.layoutScalingFactor)
             #endif
         } detail: {
@@ -73,7 +71,7 @@ struct SplitView: View {
                 showingNewFeedSheet: $showingNewFeedSheet
             )
             #if os(iOS)
-            .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
+            .background(Color(.systemGroupedBackground))
             #endif
         }
         .tint(profile.tintColor)

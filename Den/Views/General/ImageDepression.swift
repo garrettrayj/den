@@ -22,7 +22,7 @@ struct ImageDepression<Content: View>: View {
         }
         .frame(maxWidth: .infinity)
         .padding(padding)
-        .background(.quaternary)
+        .background(.fill.tertiary)
         .cornerRadius(cornerRadius)
     }
 }

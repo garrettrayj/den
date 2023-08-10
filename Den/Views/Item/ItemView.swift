@@ -53,7 +53,6 @@ struct ItemView: View {
                         Text(item.wrappedTitle)
                             .font(.largeTitle.weight(.semibold))
                             .textSelection(.enabled)
-                            .fixedSize(horizontal: false, vertical: true)
                             .padding(.bottom, 4)
 
                         if let author = item.author {

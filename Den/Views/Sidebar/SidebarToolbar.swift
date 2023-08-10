@@ -36,7 +36,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
 
     var body: some CustomizableToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "Refresh") {
+        ToolbarItem(id: "Refresh", placement: .primaryAction) {
             RefreshButton(
                 refreshing: $refreshing,
                 refreshProgress: refreshProgress
@@ -63,6 +63,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                     Image(systemName: "ellipsis.circle")
                 }
             }
+            .menuIndicator(.hidden)
             .disabled(refreshing)
             .accessibilityIdentifier("SidebarMenu")
         }

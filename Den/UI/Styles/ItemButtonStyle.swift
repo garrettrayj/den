@@ -11,9 +11,7 @@
 import SwiftUI
 
 struct ItemButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.isEnabled) private var isEnabled
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let read: Bool
 
@@ -28,7 +26,8 @@ struct ItemButtonStyle: ButtonStyle {
                     .tertiary
             )
             .frame(maxWidth: .infinity)
-            .background(.quinary.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.thinMaterial.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.quaternary.opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct PinnedHeaderButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.isEnabled) private var isEnabled
 
     @State private var hovering: Bool = false
@@ -23,7 +22,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
             #if os(macOS)
-            .background(isEnabled && hovering ? .thickMaterial : .regularMaterial)
+            .background(.thickMaterial)
             .background(isEnabled && hovering ? .tertiary : .quaternary)
             #else
             .background(

@@ -11,7 +11,6 @@
 import SwiftUI
 
 struct FeedTitleButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.isEnabled) private var isEnabled
 
     @State private var hovering: Bool = false
@@ -19,12 +18,11 @@ struct FeedTitleButtonStyle: ButtonStyle {
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
             .font(.title3)
-            .foregroundStyle(
-                isEnabled ? .primary : .secondary
-            )
+            .foregroundStyle(isEnabled ? .primary : .secondary)
             .padding(.horizontal)
             .padding(.vertical, 12)
-            .background(.quinary.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.thinMaterial.opacity(isEnabled && hovering ? 1 : 0))
+            .background(.quaternary.opacity(isEnabled && hovering ? 1 : 0))
             .onHover { hovered in
                 hovering = hovered
             }

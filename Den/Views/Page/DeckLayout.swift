@@ -22,39 +22,42 @@ struct DeckLayout: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(alignment: .top, spacing: 0) {
-                    ForEach(page.feedsArray) { feed in
-                        DeckColumn(
-                            feed: feed,
-                            profile: profile,
-                            isFirst: page.feedsArray.first == feed,
-                            isLast: page.feedsArray.last == feed,
-                            items: items.forFeed(feed: feed),
-                            pageGeometry: geometry,
-                            hideRead: hideRead
-                        )
-                        .containerRelativeFrame(
-                            .horizontal,
-                            count: columnCount(width: geometry.size.width),
-                            spacing: 0
-                        )
+            ZStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(alignment: .top, spacing: 0) {
+                        ForEach(page.feedsArray) { feed in
+                            DeckColumn(
+                                feed: feed,
+                                profile: profile,
+                                isFirst: page.feedsArray.first == feed,
+                                isLast: page.feedsArray.last == feed,
+                                items: items.forFeed(feed: feed),
+                                pageGeometry: geometry,
+                                hideRead: hideRead
+                            )
+                            .containerRelativeFrame(
+                                .horizontal,
+                                count: columnCount(width: geometry.size.width),
+                                spacing: 0
+                            )
+                        }
                     }
+                    .scrollTargetLayout()
                 }
-                .scrollTargetLayout()
+                .safeAreaPadding(.leading, geometry.safeAreaInsets.leading + 12)
+                .safeAreaPadding(.trailing, geometry.safeAreaInsets.trailing + 12)
+                .scrollTargetBehavior(.viewAligned)
+                .scrollClipDisabled()
+                .edgesIgnoringSafeArea(.all)
+                #if os(iOS)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(.visible, for: .navigationBar)
+                #endif
             }
-            .safeAreaPadding(.leading, geometry.safeAreaInsets.leading + 12)
-            .safeAreaPadding(.trailing, geometry.safeAreaInsets.trailing + 12)
-            .scrollTargetBehavior(.viewAligned)
-            .scrollClipDisabled()
-            .edgesIgnoringSafeArea(.all)
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible, for: .navigationBar)
-            #endif
-        }
-        .background(alignment: .topLeading) { horizontalSpacer }
-        .background(alignment: .topTrailing) { horizontalSpacer }
+            .background(alignment: .topLeading) { horizontalSpacer }
+            .background(alignment: .topTrailing) { horizontalSpacer }
+                Divider()
+            }
     }
 
     private var horizontalSpacer: some View {
@@ -62,16 +65,8 @@ struct DeckLayout: View {
             Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear)
         }
         .frame(width: 12)
-        #if os(macOS)
-        .background(.regularMaterial)
+        .background(.thickMaterial)
         .background(.quaternary)
-        #else
-        .background(
-            Rectangle()
-                .fill(.regularMaterial)
-                .overlay(.quaternary.opacity(0.5))
-        )
-        #endif
     }
 
     private func columnCount(width: CGFloat) -> Int {

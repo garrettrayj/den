@@ -23,7 +23,7 @@ struct DeckColumn: View {
     let hideRead: Bool
 
     var borderedRoundedRectangle: some View {
-        RoundedRectangle(cornerRadius: 8).strokeBorder(.quaternary, lineWidth: 1.5)
+        RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1)
     }
 
     let minCardHeight: CGFloat = 100
