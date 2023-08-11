@@ -18,9 +18,10 @@ struct PageView: View {
     @Binding var showingNewFeedSheet: Bool
 
     @AppStorage("HideRead") private var hideRead: Bool = false
-    @AppStorage("PageLayout_NoID") private var pageLayout = PageLayout.grouped
 
     @SceneStorage("ShowingPageConfiguration") private var showingPageConfiguration: Bool = false
+    
+    private var pageLayout: AppStorage<PageLayout>
 
     var body: some View {
         ZStack {
@@ -38,7 +39,7 @@ struct PageView: View {
                         if page.feedsArray.isEmpty {
                             NoFeeds(showingNewFeedSheet: $showingNewFeedSheet)
                         } else {
-                            switch pageLayout {
+                            switch pageLayout.wrappedValue {
                             case .deck:
                                 DeckLayout(
                                     page: page,
@@ -74,7 +75,7 @@ struct PageView: View {
                         PageToolbar(
                             page: page,
                             hideRead: $hideRead,
-                            pageLayout: $pageLayout,
+                            pageLayout: pageLayout.projectedValue,
                             showingPageConfiguration: $showingPageConfiguration,
                             items: items
                         )
@@ -105,14 +106,14 @@ struct PageView: View {
         profile: Profile,
         showingNewFeedSheet: Binding<Bool>
     ) {
-        _pageLayout = AppStorage(
-            wrappedValue: PageLayout.grouped,
-            "PageLayout_\(page.id?.uuidString ?? "NoID")"
-        )
-
         self.page = page
         self.profile = profile
 
         _showingNewFeedSheet = showingNewFeedSheet
+        
+        pageLayout = .init(
+            wrappedValue: PageLayout.grouped,
+            "PageLayout_\(page.id?.uuidString ?? "NoID")"
+        )
     }
 }

@@ -29,6 +29,7 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
                 Rectangle()
                     .fill(isEnabled && hovering ? .thickMaterial : .regularMaterial)
                     .overlay(isEnabled && hovering ? .quaternary : .quinary)
+                    .ignoresSafeArea(.all)
             )
             #endif
             .onHover { hovered in

@@ -46,6 +46,7 @@ struct TimelineLayout: View {
                     }
                     .modifier(MainBoardModifier())
                 }
+                .id("PageTimelineScroll_\(page.id?.uuidString ?? "NoID")")
             }
         }
     }
