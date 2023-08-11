@@ -570,7 +570,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				683537D62A7F90AD00A5DBEF /* Sparkle in Frameworks */,
 				68B34A6C24880ADE0066B215 /* AEXML in Frameworks */,
 				6845BD4E24F6824C0008B296 /* CloudKit.framework in Frameworks */,
 				6897D52F26B91C5800833DDA /* FeedKit in Frameworks */,
@@ -578,6 +577,7 @@
 				681DE1072922CFD400D2F7B2 /* SDWebImageSVGCoder in Frameworks */,
 				68EE91EB28D54C66000C00D2 /* SDWebImageSwiftUI in Frameworks */,
 				681DE10A2922D02200D2F7B2 /* SDWebImageWebPCoder in Frameworks */,
+				683537D62A7F90AD00A5DBEF /* Sparkle in Frameworks */,
 				6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -768,7 +768,6 @@
 		6880EBE427ABEDB600B479F4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				6887CDC72A7F526D00E99C3F /* UpdaterViewModel.swift */,
 				687FEF0E2A40A6050042977E /* Enumerations */,
 				687C27962634A84600099FCA /* Modifiers */,
 				68B34A5C2486D2710066B215 /* Representables */,
@@ -777,6 +776,7 @@
 				68906F8E2A78F58900803350 /* NavigationStore.swift */,
 				68ED797A29BD97DE00D85B4F /* NetworkMonitor.swift */,
 				680F495129AB2A240083B664 /* RefreshedDateStorage.swift */,
+				6887CDC72A7F526D00E99C3F /* UpdaterViewModel.swift */,
 				68BB256E2A48C4970082D890 /* WebViewStyles.swift */,
 			);
 			path = UI;
@@ -976,10 +976,10 @@
 		68D286522A6884AA007AD876 /* TestPlans */ = {
 			isa = PBXGroup;
 			children = (
-				680B13432A79D2F40001AA39 /* Marketing.xctestplan */,
 				68D286532A68A080007AD876 /* Development.xctestplan */,
 				68D286512A687A58007AD876 /* iOSComprehensiveUI.xctestplan */,
 				68D286542A68A5DF007AD876 /* macOSComprehensiveUI.xctestplan */,
+				680B13432A79D2F40001AA39 /* Marketing.xctestplan */,
 			);
 			path = TestPlans;
 			sourceTree = "<group>";
@@ -1018,11 +1018,11 @@
 		68E6C55D2A6C76C700CA46B2 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				681C0DDB2A7F531E007B1A7E /* CheckForUpdates.swift */,
 				6829A50B28C6479900F75C5A /* AllRead.swift */,
 				683041B127542E2000BE7631 /* BoardView.swift */,
 				6880EBEA27AEF12000B479F4 /* ButtonChevron.swift */,
 				68E6C5612A6C86D300CA46B2 /* CardNote.swift */,
+				681C0DDB2A7F531E007B1A7E /* CheckForUpdates.swift */,
 				687F488F269165EE00EA2498 /* CrashMessage.swift */,
 				6865A7892A2AEAB900CA04C0 /* FeedCount.swift */,
 				68BB25702A4A0B220082D890 /* FeedEmpty.swift */,
@@ -1443,11 +1443,11 @@
 				68E6C5622A6C86D300CA46B2 /* CardNote.swift in Sources */,
 				68E9BDBA279D00DE003BA111 /* CGSize+Extensions.swift in Sources */,
 				68D286322A648910007AD876 /* CharacterSet+Extensions.swift in Sources */,
+				681C0DDC2A7F531E007B1A7E /* CheckForUpdates.swift in Sources */,
 				68E6C5642A6CC48E00CA46B2 /* CleanupUtility.swift in Sources */,
 				68E6C54C2A69D7C800CA46B2 /* ClearDataButton.swift in Sources */,
 				687FEEF32A3DDCE10042977E /* ClearImageCacheButton.swift in Sources */,
 				680253782A1C80F90034B0E4 /* Collection+Extensions.swift in Sources */,
-				681C0DDC2A7F531E007B1A7E /* CheckForUpdates.swift in Sources */,
 				54F8EA4829B418A600955BB6 /* Color+Extensions.swift in Sources */,
 				687F22302A5C80B600B76919 /* CompactDiagnosticsRow.swift in Sources */,
 				687FEEE52A3D8A2A0042977E /* ConfigureFeedButton.swift in Sources */,
@@ -1526,7 +1526,6 @@
 				682591FA29D808B700E5EF3B /* JSONFeedMetaUpdate.swift in Sources */,
 				68B6CBEA2910CA1C00B5E3AB /* JSONFeedUpdate.swift in Sources */,
 				68B6CBEC2910CA3000B5E3AB /* JSONItemLoad.swift in Sources */,
-				6887CDC82A7F526D00E99C3F /* UpdaterViewModel.swift in Sources */,
 				680649842A0E491000B6E6E7 /* Landing.swift in Sources */,
 				6880EBE327A8F63E00B479F4 /* LinkableItem.swift in Sources */,
 				68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */,
@@ -1612,6 +1611,7 @@
 				6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */,
 				68FF63FA2921DCF20012A275 /* TrendToolbar.swift in Sources */,
 				68F56B472870C123006EC915 /* TrendView.swift in Sources */,
+				6887CDC82A7F526D00E99C3F /* UpdaterViewModel.swift in Sources */,
 				687FEED72A3B724B0042977E /* UserColorScheme.swift in Sources */,
 				687FEEDB2A3B830D0042977E /* UserColorSchemePicker.swift in Sources */,
 				683573A0296372DA00843A8E /* WebAccessibleFeed.swift in Sources */,
