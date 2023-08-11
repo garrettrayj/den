@@ -26,8 +26,13 @@ struct ItemButtonStyle: ButtonStyle {
                     .tertiary
             )
             .frame(maxWidth: .infinity)
-            .background(.thinMaterial.opacity(isEnabled && hovering ? 1 : 0))
-            .background(.quaternary.opacity(isEnabled && hovering ? 1 : 0))
+            .background(
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .background(.quaternary)
+                    .ignoresSafeArea(.all)
+                    .opacity(isEnabled && hovering ? 1 : 0)
+            )
             .onHover { hovered in
                 hovering = hovered
             }

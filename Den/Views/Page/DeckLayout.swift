@@ -46,13 +46,14 @@ struct DeckLayout: View {
             }
             .id("PageDeckScroll_\(page.id?.uuidString ?? "NoID")")
             .scrollTargetBehavior(.viewAligned)
-            .edgesIgnoringSafeArea(.all)
+            .ignoresSafeArea()
+            .zIndex(1)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             #endif
 
-            Divider()
+            Divider().zIndex(2)
         }
     }
 

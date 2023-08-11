@@ -20,7 +20,7 @@ struct PageView: View {
     @AppStorage("HideRead") private var hideRead: Bool = false
 
     @SceneStorage("ShowingPageConfiguration") private var showingPageConfiguration: Bool = false
-    
+
     private var pageLayout: AppStorage<PageLayout>
 
     var body: some View {
@@ -110,7 +110,7 @@ struct PageView: View {
         self.profile = profile
 
         _showingNewFeedSheet = showingNewFeedSheet
-        
+
         pageLayout = .init(
             wrappedValue: PageLayout.grouped,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"

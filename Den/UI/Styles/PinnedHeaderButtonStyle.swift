@@ -22,8 +22,12 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 12)
             #if os(macOS)
-            .background(.thickMaterial)
-            .background(isEnabled && hovering ? .tertiary : .quaternary)
+            .background(
+                Rectangle()
+                    .fill(.thickMaterial)
+                    .background(.tertiary.opacity(isEnabled && hovering ? 1 : 0.75))
+                    .ignoresSafeArea(.all)
+            )
             #else
             .background(
                 Rectangle()
