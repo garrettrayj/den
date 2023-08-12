@@ -45,25 +45,14 @@ struct DeckLayout: View {
             }
             .id("PageDeckScroll_\(page.id?.uuidString ?? "NoID")")
             .scrollTargetBehavior(.viewAligned)
-            .safeAreaPadding(.horizontal, 12)
-            .ignoresSafeArea()
             .zIndex(1)
+            .ignoresSafeArea(edges: .vertical)
+            .safeAreaPadding(.horizontal, 12)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             #endif
-            HStack {
-                horizontalSpacer(
-                    width: geometry.safeAreaInsets.leading + 12,
-                    topOffset: geometry.safeAreaInsets.top
-                )
-                Spacer()
-                horizontalSpacer(
-                    width: geometry.safeAreaInsets.trailing + 12,
-                    topOffset: geometry.safeAreaInsets.top
-                )
-            }
-
+            
             Divider().zIndex(2)
         }
     }

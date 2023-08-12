@@ -32,12 +32,15 @@ struct DeckColumn: View {
         VStack(spacing: 16) {
             FeedNavLink(
                 feed: feed,
-                leadingPadding: 20,
-                trailingPadding: 20
+                leadingPadding: isFirst ? pageGeometry.safeAreaInsets.leading + 32 : 20,
+                trailingPadding: isLast ? pageGeometry.safeAreaInsets.trailing + 32 : 20
             )
             .buttonStyle(PinnedHeaderButtonStyle())
             .padding(.top, pageGeometry.safeAreaInsets.top)
             .zIndex(1)
+            .ignoresSafeArea()
+            .padding(.leading, isFirst ? -pageGeometry.safeAreaInsets.leading - 12 : 0)
+            .padding(.trailing, isLast ? -pageGeometry.safeAreaInsets.trailing - 12 : 0)
 
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 8) {

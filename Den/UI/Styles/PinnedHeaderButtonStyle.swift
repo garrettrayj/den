@@ -26,7 +26,6 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
                 Rectangle()
                     .fill(.thickMaterial)
                     .background(.secondary.opacity(isEnabled && hovering ? 0.75 : 0.5))
-                , ignoresSafeAreaEdges: .horizontal
             )
             #else
             .background(
