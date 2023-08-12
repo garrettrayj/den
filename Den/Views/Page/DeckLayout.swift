@@ -37,33 +37,57 @@ struct DeckLayout: View {
                         .containerRelativeFrame(
                             .horizontal,
                             count: columnCount(width: geometry.size.width),
-                            spacing: 12
+                            spacing: 0
                         )
                     }
                 }
                 .scrollTargetLayout()
-                .safeAreaPadding(.horizontal, 12)
             }
             .id("PageDeckScroll_\(page.id?.uuidString ?? "NoID")")
             .scrollTargetBehavior(.viewAligned)
+            .safeAreaPadding(.horizontal, 12)
             .ignoresSafeArea()
             .zIndex(1)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             #endif
+            HStack {
+                horizontalSpacer(
+                    width: geometry.safeAreaInsets.leading + 12,
+                    topOffset: geometry.safeAreaInsets.top
+                )
+                Spacer()
+                horizontalSpacer(
+                    width: geometry.safeAreaInsets.trailing + 12,
+                    topOffset: geometry.safeAreaInsets.top
+                )
+            }
 
             Divider().zIndex(2)
         }
     }
 
-    private func horizontalSpacer(width: CGFloat) -> some View {
+    private func horizontalSpacer(width: CGFloat, topOffset: CGFloat) -> some View {
         HStack {
             Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear)
         }
         .frame(width: width)
-        .background(.thickMaterial)
-        .background(.quaternary)
+        #if os(macOS)
+        .background(
+            Rectangle()
+                .fill(.thickMaterial)
+                .background(.tertiary.opacity(0.75))
+                .ignoresSafeArea(.all)
+        )
+        #else
+        .background(
+            Rectangle()
+                .fill(.regularMaterial)
+                .overlay(.quinary)
+                .ignoresSafeArea(.all)
+        )
+        #endif
     }
 
     private func columnCount(width: CGFloat) -> Int {
