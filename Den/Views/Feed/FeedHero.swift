@@ -13,8 +13,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedHero: View {
-    @Environment(\.colorScheme) private var colorScheme
-
     let heroImage: URL
 
     var body: some View {
@@ -34,7 +32,7 @@ struct FeedHero: View {
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
-                .background(colorScheme == .dark ? .black : .white)
+                .background(.background)
                 .overlay(.thinMaterial)
         }
         .clipped()

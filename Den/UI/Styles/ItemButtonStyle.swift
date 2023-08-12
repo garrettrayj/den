@@ -15,8 +15,6 @@ struct ItemButtonStyle: ButtonStyle {
 
     let read: Bool
 
-    @State private var hovering: Bool = false
-
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .foregroundStyle(
@@ -26,15 +24,6 @@ struct ItemButtonStyle: ButtonStyle {
                     .tertiary
             )
             .frame(maxWidth: .infinity)
-            .background(
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .background(.quaternary)
-                    .ignoresSafeArea(.all)
-                    .opacity(isEnabled && hovering ? 1 : 0)
-            )
-            .onHover { hovered in
-                hovering = hovered
-            }
+            .modifier(HoverHighlightModifier())
     }
 }

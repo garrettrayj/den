@@ -25,15 +25,14 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .background(
                 Rectangle()
                     .fill(.thickMaterial)
-                    .background(.tertiary.opacity(isEnabled && hovering ? 1 : 0.75))
-                    .ignoresSafeArea(.all)
+                    .background(.secondary.opacity(isEnabled && hovering ? 0.75 : 0.5))
+                , ignoresSafeAreaEdges: .horizontal
             )
             #else
             .background(
                 Rectangle()
                     .fill(isEnabled && hovering ? .thickMaterial : .regularMaterial)
                     .overlay(isEnabled && hovering ? .quaternary : .quinary)
-                    .ignoresSafeArea(.all)
             )
             #endif
             .onHover { hovered in

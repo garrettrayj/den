@@ -150,6 +150,7 @@
 		68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68906F852A78B85900803350 /* LaunchScreen.storyboard */; platformFilter = ios; };
 		68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68906F8E2A78F58900803350 /* NavigationStore.swift */; };
 		689460852596A7BB00ED4064 /* DenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689460822596A7BB00ED4064 /* DenApp.swift */; };
+		6895C98C2A87085100BD4C21 /* HoverHighlightModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */; };
 		6897242D299440B4003DAC4C /* DynamicTypeSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6897242C299440B4003DAC4C /* DynamicTypeSize+Extensions.swift */; };
 		6897D52626B91C0100833DDA /* HTMLEntities in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52526B91C0100833DDA /* HTMLEntities */; };
 		6897D52C26B91C3C00833DDA /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 6897D52B26B91C3C00833DDA /* SwiftSoup */; };
@@ -224,7 +225,6 @@
 		68F56B452870C067006EC915 /* TrendBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B442870C067006EC915 /* TrendBlock.swift */; };
 		68F56B472870C123006EC915 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B462870C123006EC915 /* TrendView.swift */; };
 		68F56B492870C45B006EC915 /* FeedFavicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B482870C45B006EC915 /* FeedFavicon.swift */; };
-		68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B4D2872DD63006EC915 /* HoverShadowButtonStyle.swift */; };
 		68F56B5A28739041006EC915 /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B5928739041006EC915 /* Inbox.swift */; };
 		68F56B6728782886006EC915 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B6628782886006EC915 /* ItemView.swift */; };
 		68F56B6B287832A9006EC915 /* ItemActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F56B6A287832A9006EC915 /* ItemActionView.swift */; };
@@ -446,6 +446,7 @@
 		68906F8E2A78F58900803350 /* NavigationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
 		68922A642969D78A00C9A276 /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
 		689460822596A7BB00ED4064 /* DenApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DenApp.swift; sourceTree = "<group>"; };
+		6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverHighlightModifier.swift; sourceTree = "<group>"; };
 		6897242C299440B4003DAC4C /* DynamicTypeSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicTypeSize+Extensions.swift"; sourceTree = "<group>"; };
 		689838CB291D88FE00FDC881 /* BuiltInBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltInBrowser.swift; sourceTree = "<group>"; };
 		68998B842504C87400FDB6EE /* SearchLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLayout.swift; sourceTree = "<group>"; };
@@ -525,7 +526,6 @@
 		68F56B442870C067006EC915 /* TrendBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendBlock.swift; sourceTree = "<group>"; };
 		68F56B462870C123006EC915 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
 		68F56B482870C45B006EC915 /* FeedFavicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFavicon.swift; sourceTree = "<group>"; };
-		68F56B4D2872DD63006EC915 /* HoverShadowButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverShadowButtonStyle.swift; sourceTree = "<group>"; };
 		68F56B5928739041006EC915 /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
 		68F56B6628782886006EC915 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 		68F56B6A287832A9006EC915 /* ItemActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemActionView.swift; sourceTree = "<group>"; };
@@ -736,6 +736,7 @@
 				68D17EE52A443AC700AF8A73 /* MainBoardModifier.swift */,
 				68245E2C29B834AC0068D450 /* RoundedContainerModifier.swift */,
 				68A2188E29DC2E86005F42C7 /* SafeAreaModifier.swift */,
+				6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -814,7 +815,6 @@
 			isa = PBXGroup;
 			children = (
 				68701DF2273E4CEF00C6BB69 /* FeedTitleButtonStyle.swift */,
-				68F56B4D2872DD63006EC915 /* HoverShadowButtonStyle.swift */,
 				6885FD0D24819446007A3D5B /* ItemButtonStyle.swift */,
 				6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */,
 				687FEF062A3FAD610042977E /* RefreshProgressViewStyle.swift */,
@@ -1496,7 +1496,6 @@
 				6887D40925B35B83004A170D /* History+CoreDataClass.swift in Sources */,
 				681F0C262933F4C10037C609 /* HistorySettingsSection.swift in Sources */,
 				68701DFB273E57DB00C6BB69 /* HistoryUtility.swift in Sources */,
-				68F56B4E2872DD63006EC915 /* HoverShadowButtonStyle.swift in Sources */,
 				68E9BDB5279CFF3D003BA111 /* HTMLContent.swift in Sources */,
 				68D486BE26C9896300AF5B59 /* IconPicker.swift in Sources */,
 				68B8E79829CABD5100E9AF42 /* ImageBorderModifier.swift in Sources */,
@@ -1523,6 +1522,7 @@
 				68F56B71287ACD0B006EC915 /* ItemWebView.swift in Sources */,
 				6845BCF624EBE49A0008B296 /* JSONFeed+Extensions.swift in Sources */,
 				6845BCF224EBE45A0008B296 /* JSONFeedItem+Extensions.swift in Sources */,
+				6895C98C2A87085100BD4C21 /* HoverHighlightModifier.swift in Sources */,
 				682591FA29D808B700E5EF3B /* JSONFeedMetaUpdate.swift in Sources */,
 				68B6CBEA2910CA1C00B5E3AB /* JSONFeedUpdate.swift in Sources */,
 				68B6CBEC2910CA3000B5E3AB /* JSONItemLoad.swift in Sources */,

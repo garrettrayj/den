@@ -15,11 +15,11 @@ struct RoundedContainerModifier: ViewModifier {
         content
             .frame(maxWidth: .infinity, alignment: .topLeading)
             #if os(macOS)
-            .background(.background.quaternary)
+            .background(.background.quinary)
             #else
             .background(Color(.secondarySystemGroupedBackground))
             #endif
             .cornerRadius(8)
-            .shadow(color: .black.opacity(0.1), radius: 4)
+            .shadow(color: .black.opacity(0.125), radius: 4)
     }
 }
