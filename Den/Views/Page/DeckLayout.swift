@@ -39,44 +39,22 @@ struct DeckLayout: View {
                             count: columnCount(width: geometry.size.width),
                             spacing: 0
                         )
+                        .offset(y: -1)
                     }
                 }
                 .scrollTargetLayout()
             }
             .id("PageDeckScroll_\(page.id?.uuidString ?? "NoID")")
             .scrollTargetBehavior(.viewAligned)
-            .zIndex(1)
+            .scrollClipDisabled()
             .ignoresSafeArea(edges: .vertical)
             .safeAreaPadding(.horizontal, 12)
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             #endif
-            
-            Divider().zIndex(2)
+            .padding(.top, 1)
         }
-    }
-
-    private func horizontalSpacer(width: CGFloat, topOffset: CGFloat) -> some View {
-        HStack {
-            Text(verbatim: "M").font(.title3).padding(.vertical, 12).foregroundStyle(.clear)
-        }
-        .frame(width: width)
-        #if os(macOS)
-        .background(
-            Rectangle()
-                .fill(.thickMaterial)
-                .background(.tertiary.opacity(0.75))
-                .ignoresSafeArea(.all)
-        )
-        #else
-        .background(
-            Rectangle()
-                .fill(.regularMaterial)
-                .overlay(.quinary)
-                .ignoresSafeArea(.all)
-        )
-        #endif
     }
 
     private func columnCount(width: CGFloat) -> Int {

@@ -26,7 +26,7 @@ struct HoverHighlightModifier: ViewModifier {
                     if colorScheme == .dark {
                         Rectangle().fill(.fill.tertiary)
                     } else {
-                        Rectangle().fill(.ultraThinMaterial)
+                        Rectangle().fill(.thinMaterial)
                     }
                 }
             }

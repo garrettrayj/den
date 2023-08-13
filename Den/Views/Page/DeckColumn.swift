@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct DeckColumn: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
@@ -36,7 +34,6 @@ struct DeckColumn: View {
                 trailingPadding: isLast ? pageGeometry.safeAreaInsets.trailing + 32 : 20
             )
             .buttonStyle(PinnedHeaderButtonStyle())
-            .padding(.top, pageGeometry.safeAreaInsets.top)
             .zIndex(1)
             .ignoresSafeArea()
             .padding(.leading, isFirst ? -pageGeometry.safeAreaInsets.leading - 12 : 0)
@@ -74,9 +71,5 @@ struct DeckColumn: View {
             .contentMargins(.bottom, pageGeometry.safeAreaInsets.bottom + 16)
             .scrollClipDisabled()
         }
-    }
-
-    private var columnWidth: CGFloat {
-        return 300 * dynamicTypeSize.layoutScalingFactor
     }
 }
