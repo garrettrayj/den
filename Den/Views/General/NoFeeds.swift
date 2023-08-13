@@ -14,31 +14,30 @@ struct NoFeeds: View {
     @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            Image(systemName: "rectangle.slash").imageScale(.large)
-            Text("No Feeds", comment: "Empty page header.").font(.title)
+        ContentUnavailableView {
+            Label {
+                Text("No Feeds", comment: "Empty page title.")
+            } icon: {
+                Image(systemName: "square.slash")
+            }
+        } description: {
+            Text(
+                """
+                Open a syndication link, drag and drop a URL, \
+                use the Safari extension to discover feeds on websites, or…
+                """,
+                comment: "Empty page guidance."
+            )
+        } actions: {
             Button {
                 showingNewFeedSheet = true
             } label: {
                 Label {
-                    Text("Add by Web Address", comment: "Button label.")
+                    Text("Enter a Web Address", comment: "Button label.")
                 } icon: {
                     Image(systemName: "plus")
                 }
             }
-            .buttonStyle(.bordered)
-            Text("""
-            Or drag and drop a feed URL, or open a syndication link, \
-            or use the web extension to discover feeds on websites.
-            """, comment: "Empty page guidance.")
-            .font(.body)
-            .imageScale(.small)
-            .padding(.horizontal)
-            Spacer()
         }
-        .multilineTextAlignment(.center)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .padding(32)
     }
 }

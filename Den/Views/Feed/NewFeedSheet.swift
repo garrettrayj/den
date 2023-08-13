@@ -48,14 +48,14 @@ struct NewFeedSheet: View {
                         Group {
                             if let validationMessage = webAddressValidationMessage {
                                 validationMessage.text
-                            } else {
+                            } else if webAddress == "" {
                                 Text(
-                                    "Enter a RSS, Atom, or JSON Feed URL.",
-                                    comment: "URL field guidance message."
+                                    "Enter the URL for a RSS, Atom, or JSON feed.",
+                                    comment: "Feed web address field guidance message."
                                 )
                             }
                         }
-                        .font(.caption)
+                        .font(.footnote)
                         .frame(maxWidth: .infinity)
                     }
 

@@ -145,6 +145,13 @@ struct SplitView: View {
                 return .success
             }
         }
+        .onChange(of: showingNewFeedSheet) {
+            if case .page(let page) = detailPanel, showingNewFeedSheet {
+                newFeedPageID = page.id?.uuidString
+            } else {
+                newFeedPageID = nil
+            }
+        }
         .sheet(isPresented: $showingNewFeedSheet) {
             NewFeedSheet(
                 profile: profile,
@@ -214,10 +221,6 @@ struct SplitView: View {
         let cleanedURLString = urlString
             .replacingOccurrences(of: "feed:", with: "")
             .replacingOccurrences(of: "den:", with: "")
-
-        if case .page(let page) = detailPanel {
-            newFeedPageID = page.id?.uuidString
-        }
 
         newFeedWebAddress = cleanedURLString
         showingNewFeedSheet = true

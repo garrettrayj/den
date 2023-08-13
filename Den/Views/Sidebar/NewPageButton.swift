@@ -23,7 +23,9 @@ struct NewPageButton: View {
                 let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
                 do {
                     try viewContext.save()
-                    detailPanel = .page(newPage)
+                    DispatchQueue.main.async {
+                        detailPanel = .page(newPage)
+                    }
                 } catch {
                     CrashUtility.handleCriticalError(error as NSError)
                 }

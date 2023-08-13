@@ -85,9 +85,9 @@ struct Sidebar: View {
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .leading) {
                 Menu {
+                    NewProfileButton(currentProfileID: $currentProfileID)
                     ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                         .pickerStyle(.inline)
-                    NewProfileButton(currentProfileID: $currentProfileID)
                 } label: {
                     Label {
                         profile.nameText
@@ -98,12 +98,13 @@ struct Sidebar: View {
                 .labelStyle(.titleAndIcon)
                 .menuStyle(.borderlessButton)
                 .menuIndicator(.hidden)
+                .menuOrder(.fixed)
                 .accessibilityIdentifier("ProfileMenu")
                 .disabled(refreshing)
 
                 SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
             }
-            .padding()
+            .padding([.horizontal, .bottom])
         }
         #endif
     }

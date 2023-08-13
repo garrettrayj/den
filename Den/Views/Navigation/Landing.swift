@@ -37,11 +37,6 @@ struct Landing: View {
             #if os(iOS)
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             #endif
-            .navigationTitle(
-                profiles.isEmpty ?
-                Text("No Profiles Available", comment: "Navigation title.") :
-                    Text("Choose Profile", comment: "Navigation title.")
-            )
             .toolbar {
                 #if os(macOS)
                 ToolbarItem {
@@ -67,21 +62,24 @@ struct Landing: View {
         VStack(spacing: 24) {
             Spacer()
             if profiles.isEmpty {
-                ProgressView()
-                VStack(spacing: 16) {
-                    Text("""
-                    If you have used the app before then synchronization could be in progress. \
-                    Please wait a minute.
-                    """, comment: "Launch guidance message.")
-                    .multilineTextAlignment(.center)
-                    .font(.footnote)
-
+                ContentUnavailableView {
+                    Label {
+                        Text("No Profiles Available", comment: "Landing title.")
+                    } icon: {
+                        ProgressView()
+                    }
+                } description: {
                     Text(
-                        "If you're new or have cloud sync disabled then create a profile to begin.",
-                        comment: "Launch guidance message."
+                        """
+                        If you have used the app before then synchronization may be in progress. \
+                        Please wait a minute.
+                        """,
+                        comment: "Landing guidance message."
                     )
-                    .multilineTextAlignment(.center)
-                    .font(.footnote)
+                    Text(
+                        "If you're new or have disabled cloud sync then create a new profile to begin.",
+                        comment: "Landing guidance message."
+                    )
                 }
             } else {
                 VStack(spacing: 0) {
@@ -103,6 +101,11 @@ struct Landing: View {
                         }
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("SelectProfile")
+                    }
+                }
+                .task {
+                    if profiles.count == 1 {
+                        currentProfileID = profiles.first?.id?.uuidString
                     }
                 }
                 .frame(maxWidth: 240)
