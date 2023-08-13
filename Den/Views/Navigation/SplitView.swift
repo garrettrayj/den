@@ -59,7 +59,9 @@ struct SplitView: View {
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )
-            #if os(iOS)
+            #if os(macOS)
+            .navigationSplitViewColumnWidth(min: 212, ideal: 212)
+            #else
             .navigationSplitViewColumnWidth(272 * dynamicTypeSize.layoutScalingFactor)
             #endif
         } detail: {

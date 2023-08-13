@@ -37,6 +37,7 @@ struct FeedConfigurationForm: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
+            .lineLimit(1)
 
             LabeledContent {
                 WebAddressTextField(

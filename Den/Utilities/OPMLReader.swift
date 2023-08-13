@@ -17,11 +17,19 @@ final class OPMLReader {
     struct Folder: Hashable {
         var name: String
         var feeds: [Feed] = []
+        var icon: String?
     }
 
     struct Feed: Hashable {
         var title: String
         var url: URL
+        var previewLimit: Int?
+        var openInBrowser: Bool?
+        var readerMode: Bool?
+        var previewStyle: PreviewStyle?
+        var hideTeasers: Bool?
+        var hideBylines: Bool?
+        var hideImages: Bool?
     }
 
     var outlineFolders: [Folder] = []
@@ -37,22 +45,24 @@ final class OPMLReader {
     }
 
     private func parseDocument(xmlDoc: AEXMLDocument) {
-        let folders = xmlDoc.root["body"].allDescendants { element in
-            (element.attributes["title"] != nil || element.attributes["text"] != nil)
-            && element.attributes["xmlUrl"] == nil
-        }
+        let folderElements = xmlDoc.root["body"].children
 
-        folders.forEach { folderElement in
+        folderElements.forEach { folderElement in
             guard
                 let name = folderElement.attributes["title"] ?? folderElement.attributes["text"]
             else { return }
 
-            var opmlFolder = Folder(name: name)
+            var folder = Folder(name: name)
+
+            if let icon = folderElement.attributes["den:icon"] {
+                folder.icon = icon
+            }
+
             let feeds = folderElement.allDescendants { element in
                 element.attributes["xmlUrl"] != nil
             }
 
-            feeds.forEach({ feedElement in
+            feeds.forEach { feedElement in
                 guard
                     let title = feedElement.attributes["title"],
                     let xmlURLString = feedElement.attributes["xmlUrl"],
@@ -61,11 +71,34 @@ final class OPMLReader {
                     return
                 }
 
-                let feed = Feed(title: title, url: xmlURL)
-                opmlFolder.feeds.append(feed)
-            })
+                var feed = Feed(title: title, url: xmlURL)
 
-            outlineFolders.append(opmlFolder)
+                if let previewLimit = feedElement.attributes["den:previewLimit"] {
+                    feed.previewLimit = Int(previewLimit)
+                }
+                if let openInBrowser = feedElement.attributes["den:openInBrowser"] {
+                    feed.openInBrowser = Bool(openInBrowser)
+                }
+                if let readerMode = feedElement.attributes["den:readerMode"] {
+                    feed.readerMode = Bool(readerMode)
+                }
+                if let previewStyle = feedElement.attributes["den:previewStyle"] {
+                    feed.previewStyle = PreviewStyle(from: previewStyle)
+                }
+                if let hideTeasers = feedElement.attributes["den:hideTeasers"] {
+                    feed.hideTeasers = Bool(hideTeasers)
+                }
+                if let hideBylines = feedElement.attributes["den:hideBylines"] {
+                    feed.hideBylines = Bool(hideBylines)
+                }
+                if let hideImages = feedElement.attributes["den:hideImages"] {
+                    feed.hideImages = Bool(hideImages)
+                }
+
+                folder.feeds.append(feed)
+            }
+
+            outlineFolders.append(folder)
         }
     }
 }

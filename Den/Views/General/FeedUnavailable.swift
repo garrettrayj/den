@@ -62,9 +62,9 @@ struct FeedUnavailable: View {
 
     var icon: Image {
         if feedData == nil {
-            return Image(systemName: "bolt.horizontal")
+            return Image(systemName: "circle.slash")
         } else if feedData?.wrappedError != nil {
-            return Image(systemName: "exclamationmark.triangle")
+            return Image(systemName: "bolt.horizontal")
         } else {
             return Image(systemName: "questionmark.diamond" )
         }

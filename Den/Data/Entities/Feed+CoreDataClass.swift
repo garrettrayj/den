@@ -13,6 +13,8 @@ import SwiftUI
 
 @objc(Feed)
 public class Feed: NSManagedObject {
+    static let defaultItemLimit = 6
+
     public var titleText: Text {
         if wrappedTitle == "" {
             return Text("Untitled", comment: "Default feed title.")
@@ -105,10 +107,7 @@ public class Feed: NSManagedObject {
         feed.id = UUID()
         feed.page = page
         feed.url = url
-        feed.wrappedPreviewStyle = .compressed
-        feed.hideImages = false
-        feed.hideTeasers = false
-        feed.itemLimit = 6
+        feed.wrappedItemLimit = self.defaultItemLimit
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1

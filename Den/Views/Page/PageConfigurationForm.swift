@@ -40,6 +40,7 @@ struct PageConfigurationForm: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
+            .lineLimit(1)
 
             Button {
                 showingIconPicker = true

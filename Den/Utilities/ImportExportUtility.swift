@@ -17,9 +17,33 @@ struct ImportExportUtility {
         opmlFolders.forEach { opmlFolder in
             let page = Page.create(in: context, profile: profile)
             page.name = opmlFolder.name
+            page.symbol = opmlFolder.icon
+
             opmlFolder.feeds.forEach { opmlFeed in
                 let feed = Feed.create(in: context, page: page, url: opmlFeed.url)
                 feed.title = opmlFeed.title
+
+                if let itemLimit = opmlFeed.previewLimit {
+                    feed.wrappedItemLimit = itemLimit
+                }
+                if let browserView = opmlFeed.openInBrowser {
+                    feed.browserView = browserView
+                }
+                if let readerMode = opmlFeed.readerMode {
+                    feed.readerMode = readerMode
+                }
+                if let previewStyle = opmlFeed.previewStyle {
+                    feed.wrappedPreviewStyle = previewStyle
+                }
+                if let hideTeasers = opmlFeed.hideTeasers {
+                    feed.hideTeasers = hideTeasers
+                }
+                if let hideBylines = opmlFeed.hideBylines {
+                    feed.hideBylines = hideBylines
+                }
+                if let hideImages = opmlFeed.hideImages {
+                    feed.hideImages = hideImages
+                }
             }
         }
 

@@ -31,18 +31,28 @@ final class OPMLGenerator {
 
         let body = root.addChild(name: "body")
         pages.forEach { page in
-            let outline = body.addChild(
+            let pageOutline = body.addChild(
                 name: "outline",
-                attributes: ["text": page.name ?? "Untitled", "title": page.name ?? "Untitled"]
+                attributes: [
+                    "text": page.wrappedName,
+                    "title": page.wrappedName,
+                    "den:icon": page.wrappedSymbol
+                ]
             )
             page.feedsArray.forEach { feed in
                 let attributes = [
                     "text": feed.wrappedTitle,
                     "title": feed.wrappedTitle,
-                    "type": "rss",
-                    "xmlUrl": feed.urlString
+                    "type": feed.feedData?.format?.lowercased() ?? "rss",
+                    "xmlUrl": feed.urlString,
+                    "den:previewLimit": String(feed.wrappedItemLimit),
+                    "den:openInBrowser": String(feed.browserView),
+                    "den:previewStyle": feed.wrappedPreviewStyle.stringRepresentation,
+                    "den:hideTeasers": String(feed.hideTeasers),
+                    "den:hideBylines": String(feed.hideBylines),
+                    "den:hideImages": String(feed.hideImages)
                 ]
-                outline.addChild(name: "outline", attributes: attributes)
+                pageOutline.addChild(name: "outline", attributes: attributes)
             }
         }
 

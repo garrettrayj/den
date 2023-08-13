@@ -48,7 +48,7 @@ struct NewFeedSheet: View {
                         Group {
                             if let validationMessage = webAddressValidationMessage {
                                 validationMessage.text
-                            } else if webAddress == "" {
+                            } else {
                                 Text(
                                     "Enter the URL for a RSS, Atom, or JSON feed.",
                                     comment: "Feed web address field guidance message."
@@ -110,6 +110,7 @@ struct NewFeedSheet: View {
                 addFeed()
                 await RefreshManager.refresh(feed: newFeed!, timeout: feedRefreshTimeout)
                 newFeed?.page?.profile?.objectWillChange.send()
+                webAddress = ""
                 dismiss()
             }
         } label: {
@@ -141,7 +142,6 @@ struct NewFeedSheet: View {
             let page = targetPage
         else { return }
 
-        loading = true
         newFeed = Feed.create(in: viewContext, page: page, url: url, prepend: true)
 
         do {
