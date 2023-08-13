@@ -10,31 +10,31 @@
 
 import SwiftUI
 
-struct ItemToolbar: CustomizableToolbarContent {
+struct ItemToolbar: ToolbarContent {
     @ObservedObject var item: Item
     @ObservedObject var profile: Profile
 
-    var body: some CustomizableToolbarContent {
+    var body: some ToolbarContent {
         // Same buttons, but primaryAction placement causes the app to crash on macOS
         // and no placement causes the buttons to be combined into a menu on iOS.
         #if os(macOS)
-        ToolbarItem(id: "ItemOpenInBrowser") {
+        ToolbarItem {
             if let url = item.link {
                 OpenInBrowserButton(url: url, tintColor: profile.tintColor)
             }
         }
-        ToolbarItem(id: "ItemShare") {
+        ToolbarItem {
             if let url = item.link {
                 ShareButton(url: url)
             }
         }
         #else
-        ToolbarItem(id: "ItemOpenInBrowser", placement: .primaryAction) {
+        ToolbarItem(placement: .primaryAction) {
             if let url = item.link {
                 OpenInBrowserButton(url: url, tintColor: profile.tintColor)
             }
         }
-        ToolbarItem(id: "ItemShare", placement: .primaryAction) {
+        ToolbarItem(placement: .primaryAction) {
             if let url = item.link {
                 ShareButton(url: url)
             }

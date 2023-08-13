@@ -71,7 +71,7 @@ struct PageView: View {
                             }
                         }
                     }
-                    .toolbar(id: "Page") {
+                    .toolbar {
                         PageToolbar(
                             page: page,
                             hideRead: $hideRead,

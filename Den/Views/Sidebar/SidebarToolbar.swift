@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SidebarToolbar: CustomizableToolbarContent {
+struct SidebarToolbar: ToolbarContent {
     @EnvironmentObject private var networkMonitor: NetworkMonitor
 
     @ObservedObject var profile: Profile
@@ -34,9 +34,9 @@ struct SidebarToolbar: CustomizableToolbarContent {
         return nil
     }
 
-    var body: some CustomizableToolbarContent {
+    var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "Refresh", placement: .primaryAction) {
+        ToolbarItem(placement: .primaryAction) {
             RefreshButton(
                 refreshing: $refreshing,
                 refreshProgress: refreshProgress
@@ -44,7 +44,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
 
-        ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
+        ToolbarItem(placement: .primaryAction) {
             Menu {
                 Group {
                     NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
@@ -69,7 +69,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
         }
         #else
         if isEditing {
-            ToolbarItem(id: "SidebarDone", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Button {
                     withAnimation {
                         isEditing = false
@@ -79,7 +79,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
                 }
             }
         } else {
-            ToolbarItem(id: "SidebarMenu", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Menu {
                     NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                     NewPageButton(profile: profile, detailPanel: $detailPanel)
@@ -112,7 +112,7 @@ struct SidebarToolbar: CustomizableToolbarContent {
             }
         }
 
-        ToolbarItem(id: "ProfileMenu", placement: .bottomBar) {
+        ToolbarItem(placement: .bottomBar) {
             Menu {
                 NewProfileButton(currentProfileID: $currentProfileID)
                 ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
@@ -127,11 +127,11 @@ struct SidebarToolbar: CustomizableToolbarContent {
             .accessibilityIdentifier("ProfileMenu")
         }
 
-        ToolbarItem(id: "SidebarStatus", placement: .status) {
+        ToolbarItem(placement: .status) {
             SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
         }
 
-        ToolbarItem(id: "SidebarBottomRefresh", placement: .bottomBar) {
+        ToolbarItem(placement: .bottomBar) {
             RefreshButton(
                 refreshing: $refreshing,
                 refreshProgress: refreshProgress

@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedToolbar: CustomizableToolbarContent {
+struct FeedToolbar: ToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -22,15 +22,15 @@ struct FeedToolbar: CustomizableToolbarContent {
 
     let items: FetchedResults<Item>
 
-    var body: some CustomizableToolbarContent {
+    var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "FeedSettings") {
+        ToolbarItem {
             ConfigureFeedButton(showingFeedConfiguration: $showingFeedConfiguration)
         }
-        ToolbarItem(id: "FeedFilterRead") {
+        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem(id: "FeedToggleRead") {
+        ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()
@@ -38,7 +38,7 @@ struct FeedToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(id: "FeedMenu", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
@@ -56,13 +56,13 @@ struct FeedToolbar: CustomizableToolbarContent {
                 .accessibilityIdentifier("FeedMenu")
             }
         } else {
-            ToolbarItem(id: "FeedSettings", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 ConfigureFeedButton(showingFeedConfiguration: $showingFeedConfiguration)
             }
-            ToolbarItem(id: "FeedFilterRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem(id: "FeedToggleRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     feed.objectWillChange.send()

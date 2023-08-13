@@ -50,7 +50,7 @@ struct Trending: View {
                 }
             }
         }
-        .toolbar(id: "Trending") {
+        .toolbar {
             TrendingToolbar(profile: profile, hideRead: $hideRead)
         }
         .navigationTitle(Text("Trending", comment: "Navigation title."))

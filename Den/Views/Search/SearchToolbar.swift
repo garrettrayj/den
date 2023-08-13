@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct SearchToolbar: CustomizableToolbarContent {
+struct SearchToolbar: ToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -20,19 +20,19 @@ struct SearchToolbar: CustomizableToolbarContent {
     let query: String
     let items: FetchedResults<Item>
 
-    var body: some CustomizableToolbarContent {
+    var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "SearchFilterRead") {
+        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem(id: "SearchToggleRead") {
+        ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(id: "SearchMenu", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
@@ -47,10 +47,10 @@ struct SearchToolbar: CustomizableToolbarContent {
                 }
             }
         } else {
-            ToolbarItem(id: "SearchFilterRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem(id: "SearchToggleRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }

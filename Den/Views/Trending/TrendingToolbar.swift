@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TrendingToolbar: CustomizableToolbarContent {
+struct TrendingToolbar: ToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -27,12 +27,12 @@ struct TrendingToolbar: CustomizableToolbarContent {
         return profile.trends.flatMap { $0.items }
     }
 
-    var body: some CustomizableToolbarContent {
+    var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "TrendingFilterRead") {
+        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem(id: "TrendingToggleRead") {
+        ToolbarItem {
             ToggleReadButton(unreadCount: unreadCount) {
                 await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                 profile.objectWillChange.send()
@@ -40,7 +40,7 @@ struct TrendingToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(id: "TrendingMenu", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: unreadCount) {
                         await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
@@ -56,10 +56,10 @@ struct TrendingToolbar: CustomizableToolbarContent {
                 }
             }
         } else {
-            ToolbarItem(id: "TrendingFilterRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem(id: "TrendingToggleRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 ToggleReadButton(unreadCount: unreadCount) {
                     await HistoryUtility.toggleReadUnread(items: itemsFromTrends)
                     profile.objectWillChange.send()

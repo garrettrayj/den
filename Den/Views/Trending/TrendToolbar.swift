@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct TrendToolbar: CustomizableToolbarContent {
+struct TrendToolbar: ToolbarContent {
     @Environment(\.dismiss) private var dismiss
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -23,12 +23,12 @@ struct TrendToolbar: CustomizableToolbarContent {
 
     let items: FetchedResults<Item>
 
-    var body: some CustomizableToolbarContent {
+    var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "TrendFilterRead") {
+        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem(id: "TrendToggleRead") {
+        ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 trend.objectWillChange.send()
@@ -40,7 +40,7 @@ struct TrendToolbar: CustomizableToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(id: "TrendMenu", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
@@ -60,10 +60,10 @@ struct TrendToolbar: CustomizableToolbarContent {
                 }
             }
         } else {
-            ToolbarItem(id: "TrendFilterRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem(id: "TrendToggleRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     trend.objectWillChange.send()

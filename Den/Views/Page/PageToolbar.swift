@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct PageToolbar: CustomizableToolbarContent {
+struct PageToolbar: ToolbarContent {
     #if !os(macOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
@@ -24,19 +24,19 @@ struct PageToolbar: CustomizableToolbarContent {
 
     let items: FetchedResults<Item>
 
-    var body: some CustomizableToolbarContent {
+    var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem(id: "PageLayout") {
+        ToolbarItem {
             PageLayoutPicker(pageLayout: $pageLayout)
                 .pickerStyle(.inline)
         }
-        ToolbarItem(id: "PageSettings") {
+        ToolbarItem {
             ConfigurePageButton(showingPageConfiguration: $showingPageConfiguration)
         }
-        ToolbarItem(id: "PageFilterRead") {
+        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
-        ToolbarItem(id: "PageToggleRead") {
+        ToolbarItem {
             ToggleReadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 page.objectWillChange.send()
@@ -65,16 +65,16 @@ struct PageToolbar: CustomizableToolbarContent {
                 .accessibilityIdentifier("PageMenu")
             }
         } else {
-            ToolbarItem(id: "PageLayout", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 PageLayoutPicker(pageLayout: $pageLayout)
             }
-            ToolbarItem(id: "PageSettings", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 ConfigurePageButton(showingPageConfiguration: $showingPageConfiguration)
             }
-            ToolbarItem(id: "PageFilterRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
-            ToolbarItem(id: "PageToggleRead", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 ToggleReadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     page.objectWillChange.send()

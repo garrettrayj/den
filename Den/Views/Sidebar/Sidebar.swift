@@ -66,7 +66,7 @@ struct Sidebar: View {
         #endif
         .disabled(refreshing)
         .navigationTitle(profile.nameText)
-        .toolbar(id: "Sidebar") {
+        .toolbar {
             SidebarToolbar(
                 profile: profile,
                 currentProfileID: $currentProfileID,
