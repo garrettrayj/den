@@ -37,11 +37,7 @@ struct NewFeedSheet: View {
                             isValid: $webAddressIsValid,
                             validationMessage: $webAddressValidationMessage
                         )
-                        .textFieldStyle(.plain)
                         .labelsHidden()
-                        .multilineTextAlignment(.center)
-                        .textFieldStyle(.roundedBorder)
-                        .padding(.horizontal)
                     } header: {
                         Text("Web Address", comment: "Form section label.")
                     } footer: {
@@ -56,7 +52,6 @@ struct NewFeedSheet: View {
                             }
                         }
                         .font(.footnote)
-                        .frame(maxWidth: .infinity)
                     }
 
                     PagePicker(

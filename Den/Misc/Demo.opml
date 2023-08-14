@@ -1,139 +1,155 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0">
 	<head>
-		<title>Untitled Jul 3, 2023 at 3:54 PM</title>
+		<title>Demo</title>
 	</head>
 	<body>
-		<outline text="World News" title="World News">
-			<outline text="NBC News" title="NBC News" type="rss" xmlUrl="https://feeds.nbcnews.com/nbcnews/public/world" />
-			<outline text="Global News" title="Global News" type="rss" xmlUrl="https://globalnews.ca/category/world/feed/" />
-			<outline text="DER SPIEGEL" title="DER SPIEGEL" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
-			<outline text="ChannelNewsAsia" title="ChannelNewsAsia" type="rss" xmlUrl="https://www.channelnewsasia.com/rssfeeds/8395884" />
-			<outline text="UN News" title="UN News" type="rss" xmlUrl="https://news.un.org/feed/subscribe/en/news/all/rss.xml" />
-			<outline text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
-			<outline text="Foreign Affairs" title="Foreign Affairs" type="rss" xmlUrl="https://www.foreignaffairs.com/rss.xml" />
-			<outline text="The Guardian" title="The Guardian" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
-			<outline text="Deutsche Welle" title="Deutsche Welle" type="rss" xmlUrl="https://rss.dw.com/rdf/rss-en-world" />
-			<outline text="Al Jazeera" title="Al Jazeera" type="rss" xmlUrl="https://www.aljazeera.com/xml/rss/all.xml" />
-			<outline text="BBC News" title="BBC News" type="rss" xmlUrl="https://feeds.bbci.co.uk/news/world/rss.xml" />
-			<outline text="CBSNews.com" title="CBSNews.com" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/world" />
-			<outline text="The Diplomat" title="The Diplomat" type="rss" xmlUrl="https://thediplomat.com/feed/" />
-			<outline text="New York Times" title="New York Times" type="rss" xmlUrl="https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml" />
+		<outline den:icon="globe" text="World News" title="World News">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="CNN" title="CNN" type="rss" xmlUrl="http://rss.cnn.com/rss/cnn_world.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NBC News" title="NBC News" type="rss" xmlUrl="https://feeds.nbcnews.com/nbcnews/public/world" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Global News" title="Global News" type="rss" xmlUrl="https://globalnews.ca/category/world/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="DER SPIEGEL" title="DER SPIEGEL" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="ChannelNewsAsia" title="ChannelNewsAsia" type="rss" xmlUrl="https://www.channelnewsasia.com/rssfeeds/8395884" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Times of India" title="Times of India" type="rss" xmlUrl="http://timesofindia.indiatimes.com/rssfeeds/296589292.cms" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="UN News" title="UN News" type="rss" xmlUrl="https://news.un.org/feed/subscribe/en/news/all/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="France 24" title="France 24" type="rss" xmlUrl="https://www.france24.com/en/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Foreign Affairs" title="Foreign Affairs" type="rss" xmlUrl="https://www.foreignaffairs.com/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Guardian" title="The Guardian" type="rss" xmlUrl="https://www.theguardian.com/world/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Deutsche Welle" title="Deutsche Welle" type="rss" xmlUrl="https://rss.dw.com/rdf/rss-en-world" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Al Jazeera" title="Al Jazeera" type="rss" xmlUrl="https://www.aljazeera.com/xml/rss/all.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="BBC News" title="BBC News" type="rss" xmlUrl="https://feeds.bbci.co.uk/news/world/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="CBSNews.com" title="CBSNews.com" type="rss" xmlUrl="https://www.cbsnews.com/latest/rss/world" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Diplomat" title="The Diplomat" type="rss" xmlUrl="https://thediplomat.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="New York Times" title="New York Times" type="rss" xmlUrl="https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml" />
 		</outline>
-		<outline text="US News" title="US News">
-			<outline text="PBS NewsHour " title="PBS NewsHour " type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
-			<outline text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
-			<outline text="MSNBC" title="MSNBC" type="rss" xmlUrl="https://feeds.nbcnews.com/msnbc/public/news" />
-			<outline text="The Conversation" title="The Conversation" type="rss" xmlUrl="https://theconversation.com/us/home-page/articles.atom" />
-			<outline text="Axios" title="Axios" type="rss" xmlUrl="https://api.axios.com/feed/" />
-			<outline text="Washington Examiner" title="Washington Examiner" type="rss" xmlUrl="https://www.washingtonexaminer.com/news.rss" />
-			<outline text="The Washington Times" title="The Washington Times" type="rss" xmlUrl="https://www.washingtontimes.com/atom/headlines/news/national/" />
-			<outline text="The Hill" title="The Hill" type="rss" xmlUrl="https://thehill.com/news/feed/" />
-			<outline text="Politico" title="Politico" type="rss" xmlUrl="https://www.politico.com/rss/politicopicks.xml" />
-			<outline text="New York Post" title="New York Post" type="rss" xmlUrl="https://nypost.com/news/feed/" />
-			<outline text="The Texas Tribune" title="The Texas Tribune" type="rss" xmlUrl="https://feeds.texastribune.org/feeds/main/" />
-			<outline text="Los Angeles Times" title="Los Angeles Times" type="rss" xmlUrl="https://www.latimes.com/index.rss" />
-			<outline text="The Intercept" title="The Intercept" type="rss" xmlUrl="https://theintercept.com/feed/?lang=en" />
-			<outline text="Center for Public Integrity" title="Center for Public Integrity" type="rss" xmlUrl="https://publicintegrity.org/feed/" />
-			<outline text="ProPublica" title="ProPublica" type="rss" xmlUrl="https://feeds.propublica.org/propublica/main" />
-			<outline text="Reason.com" title="Reason.com" type="rss" xmlUrl="https://reason.com/feed/" />
+		<outline den:icon="newspaper" text="US News" title="US News">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="PBS NewsHour " title="PBS NewsHour " type="rss" xmlUrl="https://www.pbs.org/newshour/feeds/rss/headlines" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NPR" title="NPR" type="rss" xmlUrl="https://feeds.npr.org/1003/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="MSNBC" title="MSNBC" type="rss" xmlUrl="https://feeds.nbcnews.com/msnbc/public/news" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Conversation" title="The Conversation" type="atom" xmlUrl="https://theconversation.com/us/home-page/articles.atom" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Axios" title="Axios" type="rss" xmlUrl="https://api.axios.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Washington Examiner" title="Washington Examiner" type="rss" xmlUrl="https://www.washingtonexaminer.com/news.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Washington Times" title="The Washington Times" type="atom" xmlUrl="https://www.washingtontimes.com/atom/headlines/news/national/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Hill" title="The Hill" type="rss" xmlUrl="https://thehill.com/news/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Politico" title="Politico" type="rss" xmlUrl="https://www.politico.com/rss/politicopicks.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Mother Jones" title="Mother Jones" type="rss" xmlUrl="http://www.motherjones.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Texas Tribune" title="The Texas Tribune" type="rss" xmlUrl="https://feeds.texastribune.org/feeds/main/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Los Angeles Times" title="Los Angeles Times" type="rss" xmlUrl="https://www.latimes.com/index.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Intercept" title="The Intercept" type="rss" xmlUrl="https://theintercept.com/feed/?lang=en" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Center for Public Integrity" title="Center for Public Integrity" type="rss" xmlUrl="https://publicintegrity.org/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="ProPublica" title="ProPublica" type="rss" xmlUrl="https://feeds.propublica.org/propublica/main" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="New York Post" title="New York Post" type="rss" xmlUrl="https://nypost.com/news/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Reason.com" title="Reason.com" type="rss" xmlUrl="https://reason.com/feed/" />
 		</outline>
-		<outline text="Technology" title="Technology">
-			<outline text="GeekWire" title="GeekWire" type="rss" xmlUrl="https://www.geekwire.com/feed/" />
-			<outline text="The Verge" title="The Verge" type="rss" xmlUrl="https://www.theverge.com/rss/index.xml" />
-			<outline text="Engadget" title="Engadget" type="rss" xmlUrl="https://www.engadget.com/rss.xml" />
-			<outline text="Mashable" title="Mashable" type="rss" xmlUrl="https://mashable.com/feeds/rss/tech" />
-			<outline text="Ars Technica" title="Ars Technica" type="rss" xmlUrl="https://feeds.arstechnica.com/arstechnica/index" />
-			<outline text="VentureBeat" title="VentureBeat" type="rss" xmlUrl="https://feeds.feedburner.com/venturebeat/SZYF" />
-			<outline text="TechCrunch" title="TechCrunch" type="rss" xmlUrl="https://techcrunch.com/feed/" />
-			<outline text="Futurism" title="Futurism" type="rss" xmlUrl="https://futurism.com/feed/" />
-			<outline text="9to5Mac" title="9to5Mac" type="rss" xmlUrl="https://9to5mac.com/feed/" />
-			<outline text="Den for RSS" title="Den for RSS" type="rss" xmlUrl="https://den.io/feed.rss" />
-			<outline text="Apple Newsroom" title="Apple Newsroom" type="rss" xmlUrl="https://www.apple.com/newsroom/rss-feed.rss" />
+		<outline den:icon="cpu" text="Technology" title="Technology">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="GeekWire" title="GeekWire" type="rss" xmlUrl="https://www.geekwire.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Verge" title="The Verge" type="atom" xmlUrl="https://www.theverge.com/rss/index.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Engadget" title="Engadget" type="rss" xmlUrl="https://www.engadget.com/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Ars Technica" title="Ars Technica" type="rss" xmlUrl="https://feeds.arstechnica.com/arstechnica/index" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Techdirt" title="Techdirt" type="rss" xmlUrl="http://www.techdirt.com/techdirt_rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Next Web" title="The Next Web" type="rss" xmlUrl="http://feeds2.feedburner.com/thenextweb" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Slashdot" title="Slashdot" type="rss" xmlUrl="http://rss.slashdot.org/Slashdot/slashdot" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="TechCrunch" title="TechCrunch" type="rss" xmlUrl="https://techcrunch.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Futurism" title="Futurism" type="rss" xmlUrl="https://futurism.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="MacRumors" title="MacRumors" type="rss" xmlUrl="http://feeds.macrumors.com/MacRumors-All" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="9to5Mac" title="9to5Mac" type="rss" xmlUrl="https://9to5mac.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Den for RSS" title="Den for RSS" type="rss" xmlUrl="https://den.io/feed.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Apple Newsroom" title="Apple Newsroom" type="atom" xmlUrl="https://www.apple.com/newsroom/rss-feed.rss" />
 		</outline>
-		<outline text="Business" title="Business">
-			<outline text="Fox Business" title="Fox Business" type="rss" xmlUrl="https://moxie.foxbusiness.com/google-publisher/latest.xml" />
-			<outline text="Fast Company" title="Fast Company" type="rss" xmlUrl="https://www.fastcompany.com/latest/rss" />
-			<outline text="Fortune" title="Fortune" type="rss" xmlUrl="https://fortune.com/feed/fortune-feeds/?id=3230629" />
-			<outline text="Wired" title="Wired" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
-			<outline text="TheStreet" title="TheStreet" type="rss" xmlUrl="https://www.thestreet.com/.rss/full/" />
-			<outline text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
-			<outline text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
-			<outline text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
-			<outline text="MetalMiner" title="MetalMiner" type="rss" xmlUrl="https://feeds.feedburner.com/agmetalminer" />
-			<outline text="CNBC" title="CNBC" type="rss" xmlUrl="https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&amp;id=10001147" />
+		<outline den:icon="briefcase" text="Business" title="Business">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Fox Business" title="Fox Business" type="rss" xmlUrl="https://moxie.foxbusiness.com/google-publisher/latest.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Fast Company" title="Fast Company" type="rss" xmlUrl="https://www.fastcompany.com/latest/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Fortune" title="Fortune" type="rss" xmlUrl="https://fortune.com/feed/fortune-feeds/?id=3230629" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Wired" title="Wired" type="rss" xmlUrl="https://www.wired.com/feed/business/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="TheStreet" title="TheStreet" type="rss" xmlUrl="https://www.thestreet.com/.rss/full/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Forbes" title="Forbes" type="rss" xmlUrl="https://www.forbes.com/money/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Quartz" title="Quartz" type="rss" xmlUrl="https://cms.qz.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="dot.LA" title="dot.LA" type="rss" xmlUrl="https://dot.la/feeds/feed.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="MetalMiner" title="MetalMiner" type="rss" xmlUrl="https://feeds.feedburner.com/agmetalminer" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="CNBC" title="CNBC" type="rss" xmlUrl="https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&amp;id=10001147" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="VentureBeat" title="VentureBeat" type="rss" xmlUrl="https://feeds.feedburner.com/venturebeat/SZYF" />
 		</outline>
-		<outline text="Science" title="Science">
-			<outline text="Scientific American" title="Scientific American" type="rss" xmlUrl="http://rss.sciam.com/ScientificAmerican-Global" />
-			<outline text="New Scientist" title="New Scientist" type="rss" xmlUrl="https://feeds.newscientist.com/home" />
-			<outline text="Botany One" title="Botany One" type="rss" xmlUrl="https://botany.one/feed/" />
-			<outline text="Nautilus" title="Nautilus" type="rss" xmlUrl="https://nautil.us/feed/" />
-			<outline text="CSIROscope" title="CSIROscope" type="rss" xmlUrl="https://blog.csiro.au/feed/" />
-			<outline text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed/" />
-			<outline text="NeuroLogica Blog" title="NeuroLogica Blog" type="rss" xmlUrl="https://theness.com/neurologicablog/index.php/feed/" />
-			<outline text="SciTechDaily" title="SciTechDaily" type="rss" xmlUrl="https://scitechdaily.com/feed/" />
-			<outline text="STAT" title="STAT" type="rss" xmlUrl="https://www.statnews.com/feed/" />
-			<outline text="The Scientist" title="The Scientist" type="rss" xmlUrl="https://www.the-scientist.com/?rss.feed/" />
-			<outline text="Improbable Research" title="Improbable Research" type="rss" xmlUrl="https://www.improbable.com/feed/" />
-			<outline text="Sci-News.com" title="Sci-News.com" type="rss" xmlUrl="https://feeds.feedburner.com/BreakingScienceNews?format=xml" />
+		<outline den:icon="atom" text="Science" title="Science">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Scientific American" title="Scientific American" type="rss" xmlUrl="http://rss.sciam.com/ScientificAmerican-Global" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="New Scientist" title="New Scientist" type="rss" xmlUrl="https://feeds.newscientist.com/home" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Botany One" title="Botany One" type="rss" xmlUrl="https://botany.one/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Nautilus" title="Nautilus" type="rss" xmlUrl="https://nautil.us/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="CSIROscope" title="CSIROscope" type="rss" xmlUrl="https://blog.csiro.au/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NeuroLogica Blog" title="NeuroLogica Blog" type="rss" xmlUrl="https://theness.com/neurologicablog/index.php/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="SciTechDaily" title="SciTechDaily" type="rss" xmlUrl="https://scitechdaily.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="STAT" title="STAT" type="rss" xmlUrl="https://www.statnews.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Scientist" title="The Scientist" type="rss" xmlUrl="https://www.the-scientist.com/?rss.feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Improbable Research" title="Improbable Research" type="rss" xmlUrl="https://www.improbable.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Sci-News.com" title="Sci-News.com" type="rss" xmlUrl="https://feeds.feedburner.com/BreakingScienceNews?format=xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Grist" title="Grist" type="rss" xmlUrl="http://grist.org/feed/" />
 		</outline>
-		<outline text="Space" title="Space">
-			<outline text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed/" />
-			<outline text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed/" />
-			<outline text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
-			<outline text="Spaceflight Now" title="Spaceflight Now" type="rss" xmlUrl="https://spaceflightnow.com/feed/" />
-			<outline text="Space Explored" title="Space Explored" type="rss" xmlUrl="https://spaceexplored.com/feed/" />
-			<outline text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
-			<outline text="NASA Breaking News" title="NASA Breaking News" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/breaking_news.rss" />
-			<outline text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="https://www.esa.int/rssfeed/TopNews" />
-			<outline text="SatNews" title="SatNews" type="rss" xmlUrl="https://news.satnews.com/feed/" />
-			<outline text="EarthSky" title="EarthSky" type="rss" xmlUrl="https://earthsky.org/feed/" />
-			<outline text="Astronomy Now" title="Astronomy Now" type="rss" xmlUrl="https://astronomynow.com/feed/" />
-			<outline text="BBC Sky at Night Magazine" title="BBC Sky at Night Magazine" type="rss" xmlUrl="https://www.skyatnightmagazine.com/feed/atom/" />
+		<outline den:icon="sparkles" text="Space" title="Space">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Universe Today" title="Universe Today" type="rss" xmlUrl="https://www.universetoday.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NASASpaceFlight.com" title="NASASpaceFlight.com" type="rss" xmlUrl="https://www.nasaspaceflight.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="SpaceNews" title="SpaceNews" type="rss" xmlUrl="https://spacenews.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Spaceflight Now" title="Spaceflight Now" type="rss" xmlUrl="https://spaceflightnow.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Space Explored" title="Space Explored" type="rss" xmlUrl="https://spaceexplored.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NASA Image of the Day" title="NASA Image of the Day" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/lg_image_of_the_day.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NASA Breaking News" title="NASA Breaking News" type="rss" xmlUrl="https://www.nasa.gov/rss/dyn/breaking_news.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="ESA Top News" title="ESA Top News" type="rss" xmlUrl="https://www.esa.int/rssfeed/TopNews" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="SatNews" title="SatNews" type="rss" xmlUrl="https://news.satnews.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="EarthSky" title="EarthSky" type="rss" xmlUrl="https://earthsky.org/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Astronomy Now" title="Astronomy Now" type="rss" xmlUrl="https://astronomynow.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="BBC Sky at Night Magazine" title="BBC Sky at Night Magazine" type="rss" xmlUrl="https://www.skyatnightmagazine.com/feed/atom/" />
 		</outline>
-		<outline text="Funnies" title="Funnies">
-			<outline text="The Onion" title="The Onion" type="rss" xmlUrl="https://www.theonion.com/feeds/rss" />
-			<outline text="The Babylon Bee" title="The Babylon Bee" type="rss" xmlUrl="https://babylonbee.com/feed/" />
-			<outline text="The Beaverton" title="The Beaverton" type="rss" xmlUrl="https://www.thebeaverton.com/feed/" />
-			<outline text="xkcd.com" title="xkcd.com" type="rss" xmlUrl="https://xkcd.com/rss.xml" />
-			<outline text="they can talk" title="they can talk" type="rss" xmlUrl="https://theycantalk.com/rss" />
-			<outline text="Saturday Morning Breakfast Cereal" title="Saturday Morning Breakfast Cereal" type="rss" xmlUrl="https://www.smbc-comics.com/comic/rss" />
-			<outline text="Cat and Girl" title="Cat and Girl" type="rss" xmlUrl="https://catandgirl.com/feed/" />
-			<outline text="Poorly Drawn Lines" title="Poorly Drawn Lines" type="rss" xmlUrl="https://feeds.feedburner.com/PoorlyDrawnLines" />
-			<outline text="War and Peas" title="War and Peas" type="rss" xmlUrl="https://warandpeas.com/feed/" />
-			<outline text="Loading Artist" title="Loading Artist" type="rss" xmlUrl="https://loadingartist.com/index.xml" />
-			<outline text="Dinosaur Comics!" title="Dinosaur Comics!" type="rss" xmlUrl="https://www.qwantz.com/rssfeed.php" />
+		<outline den:icon="face.smiling" text="Funnies" title="Funnies">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Onion" title="The Onion" type="rss" xmlUrl="https://www.theonion.com/feeds/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Babylon Bee" title="The Babylon Bee" type="rss" xmlUrl="https://babylonbee.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Beaverton" title="The Beaverton" type="rss" xmlUrl="https://www.thebeaverton.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="xkcd.com" title="xkcd.com" type="rss" xmlUrl="https://xkcd.com/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="they can talk" title="they can talk" type="rss" xmlUrl="https://theycantalk.com/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="QC RSS" title="QC RSS" type="rss" xmlUrl="http://www.questionablecontent.net/QCRSS.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Saturday Morning Breakfast Cereal" title="Saturday Morning Breakfast Cereal" type="rss" xmlUrl="https://www.smbc-comics.com/comic/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Basic Instructions" title="Basic Instructions" type="rss" xmlUrl="http://basicinstructions.net/basic-instructions/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Cat and Girl" title="Cat and Girl" type="rss" xmlUrl="https://catandgirl.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Poorly Drawn Lines" title="Poorly Drawn Lines" type="rss" xmlUrl="https://feeds.feedburner.com/PoorlyDrawnLines" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="War and Peas" title="War and Peas" type="rss" xmlUrl="https://warandpeas.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Loading Artist" title="Loading Artist" type="rss" xmlUrl="https://loadingartist.com/index.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Dinosaur Comics!" title="Dinosaur Comics!" type="rss" xmlUrl="https://www.qwantz.com/rssfeed.php" />
 		</outline>
-		<outline text="Curiosity" title="Curiosity">
-			<outline text="Interesting Engineering" title="Interesting Engineering" type="rss" xmlUrl="https://interestingengineering.com/feed/" />
-			<outline text="Hackaday" title="Hackaday" type="rss" xmlUrl="https://hackaday.com/blog/feed/" />
-			<outline text="Hyperallergic" title="Hyperallergic" type="rss" xmlUrl="https://hyperallergic.com/feed/" />
-			<outline text="Inverse" title="Inverse" type="rss" xmlUrl="https://www.inverse.com/rss" />
-			<outline text="Make: DIY Projects and Ideas" title="Make: DIY Projects and Ideas" type="rss" xmlUrl="https://makezine.com/feed/" />
-			<outline text="Braingle" title="Braingle" type="rss" xmlUrl="https://feeds.braingle.com/braingle/all" />
-			<outline text="TED Talks Daily" title="TED Talks Daily" type="rss" xmlUrl="https://feeds.feedburner.com/tedtalks_video" />
-			<outline text="Mental Floss" title="Mental Floss" type="rss" xmlUrl="https://www.mentalfloss.com/rss.xml" />
-			<outline text="Merriam-Webster&apos;s Word of the Day" title="Merriam-Webster&apos;s Word of the Day" type="rss" xmlUrl="https://www.merriam-webster.com/wotd/feed/rss2" />
+		<outline den:icon="person.and.arrow.left.and.arrow.right" text="Curiosity" title="Curiosity">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Slate Magazine" title="Slate Magazine" type="rss" xmlUrl="http://www.slate.com/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="reddit: the front page of the internet" title="reddit: the front page of the internet" type="atom" xmlUrl="http://www.reddit.com/.rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Archinect - News" title="Archinect - News" type="atom" xmlUrl="http://archinect.com/news.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Art of Manliness" title="The Art of Manliness" type="rss" xmlUrl="http://feeds.feedburner.com/TheArtOfManliness" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="kottke.org" title="kottke.org" type="atom" xmlUrl="http://feeds.kottke.org/main" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Food Politics by Marion Nestle" title="Food Politics by Marion Nestle" type="rss" xmlUrl="http://www.foodpolitics.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Interesting Engineering" title="Interesting Engineering" type="rss" xmlUrl="https://interestingengineering.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Hackaday" title="Hackaday" type="rss" xmlUrl="https://hackaday.com/blog/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Hyperallergic" title="Hyperallergic" type="rss" xmlUrl="https://hyperallergic.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Inverse" title="Inverse" type="rss" xmlUrl="https://www.inverse.com/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Make: DIY Projects and Ideas" title="Make: DIY Projects and Ideas" type="rss" xmlUrl="https://makezine.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Braingle" title="Braingle" type="rss" xmlUrl="https://feeds.braingle.com/braingle/all" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="TED Talks Daily" title="TED Talks Daily" type="rss" xmlUrl="https://feeds.feedburner.com/tedtalks_video" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Mental Floss" title="Mental Floss" type="rss" xmlUrl="https://www.mentalfloss.com/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Merriam-Webster&apos;s Word of the Day" title="Merriam-Webster&apos;s Word of the Day" type="rss" xmlUrl="https://www.merriam-webster.com/wotd/feed/rss2" />
 		</outline>
-		<outline text="Gaming" title="Gaming">
-			<outline text="Kotaku" title="Kotaku" type="rss" xmlUrl="https://kotaku.com/rss" />
-			<outline text="Polygon" title="Polygon" type="rss" xmlUrl="https://www.polygon.com/rss/index.xml" />
-			<outline text="Game Informer" title="Game Informer" type="rss" xmlUrl="https://www.gameinformer.com/rss.xml" />
-			<outline text="GameByte" title="GameByte" type="rss" xmlUrl="https://www.gamebyte.com/feed/" />
-			<outline text="GameSpot" title="GameSpot" type="rss" xmlUrl="https://www.gamespot.com/feeds/mashup" />
-			<outline text="Pocket Gamer" title="Pocket Gamer" type="rss" xmlUrl="https://www.pocketgamer.com/rss/" />
-			<outline text="Xbox Wire" title="Xbox Wire" type="rss" xmlUrl="https://news.xbox.com/en-us/feed/" />
-			<outline text="BoardGameGeek" title="BoardGameGeek" type="rss" xmlUrl="https://boardgamegeek.com/rss/blog/1" />
+		<outline den:icon="gamecontroller" text="Gaming" title="Gaming">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Kotaku" title="Kotaku" type="rss" xmlUrl="https://kotaku.com/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Polygon" title="Polygon" type="atom" xmlUrl="https://www.polygon.com/rss/index.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Game Informer" title="Game Informer" type="rss" xmlUrl="https://www.gameinformer.com/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="GameByte" title="GameByte" type="rss" xmlUrl="https://www.gamebyte.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="GameSpot" title="GameSpot" type="rss" xmlUrl="https://www.gamespot.com/feeds/mashup" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Pocket Gamer" title="Pocket Gamer" type="rss" xmlUrl="https://www.pocketgamer.com/rss/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Xbox Wire" title="Xbox Wire" type="rss" xmlUrl="https://news.xbox.com/en-us/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="BoardGameGeek" title="BoardGameGeek" type="rss" xmlUrl="https://boardgamegeek.com/rss/blog/1" />
 		</outline>
-		<outline text="Entertainment" title="Entertainment">
-			<outline text="Metro" title="Metro" type="rss" xmlUrl="https://metro.co.uk/entertainment/feed/" />
-			<outline text="Little White Lies" title="Little White Lies" type="rss" xmlUrl="https://lwlies.com/feed/" />
-			<outline text="The A.V. Club" title="The A.V. Club" type="rss" xmlUrl="https://www.avclub.com/rss" />
-			<outline text="Variety" title="Variety" type="rss" xmlUrl="https://feeds.feedburner.com/variety/headlines" />
-			<outline text="UPROXX" title="UPROXX" type="rss" xmlUrl="https://uproxx.com/feed/" />
-			<outline text="NME" title="NME" type="rss" xmlUrl="https://www.nme.com/feed/" />
-			<outline text="American Songwriter" title="American Songwriter" type="rss" xmlUrl="https://americansongwriter.com/feed/" />
-			<outline text="NPR Music" title="NPR Music" type="rss" xmlUrl="https://www.npr.org/rss/rss.php?id=1039" />
+		<outline den:icon="film" text="Entertainment" title="Entertainment">
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="TMZ.com" title="TMZ.com" type="rss" xmlUrl="https://www.tmz.com/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Metro" title="Metro" type="rss" xmlUrl="https://metro.co.uk/entertainment/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Little White Lies" title="Little White Lies" type="rss" xmlUrl="https://lwlies.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The A.V. Club" title="The A.V. Club" type="rss" xmlUrl="https://www.avclub.com/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Variety" title="Variety" type="rss" xmlUrl="https://feeds.feedburner.com/variety/headlines" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="UPROXX" title="UPROXX" type="rss" xmlUrl="https://uproxx.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NME" title="NME" type="rss" xmlUrl="https://www.nme.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="American Songwriter" title="American Songwriter" type="rss" xmlUrl="https://americansongwriter.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NPR Music" title="NPR Music" type="rss" xmlUrl="https://www.npr.org/rss/rss.php?id=1039" />
 		</outline>
 	</body>
 </opml>

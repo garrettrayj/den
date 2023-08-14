@@ -18,14 +18,24 @@ struct FeedConfigurationSheet: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
+            ZStack {
                 if feed.managedObjectContext == nil || feed.isDeleted {
+                    /* ERROR: Causes application to crash with:
+                     "AttributeGraph: cycle detected through attribute 5216976"
+                     repeating in logs
+                     
                     ContentUnavailableView {
                         Label {
                             Text("Feed Deleted", comment: "Object removed message.")
                         } icon: {
                             Image(systemName: "trash")
                         }
+                    }
+                     */
+                    Label {
+                        Text("Feed Deleted", comment: "Object removed message.")
+                    } icon: {
+                        Image(systemName: "trash")
                     }
                 } else {
                     FeedConfigurationForm(feed: feed)

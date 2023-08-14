@@ -148,10 +148,13 @@ struct SplitView: View {
             }
         }
         .onChange(of: showingNewFeedSheet) {
-            if case .page(let page) = detailPanel, showingNewFeedSheet {
-                newFeedPageID = page.id?.uuidString
+            if showingNewFeedSheet {
+                if case .page(let page) = detailPanel, showingNewFeedSheet {
+                    newFeedPageID = page.id?.uuidString
+                }
             } else {
                 newFeedPageID = nil
+                newFeedWebAddress = ""
             }
         }
         .sheet(isPresented: $showingNewFeedSheet) {
