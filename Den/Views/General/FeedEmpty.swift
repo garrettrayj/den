@@ -19,7 +19,7 @@ struct FeedEmpty: View {
                 Label {
                     Text("Feed Empty", comment: "Content unavailable title.")
                 } icon: {
-                    Image(systemName: "square.slash")
+                    Image(systemName: "circle.slash")
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

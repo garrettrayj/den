@@ -24,7 +24,7 @@ struct TimelineLayout: View {
                 Label {
                     Text("No Items", comment: "Content unavailable title.")
                 } icon: {
-                    Image(systemName: "square.slash")
+                    Image(systemName: "circle.slash")
                 }
             }
         } else if items.unread().isEmpty && hideRead {
