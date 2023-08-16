@@ -24,7 +24,10 @@ final class OPMLGenerator {
 
     var document: AEXMLDocument {
         let document = AEXMLDocument()
-        let root = document.addChild(name: "opml", attributes: ["version": "1.0"])
+        let root = document.addChild(
+            name: "opml",
+            attributes: ["version": "1.0", "xmlns:den": "https://den.io/xml/opml"]
+        )
 
         let head = root.addChild(name: "head")
         head.addChild(name: "title", value: title)
