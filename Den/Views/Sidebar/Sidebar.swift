@@ -104,7 +104,7 @@ struct Sidebar: View {
 
                 SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
             }
-            .padding([.horizontal, .bottom])
+            .padding([.horizontal, .bottom], 8)
         }
         #endif
     }
