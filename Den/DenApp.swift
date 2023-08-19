@@ -23,7 +23,6 @@ struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openURL) private var openURL
 
-    @AppStorage("BackgroundRefreshEnabled") private var backgroundRefreshEnabled: Bool = false
     @AppStorage("FeedRefreshTimeout") private var feedRefreshTimeout: Int = 30
     @AppStorage("LastCleanup") private var lastCleanup: Double?
     @AppStorage("UserColorScheme") private var userColorScheme: UserColorScheme = .system
@@ -39,17 +38,15 @@ struct DenApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(
-                backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                userColorScheme: $userColorScheme,
-                feedRefreshTimeout: $feedRefreshTimeout
-            )
-            .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            .environmentObject(networkMonitor)
-            .preferredColorScheme(userColorScheme.colorScheme)
-            .task {
-                performCleanup()
-            }
+            RootView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.useSystemBrowser, useSystemBrowser)
+                .environment(\.feedRefreshTimeout, feedRefreshTimeout)
+                .environmentObject(networkMonitor)
+                .preferredColorScheme(userColorScheme.colorScheme)
+                .task {
+                    performCleanup()
+                }
         }
         .commands {
             ToolbarCommands()

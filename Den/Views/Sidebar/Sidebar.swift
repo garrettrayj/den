@@ -92,7 +92,7 @@ struct Sidebar: View {
                     Label {
                         profile.nameText
                     } icon: {
-                        Image(systemName: "person.crop.circle")
+                        Image(systemName: "person.crop.circle").imageScale(.large)
                     }
                 }
                 .labelStyle(.titleAndIcon)
@@ -104,7 +104,8 @@ struct Sidebar: View {
 
                 SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
             }
-            .padding([.horizontal, .bottom], 8)
+            .padding(.horizontal, 8)
+            .padding(.bottom, 12)
         }
         #endif
     }

@@ -15,10 +15,6 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
 
-    @Binding var backgroundRefreshEnabled: Bool
-    @Binding var userColorScheme: UserColorScheme
-    @Binding var feedRefreshTimeout: Int
-
     @State private var showingCrashMessage = false
 
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
@@ -34,10 +30,7 @@ struct RootView: View {
             if let profile = profiles.firstMatchingID(currentProfileID) {
                 SplitView(
                     profile: profile,
-                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
                     currentProfileID: $currentProfileID,
-                    userColorScheme: $userColorScheme,
-                    feedRefreshTimeout: $feedRefreshTimeout,
                     profiles: profiles
                 )
             } else {

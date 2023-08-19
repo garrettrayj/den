@@ -17,10 +17,6 @@ struct ProfileSettingsSheet: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
-    @Binding var backgroundRefreshEnabled: Bool
-    @Binding var feedRefreshTimeout: Int
-    @Binding var useSystemBrowser: Bool
-    @Binding var userColorScheme: UserColorScheme
 
     var body: some View {
         NavigationStack {

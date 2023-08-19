@@ -32,9 +32,6 @@ struct PageConfigurationSheet: View {
                 }
             }
             .navigationTitle(Text("Page Configuration", comment: "Navigation title."))
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {

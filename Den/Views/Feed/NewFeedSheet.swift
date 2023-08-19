@@ -14,12 +14,12 @@ import SwiftUI
 struct NewFeedSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.feedRefreshTimeout) private var feedRefreshTimeout
 
     @ObservedObject var profile: Profile
 
     @Binding var webAddress: String
     @Binding var initialPageID: String?
-    @Binding var feedRefreshTimeout: Int
 
     @State private var targetPage: Page?
     @State private var webAddressIsValid: Bool?

@@ -42,9 +42,6 @@ struct FeedConfigurationSheet: View {
                 }
             }
             .navigationTitle(Text("Feed Configuration", comment: "Navigation title."))
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {

@@ -16,13 +16,11 @@ import UniformTypeIdentifiers
 struct SplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.feedRefreshTimeout) private var feedRefreshTimeout
 
     @ObservedObject var profile: Profile
 
-    @Binding var backgroundRefreshEnabled: Bool
     @Binding var currentProfileID: String?
-    @Binding var userColorScheme: UserColorScheme
-    @Binding var feedRefreshTimeout: Int
 
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress = Progress()
@@ -42,8 +40,6 @@ struct SplitView: View {
     @SceneStorage("ShowingProfileSettings") private var showingProfileSettings: Bool = false
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     @SceneStorage("Navigation") private var navigationData: Data?
-
-    @AppStorage("UseSystemBrowser") private var useSystemBrowser: Bool = false
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -77,7 +73,6 @@ struct SplitView: View {
             #endif
         }
         .tint(profile.tintColor)
-        .environment(\.useSystemBrowser, useSystemBrowser)
         .refreshable {
             await Task {
                 guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
@@ -161,8 +156,7 @@ struct SplitView: View {
             NewFeedSheet(
                 profile: profile,
                 webAddress: $newFeedWebAddress,
-                initialPageID: $newFeedPageID,
-                feedRefreshTimeout: $feedRefreshTimeout
+                initialPageID: $newFeedPageID
             )
         }
         .sheet(
@@ -179,11 +173,7 @@ struct SplitView: View {
             content: {
                 ProfileSettingsSheet(
                     profile: profile,
-                    currentProfileID: $currentProfileID,
-                    backgroundRefreshEnabled: $backgroundRefreshEnabled,
-                    feedRefreshTimeout: $feedRefreshTimeout,
-                    useSystemBrowser: $useSystemBrowser,
-                    userColorScheme: $userColorScheme
+                    currentProfileID: $currentProfileID
                 )
             }
         )
