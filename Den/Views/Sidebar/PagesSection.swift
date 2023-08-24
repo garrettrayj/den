@@ -18,7 +18,7 @@ struct PagesSection: View {
     var body: some View {
         Section {
             ForEach(profile.pagesArray) { page in
-                PageNavLink(page: page, profile: profile)
+                PageNavLink(page: page)
             }
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)

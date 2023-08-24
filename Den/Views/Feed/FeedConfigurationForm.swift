@@ -67,9 +67,6 @@ struct FeedConfigurationForm: View {
             }
 
             Button(role: .destructive) {
-                if let feedData = feed.feedData {
-                    viewContext.delete(feedData)
-                }
                 viewContext.delete(feed)
             } label: {
                 Label {

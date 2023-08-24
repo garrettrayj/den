@@ -20,13 +20,12 @@ struct PageConfigurationSheet: View {
         NavigationStack {
             ZStack {
                 if page.managedObjectContext == nil || page.isDeleted {
-                    ContentUnavailableView {
-                        Label {
-                            Text("Page Deleted", comment: "Object removed message.")
-                        } icon: {
-                            Image(systemName: "trash")
-                        }
+                    Label {
+                        Text("Page Deleted", comment: "Object removed message.")
+                    } icon: {
+                        Image(systemName: "trash")
                     }
+                    .labelStyle(NoticeLabelStyle())
                 } else {
                     PageConfigurationForm(page: page)
                 }
@@ -35,11 +34,8 @@ struct PageConfigurationSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
-                        Task {
-                            viewContext.rollback()
-                            page.objectWillChange.send()
-                            dismiss()
-                        }
+                        viewContext.rollback()
+                        dismiss()
                     } label: {
                         Text("Cancel", comment: "Button label.")
                     }

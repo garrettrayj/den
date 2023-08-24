@@ -18,8 +18,6 @@ struct PageNavLink: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
-    // Observe profile so badge cound updates after refresh
-    @ObservedObject var profile: Profile
 
     var body: some View {
         NavigationLink(value: DetailPanel.page(page)) {

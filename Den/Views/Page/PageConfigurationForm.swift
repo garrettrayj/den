@@ -23,9 +23,6 @@ struct PageConfigurationForm: View {
             feedsSection
         }
         .formStyle(.grouped)
-        #if os(iOS)
-        .environment(\.editMode, .constant(.active))
-        #endif
     }
 
     private var generalSection: some View {
@@ -61,14 +58,7 @@ struct PageConfigurationForm: View {
             }
 
             Button(role: .destructive) {
-                Task {
-                    page.feedsArray.forEach { feed in
-                        if let feedData = feed.feedData {
-                            viewContext.delete(feedData)
-                        }
-                    }
-                    viewContext.delete(page)
-                }
+                viewContext.delete(page)
             } label: {
                 Label {
                     Text("Delete Page", comment: "Button label.")
@@ -103,6 +93,9 @@ struct PageConfigurationForm: View {
                     }
                     .onMove(perform: moveFeed)
                 }
+                #if os(iOS)
+                .environment(\.editMode, .constant(.active))
+                #endif
             }
         } header: {
             Text("Feeds", comment: "Page settings section header.")
