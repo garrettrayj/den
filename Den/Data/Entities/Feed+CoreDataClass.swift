@@ -38,7 +38,7 @@ public class Feed: NSManagedObject {
     }
 
     public var extendedItemLimit: Int {
-        wrappedItemLimit + 10
+        wrappedItemLimit + 20
     }
 
     public var feedData: FeedData? {
