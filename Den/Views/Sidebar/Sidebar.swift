@@ -12,6 +12,7 @@ import CoreData
 import SwiftUI
 
 struct Sidebar: View {
+    @Environment(\.managedObjectContext) private var viewContext
     #if os(iOS)
     @Environment(\.editMode) private var editMode
     #endif
@@ -58,8 +59,36 @@ struct Sidebar: View {
             placement: .sidebar,
             prompt: Text("Search", comment: "Search field prompt.")
         )
+        .searchSuggestions {
+            ForEach(profile.searchesArray.prefix(10)) { search in
+                if search.wrappedQuery != "" {
+                    Text(verbatim: search.wrappedQuery).searchCompletion(search.wrappedQuery)
+                }
+            }
+        }
         .onSubmit(of: .search) {
-            detailPanel = .search(searchInput)
+            if let search = profile.searchesArray.first(where: { $0.query == searchInput }) {
+                search.submitted = Date()
+                do {
+                    try viewContext.save()
+                    detailPanel = .search(search)
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+                return
+            }
+
+            let search = Search.create(
+                in: viewContext,
+                profile: profile,
+                query: searchInput
+            )
+            do {
+                try viewContext.save()
+                detailPanel = .search(search)
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
         }
         #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))

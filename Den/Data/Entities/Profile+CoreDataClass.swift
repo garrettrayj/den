@@ -57,12 +57,12 @@ public class Profile: NSManagedObject {
     public var historyArray: [History] {
         get {
             guard
-                let history = self.history?.sortedArray(
+                let historyArray = self.history?.sortedArray(
                     using: [NSSortDescriptor(key: "visited", ascending: false)]
                 ) as? [History]
             else { return [] }
 
-            return history
+            return historyArray
         }
         set {
             history = NSSet(array: newValue)
@@ -93,10 +93,10 @@ public class Profile: NSManagedObject {
     }
 
     public var pagesArray: [Page] {
-        if let pages = self.pages?.sortedArray(
+        if let pagesArray = self.pages?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]
         ) as? [Page] {
-            return pages
+            return pagesArray
         }
         return []
     }
@@ -121,6 +121,16 @@ public class Profile: NSManagedObject {
 
     public var feedsArray: [Feed] {
         pagesArray.flatMap { $0.feedsArray }
+    }
+
+    public var searchesArray: [Search] {
+        if let searchesArray = self.searches?.sortedArray(
+            using: [NSSortDescriptor(key: "submitted", ascending: false)]
+        ) as? [Search] {
+            return searchesArray
+        }
+        
+        return []
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {

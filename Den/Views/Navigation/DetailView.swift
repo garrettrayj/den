@@ -28,8 +28,8 @@ struct DetailView: View {
                     Inbox(profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
                 case .page(let page):
                     PageView(page: page, profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
-                case .search(let query):
-                    Search(profile: profile, query: query)
+                case .search(let search):
+                    SearchView(profile: profile, search: search)
                 case .trending:
                     Trending(profile: profile)
                 case .welcome:

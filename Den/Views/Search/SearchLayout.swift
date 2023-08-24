@@ -13,10 +13,10 @@ import SwiftUI
 
 struct SearchLayout: View {
     @ObservedObject var profile: Profile
+    @ObservedObject var search: Search
 
     @Binding var hideRead: Bool
 
-    let query: String
     let items: FetchedResults<Item>
 
     var visibilityFilteredItems: [Item] {
@@ -28,17 +28,26 @@ struct SearchLayout: View {
             if items.isEmpty {
                 ContentUnavailableView {
                     Label {
-                        Text("No Results for “\(query)”", comment: "No search results message title.")
+                        Text(
+                            "No Results for “\(search.wrappedQuery)”",
+                            comment: "No search results message title."
+                        )
                     } icon: {
                         Image(systemName: "magnifyingglass")
                     }
                 } description: {
-                    Text("Check the spelling or try a new search.", comment: "No search results guidance.")
+                    Text(
+                        "Check the spelling or try a new search.",
+                        comment: "No search results guidance."
+                    )
                 }
             } else if hideRead && visibilityFilteredItems.isEmpty {
                 ContentUnavailableView {
                     Label {
-                        Text("No Unread Results for\n“\(query)”", comment: "No unread search results title.")
+                        Text(
+                            "No Unread Results for\n“\(search.wrappedQuery)”",
+                            comment: "No unread search results title."
+                        )
                     } icon: {
                         Image(systemName: "magnifyingglass")
                     }

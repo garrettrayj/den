@@ -1,5 +1,5 @@
 //
-//  Search.swift
+//  SearchView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 4/12/23.
@@ -11,16 +11,15 @@
 import CoreData
 import SwiftUI
 
-struct Search: View {
+struct SearchView: View {
     @ObservedObject var profile: Profile
-
-    let query: String
+    @ObservedObject var search: Search
 
     @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         ZStack {
-            if query == "" {
+            if search.query == "" {
                 ContentUnavailableView {
                     Label {
                         Text("No Query", comment: "Search query empty title.")
@@ -37,16 +36,16 @@ struct Search: View {
                 WithItems(
                     scopeObject: profile,
                     includeExtras: true,
-                    searchQuery: query
+                    searchQuery: search.wrappedQuery
                 ) { items in
                     SearchLayout(
                         profile: profile,
+                        search: search,
                         hideRead: $hideRead,
-                        query: query,
                         items: items
                     )
                     .toolbar {
-                        SearchToolbar(hideRead: $hideRead, query: query, items: items)
+                        SearchToolbar(hideRead: $hideRead, query: search.wrappedQuery, items: items)
                     }
                     .navigationTitle(Text("Search", comment: "Navigation title."))
                 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22203.2" systemVersion="23A5301g" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22203.2" systemVersion="23A5328b" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Feed" representedClassName="Feed" syncable="YES" codeGenerationType="category">
         <attribute name="browserView" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="hideBylines" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -121,9 +121,16 @@
         <attribute name="tint" optional="YES" attributeType="String"/>
         <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="History" inverseName="profile" inverseEntity="History"/>
         <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Page" inverseName="profile" inverseEntity="Page"/>
+        <relationship name="searches" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Search" inverseName="profile" inverseEntity="Search"/>
         <fetchedProperty name="trends" optional="YES">
             <fetchRequest name="fetchedPropertyFetchRequest" entity="Trend" predicateString="profileId = $FETCH_SOURCE.id"/>
         </fetchedProperty>
+    </entity>
+    <entity name="Search" representedClassName="Search" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="query" optional="YES" attributeType="String"/>
+        <attribute name="submitted" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Profile" inverseName="searches" inverseEntity="Profile"/>
     </entity>
     <entity name="Trend" representedClassName="Trend" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -146,6 +153,7 @@
         <memberEntity name="Page"/>
         <memberEntity name="Feed"/>
         <memberEntity name="Profile"/>
+        <memberEntity name="Search"/>
     </configuration>
     <configuration name="Local">
         <memberEntity name="Item"/>
