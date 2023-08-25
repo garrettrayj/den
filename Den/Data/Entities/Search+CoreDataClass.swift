@@ -15,7 +15,7 @@ public class Search: NSManagedObject {
     public var wrappedQuery: String {
         query ?? ""
     }
-    
+
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         profile: Profile,

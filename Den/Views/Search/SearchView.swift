@@ -47,9 +47,9 @@ struct SearchView: View {
                     .toolbar {
                         SearchToolbar(hideRead: $hideRead, query: search.wrappedQuery, items: items)
                     }
-                    .navigationTitle(Text("Search", comment: "Navigation title."))
                 }
             }
         }
+        .navigationTitle(Text("Search", comment: "Navigation title."))
     }
 }

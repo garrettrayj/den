@@ -129,7 +129,7 @@ public class Profile: NSManagedObject {
         ) as? [Search] {
             return searchesArray
         }
-        
+
         return []
     }
 

@@ -108,7 +108,7 @@ struct DenApp: App {
         if let lastCleaned = lastCleanup {
             let nextCleanup = Date(timeIntervalSince1970: lastCleaned) + 7 * 24 * 60 * 60
             if nextCleanup > .now {
-                Logger.main.debug("Next cleanup after: \(nextCleanup.formatted(), privacy: .public)")
+                Logger.main.debug("Next cleanup after \(nextCleanup.formatted(), privacy: .public)")
             }
             return
         }
@@ -116,7 +116,8 @@ struct DenApp: App {
         persistenceController.container.performBackgroundTask { context in
             guard let profiles = try? context.fetch(Profile.fetchRequest()) as [Profile] else { return }
             for profile in profiles {
-                try? HistoryUtility.removeExpired(context: context, profile: profile)
+                try? CleanupUtility.removeExpiredHistory(context: context, profile: profile)
+                CleanupUtility.trimSearches(context: context, profile: profile)
             }
             try? CleanupUtility.purgeOrphans(context: context)
             try? context.save()

@@ -60,7 +60,7 @@ struct Sidebar: View {
             prompt: Text("Search", comment: "Search field prompt.")
         )
         .searchSuggestions {
-            ForEach(profile.searchesArray.prefix(10)) { search in
+            ForEach(profile.searchesArray.prefix(20)) { search in
                 if search.wrappedQuery != "" {
                     Text(verbatim: search.wrappedQuery).searchCompletion(search.wrappedQuery)
                 }
@@ -78,11 +78,7 @@ struct Sidebar: View {
                 return
             }
 
-            let search = Search.create(
-                in: viewContext,
-                profile: profile,
-                query: searchInput
-            )
+            let search = Search.create(in: viewContext, profile: profile, query: searchInput)
             do {
                 try viewContext.save()
                 detailPanel = .search(search)

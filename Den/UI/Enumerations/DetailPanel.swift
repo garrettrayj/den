@@ -80,7 +80,7 @@ extension DetailPanel: Decodable {
             }
         } else if panelID == "search" && values.contains(.searchID) {
             let decodedSearchID = try values.decode(String.self, forKey: .searchID)
-            
+
             let request = Search.fetchRequest()
             request.predicate = NSPredicate(format: "id = %@", decodedSearchID)
 
