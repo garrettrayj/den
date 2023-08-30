@@ -10,6 +10,7 @@
 
 import CoreData
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct PageNavLink: View {
     #if os(iOS)
@@ -18,6 +19,10 @@ struct PageNavLink: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
+
+    @Binding var newFeedPageID: String?
+    @Binding var newFeedWebAddress: String
+    @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
         NavigationLink(value: DetailPanel.page(page)) {
@@ -57,6 +62,17 @@ struct PageNavLink: View {
                 Text("Delete", comment: "Button label.")
             }
         }
+        .contentShape(Rectangle())
+        .onDrop(
+            of: [.feed, .url, .text],
+            delegate: FeedDropDelegate(
+                context: viewContext,
+                page: page,
+                newFeedPageID: $newFeedPageID,
+                newFeedWebAddress: $newFeedWebAddress,
+                showingNewFeedSheet: $showingNewFeedSheet
+            )
+        )
         .accessibilityIdentifier("PageNavLink")
     }
 }

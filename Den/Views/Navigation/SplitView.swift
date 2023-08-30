@@ -47,6 +47,8 @@ struct SplitView: View {
                 profile: profile,
                 currentProfileID: $currentProfileID,
                 detailPanel: $detailPanel,
+                newFeedPageID: $newFeedPageID,
+                newFeedWebAddress: $newFeedWebAddress,
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
@@ -80,31 +82,12 @@ struct SplitView: View {
             }.value
         }
         .onOpenURL { url in
-            handleNewFeed(urlString: url.absoluteString)
+            if case .page(let page) = detailPanel {
+                newFeedPageID = page.id?.uuidString
+            }
+            newFeedWebAddress = url.absoluteStringForNewFeed
+            showingNewFeedSheet = true
         }
-        .onDrop(of: [.url, .text], isTargeted: nil, perform: { providers in
-            guard let provider: NSItemProvider = providers.first else { return false }
-
-            if provider.canLoadObject(ofClass: URL.self) {
-                _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
-                    if let url = url {
-                        handleNewFeed(urlString: url.absoluteString)
-                    }
-                })
-                return true
-            }
-
-            if provider.canLoadObject(ofClass: String.self) {
-                _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
-                    if let droppedString = droppedString {
-                        handleNewFeed(urlString: droppedString)
-                    }
-                })
-                return true
-            }
-
-            return false
-        })
         .task {
             if let navigationData {
                 navigationStore.restore(from: navigationData)
@@ -145,9 +128,8 @@ struct SplitView: View {
         }
         .onChange(of: showingNewFeedSheet) {
             if showingNewFeedSheet {
-                if case .page(let page) = detailPanel, showingNewFeedSheet {
-                    newFeedPageID = page.id?.uuidString
-                }
+                guard newFeedPageID == nil, case .page(let page) = detailPanel else { return }
+                newFeedPageID = page.id?.uuidString
             } else {
                 newFeedPageID = nil
                 newFeedWebAddress = ""
@@ -211,14 +193,5 @@ struct SplitView: View {
             }
         }
         .navigationTitle(profile.nameText)
-    }
-
-    private func handleNewFeed(urlString: String) {
-        let cleanedURLString = urlString
-            .replacingOccurrences(of: "feed:", with: "")
-            .replacingOccurrences(of: "den:", with: "")
-
-        newFeedWebAddress = cleanedURLString
-        showingNewFeedSheet = true
     }
 }

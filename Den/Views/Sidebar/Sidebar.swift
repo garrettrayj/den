@@ -21,6 +21,8 @@ struct Sidebar: View {
 
     @Binding var currentProfileID: String?
     @Binding var detailPanel: DetailPanel?
+    @Binding var newFeedPageID: String?
+    @Binding var newFeedWebAddress: String
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
@@ -50,7 +52,12 @@ struct Sidebar: View {
                 TrendingNavLink(profile: profile)
                 #endif
 
-                PagesSection(profile: profile)
+                PagesSection(
+                    profile: profile,
+                    newFeedPageID: $newFeedPageID,
+                    newFeedWebAddress: $newFeedWebAddress,
+                    showingNewFeedSheet: $showingNewFeedSheet
+                )
             }
         }
         .listStyle(.sidebar)

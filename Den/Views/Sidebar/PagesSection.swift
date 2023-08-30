@@ -15,10 +15,19 @@ struct PagesSection: View {
 
     @ObservedObject var profile: Profile
 
+    @Binding var newFeedPageID: String?
+    @Binding var newFeedWebAddress: String
+    @Binding var showingNewFeedSheet: Bool
+
     var body: some View {
         Section {
             ForEach(profile.pagesArray) { page in
-                PageNavLink(page: page)
+                PageNavLink(
+                    page: page,
+                    newFeedPageID: $newFeedPageID,
+                    newFeedWebAddress: $newFeedWebAddress,
+                    showingNewFeedSheet: $showingNewFeedSheet
+                )
             }
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)

@@ -21,13 +21,33 @@ struct NoFeeds: View {
                 Image(systemName: "circle.slash")
             }
         } description: {
+            #if os(macOS)
             Text(
                 """
-                Open a syndication link, drag and drop a URL, \
+                Open syndication links, drag and drop URLs on the page list, \
                 use the Safari extension to discover feeds on websites, or…
                 """,
                 comment: "Empty page guidance."
             )
+            #else
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                Text(
+                    """
+                    Open syndication links, \
+                    use the Safari extension to discover feeds on websites, or…
+                    """,
+                    comment: "Empty page guidance (no drag-n-drop)."
+                )
+            } else {
+                Text(
+                    """
+                    Open syndication links, drag and drop URLs on the page list, \
+                    use the Safari extension to discover feeds on websites, or…
+                    """,
+                    comment: "Empty page guidance."
+                )
+            }
+            #endif
         } actions: {
             Button {
                 showingNewFeedSheet = true
@@ -35,7 +55,7 @@ struct NoFeeds: View {
                 Label {
                     Text("Enter a Web Address", comment: "Button label.")
                 } icon: {
-                    Image(systemName: "plus")
+                    Image(systemName: "note.text.badge.plus")
                 }
             }
         }

@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SUFeedURL</key>
-	<string>https://den.io/appcast.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>auZb4LLMreOKV5ILcESR0cV2zeZZClHhcNjyjTIy0eA=</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>net.devsci.den.cleanup</string>
@@ -71,6 +67,10 @@
 	<string>Copyright © 2023 Garrett Johnson</string>
 	<key>SUEnableInstallerLauncherService</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>https://den.io/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>auZb4LLMreOKV5ILcESR0cV2zeZZClHhcNjyjTIy0eA=</string>
 	<key>UIAppFonts</key>
 	<array/>
 	<key>UIApplicationSceneManifest</key>
@@ -127,6 +127,23 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Feed</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>net.devsci.den.transferable.feed</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
