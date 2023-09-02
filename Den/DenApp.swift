@@ -14,7 +14,8 @@ import SwiftUI
 import SDWebImage
 import SDWebImageWebPCoder
 import SDWebImageSVGCoder
-#if os(macOS)
+
+#if canImport(Sparkle)
 import Sparkle
 #endif
 
@@ -32,7 +33,7 @@ struct DenApp: App {
 
     let persistenceController = PersistenceController.shared
 
-    #if os(macOS)
+    #if canImport(Sparkle)
     private let updaterController: SPUStandardUpdaterController
     #endif
 
@@ -49,13 +50,13 @@ struct DenApp: App {
                 }
         }
         .commands {
-            ToolbarCommands()
-            SidebarCommands()
-            #if os(macOS)
+            #if canImport(Sparkle)
             CommandGroup(after: .appInfo) {
                 CheckForUpdatesView(updater: updaterController.updater)
             }
             #endif
+            ToolbarCommands()
+            SidebarCommands()
             CommandGroup(replacing: .help) {
                 Button {
                     openURL(URL(string: "https://den.io/help/")!)
@@ -94,7 +95,7 @@ struct DenApp: App {
     }
 
     init() {
-        #if os(macOS)
+        #if canImport(Sparkle)
         updaterController = SPUStandardUpdaterController(
             startingUpdater: true,
             updaterDelegate: nil,

@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-#if os(macOS)
+#if canImport(Sparkle)
 import SwiftUI
 
 import Sparkle

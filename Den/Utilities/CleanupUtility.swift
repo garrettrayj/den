@@ -80,6 +80,7 @@ struct CleanupUtility {
     }
 
     static func trimSearches(context: NSManagedObjectContext, profile: Profile) {
+        guard profile.searchesArray.count > 20 else { return }
         var removedSearches = 0
         profile.searchesArray.suffix(from: 20).forEach { search in
             context.delete(search)

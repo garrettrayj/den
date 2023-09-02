@@ -15,11 +15,11 @@ import UniformTypeIdentifiers
 struct FeedDropDelegate: DropDelegate {
     let context: NSManagedObjectContext
     let page: Page
-    
+
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
-    
+
     var moveEnabled: Bool = true
 
     func performDrop(info: DropInfo) -> Bool {
