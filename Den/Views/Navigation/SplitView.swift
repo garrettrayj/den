@@ -16,7 +16,6 @@ import UniformTypeIdentifiers
 struct SplitView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @Environment(\.feedRefreshTimeout) private var feedRefreshTimeout
 
     @ObservedObject var profile: Profile
 
@@ -78,7 +77,7 @@ struct SplitView: View {
         .refreshable {
             await Task {
                 guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
-                await RefreshManager.refresh(profile: profile, timeout: feedRefreshTimeout)
+                await RefreshManager.refresh(profile: profile)
             }.value
         }
         .onOpenURL { url in

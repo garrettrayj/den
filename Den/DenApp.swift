@@ -42,7 +42,6 @@ struct DenApp: App {
             RootView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environment(\.useSystemBrowser, useSystemBrowser)
-                .environment(\.feedRefreshTimeout, feedRefreshTimeout)
                 .environmentObject(networkMonitor)
                 .preferredColorScheme(userColorScheme.colorScheme)
                 .task {

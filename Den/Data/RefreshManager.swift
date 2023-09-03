@@ -14,7 +14,6 @@ import OSLog
 final class RefreshManager {
     static public func refresh(
         profile: Profile,
-        timeout: Int,
         session: URLSession = URLSession.shared
     ) async {
         await MainActor.run {
@@ -30,8 +29,7 @@ final class RefreshManager {
                         pageObjectID: feed.page?.objectID,
                         profileObjectID: feed.page?.profile?.objectID,
                         url: url,
-                        updateMeta: feed.needsMetaUpdate,
-                        timeout: Double(timeout)
+                        updateMeta: feed.needsMetaUpdate
                     )
                 )
             }
@@ -58,23 +56,22 @@ final class RefreshManager {
         }
 
         await AnalyzeTask(profileObjectID: profile.objectID).execute()
-        
+
         RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
-        
+
         await MainActor.run {
             NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
         }
     }
 
-    static func refresh(feed: Feed, timeout: Int) async {
+    static func refresh(feed: Feed) async {
         if let url = feed.url {
             let feedUpdateTask = FeedUpdateTask(
                 feedObjectID: feed.objectID,
                 pageObjectID: feed.page?.objectID,
                 profileObjectID: feed.page?.profile?.objectID,
                 url: url,
-                updateMeta: true,
-                timeout: Double(timeout)
+                updateMeta: true
             )
             _ = await feedUpdateTask.execute()
         }

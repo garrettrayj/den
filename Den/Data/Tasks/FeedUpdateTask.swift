@@ -19,7 +19,6 @@ class FeedUpdateTask {
     let profileObjectID: NSManagedObjectID?
     let url: URL
     let updateMeta: Bool
-    let timeout: TimeInterval
 
     private var parsedSuccessfully: Bool = false
     private var parserResult: Result<FeedKit.Feed, FeedKit.ParserError>?
@@ -31,15 +30,13 @@ class FeedUpdateTask {
         pageObjectID: NSManagedObjectID?,
         profileObjectID: NSManagedObjectID?,
         url: URL,
-        updateMeta: Bool,
-        timeout: TimeInterval
+        updateMeta: Bool
     ) {
         self.feedObjectID = feedObjectID
         self.pageObjectID = pageObjectID
         self.profileObjectID = profileObjectID
         self.url = url
         self.updateMeta = updateMeta
-        self.timeout = timeout
     }
 
     // swiftlint:disable cyclomatic_complexity function_body_length
@@ -49,7 +46,7 @@ class FeedUpdateTask {
         let context = PersistenceController.shared.container.newBackgroundContext()
         context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
 
-        let feedRequest = URLRequest(url: url, timeoutInterval: timeout)
+        let feedRequest = URLRequest(url: url)
 
         var feedResponse = FeedURLResponse()
         if let (data, urlResponse) = try? await URLSession.shared.data(for: feedRequest) {
@@ -114,7 +111,7 @@ class FeedUpdateTask {
         if updateMeta && parsedSuccessfully {
             var webpageMetadata: WebpageMetadata.Results?
             if let webpage = webpage {
-                let webpageRequest = URLRequest(url: webpage, timeoutInterval: timeout)
+                let webpageRequest = URLRequest(url: webpage)
                 if let (webpageData, _) = try? await URLSession.shared.data(for: webpageRequest) {
                     webpageMetadata = WebpageMetadata(webpage: webpage, data: webpageData).results
                 }

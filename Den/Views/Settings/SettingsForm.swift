@@ -18,7 +18,6 @@ struct SettingsForm: View {
         Form {
             Section {
                 UserColorSchemePicker(userColorScheme: $userColorScheme).pickerStyle(.segmented)
-                FeedRefreshTimeoutSlider(feedRefreshTimeout: $feedRefreshTimeout)
             } header: {
                 Text("General", comment: "Settings section header.")
             }

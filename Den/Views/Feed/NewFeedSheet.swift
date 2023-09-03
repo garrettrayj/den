@@ -14,7 +14,6 @@ import SwiftUI
 struct NewFeedSheet: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.feedRefreshTimeout) private var feedRefreshTimeout
 
     @ObservedObject var profile: Profile
 
@@ -103,7 +102,7 @@ struct NewFeedSheet: View {
         Button {
             Task {
                 addFeed()
-                await RefreshManager.refresh(feed: newFeed!, timeout: feedRefreshTimeout)
+                await RefreshManager.refresh(feed: newFeed!)
                 newFeed?.page?.profile?.objectWillChange.send()
                 webAddress = ""
                 dismiss()
