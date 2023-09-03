@@ -59,14 +59,11 @@ struct FeedView: View {
         .sheet(
             isPresented: $showingFeedConfiguration,
             onDismiss: {
-                DispatchQueue.main.async {
-                    if viewContext.hasChanges {
-                        do {
-                            try viewContext.save()
-                            feed.page?.profile?.objectWillChange.send()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
                     }
                 }
             },

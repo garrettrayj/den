@@ -17,15 +17,8 @@ final class RefreshManager {
         timeout: Int,
         session: URLSession = URLSession.shared
     ) async {
-        DispatchQueue.main.async {
+        await MainActor.run {
             NotificationCenter.default.post(name: .refreshStarted, object: profile.objectID)
-        }
-
-        defer {
-            RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
-            DispatchQueue.main.async {
-                NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
-            }
         }
 
         var feedUpdateTasks: [FeedUpdateTask] = []
@@ -60,11 +53,17 @@ final class RefreshManager {
             }
         )
 
-        DispatchQueue.main.async {
+        await MainActor.run {
             NotificationCenter.default.post(name: .refreshProgressed, object: profile.objectID)
         }
 
         await AnalyzeTask(profileObjectID: profile.objectID).execute()
+        
+        RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
+        
+        await MainActor.run {
+            NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)
+        }
     }
 
     static func refresh(feed: Feed, timeout: Int) async {

@@ -74,14 +74,4 @@ struct PagesSection: View {
             CrashUtility.handleCriticalError(error as NSError)
         }
     }
-
-    private func addPage() {
-        _ = Page.create(in: viewContext, profile: profile, prepend: true)
-
-        do {
-            try viewContext.save()
-        } catch {
-            CrashUtility.handleCriticalError(error as NSError)
-        }
-    }
 }

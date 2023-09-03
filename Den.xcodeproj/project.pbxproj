@@ -552,7 +552,7 @@
 		680F495129AB2A240083B664 /* RefreshedDateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshedDateStorage.swift; sourceTree = "<group>"; };
 		681087C829FB74A900F2630C /* PreviewStylePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStylePicker.swift; sourceTree = "<group>"; };
 		681087D229FEEE1100F2630C /* ItemTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTitle.swift; sourceTree = "<group>"; };
-		6813FD082748DE1100EC88A5 /* SymbolLibrary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SymbolLibrary; sourceTree = BUILT_PRODUCTS_DIR; };
+		6813FD082748DE1100EC88A5 /* Symbol Library */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Symbol Library"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6813FD0A2748DE1100EC88A5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		681AEAF829954AC70054B084 /* FeedHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHero.swift; sourceTree = "<group>"; };
 		681C0DDB2A7F531E007B1A7E /* CheckForUpdates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckForUpdates.swift; sourceTree = "<group>"; };
@@ -764,7 +764,7 @@
 		68E6C54B2A69D7C800CA46B2 /* ClearDataButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearDataButton.swift; sourceTree = "<group>"; };
 		68E6C5612A6C86D300CA46B2 /* CardNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNote.swift; sourceTree = "<group>"; };
 		68E6C5632A6CC48E00CA46B2 /* CleanupUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleanupUtility.swift; sourceTree = "<group>"; };
-		68E83BF92A6004590014DC64 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		68E83BF92A6004590014DC64 /* UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLaunchUITests.swift; sourceTree = "<group>"; };
 		68E9BDB4279CFF3D003BA111 /* HTMLContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLContent.swift; sourceTree = "<group>"; };
 		68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
@@ -1166,9 +1166,9 @@
 			isa = PBXGroup;
 			children = (
 				68C41309247263C700D1DC7B /* Den.app */,
-				6813FD082748DE1100EC88A5 /* SymbolLibrary */,
+				6813FD082748DE1100EC88A5 /* Symbol Library */,
 				6860690E2831501B000068DE /* Den Web Extension.appex */,
-				68E83BF92A6004590014DC64 /* UITests.xctest */,
+				68E83BF92A6004590014DC64 /* UI Tests.xctest */,
 				683C36402A9F188700568E9A /* Den.app */,
 			);
 			name = Products;
@@ -1417,9 +1417,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6813FD072748DE1100EC88A5 /* SymbolLibrary */ = {
+		6813FD072748DE1100EC88A5 /* Symbol Library */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6813FD0C2748DE1100EC88A5 /* Build configuration list for PBXNativeTarget "SymbolLibrary" */;
+			buildConfigurationList = 6813FD0C2748DE1100EC88A5 /* Build configuration list for PBXNativeTarget "Symbol Library" */;
 			buildPhases = (
 				6813FD042748DE1100EC88A5 /* Sources */,
 				6813FD052748DE1100EC88A5 /* Frameworks */,
@@ -1429,14 +1429,14 @@
 			);
 			dependencies = (
 			);
-			name = SymbolLibrary;
+			name = "Symbol Library";
 			productName = DenSymbolLib;
-			productReference = 6813FD082748DE1100EC88A5 /* SymbolLibrary */;
+			productReference = 6813FD082748DE1100EC88A5 /* Symbol Library */;
 			productType = "com.apple.product-type.tool";
 		};
-		683C35442A9F188700568E9A /* DenDirect */ = {
+		683C35442A9F188700568E9A /* Den Direct */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 683C363D2A9F188700568E9A /* Build configuration list for PBXNativeTarget "DenDirect" */;
+			buildConfigurationList = 683C363D2A9F188700568E9A /* Build configuration list for PBXNativeTarget "Den Direct" */;
 			buildPhases = (
 				683C35572A9F188700568E9A /* ShellScript */,
 				683C35582A9F188700568E9A /* ShellScript */,
@@ -1452,7 +1452,7 @@
 			dependencies = (
 				683C35452A9F188700568E9A /* PBXTargetDependency */,
 			);
-			name = DenDirect;
+			name = "Den Direct";
 			packageProductDependencies = (
 				683C35472A9F188700568E9A /* AEXML */,
 				683C35492A9F188700568E9A /* HTMLEntities */,
@@ -1467,9 +1467,9 @@
 			productReference = 683C36402A9F188700568E9A /* Den.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6860690D2831501B000068DE /* WebExtension */ = {
+		6860690D2831501B000068DE /* Safari Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 686069472831501B000068DE /* Build configuration list for PBXNativeTarget "WebExtension" */;
+			buildConfigurationList = 686069472831501B000068DE /* Build configuration list for PBXNativeTarget "Safari Extension" */;
 			buildPhases = (
 				6860690A2831501B000068DE /* Sources */,
 				6860690B2831501B000068DE /* Frameworks */,
@@ -1479,7 +1479,7 @@
 			);
 			dependencies = (
 			);
-			name = WebExtension;
+			name = "Safari Extension";
 			productName = "SafariExtension Extension (iOS)";
 			productReference = 6860690E2831501B000068DE /* Den Web Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1515,9 +1515,9 @@
 			productReference = 68C41309247263C700D1DC7B /* Den.app */;
 			productType = "com.apple.product-type.application";
 		};
-		68E83BF82A6004590014DC64 /* UITests */ = {
+		68E83BF82A6004590014DC64 /* UI Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 68E83C012A6004590014DC64 /* Build configuration list for PBXNativeTarget "UITests" */;
+			buildConfigurationList = 68E83C012A6004590014DC64 /* Build configuration list for PBXNativeTarget "UI Tests" */;
 			buildPhases = (
 				68E83BF52A6004590014DC64 /* Sources */,
 				68E83BF62A6004590014DC64 /* Frameworks */,
@@ -1528,9 +1528,9 @@
 			dependencies = (
 				68E83C002A6004590014DC64 /* PBXTargetDependency */,
 			);
-			name = UITests;
+			name = "UI Tests";
 			productName = DenUITests;
-			productReference = 68E83BF92A6004590014DC64 /* UITests.xctest */;
+			productReference = 68E83BF92A6004590014DC64 /* UI Tests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -1585,10 +1585,10 @@
 			projectRoot = "";
 			targets = (
 				68C41308247263C700D1DC7B /* Den */,
-				683C35442A9F188700568E9A /* DenDirect */,
-				6860690D2831501B000068DE /* WebExtension */,
-				68E83BF82A6004590014DC64 /* UITests */,
-				6813FD072748DE1100EC88A5 /* SymbolLibrary */,
+				683C35442A9F188700568E9A /* Den Direct */,
+				6860690D2831501B000068DE /* Safari Extension */,
+				68E83BF82A6004590014DC64 /* UI Tests */,
+				6813FD072748DE1100EC88A5 /* Symbol Library */,
 			);
 		};
 /* End PBXProject section */
@@ -2244,12 +2244,12 @@
 /* Begin PBXTargetDependency section */
 		683C35452A9F188700568E9A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6860690D2831501B000068DE /* WebExtension */;
+			target = 6860690D2831501B000068DE /* Safari Extension */;
 			targetProxy = 683C35462A9F188700568E9A /* PBXContainerItemProxy */;
 		};
 		6860694E2831533E000068DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6860690D2831501B000068DE /* WebExtension */;
+			target = 6860690D2831501B000068DE /* Safari Extension */;
 			targetProxy = 6860694D2831533E000068DE /* PBXContainerItemProxy */;
 		};
 		68E83C002A6004590014DC64 /* PBXTargetDependency */ = {
@@ -2729,7 +2729,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6813FD0C2748DE1100EC88A5 /* Build configuration list for PBXNativeTarget "SymbolLibrary" */ = {
+		6813FD0C2748DE1100EC88A5 /* Build configuration list for PBXNativeTarget "Symbol Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6813FD0D2748DE1100EC88A5 /* Debug */,
@@ -2738,7 +2738,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		683C363D2A9F188700568E9A /* Build configuration list for PBXNativeTarget "DenDirect" */ = {
+		683C363D2A9F188700568E9A /* Build configuration list for PBXNativeTarget "Den Direct" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				683C363E2A9F188700568E9A /* Debug */,
@@ -2747,7 +2747,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		686069472831501B000068DE /* Build configuration list for PBXNativeTarget "WebExtension" */ = {
+		686069472831501B000068DE /* Build configuration list for PBXNativeTarget "Safari Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				686069432831501B000068DE /* Debug */,
@@ -2774,7 +2774,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		68E83C012A6004590014DC64 /* Build configuration list for PBXNativeTarget "UITests" */ = {
+		68E83C012A6004590014DC64 /* Build configuration list for PBXNativeTarget "UI Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				68E83C022A6004590014DC64 /* Debug */,

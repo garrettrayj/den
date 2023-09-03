@@ -138,7 +138,7 @@ class FeedUpdateTask {
             }
         }
 
-        DispatchQueue.main.async {
+        await MainActor.run {
             NotificationCenter.default.post(
                 name: .refreshProgressed,
                 object: self.profileObjectID,

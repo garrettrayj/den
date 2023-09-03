@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<opml version="1.0">
+<opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Demo</title>
+		<title>Home Sep 2, 2023 at 10:05 PM</title>
 	</head>
 	<body>
 		<outline den:icon="globe" text="World News" title="World News">
@@ -96,7 +96,7 @@
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="SatNews" title="SatNews" type="rss" xmlUrl="https://news.satnews.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="EarthSky" title="EarthSky" type="rss" xmlUrl="https://earthsky.org/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Astronomy Now" title="Astronomy Now" type="rss" xmlUrl="https://astronomynow.com/feed/" />
-			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="BBC Sky at Night Magazine" title="BBC Sky at Night Magazine" type="rss" xmlUrl="https://www.skyatnightmagazine.com/feed/atom/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="National Radio Astronomy Observatory" title="National Radio Astronomy Observatory" type="rss" xmlUrl="https://public.nrao.edu/feed/" />
 		</outline>
 		<outline den:icon="face.smiling" text="Funnies" title="Funnies">
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Onion" title="The Onion" type="rss" xmlUrl="https://www.theonion.com/feeds/rss" />

@@ -19,16 +19,11 @@ struct NewPageButton: View {
 
     var body: some View {
         Button {
-            Task {
-                let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
-                do {
-                    try viewContext.save()
-                    DispatchQueue.main.async {
-                        detailPanel = .page(newPage)
-                    }
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
+            let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
+            do {
+                try viewContext.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
             }
         } label: {
             Label {

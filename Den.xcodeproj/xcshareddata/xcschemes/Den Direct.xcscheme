@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "683C35442A9F188700568E9A"
                BuildableName = "Den.app"
-               BlueprintName = "DenDirect"
+               BlueprintName = "Den Direct"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -73,8 +73,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "68E83BF82A6004590014DC64"
-               BuildableName = "UITests.xctest"
-               BlueprintName = "UITests"
+               BuildableName = "UI Tests.xctest"
+               BlueprintName = "UI Tests"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
             <DeviceAppData
@@ -103,7 +103,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "683C35442A9F188700568E9A"
             BuildableName = "Den.app"
-            BlueprintName = "DenDirect"
+            BlueprintName = "Den Direct"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -150,7 +150,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "683C35442A9F188700568E9A"
             BuildableName = "Den.app"
-            BlueprintName = "DenDirect"
+            BlueprintName = "Den Direct"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -17,7 +17,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6860690D2831501B000068DE"
                BuildableName = "Den Web Extension.appex"
-               BlueprintName = "WebExtension"
+               BlueprintName = "Safari Extension"
                ReferencedContainer = "container:Den.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -51,7 +51,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
             BuildableName = "Den Web Extension.appex"
-            BlueprintName = "WebExtension"
+            BlueprintName = "Safari Extension"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -67,7 +67,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6860690D2831501B000068DE"
             BuildableName = "Den Web Extension.appex"
-            BlueprintName = "WebExtension"
+            BlueprintName = "Safari Extension"
             ReferencedContainer = "container:Den.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -24,5 +24,6 @@ struct CrashMessage: View {
                 comment: "Crash view guidance."
             )
         }
+        .padding()
     }
 }
