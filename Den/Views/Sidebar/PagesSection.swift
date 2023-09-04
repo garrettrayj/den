@@ -28,6 +28,18 @@ struct PagesSection: View {
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
+                .contextMenu {
+                    Button {
+                        viewContext.delete(page)
+                        do {
+                            try viewContext.save()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    } label: {
+                        Text("Delete", comment: "Button label.")
+                    }
+                }
             }
             .onMove(perform: movePage)
             .onDelete(perform: deletePage)

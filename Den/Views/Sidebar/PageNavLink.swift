@@ -25,43 +25,25 @@ struct PageNavLink: View {
     @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
-        NavigationLink(value: DetailPanel.page(page)) {
-            Label {
-                #if os(macOS)
+        Label {
+            #if os(macOS)
+            WithItems(scopeObject: page, readFilter: false) { items in
+                TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+            }
+            #else
+            if editMode?.wrappedValue.isEditing == true {
+                page.nameText
+            } else {
                 WithItems(scopeObject: page, readFilter: false) { items in
-                    TextField(text: $page.wrappedName) { page.nameText }.badge(items.count)
+                    page.nameText.badge(items.count)
                 }
-                #else
-                if editMode?.wrappedValue.isEditing == true {
-                    page.nameText
-                } else {
-                    WithItems(scopeObject: page, readFilter: false) { items in
-                        page.nameText.badge(items.count)
-                    }
-                }
-                #endif
-            } icon: {
-                Image(systemName: page.wrappedSymbol)
             }
-            .lineLimit(1)
+            #endif
+        } icon: {
+            Image(systemName: page.wrappedSymbol)
         }
-        .contextMenu {
-            Button {
-                page.feedsArray.forEach { feed in
-                    if let feedData = feed.feedData {
-                        viewContext.delete(feedData)
-                    }
-                }
-                viewContext.delete(page)
-                do {
-                    try viewContext.save()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            } label: {
-                Text("Delete", comment: "Button label.")
-            }
-        }
+        .lineLimit(1)
+        .tag(DetailPanel.page(page))
         .contentShape(Rectangle())
         .onDrop(
             of: [.feed, .url, .text],

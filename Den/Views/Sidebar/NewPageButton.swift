@@ -19,9 +19,10 @@ struct NewPageButton: View {
 
     var body: some View {
         Button {
-            let newPage = Page.create(in: viewContext, profile: profile, prepend: true)
+            let newPage = Page.create(in: viewContext, profile: profile, prepend: false)
             do {
                 try viewContext.save()
+                detailPanel = .page(newPage)
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
