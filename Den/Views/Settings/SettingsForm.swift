@@ -30,7 +30,7 @@ struct SettingsForm: View {
             }
         }
         .formStyle(.grouped)
-        .frame(minWidth: 400, maxWidth: 500, minHeight: 360, maxHeight: 400)
+        .frame(width: 400, height: 240)
         .navigationTitle(Text("Settings", comment: "Navigation title."))
     }
 }
