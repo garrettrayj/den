@@ -74,7 +74,10 @@ struct Sidebar: View {
             }
         }
         .onSubmit(of: .search) {
-            if let search = profile.searchesArray.first(where: { $0.query == searchInput }) {
+            if let search = profile.searchesArray.first(where: {
+                $0.query?.lowercased() == searchInput.lowercased()
+            }) {
+                search.query = searchInput
                 search.submitted = Date()
                 do {
                     try viewContext.save()
