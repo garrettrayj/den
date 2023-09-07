@@ -23,13 +23,18 @@ struct ItemCompressed: View {
                     .multilineTextAlignment(.leading)
 
                 if feed.hideBylines == false, let author = item.author {
-                    Text(author).font(.subheadline).lineLimit(2)
+                    Text(author)
+                        .font(.subheadline.weight(.medium))
+                        .lineLimit(2)
+                        .foregroundStyle(.secondary)
                 }
 
                 PublishedDateActionLine(
                     date: item.date,
                     browserView: feed.browserView
-                ).font(.caption2)
+                )
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.secondary)
             }
 
             if feed.hideImages != true, let url = item.image {

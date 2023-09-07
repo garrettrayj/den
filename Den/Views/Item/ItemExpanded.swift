@@ -23,13 +23,18 @@ struct ItemExpanded: View {
             ItemTitle(item: item)
 
             if feed.hideBylines == false, let author = item.author {
-                Text(author).font(.subheadline).lineLimit(2)
+                Text(author)
+                    .font(.subheadline.weight(.medium))
+                    .lineLimit(2)
+                    .foregroundStyle(.secondary)
             }
 
             PublishedDateActionLine(
                 date: item.date,
                 browserView: feed.browserView
-            ).font(.caption2)
+            )
+            .font(.caption2.weight(.semibold))
+            .foregroundStyle(.secondary)
 
             if feed.hideImages != true, let url = item.image {
                 ItemPreviewImage(
@@ -43,7 +48,8 @@ struct ItemExpanded: View {
 
             if showTeaser {
                 Text(item.teaser!)
-                    .font(.callout)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
                     .lineLimit(6)
                     .padding(.top, 4)
             }
