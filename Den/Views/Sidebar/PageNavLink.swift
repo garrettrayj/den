@@ -32,7 +32,7 @@ struct PageNavLink: View {
             }
             #else
             if editMode?.wrappedValue.isEditing == true {
-                page.nameText
+                TextField(text: $page.wrappedName) { page.nameText }
             } else {
                 WithItems(scopeObject: page, readFilter: false) { items in
                     page.nameText.badge(items.count)

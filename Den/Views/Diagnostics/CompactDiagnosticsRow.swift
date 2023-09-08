@@ -69,19 +69,31 @@ struct CompactDiagnosticsRow: View {
                 }
 
                 LabeledContent {
-                    Text(verbatim: "\(data.cacheControl)")
+                    if data.cacheControl == "" {
+                        Text("Not Available")
+                    } else {
+                        Text(verbatim: "\(data.cacheControl)")
+                    }
                 } label: {
                     Text("Cache Control", comment: "Diagnostics header.")
                 }
 
                 LabeledContent {
-                    Text(verbatim: "\(data.eTag)")
+                    if data.eTag == "" {
+                        Text("Not Available")
+                    } else {
+                        Text(verbatim: "\(data.eTag)")
+                    }
                 } label: {
                     Text("ETag", comment: "Diagnostics header.")
                 }
 
                 LabeledContent {
-                    Text(verbatim: "\(data.server)")
+                    if data.server == "" {
+                        Text("Not Available")
+                    } else {
+                        Text(verbatim: "\(data.server)")
+                    }
                 } label: {
                     Text("Server", comment: "Diagnostics header.")
                 }

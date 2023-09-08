@@ -18,13 +18,19 @@ struct DiagnosticsTable: View {
     @ObservedObject var profile: Profile
 
     @State var sortOrder = [KeyPathComparator(\DiagnosticsRowData.responseTime, order: .reverse)]
+    @State var selection: DiagnosticsRowData.ID?
+    @State var showingInspector: Bool = false
 
     var data: [DiagnosticsRowData] {
         profile.feedsArray.map { $0.diagnosticsRowData }.sorted(using: sortOrder)
     }
 
+    var selected: DiagnosticsRowData? {
+        data.first { $0.id == selection }
+    }
+
     var body: some View {
-        Table(data, sortOrder: $sortOrder) {
+        Table(data, selection: $selection, sortOrder: $sortOrder) {
             Group {
                 TableColumn(
                     "Feed",
@@ -39,7 +45,8 @@ struct DiagnosticsTable: View {
                         FeedTitleLabel(feed: row.entity)
                     }
                     #endif
-                }.width(min: 160)
+                }
+                .width(ideal: 180)
 
                 TableColumn(
                     "Page",
@@ -53,7 +60,7 @@ struct DiagnosticsTable: View {
                     value: \.address
                 ) { row in
                     Text(verbatim: "\(row.address)")
-                }
+                }.width(ideal: 200)
 
                 TableColumn(
                     "Secure",
@@ -64,15 +71,15 @@ struct DiagnosticsTable: View {
                     } else {
                         Text("No", comment: "Boolean value.")
                     }
-                }.width(max: 60)
+                }
 
                 TableColumn(
                     "Format",
                     value: \.format
-                ).width(max: 60)
+                )
 
                 TableColumn(
-                    "Response Time",
+                    "Response",
                     value: \.responseTime
                 ) { row in
                     Text("\(row.responseTime) ms", comment: "Time display (milliseconds).")
@@ -85,36 +92,77 @@ struct DiagnosticsTable: View {
                     if row.httpStatus != -1 {
                         Text(verbatim: "\(row.httpStatus)")
                     }
-                }.width(max: 60)
-            }
-
-            Group {
-                TableColumn(
-                    "Age",
-                    value: \DiagnosticsRowData.age
-                ) { row in
-                    if row.age != -1 {
-                        Text("\(row.age) s", comment: "Time display (seconds).")
-                    }
                 }
-
-                TableColumn(
-                    "Cache Control",
-                    value: \.cacheControl
-                )
-
-                TableColumn(
-                    "ETag",
-                    value: \.eTag
-                )
-
-                TableColumn(
-                    "Server",
-                    value: \.server
-                )
             }
         }
         .textSelection(.enabled)
         .navigationTitle(Text("Diagnostics", comment: "Navigation title."))
+        .onChange(of: selection) {
+            showingInspector = true
+        }
+        .inspector(isPresented: $showingInspector) {
+            if let selected = selected {
+                List {
+                    Section {
+                        LabeledContent {
+                            if selected.age != -1 {
+                                Text("\(selected.age) s")
+                            } else {
+                                Text("Not Available")
+                            }
+                        } label: {
+                            Text("Age", comment: "Diagnostics header.")
+                        }
+
+                        LabeledContent {
+                            if selected.cacheControl == "" {
+                                Text("Not Available")
+                            } else {
+                                Text(verbatim: "\(selected.cacheControl)")
+                            }
+                        } label: {
+                            Text("Cache Control", comment: "Diagnostics header.")
+                        }
+
+                        LabeledContent {
+                            if selected.eTag == "" {
+                                Text("Not Available")
+                            } else {
+                                Text(verbatim: "\(selected.eTag)")
+                            }
+                        } label: {
+                            Text("ETag", comment: "Diagnostics header.")
+                        }
+
+                        LabeledContent {
+                            if selected.server == "" {
+                                Text("Not Available")
+                            } else {
+                                Text(verbatim: "\(selected.server)")
+                            }
+                        } label: {
+                            Text("Server", comment: "Diagnostics header.")
+                        }
+                    } header: {
+                        Text("Cache Info", comment: "Inspector section header.")
+                    }
+                }
+            } else {
+                Text("No Selection").font(.title3).foregroundStyle(.secondary)
+            }
+        }
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    showingInspector.toggle()
+                } label: {
+                    Label {
+                        Text("Inspector", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "sidebar.trailing")
+                    }
+                }
+            }
+        }
     }
 }
