@@ -13,12 +13,18 @@ import SwiftUI
 struct FeedTitleLabel: View {
     @ObservedObject var feed: Feed
 
+    @State private var iconIsHovered = false
+
     var body: some View {
         Label {
-            feed.titleText
+            feed.titleText.lineLimit(1)
         } icon: {
             FeedFavicon(url: feed.feedData?.favicon)
+                .draggable(TransferableFeed(feed: feed))
+                .onHover { hovering in
+                    iconIsHovered = hovering
+                }
+                .shadow(radius: iconIsHovered ? 2 : 0)
         }
-        .lineLimit(1)
     }
 }

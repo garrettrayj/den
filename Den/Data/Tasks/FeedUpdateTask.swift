@@ -162,8 +162,6 @@ class FeedUpdateTask {
 
             switch parsedFeed {
             case let .atom(parsedFeed):
-                feedData.format = "Atom"
-
                 let updater = AtomFeedUpdate(
                     feed: feed,
                     feedData: feedData,
@@ -172,8 +170,6 @@ class FeedUpdateTask {
                 )
                 updater.execute()
             case let .rss(parsedFeed):
-                feedData.format = "RSS"
-
                 let updater = RSSFeedUpdate(
                     feed: feed,
                     feedData: feedData,
@@ -182,8 +178,6 @@ class FeedUpdateTask {
                 )
                 updater.execute()
             case let .json(parsedFeed):
-                feedData.format = "JSON"
-
                 let updater = JSONFeedUpdate(
                     feed: feed,
                     feedData: feedData,

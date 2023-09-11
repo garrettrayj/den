@@ -50,6 +50,7 @@ struct FeedFavicon: View {
         }
         .scaledToFit()
         .frame(width: scaledSize.width, height: scaledSize.height)
+        .clipShape(RoundedRectangle(cornerRadius: 2))
         .grayscale(isEnabled ? 0 : 1)
     }
 }

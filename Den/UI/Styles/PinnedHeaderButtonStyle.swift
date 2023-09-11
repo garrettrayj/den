@@ -13,7 +13,7 @@ import SwiftUI
 struct PinnedHeaderButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
-    @State private var hovering: Bool = false
+    @State private var isHovered: Bool = false
 
     func makeBody(configuration: ButtonStyle.Configuration) -> some View {
         configuration.label
@@ -25,17 +25,17 @@ struct PinnedHeaderButtonStyle: ButtonStyle {
             .background(
                 Rectangle()
                     .fill(.thickMaterial)
-                    .background(.secondary.opacity(isEnabled && hovering ? 0.75 : 0.5))
+                    .background(.secondary.opacity(isEnabled && isHovered ? 0.75 : 0.5))
             )
             #else
             .background(
                 Rectangle()
-                    .fill(isEnabled && hovering ? .thickMaterial : .regularMaterial)
-                    .overlay(isEnabled && hovering ? .quaternary : .quinary)
+                    .fill(isEnabled && isHovered ? .thickMaterial : .regularMaterial)
+                    .overlay(isEnabled && isHovered ? .quaternary : .quinary)
             )
             #endif
-            .onHover { hovered in
-                hovering = hovered
+            .onHover { hovering in
+                isHovered = hovering
             }
     }
 }

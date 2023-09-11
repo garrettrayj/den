@@ -71,4 +71,8 @@ extension String {
 
         return self.components(separatedBy: invalidCharacters).joined(separator: ".")
     }
+
+    var urlEncoded: String? {
+        self.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+    }
 }

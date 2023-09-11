@@ -26,6 +26,7 @@ struct JSONFeedUpdate {
             feed.title = feedTitle.preparingTitle()
         }
         feedData.link = source.webpage
+        feedData.format = "JSON"
 
         if let sourceItems = source.items {
             var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })

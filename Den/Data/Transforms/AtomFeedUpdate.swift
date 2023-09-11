@@ -23,8 +23,8 @@ struct AtomFeedUpdate {
         if feed.title == nil, let feedTitle = source.title {
             feed.title = feedTitle.preparingTitle()
         }
-
         feedData.link = source.webpage
+        feedData.format = "Atom"
 
         if let sourceItems = source.entries {
             var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })

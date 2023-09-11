@@ -23,6 +23,7 @@ import Sparkle
 struct DenApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openURL) private var openURL
+    @Environment(\.undoManager) var undoManager
 
     @AppStorage("FeedRefreshTimeout") private var feedRefreshTimeout: Int = 30
     @AppStorage("LastCleanup") private var lastCleanup: Double?

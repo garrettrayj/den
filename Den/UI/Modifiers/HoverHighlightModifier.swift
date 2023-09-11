@@ -14,15 +14,15 @@ struct HoverHighlightModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.isEnabled) private var isEnabled
 
-    @State private var hovering: Bool = false
+    @State private var isHovered: Bool = false
 
     func body(content: Content) -> some View {
         content
             .onHover { hovered in
-                hovering = hovered
+                isHovered = hovered
             }
             .background {
-                if isEnabled && hovering {
+                if isEnabled && isHovered {
                     if colorScheme == .dark {
                         Rectangle().fill(.fill.tertiary)
                     } else {

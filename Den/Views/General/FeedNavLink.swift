@@ -21,10 +21,6 @@ struct FeedNavLink: View {
         NavigationLink(value: SubDetailPanel.feed(feed)) {
             HStack {
                 FeedTitleLabel(feed: feed)
-                    .contentShape(Rectangle())
-                    .draggable(
-                        TransferableFeed(feed: feed)
-                    )
                 Spacer()
                 ButtonChevron()
             }

@@ -20,20 +20,17 @@ struct FeedDropDelegate: DropDelegate {
     @Binding var newFeedWebAddress: String
     @Binding var showingNewFeedSheet: Bool
 
-    var moveEnabled: Bool = true
-
     func performDrop(info: DropInfo) -> Bool {
-        guard
-            info.hasItemsConforming(to: [.feed, .url, .text]),
-            let item = info.itemProviders(for: [.feed, .url, .text]).first
-        else {
+        guard info.hasItemsConforming(to: [.feed, .url, .text]) else {
             return false
         }
 
-        if item.hasItemConformingToTypeIdentifier(UTType.feed.identifier) && moveEnabled {
-            handleMoveFeed(item: item)
-        } else {
-            handleNewFeed(item: item)
+        for item in info.itemProviders(for: [.feed, .url, .text]) {
+            if item.hasItemConformingToTypeIdentifier(UTType.feed.identifier) {
+                handleMoveFeed(item: item)
+            } else {
+                handleNewFeed(item: item)
+            }
         }
 
         return true
@@ -41,24 +38,28 @@ struct FeedDropDelegate: DropDelegate {
 
     private func handleMoveFeed(item: NSItemProvider) {
         _ = item.loadTransferable(type: TransferableFeed.self) { result in
-            guard
-                case .success(let transferableFeed) = result,
-                let objectID = context.persistentStoreCoordinator?.managedObjectID(
-                    forURIRepresentation: transferableFeed.objectURI
-                ),
-                let feed = try? context.existingObject(with: objectID) as? Feed,
-                feed.page != page
-            else { return }
+            guard case .success(let transferableFeed) = result else { return }
 
-            feed.page = page
-            feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
+            Task {
+                await MainActor.run {
+                    guard
+                        let objectID = context.persistentStoreCoordinator?.managedObjectID(
+                            forURIRepresentation: transferableFeed.objectURI
+                        ),
+                        let feed = try? context.existingObject(with: objectID) as? Feed,
+                        feed.page != page
+                    else { return }
 
-            DispatchQueue.main.async {
-                do {
-                    try context.save()
-                    page.profile?.objectWillChange.send()
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
+                    feed.page = page
+                    feed.userOrder = page.feedsUserOrderMax + 1
+
+                    do {
+                        try context.save()
+                        page.objectWillChange.send()
+                        page.profile?.objectWillChange.send()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
                 }
             }
         }

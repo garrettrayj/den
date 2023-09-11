@@ -17,7 +17,11 @@ struct Organizer: View {
     @ObservedObject var profile: Profile
 
     @State private var selection = Set<Feed>()
+    #if os(macOS)
     @State private var showingInspector = true
+    #else
+    @State private var showingInspector = false
+    #endif
 
     var body: some View {
         List(selection: $selection) {
@@ -25,21 +29,9 @@ struct Organizer: View {
                 Section {
                     ForEach(page.feedsArray) { feed in
                         HStack {
-                            Label {
-                                feed.titleText
-                            } icon: {
-                                FeedFavicon(url: feed.feedData?.favicon)
-                                    .draggable(TransferableFeed(feed: feed))
-                            }
-                            .lineLimit(1)
+                            FeedTitleLabel(feed: feed)
                             Spacer()
-                            HStack {
-                                if let responseTime = feed.feedData?.responseTime {
-                                    Text("\(Int(responseTime * 1000)) ms")
-                                } else {
-                                    Text("No Response")
-                                }
-                            }
+                            OrganizerFeedStatus(feed: feed)
                         }
                         .tag(feed)
                     }
@@ -59,7 +51,7 @@ struct Organizer: View {
             })
         }
         .inspector(isPresented: $showingInspector) {
-            OrganizerInspector(profile: profile, selection: $selection)
+            OrganizerInspectors(profile: profile, selection: $selection)
         }
         #if os(macOS)
         .listStyle(.inset(alternatesRowBackgrounds: true))

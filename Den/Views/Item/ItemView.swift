@@ -45,9 +45,7 @@ struct ItemView: View {
         ScrollView(.vertical) {
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
-                    FeedTitleLabel(feed: item.feedData!.feed!)
-                        .font(.title3)
-                        .textSelection(.enabled)
+                    FeedTitleLabel(feed: item.feedData!.feed!).font(.title3)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(item.wrappedTitle)

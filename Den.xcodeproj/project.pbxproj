@@ -276,13 +276,14 @@
 		684DFA0124B6515A0023D6DB /* AtomFeedEntry+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */; };
 		684DFA0324BAC7680023D6DB /* ImageMIMEType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */; };
 		6851F0DB2AAB9CF8000F7CBC /* Organizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0DA2AAB9CF8000F7CBC /* Organizer.swift */; };
-		6851F0DF2AABA3AF000F7CBC /* OrganizerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0DE2AABA3AF000F7CBC /* OrganizerRow.swift */; };
-		6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E22AAD77E8000F7CBC /* OrganizerInspector.swift */; };
-		6851F0E52AAE4F30000F7CBC /* FeedIconHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E42AAE4F30000F7CBC /* FeedIconHandle.swift */; };
+		6851F0E32AAD77E8000F7CBC /* OrganizerInspectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E22AAD77E8000F7CBC /* OrganizerInspectors.swift */; };
 		6851F0E72AAE96F1000F7CBC /* ItemLimit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */; };
 		6851F0EB2AAEC1B5000F7CBC /* ExportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */; };
 		6851F0ED2AAEC1C6000F7CBC /* ProfileSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EC2AAEC1C6000F7CBC /* ProfileSettingsButton.swift */; };
 		6851F0EF2AAEC290000F7CBC /* OrganizerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0EE2AAEC290000F7CBC /* OrganizerButton.swift */; };
+		6851F0F12AAF7314000F7CBC /* InfoInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0F02AAF7314000F7CBC /* InfoInspector.swift */; };
+		6851F0F32AAF7327000F7CBC /* ConfigInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6851F0F22AAF7327000F7CBC /* ConfigInspector.swift */; };
+		68599B562AAF87AF0057FEA8 /* OrganizerFeedStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B552AAF87AF0057FEA8 /* OrganizerFeedStatus.swift */; };
 		685ABADA290F0BDC0080110A /* RSSFeedUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ABAD9290F0BDC0080110A /* RSSFeedUpdate.swift */; };
 		685ABADE290F187C0080110A /* FeedUpdateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ABADD290F187C0080110A /* FeedUpdateTask.swift */; };
 		685ECB1126EE611000A3B184 /* PageNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685ECB1026EE611000A3B184 /* PageNavLink.swift */; };
@@ -587,13 +588,14 @@
 		684DFA0024B6515A0023D6DB /* AtomFeedEntry+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AtomFeedEntry+Extensions.swift"; sourceTree = "<group>"; };
 		684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMIMEType.swift; sourceTree = "<group>"; };
 		6851F0DA2AAB9CF8000F7CBC /* Organizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organizer.swift; sourceTree = "<group>"; };
-		6851F0DE2AABA3AF000F7CBC /* OrganizerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerRow.swift; sourceTree = "<group>"; };
-		6851F0E22AAD77E8000F7CBC /* OrganizerInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerInspector.swift; sourceTree = "<group>"; };
-		6851F0E42AAE4F30000F7CBC /* FeedIconHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedIconHandle.swift; sourceTree = "<group>"; };
+		6851F0E22AAD77E8000F7CBC /* OrganizerInspectors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerInspectors.swift; sourceTree = "<group>"; };
 		6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLimit.swift; sourceTree = "<group>"; };
 		6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportButton.swift; sourceTree = "<group>"; };
 		6851F0EC2AAEC1C6000F7CBC /* ProfileSettingsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsButton.swift; sourceTree = "<group>"; };
 		6851F0EE2AAEC290000F7CBC /* OrganizerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerButton.swift; sourceTree = "<group>"; };
+		6851F0F02AAF7314000F7CBC /* InfoInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoInspector.swift; sourceTree = "<group>"; };
+		6851F0F22AAF7327000F7CBC /* ConfigInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigInspector.swift; sourceTree = "<group>"; };
+		68599B552AAF87AF0057FEA8 /* OrganizerFeedStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerFeedStatus.swift; sourceTree = "<group>"; };
 		685ABAD9290F0BDC0080110A /* RSSFeedUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedUpdate.swift; sourceTree = "<group>"; };
 		685ABADD290F187C0080110A /* FeedUpdateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUpdateTask.swift; sourceTree = "<group>"; };
 		685ECB1026EE611000A3B184 /* PageNavLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageNavLink.swift; sourceTree = "<group>"; };
@@ -861,7 +863,6 @@
 				688FD930247A34830006A2DE /* FeedConfigurationForm.swift */,
 				687FEEE22A3D7AE50042977E /* FeedConfigurationSheet.swift */,
 				681AEAF829954AC70054B084 /* FeedHero.swift */,
-				6851F0E42AAE4F30000F7CBC /* FeedIconHandle.swift */,
 				6870EBDA29C9556400E15154 /* FeedLayout.swift */,
 				6885C42126D37259002C41B0 /* FeedTitleLabel.swift */,
 				68FF63F12921D88F0012A275 /* FeedToolbar.swift */,
@@ -957,8 +958,11 @@
 		6851F0D92AAB9CE7000F7CBC /* Organizer */ = {
 			isa = PBXGroup;
 			children = (
+				6851F0F22AAF7327000F7CBC /* ConfigInspector.swift */,
+				6851F0F02AAF7314000F7CBC /* InfoInspector.swift */,
 				6851F0DA2AAB9CF8000F7CBC /* Organizer.swift */,
-				6851F0E22AAD77E8000F7CBC /* OrganizerInspector.swift */,
+				68599B552AAF87AF0057FEA8 /* OrganizerFeedStatus.swift */,
+				6851F0E22AAD77E8000F7CBC /* OrganizerInspectors.swift */,
 			);
 			path = Organizer;
 			sourceTree = "<group>";
@@ -1056,7 +1060,6 @@
 				684DFA0224BAC7680023D6DB /* ImageMIMEType.swift */,
 				68BD683E2839626E0075EF45 /* ImageSelection.swift */,
 				687FEEFA2A3EE4E10042977E /* OPMLFile.swift */,
-				6851F0DE2AABA3AF000F7CBC /* OrganizerRow.swift */,
 				6880EBE027A8E61C00B479F4 /* RankedImage.swift */,
 				682591FD29D81E3000E5EF3B /* RefreshManager.swift */,
 				683C35402A9E570900568E9A /* TransferableFeed.swift */,
@@ -2025,6 +2028,7 @@
 				687FEEF32A3DDCE10042977E /* ClearImageCacheButton.swift in Sources */,
 				680253782A1C80F90034B0E4 /* Collection+Extensions.swift in Sources */,
 				54F8EA4829B418A600955BB6 /* Color+Extensions.swift in Sources */,
+				6851F0F32AAF7327000F7CBC /* ConfigInspector.swift in Sources */,
 				687FEEE52A3D8A2A0042977E /* ConfigureFeedButton.swift in Sources */,
 				687FEEE72A3D8B8E0042977E /* ConfigurePageButton.swift in Sources */,
 				687F4890269165EE00EA2498 /* CrashMessage.swift in Sources */,
@@ -2049,7 +2053,6 @@
 				68BB25712A4A0B220082D890 /* FeedEmpty.swift in Sources */,
 				68F56B492870C45B006EC915 /* FeedFavicon.swift in Sources */,
 				681AEAF929954AC70054B084 /* FeedHero.swift in Sources */,
-				6851F0E52AAE4F30000F7CBC /* FeedIconHandle.swift in Sources */,
 				68F6FB9729ADDA41001F74B9 /* FeedItemCompressed.swift in Sources */,
 				6880EBC327A46C2200B479F4 /* FeedItemExpanded.swift in Sources */,
 				6809EFCB24DD3B39007B5CF1 /* FeedKitFeed+Extensions.swift in Sources */,
@@ -2082,6 +2085,7 @@
 				68F56B5A28739041006EC915 /* Inbox.swift in Sources */,
 				6868A3142895CA860051D43E /* InboxNavLink.swift in Sources */,
 				68FF63FD2921DD2B0012A275 /* InboxToolbar.swift in Sources */,
+				6851F0F12AAF7314000F7CBC /* InfoInspector.swift in Sources */,
 				680E57EA24D29F2200196F6D /* Item+CoreDataClass.swift in Sources */,
 				68F56B6B287832A9006EC915 /* ItemActionView.swift in Sources */,
 				6885FD0E24819446007A3D5B /* ItemButtonStyle.swift in Sources */,
@@ -2121,8 +2125,8 @@
 				68D58E6924955321007ED1AC /* OPMLReader.swift in Sources */,
 				6851F0DB2AAB9CF8000F7CBC /* Organizer.swift in Sources */,
 				6851F0EF2AAEC290000F7CBC /* OrganizerButton.swift in Sources */,
-				6851F0E32AAD77E8000F7CBC /* OrganizerInspector.swift in Sources */,
-				6851F0DF2AABA3AF000F7CBC /* OrganizerRow.swift in Sources */,
+				68599B562AAF87AF0057FEA8 /* OrganizerFeedStatus.swift in Sources */,
+				6851F0E32AAD77E8000F7CBC /* OrganizerInspectors.swift in Sources */,
 				680E57E624D29F2200196F6D /* Page+CoreDataClass.swift in Sources */,
 				688FD918247750350006A2DE /* PageConfigurationForm.swift in Sources */,
 				687FEEE12A3CC9A40042977E /* PageConfigurationSheet.swift in Sources */,

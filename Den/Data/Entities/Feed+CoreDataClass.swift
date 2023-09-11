@@ -71,12 +71,16 @@ public class Feed: NSManagedObject {
         return false
     }
 
-    public var urlSchemeSymbol: String {
-        if url?.scheme?.contains("https") == true {
-            return "lock"
-        }
+    public var isSecure: Bool {
+        url?.scheme?.contains("https") == true
+    }
 
-        return "lock.slash"
+    public var urlSchemeSymbol: String {
+        if isSecure {
+            return "lock"
+        } else {
+            return "lock.slash"
+        }
     }
 
     public var wrappedPreviewStyle: PreviewStyle {
@@ -95,24 +99,6 @@ public class Feed: NSManagedObject {
         set {
             wrappedPreviewStyle = newValue ? .expanded : .compressed
         }
-    }
-
-    public var diagnosticsRowData: DiagnosticsRowData {
-        DiagnosticsRowData(
-            entity: self,
-            id: id?.uuidString ?? UUID().uuidString,
-            title: wrappedTitle,
-            page: page?.wrappedName ?? "",
-            address: urlString,
-            isSecure: urlString.contains("https") ? 1 : 0,
-            format: feedData?.format ?? "",
-            httpStatus: Int(feedData?.httpStatus ?? -1),
-            responseTime: feedData?.responseTime != nil ? Int(feedData!.responseTime * 1000) : 0,
-            server: feedData?.server ?? "",
-            cacheControl: feedData?.cacheControl ?? "",
-            age: Int(feedData?.age ?? "-1") ?? -1,
-            eTag: feedData?.eTag ?? ""
-        )
     }
 
     static func create(
