@@ -20,7 +20,7 @@ struct ConfigurePageButton: View {
             Label {
                 Text("Configure", comment: "Button label.")
             } icon: {
-                Image(systemName: "hammer")
+                Image(systemName: "slider.horizontal.3")
             }
         }
         .accessibilityIdentifier("ConfigurePage")

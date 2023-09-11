@@ -1,8 +1,8 @@
 //
-//  DiagnosticsButton.swift
+//  OrganizerButton.swift
 //  Den
 //
-//  Created by Garrett Johnson on 7/10/23.
+//  Created by Garrett Johnson on 9/10/23.
 //  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -10,19 +10,19 @@
 
 import SwiftUI
 
-struct DiagnosticsButton: View {
+struct OrganizerButton: View {
     @Binding var detailPanel: DetailPanel?
 
     var body: some View {
         Button {
-            detailPanel = .diagnostics
+            detailPanel = .organizer
         } label: {
             Label {
-                Text("Diagnostics")
+                Text("Organizer")
             } icon: {
-                Image(systemName: "stethoscope")
+                Image(systemName: "wrench.and.screwdriver")
             }
         }
-        .accessibilityIdentifier("ShowDiagnostics")
+        .accessibilityIdentifier("ShowOrganizer")
     }
 }

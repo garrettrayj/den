@@ -68,6 +68,21 @@ public class Page: NSManagedObject {
         }
     }
 
+    public var organizerData: [OrganizerRow] {
+        var rows: [OrganizerRow] = []
+
+        for feed in feedsArray {
+            guard let feedID = feed.id else { continue }
+            rows.append(OrganizerRow(
+                id: feedID,
+                page: self,
+                feed: feed
+            ))
+        }
+
+        return rows
+    }
+
     static func create(
         in managedObjectContext: NSManagedObjectContext,
         profile: Profile,

@@ -37,6 +37,15 @@ public class Feed: NSManagedObject {
         }
     }
 
+    public var itemLimitChoice: ItemLimit {
+        get {
+            return ItemLimit(rawValue: wrappedItemLimit) ?? .six
+        }
+        set {
+            wrappedItemLimit = newValue.rawValue
+        }
+    }
+
     public var extendedItemLimit: Int {
         wrappedItemLimit + 20
     }
@@ -76,6 +85,15 @@ public class Feed: NSManagedObject {
         }
         set {
             previewStyle = Int16(newValue.rawValue)
+        }
+    }
+
+    public var largePreviews: Bool {
+        get {
+            wrappedPreviewStyle == .expanded
+        }
+        set {
+            wrappedPreviewStyle = newValue ? .expanded : .compressed
         }
     }
 

@@ -52,7 +52,7 @@ struct SidebarToolbar: ToolbarContent {
                     Divider()
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
-                    DiagnosticsButton(detailPanel: $detailPanel)
+                    OrganizerButton(detailPanel: $detailPanel)
                     ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
                 }
                 .labelStyle(.titleAndIcon)
@@ -98,7 +98,7 @@ struct SidebarToolbar: ToolbarContent {
                     .accessibilityIdentifier("EditPages")
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
-                    DiagnosticsButton(detailPanel: $detailPanel)
+                    OrganizerButton(detailPanel: $detailPanel)
                     ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
                 } label: {
                     Label {

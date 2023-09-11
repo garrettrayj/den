@@ -20,7 +20,7 @@ struct ProfileSettingsButton: View {
             Label {
                 Text("Profile Settings", comment: "Button label.")
             } icon: {
-                Image(systemName: "gearshape.2")
+                Image(systemName: "gearshape")
             }
         }
         .accessibilityIdentifier("ShowProfileSettings")

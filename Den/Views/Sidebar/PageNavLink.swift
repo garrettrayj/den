@@ -8,9 +8,7 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct PageNavLink: View {
     #if os(iOS)

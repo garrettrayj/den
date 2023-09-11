@@ -11,8 +11,8 @@
 import Foundation
 
 enum DetailPanel: Hashable {
-    case diagnostics
     case inbox
+    case organizer
     case page(Page)
     case search(Search)
     case trending
@@ -20,10 +20,10 @@ enum DetailPanel: Hashable {
 
     var panelID: String {
         switch self {
-        case .diagnostics:
-            return "diagnostics"
         case .inbox:
             return "inbox"
+        case .organizer:
+            return "organizer"
         case .page:
             return "page"
         case .search:
@@ -64,10 +64,10 @@ extension DetailPanel: Decodable {
         let panelID = try values.decode(String.self, forKey: .panelID)
         var detailPanel: DetailPanel = .welcome
 
-        if panelID == "diagnostics" {
-            detailPanel = .diagnostics
-        } else if panelID == "inbox" {
+        if panelID == "inbox" {
             detailPanel = .inbox
+        } else if panelID == "organizer" {
+            detailPanel = .organizer
         } else if panelID == "page" && values.contains(.pageID) {
             let decodedPageID = try values.decode(String.self, forKey: .pageID)
 

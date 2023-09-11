@@ -56,6 +56,7 @@ struct FeedDropDelegate: DropDelegate {
             DispatchQueue.main.async {
                 do {
                     try context.save()
+                    page.profile?.objectWillChange.send()
                 } catch {
                     CrashUtility.handleCriticalError(error as NSError)
                 }

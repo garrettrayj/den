@@ -133,6 +133,19 @@ public class Profile: NSManagedObject {
         return []
     }
 
+    public var organizerData: [OrganizerRow] {
+        var rows: [OrganizerRow] = []
+
+        for page in pagesArray {
+            for feed in page.feedsArray {
+                guard let feedID = feed.id else { continue }
+                rows.append(OrganizerRow(id: feedID, page: page, feed: feed))
+            }
+        }
+
+        return rows
+    }
+
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {
         let createdDate = Date()
 

@@ -22,10 +22,10 @@ struct DetailView: View {
         NavigationStack(path: $path) {
             ZStack {
                 switch detailPanel ?? .welcome {
-                case .diagnostics:
-                    DiagnosticsTable(profile: profile)
                 case .inbox:
                     Inbox(profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
+                case .organizer:
+                    Organizer(profile: profile)
                 case .page(let page):
                     PageView(page: page, profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
                 case .search(let search):
