@@ -31,7 +31,30 @@ struct Organizer: View {
                         HStack {
                             FeedTitleLabel(feed: feed)
                             Spacer()
-                            OrganizerFeedStatus(feed: feed)
+                            Group {
+                                if feed.feedData == nil {
+                                    Image(systemName: "circle.slash").foregroundStyle(.yellow)
+                                    Text("No Data")
+                                } else if let error = feed.feedData?.wrappedError {
+                                    Image(systemName: "bolt.horizontal").foregroundStyle(.red)
+                                    switch error {
+                                    case .parsing:
+                                        Text("Parsing Error")
+                                    case .request:
+                                        Text("Network Error")
+                                    }
+                                } else if let responseTime = feed.feedData?.responseTime {
+                                    if responseTime > 5 {
+                                        Image(systemName: "tortoise").foregroundStyle(.brown)
+                                    } else if !feed.isSecure {
+                                        Image(systemName: "lock.slash").foregroundStyle(.orange)
+                                    }
+                                    Text("\(Int(responseTime * 1000)) ms")
+                                }
+                            }
+                            .font(.callout)
+                            .imageScale(.medium)
+                            .foregroundStyle(.secondary)
                         }
                         .tag(feed)
                     }

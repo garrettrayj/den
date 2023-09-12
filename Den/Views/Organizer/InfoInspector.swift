@@ -14,6 +14,7 @@ import UniformTypeIdentifiers
 struct InfoInspector: View {
     @Environment(\.openURL) private var openURL
 
+    @ObservedObject var profile: Profile
     @ObservedObject var feed: Feed
 
     var body: some View {
@@ -27,14 +28,12 @@ struct InfoInspector: View {
             }
             if let feedData = feed.feedData {
                 LabeledContent {
-                    HStack(spacing: 4) {
-                        if feed.isSecure {
-                            Text("Yes")
-                            Image(systemName: feed.urlSchemeSymbol)
-                        } else {
-                            Text("No")
-                            Image(systemName: feed.urlSchemeSymbol)
-                        }
+                    if feed.isSecure {
+                        Image(systemName: feed.urlSchemeSymbol)
+                        Text("Yes")
+                    } else {
+                        Image(systemName: feed.urlSchemeSymbol)
+                        Text("No")
                     }
                 } label: {
                     Text("Secure", comment: "Diagnostics header.")
@@ -49,6 +48,9 @@ struct InfoInspector: View {
                     Text("Format", comment: "Diagnostics header.")
                 }
                 LabeledContent {
+                    if feedData.responseTime > 5 {
+                        Image(systemName: "tortoise")
+                    }
                     Text("\(Int(feedData.responseTime * 1000)) ms")
                 } label: {
                     Text("Response Time", comment: "Diagnostics header.")

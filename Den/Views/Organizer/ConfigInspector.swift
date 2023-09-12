@@ -17,28 +17,6 @@ struct ConfigInspector: View {
 
     @Binding var selection: Set<Feed>
 
-    var sources: Binding<[Feed]> {
-        Binding(
-            get: { selection.filter { _ in true } },
-            set: {
-                for (index, feed) in $0.enumerated() where feed.changedValues().keys.contains("page") {
-                    feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + Int16((index + 1))
-                }
-
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                        selection = Set($0)
-                        profile.pagesArray.forEach { $0.objectWillChange.send() }
-                        profile.objectWillChange.send()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            }
-        )
-    }
-
     var body: some View {
         Form {
             Section {
@@ -98,5 +76,27 @@ struct ConfigInspector: View {
         .scrollContentBackground(.hidden)
         .padding(.horizontal, -8)
         .padding(.top, -4)
+    }
+    
+    private var sources: Binding<[Feed]> {
+        Binding(
+            get: { selection.filter { _ in true } },
+            set: {
+                for (index, feed) in $0.enumerated() where feed.changedValues().keys.contains("page") {
+                    feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + Int16((index + 1))
+                }
+
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                        selection = Set($0)
+                        profile.pagesArray.forEach { $0.objectWillChange.send() }
+                        profile.objectWillChange.send()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            }
+        )
     }
 }

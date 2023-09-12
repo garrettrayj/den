@@ -44,7 +44,7 @@ struct OrganizerInspectors: View {
                     Text("Multiple Selected").font(.title).foregroundStyle(.tertiary)
                     Spacer()
                 } else if let feed = selection.first {
-                    InfoInspector(feed: feed)
+                    InfoInspector(profile: profile, feed: feed)
                 } else {
                     Spacer()
                     Text("No Selection").font(.title).foregroundStyle(.tertiary)

@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct ItemCompressed: View {
+    @Environment(\.isEnabled) private var isEnabled
+    
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
 
@@ -26,7 +28,7 @@ struct ItemCompressed: View {
                     Text(author)
                         .font(.subheadline.weight(.medium))
                         .lineLimit(2)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(isEnabled ? .secondary : .tertiary)
                 }
 
                 PublishedDateActionLine(
@@ -34,7 +36,7 @@ struct ItemCompressed: View {
                     browserView: feed.browserView
                 )
                 .font(.caption2.weight(.semibold))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(isEnabled ? .secondary : .tertiary)
             }
 
             if feed.hideImages != true, let url = item.image {
