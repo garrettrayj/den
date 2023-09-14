@@ -51,13 +51,13 @@ struct Sidebar: View {
                 InboxNavLink(profile: profile)
                 TrendingNavLink(profile: profile)
                 #endif
-
                 PagesSection(
                     profile: profile,
                     newFeedPageID: $newFeedPageID,
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
+                TagsSection(profile: profile)
             }
         }
         .listStyle(.sidebar)

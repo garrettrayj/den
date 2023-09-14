@@ -20,7 +20,7 @@ struct FeedItemCompressed: View {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
             ItemActionView(item: item, feed: feed, profile: profile) {
-                ItemCompressed(item: item, feed: feed)
+                CompressedItemPreview(item: item, feed: feed)
             }
         }
         .modifier(RoundedContainerModifier())

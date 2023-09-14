@@ -49,8 +49,17 @@ struct ItemHero: View {
         )
     }
 
+    var aspectRatio: CGFloat? {
+        guard
+            item.imageWidth > 0,
+            item.imageHeight > 0
+        else { return nil }
+
+        return CGFloat(item.imageWidth / item.imageHeight)
+    }
+
     var body: some View {
-        if item.imageAspectRatio == nil {
+        if aspectRatio == nil {
             ImageDepression(padding: 12) {
                 WebImage(
                     url: item.image,
@@ -73,7 +82,7 @@ struct ItemHero: View {
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
-                .aspectRatio(item.imageAspectRatio, contentMode: .fit)
+                .aspectRatio(aspectRatio, contentMode: .fit)
                 .frame(
                     maxWidth: adjustedItemImageSize.width > 0 ? adjustedItemImageSize.width : nil,
                     maxHeight: adjustedItemImageSize.height > 0 ? adjustedItemImageSize.height : nil
@@ -90,7 +99,7 @@ struct ItemHero: View {
             .resizable()
             .placeholder { ImageErrorPlaceholder() }
             .indicator(.activity)
-            .aspectRatio(item.imageAspectRatio, contentMode: .fill)
+            .aspectRatio(aspectRatio, contentMode: .fill)
             .background(.quaternary)
             .modifier(ImageBorderModifier())
         }

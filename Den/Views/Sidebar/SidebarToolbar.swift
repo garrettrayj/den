@@ -43,12 +43,12 @@ struct SidebarToolbar: ToolbarContent {
             )
             .disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)
         }
-
         ToolbarItem(placement: .primaryAction) {
             Menu {
                 Group {
                     NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                     NewPageButton(profile: profile, detailPanel: $detailPanel)
+                    NewTagButton(profile: profile, detailPanel: $detailPanel)
                     Divider()
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
@@ -83,6 +83,7 @@ struct SidebarToolbar: ToolbarContent {
                 Menu {
                     NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
                     NewPageButton(profile: profile, detailPanel: $detailPanel)
+                    NewTagButton(profile: profile, detailPanel: $detailPanel)
                     Divider()
                     Button {
                         withAnimation {
@@ -111,7 +112,6 @@ struct SidebarToolbar: ToolbarContent {
                 .accessibilityIdentifier("SidebarMenu")
             }
         }
-
         ToolbarItem(placement: .bottomBar) {
             Menu {
                 NewProfileButton(currentProfileID: $currentProfileID)
@@ -126,11 +126,9 @@ struct SidebarToolbar: ToolbarContent {
             .disabled(refreshing)
             .accessibilityIdentifier("ProfileMenu")
         }
-
         ToolbarItem(placement: .status) {
             SidebarStatus(profile: profile, progress: refreshProgress, refreshing: $refreshing)
         }
-
         ToolbarItem(placement: .bottomBar) {
             RefreshButton(
                 refreshing: $refreshing,

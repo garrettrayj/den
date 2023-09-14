@@ -1,5 +1,5 @@
 //
-//  ItemThumbnailImage.swift
+//  PreviewThumbnail.swift
 //  Den
 //
 //  Created by Garrett Johnson on 4/17/22.
@@ -12,21 +12,20 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct ItemThumbnailImage: View {
+struct PreviewThumbnail: View {
     @Environment(\.displayScale) private var displayScale
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let url: URL
     let isRead: Bool
-    let aspectRatio: CGFloat?
 
     static let baseSize = CGSize(width: 64, height: 64)
 
     private var scaledSize: CGSize {
         CGSize(
-            width: ItemThumbnailImage.baseSize.width * dynamicTypeSize.layoutScalingFactor,
-            height: ItemThumbnailImage.baseSize.height * dynamicTypeSize.layoutScalingFactor
+            width: PreviewThumbnail.baseSize.width * dynamicTypeSize.layoutScalingFactor,
+            height: PreviewThumbnail.baseSize.height * dynamicTypeSize.layoutScalingFactor
         )
     }
 
@@ -45,7 +44,7 @@ struct ItemThumbnailImage: View {
         )
         .resizable()
         .placeholder { ImageErrorPlaceholder() }
-        .aspectRatio(aspectRatio, contentMode: .fill)
+        .scaledToFill()
         .grayscale(isEnabled ? 0 : 1)
         .overlay(.background.opacity(isRead ? 0.5 : 0))
         .frame(width: scaledSize.width, height: scaledSize.height)

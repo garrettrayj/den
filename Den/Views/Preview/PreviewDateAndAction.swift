@@ -1,5 +1,5 @@
 //
-//  PublishedDateActionLine.swift
+//  PreviewDateAndAction.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/16/22.
@@ -10,7 +10,9 @@
 
 import SwiftUI
 
-struct PublishedDateActionLine: View {
+struct PreviewDateAndAction: View {
+    @Environment(\.isEnabled) private var isEnabled
+
     let date: Date
     let browserView: Bool
 
@@ -33,5 +35,7 @@ struct PublishedDateActionLine: View {
                 Image(systemName: "link").imageScale(.small)
             }
         }
+        .font(.caption2.weight(.semibold))
+        .foregroundStyle(isEnabled ? .secondary : .tertiary)
     }
 }

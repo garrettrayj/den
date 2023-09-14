@@ -11,12 +11,15 @@
 import Foundation
 
 enum SubDetailPanel: Hashable {
+    case bookmark(Bookmark)
     case feed(Feed)
     case item(Item)
     case trend(Trend)
 
     var panelID: String {
         switch self {
+        case .bookmark:
+            return "bookmark"
         case .feed:
             return "feed"
         case .item:
@@ -28,6 +31,8 @@ enum SubDetailPanel: Hashable {
 
     var objectID: String? {
         switch self {
+        case .bookmark(let bookmark):
+            return bookmark.id?.uuidString
         case .feed(let feed):
             return feed.id?.uuidString
         case .item(let item):
@@ -61,7 +66,14 @@ extension SubDetailPanel: Decodable {
         let predicate = NSPredicate(format: "id = %@", objectID)
         let context = PersistenceController.shared.container.viewContext
 
-        if panelID == "feed" {
+        if panelID == "bookmark" {
+            let request = Bookmark.fetchRequest()
+            request.predicate = predicate
+            if let bookmark = try? context.fetch(request).first {
+                self = .bookmark(bookmark)
+                return
+            }
+        } else if panelID == "feed" {
             let request = Feed.fetchRequest()
             request.predicate = predicate
             if let feed = try? context.fetch(request).first {

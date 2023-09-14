@@ -1,5 +1,5 @@
 //
-//  ItemTitle.swift
+//  PreviewHeadline.swift
 //  Den
 //
 //  Created by Garrett Johnson on 4/30/23.
@@ -10,11 +10,11 @@
 
 import SwiftUI
 
-struct ItemTitle: View {
-    @ObservedObject var item: Item
+struct PreviewHeadline: View {
+    let title: String
 
     var body: some View {
-        Text(item.wrappedTitle)
+        Text(title)
             .font(.headline)
             .lineLimit(6)
             .multilineTextAlignment(.leading)

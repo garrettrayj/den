@@ -1,5 +1,5 @@
 //
-//  ItemExpanded.swift
+//  ExpandedItemPreview.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/10/21.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ItemExpanded: View {
+struct ExpandedItemPreview: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
@@ -22,7 +22,7 @@ struct ItemExpanded: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            ItemTitle(item: item)
+            PreviewHeadline(title: item.wrappedTitle)
 
             if feed.hideBylines == false, let author = item.author {
                 Text(author)
@@ -31,29 +31,19 @@ struct ItemExpanded: View {
                     .foregroundStyle(isEnabled ? .secondary : .tertiary)
             }
 
-            PublishedDateActionLine(
-                date: item.date,
-                browserView: feed.browserView
-            )
-            .font(.caption2.weight(.semibold))
-            .foregroundStyle(isEnabled ? .secondary : .tertiary)
+            PreviewDateAndAction(date: item.date, browserView: feed.browserView)
 
             if feed.hideImages != true, let url = item.image {
-                ItemPreviewImage(
+                PreviewImage(
                     url: url,
                     isRead: item.read,
-                    aspectRatio: item.imageAspectRatio,
                     width: CGFloat(item.imageWidth),
                     height: CGFloat(item.imageHeight)
                 ).padding(.top, 4)
             }
 
             if showTeaser {
-                Text(item.teaser!)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(6)
-                    .padding(.top, 4)
+                PreviewTeaser(teaser: item.teaser!)
             }
         }
         .multilineTextAlignment(.leading)

@@ -119,6 +119,33 @@ public class Profile: NSManagedObject {
         }
     }
 
+    public var tagsArray: [Tag] {
+        if let tagsArray = self.tags?.sortedArray(
+            using: [NSSortDescriptor(key: "userOrder", ascending: true)]
+        ) as? [Tag] {
+            return tagsArray
+        }
+        return []
+    }
+
+    public var tagsUserOrderMin: Int16 {
+        tagsArray.reduce(0) { (result, tag) -> Int16 in
+            if tag.userOrder < result {
+                return tag.userOrder
+            }
+            return result
+        }
+    }
+
+    public var tagsUserOrderMax: Int16 {
+        tagsArray.reduce(0) { (result, tag) -> Int16 in
+            if tag.userOrder > result {
+                return tag.userOrder
+            }
+            return result
+        }
+    }
+
     public var feedsArray: [Feed] {
         pagesArray.flatMap { $0.feedsArray }
     }

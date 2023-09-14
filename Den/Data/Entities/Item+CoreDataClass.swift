@@ -21,6 +21,33 @@ public class Item: NSManagedObject {
         value(forKey: "history") as? [History] ?? []
     }
 
+    public var bookmarks: [Bookmark] {
+        value(forKey: "bookmarks") as? [Bookmark] ?? []
+    }
+
+    public var bookmarkTags: [Tag] {
+        get {
+            bookmarks.compactMap { $0.tag }
+        }
+        set {
+            guard let context = managedObjectContext else { return }
+            for bookmark in bookmarks {
+                if let existingTag = bookmark.tag, !newValue.contains(existingTag) {
+                    context.delete(bookmark)
+                }
+            }
+            for tag in newValue {
+                guard !bookmarkTags.contains(tag) else { continue }
+                _ = Bookmark.create(in: context, item: self, tag: tag)
+            }
+            do {
+                try context.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
+        }
+    }
+
     @objc
     public var date: Date {
         published ?? ingested ?? Date(timeIntervalSince1970: 0)
@@ -61,11 +88,6 @@ public class Item: NSManagedObject {
                 tags = String(data: data, encoding: String.Encoding.utf8)
             }
         }
-    }
-
-    public var imageAspectRatio: CGFloat? {
-        guard imageWidth > 0, imageHeight > 0 else { return nil }
-        return CGFloat(imageWidth) / CGFloat(imageHeight)
     }
 
     public var trendItemsArray: [TrendItem] {

@@ -77,7 +77,7 @@ struct ConfigInspector: View {
         .padding(.horizontal, -8)
         .padding(.top, -4)
     }
-    
+
     private var sources: Binding<[Feed]> {
         Binding(
             get: { selection.filter { _ in true } },

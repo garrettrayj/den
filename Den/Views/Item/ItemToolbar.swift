@@ -19,6 +19,9 @@ struct ItemToolbar: ToolbarContent {
         // and no placement causes the buttons to be combined into a menu on iOS.
         #if os(macOS)
         ToolbarItem {
+            TagsMenu(item: item, profile: profile)
+        }
+        ToolbarItem {
             if let url = item.link {
                 OpenInBrowserButton(url: url, tintColor: profile.tintColor)
             }
@@ -29,6 +32,9 @@ struct ItemToolbar: ToolbarContent {
             }
         }
         #else
+        ToolbarItem(placement: .primaryAction) {
+            TagsMenu(item: item, profile: profile)
+        }
         ToolbarItem(placement: .primaryAction) {
             if let url = item.link {
                 OpenInBrowserButton(url: url, tintColor: profile.tintColor)

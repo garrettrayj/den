@@ -30,6 +30,8 @@ struct DetailView: View {
                     PageView(page: page, profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
                 case .search(let search):
                     SearchView(profile: profile, search: search)
+                case .tag(let tag):
+                    TagView(profile: profile, tag: tag)
                 case .trending:
                     Trending(profile: profile)
                 case .welcome:
@@ -40,6 +42,8 @@ struct DetailView: View {
             .navigationDestination(for: SubDetailPanel.self) { panel in
                 ZStack {
                     switch panel {
+                    case .bookmark(let bookmark):
+                        BookmarkView(bookmark: bookmark)
                     case .feed(let feed):
                         FeedView(feed: feed)
                     case .item(let item):

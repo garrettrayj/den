@@ -1,5 +1,5 @@
 //
-//  ItemPreviewImage.swift
+//  PreviewImage.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/3/22.
@@ -12,23 +12,34 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct ItemPreviewImage: View {
+struct PreviewImage: View {
     @Environment(\.displayScale) private var displayScale
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let url: URL
     let isRead: Bool
-    let aspectRatio: CGFloat?
+
     let width: CGFloat?
     let height: CGFloat?
+
+    var aspectRatio: CGFloat? {
+        guard
+            let width = width,
+            let height = height,
+            width > 0,
+            height > 0
+        else { return nil }
+
+        return width / height
+    }
 
     static let baseSize = CGSize(width: 384, height: 216)
 
     private var scaledSize: CGSize {
         return CGSize(
-            width: ItemPreviewImage.baseSize.width * dynamicTypeSize.layoutScalingFactor,
-            height: ItemPreviewImage.baseSize.height * dynamicTypeSize.layoutScalingFactor
+            width: PreviewImage.baseSize.width * dynamicTypeSize.layoutScalingFactor,
+            height: PreviewImage.baseSize.height * dynamicTypeSize.layoutScalingFactor
         )
     }
 

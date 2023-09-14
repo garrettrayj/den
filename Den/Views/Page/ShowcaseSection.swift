@@ -37,9 +37,9 @@ struct ShowcaseSection: View {
                     ) { item in
                         ItemActionView(item: item, feed: feed, profile: profile) {
                             if feed.wrappedPreviewStyle.rawValue == 1 {
-                                ItemExpanded(item: item, feed: feed)
+                                ExpandedItemPreview(item: item, feed: feed)
                             } else {
-                                ItemCompressed(item: item, feed: feed)
+                                CompressedItemPreview(item: item, feed: feed)
                             }
                         }
                         .modifier(RoundedContainerModifier())
