@@ -23,7 +23,7 @@ struct Trending: View {
     }
 
     var body: some View {
-        VStack {
+        ZStack {
             if profile.trends.isEmpty {
                 ContentUnavailableView {
                     Label {

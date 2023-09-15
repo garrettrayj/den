@@ -30,64 +30,25 @@ struct ItemView: View {
                 }
             }
         } else {
-            itemLayout
-                .background(.background)
-                .toolbar { ItemToolbar(item: item, profile: profile) }
-                #if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-                #endif
-                .navigationTitle(Text(verbatim: ""))
-                .task { await HistoryUtility.markItemRead(item: item) }
-        }
-    }
-
-    private var itemLayout: some View {
-        ScrollView(.vertical) {
-            VStack {
-                VStack(alignment: .leading, spacing: 16) {
-                    FeedTitleLabel(feed: item.feedData!.feed!).font(.title3)
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(item.wrappedTitle)
-                            .font(.largeTitle.weight(.semibold))
-                            .textSelection(.enabled)
-                            .padding(.bottom, 4)
-
-                        if let author = item.author {
-                            Text(author).font(.callout).lineLimit(2)
-                        }
-
-                        TimelineView(.everyMinute) { _ in
-                            HStack(spacing: 4) {
-                                Text(verbatim: item.date.formatted(date: .complete, time: .shortened))
-                                Text(verbatim: "(\(item.date.formatted(.relative(presentation: .numeric))))")
-                            }.font(.caption2)
-                        }
-                    }
-
-                    if
-                        item.image != nil &&
-                        !(item.summary?.contains("<img") ?? false) &&
-                        !(item.body?.contains("<img") ?? false)
-                    {
-                        ItemHero(item: item)
-                    }
-
-                    if item.body != nil || item.summary != nil {
-                        ItemWebView(
-                            content: item.body ?? item.summary!,
-                            title: item.wrappedTitle,
-                            baseURL: item.link,
-                            tintColor: profile.tintColor
-                        )
-                    }
-                }
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: maxContentWidth)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 32)
-            .padding(.vertical, 28)
+            ArticleLayout(
+                feed: item.feedData!.feed!,
+                title: item.wrappedTitle,
+                author: item.author,
+                date: item.date,
+                summaryContent: item.summary,
+                bodyContent: item.body,
+                link: item.link,
+                image: item.image,
+                imageWidth: CGFloat(item.imageWidth),
+                imageHeight: CGFloat(item.imageHeight)
+            )
+            .background(.background)
+            .toolbar { ItemToolbar(item: item, profile: profile) }
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .navigationTitle(Text(verbatim: ""))
+            .task { await HistoryUtility.markItemRead(item: item) }
         }
     }
 }

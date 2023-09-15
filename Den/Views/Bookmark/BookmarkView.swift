@@ -11,9 +11,44 @@
 import SwiftUI
 
 struct BookmarkView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     @ObservedObject var bookmark: Bookmark
 
+    var maxContentWidth: CGFloat {
+        CGFloat(700) * dynamicTypeSize.layoutScalingFactor
+    }
+
     var body: some View {
-        Text("Hi")
+        if bookmark.managedObjectContext == nil || bookmark.feed == nil {
+            ContentUnavailableView {
+                Label {
+                    Text("Bookmark Deleted", comment: "Object removed message.")
+                } icon: {
+                    Image(systemName: "trash")
+                }
+            }
+        } else {
+            ArticleLayout(
+                feed: bookmark.feed!,
+                title: bookmark.wrappedTitle,
+                author: bookmark.author,
+                date: bookmark.date,
+                summaryContent: bookmark.summary,
+                bodyContent: bookmark.body,
+                link: bookmark.link,
+                image: bookmark.image,
+                imageWidth: CGFloat(bookmark.imageWidth),
+                imageHeight: CGFloat(bookmark.imageHeight)
+            )
+            .background(.background)
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .navigationTitle(Text(verbatim: ""))
+            .toolbar {
+                BookmarkToolbar(bookmark: bookmark)
+            }
+        }
     }
 }

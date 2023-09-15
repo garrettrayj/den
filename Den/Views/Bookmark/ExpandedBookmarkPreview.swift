@@ -32,7 +32,7 @@ struct ExpandedBookmarkPreview: View {
                             .foregroundStyle(isEnabled ? .secondary : .tertiary)
                     }
 
-                    PreviewDateAndAction(date: bookmark.published!, browserView: feed.browserView)
+                    PreviewDateAndAction(date: bookmark.date, browserView: feed.browserView)
 
                     if feed.hideImages != true, let url = bookmark.image {
                         PreviewImage(

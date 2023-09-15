@@ -1,5 +1,5 @@
 //
-//  ItemHero.swift
+//  ArticleHero.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/11/22.
@@ -12,18 +12,26 @@ import SwiftUI
 
 import SDWebImageSwiftUI
 
-struct ItemHero: View {
+struct ArticleHero: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.displayScale) private var displayScale
 
-    @ObservedObject var item: Item
+    let url: URL
+    let width: CGFloat
+    let height: CGFloat
+    
+    var aspectRatio: CGFloat? {
+        guard width > 0, height > 0 else { return nil }
+
+        return width / height
+    }
 
     static let baseSize = CGSize(width: 700, height: 400)
 
     private var scaledSize: CGSize {
         return CGSize(
-            width: ItemHero.baseSize.width * dynamicTypeSize.layoutScalingFactor,
-            height: ItemHero.baseSize.height * dynamicTypeSize.layoutScalingFactor
+            width: ArticleHero.baseSize.width * dynamicTypeSize.layoutScalingFactor,
+            height: ArticleHero.baseSize.height * dynamicTypeSize.layoutScalingFactor
         )
     }
 
@@ -36,33 +44,21 @@ struct ItemHero: View {
 
     private var adjustedItemImageSize: CGSize {
         // Small images scale with dynamic type size even though bluring is likely
-        if CGFloat(item.imageWidth) < scaledSize.width {
+        if width < scaledSize.width {
             return CGSize(
-                width: CGFloat(item.imageWidth) * dynamicTypeSize.layoutScalingFactor,
-                height: CGFloat(item.imageHeight) * dynamicTypeSize.layoutScalingFactor
+                width: width * dynamicTypeSize.layoutScalingFactor,
+                height: height * dynamicTypeSize.layoutScalingFactor
             )
         }
 
-        return CGSize(
-            width: CGFloat(item.imageWidth),
-            height: CGFloat(item.imageHeight)
-        )
-    }
-
-    var aspectRatio: CGFloat? {
-        guard
-            item.imageWidth > 0,
-            item.imageHeight > 0
-        else { return nil }
-
-        return CGFloat(item.imageWidth / item.imageHeight)
+        return CGSize(width: width, height: height)
     }
 
     var body: some View {
         if aspectRatio == nil {
             ImageDepression(padding: 12) {
                 WebImage(
-                    url: item.image,
+                    url: url,
                     options: [.delayPlaceholder],
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
@@ -72,10 +68,10 @@ struct ItemHero: View {
                 .modifier(ImageBorderModifier(cornerRadius: 4))
             }
             .aspectRatio(16/9, contentMode: .fill)
-        } else if CGFloat(item.imageWidth) < scaledSize.width {
+        } else if width < scaledSize.width {
             ImageDepression(padding: 12) {
                 WebImage(
-                    url: item.image,
+                    url: url,
                     options: [.delayPlaceholder],
                     context: [.imageThumbnailPixelSize: thumbnailPixelSize]
                 )
@@ -92,7 +88,7 @@ struct ItemHero: View {
             .scaledToFill()
         } else {
             WebImage(
-                url: item.image,
+                url: url,
                 options: [.delayPlaceholder],
                 context: [.imageThumbnailPixelSize: thumbnailPixelSize]
             )

@@ -15,19 +15,32 @@ struct TagView: View {
     @ObservedObject var tag: Tag
 
     var body: some View {
-        GeometryReader { geometry in
-            ScrollView {
-                BoardView(geometry: geometry, list: tag.bookmarksArray) { bookmark in
-                    if let feed = bookmark.feed {
-                        if feed.wrappedPreviewStyle == .expanded {
-                            ExpandedBookmarkPreview(bookmark: bookmark, feed: feed, profile: profile)
-                        } else {
-                            CompressedBookmarkPreview(bookmark: bookmark, feed: feed, profile: profile)
+        if tag.managedObjectContext == nil || tag.isDeleted {
+            ContentUnavailableView {
+                Label {
+                    Text("Tag Deleted", comment: "Object removed message.")
+                } icon: {
+                    Image(systemName: "trash")
+                }
+            }
+        } else {
+            ZStack {
+                GeometryReader { geometry in
+                    ScrollView {
+                        BoardView(geometry: geometry, list: tag.bookmarksArray) { bookmark in
+                            if let feed = bookmark.feed {
+                                if feed.wrappedPreviewStyle == .expanded {
+                                    ExpandedBookmarkPreview(bookmark: bookmark, feed: feed, profile: profile)
+                                } else {
+                                    CompressedBookmarkPreview(bookmark: bookmark, feed: feed, profile: profile)
+                                }
+                            }
                         }
+                        .modifier(MainBoardModifier())
                     }
                 }
-                .modifier(MainBoardModifier())
             }
+            .navigationTitle(tag.nameText)
         }
     }
 }

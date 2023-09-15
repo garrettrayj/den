@@ -13,8 +13,6 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
-    @Environment(\.scenePhase) private var scenePhase
-
     @State private var showingCrashMessage = false
 
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
@@ -33,6 +31,7 @@ struct RootView: View {
                     currentProfileID: $currentProfileID,
                     profiles: profiles
                 )
+                .environment(\.userTint, profile.tintColor)
             } else {
                 Landing(currentProfileID: $currentProfileID, profiles: profiles)
             }

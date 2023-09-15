@@ -1,5 +1,5 @@
 //
-//  ItemWebView.swift
+//  ArticleWebView.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/10/22.
@@ -12,18 +12,18 @@ import Combine
 import SwiftUI
 import WebKit
 
-struct ItemWebView {
+struct ArticleWebView {
     @Environment(\.self) private var environment
     @Environment(\.openURL) private var openURL
+    @Environment(\.userTint) private var userTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     var content: String
     var title: String
     var baseURL: URL?
-    var tintColor: Color?
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(tintColor: tintColor, useSystemBrowser: useSystemBrowser, openURL: openURL)
+        Coordinator(tintColor: userTint, useSystemBrowser: useSystemBrowser, openURL: openURL)
     }
 
     var html: String {
@@ -53,7 +53,7 @@ struct ItemWebView {
     }
 
     var tintColorCSSValue: String {
-        tintColor?.hexString(environment: environment) ?? "-webkit-link"
+        userTint?.hexString(environment: environment) ?? "-webkit-link"
     }
 
     private func getStylesString() -> String {
@@ -139,7 +139,7 @@ struct ItemWebView {
 }
 
 #if os(iOS)
-extension ItemWebView: UIViewRepresentable {
+extension ArticleWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.add(context.coordinator, name: "resized")
@@ -164,7 +164,7 @@ extension ItemWebView: UIViewRepresentable {
     }
 }
 #else
-extension ItemWebView: NSViewRepresentable {
+extension ArticleWebView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController.add(context.coordinator, name: "resized")
