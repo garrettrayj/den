@@ -11,7 +11,6 @@
 import Foundation
 
 public enum ItemLimit: Int, CaseIterable {
-    case none = 0
     case one = 1
     case two = 2
     case three = 3

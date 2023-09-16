@@ -149,21 +149,21 @@ struct FeedConfigurationForm: View {
                 Text("Hide Images", comment: "Toggle label.")
             }
         } header: {
-            Text("Previews", comment: "Feed settings section header.")
+            Text("Previews", comment: "Feed configuration section header.")
         } footer: {
             #if os(iOS)
             if useSystemBrowser == true {
                 Text(
                     "System web browser in use. \"Enter Reader Mode\" will be ignored.",
-                    comment: "Feed settings reader mode guidance message."
+                    comment: "Feed configuration guidance."
                 ).font(.footnote)
             }
             #endif
 
             if feed.changedValues().keys.contains("itemLimit") {
                 Text(
-                    "Latest limit change will be applied on next refresh.",
-                    comment: "Latest item limit changed notice."
+                    "Preview limit change will be applied on next refresh.",
+                    comment: "Feed configuration guidance."
                 ).font(.footnote)
             }
         }

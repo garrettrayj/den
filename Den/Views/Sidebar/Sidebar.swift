@@ -31,6 +31,8 @@ struct Sidebar: View {
 
     @State private var searchInput = ""
     @State private var isEditing = false
+    @State private var showingNewPageSheet = false
+    @State private var showingNewTagSheet = false
 
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress
@@ -111,6 +113,8 @@ struct Sidebar: View {
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
+                showingNewPageSheet: $showingNewPageSheet,
+                showingNewTagSheet: $showingNewTagSheet,
                 showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress
@@ -143,5 +147,35 @@ struct Sidebar: View {
             .padding(.bottom, 12)
         }
         #endif
+        .sheet(
+            isPresented: $showingNewTagSheet,
+            onDismiss: {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            },
+            content: {
+                NewTagSheet(profile: profile)
+            }
+        )
+        .sheet(
+            isPresented: $showingNewPageSheet,
+            onDismiss: {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            },
+            content: {
+                NewPageSheet(profile: profile)
+            }
+        )
     }
 }

@@ -23,16 +23,16 @@ struct CompressedBookmarkPreview: View {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
                         PreviewHeadline(title: bookmark.wrappedTitle)
-                        
+
                         if feed.hideBylines == false, let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }
-                        
+
                         VStack(alignment: .leading) {
                             PreviewDateAndAction(date: bookmark.date, browserView: feed.browserView)
                         }
                     }
-                    
+
                     if feed.hideImages != true, let url = bookmark.image {
                         Spacer()
                         PreviewThumbnail(url: url, isRead: false)

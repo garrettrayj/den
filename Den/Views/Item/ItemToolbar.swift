@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ItemToolbar: ToolbarContent {
     @Environment(\.userTint) private var userTint
-    
+
     @ObservedObject var item: Item
     @ObservedObject var profile: Profile
 

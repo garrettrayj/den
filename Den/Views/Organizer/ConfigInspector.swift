@@ -32,11 +32,7 @@ struct ConfigInspector: View {
             Section {
                 Picker(sources: sources, selection: \.itemLimitChoice) {
                     ForEach(ItemLimit.allCases, id: \.self) { choice in
-                        if choice == .none {
-                            Text("Unlimited").tag(choice)
-                        } else {
-                            Text("\(choice.rawValue)").tag(choice)
-                        }
+                        Text("\(choice.rawValue)").tag(choice)
                     }
                 } label: {
                     Text("Preview Limit")

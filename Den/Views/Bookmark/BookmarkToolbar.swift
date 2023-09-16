@@ -12,7 +12,7 @@ import SwiftUI
 
 struct BookmarkToolbar: ToolbarContent {
     @Environment(\.userTint) private var userTint
-    
+
     @ObservedObject var bookmark: Bookmark
 
     var body: some ToolbarContent {

@@ -19,7 +19,7 @@ struct ArticleHero: View {
     let url: URL
     let width: CGFloat
     let height: CGFloat
-    
+
     var aspectRatio: CGFloat? {
         guard width > 0, height > 0 else { return nil }
 

@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ArticleDate: View {
     let date: Date
-    
+
     var body: some View {
         TimelineView(.everyMinute) { _ in
             HStack(spacing: 4) {

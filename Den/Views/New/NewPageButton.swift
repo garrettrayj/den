@@ -11,21 +11,11 @@
 import SwiftUI
 
 struct NewPageButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @ObservedObject var profile: Profile
-
-    @Binding var detailPanel: DetailPanel?
+    @Binding var showingNewPageSheet: Bool
 
     var body: some View {
         Button {
-            let newPage = Page.create(in: viewContext, profile: profile, prepend: false)
-            do {
-                try viewContext.save()
-                detailPanel = .page(newPage)
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+            showingNewPageSheet = true
         } label: {
             Label {
                 Text("New Page", comment: "Button label.")

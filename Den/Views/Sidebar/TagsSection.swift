@@ -40,7 +40,7 @@ struct TagsSection: View {
     }
 
     private func moveTag(from source: IndexSet, to destination: Int) {
-        var revisedItems = profile.pagesArray
+        var revisedItems = profile.tagsArray
 
         // Change the order of the items in the array
         revisedItems.move(fromOffsets: source, toOffset: destination)

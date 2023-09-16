@@ -11,20 +11,11 @@
 import SwiftUI
 
 struct NewTagButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @ObservedObject var profile: Profile
-
-    @Binding var detailPanel: DetailPanel?
+    @Binding var showingNewTagSheet: Bool
 
     var body: some View {
         Button {
-            let newTag = Tag.create(in: viewContext, profile: profile)
-            do {
-                try viewContext.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+            showingNewTagSheet = true
         } label: {
             Label {
                 Text("New Tag", comment: "Button label.")

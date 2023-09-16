@@ -21,9 +21,6 @@ struct Start: View {
 
     var body: some View {
         Section {
-            NewPageButton(profile: profile, detailPanel: $detailPanel)
-                .buttonStyle(.borderless)
-
             ImportButton(showingImporter: $showingImporter)
                 .buttonStyle(.borderless)
 

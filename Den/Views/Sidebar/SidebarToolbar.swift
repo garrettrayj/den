@@ -22,6 +22,8 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
+    @Binding var showingNewPageSheet: Bool
+    @Binding var showingNewTagSheet: Bool
     @Binding var showingProfileSettings: Bool
 
     let profiles: FetchedResults<Profile>
@@ -47,8 +49,8 @@ struct SidebarToolbar: ToolbarContent {
             Menu {
                 Group {
                     NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                    NewPageButton(profile: profile, detailPanel: $detailPanel)
-                    NewTagButton(profile: profile, detailPanel: $detailPanel)
+                    NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                    NewTagButton(showingNewTagSheet: $showingNewTagSheet)
                     Divider()
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)

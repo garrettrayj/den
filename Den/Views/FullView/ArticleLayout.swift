@@ -13,24 +13,24 @@ import SwiftUI
 struct ArticleLayout: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.userTint) private var userTint
-    
+
     @ObservedObject var feed: Feed
-    
+
     let title: String
     let author: String?
     let date: Date
     let summaryContent: String?
     let bodyContent: String?
     let link: URL?
-    
+
     let image: URL?
     let imageWidth: CGFloat
     let imageHeight: CGFloat
-    
+
     var maxContentWidth: CGFloat {
         CGFloat(700) * dynamicTypeSize.layoutScalingFactor
     }
-    
+
     var body: some View {
         ScrollView(.vertical) {
             VStack {
