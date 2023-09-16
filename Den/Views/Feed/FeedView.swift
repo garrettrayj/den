@@ -68,7 +68,7 @@ struct FeedView: View {
                 }
             },
             content: {
-                FeedConfigurationSheet(feed: feed)
+                FeedConfigSheet(feed: feed)
             }
         )
     }

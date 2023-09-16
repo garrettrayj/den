@@ -1,5 +1,5 @@
 //
-//  FeedConfigurationSheet.swift
+//  FeedConfigSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/16/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedConfigurationSheet: View {
+struct FeedConfigSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -27,7 +27,7 @@ struct FeedConfigurationSheet: View {
                     }
                     .labelStyle(NoticeLabelStyle())
                 } else {
-                    FeedConfigurationForm(feed: feed)
+                    FeedConfigForm(feed: feed)
                 }
             }
             .navigationTitle(Text("Feed Configuration", comment: "Navigation title."))

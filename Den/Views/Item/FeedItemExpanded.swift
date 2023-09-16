@@ -20,7 +20,7 @@ struct FeedItemExpanded: View {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
             ItemActionView(item: item, feed: feed, profile: profile) {
-                ExpandedItemPreview(item: item, feed: feed)
+                ItemPreviewExpanded(item: item, feed: feed)
             }
         }
         .modifier(RoundedContainerModifier())

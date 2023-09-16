@@ -36,7 +36,7 @@ struct Gadget: View {
                     ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
                         Divider()
                         ItemActionView(item: item, feed: feed, profile: profile) {
-                            CompressedItemPreview(item: item, feed: feed)
+                            ItemPreviewCompressed(item: item, feed: feed)
                         }
                     }
                 }

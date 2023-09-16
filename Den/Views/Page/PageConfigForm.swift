@@ -1,5 +1,5 @@
 //
-//  PageConfigurationForm.swift
+//  PageConfigForm.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/21/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PageConfigurationForm: View {
+struct PageConfigForm: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page

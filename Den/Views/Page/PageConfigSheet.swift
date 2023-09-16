@@ -1,5 +1,5 @@
 //
-//  PageConfigurationSheet.swift
+//  PageConfigSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/16/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PageConfigurationSheet: View {
+struct PageConfigSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -27,7 +27,7 @@ struct PageConfigurationSheet: View {
                     }
                     .labelStyle(NoticeLabelStyle())
                 } else {
-                    PageConfigurationForm(page: page)
+                    PageConfigForm(page: page)
                 }
             }
             .navigationTitle(Text("Page Configuration", comment: "Navigation title."))

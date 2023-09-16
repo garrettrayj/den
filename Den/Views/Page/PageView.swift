@@ -96,7 +96,7 @@ struct PageView: View {
                 }
             },
             content: {
-                PageConfigurationSheet(page: page)
+                PageConfigSheet(page: page)
             }
         )
     }

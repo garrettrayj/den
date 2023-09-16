@@ -30,9 +30,9 @@ struct TagView: View {
                         BoardView(geometry: geometry, list: tag.bookmarksArray) { bookmark in
                             if let feed = bookmark.feed {
                                 if feed.wrappedPreviewStyle == .expanded {
-                                    ExpandedBookmarkPreview(bookmark: bookmark, feed: feed, profile: profile)
+                                    BookmarkPreviewExpanded(bookmark: bookmark, feed: feed, profile: profile)
                                 } else {
-                                    CompressedBookmarkPreview(bookmark: bookmark, feed: feed, profile: profile)
+                                    BookmarkPreviewCompressed(bookmark: bookmark, feed: feed, profile: profile)
                                 }
                             }
                         }

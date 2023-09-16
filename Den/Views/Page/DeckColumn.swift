@@ -57,9 +57,9 @@ struct DeckColumn: View {
                         ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
                             ItemActionView(item: item, feed: feed, profile: profile) {
                                 if feed.wrappedPreviewStyle == .expanded {
-                                    ExpandedItemPreview(item: item, feed: feed)
+                                    ItemPreviewExpanded(item: item, feed: feed)
                                 } else {
-                                    CompressedItemPreview(item: item, feed: feed)
+                                    ItemPreviewCompressed(item: item, feed: feed)
                                 }
                             }
                             .modifier(RoundedContainerModifier())

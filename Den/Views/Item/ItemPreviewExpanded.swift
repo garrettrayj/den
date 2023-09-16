@@ -1,5 +1,5 @@
 //
-//  ExpandedItemPreview.swift
+//  ItemPreviewExpanded.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/10/21.
@@ -10,34 +10,24 @@
 
 import SwiftUI
 
-struct ExpandedItemPreview: View {
+struct ItemPreviewExpanded: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
 
-    var showTeaser: Bool {
-        item.teaser != nil && item.teaser != "" && feed.hideTeasers != true
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             PreviewHeadline(title: item.wrappedTitle)
-
             if feed.hideBylines == false, let author = item.author {
-                Text(author)
-                    .font(.subheadline.weight(.medium))
-                    .lineLimit(2)
-                    .foregroundStyle(isEnabled ? .secondary : .tertiary)
+                PreviewAuthor(author: author)
             }
-
             VStack(alignment: .leading, spacing: 4) {
                 PreviewDateAndAction(date: item.date, browserView: feed.browserView)
                 if !item.bookmarks.isEmpty {
                     ItemTags(item: item)
                 }
             }
-
             if feed.hideImages != true, let url = item.image {
                 PreviewImage(
                     url: url,
@@ -46,9 +36,8 @@ struct ExpandedItemPreview: View {
                     height: CGFloat(item.imageHeight)
                 ).padding(.top, 4)
             }
-
-            if showTeaser {
-                PreviewTeaser(teaser: item.teaser!)
+            if let teaser = item.teaser, teaser != "" && !feed.hideTeasers {
+                PreviewTeaser(teaser: teaser)
             }
         }
         .multilineTextAlignment(.leading)

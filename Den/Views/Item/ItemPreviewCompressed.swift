@@ -1,5 +1,5 @@
 //
-//  CompressedItemPreview.swift
+//  ItemPreviewCompressed.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/29/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct CompressedItemPreview: View {
+struct ItemPreviewCompressed: View {
     @Environment(\.isEnabled) private var isEnabled
 
     @ObservedObject var item: Item
@@ -20,14 +20,9 @@ struct CompressedItemPreview: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
                 PreviewHeadline(title: item.wrappedTitle)
-
                 if feed.hideBylines == false, let author = item.author {
-                    Text(author)
-                        .font(.subheadline.weight(.medium))
-                        .lineLimit(2)
-                        .foregroundStyle(isEnabled ? .secondary : .tertiary)
+                    PreviewAuthor(author: author)
                 }
-
                 VStack(alignment: .leading, spacing: 4) {
                     PreviewDateAndAction(date: item.date, browserView: feed.browserView)
                     if !item.bookmarks.isEmpty {
@@ -35,7 +30,6 @@ struct CompressedItemPreview: View {
                     }
                 }
             }
-
             if feed.hideImages != true, let url = item.image {
                 Spacer()
                 PreviewThumbnail(url: url, isRead: item.read)

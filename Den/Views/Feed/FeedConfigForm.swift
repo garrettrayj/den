@@ -1,5 +1,5 @@
 //
-//  FeedConfigurationForm.swift
+//  FeedConfigForm.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/23/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedConfigurationForm: View {
+struct FeedConfigForm: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
@@ -30,7 +30,10 @@ struct FeedConfigurationForm: View {
 
     private var generalSection: some View {
         Section {
-            TextField(text: $feed.wrappedTitle, prompt: Text("Untitled", comment: "Text field prompt.")) {
+            TextField(
+                text: $feed.wrappedTitle,
+                prompt: Text("Untitled", comment: "Text field prompt.")
+            ) {
                 Label {
                     Text("Title", comment: "Text field label.")
                 } icon: {
