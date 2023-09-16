@@ -31,13 +31,13 @@ struct ItemActionView<Content: View>: View {
                         }
                     }
                 } label: {
-                    content
+                    content.modifier(ItemHandleModifier(item: item))
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
                 .accessibilityIdentifier("ItemAction")
             } else {
                 NavigationLink(value: SubDetailPanel.item(item)) {
-                    content
+                    content.modifier(ItemHandleModifier(item: item))
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
                 .accessibilityIdentifier("ItemAction")
