@@ -61,13 +61,8 @@ struct TagsSection: View {
 
     private func deleteTag(indices: IndexSet) {
         indices.forEach {
-            let page = profile.pagesArray[$0]
-            page.feedsArray.forEach { feed in
-                if let feedData = feed.feedData {
-                    viewContext.delete(feedData)
-                }
-            }
-            viewContext.delete(page)
+            let tag = profile.tagsArray[$0]
+            viewContext.delete(tag)
         }
 
         do {
