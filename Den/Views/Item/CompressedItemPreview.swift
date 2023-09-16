@@ -28,7 +28,7 @@ struct CompressedItemPreview: View {
                         .foregroundStyle(isEnabled ? .secondary : .tertiary)
                 }
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 4) {
                     PreviewDateAndAction(date: item.date, browserView: feed.browserView)
                     if !item.bookmarks.isEmpty {
                         ItemTags(item: item)

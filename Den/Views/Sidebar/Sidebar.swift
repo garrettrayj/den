@@ -40,7 +40,11 @@ struct Sidebar: View {
     var body: some View {
         List(selection: $detailPanel) {
             if profile.pagesArray.isEmpty {
-                Start(profile: profile, detailPanel: $detailPanel, showingImporter: $showingImporter)
+                Start(
+                    profile: profile,
+                    showingImporter: $showingImporter,
+                    showingNewPageSheet: $showingNewPageSheet
+                )
             } else {
                 #if os(macOS)
                 Section {
@@ -59,7 +63,9 @@ struct Sidebar: View {
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
-                TagsSection(profile: profile)
+                if !profile.tagsArray.isEmpty {
+                    TagsSection(profile: profile)
+                }
             }
         }
         .listStyle(.sidebar)

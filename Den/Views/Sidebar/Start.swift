@@ -16,14 +16,13 @@ struct Start: View {
 
     @ObservedObject var profile: Profile
 
-    @Binding var detailPanel: DetailPanel?
     @Binding var showingImporter: Bool
+    @Binding var showingNewPageSheet: Bool
 
     var body: some View {
         Section {
-            ImportButton(showingImporter: $showingImporter)
-                .buttonStyle(.borderless)
-
+            NewPageButton(showingNewPageSheet: $showingNewPageSheet).buttonStyle(.borderless)
+            ImportButton(showingImporter: $showingImporter).buttonStyle(.borderless)
             Button {
                 loadDemo()
             } label: {

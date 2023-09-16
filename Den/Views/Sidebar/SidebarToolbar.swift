@@ -84,8 +84,8 @@ struct SidebarToolbar: ToolbarContent {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
                     NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                    NewPageButton(profile: profile, detailPanel: $detailPanel)
-                    NewTagButton(profile: profile, detailPanel: $detailPanel)
+                    NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                    NewTagButton(showingNewTagSheet: $showingNewTagSheet)
                     Divider()
                     Button {
                         withAnimation {

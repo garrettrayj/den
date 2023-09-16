@@ -31,7 +31,12 @@ struct ExpandedItemPreview: View {
                     .foregroundStyle(isEnabled ? .secondary : .tertiary)
             }
 
-            PreviewDateAndAction(date: item.date, browserView: feed.browserView)
+            VStack(alignment: .leading, spacing: 4) {
+                PreviewDateAndAction(date: item.date, browserView: feed.browserView)
+                if !item.bookmarks.isEmpty {
+                    ItemTags(item: item)
+                }
+            }
 
             if feed.hideImages != true, let url = item.image {
                 PreviewImage(

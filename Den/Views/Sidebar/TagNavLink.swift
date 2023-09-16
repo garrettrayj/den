@@ -11,6 +11,10 @@
 import SwiftUI
 
 struct TagNavLink: View {
+    #if os(iOS)
+    @Environment(\.editMode) private var editMode
+    #endif
+
     @ObservedObject var tag: Tag
 
     var body: some View {

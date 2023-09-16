@@ -18,6 +18,9 @@ struct TagsMenu: View {
 
     var body: some View {
         Menu {
+            if profile.tagsArray.isEmpty {
+                Text("No Tags")
+            }
             ForEach(profile.tagsArray) { tag in
                 if item.bookmarkTags.contains(tag) {
                     Button {
@@ -26,6 +29,7 @@ struct TagsMenu: View {
                         }
                         do {
                             try viewContext.save()
+                            item.objectWillChange.send()
                             profile.objectWillChange.send()
                         } catch {
                             CrashUtility.handleCriticalError(error as NSError)
@@ -42,6 +46,7 @@ struct TagsMenu: View {
                         _ = Bookmark.create(in: viewContext, item: item, tag: tag)
                         do {
                             try viewContext.save()
+                            item.objectWillChange.send()
                             profile.objectWillChange.send()
                         } catch {
                             CrashUtility.handleCriticalError(error as NSError)

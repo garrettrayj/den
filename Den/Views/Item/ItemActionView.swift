@@ -44,7 +44,8 @@ struct ItemActionView<Content: View>: View {
             }
         }
         .contextMenu {
-            if let link = item.link {
+            #if os(iOS)
+            ControlGroup {
                 Button {
                     Task {
                         await HistoryUtility.toggleReadUnread(items: [item])
@@ -64,14 +65,40 @@ struct ItemActionView<Content: View>: View {
                         }
                     }
                 }
-
-                NavigationLink(value: SubDetailPanel.item(item)) {
+                TagsMenu(item: item, profile: profile)
+            }
+            #else
+            Button {
+                Task {
+                    await HistoryUtility.toggleReadUnread(items: [item])
+                }
+            } label: {
+                if item.read {
                     Label {
-                        Text("Go to Item", comment: "Context Button label.")
+                        Text("Mark Unread", comment: "Button label.")
                     } icon: {
-                        Image(systemName: "chevron.forward")
+                        Image(systemName: "checkmark.circle.badge.xmark")
+                    }
+                } else {
+                    Label {
+                        Text("Mark Read", comment: "Button label.")
+                    } icon: {
+                        Image(systemName: "checkmark.circle")
                     }
                 }
+            }
+            TagsMenu(item: item, profile: profile)
+            #endif
+
+            NavigationLink(value: SubDetailPanel.item(item)) {
+                Label {
+                    Text("Go to Item", comment: "Context Button label.")
+                } icon: {
+                    Image(systemName: "chevron.forward")
+                }
+            }
+
+            if let link = item.link {
                 Button {
                     Task {
                         await HistoryUtility.markItemRead(item: item)

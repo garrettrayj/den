@@ -19,7 +19,7 @@ struct AllRead: View {
                 Label {
                     Text("All Read", comment: "All read message title.")
                 } icon: {
-                    Image(systemName: "checkmark.circle")
+                    Image(systemName: "checkmark")
                 }
             } description: {
                 Text("Turn off filtering to show hidden items.", comment: "All read message guidance.")
@@ -28,7 +28,7 @@ struct AllRead: View {
         } else {
             CardNote(
                 Text("All Read", comment: "No unread items message."),
-                icon: { Image(systemName: "checkmark.circle") }
+                icon: { Image(systemName: "checkmark") }
             )
         }
     }
