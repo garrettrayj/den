@@ -18,60 +18,64 @@ struct ConfigInspector: View {
     @Binding var selection: Set<Feed>
 
     var body: some View {
-        Form {
-            Section {
-                Picker(sources: sources, selection: \.page) {
-                    ForEach(profile.pagesArray) { page in
-                        page.nameText.tag(page as Page?)
+        if sources.isEmpty {
+            Text("No Selection").font(.title)
+        } else {
+            Form {
+                Section {
+                    Picker(sources: sources, selection: \.page) {
+                        ForEach(profile.pagesArray) { page in
+                            page.nameText.tag(page as Page?)
+                        }
+                    } label: {
+                        Text("Page", comment: "Picker label.")
                     }
-                } label: {
-                    Text("Page", comment: "Picker label.")
                 }
-            }
 
-            Section {
-                Picker(sources: sources, selection: \.itemLimitChoice) {
-                    ForEach(ItemLimit.allCases, id: \.self) { choice in
-                        Text("\(choice.rawValue)").tag(choice)
+                Section {
+                    Picker(sources: sources, selection: \.itemLimitChoice) {
+                        ForEach(ItemLimit.allCases, id: \.self) { choice in
+                            Text("\(choice.rawValue)").tag(choice)
+                        }
+                    } label: {
+                        Text("Preview Limit")
                     }
-                } label: {
-                    Text("Preview Limit")
-                }
-                Toggle(sources: sources, isOn: \.browserView) {
-                    Text("Open in Browser", comment: "Toggle label.")
-                }
-                Toggle(sources: sources, isOn: \.readerMode) {
-                    HStack(spacing: 4) {
-                        Text("Reader Mode", comment: "Toggle label.")
-                        Text("iOS")
-                            .font(.caption2.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(
-                                Capsule().fill(.quaternary)
-                            )
+                    Toggle(sources: sources, isOn: \.browserView) {
+                        Text("Open in Browser", comment: "Toggle label.")
                     }
+                    Toggle(sources: sources, isOn: \.readerMode) {
+                        HStack(spacing: 4) {
+                            Text("Reader Mode", comment: "Toggle label.")
+                            Text("iOS")
+                                .font(.caption2.weight(.semibold))
+                                .foregroundStyle(.secondary)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(
+                                    Capsule().fill(.quaternary)
+                                )
+                        }
+                    }
+                    Toggle(sources: sources, isOn: \.largePreviews) {
+                        Text("Large Previews", comment: "Toggle label.")
+                    }
+                    Toggle(sources: sources, isOn: \.hideTeasers) {
+                        Text("Hide Teasers", comment: "Toggle label.")
+                    }
+                    Toggle(sources: sources, isOn: \.hideBylines) {
+                        Text("Hide Bylines", comment: "Toggle label.")
+                    }
+                    Toggle(sources: sources, isOn: \.hideImages) {
+                        Text("Hide Images", comment: "Toggle label.")
+                    }
+                } header: {
+                    Text("Previews")
                 }
-                Toggle(sources: sources, isOn: \.largePreviews) {
-                    Text("Large Previews", comment: "Toggle label.")
-                }
-                Toggle(sources: sources, isOn: \.hideTeasers) {
-                    Text("Hide Teasers", comment: "Toggle label.")
-                }
-                Toggle(sources: sources, isOn: \.hideBylines) {
-                    Text("Hide Bylines", comment: "Toggle label.")
-                }
-                Toggle(sources: sources, isOn: \.hideImages) {
-                    Text("Hide Images", comment: "Toggle label.")
-                }
-            } header: {
-                Text("Previews")
             }
+            .scrollContentBackground(.hidden)
+            .padding(.horizontal, -8)
+            .padding(.top, -4)
         }
-        .scrollContentBackground(.hidden)
-        .padding(.horizontal, -8)
-        .padding(.top, -4)
     }
 
     private var sources: Binding<[Feed]> {
@@ -85,7 +89,6 @@ struct ConfigInspector: View {
                 if viewContext.hasChanges {
                     do {
                         try viewContext.save()
-                        selection = Set($0)
                         profile.pagesArray.forEach { $0.objectWillChange.send() }
                         profile.objectWillChange.send()
                     } catch {

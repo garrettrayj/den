@@ -18,9 +18,9 @@ struct Organizer: View {
 
     @State private var selection = Set<Feed>()
     #if os(macOS)
-    @State private var showingInspector = true
+    @State private var showingInspectors = true
     #else
-    @State private var showingInspector = false
+    @State private var showingInspectors = false
     #endif
 
     var body: some View {
@@ -73,7 +73,7 @@ struct Organizer: View {
                 print("INSERT FEED")
             })
         }
-        .inspector(isPresented: $showingInspector) {
+        .inspector(isPresented: $showingInspectors) {
             OrganizerInspectors(profile: profile, selection: $selection)
         }
         #if os(macOS)
@@ -84,17 +84,11 @@ struct Organizer: View {
         #endif
         .navigationTitle(Text("Organizer", comment: "Navigation title."))
         .toolbar {
-            ToolbarItem {
-                Button {
-                    showingInspector.toggle()
-                } label: {
-                    Label {
-                        Text("Toggle Inspector")
-                    } icon: {
-                        Image(systemName: "sidebar.trailing")
-                    }
-                }
-            }
+            OrganizerToolbar(
+                profile: profile,
+                selection: $selection,
+                showingInspectors: $showingInspectors
+            )
         }
     }
 

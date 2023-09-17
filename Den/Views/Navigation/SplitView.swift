@@ -14,8 +14,9 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct SplitView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.userTint) private var userTint
 
     @ObservedObject var profile: Profile
 
@@ -73,13 +74,7 @@ struct SplitView: View {
             .background(Color(.systemGroupedBackground))
             #endif
         }
-        .tint(profile.tintColor)
-        .refreshable {
-            await Task {
-                guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
-                await RefreshManager.refresh(profile: profile)
-            }.value
-        }
+        .tint(userTint)
         .onOpenURL { url in
             if case .page(let page) = detailPanel {
                 newFeedPageID = page.id?.uuidString

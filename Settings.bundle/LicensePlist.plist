@@ -90,7 +90,7 @@ THE SOFTWARE.
 			<key>License</key>
 			<string>MIT</string>
 			<key>Title</key>
-			<string>SDWebImage (5.17.0)</string>
+			<string>SDWebImage (5.18.1)</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -321,7 +321,7 @@ POSSIBILITY OF SUCH DAMAGE.
 			<key>License</key>
 			<string>unknown</string>
 			<key>Title</key>
-			<string>Sparkle (2.4.2)</string>
+			<string>Sparkle (2.5.0)</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

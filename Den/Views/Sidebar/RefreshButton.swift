@@ -12,39 +12,38 @@ import SwiftUI
 
 struct RefreshButton: View {
     @Environment(\.displayScale) private var displayScale
-    @Environment(\.refresh) private var refresh
+
+    @ObservedObject var profile: Profile
 
     @Binding var refreshing: Bool
 
     let refreshProgress: Progress
 
     var body: some View {
-        if let refresh = refresh {
-            Button {
-                Task {
-                    await refresh()
-                }
-            } label: {
-                Label {
-                    Text("Refresh", comment: "Button label.")
-                } icon: {
-                    #if os(macOS)
-                    if refreshing {
-                        ProgressView(refreshProgress)
-                            .progressViewStyle(.circular)
-                            .labelsHidden()
-                            .scaleEffect(1 / displayScale)
-                            .frame(width: 18)
-                    } else {
-                        Image(systemName: "arrow.clockwise")
-                    }
-                    #else
-                    Image(systemName: "arrow.clockwise")
-                    #endif
-                }
+        Button {
+            Task {
+                await RefreshManager.refresh(profile: profile)
             }
-            .keyboardShortcut("r", modifiers: [.command], localization: .withoutMirroring)
-            .accessibilityIdentifier("Refresh")
+        } label: {
+            Label {
+                Text("Refresh", comment: "Button label.")
+            } icon: {
+                #if os(macOS)
+                if refreshing {
+                    ProgressView(refreshProgress)
+                        .progressViewStyle(.circular)
+                        .labelsHidden()
+                        .scaleEffect(1 / displayScale)
+                        .frame(width: 18)
+                } else {
+                    Image(systemName: "arrow.clockwise")
+                }
+                #else
+                Image(systemName: "arrow.clockwise")
+                #endif
+            }
         }
+        .keyboardShortcut("r", modifiers: [.command], localization: .withoutMirroring)
+        .accessibilityIdentifier("Refresh")
     }
 }

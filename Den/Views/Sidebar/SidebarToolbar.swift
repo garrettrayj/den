@@ -40,6 +40,7 @@ struct SidebarToolbar: ToolbarContent {
         #if os(macOS)
         ToolbarItem(placement: .primaryAction) {
             RefreshButton(
+                profile: profile,
                 refreshing: $refreshing,
                 refreshProgress: refreshProgress
             )
@@ -133,6 +134,7 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) {
             RefreshButton(
+                profile: profile,
                 refreshing: $refreshing,
                 refreshProgress: refreshProgress
             ).disabled(refreshing || !networkMonitor.isConnected || profile.pagesArray.isEmpty)

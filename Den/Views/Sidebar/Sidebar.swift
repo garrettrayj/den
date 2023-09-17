@@ -69,6 +69,11 @@ struct Sidebar: View {
             }
         }
         .listStyle(.sidebar)
+        .refreshable {
+            await Task {
+                await RefreshManager.refresh(profile: profile)
+            }.value
+        }
         .searchable(
             text: $searchInput,
             placement: .sidebar,
