@@ -20,7 +20,7 @@ struct FeedTitleLabel: View {
             feed.titleText.lineLimit(1)
         } icon: {
             FeedFavicon(url: feed.feedData?.favicon)
-                .modifier(FeedHandleModifier(feed: feed))
+                .modifier(DraggableFeedModifier(feed: feed))
                 .onHover { hovering in
                     iconIsHovered = hovering
                 }

@@ -1,5 +1,5 @@
 //
-//  FeedHandleModifier.swift
+//  DraggableFeedModifier.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/16/23.
@@ -10,8 +10,8 @@
 
 import SwiftUI
 
-struct FeedHandleModifier: ViewModifier {
-    let feed: Feed
+struct DraggableFeedModifier: ViewModifier {
+    @ObservedObject var feed: Feed
 
     func body(content: Content) -> some View {
         if let feedURL = feed.url {

@@ -16,12 +16,12 @@ struct TransferableFeed: Codable, Transferable {
     var feedURL: URL
 
     static var transferRepresentation: some TransferRepresentation {
-        CodableRepresentation(contentType: .feed)
+        CodableRepresentation(contentType: .denFeed)
         ProxyRepresentation(exporting: \.feedURL)
         ProxyRepresentation(exporting: \.feedURL.absoluteString)
     }
 }
 
 extension UTType {
-    static var feed = UTType(exportedAs: "net.devsci.den.transferable.feed")
+    static var denFeed = UTType(exportedAs: "net.devsci.den.transferable.feed")
 }

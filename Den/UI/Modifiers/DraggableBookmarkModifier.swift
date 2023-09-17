@@ -1,5 +1,5 @@
 //
-//  ItemHandleModifier.swift
+//  DraggableBookmarkModifier.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/16/23.
@@ -10,16 +10,16 @@
 
 import SwiftUI
 
-struct ItemHandleModifier: ViewModifier {
-    let item: Item
+struct DraggableBookmarkModifier: ViewModifier {
+    @ObservedObject var bookmark: Bookmark
 
     func body(content: Content) -> some View {
-        if let linkURL = item.link {
+        if let linkURL = bookmark.link {
             content
                 .contentShape(Rectangle())
                 .draggable(
-                    TransferableItem(
-                        objectURI: item.objectID.uriRepresentation(),
+                    TransferableBookmark(
+                        objectURI: bookmark.objectID.uriRepresentation(),
                         linkURL: linkURL
                     )
                 )

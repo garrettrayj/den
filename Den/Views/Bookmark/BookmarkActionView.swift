@@ -30,13 +30,13 @@ struct BookmarkActionView<Content: View>: View {
                         }
                     }
                 } label: {
-                    content
+                    content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
                 .buttonStyle(ItemButtonStyle(read: false))
                 .accessibilityIdentifier("BookmarkAction")
             } else {
                 NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
-                    content
+                    content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
                 .buttonStyle(ItemButtonStyle(read: false))
                 .accessibilityIdentifier("BookmarkAction")

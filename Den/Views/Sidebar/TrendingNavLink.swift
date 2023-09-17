@@ -21,7 +21,7 @@ struct TrendingNavLink: View {
         } icon: {
             Image(systemName: "chart.line.uptrend.xyaxis")
         }
-        .accessibilityIdentifier("TrendingNavLink")
         .tag(DetailPanel.trending)
+        .accessibilityIdentifier("TrendingNavLink")
     }
 }

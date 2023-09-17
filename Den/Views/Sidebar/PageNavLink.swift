@@ -41,11 +41,10 @@ struct PageNavLink: View {
             Image(systemName: page.wrappedSymbol)
         }
         .lineLimit(1)
-        .tag(DetailPanel.page(page))
         .contentShape(Rectangle())
         .onDrop(
-            of: [.feed, .url, .text],
-            delegate: FeedDropDelegate(
+            of: [.denFeed, .url, .text],
+            delegate: PageNavDropDelegate(
                 context: viewContext,
                 page: page,
                 newFeedPageID: $newFeedPageID,
@@ -53,6 +52,7 @@ struct PageNavLink: View {
                 showingNewFeedSheet: $showingNewFeedSheet
             )
         )
+        .tag(DetailPanel.page(page))
         .accessibilityIdentifier("PageNavLink")
     }
 }

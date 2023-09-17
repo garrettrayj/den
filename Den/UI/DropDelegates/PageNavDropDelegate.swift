@@ -1,5 +1,5 @@
 //
-//  FeedDropDelegate.swift
+//  PageNavDropDelegate.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/29/23.
@@ -8,11 +8,10 @@
 //  SPDX-License-Identifier: MIT
 //
 
-import CoreData
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct FeedDropDelegate: DropDelegate {
+struct PageNavDropDelegate: DropDelegate {
     let context: NSManagedObjectContext
     let page: Page
 
@@ -21,23 +20,30 @@ struct FeedDropDelegate: DropDelegate {
     @Binding var showingNewFeedSheet: Bool
 
     func performDrop(info: DropInfo) -> Bool {
-        guard info.hasItemsConforming(to: [.feed, .url, .text]) else {
-            return false
-        }
-
-        for item in info.itemProviders(for: [.feed, .url, .text]) {
-            if item.hasItemConformingToTypeIdentifier(UTType.feed.identifier) {
-                handleMoveFeed(item: item)
-            } else {
-                handleNewFeed(item: item)
+        if info.hasItemsConforming(to: [.denFeed]) {
+            for provider in info.itemProviders(for: [.denFeed]) {
+                handleMoveFeed(provider)
             }
+
+            return true
         }
 
-        return true
+        if info.hasItemsConforming(to: [.url, .text])
+            && !info.hasItemsConforming(to: [.denItem, .denBookmark]) {
+            // Only recognize the first dropped item
+            guard let provider = info.itemProviders(for: [.url, .text]).first else {
+                return false
+            }
+            handleNewFeed(provider)
+
+            return true
+        }
+
+        return false
     }
 
-    private func handleMoveFeed(item: NSItemProvider) {
-        _ = item.loadTransferable(type: TransferableFeed.self) { result in
+    private func handleMoveFeed(_ provider: NSItemProvider) {
+        _ = provider.loadTransferable(type: TransferableFeed.self) { result in
             guard case .success(let transferableFeed) = result else { return }
 
             Task {
@@ -65,9 +71,9 @@ struct FeedDropDelegate: DropDelegate {
         }
     }
 
-    private func handleNewFeed(item: NSItemProvider) {
-        if item.canLoadObject(ofClass: URL.self) {
-            _ = item.loadObject(ofClass: URL.self, completionHandler: { url, _ in
+    private func handleNewFeed(_ provider: NSItemProvider) {
+        if provider.canLoadObject(ofClass: URL.self) {
+            _ = provider.loadObject(ofClass: URL.self, completionHandler: { url, _ in
                 if let url = url {
                     newFeedPageID = page.id?.uuidString
                     newFeedWebAddress = url.absoluteStringForNewFeed
@@ -78,8 +84,8 @@ struct FeedDropDelegate: DropDelegate {
             return
         }
 
-        if item.canLoadObject(ofClass: String.self) {
-            _ = item.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
+        if provider.canLoadObject(ofClass: String.self) {
+            _ = provider.loadObject(ofClass: String.self, completionHandler: { droppedString, _ in
                 if let droppedString = droppedString {
                     newFeedPageID = page.id?.uuidString
                     newFeedWebAddress = droppedString

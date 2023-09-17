@@ -14,6 +14,7 @@ struct TagNavLink: View {
     #if os(iOS)
     @Environment(\.editMode) private var editMode
     #endif
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var tag: Tag
 
@@ -31,7 +32,13 @@ struct TagNavLink: View {
         } icon: {
             Image(systemName: "tag")
         }
-        .accessibilityIdentifier("TagNavLink")
+        .lineLimit(1)
+        .contentShape(Rectangle())
+        .onDrop(
+            of: [.denBookmark, .denItem],
+            delegate: TagNavDropDelegate(context: viewContext, tag: tag)
+        )
         .tag(DetailPanel.tag(tag))
+        .accessibilityIdentifier("TagNavLink")
     }
 }
