@@ -82,8 +82,8 @@ struct ConfigInspector: View {
         Binding(
             get: { selection.filter { _ in true } },
             set: {
-                for (index, feed) in $0.enumerated() where feed.changedValues().keys.contains("page") {
-                    feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + Int16((index + 1))
+                for feed in $0 where feed.changedValues().keys.contains("page") {
+                    feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
                 }
 
                 if viewContext.hasChanges {

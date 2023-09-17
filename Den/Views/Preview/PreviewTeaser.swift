@@ -16,7 +16,6 @@ struct PreviewTeaser: View {
     var body: some View {
         Text(teaser)
             .font(.subheadline)
-            .foregroundStyle(.secondary)
             .lineLimit(6)
             .padding(.top, 4)
     }

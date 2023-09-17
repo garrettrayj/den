@@ -43,14 +43,15 @@ struct BookmarkActionView<Content: View>: View {
             }
         }
         .contextMenu {
-            if let link = bookmark.link {
-                NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
-                    Label {
-                        Text("Go to Item", comment: "Context Button label.")
-                    } icon: {
-                        Image(systemName: "chevron.forward")
-                    }
+            NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
+                Label {
+                    Text("Go to Item", comment: "Context Button label.")
+                } icon: {
+                    Image(systemName: "chevron.forward")
                 }
+            }
+            
+            if let link = bookmark.link {
                 Button {
                     Task {
                         // await HistoryUtility.markItemRead(bookmark: item)
@@ -70,6 +71,8 @@ struct BookmarkActionView<Content: View>: View {
                 }
                 ShareButton(url: link)
             }
+            
+            DeleteBookmarkButton(bookmark: bookmark)
         }
     }
 

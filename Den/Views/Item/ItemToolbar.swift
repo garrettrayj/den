@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct ItemToolbar: ToolbarContent {
-    @Environment(\.userTint) private var userTint
-
     @ObservedObject var item: Item
     @ObservedObject var profile: Profile
 
@@ -25,7 +23,7 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem {
             if let url = item.link {
-                OpenInBrowserButton(url: url, tintColor: userTint)
+                OpenInBrowserButton(url: url)
             }
         }
         ToolbarItem {
@@ -39,7 +37,7 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .primaryAction) {
             if let url = item.link {
-                OpenInBrowserButton(url: url, tintColor: userTint)
+                OpenInBrowserButton(url: url)
             }
         }
         ToolbarItem(placement: .primaryAction) {

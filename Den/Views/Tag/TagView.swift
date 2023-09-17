@@ -25,18 +25,32 @@ struct TagView: View {
             }
         } else {
             ZStack {
-                GeometryReader { geometry in
-                    ScrollView {
-                        BoardView(geometry: geometry, list: tag.bookmarksArray) { bookmark in
-                            if let feed = bookmark.feed {
-                                if feed.wrappedPreviewStyle == .expanded {
-                                    BookmarkPreviewExpanded(bookmark: bookmark, feed: feed, profile: profile)
-                                } else {
-                                    BookmarkPreviewCompressed(bookmark: bookmark, feed: feed, profile: profile)
+                if tag.bookmarksArray.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Bookmarks", systemImage: "circle.slash")
+                    }
+                } else {
+                    GeometryReader { geometry in
+                        ScrollView {
+                            BoardView(geometry: geometry, list: tag.bookmarksArray) { bookmark in
+                                if let feed = bookmark.feed {
+                                    if feed.wrappedPreviewStyle == .expanded {
+                                        BookmarkPreviewExpanded(
+                                            bookmark: bookmark,
+                                            feed: feed,
+                                            profile: profile
+                                        )
+                                    } else {
+                                        BookmarkPreviewCompressed(
+                                            bookmark: bookmark,
+                                            feed: feed,
+                                            profile: profile
+                                        )
+                                    }
                                 }
                             }
+                            .modifier(MainBoardModifier())
                         }
-                        .modifier(MainBoardModifier())
                     }
                 }
             }

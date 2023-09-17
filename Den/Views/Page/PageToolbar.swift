@@ -45,7 +45,7 @@ struct PageToolbar: ToolbarContent {
         }
         #else
         if horizontalSizeClass == .compact {
-            ToolbarItem(id: "PageMenu", placement: .primaryAction) {
+            ToolbarItem(placement: .primaryAction) {
                 Menu {
                     ToggleReadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))

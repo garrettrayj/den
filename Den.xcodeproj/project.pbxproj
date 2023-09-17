@@ -331,6 +331,8 @@
 		6856DB2C2AB649CF0094615E /* TagNavDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB2A2AB649CD0094615E /* TagNavDropDelegate.swift */; };
 		6856DB2E2AB6E2730094615E /* OrganizerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */; };
 		6856DB2F2AB6E2EA0094615E /* OrganizerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */; };
+		6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB322AB77CDE0094615E /* DeleteBookmarkButton.swift */; };
+		6856DB342AB77EE80094615E /* DeleteBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB322AB77CDE0094615E /* DeleteBookmarkButton.swift */; };
 		68599B582AB082790057FEA8 /* Bookmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B572AB082790057FEA8 /* Bookmark+CoreDataClass.swift */; };
 		68599B5D2AB087990057FEA8 /* BookmarkActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B5C2AB087990057FEA8 /* BookmarkActionView.swift */; };
 		68599B5F2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B5E2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift */; };
@@ -669,6 +671,7 @@
 		6856DB262AB636070094615E /* DraggableBookmarkModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableBookmarkModifier.swift; sourceTree = "<group>"; };
 		6856DB2A2AB649CD0094615E /* TagNavDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNavDropDelegate.swift; sourceTree = "<group>"; };
 		6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerToolbar.swift; sourceTree = "<group>"; };
+		6856DB322AB77CDE0094615E /* DeleteBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBookmarkButton.swift; sourceTree = "<group>"; };
 		68599B572AB082790057FEA8 /* Bookmark+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68599B5C2AB087990057FEA8 /* BookmarkActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkActionView.swift; sourceTree = "<group>"; };
 		68599B5E2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkPreviewCompressed.swift; sourceTree = "<group>"; };
@@ -1104,6 +1107,7 @@
 				68599B6D2AB1892E0057FEA8 /* BookmarkPreviewExpanded.swift */,
 				6856DAF22AB426720094615E /* BookmarkToolbar.swift */,
 				68599B712AB18BA80057FEA8 /* BookmarkView.swift */,
+				6856DB322AB77CDE0094615E /* DeleteBookmarkButton.swift */,
 			);
 			path = Bookmark;
 			sourceTree = "<group>";
@@ -2139,6 +2143,7 @@
 				683C35EE2A9F188700568E9A /* RefreshProgressViewStyle.swift in Sources */,
 				683C35EF2A9F188700568E9A /* RelativeRefreshedDate.swift in Sources */,
 				683C35F02A9F188700568E9A /* ResetEverythingButton.swift in Sources */,
+				6856DB342AB77EE80094615E /* DeleteBookmarkButton.swift in Sources */,
 				683C35F12A9F188700568E9A /* RootView.swift in Sources */,
 				683C35F22A9F188700568E9A /* RoundedContainerModifier.swift in Sources */,
 				683C35F32A9F188700568E9A /* RSSFeed+Extensions.swift in Sources */,
@@ -2381,6 +2386,7 @@
 				687FEF082A3FAD610042977E /* RefreshProgressViewStyle.swift in Sources */,
 				6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */,
 				687FEEF52A3DDCF30042977E /* ResetEverythingButton.swift in Sources */,
+				6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */,
 				68C41316247263C700D1DC7B /* RootView.swift in Sources */,
 				68245E2D29B834AC0068D450 /* RoundedContainerModifier.swift in Sources */,
 				6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */,

@@ -12,11 +12,11 @@ import SwiftUI
 
 struct OpenInBrowserButton: View {
     @Environment(\.openURL) private var openURL
+    @Environment(\.userTint) private var userTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     let url: URL
     var readerMode: Bool?
-    var tintColor: Color?
 
     var body: some View {
         Button {
@@ -28,7 +28,7 @@ struct OpenInBrowserButton: View {
             } else {
                 BuiltInBrowser.openURL(
                     url: url,
-                    controlTintColor: tintColor,
+                    controlTintColor: userTint,
                     readerMode: readerMode
                 )
             }

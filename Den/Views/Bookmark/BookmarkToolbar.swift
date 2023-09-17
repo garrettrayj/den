@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct BookmarkToolbar: ToolbarContent {
-    @Environment(\.userTint) private var userTint
-
     @ObservedObject var bookmark: Bookmark
 
     var body: some ToolbarContent {
@@ -20,8 +18,11 @@ struct BookmarkToolbar: ToolbarContent {
         // and no placement causes the buttons to be combined into a menu on iOS.
         #if os(macOS)
         ToolbarItem {
+            DeleteBookmarkButton(bookmark: bookmark)
+        }
+        ToolbarItem {
             if let url = bookmark.link {
-                OpenInBrowserButton(url: url, tintColor: userTint)
+                OpenInBrowserButton(url: url)
             }
         }
         ToolbarItem {
@@ -31,8 +32,11 @@ struct BookmarkToolbar: ToolbarContent {
         }
         #else
         ToolbarItem(placement: .primaryAction) {
+            DeleteBookmarkButton(bookmark: bookmark)
+        }
+        ToolbarItem(placement: .primaryAction) {
             if let url = bookmark.link {
-                OpenInBrowserButton(url: url, tintColor: userTint)
+                OpenInBrowserButton(url: url)
             }
         }
         ToolbarItem(placement: .primaryAction) {
