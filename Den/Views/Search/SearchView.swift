@@ -15,7 +15,7 @@ struct SearchView: View {
     @ObservedObject var profile: Profile
     @ObservedObject var search: Search
 
-    @AppStorage("HideRead") private var hideRead: Bool = false
+    @Binding var hideRead: Bool
 
     var body: some View {
         ZStack {

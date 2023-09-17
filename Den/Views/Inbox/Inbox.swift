@@ -13,9 +13,8 @@ import SwiftUI
 struct Inbox: View {
     @ObservedObject var profile: Profile
 
+    @Binding var hideRead: Bool
     @Binding var showingNewFeedSheet: Bool
-
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     var body: some View {
         WithItems(scopeObject: profile) { items in

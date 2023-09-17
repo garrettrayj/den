@@ -21,7 +21,10 @@ struct ItemTags: View {
         var text = Text("")
         for bookmark in item.bookmarks {
             guard let tagName = bookmark.tag?.nameText else { continue }
-            text = text + Text("\(Image(systemName: "tag"))\u{00A0}") + tagName + Text("  ")
+            text = text +
+                Text("\(Image(systemName: "tag"))\u{00A0}") +
+                tagName +
+                Text("  ")
         }
 
         return text

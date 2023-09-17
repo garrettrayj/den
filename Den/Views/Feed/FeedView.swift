@@ -16,7 +16,7 @@ struct FeedView: View {
 
     @ObservedObject var feed: Feed
 
-    @AppStorage("HideRead") private var hideRead: Bool = false
+    @Binding var hideRead: Bool
 
     @SceneStorage("ShowingFeedConfiguration") private var showingFeedConfiguration: Bool = false
 

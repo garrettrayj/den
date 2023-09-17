@@ -13,7 +13,7 @@ import SwiftUI
 struct TrendView: View {
     @ObservedObject var trend: Trend
 
-    @AppStorage("HideRead") private var hideRead: Bool = false
+    @Binding var hideRead: Bool
 
     var body: some View {
         ZStack {

@@ -41,11 +41,16 @@ struct TrendBlock: View {
                 VStack(alignment: .leading, spacing: 12) {
                     trend.titleText.font(.title).lineLimit(1)
 
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
-                        ForEach(uniqueFaviconURLs, id: \.self) { url in
-                            FeedFavicon(url: url)
+                    Grid {
+                        ForEach(uniqueFaviconURLs.chunked(by: 8), id: \.self) { favicons in
+                            GridRow {
+                                ForEach(favicons, id: \.self) { favicon in
+                                    FeedFavicon(url: favicon)
+                                }
+                            }
                         }
-                    }.opacity(trend.hasUnread ? 1.0 : 0.5)
+                    }
+                    .opacity(trend.hasUnread ? 1.0 : 0.5)
 
                     HStack {
                         if let symbol = symbol {
@@ -61,6 +66,7 @@ struct TrendBlock: View {
                 }
                 .padding(12)
                 .foregroundStyle(trend.items.unread().isEmpty ? .secondary : .primary)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
             }
             .buttonStyle(BasicGroupButtonStyle())
         }

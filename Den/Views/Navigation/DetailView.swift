@@ -14,6 +14,7 @@ struct DetailView: View {
     @ObservedObject var profile: Profile
 
     @Binding var detailPanel: DetailPanel?
+    @Binding var hideRead: Bool
     @Binding var refreshing: Bool
     @Binding var path: NavigationPath
     @Binding var showingNewFeedSheet: Bool
@@ -23,17 +24,22 @@ struct DetailView: View {
             ZStack {
                 switch detailPanel ?? .welcome {
                 case .inbox:
-                    Inbox(profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
+                    Inbox(profile: profile, hideRead: $hideRead, showingNewFeedSheet: $showingNewFeedSheet)
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
-                    PageView(page: page, profile: profile, showingNewFeedSheet: $showingNewFeedSheet)
+                    PageView(
+                        page: page,
+                        profile: profile,
+                        hideRead: $hideRead,
+                        showingNewFeedSheet: $showingNewFeedSheet
+                    )
                 case .search(let search):
-                    SearchView(profile: profile, search: search)
+                    SearchView(profile: profile, search: search, hideRead: $hideRead)
                 case .tag(let tag):
                     TagView(profile: profile, tag: tag)
                 case .trending:
-                    Trending(profile: profile)
+                    Trending(profile: profile, hideRead: $hideRead)
                 case .welcome:
                     Welcome(profile: profile)
                 }
@@ -45,11 +51,11 @@ struct DetailView: View {
                     case .bookmark(let bookmark):
                         BookmarkView(bookmark: bookmark)
                     case .feed(let feed):
-                        FeedView(feed: feed)
+                        FeedView(feed: feed, hideRead: $hideRead)
                     case .item(let item):
                         ItemView(item: item, profile: profile)
                     case .trend(let trend):
-                        TrendView(trend: trend)
+                        TrendView(trend: trend, hideRead: $hideRead)
                     }
                 }
                 .disabled(refreshing)

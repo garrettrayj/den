@@ -15,9 +15,8 @@ struct PageView: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
+    @Binding var hideRead: Bool
     @Binding var showingNewFeedSheet: Bool
-
-    @AppStorage("HideRead") private var hideRead: Bool = false
 
     @SceneStorage("ShowingPageConfiguration") private var showingPageConfiguration: Bool = false
 
@@ -104,11 +103,13 @@ struct PageView: View {
     init(
         page: Page,
         profile: Profile,
+        hideRead: Binding<Bool>,
         showingNewFeedSheet: Binding<Bool>
     ) {
         self.page = page
         self.profile = profile
 
+        _hideRead = hideRead
         _showingNewFeedSheet = showingNewFeedSheet
 
         pageLayout = .init(

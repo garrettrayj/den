@@ -18,7 +18,7 @@ public class Tag: NSManagedObject {
             return Text("Untitled", comment: "Default tag name.")
         }
 
-        return Text(wrappedName)
+        return Text(wrappedName.replacingOccurrences(of: " ", with: "\u{00A0}"))
     }
 
     public var wrappedName: String {
