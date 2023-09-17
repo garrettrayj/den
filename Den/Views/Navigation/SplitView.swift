@@ -21,6 +21,7 @@ struct SplitView: View {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
+    @Binding var showingNewProfileSheet: Bool
 
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress = Progress()
@@ -53,6 +54,7 @@ struct SplitView: View {
                 showingExporter: $showingExporter,
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
+                showingNewProfileSheet: $showingNewProfileSheet,
                 showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress

@@ -15,6 +15,7 @@ struct Landing: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @Binding var currentProfileID: String?
+    @Binding var showingNewProfileSheet: Bool
 
     let profiles: FetchedResults<Profile>
 
@@ -40,13 +41,13 @@ struct Landing: View {
             .toolbar {
                 #if os(macOS)
                 ToolbarItem {
-                    NewProfileButton(currentProfileID: $currentProfileID)
+                    NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
                         .labelStyle(.titleAndIcon)
                         .buttonStyle(.borderedProminent)
                 }
                 #else
                 ToolbarItem(placement: .bottomBar) {
-                    NewProfileButton(currentProfileID: $currentProfileID)
+                    NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
                         .labelStyle(.titleAndIcon)
                         .buttonStyle(.borderedProminent)
                 }

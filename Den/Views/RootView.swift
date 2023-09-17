@@ -13,7 +13,10 @@ import OSLog
 import SwiftUI
 
 struct RootView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     @State private var showingCrashMessage = false
+    @State private var showingNewProfileSheet = false
 
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
 
@@ -29,11 +32,16 @@ struct RootView: View {
                 SplitView(
                     profile: profile,
                     currentProfileID: $currentProfileID,
+                    showingNewProfileSheet: $showingNewProfileSheet,
                     profiles: profiles
                 )
                 .environment(\.userTint, profile.tintColor)
             } else {
-                Landing(currentProfileID: $currentProfileID, profiles: profiles)
+                Landing(
+                    currentProfileID: $currentProfileID,
+                    showingNewProfileSheet: $showingNewProfileSheet,
+                    profiles: profiles
+                )
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .appCrashed, object: nil)) { _ in
@@ -42,5 +50,20 @@ struct RootView: View {
         .sheet(isPresented: $showingCrashMessage) {
             CrashMessage().interactiveDismissDisabled()
         }
+        .sheet(
+            isPresented: $showingNewProfileSheet,
+            onDismiss: {
+                if viewContext.hasChanges {
+                    do {
+                        try viewContext.save()
+                    } catch {
+                        CrashUtility.handleCriticalError(error as NSError)
+                    }
+                }
+            },
+            content: {
+                NewProfileSheet(currentProfileID: $currentProfileID)
+            }
+        )
     }
 }

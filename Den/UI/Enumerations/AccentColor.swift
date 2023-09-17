@@ -1,5 +1,5 @@
 //
-//  ProfileColorOption.swift
+//  AccentColor.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/2/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-public enum ProfileColorOption: String, CaseIterable {
+public enum AccentColor: String, CaseIterable {
     case red    = "Red"
     case orange = "Orange"
     case yellow = "Yellow"

@@ -20,7 +20,7 @@ public class Profile: NSManagedObject {
 
     public var nameText: Text {
         if wrappedName == "" {
-            return Text("Den", comment: "Placeholder profile name.")
+            return Text("Untitled", comment: "Profile name placeholder.")
         }
 
         return Text(wrappedName)
@@ -40,14 +40,14 @@ public class Profile: NSManagedObject {
     }
 
     public var tintColor: Color? {
-        guard let tint = tint, let tintOption = ProfileColorOption(rawValue: tint) else { return nil }
+        guard let tint = tint, let tintOption = AccentColor(rawValue: tint) else { return nil }
         return tintOption.color
     }
 
-    public var tintOption: ProfileColorOption? {
+    public var tintOption: AccentColor? {
         get {
             guard let tint = tint else { return nil }
-            return ProfileColorOption(rawValue: tint)
+            return AccentColor(rawValue: tint)
         }
         set {
             tint = newValue?.rawValue

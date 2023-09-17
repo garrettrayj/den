@@ -11,19 +11,11 @@
 import SwiftUI
 
 struct NewProfileButton: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @Binding var currentProfileID: String?
+    @Binding var showingNewProfileSheet: Bool
 
     var body: some View {
         Button {
-            let newProfile = Profile.create(in: viewContext)
-            do {
-                try viewContext.save()
-                currentProfileID = newProfile.id?.uuidString
-            } catch let error as NSError {
-                CrashUtility.handleCriticalError(error)
-            }
+            showingNewProfileSheet = true
         } label: {
             Label {
                 Text("New Profile", comment: "Button label.").lineLimit(1)

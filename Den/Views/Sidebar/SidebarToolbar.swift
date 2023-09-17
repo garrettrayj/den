@@ -23,6 +23,7 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
     @Binding var showingNewPageSheet: Bool
+    @Binding var showingNewProfileSheet: Bool
     @Binding var showingNewTagSheet: Bool
     @Binding var showingProfileSettings: Bool
 
@@ -117,7 +118,7 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .bottomBar) {
             Menu {
-                NewProfileButton(currentProfileID: $currentProfileID)
+                NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
                 ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
             } label: {
                 Label {

@@ -57,17 +57,6 @@ struct NewFeedSheet: View {
                         profile: profile,
                         selection: $targetPage
                     )
-
-                    #if os(iOS)
-                    Section {
-                        HStack {
-                            Spacer()
-                            submitButton
-                            Spacer()
-                        }
-                        .listRowBackground(Color(.clear))
-                    }
-                    #endif
                 } else {
                     Text("No Pages Available", comment: "New Feed error message.").font(.title2)
                 }
@@ -79,11 +68,9 @@ struct NewFeedSheet: View {
             }
             .navigationTitle(Text("New Feed", comment: "Navigation title."))
             .toolbar {
-                #if os(macOS)
                 ToolbarItem(placement: .confirmationAction) {
                     submitButton
                 }
-                #endif
 
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
@@ -108,10 +95,7 @@ struct NewFeedSheet: View {
                 dismiss()
             }
         } label: {
-            Text(
-                "Add to \(targetPage?.nameText ?? Text(verbatim: "…"))",
-                comment: "Button label."
-            )
+            Text("Add Feed", comment: "Button label.")
         }
         .buttonStyle(.borderedProminent)
         .disabled(loading || !(webAddressIsValid ?? false))

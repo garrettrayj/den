@@ -37,8 +37,8 @@
 		6829A50C28C6479900F75C5A /* AllRead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6829A50B28C6479900F75C5A /* AllRead.swift */; };
 		683041B227542E2000BE7631 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B127542E2000BE7631 /* BoardView.swift */; };
 		683041B627543CE900BE7631 /* ShowcaseSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683041B527543CE900BE7631 /* ShowcaseSection.swift */; };
-		68352D1629B16C5F0073CEFD /* ProfileColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */; };
-		68352D1829B187180073CEFD /* ProfileColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* ProfileColorOption.swift */; };
+		68352D1629B16C5F0073CEFD /* AccentColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* AccentColorSelector.swift */; };
+		68352D1829B187180073CEFD /* AccentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* AccentColor.swift */; };
 		6835737F295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */; };
 		6835738529602A7F00843A8E /* EnvironmentValues+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738429602A7F00843A8E /* EnvironmentValues+Extensions.swift */; };
 		6835738E29614C5600843A8E /* DetailPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6835738D29614C5600843A8E /* DetailPanel.swift */; };
@@ -175,8 +175,8 @@
 		683C35DF2A9F188700568E9A /* PreviewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F6FB9A29ADDC83001F74B9 /* PreviewStyle.swift */; };
 		683C35E02A9F188700568E9A /* PreviewStylePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681087C829FB74A900F2630C /* PreviewStylePicker.swift */; };
 		683C35E12A9F188700568E9A /* Profile+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EA52432688528E00B7C8E5 /* Profile+CoreDataClass.swift */; };
-		683C35E22A9F188700568E9A /* ProfileColorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* ProfileColorOption.swift */; };
-		683C35E32A9F188700568E9A /* ProfileColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */; };
+		683C35E22A9F188700568E9A /* AccentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1729B187180073CEFD /* AccentColor.swift */; };
+		683C35E32A9F188700568E9A /* AccentColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68352D1529B16C5F0073CEFD /* AccentColorSelector.swift */; };
 		683C35E42A9F188700568E9A /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D2862A2A6469E8007AD876 /* ProfileLabel.swift */; };
 		683C35E52A9F188700568E9A /* ProfilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687F22242A5A5CF900B76919 /* ProfilePicker.swift */; };
 		683C35E72A9F188700568E9A /* ProfileSettingsForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4FA252474927800D2C0D6 /* ProfileSettingsForm.swift */; };
@@ -333,6 +333,10 @@
 		6856DB2F2AB6E2EA0094615E /* OrganizerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */; };
 		6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB322AB77CDE0094615E /* DeleteBookmarkButton.swift */; };
 		6856DB342AB77EE80094615E /* DeleteBookmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB322AB77CDE0094615E /* DeleteBookmarkButton.swift */; };
+		6856DB362AB787420094615E /* NewProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB352AB787420094615E /* NewProfileSheet.swift */; };
+		6856DB372AB789A80094615E /* NewProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB352AB787420094615E /* NewProfileSheet.swift */; };
+		6856DB392AB795BF0094615E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB382AB795BF0094615E /* Array+Extensions.swift */; };
+		6856DB3A2AB795E90094615E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6856DB382AB795BF0094615E /* Array+Extensions.swift */; };
 		68599B582AB082790057FEA8 /* Bookmark+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B572AB082790057FEA8 /* Bookmark+CoreDataClass.swift */; };
 		68599B5D2AB087990057FEA8 /* BookmarkActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B5C2AB087990057FEA8 /* BookmarkActionView.swift */; };
 		68599B5F2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68599B5E2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift */; };
@@ -625,8 +629,8 @@
 		6829A50B28C6479900F75C5A /* AllRead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRead.swift; sourceTree = "<group>"; };
 		683041B127542E2000BE7631 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		683041B527543CE900BE7631 /* ShowcaseSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseSection.swift; sourceTree = "<group>"; };
-		68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorPicker.swift; sourceTree = "<group>"; };
-		68352D1729B187180073CEFD /* ProfileColorOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileColorOption.swift; sourceTree = "<group>"; };
+		68352D1529B16C5F0073CEFD /* AccentColorSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColorSelector.swift; sourceTree = "<group>"; };
+		68352D1729B187180073CEFD /* AccentColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColor.swift; sourceTree = "<group>"; };
 		6835737E295AA3AF00843A8E /* PinnedHeaderButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedHeaderButtonStyle.swift; sourceTree = "<group>"; };
 		6835738429602A7F00843A8E /* EnvironmentValues+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Extensions.swift"; sourceTree = "<group>"; };
 		6835738D29614C5600843A8E /* DetailPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPanel.swift; sourceTree = "<group>"; };
@@ -672,6 +676,8 @@
 		6856DB2A2AB649CD0094615E /* TagNavDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNavDropDelegate.swift; sourceTree = "<group>"; };
 		6856DB2D2AB6E2730094615E /* OrganizerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizerToolbar.swift; sourceTree = "<group>"; };
 		6856DB322AB77CDE0094615E /* DeleteBookmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBookmarkButton.swift; sourceTree = "<group>"; };
+		6856DB352AB787420094615E /* NewProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileSheet.swift; sourceTree = "<group>"; };
+		6856DB382AB795BF0094615E /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		68599B572AB082790057FEA8 /* Bookmark+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookmark+CoreDataClass.swift"; sourceTree = "<group>"; };
 		68599B5C2AB087990057FEA8 /* BookmarkActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkActionView.swift; sourceTree = "<group>"; };
 		68599B5E2AB087C00057FEA8 /* BookmarkPreviewCompressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkPreviewCompressed.swift; sourceTree = "<group>"; };
@@ -1074,6 +1080,8 @@
 				68C4138124733D7D00D1DC7B /* NewFeedSheet.swift */,
 				687FEF112A40A87B0042977E /* NewPageButton.swift */,
 				6856DAF82AB4BC4F0094615E /* NewPageSheet.swift */,
+				687FEEFE2A3F97260042977E /* NewProfileButton.swift */,
+				6856DB352AB787420094615E /* NewProfileSheet.swift */,
 				68599B692AB0FC3D0057FEA8 /* NewTagButton.swift */,
 				6856DAF62AB4BC3A0094615E /* NewTagSheet.swift */,
 			);
@@ -1187,12 +1195,12 @@
 		687FEF0E2A40A6050042977E /* Enumerations */ = {
 			isa = PBXGroup;
 			children = (
+				68352D1729B187180073CEFD /* AccentColor.swift */,
 				6835738D29614C5600843A8E /* DetailPanel.swift */,
 				6851F0E62AAE96F1000F7CBC /* ItemLimit.swift */,
 				68D17EE32A43F29100AF8A73 /* PageIconCategory.swift */,
 				68F6FB9E29ADE0E2001F74B9 /* PageLayout.swift */,
 				68F6FB9A29ADDC83001F74B9 /* PreviewStyle.swift */,
-				68352D1729B187180073CEFD /* ProfileColorOption.swift */,
 				687FEF0F2A40A6890042977E /* SubDetailPanel.swift */,
 				687FEED62A3B724B0042977E /* UserColorScheme.swift */,
 				687FEF192A4227810042977E /* WebAddressValidationMessage.swift */,
@@ -1290,6 +1298,7 @@
 			isa = PBXGroup;
 			children = (
 				6845BCF924EBE4B60008B296 /* FeedKit */,
+				6856DB382AB795BF0094615E /* Array+Extensions.swift */,
 				683CEC5F250966410005F305 /* Bundle+Extensions.swift */,
 				68E9BDB9279D00DE003BA111 /* CGSize+Extensions.swift */,
 				68D286312A648910007AD876 /* CharacterSet+Extensions.swift */,
@@ -1448,10 +1457,10 @@
 		68D9BA9D28A60BAE00F1A3AD /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				68352D1529B16C5F0073CEFD /* AccentColorSelector.swift */,
 				68E6C54B2A69D7C800CA46B2 /* ClearDataButton.swift */,
 				68DA451B2A3A33CC000A288B /* DeleteProfileButton.swift */,
 				681F0C252933F4C10037C609 /* HistorySettingsSection.swift */,
-				68352D1529B16C5F0073CEFD /* ProfileColorPicker.swift */,
 				68C4FA252474927800D2C0D6 /* ProfileSettingsForm.swift */,
 				687FEEEA2A3DB1F30042977E /* ProfileSettingsSheet.swift */,
 			);
@@ -1538,7 +1547,6 @@
 				6851F0EA2AAEC1B5000F7CBC /* ExportButton.swift */,
 				687FEEF62A3E431E0042977E /* ImportButton.swift */,
 				6868A3132895CA860051D43E /* InboxNavLink.swift */,
-				687FEEFE2A3F97260042977E /* NewProfileButton.swift */,
 				6851F0EE2AAEC290000F7CBC /* OrganizerButton.swift */,
 				685ECB1026EE611000A3B184 /* PageNavLink.swift */,
 				68A2188C29D9D4AE005F42C7 /* PagesSection.swift */,
@@ -1973,8 +1981,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				683C35E22A9F188700568E9A /* AccentColor.swift in Sources */,
+				683C35E32A9F188700568E9A /* AccentColorSelector.swift in Sources */,
 				683C355A2A9F188700568E9A /* AllRead.swift in Sources */,
 				683C355B2A9F188700568E9A /* AnalyzeTask.swift in Sources */,
+				6856DB3A2AB795E90094615E /* Array+Extensions.swift in Sources */,
 				6856DB022AB58A590094615E /* ArticleDate.swift in Sources */,
 				6856DB032AB58A5B0094615E /* ArticleHero.swift in Sources */,
 				6856DB042AB58A5E0094615E /* ArticleLayout.swift in Sources */,
@@ -2012,6 +2023,7 @@
 				683C35752A9F188700568E9A /* CrashUtility.swift in Sources */,
 				683C35762A9F188700568E9A /* DeckColumn.swift in Sources */,
 				683C35772A9F188700568E9A /* DeckLayout.swift in Sources */,
+				6856DB342AB77EE80094615E /* DeleteBookmarkButton.swift in Sources */,
 				683C35782A9F188700568E9A /* DeleteProfileButton.swift in Sources */,
 				683C35792A9F188700568E9A /* Den.xcdatamodel in Sources */,
 				683C357A2A9F188700568E9A /* DenApp.swift in Sources */,
@@ -2091,6 +2103,7 @@
 				683C35C82A9F188700568E9A /* NewPageButton.swift in Sources */,
 				6856DB172AB58B580094615E /* NewPageSheet.swift in Sources */,
 				683C35C92A9F188700568E9A /* NewProfileButton.swift in Sources */,
+				6856DB372AB789A80094615E /* NewProfileSheet.swift in Sources */,
 				6856DAF52AB4BC120094615E /* NewTagButton.swift in Sources */,
 				6856DB182AB58B5E0094615E /* NewTagSheet.swift in Sources */,
 				683C35CA2A9F188700568E9A /* NoFeeds.swift in Sources */,
@@ -2129,8 +2142,6 @@
 				6856DB072AB58A820094615E /* PreviewTeaser.swift in Sources */,
 				683C35B42A9F188700568E9A /* PreviewThumbnail.swift in Sources */,
 				683C35E12A9F188700568E9A /* Profile+CoreDataClass.swift in Sources */,
-				683C35E22A9F188700568E9A /* ProfileColorOption.swift in Sources */,
-				683C35E32A9F188700568E9A /* ProfileColorPicker.swift in Sources */,
 				683C35E42A9F188700568E9A /* ProfileLabel.swift in Sources */,
 				683C35E52A9F188700568E9A /* ProfilePicker.swift in Sources */,
 				6856DB1A2AB58B870094615E /* ProfileSettingsButton.swift in Sources */,
@@ -2143,7 +2154,6 @@
 				683C35EE2A9F188700568E9A /* RefreshProgressViewStyle.swift in Sources */,
 				683C35EF2A9F188700568E9A /* RelativeRefreshedDate.swift in Sources */,
 				683C35F02A9F188700568E9A /* ResetEverythingButton.swift in Sources */,
-				6856DB342AB77EE80094615E /* DeleteBookmarkButton.swift in Sources */,
 				683C35F12A9F188700568E9A /* RootView.swift in Sources */,
 				683C35F22A9F188700568E9A /* RoundedContainerModifier.swift in Sources */,
 				683C35F32A9F188700568E9A /* RSSFeed+Extensions.swift in Sources */,
@@ -2216,8 +2226,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68352D1829B187180073CEFD /* AccentColor.swift in Sources */,
+				68352D1629B16C5F0073CEFD /* AccentColorSelector.swift in Sources */,
 				6829A50C28C6479900F75C5A /* AllRead.swift in Sources */,
 				68B6CBE22910B84E00B5E3AB /* AnalyzeTask.swift in Sources */,
+				6856DB392AB795BF0094615E /* Array+Extensions.swift in Sources */,
 				6856DAEE2AB410340094615E /* ArticleDate.swift in Sources */,
 				68CE2C3D28CEEBF000ED1CF9 /* ArticleHero.swift in Sources */,
 				6856DAF02AB413950094615E /* ArticleLayout.swift in Sources */,
@@ -2255,6 +2268,7 @@
 				68701DF7273E51AC00C6BB69 /* CrashUtility.swift in Sources */,
 				68B526A2298E3B2000D4B927 /* DeckColumn.swift in Sources */,
 				68ED798529C29B2700D85B4F /* DeckLayout.swift in Sources */,
+				6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */,
 				68DA451C2A3A33CC000A288B /* DeleteProfileButton.swift in Sources */,
 				68F56B75288BFCCC006EC915 /* Den.xcdatamodel in Sources */,
 				689460852596A7BB00ED4064 /* DenApp.swift in Sources */,
@@ -2334,6 +2348,7 @@
 				687FEF122A40A87B0042977E /* NewPageButton.swift in Sources */,
 				6856DAF92AB4BC4F0094615E /* NewPageSheet.swift in Sources */,
 				687FEEFF2A3F97260042977E /* NewProfileButton.swift in Sources */,
+				6856DB362AB787420094615E /* NewProfileSheet.swift in Sources */,
 				68599B6A2AB0FC3D0057FEA8 /* NewTagButton.swift in Sources */,
 				6856DAF72AB4BC3A0094615E /* NewTagSheet.swift in Sources */,
 				68B526A0298A352600D4B927 /* NoFeeds.swift in Sources */,
@@ -2372,8 +2387,6 @@
 				68599B7B2AB27D3C0057FEA8 /* PreviewTeaser.swift in Sources */,
 				686067D9280CAF29000068DE /* PreviewThumbnail.swift in Sources */,
 				68EA52442688528E00B7C8E5 /* Profile+CoreDataClass.swift in Sources */,
-				68352D1829B187180073CEFD /* ProfileColorOption.swift in Sources */,
-				68352D1629B16C5F0073CEFD /* ProfileColorPicker.swift in Sources */,
 				68D2862B2A6469E8007AD876 /* ProfileLabel.swift in Sources */,
 				687F22252A5A5CF900B76919 /* ProfilePicker.swift in Sources */,
 				6851F0ED2AAEC1C6000F7CBC /* ProfileSettingsButton.swift in Sources */,
@@ -2386,7 +2399,6 @@
 				687FEF082A3FAD610042977E /* RefreshProgressViewStyle.swift in Sources */,
 				6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */,
 				687FEEF52A3DDCF30042977E /* ResetEverythingButton.swift in Sources */,
-				6856DB332AB77CDE0094615E /* DeleteBookmarkButton.swift in Sources */,
 				68C41316247263C700D1DC7B /* RootView.swift in Sources */,
 				68245E2D29B834AC0068D450 /* RoundedContainerModifier.swift in Sources */,
 				6845BCF824EBE4AD0008B296 /* RSSFeed+Extensions.swift in Sources */,

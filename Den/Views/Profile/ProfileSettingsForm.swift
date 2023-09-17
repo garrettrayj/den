@@ -27,7 +27,7 @@ struct ProfileSettingsForm: View {
                 }
             }
 
-            ProfileColorPicker(selection: $profile.tintOption)
+            AccentColorSelector(selection: $profile.tintOption)
 
             HistorySettingsSection(
                 profile: profile,

@@ -57,7 +57,7 @@ struct ProfileSettingsSheet: View {
                     .accessibilityIdentifier("Save")
                 }
             }
-            .frame(minWidth: 370, minHeight: 300)
+            .frame(minWidth: 360, minHeight: 352)
         }
         .tint(profile.tintColor)
     }

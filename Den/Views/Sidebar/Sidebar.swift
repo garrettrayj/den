@@ -27,6 +27,7 @@ struct Sidebar: View {
     @Binding var showingExporter: Bool
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
+    @Binding var showingNewProfileSheet: Bool
     @Binding var showingProfileSettings: Bool
 
     @State private var searchInput = ""
@@ -125,6 +126,7 @@ struct Sidebar: View {
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewPageSheet: $showingNewPageSheet,
+                showingNewProfileSheet: $showingNewProfileSheet,
                 showingNewTagSheet: $showingNewTagSheet,
                 showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
@@ -135,7 +137,7 @@ struct Sidebar: View {
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .leading) {
                 Menu {
-                    NewProfileButton(currentProfileID: $currentProfileID)
+                    NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
                     ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                         .pickerStyle(.inline)
                 } label: {

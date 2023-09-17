@@ -31,7 +31,11 @@ struct HistorySettingsSection: View {
                 Text("Two Weeks", comment: "History retention duration option.").tag(14 as Int)
                 Text("One Week", comment: "History retention duration option.").tag(7 as Int)
             } label: {
-                Text("Keep History", comment: "History retention picker label.")
+                Label {
+                    Text("Keep History", comment: "History retention picker label.")
+                } icon: {
+                    Image(systemName: "clock")
+                }
             }
 
             Button {
@@ -58,18 +62,6 @@ struct HistorySettingsSection: View {
             .buttonStyle(.borderless)
             .disabled(historyCount == 0)
             .accessibilityIdentifier("ClearHistory")
-        } footer: {
-            if historyRentionDays == 0 || historyRentionDays > 90 || historyCount > 100_000 {
-                Label {
-                    Text(
-                        "Retaining history for long periods may adversely affect performance.",
-                        comment: "History settings caution message."
-                    )
-                } icon: {
-                    Image(systemName: "exclamationmark.triangle")
-                }
-                .imageScale(.small)
-            }
         }
         .onChange(of: historyRentionDays) {
             profile.wrappedHistoryRetention = historyRentionDays

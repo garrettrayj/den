@@ -50,7 +50,7 @@ struct BookmarkActionView<Content: View>: View {
                     Image(systemName: "chevron.forward")
                 }
             }
-            
+
             if let link = bookmark.link {
                 Button {
                     Task {
@@ -71,7 +71,7 @@ struct BookmarkActionView<Content: View>: View {
                 }
                 ShareButton(url: link)
             }
-            
+
             DeleteBookmarkButton(bookmark: bookmark)
         }
     }
