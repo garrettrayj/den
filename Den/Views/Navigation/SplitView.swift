@@ -70,8 +70,7 @@ struct SplitView: View {
                 detailPanel: $detailPanel,
                 hideRead: $hideRead,
                 refreshing: $refreshing,
-                path: $navigationStore.path,
-                showingNewFeedSheet: $showingNewFeedSheet
+                path: $navigationStore.path
             )
             #if os(iOS)
             .background(Color(.systemGroupedBackground))

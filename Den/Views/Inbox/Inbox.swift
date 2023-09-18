@@ -14,13 +14,12 @@ struct Inbox: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-    @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
         WithItems(scopeObject: profile) { items in
             ZStack {
                 if profile.feedsArray.isEmpty {
-                    NoFeeds(showingNewFeedSheet: $showingNewFeedSheet)
+                    NoFeeds()
                 } else if items.isEmpty {
                     ContentUnavailableView {
                         Label {

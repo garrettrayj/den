@@ -18,19 +18,12 @@ struct ProfilePicker: View {
     var body: some View {
         Picker(selection: $currentProfileID) {
             ForEach(profiles) { profile in
-                ProfileLabel(
-                    profile: profile,
-                    currentProfileID: $currentProfileID
-                )
-                .tag(profile.id?.uuidString as String?)
-                .accessibilityIdentifier("ProfileOption")
+                profile.nameText
+                    .tag(profile.id?.uuidString as String?)
+                    .accessibilityIdentifier("ProfileOption")
             }
         } label: {
-            Label {
-                Text("Choose Profile", comment: "Picker label.")
-            } icon: {
-                Image(systemName: "diamond.circle")
-            }
+            Text("Choose Profile", comment: "Picker label.")
         }
     }
 }

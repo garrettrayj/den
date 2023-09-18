@@ -17,22 +17,20 @@ struct DetailView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
     @Binding var path: NavigationPath
-    @Binding var showingNewFeedSheet: Bool
 
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
                 switch detailPanel ?? .welcome {
                 case .inbox:
-                    Inbox(profile: profile, hideRead: $hideRead, showingNewFeedSheet: $showingNewFeedSheet)
+                    Inbox(profile: profile, hideRead: $hideRead)
                 case .organizer:
                     Organizer(profile: profile)
                 case .page(let page):
                     PageView(
                         page: page,
                         profile: profile,
-                        hideRead: $hideRead,
-                        showingNewFeedSheet: $showingNewFeedSheet
+                        hideRead: $hideRead
                     )
                 case .search(let search):
                     SearchView(profile: profile, search: search, hideRead: $hideRead)

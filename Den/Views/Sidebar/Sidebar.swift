@@ -70,6 +70,7 @@ struct Sidebar: View {
             }
         }
         .listStyle(.sidebar)
+        .badgeProminence(.decreased)
         .refreshable {
             await Task {
                 await RefreshManager.refresh(profile: profile)
@@ -138,6 +139,7 @@ struct Sidebar: View {
             VStack(alignment: .leading) {
                 Menu {
                     NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
+                        .labelStyle(.titleAndIcon)
                     ProfilePicker(currentProfileID: $currentProfileID, profiles: profiles)
                         .pickerStyle(.inline)
                 } label: {
@@ -147,7 +149,6 @@ struct Sidebar: View {
                         Image(systemName: "person.crop.circle").imageScale(.large)
                     }
                 }
-                .labelStyle(.titleAndIcon)
                 .menuStyle(.borderlessButton)
                 .menuIndicator(.hidden)
                 .menuOrder(.fixed)

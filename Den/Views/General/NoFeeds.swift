@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct NoFeeds: View {
-    @Binding var showingNewFeedSheet: Bool
-
     var body: some View {
         ContentUnavailableView {
             Label {
@@ -24,41 +22,34 @@ struct NoFeeds: View {
             #if os(macOS)
             Text(
                 """
-                Open a syndication link, drag a URL to the page list, \
-                use the Safari extension to discover feeds on websites, \
-                or press \(Image(systemName: "command")) + F to add a new feed by entering address.
+                Open a syndication link, drag a URL onto the page list, \
+                or go to \(Image(systemName: "ellipsis.circle" )) > New Feed to enter a web address. \
+                Use the Safari extension to discover feeds on websites.
                 """,
-                comment: "Empty page guidance."
+                comment: "No feeds guidance (Mac)."
             )
             #else
             if UIDevice.current.userInterfaceIdiom == .phone {
                 Text(
                     """
-                    Open syndication links, \
-                    use the Safari extension to discover feeds on websites, or…
+                    Open a syndication link or go to \(Image(systemName: "ellipsis.circle" )) > New Feed \
+                    from the home/sidebar view to enter a web address. \
+                    Use the Safari extension to discover feeds on websites.
                     """,
-                    comment: "Empty page guidance (no drag-n-drop)."
+                    comment: "No feeds guidance (iPhone)."
                 )
             } else {
                 Text(
                     """
-                    Open syndication links, drag and drop URLs on the page list, \
-                    use the Safari extension to discover feeds on websites, or…
+                    Open a syndication link, drag a URL onto the page list, \
+                    or go to \(Image(systemName: "ellipsis.circle" )) > New Feed \
+                    from the sidebar/home view to enter a web address. \
+                    Use the Safari extension to discover feeds on websites.
                     """,
-                    comment: "Empty page guidance."
+                    comment: "No feeds guidance (iPad)."
                 )
             }
             #endif
-        } actions: {
-            Button {
-                showingNewFeedSheet = true
-            } label: {
-                Label {
-                    Text("Enter a Web Address", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "note.text.badge.plus")
-                }
-            }
         }
     }
 }

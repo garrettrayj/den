@@ -92,7 +92,7 @@ struct Landing: View {
                             currentProfileID = profile.id?.uuidString
                         } label: {
                             HStack {
-                                ProfileLabel(profile: profile, currentProfileID: $currentProfileID)
+                                profile.nameText
                                 Spacer()
                                 ButtonChevron()
                             }
