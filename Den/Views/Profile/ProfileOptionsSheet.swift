@@ -1,8 +1,8 @@
 //
-//  PageConfigSheet.swift
+//  ProfileOptionsSheet.swift
 //  Den
 //
-//  Created by Garrett Johnson on 6/16/23.
+//  Created by Garrett Johnson on 6/17/23.
 //  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -10,32 +10,39 @@
 
 import SwiftUI
 
-struct PageConfigSheet: View {
+struct ProfileOptionsSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var page: Page
+    @ObservedObject var profile: Profile
+
+    @Binding var currentProfileID: String?
 
     var body: some View {
         NavigationStack {
             ZStack {
-                if page.managedObjectContext == nil || page.isDeleted {
+                if profile.managedObjectContext == nil || profile.isDeleted {
                     Label {
-                        Text("Page Deleted", comment: "Object removed message.")
+                        Text("Profile Deleted", comment: "Object removed message.")
                     } icon: {
                         Image(systemName: "trash")
                     }
                     .labelStyle(NoticeLabelStyle())
                 } else {
-                    PageConfigForm(page: page)
+                    ProfileOptionsForm(profile: profile, currentProfileID: $currentProfileID)
                 }
             }
-            .navigationTitle(Text("Page Configuration", comment: "Navigation title."))
+            .navigationTitle(Text("Profile Options", comment: "Navigation title."))
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
-                        viewContext.rollback()
-                        dismiss()
+                        Task {
+                            viewContext.rollback()
+                            dismiss()
+                        }
                     } label: {
                         Text("Cancel", comment: "Button label.")
                     }
@@ -50,7 +57,8 @@ struct PageConfigSheet: View {
                     .accessibilityIdentifier("Save")
                 }
             }
-            .frame(minWidth: 370, minHeight: 500)
+            .frame(minWidth: 360, minHeight: 352)
         }
+        .tint(profile.tintColor)
     }
 }

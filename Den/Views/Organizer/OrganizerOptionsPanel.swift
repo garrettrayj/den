@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ConfigInspector: View {
+struct OrganizerOptionsPanel: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile

@@ -28,10 +28,10 @@ struct Sidebar: View {
     @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
     @Binding var showingNewProfileSheet: Bool
-    @Binding var showingProfileSettings: Bool
 
     @State private var searchInput = ""
     @State private var isEditing = false
+    @State private var showingProfileOptions = false
     @State private var showingNewPageSheet = false
     @State private var showingNewTagSheet = false
 
@@ -128,7 +128,7 @@ struct Sidebar: View {
                 showingNewPageSheet: $showingNewPageSheet,
                 showingNewProfileSheet: $showingNewProfileSheet,
                 showingNewTagSheet: $showingNewTagSheet,
-                showingProfileSettings: $showingProfileSettings,
+                showingProfileOptions: $showingProfileOptions,
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )
@@ -161,34 +161,38 @@ struct Sidebar: View {
         }
         #endif
         .sheet(
-            isPresented: $showingNewTagSheet,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
+            isPresented: $showingProfileOptions,
+            onDismiss: saveChanges,
             content: {
-                NewTagSheet(profile: profile)
+                ProfileOptionsSheet(
+                    profile: profile,
+                    currentProfileID: $currentProfileID
+                )
             }
         )
         .sheet(
             isPresented: $showingNewPageSheet,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
+            onDismiss: saveChanges,
             content: {
                 NewPageSheet(profile: profile)
             }
         )
+        .sheet(
+            isPresented: $showingNewTagSheet,
+            onDismiss: saveChanges,
+            content: {
+                NewTagSheet(profile: profile)
+            }
+        )
+    }
+
+    private func saveChanges() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                CrashUtility.handleCriticalError(error as NSError)
+            }
+        }
     }
 }

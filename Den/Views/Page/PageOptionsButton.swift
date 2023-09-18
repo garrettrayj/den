@@ -1,5 +1,5 @@
 //
-//  ConfigurePageButton.swift
+//  PageOptionsButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/17/23.
@@ -10,19 +10,20 @@
 
 import SwiftUI
 
-struct ConfigurePageButton: View {
-    @Binding var showingPageConfiguration: Bool
+struct PageOptionsButton: View {
+    @Binding var showingPageOptions: Bool
 
     var body: some View {
         Button {
-            showingPageConfiguration = true
+            showingPageOptions = true
         } label: {
             Label {
-                Text("Configure", comment: "Button label.")
+                Text("Page Options", comment: "Button label.")
             } icon: {
                 Image(systemName: "slider.horizontal.3")
             }
         }
-        .accessibilityIdentifier("ConfigurePage")
+        .keyboardShortcut("j", modifiers: [.command], localization: .withoutMirroring)
+        .accessibilityIdentifier("PageOptions")
     }
 }

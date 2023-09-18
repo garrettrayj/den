@@ -18,7 +18,7 @@ struct PageView: View {
     @Binding var hideRead: Bool
     @Binding var showingNewFeedSheet: Bool
 
-    @SceneStorage("ShowingPageConfiguration") private var showingPageConfiguration: Bool = false
+    @SceneStorage("ShowingPageOptions") private var showingPageOptions: Bool = false
 
     private var pageLayout: AppStorage<PageLayout>
 
@@ -32,6 +32,7 @@ struct PageView: View {
                         Image(systemName: "trash")
                     }
                 }
+                .navigationTitle("")
             } else {
                 WithItems(scopeObject: page) { items in
                     ZStack {
@@ -75,7 +76,7 @@ struct PageView: View {
                             page: page,
                             hideRead: $hideRead,
                             pageLayout: pageLayout.projectedValue,
-                            showingPageConfiguration: $showingPageConfiguration,
+                            showingPageOptions: $showingPageOptions,
                             items: items
                         )
                     }
@@ -84,7 +85,7 @@ struct PageView: View {
             }
         }
         .sheet(
-            isPresented: $showingPageConfiguration,
+            isPresented: $showingPageOptions,
             onDismiss: {
                 if viewContext.hasChanges {
                     do {
@@ -95,7 +96,7 @@ struct PageView: View {
                 }
             },
             content: {
-                PageConfigSheet(page: page)
+                PageOptionsSheet(page: page)
             }
         )
     }

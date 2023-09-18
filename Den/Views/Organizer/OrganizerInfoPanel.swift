@@ -1,5 +1,5 @@
 //
-//  InfoInspector.swift
+//  OrganizerInfoPanel.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/11/23.
@@ -11,7 +11,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct InfoInspector: View {
+struct OrganizerInfoPanel: View {
     @Environment(\.openURL) private var openURL
 
     @ObservedObject var profile: Profile

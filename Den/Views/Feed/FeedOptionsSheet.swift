@@ -1,8 +1,8 @@
 //
-//  ProfileSettingsSheet.swift
+//  FeedOptionsSheet.swift
 //  Den
 //
-//  Created by Garrett Johnson on 6/17/23.
+//  Created by Garrett Johnson on 6/16/23.
 //  Copyright © 2023 Garrett Johnson
 //
 //  SPDX-License-Identifier: MIT
@@ -10,39 +10,32 @@
 
 import SwiftUI
 
-struct ProfileSettingsSheet: View {
+struct FeedOptionsSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var profile: Profile
-
-    @Binding var currentProfileID: String?
+    @ObservedObject var feed: Feed
 
     var body: some View {
         NavigationStack {
             ZStack {
-                if profile.managedObjectContext == nil || profile.isDeleted {
+                if feed.managedObjectContext == nil || feed.isDeleted {
                     Label {
-                        Text("Profile Deleted", comment: "Object removed message.")
+                        Text("Feed Deleted", comment: "Object removed message.")
                     } icon: {
                         Image(systemName: "trash")
                     }
                     .labelStyle(NoticeLabelStyle())
                 } else {
-                    ProfileSettingsForm(profile: profile, currentProfileID: $currentProfileID)
+                    FeedOptionsForm(feed: feed)
                 }
             }
-            .navigationTitle(Text("Profile Settings", comment: "Navigation title."))
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
+            .navigationTitle(Text("Feed Options", comment: "Navigation title."))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
-                        Task {
-                            viewContext.rollback()
-                            dismiss()
-                        }
+                        viewContext.rollback()
+                        dismiss()
                     } label: {
                         Text("Cancel", comment: "Button label.")
                     }
@@ -57,8 +50,7 @@ struct ProfileSettingsSheet: View {
                     .accessibilityIdentifier("Save")
                 }
             }
-            .frame(minWidth: 360, minHeight: 352)
+            .frame(minWidth: 360, minHeight: 480)
         }
-        .tint(profile.tintColor)
     }
 }

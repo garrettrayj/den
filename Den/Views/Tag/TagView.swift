@@ -23,6 +23,7 @@ struct TagView: View {
                     Image(systemName: "trash")
                 }
             }
+            .navigationTitle("")
         } else {
             ZStack {
                 if tag.bookmarksArray.isEmpty {

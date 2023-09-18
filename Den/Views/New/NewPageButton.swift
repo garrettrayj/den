@@ -23,6 +23,7 @@ struct NewPageButton: View {
                 Image(systemName: "folder.badge.plus")
             }
         }
+        .keyboardShortcut("n", modifiers: [.command, .shift], localization: .withoutMirroring)
         .accessibilityIdentifier("NewPage")
     }
 }

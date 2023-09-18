@@ -205,7 +205,7 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "03-PageDeckLayout")
     }
 
-    func testPageConfiguration() throws {
+    func testPageOptions() throws {
         let app = launchApp(inMemory: false)
 
         app.buttons["SelectProfile"].firstMatch.tap()
@@ -238,16 +238,16 @@ final class PageUITests: UITestCase {
         }
         #endif
 
-        if !app.buttons["ConfigurePage"].waitForExistence(timeout: 2) {
-            XCTFail("Configure page button did not appear in time")
+        if !app.buttons["PageOptions"].waitForExistence(timeout: 2) {
+            XCTFail("Page options button did not appear in time")
         }
 
-        app.buttons["ConfigurePage"].firstMatch.tap()
+        app.buttons["PageOptions"].firstMatch.tap()
 
-        if !app.staticTexts["Page Configuration"].waitForExistence(timeout: 2) {
-            XCTFail("Page configuration title did not appear in time")
+        if !app.staticTexts["Page Options"].waitForExistence(timeout: 2) {
+            XCTFail("Page options title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "04-PageConfiguration")
+        attachScreenshot(of: app.windows.firstMatch, named: "04-PageOptions")
     }
 }

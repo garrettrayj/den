@@ -1,5 +1,5 @@
 //
-//  ProfileSettingsForm.swift
+//  ProfileOptionsForm.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/19/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ProfileSettingsForm: View {
+struct ProfileOptionsForm: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
@@ -29,7 +29,7 @@ struct ProfileSettingsForm: View {
 
             AccentColorSelector(selection: $profile.tintOption)
 
-            HistorySettingsSection(
+            HistoryOptionsSection(
                 profile: profile,
                 historyRentionDays: profile.wrappedHistoryRetention
             )
@@ -43,15 +43,5 @@ struct ProfileSettingsForm: View {
             }
         }
         .formStyle(.grouped)
-        .onDisappear {
-            if profile.isDeleted { return }
-            if viewContext.hasChanges {
-                do {
-                    try viewContext.save()
-                } catch let error {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-            }
-        }
     }
 }

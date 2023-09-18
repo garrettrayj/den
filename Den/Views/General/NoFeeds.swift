@@ -24,8 +24,9 @@ struct NoFeeds: View {
             #if os(macOS)
             Text(
                 """
-                Open syndication links, drag and drop URLs on the page list, \
-                use the Safari extension to discover feeds on websites, or…
+                Open a syndication link, drag a URL to the page list, \
+                use the Safari extension to discover feeds on websites, \
+                or press \(Image(systemName: "command")) + F to add a new feed by entering address.
                 """,
                 comment: "Empty page guidance."
             )

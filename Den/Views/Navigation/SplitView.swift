@@ -38,7 +38,6 @@ struct SplitView: View {
     @SceneStorage("ShowingNewFeedSheet") private var showingNewFeedSheet: Bool = false
     @SceneStorage("NewFeedWebAddress") private var newFeedWebAddress: String = ""
     @SceneStorage("NewFeedPageID") private var newFeedPageID: String?
-    @SceneStorage("ShowingProfileSettings") private var showingProfileSettings: Bool = false
     @SceneStorage("DetailPanel") private var detailPanel: DetailPanel?
     @SceneStorage("Navigation") private var navigationData: Data?
 
@@ -57,7 +56,6 @@ struct SplitView: View {
                 showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewProfileSheet: $showingNewProfileSheet,
-                showingProfileSettings: $showingProfileSettings,
                 profiles: profiles,
                 refreshProgress: refreshProgress
             )
@@ -141,24 +139,6 @@ struct SplitView: View {
                 initialPageID: $newFeedPageID
             )
         }
-        .sheet(
-            isPresented: $showingProfileSettings,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
-            content: {
-                ProfileSettingsSheet(
-                    profile: profile,
-                    currentProfileID: $currentProfileID
-                )
-            }
-        )
         .fileImporter(
             isPresented: $showingImporter,
             allowedContentTypes: [.init(importedAs: "public.opml"), .xml],

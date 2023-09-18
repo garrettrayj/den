@@ -1,5 +1,5 @@
 //
-//  HistorySettingsSection.swift
+//  HistoryOptionsSection.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/27/22.
@@ -11,7 +11,7 @@
 import CoreData
 import SwiftUI
 
-struct HistorySettingsSection: View {
+struct HistoryOptionsSection: View {
     @ObservedObject var profile: Profile
 
     @State var historyRentionDays: Int

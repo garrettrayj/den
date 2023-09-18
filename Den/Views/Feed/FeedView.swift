@@ -18,7 +18,7 @@ struct FeedView: View {
 
     @Binding var hideRead: Bool
 
-    @SceneStorage("ShowingFeedConfiguration") private var showingFeedConfiguration: Bool = false
+    @SceneStorage("ShowingFeedOptions") private var showingFeedOptions: Bool = false
 
     var body: some View {
         ZStack {
@@ -30,6 +30,7 @@ struct FeedView: View {
                         Image(systemName: "trash")
                     }
                 }
+                .navigationTitle("")
             } else if let profile = feed.page?.profile {
                 WithItems(
                     scopeObject: feed,
@@ -45,7 +46,7 @@ struct FeedView: View {
                         FeedToolbar(
                             feed: feed,
                             hideRead: $hideRead,
-                            showingFeedConfiguration: $showingFeedConfiguration,
+                            showingFeedOptions: $showingFeedOptions,
                             items: items
                         )
                     }
@@ -57,7 +58,7 @@ struct FeedView: View {
         .background(Color(.systemGroupedBackground))
         #endif
         .sheet(
-            isPresented: $showingFeedConfiguration,
+            isPresented: $showingFeedOptions,
             onDismiss: {
                 if viewContext.hasChanges {
                     do {
@@ -68,7 +69,7 @@ struct FeedView: View {
                 }
             },
             content: {
-                FeedConfigSheet(feed: feed)
+                FeedOptionsSheet(feed: feed)
             }
         )
     }

@@ -74,7 +74,7 @@ struct Organizer: View {
             })
         }
         .inspector(isPresented: $showingInspectors) {
-            OrganizerInspectors(profile: profile, selection: $selection)
+            OrganizerInspector(profile: profile, selection: $selection)
         }
         #if os(macOS)
         .listStyle(.inset(alternatesRowBackgrounds: true))

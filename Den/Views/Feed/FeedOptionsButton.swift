@@ -1,5 +1,5 @@
 //
-//  ConfigureFeedButton.swift
+//  FeedOptionsButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/17/23.
@@ -10,21 +10,22 @@
 
 import SwiftUI
 
-struct ConfigureFeedButton: View {
-    @Binding var showingFeedConfiguration: Bool
+struct FeedOptionsButton: View {
+    @Binding var showingFeedOptions: Bool
 
     var body: some View {
         Button {
             Task {
-                showingFeedConfiguration = true
+                showingFeedOptions = true
             }
         } label: {
             Label {
-                Text("Configure", comment: "Button label.")
+                Text("Feed Options", comment: "Button label.")
             } icon: {
                 Image(systemName: "slider.horizontal.3")
             }
         }
-        .accessibilityIdentifier("ConfigureFeed")
+        .keyboardShortcut("j", modifiers: [.command], localization: .withoutMirroring)
+        .accessibilityIdentifier("FeedOptions")
     }
 }

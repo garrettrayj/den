@@ -1,5 +1,5 @@
 //
-//  FeedConfigForm.swift
+//  FeedOptionsForm.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/23/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedConfigForm: View {
+struct FeedOptionsForm: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
@@ -158,7 +158,7 @@ struct FeedConfigForm: View {
             if useSystemBrowser == true {
                 Text(
                     "System web browser in use. \"Enter Reader Mode\" will be ignored.",
-                    comment: "Feed configuration guidance."
+                    comment: "Feed options guidance."
                 ).font(.footnote)
             }
             #endif
@@ -166,7 +166,7 @@ struct FeedConfigForm: View {
             if feed.changedValues().keys.contains("itemLimit") {
                 Text(
                     "Preview limit change will be applied on next refresh.",
-                    comment: "Feed configuration guidance."
+                    comment: "Feed options guidance."
                 ).font(.footnote)
             }
         }

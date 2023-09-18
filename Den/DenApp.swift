@@ -57,6 +57,7 @@ struct DenApp: App {
             #endif
             ToolbarCommands()
             SidebarCommands()
+            InspectorCommands()
             CommandGroup(replacing: .help) {
                 Button {
                     openURL(URL(string: "https://den.io/help/")!)

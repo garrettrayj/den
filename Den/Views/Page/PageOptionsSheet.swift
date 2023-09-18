@@ -1,5 +1,5 @@
 //
-//  FeedConfigSheet.swift
+//  PageOptionsSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 6/16/23.
@@ -10,27 +10,27 @@
 
 import SwiftUI
 
-struct FeedConfigSheet: View {
+struct PageOptionsSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var feed: Feed
+    @ObservedObject var page: Page
 
     var body: some View {
         NavigationStack {
             ZStack {
-                if feed.managedObjectContext == nil || feed.isDeleted {
+                if page.managedObjectContext == nil || page.isDeleted {
                     Label {
-                        Text("Feed Deleted", comment: "Object removed message.")
+                        Text("Page Deleted", comment: "Object removed message.")
                     } icon: {
                         Image(systemName: "trash")
                     }
                     .labelStyle(NoticeLabelStyle())
                 } else {
-                    FeedConfigForm(feed: feed)
+                    PageOptionsForm(page: page)
                 }
             }
-            .navigationTitle(Text("Feed Configuration", comment: "Navigation title."))
+            .navigationTitle(Text("Page Options", comment: "Navigation title."))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(role: .cancel) {
@@ -50,7 +50,7 @@ struct FeedConfigSheet: View {
                     .accessibilityIdentifier("Save")
                 }
             }
-            .frame(minWidth: 370, minHeight: 470)
+            .frame(minWidth: 360, minHeight: 600)
         }
     }
 }

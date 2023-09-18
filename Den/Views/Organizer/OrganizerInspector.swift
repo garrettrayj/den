@@ -1,5 +1,5 @@
 //
-//  OrganizerInspectors.swift
+//  OrganizerInspector.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/9/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct OrganizerInspectors: View {
+struct OrganizerInspector: View {
     @ObservedObject var profile: Profile
 
     @Binding var selection: Set<Feed>
@@ -18,6 +18,7 @@ struct OrganizerInspectors: View {
     @State private var panel: String = "info"
 
     var body: some View {
+
         VStack {
             Picker(selection: $panel) {
                 Label {
@@ -44,7 +45,7 @@ struct OrganizerInspectors: View {
                     Text("Multiple Selected").font(.title).foregroundStyle(.tertiary)
                     Spacer()
                 } else if let feed = selection.first {
-                    InfoInspector(profile: profile, feed: feed)
+                    OrganizerInfoPanel(profile: profile, feed: feed)
                 } else {
                     Spacer()
                     Text("No Selection").font(.title).foregroundStyle(.tertiary)
@@ -52,7 +53,7 @@ struct OrganizerInspectors: View {
                 }
             } else if panel == "config" {
                 if selection.count > 0 {
-                    ConfigInspector(profile: profile, selection: $selection)
+                    OrganizerOptionsPanel(profile: profile, selection: $selection)
                 } else {
                     Spacer()
                     Text("No Selection").font(.title).foregroundStyle(.tertiary)

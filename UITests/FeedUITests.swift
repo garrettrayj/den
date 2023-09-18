@@ -47,7 +47,7 @@ final class FeedUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "05-FeedViewCompressed")
     }
 
-    func testFeedConfiguration() throws {
+    func testFeedOptions() throws {
         let app = launchApp(inMemory: false)
 
         app.buttons["SelectProfile"].firstMatch.tap()
@@ -82,17 +82,17 @@ final class FeedUITests: UITestCase {
         }
         #endif
 
-        if !app.buttons["ConfigureFeed"].waitForExistence(timeout: 2) {
-            XCTFail("Configure feed button did not appear in time")
+        if !app.buttons["FeedOptions"].waitForExistence(timeout: 2) {
+            XCTFail("Feed options button did not appear in time")
         }
 
-        app.buttons["ConfigureFeed"].firstMatch.tap()
+        app.buttons["FeedOptions"].firstMatch.tap()
 
-        if !app.staticTexts["Feed Configuration"].waitForExistence(timeout: 2) {
-            XCTFail("Feed configuration title did not appear in time")
+        if !app.staticTexts["Feed Options"].waitForExistence(timeout: 2) {
+            XCTFail("Feed options title did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "06-FeedConfiguration")
+        attachScreenshot(of: app.windows.firstMatch, named: "06-FeedOptions")
     }
 
     func testFeedViewNoData() throws {

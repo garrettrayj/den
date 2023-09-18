@@ -34,23 +34,7 @@ struct NewPageSheet: View {
                     }
                 }
 
-                Button {
-                    showingIconPicker = true
-                } label: {
-                    Label {
-                        HStack {
-                            Text("Choose Icon", comment: "Button label.")
-                            Spacer()
-                            ButtonChevron()
-                        }
-                    } icon: {
-                        Image(systemName: symbol)
-                    }
-                }
-                .buttonStyle(.borderless)
-                .navigationDestination(isPresented: $showingIconPicker) {
-                    IconPicker(symbolID: $symbol)
-                }
+                IconSelectorButton(symbol: $symbol)
             }
             .formStyle(.grouped)
             .navigationTitle(Text("New Page", comment: "Navigation title."))

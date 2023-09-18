@@ -23,6 +23,7 @@ struct NewTagButton: View {
                 Image(systemName: "tag")
             }
         }
+        .keyboardShortcut("n", modifiers: [.command, .option], localization: .withoutMirroring)
         .accessibilityIdentifier("NewTag")
     }
 }

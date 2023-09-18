@@ -25,7 +25,7 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingNewPageSheet: Bool
     @Binding var showingNewProfileSheet: Bool
     @Binding var showingNewTagSheet: Bool
-    @Binding var showingProfileSettings: Bool
+    @Binding var showingProfileOptions: Bool
 
     let profiles: FetchedResults<Profile>
     let refreshProgress: Progress
@@ -49,17 +49,14 @@ struct SidebarToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .primaryAction) {
             Menu {
-                Group {
-                    NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
-                    NewPageButton(showingNewPageSheet: $showingNewPageSheet)
-                    NewTagButton(showingNewTagSheet: $showingNewTagSheet)
-                    Divider()
-                    ImportButton(showingImporter: $showingImporter)
-                    ExportButton(showingExporter: $showingExporter)
-                    OrganizerButton(detailPanel: $detailPanel)
-                    ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
-                }
-                .labelStyle(.titleAndIcon)
+                NewFeedButton(showingNewFeedSheet: $showingNewFeedSheet)
+                NewPageButton(showingNewPageSheet: $showingNewPageSheet)
+                NewTagButton(showingNewTagSheet: $showingNewTagSheet)
+                Divider()
+                ImportButton(showingImporter: $showingImporter)
+                ExportButton(showingExporter: $showingExporter)
+                OrganizerButton(detailPanel: $detailPanel)
+                ProfileOptionsButton(showingProfileOptions: $showingProfileOptions)
             } label: {
                 Label {
                     Text("Menu", comment: "Button label.")
@@ -104,7 +101,7 @@ struct SidebarToolbar: ToolbarContent {
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
                     OrganizerButton(detailPanel: $detailPanel)
-                    ProfileSettingsButton(showingProfileSettings: $showingProfileSettings)
+                    ProfileOptionsButton(showingProfileOptions: $showingProfileOptions)
                 } label: {
                     Label {
                         Text("Preferences", comment: "Menu label.")

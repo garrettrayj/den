@@ -1,5 +1,5 @@
 //
-//  ProfileSettingsButton.swift
+//  ProfileOptionsButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 12/3/22.
@@ -10,19 +10,19 @@
 
 import SwiftUI
 
-struct ProfileSettingsButton: View {
-    @Binding var showingProfileSettings: Bool
+struct ProfileOptionsButton: View {
+    @Binding var showingProfileOptions: Bool
 
     var body: some View {
         Button {
-            showingProfileSettings = true
+            showingProfileOptions = true
         } label: {
             Label {
-                Text("Profile Settings", comment: "Button label.")
+                Text("Profile Options", comment: "Button label.")
             } icon: {
                 Image(systemName: "gearshape")
             }
         }
-        .accessibilityIdentifier("ShowProfileSettings")
+        .accessibilityIdentifier("ShowProfileOptions")
     }
 }

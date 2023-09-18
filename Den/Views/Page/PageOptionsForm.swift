@@ -1,5 +1,5 @@
 //
-//  PageConfigForm.swift
+//  PageOptionsForm.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/21/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PageConfigForm: View {
+struct PageOptionsForm: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
@@ -37,25 +37,8 @@ struct PageConfigForm: View {
                     Image(systemName: "character.cursor.ibeam")
                 }
             }
-            .lineLimit(1)
 
-            Button {
-                showingIconPicker = true
-            } label: {
-                Label {
-                    HStack {
-                        Text("Choose Icon", comment: "Button label.")
-                        Spacer()
-                        ButtonChevron()
-                    }
-                } icon: {
-                    Image(systemName: page.wrappedSymbol)
-                }
-            }
-            .buttonStyle(.borderless)
-            .navigationDestination(isPresented: $showingIconPicker) {
-                IconPicker(symbolID: $page.wrappedSymbol)
-            }
+            IconSelectorButton(symbol: $page.wrappedSymbol)
 
             Button(role: .destructive) {
                 viewContext.delete(page)

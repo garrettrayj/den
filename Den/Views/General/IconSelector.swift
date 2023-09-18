@@ -1,5 +1,5 @@
 //
-//  IconPicker.swift
+//  IconSelector.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/14/21.
@@ -10,8 +10,8 @@
 
 import SwiftUI
 
-struct IconPicker: View {
-    @Binding var symbolID: String
+struct IconSelector: View {
+    @Binding var symbol: String
 
     var body: some View {
         List {
@@ -19,6 +19,10 @@ struct IconPicker: View {
                 categorySection(category: category)
             }
         }
+        .navigationTitle("Choose Icon")
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
 
     #if os(macOS)
@@ -34,21 +38,21 @@ struct IconPicker: View {
                 alignment: .center,
                 spacing: 4
             ) {
-                ForEach(SymbolLibrary.shared.categorySymbols(categoryID: category.rawValue)) { symbol in
+                ForEach(SymbolLibrary.shared.categorySymbols(categoryID: category.rawValue)) { categorySymbol in
                     ZStack {
                         RoundedRectangle(cornerRadius: 4).fill(.background)
 
-                        if symbol.id == symbolID {
-                            Image(systemName: symbol.id).foregroundStyle(.tint)
+                        if categorySymbol.id == symbol {
+                            Image(systemName: categorySymbol.id).foregroundStyle(.tint)
                             RoundedRectangle(cornerRadius: 4).strokeBorder(.tint, lineWidth: 2)
                         } else {
-                            Image(systemName: symbol.id)
+                            Image(systemName: categorySymbol.id)
                         }
                     }
                     .imageScale(.large)
                     .aspectRatio(1, contentMode: .fit)
                     .onTapGesture {
-                        symbolID = symbol.id
+                        symbol = categorySymbol.id
                     }
                     .accessibilityIdentifier("PageIconOption")
                 }
