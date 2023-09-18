@@ -22,7 +22,7 @@ struct DeckLayout: View {
 
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.horizontal, showsIndicators: false) {
+            ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 0) {
                     ForEach(page.feedsArray) { feed in
                         DeckColumn(

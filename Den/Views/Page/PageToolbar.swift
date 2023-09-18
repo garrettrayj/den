@@ -20,7 +20,7 @@ struct PageToolbar: ToolbarContent {
 
     @Binding var hideRead: Bool
     @Binding var pageLayout: PageLayout
-    @Binding var showingPageOptions: Bool
+    @Binding var showingInspector: Bool
 
     let items: FetchedResults<Item>
 
@@ -31,9 +31,6 @@ struct PageToolbar: ToolbarContent {
                 .pickerStyle(.inline)
         }
         ToolbarItem {
-            PageOptionsButton(showingPageOptions: $showingPageOptions)
-        }
-        ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
@@ -42,6 +39,9 @@ struct PageToolbar: ToolbarContent {
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
             }
+        }
+        ToolbarItem {
+            InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
         if horizontalSizeClass == .compact {
@@ -54,7 +54,7 @@ struct PageToolbar: ToolbarContent {
                     }
                     FilterReadButton(hideRead: $hideRead)
                     PageLayoutPicker(pageLayout: $pageLayout)
-                    PageOptionsButton(showingPageOptions: $showingPageOptions)
+                    InspectorToggleButton(showingInspector: $showingInspector)
                 } label: {
                     Label {
                         Text("Menu", comment: "Button label.")
@@ -69,9 +69,6 @@ struct PageToolbar: ToolbarContent {
                 PageLayoutPicker(pageLayout: $pageLayout)
             }
             ToolbarItem(placement: .primaryAction) {
-                PageOptionsButton(showingPageOptions: $showingPageOptions)
-            }
-            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
@@ -80,6 +77,9 @@ struct PageToolbar: ToolbarContent {
                     page.objectWillChange.send()
                     page.feedsArray.forEach { $0.objectWillChange.send() }
                 }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                InspectorToggleButton(showingInspector: $showingInspector)
             }
         }
         #endif

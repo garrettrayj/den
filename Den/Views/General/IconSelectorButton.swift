@@ -20,17 +20,13 @@ struct IconSelectorButton: View {
             showingIconSelector = true
         } label: {
             Label {
-                HStack {
-                    Text("Choose Icon", comment: "Button label.")
-                    Spacer()
-                    ButtonChevron()
-                }
+                Text("Select Icon", comment: "Button label.")
             } icon: {
                 Image(systemName: symbol)
             }
         }
         .buttonStyle(.borderless)
-        .navigationDestination(isPresented: $showingIconSelector) {
+        .sheet(isPresented: $showingIconSelector) {
             IconSelector(symbol: $symbol)
         }
     }

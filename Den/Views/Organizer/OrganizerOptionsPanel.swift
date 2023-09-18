@@ -23,16 +23,6 @@ struct OrganizerOptionsPanel: View {
         } else {
             Form {
                 Section {
-                    Picker(sources: sources, selection: \.page) {
-                        ForEach(profile.pagesArray) { page in
-                            page.nameText.tag(page as Page?)
-                        }
-                    } label: {
-                        Text("Page", comment: "Picker label.")
-                    }
-                }
-
-                Section {
                     Picker(sources: sources, selection: \.itemLimitChoice) {
                         ForEach(ItemLimit.allCases, id: \.self) { choice in
                             Text("\(choice.rawValue)").tag(choice)
@@ -71,10 +61,19 @@ struct OrganizerOptionsPanel: View {
                 } header: {
                     Text("Previews")
                 }
+                
+                Section {
+                    Picker(sources: sources, selection: \.page) {
+                        ForEach(profile.pagesArray) { page in
+                            page.nameText.tag(page as Page?)
+                        }
+                    } label: {
+                        Text("Page", comment: "Picker label.")
+                    }
+                } header: {
+                    Text("Move")
+                }
             }
-            .scrollContentBackground(.hidden)
-            .padding(.horizontal, -8)
-            .padding(.top, -4)
         }
     }
 

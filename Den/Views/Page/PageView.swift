@@ -16,8 +16,7 @@ struct PageView: View {
     @ObservedObject var profile: Profile
 
     @Binding var hideRead: Bool
-
-    @SceneStorage("ShowingPageOptions") private var showingPageOptions: Bool = false
+    @Binding var showingInspector: Bool
 
     private var pageLayout: AppStorage<PageLayout>
 
@@ -75,40 +74,30 @@ struct PageView: View {
                             page: page,
                             hideRead: $hideRead,
                             pageLayout: pageLayout.projectedValue,
-                            showingPageOptions: $showingPageOptions,
+                            showingInspector: $showingInspector,
                             items: items
                         )
                     }
                     .navigationTitle(page.nameText)
+                    .inspector(isPresented: $showingInspector) {
+                        PageInspector(page: page)
+                    }
                 }
             }
         }
-        .sheet(
-            isPresented: $showingPageOptions,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
-            content: {
-                PageOptionsSheet(page: page)
-            }
-        )
     }
 
     init(
         page: Page,
         profile: Profile,
-        hideRead: Binding<Bool>
+        hideRead: Binding<Bool>,
+        showingInspector: Binding<Bool>
     ) {
         self.page = page
         self.profile = profile
 
         _hideRead = hideRead
+        _showingInspector = showingInspector
 
         pageLayout = .init(
             wrappedValue: PageLayout.grouped,

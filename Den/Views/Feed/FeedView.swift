@@ -17,8 +17,7 @@ struct FeedView: View {
     @ObservedObject var feed: Feed
 
     @Binding var hideRead: Bool
-
-    @SceneStorage("ShowingFeedOptions") private var showingFeedOptions: Bool = false
+    @Binding var showingInspector: Bool
 
     var body: some View {
         ZStack {
@@ -46,31 +45,19 @@ struct FeedView: View {
                         FeedToolbar(
                             feed: feed,
                             hideRead: $hideRead,
-                            showingFeedOptions: $showingFeedOptions,
+                            showingInspector: $showingInspector,
                             items: items
                         )
                     }
                     .navigationTitle(feed.titleText)
+                    .inspector(isPresented: $showingInspector) {
+                        FeedInspector(feed: feed)
+                    }
                 }
             }
         }
         #if os(iOS)
         .background(Color(.systemGroupedBackground))
         #endif
-        .sheet(
-            isPresented: $showingFeedOptions,
-            onDismiss: {
-                if viewContext.hasChanges {
-                    do {
-                        try viewContext.save()
-                    } catch {
-                        CrashUtility.handleCriticalError(error as NSError)
-                    }
-                }
-            },
-            content: {
-                FeedOptionsSheet(feed: feed)
-            }
-        )
     }
 }

@@ -18,15 +18,12 @@ struct FeedToolbar: ToolbarContent {
     @ObservedObject var feed: Feed
 
     @Binding var hideRead: Bool
-    @Binding var showingFeedOptions: Bool
+    @Binding var showingInspector: Bool
 
     let items: FetchedResults<Item>
 
     var body: some ToolbarContent {
         #if os(macOS)
-        ToolbarItem {
-            FeedOptionsButton(showingFeedOptions: $showingFeedOptions)
-        }
         ToolbarItem {
             FilterReadButton(hideRead: $hideRead)
         }
@@ -35,6 +32,9 @@ struct FeedToolbar: ToolbarContent {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 feed.objectWillChange.send()
             }
+        }
+        ToolbarItem {
+            InspectorToggleButton(showingInspector: $showingInspector)
         }
         #else
         if horizontalSizeClass == .compact {
@@ -45,7 +45,8 @@ struct FeedToolbar: ToolbarContent {
                         feed.objectWillChange.send()
                     }
                     FilterReadButton(hideRead: $hideRead)
-                    FeedOptionsButton(showingFeedOptions: $showingFeedOptions)
+                    FeedOptionsButton(showingInspector: $showingInspector)
+                    InspectorToggleButton(showingInspector: $showingInspector)
                 } label: {
                     Label {
                         Text("Menu", comment: "Button label.")
@@ -57,9 +58,6 @@ struct FeedToolbar: ToolbarContent {
             }
         } else {
             ToolbarItem(placement: .primaryAction) {
-                FeedOptionsButton(showingFeedOptions: $showingFeedOptions)
-            }
-            ToolbarItem(placement: .primaryAction) {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
@@ -67,6 +65,9 @@ struct FeedToolbar: ToolbarContent {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     feed.objectWillChange.send()
                 }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                InspectorToggleButton(showingInspector: $showingInspector)
             }
         }
         #endif

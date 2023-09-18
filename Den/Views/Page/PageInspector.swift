@@ -1,5 +1,5 @@
 //
-//  PageOptionsForm.swift
+//  PageInspector.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/21/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct PageOptionsForm: View {
+struct PageInspector: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var page: Page
@@ -21,8 +21,26 @@ struct PageOptionsForm: View {
         Form {
             generalSection
             feedsSection
+            
+            Section {
+                DeletePageButton(page: page)
+            } header: {
+                Text("Danger")
+            }
         }
+        #if os(iOS)
+        .environment(\.editMode, .constant(.active))
+        #endif
         .formStyle(.grouped)
+        .onDisappear {
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            }
+        }
     }
 
     private var generalSection: some View {
@@ -39,19 +57,6 @@ struct PageOptionsForm: View {
             }
 
             IconSelectorButton(symbol: $page.wrappedSymbol)
-
-            Button(role: .destructive) {
-                viewContext.delete(page)
-            } label: {
-                Label {
-                    Text("Delete Page", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "folder.badge.minus")
-                }
-                .symbolRenderingMode(.multicolor)
-            }
-            .buttonStyle(.borderless)
-            .accessibilityIdentifier("DeletePage")
         }
     }
 
@@ -76,9 +81,7 @@ struct PageOptionsForm: View {
                     }
                     .onMove(perform: moveFeed)
                 }
-                #if os(iOS)
-                .environment(\.editMode, .constant(.active))
-                #endif
+                
             }
         } header: {
             Text("Feeds", comment: "Page settings section header.")

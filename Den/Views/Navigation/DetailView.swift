@@ -17,6 +17,8 @@ struct DetailView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
     @Binding var path: NavigationPath
+    
+    @SceneStorage("ShowingInspector") private var showingInspector = false
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -25,12 +27,13 @@ struct DetailView: View {
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead)
                 case .organizer:
-                    Organizer(profile: profile)
+                    Organizer(profile: profile, showingInspector: $showingInspector)
                 case .page(let page):
                     PageView(
                         page: page,
                         profile: profile,
-                        hideRead: $hideRead
+                        hideRead: $hideRead,
+                        showingInspector: $showingInspector
                     )
                 case .search(let search):
                     SearchView(profile: profile, search: search, hideRead: $hideRead)
@@ -49,7 +52,7 @@ struct DetailView: View {
                     case .bookmark(let bookmark):
                         BookmarkView(bookmark: bookmark)
                     case .feed(let feed):
-                        FeedView(feed: feed, hideRead: $hideRead)
+                        FeedView(feed: feed, hideRead: $hideRead, showingInspector: $showingInspector)
                     case .item(let item):
                         ItemView(item: item, profile: profile)
                     case .trend(let trend):

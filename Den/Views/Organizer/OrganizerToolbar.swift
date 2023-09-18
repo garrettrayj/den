@@ -14,7 +14,7 @@ struct OrganizerToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var selection: Set<Feed>
-    @Binding var showingInspectors: Bool
+    @Binding var showingInspector: Bool
 
     var body: some ToolbarContent {
         ToolbarItem {
@@ -43,23 +43,7 @@ struct OrganizerToolbar: ToolbarContent {
         }
 
         ToolbarItem {
-            Button {
-                showingInspectors.toggle()
-            } label: {
-                Label {
-                    Text("Toggle Inspectors")
-                } icon: {
-                    #if os(macOS)
-                    Image(systemName: "sidebar.trailing")
-                    #else
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        Image(systemName: "rectangle.portrait.bottomhalf.inset.filled")
-                    } else {
-                        Image(systemName: "sidebar.trailing")
-                    }
-                    #endif
-                }
-            }
+            InspectorToggleButton(showingInspector: $showingInspector)
         }
     }
 }

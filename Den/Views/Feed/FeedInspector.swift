@@ -1,5 +1,5 @@
 //
-//  FeedOptionsForm.swift
+//  FeedInspector.swift
 //  Den
 //
 //  Created by Garrett Johnson on 5/23/20.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct FeedOptionsForm: View {
+struct FeedInspector: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
@@ -24,8 +24,37 @@ struct FeedOptionsForm: View {
         Form {
             generalSection
             previewsSection
+            
+            Section {
+                if let profile = feed.page?.profile {
+                    PagePicker(
+                        profile: profile,
+                        selection: $feed.page
+                    )
+                    .onChange(of: feed.page) {
+                        self.feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
+                    }
+                }
+            } header: {
+                Text("Move")
+            }
+            
+            Section {
+               DeleteFeedButton(feed: feed)
+            } header: {
+                Text("Danger")
+            }
         }
         .formStyle(.grouped)
+        .onDisappear {
+            if viewContext.hasChanges {
+                do {
+                    try viewContext.save()
+                } catch {
+                    CrashUtility.handleCriticalError(error as NSError)
+                }
+            }
+        }
     }
 
     private var generalSection: some View {
@@ -59,28 +88,9 @@ struct FeedOptionsForm: View {
                 }
             }
 
-            if let profile = feed.page?.profile {
-                PagePicker(
-                    profile: profile,
-                    selection: $feed.page
-                )
-                .onChange(of: feed.page) {
-                    self.feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
-                }
-            }
+            
 
-            Button(role: .destructive) {
-                viewContext.delete(feed)
-            } label: {
-                Label {
-                    Text("Delete Feed", comment: "Button label.")
-                } icon: {
-                    Image(systemName: "minus.square")
-                }
-                .symbolRenderingMode(.multicolor)
-            }
-            .buttonStyle(.borderless)
-            .accessibilityIdentifier("DeleteFeed")
+            
         } footer: {
             if let validationMessage = webAddressValidationMessage {
                 validationMessage.text
@@ -121,24 +131,11 @@ struct FeedOptionsForm: View {
             }
             #endif
 
-            HStack {
-                Text("Preferred Style", comment: "Feed preview style picker label.")
-                Spacer()
-                PreviewStylePicker(previewStyle: $feed.wrappedPreviewStyle)
-                    .pickerStyle(.segmented)
-                    .scaledToFit()
-                    .labelsHidden()
+            Toggle(isOn: $feed.largePreviews) {
+                Text("Large Previews", comment: "Toggle label.")
             }
-            .task {
-                showingHideTeaserOption = feed.wrappedPreviewStyle == .expanded
-            }
-            .onChange(of: feed.wrappedPreviewStyle) {
-                withAnimation {
-                    showingHideTeaserOption = feed.wrappedPreviewStyle == .expanded
-                }
-            }
-
-            if showingHideTeaserOption {
+            
+            if feed.largePreviews {
                 Toggle(isOn: $feed.hideTeasers) {
                     Text("Hide Teasers", comment: "Toggle label.")
                 }

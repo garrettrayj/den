@@ -11,18 +11,32 @@
 import SwiftUI
 
 struct IconSelector: View {
+    @Environment(\.dismiss) private var dismiss
+
     @Binding var symbol: String
 
     var body: some View {
-        List {
-            ForEach(PageIconCategory.allCases, id: \.self) { category in
-                categorySection(category: category)
+        NavigationStack {
+            List {
+                ForEach(PageIconCategory.allCases, id: \.self) { category in
+                    categorySection(category: category)
+                }
+            }
+            .navigationTitle("Choose Icon")
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Close")
+                    }
+                }
             }
         }
-        .navigationTitle("Choose Icon")
-        #if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-        #endif
+        .frame(minWidth: 600, minHeight: 480)
     }
 
     #if os(macOS)

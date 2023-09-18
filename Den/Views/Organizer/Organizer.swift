@@ -15,13 +15,10 @@ struct Organizer: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
+    
+    @Binding var showingInspector: Bool
 
     @State private var selection = Set<Feed>()
-    #if os(macOS)
-    @State private var showingInspectors = true
-    #else
-    @State private var showingInspectors = false
-    #endif
 
     var body: some View {
         List(selection: $selection) {
@@ -73,7 +70,7 @@ struct Organizer: View {
                 print("INSERT FEED")
             })
         }
-        .inspector(isPresented: $showingInspectors) {
+        .inspector(isPresented: $showingInspector) {
             OrganizerInspector(profile: profile, selection: $selection)
         }
         #if os(macOS)
@@ -87,7 +84,7 @@ struct Organizer: View {
             OrganizerToolbar(
                 profile: profile,
                 selection: $selection,
-                showingInspectors: $showingInspectors
+                showingInspector: $showingInspector
             )
         }
     }
