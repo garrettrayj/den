@@ -53,12 +53,12 @@ struct RSSItemLoad {
 
         item.link = source.linkURL
 
-        if let author = source.dublinCore?.dcCreator {
+        if let author = source.author {
             let formattedAuthor = author.preparingTitle()
             if formattedAuthor != "" {
                 item.author = formattedAuthor
             }
-        } else if let author = source.author {
+        } else if let author = source.dublinCore?.dcCreator {
             let formattedAuthor = author.preparingTitle()
             if formattedAuthor != "" {
                 item.author = formattedAuthor
