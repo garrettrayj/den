@@ -20,7 +20,7 @@ struct FeedToolbar: ToolbarContent {
     @Binding var hideRead: Bool
     @Binding var showingInspector: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)

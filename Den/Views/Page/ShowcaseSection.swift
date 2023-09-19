@@ -32,7 +32,7 @@ struct ShowcaseSection: View {
                         .modifier(SafeAreaModifier(geometry: geometry))
                 } else if !items.isEmpty {
                     BoardView(
-                        geometry: geometry,
+                        width: geometry.size.width,
                         list: items.visibilityFiltered(hideRead ? false : nil)
                     ) { item in
                         ItemActionView(item: item, feed: feed, profile: profile) {

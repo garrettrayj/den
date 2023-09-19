@@ -18,7 +18,7 @@ struct DeckLayout: View {
 
     @Binding var hideRead: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some View {
         GeometryReader { geometry in

@@ -13,9 +13,10 @@ import SwiftUI
 struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    let content: (T) -> Content
+    let width: CGFloat
     let list: [T]
-    let geometry: GeometryProxy
+
+    @ViewBuilder let content: (T) -> Content
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
@@ -29,14 +30,8 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
         }
     }
 
-    init(geometry: GeometryProxy, list: [T], @ViewBuilder content: @escaping (T) -> Content) {
-        self.geometry = geometry
-        self.list = list
-        self.content = content
-    }
-
     private var columnData: [(Int, [T])] {
-        let adjustedWidth = geometry.size.width / dynamicTypeSize.layoutScalingFactor
+        let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
         let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 27.2))
         var gridArray: [(Int, [T])] = []
 

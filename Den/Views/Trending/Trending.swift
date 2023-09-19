@@ -42,7 +42,7 @@ struct Trending: View {
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
-                        BoardView(geometry: geometry, list: visibleTrends) { trend in
+                        BoardView(width: geometry.size.width, list: visibleTrends) { trend in
                             TrendBlock(trend: trend)
                         }
                         .modifier(MainBoardModifier())

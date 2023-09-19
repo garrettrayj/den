@@ -16,12 +16,12 @@ struct GroupedLayout: View {
 
     @Binding var hideRead: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
-                BoardView(geometry: geometry, list: page.feedsArray) { feed in
+                BoardView(width: geometry.size.width, list: page.feedsArray) { feed in
                     Gadget(
                         feed: feed,
                         profile: profile,

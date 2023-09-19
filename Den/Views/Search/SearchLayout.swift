@@ -17,7 +17,7 @@ struct SearchLayout: View {
 
     @Binding var hideRead: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var visibilityFilteredItems: [Item] {
         items.visibilityFiltered(hideRead ? false : nil)
@@ -57,7 +57,7 @@ struct SearchLayout: View {
             } else {
                 GeometryReader { geometry in
                     ScrollView(.vertical) {
-                        BoardView(geometry: geometry, list: visibilityFilteredItems) { item in
+                        BoardView(width: geometry.size.width, list: visibilityFilteredItems) { item in
                             if let feed = item.feedData?.feed {
                                 if feed.wrappedPreviewStyle == .expanded {
                                     FeedItemExpanded(item: item, feed: feed, profile: profile)

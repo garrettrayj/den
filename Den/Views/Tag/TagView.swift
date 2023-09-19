@@ -33,7 +33,7 @@ struct TagView: View {
                 } else {
                     GeometryReader { geometry in
                         ScrollView {
-                            BoardView(geometry: geometry, list: tag.bookmarksArray) { bookmark in
+                            BoardView(width: geometry.size.width, list: tag.bookmarksArray) { bookmark in
                                 if let feed = bookmark.feed {
                                     if feed.wrappedPreviewStyle == .expanded {
                                         BookmarkPreviewExpanded(

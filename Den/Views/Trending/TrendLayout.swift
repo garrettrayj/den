@@ -24,7 +24,7 @@ struct TrendLayout: View {
         } else {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
-                    BoardView(geometry: geometry, list: items) { item in
+                    BoardView(width: geometry.size.width, list: items) { item in
                         if let feed = item.feedData?.feed {
                             if feed.wrappedPreviewStyle == .expanded {
                                 FeedItemExpanded(item: item, feed: feed, profile: profile)

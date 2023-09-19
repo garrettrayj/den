@@ -19,7 +19,7 @@ struct InboxToolbar: ToolbarContent {
 
     @Binding var hideRead: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some ToolbarContent {
         #if os(macOS)

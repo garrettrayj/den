@@ -27,7 +27,7 @@ struct SidebarToolbar: ToolbarContent {
     @Binding var showingNewTagSheet: Bool
     @Binding var showingProfileOptions: Bool
 
-    let profiles: FetchedResults<Profile>
+    let profiles: [Profile]
     let refreshProgress: Progress
 
     private var activePage: Page? {

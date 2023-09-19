@@ -36,7 +36,7 @@ struct Inbox: View {
                     GeometryReader { geometry in
                         ScrollView(.vertical) {
                             BoardView(
-                                geometry: geometry,
+                                width: geometry.size.width,
                                 list: items.visibilityFiltered(hideRead ? false : nil)
                             ) { item in
                                 if let feed = item.feedData?.feed {

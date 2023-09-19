@@ -23,7 +23,7 @@ struct SplitView: View {
     @Binding var currentProfileID: String?
     @Binding var showingNewProfileSheet: Bool
 
-    let profiles: FetchedResults<Profile>
+    let profiles: [Profile]
     let refreshProgress: Progress = Progress()
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn

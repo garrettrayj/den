@@ -17,7 +17,7 @@ struct Landing: View {
     @Binding var currentProfileID: String?
     @Binding var showingNewProfileSheet: Bool
 
-    let profiles: FetchedResults<Profile>
+    let profiles: [Profile]
 
     @State private var profileLoadAttempts = 0
 

@@ -20,7 +20,7 @@ struct FeedLayout: View {
 
     @State private var feedAddressCopied: Bool = false
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some View {
         GeometryReader { geometry in
@@ -40,7 +40,7 @@ struct FeedLayout: View {
                             AllRead(largeDisplay: true)
                         } else {
                             BoardView(
-                                geometry: geometry,
+                                width: geometry.size.width,
                                 list: items.visibilityFiltered(hideRead ? false : nil)
                             ) { item in
                                 ItemActionView(item: item, feed: feed, profile: profile) {

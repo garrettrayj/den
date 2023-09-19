@@ -33,14 +33,14 @@ struct RootView: View {
                     profile: profile,
                     currentProfileID: $currentProfileID,
                     showingNewProfileSheet: $showingNewProfileSheet,
-                    profiles: profiles
+                    profiles: Array(profiles)
                 )
                 .environment(\.userTint, profile.tintColor)
             } else {
                 Landing(
                     currentProfileID: $currentProfileID,
                     showingNewProfileSheet: $showingNewProfileSheet,
-                    profiles: profiles
+                    profiles: Array(profiles)
                 )
             }
         }

@@ -12,15 +12,13 @@ import CoreData
 import SwiftUI
 
 struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
-    let content: (FetchedResults<Item>) -> Content
-
-    @ObservedObject var scopeObject: ScopeObject
+    @ViewBuilder let content: ([Item]) -> Content
 
     @FetchRequest(sortDescriptors: [])
     private var items: FetchedResults<Item>
 
     var body: some View {
-        content(items)
+        content(Array(items))
     }
 
     init(
@@ -31,10 +29,9 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
         readFilter: Bool? = nil,
         includeExtras: Bool = false,
         searchQuery: String = "",
-        @ViewBuilder content: @escaping (FetchedResults<Item>) -> Content
+        @ViewBuilder content: @escaping ([Item]) -> Content
     ) {
         self.content = content
-        self.scopeObject = scopeObject
 
         var predicates: [NSPredicate] = []
 
@@ -42,7 +39,7 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
             if let feedData = feed.feedData {
                 predicates.append(NSPredicate(format: "feedData = %@", feedData))
             } else {
-                // Impossible query because there will be no items without FeedData
+                // Impossible query because there should be no items without FeedData
                 predicates.append(NSPredicate(format: "1 = 2"))
             }
         } else if let page = scopeObject as? Page {

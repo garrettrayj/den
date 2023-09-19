@@ -39,7 +39,7 @@ struct Sidebar: View {
     @State private var showingNewPageSheet = false
     @State private var showingNewTagSheet = false
 
-    let profiles: FetchedResults<Profile>
+    let profiles: [Profile]
     let refreshProgress: Progress
 
     var body: some View {

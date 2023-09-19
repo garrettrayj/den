@@ -16,7 +16,7 @@ struct TimelineLayout: View {
 
     @Binding var hideRead: Bool
 
-    let items: FetchedResults<Item>
+    let items: [Item]
 
     var body: some View {
         if items.isEmpty {
@@ -33,7 +33,7 @@ struct TimelineLayout: View {
             GeometryReader { geometry in
                 ScrollView(.vertical) {
                     BoardView(
-                        geometry: geometry,
+                        width: geometry.size.width,
                         list: items.visibilityFiltered(hideRead ? false : nil)
                     ) { item in
                         if let feed = item.feedData?.feed {

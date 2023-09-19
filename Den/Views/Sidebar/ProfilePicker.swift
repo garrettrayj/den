@@ -13,7 +13,7 @@ import SwiftUI
 struct ProfilePicker: View {
     @Binding var currentProfileID: String?
 
-    let profiles: FetchedResults<Profile>
+    let profiles: [Profile]
 
     var body: some View {
         Picker(selection: $currentProfileID) {
