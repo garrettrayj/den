@@ -1,5 +1,5 @@
 //
-//  DeleteFeedButton.swift
+//  DeleteTagButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/18/23.
@@ -10,30 +10,28 @@
 
 import SwiftUI
 
-struct DeleteFeedButton: View {
+struct DeleteTagButton: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
+    @ObservedObject var tag: Tag
 
     var body: some View {
         Button(role: .destructive) {
-            viewContext.delete(feed)
+            viewContext.delete(tag)
             do {
                 try viewContext.save()
-                profile.objectWillChange.send()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }
         } label: {
             Label {
-                Text("Delete Feed", comment: "Button label.")
+                Text("Delete Tag", comment: "Button label.")
             } icon: {
-                Image(systemName: "trash")
+                Image(systemName: "tag.slash")
             }
             .symbolRenderingMode(.multicolor)
         }
         .buttonStyle(.borderless)
-        .accessibilityIdentifier("DeleteFeed")
+        .accessibilityIdentifier("DeletePage")
     }
 }

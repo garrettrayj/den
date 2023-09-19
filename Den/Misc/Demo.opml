@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Home Sep 2, 2023 at 10:05 PM</title>
+		<title>Demo</title>
 	</head>
 	<body>
 		<outline den:icon="globe" text="World News" title="World News">
-			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="CNN" title="CNN" type="rss" xmlUrl="http://rss.cnn.com/rss/cnn_world.rss" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NBC News" title="NBC News" type="rss" xmlUrl="https://feeds.nbcnews.com/nbcnews/public/world" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Global News" title="Global News" type="rss" xmlUrl="https://globalnews.ca/category/world/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="DER SPIEGEL" title="DER SPIEGEL" type="rss" xmlUrl="https://www.spiegel.de/international/index.rss" />
@@ -48,7 +47,7 @@
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Ars Technica" title="Ars Technica" type="rss" xmlUrl="https://feeds.arstechnica.com/arstechnica/index" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Techdirt" title="Techdirt" type="rss" xmlUrl="http://www.techdirt.com/techdirt_rss.xml" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Next Web" title="The Next Web" type="rss" xmlUrl="http://feeds2.feedburner.com/thenextweb" />
-			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Slashdot" title="Slashdot" type="rss" xmlUrl="http://rss.slashdot.org/Slashdot/slashdot" />
+			<outline den:hideBylines="false" den:hideImages="true" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="expanded" text="Slashdot" title="Slashdot" type="rss" xmlUrl="http://rss.slashdot.org/Slashdot/slashdot" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="TechCrunch" title="TechCrunch" type="rss" xmlUrl="https://techcrunch.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Futurism" title="Futurism" type="rss" xmlUrl="https://futurism.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="MacRumors" title="MacRumors" type="rss" xmlUrl="http://feeds.macrumors.com/MacRumors-All" />
@@ -74,7 +73,6 @@
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="New Scientist" title="New Scientist" type="rss" xmlUrl="https://feeds.newscientist.com/home" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Botany One" title="Botany One" type="rss" xmlUrl="https://botany.one/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Nautilus" title="Nautilus" type="rss" xmlUrl="https://nautil.us/feed/" />
-			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="CSIROscope" title="CSIROscope" type="rss" xmlUrl="https://blog.csiro.au/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Eos" title="Eos" type="rss" xmlUrl="https://eos.org/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="NeuroLogica Blog" title="NeuroLogica Blog" type="rss" xmlUrl="https://theness.com/neurologicablog/index.php/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="SciTechDaily" title="SciTechDaily" type="rss" xmlUrl="https://scitechdaily.com/feed/" />
@@ -114,16 +112,16 @@
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Dinosaur Comics!" title="Dinosaur Comics!" type="rss" xmlUrl="https://www.qwantz.com/rssfeed.php" />
 		</outline>
 		<outline den:icon="person.and.arrow.left.and.arrow.right" text="Curiosity" title="Curiosity">
-			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Slate Magazine" title="Slate Magazine" type="rss" xmlUrl="http://www.slate.com/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Interesting Engineering" title="Interesting Engineering" type="rss" xmlUrl="https://interestingengineering.com/feed/" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Hyperallergic" title="Hyperallergic" type="rss" xmlUrl="https://hyperallergic.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="reddit: the front page of the internet" title="reddit: the front page of the internet" type="atom" xmlUrl="http://www.reddit.com/.rss" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Archinect - News" title="Archinect - News" type="atom" xmlUrl="http://archinect.com/news.xml" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Art of Manliness" title="The Art of Manliness" type="rss" xmlUrl="http://feeds.feedburner.com/TheArtOfManliness" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="kottke.org" title="kottke.org" type="atom" xmlUrl="http://feeds.kottke.org/main" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Food Politics by Marion Nestle" title="Food Politics by Marion Nestle" type="rss" xmlUrl="http://www.foodpolitics.com/feed/" />
-			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Interesting Engineering" title="Interesting Engineering" type="rss" xmlUrl="https://interestingengineering.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Hackaday" title="Hackaday" type="rss" xmlUrl="https://hackaday.com/blog/feed/" />
-			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Hyperallergic" title="Hyperallergic" type="rss" xmlUrl="https://hyperallergic.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Inverse" title="Inverse" type="rss" xmlUrl="https://www.inverse.com/rss" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Slate Magazine" title="Slate Magazine" type="rss" xmlUrl="http://www.slate.com/rss" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Make: DIY Projects and Ideas" title="Make: DIY Projects and Ideas" type="rss" xmlUrl="https://makezine.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Braingle" title="Braingle" type="rss" xmlUrl="https://feeds.braingle.com/braingle/all" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="TED Talks Daily" title="TED Talks Daily" type="rss" xmlUrl="https://feeds.feedburner.com/tedtalks_video" />

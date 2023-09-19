@@ -44,7 +44,6 @@ struct DeckLayout: View {
                 }
                 .scrollTargetLayout()
             }
-            .id("PageDeckScroll_\(page.id?.uuidString ?? "NoID")")
             .scrollTargetBehavior(.viewAligned)
             .scrollClipDisabled()
             .ignoresSafeArea(edges: .vertical)

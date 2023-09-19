@@ -34,7 +34,7 @@ struct ItemView: View {
                 feed: item.feedData!.feed!,
                 title: item.wrappedTitle,
                 author: item.author,
-                date: item.date,
+                date: item.published,
                 summaryContent: item.summary,
                 bodyContent: item.body,
                 link: item.link,

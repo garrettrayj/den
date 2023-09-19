@@ -26,8 +26,7 @@ public class FeedData: NSManagedObject {
     }
 
     public var feed: Feed? {
-        let values = value(forKey: "feed") as? [Feed]
-        if let unwrappedValues = values {
+        if let unwrappedValues = value(forKey: "feed") as? [Feed] {
             return unwrappedValues.first
         }
 
@@ -35,13 +34,9 @@ public class FeedData: NSManagedObject {
     }
 
     public var itemsArray: [Item] {
-        guard
-            let items = items?.sortedArray(
-                using: [NSSortDescriptor(key: "date", ascending: false)]
-            ) as? [Item]
-        else { return [] }
-
-        return items
+        items?.sortedArray(
+            using: [NSSortDescriptor(key: "published", ascending: false)]
+        ) as? [Item] ?? []
     }
 
     public var responseTimeString: String {

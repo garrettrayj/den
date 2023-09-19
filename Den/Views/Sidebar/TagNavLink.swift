@@ -40,5 +40,8 @@ struct TagNavLink: View {
         )
         .tag(DetailPanel.tag(tag))
         .accessibilityIdentifier("TagNavLink")
+        .contextMenu {
+            DeleteTagButton(tag: tag)
+        }
     }
 }

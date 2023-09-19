@@ -27,18 +27,9 @@ public class Tag: NSManagedObject {
     }
 
     public var bookmarksArray: [Bookmark] {
-        get {
-            guard
-                let bookmarks = self.bookmarks?.sortedArray(
-                    using: [NSSortDescriptor(key: "published", ascending: false)]
-                ) as? [Bookmark]
-            else { return [] }
-
-            return bookmarks
-        }
-        set {
-            bookmarks = NSSet(array: newValue)
-        }
+        bookmarks?.sortedArray(
+            using: [NSSortDescriptor(key: "published", ascending: false)]
+        ) as? [Bookmark] ?? []
     }
 
     static func create(

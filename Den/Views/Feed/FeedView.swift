@@ -51,7 +51,7 @@ struct FeedView: View {
                     }
                     .navigationTitle(feed.titleText)
                     .inspector(isPresented: $showingInspector) {
-                        FeedInspector(feed: feed)
+                        FeedInspector(feed: feed, profile: profile)
                     }
                 }
             }

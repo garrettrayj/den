@@ -18,7 +18,6 @@ struct FeedFavicon: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     let url: URL?
-
     let baseSize = CGSize(width: 16, height: 16)
 
     private var scaledSize: CGSize {

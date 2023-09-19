@@ -41,6 +41,8 @@ struct RSSItemLoad {
             // Fallback to Dublin Core metadata for published date
             // (ex. http://feeds.feedburner.com/oatmealfeed does not have pubDate)
             item.published = published
+        } else {
+            item.published = Date()
         }
 
         if let title = source.title?.preparingTitle() {

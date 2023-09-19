@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22221.1" systemVersion="23A5337a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A339" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Bookmark" representedClassName="Bookmark" syncable="YES" codeGenerationType="category">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="body" optional="YES" attributeType="String"/>
@@ -7,6 +7,7 @@
         <attribute name="image" optional="YES" attributeType="URI"/>
         <attribute name="imageHeight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageWidth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ingested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="link" optional="YES" attributeType="URI"/>
         <attribute name="published" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="summary" optional="YES" attributeType="String"/>

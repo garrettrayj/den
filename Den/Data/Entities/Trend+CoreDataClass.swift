@@ -13,7 +13,7 @@ import SwiftUI
 
 @objc(Trend)
 public class Trend: NSManagedObject {
-    var titleText: Text {
+    public var titleText: Text {
         if let title = title {
             return Text(title)
         } else {
@@ -21,35 +21,44 @@ public class Trend: NSManagedObject {
         }
     }
 
-    var trendItemsArray: [TrendItem] {
+    public var trendItemsArray: [TrendItem] {
         trendItems?.allObjects as? [TrendItem] ?? []
     }
 
-    var items: [Item] {
+    public var items: [Item] {
         trendItemsArray
             .compactMap { $0.item }
-            .sorted { $0.date > $1.date }
+            .sorted { a, b in
+                guard
+                    let aPublished = a.published,
+                    let bPublished = b.published
+                else {
+                    return false
+                }
+
+                return aPublished > bPublished
+            }
     }
 
-    var hasUnread: Bool {
+    public var hasUnread: Bool {
         items.unread().count > 0
     }
 
-    func visibleItems(_ hideRead: Bool) -> [Item] {
+    public func visibleItems(_ hideRead: Bool) -> [Item] {
         items.filter { item in
             hideRead ? item.read == false : true
         }
     }
 
     public var profile: Profile? {
-        let values = value(forKey: "profile") as? [Profile]
-        if let unwrappedValues = values {
+        if let unwrappedValues = value(forKey: "profile") as? [Profile] {
             return unwrappedValues.first
         }
 
         return nil
     }
-    var feeds: [Feed] {
+
+    public var feeds: [Feed] {
         var feeds: Set<Feed> = []
         items.forEach { item in
             if let feed = item.feedData?.feed {

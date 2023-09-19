@@ -25,7 +25,9 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
 
     init(
         scopeObject: ScopeObject,
-        sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor(keyPath: \Item.published, ascending: false)],
+        sortDescriptors: [NSSortDescriptor] = [
+            NSSortDescriptor(keyPath: \Item.published, ascending: false)
+        ],
         readFilter: Bool? = nil,
         includeExtras: Bool = false,
         searchQuery: String = "",
@@ -53,11 +55,9 @@ struct WithItems<Content: View, ScopeObject: ObservableObject>: View {
         } else if let profile = scopeObject as? Profile {
             predicates.append(NSPredicate(
                 format: "feedData IN %@",
-                profile.pagesArray.flatMap({ page in
-                    page.feedsArray.compactMap { feed in
-                        feed.feedData
-                    }
-                })
+                profile.feedsArray.compactMap { feed in
+                    feed.feedData
+                }
             ))
         } else if let trend = scopeObject as? Trend {
             predicates.append(NSPredicate(

@@ -45,7 +45,6 @@ struct FeedToolbar: ToolbarContent {
                         feed.objectWillChange.send()
                     }
                     FilterReadButton(hideRead: $hideRead)
-                    FeedOptionsButton(showingInspector: $showingInspector)
                     InspectorToggleButton(showingInspector: $showingInspector)
                 } label: {
                     Label {

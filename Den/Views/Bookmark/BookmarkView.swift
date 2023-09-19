@@ -33,7 +33,7 @@ struct BookmarkView: View {
                 feed: bookmark.feed!,
                 title: bookmark.wrappedTitle,
                 author: bookmark.author,
-                date: bookmark.date,
+                date: bookmark.published,
                 summaryContent: bookmark.summary,
                 bodyContent: bookmark.body,
                 link: bookmark.link,

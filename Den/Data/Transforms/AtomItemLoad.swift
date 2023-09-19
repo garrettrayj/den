@@ -38,6 +38,8 @@ struct AtomItemLoad {
             item.published = published
         } else if let published = source.updated {
             item.published = published
+        } else {
+            item.published = Date()
         }
 
         if let title = source.title?.preparingTitle() {

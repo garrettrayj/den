@@ -39,7 +39,7 @@ struct TrendBlock: View {
         VStack {
             NavigationLink(value: SubDetailPanel.trend(trend)) {
                 VStack(alignment: .leading, spacing: 12) {
-                    trend.titleText.font(.title).lineLimit(1)
+                    trend.titleText.font(.title2.weight(.medium))
 
                     Grid {
                         ForEach(uniqueFaviconURLs.chunked(by: 8), id: \.self) { favicons in

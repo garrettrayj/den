@@ -10,6 +10,7 @@
 
 import CoreData
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct Sidebar: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -24,13 +25,16 @@ struct Sidebar: View {
     @Binding var newFeedPageID: String?
     @Binding var newFeedWebAddress: String
     @Binding var refreshing: Bool
-    @Binding var showingExporter: Bool
-    @Binding var showingImporter: Bool
     @Binding var showingNewFeedSheet: Bool
     @Binding var showingNewProfileSheet: Bool
 
-    @State private var searchInput = ""
+    @State private var exporterIsPresented: Bool = false
+
     @State private var isEditing = false
+    @State private var opmlFile: OPMLFile?
+    @State private var searchInput = ""
+    @State private var showingExporter: Bool = false
+    @State private var showingImporter: Bool = false
     @State private var showingProfileOptions = false
     @State private var showingNewPageSheet = false
     @State private var showingNewTagSheet = false
@@ -185,6 +189,38 @@ struct Sidebar: View {
                 NewTagSheet(profile: profile)
             }
         )
+        .fileImporter(
+            isPresented: $showingImporter,
+            allowedContentTypes: [.init(importedAs: "public.opml"), .xml],
+            allowsMultipleSelection: false
+        ) { result in
+            guard let selectedFile: URL = try? result.get().first else { return }
+            if selectedFile.startAccessingSecurityScopedResource() {
+                defer { selectedFile.stopAccessingSecurityScopedResource() }
+                ImportExportUtility.importOPML(url: selectedFile, context: viewContext, profile: profile)
+            } else {
+                // Handle denied access
+            }
+        }
+        .fileExporter(
+            isPresented: $exporterIsPresented,
+            document: opmlFile,
+            contentType: UTType(importedAs: "public.opml"),
+            defaultFilename: profile.exportTitle.sanitizedForFileName()
+        ) { _ in
+            opmlFile = nil
+        }
+        .onChange(of: showingExporter) {
+            if showingExporter {
+                opmlFile = ImportExportUtility.exportOPML(profile: profile)
+            }
+            exporterIsPresented = showingExporter
+        }
+        .onChange(of: exporterIsPresented) {
+            if !exporterIsPresented {
+                showingExporter = false
+            }
+        }
     }
 
     private func saveChanges() {

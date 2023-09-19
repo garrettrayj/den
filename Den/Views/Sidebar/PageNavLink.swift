@@ -54,5 +54,8 @@ struct PageNavLink: View {
         )
         .tag(DetailPanel.page(page))
         .accessibilityIdentifier("PageNavLink")
+        .contextMenu {
+            DeletePageButton(page: page)
+        }
     }
 }

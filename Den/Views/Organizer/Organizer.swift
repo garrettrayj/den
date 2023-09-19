@@ -15,7 +15,7 @@ struct Organizer: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var profile: Profile
-    
+
     @Binding var showingInspector: Bool
 
     @State private var selection = Set<Feed>()
@@ -55,9 +55,9 @@ struct Organizer: View {
                         }
                         .tag(feed)
                     }
-                    .onMove(perform: { indices, newOffset in
-                        moveFeed(page: page, indices: indices, newOffset: newOffset)
-                    })
+                    .onMove { indices, newOffset in
+                        moveFeeds(page: page, indices: indices, newOffset: newOffset)
+                    }
                 } header: {
                     Label {
                         page.nameText
@@ -66,9 +66,6 @@ struct Organizer: View {
                     }
                 }
             }
-            .onInsert(of: [.url], perform: { _, _ in
-                print("INSERT FEED")
-            })
         }
         .inspector(isPresented: $showingInspector) {
             OrganizerInspector(profile: profile, selection: $selection)
@@ -89,7 +86,7 @@ struct Organizer: View {
         }
     }
 
-    private func moveFeed(page: Page, indices: IndexSet, newOffset: Int) {
+    private func moveFeeds(page: Page, indices: IndexSet, newOffset: Int) {
         // Make an array of items from fetched results
         var revisedItems: [Feed] = page.feedsArray.map { $0 }
 

@@ -27,11 +27,7 @@ struct SplitView: View {
     let refreshProgress: Progress = Progress()
 
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
-    @State private var exporterIsPresented: Bool = false
-    @State private var opmlFile: OPMLFile?
     @State private var refreshing: Bool = false
-    @State private var showingImporter: Bool = false
-    @State private var showingExporter: Bool = false
 
     @StateObject private var navigationStore = NavigationStore()
 
@@ -52,8 +48,6 @@ struct SplitView: View {
                 newFeedPageID: $newFeedPageID,
                 newFeedWebAddress: $newFeedWebAddress,
                 refreshing: $refreshing,
-                showingExporter: $showingExporter,
-                showingImporter: $showingImporter,
                 showingNewFeedSheet: $showingNewFeedSheet,
                 showingNewProfileSheet: $showingNewProfileSheet,
                 profiles: profiles,
@@ -137,38 +131,6 @@ struct SplitView: View {
                 webAddress: $newFeedWebAddress,
                 initialPageID: $newFeedPageID
             )
-        }
-        .fileImporter(
-            isPresented: $showingImporter,
-            allowedContentTypes: [.init(importedAs: "public.opml"), .xml],
-            allowsMultipleSelection: false
-        ) { result in
-            guard let selectedFile: URL = try? result.get().first else { return }
-            if selectedFile.startAccessingSecurityScopedResource() {
-                defer { selectedFile.stopAccessingSecurityScopedResource() }
-                ImportExportUtility.importOPML(url: selectedFile, context: viewContext, profile: profile)
-            } else {
-                // Handle denied access
-            }
-        }
-        .fileExporter(
-            isPresented: $exporterIsPresented,
-            document: opmlFile,
-            contentType: UTType(importedAs: "public.opml"),
-            defaultFilename: profile.exportTitle.sanitizedForFileName()
-        ) { _ in
-            // pass
-        }
-        .onChange(of: showingExporter) {
-            if showingExporter {
-                opmlFile = ImportExportUtility.exportOPML(profile: profile)
-            }
-            exporterIsPresented = showingExporter
-        }
-        .onChange(of: exporterIsPresented) {
-            if !exporterIsPresented {
-                showingExporter = false
-            }
         }
         .navigationTitle(profile.nameText)
     }

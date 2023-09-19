@@ -28,27 +28,15 @@ struct PagesSection: View {
                     newFeedWebAddress: $newFeedWebAddress,
                     showingNewFeedSheet: $showingNewFeedSheet
                 )
-                .contextMenu {
-                    Button {
-                        viewContext.delete(page)
-                        do {
-                            try viewContext.save()
-                        } catch {
-                            CrashUtility.handleCriticalError(error as NSError)
-                        }
-                    } label: {
-                        Text("Delete", comment: "Button label.")
-                    }
-                }
             }
-            .onMove(perform: movePage)
-            .onDelete(perform: deletePage)
+            .onMove(perform: movePages)
+            .onDelete(perform: deletePages)
         } header: {
             Text("Pages", comment: "Sidebar section header.")
         }
     }
 
-    private func movePage(from source: IndexSet, to destination: Int) {
+    private func movePages(from source: IndexSet, to destination: Int) {
         var revisedItems = profile.pagesArray
 
         // Change the order of the items in the array
@@ -68,7 +56,7 @@ struct PagesSection: View {
         }
     }
 
-    private func deletePage(indices: IndexSet) {
+    private func deletePages(indices: IndexSet) {
         indices.forEach {
             let page = profile.pagesArray[$0]
             viewContext.delete(page)

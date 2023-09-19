@@ -37,13 +37,9 @@ public class Page: NSManagedObject {
 
     public var feedsArray: [Feed] {
         get {
-            guard
-                let feeds = self.feeds?.sortedArray(
-                    using: [NSSortDescriptor(key: "userOrder", ascending: true)]
-                ) as? [Feed]
-            else { return [] }
-
-            return feeds
+            feeds?.sortedArray(
+                using: [NSSortDescriptor(key: "userOrder", ascending: true)]
+            ) as? [Feed] ?? []
         }
         set {
             feeds = NSSet(array: newValue)

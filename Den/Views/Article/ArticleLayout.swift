@@ -18,7 +18,7 @@ struct ArticleLayout: View {
 
     let title: String
     let author: String?
-    let date: Date
+    let date: Date?
     let summaryContent: String?
     let bodyContent: String?
     let link: URL?
@@ -45,12 +45,16 @@ struct ArticleLayout: View {
                         if let author = author {
                             Text(author).font(.callout).lineLimit(2)
                         }
-                        TimelineView(.everyMinute) { _ in
-                            HStack(spacing: 4) {
-                                Text(verbatim: date.formatted(date: .complete, time: .shortened))
-                                Text(verbatim: "(\(date.formatted(.relative(presentation: .numeric))))")
+                        if let date = date {
+                            TimelineView(.everyMinute) { _ in
+                                HStack(spacing: 4) {
+                                    Text(verbatim: date.formatted(date: .complete, time: .shortened))
+                                    Text(verbatim: "(\(date.formatted(.relative(presentation: .numeric))))")
+                                }
+                                .font(.caption2)
                             }
-                            .font(.caption2)
+                        } else {
+                            Text("No Date", comment: "Date missing message.")
                         }
                     }
 

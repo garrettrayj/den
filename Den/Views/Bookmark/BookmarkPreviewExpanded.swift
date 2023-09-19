@@ -27,7 +27,7 @@ struct BookmarkPreviewExpanded: View {
                     if feed.hideBylines == false, let author = bookmark.author {
                         PreviewAuthor(author: author)
                     }
-                    PreviewDateAndAction(date: bookmark.date, browserView: feed.browserView)
+                    PreviewDateAndAction(date: bookmark.published, browserView: feed.browserView)
                     if feed.hideImages != true, let url = bookmark.image {
                         PreviewImage(
                             url: url,

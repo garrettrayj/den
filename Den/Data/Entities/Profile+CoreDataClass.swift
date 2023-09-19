@@ -56,13 +56,9 @@ public class Profile: NSManagedObject {
 
     public var historyArray: [History] {
         get {
-            guard
-                let historyArray = self.history?.sortedArray(
-                    using: [NSSortDescriptor(key: "visited", ascending: false)]
-                ) as? [History]
-            else { return [] }
-
-            return historyArray
+            history?.sortedArray(
+                using: [NSSortDescriptor(key: "visited", ascending: false)]
+            ) as? [History] ?? []
         }
         set {
             history = NSSet(array: newValue)
@@ -82,7 +78,7 @@ public class Profile: NSManagedObject {
 
         return values.sorted { lhs, rhs in
             for predicate in predicates {
-                if !predicate(lhs, rhs) && !predicate(rhs, lhs) { // <4>
+                if !predicate(lhs, rhs) && !predicate(rhs, lhs) {
                     continue
                 }
                 return predicate(lhs, rhs)
@@ -93,12 +89,9 @@ public class Profile: NSManagedObject {
     }
 
     public var pagesArray: [Page] {
-        if let pagesArray = self.pages?.sortedArray(
+        pages?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]
-        ) as? [Page] {
-            return pagesArray
-        }
-        return []
+        ) as? [Page] ?? []
     }
 
     public var pagesUserOrderMin: Int16 {
@@ -120,12 +113,9 @@ public class Profile: NSManagedObject {
     }
 
     public var tagsArray: [Tag] {
-        if let tagsArray = self.tags?.sortedArray(
+        tags?.sortedArray(
             using: [NSSortDescriptor(key: "userOrder", ascending: true)]
-        ) as? [Tag] {
-            return tagsArray
-        }
-        return []
+        ) as? [Tag] ?? []
     }
 
     public var tagsUserOrderMin: Int16 {
@@ -150,23 +140,20 @@ public class Profile: NSManagedObject {
         pagesArray.flatMap { $0.feedsArray }
     }
 
-    public var searchesArray: [Search] {
-        if let searchesArray = self.searches?.sortedArray(
-            using: [NSSortDescriptor(key: "submitted", ascending: false)]
-        ) as? [Search] {
-            return searchesArray
-        }
+    public var feedCount: Int {
+        feedsArray.count
+    }
 
-        return []
+    public var searchesArray: [Search] {
+        searches?.sortedArray(
+            using: [NSSortDescriptor(key: "submitted", ascending: false)]
+        ) as? [Search] ?? []
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext) -> Profile {
-        let createdDate = Date()
-
         let newProfile = self.init(context: managedObjectContext)
         newProfile.id = UUID()
         newProfile.historyRetention = 90
-        newProfile.created = createdDate
 
         return newProfile
     }

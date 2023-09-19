@@ -33,7 +33,6 @@ struct ShowcaseLayout: View {
                     }
                 }
             }
-            .id("PageShowcaseScroll_\(page.id?.uuidString ?? "NoID")")
             .edgesIgnoringSafeArea(.horizontal)
         }
     }

@@ -45,37 +45,10 @@ struct Start: View {
             preconditionFailure("Missing demo feeds source file")
         }
 
-        let symbolMap = [
-            "World News": "globe",
-            "US News": "newspaper",
-            "Technology": "cpu",
-            "Business": "briefcase",
-            "Science": "atom",
-            "Space": "sparkles",
-            "Funnies": "face.smiling",
-            "Curiosity": "person.and.arrow.left.and.arrow.right",
-            "Design": "pyramid",
-            "Gaming": "gamecontroller",
-            "Entertainment": "film"
-        ]
-
-        let opmlReader = OPMLReader(xmlURL: URL(fileURLWithPath: demoPath))
-
-        opmlReader.outlineFolders.forEach { opmlFolder in
-            let page = Page.create(in: self.viewContext, profile: profile)
-            page.name = opmlFolder.name
-            page.symbol = symbolMap[opmlFolder.name]
-
-            opmlFolder.feeds.forEach { opmlFeed in
-                let feed = Feed.create(in: self.viewContext, page: page, url: opmlFeed.url)
-                feed.title = opmlFeed.title
-            }
-        }
-
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            CrashUtility.handleCriticalError(error)
-        }
+        ImportExportUtility.importOPML(
+            url: URL(fileURLWithPath: demoPath),
+            context: viewContext,
+            profile: profile
+        )
     }
 }

@@ -23,7 +23,7 @@ struct ItemPreviewExpanded: View {
                 PreviewAuthor(author: author)
             }
             VStack(alignment: .leading, spacing: 4) {
-                PreviewDateAndAction(date: item.date, browserView: feed.browserView)
+                PreviewDateAndAction(date: item.published, browserView: feed.browserView)
                 if !item.bookmarks.isEmpty {
                     ItemTags(item: item)
                 }

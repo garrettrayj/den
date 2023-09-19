@@ -13,7 +13,7 @@ import SwiftUI
 struct PreviewDateAndAction: View {
     @Environment(\.isEnabled) private var isEnabled
 
-    let date: Date
+    let date: Date?
     let browserView: Bool
 
     let dateFormatter: DateFormatter = {
@@ -28,9 +28,14 @@ struct PreviewDateAndAction: View {
 
     var body: some View {
         HStack(spacing: 4) {
-            TimelineView(.everyMinute) { _ in
-                Text(verbatim: dateFormatter.string(from: date))
+            if let date = date {
+                TimelineView(.everyMinute) { _ in
+                    Text(verbatim: dateFormatter.string(from: date))
+                }
+            } else {
+                Text("No Date", comment: "Date missing message.")
             }
+
             if browserView == true {
                 Image(systemName: "link").imageScale(.small)
             }

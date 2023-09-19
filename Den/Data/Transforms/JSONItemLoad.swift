@@ -33,6 +33,8 @@ struct JSONItemLoad {
     private func populateGeneralProperties() {
         if let published = source.datePublished {
             item.published = published
+        } else {
+            item.published = Date()
         }
 
         if let title = source.title?.preparingTitle() {

@@ -21,17 +21,16 @@ struct PageInspector: View {
         Form {
             generalSection
             feedsSection
-            
+
             Section {
                 DeletePageButton(page: page)
             } header: {
-                Text("Danger")
+                Text("Danger Zone")
             }
         }
         #if os(iOS)
         .environment(\.editMode, .constant(.active))
         #endif
-        .formStyle(.grouped)
         .onDisappear {
             if viewContext.hasChanges {
                 do {
@@ -81,7 +80,6 @@ struct PageInspector: View {
                     }
                     .onMove(perform: moveFeed)
                 }
-                
             }
         } header: {
             Text("Feeds", comment: "Page settings section header.")

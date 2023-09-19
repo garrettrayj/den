@@ -19,27 +19,15 @@ struct TagsSection: View {
         Section {
             ForEach(profile.tagsArray) { tag in
                 TagNavLink(tag: tag)
-                    .contextMenu {
-                        Button {
-                            viewContext.delete(tag)
-                            do {
-                                try viewContext.save()
-                            } catch {
-                                CrashUtility.handleCriticalError(error as NSError)
-                            }
-                        } label: {
-                            Text("Delete", comment: "Button label.")
-                        }
-                    }
             }
-            .onMove(perform: moveTag)
-            .onDelete(perform: deleteTag)
+            .onMove(perform: moveTags)
+            .onDelete(perform: deleteTags)
         } header: {
             Text("Tags", comment: "Sidebar section header.")
         }
     }
 
-    private func moveTag(from source: IndexSet, to destination: Int) {
+    private func moveTags(from source: IndexSet, to destination: Int) {
         var revisedItems = profile.tagsArray
 
         // Change the order of the items in the array
@@ -59,7 +47,7 @@ struct TagsSection: View {
         }
     }
 
-    private func deleteTag(indices: IndexSet) {
+    private func deleteTags(indices: IndexSet) {
         indices.forEach {
             let tag = profile.tagsArray[$0]
             viewContext.delete(tag)

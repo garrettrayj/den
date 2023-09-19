@@ -27,7 +27,7 @@ struct BookmarkPreviewCompressed: View {
                             PreviewAuthor(author: author)
                         }
                         VStack(alignment: .leading) {
-                            PreviewDateAndAction(date: bookmark.date, browserView: feed.browserView)
+                            PreviewDateAndAction(date: bookmark.published, browserView: feed.browserView)
                         }
                     }
                     if feed.hideImages != true, let url = bookmark.image {

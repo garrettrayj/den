@@ -15,6 +15,7 @@ struct FeedInspector: View {
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var feed: Feed
+    @ObservedObject var profile: Profile
 
     @State private var webAddressIsValid: Bool?
     @State private var webAddressValidationMessage: WebAddressValidationMessage?
@@ -24,7 +25,7 @@ struct FeedInspector: View {
         Form {
             generalSection
             previewsSection
-            
+
             Section {
                 if let profile = feed.page?.profile {
                     PagePicker(
@@ -38,11 +39,11 @@ struct FeedInspector: View {
             } header: {
                 Text("Move")
             }
-            
+
             Section {
-               DeleteFeedButton(feed: feed)
+                DeleteFeedButton(feed: feed, profile: profile)
             } header: {
-                Text("Danger")
+                Text("Danger Zone")
             }
         }
         .formStyle(.grouped)
@@ -88,9 +89,6 @@ struct FeedInspector: View {
                 }
             }
 
-            
-
-            
         } footer: {
             if let validationMessage = webAddressValidationMessage {
                 validationMessage.text
@@ -134,7 +132,7 @@ struct FeedInspector: View {
             Toggle(isOn: $feed.largePreviews) {
                 Text("Large Previews", comment: "Toggle label.")
             }
-            
+
             if feed.largePreviews {
                 Toggle(isOn: $feed.hideTeasers) {
                     Text("Hide Teasers", comment: "Toggle label.")

@@ -12,11 +12,6 @@ import CoreData
 
 @objc(Bookmark)
 public class Bookmark: NSManagedObject {
-    @objc
-    public var date: Date {
-        published ?? Date(timeIntervalSince1970: 0)
-    }
-
     public var wrappedTitle: String {
         get {title ?? "Untitled"}
         set {title = newValue}
@@ -46,6 +41,7 @@ public class Bookmark: NSManagedObject {
         bookmark.imageWidth = item.imageWidth
         bookmark.link = item.link
         bookmark.published = item.published
+        bookmark.ingested = item.ingested
 
         return bookmark
     }

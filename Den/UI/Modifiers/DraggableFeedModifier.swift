@@ -13,6 +13,8 @@ import SwiftUI
 struct DraggableFeedModifier: ViewModifier {
     @ObservedObject var feed: Feed
 
+    @State private var isHovered = false
+
     func body(content: Content) -> some View {
         if let feedURL = feed.url {
             content
@@ -23,6 +25,10 @@ struct DraggableFeedModifier: ViewModifier {
                         feedURL: feedURL
                     )
                 )
+                .onHover { hovering in
+                    isHovered = hovering
+                }
+                .shadow(radius: isHovered ? 2 : 0)
         } else {
             content
         }

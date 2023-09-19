@@ -23,10 +23,6 @@ struct SidebarStatus: View {
         Int(progress.fractionCompleted * Double(profile.feedsArray.count))
     }
 
-    var feedCount: Int {
-        profile.feedsArray.count
-    }
-
     var body: some View {
         Group {
             if !networkMonitor.isConnected {

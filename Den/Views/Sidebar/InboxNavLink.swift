@@ -17,17 +17,17 @@ struct InboxNavLink: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        WithItems(scopeObject: profile, readFilter: false) { items in
-            Label {
+        Label {
+            WithItems(scopeObject: profile, readFilter: false) { items in
                 Text("Inbox", comment: "Button label.")
                     .lineLimit(1)
                     .foregroundStyle(isEnabled ? .primary : .tertiary)
                     .badge(items.count)
-            } icon: {
-                Image(systemName: items.isEmpty ? "tray" : "tray.full")
             }
-            .accessibilityIdentifier("InboxNavLink")
-            .tag(DetailPanel.inbox)
+        } icon: {
+            Image(systemName: "tray")
         }
+        .accessibilityIdentifier("InboxNavLink")
+        .tag(DetailPanel.inbox)
     }
 }

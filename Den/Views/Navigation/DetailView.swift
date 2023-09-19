@@ -17,7 +17,7 @@ struct DetailView: View {
     @Binding var hideRead: Bool
     @Binding var refreshing: Bool
     @Binding var path: NavigationPath
-    
+
     @SceneStorage("ShowingInspector") private var showingInspector = false
 
     var body: some View {

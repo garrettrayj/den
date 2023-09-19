@@ -14,9 +14,9 @@ struct InspectorToggleButton: View {
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     #endif
-    
+
     @Binding var showingInspector: Bool
-    
+
     var body: some View {
         Button {
             showingInspector.toggle()
@@ -27,7 +27,7 @@ struct InspectorToggleButton: View {
                 } else {
                     Text("Show Inspector")
                 }
-                
+
             } icon: {
                 #if os(macOS)
                 Image(systemName: "sidebar.trailing")

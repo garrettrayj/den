@@ -61,7 +61,7 @@ struct OrganizerOptionsPanel: View {
                 } header: {
                     Text("Previews")
                 }
-                
+
                 Section {
                     Picker(sources: sources, selection: \.page) {
                         ForEach(profile.pagesArray) { page in
@@ -72,6 +72,32 @@ struct OrganizerOptionsPanel: View {
                     }
                 } header: {
                     Text("Move")
+                }
+
+                Section {
+                    Button(role: .destructive) {
+                        selection.forEach { feed in
+                            viewContext.delete(feed)
+                            selection.remove(feed)
+                        }
+                        do {
+                            try viewContext.save()
+                            profile.pagesArray.forEach { $0.objectWillChange.send() }
+                            profile.objectWillChange.send()
+                        } catch {
+                            CrashUtility.handleCriticalError(error as NSError)
+                        }
+                    } label: {
+                        Label {
+                            Text("Delete", comment: "Button label.")
+                        } icon: {
+                            Image(systemName: "trash")
+                        }
+                        .symbolRenderingMode(.multicolor)
+                    }
+                    .buttonStyle(.borderless)
+                } header: {
+                    Text("Danger Zone")
                 }
             }
         }

@@ -21,7 +21,11 @@ struct Welcome: View {
                 Image(systemName: "rhombus.fill").foregroundStyle(.tint)
             }
         } description: {
-            FeedCount(count: profile.feedsArray.count)
+            if profile.feedCount == 1 {
+                Text("1 Feed", comment: "Feed count (singular).")
+            } else {
+                Text("\(profile.feedCount) Feeds", comment: "Feed count (zero/plural).")
+            }
         }
     }
 }

@@ -26,31 +26,7 @@ public class Item: NSManagedObject {
     }
 
     public var bookmarkTags: [Tag] {
-        get {
-            bookmarks.compactMap { $0.tag }
-        }
-        set {
-            guard let context = managedObjectContext else { return }
-            for bookmark in bookmarks {
-                if let existingTag = bookmark.tag, !newValue.contains(existingTag) {
-                    context.delete(bookmark)
-                }
-            }
-            for tag in newValue {
-                guard !bookmarkTags.contains(tag) else { continue }
-                _ = Bookmark.create(in: context, item: self, tag: tag)
-            }
-            do {
-                try context.save()
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
-        }
-    }
-
-    @objc
-    public var date: Date {
-        published ?? ingested ?? Date(timeIntervalSince1970: 0)
+        bookmarks.compactMap { $0.tag }
     }
 
     public var wrappedTitle: String {
@@ -105,6 +81,7 @@ public class Item: NSManagedObject {
         item.feedData = feedData
         item.profileId = feedData.feed?.page?.profile?.id
         item.read = false
+        item.ingested = Date()
 
         return item
     }

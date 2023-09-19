@@ -69,6 +69,7 @@ struct PageView: View {
                             }
                         }
                     }
+                    .id("PageLayout_\(page.id?.uuidString ?? "NoID")")
                     .toolbar {
                         PageToolbar(
                             page: page,
