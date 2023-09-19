@@ -23,7 +23,9 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem {
             if let url = item.link {
-                OpenInBrowserButton(url: url)
+                OpenInBrowserButton(url: url, readerMode: item.feedData?.feed?.readerMode) {
+                    OpenInBrowserLabel()
+                }
             }
         }
         ToolbarItem {
@@ -37,7 +39,9 @@ struct ItemToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .primaryAction) {
             if let url = item.link {
-                OpenInBrowserButton(url: url)
+                OpenInBrowserButton(url: url, readerMode: item.feedData?.feed?.readerMode) {
+                    OpenInBrowserLabel()
+                }
             }
         }
         ToolbarItem(placement: .primaryAction) {

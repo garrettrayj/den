@@ -1,5 +1,5 @@
 //
-//  ToggleReadButton.swift
+//  MarkAllReadUnreadButton.swift
 //  Den
 //
 //  Created by Garrett Johnson on 11/13/22.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ToggleReadButton: View {
+struct MarkAllReadUnreadButton: View {
     let unreadCount: Int
     let toggleAll: () async -> Void
 
@@ -41,6 +41,5 @@ struct ToggleReadButton: View {
         }
         .disabled(toggling)
         .accessibilityIdentifier("ToggleRead")
-
     }
 }

@@ -34,7 +34,7 @@ struct PageToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            ToggleReadButton(unreadCount: items.unread().count) {
+            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 page.objectWillChange.send()
                 page.feedsArray.forEach { $0.objectWillChange.send() }
@@ -47,7 +47,7 @@ struct PageToolbar: ToolbarContent {
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
-                    ToggleReadButton(unreadCount: items.unread().count) {
+                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
                         page.objectWillChange.send()
                         page.feedsArray.forEach { $0.objectWillChange.send() }
@@ -72,7 +72,7 @@ struct PageToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
-                ToggleReadButton(unreadCount: items.unread().count) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     page.objectWillChange.send()
                     page.feedsArray.forEach { $0.objectWillChange.send() }

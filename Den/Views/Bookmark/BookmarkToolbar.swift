@@ -22,7 +22,9 @@ struct BookmarkToolbar: ToolbarContent {
         }
         ToolbarItem {
             if let url = bookmark.link {
-                OpenInBrowserButton(url: url)
+                OpenInBrowserButton(url: url, readerMode: bookmark.feed?.readerMode) {
+                    OpenInBrowserLabel()
+                }
             }
         }
         ToolbarItem {
@@ -36,7 +38,9 @@ struct BookmarkToolbar: ToolbarContent {
         }
         ToolbarItem(placement: .primaryAction) {
             if let url = bookmark.link {
-                OpenInBrowserButton(url: url)
+                OpenInBrowserButton(url: url, readerMode: bookmark.feed?.readerMode) {
+                    OpenInBrowserLabel()
+                }
             }
         }
         ToolbarItem(placement: .primaryAction) {

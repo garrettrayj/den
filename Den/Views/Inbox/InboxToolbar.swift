@@ -27,7 +27,7 @@ struct InboxToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            ToggleReadButton(unreadCount: items.unread().count) {
+            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 profile.objectWillChange.send()
                 for page in profile.pagesArray {
@@ -39,7 +39,7 @@ struct InboxToolbar: ToolbarContent {
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
-                    ToggleReadButton(unreadCount: items.unread().count) {
+                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
                         profile.objectWillChange.send()
                         for page in profile.pagesArray {
@@ -60,7 +60,7 @@ struct InboxToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
-                ToggleReadButton(unreadCount: items.unread().count) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     profile.objectWillChange.send()
                     for page in profile.pagesArray {

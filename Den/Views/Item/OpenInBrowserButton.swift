@@ -10,13 +10,15 @@
 
 import SwiftUI
 
-struct OpenInBrowserButton: View {
+struct OpenInBrowserButton<Content: View>: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.userTint) private var userTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     let url: URL
     var readerMode: Bool?
+
+    @ViewBuilder let label: Content
 
     var body: some View {
         Button {
@@ -34,8 +36,7 @@ struct OpenInBrowserButton: View {
             }
             #endif
         } label: {
-            OpenInBrowserLabel()
+            label
         }
-        .accessibilityIdentifier("OpenInBrowser")
     }
 }

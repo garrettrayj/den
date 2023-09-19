@@ -22,15 +22,8 @@ struct ItemActionView<Content: View>: View {
 
     var body: some View {
         Group {
-            if feed.browserView == true {
-                Button {
-                    if let url = item.link {
-                        Task {
-                            await HistoryUtility.markItemRead(item: item)
-                            openInBrowser(url: url)
-                        }
-                    }
-                } label: {
+            if feed.browserView == true, let url = item.link {
+                OpenInBrowserButton(url: url, readerMode: feed.readerMode) {
                     content.modifier(DraggableItemModifier(item: item))
                 }
                 .buttonStyle(ItemButtonStyle(read: item.read))
@@ -46,47 +39,11 @@ struct ItemActionView<Content: View>: View {
         .contextMenu {
             #if os(iOS)
             ControlGroup {
-                Button {
-                    Task {
-                        await HistoryUtility.toggleReadUnread(items: [item])
-                    }
-                } label: {
-                    if item.read {
-                        Label {
-                            Text("Mark Unread", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "checkmark.circle.badge.xmark")
-                        }
-                    } else {
-                        Label {
-                            Text("Mark Read", comment: "Button label.")
-                        } icon: {
-                            Image(systemName: "checkmark.circle")
-                        }
-                    }
-                }
+                ReadUnreadButton(item: item)
                 TagsMenu(item: item, profile: profile)
             }
             #else
-            Button {
-                Task {
-                    await HistoryUtility.toggleReadUnread(items: [item])
-                }
-            } label: {
-                if item.read {
-                    Label {
-                        Text("Mark Unread", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "checkmark.circle.badge.xmark")
-                    }
-                } else {
-                    Label {
-                        Text("Mark Read", comment: "Button label.")
-                    } icon: {
-                        Image(systemName: "checkmark.circle")
-                    }
-                }
-            }
+            ReadUnreadButton(item: item)
             TagsMenu(item: item, profile: profile)
             #endif
 
@@ -99,14 +56,10 @@ struct ItemActionView<Content: View>: View {
             }
 
             if let link = item.link {
-                Button {
-                    Task {
-                        await HistoryUtility.markItemRead(item: item)
-                        openInBrowser(url: link)
-                    }
-                } label: {
+                OpenInBrowserButton(url: link, readerMode: feed.readerMode) {
                     OpenInBrowserLabel()
                 }
+
                 Button {
                     PasteboardUtility.copyURL(url: link)
                 } label: {
@@ -119,21 +72,5 @@ struct ItemActionView<Content: View>: View {
                 ShareButton(url: link)
             }
         }
-    }
-
-    private func openInBrowser(url: URL) {
-        #if os(macOS)
-        openURL(url)
-        #else
-        if useSystemBrowser {
-            openURL(url)
-        } else {
-            BuiltInBrowser.openURL(
-                url: url,
-                controlTintColor: profile.tintColor,
-                readerMode: feed.readerMode
-            )
-        }
-        #endif
     }
 }

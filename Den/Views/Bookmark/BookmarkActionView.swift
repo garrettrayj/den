@@ -12,6 +12,7 @@ import SwiftUI
 
 struct BookmarkActionView<Content: View>: View {
     @Environment(\.openURL) private var openURL
+    @Environment(\.userTint) private var userTint
     @Environment(\.useSystemBrowser) private var useSystemBrowser
 
     @ObservedObject var bookmark: Bookmark
@@ -22,14 +23,8 @@ struct BookmarkActionView<Content: View>: View {
 
     var body: some View {
         Group {
-            if feed.browserView == true {
-                Button {
-                    if let url = bookmark.link {
-                        Task {
-                            openInBrowser(url: url)
-                        }
-                    }
-                } label: {
+            if feed.browserView == true, let url = bookmark.link {
+                OpenInBrowserButton(url: url, readerMode: feed.readerMode) {
                     content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
                 .buttonStyle(ItemButtonStyle(read: false))
@@ -52,12 +47,7 @@ struct BookmarkActionView<Content: View>: View {
             }
 
             if let link = bookmark.link {
-                Button {
-                    Task {
-                        // await HistoryUtility.markItemRead(bookmark: item)
-                        openInBrowser(url: link)
-                    }
-                } label: {
+                OpenInBrowserButton(url: link, readerMode: feed.readerMode) {
                     OpenInBrowserLabel()
                 }
                 Button {
@@ -74,21 +64,5 @@ struct BookmarkActionView<Content: View>: View {
 
             DeleteBookmarkButton(bookmark: bookmark)
         }
-    }
-
-    private func openInBrowser(url: URL) {
-        #if os(macOS)
-        openURL(url)
-        #else
-        if useSystemBrowser {
-            openURL(url)
-        } else {
-            BuiltInBrowser.openURL(
-                url: url,
-                controlTintColor: profile.tintColor,
-                readerMode: feed.readerMode
-            )
-        }
-        #endif
     }
 }

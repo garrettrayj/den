@@ -26,7 +26,7 @@ struct SearchToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            ToggleReadButton(unreadCount: items.unread().count) {
+            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
             }
         }
@@ -34,7 +34,7 @@ struct SearchToolbar: ToolbarContent {
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
-                    ToggleReadButton(unreadCount: items.unread().count) {
+                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
                     }
                     FilterReadButton(hideRead: $hideRead)
@@ -51,7 +51,7 @@ struct SearchToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
-                ToggleReadButton(unreadCount: items.unread().count) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                 }
             }

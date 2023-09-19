@@ -29,7 +29,7 @@ struct TrendToolbar: ToolbarContent {
             FilterReadButton(hideRead: $hideRead)
         }
         ToolbarItem {
-            ToggleReadButton(unreadCount: items.unread().count) {
+            MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                 await HistoryUtility.toggleReadUnread(items: Array(items))
                 trend.objectWillChange.send()
                 profile.objectWillChange.send()
@@ -42,7 +42,7 @@ struct TrendToolbar: ToolbarContent {
         if horizontalSizeClass == .compact {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
-                    ToggleReadButton(unreadCount: items.unread().count) {
+                    MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                         await HistoryUtility.toggleReadUnread(items: Array(items))
                         trend.objectWillChange.send()
                         profile.objectWillChange.send()
@@ -64,7 +64,7 @@ struct TrendToolbar: ToolbarContent {
                 FilterReadButton(hideRead: $hideRead)
             }
             ToolbarItem(placement: .primaryAction) {
-                ToggleReadButton(unreadCount: items.unread().count) {
+                MarkAllReadUnreadButton(unreadCount: items.unread().count) {
                     await HistoryUtility.toggleReadUnread(items: Array(items))
                     trend.objectWillChange.send()
                     profile.objectWillChange.send()
