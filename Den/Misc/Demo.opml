@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <opml version="1.0" xmlns:den="https://den.io/xml/opml">
 	<head>
-		<title>Den Demo</title>
+		<title>Demo</title>
 	</head>
 	<body>
 		<outline den:icon="globe" text="World News" title="World News">
@@ -101,6 +101,7 @@
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Babylon Bee" title="The Babylon Bee" type="rss" xmlUrl="https://babylonbee.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="The Beaverton" title="The Beaverton" type="rss" xmlUrl="https://www.thebeaverton.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="xkcd.com" title="xkcd.com" type="rss" xmlUrl="https://xkcd.com/rss.xml" />
+			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Florkofcows" title="Florkofcows" type="rss" xmlUrl="https://www.florkofcows.com/feed/" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="they can talk" title="they can talk" type="rss" xmlUrl="https://theycantalk.com/rss" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="QC RSS" title="QC RSS" type="rss" xmlUrl="http://www.questionablecontent.net/QCRSS.xml" />
 			<outline den:hideBylines="false" den:hideImages="false" den:hideTeasers="false" den:openInBrowser="false" den:previewLimit="6" den:previewStyle="compressed" text="Saturday Morning Breakfast Cereal" title="Saturday Morning Breakfast Cereal" type="rss" xmlUrl="https://www.smbc-comics.com/comic/rss" />
