@@ -26,7 +26,7 @@ struct Organizer: View {
                 Section {
                     ForEach(page.feedsArray) { feed in
                         HStack {
-                            FeedTitleLabel(feed: feed)
+                            FeedTitleLabel(title: feed.titleText, favicon: feed.feedData?.favicon)
                             Spacer()
                             Group {
                                 if feed.feedData == nil {

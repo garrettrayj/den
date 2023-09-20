@@ -1,5 +1,5 @@
 //
-//  PreviewDateAndAction.swift
+//  PreviewDateline.swift
 //  Den
 //
 //  Created by Garrett Johnson on 2/16/22.
@@ -10,11 +10,10 @@
 
 import SwiftUI
 
-struct PreviewDateAndAction: View {
+struct PreviewDateline: View {
     @Environment(\.isEnabled) private var isEnabled
 
     let date: Date?
-    let browserView: Bool
 
     let dateFormatter: DateFormatter = {
         let relativeDateFormatter = DateFormatter()
@@ -27,17 +26,13 @@ struct PreviewDateAndAction: View {
     }()
 
     var body: some View {
-        HStack(spacing: 4) {
+        Group {
             if let date = date {
                 TimelineView(.everyMinute) { _ in
                     Text(verbatim: dateFormatter.string(from: date))
                 }
             } else {
                 Text("No Date", comment: "Date missing message.")
-            }
-
-            if browserView == true {
-                Image(systemName: "link").imageScale(.small)
             }
         }
         .font(.caption2.weight(.semibold))

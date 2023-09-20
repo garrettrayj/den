@@ -19,7 +19,7 @@ struct Gadget: View {
     let hideRead: Bool
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
 
             if feed.feedData == nil || feed.feedData?.error != nil {
@@ -32,12 +32,10 @@ struct Gadget: View {
                 Divider()
                 AllRead()
             } else {
-                VStack(spacing: 0) {
-                    ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
-                        Divider()
-                        ItemActionView(item: item, feed: feed, profile: profile) {
-                            ItemPreviewCompressed(item: item, feed: feed)
-                        }
+                ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
+                    Divider()
+                    ItemActionView(item: item, feed: feed, profile: profile) {
+                        ItemPreviewCompressed(item: item, feed: feed)
                     }
                 }
             }

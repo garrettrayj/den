@@ -17,25 +17,22 @@ struct ItemPreviewCompressed: View {
     @ObservedObject var feed: Feed
 
     var body: some View {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
-                PreviewHeadline(title: item.wrappedTitle)
+                PreviewHeadline(title: item.wrappedTitle, browserView: feed.browserView)
                 if feed.hideBylines == false, let author = item.author {
                     PreviewAuthor(author: author)
                 }
-                VStack(alignment: .leading, spacing: 4) {
-                    PreviewDateAndAction(date: item.published, browserView: feed.browserView)
-                    if !item.bookmarks.isEmpty {
-                        ItemTags(item: item)
-                    }
+                PreviewDateline(date: item.published)
+                if !item.bookmarks.isEmpty {
+                    ItemTags(item: item)
                 }
-            }.frame(maxWidth: .infinity, alignment: .topLeading)
-
+            }
+            Spacer()
             if feed.hideImages != true, let url = item.image {
                 PreviewThumbnail(url: url, isRead: item.read)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .topLeading)
         .padding()
     }
 }

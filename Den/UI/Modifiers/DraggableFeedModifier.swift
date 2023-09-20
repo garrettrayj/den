@@ -28,7 +28,12 @@ struct DraggableFeedModifier: ViewModifier {
                 .onHover { hovering in
                     isHovered = hovering
                 }
-                .shadow(radius: isHovered ? 2 : 0)
+                .shadow(
+                    color: isHovered ? .black.opacity(0.125) : .clear,
+                    radius: 3,
+                    x: 1,
+                    y: 1
+                )
         } else {
             content
         }

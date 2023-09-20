@@ -36,14 +36,9 @@ public class Page: NSManagedObject {
     }
 
     public var feedsArray: [Feed] {
-        get {
-            feeds?.sortedArray(
-                using: [NSSortDescriptor(key: "userOrder", ascending: true)]
-            ) as? [Feed] ?? []
-        }
-        set {
-            feeds = NSSet(array: newValue)
-        }
+        feeds?.sortedArray(
+            using: [NSSortDescriptor(key: "userOrder", ascending: true)]
+        ) as? [Feed] ?? []
     }
 
     public var feedsUserOrderMin: Int16 {

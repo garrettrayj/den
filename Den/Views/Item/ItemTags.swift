@@ -18,15 +18,14 @@ struct ItemTags: View {
     }
 
     var bookmarksList: Text {
-        var text = Text("")
-        for bookmark in item.bookmarks {
-            guard let tagName = bookmark.tag?.nameText else { continue }
-            text = text +
-                Text("\(Image(systemName: "tag"))\u{00A0}") +
-                tagName +
-                Text("  ")
-        }
+        var tagNames = item.bookmarks.compactMap { $0.tag?.nameText }
+        let prefix = Text("\(Image(systemName: "tag"))\u{00A0}")
+        let firstTag = prefix + tagNames.removeFirst()
 
-        return text
+        return tagNames.reduce(firstTag) { partialResult, tagName in
+            partialResult +
+            Text(verbatim: "\(NSLocale.autoupdatingCurrent.groupingSeparator ?? ",") ") +
+            prefix + tagName
+        }
     }
 }

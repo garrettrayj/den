@@ -69,7 +69,10 @@ struct PageInspector: View {
                 List {
                     ForEach(page.feedsArray) { feed in
                         HStack {
-                            FeedTitleLabel(feed: feed)
+                            FeedTitleLabel(
+                                title: feed.titleText,
+                                favicon: feed.feedData?.favicon
+                            )
                             Spacer()
                             #if os(macOS)
                             Image(systemName: "line.3.horizontal")

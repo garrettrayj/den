@@ -11,14 +11,14 @@
 import SwiftUI
 
 struct FeedTitleLabel: View {
-    @ObservedObject var feed: Feed
+    let title: Text
+    let favicon: URL?
 
     var body: some View {
         Label {
-            feed.titleText.lineLimit(1)
+            title.lineLimit(1)
         } icon: {
-            FeedFavicon(url: feed.feedData?.favicon)
-                .modifier(DraggableFeedModifier(feed: feed))
+            FeedFavicon(url: favicon)
         }
     }
 }

@@ -35,7 +35,10 @@ struct ArticleLayout: View {
         ScrollView(.vertical) {
             VStack {
                 VStack(alignment: .leading, spacing: 16) {
-                    FeedTitleLabel(feed: feed).font(.title3)
+                    FeedTitleLabel(
+                        title: feed.titleText,
+                        favicon: feed.feedData?.favicon
+                    ).font(.title3)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(title)

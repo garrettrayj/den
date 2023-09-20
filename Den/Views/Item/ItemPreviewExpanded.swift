@@ -18,12 +18,12 @@ struct ItemPreviewExpanded: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            PreviewHeadline(title: item.wrappedTitle)
+            PreviewHeadline(title: item.wrappedTitle, browserView: feed.browserView)
             if feed.hideBylines == false, let author = item.author {
                 PreviewAuthor(author: author)
             }
             VStack(alignment: .leading, spacing: 4) {
-                PreviewDateAndAction(date: item.published, browserView: feed.browserView)
+                PreviewDateline(date: item.published)
                 if !item.bookmarks.isEmpty {
                     ItemTags(item: item)
                 }

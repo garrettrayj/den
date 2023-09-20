@@ -22,12 +22,12 @@ struct BookmarkPreviewCompressed: View {
             BookmarkActionView(bookmark: bookmark, feed: feed, profile: profile) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
-                        PreviewHeadline(title: bookmark.wrappedTitle)
+                        PreviewHeadline(title: bookmark.wrappedTitle, browserView: feed.browserView)
                         if feed.hideBylines == false, let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }
                         VStack(alignment: .leading) {
-                            PreviewDateAndAction(date: bookmark.published, browserView: feed.browserView)
+                            PreviewDateline(date: bookmark.published)
                         }
                     }
                     if feed.hideImages != true, let url = bookmark.image {
