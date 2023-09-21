@@ -16,13 +16,13 @@ struct BookmarkPreviewExpanded: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
             BookmarkActionView(bookmark: bookmark, feed: feed) {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        PreviewHeadline(title: bookmark.wrappedTitle, browserView: feed.browserView)
+                        PreviewHeadline(title: bookmark.titleText, browserView: feed.browserView)
                         if feed.hideBylines == false, let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }
@@ -43,10 +43,9 @@ struct BookmarkPreviewExpanded: View {
                         }
                     }
                     .multilineTextAlignment(.leading)
-                    Spacer()
+                    Spacer(minLength: 0)
                 }
-                .padding([.vertical, .leading])
-                .padding(.trailing, 8)
+                .padding()
             }
         }
         .modifier(RoundedContainerModifier())

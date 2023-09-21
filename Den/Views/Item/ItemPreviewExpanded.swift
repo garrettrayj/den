@@ -17,7 +17,7 @@ struct ItemPreviewExpanded: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                PreviewHeadline(title: item.wrappedTitle, browserView: feed.browserView)
+                PreviewHeadline(title: item.titleText, browserView: feed.browserView)
                 if !feed.hideBylines, let author = item.author {
                     PreviewAuthor(author: author)
                 }
@@ -40,9 +40,8 @@ struct ItemPreviewExpanded: View {
                 }
             }
             .multilineTextAlignment(.leading)
-            Spacer()
+            Spacer(minLength: 0)
         }
-        .padding([.vertical, .leading])
-        .padding(.trailing, 8)
+        .padding()
     }
 }

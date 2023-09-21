@@ -38,7 +38,7 @@ struct TrendBlock: View {
     var body: some View {
         NavigationLink(value: SubDetailPanel.trend(trend)) {
             HStack {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 8) {
                     trend.titleText.font(.title2.weight(.medium))
 
                     Grid {
@@ -65,10 +65,9 @@ struct TrendBlock: View {
                     .foregroundStyle(.secondary)
                 }
                 .foregroundStyle(trend.items.unread().isEmpty ? .secondary : .primary)
-                Spacer()
+                Spacer(minLength: 0)
             }
-            .padding([.vertical, .leading])
-            .padding(.trailing, 8)
+            .padding()
         }
         .buttonStyle(BasicGroupButtonStyle())
         .modifier(RoundedContainerModifier())

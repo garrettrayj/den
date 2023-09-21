@@ -32,7 +32,7 @@ struct ItemView: View {
         } else {
             ArticleLayout(
                 feed: item.feedData!.feed!,
-                title: item.wrappedTitle,
+                title: item.titleText,
                 author: item.author,
                 date: item.published,
                 summaryContent: item.summary,

@@ -17,6 +17,14 @@ import HTMLEntities
 
 @objc(Item)
 public class Item: NSManagedObject {
+    public var titleText: Text {
+        if let displayTitle = title, displayTitle != "" {
+            return Text(displayTitle)
+        }
+        
+        return Text("Untitled", comment: "Item title placeholder.")
+    }
+    
     public var history: [History] {
         value(forKey: "history") as? [History] ?? []
     }
@@ -28,17 +36,7 @@ public class Item: NSManagedObject {
     public var bookmarkTags: [Tag] {
         bookmarks.compactMap { $0.tag }
     }
-
-    public var wrappedTitle: String {
-        get {title ?? "Untitled"}
-        set {title = newValue}
-    }
-
-    public var wrappedAuthor: String {
-        get {author ?? "Untitled"}
-        set {author = newValue}
-    }
-
+    
     public var wrappedTags: [(String, NLTag)] {
         get {
             var results: [(String, NLTag)] = []

@@ -16,7 +16,7 @@ struct FeedItemCompressed: View {
     @ObservedObject var profile: Profile
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
             ItemActionView(item: item, feed: feed, profile: profile) {

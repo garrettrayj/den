@@ -9,17 +9,16 @@
 //
 
 import CoreData
+import SwiftUI
 
 @objc(Bookmark)
 public class Bookmark: NSManagedObject {
-    public var wrappedTitle: String {
-        get {title ?? "Untitled"}
-        set {title = newValue}
-    }
-
-    public var wrappedAuthor: String {
-        get {author ?? "Untitled"}
-        set {author = newValue}
+    public var titleText: Text {
+        if let displayTitle = title, displayTitle != "" {
+            return Text(displayTitle)
+        }
+        
+        return Text("Untitled", comment: "Bookmark title placeholder.")
     }
 
     static func create(

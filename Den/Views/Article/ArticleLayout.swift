@@ -16,7 +16,7 @@ struct ArticleLayout: View {
 
     @ObservedObject var feed: Feed
 
-    let title: String
+    let title: Text
     let author: String?
     let date: Date?
     let summaryContent: String?
@@ -42,7 +42,7 @@ struct ArticleLayout: View {
                     ).font(.title3)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(title)
+                        title
                             .font(.largeTitle.weight(.semibold))
                             .textSelection(.enabled)
                             .padding(.bottom, 4)
@@ -80,7 +80,6 @@ struct ArticleLayout: View {
                     if bodyContent != nil || summaryContent != nil {
                         ArticleWebView(
                             content: bodyContent ?? summaryContent!,
-                            title: title,
                             baseURL: link
                         )
                     }

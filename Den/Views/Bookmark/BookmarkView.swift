@@ -31,7 +31,7 @@ struct BookmarkView: View {
         } else {
             ArticleLayout(
                 feed: bookmark.feed!,
-                title: bookmark.wrappedTitle,
+                title: bookmark.titleText,
                 author: bookmark.author,
                 date: bookmark.published,
                 summaryContent: bookmark.summary,

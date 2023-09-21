@@ -17,7 +17,7 @@ struct ItemPreviewCompressed: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 4) {
-                PreviewHeadline(title: item.wrappedTitle, browserView: feed.browserView)
+                PreviewHeadline(title: item.titleText, browserView: feed.browserView)
                 if !feed.hideBylines, let author = item.author {
                     PreviewAuthor(author: author)
                 }
@@ -28,9 +28,12 @@ struct ItemPreviewCompressed: View {
                     ItemTags(item: item)
                 }
             }
-            Spacer()
+
             if !feed.hideImages, let url = item.image {
+                Spacer()
                 PreviewThumbnail(url: url, isRead: item.read)
+            } else {
+                Spacer(minLength: 0)
             }
         }
         .padding()

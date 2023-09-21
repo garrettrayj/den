@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct PreviewHeadline: View {
-    let title: String
+    let title: Text
     let browserView: Bool
 
     var body: some View {
@@ -23,11 +23,11 @@ struct PreviewHeadline: View {
 
     var suffixedTitle: Text {
         if browserView {
-            return Text(title) +
+            return title +
             Text("\u{00A0}") +
             Text("\(Image(systemName: "link"))").font(.footnote).foregroundStyle(.secondary)
         }
 
-        return Text(title)
+        return title
     }
 }
