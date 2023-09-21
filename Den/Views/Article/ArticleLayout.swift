@@ -46,6 +46,7 @@ struct ArticleLayout: View {
                             .font(.largeTitle.weight(.semibold))
                             .textSelection(.enabled)
                             .padding(.bottom, 4)
+                            .fixedSize(horizontal: false, vertical: true)
                         if let author = author {
                             Text(author)
                                 .font(.subheadline)
