@@ -38,6 +38,13 @@ struct PageView: View {
                         NoFeeds()
                     } else {
                         switch pageLayout.wrappedValue {
+                        case .spread:
+                            SpreadLayout(
+                                page: page,
+                                profile: profile,
+                                hideRead: $hideRead,
+                                items: items
+                            )
                         case .deck:
                             DeckLayout(
                                 page: page,
@@ -47,20 +54,6 @@ struct PageView: View {
                             )
                         case .timeline:
                             TimelineLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: $hideRead,
-                                items: items
-                            )
-                        case .showcase:
-                            ShowcaseLayout(
-                                page: page,
-                                profile: profile,
-                                hideRead: $hideRead,
-                                items: items
-                            )
-                        case .grouped:
-                            GroupedLayout(
                                 page: page,
                                 profile: profile,
                                 hideRead: $hideRead,
@@ -100,7 +93,7 @@ struct PageView: View {
         _showingInspector = showingInspector
 
         pageLayout = .init(
-            wrappedValue: PageLayout.grouped,
+            wrappedValue: PageLayout.spread,
             "PageLayout_\(page.id?.uuidString ?? "NoID")"
         )
     }

@@ -33,7 +33,6 @@ struct TrendLayout: View {
                             }
                         }
                     }
-                    .modifier(MainBoardModifier())
                 }
             }
         }

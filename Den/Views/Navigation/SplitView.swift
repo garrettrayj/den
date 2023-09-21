@@ -68,6 +68,8 @@ struct SplitView: View {
             )
             #if os(iOS)
             .background(Color(.systemGroupedBackground))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible)
             #endif
         }
         .tint(userTint)

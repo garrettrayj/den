@@ -44,7 +44,6 @@ struct TimelineLayout: View {
                             }
                         }
                     }
-                    .modifier(MainBoardModifier())
                 }
             }
         }

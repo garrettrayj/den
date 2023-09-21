@@ -47,7 +47,6 @@ struct Inbox: View {
                                     }
                                 }
                             }
-                            .modifier(MainBoardModifier())
                         }
                     }
                 }

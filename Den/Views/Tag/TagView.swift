@@ -50,7 +50,6 @@ struct TagView: View {
                                     }
                                 }
                             }
-                            .modifier(MainBoardModifier())
                         }
                     }
                 }

@@ -16,28 +16,12 @@ struct PageLayoutPicker: View {
     var body: some View {
         Picker(selection: $pageLayout) {
             Label {
-                Text("Grouped", comment: "Page layout option label.")
+                Text("Spread", comment: "Page layout option label.")
             } icon: {
-                Image(systemName: "rectangle.grid.2x2")
+                Image(systemName: "rectangle.grid.3x2")
             }
-            .tag(PageLayout.grouped)
-            .accessibilityIdentifier("GroupedLayout")
-
-            Label {
-                Text("Timeline", comment: "Page layout option label.")
-            } icon: {
-                Image(systemName: "calendar.day.timeline.left")
-            }
-            .tag(PageLayout.timeline)
-            .accessibilityIdentifier("TimelineLayout")
-
-            Label {
-                Text("Showcase", comment: "Page layout option label.")
-            } icon: {
-                Image(systemName: "square.grid.3x1.below.line.grid.1x2")
-            }
-            .tag(PageLayout.showcase)
-            .accessibilityIdentifier("ShowcaseLayout")
+            .tag(PageLayout.spread)
+            .accessibilityIdentifier("SpreadLayout")
 
             Label {
                 Text("Deck", comment: "Page layout option label.")
@@ -46,6 +30,14 @@ struct PageLayoutPicker: View {
             }
             .tag(PageLayout.deck)
             .accessibilityIdentifier("DeckLayout")
+
+            Label {
+                Text("Timeline", comment: "Page layout option label.")
+            } icon: {
+                Image(systemName: "calendar.day.timeline.left")
+            }
+            .tag(PageLayout.timeline)
+            .accessibilityIdentifier("TimelineLayout")
         } label: {
             Text("Layout", comment: "Picker label.")
         }

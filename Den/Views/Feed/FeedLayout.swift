@@ -52,7 +52,6 @@ struct FeedLayout: View {
                                 }
                                 .modifier(RoundedContainerModifier())
                             }
-                            .padding()
                             .modifier(SafeAreaModifier(geometry: geometry))
                         }
                     }

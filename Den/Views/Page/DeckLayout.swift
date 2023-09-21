@@ -23,36 +23,30 @@ struct DeckLayout: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.horizontal) {
-                LazyHStack(alignment: .top, spacing: 0) {
+                LazyHStack(alignment: .top, spacing: 8) {
                     ForEach(page.feedsArray) { feed in
-                        DeckColumn(
-                            feed: feed,
-                            profile: profile,
-                            isFirst: page.feedsArray.first == feed,
-                            isLast: page.feedsArray.last == feed,
-                            items: items.forFeed(feed: feed),
-                            pageGeometry: geometry,
-                            hideRead: hideRead
-                        )
+                        ScrollView(.vertical, showsIndicators: false) {
+                            Gadget(
+                                feed: feed,
+                                profile: profile,
+                                items: items.forFeed(feed: feed),
+                                hideRead: hideRead
+                            )
+                            .padding(.vertical)
+                        }
+                        .scrollClipDisabled()
                         .containerRelativeFrame(
                             .horizontal,
                             count: columnCount(width: geometry.size.width),
-                            spacing: 0
+                            spacing: 8
                         )
-                        .offset(y: -1)
                     }
                 }
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)
             .scrollClipDisabled()
-            .ignoresSafeArea(edges: .vertical)
-            .safeAreaPadding(.horizontal, 12)
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible, for: .navigationBar)
-            #endif
-            .padding(.top, 1)
+            .contentMargins(.horizontal, 16)
         }
     }
 

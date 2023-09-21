@@ -32,7 +32,7 @@ struct BookmarkPreviewCompressed: View {
                     }
                     Spacer()
                     if feed.hideImages != true, let url = bookmark.image {
-                        
+
                         PreviewThumbnail(url: url, isRead: false)
                     }
                 }

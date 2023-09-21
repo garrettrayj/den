@@ -17,7 +17,7 @@ struct Gadget: View {
 
     let items: [Item]
     let hideRead: Bool
-    
+
     var visibilityFilteredItems: [Item] {
         items.visibilityFiltered(hideRead ? false : nil)
     }

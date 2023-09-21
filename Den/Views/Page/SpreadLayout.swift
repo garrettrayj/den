@@ -1,5 +1,5 @@
 //
-//  GroupedLayout.swift
+//  SpreadLayout.swift
 //  Den
 //
 //  Created by Garrett Johnson on 3/15/23.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct GroupedLayout: View {
+struct SpreadLayout: View {
     @ObservedObject var page: Page
     @ObservedObject var profile: Profile
 
@@ -29,7 +29,6 @@ struct GroupedLayout: View {
                         hideRead: hideRead
                     )
                 }
-                .modifier(MainBoardModifier())
             }
         }
     }
