@@ -16,7 +16,8 @@ struct FeedHero: View {
     let heroImage: URL
 
     var body: some View {
-        VStack(spacing: 0) {
+        HStack(spacing: 0) {
+            Spacer()
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly, .delayPlaceholder])
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }
@@ -24,10 +25,12 @@ struct FeedHero: View {
                 .scaledToFit()
                 .cornerRadius(8)
                 .shadow(color: .black.opacity(0.25), radius: 3, y: 1)
-                .padding()
+                .padding(.vertical)
+                .padding(.horizontal, 8)
+            Spacer()
         }
         .aspectRatio(16/9, contentMode: .fit)
-        .frame(maxWidth: .infinity, maxHeight: 204)
+        .frame(maxHeight: 200)
         .background {
             WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
                 .resizable()

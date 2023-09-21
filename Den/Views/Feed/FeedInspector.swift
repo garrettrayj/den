@@ -103,18 +103,12 @@ struct FeedInspector: View {
 
     private var previewsSection: some View {
         Section {
-            Stepper(value: $feed.wrappedItemLimit, in: 1...100, step: 1) {
-                Text(
-                    "Preview Limit: \(feed.wrappedItemLimit)",
-                    comment: "Stepper label."
-                )
-            }
-            .sensoryFeedback(trigger: feed.wrappedItemLimit) { oldValue, newValue in
-                if newValue > oldValue {
-                    return .increase
-                } else {
-                    return .decrease
+            Picker(selection: $feed.itemLimitChoice) {
+                ForEach(ItemLimit.allCases, id: \.self) { choice in
+                    Text("\(choice.rawValue)").tag(choice)
                 }
+            } label: {
+                Text("Preview Limit")
             }
 
             Toggle(isOn: $feed.browserView) {

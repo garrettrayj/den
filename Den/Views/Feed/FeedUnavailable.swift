@@ -26,7 +26,6 @@ struct FeedUnavailable: View {
             } description: {
                 caption
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
             CardNote(
                 title,

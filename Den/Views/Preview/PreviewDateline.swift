@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct PreviewDateline: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     let date: Date?
 
     let dateFormatter: DateFormatter = {
@@ -35,7 +33,6 @@ struct PreviewDateline: View {
                 Text("No Date", comment: "Date missing message.")
             }
         }
-        .font(.caption2.weight(.semibold))
-        .foregroundStyle(isEnabled ? .secondary : .tertiary)
+        .font(.caption2)
     }
 }

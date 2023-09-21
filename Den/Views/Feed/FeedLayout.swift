@@ -25,7 +25,7 @@ struct FeedLayout: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical) {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(spacing: 0) {
                     if feed.feedData == nil || feed.feedData?.error != nil {
                         FeedUnavailable(feedData: feed.feedData, largeDisplay: true)
                     } else {
@@ -35,7 +35,7 @@ struct FeedLayout: View {
                         }
 
                         if items.isEmpty {
-                            FeedEmpty(largeDisplay: true).frame(maxWidth: .infinity, alignment: .center)
+                            FeedEmpty(largeDisplay: true)
                         } else if items.unread().isEmpty && hideRead {
                             AllRead(largeDisplay: true)
                         } else {
@@ -125,7 +125,6 @@ struct FeedLayout: View {
         .font(.footnote)
         .imageScale(.small)
         .multilineTextAlignment(.center)
-        .frame(maxWidth: .infinity, alignment: .center)
         .padding()
     }
 }

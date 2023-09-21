@@ -66,7 +66,6 @@ struct TrendBlock: View {
                 }
                 .padding(12)
                 .foregroundStyle(trend.items.unread().isEmpty ? .secondary : .primary)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
             }
             .buttonStyle(BasicGroupButtonStyle())
         }

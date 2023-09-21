@@ -35,9 +35,7 @@ struct CardNote<CaptionContent: View, IconContent: View>: View {
                 caption.font(.caption)
             }.foregroundStyle(.secondary)
         }
-
         .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

@@ -13,7 +13,6 @@ import SwiftUI
 struct RoundedContainerModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .frame(maxWidth: .infinity, alignment: .topLeading)
             #if os(macOS)
             .background(.background.quinary)
             #else

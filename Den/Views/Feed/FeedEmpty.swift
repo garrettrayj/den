@@ -22,7 +22,6 @@ struct FeedEmpty: View {
                     Image(systemName: "circle.slash")
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
             CardNote(Text("Feed Empty", comment: "No items message."))
         }

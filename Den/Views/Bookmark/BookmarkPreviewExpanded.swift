@@ -22,28 +22,31 @@ struct BookmarkPreviewExpanded: View {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
             BookmarkActionView(bookmark: bookmark, feed: feed, profile: profile) {
-                VStack(alignment: .leading, spacing: 4) {
-                    PreviewHeadline(title: bookmark.wrappedTitle, browserView: feed.browserView)
-                    if feed.hideBylines == false, let author = bookmark.author {
-                        PreviewAuthor(author: author)
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        PreviewHeadline(title: bookmark.wrappedTitle, browserView: feed.browserView)
+                        if feed.hideBylines == false, let author = bookmark.author {
+                            PreviewAuthor(author: author)
+                        }
+                        PreviewDateline(date: bookmark.published)
+                        if feed.hideImages != true, let url = bookmark.image {
+                            PreviewImage(
+                                url: url,
+                                isRead: false,
+                                width: CGFloat(bookmark.imageWidth),
+                                height: CGFloat(bookmark.imageHeight)
+                            )
+                            .padding(.top, 4)
+                        }
+                        if let teaser = bookmark.teaser, teaser != "" && !feed.hideTeasers {
+                            PreviewTeaser(teaser: teaser)
+                        }
                     }
-                    PreviewDateline(date: bookmark.published)
-                    if feed.hideImages != true, let url = bookmark.image {
-                        PreviewImage(
-                            url: url,
-                            isRead: false,
-                            width: CGFloat(bookmark.imageWidth),
-                            height: CGFloat(bookmark.imageHeight)
-                        )
-                        .padding(.top, 4)
-                    }
-                    if let teaser = bookmark.teaser, teaser != "" && !feed.hideTeasers {
-                        PreviewTeaser(teaser: teaser)
-                    }
+                    .multilineTextAlignment(.leading)
+                    Spacer()
                 }
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .padding()
+                .padding([.vertical, .leading])
+                .padding(.trailing, 8)
             }
         }
         .modifier(RoundedContainerModifier())

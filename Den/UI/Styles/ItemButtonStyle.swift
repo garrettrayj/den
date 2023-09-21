@@ -23,7 +23,6 @@ struct ItemButtonStyle: ButtonStyle {
                     :
                     .tertiary
             )
-            .frame(maxWidth: .infinity)
             .modifier(HoverHighlightModifier())
     }
 }

@@ -24,7 +24,6 @@ struct AllRead: View {
             } description: {
                 Text("Turn off filtering to show hidden items.", comment: "All read message guidance.")
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
             CardNote(
                 Text("All Read", comment: "No unread items message."),

@@ -20,7 +20,8 @@ struct ShowcaseSection: View {
 
     var body: some View {
         Section {
-            VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Spacer()
                 if feed.feedData == nil || feed.feedData?.error != nil {
                     FeedUnavailable(feedData: feed.feedData)
                         .modifier(SafeAreaModifier(geometry: geometry))
@@ -44,9 +45,11 @@ struct ShowcaseSection: View {
                         }
                         .modifier(RoundedContainerModifier())
                     }
-                    .padding()
+                    .padding(.vertical)
+                    .padding(.horizontal, 8)
                     .modifier(SafeAreaModifier(geometry: geometry))
                 }
+                Spacer()
             }
         } header: {
             FeedNavLink(feed: feed, leadingPadding: 32, trailingPadding: 32)

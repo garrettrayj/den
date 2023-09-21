@@ -11,14 +11,11 @@
 import SwiftUI
 
 struct PreviewAuthor: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     let author: String
 
     var body: some View {
         Text(author)
-            .font(.subheadline.weight(.medium))
+            .font(.subheadline)
             .lineLimit(2)
-            .foregroundStyle(isEnabled ? .secondary : .tertiary)
     }
 }

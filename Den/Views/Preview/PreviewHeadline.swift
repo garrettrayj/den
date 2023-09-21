@@ -18,7 +18,6 @@ struct PreviewHeadline: View {
         suffixedTitle
             .font(.headline)
             .lineLimit(6)
-            .multilineTextAlignment(.leading)
             .imageScale(.small)
     }
 

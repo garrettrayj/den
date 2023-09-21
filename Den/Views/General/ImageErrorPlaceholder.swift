@@ -14,12 +14,9 @@ struct ImageErrorPlaceholder: View {
     var imageScale: Image.Scale = .large
 
     var body: some View {
-        HStack {
-            Image(systemName: "photo")
-                .imageScale(imageScale)
-                .foregroundStyle(.secondary)
-                .padding()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        Image(systemName: "photo")
+            .imageScale(imageScale)
+            .foregroundStyle(.secondary)
+            .padding()
     }
 }

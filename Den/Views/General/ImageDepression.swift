@@ -17,11 +17,13 @@ struct ImageDepression<Content: View>: View {
     let content: () -> Content
 
     var body: some View {
-        VStack(spacing: 0) {
+        HStack(spacing: 0) {
+            Spacer()
             content()
+            Spacer()
         }
-        .frame(maxWidth: .infinity)
-        .padding(padding)
+        .padding(.vertical, padding)
+        .padding(.horizontal, padding - 8)
         .background(.fill.tertiary)
         .cornerRadius(cornerRadius)
     }

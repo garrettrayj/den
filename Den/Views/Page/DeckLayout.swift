@@ -58,6 +58,6 @@ struct DeckLayout: View {
 
     private func columnCount(width: CGFloat) -> Int {
         let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
-        return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 27.2))
+        return max(1, Int((adjustedWidth / log2(adjustedWidth)) / 30))
     }
 }

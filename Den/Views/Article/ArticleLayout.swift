@@ -33,7 +33,8 @@ struct ArticleLayout: View {
 
     var body: some View {
         ScrollView(.vertical) {
-            VStack {
+            HStack {
+                Spacer()
                 VStack(alignment: .leading, spacing: 16) {
                     FeedTitleLabel(
                         title: feed.titleText,
@@ -46,7 +47,9 @@ struct ArticleLayout: View {
                             .textSelection(.enabled)
                             .padding(.bottom, 4)
                         if let author = author {
-                            Text(author).font(.callout).lineLimit(2)
+                            Text(author)
+                                .font(.subheadline)
+                                .lineLimit(2)
                         }
                         if let date = date {
                             TimelineView(.everyMinute) { _ in
@@ -83,9 +86,9 @@ struct ArticleLayout: View {
                 }
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: maxContentWidth)
+                Spacer()
             }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 32)
+            .padding(.horizontal, 24)
             .padding(.vertical, 28)
         }
     }

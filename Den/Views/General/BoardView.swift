@@ -32,7 +32,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
 
     private var columnData: [(Int, [T])] {
         let adjustedWidth = width / dynamicTypeSize.layoutScalingFactor
-        let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 27.2))
+        let columns: Int = max(1, Int((adjustedWidth / log2(adjustedWidth)) / 30))
         var gridArray: [(Int, [T])] = []
 
         var currentCol: Int = 0

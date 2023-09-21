@@ -20,12 +20,6 @@ struct DeckColumn: View {
     let pageGeometry: GeometryProxy
     let hideRead: Bool
 
-    var borderedRoundedRectangle: some View {
-        RoundedRectangle(cornerRadius: 8).strokeBorder(.separator, lineWidth: 1)
-    }
-
-    let minCardHeight: CGFloat = 100
-
     var body: some View {
         VStack(spacing: 16) {
             FeedNavLink(
@@ -40,19 +34,19 @@ struct DeckColumn: View {
             .padding(.trailing, isLast ? -pageGeometry.safeAreaInsets.trailing - 12 : 0)
 
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(alignment: .leading, spacing: 8) {
+                LazyVStack(spacing: 8) {
                     if feed.feedData == nil || feed.feedData?.error != nil {
-                        FeedUnavailable(feedData: feed.feedData)
-                            .frame(minHeight: minCardHeight, alignment: .center)
-                            .background(borderedRoundedRectangle)
+                        BorderedCardContainer {
+                            FeedUnavailable(feedData: feed.feedData)
+                        }
                     } else if items.isEmpty {
-                        FeedEmpty()
-                            .frame(minHeight: minCardHeight, alignment: .center)
-                            .background(borderedRoundedRectangle)
+                        BorderedCardContainer {
+                            FeedEmpty()
+                        }
                     } else if items.unread().isEmpty && hideRead {
-                        AllRead()
-                            .frame(minHeight: minCardHeight, alignment: .center)
-                            .background(borderedRoundedRectangle)
+                        BorderedCardContainer {
+                            AllRead()
+                        }
                     } else {
                         ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
                             ItemActionView(item: item, feed: feed, profile: profile) {
