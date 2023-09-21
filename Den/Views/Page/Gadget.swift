@@ -17,26 +17,41 @@ struct Gadget: View {
 
     let items: [Item]
     let hideRead: Bool
+    
+    var visibilityFilteredItems: [Item] {
+        items.visibilityFiltered(hideRead ? false : nil)
+    }
 
     var body: some View {
-        VStack(spacing: 0) {
-            FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-
-            if feed.feedData == nil || feed.feedData?.error != nil {
-                Divider()
-                FeedUnavailable(feedData: feed.feedData)
-            } else if items.isEmpty {
-                Divider()
-                FeedEmpty()
-            } else if items.unread().isEmpty && hideRead {
-                Divider()
-                AllRead()
-            } else {
-                ForEach(items.visibilityFiltered(hideRead ? false : nil)) { item in
-                    Divider()
-                    ItemActionView(item: item, feed: feed, profile: profile) {
-                        ItemPreviewCompressed(item: item, feed: feed)
+        LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
+            Section {
+                if feed.feedData == nil || feed.feedData?.error != nil {
+                    FeedUnavailable(feedData: feed.feedData)
+                } else if items.isEmpty {
+                    FeedEmpty()
+                } else if items.unread().isEmpty && hideRead {
+                    AllRead()
+                } else {
+                    ForEach(visibilityFilteredItems) { item in
+                        ItemActionView(item: item, feed: feed, profile: profile) {
+                            if feed.wrappedPreviewStyle.rawValue == 1 {
+                                ItemPreviewExpanded(item: item, feed: feed)
+                            } else {
+                                ItemPreviewCompressed(item: item, feed: feed)
+                            }
+                        }
+                        if item != visibilityFilteredItems.last {
+                            Divider()
+                        }
                     }
+                }
+            } header: {
+                VStack(spacing: 0) {
+                    FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
+                        .background {
+                            RoundedRectangle(cornerRadius: 8).fill(.background.quinary)
+                        }
+                    Divider()
                 }
             }
         }
