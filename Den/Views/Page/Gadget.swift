@@ -10,13 +10,13 @@
 
 import SwiftUI
 
-/// Feed display for the grouped page layout.
 struct Gadget: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
+    @Binding var hideRead: Bool
+
     let items: [Item]
-    let hideRead: Bool
 
     var visibilityFilteredItems: [Item] {
         items.visibilityFiltered(hideRead ? false : nil)
@@ -33,24 +33,25 @@ struct Gadget: View {
                     AllRead()
                 } else {
                     ForEach(visibilityFilteredItems) { item in
-                        ItemActionView(item: item, feed: feed, profile: profile) {
-                            if feed.wrappedPreviewStyle.rawValue == 1 {
-                                ItemPreviewExpanded(item: item, feed: feed)
-                            } else {
-                                ItemPreviewCompressed(item: item, feed: feed)
+                        Group {
+                            ItemActionView(item: item, feed: feed, profile: profile) {
+                                if feed.wrappedPreviewStyle.rawValue == 1 {
+                                    ItemPreviewExpanded(item: item, feed: feed)
+                                } else {
+                                    ItemPreviewCompressed(item: item, feed: feed)
+                                }
                             }
-                        }
-                        if item != visibilityFilteredItems.last {
-                            Divider()
+                            if item != visibilityFilteredItems.last {
+                                Divider()
+                            }
                         }
                     }
                 }
             } header: {
                 VStack(spacing: 0) {
-                    FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
-                        .background {
-                            RoundedRectangle(cornerRadius: 8).fill(.background.quinary)
-                        }
+                    FeedNavLink(feed: feed)
+                        .buttonStyle(FeedTitleButtonStyle())
+                        .background(.background.quinary)
                     Divider()
                 }
             }

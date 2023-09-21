@@ -11,9 +11,6 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
-    @Environment(\.openURL) private var openURL
-    @Environment(\.useSystemBrowser) private var useSystemBrowser
-
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
@@ -26,13 +23,13 @@ struct ItemActionView<Content: View>: View {
                 OpenInBrowserButton(url: url, readerMode: feed.readerMode) {
                     content.modifier(DraggableItemModifier(item: item))
                 }
-                .buttonStyle(ItemButtonStyle(read: item.read))
+                .buttonStyle(ItemButtonStyle(read: $item.read))
                 .accessibilityIdentifier("ItemAction")
             } else {
                 NavigationLink(value: SubDetailPanel.item(item)) {
                     content.modifier(DraggableItemModifier(item: item))
                 }
-                .buttonStyle(ItemButtonStyle(read: item.read))
+                .buttonStyle(ItemButtonStyle(read: $item.read))
                 .accessibilityIdentifier("ItemAction")
             }
         }

@@ -15,7 +15,7 @@ struct ImageBorderModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .cornerRadius(cornerRadius)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .strokeBorder(.separator, lineWidth: 1)

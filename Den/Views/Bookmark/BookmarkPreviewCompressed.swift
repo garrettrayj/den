@@ -19,20 +19,19 @@ struct BookmarkPreviewCompressed: View {
         VStack(alignment: .leading, spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
-            BookmarkActionView(bookmark: bookmark, feed: feed, profile: profile) {
+            BookmarkActionView(bookmark: bookmark, feed: feed) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
                         PreviewHeadline(title: bookmark.wrappedTitle, browserView: feed.browserView)
-                        if feed.hideBylines == false, let author = bookmark.author {
+                        if !feed.hideBylines, let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }
-                        VStack(alignment: .leading) {
-                            PreviewDateline(date: bookmark.published)
+                        if let date = bookmark.published {
+                            PreviewDateline(date: date)
                         }
                     }
                     Spacer()
-                    if feed.hideImages != true, let url = bookmark.image {
-
+                    if !feed.hideImages, let url = bookmark.image {
                         PreviewThumbnail(url: url, isRead: false)
                     }
                 }

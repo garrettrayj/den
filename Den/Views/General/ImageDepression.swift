@@ -25,6 +25,6 @@ struct ImageDepression<Content: View>: View {
         .padding(.vertical, padding)
         .padding(.horizontal, padding - 8)
         .background(.fill.tertiary)
-        .cornerRadius(cornerRadius)
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 }

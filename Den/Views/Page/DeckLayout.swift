@@ -29,8 +29,8 @@ struct DeckLayout: View {
                             Gadget(
                                 feed: feed,
                                 profile: profile,
-                                items: items.forFeed(feed: feed),
-                                hideRead: hideRead
+                                hideRead: $hideRead,
+                                items: items.forFeed(feed: feed)
                             )
                             .padding(.vertical)
                         }

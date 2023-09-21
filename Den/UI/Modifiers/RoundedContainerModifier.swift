@@ -18,7 +18,7 @@ struct RoundedContainerModifier: ViewModifier {
             #else
             .background(Color(.secondarySystemGroupedBackground))
             #endif
-            .cornerRadius(8)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             .shadow(color: .black.opacity(0.125), radius: 4)
     }
 }

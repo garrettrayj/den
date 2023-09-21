@@ -11,9 +11,9 @@
 import SwiftUI
 
 struct PreviewDateline: View {
-    let date: Date?
+    let date: Date
 
-    let dateFormatter: DateFormatter = {
+    static let dateFormatter: DateFormatter = {
         let relativeDateFormatter = DateFormatter()
         relativeDateFormatter.timeStyle = .short
         relativeDateFormatter.dateStyle = .medium
@@ -24,15 +24,8 @@ struct PreviewDateline: View {
     }()
 
     var body: some View {
-        Group {
-            if let date = date {
-                TimelineView(.everyMinute) { _ in
-                    Text(verbatim: dateFormatter.string(from: date))
-                }
-            } else {
-                Text("No Date", comment: "Date missing message.")
-            }
+        TimelineView(.everyMinute) { _ in
+            Text(verbatim: PreviewDateline.dateFormatter.string(from: date)).font(.caption2)
         }
-        .font(.caption2)
     }
 }

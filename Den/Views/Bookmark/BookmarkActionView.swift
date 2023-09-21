@@ -11,13 +11,8 @@
 import SwiftUI
 
 struct BookmarkActionView<Content: View>: View {
-    @Environment(\.openURL) private var openURL
-    @Environment(\.userTint) private var userTint
-    @Environment(\.useSystemBrowser) private var useSystemBrowser
-
     @ObservedObject var bookmark: Bookmark
     @ObservedObject var feed: Feed
-    @ObservedObject var profile: Profile
 
     @ViewBuilder var content: Content
 
@@ -27,13 +22,13 @@ struct BookmarkActionView<Content: View>: View {
                 OpenInBrowserButton(url: url, readerMode: feed.readerMode) {
                     content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
-                .buttonStyle(ItemButtonStyle(read: false))
+                .buttonStyle(ItemButtonStyle(read: .constant(false)))
                 .accessibilityIdentifier("BookmarkAction")
             } else {
                 NavigationLink(value: SubDetailPanel.bookmark(bookmark)) {
                     content.modifier(DraggableBookmarkModifier(bookmark: bookmark))
                 }
-                .buttonStyle(ItemButtonStyle(read: false))
+                .buttonStyle(ItemButtonStyle(read: .constant(false)))
                 .accessibilityIdentifier("BookmarkAction")
             }
         }

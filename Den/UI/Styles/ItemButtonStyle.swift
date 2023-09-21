@@ -13,7 +13,7 @@ import SwiftUI
 struct ItemButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 
-    let read: Bool
+    @Binding var read: Bool
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label

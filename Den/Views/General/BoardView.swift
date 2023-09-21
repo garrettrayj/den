@@ -21,7 +21,7 @@ struct BoardView<Content: View, T: Identifiable>: View where T: Hashable {
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             ForEach(columnData, id: \.0) { _, columnObjects in
-                LazyVStack(alignment: .center, spacing: 8) {
+                LazyVStack(spacing: 8) {
                     ForEach(columnObjects) { object in
                         content(object)
                     }

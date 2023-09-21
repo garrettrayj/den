@@ -36,8 +36,8 @@ struct TrendBlock: View {
     }
 
     var body: some View {
-        VStack {
-            NavigationLink(value: SubDetailPanel.trend(trend)) {
+        NavigationLink(value: SubDetailPanel.trend(trend)) {
+            HStack {
                 VStack(alignment: .leading, spacing: 12) {
                     trend.titleText.font(.title2.weight(.medium))
 
@@ -64,11 +64,13 @@ struct TrendBlock: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                 }
-                .padding(12)
                 .foregroundStyle(trend.items.unread().isEmpty ? .secondary : .primary)
+                Spacer()
             }
-            .buttonStyle(BasicGroupButtonStyle())
+            .padding([.vertical, .leading])
+            .padding(.trailing, 8)
         }
+        .buttonStyle(BasicGroupButtonStyle())
         .modifier(RoundedContainerModifier())
     }
 }

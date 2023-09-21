@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct BookmarkPreviewExpanded: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var bookmark: Bookmark
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
@@ -21,14 +19,16 @@ struct BookmarkPreviewExpanded: View {
         VStack(alignment: .leading, spacing: 0) {
             FeedNavLink(feed: feed).buttonStyle(FeedTitleButtonStyle())
             Divider()
-            BookmarkActionView(bookmark: bookmark, feed: feed, profile: profile) {
+            BookmarkActionView(bookmark: bookmark, feed: feed) {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         PreviewHeadline(title: bookmark.wrappedTitle, browserView: feed.browserView)
                         if feed.hideBylines == false, let author = bookmark.author {
                             PreviewAuthor(author: author)
                         }
-                        PreviewDateline(date: bookmark.published)
+                        if let date = bookmark.published {
+                            PreviewDateline(date: date)
+                        }
                         if feed.hideImages != true, let url = bookmark.image {
                             PreviewImage(
                                 url: url,

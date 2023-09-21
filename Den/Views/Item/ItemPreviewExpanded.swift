@@ -11,8 +11,6 @@
 import SwiftUI
 
 struct ItemPreviewExpanded: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
 
@@ -20,14 +18,16 @@ struct ItemPreviewExpanded: View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 PreviewHeadline(title: item.wrappedTitle, browserView: feed.browserView)
-                if feed.hideBylines == false, let author = item.author {
+                if !feed.hideBylines, let author = item.author {
                     PreviewAuthor(author: author)
                 }
-                PreviewDateline(date: item.published)
+                if let date = item.published {
+                    PreviewDateline(date: date)
+                }
                 if !item.bookmarks.isEmpty {
                     ItemTags(item: item)
                 }
-                if feed.hideImages != true, let url = item.image {
+                if !feed.hideImages, let url = item.image {
                     PreviewImage(
                         url: url,
                         isRead: item.read,

@@ -34,7 +34,7 @@ struct PageLayoutPicker: View {
             Label {
                 Text("Timeline", comment: "Page layout option label.")
             } icon: {
-                Image(systemName: "calendar.day.timeline.left")
+                Image(systemName: "square.grid.3x3")
             }
             .tag(PageLayout.timeline)
             .accessibilityIdentifier("TimelineLayout")
