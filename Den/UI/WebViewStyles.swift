@@ -15,7 +15,7 @@ final class WebViewStyles {
 
     static let shared = WebViewStyles()
 
-    init() {
+    private init() {
         if
             let path = Bundle.main.path(forResource: "WebView", ofType: "css"),
             let webViewCSS = try? String(contentsOfFile: path).components(separatedBy: .newlines).joined()

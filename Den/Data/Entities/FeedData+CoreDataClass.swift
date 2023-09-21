@@ -26,11 +26,7 @@ public class FeedData: NSManagedObject {
     }
 
     public var feed: Feed? {
-        if let unwrappedValues = value(forKey: "feed") as? [Feed] {
-            return unwrappedValues.first
-        }
-
-        return nil
+        (value(forKey: "feed") as? [Feed])?.first
     }
 
     public var itemsArray: [Item] {

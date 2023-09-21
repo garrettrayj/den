@@ -28,15 +28,15 @@ public class Trend: NSManagedObject {
     public var items: [Item] {
         trendItemsArray
             .compactMap { $0.item }
-            .sorted { a, b in
+            .sorted { lhs, rhs in
                 guard
-                    let aPublished = a.published,
-                    let bPublished = b.published
+                    let lhsPublished = lhs.published,
+                    let rhsPublished = rhs.published
                 else {
                     return false
                 }
 
-                return aPublished > bPublished
+                return lhsPublished > rhsPublished
             }
     }
 
@@ -44,29 +44,13 @@ public class Trend: NSManagedObject {
         items.unread().count > 0
     }
 
-    public func visibleItems(_ hideRead: Bool) -> [Item] {
-        items.filter { item in
-            hideRead ? item.read == false : true
-        }
-    }
-
     public var profile: Profile? {
-        if let unwrappedValues = value(forKey: "profile") as? [Profile] {
-            return unwrappedValues.first
-        }
-
-        return nil
+        (value(forKey: "profile") as? [Profile])?.first
     }
 
     public var feeds: [Feed] {
-        var feeds: Set<Feed> = []
-        items.forEach { item in
-            if let feed = item.feedData?.feed {
-                feeds.insert(feed)
-            }
-        }
-
-        return feeds.sorted { $0.wrappedTitle < $1.wrappedTitle }
+        Array(Set(items.compactMap { $0.feedData?.feed }))
+            .sorted { $0.wrappedTitle < $1.wrappedTitle }
     }
 
     static func create(in managedObjectContext: NSManagedObjectContext, profile: Profile) -> Trend {

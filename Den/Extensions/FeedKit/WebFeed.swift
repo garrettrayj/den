@@ -1,5 +1,5 @@
 //
-//  WebAccessibleFeed.swift
+//  WebFeed.swift
 //  Den
 //
 //  Created by Garrett Johnson on 1/2/23.
@@ -10,6 +10,6 @@
 
 import Foundation
 
-protocol WebAccessibleFeed {
+protocol WebFeed {
     var webpage: URL? { get }
 }

@@ -84,9 +84,8 @@ class FeedUpdateTask {
             )
 
             // Cleanup old items
-            let maxItems = feed.extendedItemLimit
-            if feedData.itemsArray.count > maxItems {
-                feedData.itemsArray.suffix(from: maxItems).forEach { item in
+            if feedData.itemsArray.count > Feed.totalItemLimit {
+                feedData.itemsArray.suffix(from: Feed.totalItemLimit).forEach { item in
                     feedData.removeFromItems(item)
                     context.delete(item)
                 }
@@ -249,7 +248,7 @@ class FeedUpdateTask {
 
         if let start = start {
             let duration = CFAbsoluteTimeGetCurrent() - start
-            Logger.ingest.info(
+            Logger.main.info(
                 "Feed updated in \(duration) seconds: \(feed.wrappedTitle, privacy: .public)"
             )
         }

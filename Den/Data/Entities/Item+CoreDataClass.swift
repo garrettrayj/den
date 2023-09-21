@@ -9,22 +9,19 @@
 //
 
 import CoreData
-import SwiftUI
-import OSLog
 import NaturalLanguage
-
-import HTMLEntities
+import SwiftUI
 
 @objc(Item)
 public class Item: NSManagedObject {
     public var titleText: Text {
-        if let displayTitle = title, displayTitle != "" {
-            return Text(displayTitle)
+        if let title = title, title != "" {
+            return Text(title)
         }
-        
-        return Text("Untitled", comment: "Item title placeholder.")
+
+        return Text("Untitled", comment: "Default item title.")
     }
-    
+
     public var history: [History] {
         value(forKey: "history") as? [History] ?? []
     }
@@ -34,9 +31,9 @@ public class Item: NSManagedObject {
     }
 
     public var bookmarkTags: [Tag] {
-        bookmarks.compactMap { $0.tag }
+        Array(Set(bookmarks.compactMap { $0.tag }))
     }
-    
+
     public var wrappedTags: [(String, NLTag)] {
         get {
             var results: [(String, NLTag)] = []
@@ -65,12 +62,8 @@ public class Item: NSManagedObject {
     }
 
     public var trendItemsArray: [TrendItem] {
-        get {
-            trendItems?.allObjects as? [TrendItem] ?? []
-        }
-        set {
-            trendItems = NSSet(array: newValue)
-        }
+        get { trendItems?.allObjects as? [TrendItem] ?? [] }
+        set { trendItems = NSSet(array: newValue) }
     }
 
     static func create(moc managedObjectContext: NSManagedObjectContext, feedData: FeedData) -> Item {
@@ -119,9 +112,7 @@ extension Collection where Element == Item {
     }
 
     func forFeed(feed: Feed) -> [Item] {
-        self.filter { item in
-            item.feedData == feed.feedData
-        }
+        self.filter { $0.feedData == feed.feedData }
     }
 
     func visibilityFiltered(_ readFilter: Bool?) -> [Item] {
@@ -137,15 +128,11 @@ extension Collection where Element == Item {
     }
 
     func read() -> [Item] {
-        self.filter { item in
-            item.read == true
-        }
+        self.filter { $0.read == true }
     }
 
     func unread() -> [Item] {
-        self.filter { item in
-            item.read == false
-        }
+        self.filter { $0.read == false }
     }
 
     func previews() -> [Item] {

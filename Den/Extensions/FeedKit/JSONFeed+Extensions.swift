@@ -12,7 +12,7 @@ import Foundation
 
 import FeedKit
 
-extension JSONFeed: WebAccessibleFeed {
+extension JSONFeed: WebFeed {
     var webpage: URL? {
         if
             let urlString = self.homePageURL?.trimmingCharacters(in: .whitespacesAndNewlines),

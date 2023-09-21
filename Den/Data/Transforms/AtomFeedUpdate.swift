@@ -28,10 +28,10 @@ struct AtomFeedUpdate {
 
         if let sourceItems = source.entries {
             var existingItemLinks = feedData.itemsArray.compactMap({ $0.link })
-            for sourceItem in sourceItems.prefix(feed.extendedItemLimit) {
+            for sourceItem in sourceItems.prefix(Feed.totalItemLimit) {
                 // Continue if link is missing
                 guard let itemLink = sourceItem.linkURL else {
-                    Logger.ingest.notice("Missing link for item.")
+                    Logger.main.notice("Missing link for item.")
                     continue
                 }
 

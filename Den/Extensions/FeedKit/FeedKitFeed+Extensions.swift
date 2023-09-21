@@ -12,7 +12,7 @@ import Foundation
 
 import FeedKit
 
-extension FeedKit.Feed: WebAccessibleFeed {
+extension FeedKit.Feed: WebFeed {
     public var webpage: URL? {
         switch self {
         case .atom(let atomFeed):

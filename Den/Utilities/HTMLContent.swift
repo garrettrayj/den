@@ -13,17 +13,14 @@ import SwiftUI
 
 import SwiftSoup
 
-final class HTMLContent {
+struct HTMLContent {
+    let source: String
+    
     let imageSourceBlocklist = ["feedburner", "npr-rss-pixel", "google-analytics"]
-    let content: String
-
-    init(_ source: String) {
-        self.content = source
-    }
 
     func plainText() -> String? {
         guard
-            let doc: Document = try? SwiftSoup.parseBodyFragment(content),
+            let doc: Document = try? SwiftSoup.parseBodyFragment(source),
             let plainText = try? doc.text()
         else {
             return nil
@@ -39,7 +36,7 @@ final class HTMLContent {
 
     func sanitizedHTML() -> String? {
         guard
-            let dirty: Document = try? SwiftSoup.parseBodyFragment(content),
+            let dirty: Document = try? SwiftSoup.parseBodyFragment(source),
             let doc: Document = try? Cleaner(
                 headWhitelist: .relaxed(),
                 bodyWhitelist: customWhitelist()
@@ -64,7 +61,7 @@ final class HTMLContent {
 
     func imageElements() -> Elements? {
         guard
-            let doc: Document = try? SwiftSoup.parseBodyFragment(content),
+            let doc: Document = try? SwiftSoup.parseBodyFragment(source),
             let elements = try? doc.select("img")
         else {
             return nil

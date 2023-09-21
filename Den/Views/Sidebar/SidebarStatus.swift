@@ -29,7 +29,7 @@ struct SidebarStatus: View {
                 Text("Network Offline", comment: "Status message.").foregroundStyle(.secondary)
             } else if refreshing {
                 ProgressView(progress).progressViewStyle(RefreshProgressViewStyle(profile: profile))
-            } else if let refreshedDate = RefreshedDateStorage.shared.getRefreshed(profile) {
+            } else if let refreshedDate = RefreshedDateStorage.getRefreshed(profile) {
                 RelativeRefreshedDate(date: refreshedDate)
             } else if profile.pagesArray.isEmpty {
                 Text("Profile Empty", comment: "Status message.")

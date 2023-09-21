@@ -12,9 +12,7 @@ import Foundation
 import NaturalLanguage
 
 struct WorkingTrend: Identifiable {
-    var id: String {
-        "\(slug)-\(tag.rawValue)"
-    }
+    var id: String { "\(slug)-\(tag.rawValue)" }
     var slug: String
     var tag: NLTag
     var title: String

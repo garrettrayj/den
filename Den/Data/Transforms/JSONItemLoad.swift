@@ -33,14 +33,10 @@ struct JSONItemLoad {
     private func populateGeneralProperties() {
         if let published = source.datePublished {
             item.published = published
-        } else {
-            item.published = Date()
         }
 
         if let title = source.title?.preparingTitle() {
             item.title = title
-        } else {
-            item.title = "Untitled"
         }
 
         if let urlString = source.url, let link = URL(string: urlString) {
@@ -59,11 +55,11 @@ struct JSONItemLoad {
 
     private func populateText() {
         if let summary = source.summary {
-            item.summary = HTMLContent(summary).sanitizedHTML()
+            item.summary = HTMLContent(source: summary).sanitizedHTML()
         }
 
         if let teaser = item.summary {
-            item.teaser = HTMLContent(teaser).plainText()?.truncated(limit: 1000)
+            item.teaser = HTMLContent(source: teaser).plainText()?.truncated(limit: 1000)
         }
 
         if let contentHtml = source.contentHtml {
@@ -97,8 +93,8 @@ struct JSONItemLoad {
     }
 
     private func findSummaryImages() {
-        if let source = source.summary {
-            if let allowedImages = HTMLContent(source).allowedImages(itemLink: item.link) {
+        if let summary = source.summary {
+            if let allowedImages = HTMLContent(source: summary).allowedImages(itemLink: item.link) {
                 imageSelection.imagePool.append(contentsOf: allowedImages)
             }
         }

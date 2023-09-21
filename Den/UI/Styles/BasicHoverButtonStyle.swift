@@ -1,5 +1,5 @@
 //
-//  BasicGroupButtonStyle.swift
+//  BasicHoverButtonStyle.swift
 //  Den
 //
 //  Created by Garrett Johnson on 8/12/23.
@@ -10,9 +10,8 @@
 
 import SwiftUI
 
-struct BasicGroupButtonStyle: ButtonStyle {
+struct BasicHoverButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .modifier(HoverHighlightModifier())
+        configuration.label.modifier(HoverHighlightModifier())
     }
 }

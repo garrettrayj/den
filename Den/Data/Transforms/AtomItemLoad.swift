@@ -38,14 +38,10 @@ struct AtomItemLoad {
             item.published = published
         } else if let published = source.updated {
             item.published = published
-        } else {
-            item.published = Date()
         }
 
         if let title = source.title?.preparingTitle() {
             item.title = title
-        } else {
-            item.title = "Untitled"
         }
 
         if let author = source.authors?.first?.name {
@@ -58,17 +54,17 @@ struct AtomItemLoad {
 
     private func populateText() {
         if let summary = source.summary?.value?.htmlUnescape() {
-            item.summary = HTMLContent(summary).sanitizedHTML()
+            item.summary = HTMLContent(source: summary).sanitizedHTML()
         } else if let summary = source.content?.value?.htmlUnescape() {
-            item.summary = HTMLContent(summary).sanitizedHTML()
+            item.summary = HTMLContent(source: summary).sanitizedHTML()
         }
 
         if let teaser = item.summary {
-            item.teaser = HTMLContent(teaser).plainText()?.truncated(limit: 1000)
+            item.teaser = HTMLContent(source: teaser).plainText()?.truncated(limit: 1000)
         }
 
         if let body = source.content?.value {
-            item.body = HTMLContent(body).sanitizedHTML()
+            item.body = HTMLContent(source: body).sanitizedHTML()
         }
     }
 
@@ -151,7 +147,7 @@ struct AtomItemLoad {
 
     private func findContentImages() {
         if let source = source.content?.value?.htmlUnescape() {
-            if let allowedImages = HTMLContent(source).allowedImages(itemLink: item.link) {
+            if let allowedImages = HTMLContent(source: source).allowedImages(itemLink: item.link) {
                 imageSelection.imagePool.append(contentsOf: allowedImages)
             }
         }
@@ -159,7 +155,7 @@ struct AtomItemLoad {
 
     private func findSummaryImages() {
         if let source = source.summary?.value?.htmlUnescape() {
-            if let allowedImages = HTMLContent(source).allowedImages(itemLink: item.link) {
+            if let allowedImages = HTMLContent(source: source).allowedImages(itemLink: item.link) {
                 imageSelection.imagePool.append(contentsOf: allowedImages)
             }
         }

@@ -57,7 +57,7 @@ final class RefreshManager {
 
         await AnalyzeTask(profileObjectID: profile.objectID).execute()
 
-        RefreshedDateStorage.shared.setRefreshed(profile, date: .now)
+        RefreshedDateStorage.setRefreshed(profile, date: .now)
 
         await MainActor.run {
             NotificationCenter.default.post(name: .refreshFinished, object: profile.objectID)

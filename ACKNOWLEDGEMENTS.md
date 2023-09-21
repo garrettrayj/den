@@ -49,7 +49,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-## SDWebImage (5.18.1)
+## SDWebImage (5.18.2)
 
 Copyright (c) 2009-2020 Olivier Poitrey rs@dailymotion.com
  

@@ -39,7 +39,6 @@ public class Tag: NSManagedObject {
         let tag = self.init(context: managedObjectContext)
         tag.id = UUID()
         tag.profile = profile
-
         tag.userOrder = Int16(profile.tagsUserOrderMax + 1)
 
         return tag

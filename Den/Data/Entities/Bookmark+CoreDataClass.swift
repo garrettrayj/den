@@ -17,7 +17,7 @@ public class Bookmark: NSManagedObject {
         if let displayTitle = title, displayTitle != "" {
             return Text(displayTitle)
         }
-        
+
         return Text("Untitled", comment: "Bookmark title placeholder.")
     }
 

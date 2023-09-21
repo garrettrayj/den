@@ -10,6 +10,7 @@
 
 import Foundation
 
+import HTMLEntities
 import SwiftSoup
 
 extension String {

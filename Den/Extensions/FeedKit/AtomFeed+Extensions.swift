@@ -12,7 +12,7 @@ import Foundation
 
 import FeedKit
 
-extension AtomFeed: WebAccessibleFeed {
+extension AtomFeed: WebFeed {
     var webpage: URL? {
         guard
             let urlString = self.links?.first(where: { atomLink in

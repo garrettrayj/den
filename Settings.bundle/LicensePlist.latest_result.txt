@@ -4,7 +4,7 @@ name: FeedKit, nameSpecified: FeedKit, owner: nmdias, version: 9.1.2, source: ht
 
 name: libwebp-Xcode, nameSpecified: libwebp, owner: SDWebImage, version: 1.3.2, source: https://github.com/SDWebImage/libwebp-Xcode
 
-name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.18.1, source: https://github.com/SDWebImage/SDWebImage
+name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.18.2, source: https://github.com/SDWebImage/SDWebImage
 
 name: SDWebImageSVGCoder, nameSpecified: SDWebImageSVGCoder, owner: SDWebImage, version: 1.7.0, source: https://github.com/SDWebImage/SDWebImageSVGCoder
 

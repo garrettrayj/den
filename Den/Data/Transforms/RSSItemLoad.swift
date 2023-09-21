@@ -41,14 +41,10 @@ struct RSSItemLoad {
             // Fallback to Dublin Core metadata for published date
             // (ex. http://feeds.feedburner.com/oatmealfeed does not have pubDate)
             item.published = published
-        } else {
-            item.published = Date()
         }
 
         if let title = source.title?.preparingTitle() {
             item.title = title
-        } else {
-            item.title = "Untitled"
         }
 
         item.link = source.linkURL
@@ -69,17 +65,17 @@ struct RSSItemLoad {
     private func populateText() {
         // Extract plain text from summary or content
         if let description = source.description?.htmlUnescape() {
-            item.summary = HTMLContent(description).sanitizedHTML()
+            item.summary = HTMLContent(source: description).sanitizedHTML()
         } else if let contentEncoded = source.content?.contentEncoded {
-            item.summary = HTMLContent(contentEncoded).sanitizedHTML()
+            item.summary = HTMLContent(source: contentEncoded).sanitizedHTML()
         }
 
         if let teaser = item.summary {
-            item.teaser = HTMLContent(teaser).plainText()?.truncated(limit: 1000)
+            item.teaser = HTMLContent(source: teaser).plainText()?.truncated(limit: 1000)
         }
 
         if let source = source.content?.contentEncoded {
-            item.body = HTMLContent(source).sanitizedHTML()
+            item.body = HTMLContent(source: source).sanitizedHTML()
         }
     }
 
@@ -184,7 +180,7 @@ struct RSSItemLoad {
 
     private func findContentImages() {
         if let source = source.content?.contentEncoded {
-            if let allowedImages = HTMLContent(source).allowedImages(itemLink: item.link) {
+            if let allowedImages = HTMLContent(source: source).allowedImages(itemLink: item.link) {
                 imageSelection.imagePool.append(contentsOf: allowedImages)
             }
         }
@@ -192,7 +188,7 @@ struct RSSItemLoad {
 
     private func findDescriptionImages() {
         if let source = source.description?.htmlUnescape() {
-            if let allowedImages = HTMLContent(source).allowedImages(itemLink: item.link) {
+            if let allowedImages = HTMLContent(source: source).allowedImages(itemLink: item.link) {
                 imageSelection.imagePool.append(contentsOf: allowedImages)
             }
         }

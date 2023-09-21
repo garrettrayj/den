@@ -9,7 +9,7 @@
 //
 
 #if canImport(Sparkle)
-import SwiftUI
+import Foundation
 
 import Sparkle
 

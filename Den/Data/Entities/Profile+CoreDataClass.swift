@@ -41,12 +41,14 @@ public class Profile: NSManagedObject {
 
     public var tintColor: Color? {
         guard let tint = tint, let tintOption = AccentColor(rawValue: tint) else { return nil }
+
         return tintOption.color
     }
 
     public var tintOption: AccentColor? {
         get {
             guard let tint = tint else { return nil }
+
             return AccentColor(rawValue: tint)
         }
         set {
@@ -99,6 +101,7 @@ public class Profile: NSManagedObject {
             if page.userOrder < result {
                 return page.userOrder
             }
+
             return result
         }
     }
@@ -108,6 +111,7 @@ public class Profile: NSManagedObject {
             if page.userOrder > result {
                 return page.userOrder
             }
+
             return result
         }
     }
@@ -123,6 +127,7 @@ public class Profile: NSManagedObject {
             if tag.userOrder < result {
                 return tag.userOrder
             }
+
             return result
         }
     }
@@ -132,6 +137,7 @@ public class Profile: NSManagedObject {
             if tag.userOrder > result {
                 return tag.userOrder
             }
+
             return result
         }
     }
@@ -163,8 +169,6 @@ extension Collection where Element == Profile {
     func firstMatchingID(_ uuidString: String?) -> Profile? {
         guard let uuidString = uuidString else { return nil }
 
-        return self.first { profile in
-            profile.id?.uuidString == uuidString
-        }
+        return self.first { $0.id?.uuidString == uuidString }
     }
 }

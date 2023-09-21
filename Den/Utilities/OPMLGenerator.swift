@@ -13,14 +13,9 @@ import SwiftUI
 
 import AEXML
 
-final class OPMLGenerator {
+struct OPMLGenerator {
     let title: String
     let pages: [Page]
-
-    init(title: String, pages: [Page]) {
-        self.title = title
-        self.pages = pages
-    }
 
     var document: AEXMLDocument {
         let document = AEXMLDocument()
@@ -64,18 +59,5 @@ final class OPMLGenerator {
 
     func getData() -> Data? {
         document.xml.data(using: .utf8)
-    }
-
-    func writeToFile(url: URL) {
-        do {
-            try document.xml.write(to: url, atomically: true, encoding: String.Encoding.utf8)
-        } catch {
-            // failed to write file – bad permissions, bad filename, missing permissions,
-            // or more likely it can't be converted to the encoding
-            Logger.main.error("""
-            Failed to write OPML file – bad permissions, bad filename, missing permissions, \
-            or more likely it can't be converted to the encoding.
-            """)
-        }
     }
 }

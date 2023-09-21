@@ -13,7 +13,7 @@ import SwiftUI
 
 @objc(Feed)
 public class Feed: NSManagedObject {
-    static let defaultItemLimit = 6
+    static let totalItemLimit = 20
 
     public var titleText: Text {
         if wrappedTitle == "" {
@@ -24,38 +24,22 @@ public class Feed: NSManagedObject {
     }
 
     public var wrappedTitle: String {
-        get {title ?? ""}
-        set {title = newValue}
+        get { title ?? "" }
+        set { title = newValue }
     }
 
     public var wrappedItemLimit: Int {
-        get {
-            return Int(itemLimit)
-        }
-        set {
-            itemLimit = Int16(newValue)
-        }
+        get { Int(itemLimit) }
+        set { itemLimit = Int16(newValue) }
     }
 
     public var itemLimitChoice: ItemLimit {
-        get {
-            return ItemLimit(rawValue: wrappedItemLimit) ?? .six
-        }
-        set {
-            wrappedItemLimit = newValue.rawValue
-        }
-    }
-
-    public var extendedItemLimit: Int {
-        wrappedItemLimit + 20
+        get { ItemLimit(rawValue: wrappedItemLimit) ?? .six }
+        set { wrappedItemLimit = newValue.rawValue }
     }
 
     public var feedData: FeedData? {
-        if let unwrappedValues = self.value(forKey: "feedData") as? [FeedData] {
-            return unwrappedValues.first
-        }
-
-        return nil
+        (value(forKey: "feedData") as? [FeedData])?.first
     }
 
     public var urlString: String {
@@ -64,11 +48,8 @@ public class Feed: NSManagedObject {
     }
 
     public var needsMetaUpdate: Bool {
-        if feedData?.metaFetched == nil ||
-            feedData!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60) {
-            return true
-        }
-        return false
+        feedData?.metaFetched == nil
+        || feedData!.metaFetched! < Date(timeIntervalSinceNow: -7 * 24 * 60 * 60)
     }
 
     public var isSecure: Bool {
@@ -76,29 +57,17 @@ public class Feed: NSManagedObject {
     }
 
     public var urlSchemeSymbol: String {
-        if isSecure {
-            return "lock"
-        } else {
-            return "lock.slash"
-        }
+        isSecure ? "lock" : "lock.slash"
     }
 
     public var wrappedPreviewStyle: PreviewStyle {
-        get {
-            PreviewStyle(rawValue: Int(previewStyle)) ?? .compressed
-        }
-        set {
-            previewStyle = Int16(newValue.rawValue)
-        }
+        get { PreviewStyle(rawValue: Int(previewStyle)) ?? .compressed }
+        set { previewStyle = Int16(newValue.rawValue) }
     }
 
     public var largePreviews: Bool {
-        get {
-            wrappedPreviewStyle == .expanded
-        }
-        set {
-            wrappedPreviewStyle = newValue ? .expanded : .compressed
-        }
+        get { wrappedPreviewStyle == .expanded }
+        set { wrappedPreviewStyle = newValue ? .expanded : .compressed }
     }
 
     static func create(
@@ -111,7 +80,7 @@ public class Feed: NSManagedObject {
         feed.id = UUID()
         feed.page = page
         feed.url = url
-        feed.wrappedItemLimit = self.defaultItemLimit
+        feed.itemLimitChoice = .six
 
         if prepend {
             feed.userOrder = page.feedsUserOrderMin - 1

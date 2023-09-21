@@ -18,9 +18,7 @@ struct HoverHighlightModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .onHover { hovered in
-                isHovered = hovered
-            }
+            .onHover { isHovered = $0 }
             .background {
                 if isEnabled && isHovered {
                     if colorScheme == .dark {

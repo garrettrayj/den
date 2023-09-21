@@ -17,6 +17,7 @@ public class Page: NSManagedObject {
         if wrappedName == "" {
             return Text("Untitled", comment: "Default page name.")
         }
+
         return Text(wrappedName)
     }
 
@@ -46,6 +47,7 @@ public class Page: NSManagedObject {
             if feed.userOrder < result {
                 return feed.userOrder
             }
+
             return result
         }
     }
@@ -55,6 +57,7 @@ public class Page: NSManagedObject {
             if feed.userOrder > result {
                 return feed.userOrder
             }
+
             return result
         }
     }
