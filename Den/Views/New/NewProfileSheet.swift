@@ -27,7 +27,7 @@ struct NewProfileSheet: View {
                     prompt: Text("Untitled", comment: "Profile name placeholder.")
                 ) {
                     Label {
-                        Text("Name")
+                        Text("Name", comment: "Text field label.")
                     } icon: {
                         Image(systemName: "character.cursor.ibeam")
                     }
@@ -46,7 +46,7 @@ struct NewProfileSheet: View {
                         currentProfileID = profile.id?.uuidString
                         dismiss()
                     } label: {
-                        Text("Create Profile")
+                        Text("Create Profile", comment: "Button label.")
                     }
                 }
 

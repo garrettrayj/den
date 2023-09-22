@@ -44,7 +44,7 @@ struct NoFeeds: View {
                     """
                     Open a syndication link, drag a URL onto the page list, \
                     or go to “\(Image(systemName: "ellipsis.circle" )) > New Feed” \
-                    from the sidebar/home view to enter a web address. \
+                    from the home/sidebar view to enter a web address. \
                     Use the Safari extension to discover feeds on websites.
                     """,
                     comment: "No feeds guidance (iPad)."

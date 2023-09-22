@@ -18,12 +18,12 @@ struct ImageDepression<Content: View>: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            Spacer()
+            Spacer(minLength: 0)
             content()
-            Spacer()
+            Spacer(minLength: 0)
         }
         .padding(.vertical, padding)
-        .padding(.horizontal, padding - 8)
+        .padding(.horizontal, padding)
         .background(.fill.tertiary)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }

@@ -14,7 +14,7 @@ struct CrashMessage: View {
     var body: some View {
         ContentUnavailableView {
             Label {
-                Text("Application Crashed", comment: "Crash view title.")
+                Text("Application Error", comment: "Crash view title.")
             } icon: {
                 Image(systemName: "xmark.octagon")
             }

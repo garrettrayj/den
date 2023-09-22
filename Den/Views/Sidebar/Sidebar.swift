@@ -29,7 +29,6 @@ struct Sidebar: View {
     @Binding var showingNewProfileSheet: Bool
 
     @State private var exporterIsPresented: Bool = false
-
     @State private var isEditing = false
     @State private var opmlFile: OPMLFile?
     @State private var searchInput = ""

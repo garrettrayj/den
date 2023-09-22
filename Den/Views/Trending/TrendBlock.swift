@@ -59,7 +59,7 @@ struct TrendBlock: View {
                         Text("""
                         \(trend.items.count) items in \(trend.feeds.count) feeds. \
                         \(trend.items.unread().count) unread
-                        """, comment: "Trend block status message.")
+                        """, comment: "Trend status line.")
                     }
                     .font(.footnote)
                     .foregroundStyle(.secondary)

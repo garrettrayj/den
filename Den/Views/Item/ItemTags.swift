@@ -19,7 +19,7 @@ struct ItemTags: View {
 
     var bookmarksList: Text {
         var tagNames = item.bookmarks.compactMap { $0.tag?.nameText }
-        let prefix = Text("\(Image(systemName: "tag"))\u{00A0}")
+        let prefix = Text(verbatim: "\(Image(systemName: "tag"))\u{00A0}")
         let firstTag = prefix + tagNames.removeFirst()
 
         return tagNames.reduce(firstTag) { partialResult, tagName in

@@ -28,7 +28,11 @@ struct TagView: View {
             ZStack {
                 if tag.bookmarksArray.isEmpty {
                     ContentUnavailableView {
-                        Label("No Bookmarks", systemImage: "circle.slash")
+                        Label {
+                            Text("No Bookmarks", comment: "Content unavailable title.")
+                        } icon: {
+                            Image(systemName: "circle.slash")
+                        }
                     }
                 } else {
                     GeometryReader { geometry in

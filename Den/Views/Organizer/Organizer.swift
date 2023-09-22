@@ -31,14 +31,14 @@ struct Organizer: View {
                             Group {
                                 if feed.feedData == nil {
                                     Image(systemName: "circle.slash").foregroundStyle(.yellow)
-                                    Text("No Data")
+                                    Text("No Data", comment: "Organizer row status.")
                                 } else if let error = feed.feedData?.wrappedError {
                                     Image(systemName: "bolt.horizontal").foregroundStyle(.red)
                                     switch error {
                                     case .parsing:
-                                        Text("Parsing Error")
+                                        Text("Parsing Error", comment: "Organizer row status.")
                                     case .request:
-                                        Text("Network Error")
+                                        Text("Network Error", comment: "Organizer row status.")
                                     }
                                 } else if let responseTime = feed.feedData?.responseTime {
                                     if responseTime > 5 {
@@ -46,7 +46,10 @@ struct Organizer: View {
                                     } else if !feed.isSecure {
                                         Image(systemName: "lock.slash").foregroundStyle(.orange)
                                     }
-                                    Text("\(Int(responseTime * 1000)) ms")
+                                    Text(
+                                        "\(Int(responseTime * 1000)) ms",
+                                        comment: "Request response time (milliseconds)."
+                                    )
                                 }
                             }
                             .font(.callout)

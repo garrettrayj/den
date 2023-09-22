@@ -27,14 +27,14 @@ struct Trending: View {
             if profile.trends.isEmpty {
                 ContentUnavailableView {
                     Label {
-                        Text("Nothing Trending", comment: "Trending empty title.")
+                        Text("Nothing Trending", comment: "Content unavailable title.")
                     } icon: {
                         Image(systemName: "chart.line.downtrend.xyaxis")
                     }
                 } description: {
                     Text(
                         "No common subjects were found in item titles.",
-                        comment: "Trending empty description."
+                        comment: "Trending empty message."
                     )
                 }
             } else if visibleTrends.isEmpty {

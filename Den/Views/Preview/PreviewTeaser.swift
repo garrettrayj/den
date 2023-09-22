@@ -14,9 +14,6 @@ struct PreviewTeaser: View {
     let teaser: String
 
     var body: some View {
-        Text(teaser)
-            .font(.subheadline)
-            .lineLimit(6)
-            .padding(.top, 4)
+        Text(teaser).font(.subheadline).lineLimit(6).padding(.top, 4)
     }
 }

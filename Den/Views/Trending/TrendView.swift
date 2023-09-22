@@ -17,7 +17,7 @@ struct TrendView: View {
 
     var body: some View {
         ZStack {
-            if trend.managedObjectContext == nil {
+            if trend.managedObjectContext == nil || trend.isDeleted {
                 ContentUnavailableView {
                     Label {
                         Text("Trend Deleted", comment: "Object removed message.")
@@ -27,21 +27,33 @@ struct TrendView: View {
                 }
             } else if let profile = trend.profile {
                 WithItems(scopeObject: trend) { items in
-                    TrendLayout(
-                        trend: trend,
-                        profile: profile,
-                        hideRead: $hideRead,
-                        items: items.visibilityFiltered(hideRead ? false : nil)
-                    )
-                    .toolbar {
-                        TrendToolbar(
+                    if trend.items.isEmpty {
+                        ContentUnavailableView {
+                            Label {
+                                Text("No Items", comment: "Content unavailable title.")
+                            } icon: {
+                                Image(systemName: "circle.slash")
+                            }
+                        }
+                    } else if trend.items.unread().isEmpty && hideRead {
+                        AllRead(largeDisplay: true)
+                    } else {
+                        TrendLayout(
                             trend: trend,
                             profile: profile,
                             hideRead: $hideRead,
-                            items: items
+                            items: items.visibilityFiltered(hideRead ? false : nil)
                         )
+                        .toolbar {
+                            TrendToolbar(
+                                trend: trend,
+                                profile: profile,
+                                hideRead: $hideRead,
+                                items: items
+                            )
+                        }
+                        .navigationTitle(trend.titleText)
                     }
-                    .navigationTitle(trend.titleText)
                 }
             }
         }

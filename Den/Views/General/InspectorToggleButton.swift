@@ -23,9 +23,9 @@ struct InspectorToggleButton: View {
         } label: {
             Label {
                 if showingInspector {
-                    Text("Hide Inspector")
+                    Text("Hide Inspector", comment: "Button label.")
                 } else {
-                    Text("Show Inspector")
+                    Text("Show Inspector", comment: "Button label.")
                 }
 
             } icon: {

@@ -52,7 +52,10 @@ struct SearchLayout: View {
                         Image(systemName: "magnifyingglass")
                     }
                 } description: {
-                    Text("Turn off filtering to show hidden items.", comment: "No unread search results guidance.")
+                    Text(
+                        "Turn off filter to show hidden items.",
+                        comment: "No unread search results guidance."
+                    )
                 }
             } else {
                 GeometryReader { geometry in

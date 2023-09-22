@@ -18,7 +18,7 @@ struct OrganizerButton: View {
             detailPanel = .organizer
         } label: {
             Label {
-                Text("Organizer")
+                Text("Organizer", comment: "Button label.")
             } icon: {
                 Image(systemName: "wrench.and.screwdriver")
             }

@@ -26,7 +26,7 @@ struct NewTagSheet: View {
                     prompt: Text("Untitled", comment: "Tag name placeholder.")
                 ) {
                     Label {
-                        Text("Name")
+                        Text("Name", comment: "Text field label.")
                     } icon: {
                         Image(systemName: "character.cursor.ibeam")
                     }
@@ -41,7 +41,7 @@ struct NewTagSheet: View {
                         newTag.wrappedName = name
                         dismiss()
                     } label: {
-                        Text("Create Tag")
+                        Text("Create Tag", comment: "Button label.")
                     }
                 }
 

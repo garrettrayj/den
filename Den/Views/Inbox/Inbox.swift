@@ -54,7 +54,7 @@ struct Inbox: View {
             .toolbar {
                 InboxToolbar(profile: profile, hideRead: $hideRead, items: items)
             }
-            .navigationTitle(Text("Inbox"))
+            .navigationTitle(Text("Inbox", comment: "Navigation title"))
         }
     }
 }

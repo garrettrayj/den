@@ -30,7 +30,7 @@ struct FeedLayout: View {
                         FeedUnavailable(feedData: feed.feedData, largeDisplay: true)
                     } else {
                         if let heroImage = feed.feedData?.banner {
-                            FeedHero(heroImage: heroImage)
+                            FeedHero(url: heroImage)
                             Divider()
                         }
 
@@ -75,9 +75,7 @@ struct FeedLayout: View {
                 let url = feed.feedData?.link
             {
                 HStack {
-                    Button {
-                        openURL(url)
-                    } label: {
+                    OpenInBrowserButton(url: url) {
                         Text(linkDisplayString).lineLimit(1)
                     }
                     .buttonStyle(.plain)

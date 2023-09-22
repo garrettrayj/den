@@ -22,7 +22,7 @@ struct IconSelector: View {
                     categorySection(category: category)
                 }
             }
-            .navigationTitle("Choose Icon")
+            .navigationTitle(Text("Choose Icon", comment: "Navigation title."))
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
@@ -31,7 +31,7 @@ struct IconSelector: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Close")
+                        Text("Close", comment: "Button label.")
                     }
                 }
             }

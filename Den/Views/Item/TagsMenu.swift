@@ -19,7 +19,7 @@ struct TagsMenu: View {
     var body: some View {
         Menu {
             if profile.tagsArray.isEmpty {
-                Text("No Tags")
+                Text("No Tags", comment: "Menu options unavailable message.")
             }
             ForEach(profile.tagsArray) { tag in
                 if item.bookmarkTags.contains(tag) {
@@ -62,7 +62,7 @@ struct TagsMenu: View {
             }
         } label: {
             Label {
-                Text("Bookmark")
+                Text("Bookmark", comment: "Menu label.")
             } icon: {
                 if item.bookmarks.count > 0 {
                     Image(systemName: "bookmark.fill")

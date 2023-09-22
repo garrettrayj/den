@@ -32,7 +32,7 @@ struct HistoryOptionsSection: View {
                 Text("One Week", comment: "History retention duration option.").tag(7 as Int)
             } label: {
                 Label {
-                    Text("Keep History", comment: "History retention picker label.")
+                    Text("Keep History", comment: "Picker label.")
                 } icon: {
                     Image(systemName: "clock")
                 }

@@ -19,7 +19,7 @@ struct OrganizerOptionsPanel: View {
 
     var body: some View {
         if sources.isEmpty {
-            Text("No Selection").font(.title)
+            Text("No Selection", comment: "Inspector selection message.").font(.title)
         } else {
             Form {
                 Section {
@@ -28,7 +28,7 @@ struct OrganizerOptionsPanel: View {
                             Text("\(choice.rawValue)").tag(choice)
                         }
                     } label: {
-                        Text("Preview Limit")
+                        Text("Preview Limit", comment: "Preview label.")
                     }
                     Toggle(sources: sources, isOn: \.browserView) {
                         Text("Open in Browser", comment: "Toggle label.")
@@ -59,7 +59,7 @@ struct OrganizerOptionsPanel: View {
                         Text("Hide Images", comment: "Toggle label.")
                     }
                 } header: {
-                    Text("Previews")
+                    Text("Previews", comment: "Inspector panel header.")
                 }
 
                 Section {
@@ -71,12 +71,15 @@ struct OrganizerOptionsPanel: View {
                         Text("Page", comment: "Picker label.")
                     }
                 } header: {
-                    Text("Move")
+                    Text("Move", comment: "Inspector header.")
                 }
 
                 Section {
                     Button(role: .destructive) {
                         selection.forEach { feed in
+                            if let feedData = feed.feedData {
+                                viewContext.delete(feedData)
+                            }
                             viewContext.delete(feed)
                             selection.remove(feed)
                         }
@@ -97,7 +100,7 @@ struct OrganizerOptionsPanel: View {
                     }
                     .buttonStyle(.borderless)
                 } header: {
-                    Text("Danger Zone")
+                    Text("Danger Zone", comment: "Inspector header.")
                 }
             }
         }
@@ -110,7 +113,6 @@ struct OrganizerOptionsPanel: View {
                 for feed in $0 where feed.changedValues().keys.contains("page") {
                     feed.userOrder = (feed.page?.feedsUserOrderMax ?? 0) + 1
                 }
-
                 if viewContext.hasChanges {
                     do {
                         try viewContext.save()

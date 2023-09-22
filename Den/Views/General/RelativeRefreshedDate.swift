@@ -18,11 +18,11 @@ struct RelativeRefreshedDate: View {
     var body: some View {
         TimelineView(.everyMinute) { _ in
             if -date.timeIntervalSinceNow < 60 {
-                Text("Updated Just Now", comment: "Updated date display for times less than one minute ago.")
+                Text("Updated Just Now", comment: "Date display for times less than one minute ago.")
             } else {
                 Text(
                     "Updated \(date.formatted(relativeDateStyle))",
-                    comment: "Updated date display for times greater than one minute ago."
+                    comment: "Date display for times greater than one minute ago."
                 )
             }
         }

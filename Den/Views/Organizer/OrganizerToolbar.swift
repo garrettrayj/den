@@ -23,7 +23,7 @@ struct OrganizerToolbar: ToolbarContent {
                     selection.removeAll()
                 } label: {
                     Label {
-                        Text("Deselect All")
+                        Text("Deselect All", comment: "Button label.")
                     } icon: {
                         Image(systemName: "checklist.unchecked")
                     }
@@ -34,7 +34,7 @@ struct OrganizerToolbar: ToolbarContent {
                     selection = selection.union(profile.feedsArray)
                 } label: {
                     Label {
-                        Text("Select All")
+                        Text("Select All", comment: "Button label.")
                     } icon: {
                         Image(systemName: "checklist.checked")
                     }

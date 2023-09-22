@@ -22,17 +22,17 @@ struct OrganizerInspector: View {
         VStack {
             Picker(selection: $panel) {
                 Label {
-                    Text("Info")
+                    Text("Info", comment: "Inspector panel label.")
                 } icon: {
                     Image(systemName: "info.circle")
                 }.tag("info")
                 Label {
-                    Text("Configuration")
+                    Text("Configuration", comment: "Inspector panel label.")
                 } icon: {
                     Image(systemName: "slider.horizontal.3")
                 }.tag("config")
             } label: {
-                Text("View")
+                Text("View", comment: "Picker label.")
             }
             .labelsHidden()
             .labelStyle(.iconOnly)
@@ -42,13 +42,17 @@ struct OrganizerInspector: View {
             if panel == "info" {
                 if selection.count > 1 {
                     Spacer()
-                    Text("Multiple Selected").font(.title).foregroundStyle(.tertiary)
+                    Text("Multiple Selected", comment: "Inspector selection message.")
+                        .font(.title)
+                        .foregroundStyle(.tertiary)
                     Spacer()
                 } else if let feed = selection.first {
                     OrganizerInfoPanel(profile: profile, feed: feed)
                 } else {
                     Spacer()
-                    Text("No Selection").font(.title).foregroundStyle(.tertiary)
+                    Text("No Selection", comment: "Inspector selection message.")
+                        .font(.title)
+                        .foregroundStyle(.tertiary)
                     Spacer()
                 }
             } else if panel == "config" {
@@ -56,7 +60,9 @@ struct OrganizerInspector: View {
                     OrganizerOptionsPanel(profile: profile, selection: $selection)
                 } else {
                     Spacer()
-                    Text("No Selection").font(.title).foregroundStyle(.tertiary)
+                    Text("No Selection", comment: "Inspector selection message.")
+                        .font(.title)
+                        .foregroundStyle(.tertiary)
                     Spacer()
                 }
             }

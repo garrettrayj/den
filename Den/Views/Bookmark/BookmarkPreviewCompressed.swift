@@ -30,9 +30,11 @@ struct BookmarkPreviewCompressed: View {
                             PreviewDateline(date: date)
                         }
                     }
-                    Spacer()
                     if !feed.hideImages, let url = bookmark.image {
+                        Spacer()
                         PreviewThumbnail(url: url, isRead: false)
+                    } else {
+                        Spacer(minLength: 0)
                     }
                 }
                 .padding()

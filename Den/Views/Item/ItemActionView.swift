@@ -46,7 +46,7 @@ struct ItemActionView<Content: View>: View {
 
             NavigationLink(value: SubDetailPanel.item(item)) {
                 Label {
-                    Text("Go to Item", comment: "Context Button label.")
+                    Text("Go to Item", comment: "Button label.")
                 } icon: {
                     Image(systemName: "chevron.forward")
                 }
@@ -61,7 +61,7 @@ struct ItemActionView<Content: View>: View {
                     PasteboardUtility.copyURL(url: link)
                 } label: {
                     Label {
-                        Text("Copy Link", comment: "Context Button label.")
+                        Text("Copy Link", comment: "Button label.")
                     } icon: {
                         Image(systemName: "doc.on.doc")
                     }

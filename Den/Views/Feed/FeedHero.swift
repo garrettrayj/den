@@ -13,12 +13,12 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct FeedHero: View {
-    let heroImage: URL
+    let url: URL
 
     var body: some View {
         HStack(spacing: 0) {
             Spacer()
-            WebImage(url: heroImage, options: [.decodeFirstFrameOnly, .delayPlaceholder])
+            WebImage(url: url, options: [.decodeFirstFrameOnly, .delayPlaceholder])
                 .resizable()
                 .placeholder { ImageErrorPlaceholder() }
                 .indicator(.activity)
@@ -32,7 +32,7 @@ struct FeedHero: View {
         .aspectRatio(16/9, contentMode: .fit)
         .frame(maxHeight: 200)
         .background {
-            WebImage(url: heroImage, options: [.decodeFirstFrameOnly])
+            WebImage(url: url, options: [.decodeFirstFrameOnly])
                 .resizable()
                 .scaledToFill()
                 .background(.background)

@@ -37,13 +37,13 @@ struct FeedInspector: View {
                     }
                 }
             } header: {
-                Text("Move")
+                Text("Move", comment: "Inspector section header.")
             }
 
             Section {
                 DeleteFeedButton(feed: feed, profile: profile)
             } header: {
-                Text("Danger Zone")
+                Text("Danger Zone", comment: "Inspector section header.")
             }
         }
         .formStyle(.grouped)
@@ -95,7 +95,7 @@ struct FeedInspector: View {
             } else if feed.changedValues().keys.contains("url") {
                 Text(
                     "Web address change will be applied on next refresh.",
-                    comment: "Web address changed notice."
+                    comment: "Feed inspector guidance."
                 ).font(.footnote)
             }
         }
@@ -108,7 +108,7 @@ struct FeedInspector: View {
                     Text("\(choice.rawValue)").tag(choice)
                 }
             } label: {
-                Text("Preview Limit")
+                Text("Preview Limit", comment: "Picker label.")
             }
 
             Toggle(isOn: $feed.browserView) {
@@ -141,21 +141,21 @@ struct FeedInspector: View {
                 Text("Hide Images", comment: "Toggle label.")
             }
         } header: {
-            Text("Previews", comment: "Feed configuration section header.")
+            Text("Previews", comment: "Inspector section header.")
         } footer: {
             #if os(iOS)
             if useSystemBrowser == true {
                 Text(
                     "System web browser in use. \"Enter Reader Mode\" will be ignored.",
-                    comment: "Feed options guidance."
+                    comment: "Feed inspector guidance."
                 ).font(.footnote)
             }
             #endif
 
             if feed.changedValues().keys.contains("itemLimit") {
                 Text(
-                    "Preview limit change will be applied on next refresh.",
-                    comment: "Feed options guidance."
+                    "Preview limit will be applied on next refresh.",
+                    comment: "Feed inspector guidance."
                 ).font(.footnote)
             }
         }

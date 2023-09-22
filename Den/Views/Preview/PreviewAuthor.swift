@@ -14,8 +14,6 @@ struct PreviewAuthor: View {
     let author: String
 
     var body: some View {
-        Text(author)
-            .font(.subheadline)
-            .lineLimit(1)
+        Text(author).font(.subheadline).lineLimit(1)
     }
 }

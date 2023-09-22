@@ -17,16 +17,16 @@ struct AllRead: View {
         if largeDisplay {
             ContentUnavailableView {
                 Label {
-                    Text("All Read", comment: "All read message title.")
+                    Text("All Read", comment: "Content unavailable title.")
                 } icon: {
                     Image(systemName: "checkmark")
                 }
             } description: {
-                Text("Turn off filtering to show hidden items.", comment: "All read message guidance.")
+                Text("Turn off filter to show hidden items.", comment: "All read guidance.")
             }
         } else {
             CardNote(
-                Text("All Read", comment: "No unread items message."),
+                Text("All Read", comment: "Card note title."),
                 icon: { Image(systemName: "checkmark") }
             )
         }
