@@ -46,7 +46,7 @@ struct NewPageSheet: View {
                         page.wrappedSymbol = symbol
                         dismiss()
                     } label: {
-                        Text("Create Page")
+                        Text("Create Page", comment: "Button label.")
                     }
                 }
 

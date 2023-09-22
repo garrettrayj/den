@@ -25,10 +25,10 @@ struct OrganizerOptionsPanel: View {
                 Section {
                     Picker(sources: sources, selection: \.itemLimitChoice) {
                         ForEach(ItemLimit.allCases, id: \.self) { choice in
-                            Text("\(choice.rawValue)").tag(choice)
+                            Text(verbatim: "\(choice.rawValue)").tag(choice)
                         }
                     } label: {
-                        Text("Preview Limit", comment: "Preview label.")
+                        Text("Preview Limit", comment: "Picker label.")
                     }
                     Toggle(sources: sources, isOn: \.browserView) {
                         Text("Open in Browser", comment: "Toggle label.")
@@ -36,7 +36,7 @@ struct OrganizerOptionsPanel: View {
                     Toggle(sources: sources, isOn: \.readerMode) {
                         HStack(spacing: 4) {
                             Text("Reader Mode", comment: "Toggle label.")
-                            Text("iOS")
+                            Text(verbatim: "iOS")
                                 .font(.caption2.weight(.semibold))
                                 .foregroundStyle(.secondary)
                                 .padding(.horizontal, 6)

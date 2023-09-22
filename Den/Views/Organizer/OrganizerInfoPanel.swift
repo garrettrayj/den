@@ -28,10 +28,10 @@ struct OrganizerInfoPanel: View {
                 LabeledContent {
                     if feed.isSecure {
                         Image(systemName: feed.urlSchemeSymbol)
-                        Text("Yes", comment: "Boolean value display.")
+                        Text("Yes", comment: "Boolean value.")
                     } else {
                         Image(systemName: feed.urlSchemeSymbol)
-                        Text("No", comment: "Boolean value display.")
+                        Text("No", comment: "Boolean value.")
                     }
                 } label: {
                     Text("Secure", comment: "Info inspector label.")
@@ -49,7 +49,7 @@ struct OrganizerInfoPanel: View {
                     if feedData.responseTime > 5 {
                         Image(systemName: "tortoise")
                     }
-                    Text("\(Int(feedData.responseTime * 1000)) ms")
+                    Text("\(Int(feedData.responseTime * 1000)) ms", comment: "Time (milliseconds).")
                 } label: {
                     Text("Response Time", comment: "Info inspector label.")
                 }
@@ -60,7 +60,7 @@ struct OrganizerInfoPanel: View {
                 }
                 LabeledContent {
                     if let ageString = feedData.age, let age = Int(ageString) {
-                        Text("\(age) s")
+                        Text("\(age) s", comment: "Time (seconds).")
                     } else {
                         Text("Not Available", comment: "Info missing message.")
                     }

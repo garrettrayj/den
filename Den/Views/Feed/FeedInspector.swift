@@ -105,7 +105,7 @@ struct FeedInspector: View {
         Section {
             Picker(selection: $feed.itemLimitChoice) {
                 ForEach(ItemLimit.allCases, id: \.self) { choice in
-                    Text("\(choice.rawValue)").tag(choice)
+                    Text(verbatim: "\(choice.rawValue)").tag(choice)
                 }
             } label: {
                 Text("Preview Limit", comment: "Picker label.")

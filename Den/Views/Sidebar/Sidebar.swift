@@ -75,6 +75,7 @@ struct Sidebar: View {
         .listStyle(.sidebar)
         .badgeProminence(.decreased)
         .refreshable {
+            guard let profile = profiles.firstMatchingID(currentProfileID) else { return }
             await Task {
                 await RefreshManager.refresh(profile: profile)
             }.value

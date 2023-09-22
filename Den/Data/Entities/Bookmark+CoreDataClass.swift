@@ -18,7 +18,7 @@ public class Bookmark: NSManagedObject {
             return Text(displayTitle)
         }
 
-        return Text("Untitled", comment: "Bookmark title placeholder.")
+        return Text("Untitled", comment: "Default bookmark title.")
     }
 
     static func create(

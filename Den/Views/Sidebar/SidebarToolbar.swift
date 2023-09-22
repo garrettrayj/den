@@ -124,6 +124,7 @@ struct SidebarToolbar: ToolbarContent {
                     Image(systemName: "person.crop.circle")
                 }
             }
+            .menuOrder(.fixed)
             .disabled(refreshing)
             .accessibilityIdentifier("ProfileMenu")
         }

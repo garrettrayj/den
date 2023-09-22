@@ -2,6 +2,9 @@
 "CFBundleDisplayName" = "Den";
 /* Bundle name */
 "CFBundleName" = "Den";
+"Den Bookmark" = "Den Bookmark";
+"Den Feed" = "Den Feed";
+"Den Item" = "Den Item";
 /* Copyright (human-readable) */
 "NSHumanReadableCopyright" = "Copyright © 2023 Garrett Johnson";
 "OPML Document" = "OPML Document";
