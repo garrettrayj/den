@@ -17,6 +17,10 @@ struct DeletePageButton: View {
 
     var body: some View {
         Button(role: .destructive) {
+            page.feedsArray.forEach { feed in
+                guard let feedData = feed.feedData else { return }
+                viewContext.delete(feedData)
+            }
             viewContext.delete(page)
             do {
                 try viewContext.save()

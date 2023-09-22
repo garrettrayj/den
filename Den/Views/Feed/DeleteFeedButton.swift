@@ -18,6 +18,9 @@ struct DeleteFeedButton: View {
 
     var body: some View {
         Button(role: .destructive) {
+            if let feedData = feed.feedData {
+                viewContext.delete(feedData)
+            }
             viewContext.delete(feed)
             do {
                 try viewContext.save()
