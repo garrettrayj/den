@@ -58,7 +58,7 @@ struct ImportExportUtility {
         if let data = OPMLGenerator(title: profile.exportTitle, pages: profile.pagesArray).getData() {
             return OPMLFile(initialData: data)
         }
-        
+
         return nil
     }
 }

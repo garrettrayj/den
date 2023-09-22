@@ -15,7 +15,7 @@ import SwiftSoup
 
 struct HTMLContent {
     let source: String
-    
+
     let imageSourceBlocklist = ["feedburner", "npr-rss-pixel", "google-analytics"]
 
     func plainText() -> String? {
