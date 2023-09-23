@@ -52,7 +52,7 @@ struct ArticleWebView {
     }
 
     var tintColorCSSValue: String {
-        userTint?.hexString(environment: environment) ?? "-webkit-link"
+        userTint?.hexString(environment: environment) ?? "accentcolor"
     }
 
     private func getStylesString() -> String {
