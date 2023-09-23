@@ -1,9 +1,9 @@
+/* Picker label. */
+"Accent Color" = "Accent Colour";
+
 /* Status message. */
 "Analyzing…" = "Analysing…";
 
-/* Picker label. */
-"Color" = "Colour";
-
-/* Launch guidance message. */
-"If you have used the app before then synchronization could be in progress. Please wait a minute." = "If you have used the app before then synchronisation could be in progress. Please wait a minute.";
+/* Landing guidance message. */
+"If you have used the app before then synchronization may be in progress. Please wait a minute." = "If you have used the app before then synchronisation may be in progress. Please wait a minute.";
 
