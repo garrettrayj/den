@@ -20,9 +20,12 @@ struct ItemActionView<Content: View>: View {
     var body: some View {
         Group {
             if feed.browserView == true, let url = item.link {
-                OpenInBrowserButton(url: url, readerMode: feed.readerMode) {
-                    content.modifier(DraggableItemModifier(item: item))
-                }
+                OpenInBrowserButton(
+                    url: url,
+                    readerMode: feed.readerMode,
+                    postTask: { Task { await HistoryUtility.markItemRead(item: item) } },
+                    label: { content.modifier(DraggableItemModifier(item: item)) }
+                )
                 .buttonStyle(ItemButtonStyle(read: $item.read))
                 .accessibilityIdentifier("ItemAction")
             } else {
@@ -53,9 +56,12 @@ struct ItemActionView<Content: View>: View {
             }
 
             if let link = item.link {
-                OpenInBrowserButton(url: link, readerMode: feed.readerMode) {
-                    OpenInBrowserLabel()
-                }
+                OpenInBrowserButton(
+                    url: link,
+                    readerMode: feed.readerMode,
+                    postTask: { Task { await HistoryUtility.markItemRead(item: item) } },
+                    label: { OpenInBrowserLabel() }
+                )
 
                 Button {
                     PasteboardUtility.copyURL(url: link)

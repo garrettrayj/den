@@ -17,6 +17,7 @@ struct OpenInBrowserButton<Content: View>: View {
 
     let url: URL
     var readerMode: Bool?
+    var postTask: (() -> Void)?
 
     @ViewBuilder let label: Content
 
@@ -35,6 +36,7 @@ struct OpenInBrowserButton<Content: View>: View {
                 )
             }
             #endif
+            postTask?()
         } label: {
             label
         }
