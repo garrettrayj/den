@@ -75,8 +75,7 @@ struct Organizer: View {
         }
         #if os(macOS)
         .listStyle(.inset(alternatesRowBackgrounds: true))
-        #endif
-        #if os(iOS)
+        #else
         .environment(\.editMode, .constant(.active))
         #endif
         .navigationTitle(Text("Organizer", comment: "Navigation title."))

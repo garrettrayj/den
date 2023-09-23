@@ -22,7 +22,7 @@ struct CrashMessage: View {
             Text(
                 "A critical error occurred. Restart to try again.",
                 comment: "Crash view guidance."
-            )
+            ).padding()
         }
         .padding()
     }

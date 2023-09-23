@@ -72,15 +72,14 @@ struct Landing: View {
                 } description: {
                     Text(
                         """
-                        If you have used the app before then synchronization may be in progress. \
+                        If you have used the app before then synchronization may be in progress.
                         Please wait a minute.
+
+                        If you're new or have disabled cloud sync then create a new profile to begin.
                         """,
                         comment: "Landing guidance message."
                     )
-                    Text(
-                        "If you're new or have disabled cloud sync then create a new profile to begin.",
-                        comment: "Landing guidance message."
-                    )
+                    .padding()
                 }
             } else {
                 VStack(spacing: 0) {

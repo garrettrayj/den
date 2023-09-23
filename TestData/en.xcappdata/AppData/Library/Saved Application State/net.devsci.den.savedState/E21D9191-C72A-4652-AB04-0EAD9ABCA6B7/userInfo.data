@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>com.apple.SwiftUI.sceneID</key>
-	<string>SwiftUI.ModifiedContent&lt;SwiftUI.ModifiedContent&lt;SwiftUI.ModifiedContent&lt;SwiftUI.ModifiedContent&lt;Den.RootView, SwiftUI._EnvironmentKeyWritingModifier&lt;__C.NSManagedObjectContext&gt;&gt;, SwiftUI._EnvironmentKeyWritingModifier&lt;Swift.Optional&lt;Den.NetworkMonitor&gt;&gt;&gt;, SwiftUI._PreferenceWritingModifier&lt;SwiftUI.PreferredColorSchemeKey&gt;&gt;, SwiftUI._TaskModifier&gt;-1</string>
-</dict>
-</plist>

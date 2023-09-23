@@ -22,9 +22,9 @@ struct Welcome: View {
             }
         } description: {
             if profile.feedCount == 1 {
-                Text("1 Feed", comment: "Feed count (singular).")
+                Text("1 Feed", comment: "Feed count (singular).").padding()
             } else {
-                Text("\(profile.feedCount) Feeds", comment: "Feed count (zero/plural).")
+                Text("\(profile.feedCount) Feeds", comment: "Feed count (zero/plural).").padding()
             }
         }
     }

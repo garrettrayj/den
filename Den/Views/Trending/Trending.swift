@@ -36,6 +36,7 @@ struct Trending: View {
                         "No common subjects were found in item titles.",
                         comment: "Trending empty message."
                     )
+                    .padding()
                 }
             } else if visibleTrends.isEmpty {
                 AllRead(largeDisplay: true)
