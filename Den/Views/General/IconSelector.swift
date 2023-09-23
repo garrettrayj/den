@@ -39,11 +39,7 @@ struct IconSelector: View {
         .frame(minWidth: 600, minHeight: 480)
     }
 
-    #if os(macOS)
-    let gridItem = GridItem(.adaptive(minimum: 32), spacing: 4, alignment: .center)
-    #else
     let gridItem = GridItem(.adaptive(minimum: 40), spacing: 4, alignment: .center)
-    #endif
 
     private func categorySection(category: PageIconCategory) -> some View {
         Section {
@@ -55,7 +51,6 @@ struct IconSelector: View {
                 ForEach(SymbolLibrary.shared.categorySymbols(categoryID: category.rawValue)) { categorySymbol in
                     ZStack {
                         RoundedRectangle(cornerRadius: 4).fill(.background)
-
                         if categorySymbol.id == symbol {
                             Image(systemName: categorySymbol.id).foregroundStyle(.tint)
                             RoundedRectangle(cornerRadius: 4).strokeBorder(.tint, lineWidth: 2)

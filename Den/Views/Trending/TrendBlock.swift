@@ -14,10 +14,6 @@ import SwiftUI
 struct TrendBlock: View {
     @ObservedObject var trend: Trend
 
-    let columns = [
-        GridItem(.adaptive(minimum: 16, maximum: 16), spacing: 12, alignment: .top)
-    ]
-
     var symbol: String? {
         if trend.tag == NLTag.personalName.rawValue {
             return "person"
@@ -42,7 +38,7 @@ struct TrendBlock: View {
                     trend.titleText.font(.title2.weight(.medium))
 
                     Grid {
-                        ForEach(uniqueFaviconURLs.chunked(by: 8), id: \.self) { favicons in
+                        ForEach(uniqueFaviconURLs.chunked(by: 10), id: \.self) { favicons in
                             GridRow {
                                 ForEach(favicons, id: \.self) { favicon in
                                     FeedFavicon(url: favicon)

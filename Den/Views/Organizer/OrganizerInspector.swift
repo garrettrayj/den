@@ -18,7 +18,6 @@ struct OrganizerInspector: View {
     @State private var panel: String = "info"
 
     var body: some View {
-
         VStack {
             Picker(selection: $panel) {
                 Label {
@@ -67,5 +66,8 @@ struct OrganizerInspector: View {
                 }
             }
         }
+        #if os(iOS)
+        .background(Color(.systemGroupedBackground))
+        #endif
     }
 }

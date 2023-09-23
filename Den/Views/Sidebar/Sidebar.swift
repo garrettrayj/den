@@ -58,8 +58,8 @@ struct Sidebar: View {
                     Text("All Feeds", comment: "Sidebar section header.")
                 }
                 #else
-                InboxNavLink(profile: profile)
-                TrendingNavLink(profile: profile)
+                InboxNavLink(profile: profile, detailPanel: $detailPanel)
+                TrendingNavLink(profile: profile, detailPanel: $detailPanel)
                 #endif
                 PagesSection(
                     profile: profile,

@@ -58,6 +58,7 @@ struct FeedView: View {
         }
         #if os(iOS)
         .background(Color(.systemGroupedBackground))
+        .toolbarBackground(.visible)
         #endif
     }
 }

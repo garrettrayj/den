@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="Accent Color" xml:space="preserve">
         <source>Accent Color</source>
-        <target state="translated">Accent Colour</target>
+        <target>Accent Colour</target>
         <note>Picker label.</note>
       </trans-unit>
       <trans-unit id="Acknowledgements" xml:space="preserve">
@@ -421,7 +421,7 @@
       </trans-unit>
       <trans-unit id="If you have used the app before then synchronization may be in progress. Please wait a minute." xml:space="preserve">
         <source>If you have used the app before then synchronization may be in progress. Please wait a minute.</source>
-        <target state="translated">If you have used the app before then synchronisation may be in progress. Please wait a minute.</target>
+        <target>If you have used the app before then synchronisation may be in progress. Please wait a minute.</target>
         <note>Landing guidance message.</note>
       </trans-unit>
       <trans-unit id="If you're new or have disabled cloud sync then create a new profile to begin." xml:space="preserve">

@@ -22,7 +22,7 @@ struct PreviewHeadline: View {
         if browserView {
             return title +
             Text(verbatim: "\u{00A0}") +
-            Text(verbatim: "\(Image(systemName: "link"))").font(.footnote).foregroundStyle(.secondary)
+            Text(Image(systemName: "link")).font(.callout).foregroundStyle(.secondary)
         }
 
         return title
