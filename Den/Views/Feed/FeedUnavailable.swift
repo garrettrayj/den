@@ -59,13 +59,14 @@ struct FeedUnavailable: View {
         }
     }
 
-    var icon: Image {
+    @ViewBuilder
+    var icon: some View {
         if feedData == nil {
-            return Image(systemName: "circle.slash")
+            NullSymbol()
         } else if feedData?.wrappedError != nil {
-            return Image(systemName: "bolt.horizontal")
+            Image(systemName: "bolt.horizontal")
         } else {
-            return Image(systemName: "questionmark.diamond" )
+            Image(systemName: "questionmark.diamond" )
         }
     }
 }

@@ -16,7 +16,7 @@ struct NoFeeds: View {
             Label {
                 Text("No Feeds", comment: "Empty page title.")
             } icon: {
-                Image(systemName: "circle.slash")
+                NullSymbol()
             }
         } description: {
             #if os(macOS)

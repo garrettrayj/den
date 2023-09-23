@@ -32,7 +32,7 @@ struct TrendView: View {
                             Label {
                                 Text("No Items", comment: "Content unavailable title.")
                             } icon: {
-                                Image(systemName: "circle.slash")
+                                NullSymbol()
                             }
                         }
                     } else if trend.items.unread().isEmpty && hideRead {

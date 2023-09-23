@@ -426,6 +426,7 @@
 		68906F832A78B85900803350 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68906F852A78B85900803350 /* LaunchScreen.storyboard */; platformFilter = ios; };
 		68906F8F2A78F58900803350 /* NavigationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68906F8E2A78F58900803350 /* NavigationStore.swift */; };
 		689460852596A7BB00ED4064 /* DenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689460822596A7BB00ED4064 /* DenApp.swift */; };
+		68958DCA2ABF1598007B9D9D /* NullSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68958DC92ABF1598007B9D9D /* NullSymbol.swift */; };
 		6895C98C2A87085100BD4C21 /* HoverHighlightModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */; };
 		6895C98E2A880D6600BD4C21 /* BasicHoverButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6895C98D2A880D6600BD4C21 /* BasicHoverButtonStyle.swift */; };
 		6897242D299440B4003DAC4C /* DynamicTypeSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6897242C299440B4003DAC4C /* DynamicTypeSize+Extensions.swift */; };
@@ -769,6 +770,7 @@
 		68906F8E2A78F58900803350 /* NavigationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStore.swift; sourceTree = "<group>"; };
 		68922A642969D78A00C9A276 /* .github */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .github; sourceTree = "<group>"; };
 		689460822596A7BB00ED4064 /* DenApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DenApp.swift; sourceTree = "<group>"; };
+		68958DC92ABF1598007B9D9D /* NullSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullSymbol.swift; sourceTree = "<group>"; };
 		6895C98B2A87085100BD4C21 /* HoverHighlightModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoverHighlightModifier.swift; sourceTree = "<group>"; };
 		6895C98D2A880D6600BD4C21 /* BasicHoverButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicHoverButtonStyle.swift; sourceTree = "<group>"; };
 		6897242C299440B4003DAC4C /* DynamicTypeSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DynamicTypeSize+Extensions.swift"; sourceTree = "<group>"; };
@@ -1456,6 +1458,7 @@
 				6856DB412AB8EA090094615E /* InspectorToggleButton.swift */,
 				68FF63F32921D9C50012A275 /* MarkAllReadUnreadButton.swift */,
 				68B5269F298A352600D4B927 /* NoFeeds.swift */,
+				68958DC92ABF1598007B9D9D /* NullSymbol.swift */,
 				6862A59D2A26D90F000CAB19 /* PagePicker.swift */,
 				68D2862A2A6469E8007AD876 /* ProfileLabel.swift */,
 				6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */,
@@ -2302,6 +2305,7 @@
 				68B526A0298A352600D4B927 /* NoFeeds.swift in Sources */,
 				688A2A732A96FF0E00847D8B /* NoticeLabelStyle.swift in Sources */,
 				686C384227405FA900662D84 /* Notification+Extensions.swift in Sources */,
+				68958DCA2ABF1598007B9D9D /* NullSymbol.swift in Sources */,
 				687FEF012A3F99D70042977E /* OpenInBrowserButton.swift in Sources */,
 				687FEF052A3FA56A0042977E /* OpenInBrowserLabel.swift in Sources */,
 				687FEEFB2A3EE4E10042977E /* OPMLFile.swift in Sources */,
