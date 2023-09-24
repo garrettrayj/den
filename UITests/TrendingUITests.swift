@@ -18,8 +18,10 @@ final class TrendingUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["NewProfile"].firstMatch.tap()
+        app.buttons["CreateProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
+        app.buttons["CreatePage"].tap()
 
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -29,7 +31,7 @@ final class TrendingUITests: UITestCase {
         }
         #endif
 
-        app.staticTexts["TrendingNavLink"].tap()
+        app.buttons["TrendingNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()
