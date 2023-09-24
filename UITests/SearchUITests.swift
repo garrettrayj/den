@@ -14,8 +14,6 @@ final class SearchUITests: UITestCase {
     func testSearch() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
         #if os(iOS)
         app.swipeDown()
         #endif
@@ -69,9 +67,10 @@ final class SearchUITests: UITestCase {
         let app = launchApp(inMemory: true)
 
         if !app.buttons["NewProfile"].waitForExistence(timeout: 2) {
-            XCTFail("Create Profile button did not appear in time")
+            XCTFail("New Profile button did not appear in time")
         }
         app.buttons["NewProfile"].firstMatch.tap()
+        app.buttons["CreateProfile"].firstMatch.tap()
 
         #if os(iOS)
         app.swipeDown()
@@ -96,7 +95,7 @@ final class SearchUITests: UITestCase {
         }
         #endif
 
-        if !app.staticTexts["No results found for “Example”"].waitForExistence(timeout: 2) {
+        if !app.staticTexts["No Results for “Example”"].waitForExistence(timeout: 2) {
             XCTFail("Search status did not appear in time")
         }
 

@@ -48,6 +48,7 @@ struct NewProfileSheet: View {
                     } label: {
                         Text("Create Profile", comment: "Button label.")
                     }
+                    .accessibilityIdentifier("CreateProfile")
                 }
 
                 ToolbarItem(placement: .cancellationAction) {

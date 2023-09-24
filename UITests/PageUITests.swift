@@ -18,8 +18,10 @@ final class PageUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["NewProfile"].firstMatch.tap()
+        app.buttons["CreateProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
+        app.buttons["CreatePage"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -44,10 +46,8 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "PageEmpty")
     }
 
-    func testPageGroupedLayout() throws {
+    func testPageSpreadLayout() throws {
         let app = launchApp(inMemory: false)
-
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons["Space"].tap()
@@ -56,13 +56,13 @@ final class PageUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
-            app.buttons["Space"].tap()
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -73,13 +73,11 @@ final class PageUITests: UITestCase {
 
         sleep(3)
 
-        attachScreenshot(of: app.windows.firstMatch, named: "PageGroupedLayout")
+        attachScreenshot(of: app.windows.firstMatch, named: "PageSpreadLayout")
     }
 
     func testPageTimelineLayout() throws {
         let app = launchApp(inMemory: false)
-
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons["Space"].tap()
@@ -88,13 +86,13 @@ final class PageUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
-            app.buttons["Space"].tap()
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -119,54 +117,9 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "02-PageTimelineLayout")
     }
 
-    func testPageShowcaseLayout() throws {
-        let app = launchApp(inMemory: false)
-
-        app.buttons["SelectProfile"].firstMatch.tap()
-
-        #if os(macOS)
-        app.buttons["Space"].tap()
-        app.buttons["Hide Sidebar"].firstMatch.tap()
-        #else
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .regular &&
-                app.windows.firstMatch.verticalSizeClass == .compact {
-                app.buttons["Space"].tap()
-                app.tap()
-            } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.buttons["Space"].tap()
-            }
-        } else {
-            app.buttons["Space"].tap()
-            if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["ToggleSidebar"].tap()
-            } else {
-                app.tap()
-            }
-        }
-        #endif
-
-        #if os(macOS)
-        app.radioButtons["ShowcaseLayout"].tap()
-        #else
-        if app.windows.firstMatch.horizontalSizeClass == .compact {
-            app.buttons["PageMenu"].forceTap()
-        } else {
-            app.buttons["PageLayoutPicker"].tap()
-        }
-        app.buttons["ShowcaseLayout"].tap()
-        #endif
-
-        sleep(3)
-
-        attachScreenshot(of: app.windows.firstMatch, named: "PageShowcaseLayout")
-    }
-
     func testPageDeckLayout() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
         #if os(macOS)
         app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -174,13 +127,13 @@ final class PageUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
-            app.buttons["Space"].tap()
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -208,8 +161,6 @@ final class PageUITests: UITestCase {
     func testPageOptions() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
         #if os(macOS)
         app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -217,13 +168,13 @@ final class PageUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
-            app.buttons["Space"].tap()
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -238,16 +189,12 @@ final class PageUITests: UITestCase {
         }
         #endif
 
-        if !app.buttons["PageOptions"].waitForExistence(timeout: 2) {
-            XCTFail("Page options button did not appear in time")
+        if !app.buttons["ToggleInspector"].waitForExistence(timeout: 2) {
+            XCTFail("Page inspector button did not appear in time")
         }
 
-        app.buttons["PageOptions"].firstMatch.tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
 
-        if !app.staticTexts["Page Options"].waitForExistence(timeout: 2) {
-            XCTFail("Page options title did not appear in time")
-        }
-
-        attachScreenshot(of: app.windows.firstMatch, named: "04-PageOptions")
+        attachScreenshot(of: app.windows.firstMatch, named: "04-PageInspector")
     }
 }

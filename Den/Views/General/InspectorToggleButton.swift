@@ -40,5 +40,6 @@ struct InspectorToggleButton: View {
                 #endif
             }
         }
+        .accessibilityIdentifier("ToggleInspector")
     }
 }

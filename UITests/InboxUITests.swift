@@ -14,9 +14,7 @@ final class InboxUITests: UITestCase {
     func testInbox() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
-        app.staticTexts["InboxNavLink"].tap()
+        app.buttons["InboxNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -48,8 +46,10 @@ final class InboxUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["NewProfile"].firstMatch.tap()
+        app.buttons["CreateProfile"].firstMatch.tap()
 
         app.buttons["NewPage"].tap()
+        app.buttons["CreatePage"].tap()
 
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .phone {
@@ -59,7 +59,7 @@ final class InboxUITests: UITestCase {
         }
         #endif
 
-        app.staticTexts["InboxNavLink"].tap()
+        app.buttons["InboxNavLink"].tap()
 
         #if os(macOS)
         app.buttons["Hide Sidebar"].firstMatch.tap()

@@ -1,5 +1,5 @@
 //
-//  ProfileSettingsUITests.swift
+//  ProfileOptionsUITests.swift
 //  UITests
 //
 //  Created by Garrett Johnson on 8/1/23.
@@ -10,11 +10,9 @@
 
 import XCTest
 
-final class ProfileSettingsUITests: UITestCase {
+final class ProfileOptionsUITests: UITestCase {
     func testProfileSettings() throws {
         let app = launchApp(inMemory: false)
-
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
@@ -24,13 +22,13 @@ final class ProfileSettingsUITests: UITestCase {
             XCTFail("Sidebar menu button did not appear in time")
         }
         app.buttons["SidebarMenu"].forceTap()
-        app.buttons["ShowProfileSettings"].tap()
+        app.buttons["ShowProfileOptions"].tap()
         #endif
 
         if !app.buttons["Cancel"].waitForExistence(timeout: 4) {
-            XCTFail("Settings sheet did not appear in time")
+            XCTFail("Profile options sheet did not appear in time")
         }
 
-        attachScreenshot(of: app.windows.firstMatch, named: "09-ProfileSettings")
+        attachScreenshot(of: app.windows.firstMatch, named: "09-ProfileOptions")
     }
 }

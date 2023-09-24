@@ -48,6 +48,7 @@ struct NewPageSheet: View {
                     } label: {
                         Text("Create Page", comment: "Button label.")
                     }
+                    .accessibilityIdentifier("CreatePage")
                 }
 
                 ToolbarItem(placement: .cancellationAction) {

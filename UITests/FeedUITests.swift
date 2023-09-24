@@ -14,8 +14,6 @@ final class FeedUITests: UITestCase {
     func testFeedViewCompressed() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
         #if os(macOS)
         app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -29,7 +27,7 @@ final class FeedUITests: UITestCase {
                 app.buttons["Space"].tap()
             }
         } else {
-            app.buttons["Space"].tap()
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -47,10 +45,8 @@ final class FeedUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "05-FeedViewCompressed")
     }
 
-    func testFeedOptions() throws {
+    func testFeedInspector() throws {
         let app = launchApp(inMemory: false)
-
-        app.buttons["SelectProfile"].firstMatch.tap()
 
         #if os(macOS)
         app.buttons["Space"].tap()
@@ -65,7 +61,7 @@ final class FeedUITests: UITestCase {
                 app.buttons["Space"].tap()
             }
         } else {
-            app.buttons["Space"].tap()
+            app.staticTexts["Space"].tap()
             if XCUIDevice.shared.orientation.isLandscape {
                 app.buttons["ToggleSidebar"].tap()
             } else {
@@ -82,17 +78,13 @@ final class FeedUITests: UITestCase {
         }
         #endif
 
-        if !app.buttons["FeedOptions"].waitForExistence(timeout: 2) {
+        if !app.buttons["ToggleInspector"].waitForExistence(timeout: 2) {
             XCTFail("Feed options button did not appear in time")
         }
 
-        app.buttons["FeedOptions"].firstMatch.tap()
+        app.buttons["ToggleInspector"].firstMatch.tap()
 
-        if !app.staticTexts["Feed Options"].waitForExistence(timeout: 2) {
-            XCTFail("Feed options title did not appear in time")
-        }
-
-        attachScreenshot(of: app.windows.firstMatch, named: "06-FeedOptions")
+        attachScreenshot(of: app.windows.firstMatch, named: "06-FeedInspector")
     }
 
     func testFeedViewNoData() throws {
@@ -102,6 +94,7 @@ final class FeedUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["NewProfile"].firstMatch.tap()
+        app.buttons["CreateProfile"].firstMatch.tap()
 
         app.buttons["LoadDemo"].tap()
 
@@ -119,10 +112,10 @@ final class FeedUITests: UITestCase {
             }
         } else {
             if XCUIDevice.shared.orientation.isLandscape {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.buttons["ToggleSidebar"].tap()
             } else {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             }
         }

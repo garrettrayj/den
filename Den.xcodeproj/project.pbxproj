@@ -374,9 +374,9 @@
 		6870EBDC29C9556500E15154 /* FeedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDA29C9556400E15154 /* FeedLayout.swift */; };
 		6870EBDF29C95F6700E15154 /* TrendLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870EBDE29C95F6700E15154 /* TrendLayout.swift */; };
 		68710CB8259F8C8A007B2507 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */; };
-		6872F4A12A79CCF400C51EC8 /* ProfileSettingsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872F49E2A79CCF400C51EC8 /* ProfileSettingsUITests.swift */; };
+		6872F4A12A79CCF400C51EC8 /* ProfileOptionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6872F49E2A79CCF400C51EC8 /* ProfileOptionsUITests.swift */; };
 		687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259C2A60C1DB00188A83 /* ItemUITests.swift */; };
-		687925A52A60C1DB00188A83 /* DiagnosticsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259D2A60C1DB00188A83 /* DiagnosticsUITests.swift */; };
+		687925A52A60C1DB00188A83 /* OrganizerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259D2A60C1DB00188A83 /* OrganizerUITests.swift */; };
 		687925A62A60C1DB00188A83 /* TrendingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259E2A60C1DB00188A83 /* TrendingUITests.swift */; };
 		687925A72A60C1DB00188A83 /* PageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879259F2A60C1DB00188A83 /* PageUITests.swift */; };
 		687925A82A60C1DB00188A83 /* InboxUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687925A02A60C1DB00188A83 /* InboxUITests.swift */; };
@@ -710,9 +710,9 @@
 		6870EBDA29C9556400E15154 /* FeedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedLayout.swift; sourceTree = "<group>"; };
 		6870EBDE29C95F6700E15154 /* TrendLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendLayout.swift; sourceTree = "<group>"; };
 		68710CB7259F8C8A007B2507 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
-		6872F49E2A79CCF400C51EC8 /* ProfileSettingsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsUITests.swift; sourceTree = "<group>"; };
+		6872F49E2A79CCF400C51EC8 /* ProfileOptionsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileOptionsUITests.swift; sourceTree = "<group>"; };
 		6879259C2A60C1DB00188A83 /* ItemUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemUITests.swift; sourceTree = "<group>"; };
-		6879259D2A60C1DB00188A83 /* DiagnosticsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagnosticsUITests.swift; sourceTree = "<group>"; };
+		6879259D2A60C1DB00188A83 /* OrganizerUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizerUITests.swift; sourceTree = "<group>"; };
 		6879259E2A60C1DB00188A83 /* TrendingUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingUITests.swift; sourceTree = "<group>"; };
 		6879259F2A60C1DB00188A83 /* PageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageUITests.swift; sourceTree = "<group>"; };
 		687925A02A60C1DB00188A83 /* InboxUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxUITests.swift; sourceTree = "<group>"; };
@@ -1477,12 +1477,12 @@
 				68E83BFD2A6004590014DC64 /* AppLaunchUITests.swift */,
 				687925A12A60C1DB00188A83 /* AppSettingsUITests.swift */,
 				68D286282A64223A007AD876 /* AppSidebarUITests.swift */,
-				6879259D2A60C1DB00188A83 /* DiagnosticsUITests.swift */,
+				6879259D2A60C1DB00188A83 /* OrganizerUITests.swift */,
 				687925A32A60C1DB00188A83 /* FeedUITests.swift */,
 				687925A02A60C1DB00188A83 /* InboxUITests.swift */,
 				6879259C2A60C1DB00188A83 /* ItemUITests.swift */,
 				6879259F2A60C1DB00188A83 /* PageUITests.swift */,
-				6872F49E2A79CCF400C51EC8 /* ProfileSettingsUITests.swift */,
+				6872F49E2A79CCF400C51EC8 /* ProfileOptionsUITests.swift */,
 				687925A22A60C1DB00188A83 /* SearchUITests.swift */,
 				6879259E2A60C1DB00188A83 /* TrendingUITests.swift */,
 				68D2864B2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift */,
@@ -2408,12 +2408,12 @@
 				68E83BFE2A6004590014DC64 /* AppLaunchUITests.swift in Sources */,
 				687925A92A60C1DB00188A83 /* AppSettingsUITests.swift in Sources */,
 				68D286292A64223A007AD876 /* AppSidebarUITests.swift in Sources */,
-				687925A52A60C1DB00188A83 /* DiagnosticsUITests.swift in Sources */,
+				687925A52A60C1DB00188A83 /* OrganizerUITests.swift in Sources */,
 				687925AB2A60C1DB00188A83 /* FeedUITests.swift in Sources */,
 				687925A82A60C1DB00188A83 /* InboxUITests.swift in Sources */,
 				687925A42A60C1DB00188A83 /* ItemUITests.swift in Sources */,
 				687925A72A60C1DB00188A83 /* PageUITests.swift in Sources */,
-				6872F4A12A79CCF400C51EC8 /* ProfileSettingsUITests.swift in Sources */,
+				6872F4A12A79CCF400C51EC8 /* ProfileOptionsUITests.swift in Sources */,
 				687925AA2A60C1DB00188A83 /* SearchUITests.swift in Sources */,
 				687925A62A60C1DB00188A83 /* TrendingUITests.swift in Sources */,
 				68D2864C2A679AEE007AD876 /* UIDeviceOrientation+Extensions.swift in Sources */,

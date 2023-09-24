@@ -14,7 +14,7 @@ import SwiftUI
 
 struct HistoryUtility {
     static func markItemRead(item: Item) async {
-        guard item.read != true else { return }
+        guard item.read == false else { return }
         await logHistory(items: [item])
     }
 

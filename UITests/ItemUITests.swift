@@ -14,8 +14,6 @@ final class ItemUITests: UITestCase {
     func testItemView() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
         #if os(macOS)
         app.buttons["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
@@ -23,10 +21,10 @@ final class ItemUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.buttons["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
             if XCUIDevice.shared.orientation.isLandscape {

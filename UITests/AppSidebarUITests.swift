@@ -18,17 +18,14 @@ final class AppSidebarUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["NewProfile"].firstMatch.tap()
+        
+        app.buttons["CreateProfile"].firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "AppSidebarGetStarted")
     }
 
     func testAppSidebarAppMenu() throws {
-        let app = launchApp(inMemory: true)
-
-        if !app.buttons["NewProfile"].waitForExistence(timeout: 20) {
-            XCTFail("Create Profile button did not appear in time")
-        }
-        app.buttons["NewProfile"].firstMatch.tap()
+        let app = launchApp(inMemory: false)
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()

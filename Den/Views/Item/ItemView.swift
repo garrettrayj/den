@@ -48,7 +48,9 @@ struct ItemView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .navigationTitle(Text(verbatim: ""))
-            .task { await HistoryUtility.markItemRead(item: item) }
+            .task {
+                await HistoryUtility.markItemRead(item: item)
+            }
         }
     }
 }

@@ -24,9 +24,7 @@ final class AppLaunchUITests: UITestCase {
     func testAppLaunchOneProfile() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
-        if !app.staticTexts["InboxNavLink"].waitForExistence(timeout: 10) {
+        if !app.buttons["InboxNavLink"].waitForExistence(timeout: 10) {
             XCTFail("Inbox button did not appear in time")
         }
 
@@ -36,8 +34,6 @@ final class AppLaunchUITests: UITestCase {
     func testPosterScreenshot() throws {
         let app = launchApp(inMemory: false)
 
-        app.buttons["SelectProfile"].firstMatch.tap()
-
         if !app.buttons["InboxNavLink"].waitForExistence(timeout: 10) {
             XCTFail("Inbox button did not appear in time")
         }
@@ -46,7 +42,7 @@ final class AppLaunchUITests: UITestCase {
         app.buttons["Space"].tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .pad {
-            app.buttons["Space"].tap()
+            app.staticTexts["Space"].tap()
         }
         #endif
 
