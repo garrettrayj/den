@@ -24,7 +24,7 @@ struct FeedUnavailable: View {
                     icon
                 }
             } description: {
-                caption.padding()
+                caption
             }
         } else {
             CardNote(

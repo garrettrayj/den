@@ -28,7 +28,6 @@ struct NoFeeds: View {
                 """,
                 comment: "No feeds guidance (Mac)."
             )
-            .padding()
             .imageScale(.small)
             #else
             if UIDevice.current.userInterfaceIdiom == .phone {
@@ -40,7 +39,6 @@ struct NoFeeds: View {
                     """,
                     comment: "No feeds guidance (iPhone)."
                 )
-                .padding()
                 .imageScale(.small)
             } else {
                 Text(
@@ -52,7 +50,6 @@ struct NoFeeds: View {
                     """,
                     comment: "No feeds guidance (iPad)."
                 )
-                .padding()
                 .imageScale(.small)
             }
             #endif

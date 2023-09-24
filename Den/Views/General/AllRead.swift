@@ -23,7 +23,6 @@ struct AllRead: View {
                 }
             } description: {
                 Text("Turn off filter to show hidden items.", comment: "All read guidance.")
-                    .padding()
             }
         } else {
             CardNote(

@@ -40,7 +40,6 @@ struct SearchLayout: View {
                         "Check the spelling or try a new search.",
                         comment: "No search results guidance."
                     )
-                    .padding()
                 }
             } else if hideRead && visibilityFilteredItems.isEmpty {
                 ContentUnavailableView {
@@ -57,7 +56,6 @@ struct SearchLayout: View {
                         "Turn off filter to show hidden items.",
                         comment: "No unread search results guidance."
                     )
-                    .padding()
                 }
             } else {
                 GeometryReader { geometry in

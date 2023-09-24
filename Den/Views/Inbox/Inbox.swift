@@ -32,7 +32,6 @@ struct Inbox: View {
                             "Refresh to check for new items.",
                             comment: "Content unavailable description."
                         )
-                        .padding()
                     }
                 } else if items.unread().isEmpty && hideRead {
                     AllRead(largeDisplay: true)

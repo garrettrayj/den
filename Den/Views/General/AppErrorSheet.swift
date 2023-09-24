@@ -31,7 +31,6 @@ struct AppErrorSheet: View {
                     Text(message)
                 }
             }
-            .padding()
         }
         .padding()
     }

@@ -34,7 +34,6 @@ struct SearchView: View {
                         "Enter a term to search item titles.",
                         comment: "Search query empty guidance."
                     )
-                    .padding()
                 }
             } else {
                 WithItems(
