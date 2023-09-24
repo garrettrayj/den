@@ -19,20 +19,20 @@ struct HistoryUtility {
         profile: Profile
     ) {
         guard item.read == false else { return }
-        
+
         let history = History.create(in: context, profile: profile)
         history.link = item.link
         history.visited = .now
 
         item.read = true
-        
+
         do {
             try context.save()
         } catch {
             CrashUtility.handleCriticalError(error as NSError)
         }
     }
-    
+
     static func markItemUnread(
         context: NSManagedObjectContext,
         item: Item,
@@ -45,7 +45,7 @@ struct HistoryUtility {
         }
 
         item.read = false
-        
+
         do {
             try context.save()
         } catch {

@@ -93,27 +93,7 @@ struct Sidebar: View {
             }
         }
         .onSubmit(of: .search) {
-            if let search = profile.searchesArray.first(where: {
-                $0.query?.lowercased() == searchInput.lowercased()
-            }) {
-                search.query = searchInput
-                search.submitted = Date()
-                do {
-                    try viewContext.save()
-                    detailPanel = .search(search)
-                } catch {
-                    CrashUtility.handleCriticalError(error as NSError)
-                }
-                return
-            }
-
-            let search = Search.create(in: viewContext, profile: profile, query: searchInput)
-            do {
-                try viewContext.save()
-                detailPanel = .search(search)
-            } catch {
-                CrashUtility.handleCriticalError(error as NSError)
-            }
+            detailPanel = .search(searchInput)
         }
         #if os(iOS)
         .environment(\.editMode, .constant(self.isEditing ? EditMode.active : EditMode.inactive))

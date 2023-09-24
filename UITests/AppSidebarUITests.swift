@@ -18,7 +18,7 @@ final class AppSidebarUITests: UITestCase {
             XCTFail("Create Profile button did not appear in time")
         }
         app.buttons["NewProfile"].firstMatch.tap()
-        
+
         app.buttons["CreateProfile"].firstMatch.tap()
 
         attachScreenshot(of: app.windows.firstMatch, named: "AppSidebarGetStarted")

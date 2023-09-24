@@ -14,7 +14,7 @@ enum DetailPanel: Hashable {
     case inbox
     case organizer
     case page(Page)
-    case search(Search)
+    case search(String)
     case tag(Tag)
     case trending
     case welcome
@@ -46,9 +46,9 @@ enum DetailPanel: Hashable {
         return nil
     }
 
-    var searchID: String? {
-        if case .search(let search) = self {
-            return search.id?.uuidString
+    var searchQuery: String? {
+        if case .search(let searchQuery) = self {
+            return searchQuery
         }
 
         return nil
@@ -65,7 +65,7 @@ enum DetailPanel: Hashable {
     enum CodingKeys: String, CodingKey {
         case panelID
         case pageID
-        case searchID
+        case searchQuery
         case tagID
     }
 }
@@ -90,16 +90,9 @@ extension DetailPanel: Decodable {
             if let page = try? context.fetch(request).first {
                 detailPanel = .page(page)
             }
-        } else if panelID == "search" && values.contains(.searchID) {
-            let decodedSearchID = try values.decode(String.self, forKey: .searchID)
-
-            let request = Search.fetchRequest()
-            request.predicate = NSPredicate(format: "id = %@", decodedSearchID)
-
-            let context = PersistenceController.shared.container.viewContext
-            if let search = try? context.fetch(request).first {
-                detailPanel = .search(search)
-            }
+        } else if panelID == "search" && values.contains(.searchQuery) {
+            let decodedSearchQuery = try values.decode(String.self, forKey: .searchQuery)
+            detailPanel = .search(decodedSearchQuery)
         } else if panelID == "tag" {
             let decodedTagID = try values.decode(String.self, forKey: .tagID)
 
@@ -123,7 +116,7 @@ extension DetailPanel: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(panelID, forKey: .panelID)
         try container.encode(pageID, forKey: .pageID)
-        try container.encode(searchID, forKey: .searchID)
+        try container.encode(searchQuery, forKey: .searchQuery)
         try container.encode(tagID, forKey: .tagID)
     }
 }

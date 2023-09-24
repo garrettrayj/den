@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ReadUnreadButton: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @ObservedObject var item: Item
     @ObservedObject var profile: Profile
 

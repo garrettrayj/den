@@ -12,14 +12,17 @@ import CoreData
 import SwiftUI
 
 struct SearchView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     @ObservedObject var profile: Profile
-    @ObservedObject var search: Search
 
     @Binding var hideRead: Bool
 
+    let query: String
+
     var body: some View {
         ZStack {
-            if search.query == "" {
+            if query == "" {
                 ContentUnavailableView {
                     Label {
                         Text("No Query", comment: "Search query empty title.")
@@ -37,20 +40,41 @@ struct SearchView: View {
                 WithItems(
                     scopeObject: profile,
                     includeExtras: true,
-                    searchQuery: search.wrappedQuery
+                    searchQuery: query
                 ) { items in
                     SearchLayout(
                         profile: profile,
-                        search: search,
                         hideRead: $hideRead,
+                        query: query,
                         items: items
                     )
                     .toolbar {
-                        SearchToolbar(hideRead: $hideRead, query: search.wrappedQuery, items: items)
+                        SearchToolbar(hideRead: $hideRead, query: query, items: items)
                     }
                 }
             }
         }
+        .onAppear { saveSearch() }
+        .onChange(of: query) { saveSearch() }
         .navigationTitle(Text("Search", comment: "Navigation title."))
+    }
+
+    private func saveSearch() {
+        guard query != "" else { return }
+
+        if let search = profile.searchesArray.first(where: {
+            $0.query?.lowercased() == query.lowercased()
+        }) {
+            search.query = query
+            search.submitted = Date()
+        } else {
+            _ = Search.create(in: viewContext, profile: profile, query: query)
+        }
+
+        do {
+            try viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 }

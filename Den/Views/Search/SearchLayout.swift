@@ -13,10 +13,10 @@ import SwiftUI
 
 struct SearchLayout: View {
     @ObservedObject var profile: Profile
-    @ObservedObject var search: Search
 
     @Binding var hideRead: Bool
 
+    let query: String
     let items: [Item]
 
     var visibilityFilteredItems: [Item] {
@@ -29,7 +29,7 @@ struct SearchLayout: View {
                 ContentUnavailableView {
                     Label {
                         Text(
-                            "No Results for “\(search.wrappedQuery)”",
+                            "No Results for “\(query)”",
                             comment: "No search results message title."
                         )
                     } icon: {
@@ -46,7 +46,7 @@ struct SearchLayout: View {
                 ContentUnavailableView {
                     Label {
                         Text(
-                            "No Unread Results for\n“\(search.wrappedQuery)”",
+                            "No Unread Results for\n“\(query)”",
                             comment: "No unread search results title."
                         )
                     } icon: {

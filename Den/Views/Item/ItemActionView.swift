@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ItemActionView<Content: View>: View {
     @Environment(\.managedObjectContext) private var viewContext
-    
+
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile

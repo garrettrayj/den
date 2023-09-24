@@ -12,7 +12,7 @@ import SwiftUI
 
 struct AppErrorSheet: View {
     @Binding var message: String?
-    
+
     var body: some View {
         ContentUnavailableView {
             Label {
@@ -26,7 +26,7 @@ struct AppErrorSheet: View {
                     "A critical error occurred. Restart to try again.",
                     comment: "Crash view guidance."
                 )
-                
+
                 if let message = message {
                     Text(message)
                 }
