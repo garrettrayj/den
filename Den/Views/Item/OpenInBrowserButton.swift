@@ -17,12 +17,13 @@ struct OpenInBrowserButton<Content: View>: View {
 
     let url: URL
     var readerMode: Bool?
-    var postTask: (() -> Void)?
+    var preTask: (() -> Void)?
 
     @ViewBuilder let label: Content
 
     var body: some View {
         Button {
+            preTask?()
             #if os(macOS)
             openURL(url)
             #else
@@ -36,7 +37,6 @@ struct OpenInBrowserButton<Content: View>: View {
                 )
             }
             #endif
-            postTask?()
         } label: {
             label
         }

@@ -12,6 +12,7 @@ import SwiftUI
 
 struct ItemView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var item: Item
     @ObservedObject var profile: Profile
@@ -48,8 +49,8 @@ struct ItemView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .navigationTitle(Text(verbatim: ""))
-            .task {
-                await HistoryUtility.markItemRead(item: item)
+            .onAppear {
+                HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
             }
         }
     }

@@ -11,6 +11,8 @@
 import SwiftUI
 
 struct ItemActionView<Content: View>: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @ObservedObject var item: Item
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
@@ -23,7 +25,9 @@ struct ItemActionView<Content: View>: View {
                 OpenInBrowserButton(
                     url: url,
                     readerMode: feed.readerMode,
-                    postTask: { Task { await HistoryUtility.markItemRead(item: item) } },
+                    preTask: {
+                        HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+                    },
                     label: { content.modifier(DraggableItemModifier(item: item)) }
                 )
                 .buttonStyle(ItemButtonStyle(read: $item.read))
@@ -39,7 +43,7 @@ struct ItemActionView<Content: View>: View {
         .contextMenu {
             #if os(iOS)
             ControlGroup {
-                ReadUnreadButton(item: item)
+                ReadUnreadButton(item: item, profile: profile)
                 TagsMenu(item: item, profile: profile)
             }
             #else
@@ -59,7 +63,9 @@ struct ItemActionView<Content: View>: View {
                 OpenInBrowserButton(
                     url: link,
                     readerMode: feed.readerMode,
-                    postTask: { Task { await HistoryUtility.markItemRead(item: item) } },
+                    preTask: {
+                        HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)
+                    },
                     label: { OpenInBrowserLabel() }
                 )
 

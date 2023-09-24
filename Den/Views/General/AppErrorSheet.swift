@@ -1,5 +1,5 @@
 //
-//  CrashMessage.swift
+//  AppErrorSheet.swift
 //  Den
 //
 //  Created by Garrett Johnson on 7/3/21.
@@ -10,7 +10,9 @@
 
 import SwiftUI
 
-struct CrashMessage: View {
+struct AppErrorSheet: View {
+    @Binding var message: String?
+    
     var body: some View {
         ContentUnavailableView {
             Label {
@@ -19,10 +21,17 @@ struct CrashMessage: View {
                 Image(systemName: "xmark.octagon")
             }
         } description: {
-            Text(
-                "A critical error occurred. Restart to try again.",
-                comment: "Crash view guidance."
-            ).padding()
+            VStack {
+                Text(
+                    "A critical error occurred. Restart to try again.",
+                    comment: "Crash view guidance."
+                )
+                
+                if let message = message {
+                    Text(message)
+                }
+            }
+            .padding()
         }
         .padding()
     }

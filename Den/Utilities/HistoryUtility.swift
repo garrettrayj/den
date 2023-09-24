@@ -13,9 +13,44 @@ import OSLog
 import SwiftUI
 
 struct HistoryUtility {
-    static func markItemRead(item: Item) async {
+    static func markItemRead(
+        context: NSManagedObjectContext,
+        item: Item,
+        profile: Profile
+    ) {
         guard item.read == false else { return }
-        await logHistory(items: [item])
+        
+        let history = History.create(in: context, profile: profile)
+        history.link = item.link
+        history.visited = .now
+
+        item.read = true
+        
+        do {
+            try context.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
+    }
+    
+    static func markItemUnread(
+        context: NSManagedObjectContext,
+        item: Item,
+        profile: Profile
+    ) {
+        guard item.read == true else { return }
+
+        for history in item.history {
+            context.delete(history)
+        }
+
+        item.read = false
+        
+        do {
+            try context.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 
     static func toggleReadUnread(items: [Item]) async {

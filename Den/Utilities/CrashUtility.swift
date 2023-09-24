@@ -14,10 +14,15 @@ import SwiftUI
 
 struct CrashUtility {
     static func handleCriticalError(_ anError: NSError) {
-        let formatted = self.formatErrorMessage(anError)
-        Logger.main.critical("\(formatted)")
+        let formattedMessage = self.formatErrorMessage(anError)
+        Logger.main.critical("\(formattedMessage)")
+        
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .appCrashed, object: nil)
+            NotificationCenter.default.post(
+                name: .appErrored,
+                object: nil,
+                userInfo: ["message": formattedMessage as Any]
+            )
         }
     }
 

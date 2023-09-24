@@ -15,7 +15,8 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    @State private var showingCrashMessage = false
+    @State private var appErrorMessage: String?
+    @State private var showingAppErrorSheet = false
     @State private var showingNewProfileSheet = false
 
     @SceneStorage("CurrentProfileID") private var currentProfileID: String?
@@ -44,11 +45,14 @@ struct RootView: View {
                 )
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .appCrashed, object: nil)) { _ in
-            showingCrashMessage = true
+        .onReceive(NotificationCenter.default.publisher(for: .appErrored, object: nil)) { output in
+            if let message = output.userInfo?["message"] as? String {
+                appErrorMessage = message
+            }
+            showingAppErrorSheet = true
         }
-        .sheet(isPresented: $showingCrashMessage) {
-            CrashMessage().interactiveDismissDisabled()
+        .sheet(isPresented: $showingAppErrorSheet) {
+            AppErrorSheet(message: $appErrorMessage).interactiveDismissDisabled()
         }
         .sheet(
             isPresented: $showingNewProfileSheet,

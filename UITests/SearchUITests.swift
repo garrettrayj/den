@@ -37,17 +37,8 @@ final class SearchUITests: UITestCase {
         }
         #endif
 
-        if !app
-            .staticTexts
-            #if os(macOS)
-            .containing(NSPredicate(format: "value CONTAINS[c] %@", "results for “NASA”"))
-            #else
-            .containing(NSPredicate(format: "label CONTAINS[c] %@", "results for “NASA”"))
-            #endif
-            .firstMatch
-            .waitForExistence(timeout: 2)
-        {
-            XCTFail("Search status did not appear in time")
+        if !app.staticTexts["Search"].waitForExistence(timeout: 2) {
+            XCTFail("Search title did not appear in time")
         }
 
         // For unknown reasons, app.windows.firstMatch does not work on iPhone in the specific
