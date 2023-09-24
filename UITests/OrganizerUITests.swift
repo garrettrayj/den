@@ -59,7 +59,7 @@ final class OrganizerUITests: UITestCase {
 
         #if os(macOS)
         app.popUpButtons["SidebarMenu"].tap()
-        app.menuItems["Diagnostics"].tap()
+        app.menuItems["Organizer"].tap()
         #else
         if !app.buttons["SidebarMenu"].waitForExistence(timeout: 2) {
             XCTFail("Sidebar menu button did not appear in time")

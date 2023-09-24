@@ -39,7 +39,7 @@ final class AppLaunchUITests: UITestCase {
         }
 
         #if os(macOS)
-        app.buttons["Space"].tap()
+        app.textFields["Space"].tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .pad {
             app.staticTexts["Space"].tap()

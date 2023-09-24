@@ -15,7 +15,7 @@ final class ItemUITests: UITestCase {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
-        app.buttons["Space"].tap()
+        app.textFields["Space"].tap()
         app.buttons["Hide Sidebar"].firstMatch.tap()
         #else
         if UIDevice.current.userInterfaceIdiom == .phone {

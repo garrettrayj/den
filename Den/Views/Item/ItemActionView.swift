@@ -47,7 +47,7 @@ struct ItemActionView<Content: View>: View {
                 TagsMenu(item: item, profile: profile)
             }
             #else
-            ReadUnreadButton(item: item)
+            ReadUnreadButton(item: item, profile: profile)
             TagsMenu(item: item, profile: profile)
             #endif
 
