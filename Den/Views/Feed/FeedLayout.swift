@@ -31,7 +31,6 @@ struct FeedLayout: View {
                     } else {
                         if let heroImage = feed.feedData?.banner {
                             FeedHero(url: heroImage)
-                            Divider()
                         }
 
                         if items.isEmpty {

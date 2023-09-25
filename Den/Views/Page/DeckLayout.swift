@@ -47,6 +47,10 @@ struct DeckLayout: View {
             .scrollTargetBehavior(.viewAligned)
             .scrollClipDisabled()
             .contentMargins(.horizontal, 16)
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible)
+            #endif
         }
     }
 

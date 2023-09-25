@@ -39,5 +39,7 @@ struct FeedHero: View {
                 .overlay(.thinMaterial)
         }
         .clipped()
+        .modifier(RoundedContainerModifier())
+        .padding([.horizontal, .top])
     }
 }

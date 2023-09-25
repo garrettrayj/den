@@ -360,6 +360,7 @@
 		6862A5922A23EEE4000CAB19 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6862A5902A23EEE4000CAB19 /* Localizable.strings */; };
 		6862A59A2A25B6DF000CAB19 /* RelativeRefreshedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A5992A25B6DF000CAB19 /* RelativeRefreshedDate.swift */; };
 		6862A59E2A26D90F000CAB19 /* PagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6862A59D2A26D90F000CAB19 /* PagePicker.swift */; };
+		6863A3F42AC1E5C700A7DC61 /* NullSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68958DC92ABF1598007B9D9D /* NullSymbol.swift */; };
 		68654531274AC3B600BAE03E /* PageSymbols.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6865452F274AC3B600BAE03E /* PageSymbols.plist */; };
 		6865575E29E7B290000EBF37 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865575D29E7B290000EBF37 /* SearchView.swift */; };
 		6865576129E7B429000EBF37 /* SearchToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6865576029E7B429000EBF37 /* SearchToolbar.swift */; };
@@ -2024,6 +2025,7 @@
 				683C35A62A9F188700568E9A /* ImageMIMEType.swift in Sources */,
 				683C35A72A9F188700568E9A /* ImageSelection.swift in Sources */,
 				683C35A82A9F188700568E9A /* ImportButton.swift in Sources */,
+				6863A3F42AC1E5C700A7DC61 /* NullSymbol.swift in Sources */,
 				683C35A92A9F188700568E9A /* ImportExportUtility.swift in Sources */,
 				683C35AA2A9F188700568E9A /* Inbox.swift in Sources */,
 				683C35AB2A9F188700568E9A /* InboxNavLink.swift in Sources */,
@@ -2689,7 +2691,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 269;
+				CURRENT_PROJECT_VERSION = 311;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2711,7 +2713,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.17.3;
+				MARKETING_VERSION = 1.18.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2758,7 +2760,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 269;
+				CURRENT_PROJECT_VERSION = 311;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2774,7 +2776,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.17.3;
+				MARKETING_VERSION = 1.18.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = Den;

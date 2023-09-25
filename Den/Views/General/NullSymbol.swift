@@ -12,6 +12,7 @@ import SwiftUI
 
 struct NullSymbol: View {
     var body: some View {
-        Image(systemName: "circle.slash").rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+        Image(systemName: "circle.slash")
+            .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
     }
 }

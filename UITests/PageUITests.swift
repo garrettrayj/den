@@ -198,7 +198,7 @@ final class PageUITests: UITestCase {
         }
 
         app.buttons["ToggleInspector"].firstMatch.tap()
-        
+
         sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "04-PageInspector")

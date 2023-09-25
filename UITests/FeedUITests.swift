@@ -83,7 +83,7 @@ final class FeedUITests: UITestCase {
         }
 
         app.buttons["ToggleInspector"].firstMatch.tap()
-        
+
         sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "06-FeedInspector")
