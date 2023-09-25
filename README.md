@@ -2,7 +2,7 @@
 
 Create custom landscape views of what's happening with a modern aggregator app made for skimming.
 
-<kbd><img src="Screenshot.png" alt="Screenshot" /></kbd>
+<img src="Screenshot.png" alt="Screenshot" />
 
 The key idea is that people are empowered to be more informed and less distracted by clean design, privacy, and complete control over what they follow. Made for iPhone, iPad, and Mac; Intuitive navigation makes browsing easy on small devices while flexible layouts make the most of larger screens.
 
