@@ -27,6 +27,7 @@ runDate=$(date '+%Y-%m-%d %H:%M:%S')
 if [ "$__IS_NOT_MACOS" == "NO" ]
 then
     echo "$runDate Load MacOS Test Data"
+    rm -rf $HOME/Library/Containers/net.devsci.den/Data/*
     copyCommand="cp -a $PROJECT_DIR/TestData/en.xcappdata/AppData/. $HOME/Library/Containers/net.devsci.den/Data"
     echo $copyCommand
     exec $copyCommand

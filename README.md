@@ -17,8 +17,6 @@ Alternatively, for Mac only, download the [latest release](https://github.com/ga
 <dl>
 <dt>Multi-Platform</dt>
 <dd>Built for Mac, iPad, and iPhone.</dd>
-<dt>Adaptable Page Layouts</dt>
-<dd>Four options to choose from, all designed to scale from phone to desktop.</dd>
 <dt>Cloud Sync</dt>
 <dd>Feeds, history, and settings on all your devices without signing up for yet another account.</dd>
 <dt>RSS, Atom, and JSON Feed</dt>
