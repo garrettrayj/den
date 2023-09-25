@@ -56,6 +56,10 @@ struct FeedInspector: View {
                 }
             }
         }
+        #if os(iOS)
+        .clipped()
+        .background(Color(.systemGroupedBackground).ignoresSafeArea(.all))
+        #endif
     }
 
     private var generalSection: some View {

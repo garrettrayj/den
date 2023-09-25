@@ -28,9 +28,6 @@ struct PageInspector: View {
                 Text("Danger Zone")
             }
         }
-        #if os(iOS)
-        .environment(\.editMode, .constant(.active))
-        #endif
         .onDisappear {
             if viewContext.hasChanges {
                 do {
@@ -40,6 +37,11 @@ struct PageInspector: View {
                 }
             }
         }
+        #if os(iOS)
+        .environment(\.editMode, .constant(.active))
+        .clipped()
+        .background(Color(.systemGroupedBackground).ignoresSafeArea(.all))
+        #endif
     }
 
     private var generalSection: some View {
