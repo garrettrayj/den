@@ -29,6 +29,8 @@ simulators=(
 # Save final screenshots into this folder (it will be created)
 targetFolder="$HOME/Desktop/DenScreenshots"
 
+sdk="iphoneos17.0"
+
 function capture_mac {
     # Capture macOS screenshots
     rm -rf /tmp/DenDerivedData/Logs/Test
@@ -73,6 +75,7 @@ function capture_ios {
             -scheme $schemeName \
             -derivedDataPath '/tmp/DenDerivedData/' \
             -destination "platform=iOS Simulator,name=$simulator_name" \
+            -sdk $sdk \
             build-for-testing
             
         xcrun simctl install "$simulator_name" /tmp/DenDerivedData/Build/Products/Debug-iphonesimulator/Den.app
@@ -88,6 +91,7 @@ function capture_ios {
             -testPlan Marketing \
             -derivedDataPath '/tmp/DenDerivedData/' \
             -destination "platform=iOS Simulator,name=$simulator_name" \
+            -sdk $sdk \
             test-without-building
             
         echo "🖼  Collecting Results..."
@@ -118,7 +122,7 @@ function capture_ios {
 
 start_time=$SECONDS
 
-capture_mac
+capture_ios
 
 elapsed=$(( SECONDS - start_time ))
 

@@ -20,12 +20,15 @@ final class TrendingUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
+        if !app.buttons["NewPage"].waitForExistence(timeout: 2) {
+            XCTFail("New Page button did not appear in time")
+        }
         app.buttons["NewPage"].tap()
         app.buttons["CreatePage"].tap()
 
         #if os(iOS)
         if UIDevice.current.userInterfaceIdiom == .phone {
-            if app.windows.firstMatch.horizontalSizeClass == .compact {
+            if app.windows.firstMatch.horizontalSizeClass != .compact {
                 app.navigationBars.firstMatch.buttons.firstMatch.tap()
             }
         }

@@ -77,6 +77,7 @@ struct Landing: View {
                         """,
                         comment: "Landing guidance message."
                     )
+                    .padding(.top)
                     Text(
                          "If you're new or have disabled cloud sync then create a new profile to begin.",
                          comment: "Landing guidance message."

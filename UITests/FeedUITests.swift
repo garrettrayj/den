@@ -21,10 +21,10 @@ final class FeedUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.textFields["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.textFields["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
             app.staticTexts["Space"].tap()
@@ -55,10 +55,10 @@ final class FeedUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.textFields["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.textFields["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
             app.staticTexts["Space"].tap()
@@ -83,6 +83,8 @@ final class FeedUITests: UITestCase {
         }
 
         app.buttons["ToggleInspector"].firstMatch.tap()
+        
+        sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "06-FeedInspector")
     }
@@ -96,6 +98,9 @@ final class FeedUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
+        if !app.buttons["LoadDemo"].waitForExistence(timeout: 2) {
+            XCTFail("Load Demo button did not appear in time")
+        }
         app.buttons["LoadDemo"].tap()
 
         #if os(macOS)
@@ -105,10 +110,10 @@ final class FeedUITests: UITestCase {
         if UIDevice.current.userInterfaceIdiom == .phone {
             if app.windows.firstMatch.horizontalSizeClass == .regular &&
                 app.windows.firstMatch.verticalSizeClass == .compact {
-                app.textFields["Space"].tap()
+                app.staticTexts["Space"].tap()
                 app.tap()
             } else if app.windows.firstMatch.horizontalSizeClass == .compact {
-                app.textFields["Space"].tap()
+                app.staticTexts["Space"].tap()
             }
         } else {
             if XCUIDevice.shared.orientation.isLandscape {

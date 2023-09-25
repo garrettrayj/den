@@ -20,6 +20,10 @@ final class PageUITests: UITestCase {
         app.buttons["NewProfile"].firstMatch.tap()
         app.buttons["CreateProfile"].firstMatch.tap()
 
+        if !app.buttons["NewPage"].waitForExistence(timeout: 2) {
+            XCTFail("New Page button did not appear in time")
+        }
+
         app.buttons["NewPage"].tap()
         app.buttons["CreatePage"].tap()
 
@@ -158,7 +162,7 @@ final class PageUITests: UITestCase {
         attachScreenshot(of: app.windows.firstMatch, named: "03-PageDeckLayout")
     }
 
-    func testPageOptions() throws {
+    func testPageInspector() throws {
         let app = launchApp(inMemory: false)
 
         #if os(macOS)
@@ -194,6 +198,8 @@ final class PageUITests: UITestCase {
         }
 
         app.buttons["ToggleInspector"].firstMatch.tap()
+        
+        sleep(2)
 
         attachScreenshot(of: app.windows.firstMatch, named: "04-PageInspector")
     }
