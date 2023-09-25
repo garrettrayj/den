@@ -4,7 +4,13 @@ Create custom landscape views of what's happening with a modern aggregator app m
 
 <kbd><img src="Screenshot.png" alt="Screenshot" /></kbd>
 
-Inspired by personalized start pages past, Den is for creating simple dashboards to follow the sources that matter to you. It's made for people who want more control over what they read and need to keep up-to-date with feeds that aren't always available in other apps. The flexible organization options and broadsheet layouts are tailored especially to information mavens. Academics, doctors, engineers, investors, journalists, scientists, and professionals who keep an eye on niche news wires will find a lot to like. That said, anyone fed up with excessive ads and manipulative algorithms can enjoy the minimalist design and uncompromising approach to privacy.
+The key idea is that people are empowered to be more informed and less distracted by clean design, privacy, and complete control over what they follow. Made for iPhone, iPad, and Mac; Intuitive navigation makes browsing easy on small devices while flexible layouts make the most of larger screens.
+
+## Install
+
+Purchase [Den for RSS on the App Store](https://apps.apple.com/us/app/den-for-rss/id1528917651) to get it for both iOS and Mac. Buying on the App Store also supports development. Thank you.
+
+Alternatively, for Mac only, download the [latest release](https://github.com/garrettrayj/den/releases/latest) from GitHub for free.
 
 ## Features
 
@@ -21,19 +27,15 @@ Inspired by personalized start pages past, Den is for creating simple dashboards
 <dd>Backup and restore feeds using common OPML files.</dd>
 <dt>Trending</dt>
 <dd>Browse by common subjects found through natural language processing.</dd>
+<dt>Bookmarks</dt>
+<dd>Save articles with custom tags.</dt>
 <dt>Search</dt>
 <dd>Find the latest on a topic by looking for keywords in titles.</dd>
 <dt>Web Extension</dt>
 <dd>Discover feeds on webpages with the companion browser extension.</dd>
-<dt>Diagnostics</dt>
-<dd>View feed response times and cache settings.</dd>
+<dt>Organizer</dt>
+<dd>View feed response information and change options in bulk.</dd>
 </dl>
-
-## Installation
-
-Purchase [Den for RSS on the App Store](https://apps.apple.com/us/app/den-for-rss/id1528917651) to get it for both iOS and Mac with automatic updates. Buying on the App Store also supports development. Thank you.
-
-Alternatively, for Mac only, download the [latest release](https://github.com/garrettrayj/den/releases/latest) from GitHub for free. Note, for now at least, updates are on you when using the free download.
 
 ## Connect
 
