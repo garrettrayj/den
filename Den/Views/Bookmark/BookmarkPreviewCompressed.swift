@@ -21,7 +21,7 @@ struct BookmarkPreviewCompressed: View {
             Divider()
             BookmarkActionView(bookmark: bookmark, feed: feed) {
                 HStack(alignment: .top) {
-                    VStack(spacing: 4) {
+                    VStack(alignment: .leading, spacing: 4) {
                         PreviewHeadline(title: bookmark.titleText, browserView: feed.browserView)
                         if !feed.hideBylines, let author = bookmark.author {
                             PreviewAuthor(author: author)
