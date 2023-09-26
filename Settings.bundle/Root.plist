@@ -46,7 +46,7 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>1.18.4 (311)</string>
+			<string>1.18.5 (316)</string>
 			<key>Key</key>
 			<string>VersionPreference</string>
 			<key>Title</key>
