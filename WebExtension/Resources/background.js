@@ -10,13 +10,8 @@ function updateBadge(count) {
     browser.browserAction.setBadgeText({text: badgeText})
 }
 
-
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.subject === "results") {
         updateBadge(request.data.length)
     }
 });
-
-browser.tabs.onActivated.addListener(function() {
-    updateBadge(0)
-})
