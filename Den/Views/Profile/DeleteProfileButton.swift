@@ -66,7 +66,7 @@ struct DeleteProfileButton: View {
             viewContext.delete(trend)
         }
         viewContext.delete(profile)
-        
+
         do {
             try viewContext.save()
         } catch {
