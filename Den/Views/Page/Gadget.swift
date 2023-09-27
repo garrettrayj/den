@@ -51,7 +51,11 @@ struct Gadget: View {
                 VStack(spacing: 0) {
                     FeedNavLink(feed: feed)
                         .buttonStyle(FeedTitleButtonStyle())
+                        #if os(macOS)
                         .background(.background.quinary)
+                        #else
+                        .background(Color(.secondarySystemGroupedBackground))
+                        #endif
                     Divider()
                 }
             }
