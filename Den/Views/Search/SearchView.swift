@@ -21,7 +21,7 @@ struct SearchView: View {
     let query: String
 
     var body: some View {
-        ZStack {
+        Group {
             if query == "" {
                 ContentUnavailableView {
                     Label {

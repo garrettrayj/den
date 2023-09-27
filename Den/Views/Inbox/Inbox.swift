@@ -17,7 +17,7 @@ struct Inbox: View {
 
     var body: some View {
         WithItems(scopeObject: profile) { items in
-            ZStack {
+            Group {
                 if profile.feedsArray.isEmpty {
                     NoFeeds()
                 } else if items.isEmpty {

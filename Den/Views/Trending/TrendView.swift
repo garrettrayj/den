@@ -16,7 +16,7 @@ struct TrendView: View {
     @Binding var hideRead: Bool
 
     var body: some View {
-        ZStack {
+        Group {
             if trend.managedObjectContext == nil || trend.isDeleted {
                 ContentUnavailableView {
                     Label {

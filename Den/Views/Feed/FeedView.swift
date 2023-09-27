@@ -20,7 +20,7 @@ struct FeedView: View {
     @Binding var showingInspector: Bool
 
     var body: some View {
-        ZStack {
+        Group {
             if feed.managedObjectContext == nil || feed.isDeleted {
                 ContentUnavailableView {
                     Label {

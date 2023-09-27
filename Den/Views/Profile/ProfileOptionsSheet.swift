@@ -20,7 +20,7 @@ struct ProfileOptionsSheet: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
+            Group {
                 if profile.managedObjectContext == nil || profile.isDeleted {
                     Label {
                         Text("Profile Deleted", comment: "Object removed message.")

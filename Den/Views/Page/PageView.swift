@@ -33,7 +33,7 @@ struct PageView: View {
             .navigationTitle("")
         } else {
             WithItems(scopeObject: page) { items in
-                ZStack {
+                Group {
                     if page.feedsArray.isEmpty {
                         NoFeeds()
                     } else {

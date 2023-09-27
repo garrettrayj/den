@@ -39,19 +39,9 @@ struct Landing: View {
             .background(Color(.systemGroupedBackground), ignoresSafeAreaEdges: .all)
             #endif
             .toolbar {
-                #if os(macOS)
                 ToolbarItem {
                     NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
-                        .labelStyle(.titleAndIcon)
-                        .buttonStyle(.borderedProminent)
                 }
-                #else
-                ToolbarItem(placement: .bottomBar) {
-                    NewProfileButton(showingNewProfileSheet: $showingNewProfileSheet)
-                        .labelStyle(.titleAndIcon)
-                        .buttonStyle(.borderedProminent)
-                }
-                #endif
             }
             #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)

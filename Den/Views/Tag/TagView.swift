@@ -25,7 +25,7 @@ struct TagView: View {
             }
             .navigationTitle("")
         } else {
-            ZStack {
+            Group {
                 if tag.bookmarksArray.isEmpty {
                     ContentUnavailableView {
                         Label {

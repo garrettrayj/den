@@ -22,7 +22,7 @@ struct DetailView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
-            ZStack {
+            Group {
                 switch detailPanel ?? .welcome {
                 case .inbox:
                     Inbox(profile: profile, hideRead: $hideRead)
@@ -47,7 +47,7 @@ struct DetailView: View {
             }
             .disabled(refreshing)
             .navigationDestination(for: SubDetailPanel.self) { panel in
-                ZStack {
+                Group {
                     switch panel {
                     case .bookmark(let bookmark):
                         BookmarkView(bookmark: bookmark)

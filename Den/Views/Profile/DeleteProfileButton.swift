@@ -66,5 +66,11 @@ struct DeleteProfileButton: View {
             viewContext.delete(trend)
         }
         viewContext.delete(profile)
+        
+        do {
+            try viewContext.save()
+        } catch {
+            CrashUtility.handleCriticalError(error as NSError)
+        }
     }
 }

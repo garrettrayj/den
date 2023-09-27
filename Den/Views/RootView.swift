@@ -28,7 +28,7 @@ struct RootView: View {
     private var profiles: FetchedResults<Profile>
 
     var body: some View {
-        ZStack {
+        Group {
             if let profile = profiles.firstMatchingID(currentProfileID) {
                 SplitView(
                     profile: profile,

@@ -24,7 +24,7 @@ struct SearchLayout: View {
     }
 
     var body: some View {
-        ZStack {
+        Group {
             if items.isEmpty {
                 ContentUnavailableView {
                     Label {
