@@ -20,7 +20,7 @@ struct ProfileOptionsButton: View {
             Label {
                 Text("Profile Options", comment: "Button label.")
             } icon: {
-                Image(systemName: "gearshape")
+                Image(systemName: "wrench.adjustable")
             }
         }
         .accessibilityIdentifier("ShowProfileOptions")

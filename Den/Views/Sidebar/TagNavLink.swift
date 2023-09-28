@@ -19,26 +19,27 @@ struct TagNavLink: View {
     @ObservedObject var tag: Tag
 
     var body: some View {
-        Label {
-            #if os(macOS)
-            TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
-            #else
-            if editMode?.wrappedValue.isEditing == true {
-                TextField(text: $tag.wrappedName) { tag.nameText }
-            } else {
-                tag.nameText.badge(tag.bookmarksArray.count)
+        NavigationLink(value: DetailPanel.tag(tag)) {
+            Label {
+                #if os(macOS)
+                TextField(text: $tag.wrappedName) { tag.nameText }.badge(tag.bookmarksArray.count)
+                #else
+                if editMode?.wrappedValue.isEditing == true {
+                    TextField(text: $tag.wrappedName) { tag.nameText }
+                } else {
+                    tag.nameText.badge(tag.bookmarksArray.count)
+                }
+                #endif
+            } icon: {
+                Image(systemName: "tag")
             }
-            #endif
-        } icon: {
-            Image(systemName: "tag")
+            .lineLimit(1)
         }
-        .lineLimit(1)
         .contentShape(Rectangle())
         .onDrop(
             of: [.denBookmark, .denItem],
             delegate: TagNavDropDelegate(context: viewContext, tag: tag)
         )
-        .tag(DetailPanel.tag(tag))
         .accessibilityIdentifier("TagNavLink")
         .contextMenu {
             DeleteTagButton(tag: tag)

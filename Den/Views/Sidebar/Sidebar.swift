@@ -52,14 +52,16 @@ struct Sidebar: View {
             } else {
                 #if os(macOS)
                 Section {
-                    InboxNavLink(profile: profile, detailPanel: $detailPanel)
-                    TrendingNavLink(profile: profile, detailPanel: $detailPanel)
+                    InboxNavLink(profile: profile)
+                    TrendingNavLink(profile: profile)
+                    OrganizerNavLink()
                 } header: {
                     Text("All Feeds", comment: "Sidebar section header.")
                 }
                 #else
-                InboxNavLink(profile: profile, detailPanel: $detailPanel)
-                TrendingNavLink(profile: profile, detailPanel: $detailPanel)
+                InboxNavLink(profile: profile)
+                TrendingNavLink(profile: profile)
+                OrganizerNavLink()
                 #endif
                 PagesSection(
                     profile: profile,
@@ -104,7 +106,6 @@ struct Sidebar: View {
             SidebarToolbar(
                 profile: profile,
                 currentProfileID: $currentProfileID,
-                detailPanel: $detailPanel,
                 isEditing: $isEditing,
                 refreshing: $refreshing,
                 showingExporter: $showingExporter,

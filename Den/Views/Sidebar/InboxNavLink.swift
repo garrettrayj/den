@@ -12,16 +12,10 @@ import CoreData
 import SwiftUI
 
 struct InboxNavLink: View {
-    @Environment(\.isEnabled) private var isEnabled
-
     @ObservedObject var profile: Profile
 
-    @Binding var detailPanel: DetailPanel?
-
     var body: some View {
-        Button {
-            detailPanel = .inbox
-        } label: {
+        NavigationLink(value: DetailPanel.inbox) {
             Label {
                 WithItems(scopeObject: profile, readFilter: false) { items in
                     Text("Inbox", comment: "Button label.")
@@ -32,8 +26,6 @@ struct InboxNavLink: View {
                 Image(systemName: "tray")
             }
         }
-        .buttonStyle(.plain)
         .accessibilityIdentifier("InboxNavLink")
-        .tag(DetailPanel.inbox)
     }
 }

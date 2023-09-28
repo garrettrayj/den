@@ -23,6 +23,7 @@ struct DeleteBookmarkButton: View {
             do {
                 try viewContext.save()
                 tag.objectWillChange.send()
+                dismiss()
             } catch {
                 CrashUtility.handleCriticalError(error as NSError)
             }

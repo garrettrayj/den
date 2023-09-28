@@ -1,5 +1,5 @@
 //
-//  OrganizerButton.swift
+//  OrganizerNavLink.swift
 //  Den
 //
 //  Created by Garrett Johnson on 9/10/23.
@@ -10,17 +10,13 @@
 
 import SwiftUI
 
-struct OrganizerButton: View {
-    @Binding var detailPanel: DetailPanel?
-
+struct OrganizerNavLink: View {
     var body: some View {
-        Button {
-            detailPanel = .organizer
-        } label: {
+        NavigationLink(value: DetailPanel.organizer) {
             Label {
                 Text("Organizer", comment: "Button label.")
             } icon: {
-                Image(systemName: "wrench.and.screwdriver")
+                Image(systemName: "folder.badge.gearshape")
             }
         }
         .accessibilityIdentifier("ShowOrganizer")

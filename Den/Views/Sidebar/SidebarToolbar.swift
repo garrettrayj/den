@@ -16,7 +16,6 @@ struct SidebarToolbar: ToolbarContent {
     @ObservedObject var profile: Profile
 
     @Binding var currentProfileID: String?
-    @Binding var detailPanel: DetailPanel?
     @Binding var isEditing: Bool
     @Binding var refreshing: Bool
     @Binding var showingExporter: Bool
@@ -29,13 +28,6 @@ struct SidebarToolbar: ToolbarContent {
 
     let profiles: [Profile]
     let refreshProgress: Progress
-
-    private var activePage: Page? {
-        if case .page(let page) = detailPanel {
-            return page
-        }
-        return nil
-    }
 
     var body: some ToolbarContent {
         #if os(macOS)
@@ -55,7 +47,6 @@ struct SidebarToolbar: ToolbarContent {
                 Divider()
                 ImportButton(showingImporter: $showingImporter)
                 ExportButton(showingExporter: $showingExporter)
-                OrganizerButton(detailPanel: $detailPanel)
                 ProfileOptionsButton(showingProfileOptions: $showingProfileOptions)
             } label: {
                 Label {
@@ -100,7 +91,6 @@ struct SidebarToolbar: ToolbarContent {
                     .accessibilityIdentifier("EditPages")
                     ImportButton(showingImporter: $showingImporter)
                     ExportButton(showingExporter: $showingExporter)
-                    OrganizerButton(detailPanel: $detailPanel)
                     ProfileOptionsButton(showingProfileOptions: $showingProfileOptions)
                 } label: {
                     Label {
