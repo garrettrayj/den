@@ -45,9 +45,6 @@ struct ItemView: View {
             )
             .background(.background)
             .toolbar { ItemToolbar(item: item, profile: profile) }
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
             .navigationTitle(Text(verbatim: ""))
             .onAppear {
                 HistoryUtility.markItemRead(context: viewContext, item: item, profile: profile)

@@ -42,9 +42,6 @@ struct BookmarkView: View {
                 imageHeight: CGFloat(bookmark.imageHeight)
             )
             .background(.background)
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
             .navigationTitle(Text(verbatim: ""))
             .toolbar {
                 BookmarkToolbar(bookmark: bookmark)
