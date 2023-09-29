@@ -14,13 +14,9 @@ struct SpreadLayoutFeed: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
-
+    let hideRead: Bool
     let items: [Item]
-
-    var visibilityFilteredItems: [Item] {
-        items.visibilityFiltered(hideRead ? false : nil)
-    }
+    let filteredItems: [Item]
 
     var body: some View {
         Section {
@@ -31,12 +27,12 @@ struct SpreadLayoutFeed: View {
             } else if items.unread().isEmpty && hideRead {
                 AllRead()
             } else {
-                ForEach(visibilityFilteredItems) { item in
+                ForEach(filteredItems) { item in
                     ItemActionView(
                         item: item,
                         feed: feed,
                         profile: profile,
-                        roundedBottom: item == items.last
+                        roundedBottom: item == filteredItems.last
                     ) {
                         if feed.wrappedPreviewStyle == .expanded {
                             ItemPreviewExpanded(item: item, feed: feed)

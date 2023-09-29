@@ -30,8 +30,10 @@ struct SpreadLayout: View {
                                 SpreadLayoutFeed(
                                     feed: feed,
                                     profile: profile,
-                                    hideRead: $hideRead,
-                                    items: items.forFeed(feed: feed)
+                                    hideRead: hideRead,
+                                    items: items.forFeed(feed: feed),
+                                    filteredItems: items.forFeed(feed: feed)
+                                        .visibilityFiltered(hideRead ? false : nil)
                                 )
                             }
                         }

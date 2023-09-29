@@ -105,14 +105,8 @@ public class Item: NSManagedObject {
 }
 
 extension Collection where Element == Item {
-    func forPage(page: Page) -> [Item] {
-        self.filter { item in
-            page.feedsArray.compactMap { $0.feedData }.contains(item.feedData)
-        }
-    }
-
     func forFeed(feed: Feed) -> [Item] {
-        self.filter { $0.feedData == feed.feedData }
+        self.filter { $0.feedData?.id == feed.feedData?.id }
     }
 
     func visibilityFiltered(_ readFilter: Bool?) -> [Item] {

@@ -14,13 +14,9 @@ struct Gadget: View {
     @ObservedObject var feed: Feed
     @ObservedObject var profile: Profile
 
-    @Binding var hideRead: Bool
-
+    let hideRead: Bool
     let items: [Item]
-
-    var visibilityFilteredItems: [Item] {
-        items.visibilityFiltered(hideRead ? false : nil)
-    }
+    let filteredItems: [Item]
 
     var body: some View {
         LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
@@ -32,12 +28,12 @@ struct Gadget: View {
                 } else if items.unread().isEmpty && hideRead {
                     AllRead()
                 } else {
-                    ForEach(visibilityFilteredItems) { item in
+                    ForEach(filteredItems) { item in
                         ItemActionView(
                             item: item,
                             feed: feed,
                             profile: profile,
-                            roundedBottom: visibilityFilteredItems.last == item
+                            roundedBottom: filteredItems.last == item
                         ) {
                             if feed.wrappedPreviewStyle.rawValue == 1 {
                                 ItemPreviewExpanded(item: item, feed: feed)
